@@ -1,46 +1,45 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ElastiCache.CreateSnapshot
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a copy of an entire cluster or replication group at a specific moment in time.
---
---
 module Network.AWS.ElastiCache.CreateSnapshot
-    (
-    -- * Creating a Request
-      createSnapshot
-    , CreateSnapshot
+  ( -- * Creating a Request
+    createSnapshot,
+    CreateSnapshot,
+
     -- * Request Lenses
-    , csCacheClusterId
-    , csReplicationGroupId
-    , csSnapshotName
+    cReplicationGroupId,
+    cCacheClusterId,
+    cKMSKeyId,
+    cSnapshotName,
 
     -- * Destructuring the Response
-    , createSnapshotResponse
-    , CreateSnapshotResponse
+    createSnapshotResponse,
+    CreateSnapshotResponse,
+
     -- * Response Lenses
-    , crersSnapshot
-    , crersResponseStatus
-    ) where
+    crersSnapshot,
+    crersResponseStatus,
+  )
+where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.ElastiCache.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -52,78 +51,100 @@ import Network.AWS.Response
 --
 -- /See:/ 'createSnapshot' smart constructor.
 data CreateSnapshot = CreateSnapshot'
-  { _csCacheClusterId     :: !(Maybe Text)
-  , _csReplicationGroupId :: !(Maybe Text)
-  , _csSnapshotName       :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cReplicationGroupId ::
+      !(Maybe Text),
+    _cCacheClusterId :: !(Maybe Text),
+    _cKMSKeyId :: !(Maybe Text),
+    _cSnapshotName :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'CreateSnapshot' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'csCacheClusterId' - The identifier of an existing cluster. The snapshot is created from this cluster.
+-- * 'cReplicationGroupId' - The identifier of an existing replication group. The snapshot is created from this replication group.
 --
--- * 'csReplicationGroupId' - The identifier of an existing replication group. The snapshot is created from this replication group.
+-- * 'cCacheClusterId' - The identifier of an existing cluster. The snapshot is created from this cluster.
 --
--- * 'csSnapshotName' - A name for the snapshot being created.
-createSnapshot
-    :: Text -- ^ 'csSnapshotName'
-    -> CreateSnapshot
+-- * 'cKMSKeyId' - The ID of the KMS key used to encrypt the snapshot.
+--
+-- * 'cSnapshotName' - A name for the snapshot being created.
+createSnapshot ::
+  -- | 'cSnapshotName'
+  Text ->
+  CreateSnapshot
 createSnapshot pSnapshotName_ =
   CreateSnapshot'
-    { _csCacheClusterId = Nothing
-    , _csReplicationGroupId = Nothing
-    , _csSnapshotName = pSnapshotName_
+    { _cReplicationGroupId = Nothing,
+      _cCacheClusterId = Nothing,
+      _cKMSKeyId = Nothing,
+      _cSnapshotName = pSnapshotName_
     }
 
+-- | The identifier of an existing replication group. The snapshot is created from this replication group.
+cReplicationGroupId :: Lens' CreateSnapshot (Maybe Text)
+cReplicationGroupId = lens _cReplicationGroupId (\s a -> s {_cReplicationGroupId = a})
 
 -- | The identifier of an existing cluster. The snapshot is created from this cluster.
-csCacheClusterId :: Lens' CreateSnapshot (Maybe Text)
-csCacheClusterId = lens _csCacheClusterId (\ s a -> s{_csCacheClusterId = a})
+cCacheClusterId :: Lens' CreateSnapshot (Maybe Text)
+cCacheClusterId = lens _cCacheClusterId (\s a -> s {_cCacheClusterId = a})
 
--- | The identifier of an existing replication group. The snapshot is created from this replication group.
-csReplicationGroupId :: Lens' CreateSnapshot (Maybe Text)
-csReplicationGroupId = lens _csReplicationGroupId (\ s a -> s{_csReplicationGroupId = a})
+-- | The ID of the KMS key used to encrypt the snapshot.
+cKMSKeyId :: Lens' CreateSnapshot (Maybe Text)
+cKMSKeyId = lens _cKMSKeyId (\s a -> s {_cKMSKeyId = a})
 
 -- | A name for the snapshot being created.
-csSnapshotName :: Lens' CreateSnapshot Text
-csSnapshotName = lens _csSnapshotName (\ s a -> s{_csSnapshotName = a})
+cSnapshotName :: Lens' CreateSnapshot Text
+cSnapshotName = lens _cSnapshotName (\s a -> s {_cSnapshotName = a})
 
 instance AWSRequest CreateSnapshot where
-        type Rs CreateSnapshot = CreateSnapshotResponse
-        request = postQuery elastiCache
-        response
-          = receiveXMLWrapper "CreateSnapshotResult"
-              (\ s h x ->
-                 CreateSnapshotResponse' <$>
-                   (x .@? "Snapshot") <*> (pure (fromEnum s)))
+  type Rs CreateSnapshot = CreateSnapshotResponse
+  request = postQuery elastiCache
+  response =
+    receiveXMLWrapper
+      "CreateSnapshotResult"
+      ( \s h x ->
+          CreateSnapshotResponse'
+            <$> (x .@? "Snapshot") <*> (pure (fromEnum s))
+      )
 
-instance Hashable CreateSnapshot where
+instance Hashable CreateSnapshot
 
-instance NFData CreateSnapshot where
+instance NFData CreateSnapshot
 
 instance ToHeaders CreateSnapshot where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath CreateSnapshot where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery CreateSnapshot where
-        toQuery CreateSnapshot'{..}
-          = mconcat
-              ["Action" =: ("CreateSnapshot" :: ByteString),
-               "Version" =: ("2015-02-02" :: ByteString),
-               "CacheClusterId" =: _csCacheClusterId,
-               "ReplicationGroupId" =: _csReplicationGroupId,
-               "SnapshotName" =: _csSnapshotName]
+  toQuery CreateSnapshot' {..} =
+    mconcat
+      [ "Action" =: ("CreateSnapshot" :: ByteString),
+        "Version" =: ("2015-02-02" :: ByteString),
+        "ReplicationGroupId" =: _cReplicationGroupId,
+        "CacheClusterId" =: _cCacheClusterId,
+        "KmsKeyId" =: _cKMSKeyId,
+        "SnapshotName" =: _cSnapshotName
+      ]
 
 -- | /See:/ 'createSnapshotResponse' smart constructor.
 data CreateSnapshotResponse = CreateSnapshotResponse'
-  { _crersSnapshot       :: !(Maybe Snapshot)
-  , _crersResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _crersSnapshot ::
+      !(Maybe Snapshot),
+    _crersResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateSnapshotResponse' with the minimum fields required to make a request.
 --
@@ -132,20 +153,22 @@ data CreateSnapshotResponse = CreateSnapshotResponse'
 -- * 'crersSnapshot' - Undocumented member.
 --
 -- * 'crersResponseStatus' - -- | The response status code.
-createSnapshotResponse
-    :: Int -- ^ 'crersResponseStatus'
-    -> CreateSnapshotResponse
+createSnapshotResponse ::
+  -- | 'crersResponseStatus'
+  Int ->
+  CreateSnapshotResponse
 createSnapshotResponse pResponseStatus_ =
   CreateSnapshotResponse'
-    {_crersSnapshot = Nothing, _crersResponseStatus = pResponseStatus_}
-
+    { _crersSnapshot = Nothing,
+      _crersResponseStatus = pResponseStatus_
+    }
 
 -- | Undocumented member.
 crersSnapshot :: Lens' CreateSnapshotResponse (Maybe Snapshot)
-crersSnapshot = lens _crersSnapshot (\ s a -> s{_crersSnapshot = a})
+crersSnapshot = lens _crersSnapshot (\s a -> s {_crersSnapshot = a})
 
 -- | -- | The response status code.
 crersResponseStatus :: Lens' CreateSnapshotResponse Int
-crersResponseStatus = lens _crersResponseStatus (\ s a -> s{_crersResponseStatus = a})
+crersResponseStatus = lens _crersResponseStatus (\s a -> s {_crersResponseStatus = a})
 
-instance NFData CreateSnapshotResponse where
+instance NFData CreateSnapshotResponse
