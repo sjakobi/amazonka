@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.WAF.CreateXSSMatchSet
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,32 +32,32 @@
 --
 --
 --
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <http://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
---
+-- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
 module Network.AWS.WAF.CreateXSSMatchSet
-    (
-    -- * Creating a Request
-      createXSSMatchSet
-    , CreateXSSMatchSet
+  ( -- * Creating a Request
+    createXSSMatchSet,
+    CreateXSSMatchSet,
+
     -- * Request Lenses
-    , cxmsName
-    , cxmsChangeToken
+    cxmsName,
+    cxmsChangeToken,
 
     -- * Destructuring the Response
-    , createXSSMatchSetResponse
-    , CreateXSSMatchSetResponse
+    createXSSMatchSetResponse,
+    CreateXSSMatchSetResponse,
+
     -- * Response Lenses
-    , cxmsrsXSSMatchSet
-    , cxmsrsChangeToken
-    , cxmsrsResponseStatus
-    ) where
+    cxmsrrsXSSMatchSet,
+    cxmsrrsChangeToken,
+    cxmsrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.WAF.Types
-import Network.AWS.WAF.Types.Product
 
 -- | A request to create an 'XssMatchSet' .
 --
@@ -66,10 +65,11 @@ import Network.AWS.WAF.Types.Product
 --
 -- /See:/ 'createXSSMatchSet' smart constructor.
 data CreateXSSMatchSet = CreateXSSMatchSet'
-  { _cxmsName        :: !Text
-  , _cxmsChangeToken :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cxmsName ::
+      !Text,
+    _cxmsChangeToken :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'CreateXSSMatchSet' with the minimum fields required to make a request.
 --
@@ -78,57 +78,67 @@ data CreateXSSMatchSet = CreateXSSMatchSet'
 -- * 'cxmsName' - A friendly name or description for the 'XssMatchSet' that you're creating. You can't change @Name@ after you create the @XssMatchSet@ .
 --
 -- * 'cxmsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-createXSSMatchSet
-    :: Text -- ^ 'cxmsName'
-    -> Text -- ^ 'cxmsChangeToken'
-    -> CreateXSSMatchSet
+createXSSMatchSet ::
+  -- | 'cxmsName'
+  Text ->
+  -- | 'cxmsChangeToken'
+  Text ->
+  CreateXSSMatchSet
 createXSSMatchSet pName_ pChangeToken_ =
-  CreateXSSMatchSet' {_cxmsName = pName_, _cxmsChangeToken = pChangeToken_}
-
+  CreateXSSMatchSet'
+    { _cxmsName = pName_,
+      _cxmsChangeToken = pChangeToken_
+    }
 
 -- | A friendly name or description for the 'XssMatchSet' that you're creating. You can't change @Name@ after you create the @XssMatchSet@ .
 cxmsName :: Lens' CreateXSSMatchSet Text
-cxmsName = lens _cxmsName (\ s a -> s{_cxmsName = a})
+cxmsName = lens _cxmsName (\s a -> s {_cxmsName = a})
 
 -- | The value returned by the most recent call to 'GetChangeToken' .
 cxmsChangeToken :: Lens' CreateXSSMatchSet Text
-cxmsChangeToken = lens _cxmsChangeToken (\ s a -> s{_cxmsChangeToken = a})
+cxmsChangeToken = lens _cxmsChangeToken (\s a -> s {_cxmsChangeToken = a})
 
 instance AWSRequest CreateXSSMatchSet where
-        type Rs CreateXSSMatchSet = CreateXSSMatchSetResponse
-        request = postJSON waf
-        response
-          = receiveJSON
-              (\ s h x ->
-                 CreateXSSMatchSetResponse' <$>
-                   (x .?> "XssMatchSet") <*> (x .?> "ChangeToken") <*>
-                     (pure (fromEnum s)))
+  type Rs CreateXSSMatchSet = CreateXSSMatchSetResponse
+  request = postJSON waf
+  response =
+    receiveJSON
+      ( \s h x ->
+          CreateXSSMatchSetResponse'
+            <$> (x .?> "XssMatchSet")
+            <*> (x .?> "ChangeToken")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable CreateXSSMatchSet where
+instance Hashable CreateXSSMatchSet
 
-instance NFData CreateXSSMatchSet where
+instance NFData CreateXSSMatchSet
 
 instance ToHeaders CreateXSSMatchSet where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSWAF_20150824.CreateXssMatchSet" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("AWSWAF_20150824.CreateXssMatchSet" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON CreateXSSMatchSet where
-        toJSON CreateXSSMatchSet'{..}
-          = object
-              (catMaybes
-                 [Just ("Name" .= _cxmsName),
-                  Just ("ChangeToken" .= _cxmsChangeToken)])
+  toJSON CreateXSSMatchSet' {..} =
+    object
+      ( catMaybes
+          [ Just ("Name" .= _cxmsName),
+            Just ("ChangeToken" .= _cxmsChangeToken)
+          ]
+      )
 
 instance ToPath CreateXSSMatchSet where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery CreateXSSMatchSet where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | The response to a @CreateXssMatchSet@ request.
 --
@@ -136,42 +146,55 @@ instance ToQuery CreateXSSMatchSet where
 --
 -- /See:/ 'createXSSMatchSetResponse' smart constructor.
 data CreateXSSMatchSetResponse = CreateXSSMatchSetResponse'
-  { _cxmsrsXSSMatchSet    :: !(Maybe XSSMatchSet)
-  , _cxmsrsChangeToken    :: !(Maybe Text)
-  , _cxmsrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cxmsrrsXSSMatchSet ::
+      !( Maybe
+           XSSMatchSet
+       ),
+    _cxmsrrsChangeToken ::
+      !(Maybe Text),
+    _cxmsrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateXSSMatchSetResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cxmsrsXSSMatchSet' - An 'XssMatchSet' .
+-- * 'cxmsrrsXSSMatchSet' - An 'XssMatchSet' .
 --
--- * 'cxmsrsChangeToken' - The @ChangeToken@ that you used to submit the @CreateXssMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- * 'cxmsrrsChangeToken' - The @ChangeToken@ that you used to submit the @CreateXssMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
 --
--- * 'cxmsrsResponseStatus' - -- | The response status code.
-createXSSMatchSetResponse
-    :: Int -- ^ 'cxmsrsResponseStatus'
-    -> CreateXSSMatchSetResponse
+-- * 'cxmsrrsResponseStatus' - -- | The response status code.
+createXSSMatchSetResponse ::
+  -- | 'cxmsrrsResponseStatus'
+  Int ->
+  CreateXSSMatchSetResponse
 createXSSMatchSetResponse pResponseStatus_ =
   CreateXSSMatchSetResponse'
-    { _cxmsrsXSSMatchSet = Nothing
-    , _cxmsrsChangeToken = Nothing
-    , _cxmsrsResponseStatus = pResponseStatus_
+    { _cxmsrrsXSSMatchSet =
+        Nothing,
+      _cxmsrrsChangeToken = Nothing,
+      _cxmsrrsResponseStatus = pResponseStatus_
     }
 
-
 -- | An 'XssMatchSet' .
-cxmsrsXSSMatchSet :: Lens' CreateXSSMatchSetResponse (Maybe XSSMatchSet)
-cxmsrsXSSMatchSet = lens _cxmsrsXSSMatchSet (\ s a -> s{_cxmsrsXSSMatchSet = a})
+cxmsrrsXSSMatchSet :: Lens' CreateXSSMatchSetResponse (Maybe XSSMatchSet)
+cxmsrrsXSSMatchSet = lens _cxmsrrsXSSMatchSet (\s a -> s {_cxmsrrsXSSMatchSet = a})
 
 -- | The @ChangeToken@ that you used to submit the @CreateXssMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-cxmsrsChangeToken :: Lens' CreateXSSMatchSetResponse (Maybe Text)
-cxmsrsChangeToken = lens _cxmsrsChangeToken (\ s a -> s{_cxmsrsChangeToken = a})
+cxmsrrsChangeToken :: Lens' CreateXSSMatchSetResponse (Maybe Text)
+cxmsrrsChangeToken = lens _cxmsrrsChangeToken (\s a -> s {_cxmsrrsChangeToken = a})
 
 -- | -- | The response status code.
-cxmsrsResponseStatus :: Lens' CreateXSSMatchSetResponse Int
-cxmsrsResponseStatus = lens _cxmsrsResponseStatus (\ s a -> s{_cxmsrsResponseStatus = a})
+cxmsrrsResponseStatus :: Lens' CreateXSSMatchSetResponse Int
+cxmsrrsResponseStatus = lens _cxmsrrsResponseStatus (\s a -> s {_cxmsrrsResponseStatus = a})
 
-instance NFData CreateXSSMatchSetResponse where
+instance NFData CreateXSSMatchSetResponse
