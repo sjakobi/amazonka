@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.CloudSearchDomains
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.CloudSearchDomains where
 
 import Data.Proxy
@@ -28,61 +27,66 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestSuggest $
---             suggest
---
---         , requestUploadDocuments $
+--         [ requestUploadDocuments $
 --             uploadDocuments
 --
 --         , requestSearch $
 --             search
 --
+--         , requestSuggest $
+--             suggest
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseSuggest $
---             suggestResponse
---
---         , responseUploadDocuments $
+--         [ responseUploadDocuments $
 --             uploadDocumentsResponse
 --
 --         , responseSearch $
 --             searchResponse
+--
+--         , responseSuggest $
+--             suggestResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestSuggest :: Suggest -> TestTree
-requestSuggest = req
-    "Suggest"
-    "fixture/Suggest.yaml"
-
 requestSearch :: Search -> TestTree
-requestSearch = req
+requestSearch =
+  req
     "Search"
     "fixture/Search.yaml"
 
+requestSuggest :: Suggest -> TestTree
+requestSuggest =
+  req
+    "Suggest"
+    "fixture/Suggest.yaml"
+
 -- Responses
 
-responseSuggest :: SuggestResponse -> TestTree
-responseSuggest = res
-    "SuggestResponse"
-    "fixture/SuggestResponse.proto"
-    cloudSearchDomains
-    (Proxy :: Proxy Suggest)
-
 responseUploadDocuments :: UploadDocumentsResponse -> TestTree
-responseUploadDocuments = res
+responseUploadDocuments =
+  res
     "UploadDocumentsResponse"
     "fixture/UploadDocumentsResponse.proto"
     cloudSearchDomains
     (Proxy :: Proxy UploadDocuments)
 
 responseSearch :: SearchResponse -> TestTree
-responseSearch = res
+responseSearch =
+  res
     "SearchResponse"
     "fixture/SearchResponse.proto"
     cloudSearchDomains
     (Proxy :: Proxy Search)
+
+responseSuggest :: SuggestResponse -> TestTree
+responseSuggest =
+  res
+    "SuggestResponse"
+    "fixture/SuggestResponse.proto"
+    cloudSearchDomains
+    (Proxy :: Proxy Suggest)

@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudSearchDomains.UploadDocuments
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,29 +23,29 @@
 -- The endpoint for submitting @UploadDocuments@ requests is domain-specific. To get the document endpoint for your domain, use the Amazon CloudSearch configuration service @DescribeDomains@ action. A domain's endpoints are also displayed on the domain dashboard in the Amazon CloudSearch console.
 --
 -- For more information about formatting your data for Amazon CloudSearch, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/preparing-data.html Preparing Your Data> in the /Amazon CloudSearch Developer Guide/ . For more information about uploading data for indexing, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/uploading-data.html Uploading Data> in the /Amazon CloudSearch Developer Guide/ .
---
 module Network.AWS.CloudSearchDomains.UploadDocuments
-    (
-    -- * Creating a Request
-      uploadDocuments
-    , UploadDocuments
+  ( -- * Creating a Request
+    uploadDocuments,
+    UploadDocuments,
+
     -- * Request Lenses
-    , udContentType
-    , udDocuments
+    udContentType,
+    udDocuments,
 
     -- * Destructuring the Response
-    , uploadDocumentsResponse
-    , UploadDocumentsResponse
+    uploadDocumentsResponse,
+    UploadDocumentsResponse,
+
     -- * Response Lenses
-    , udrsStatus
-    , udrsAdds
-    , udrsWarnings
-    , udrsDeletes
-    , udrsResponseStatus
-    ) where
+    udrrsStatus,
+    udrrsWarnings,
+    udrrsDeletes,
+    udrrsAdds,
+    udrrsResponseStatus,
+  )
+where
 
 import Network.AWS.CloudSearchDomains.Types
-import Network.AWS.CloudSearchDomains.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -58,10 +57,11 @@ import Network.AWS.Response
 --
 -- /See:/ 'uploadDocuments' smart constructor.
 data UploadDocuments = UploadDocuments'
-  { _udContentType :: !ContentType
-  , _udDocuments   :: !HashedBody
-  } deriving (Show, Generic)
-
+  { _udContentType ::
+      !ContentType,
+    _udDocuments :: !HashedBody
+  }
+  deriving (Show, Generic)
 
 -- | Creates a value of 'UploadDocuments' with the minimum fields required to make a request.
 --
@@ -70,46 +70,52 @@ data UploadDocuments = UploadDocuments'
 -- * 'udContentType' - The format of the batch you are uploading. Amazon CloudSearch supports two document batch formats:     * application/json    * application/xml
 --
 -- * 'udDocuments' - A batch of documents formatted in JSON or HTML.
-uploadDocuments
-    :: ContentType -- ^ 'udContentType'
-    -> HashedBody -- ^ 'udDocuments'
-    -> UploadDocuments
+uploadDocuments ::
+  -- | 'udContentType'
+  ContentType ->
+  -- | 'udDocuments'
+  HashedBody ->
+  UploadDocuments
 uploadDocuments pContentType_ pDocuments_ =
-  UploadDocuments' {_udContentType = pContentType_, _udDocuments = pDocuments_}
-
+  UploadDocuments'
+    { _udContentType = pContentType_,
+      _udDocuments = pDocuments_
+    }
 
 -- | The format of the batch you are uploading. Amazon CloudSearch supports two document batch formats:     * application/json    * application/xml
 udContentType :: Lens' UploadDocuments ContentType
-udContentType = lens _udContentType (\ s a -> s{_udContentType = a})
+udContentType = lens _udContentType (\s a -> s {_udContentType = a})
 
 -- | A batch of documents formatted in JSON or HTML.
 udDocuments :: Lens' UploadDocuments HashedBody
-udDocuments = lens _udDocuments (\ s a -> s{_udDocuments = a})
+udDocuments = lens _udDocuments (\s a -> s {_udDocuments = a})
 
 instance AWSRequest UploadDocuments where
-        type Rs UploadDocuments = UploadDocumentsResponse
-        request = postBody cloudSearchDomains
-        response
-          = receiveJSON
-              (\ s h x ->
-                 UploadDocumentsResponse' <$>
-                   (x .?> "status") <*> (x .?> "adds") <*>
-                     (x .?> "warnings" .!@ mempty)
-                     <*> (x .?> "deletes")
-                     <*> (pure (fromEnum s)))
+  type Rs UploadDocuments = UploadDocumentsResponse
+  request = postBody cloudSearchDomains
+  response =
+    receiveJSON
+      ( \s h x ->
+          UploadDocumentsResponse'
+            <$> (x .?> "status")
+            <*> (x .?> "warnings" .!@ mempty)
+            <*> (x .?> "deletes")
+            <*> (x .?> "adds")
+            <*> (pure (fromEnum s))
+      )
 
 instance ToBody UploadDocuments where
-        toBody = toBody . _udDocuments
+  toBody = toBody . _udDocuments
 
 instance ToHeaders UploadDocuments where
-        toHeaders UploadDocuments'{..}
-          = mconcat ["Content-Type" =# _udContentType]
+  toHeaders UploadDocuments' {..} =
+    mconcat ["Content-Type" =# _udContentType]
 
 instance ToPath UploadDocuments where
-        toPath = const "/2013-01-01/documents/batch"
+  toPath = const "/2013-01-01/documents/batch"
 
 instance ToQuery UploadDocuments where
-        toQuery = const (mconcat ["format=sdk"])
+  toQuery = const (mconcat ["format=sdk"])
 
 -- | Contains the response to an @UploadDocuments@ request.
 --
@@ -117,58 +123,72 @@ instance ToQuery UploadDocuments where
 --
 -- /See:/ 'uploadDocumentsResponse' smart constructor.
 data UploadDocumentsResponse = UploadDocumentsResponse'
-  { _udrsStatus         :: !(Maybe Text)
-  , _udrsAdds           :: !(Maybe Integer)
-  , _udrsWarnings       :: !(Maybe [DocumentServiceWarning])
-  , _udrsDeletes        :: !(Maybe Integer)
-  , _udrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _udrrsStatus ::
+      !(Maybe Text),
+    _udrrsWarnings ::
+      !( Maybe
+           [DocumentServiceWarning]
+       ),
+    _udrrsDeletes ::
+      !(Maybe Integer),
+    _udrrsAdds ::
+      !(Maybe Integer),
+    _udrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'UploadDocumentsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'udrsStatus' - The status of an @UploadDocumentsRequest@ .
+-- * 'udrrsStatus' - The status of an @UploadDocumentsRequest@ .
 --
--- * 'udrsAdds' - The number of documents that were added to the search domain.
+-- * 'udrrsWarnings' - Any warnings returned by the document service about the documents being uploaded.
 --
--- * 'udrsWarnings' - Any warnings returned by the document service about the documents being uploaded.
+-- * 'udrrsDeletes' - The number of documents that were deleted from the search domain.
 --
--- * 'udrsDeletes' - The number of documents that were deleted from the search domain.
+-- * 'udrrsAdds' - The number of documents that were added to the search domain.
 --
--- * 'udrsResponseStatus' - -- | The response status code.
-uploadDocumentsResponse
-    :: Int -- ^ 'udrsResponseStatus'
-    -> UploadDocumentsResponse
+-- * 'udrrsResponseStatus' - -- | The response status code.
+uploadDocumentsResponse ::
+  -- | 'udrrsResponseStatus'
+  Int ->
+  UploadDocumentsResponse
 uploadDocumentsResponse pResponseStatus_ =
   UploadDocumentsResponse'
-    { _udrsStatus = Nothing
-    , _udrsAdds = Nothing
-    , _udrsWarnings = Nothing
-    , _udrsDeletes = Nothing
-    , _udrsResponseStatus = pResponseStatus_
+    { _udrrsStatus = Nothing,
+      _udrrsWarnings = Nothing,
+      _udrrsDeletes = Nothing,
+      _udrrsAdds = Nothing,
+      _udrrsResponseStatus = pResponseStatus_
     }
 
-
 -- | The status of an @UploadDocumentsRequest@ .
-udrsStatus :: Lens' UploadDocumentsResponse (Maybe Text)
-udrsStatus = lens _udrsStatus (\ s a -> s{_udrsStatus = a})
-
--- | The number of documents that were added to the search domain.
-udrsAdds :: Lens' UploadDocumentsResponse (Maybe Integer)
-udrsAdds = lens _udrsAdds (\ s a -> s{_udrsAdds = a})
+udrrsStatus :: Lens' UploadDocumentsResponse (Maybe Text)
+udrrsStatus = lens _udrrsStatus (\s a -> s {_udrrsStatus = a})
 
 -- | Any warnings returned by the document service about the documents being uploaded.
-udrsWarnings :: Lens' UploadDocumentsResponse [DocumentServiceWarning]
-udrsWarnings = lens _udrsWarnings (\ s a -> s{_udrsWarnings = a}) . _Default . _Coerce
+udrrsWarnings :: Lens' UploadDocumentsResponse [DocumentServiceWarning]
+udrrsWarnings = lens _udrrsWarnings (\s a -> s {_udrrsWarnings = a}) . _Default . _Coerce
 
 -- | The number of documents that were deleted from the search domain.
-udrsDeletes :: Lens' UploadDocumentsResponse (Maybe Integer)
-udrsDeletes = lens _udrsDeletes (\ s a -> s{_udrsDeletes = a})
+udrrsDeletes :: Lens' UploadDocumentsResponse (Maybe Integer)
+udrrsDeletes = lens _udrrsDeletes (\s a -> s {_udrrsDeletes = a})
+
+-- | The number of documents that were added to the search domain.
+udrrsAdds :: Lens' UploadDocumentsResponse (Maybe Integer)
+udrrsAdds = lens _udrrsAdds (\s a -> s {_udrrsAdds = a})
 
 -- | -- | The response status code.
-udrsResponseStatus :: Lens' UploadDocumentsResponse Int
-udrsResponseStatus = lens _udrsResponseStatus (\ s a -> s{_udrsResponseStatus = a})
+udrrsResponseStatus :: Lens' UploadDocumentsResponse Int
+udrrsResponseStatus = lens _udrrsResponseStatus (\s a -> s {_udrrsResponseStatus = a})
 
-instance NFData UploadDocumentsResponse where
+instance NFData UploadDocumentsResponse
