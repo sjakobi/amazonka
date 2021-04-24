@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.EFS
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.EFS where
 
 import Data.Proxy
@@ -28,210 +27,452 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribeTags $
---             describeTags
+--         [ requestPutBackupPolicy $
+--             putBackupPolicy
 --
---         , requestDescribeMountTargets $
---             describeMountTargets
+--         , requestPutLifecycleConfiguration $
+--             putLifecycleConfiguration
 --
---         , requestDescribeFileSystems $
---             describeFileSystems
---
---         , requestDeleteMountTarget $
---             deleteMountTarget
---
---         , requestCreateTags $
---             createTags
---
---         , requestDeleteTags $
---             deleteTags
---
---         , requestDescribeMountTargetSecurityGroups $
---             describeMountTargetSecurityGroups
+--         , requestDeleteAccessPoint $
+--             deleteAccessPoint
 --
 --         , requestModifyMountTargetSecurityGroups $
 --             modifyMountTargetSecurityGroups
 --
---         , requestCreateFileSystem $
---             createFileSystem
+--         , requestDescribeFileSystemPolicy $
+--             describeFileSystemPolicy
 --
---         , requestDeleteFileSystem $
---             deleteFileSystem
+--         , requestUntagResource $
+--             untagResource
+--
+--         , requestTagResource $
+--             tagResource
 --
 --         , requestCreateMountTarget $
 --             createMountTarget
 --
+--         , requestDeleteMountTarget $
+--             deleteMountTarget
+--
+--         , requestDescribeFileSystems $
+--             describeFileSystems
+--
+--         , requestDescribeMountTargets $
+--             describeMountTargets
+--
+--         , requestDeleteFileSystemPolicy $
+--             deleteFileSystemPolicy
+--
+--         , requestCreateFileSystem $
+--             createFileSystem
+--
+--         , requestCreateAccessPoint $
+--             createAccessPoint
+--
+--         , requestDescribeAccessPoints $
+--             describeAccessPoints
+--
+--         , requestDescribeLifecycleConfiguration $
+--             describeLifecycleConfiguration
+--
+--         , requestDescribeMountTargetSecurityGroups $
+--             describeMountTargetSecurityGroups
+--
+--         , requestDescribeBackupPolicy $
+--             describeBackupPolicy
+--
+--         , requestUpdateFileSystem $
+--             updateFileSystem
+--
+--         , requestListTagsForResource $
+--             listTagsForResource
+--
+--         , requestDeleteFileSystem $
+--             deleteFileSystem
+--
+--         , requestPutFileSystemPolicy $
+--             putFileSystemPolicy
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribeTags $
---             describeTagsResponse
+--         [ responsePutBackupPolicy $
+--             backupPolicyDescription
 --
---         , responseDescribeMountTargets $
---             describeMountTargetsResponse
+--         , responsePutLifecycleConfiguration $
+--             lifecycleConfigurationDescription
 --
---         , responseDescribeFileSystems $
---             describeFileSystemsResponse
---
---         , responseDeleteMountTarget $
---             deleteMountTargetResponse
---
---         , responseCreateTags $
---             createTagsResponse
---
---         , responseDeleteTags $
---             deleteTagsResponse
---
---         , responseDescribeMountTargetSecurityGroups $
---             describeMountTargetSecurityGroupsResponse
+--         , responseDeleteAccessPoint $
+--             deleteAccessPointResponse
 --
 --         , responseModifyMountTargetSecurityGroups $
 --             modifyMountTargetSecurityGroupsResponse
 --
+--         , responseDescribeFileSystemPolicy $
+--             fileSystemPolicyDescription
+--
+--         , responseUntagResource $
+--             untagResourceResponse
+--
+--         , responseTagResource $
+--             tagResourceResponse
+--
+--         , responseCreateMountTarget $
+--             mountTargetDescription
+--
+--         , responseDeleteMountTarget $
+--             deleteMountTargetResponse
+--
+--         , responseDescribeFileSystems $
+--             describeFileSystemsResponse
+--
+--         , responseDescribeMountTargets $
+--             describeMountTargetsResponse
+--
+--         , responseDeleteFileSystemPolicy $
+--             deleteFileSystemPolicyResponse
+--
 --         , responseCreateFileSystem $
 --             fileSystemDescription
+--
+--         , responseCreateAccessPoint $
+--             accessPointDescription
+--
+--         , responseDescribeAccessPoints $
+--             describeAccessPointsResponse
+--
+--         , responseDescribeLifecycleConfiguration $
+--             lifecycleConfigurationDescription
+--
+--         , responseDescribeMountTargetSecurityGroups $
+--             describeMountTargetSecurityGroupsResponse
+--
+--         , responseDescribeBackupPolicy $
+--             backupPolicyDescription
+--
+--         , responseUpdateFileSystem $
+--             fileSystemDescription
+--
+--         , responseListTagsForResource $
+--             listTagsForResourceResponse
 --
 --         , responseDeleteFileSystem $
 --             deleteFileSystemResponse
 --
---         , responseCreateMountTarget $
---             mountTargetDescription
+--         , responsePutFileSystemPolicy $
+--             fileSystemPolicyDescription
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestDescribeTags :: DescribeTags -> TestTree
-requestDescribeTags = req
-    "DescribeTags"
-    "fixture/DescribeTags.yaml"
+requestPutBackupPolicy :: PutBackupPolicy -> TestTree
+requestPutBackupPolicy =
+  req
+    "PutBackupPolicy"
+    "fixture/PutBackupPolicy.yaml"
 
-requestDescribeMountTargets :: DescribeMountTargets -> TestTree
-requestDescribeMountTargets = req
-    "DescribeMountTargets"
-    "fixture/DescribeMountTargets.yaml"
+requestPutLifecycleConfiguration :: PutLifecycleConfiguration -> TestTree
+requestPutLifecycleConfiguration =
+  req
+    "PutLifecycleConfiguration"
+    "fixture/PutLifecycleConfiguration.yaml"
 
-requestDescribeFileSystems :: DescribeFileSystems -> TestTree
-requestDescribeFileSystems = req
-    "DescribeFileSystems"
-    "fixture/DescribeFileSystems.yaml"
-
-requestDeleteMountTarget :: DeleteMountTarget -> TestTree
-requestDeleteMountTarget = req
-    "DeleteMountTarget"
-    "fixture/DeleteMountTarget.yaml"
-
-requestCreateTags :: CreateTags -> TestTree
-requestCreateTags = req
-    "CreateTags"
-    "fixture/CreateTags.yaml"
-
-requestDeleteTags :: DeleteTags -> TestTree
-requestDeleteTags = req
-    "DeleteTags"
-    "fixture/DeleteTags.yaml"
-
-requestDescribeMountTargetSecurityGroups :: DescribeMountTargetSecurityGroups -> TestTree
-requestDescribeMountTargetSecurityGroups = req
-    "DescribeMountTargetSecurityGroups"
-    "fixture/DescribeMountTargetSecurityGroups.yaml"
+requestDeleteAccessPoint :: DeleteAccessPoint -> TestTree
+requestDeleteAccessPoint =
+  req
+    "DeleteAccessPoint"
+    "fixture/DeleteAccessPoint.yaml"
 
 requestModifyMountTargetSecurityGroups :: ModifyMountTargetSecurityGroups -> TestTree
-requestModifyMountTargetSecurityGroups = req
+requestModifyMountTargetSecurityGroups =
+  req
     "ModifyMountTargetSecurityGroups"
     "fixture/ModifyMountTargetSecurityGroups.yaml"
 
-requestCreateFileSystem :: CreateFileSystem -> TestTree
-requestCreateFileSystem = req
-    "CreateFileSystem"
-    "fixture/CreateFileSystem.yaml"
+requestDescribeFileSystemPolicy :: DescribeFileSystemPolicy -> TestTree
+requestDescribeFileSystemPolicy =
+  req
+    "DescribeFileSystemPolicy"
+    "fixture/DescribeFileSystemPolicy.yaml"
 
-requestDeleteFileSystem :: DeleteFileSystem -> TestTree
-requestDeleteFileSystem = req
-    "DeleteFileSystem"
-    "fixture/DeleteFileSystem.yaml"
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
 
 requestCreateMountTarget :: CreateMountTarget -> TestTree
-requestCreateMountTarget = req
+requestCreateMountTarget =
+  req
     "CreateMountTarget"
     "fixture/CreateMountTarget.yaml"
 
+requestDeleteMountTarget :: DeleteMountTarget -> TestTree
+requestDeleteMountTarget =
+  req
+    "DeleteMountTarget"
+    "fixture/DeleteMountTarget.yaml"
+
+requestDescribeFileSystems :: DescribeFileSystems -> TestTree
+requestDescribeFileSystems =
+  req
+    "DescribeFileSystems"
+    "fixture/DescribeFileSystems.yaml"
+
+requestDescribeMountTargets :: DescribeMountTargets -> TestTree
+requestDescribeMountTargets =
+  req
+    "DescribeMountTargets"
+    "fixture/DescribeMountTargets.yaml"
+
+requestDeleteFileSystemPolicy :: DeleteFileSystemPolicy -> TestTree
+requestDeleteFileSystemPolicy =
+  req
+    "DeleteFileSystemPolicy"
+    "fixture/DeleteFileSystemPolicy.yaml"
+
+requestCreateFileSystem :: CreateFileSystem -> TestTree
+requestCreateFileSystem =
+  req
+    "CreateFileSystem"
+    "fixture/CreateFileSystem.yaml"
+
+requestCreateAccessPoint :: CreateAccessPoint -> TestTree
+requestCreateAccessPoint =
+  req
+    "CreateAccessPoint"
+    "fixture/CreateAccessPoint.yaml"
+
+requestDescribeAccessPoints :: DescribeAccessPoints -> TestTree
+requestDescribeAccessPoints =
+  req
+    "DescribeAccessPoints"
+    "fixture/DescribeAccessPoints.yaml"
+
+requestDescribeLifecycleConfiguration :: DescribeLifecycleConfiguration -> TestTree
+requestDescribeLifecycleConfiguration =
+  req
+    "DescribeLifecycleConfiguration"
+    "fixture/DescribeLifecycleConfiguration.yaml"
+
+requestDescribeMountTargetSecurityGroups :: DescribeMountTargetSecurityGroups -> TestTree
+requestDescribeMountTargetSecurityGroups =
+  req
+    "DescribeMountTargetSecurityGroups"
+    "fixture/DescribeMountTargetSecurityGroups.yaml"
+
+requestDescribeBackupPolicy :: DescribeBackupPolicy -> TestTree
+requestDescribeBackupPolicy =
+  req
+    "DescribeBackupPolicy"
+    "fixture/DescribeBackupPolicy.yaml"
+
+requestUpdateFileSystem :: UpdateFileSystem -> TestTree
+requestUpdateFileSystem =
+  req
+    "UpdateFileSystem"
+    "fixture/UpdateFileSystem.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestDeleteFileSystem :: DeleteFileSystem -> TestTree
+requestDeleteFileSystem =
+  req
+    "DeleteFileSystem"
+    "fixture/DeleteFileSystem.yaml"
+
+requestPutFileSystemPolicy :: PutFileSystemPolicy -> TestTree
+requestPutFileSystemPolicy =
+  req
+    "PutFileSystemPolicy"
+    "fixture/PutFileSystemPolicy.yaml"
+
 -- Responses
 
-responseDescribeTags :: DescribeTagsResponse -> TestTree
-responseDescribeTags = res
-    "DescribeTagsResponse"
-    "fixture/DescribeTagsResponse.proto"
+responsePutBackupPolicy :: BackupPolicyDescription -> TestTree
+responsePutBackupPolicy =
+  res
+    "PutBackupPolicyResponse"
+    "fixture/PutBackupPolicyResponse.proto"
     efs
-    (Proxy :: Proxy DescribeTags)
+    (Proxy :: Proxy PutBackupPolicy)
 
-responseDescribeMountTargets :: DescribeMountTargetsResponse -> TestTree
-responseDescribeMountTargets = res
-    "DescribeMountTargetsResponse"
-    "fixture/DescribeMountTargetsResponse.proto"
+responsePutLifecycleConfiguration :: LifecycleConfigurationDescription -> TestTree
+responsePutLifecycleConfiguration =
+  res
+    "PutLifecycleConfigurationResponse"
+    "fixture/PutLifecycleConfigurationResponse.proto"
     efs
-    (Proxy :: Proxy DescribeMountTargets)
+    (Proxy :: Proxy PutLifecycleConfiguration)
 
-responseDescribeFileSystems :: DescribeFileSystemsResponse -> TestTree
-responseDescribeFileSystems = res
-    "DescribeFileSystemsResponse"
-    "fixture/DescribeFileSystemsResponse.proto"
+responseDeleteAccessPoint :: DeleteAccessPointResponse -> TestTree
+responseDeleteAccessPoint =
+  res
+    "DeleteAccessPointResponse"
+    "fixture/DeleteAccessPointResponse.proto"
     efs
-    (Proxy :: Proxy DescribeFileSystems)
-
-responseDeleteMountTarget :: DeleteMountTargetResponse -> TestTree
-responseDeleteMountTarget = res
-    "DeleteMountTargetResponse"
-    "fixture/DeleteMountTargetResponse.proto"
-    efs
-    (Proxy :: Proxy DeleteMountTarget)
-
-responseCreateTags :: CreateTagsResponse -> TestTree
-responseCreateTags = res
-    "CreateTagsResponse"
-    "fixture/CreateTagsResponse.proto"
-    efs
-    (Proxy :: Proxy CreateTags)
-
-responseDeleteTags :: DeleteTagsResponse -> TestTree
-responseDeleteTags = res
-    "DeleteTagsResponse"
-    "fixture/DeleteTagsResponse.proto"
-    efs
-    (Proxy :: Proxy DeleteTags)
-
-responseDescribeMountTargetSecurityGroups :: DescribeMountTargetSecurityGroupsResponse -> TestTree
-responseDescribeMountTargetSecurityGroups = res
-    "DescribeMountTargetSecurityGroupsResponse"
-    "fixture/DescribeMountTargetSecurityGroupsResponse.proto"
-    efs
-    (Proxy :: Proxy DescribeMountTargetSecurityGroups)
+    (Proxy :: Proxy DeleteAccessPoint)
 
 responseModifyMountTargetSecurityGroups :: ModifyMountTargetSecurityGroupsResponse -> TestTree
-responseModifyMountTargetSecurityGroups = res
+responseModifyMountTargetSecurityGroups =
+  res
     "ModifyMountTargetSecurityGroupsResponse"
     "fixture/ModifyMountTargetSecurityGroupsResponse.proto"
     efs
     (Proxy :: Proxy ModifyMountTargetSecurityGroups)
 
+responseDescribeFileSystemPolicy :: FileSystemPolicyDescription -> TestTree
+responseDescribeFileSystemPolicy =
+  res
+    "DescribeFileSystemPolicyResponse"
+    "fixture/DescribeFileSystemPolicyResponse.proto"
+    efs
+    (Proxy :: Proxy DescribeFileSystemPolicy)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    efs
+    (Proxy :: Proxy UntagResource)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    efs
+    (Proxy :: Proxy TagResource)
+
+responseCreateMountTarget :: MountTargetDescription -> TestTree
+responseCreateMountTarget =
+  res
+    "CreateMountTargetResponse"
+    "fixture/CreateMountTargetResponse.proto"
+    efs
+    (Proxy :: Proxy CreateMountTarget)
+
+responseDeleteMountTarget :: DeleteMountTargetResponse -> TestTree
+responseDeleteMountTarget =
+  res
+    "DeleteMountTargetResponse"
+    "fixture/DeleteMountTargetResponse.proto"
+    efs
+    (Proxy :: Proxy DeleteMountTarget)
+
+responseDescribeFileSystems :: DescribeFileSystemsResponse -> TestTree
+responseDescribeFileSystems =
+  res
+    "DescribeFileSystemsResponse"
+    "fixture/DescribeFileSystemsResponse.proto"
+    efs
+    (Proxy :: Proxy DescribeFileSystems)
+
+responseDescribeMountTargets :: DescribeMountTargetsResponse -> TestTree
+responseDescribeMountTargets =
+  res
+    "DescribeMountTargetsResponse"
+    "fixture/DescribeMountTargetsResponse.proto"
+    efs
+    (Proxy :: Proxy DescribeMountTargets)
+
+responseDeleteFileSystemPolicy :: DeleteFileSystemPolicyResponse -> TestTree
+responseDeleteFileSystemPolicy =
+  res
+    "DeleteFileSystemPolicyResponse"
+    "fixture/DeleteFileSystemPolicyResponse.proto"
+    efs
+    (Proxy :: Proxy DeleteFileSystemPolicy)
+
 responseCreateFileSystem :: FileSystemDescription -> TestTree
-responseCreateFileSystem = res
+responseCreateFileSystem =
+  res
     "CreateFileSystemResponse"
     "fixture/CreateFileSystemResponse.proto"
     efs
     (Proxy :: Proxy CreateFileSystem)
 
+responseCreateAccessPoint :: AccessPointDescription -> TestTree
+responseCreateAccessPoint =
+  res
+    "CreateAccessPointResponse"
+    "fixture/CreateAccessPointResponse.proto"
+    efs
+    (Proxy :: Proxy CreateAccessPoint)
+
+responseDescribeAccessPoints :: DescribeAccessPointsResponse -> TestTree
+responseDescribeAccessPoints =
+  res
+    "DescribeAccessPointsResponse"
+    "fixture/DescribeAccessPointsResponse.proto"
+    efs
+    (Proxy :: Proxy DescribeAccessPoints)
+
+responseDescribeLifecycleConfiguration :: LifecycleConfigurationDescription -> TestTree
+responseDescribeLifecycleConfiguration =
+  res
+    "DescribeLifecycleConfigurationResponse"
+    "fixture/DescribeLifecycleConfigurationResponse.proto"
+    efs
+    (Proxy :: Proxy DescribeLifecycleConfiguration)
+
+responseDescribeMountTargetSecurityGroups :: DescribeMountTargetSecurityGroupsResponse -> TestTree
+responseDescribeMountTargetSecurityGroups =
+  res
+    "DescribeMountTargetSecurityGroupsResponse"
+    "fixture/DescribeMountTargetSecurityGroupsResponse.proto"
+    efs
+    (Proxy :: Proxy DescribeMountTargetSecurityGroups)
+
+responseDescribeBackupPolicy :: BackupPolicyDescription -> TestTree
+responseDescribeBackupPolicy =
+  res
+    "DescribeBackupPolicyResponse"
+    "fixture/DescribeBackupPolicyResponse.proto"
+    efs
+    (Proxy :: Proxy DescribeBackupPolicy)
+
+responseUpdateFileSystem :: FileSystemDescription -> TestTree
+responseUpdateFileSystem =
+  res
+    "UpdateFileSystemResponse"
+    "fixture/UpdateFileSystemResponse.proto"
+    efs
+    (Proxy :: Proxy UpdateFileSystem)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    efs
+    (Proxy :: Proxy ListTagsForResource)
+
 responseDeleteFileSystem :: DeleteFileSystemResponse -> TestTree
-responseDeleteFileSystem = res
+responseDeleteFileSystem =
+  res
     "DeleteFileSystemResponse"
     "fixture/DeleteFileSystemResponse.proto"
     efs
     (Proxy :: Proxy DeleteFileSystem)
 
-responseCreateMountTarget :: MountTargetDescription -> TestTree
-responseCreateMountTarget = res
-    "CreateMountTargetResponse"
-    "fixture/CreateMountTargetResponse.proto"
+responsePutFileSystemPolicy :: FileSystemPolicyDescription -> TestTree
+responsePutFileSystemPolicy =
+  res
+    "PutFileSystemPolicyResponse"
+    "fixture/PutFileSystemPolicyResponse.proto"
     efs
-    (Proxy :: Proxy CreateMountTarget)
+    (Proxy :: Proxy PutFileSystemPolicy)
