@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.MediaLive.CreateChannel
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,185 +19,257 @@
 --
 -- Creates a new channel
 module Network.AWS.MediaLive.CreateChannel
-    (
-    -- * Creating a Request
-      createChannel
-    , CreateChannel
+  ( -- * Creating a Request
+    createChannel',
+    CreateChannel',
+
     -- * Request Lenses
-    , ccRequestId
-    , ccInputSpecification
-    , ccInputAttachments
-    , ccReserved
-    , ccDestinations
-    , ccName
-    , ccEncoderSettings
-    , ccRoleARN
+    creEncoderSettings,
+    creRoleARN,
+    creInputSpecification,
+    creChannelClass,
+    creLogLevel,
+    creDestinations,
+    creName,
+    creReserved,
+    creRequestId,
+    creInputAttachments,
+    creTags,
+    creVPC,
+    creCdiInputSpecification,
 
     -- * Destructuring the Response
-    , createChannelResponse
-    , CreateChannelResponse
+    createChannelResponse,
+    CreateChannelResponse,
+
     -- * Response Lenses
-    , ccrsChannel
-    , ccrsResponseStatus
-    ) where
+    ccrrsChannel,
+    ccrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.MediaLive.Types.Product
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
--- | Placeholder documentation for CreateChannel
+-- | A request to create a channel
 --
--- /See:/ 'createChannel' smart constructor.
-data CreateChannel = CreateChannel'
-  { _ccRequestId          :: !(Maybe Text)
-  , _ccInputSpecification :: !(Maybe InputSpecification)
-  , _ccInputAttachments   :: !(Maybe [InputAttachment])
-  , _ccReserved           :: !(Maybe Text)
-  , _ccDestinations       :: !(Maybe [OutputDestination])
-  , _ccName               :: !(Maybe Text)
-  , _ccEncoderSettings    :: !(Maybe EncoderSettings)
-  , _ccRoleARN            :: !(Maybe Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'createChannel'' smart constructor.
+data CreateChannel' = CreateChannel''
+  { _creEncoderSettings ::
+      !(Maybe EncoderSettings),
+    _creRoleARN :: !(Maybe Text),
+    _creInputSpecification ::
+      !(Maybe InputSpecification),
+    _creChannelClass :: !(Maybe ChannelClass),
+    _creLogLevel :: !(Maybe LogLevel),
+    _creDestinations ::
+      !(Maybe [OutputDestination]),
+    _creName :: !(Maybe Text),
+    _creReserved :: !(Maybe Text),
+    _creRequestId :: !(Maybe Text),
+    _creInputAttachments ::
+      !(Maybe [InputAttachment]),
+    _creTags :: !(Maybe (Map Text Text)),
+    _creVPC :: !(Maybe VPCOutputSettings),
+    _creCdiInputSpecification ::
+      !(Maybe CdiInputSpecification)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
-
--- | Creates a value of 'CreateChannel' with the minimum fields required to make a request.
+-- | Creates a value of 'CreateChannel'' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ccRequestId' - Unique request ID to be specified. This is needed to prevent retries from creating multiple resources.
+-- * 'creEncoderSettings' - Undocumented member.
 --
--- * 'ccInputSpecification' - Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+-- * 'creRoleARN' - An optional Amazon Resource Name (ARN) of the role to assume when running the Channel.
 --
--- * 'ccInputAttachments' - List of input attachments for channel.
+-- * 'creInputSpecification' - Specification of network and file inputs for this channel
 --
--- * 'ccReserved' - Deprecated field that's only usable by whitelisted customers.
+-- * 'creChannelClass' - The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
 --
--- * 'ccDestinations' - Undocumented member.
+-- * 'creLogLevel' - The log level to write to CloudWatch Logs.
 --
--- * 'ccName' - Name of channel.
+-- * 'creDestinations' - Undocumented member.
 --
--- * 'ccEncoderSettings' - Undocumented member.
+-- * 'creName' - Name of channel.
 --
--- * 'ccRoleARN' - An optional Amazon Resource Name (ARN) of the role to assume when running the Channel.
-createChannel
-    :: CreateChannel
-createChannel =
+-- * 'creReserved' - Deprecated field that's only usable by whitelisted customers.
+--
+-- * 'creRequestId' - Unique request ID to be specified. This is needed to prevent retries from creating multiple resources.
+--
+-- * 'creInputAttachments' - List of input attachments for channel.
+--
+-- * 'creTags' - A collection of key-value pairs.
+--
+-- * 'creVPC' - Settings for VPC output
+--
+-- * 'creCdiInputSpecification' - Specification of CDI inputs for this channel
+createChannel' ::
   CreateChannel'
-    { _ccRequestId = Nothing
-    , _ccInputSpecification = Nothing
-    , _ccInputAttachments = Nothing
-    , _ccReserved = Nothing
-    , _ccDestinations = Nothing
-    , _ccName = Nothing
-    , _ccEncoderSettings = Nothing
-    , _ccRoleARN = Nothing
+createChannel' =
+  CreateChannel''
+    { _creEncoderSettings = Nothing,
+      _creRoleARN = Nothing,
+      _creInputSpecification = Nothing,
+      _creChannelClass = Nothing,
+      _creLogLevel = Nothing,
+      _creDestinations = Nothing,
+      _creName = Nothing,
+      _creReserved = Nothing,
+      _creRequestId = Nothing,
+      _creInputAttachments = Nothing,
+      _creTags = Nothing,
+      _creVPC = Nothing,
+      _creCdiInputSpecification = Nothing
     }
 
-
--- | Unique request ID to be specified. This is needed to prevent retries from creating multiple resources.
-ccRequestId :: Lens' CreateChannel (Maybe Text)
-ccRequestId = lens _ccRequestId (\ s a -> s{_ccRequestId = a})
-
--- | Specification of input for this channel (max. bitrate, resolution, codec, etc.)
-ccInputSpecification :: Lens' CreateChannel (Maybe InputSpecification)
-ccInputSpecification = lens _ccInputSpecification (\ s a -> s{_ccInputSpecification = a})
-
--- | List of input attachments for channel.
-ccInputAttachments :: Lens' CreateChannel [InputAttachment]
-ccInputAttachments = lens _ccInputAttachments (\ s a -> s{_ccInputAttachments = a}) . _Default . _Coerce
-
--- | Deprecated field that's only usable by whitelisted customers.
-ccReserved :: Lens' CreateChannel (Maybe Text)
-ccReserved = lens _ccReserved (\ s a -> s{_ccReserved = a})
-
 -- | Undocumented member.
-ccDestinations :: Lens' CreateChannel [OutputDestination]
-ccDestinations = lens _ccDestinations (\ s a -> s{_ccDestinations = a}) . _Default . _Coerce
-
--- | Name of channel.
-ccName :: Lens' CreateChannel (Maybe Text)
-ccName = lens _ccName (\ s a -> s{_ccName = a})
-
--- | Undocumented member.
-ccEncoderSettings :: Lens' CreateChannel (Maybe EncoderSettings)
-ccEncoderSettings = lens _ccEncoderSettings (\ s a -> s{_ccEncoderSettings = a})
+creEncoderSettings :: Lens' CreateChannel' (Maybe EncoderSettings)
+creEncoderSettings = lens _creEncoderSettings (\s a -> s {_creEncoderSettings = a})
 
 -- | An optional Amazon Resource Name (ARN) of the role to assume when running the Channel.
-ccRoleARN :: Lens' CreateChannel (Maybe Text)
-ccRoleARN = lens _ccRoleARN (\ s a -> s{_ccRoleARN = a})
+creRoleARN :: Lens' CreateChannel' (Maybe Text)
+creRoleARN = lens _creRoleARN (\s a -> s {_creRoleARN = a})
 
-instance AWSRequest CreateChannel where
-        type Rs CreateChannel = CreateChannelResponse
-        request = postJSON mediaLive
-        response
-          = receiveJSON
-              (\ s h x ->
-                 CreateChannelResponse' <$>
-                   (x .?> "channel") <*> (pure (fromEnum s)))
+-- | Specification of network and file inputs for this channel
+creInputSpecification :: Lens' CreateChannel' (Maybe InputSpecification)
+creInputSpecification = lens _creInputSpecification (\s a -> s {_creInputSpecification = a})
 
-instance Hashable CreateChannel where
+-- | The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
+creChannelClass :: Lens' CreateChannel' (Maybe ChannelClass)
+creChannelClass = lens _creChannelClass (\s a -> s {_creChannelClass = a})
 
-instance NFData CreateChannel where
+-- | The log level to write to CloudWatch Logs.
+creLogLevel :: Lens' CreateChannel' (Maybe LogLevel)
+creLogLevel = lens _creLogLevel (\s a -> s {_creLogLevel = a})
 
-instance ToHeaders CreateChannel where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+-- | Undocumented member.
+creDestinations :: Lens' CreateChannel' [OutputDestination]
+creDestinations = lens _creDestinations (\s a -> s {_creDestinations = a}) . _Default . _Coerce
 
-instance ToJSON CreateChannel where
-        toJSON CreateChannel'{..}
-          = object
-              (catMaybes
-                 [("requestId" .=) <$> _ccRequestId,
-                  ("inputSpecification" .=) <$> _ccInputSpecification,
-                  ("inputAttachments" .=) <$> _ccInputAttachments,
-                  ("reserved" .=) <$> _ccReserved,
-                  ("destinations" .=) <$> _ccDestinations,
-                  ("name" .=) <$> _ccName,
-                  ("encoderSettings" .=) <$> _ccEncoderSettings,
-                  ("roleArn" .=) <$> _ccRoleARN])
+-- | Name of channel.
+creName :: Lens' CreateChannel' (Maybe Text)
+creName = lens _creName (\s a -> s {_creName = a})
 
-instance ToPath CreateChannel where
-        toPath = const "/prod/channels"
+-- | Deprecated field that's only usable by whitelisted customers.
+creReserved :: Lens' CreateChannel' (Maybe Text)
+creReserved = lens _creReserved (\s a -> s {_creReserved = a})
 
-instance ToQuery CreateChannel where
-        toQuery = const mempty
+-- | Unique request ID to be specified. This is needed to prevent retries from creating multiple resources.
+creRequestId :: Lens' CreateChannel' (Maybe Text)
+creRequestId = lens _creRequestId (\s a -> s {_creRequestId = a})
+
+-- | List of input attachments for channel.
+creInputAttachments :: Lens' CreateChannel' [InputAttachment]
+creInputAttachments = lens _creInputAttachments (\s a -> s {_creInputAttachments = a}) . _Default . _Coerce
+
+-- | A collection of key-value pairs.
+creTags :: Lens' CreateChannel' (HashMap Text Text)
+creTags = lens _creTags (\s a -> s {_creTags = a}) . _Default . _Map
+
+-- | Settings for VPC output
+creVPC :: Lens' CreateChannel' (Maybe VPCOutputSettings)
+creVPC = lens _creVPC (\s a -> s {_creVPC = a})
+
+-- | Specification of CDI inputs for this channel
+creCdiInputSpecification :: Lens' CreateChannel' (Maybe CdiInputSpecification)
+creCdiInputSpecification = lens _creCdiInputSpecification (\s a -> s {_creCdiInputSpecification = a})
+
+instance AWSRequest CreateChannel' where
+  type Rs CreateChannel' = CreateChannelResponse
+  request = postJSON mediaLive
+  response =
+    receiveJSON
+      ( \s h x ->
+          CreateChannelResponse'
+            <$> (x .?> "channel") <*> (pure (fromEnum s))
+      )
+
+instance Hashable CreateChannel'
+
+instance NFData CreateChannel'
+
+instance ToHeaders CreateChannel' where
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
+
+instance ToJSON CreateChannel' where
+  toJSON CreateChannel'' {..} =
+    object
+      ( catMaybes
+          [ ("encoderSettings" .=) <$> _creEncoderSettings,
+            ("roleArn" .=) <$> _creRoleARN,
+            ("inputSpecification" .=) <$> _creInputSpecification,
+            ("channelClass" .=) <$> _creChannelClass,
+            ("logLevel" .=) <$> _creLogLevel,
+            ("destinations" .=) <$> _creDestinations,
+            ("name" .=) <$> _creName,
+            ("reserved" .=) <$> _creReserved,
+            ("requestId" .=) <$> _creRequestId,
+            ("inputAttachments" .=) <$> _creInputAttachments,
+            ("tags" .=) <$> _creTags,
+            ("vpc" .=) <$> _creVPC,
+            ("cdiInputSpecification" .=)
+              <$> _creCdiInputSpecification
+          ]
+      )
+
+instance ToPath CreateChannel' where
+  toPath = const "/prod/channels"
+
+instance ToQuery CreateChannel' where
+  toQuery = const mempty
 
 -- | Placeholder documentation for CreateChannelResponse
 --
 -- /See:/ 'createChannelResponse' smart constructor.
 data CreateChannelResponse = CreateChannelResponse'
-  { _ccrsChannel        :: !(Maybe Channel)
-  , _ccrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ccrrsChannel ::
+      !(Maybe Channel),
+    _ccrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateChannelResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ccrsChannel' - Undocumented member.
+-- * 'ccrrsChannel' - Undocumented member.
 --
--- * 'ccrsResponseStatus' - -- | The response status code.
-createChannelResponse
-    :: Int -- ^ 'ccrsResponseStatus'
-    -> CreateChannelResponse
+-- * 'ccrrsResponseStatus' - -- | The response status code.
+createChannelResponse ::
+  -- | 'ccrrsResponseStatus'
+  Int ->
+  CreateChannelResponse
 createChannelResponse pResponseStatus_ =
   CreateChannelResponse'
-    {_ccrsChannel = Nothing, _ccrsResponseStatus = pResponseStatus_}
-
+    { _ccrrsChannel = Nothing,
+      _ccrrsResponseStatus = pResponseStatus_
+    }
 
 -- | Undocumented member.
-ccrsChannel :: Lens' CreateChannelResponse (Maybe Channel)
-ccrsChannel = lens _ccrsChannel (\ s a -> s{_ccrsChannel = a})
+ccrrsChannel :: Lens' CreateChannelResponse (Maybe Channel)
+ccrrsChannel = lens _ccrrsChannel (\s a -> s {_ccrrsChannel = a})
 
 -- | -- | The response status code.
-ccrsResponseStatus :: Lens' CreateChannelResponse Int
-ccrsResponseStatus = lens _ccrsResponseStatus (\ s a -> s{_ccrsResponseStatus = a})
+ccrrsResponseStatus :: Lens' CreateChannelResponse Int
+ccrrsResponseStatus = lens _ccrrsResponseStatus (\s a -> s {_ccrrsResponseStatus = a})
 
-instance NFData CreateChannelResponse where
+instance NFData CreateChannelResponse

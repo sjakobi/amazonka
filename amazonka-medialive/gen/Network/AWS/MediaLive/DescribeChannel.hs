@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.MediaLive.DescribeChannel
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,34 +19,41 @@
 --
 -- Gets details about a channel
 module Network.AWS.MediaLive.DescribeChannel
-    (
-    -- * Creating a Request
-      describeChannel
-    , DescribeChannel
+  ( -- * Creating a Request
+    describeChannel,
+    DescribeChannel,
+
     -- * Request Lenses
-    , dChannelId
+    dcChannelId,
 
     -- * Destructuring the Response
-    , describeChannelResponse
-    , DescribeChannelResponse
+    describeChannelResponse,
+    DescribeChannelResponse,
+
     -- * Response Lenses
-    , dcrsState
-    , dcrsARN
-    , dcrsPipelinesRunningCount
-    , dcrsInputSpecification
-    , dcrsInputAttachments
-    , dcrsDestinations
-    , dcrsName
-    , dcrsId
-    , dcrsEgressEndpoints
-    , dcrsEncoderSettings
-    , dcrsRoleARN
-    , dcrsResponseStatus
-    ) where
+    dcrrsEncoderSettings,
+    dcrrsRoleARN,
+    dcrrsInputSpecification,
+    dcrrsARN,
+    dcrrsId,
+    dcrrsPipelinesRunningCount,
+    dcrrsChannelClass,
+    dcrrsLogLevel,
+    dcrrsDestinations,
+    dcrrsState,
+    dcrrsName,
+    dcrrsInputAttachments,
+    dcrrsTags,
+    dcrrsPipelineDetails,
+    dcrrsEgressEndpoints,
+    dcrrsVPC,
+    dcrrsCdiInputSpecification,
+    dcrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.MediaLive.Types.Product
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
@@ -56,174 +62,278 @@ import Network.AWS.Response
 --
 -- /See:/ 'describeChannel' smart constructor.
 newtype DescribeChannel = DescribeChannel'
-  { _dChannelId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dcChannelId ::
+      Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeChannel' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dChannelId' - channel ID
-describeChannel
-    :: Text -- ^ 'dChannelId'
-    -> DescribeChannel
-describeChannel pChannelId_ = DescribeChannel' {_dChannelId = pChannelId_}
-
+-- * 'dcChannelId' - channel ID
+describeChannel ::
+  -- | 'dcChannelId'
+  Text ->
+  DescribeChannel
+describeChannel pChannelId_ =
+  DescribeChannel' {_dcChannelId = pChannelId_}
 
 -- | channel ID
-dChannelId :: Lens' DescribeChannel Text
-dChannelId = lens _dChannelId (\ s a -> s{_dChannelId = a})
+dcChannelId :: Lens' DescribeChannel Text
+dcChannelId = lens _dcChannelId (\s a -> s {_dcChannelId = a})
 
 instance AWSRequest DescribeChannel where
-        type Rs DescribeChannel = DescribeChannelResponse
-        request = get mediaLive
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeChannelResponse' <$>
-                   (x .?> "state") <*> (x .?> "arn") <*>
-                     (x .?> "pipelinesRunningCount")
-                     <*> (x .?> "inputSpecification")
-                     <*> (x .?> "inputAttachments" .!@ mempty)
-                     <*> (x .?> "destinations" .!@ mempty)
-                     <*> (x .?> "name")
-                     <*> (x .?> "id")
-                     <*> (x .?> "egressEndpoints" .!@ mempty)
-                     <*> (x .?> "encoderSettings")
-                     <*> (x .?> "roleArn")
-                     <*> (pure (fromEnum s)))
+  type Rs DescribeChannel = DescribeChannelResponse
+  request = get mediaLive
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeChannelResponse'
+            <$> (x .?> "encoderSettings")
+            <*> (x .?> "roleArn")
+            <*> (x .?> "inputSpecification")
+            <*> (x .?> "arn")
+            <*> (x .?> "id")
+            <*> (x .?> "pipelinesRunningCount")
+            <*> (x .?> "channelClass")
+            <*> (x .?> "logLevel")
+            <*> (x .?> "destinations" .!@ mempty)
+            <*> (x .?> "state")
+            <*> (x .?> "name")
+            <*> (x .?> "inputAttachments" .!@ mempty)
+            <*> (x .?> "tags" .!@ mempty)
+            <*> (x .?> "pipelineDetails" .!@ mempty)
+            <*> (x .?> "egressEndpoints" .!@ mempty)
+            <*> (x .?> "vpc")
+            <*> (x .?> "cdiInputSpecification")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeChannel where
+instance Hashable DescribeChannel
 
-instance NFData DescribeChannel where
+instance NFData DescribeChannel
 
 instance ToHeaders DescribeChannel where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath DescribeChannel where
-        toPath DescribeChannel'{..}
-          = mconcat ["/prod/channels/", toBS _dChannelId]
+  toPath DescribeChannel' {..} =
+    mconcat ["/prod/channels/", toBS _dcChannelId]
 
 instance ToQuery DescribeChannel where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | Placeholder documentation for DescribeChannelResponse
 --
 -- /See:/ 'describeChannelResponse' smart constructor.
 data DescribeChannelResponse = DescribeChannelResponse'
-  { _dcrsState                 :: !(Maybe ChannelState)
-  , _dcrsARN                   :: !(Maybe Text)
-  , _dcrsPipelinesRunningCount :: !(Maybe Int)
-  , _dcrsInputSpecification    :: !(Maybe InputSpecification)
-  , _dcrsInputAttachments      :: !(Maybe [InputAttachment])
-  , _dcrsDestinations          :: !(Maybe [OutputDestination])
-  , _dcrsName                  :: !(Maybe Text)
-  , _dcrsId                    :: !(Maybe Text)
-  , _dcrsEgressEndpoints       :: !(Maybe [ChannelEgressEndpoint])
-  , _dcrsEncoderSettings       :: !(Maybe EncoderSettings)
-  , _dcrsRoleARN               :: !(Maybe Text)
-  , _dcrsResponseStatus        :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dcrrsEncoderSettings ::
+      !( Maybe
+           EncoderSettings
+       ),
+    _dcrrsRoleARN ::
+      !(Maybe Text),
+    _dcrrsInputSpecification ::
+      !( Maybe
+           InputSpecification
+       ),
+    _dcrrsARN ::
+      !(Maybe Text),
+    _dcrrsId ::
+      !(Maybe Text),
+    _dcrrsPipelinesRunningCount ::
+      !(Maybe Int),
+    _dcrrsChannelClass ::
+      !(Maybe ChannelClass),
+    _dcrrsLogLevel ::
+      !(Maybe LogLevel),
+    _dcrrsDestinations ::
+      !( Maybe
+           [OutputDestination]
+       ),
+    _dcrrsState ::
+      !(Maybe ChannelState),
+    _dcrrsName ::
+      !(Maybe Text),
+    _dcrrsInputAttachments ::
+      !( Maybe
+           [InputAttachment]
+       ),
+    _dcrrsTags ::
+      !( Maybe
+           (Map Text Text)
+       ),
+    _dcrrsPipelineDetails ::
+      !( Maybe
+           [PipelineDetail]
+       ),
+    _dcrrsEgressEndpoints ::
+      !( Maybe
+           [ChannelEgressEndpoint]
+       ),
+    _dcrrsVPC ::
+      !( Maybe
+           VPCOutputSettings
+       ),
+    _dcrrsCdiInputSpecification ::
+      !( Maybe
+           CdiInputSpecification
+       ),
+    _dcrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeChannelResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dcrsState' - Undocumented member.
+-- * 'dcrrsEncoderSettings' - Undocumented member.
 --
--- * 'dcrsARN' - The unique arn of the channel.
+-- * 'dcrrsRoleARN' - The Amazon Resource Name (ARN) of the role assumed when running the Channel.
 --
--- * 'dcrsPipelinesRunningCount' - The number of currently healthy pipelines.
+-- * 'dcrrsInputSpecification' - Specification of network and file inputs for this channel
 --
--- * 'dcrsInputSpecification' - Undocumented member.
+-- * 'dcrrsARN' - The unique arn of the channel.
 --
--- * 'dcrsInputAttachments' - List of input attachments for channel.
+-- * 'dcrrsId' - The unique id of the channel.
 --
--- * 'dcrsDestinations' - A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
+-- * 'dcrrsPipelinesRunningCount' - The number of currently healthy pipelines.
 --
--- * 'dcrsName' - The name of the channel. (user-mutable)
+-- * 'dcrrsChannelClass' - The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
 --
--- * 'dcrsId' - The unique id of the channel.
+-- * 'dcrrsLogLevel' - The log level being written to CloudWatch Logs.
 --
--- * 'dcrsEgressEndpoints' - The endpoints where outgoing connections initiate from
+-- * 'dcrrsDestinations' - A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
 --
--- * 'dcrsEncoderSettings' - Undocumented member.
+-- * 'dcrrsState' - Undocumented member.
 --
--- * 'dcrsRoleARN' - The Amazon Resource Name (ARN) of the role assumed when running the Channel.
+-- * 'dcrrsName' - The name of the channel. (user-mutable)
 --
--- * 'dcrsResponseStatus' - -- | The response status code.
-describeChannelResponse
-    :: Int -- ^ 'dcrsResponseStatus'
-    -> DescribeChannelResponse
+-- * 'dcrrsInputAttachments' - List of input attachments for channel.
+--
+-- * 'dcrrsTags' - A collection of key-value pairs.
+--
+-- * 'dcrrsPipelineDetails' - Runtime details for the pipelines of a running channel.
+--
+-- * 'dcrrsEgressEndpoints' - The endpoints where outgoing connections initiate from
+--
+-- * 'dcrrsVPC' - Settings for VPC output
+--
+-- * 'dcrrsCdiInputSpecification' - Specification of CDI inputs for this channel
+--
+-- * 'dcrrsResponseStatus' - -- | The response status code.
+describeChannelResponse ::
+  -- | 'dcrrsResponseStatus'
+  Int ->
+  DescribeChannelResponse
 describeChannelResponse pResponseStatus_ =
   DescribeChannelResponse'
-    { _dcrsState = Nothing
-    , _dcrsARN = Nothing
-    , _dcrsPipelinesRunningCount = Nothing
-    , _dcrsInputSpecification = Nothing
-    , _dcrsInputAttachments = Nothing
-    , _dcrsDestinations = Nothing
-    , _dcrsName = Nothing
-    , _dcrsId = Nothing
-    , _dcrsEgressEndpoints = Nothing
-    , _dcrsEncoderSettings = Nothing
-    , _dcrsRoleARN = Nothing
-    , _dcrsResponseStatus = pResponseStatus_
+    { _dcrrsEncoderSettings =
+        Nothing,
+      _dcrrsRoleARN = Nothing,
+      _dcrrsInputSpecification = Nothing,
+      _dcrrsARN = Nothing,
+      _dcrrsId = Nothing,
+      _dcrrsPipelinesRunningCount = Nothing,
+      _dcrrsChannelClass = Nothing,
+      _dcrrsLogLevel = Nothing,
+      _dcrrsDestinations = Nothing,
+      _dcrrsState = Nothing,
+      _dcrrsName = Nothing,
+      _dcrrsInputAttachments = Nothing,
+      _dcrrsTags = Nothing,
+      _dcrrsPipelineDetails = Nothing,
+      _dcrrsEgressEndpoints = Nothing,
+      _dcrrsVPC = Nothing,
+      _dcrrsCdiInputSpecification = Nothing,
+      _dcrrsResponseStatus = pResponseStatus_
     }
 
-
 -- | Undocumented member.
-dcrsState :: Lens' DescribeChannelResponse (Maybe ChannelState)
-dcrsState = lens _dcrsState (\ s a -> s{_dcrsState = a})
-
--- | The unique arn of the channel.
-dcrsARN :: Lens' DescribeChannelResponse (Maybe Text)
-dcrsARN = lens _dcrsARN (\ s a -> s{_dcrsARN = a})
-
--- | The number of currently healthy pipelines.
-dcrsPipelinesRunningCount :: Lens' DescribeChannelResponse (Maybe Int)
-dcrsPipelinesRunningCount = lens _dcrsPipelinesRunningCount (\ s a -> s{_dcrsPipelinesRunningCount = a})
-
--- | Undocumented member.
-dcrsInputSpecification :: Lens' DescribeChannelResponse (Maybe InputSpecification)
-dcrsInputSpecification = lens _dcrsInputSpecification (\ s a -> s{_dcrsInputSpecification = a})
-
--- | List of input attachments for channel.
-dcrsInputAttachments :: Lens' DescribeChannelResponse [InputAttachment]
-dcrsInputAttachments = lens _dcrsInputAttachments (\ s a -> s{_dcrsInputAttachments = a}) . _Default . _Coerce
-
--- | A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
-dcrsDestinations :: Lens' DescribeChannelResponse [OutputDestination]
-dcrsDestinations = lens _dcrsDestinations (\ s a -> s{_dcrsDestinations = a}) . _Default . _Coerce
-
--- | The name of the channel. (user-mutable)
-dcrsName :: Lens' DescribeChannelResponse (Maybe Text)
-dcrsName = lens _dcrsName (\ s a -> s{_dcrsName = a})
-
--- | The unique id of the channel.
-dcrsId :: Lens' DescribeChannelResponse (Maybe Text)
-dcrsId = lens _dcrsId (\ s a -> s{_dcrsId = a})
-
--- | The endpoints where outgoing connections initiate from
-dcrsEgressEndpoints :: Lens' DescribeChannelResponse [ChannelEgressEndpoint]
-dcrsEgressEndpoints = lens _dcrsEgressEndpoints (\ s a -> s{_dcrsEgressEndpoints = a}) . _Default . _Coerce
-
--- | Undocumented member.
-dcrsEncoderSettings :: Lens' DescribeChannelResponse (Maybe EncoderSettings)
-dcrsEncoderSettings = lens _dcrsEncoderSettings (\ s a -> s{_dcrsEncoderSettings = a})
+dcrrsEncoderSettings :: Lens' DescribeChannelResponse (Maybe EncoderSettings)
+dcrrsEncoderSettings = lens _dcrrsEncoderSettings (\s a -> s {_dcrrsEncoderSettings = a})
 
 -- | The Amazon Resource Name (ARN) of the role assumed when running the Channel.
-dcrsRoleARN :: Lens' DescribeChannelResponse (Maybe Text)
-dcrsRoleARN = lens _dcrsRoleARN (\ s a -> s{_dcrsRoleARN = a})
+dcrrsRoleARN :: Lens' DescribeChannelResponse (Maybe Text)
+dcrrsRoleARN = lens _dcrrsRoleARN (\s a -> s {_dcrrsRoleARN = a})
+
+-- | Specification of network and file inputs for this channel
+dcrrsInputSpecification :: Lens' DescribeChannelResponse (Maybe InputSpecification)
+dcrrsInputSpecification = lens _dcrrsInputSpecification (\s a -> s {_dcrrsInputSpecification = a})
+
+-- | The unique arn of the channel.
+dcrrsARN :: Lens' DescribeChannelResponse (Maybe Text)
+dcrrsARN = lens _dcrrsARN (\s a -> s {_dcrrsARN = a})
+
+-- | The unique id of the channel.
+dcrrsId :: Lens' DescribeChannelResponse (Maybe Text)
+dcrrsId = lens _dcrrsId (\s a -> s {_dcrrsId = a})
+
+-- | The number of currently healthy pipelines.
+dcrrsPipelinesRunningCount :: Lens' DescribeChannelResponse (Maybe Int)
+dcrrsPipelinesRunningCount = lens _dcrrsPipelinesRunningCount (\s a -> s {_dcrrsPipelinesRunningCount = a})
+
+-- | The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
+dcrrsChannelClass :: Lens' DescribeChannelResponse (Maybe ChannelClass)
+dcrrsChannelClass = lens _dcrrsChannelClass (\s a -> s {_dcrrsChannelClass = a})
+
+-- | The log level being written to CloudWatch Logs.
+dcrrsLogLevel :: Lens' DescribeChannelResponse (Maybe LogLevel)
+dcrrsLogLevel = lens _dcrrsLogLevel (\s a -> s {_dcrrsLogLevel = a})
+
+-- | A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
+dcrrsDestinations :: Lens' DescribeChannelResponse [OutputDestination]
+dcrrsDestinations = lens _dcrrsDestinations (\s a -> s {_dcrrsDestinations = a}) . _Default . _Coerce
+
+-- | Undocumented member.
+dcrrsState :: Lens' DescribeChannelResponse (Maybe ChannelState)
+dcrrsState = lens _dcrrsState (\s a -> s {_dcrrsState = a})
+
+-- | The name of the channel. (user-mutable)
+dcrrsName :: Lens' DescribeChannelResponse (Maybe Text)
+dcrrsName = lens _dcrrsName (\s a -> s {_dcrrsName = a})
+
+-- | List of input attachments for channel.
+dcrrsInputAttachments :: Lens' DescribeChannelResponse [InputAttachment]
+dcrrsInputAttachments = lens _dcrrsInputAttachments (\s a -> s {_dcrrsInputAttachments = a}) . _Default . _Coerce
+
+-- | A collection of key-value pairs.
+dcrrsTags :: Lens' DescribeChannelResponse (HashMap Text Text)
+dcrrsTags = lens _dcrrsTags (\s a -> s {_dcrrsTags = a}) . _Default . _Map
+
+-- | Runtime details for the pipelines of a running channel.
+dcrrsPipelineDetails :: Lens' DescribeChannelResponse [PipelineDetail]
+dcrrsPipelineDetails = lens _dcrrsPipelineDetails (\s a -> s {_dcrrsPipelineDetails = a}) . _Default . _Coerce
+
+-- | The endpoints where outgoing connections initiate from
+dcrrsEgressEndpoints :: Lens' DescribeChannelResponse [ChannelEgressEndpoint]
+dcrrsEgressEndpoints = lens _dcrrsEgressEndpoints (\s a -> s {_dcrrsEgressEndpoints = a}) . _Default . _Coerce
+
+-- | Settings for VPC output
+dcrrsVPC :: Lens' DescribeChannelResponse (Maybe VPCOutputSettings)
+dcrrsVPC = lens _dcrrsVPC (\s a -> s {_dcrrsVPC = a})
+
+-- | Specification of CDI inputs for this channel
+dcrrsCdiInputSpecification :: Lens' DescribeChannelResponse (Maybe CdiInputSpecification)
+dcrrsCdiInputSpecification = lens _dcrrsCdiInputSpecification (\s a -> s {_dcrrsCdiInputSpecification = a})
 
 -- | -- | The response status code.
-dcrsResponseStatus :: Lens' DescribeChannelResponse Int
-dcrsResponseStatus = lens _dcrsResponseStatus (\ s a -> s{_dcrsResponseStatus = a})
+dcrrsResponseStatus :: Lens' DescribeChannelResponse Int
+dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
 
-instance NFData DescribeChannelResponse where
+instance NFData DescribeChannelResponse

@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.MediaLive.DeleteInputSecurityGroup
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +19,24 @@
 --
 -- Deletes an Input Security Group
 module Network.AWS.MediaLive.DeleteInputSecurityGroup
-    (
-    -- * Creating a Request
-      deleteInputSecurityGroup
-    , DeleteInputSecurityGroup
+  ( -- * Creating a Request
+    deleteInputSecurityGroup,
+    DeleteInputSecurityGroup,
+
     -- * Request Lenses
-    , dInputSecurityGroupId
+    disgInputSecurityGroupId,
 
     -- * Destructuring the Response
-    , deleteInputSecurityGroupResponse
-    , DeleteInputSecurityGroupResponse
+    deleteInputSecurityGroupResponse,
+    DeleteInputSecurityGroupResponse,
+
     -- * Response Lenses
-    , disgrsResponseStatus
-    ) where
+    disgrirsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.MediaLive.Types.Product
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
@@ -45,79 +45,105 @@ import Network.AWS.Response
 --
 -- /See:/ 'deleteInputSecurityGroup' smart constructor.
 newtype DeleteInputSecurityGroup = DeleteInputSecurityGroup'
-  { _dInputSecurityGroupId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _disgInputSecurityGroupId ::
+      Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DeleteInputSecurityGroup' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dInputSecurityGroupId' - The Input Security Group to delete
-deleteInputSecurityGroup
-    :: Text -- ^ 'dInputSecurityGroupId'
-    -> DeleteInputSecurityGroup
+-- * 'disgInputSecurityGroupId' - The Input Security Group to delete
+deleteInputSecurityGroup ::
+  -- | 'disgInputSecurityGroupId'
+  Text ->
+  DeleteInputSecurityGroup
 deleteInputSecurityGroup pInputSecurityGroupId_ =
-  DeleteInputSecurityGroup' {_dInputSecurityGroupId = pInputSecurityGroupId_}
-
+  DeleteInputSecurityGroup'
+    { _disgInputSecurityGroupId =
+        pInputSecurityGroupId_
+    }
 
 -- | The Input Security Group to delete
-dInputSecurityGroupId :: Lens' DeleteInputSecurityGroup Text
-dInputSecurityGroupId = lens _dInputSecurityGroupId (\ s a -> s{_dInputSecurityGroupId = a})
+disgInputSecurityGroupId :: Lens' DeleteInputSecurityGroup Text
+disgInputSecurityGroupId = lens _disgInputSecurityGroupId (\s a -> s {_disgInputSecurityGroupId = a})
 
 instance AWSRequest DeleteInputSecurityGroup where
-        type Rs DeleteInputSecurityGroup =
-             DeleteInputSecurityGroupResponse
-        request = delete mediaLive
-        response
-          = receiveEmpty
-              (\ s h x ->
-                 DeleteInputSecurityGroupResponse' <$>
-                   (pure (fromEnum s)))
+  type
+    Rs DeleteInputSecurityGroup =
+      DeleteInputSecurityGroupResponse
+  request = delete mediaLive
+  response =
+    receiveEmpty
+      ( \s h x ->
+          DeleteInputSecurityGroupResponse'
+            <$> (pure (fromEnum s))
+      )
 
-instance Hashable DeleteInputSecurityGroup where
+instance Hashable DeleteInputSecurityGroup
 
-instance NFData DeleteInputSecurityGroup where
+instance NFData DeleteInputSecurityGroup
 
 instance ToHeaders DeleteInputSecurityGroup where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath DeleteInputSecurityGroup where
-        toPath DeleteInputSecurityGroup'{..}
-          = mconcat
-              ["/prod/inputSecurityGroups/",
-               toBS _dInputSecurityGroupId]
+  toPath DeleteInputSecurityGroup' {..} =
+    mconcat
+      [ "/prod/inputSecurityGroups/",
+        toBS _disgInputSecurityGroupId
+      ]
 
 instance ToQuery DeleteInputSecurityGroup where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | Placeholder documentation for DeleteInputSecurityGroupResponse
 --
 -- /See:/ 'deleteInputSecurityGroupResponse' smart constructor.
 newtype DeleteInputSecurityGroupResponse = DeleteInputSecurityGroupResponse'
-  { _disgrsResponseStatus :: Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _disgrirsResponseStatus ::
+      Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DeleteInputSecurityGroupResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'disgrsResponseStatus' - -- | The response status code.
-deleteInputSecurityGroupResponse
-    :: Int -- ^ 'disgrsResponseStatus'
-    -> DeleteInputSecurityGroupResponse
+-- * 'disgrirsResponseStatus' - -- | The response status code.
+deleteInputSecurityGroupResponse ::
+  -- | 'disgrirsResponseStatus'
+  Int ->
+  DeleteInputSecurityGroupResponse
 deleteInputSecurityGroupResponse pResponseStatus_ =
-  DeleteInputSecurityGroupResponse' {_disgrsResponseStatus = pResponseStatus_}
-
+  DeleteInputSecurityGroupResponse'
+    { _disgrirsResponseStatus =
+        pResponseStatus_
+    }
 
 -- | -- | The response status code.
-disgrsResponseStatus :: Lens' DeleteInputSecurityGroupResponse Int
-disgrsResponseStatus = lens _disgrsResponseStatus (\ s a -> s{_disgrsResponseStatus = a})
+disgrirsResponseStatus :: Lens' DeleteInputSecurityGroupResponse Int
+disgrirsResponseStatus = lens _disgrirsResponseStatus (\s a -> s {_disgrirsResponseStatus = a})
 
 instance NFData DeleteInputSecurityGroupResponse
-         where
