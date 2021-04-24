@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.IoTData
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.IoTData where
 
 import Data.Proxy
@@ -31,14 +30,17 @@ import Test.Tasty
 --         [ requestGetThingShadow $
 --             getThingShadow
 --
---         , requestDeleteThingShadow $
---             deleteThingShadow
+--         , requestPublish $
+--             publish
+--
+--         , requestListNamedShadowsForThing $
+--             listNamedShadowsForThing
 --
 --         , requestUpdateThingShadow $
 --             updateThingShadow
 --
---         , requestPublish $
---             publish
+--         , requestDeleteThingShadow $
+--             deleteThingShadow
 --
 --           ]
 
@@ -46,14 +48,17 @@ import Test.Tasty
 --         [ responseGetThingShadow $
 --             getThingShadowResponse
 --
---         , responseDeleteThingShadow $
---             deleteThingShadowResponse
+--         , responsePublish $
+--             publishResponse
+--
+--         , responseListNamedShadowsForThing $
+--             listNamedShadowsForThingResponse
 --
 --         , responseUpdateThingShadow $
 --             updateThingShadowResponse
 --
---         , responsePublish $
---             publishResponse
+--         , responseDeleteThingShadow $
+--             deleteThingShadowResponse
 --
 --           ]
 --     ]
@@ -61,51 +66,73 @@ import Test.Tasty
 -- Requests
 
 requestGetThingShadow :: GetThingShadow -> TestTree
-requestGetThingShadow = req
+requestGetThingShadow =
+  req
     "GetThingShadow"
     "fixture/GetThingShadow.yaml"
 
-requestDeleteThingShadow :: DeleteThingShadow -> TestTree
-requestDeleteThingShadow = req
-    "DeleteThingShadow"
-    "fixture/DeleteThingShadow.yaml"
+requestPublish :: Publish -> TestTree
+requestPublish =
+  req
+    "Publish"
+    "fixture/Publish.yaml"
+
+requestListNamedShadowsForThing :: ListNamedShadowsForThing -> TestTree
+requestListNamedShadowsForThing =
+  req
+    "ListNamedShadowsForThing"
+    "fixture/ListNamedShadowsForThing.yaml"
 
 requestUpdateThingShadow :: UpdateThingShadow -> TestTree
-requestUpdateThingShadow = req
+requestUpdateThingShadow =
+  req
     "UpdateThingShadow"
     "fixture/UpdateThingShadow.yaml"
 
-requestPublish :: Publish -> TestTree
-requestPublish = req
-    "Publish"
-    "fixture/Publish.yaml"
+requestDeleteThingShadow :: DeleteThingShadow -> TestTree
+requestDeleteThingShadow =
+  req
+    "DeleteThingShadow"
+    "fixture/DeleteThingShadow.yaml"
 
 -- Responses
 
 responseGetThingShadow :: GetThingShadowResponse -> TestTree
-responseGetThingShadow = res
+responseGetThingShadow =
+  res
     "GetThingShadowResponse"
     "fixture/GetThingShadowResponse.proto"
     ioTData
     (Proxy :: Proxy GetThingShadow)
 
-responseDeleteThingShadow :: DeleteThingShadowResponse -> TestTree
-responseDeleteThingShadow = res
-    "DeleteThingShadowResponse"
-    "fixture/DeleteThingShadowResponse.proto"
+responsePublish :: PublishResponse -> TestTree
+responsePublish =
+  res
+    "PublishResponse"
+    "fixture/PublishResponse.proto"
     ioTData
-    (Proxy :: Proxy DeleteThingShadow)
+    (Proxy :: Proxy Publish)
+
+responseListNamedShadowsForThing :: ListNamedShadowsForThingResponse -> TestTree
+responseListNamedShadowsForThing =
+  res
+    "ListNamedShadowsForThingResponse"
+    "fixture/ListNamedShadowsForThingResponse.proto"
+    ioTData
+    (Proxy :: Proxy ListNamedShadowsForThing)
 
 responseUpdateThingShadow :: UpdateThingShadowResponse -> TestTree
-responseUpdateThingShadow = res
+responseUpdateThingShadow =
+  res
     "UpdateThingShadowResponse"
     "fixture/UpdateThingShadowResponse.proto"
     ioTData
     (Proxy :: Proxy UpdateThingShadow)
 
-responsePublish :: PublishResponse -> TestTree
-responsePublish = res
-    "PublishResponse"
-    "fixture/PublishResponse.proto"
+responseDeleteThingShadow :: DeleteThingShadowResponse -> TestTree
+responseDeleteThingShadow =
+  res
+    "DeleteThingShadowResponse"
+    "fixture/DeleteThingShadowResponse.proto"
     ioTData
-    (Proxy :: Proxy Publish)
+    (Proxy :: Proxy DeleteThingShadow)
