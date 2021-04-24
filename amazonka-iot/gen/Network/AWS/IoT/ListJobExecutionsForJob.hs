@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.IoT.ListJobExecutionsForJob
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,149 +20,190 @@
 -- Lists the job executions for a job.
 --
 --
+--
+-- This operation returns paginated results.
 module Network.AWS.IoT.ListJobExecutionsForJob
-    (
-    -- * Creating a Request
-      listJobExecutionsForJob
-    , ListJobExecutionsForJob
+  ( -- * Creating a Request
+    listJobExecutionsForJob,
+    ListJobExecutionsForJob,
+
     -- * Request Lenses
-    , ljefjStatus
-    , ljefjNextToken
-    , ljefjMaxResults
-    , ljefjJobId
+    ljefjNextToken,
+    ljefjStatus,
+    ljefjMaxResults,
+    ljefjJobId,
 
     -- * Destructuring the Response
-    , listJobExecutionsForJobResponse
-    , ListJobExecutionsForJobResponse
+    listJobExecutionsForJobResponse,
+    ListJobExecutionsForJobResponse,
+
     -- * Response Lenses
-    , ljefjrsExecutionSummaries
-    , ljefjrsNextToken
-    , ljefjrsResponseStatus
-    ) where
+    ljefjrrsNextToken,
+    ljefjrrsExecutionSummaries,
+    ljefjrrsResponseStatus,
+  )
+where
 
 import Network.AWS.IoT.Types
-import Network.AWS.IoT.Types.Product
 import Network.AWS.Lens
+import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'listJobExecutionsForJob' smart constructor.
 data ListJobExecutionsForJob = ListJobExecutionsForJob'
-  { _ljefjStatus     :: !(Maybe JobExecutionStatus)
-  , _ljefjNextToken  :: !(Maybe Text)
-  , _ljefjMaxResults :: !(Maybe Nat)
-  , _ljefjJobId      :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ljefjNextToken ::
+      !(Maybe Text),
+    _ljefjStatus ::
+      !( Maybe
+           JobExecutionStatus
+       ),
+    _ljefjMaxResults ::
+      !(Maybe Nat),
+    _ljefjJobId :: !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListJobExecutionsForJob' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ljefjStatus' - The status of the job.
---
 -- * 'ljefjNextToken' - The token to retrieve the next set of results.
+--
+-- * 'ljefjStatus' - The status of the job.
 --
 -- * 'ljefjMaxResults' - The maximum number of results to be returned per request.
 --
 -- * 'ljefjJobId' - The unique identifier you assigned to this job when it was created.
-listJobExecutionsForJob
-    :: Text -- ^ 'ljefjJobId'
-    -> ListJobExecutionsForJob
+listJobExecutionsForJob ::
+  -- | 'ljefjJobId'
+  Text ->
+  ListJobExecutionsForJob
 listJobExecutionsForJob pJobId_ =
   ListJobExecutionsForJob'
-    { _ljefjStatus = Nothing
-    , _ljefjNextToken = Nothing
-    , _ljefjMaxResults = Nothing
-    , _ljefjJobId = pJobId_
+    { _ljefjNextToken = Nothing,
+      _ljefjStatus = Nothing,
+      _ljefjMaxResults = Nothing,
+      _ljefjJobId = pJobId_
     }
-
-
--- | The status of the job.
-ljefjStatus :: Lens' ListJobExecutionsForJob (Maybe JobExecutionStatus)
-ljefjStatus = lens _ljefjStatus (\ s a -> s{_ljefjStatus = a})
 
 -- | The token to retrieve the next set of results.
 ljefjNextToken :: Lens' ListJobExecutionsForJob (Maybe Text)
-ljefjNextToken = lens _ljefjNextToken (\ s a -> s{_ljefjNextToken = a})
+ljefjNextToken = lens _ljefjNextToken (\s a -> s {_ljefjNextToken = a})
+
+-- | The status of the job.
+ljefjStatus :: Lens' ListJobExecutionsForJob (Maybe JobExecutionStatus)
+ljefjStatus = lens _ljefjStatus (\s a -> s {_ljefjStatus = a})
 
 -- | The maximum number of results to be returned per request.
 ljefjMaxResults :: Lens' ListJobExecutionsForJob (Maybe Natural)
-ljefjMaxResults = lens _ljefjMaxResults (\ s a -> s{_ljefjMaxResults = a}) . mapping _Nat
+ljefjMaxResults = lens _ljefjMaxResults (\s a -> s {_ljefjMaxResults = a}) . mapping _Nat
 
 -- | The unique identifier you assigned to this job when it was created.
 ljefjJobId :: Lens' ListJobExecutionsForJob Text
-ljefjJobId = lens _ljefjJobId (\ s a -> s{_ljefjJobId = a})
+ljefjJobId = lens _ljefjJobId (\s a -> s {_ljefjJobId = a})
+
+instance AWSPager ListJobExecutionsForJob where
+  page rq rs
+    | stop (rs ^. ljefjrrsNextToken) = Nothing
+    | stop (rs ^. ljefjrrsExecutionSummaries) = Nothing
+    | otherwise =
+      Just $ rq & ljefjNextToken .~ rs ^. ljefjrrsNextToken
 
 instance AWSRequest ListJobExecutionsForJob where
-        type Rs ListJobExecutionsForJob =
-             ListJobExecutionsForJobResponse
-        request = get ioT
-        response
-          = receiveJSON
-              (\ s h x ->
-                 ListJobExecutionsForJobResponse' <$>
-                   (x .?> "executionSummaries" .!@ mempty) <*>
-                     (x .?> "nextToken")
-                     <*> (pure (fromEnum s)))
+  type
+    Rs ListJobExecutionsForJob =
+      ListJobExecutionsForJobResponse
+  request = get ioT
+  response =
+    receiveJSON
+      ( \s h x ->
+          ListJobExecutionsForJobResponse'
+            <$> (x .?> "nextToken")
+            <*> (x .?> "executionSummaries" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable ListJobExecutionsForJob where
+instance Hashable ListJobExecutionsForJob
 
-instance NFData ListJobExecutionsForJob where
+instance NFData ListJobExecutionsForJob
 
 instance ToHeaders ListJobExecutionsForJob where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath ListJobExecutionsForJob where
-        toPath ListJobExecutionsForJob'{..}
-          = mconcat ["/jobs/", toBS _ljefjJobId, "/things"]
+  toPath ListJobExecutionsForJob' {..} =
+    mconcat ["/jobs/", toBS _ljefjJobId, "/things"]
 
 instance ToQuery ListJobExecutionsForJob where
-        toQuery ListJobExecutionsForJob'{..}
-          = mconcat
-              ["status" =: _ljefjStatus,
-               "nextToken" =: _ljefjNextToken,
-               "maxResults" =: _ljefjMaxResults]
+  toQuery ListJobExecutionsForJob' {..} =
+    mconcat
+      [ "nextToken" =: _ljefjNextToken,
+        "status" =: _ljefjStatus,
+        "maxResults" =: _ljefjMaxResults
+      ]
 
 -- | /See:/ 'listJobExecutionsForJobResponse' smart constructor.
 data ListJobExecutionsForJobResponse = ListJobExecutionsForJobResponse'
-  { _ljefjrsExecutionSummaries :: !(Maybe [JobExecutionSummaryForJob])
-  , _ljefjrsNextToken          :: !(Maybe Text)
-  , _ljefjrsResponseStatus     :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ljefjrrsNextToken ::
+      !( Maybe
+           Text
+       ),
+    _ljefjrrsExecutionSummaries ::
+      !( Maybe
+           [JobExecutionSummaryForJob]
+       ),
+    _ljefjrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListJobExecutionsForJobResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ljefjrsExecutionSummaries' - A list of job execution summaries.
+-- * 'ljefjrrsNextToken' - The token for the next set of results, or __null__ if there are no additional results.
 --
--- * 'ljefjrsNextToken' - The token for the next set of results, or __null__ if there are no additional results.
+-- * 'ljefjrrsExecutionSummaries' - A list of job execution summaries.
 --
--- * 'ljefjrsResponseStatus' - -- | The response status code.
-listJobExecutionsForJobResponse
-    :: Int -- ^ 'ljefjrsResponseStatus'
-    -> ListJobExecutionsForJobResponse
+-- * 'ljefjrrsResponseStatus' - -- | The response status code.
+listJobExecutionsForJobResponse ::
+  -- | 'ljefjrrsResponseStatus'
+  Int ->
+  ListJobExecutionsForJobResponse
 listJobExecutionsForJobResponse pResponseStatus_ =
   ListJobExecutionsForJobResponse'
-    { _ljefjrsExecutionSummaries = Nothing
-    , _ljefjrsNextToken = Nothing
-    , _ljefjrsResponseStatus = pResponseStatus_
+    { _ljefjrrsNextToken =
+        Nothing,
+      _ljefjrrsExecutionSummaries = Nothing,
+      _ljefjrrsResponseStatus = pResponseStatus_
     }
 
+-- | The token for the next set of results, or __null__ if there are no additional results.
+ljefjrrsNextToken :: Lens' ListJobExecutionsForJobResponse (Maybe Text)
+ljefjrrsNextToken = lens _ljefjrrsNextToken (\s a -> s {_ljefjrrsNextToken = a})
 
 -- | A list of job execution summaries.
-ljefjrsExecutionSummaries :: Lens' ListJobExecutionsForJobResponse [JobExecutionSummaryForJob]
-ljefjrsExecutionSummaries = lens _ljefjrsExecutionSummaries (\ s a -> s{_ljefjrsExecutionSummaries = a}) . _Default . _Coerce
-
--- | The token for the next set of results, or __null__ if there are no additional results.
-ljefjrsNextToken :: Lens' ListJobExecutionsForJobResponse (Maybe Text)
-ljefjrsNextToken = lens _ljefjrsNextToken (\ s a -> s{_ljefjrsNextToken = a})
+ljefjrrsExecutionSummaries :: Lens' ListJobExecutionsForJobResponse [JobExecutionSummaryForJob]
+ljefjrrsExecutionSummaries = lens _ljefjrrsExecutionSummaries (\s a -> s {_ljefjrrsExecutionSummaries = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-ljefjrsResponseStatus :: Lens' ListJobExecutionsForJobResponse Int
-ljefjrsResponseStatus = lens _ljefjrsResponseStatus (\ s a -> s{_ljefjrsResponseStatus = a})
+ljefjrrsResponseStatus :: Lens' ListJobExecutionsForJobResponse Int
+ljefjrrsResponseStatus = lens _ljefjrrsResponseStatus (\s a -> s {_ljefjrrsResponseStatus = a})
 
-instance NFData ListJobExecutionsForJobResponse where
+instance NFData ListJobExecutionsForJobResponse

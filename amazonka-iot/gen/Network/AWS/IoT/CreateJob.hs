@@ -1,54 +1,55 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.IoT.CreateJob
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a job.
---
---
 module Network.AWS.IoT.CreateJob
-    (
-    -- * Creating a Request
-      createJob
-    , CreateJob
+  ( -- * Creating a Request
+    createJob,
+    CreateJob,
+
     -- * Request Lenses
-    , cjJobExecutionsRolloutConfig
-    , cjDocumentSource
-    , cjDocumentParameters
-    , cjPresignedURLConfig
-    , cjDocument
-    , cjDescription
-    , cjTargetSelection
-    , cjJobId
-    , cjTargets
+    creJobExecutionsRolloutConfig,
+    creTargetSelection,
+    creTimeoutConfig,
+    creNamespaceId,
+    creDocumentSource,
+    creDocument,
+    crePresignedURLConfig,
+    creTags,
+    creDescription,
+    creAbortConfig,
+    creJobId,
+    creTargets,
 
     -- * Destructuring the Response
-    , createJobResponse
-    , CreateJobResponse
+    createJobResponse,
+    CreateJobResponse,
+
     -- * Response Lenses
-    , cjrsJobId
-    , cjrsJobARN
-    , cjrsDescription
-    , cjrsResponseStatus
-    ) where
+    crsJobARN,
+    crsDescription,
+    crsJobId,
+    crsResponseStatus,
+  )
+where
 
 import Network.AWS.IoT.Types
-import Network.AWS.IoT.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -56,178 +57,214 @@ import Network.AWS.Response
 
 -- | /See:/ 'createJob' smart constructor.
 data CreateJob = CreateJob'
-  { _cjJobExecutionsRolloutConfig :: !(Maybe JobExecutionsRolloutConfig)
-  , _cjDocumentSource             :: !(Maybe Text)
-  , _cjDocumentParameters         :: !(Maybe (Map Text Text))
-  , _cjPresignedURLConfig         :: !(Maybe PresignedURLConfig)
-  , _cjDocument                   :: !(Maybe Text)
-  , _cjDescription                :: !(Maybe Text)
-  , _cjTargetSelection            :: !(Maybe TargetSelection)
-  , _cjJobId                      :: !Text
-  , _cjTargets                    :: !(List1 Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _creJobExecutionsRolloutConfig ::
+      !(Maybe JobExecutionsRolloutConfig),
+    _creTargetSelection :: !(Maybe TargetSelection),
+    _creTimeoutConfig :: !(Maybe TimeoutConfig),
+    _creNamespaceId :: !(Maybe Text),
+    _creDocumentSource :: !(Maybe Text),
+    _creDocument :: !(Maybe Text),
+    _crePresignedURLConfig ::
+      !(Maybe PresignedURLConfig),
+    _creTags :: !(Maybe [Tag]),
+    _creDescription :: !(Maybe Text),
+    _creAbortConfig :: !(Maybe AbortConfig),
+    _creJobId :: !Text,
+    _creTargets :: !(List1 Text)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'CreateJob' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cjJobExecutionsRolloutConfig' - Allows you to create a staged rollout of the job.
+-- * 'creJobExecutionsRolloutConfig' - Allows you to create a staged rollout of the job.
 --
--- * 'cjDocumentSource' - An S3 link to the job document.
+-- * 'creTargetSelection' - Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing when a change is detected in a target. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group.
 --
--- * 'cjDocumentParameters' - Parameters for the job document.
+-- * 'creTimeoutConfig' - Specifies the amount of time each device has to finish its execution of the job. The timer is started when the job execution status is set to @IN_PROGRESS@ . If the job execution status is not set to another terminal state before the time expires, it will be automatically set to @TIMED_OUT@ .
 --
--- * 'cjPresignedURLConfig' - Configuration information for pre-signed S3 URLs.
+-- * 'creNamespaceId' - The namespace used to indicate that a job is a customer-managed job. When you specify a value for this parameter, AWS IoT Core sends jobs notifications to MQTT topics that contain the value in the following format. @> aws/things//THING_NAME/ /jobs//JOB_ID/ /notify-namespace-/NAMESPACE_ID/ /@
 --
--- * 'cjDocument' - The job document.
+-- * 'creDocumentSource' - An S3 link to the job document.
 --
--- * 'cjDescription' - A short text description of the job.
+-- * 'creDocument' - The job document.
 --
--- * 'cjTargetSelection' - Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing when a change is detected in a target. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group.
+-- * 'crePresignedURLConfig' - Configuration information for pre-signed S3 URLs.
 --
--- * 'cjJobId' - A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric characters, "-" and "_" are valid for use here.
+-- * 'creTags' - Metadata which can be used to manage the job.
 --
--- * 'cjTargets' - A list of things and thing groups to which the job should be sent.
-createJob
-    :: Text -- ^ 'cjJobId'
-    -> NonEmpty Text -- ^ 'cjTargets'
-    -> CreateJob
+-- * 'creDescription' - A short text description of the job.
+--
+-- * 'creAbortConfig' - Allows you to create criteria to abort a job.
+--
+-- * 'creJobId' - A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric characters, "-" and "_" are valid for use here.
+--
+-- * 'creTargets' - A list of things and thing groups to which the job should be sent.
+createJob ::
+  -- | 'creJobId'
+  Text ->
+  -- | 'creTargets'
+  NonEmpty Text ->
+  CreateJob
 createJob pJobId_ pTargets_ =
   CreateJob'
-    { _cjJobExecutionsRolloutConfig = Nothing
-    , _cjDocumentSource = Nothing
-    , _cjDocumentParameters = Nothing
-    , _cjPresignedURLConfig = Nothing
-    , _cjDocument = Nothing
-    , _cjDescription = Nothing
-    , _cjTargetSelection = Nothing
-    , _cjJobId = pJobId_
-    , _cjTargets = _List1 # pTargets_
+    { _creJobExecutionsRolloutConfig =
+        Nothing,
+      _creTargetSelection = Nothing,
+      _creTimeoutConfig = Nothing,
+      _creNamespaceId = Nothing,
+      _creDocumentSource = Nothing,
+      _creDocument = Nothing,
+      _crePresignedURLConfig = Nothing,
+      _creTags = Nothing,
+      _creDescription = Nothing,
+      _creAbortConfig = Nothing,
+      _creJobId = pJobId_,
+      _creTargets = _List1 # pTargets_
     }
 
-
 -- | Allows you to create a staged rollout of the job.
-cjJobExecutionsRolloutConfig :: Lens' CreateJob (Maybe JobExecutionsRolloutConfig)
-cjJobExecutionsRolloutConfig = lens _cjJobExecutionsRolloutConfig (\ s a -> s{_cjJobExecutionsRolloutConfig = a})
-
--- | An S3 link to the job document.
-cjDocumentSource :: Lens' CreateJob (Maybe Text)
-cjDocumentSource = lens _cjDocumentSource (\ s a -> s{_cjDocumentSource = a})
-
--- | Parameters for the job document.
-cjDocumentParameters :: Lens' CreateJob (HashMap Text Text)
-cjDocumentParameters = lens _cjDocumentParameters (\ s a -> s{_cjDocumentParameters = a}) . _Default . _Map
-
--- | Configuration information for pre-signed S3 URLs.
-cjPresignedURLConfig :: Lens' CreateJob (Maybe PresignedURLConfig)
-cjPresignedURLConfig = lens _cjPresignedURLConfig (\ s a -> s{_cjPresignedURLConfig = a})
-
--- | The job document.
-cjDocument :: Lens' CreateJob (Maybe Text)
-cjDocument = lens _cjDocument (\ s a -> s{_cjDocument = a})
-
--- | A short text description of the job.
-cjDescription :: Lens' CreateJob (Maybe Text)
-cjDescription = lens _cjDescription (\ s a -> s{_cjDescription = a})
+creJobExecutionsRolloutConfig :: Lens' CreateJob (Maybe JobExecutionsRolloutConfig)
+creJobExecutionsRolloutConfig = lens _creJobExecutionsRolloutConfig (\s a -> s {_creJobExecutionsRolloutConfig = a})
 
 -- | Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing when a change is detected in a target. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group.
-cjTargetSelection :: Lens' CreateJob (Maybe TargetSelection)
-cjTargetSelection = lens _cjTargetSelection (\ s a -> s{_cjTargetSelection = a})
+creTargetSelection :: Lens' CreateJob (Maybe TargetSelection)
+creTargetSelection = lens _creTargetSelection (\s a -> s {_creTargetSelection = a})
+
+-- | Specifies the amount of time each device has to finish its execution of the job. The timer is started when the job execution status is set to @IN_PROGRESS@ . If the job execution status is not set to another terminal state before the time expires, it will be automatically set to @TIMED_OUT@ .
+creTimeoutConfig :: Lens' CreateJob (Maybe TimeoutConfig)
+creTimeoutConfig = lens _creTimeoutConfig (\s a -> s {_creTimeoutConfig = a})
+
+-- | The namespace used to indicate that a job is a customer-managed job. When you specify a value for this parameter, AWS IoT Core sends jobs notifications to MQTT topics that contain the value in the following format. @> aws/things//THING_NAME/ /jobs//JOB_ID/ /notify-namespace-/NAMESPACE_ID/ /@
+creNamespaceId :: Lens' CreateJob (Maybe Text)
+creNamespaceId = lens _creNamespaceId (\s a -> s {_creNamespaceId = a})
+
+-- | An S3 link to the job document.
+creDocumentSource :: Lens' CreateJob (Maybe Text)
+creDocumentSource = lens _creDocumentSource (\s a -> s {_creDocumentSource = a})
+
+-- | The job document.
+creDocument :: Lens' CreateJob (Maybe Text)
+creDocument = lens _creDocument (\s a -> s {_creDocument = a})
+
+-- | Configuration information for pre-signed S3 URLs.
+crePresignedURLConfig :: Lens' CreateJob (Maybe PresignedURLConfig)
+crePresignedURLConfig = lens _crePresignedURLConfig (\s a -> s {_crePresignedURLConfig = a})
+
+-- | Metadata which can be used to manage the job.
+creTags :: Lens' CreateJob [Tag]
+creTags = lens _creTags (\s a -> s {_creTags = a}) . _Default . _Coerce
+
+-- | A short text description of the job.
+creDescription :: Lens' CreateJob (Maybe Text)
+creDescription = lens _creDescription (\s a -> s {_creDescription = a})
+
+-- | Allows you to create criteria to abort a job.
+creAbortConfig :: Lens' CreateJob (Maybe AbortConfig)
+creAbortConfig = lens _creAbortConfig (\s a -> s {_creAbortConfig = a})
 
 -- | A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric characters, "-" and "_" are valid for use here.
-cjJobId :: Lens' CreateJob Text
-cjJobId = lens _cjJobId (\ s a -> s{_cjJobId = a})
+creJobId :: Lens' CreateJob Text
+creJobId = lens _creJobId (\s a -> s {_creJobId = a})
 
 -- | A list of things and thing groups to which the job should be sent.
-cjTargets :: Lens' CreateJob (NonEmpty Text)
-cjTargets = lens _cjTargets (\ s a -> s{_cjTargets = a}) . _List1
+creTargets :: Lens' CreateJob (NonEmpty Text)
+creTargets = lens _creTargets (\s a -> s {_creTargets = a}) . _List1
 
 instance AWSRequest CreateJob where
-        type Rs CreateJob = CreateJobResponse
-        request = putJSON ioT
-        response
-          = receiveJSON
-              (\ s h x ->
-                 CreateJobResponse' <$>
-                   (x .?> "jobId") <*> (x .?> "jobArn") <*>
-                     (x .?> "description")
-                     <*> (pure (fromEnum s)))
+  type Rs CreateJob = CreateJobResponse
+  request = putJSON ioT
+  response =
+    receiveJSON
+      ( \s h x ->
+          CreateJobResponse'
+            <$> (x .?> "jobArn")
+            <*> (x .?> "description")
+            <*> (x .?> "jobId")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable CreateJob where
+instance Hashable CreateJob
 
-instance NFData CreateJob where
+instance NFData CreateJob
 
 instance ToHeaders CreateJob where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToJSON CreateJob where
-        toJSON CreateJob'{..}
-          = object
-              (catMaybes
-                 [("jobExecutionsRolloutConfig" .=) <$>
-                    _cjJobExecutionsRolloutConfig,
-                  ("documentSource" .=) <$> _cjDocumentSource,
-                  ("documentParameters" .=) <$> _cjDocumentParameters,
-                  ("presignedUrlConfig" .=) <$> _cjPresignedURLConfig,
-                  ("document" .=) <$> _cjDocument,
-                  ("description" .=) <$> _cjDescription,
-                  ("targetSelection" .=) <$> _cjTargetSelection,
-                  Just ("targets" .= _cjTargets)])
+  toJSON CreateJob' {..} =
+    object
+      ( catMaybes
+          [ ("jobExecutionsRolloutConfig" .=)
+              <$> _creJobExecutionsRolloutConfig,
+            ("targetSelection" .=) <$> _creTargetSelection,
+            ("timeoutConfig" .=) <$> _creTimeoutConfig,
+            ("namespaceId" .=) <$> _creNamespaceId,
+            ("documentSource" .=) <$> _creDocumentSource,
+            ("document" .=) <$> _creDocument,
+            ("presignedUrlConfig" .=) <$> _crePresignedURLConfig,
+            ("tags" .=) <$> _creTags,
+            ("description" .=) <$> _creDescription,
+            ("abortConfig" .=) <$> _creAbortConfig,
+            Just ("targets" .= _creTargets)
+          ]
+      )
 
 instance ToPath CreateJob where
-        toPath CreateJob'{..}
-          = mconcat ["/jobs/", toBS _cjJobId]
+  toPath CreateJob' {..} =
+    mconcat ["/jobs/", toBS _creJobId]
 
 instance ToQuery CreateJob where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'createJobResponse' smart constructor.
 data CreateJobResponse = CreateJobResponse'
-  { _cjrsJobId          :: !(Maybe Text)
-  , _cjrsJobARN         :: !(Maybe Text)
-  , _cjrsDescription    :: !(Maybe Text)
-  , _cjrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _crsJobARN ::
+      !(Maybe Text),
+    _crsDescription :: !(Maybe Text),
+    _crsJobId :: !(Maybe Text),
+    _crsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'CreateJobResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cjrsJobId' - The unique identifier you assigned to this job.
+-- * 'crsJobARN' - The job ARN.
 --
--- * 'cjrsJobARN' - The job ARN.
+-- * 'crsDescription' - The job description.
 --
--- * 'cjrsDescription' - The job description.
+-- * 'crsJobId' - The unique identifier you assigned to this job.
 --
--- * 'cjrsResponseStatus' - -- | The response status code.
-createJobResponse
-    :: Int -- ^ 'cjrsResponseStatus'
-    -> CreateJobResponse
+-- * 'crsResponseStatus' - -- | The response status code.
+createJobResponse ::
+  -- | 'crsResponseStatus'
+  Int ->
+  CreateJobResponse
 createJobResponse pResponseStatus_ =
   CreateJobResponse'
-    { _cjrsJobId = Nothing
-    , _cjrsJobARN = Nothing
-    , _cjrsDescription = Nothing
-    , _cjrsResponseStatus = pResponseStatus_
+    { _crsJobARN = Nothing,
+      _crsDescription = Nothing,
+      _crsJobId = Nothing,
+      _crsResponseStatus = pResponseStatus_
     }
 
-
--- | The unique identifier you assigned to this job.
-cjrsJobId :: Lens' CreateJobResponse (Maybe Text)
-cjrsJobId = lens _cjrsJobId (\ s a -> s{_cjrsJobId = a})
-
 -- | The job ARN.
-cjrsJobARN :: Lens' CreateJobResponse (Maybe Text)
-cjrsJobARN = lens _cjrsJobARN (\ s a -> s{_cjrsJobARN = a})
+crsJobARN :: Lens' CreateJobResponse (Maybe Text)
+crsJobARN = lens _crsJobARN (\s a -> s {_crsJobARN = a})
 
 -- | The job description.
-cjrsDescription :: Lens' CreateJobResponse (Maybe Text)
-cjrsDescription = lens _cjrsDescription (\ s a -> s{_cjrsDescription = a})
+crsDescription :: Lens' CreateJobResponse (Maybe Text)
+crsDescription = lens _crsDescription (\s a -> s {_crsDescription = a})
+
+-- | The unique identifier you assigned to this job.
+crsJobId :: Lens' CreateJobResponse (Maybe Text)
+crsJobId = lens _crsJobId (\s a -> s {_crsJobId = a})
 
 -- | -- | The response status code.
-cjrsResponseStatus :: Lens' CreateJobResponse Int
-cjrsResponseStatus = lens _cjrsResponseStatus (\ s a -> s{_cjrsResponseStatus = a})
+crsResponseStatus :: Lens' CreateJobResponse Int
+crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
 
-instance NFData CreateJobResponse where
+instance NFData CreateJobResponse

@@ -1,55 +1,53 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.IoT.DescribeThingRegistrationTask
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes a bulk thing provisioning task.
---
---
 module Network.AWS.IoT.DescribeThingRegistrationTask
-    (
-    -- * Creating a Request
-      describeThingRegistrationTask
-    , DescribeThingRegistrationTask
+  ( -- * Creating a Request
+    describeThingRegistrationTask,
+    DescribeThingRegistrationTask,
+
     -- * Request Lenses
-    , dtrtTaskId
+    dtrtTaskId,
 
     -- * Destructuring the Response
-    , describeThingRegistrationTaskResponse
-    , DescribeThingRegistrationTaskResponse
+    describeThingRegistrationTaskResponse,
+    DescribeThingRegistrationTaskResponse,
+
     -- * Response Lenses
-    , dtrtrsStatus
-    , dtrtrsLastModifiedDate
-    , dtrtrsInputFileKey
-    , dtrtrsTaskId
-    , dtrtrsCreationDate
-    , dtrtrsPercentageProgress
-    , dtrtrsTemplateBody
-    , dtrtrsSuccessCount
-    , dtrtrsMessage
-    , dtrtrsFailureCount
-    , dtrtrsInputFileBucket
-    , dtrtrsRoleARN
-    , dtrtrsResponseStatus
-    ) where
+    dtrtrrsInputFileKey,
+    dtrtrrsLastModifiedDate,
+    dtrtrrsStatus,
+    dtrtrrsRoleARN,
+    dtrtrrsMessage,
+    dtrtrrsTaskId,
+    dtrtrrsPercentageProgress,
+    dtrtrrsCreationDate,
+    dtrtrrsInputFileBucket,
+    dtrtrrsFailureCount,
+    dtrtrrsSuccessCount,
+    dtrtrrsTemplateBody,
+    dtrtrrsResponseStatus,
+  )
+where
 
 import Network.AWS.IoT.Types
-import Network.AWS.IoT.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -57,183 +55,241 @@ import Network.AWS.Response
 
 -- | /See:/ 'describeThingRegistrationTask' smart constructor.
 newtype DescribeThingRegistrationTask = DescribeThingRegistrationTask'
-  { _dtrtTaskId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dtrtTaskId ::
+      Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeThingRegistrationTask' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'dtrtTaskId' - The task ID.
-describeThingRegistrationTask
-    :: Text -- ^ 'dtrtTaskId'
-    -> DescribeThingRegistrationTask
+describeThingRegistrationTask ::
+  -- | 'dtrtTaskId'
+  Text ->
+  DescribeThingRegistrationTask
 describeThingRegistrationTask pTaskId_ =
-  DescribeThingRegistrationTask' {_dtrtTaskId = pTaskId_}
-
+  DescribeThingRegistrationTask'
+    { _dtrtTaskId =
+        pTaskId_
+    }
 
 -- | The task ID.
 dtrtTaskId :: Lens' DescribeThingRegistrationTask Text
-dtrtTaskId = lens _dtrtTaskId (\ s a -> s{_dtrtTaskId = a})
+dtrtTaskId = lens _dtrtTaskId (\s a -> s {_dtrtTaskId = a})
 
-instance AWSRequest DescribeThingRegistrationTask
-         where
-        type Rs DescribeThingRegistrationTask =
-             DescribeThingRegistrationTaskResponse
-        request = get ioT
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeThingRegistrationTaskResponse' <$>
-                   (x .?> "status") <*> (x .?> "lastModifiedDate") <*>
-                     (x .?> "inputFileKey")
-                     <*> (x .?> "taskId")
-                     <*> (x .?> "creationDate")
-                     <*> (x .?> "percentageProgress")
-                     <*> (x .?> "templateBody")
-                     <*> (x .?> "successCount")
-                     <*> (x .?> "message")
-                     <*> (x .?> "failureCount")
-                     <*> (x .?> "inputFileBucket")
-                     <*> (x .?> "roleArn")
-                     <*> (pure (fromEnum s)))
+instance AWSRequest DescribeThingRegistrationTask where
+  type
+    Rs DescribeThingRegistrationTask =
+      DescribeThingRegistrationTaskResponse
+  request = get ioT
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeThingRegistrationTaskResponse'
+            <$> (x .?> "inputFileKey")
+            <*> (x .?> "lastModifiedDate")
+            <*> (x .?> "status")
+            <*> (x .?> "roleArn")
+            <*> (x .?> "message")
+            <*> (x .?> "taskId")
+            <*> (x .?> "percentageProgress")
+            <*> (x .?> "creationDate")
+            <*> (x .?> "inputFileBucket")
+            <*> (x .?> "failureCount")
+            <*> (x .?> "successCount")
+            <*> (x .?> "templateBody")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeThingRegistrationTask where
+instance Hashable DescribeThingRegistrationTask
 
-instance NFData DescribeThingRegistrationTask where
+instance NFData DescribeThingRegistrationTask
 
-instance ToHeaders DescribeThingRegistrationTask
-         where
-        toHeaders = const mempty
+instance ToHeaders DescribeThingRegistrationTask where
+  toHeaders = const mempty
 
 instance ToPath DescribeThingRegistrationTask where
-        toPath DescribeThingRegistrationTask'{..}
-          = mconcat
-              ["/thing-registration-tasks/", toBS _dtrtTaskId]
+  toPath DescribeThingRegistrationTask' {..} =
+    mconcat
+      ["/thing-registration-tasks/", toBS _dtrtTaskId]
 
 instance ToQuery DescribeThingRegistrationTask where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describeThingRegistrationTaskResponse' smart constructor.
 data DescribeThingRegistrationTaskResponse = DescribeThingRegistrationTaskResponse'
-  { _dtrtrsStatus             :: !(Maybe TaskStatus)
-  , _dtrtrsLastModifiedDate   :: !(Maybe POSIX)
-  , _dtrtrsInputFileKey       :: !(Maybe Text)
-  , _dtrtrsTaskId             :: !(Maybe Text)
-  , _dtrtrsCreationDate       :: !(Maybe POSIX)
-  , _dtrtrsPercentageProgress :: !(Maybe Nat)
-  , _dtrtrsTemplateBody       :: !(Maybe Text)
-  , _dtrtrsSuccessCount       :: !(Maybe Int)
-  , _dtrtrsMessage            :: !(Maybe Text)
-  , _dtrtrsFailureCount       :: !(Maybe Int)
-  , _dtrtrsInputFileBucket    :: !(Maybe Text)
-  , _dtrtrsRoleARN            :: !(Maybe Text)
-  , _dtrtrsResponseStatus     :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dtrtrrsInputFileKey ::
+      !( Maybe
+           Text
+       ),
+    _dtrtrrsLastModifiedDate ::
+      !( Maybe
+           POSIX
+       ),
+    _dtrtrrsStatus ::
+      !( Maybe
+           TaskStatus
+       ),
+    _dtrtrrsRoleARN ::
+      !( Maybe
+           Text
+       ),
+    _dtrtrrsMessage ::
+      !( Maybe
+           Text
+       ),
+    _dtrtrrsTaskId ::
+      !( Maybe
+           Text
+       ),
+    _dtrtrrsPercentageProgress ::
+      !( Maybe
+           Nat
+       ),
+    _dtrtrrsCreationDate ::
+      !( Maybe
+           POSIX
+       ),
+    _dtrtrrsInputFileBucket ::
+      !( Maybe
+           Text
+       ),
+    _dtrtrrsFailureCount ::
+      !( Maybe
+           Int
+       ),
+    _dtrtrrsSuccessCount ::
+      !( Maybe
+           Int
+       ),
+    _dtrtrrsTemplateBody ::
+      !( Maybe
+           Text
+       ),
+    _dtrtrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeThingRegistrationTaskResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dtrtrsStatus' - The status of the bulk thing provisioning task.
+-- * 'dtrtrrsInputFileKey' - The input file key.
 --
--- * 'dtrtrsLastModifiedDate' - The date when the task was last modified.
+-- * 'dtrtrrsLastModifiedDate' - The date when the task was last modified.
 --
--- * 'dtrtrsInputFileKey' - The input file key.
+-- * 'dtrtrrsStatus' - The status of the bulk thing provisioning task.
 --
--- * 'dtrtrsTaskId' - The task ID.
+-- * 'dtrtrrsRoleARN' - The role ARN that grants access to the input file bucket.
 --
--- * 'dtrtrsCreationDate' - The task creation date.
+-- * 'dtrtrrsMessage' - The message.
 --
--- * 'dtrtrsPercentageProgress' - The progress of the bulk provisioning task expressed as a percentage.
+-- * 'dtrtrrsTaskId' - The task ID.
 --
--- * 'dtrtrsTemplateBody' - The task's template.
+-- * 'dtrtrrsPercentageProgress' - The progress of the bulk provisioning task expressed as a percentage.
 --
--- * 'dtrtrsSuccessCount' - The number of things successfully provisioned.
+-- * 'dtrtrrsCreationDate' - The task creation date.
 --
--- * 'dtrtrsMessage' - The message.
+-- * 'dtrtrrsInputFileBucket' - The S3 bucket that contains the input file.
 --
--- * 'dtrtrsFailureCount' - The number of things that failed to be provisioned.
+-- * 'dtrtrrsFailureCount' - The number of things that failed to be provisioned.
 --
--- * 'dtrtrsInputFileBucket' - The S3 bucket that contains the input file.
+-- * 'dtrtrrsSuccessCount' - The number of things successfully provisioned.
 --
--- * 'dtrtrsRoleARN' - The role ARN that grants access to the input file bucket.
+-- * 'dtrtrrsTemplateBody' - The task's template.
 --
--- * 'dtrtrsResponseStatus' - -- | The response status code.
+-- * 'dtrtrrsResponseStatus' - -- | The response status code.
+describeThingRegistrationTaskResponse ::
+  -- | 'dtrtrrsResponseStatus'
+  Int ->
+  DescribeThingRegistrationTaskResponse
 describeThingRegistrationTaskResponse
-    :: Int -- ^ 'dtrtrsResponseStatus'
-    -> DescribeThingRegistrationTaskResponse
-describeThingRegistrationTaskResponse pResponseStatus_ =
-  DescribeThingRegistrationTaskResponse'
-    { _dtrtrsStatus = Nothing
-    , _dtrtrsLastModifiedDate = Nothing
-    , _dtrtrsInputFileKey = Nothing
-    , _dtrtrsTaskId = Nothing
-    , _dtrtrsCreationDate = Nothing
-    , _dtrtrsPercentageProgress = Nothing
-    , _dtrtrsTemplateBody = Nothing
-    , _dtrtrsSuccessCount = Nothing
-    , _dtrtrsMessage = Nothing
-    , _dtrtrsFailureCount = Nothing
-    , _dtrtrsInputFileBucket = Nothing
-    , _dtrtrsRoleARN = Nothing
-    , _dtrtrsResponseStatus = pResponseStatus_
-    }
-
-
--- | The status of the bulk thing provisioning task.
-dtrtrsStatus :: Lens' DescribeThingRegistrationTaskResponse (Maybe TaskStatus)
-dtrtrsStatus = lens _dtrtrsStatus (\ s a -> s{_dtrtrsStatus = a})
-
--- | The date when the task was last modified.
-dtrtrsLastModifiedDate :: Lens' DescribeThingRegistrationTaskResponse (Maybe UTCTime)
-dtrtrsLastModifiedDate = lens _dtrtrsLastModifiedDate (\ s a -> s{_dtrtrsLastModifiedDate = a}) . mapping _Time
+  pResponseStatus_ =
+    DescribeThingRegistrationTaskResponse'
+      { _dtrtrrsInputFileKey =
+          Nothing,
+        _dtrtrrsLastModifiedDate = Nothing,
+        _dtrtrrsStatus = Nothing,
+        _dtrtrrsRoleARN = Nothing,
+        _dtrtrrsMessage = Nothing,
+        _dtrtrrsTaskId = Nothing,
+        _dtrtrrsPercentageProgress = Nothing,
+        _dtrtrrsCreationDate = Nothing,
+        _dtrtrrsInputFileBucket = Nothing,
+        _dtrtrrsFailureCount = Nothing,
+        _dtrtrrsSuccessCount = Nothing,
+        _dtrtrrsTemplateBody = Nothing,
+        _dtrtrrsResponseStatus =
+          pResponseStatus_
+      }
 
 -- | The input file key.
-dtrtrsInputFileKey :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
-dtrtrsInputFileKey = lens _dtrtrsInputFileKey (\ s a -> s{_dtrtrsInputFileKey = a})
+dtrtrrsInputFileKey :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
+dtrtrrsInputFileKey = lens _dtrtrrsInputFileKey (\s a -> s {_dtrtrrsInputFileKey = a})
 
--- | The task ID.
-dtrtrsTaskId :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
-dtrtrsTaskId = lens _dtrtrsTaskId (\ s a -> s{_dtrtrsTaskId = a})
+-- | The date when the task was last modified.
+dtrtrrsLastModifiedDate :: Lens' DescribeThingRegistrationTaskResponse (Maybe UTCTime)
+dtrtrrsLastModifiedDate = lens _dtrtrrsLastModifiedDate (\s a -> s {_dtrtrrsLastModifiedDate = a}) . mapping _Time
 
--- | The task creation date.
-dtrtrsCreationDate :: Lens' DescribeThingRegistrationTaskResponse (Maybe UTCTime)
-dtrtrsCreationDate = lens _dtrtrsCreationDate (\ s a -> s{_dtrtrsCreationDate = a}) . mapping _Time
-
--- | The progress of the bulk provisioning task expressed as a percentage.
-dtrtrsPercentageProgress :: Lens' DescribeThingRegistrationTaskResponse (Maybe Natural)
-dtrtrsPercentageProgress = lens _dtrtrsPercentageProgress (\ s a -> s{_dtrtrsPercentageProgress = a}) . mapping _Nat
-
--- | The task's template.
-dtrtrsTemplateBody :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
-dtrtrsTemplateBody = lens _dtrtrsTemplateBody (\ s a -> s{_dtrtrsTemplateBody = a})
-
--- | The number of things successfully provisioned.
-dtrtrsSuccessCount :: Lens' DescribeThingRegistrationTaskResponse (Maybe Int)
-dtrtrsSuccessCount = lens _dtrtrsSuccessCount (\ s a -> s{_dtrtrsSuccessCount = a})
-
--- | The message.
-dtrtrsMessage :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
-dtrtrsMessage = lens _dtrtrsMessage (\ s a -> s{_dtrtrsMessage = a})
-
--- | The number of things that failed to be provisioned.
-dtrtrsFailureCount :: Lens' DescribeThingRegistrationTaskResponse (Maybe Int)
-dtrtrsFailureCount = lens _dtrtrsFailureCount (\ s a -> s{_dtrtrsFailureCount = a})
-
--- | The S3 bucket that contains the input file.
-dtrtrsInputFileBucket :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
-dtrtrsInputFileBucket = lens _dtrtrsInputFileBucket (\ s a -> s{_dtrtrsInputFileBucket = a})
+-- | The status of the bulk thing provisioning task.
+dtrtrrsStatus :: Lens' DescribeThingRegistrationTaskResponse (Maybe TaskStatus)
+dtrtrrsStatus = lens _dtrtrrsStatus (\s a -> s {_dtrtrrsStatus = a})
 
 -- | The role ARN that grants access to the input file bucket.
-dtrtrsRoleARN :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
-dtrtrsRoleARN = lens _dtrtrsRoleARN (\ s a -> s{_dtrtrsRoleARN = a})
+dtrtrrsRoleARN :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
+dtrtrrsRoleARN = lens _dtrtrrsRoleARN (\s a -> s {_dtrtrrsRoleARN = a})
+
+-- | The message.
+dtrtrrsMessage :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
+dtrtrrsMessage = lens _dtrtrrsMessage (\s a -> s {_dtrtrrsMessage = a})
+
+-- | The task ID.
+dtrtrrsTaskId :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
+dtrtrrsTaskId = lens _dtrtrrsTaskId (\s a -> s {_dtrtrrsTaskId = a})
+
+-- | The progress of the bulk provisioning task expressed as a percentage.
+dtrtrrsPercentageProgress :: Lens' DescribeThingRegistrationTaskResponse (Maybe Natural)
+dtrtrrsPercentageProgress = lens _dtrtrrsPercentageProgress (\s a -> s {_dtrtrrsPercentageProgress = a}) . mapping _Nat
+
+-- | The task creation date.
+dtrtrrsCreationDate :: Lens' DescribeThingRegistrationTaskResponse (Maybe UTCTime)
+dtrtrrsCreationDate = lens _dtrtrrsCreationDate (\s a -> s {_dtrtrrsCreationDate = a}) . mapping _Time
+
+-- | The S3 bucket that contains the input file.
+dtrtrrsInputFileBucket :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
+dtrtrrsInputFileBucket = lens _dtrtrrsInputFileBucket (\s a -> s {_dtrtrrsInputFileBucket = a})
+
+-- | The number of things that failed to be provisioned.
+dtrtrrsFailureCount :: Lens' DescribeThingRegistrationTaskResponse (Maybe Int)
+dtrtrrsFailureCount = lens _dtrtrrsFailureCount (\s a -> s {_dtrtrrsFailureCount = a})
+
+-- | The number of things successfully provisioned.
+dtrtrrsSuccessCount :: Lens' DescribeThingRegistrationTaskResponse (Maybe Int)
+dtrtrrsSuccessCount = lens _dtrtrrsSuccessCount (\s a -> s {_dtrtrrsSuccessCount = a})
+
+-- | The task's template.
+dtrtrrsTemplateBody :: Lens' DescribeThingRegistrationTaskResponse (Maybe Text)
+dtrtrrsTemplateBody = lens _dtrtrrsTemplateBody (\s a -> s {_dtrtrrsTemplateBody = a})
 
 -- | -- | The response status code.
-dtrtrsResponseStatus :: Lens' DescribeThingRegistrationTaskResponse Int
-dtrtrsResponseStatus = lens _dtrtrsResponseStatus (\ s a -> s{_dtrtrsResponseStatus = a})
+dtrtrrsResponseStatus :: Lens' DescribeThingRegistrationTaskResponse Int
+dtrtrrsResponseStatus = lens _dtrtrrsResponseStatus (\s a -> s {_dtrtrrsResponseStatus = a})
 
 instance NFData DescribeThingRegistrationTaskResponse
-         where
