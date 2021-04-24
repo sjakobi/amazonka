@@ -1,41 +1,41 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudWatch.DeleteAlarms
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified alarms. In the event of an error, no alarms are deleted.
+-- Deletes the specified alarms. You can delete up to 100 alarms in one operation. However, this total can include no more than one composite alarm. For example, you could delete 99 metric alarms and one composite alarms with one operation, but you can't delete two composite alarms with one operation.
 --
 --
+-- In the event of an error, no alarms are deleted.
 module Network.AWS.CloudWatch.DeleteAlarms
-    (
-    -- * Creating a Request
-      deleteAlarms
-    , DeleteAlarms
+  ( -- * Creating a Request
+    deleteAlarms,
+    DeleteAlarms,
+
     -- * Request Lenses
-    , dAlarmNames
+    daAlarmNames,
 
     -- * Destructuring the Response
-    , deleteAlarmsResponse
-    , DeleteAlarmsResponse
-    ) where
+    deleteAlarmsResponse,
+    DeleteAlarmsResponse,
+  )
+where
 
 import Network.AWS.CloudWatch.Types
-import Network.AWS.CloudWatch.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -43,57 +43,54 @@ import Network.AWS.Response
 
 -- | /See:/ 'deleteAlarms' smart constructor.
 newtype DeleteAlarms = DeleteAlarms'
-  { _dAlarmNames :: [Text]
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _daAlarmNames ::
+      [Text]
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DeleteAlarms' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dAlarmNames' - The alarms to be deleted.
-deleteAlarms
-    :: DeleteAlarms
-deleteAlarms = DeleteAlarms' {_dAlarmNames = mempty}
-
+-- * 'daAlarmNames' - The alarms to be deleted.
+deleteAlarms ::
+  DeleteAlarms
+deleteAlarms = DeleteAlarms' {_daAlarmNames = mempty}
 
 -- | The alarms to be deleted.
-dAlarmNames :: Lens' DeleteAlarms [Text]
-dAlarmNames = lens _dAlarmNames (\ s a -> s{_dAlarmNames = a}) . _Coerce
+daAlarmNames :: Lens' DeleteAlarms [Text]
+daAlarmNames = lens _daAlarmNames (\s a -> s {_daAlarmNames = a}) . _Coerce
 
 instance AWSRequest DeleteAlarms where
-        type Rs DeleteAlarms = DeleteAlarmsResponse
-        request = postQuery cloudWatch
-        response = receiveNull DeleteAlarmsResponse'
+  type Rs DeleteAlarms = DeleteAlarmsResponse
+  request = postQuery cloudWatch
+  response = receiveNull DeleteAlarmsResponse'
 
-instance Hashable DeleteAlarms where
+instance Hashable DeleteAlarms
 
-instance NFData DeleteAlarms where
+instance NFData DeleteAlarms
 
 instance ToHeaders DeleteAlarms where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath DeleteAlarms where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DeleteAlarms where
-        toQuery DeleteAlarms'{..}
-          = mconcat
-              ["Action" =: ("DeleteAlarms" :: ByteString),
-               "Version" =: ("2010-08-01" :: ByteString),
-               "AlarmNames" =: toQueryList "member" _dAlarmNames]
+  toQuery DeleteAlarms' {..} =
+    mconcat
+      [ "Action" =: ("DeleteAlarms" :: ByteString),
+        "Version" =: ("2010-08-01" :: ByteString),
+        "AlarmNames" =: toQueryList "member" _daAlarmNames
+      ]
 
 -- | /See:/ 'deleteAlarmsResponse' smart constructor.
-data DeleteAlarmsResponse =
-  DeleteAlarmsResponse'
+data DeleteAlarmsResponse = DeleteAlarmsResponse'
   deriving (Eq, Read, Show, Data, Typeable, Generic)
 
-
 -- | Creates a value of 'DeleteAlarmsResponse' with the minimum fields required to make a request.
---
-deleteAlarmsResponse
-    :: DeleteAlarmsResponse
+deleteAlarmsResponse ::
+  DeleteAlarmsResponse
 deleteAlarmsResponse = DeleteAlarmsResponse'
 
-
-instance NFData DeleteAlarmsResponse where
+instance NFData DeleteAlarmsResponse
