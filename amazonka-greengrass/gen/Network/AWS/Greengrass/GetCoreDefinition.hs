@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Greengrass.GetCoreDefinition
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,29 +19,31 @@
 --
 -- Retrieves information about a core definition version.
 module Network.AWS.Greengrass.GetCoreDefinition
-    (
-    -- * Creating a Request
-      getCoreDefinition
-    , GetCoreDefinition
+  ( -- * Creating a Request
+    getCoreDefinition,
+    GetCoreDefinition,
+
     -- * Request Lenses
-    , gcdCoreDefinitionId
+    gcdCoreDefinitionId,
 
     -- * Destructuring the Response
-    , getCoreDefinitionResponse
-    , GetCoreDefinitionResponse
+    getCoreDefinitionResponse,
+    GetCoreDefinitionResponse,
+
     -- * Response Lenses
-    , gcdrsLatestVersionARN
-    , gcdrsARN
-    , gcdrsName
-    , gcdrsCreationTimestamp
-    , gcdrsId
-    , gcdrsLatestVersion
-    , gcdrsLastUpdatedTimestamp
-    , gcdrsResponseStatus
-    ) where
+    gcdrrsCreationTimestamp,
+    gcdrrsLatestVersionARN,
+    gcdrrsLatestVersion,
+    gcdrrsARN,
+    gcdrrsId,
+    gcdrrsName,
+    gcdrrsLastUpdatedTimestamp,
+    gcdrrsTags,
+    gcdrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Greengrass.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -50,139 +51,179 @@ import Network.AWS.Response
 
 -- | /See:/ 'getCoreDefinition' smart constructor.
 newtype GetCoreDefinition = GetCoreDefinition'
-  { _gcdCoreDefinitionId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gcdCoreDefinitionId ::
+      Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetCoreDefinition' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'gcdCoreDefinitionId' - The ID of the core definition.
-getCoreDefinition
-    :: Text -- ^ 'gcdCoreDefinitionId'
-    -> GetCoreDefinition
+getCoreDefinition ::
+  -- | 'gcdCoreDefinitionId'
+  Text ->
+  GetCoreDefinition
 getCoreDefinition pCoreDefinitionId_ =
-  GetCoreDefinition' {_gcdCoreDefinitionId = pCoreDefinitionId_}
-
+  GetCoreDefinition'
+    { _gcdCoreDefinitionId =
+        pCoreDefinitionId_
+    }
 
 -- | The ID of the core definition.
 gcdCoreDefinitionId :: Lens' GetCoreDefinition Text
-gcdCoreDefinitionId = lens _gcdCoreDefinitionId (\ s a -> s{_gcdCoreDefinitionId = a})
+gcdCoreDefinitionId = lens _gcdCoreDefinitionId (\s a -> s {_gcdCoreDefinitionId = a})
 
 instance AWSRequest GetCoreDefinition where
-        type Rs GetCoreDefinition = GetCoreDefinitionResponse
-        request = get greengrass
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetCoreDefinitionResponse' <$>
-                   (x .?> "LatestVersionArn") <*> (x .?> "Arn") <*>
-                     (x .?> "Name")
-                     <*> (x .?> "CreationTimestamp")
-                     <*> (x .?> "Id")
-                     <*> (x .?> "LatestVersion")
-                     <*> (x .?> "LastUpdatedTimestamp")
-                     <*> (pure (fromEnum s)))
+  type Rs GetCoreDefinition = GetCoreDefinitionResponse
+  request = get greengrass
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetCoreDefinitionResponse'
+            <$> (x .?> "CreationTimestamp")
+            <*> (x .?> "LatestVersionArn")
+            <*> (x .?> "LatestVersion")
+            <*> (x .?> "Arn")
+            <*> (x .?> "Id")
+            <*> (x .?> "Name")
+            <*> (x .?> "LastUpdatedTimestamp")
+            <*> (x .?> "tags" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetCoreDefinition where
+instance Hashable GetCoreDefinition
 
-instance NFData GetCoreDefinition where
+instance NFData GetCoreDefinition
 
 instance ToHeaders GetCoreDefinition where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath GetCoreDefinition where
-        toPath GetCoreDefinition'{..}
-          = mconcat
-              ["/greengrass/definition/cores/",
-               toBS _gcdCoreDefinitionId]
+  toPath GetCoreDefinition' {..} =
+    mconcat
+      [ "/greengrass/definition/cores/",
+        toBS _gcdCoreDefinitionId
+      ]
 
 instance ToQuery GetCoreDefinition where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getCoreDefinitionResponse' smart constructor.
 data GetCoreDefinitionResponse = GetCoreDefinitionResponse'
-  { _gcdrsLatestVersionARN     :: !(Maybe Text)
-  , _gcdrsARN                  :: !(Maybe Text)
-  , _gcdrsName                 :: !(Maybe Text)
-  , _gcdrsCreationTimestamp    :: !(Maybe Text)
-  , _gcdrsId                   :: !(Maybe Text)
-  , _gcdrsLatestVersion        :: !(Maybe Text)
-  , _gcdrsLastUpdatedTimestamp :: !(Maybe Text)
-  , _gcdrsResponseStatus       :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gcdrrsCreationTimestamp ::
+      !(Maybe Text),
+    _gcdrrsLatestVersionARN ::
+      !(Maybe Text),
+    _gcdrrsLatestVersion ::
+      !(Maybe Text),
+    _gcdrrsARN ::
+      !(Maybe Text),
+    _gcdrrsId ::
+      !(Maybe Text),
+    _gcdrrsName ::
+      !(Maybe Text),
+    _gcdrrsLastUpdatedTimestamp ::
+      !(Maybe Text),
+    _gcdrrsTags ::
+      !( Maybe
+           ( Map
+               Text
+               Text
+           )
+       ),
+    _gcdrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetCoreDefinitionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gcdrsLatestVersionARN' - The ARN of the latest version of the definition.
+-- * 'gcdrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
 --
--- * 'gcdrsARN' - The ARN of the definition.
+-- * 'gcdrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
 --
--- * 'gcdrsName' - The name of the definition.
+-- * 'gcdrrsLatestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'gcdrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- * 'gcdrrsARN' - The ARN of the definition.
 --
--- * 'gcdrsId' - The ID of the definition.
+-- * 'gcdrrsId' - The ID of the definition.
 --
--- * 'gcdrsLatestVersion' - The latest version of the definition.
+-- * 'gcdrrsName' - The name of the definition.
 --
--- * 'gcdrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- * 'gcdrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
 --
--- * 'gcdrsResponseStatus' - -- | The response status code.
-getCoreDefinitionResponse
-    :: Int -- ^ 'gcdrsResponseStatus'
-    -> GetCoreDefinitionResponse
+-- * 'gcdrrsTags' - Tag(s) attached to the resource arn.
+--
+-- * 'gcdrrsResponseStatus' - -- | The response status code.
+getCoreDefinitionResponse ::
+  -- | 'gcdrrsResponseStatus'
+  Int ->
+  GetCoreDefinitionResponse
 getCoreDefinitionResponse pResponseStatus_ =
   GetCoreDefinitionResponse'
-    { _gcdrsLatestVersionARN = Nothing
-    , _gcdrsARN = Nothing
-    , _gcdrsName = Nothing
-    , _gcdrsCreationTimestamp = Nothing
-    , _gcdrsId = Nothing
-    , _gcdrsLatestVersion = Nothing
-    , _gcdrsLastUpdatedTimestamp = Nothing
-    , _gcdrsResponseStatus = pResponseStatus_
+    { _gcdrrsCreationTimestamp =
+        Nothing,
+      _gcdrrsLatestVersionARN = Nothing,
+      _gcdrrsLatestVersion = Nothing,
+      _gcdrrsARN = Nothing,
+      _gcdrrsId = Nothing,
+      _gcdrrsName = Nothing,
+      _gcdrrsLastUpdatedTimestamp = Nothing,
+      _gcdrrsTags = Nothing,
+      _gcdrrsResponseStatus = pResponseStatus_
     }
 
+-- | The time, in milliseconds since the epoch, when the definition was created.
+gcdrrsCreationTimestamp :: Lens' GetCoreDefinitionResponse (Maybe Text)
+gcdrrsCreationTimestamp = lens _gcdrrsCreationTimestamp (\s a -> s {_gcdrrsCreationTimestamp = a})
 
--- | The ARN of the latest version of the definition.
-gcdrsLatestVersionARN :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrsLatestVersionARN = lens _gcdrsLatestVersionARN (\ s a -> s{_gcdrsLatestVersionARN = a})
+-- | The ARN of the latest version associated with the definition.
+gcdrrsLatestVersionARN :: Lens' GetCoreDefinitionResponse (Maybe Text)
+gcdrrsLatestVersionARN = lens _gcdrrsLatestVersionARN (\s a -> s {_gcdrrsLatestVersionARN = a})
+
+-- | The ID of the latest version associated with the definition.
+gcdrrsLatestVersion :: Lens' GetCoreDefinitionResponse (Maybe Text)
+gcdrrsLatestVersion = lens _gcdrrsLatestVersion (\s a -> s {_gcdrrsLatestVersion = a})
 
 -- | The ARN of the definition.
-gcdrsARN :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrsARN = lens _gcdrsARN (\ s a -> s{_gcdrsARN = a})
-
--- | The name of the definition.
-gcdrsName :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrsName = lens _gcdrsName (\ s a -> s{_gcdrsName = a})
-
--- | The time, in milliseconds since the epoch, when the definition was created.
-gcdrsCreationTimestamp :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrsCreationTimestamp = lens _gcdrsCreationTimestamp (\ s a -> s{_gcdrsCreationTimestamp = a})
+gcdrrsARN :: Lens' GetCoreDefinitionResponse (Maybe Text)
+gcdrrsARN = lens _gcdrrsARN (\s a -> s {_gcdrrsARN = a})
 
 -- | The ID of the definition.
-gcdrsId :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrsId = lens _gcdrsId (\ s a -> s{_gcdrsId = a})
+gcdrrsId :: Lens' GetCoreDefinitionResponse (Maybe Text)
+gcdrrsId = lens _gcdrrsId (\s a -> s {_gcdrrsId = a})
 
--- | The latest version of the definition.
-gcdrsLatestVersion :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrsLatestVersion = lens _gcdrsLatestVersion (\ s a -> s{_gcdrsLatestVersion = a})
+-- | The name of the definition.
+gcdrrsName :: Lens' GetCoreDefinitionResponse (Maybe Text)
+gcdrrsName = lens _gcdrrsName (\s a -> s {_gcdrrsName = a})
 
 -- | The time, in milliseconds since the epoch, when the definition was last updated.
-gcdrsLastUpdatedTimestamp :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrsLastUpdatedTimestamp = lens _gcdrsLastUpdatedTimestamp (\ s a -> s{_gcdrsLastUpdatedTimestamp = a})
+gcdrrsLastUpdatedTimestamp :: Lens' GetCoreDefinitionResponse (Maybe Text)
+gcdrrsLastUpdatedTimestamp = lens _gcdrrsLastUpdatedTimestamp (\s a -> s {_gcdrrsLastUpdatedTimestamp = a})
+
+-- | Tag(s) attached to the resource arn.
+gcdrrsTags :: Lens' GetCoreDefinitionResponse (HashMap Text Text)
+gcdrrsTags = lens _gcdrrsTags (\s a -> s {_gcdrrsTags = a}) . _Default . _Map
 
 -- | -- | The response status code.
-gcdrsResponseStatus :: Lens' GetCoreDefinitionResponse Int
-gcdrsResponseStatus = lens _gcdrsResponseStatus (\ s a -> s{_gcdrsResponseStatus = a})
+gcdrrsResponseStatus :: Lens' GetCoreDefinitionResponse Int
+gcdrrsResponseStatus = lens _gcdrrsResponseStatus (\s a -> s {_gcdrrsResponseStatus = a})
 
-instance NFData GetCoreDefinitionResponse where
+instance NFData GetCoreDefinitionResponse

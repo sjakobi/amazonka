@@ -1,47 +1,47 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Greengrass.CreateCoreDefinitionVersion
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a version of a core definition that has already been defined. AWS Greengrass groups must each contain exactly one AWS Greengrass core.
+-- Creates a version of a core definition that has already been defined. Greengrass groups must each contain exactly one Greengrass core.
 module Network.AWS.Greengrass.CreateCoreDefinitionVersion
-    (
-    -- * Creating a Request
-      createCoreDefinitionVersion
-    , CreateCoreDefinitionVersion
+  ( -- * Creating a Request
+    createCoreDefinitionVersion,
+    CreateCoreDefinitionVersion,
+
     -- * Request Lenses
-    , ccdvAmznClientToken
-    , ccdvCores
-    , ccdvCoreDefinitionId
+    cCores,
+    cAmznClientToken,
+    cCoreDefinitionId,
 
     -- * Destructuring the Response
-    , createCoreDefinitionVersionResponse
-    , CreateCoreDefinitionVersionResponse
+    createCoreDefinitionVersionResponse,
+    CreateCoreDefinitionVersionResponse,
+
     -- * Response Lenses
-    , ccdvrsARN
-    , ccdvrsCreationTimestamp
-    , ccdvrsVersion
-    , ccdvrsId
-    , ccdvrsResponseStatus
-    ) where
+    crersCreationTimestamp,
+    crersARN,
+    crersId,
+    crersVersion,
+    crersResponseStatus,
+  )
+where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Greengrass.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -49,136 +49,173 @@ import Network.AWS.Response
 
 -- | /See:/ 'createCoreDefinitionVersion' smart constructor.
 data CreateCoreDefinitionVersion = CreateCoreDefinitionVersion'
-  { _ccdvAmznClientToken  :: !(Maybe Text)
-  , _ccdvCores            :: !(Maybe [Core])
-  , _ccdvCoreDefinitionId :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cCores ::
+      !(Maybe [Core]),
+    _cAmznClientToken ::
+      !(Maybe Text),
+    _cCoreDefinitionId ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateCoreDefinitionVersion' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ccdvAmznClientToken' - A client token used to correlate requests and responses.
+-- * 'cCores' - A list of cores in the core definition version.
 --
--- * 'ccdvCores' - A list of cores in the core definition version.
+-- * 'cAmznClientToken' - A client token used to correlate requests and responses.
 --
--- * 'ccdvCoreDefinitionId' - The ID of the core definition.
-createCoreDefinitionVersion
-    :: Text -- ^ 'ccdvCoreDefinitionId'
-    -> CreateCoreDefinitionVersion
+-- * 'cCoreDefinitionId' - The ID of the core definition.
+createCoreDefinitionVersion ::
+  -- | 'cCoreDefinitionId'
+  Text ->
+  CreateCoreDefinitionVersion
 createCoreDefinitionVersion pCoreDefinitionId_ =
   CreateCoreDefinitionVersion'
-    { _ccdvAmznClientToken = Nothing
-    , _ccdvCores = Nothing
-    , _ccdvCoreDefinitionId = pCoreDefinitionId_
+    { _cCores = Nothing,
+      _cAmznClientToken = Nothing,
+      _cCoreDefinitionId = pCoreDefinitionId_
     }
 
+-- | A list of cores in the core definition version.
+cCores :: Lens' CreateCoreDefinitionVersion [Core]
+cCores = lens _cCores (\s a -> s {_cCores = a}) . _Default . _Coerce
 
 -- | A client token used to correlate requests and responses.
-ccdvAmznClientToken :: Lens' CreateCoreDefinitionVersion (Maybe Text)
-ccdvAmznClientToken = lens _ccdvAmznClientToken (\ s a -> s{_ccdvAmznClientToken = a})
-
--- | A list of cores in the core definition version.
-ccdvCores :: Lens' CreateCoreDefinitionVersion [Core]
-ccdvCores = lens _ccdvCores (\ s a -> s{_ccdvCores = a}) . _Default . _Coerce
+cAmznClientToken :: Lens' CreateCoreDefinitionVersion (Maybe Text)
+cAmznClientToken = lens _cAmznClientToken (\s a -> s {_cAmznClientToken = a})
 
 -- | The ID of the core definition.
-ccdvCoreDefinitionId :: Lens' CreateCoreDefinitionVersion Text
-ccdvCoreDefinitionId = lens _ccdvCoreDefinitionId (\ s a -> s{_ccdvCoreDefinitionId = a})
+cCoreDefinitionId :: Lens' CreateCoreDefinitionVersion Text
+cCoreDefinitionId = lens _cCoreDefinitionId (\s a -> s {_cCoreDefinitionId = a})
 
 instance AWSRequest CreateCoreDefinitionVersion where
-        type Rs CreateCoreDefinitionVersion =
-             CreateCoreDefinitionVersionResponse
-        request = postJSON greengrass
-        response
-          = receiveJSON
-              (\ s h x ->
-                 CreateCoreDefinitionVersionResponse' <$>
-                   (x .?> "Arn") <*> (x .?> "CreationTimestamp") <*>
-                     (x .?> "Version")
-                     <*> (x .?> "Id")
-                     <*> (pure (fromEnum s)))
+  type
+    Rs CreateCoreDefinitionVersion =
+      CreateCoreDefinitionVersionResponse
+  request = postJSON greengrass
+  response =
+    receiveJSON
+      ( \s h x ->
+          CreateCoreDefinitionVersionResponse'
+            <$> (x .?> "CreationTimestamp")
+            <*> (x .?> "Arn")
+            <*> (x .?> "Id")
+            <*> (x .?> "Version")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable CreateCoreDefinitionVersion where
+instance Hashable CreateCoreDefinitionVersion
 
-instance NFData CreateCoreDefinitionVersion where
+instance NFData CreateCoreDefinitionVersion
 
 instance ToHeaders CreateCoreDefinitionVersion where
-        toHeaders CreateCoreDefinitionVersion'{..}
-          = mconcat
-              ["X-Amzn-Client-Token" =# _ccdvAmznClientToken,
-               "Content-Type" =#
-                 ("application/x-amz-json-1.1" :: ByteString)]
+  toHeaders CreateCoreDefinitionVersion' {..} =
+    mconcat
+      [ "X-Amzn-Client-Token" =# _cAmznClientToken,
+        "Content-Type"
+          =# ("application/x-amz-json-1.1" :: ByteString)
+      ]
 
 instance ToJSON CreateCoreDefinitionVersion where
-        toJSON CreateCoreDefinitionVersion'{..}
-          = object (catMaybes [("Cores" .=) <$> _ccdvCores])
+  toJSON CreateCoreDefinitionVersion' {..} =
+    object (catMaybes [("Cores" .=) <$> _cCores])
 
 instance ToPath CreateCoreDefinitionVersion where
-        toPath CreateCoreDefinitionVersion'{..}
-          = mconcat
-              ["/greengrass/definition/cores/",
-               toBS _ccdvCoreDefinitionId, "/versions"]
+  toPath CreateCoreDefinitionVersion' {..} =
+    mconcat
+      [ "/greengrass/definition/cores/",
+        toBS _cCoreDefinitionId,
+        "/versions"
+      ]
 
 instance ToQuery CreateCoreDefinitionVersion where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'createCoreDefinitionVersionResponse' smart constructor.
 data CreateCoreDefinitionVersionResponse = CreateCoreDefinitionVersionResponse'
-  { _ccdvrsARN               :: !(Maybe Text)
-  , _ccdvrsCreationTimestamp :: !(Maybe Text)
-  , _ccdvrsVersion           :: !(Maybe Text)
-  , _ccdvrsId                :: !(Maybe Text)
-  , _ccdvrsResponseStatus    :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _crersCreationTimestamp ::
+      !( Maybe
+           Text
+       ),
+    _crersARN ::
+      !( Maybe
+           Text
+       ),
+    _crersId ::
+      !( Maybe
+           Text
+       ),
+    _crersVersion ::
+      !( Maybe
+           Text
+       ),
+    _crersResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateCoreDefinitionVersionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ccdvrsARN' - The ARN of the version.
+-- * 'crersCreationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
 --
--- * 'ccdvrsCreationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
+-- * 'crersARN' - The ARN of the version.
 --
--- * 'ccdvrsVersion' - The unique ID of the version.
+-- * 'crersId' - The ID of the parent definition that the version is associated with.
 --
--- * 'ccdvrsId' - The ID of the version.
+-- * 'crersVersion' - The ID of the version.
 --
--- * 'ccdvrsResponseStatus' - -- | The response status code.
-createCoreDefinitionVersionResponse
-    :: Int -- ^ 'ccdvrsResponseStatus'
-    -> CreateCoreDefinitionVersionResponse
+-- * 'crersResponseStatus' - -- | The response status code.
+createCoreDefinitionVersionResponse ::
+  -- | 'crersResponseStatus'
+  Int ->
+  CreateCoreDefinitionVersionResponse
 createCoreDefinitionVersionResponse pResponseStatus_ =
   CreateCoreDefinitionVersionResponse'
-    { _ccdvrsARN = Nothing
-    , _ccdvrsCreationTimestamp = Nothing
-    , _ccdvrsVersion = Nothing
-    , _ccdvrsId = Nothing
-    , _ccdvrsResponseStatus = pResponseStatus_
+    { _crersCreationTimestamp =
+        Nothing,
+      _crersARN = Nothing,
+      _crersId = Nothing,
+      _crersVersion = Nothing,
+      _crersResponseStatus =
+        pResponseStatus_
     }
 
+-- | The time, in milliseconds since the epoch, when the version was created.
+crersCreationTimestamp :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
+crersCreationTimestamp = lens _crersCreationTimestamp (\s a -> s {_crersCreationTimestamp = a})
 
 -- | The ARN of the version.
-ccdvrsARN :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
-ccdvrsARN = lens _ccdvrsARN (\ s a -> s{_ccdvrsARN = a})
+crersARN :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
+crersARN = lens _crersARN (\s a -> s {_crersARN = a})
 
--- | The time, in milliseconds since the epoch, when the version was created.
-ccdvrsCreationTimestamp :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
-ccdvrsCreationTimestamp = lens _ccdvrsCreationTimestamp (\ s a -> s{_ccdvrsCreationTimestamp = a})
-
--- | The unique ID of the version.
-ccdvrsVersion :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
-ccdvrsVersion = lens _ccdvrsVersion (\ s a -> s{_ccdvrsVersion = a})
+-- | The ID of the parent definition that the version is associated with.
+crersId :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
+crersId = lens _crersId (\s a -> s {_crersId = a})
 
 -- | The ID of the version.
-ccdvrsId :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
-ccdvrsId = lens _ccdvrsId (\ s a -> s{_ccdvrsId = a})
+crersVersion :: Lens' CreateCoreDefinitionVersionResponse (Maybe Text)
+crersVersion = lens _crersVersion (\s a -> s {_crersVersion = a})
 
 -- | -- | The response status code.
-ccdvrsResponseStatus :: Lens' CreateCoreDefinitionVersionResponse Int
-ccdvrsResponseStatus = lens _ccdvrsResponseStatus (\ s a -> s{_ccdvrsResponseStatus = a})
+crersResponseStatus :: Lens' CreateCoreDefinitionVersionResponse Int
+crersResponseStatus = lens _crersResponseStatus (\s a -> s {_crersResponseStatus = a})
 
 instance NFData CreateCoreDefinitionVersionResponse
-         where

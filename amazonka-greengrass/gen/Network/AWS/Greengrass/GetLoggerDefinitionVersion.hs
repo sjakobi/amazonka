@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Greengrass.GetLoggerDefinitionVersion
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,28 +19,30 @@
 --
 -- Retrieves information about a logger definition version.
 module Network.AWS.Greengrass.GetLoggerDefinitionVersion
-    (
-    -- * Creating a Request
-      getLoggerDefinitionVersion
-    , GetLoggerDefinitionVersion
+  ( -- * Creating a Request
+    getLoggerDefinitionVersion,
+    GetLoggerDefinitionVersion,
+
     -- * Request Lenses
-    , gldvLoggerDefinitionVersionId
-    , gldvLoggerDefinitionId
+    gldvNextToken,
+    gldvLoggerDefinitionVersionId,
+    gldvLoggerDefinitionId,
 
     -- * Destructuring the Response
-    , getLoggerDefinitionVersionResponse
-    , GetLoggerDefinitionVersionResponse
+    getLoggerDefinitionVersionResponse,
+    GetLoggerDefinitionVersionResponse,
+
     -- * Response Lenses
-    , gldvrsDefinition
-    , gldvrsARN
-    , gldvrsCreationTimestamp
-    , gldvrsVersion
-    , gldvrsId
-    , gldvrsResponseStatus
-    ) where
+    gldvrrsCreationTimestamp,
+    gldvrrsARN,
+    gldvrrsId,
+    gldvrrsVersion,
+    gldvrrsDefinition,
+    gldvrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Greengrass.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -49,135 +50,190 @@ import Network.AWS.Response
 
 -- | /See:/ 'getLoggerDefinitionVersion' smart constructor.
 data GetLoggerDefinitionVersion = GetLoggerDefinitionVersion'
-  { _gldvLoggerDefinitionVersionId :: !Text
-  , _gldvLoggerDefinitionId        :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gldvNextToken ::
+      !(Maybe Text),
+    _gldvLoggerDefinitionVersionId ::
+      !Text,
+    _gldvLoggerDefinitionId ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetLoggerDefinitionVersion' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gldvLoggerDefinitionVersionId' - The ID of the logger definition version.
+-- * 'gldvNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+--
+-- * 'gldvLoggerDefinitionVersionId' - The ID of the logger definition version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListLoggerDefinitionVersions'' requests. If the version is the last one that was associated with a logger definition, the value also maps to the ''LatestVersion'' property of the corresponding ''DefinitionInformation'' object.
 --
 -- * 'gldvLoggerDefinitionId' - The ID of the logger definition.
+getLoggerDefinitionVersion ::
+  -- | 'gldvLoggerDefinitionVersionId'
+  Text ->
+  -- | 'gldvLoggerDefinitionId'
+  Text ->
+  GetLoggerDefinitionVersion
 getLoggerDefinitionVersion
-    :: Text -- ^ 'gldvLoggerDefinitionVersionId'
-    -> Text -- ^ 'gldvLoggerDefinitionId'
-    -> GetLoggerDefinitionVersion
-getLoggerDefinitionVersion pLoggerDefinitionVersionId_ pLoggerDefinitionId_ =
-  GetLoggerDefinitionVersion'
-    { _gldvLoggerDefinitionVersionId = pLoggerDefinitionVersionId_
-    , _gldvLoggerDefinitionId = pLoggerDefinitionId_
-    }
+  pLoggerDefinitionVersionId_
+  pLoggerDefinitionId_ =
+    GetLoggerDefinitionVersion'
+      { _gldvNextToken =
+          Nothing,
+        _gldvLoggerDefinitionVersionId =
+          pLoggerDefinitionVersionId_,
+        _gldvLoggerDefinitionId = pLoggerDefinitionId_
+      }
 
+-- | The token for the next set of results, or ''null'' if there are no additional results.
+gldvNextToken :: Lens' GetLoggerDefinitionVersion (Maybe Text)
+gldvNextToken = lens _gldvNextToken (\s a -> s {_gldvNextToken = a})
 
--- | The ID of the logger definition version.
+-- | The ID of the logger definition version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListLoggerDefinitionVersions'' requests. If the version is the last one that was associated with a logger definition, the value also maps to the ''LatestVersion'' property of the corresponding ''DefinitionInformation'' object.
 gldvLoggerDefinitionVersionId :: Lens' GetLoggerDefinitionVersion Text
-gldvLoggerDefinitionVersionId = lens _gldvLoggerDefinitionVersionId (\ s a -> s{_gldvLoggerDefinitionVersionId = a})
+gldvLoggerDefinitionVersionId = lens _gldvLoggerDefinitionVersionId (\s a -> s {_gldvLoggerDefinitionVersionId = a})
 
 -- | The ID of the logger definition.
 gldvLoggerDefinitionId :: Lens' GetLoggerDefinitionVersion Text
-gldvLoggerDefinitionId = lens _gldvLoggerDefinitionId (\ s a -> s{_gldvLoggerDefinitionId = a})
+gldvLoggerDefinitionId = lens _gldvLoggerDefinitionId (\s a -> s {_gldvLoggerDefinitionId = a})
 
 instance AWSRequest GetLoggerDefinitionVersion where
-        type Rs GetLoggerDefinitionVersion =
-             GetLoggerDefinitionVersionResponse
-        request = get greengrass
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetLoggerDefinitionVersionResponse' <$>
-                   (x .?> "Definition") <*> (x .?> "Arn") <*>
-                     (x .?> "CreationTimestamp")
-                     <*> (x .?> "Version")
-                     <*> (x .?> "Id")
-                     <*> (pure (fromEnum s)))
+  type
+    Rs GetLoggerDefinitionVersion =
+      GetLoggerDefinitionVersionResponse
+  request = get greengrass
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetLoggerDefinitionVersionResponse'
+            <$> (x .?> "CreationTimestamp")
+            <*> (x .?> "Arn")
+            <*> (x .?> "Id")
+            <*> (x .?> "Version")
+            <*> (x .?> "Definition")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetLoggerDefinitionVersion where
+instance Hashable GetLoggerDefinitionVersion
 
-instance NFData GetLoggerDefinitionVersion where
+instance NFData GetLoggerDefinitionVersion
 
 instance ToHeaders GetLoggerDefinitionVersion where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath GetLoggerDefinitionVersion where
-        toPath GetLoggerDefinitionVersion'{..}
-          = mconcat
-              ["/greengrass/definition/loggers/",
-               toBS _gldvLoggerDefinitionId, "/versions/",
-               toBS _gldvLoggerDefinitionVersionId]
+  toPath GetLoggerDefinitionVersion' {..} =
+    mconcat
+      [ "/greengrass/definition/loggers/",
+        toBS _gldvLoggerDefinitionId,
+        "/versions/",
+        toBS _gldvLoggerDefinitionVersionId
+      ]
 
 instance ToQuery GetLoggerDefinitionVersion where
-        toQuery = const mempty
+  toQuery GetLoggerDefinitionVersion' {..} =
+    mconcat ["NextToken" =: _gldvNextToken]
 
 -- | /See:/ 'getLoggerDefinitionVersionResponse' smart constructor.
 data GetLoggerDefinitionVersionResponse = GetLoggerDefinitionVersionResponse'
-  { _gldvrsDefinition        :: !(Maybe LoggerDefinitionVersion)
-  , _gldvrsARN               :: !(Maybe Text)
-  , _gldvrsCreationTimestamp :: !(Maybe Text)
-  , _gldvrsVersion           :: !(Maybe Text)
-  , _gldvrsId                :: !(Maybe Text)
-  , _gldvrsResponseStatus    :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gldvrrsCreationTimestamp ::
+      !( Maybe
+           Text
+       ),
+    _gldvrrsARN ::
+      !( Maybe
+           Text
+       ),
+    _gldvrrsId ::
+      !( Maybe
+           Text
+       ),
+    _gldvrrsVersion ::
+      !( Maybe
+           Text
+       ),
+    _gldvrrsDefinition ::
+      !( Maybe
+           LoggerDefinitionVersion
+       ),
+    _gldvrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetLoggerDefinitionVersionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gldvrsDefinition' - Information about the logger definition version.
+-- * 'gldvrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the logger definition version was created.
 --
--- * 'gldvrsARN' - The ARN of the logger definition version.
+-- * 'gldvrrsARN' - The ARN of the logger definition version.
 --
--- * 'gldvrsCreationTimestamp' - The time, in milliseconds since the epoch, when the logger definition version was created.
+-- * 'gldvrrsId' - The ID of the logger definition version.
 --
--- * 'gldvrsVersion' - The version of the logger definition version.
+-- * 'gldvrrsVersion' - The version of the logger definition version.
 --
--- * 'gldvrsId' - The ID of the logger definition version.
+-- * 'gldvrrsDefinition' - Information about the logger definition version.
 --
--- * 'gldvrsResponseStatus' - -- | The response status code.
-getLoggerDefinitionVersionResponse
-    :: Int -- ^ 'gldvrsResponseStatus'
-    -> GetLoggerDefinitionVersionResponse
+-- * 'gldvrrsResponseStatus' - -- | The response status code.
+getLoggerDefinitionVersionResponse ::
+  -- | 'gldvrrsResponseStatus'
+  Int ->
+  GetLoggerDefinitionVersionResponse
 getLoggerDefinitionVersionResponse pResponseStatus_ =
   GetLoggerDefinitionVersionResponse'
-    { _gldvrsDefinition = Nothing
-    , _gldvrsARN = Nothing
-    , _gldvrsCreationTimestamp = Nothing
-    , _gldvrsVersion = Nothing
-    , _gldvrsId = Nothing
-    , _gldvrsResponseStatus = pResponseStatus_
+    { _gldvrrsCreationTimestamp =
+        Nothing,
+      _gldvrrsARN = Nothing,
+      _gldvrrsId = Nothing,
+      _gldvrrsVersion = Nothing,
+      _gldvrrsDefinition = Nothing,
+      _gldvrrsResponseStatus =
+        pResponseStatus_
     }
 
-
--- | Information about the logger definition version.
-gldvrsDefinition :: Lens' GetLoggerDefinitionVersionResponse (Maybe LoggerDefinitionVersion)
-gldvrsDefinition = lens _gldvrsDefinition (\ s a -> s{_gldvrsDefinition = a})
+-- | The time, in milliseconds since the epoch, when the logger definition version was created.
+gldvrrsCreationTimestamp :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
+gldvrrsCreationTimestamp = lens _gldvrrsCreationTimestamp (\s a -> s {_gldvrrsCreationTimestamp = a})
 
 -- | The ARN of the logger definition version.
-gldvrsARN :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
-gldvrsARN = lens _gldvrsARN (\ s a -> s{_gldvrsARN = a})
-
--- | The time, in milliseconds since the epoch, when the logger definition version was created.
-gldvrsCreationTimestamp :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
-gldvrsCreationTimestamp = lens _gldvrsCreationTimestamp (\ s a -> s{_gldvrsCreationTimestamp = a})
-
--- | The version of the logger definition version.
-gldvrsVersion :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
-gldvrsVersion = lens _gldvrsVersion (\ s a -> s{_gldvrsVersion = a})
+gldvrrsARN :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
+gldvrrsARN = lens _gldvrrsARN (\s a -> s {_gldvrrsARN = a})
 
 -- | The ID of the logger definition version.
-gldvrsId :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
-gldvrsId = lens _gldvrsId (\ s a -> s{_gldvrsId = a})
+gldvrrsId :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
+gldvrrsId = lens _gldvrrsId (\s a -> s {_gldvrrsId = a})
+
+-- | The version of the logger definition version.
+gldvrrsVersion :: Lens' GetLoggerDefinitionVersionResponse (Maybe Text)
+gldvrrsVersion = lens _gldvrrsVersion (\s a -> s {_gldvrrsVersion = a})
+
+-- | Information about the logger definition version.
+gldvrrsDefinition :: Lens' GetLoggerDefinitionVersionResponse (Maybe LoggerDefinitionVersion)
+gldvrrsDefinition = lens _gldvrrsDefinition (\s a -> s {_gldvrrsDefinition = a})
 
 -- | -- | The response status code.
-gldvrsResponseStatus :: Lens' GetLoggerDefinitionVersionResponse Int
-gldvrsResponseStatus = lens _gldvrsResponseStatus (\ s a -> s{_gldvrsResponseStatus = a})
+gldvrrsResponseStatus :: Lens' GetLoggerDefinitionVersionResponse Int
+gldvrrsResponseStatus = lens _gldvrrsResponseStatus (\s a -> s {_gldvrrsResponseStatus = a})
 
 instance NFData GetLoggerDefinitionVersionResponse
-         where

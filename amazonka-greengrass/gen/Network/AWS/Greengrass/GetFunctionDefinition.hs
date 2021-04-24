@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Greengrass.GetFunctionDefinition
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,29 +19,31 @@
 --
 -- Retrieves information about a Lambda function definition, including its creation time and latest version.
 module Network.AWS.Greengrass.GetFunctionDefinition
-    (
-    -- * Creating a Request
-      getFunctionDefinition
-    , GetFunctionDefinition
+  ( -- * Creating a Request
+    getFunctionDefinition,
+    GetFunctionDefinition,
+
     -- * Request Lenses
-    , gfdFunctionDefinitionId
+    gfdFunctionDefinitionId,
 
     -- * Destructuring the Response
-    , getFunctionDefinitionResponse
-    , GetFunctionDefinitionResponse
+    getFunctionDefinitionResponse,
+    GetFunctionDefinitionResponse,
+
     -- * Response Lenses
-    , gfdrsLatestVersionARN
-    , gfdrsARN
-    , gfdrsName
-    , gfdrsCreationTimestamp
-    , gfdrsId
-    , gfdrsLatestVersion
-    , gfdrsLastUpdatedTimestamp
-    , gfdrsResponseStatus
-    ) where
+    gfdrrsCreationTimestamp,
+    gfdrrsLatestVersionARN,
+    gfdrrsLatestVersion,
+    gfdrrsARN,
+    gfdrrsId,
+    gfdrrsName,
+    gfdrrsLastUpdatedTimestamp,
+    gfdrrsTags,
+    gfdrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Greengrass.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -50,140 +51,202 @@ import Network.AWS.Response
 
 -- | /See:/ 'getFunctionDefinition' smart constructor.
 newtype GetFunctionDefinition = GetFunctionDefinition'
-  { _gfdFunctionDefinitionId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gfdFunctionDefinitionId ::
+      Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetFunctionDefinition' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'gfdFunctionDefinitionId' - The ID of the Lambda function definition.
-getFunctionDefinition
-    :: Text -- ^ 'gfdFunctionDefinitionId'
-    -> GetFunctionDefinition
+getFunctionDefinition ::
+  -- | 'gfdFunctionDefinitionId'
+  Text ->
+  GetFunctionDefinition
 getFunctionDefinition pFunctionDefinitionId_ =
-  GetFunctionDefinition' {_gfdFunctionDefinitionId = pFunctionDefinitionId_}
-
+  GetFunctionDefinition'
+    { _gfdFunctionDefinitionId =
+        pFunctionDefinitionId_
+    }
 
 -- | The ID of the Lambda function definition.
 gfdFunctionDefinitionId :: Lens' GetFunctionDefinition Text
-gfdFunctionDefinitionId = lens _gfdFunctionDefinitionId (\ s a -> s{_gfdFunctionDefinitionId = a})
+gfdFunctionDefinitionId = lens _gfdFunctionDefinitionId (\s a -> s {_gfdFunctionDefinitionId = a})
 
 instance AWSRequest GetFunctionDefinition where
-        type Rs GetFunctionDefinition =
-             GetFunctionDefinitionResponse
-        request = get greengrass
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetFunctionDefinitionResponse' <$>
-                   (x .?> "LatestVersionArn") <*> (x .?> "Arn") <*>
-                     (x .?> "Name")
-                     <*> (x .?> "CreationTimestamp")
-                     <*> (x .?> "Id")
-                     <*> (x .?> "LatestVersion")
-                     <*> (x .?> "LastUpdatedTimestamp")
-                     <*> (pure (fromEnum s)))
+  type
+    Rs GetFunctionDefinition =
+      GetFunctionDefinitionResponse
+  request = get greengrass
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetFunctionDefinitionResponse'
+            <$> (x .?> "CreationTimestamp")
+            <*> (x .?> "LatestVersionArn")
+            <*> (x .?> "LatestVersion")
+            <*> (x .?> "Arn")
+            <*> (x .?> "Id")
+            <*> (x .?> "Name")
+            <*> (x .?> "LastUpdatedTimestamp")
+            <*> (x .?> "tags" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetFunctionDefinition where
+instance Hashable GetFunctionDefinition
 
-instance NFData GetFunctionDefinition where
+instance NFData GetFunctionDefinition
 
 instance ToHeaders GetFunctionDefinition where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath GetFunctionDefinition where
-        toPath GetFunctionDefinition'{..}
-          = mconcat
-              ["/greengrass/definition/functions/",
-               toBS _gfdFunctionDefinitionId]
+  toPath GetFunctionDefinition' {..} =
+    mconcat
+      [ "/greengrass/definition/functions/",
+        toBS _gfdFunctionDefinitionId
+      ]
 
 instance ToQuery GetFunctionDefinition where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getFunctionDefinitionResponse' smart constructor.
 data GetFunctionDefinitionResponse = GetFunctionDefinitionResponse'
-  { _gfdrsLatestVersionARN     :: !(Maybe Text)
-  , _gfdrsARN                  :: !(Maybe Text)
-  , _gfdrsName                 :: !(Maybe Text)
-  , _gfdrsCreationTimestamp    :: !(Maybe Text)
-  , _gfdrsId                   :: !(Maybe Text)
-  , _gfdrsLatestVersion        :: !(Maybe Text)
-  , _gfdrsLastUpdatedTimestamp :: !(Maybe Text)
-  , _gfdrsResponseStatus       :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gfdrrsCreationTimestamp ::
+      !( Maybe
+           Text
+       ),
+    _gfdrrsLatestVersionARN ::
+      !( Maybe
+           Text
+       ),
+    _gfdrrsLatestVersion ::
+      !( Maybe
+           Text
+       ),
+    _gfdrrsARN ::
+      !( Maybe
+           Text
+       ),
+    _gfdrrsId ::
+      !( Maybe
+           Text
+       ),
+    _gfdrrsName ::
+      !( Maybe
+           Text
+       ),
+    _gfdrrsLastUpdatedTimestamp ::
+      !( Maybe
+           Text
+       ),
+    _gfdrrsTags ::
+      !( Maybe
+           ( Map
+               Text
+               Text
+           )
+       ),
+    _gfdrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetFunctionDefinitionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gfdrsLatestVersionARN' - The ARN of the latest version of the definition.
+-- * 'gfdrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
 --
--- * 'gfdrsARN' - The ARN of the definition.
+-- * 'gfdrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
 --
--- * 'gfdrsName' - The name of the definition.
+-- * 'gfdrrsLatestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'gfdrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- * 'gfdrrsARN' - The ARN of the definition.
 --
--- * 'gfdrsId' - The ID of the definition.
+-- * 'gfdrrsId' - The ID of the definition.
 --
--- * 'gfdrsLatestVersion' - The latest version of the definition.
+-- * 'gfdrrsName' - The name of the definition.
 --
--- * 'gfdrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- * 'gfdrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
 --
--- * 'gfdrsResponseStatus' - -- | The response status code.
-getFunctionDefinitionResponse
-    :: Int -- ^ 'gfdrsResponseStatus'
-    -> GetFunctionDefinitionResponse
+-- * 'gfdrrsTags' - Tag(s) attached to the resource arn.
+--
+-- * 'gfdrrsResponseStatus' - -- | The response status code.
+getFunctionDefinitionResponse ::
+  -- | 'gfdrrsResponseStatus'
+  Int ->
+  GetFunctionDefinitionResponse
 getFunctionDefinitionResponse pResponseStatus_ =
   GetFunctionDefinitionResponse'
-    { _gfdrsLatestVersionARN = Nothing
-    , _gfdrsARN = Nothing
-    , _gfdrsName = Nothing
-    , _gfdrsCreationTimestamp = Nothing
-    , _gfdrsId = Nothing
-    , _gfdrsLatestVersion = Nothing
-    , _gfdrsLastUpdatedTimestamp = Nothing
-    , _gfdrsResponseStatus = pResponseStatus_
+    { _gfdrrsCreationTimestamp =
+        Nothing,
+      _gfdrrsLatestVersionARN = Nothing,
+      _gfdrrsLatestVersion = Nothing,
+      _gfdrrsARN = Nothing,
+      _gfdrrsId = Nothing,
+      _gfdrrsName = Nothing,
+      _gfdrrsLastUpdatedTimestamp = Nothing,
+      _gfdrrsTags = Nothing,
+      _gfdrrsResponseStatus = pResponseStatus_
     }
 
+-- | The time, in milliseconds since the epoch, when the definition was created.
+gfdrrsCreationTimestamp :: Lens' GetFunctionDefinitionResponse (Maybe Text)
+gfdrrsCreationTimestamp = lens _gfdrrsCreationTimestamp (\s a -> s {_gfdrrsCreationTimestamp = a})
 
--- | The ARN of the latest version of the definition.
-gfdrsLatestVersionARN :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrsLatestVersionARN = lens _gfdrsLatestVersionARN (\ s a -> s{_gfdrsLatestVersionARN = a})
+-- | The ARN of the latest version associated with the definition.
+gfdrrsLatestVersionARN :: Lens' GetFunctionDefinitionResponse (Maybe Text)
+gfdrrsLatestVersionARN = lens _gfdrrsLatestVersionARN (\s a -> s {_gfdrrsLatestVersionARN = a})
+
+-- | The ID of the latest version associated with the definition.
+gfdrrsLatestVersion :: Lens' GetFunctionDefinitionResponse (Maybe Text)
+gfdrrsLatestVersion = lens _gfdrrsLatestVersion (\s a -> s {_gfdrrsLatestVersion = a})
 
 -- | The ARN of the definition.
-gfdrsARN :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrsARN = lens _gfdrsARN (\ s a -> s{_gfdrsARN = a})
-
--- | The name of the definition.
-gfdrsName :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrsName = lens _gfdrsName (\ s a -> s{_gfdrsName = a})
-
--- | The time, in milliseconds since the epoch, when the definition was created.
-gfdrsCreationTimestamp :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrsCreationTimestamp = lens _gfdrsCreationTimestamp (\ s a -> s{_gfdrsCreationTimestamp = a})
+gfdrrsARN :: Lens' GetFunctionDefinitionResponse (Maybe Text)
+gfdrrsARN = lens _gfdrrsARN (\s a -> s {_gfdrrsARN = a})
 
 -- | The ID of the definition.
-gfdrsId :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrsId = lens _gfdrsId (\ s a -> s{_gfdrsId = a})
+gfdrrsId :: Lens' GetFunctionDefinitionResponse (Maybe Text)
+gfdrrsId = lens _gfdrrsId (\s a -> s {_gfdrrsId = a})
 
--- | The latest version of the definition.
-gfdrsLatestVersion :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrsLatestVersion = lens _gfdrsLatestVersion (\ s a -> s{_gfdrsLatestVersion = a})
+-- | The name of the definition.
+gfdrrsName :: Lens' GetFunctionDefinitionResponse (Maybe Text)
+gfdrrsName = lens _gfdrrsName (\s a -> s {_gfdrrsName = a})
 
 -- | The time, in milliseconds since the epoch, when the definition was last updated.
-gfdrsLastUpdatedTimestamp :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrsLastUpdatedTimestamp = lens _gfdrsLastUpdatedTimestamp (\ s a -> s{_gfdrsLastUpdatedTimestamp = a})
+gfdrrsLastUpdatedTimestamp :: Lens' GetFunctionDefinitionResponse (Maybe Text)
+gfdrrsLastUpdatedTimestamp = lens _gfdrrsLastUpdatedTimestamp (\s a -> s {_gfdrrsLastUpdatedTimestamp = a})
+
+-- | Tag(s) attached to the resource arn.
+gfdrrsTags :: Lens' GetFunctionDefinitionResponse (HashMap Text Text)
+gfdrrsTags = lens _gfdrrsTags (\s a -> s {_gfdrrsTags = a}) . _Default . _Map
 
 -- | -- | The response status code.
-gfdrsResponseStatus :: Lens' GetFunctionDefinitionResponse Int
-gfdrsResponseStatus = lens _gfdrsResponseStatus (\ s a -> s{_gfdrsResponseStatus = a})
+gfdrrsResponseStatus :: Lens' GetFunctionDefinitionResponse Int
+gfdrrsResponseStatus = lens _gfdrrsResponseStatus (\s a -> s {_gfdrrsResponseStatus = a})
 
-instance NFData GetFunctionDefinitionResponse where
+instance NFData GetFunctionDefinitionResponse

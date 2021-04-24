@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Greengrass.GetGroupVersion
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,28 +19,29 @@
 --
 -- Retrieves information about a group version.
 module Network.AWS.Greengrass.GetGroupVersion
-    (
-    -- * Creating a Request
-      getGroupVersion
-    , GetGroupVersion
+  ( -- * Creating a Request
+    getGroupVersion,
+    GetGroupVersion,
+
     -- * Request Lenses
-    , ggvGroupVersionId
-    , ggvGroupId
+    ggvGroupVersionId,
+    ggvGroupId,
 
     -- * Destructuring the Response
-    , getGroupVersionResponse
-    , GetGroupVersionResponse
+    getGroupVersionResponse,
+    GetGroupVersionResponse,
+
     -- * Response Lenses
-    , ggvrsDefinition
-    , ggvrsARN
-    , ggvrsCreationTimestamp
-    , ggvrsVersion
-    , ggvrsId
-    , ggvrsResponseStatus
-    ) where
+    ggvrrsCreationTimestamp,
+    ggvrrsARN,
+    ggvrrsId,
+    ggvrrsVersion,
+    ggvrrsDefinition,
+    ggvrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Greengrass.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -49,130 +49,156 @@ import Network.AWS.Response
 
 -- | /See:/ 'getGroupVersion' smart constructor.
 data GetGroupVersion = GetGroupVersion'
-  { _ggvGroupVersionId :: !Text
-  , _ggvGroupId        :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ggvGroupVersionId ::
+      !Text,
+    _ggvGroupId :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetGroupVersion' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ggvGroupVersionId' - The ID of the group version.
+-- * 'ggvGroupVersionId' - The ID of the group version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListGroupVersions'' requests. If the version is the last one that was associated with a group, the value also maps to the ''LatestVersion'' property of the corresponding ''GroupInformation'' object.
 --
--- * 'ggvGroupId' - The ID of the AWS Greengrass group.
-getGroupVersion
-    :: Text -- ^ 'ggvGroupVersionId'
-    -> Text -- ^ 'ggvGroupId'
-    -> GetGroupVersion
+-- * 'ggvGroupId' - The ID of the Greengrass group.
+getGroupVersion ::
+  -- | 'ggvGroupVersionId'
+  Text ->
+  -- | 'ggvGroupId'
+  Text ->
+  GetGroupVersion
 getGroupVersion pGroupVersionId_ pGroupId_ =
   GetGroupVersion'
-    {_ggvGroupVersionId = pGroupVersionId_, _ggvGroupId = pGroupId_}
+    { _ggvGroupVersionId =
+        pGroupVersionId_,
+      _ggvGroupId = pGroupId_
+    }
 
-
--- | The ID of the group version.
+-- | The ID of the group version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListGroupVersions'' requests. If the version is the last one that was associated with a group, the value also maps to the ''LatestVersion'' property of the corresponding ''GroupInformation'' object.
 ggvGroupVersionId :: Lens' GetGroupVersion Text
-ggvGroupVersionId = lens _ggvGroupVersionId (\ s a -> s{_ggvGroupVersionId = a})
+ggvGroupVersionId = lens _ggvGroupVersionId (\s a -> s {_ggvGroupVersionId = a})
 
--- | The ID of the AWS Greengrass group.
+-- | The ID of the Greengrass group.
 ggvGroupId :: Lens' GetGroupVersion Text
-ggvGroupId = lens _ggvGroupId (\ s a -> s{_ggvGroupId = a})
+ggvGroupId = lens _ggvGroupId (\s a -> s {_ggvGroupId = a})
 
 instance AWSRequest GetGroupVersion where
-        type Rs GetGroupVersion = GetGroupVersionResponse
-        request = get greengrass
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetGroupVersionResponse' <$>
-                   (x .?> "Definition") <*> (x .?> "Arn") <*>
-                     (x .?> "CreationTimestamp")
-                     <*> (x .?> "Version")
-                     <*> (x .?> "Id")
-                     <*> (pure (fromEnum s)))
+  type Rs GetGroupVersion = GetGroupVersionResponse
+  request = get greengrass
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetGroupVersionResponse'
+            <$> (x .?> "CreationTimestamp")
+            <*> (x .?> "Arn")
+            <*> (x .?> "Id")
+            <*> (x .?> "Version")
+            <*> (x .?> "Definition")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetGroupVersion where
+instance Hashable GetGroupVersion
 
-instance NFData GetGroupVersion where
+instance NFData GetGroupVersion
 
 instance ToHeaders GetGroupVersion where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath GetGroupVersion where
-        toPath GetGroupVersion'{..}
-          = mconcat
-              ["/greengrass/groups/", toBS _ggvGroupId,
-               "/versions/", toBS _ggvGroupVersionId]
+  toPath GetGroupVersion' {..} =
+    mconcat
+      [ "/greengrass/groups/",
+        toBS _ggvGroupId,
+        "/versions/",
+        toBS _ggvGroupVersionId
+      ]
 
 instance ToQuery GetGroupVersion where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getGroupVersionResponse' smart constructor.
 data GetGroupVersionResponse = GetGroupVersionResponse'
-  { _ggvrsDefinition        :: !(Maybe GroupVersion)
-  , _ggvrsARN               :: !(Maybe Text)
-  , _ggvrsCreationTimestamp :: !(Maybe Text)
-  , _ggvrsVersion           :: !(Maybe Text)
-  , _ggvrsId                :: !(Maybe Text)
-  , _ggvrsResponseStatus    :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ggvrrsCreationTimestamp ::
+      !(Maybe Text),
+    _ggvrrsARN ::
+      !(Maybe Text),
+    _ggvrrsId ::
+      !(Maybe Text),
+    _ggvrrsVersion ::
+      !(Maybe Text),
+    _ggvrrsDefinition ::
+      !(Maybe GroupVersion),
+    _ggvrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetGroupVersionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ggvrsDefinition' - Information about the group version definition.
+-- * 'ggvrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the group version was created.
 --
--- * 'ggvrsARN' - The ARN of the group version.
+-- * 'ggvrrsARN' - The ARN of the group version.
 --
--- * 'ggvrsCreationTimestamp' - The time, in milliseconds since the epoch, when the group version was created.
+-- * 'ggvrrsId' - The ID of the group that the version is associated with.
 --
--- * 'ggvrsVersion' - The unique ID for the version of the group.
+-- * 'ggvrrsVersion' - The ID of the group version.
 --
--- * 'ggvrsId' - The ID of the group version.
+-- * 'ggvrrsDefinition' - Information about the group version definition.
 --
--- * 'ggvrsResponseStatus' - -- | The response status code.
-getGroupVersionResponse
-    :: Int -- ^ 'ggvrsResponseStatus'
-    -> GetGroupVersionResponse
+-- * 'ggvrrsResponseStatus' - -- | The response status code.
+getGroupVersionResponse ::
+  -- | 'ggvrrsResponseStatus'
+  Int ->
+  GetGroupVersionResponse
 getGroupVersionResponse pResponseStatus_ =
   GetGroupVersionResponse'
-    { _ggvrsDefinition = Nothing
-    , _ggvrsARN = Nothing
-    , _ggvrsCreationTimestamp = Nothing
-    , _ggvrsVersion = Nothing
-    , _ggvrsId = Nothing
-    , _ggvrsResponseStatus = pResponseStatus_
+    { _ggvrrsCreationTimestamp =
+        Nothing,
+      _ggvrrsARN = Nothing,
+      _ggvrrsId = Nothing,
+      _ggvrrsVersion = Nothing,
+      _ggvrrsDefinition = Nothing,
+      _ggvrrsResponseStatus = pResponseStatus_
     }
 
-
--- | Information about the group version definition.
-ggvrsDefinition :: Lens' GetGroupVersionResponse (Maybe GroupVersion)
-ggvrsDefinition = lens _ggvrsDefinition (\ s a -> s{_ggvrsDefinition = a})
+-- | The time, in milliseconds since the epoch, when the group version was created.
+ggvrrsCreationTimestamp :: Lens' GetGroupVersionResponse (Maybe Text)
+ggvrrsCreationTimestamp = lens _ggvrrsCreationTimestamp (\s a -> s {_ggvrrsCreationTimestamp = a})
 
 -- | The ARN of the group version.
-ggvrsARN :: Lens' GetGroupVersionResponse (Maybe Text)
-ggvrsARN = lens _ggvrsARN (\ s a -> s{_ggvrsARN = a})
+ggvrrsARN :: Lens' GetGroupVersionResponse (Maybe Text)
+ggvrrsARN = lens _ggvrrsARN (\s a -> s {_ggvrrsARN = a})
 
--- | The time, in milliseconds since the epoch, when the group version was created.
-ggvrsCreationTimestamp :: Lens' GetGroupVersionResponse (Maybe Text)
-ggvrsCreationTimestamp = lens _ggvrsCreationTimestamp (\ s a -> s{_ggvrsCreationTimestamp = a})
-
--- | The unique ID for the version of the group.
-ggvrsVersion :: Lens' GetGroupVersionResponse (Maybe Text)
-ggvrsVersion = lens _ggvrsVersion (\ s a -> s{_ggvrsVersion = a})
+-- | The ID of the group that the version is associated with.
+ggvrrsId :: Lens' GetGroupVersionResponse (Maybe Text)
+ggvrrsId = lens _ggvrrsId (\s a -> s {_ggvrrsId = a})
 
 -- | The ID of the group version.
-ggvrsId :: Lens' GetGroupVersionResponse (Maybe Text)
-ggvrsId = lens _ggvrsId (\ s a -> s{_ggvrsId = a})
+ggvrrsVersion :: Lens' GetGroupVersionResponse (Maybe Text)
+ggvrrsVersion = lens _ggvrrsVersion (\s a -> s {_ggvrrsVersion = a})
+
+-- | Information about the group version definition.
+ggvrrsDefinition :: Lens' GetGroupVersionResponse (Maybe GroupVersion)
+ggvrrsDefinition = lens _ggvrrsDefinition (\s a -> s {_ggvrrsDefinition = a})
 
 -- | -- | The response status code.
-ggvrsResponseStatus :: Lens' GetGroupVersionResponse Int
-ggvrsResponseStatus = lens _ggvrsResponseStatus (\ s a -> s{_ggvrsResponseStatus = a})
+ggvrrsResponseStatus :: Lens' GetGroupVersionResponse Int
+ggvrrsResponseStatus = lens _ggvrrsResponseStatus (\s a -> s {_ggvrrsResponseStatus = a})
 
-instance NFData GetGroupVersionResponse where
+instance NFData GetGroupVersionResponse

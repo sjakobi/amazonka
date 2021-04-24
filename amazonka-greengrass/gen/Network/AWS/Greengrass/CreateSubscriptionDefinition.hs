@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Greengrass.CreateSubscriptionDefinition
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,31 +19,33 @@
 --
 -- Creates a subscription definition. You may provide the initial version of the subscription definition now or use ''CreateSubscriptionDefinitionVersion'' at a later time.
 module Network.AWS.Greengrass.CreateSubscriptionDefinition
-    (
-    -- * Creating a Request
-      createSubscriptionDefinition
-    , CreateSubscriptionDefinition
+  ( -- * Creating a Request
+    createSubscriptionDefinition,
+    CreateSubscriptionDefinition,
+
     -- * Request Lenses
-    , csdAmznClientToken
-    , csdInitialVersion
-    , csdName
+    csdName,
+    csdInitialVersion,
+    csdTags,
+    csdAmznClientToken,
 
     -- * Destructuring the Response
-    , createSubscriptionDefinitionResponse
-    , CreateSubscriptionDefinitionResponse
+    createSubscriptionDefinitionResponse,
+    CreateSubscriptionDefinitionResponse,
+
     -- * Response Lenses
-    , csdrsLatestVersionARN
-    , csdrsARN
-    , csdrsName
-    , csdrsCreationTimestamp
-    , csdrsId
-    , csdrsLatestVersion
-    , csdrsLastUpdatedTimestamp
-    , csdrsResponseStatus
-    ) where
+    csdrrsCreationTimestamp,
+    csdrrsLatestVersionARN,
+    csdrrsLatestVersion,
+    csdrrsARN,
+    csdrrsId,
+    csdrrsName,
+    csdrrsLastUpdatedTimestamp,
+    csdrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Greengrass.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -52,163 +53,224 @@ import Network.AWS.Response
 
 -- | /See:/ 'createSubscriptionDefinition' smart constructor.
 data CreateSubscriptionDefinition = CreateSubscriptionDefinition'
-  { _csdAmznClientToken :: !(Maybe Text)
-  , _csdInitialVersion  :: !(Maybe SubscriptionDefinitionVersion)
-  , _csdName            :: !(Maybe Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _csdName ::
+      !(Maybe Text),
+    _csdInitialVersion ::
+      !( Maybe
+           SubscriptionDefinitionVersion
+       ),
+    _csdTags ::
+      !( Maybe
+           ( Map
+               Text
+               Text
+           )
+       ),
+    _csdAmznClientToken ::
+      !(Maybe Text)
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateSubscriptionDefinition' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'csdAmznClientToken' - A client token used to correlate requests and responses.
+-- * 'csdName' - The name of the subscription definition.
 --
 -- * 'csdInitialVersion' - Information about the initial version of the subscription definition.
 --
--- * 'csdName' - The name of the subscription definition.
-createSubscriptionDefinition
-    :: CreateSubscriptionDefinition
+-- * 'csdTags' - Tag(s) to add to the new resource.
+--
+-- * 'csdAmznClientToken' - A client token used to correlate requests and responses.
+createSubscriptionDefinition ::
+  CreateSubscriptionDefinition
 createSubscriptionDefinition =
   CreateSubscriptionDefinition'
-    { _csdAmznClientToken = Nothing
-    , _csdInitialVersion = Nothing
-    , _csdName = Nothing
+    { _csdName = Nothing,
+      _csdInitialVersion = Nothing,
+      _csdTags = Nothing,
+      _csdAmznClientToken = Nothing
     }
-
-
--- | A client token used to correlate requests and responses.
-csdAmznClientToken :: Lens' CreateSubscriptionDefinition (Maybe Text)
-csdAmznClientToken = lens _csdAmznClientToken (\ s a -> s{_csdAmznClientToken = a})
-
--- | Information about the initial version of the subscription definition.
-csdInitialVersion :: Lens' CreateSubscriptionDefinition (Maybe SubscriptionDefinitionVersion)
-csdInitialVersion = lens _csdInitialVersion (\ s a -> s{_csdInitialVersion = a})
 
 -- | The name of the subscription definition.
 csdName :: Lens' CreateSubscriptionDefinition (Maybe Text)
-csdName = lens _csdName (\ s a -> s{_csdName = a})
+csdName = lens _csdName (\s a -> s {_csdName = a})
 
-instance AWSRequest CreateSubscriptionDefinition
-         where
-        type Rs CreateSubscriptionDefinition =
-             CreateSubscriptionDefinitionResponse
-        request = postJSON greengrass
-        response
-          = receiveJSON
-              (\ s h x ->
-                 CreateSubscriptionDefinitionResponse' <$>
-                   (x .?> "LatestVersionArn") <*> (x .?> "Arn") <*>
-                     (x .?> "Name")
-                     <*> (x .?> "CreationTimestamp")
-                     <*> (x .?> "Id")
-                     <*> (x .?> "LatestVersion")
-                     <*> (x .?> "LastUpdatedTimestamp")
-                     <*> (pure (fromEnum s)))
+-- | Information about the initial version of the subscription definition.
+csdInitialVersion :: Lens' CreateSubscriptionDefinition (Maybe SubscriptionDefinitionVersion)
+csdInitialVersion = lens _csdInitialVersion (\s a -> s {_csdInitialVersion = a})
 
-instance Hashable CreateSubscriptionDefinition where
+-- | Tag(s) to add to the new resource.
+csdTags :: Lens' CreateSubscriptionDefinition (HashMap Text Text)
+csdTags = lens _csdTags (\s a -> s {_csdTags = a}) . _Default . _Map
 
-instance NFData CreateSubscriptionDefinition where
+-- | A client token used to correlate requests and responses.
+csdAmznClientToken :: Lens' CreateSubscriptionDefinition (Maybe Text)
+csdAmznClientToken = lens _csdAmznClientToken (\s a -> s {_csdAmznClientToken = a})
+
+instance AWSRequest CreateSubscriptionDefinition where
+  type
+    Rs CreateSubscriptionDefinition =
+      CreateSubscriptionDefinitionResponse
+  request = postJSON greengrass
+  response =
+    receiveJSON
+      ( \s h x ->
+          CreateSubscriptionDefinitionResponse'
+            <$> (x .?> "CreationTimestamp")
+            <*> (x .?> "LatestVersionArn")
+            <*> (x .?> "LatestVersion")
+            <*> (x .?> "Arn")
+            <*> (x .?> "Id")
+            <*> (x .?> "Name")
+            <*> (x .?> "LastUpdatedTimestamp")
+            <*> (pure (fromEnum s))
+      )
+
+instance Hashable CreateSubscriptionDefinition
+
+instance NFData CreateSubscriptionDefinition
 
 instance ToHeaders CreateSubscriptionDefinition where
-        toHeaders CreateSubscriptionDefinition'{..}
-          = mconcat
-              ["X-Amzn-Client-Token" =# _csdAmznClientToken,
-               "Content-Type" =#
-                 ("application/x-amz-json-1.1" :: ByteString)]
+  toHeaders CreateSubscriptionDefinition' {..} =
+    mconcat
+      [ "X-Amzn-Client-Token" =# _csdAmznClientToken,
+        "Content-Type"
+          =# ("application/x-amz-json-1.1" :: ByteString)
+      ]
 
 instance ToJSON CreateSubscriptionDefinition where
-        toJSON CreateSubscriptionDefinition'{..}
-          = object
-              (catMaybes
-                 [("InitialVersion" .=) <$> _csdInitialVersion,
-                  ("Name" .=) <$> _csdName])
+  toJSON CreateSubscriptionDefinition' {..} =
+    object
+      ( catMaybes
+          [ ("Name" .=) <$> _csdName,
+            ("InitialVersion" .=) <$> _csdInitialVersion,
+            ("tags" .=) <$> _csdTags
+          ]
+      )
 
 instance ToPath CreateSubscriptionDefinition where
-        toPath = const "/greengrass/definition/subscriptions"
+  toPath = const "/greengrass/definition/subscriptions"
 
 instance ToQuery CreateSubscriptionDefinition where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'createSubscriptionDefinitionResponse' smart constructor.
 data CreateSubscriptionDefinitionResponse = CreateSubscriptionDefinitionResponse'
-  { _csdrsLatestVersionARN     :: !(Maybe Text)
-  , _csdrsARN                  :: !(Maybe Text)
-  , _csdrsName                 :: !(Maybe Text)
-  , _csdrsCreationTimestamp    :: !(Maybe Text)
-  , _csdrsId                   :: !(Maybe Text)
-  , _csdrsLatestVersion        :: !(Maybe Text)
-  , _csdrsLastUpdatedTimestamp :: !(Maybe Text)
-  , _csdrsResponseStatus       :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _csdrrsCreationTimestamp ::
+      !( Maybe
+           Text
+       ),
+    _csdrrsLatestVersionARN ::
+      !( Maybe
+           Text
+       ),
+    _csdrrsLatestVersion ::
+      !( Maybe
+           Text
+       ),
+    _csdrrsARN ::
+      !( Maybe
+           Text
+       ),
+    _csdrrsId ::
+      !( Maybe
+           Text
+       ),
+    _csdrrsName ::
+      !( Maybe
+           Text
+       ),
+    _csdrrsLastUpdatedTimestamp ::
+      !( Maybe
+           Text
+       ),
+    _csdrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateSubscriptionDefinitionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'csdrsLatestVersionARN' - The ARN of the latest version of the definition.
+-- * 'csdrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
 --
--- * 'csdrsARN' - The ARN of the definition.
+-- * 'csdrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
 --
--- * 'csdrsName' - The name of the definition.
+-- * 'csdrrsLatestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'csdrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- * 'csdrrsARN' - The ARN of the definition.
 --
--- * 'csdrsId' - The ID of the definition.
+-- * 'csdrrsId' - The ID of the definition.
 --
--- * 'csdrsLatestVersion' - The latest version of the definition.
+-- * 'csdrrsName' - The name of the definition.
 --
--- * 'csdrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- * 'csdrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
 --
--- * 'csdrsResponseStatus' - -- | The response status code.
-createSubscriptionDefinitionResponse
-    :: Int -- ^ 'csdrsResponseStatus'
-    -> CreateSubscriptionDefinitionResponse
+-- * 'csdrrsResponseStatus' - -- | The response status code.
+createSubscriptionDefinitionResponse ::
+  -- | 'csdrrsResponseStatus'
+  Int ->
+  CreateSubscriptionDefinitionResponse
 createSubscriptionDefinitionResponse pResponseStatus_ =
   CreateSubscriptionDefinitionResponse'
-    { _csdrsLatestVersionARN = Nothing
-    , _csdrsARN = Nothing
-    , _csdrsName = Nothing
-    , _csdrsCreationTimestamp = Nothing
-    , _csdrsId = Nothing
-    , _csdrsLatestVersion = Nothing
-    , _csdrsLastUpdatedTimestamp = Nothing
-    , _csdrsResponseStatus = pResponseStatus_
+    { _csdrrsCreationTimestamp =
+        Nothing,
+      _csdrrsLatestVersionARN = Nothing,
+      _csdrrsLatestVersion = Nothing,
+      _csdrrsARN = Nothing,
+      _csdrrsId = Nothing,
+      _csdrrsName = Nothing,
+      _csdrrsLastUpdatedTimestamp = Nothing,
+      _csdrrsResponseStatus =
+        pResponseStatus_
     }
 
+-- | The time, in milliseconds since the epoch, when the definition was created.
+csdrrsCreationTimestamp :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
+csdrrsCreationTimestamp = lens _csdrrsCreationTimestamp (\s a -> s {_csdrrsCreationTimestamp = a})
 
--- | The ARN of the latest version of the definition.
-csdrsLatestVersionARN :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
-csdrsLatestVersionARN = lens _csdrsLatestVersionARN (\ s a -> s{_csdrsLatestVersionARN = a})
+-- | The ARN of the latest version associated with the definition.
+csdrrsLatestVersionARN :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
+csdrrsLatestVersionARN = lens _csdrrsLatestVersionARN (\s a -> s {_csdrrsLatestVersionARN = a})
+
+-- | The ID of the latest version associated with the definition.
+csdrrsLatestVersion :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
+csdrrsLatestVersion = lens _csdrrsLatestVersion (\s a -> s {_csdrrsLatestVersion = a})
 
 -- | The ARN of the definition.
-csdrsARN :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
-csdrsARN = lens _csdrsARN (\ s a -> s{_csdrsARN = a})
-
--- | The name of the definition.
-csdrsName :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
-csdrsName = lens _csdrsName (\ s a -> s{_csdrsName = a})
-
--- | The time, in milliseconds since the epoch, when the definition was created.
-csdrsCreationTimestamp :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
-csdrsCreationTimestamp = lens _csdrsCreationTimestamp (\ s a -> s{_csdrsCreationTimestamp = a})
+csdrrsARN :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
+csdrrsARN = lens _csdrrsARN (\s a -> s {_csdrrsARN = a})
 
 -- | The ID of the definition.
-csdrsId :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
-csdrsId = lens _csdrsId (\ s a -> s{_csdrsId = a})
+csdrrsId :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
+csdrrsId = lens _csdrrsId (\s a -> s {_csdrrsId = a})
 
--- | The latest version of the definition.
-csdrsLatestVersion :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
-csdrsLatestVersion = lens _csdrsLatestVersion (\ s a -> s{_csdrsLatestVersion = a})
+-- | The name of the definition.
+csdrrsName :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
+csdrrsName = lens _csdrrsName (\s a -> s {_csdrrsName = a})
 
 -- | The time, in milliseconds since the epoch, when the definition was last updated.
-csdrsLastUpdatedTimestamp :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
-csdrsLastUpdatedTimestamp = lens _csdrsLastUpdatedTimestamp (\ s a -> s{_csdrsLastUpdatedTimestamp = a})
+csdrrsLastUpdatedTimestamp :: Lens' CreateSubscriptionDefinitionResponse (Maybe Text)
+csdrrsLastUpdatedTimestamp = lens _csdrrsLastUpdatedTimestamp (\s a -> s {_csdrrsLastUpdatedTimestamp = a})
 
 -- | -- | The response status code.
-csdrsResponseStatus :: Lens' CreateSubscriptionDefinitionResponse Int
-csdrsResponseStatus = lens _csdrsResponseStatus (\ s a -> s{_csdrsResponseStatus = a})
+csdrrsResponseStatus :: Lens' CreateSubscriptionDefinitionResponse Int
+csdrrsResponseStatus = lens _csdrrsResponseStatus (\s a -> s {_csdrrsResponseStatus = a})
 
 instance NFData CreateSubscriptionDefinitionResponse
-         where
