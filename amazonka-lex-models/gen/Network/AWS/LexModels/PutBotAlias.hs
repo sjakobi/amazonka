@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.LexModels.PutBotAlias
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,219 +21,280 @@
 --
 --
 -- This operation requires permissions for the @lex:PutBotAlias@ action.
---
 module Network.AWS.LexModels.PutBotAlias
-    (
-    -- * Creating a Request
-      putBotAlias
-    , PutBotAlias
+  ( -- * Creating a Request
+    putBotAlias,
+    PutBotAlias,
+
     -- * Request Lenses
-    , pbaChecksum
-    , pbaDescription
-    , pbaName
-    , pbaBotVersion
-    , pbaBotName
+    pbaTags,
+    pbaDescription,
+    pbaChecksum,
+    pbaConversationLogs,
+    pbaName,
+    pbaBotVersion,
+    pbaBotName,
 
     -- * Destructuring the Response
-    , putBotAliasResponse
-    , PutBotAliasResponse
+    putBotAliasResponse,
+    PutBotAliasResponse,
+
     -- * Response Lenses
-    , pbarsChecksum
-    , pbarsBotVersion
-    , pbarsBotName
-    , pbarsCreatedDate
-    , pbarsName
-    , pbarsLastUpdatedDate
-    , pbarsDescription
-    , pbarsResponseStatus
-    ) where
+    pbarrsCreatedDate,
+    pbarrsBotName,
+    pbarrsLastUpdatedDate,
+    pbarrsBotVersion,
+    pbarrsName,
+    pbarrsTags,
+    pbarrsDescription,
+    pbarrsChecksum,
+    pbarrsConversationLogs,
+    pbarrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.LexModels.Types.Product
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'putBotAlias' smart constructor.
 data PutBotAlias = PutBotAlias'
-  { _pbaChecksum    :: !(Maybe Text)
-  , _pbaDescription :: !(Maybe Text)
-  , _pbaName        :: !Text
-  , _pbaBotVersion  :: !Text
-  , _pbaBotName     :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _pbaTags ::
+      !(Maybe [Tag]),
+    _pbaDescription :: !(Maybe Text),
+    _pbaChecksum :: !(Maybe Text),
+    _pbaConversationLogs ::
+      !(Maybe ConversationLogsRequest),
+    _pbaName :: !Text,
+    _pbaBotVersion :: !Text,
+    _pbaBotName :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'PutBotAlias' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'pbaChecksum' - Identifies a specific revision of the @> LATEST@ version. When you create a new bot alias, leave the @checksum@ field blank. If you specify a checksum you get a @BadRequestException@ exception. When you want to update a bot alias, set the @checksum@ field to the checksum of the most recent revision of the @> LATEST@ version. If you don't specify the @checksum@ field, or if the checksum does not match the @> LATEST@ version, you get a @PreconditionFailedException@ exception.
+-- * 'pbaTags' - A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the @PutBotAlias@ operation to update the tags on a bot alias. To update tags, use the @TagResource@ operation.
 --
 -- * 'pbaDescription' - A description of the alias.
+--
+-- * 'pbaChecksum' - Identifies a specific revision of the @> LATEST@ version. When you create a new bot alias, leave the @checksum@ field blank. If you specify a checksum you get a @BadRequestException@ exception. When you want to update a bot alias, set the @checksum@ field to the checksum of the most recent revision of the @> LATEST@ version. If you don't specify the @checksum@ field, or if the checksum does not match the @> LATEST@ version, you get a @PreconditionFailedException@ exception.
+--
+-- * 'pbaConversationLogs' - Settings for conversation logs for the alias.
 --
 -- * 'pbaName' - The name of the alias. The name is /not/ case sensitive.
 --
 -- * 'pbaBotVersion' - The version of the bot.
 --
 -- * 'pbaBotName' - The name of the bot.
-putBotAlias
-    :: Text -- ^ 'pbaName'
-    -> Text -- ^ 'pbaBotVersion'
-    -> Text -- ^ 'pbaBotName'
-    -> PutBotAlias
+putBotAlias ::
+  -- | 'pbaName'
+  Text ->
+  -- | 'pbaBotVersion'
+  Text ->
+  -- | 'pbaBotName'
+  Text ->
+  PutBotAlias
 putBotAlias pName_ pBotVersion_ pBotName_ =
   PutBotAlias'
-    { _pbaChecksum = Nothing
-    , _pbaDescription = Nothing
-    , _pbaName = pName_
-    , _pbaBotVersion = pBotVersion_
-    , _pbaBotName = pBotName_
+    { _pbaTags = Nothing,
+      _pbaDescription = Nothing,
+      _pbaChecksum = Nothing,
+      _pbaConversationLogs = Nothing,
+      _pbaName = pName_,
+      _pbaBotVersion = pBotVersion_,
+      _pbaBotName = pBotName_
     }
 
-
--- | Identifies a specific revision of the @> LATEST@ version. When you create a new bot alias, leave the @checksum@ field blank. If you specify a checksum you get a @BadRequestException@ exception. When you want to update a bot alias, set the @checksum@ field to the checksum of the most recent revision of the @> LATEST@ version. If you don't specify the @checksum@ field, or if the checksum does not match the @> LATEST@ version, you get a @PreconditionFailedException@ exception.
-pbaChecksum :: Lens' PutBotAlias (Maybe Text)
-pbaChecksum = lens _pbaChecksum (\ s a -> s{_pbaChecksum = a})
+-- | A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the @PutBotAlias@ operation to update the tags on a bot alias. To update tags, use the @TagResource@ operation.
+pbaTags :: Lens' PutBotAlias [Tag]
+pbaTags = lens _pbaTags (\s a -> s {_pbaTags = a}) . _Default . _Coerce
 
 -- | A description of the alias.
 pbaDescription :: Lens' PutBotAlias (Maybe Text)
-pbaDescription = lens _pbaDescription (\ s a -> s{_pbaDescription = a})
+pbaDescription = lens _pbaDescription (\s a -> s {_pbaDescription = a})
+
+-- | Identifies a specific revision of the @> LATEST@ version. When you create a new bot alias, leave the @checksum@ field blank. If you specify a checksum you get a @BadRequestException@ exception. When you want to update a bot alias, set the @checksum@ field to the checksum of the most recent revision of the @> LATEST@ version. If you don't specify the @checksum@ field, or if the checksum does not match the @> LATEST@ version, you get a @PreconditionFailedException@ exception.
+pbaChecksum :: Lens' PutBotAlias (Maybe Text)
+pbaChecksum = lens _pbaChecksum (\s a -> s {_pbaChecksum = a})
+
+-- | Settings for conversation logs for the alias.
+pbaConversationLogs :: Lens' PutBotAlias (Maybe ConversationLogsRequest)
+pbaConversationLogs = lens _pbaConversationLogs (\s a -> s {_pbaConversationLogs = a})
 
 -- | The name of the alias. The name is /not/ case sensitive.
 pbaName :: Lens' PutBotAlias Text
-pbaName = lens _pbaName (\ s a -> s{_pbaName = a})
+pbaName = lens _pbaName (\s a -> s {_pbaName = a})
 
 -- | The version of the bot.
 pbaBotVersion :: Lens' PutBotAlias Text
-pbaBotVersion = lens _pbaBotVersion (\ s a -> s{_pbaBotVersion = a})
+pbaBotVersion = lens _pbaBotVersion (\s a -> s {_pbaBotVersion = a})
 
 -- | The name of the bot.
 pbaBotName :: Lens' PutBotAlias Text
-pbaBotName = lens _pbaBotName (\ s a -> s{_pbaBotName = a})
+pbaBotName = lens _pbaBotName (\s a -> s {_pbaBotName = a})
 
 instance AWSRequest PutBotAlias where
-        type Rs PutBotAlias = PutBotAliasResponse
-        request = putJSON lexModels
-        response
-          = receiveJSON
-              (\ s h x ->
-                 PutBotAliasResponse' <$>
-                   (x .?> "checksum") <*> (x .?> "botVersion") <*>
-                     (x .?> "botName")
-                     <*> (x .?> "createdDate")
-                     <*> (x .?> "name")
-                     <*> (x .?> "lastUpdatedDate")
-                     <*> (x .?> "description")
-                     <*> (pure (fromEnum s)))
+  type Rs PutBotAlias = PutBotAliasResponse
+  request = putJSON lexModels
+  response =
+    receiveJSON
+      ( \s h x ->
+          PutBotAliasResponse'
+            <$> (x .?> "createdDate")
+            <*> (x .?> "botName")
+            <*> (x .?> "lastUpdatedDate")
+            <*> (x .?> "botVersion")
+            <*> (x .?> "name")
+            <*> (x .?> "tags" .!@ mempty)
+            <*> (x .?> "description")
+            <*> (x .?> "checksum")
+            <*> (x .?> "conversationLogs")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable PutBotAlias where
+instance Hashable PutBotAlias
 
-instance NFData PutBotAlias where
+instance NFData PutBotAlias
 
 instance ToHeaders PutBotAlias where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON PutBotAlias where
-        toJSON PutBotAlias'{..}
-          = object
-              (catMaybes
-                 [("checksum" .=) <$> _pbaChecksum,
-                  ("description" .=) <$> _pbaDescription,
-                  Just ("botVersion" .= _pbaBotVersion)])
+  toJSON PutBotAlias' {..} =
+    object
+      ( catMaybes
+          [ ("tags" .=) <$> _pbaTags,
+            ("description" .=) <$> _pbaDescription,
+            ("checksum" .=) <$> _pbaChecksum,
+            ("conversationLogs" .=) <$> _pbaConversationLogs,
+            Just ("botVersion" .= _pbaBotVersion)
+          ]
+      )
 
 instance ToPath PutBotAlias where
-        toPath PutBotAlias'{..}
-          = mconcat
-              ["/bots/", toBS _pbaBotName, "/aliases/",
-               toBS _pbaName]
+  toPath PutBotAlias' {..} =
+    mconcat
+      [ "/bots/",
+        toBS _pbaBotName,
+        "/aliases/",
+        toBS _pbaName
+      ]
 
 instance ToQuery PutBotAlias where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'putBotAliasResponse' smart constructor.
 data PutBotAliasResponse = PutBotAliasResponse'
-  { _pbarsChecksum        :: !(Maybe Text)
-  , _pbarsBotVersion      :: !(Maybe Text)
-  , _pbarsBotName         :: !(Maybe Text)
-  , _pbarsCreatedDate     :: !(Maybe POSIX)
-  , _pbarsName            :: !(Maybe Text)
-  , _pbarsLastUpdatedDate :: !(Maybe POSIX)
-  , _pbarsDescription     :: !(Maybe Text)
-  , _pbarsResponseStatus  :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _pbarrsCreatedDate ::
+      !(Maybe POSIX),
+    _pbarrsBotName :: !(Maybe Text),
+    _pbarrsLastUpdatedDate ::
+      !(Maybe POSIX),
+    _pbarrsBotVersion ::
+      !(Maybe Text),
+    _pbarrsName :: !(Maybe Text),
+    _pbarrsTags :: !(Maybe [Tag]),
+    _pbarrsDescription ::
+      !(Maybe Text),
+    _pbarrsChecksum ::
+      !(Maybe Text),
+    _pbarrsConversationLogs ::
+      !( Maybe
+           ConversationLogsResponse
+       ),
+    _pbarrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'PutBotAliasResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'pbarsChecksum' - The checksum for the current version of the alias.
+-- * 'pbarrsCreatedDate' - The date that the bot alias was created.
 --
--- * 'pbarsBotVersion' - The version of the bot that the alias points to.
+-- * 'pbarrsBotName' - The name of the bot that the alias points to.
 --
--- * 'pbarsBotName' - The name of the bot that the alias points to.
+-- * 'pbarrsLastUpdatedDate' - The date that the bot alias was updated. When you create a resource, the creation date and the last updated date are the same.
 --
--- * 'pbarsCreatedDate' - The date that the bot alias was created.
+-- * 'pbarrsBotVersion' - The version of the bot that the alias points to.
 --
--- * 'pbarsName' - The name of the alias.
+-- * 'pbarrsName' - The name of the alias.
 --
--- * 'pbarsLastUpdatedDate' - The date that the bot alias was updated. When you create a resource, the creation date and the last updated date are the same.
+-- * 'pbarrsTags' - A list of tags associated with a bot.
 --
--- * 'pbarsDescription' - A description of the alias.
+-- * 'pbarrsDescription' - A description of the alias.
 --
--- * 'pbarsResponseStatus' - -- | The response status code.
-putBotAliasResponse
-    :: Int -- ^ 'pbarsResponseStatus'
-    -> PutBotAliasResponse
+-- * 'pbarrsChecksum' - The checksum for the current version of the alias.
+--
+-- * 'pbarrsConversationLogs' - The settings that determine how Amazon Lex uses conversation logs for the alias.
+--
+-- * 'pbarrsResponseStatus' - -- | The response status code.
+putBotAliasResponse ::
+  -- | 'pbarrsResponseStatus'
+  Int ->
+  PutBotAliasResponse
 putBotAliasResponse pResponseStatus_ =
   PutBotAliasResponse'
-    { _pbarsChecksum = Nothing
-    , _pbarsBotVersion = Nothing
-    , _pbarsBotName = Nothing
-    , _pbarsCreatedDate = Nothing
-    , _pbarsName = Nothing
-    , _pbarsLastUpdatedDate = Nothing
-    , _pbarsDescription = Nothing
-    , _pbarsResponseStatus = pResponseStatus_
+    { _pbarrsCreatedDate = Nothing,
+      _pbarrsBotName = Nothing,
+      _pbarrsLastUpdatedDate = Nothing,
+      _pbarrsBotVersion = Nothing,
+      _pbarrsName = Nothing,
+      _pbarrsTags = Nothing,
+      _pbarrsDescription = Nothing,
+      _pbarrsChecksum = Nothing,
+      _pbarrsConversationLogs = Nothing,
+      _pbarrsResponseStatus = pResponseStatus_
     }
 
-
--- | The checksum for the current version of the alias.
-pbarsChecksum :: Lens' PutBotAliasResponse (Maybe Text)
-pbarsChecksum = lens _pbarsChecksum (\ s a -> s{_pbarsChecksum = a})
-
--- | The version of the bot that the alias points to.
-pbarsBotVersion :: Lens' PutBotAliasResponse (Maybe Text)
-pbarsBotVersion = lens _pbarsBotVersion (\ s a -> s{_pbarsBotVersion = a})
+-- | The date that the bot alias was created.
+pbarrsCreatedDate :: Lens' PutBotAliasResponse (Maybe UTCTime)
+pbarrsCreatedDate = lens _pbarrsCreatedDate (\s a -> s {_pbarrsCreatedDate = a}) . mapping _Time
 
 -- | The name of the bot that the alias points to.
-pbarsBotName :: Lens' PutBotAliasResponse (Maybe Text)
-pbarsBotName = lens _pbarsBotName (\ s a -> s{_pbarsBotName = a})
-
--- | The date that the bot alias was created.
-pbarsCreatedDate :: Lens' PutBotAliasResponse (Maybe UTCTime)
-pbarsCreatedDate = lens _pbarsCreatedDate (\ s a -> s{_pbarsCreatedDate = a}) . mapping _Time
-
--- | The name of the alias.
-pbarsName :: Lens' PutBotAliasResponse (Maybe Text)
-pbarsName = lens _pbarsName (\ s a -> s{_pbarsName = a})
+pbarrsBotName :: Lens' PutBotAliasResponse (Maybe Text)
+pbarrsBotName = lens _pbarrsBotName (\s a -> s {_pbarrsBotName = a})
 
 -- | The date that the bot alias was updated. When you create a resource, the creation date and the last updated date are the same.
-pbarsLastUpdatedDate :: Lens' PutBotAliasResponse (Maybe UTCTime)
-pbarsLastUpdatedDate = lens _pbarsLastUpdatedDate (\ s a -> s{_pbarsLastUpdatedDate = a}) . mapping _Time
+pbarrsLastUpdatedDate :: Lens' PutBotAliasResponse (Maybe UTCTime)
+pbarrsLastUpdatedDate = lens _pbarrsLastUpdatedDate (\s a -> s {_pbarrsLastUpdatedDate = a}) . mapping _Time
+
+-- | The version of the bot that the alias points to.
+pbarrsBotVersion :: Lens' PutBotAliasResponse (Maybe Text)
+pbarrsBotVersion = lens _pbarrsBotVersion (\s a -> s {_pbarrsBotVersion = a})
+
+-- | The name of the alias.
+pbarrsName :: Lens' PutBotAliasResponse (Maybe Text)
+pbarrsName = lens _pbarrsName (\s a -> s {_pbarrsName = a})
+
+-- | A list of tags associated with a bot.
+pbarrsTags :: Lens' PutBotAliasResponse [Tag]
+pbarrsTags = lens _pbarrsTags (\s a -> s {_pbarrsTags = a}) . _Default . _Coerce
 
 -- | A description of the alias.
-pbarsDescription :: Lens' PutBotAliasResponse (Maybe Text)
-pbarsDescription = lens _pbarsDescription (\ s a -> s{_pbarsDescription = a})
+pbarrsDescription :: Lens' PutBotAliasResponse (Maybe Text)
+pbarrsDescription = lens _pbarrsDescription (\s a -> s {_pbarrsDescription = a})
+
+-- | The checksum for the current version of the alias.
+pbarrsChecksum :: Lens' PutBotAliasResponse (Maybe Text)
+pbarrsChecksum = lens _pbarrsChecksum (\s a -> s {_pbarrsChecksum = a})
+
+-- | The settings that determine how Amazon Lex uses conversation logs for the alias.
+pbarrsConversationLogs :: Lens' PutBotAliasResponse (Maybe ConversationLogsResponse)
+pbarrsConversationLogs = lens _pbarrsConversationLogs (\s a -> s {_pbarrsConversationLogs = a})
 
 -- | -- | The response status code.
-pbarsResponseStatus :: Lens' PutBotAliasResponse Int
-pbarsResponseStatus = lens _pbarsResponseStatus (\ s a -> s{_pbarsResponseStatus = a})
+pbarrsResponseStatus :: Lens' PutBotAliasResponse Int
+pbarrsResponseStatus = lens _pbarrsResponseStatus (\s a -> s {_pbarrsResponseStatus = a})
 
-instance NFData PutBotAliasResponse where
+instance NFData PutBotAliasResponse

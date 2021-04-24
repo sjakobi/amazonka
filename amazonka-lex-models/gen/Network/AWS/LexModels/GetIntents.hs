@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.LexModels.GetIntents
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,27 +31,28 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.LexModels.GetIntents
-    (
-    -- * Creating a Request
-      getIntents
-    , GetIntents
+  ( -- * Creating a Request
+    getIntents,
+    GetIntents,
+
     -- * Request Lenses
-    , giNameContains
-    , giNextToken
-    , giMaxResults
+    giNextToken,
+    giNameContains,
+    giMaxResults,
 
     -- * Destructuring the Response
-    , getIntentsResponse
-    , GetIntentsResponse
+    getIntentsResponse,
+    GetIntentsResponse,
+
     -- * Response Lenses
-    , gisrsIntents
-    , gisrsNextToken
-    , gisrsResponseStatus
-    ) where
+    ggrsNextToken,
+    ggrsIntents,
+    ggrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.LexModels.Types
-import Network.AWS.LexModels.Types.Product
 import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -60,116 +60,126 @@ import Network.AWS.Response
 
 -- | /See:/ 'getIntents' smart constructor.
 data GetIntents = GetIntents'
-  { _giNameContains :: !(Maybe Text)
-  , _giNextToken    :: !(Maybe Text)
-  , _giMaxResults   :: !(Maybe Nat)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _giNextToken ::
+      !(Maybe Text),
+    _giNameContains :: !(Maybe Text),
+    _giMaxResults :: !(Maybe Nat)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetIntents' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'giNameContains' - Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
---
 -- * 'giNextToken' - A pagination token that fetches the next page of intents. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, specify the pagination token in the next request.
 --
+-- * 'giNameContains' - Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
+--
 -- * 'giMaxResults' - The maximum number of intents to return in the response. The default is 10.
-getIntents
-    :: GetIntents
+getIntents ::
+  GetIntents
 getIntents =
   GetIntents'
-    {_giNameContains = Nothing, _giNextToken = Nothing, _giMaxResults = Nothing}
-
-
--- | Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
-giNameContains :: Lens' GetIntents (Maybe Text)
-giNameContains = lens _giNameContains (\ s a -> s{_giNameContains = a})
+    { _giNextToken = Nothing,
+      _giNameContains = Nothing,
+      _giMaxResults = Nothing
+    }
 
 -- | A pagination token that fetches the next page of intents. If the response to this API call is truncated, Amazon Lex returns a pagination token in the response. To fetch the next page of intents, specify the pagination token in the next request.
 giNextToken :: Lens' GetIntents (Maybe Text)
-giNextToken = lens _giNextToken (\ s a -> s{_giNextToken = a})
+giNextToken = lens _giNextToken (\s a -> s {_giNextToken = a})
+
+-- | Substring to match in intent names. An intent will be returned if any part of its name matches the substring. For example, "xyz" matches both "xyzabc" and "abcxyz."
+giNameContains :: Lens' GetIntents (Maybe Text)
+giNameContains = lens _giNameContains (\s a -> s {_giNameContains = a})
 
 -- | The maximum number of intents to return in the response. The default is 10.
 giMaxResults :: Lens' GetIntents (Maybe Natural)
-giMaxResults = lens _giMaxResults (\ s a -> s{_giMaxResults = a}) . mapping _Nat
+giMaxResults = lens _giMaxResults (\s a -> s {_giMaxResults = a}) . mapping _Nat
 
 instance AWSPager GetIntents where
-        page rq rs
-          | stop (rs ^. gisrsNextToken) = Nothing
-          | stop (rs ^. gisrsIntents) = Nothing
-          | otherwise =
-            Just $ rq & giNextToken .~ rs ^. gisrsNextToken
+  page rq rs
+    | stop (rs ^. ggrsNextToken) = Nothing
+    | stop (rs ^. ggrsIntents) = Nothing
+    | otherwise =
+      Just $ rq & giNextToken .~ rs ^. ggrsNextToken
 
 instance AWSRequest GetIntents where
-        type Rs GetIntents = GetIntentsResponse
-        request = get lexModels
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetIntentsResponse' <$>
-                   (x .?> "intents" .!@ mempty) <*> (x .?> "nextToken")
-                     <*> (pure (fromEnum s)))
+  type Rs GetIntents = GetIntentsResponse
+  request = get lexModels
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetIntentsResponse'
+            <$> (x .?> "nextToken")
+            <*> (x .?> "intents" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetIntents where
+instance Hashable GetIntents
 
-instance NFData GetIntents where
+instance NFData GetIntents
 
 instance ToHeaders GetIntents where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath GetIntents where
-        toPath = const "/intents/"
+  toPath = const "/intents/"
 
 instance ToQuery GetIntents where
-        toQuery GetIntents'{..}
-          = mconcat
-              ["nameContains" =: _giNameContains,
-               "nextToken" =: _giNextToken,
-               "maxResults" =: _giMaxResults]
+  toQuery GetIntents' {..} =
+    mconcat
+      [ "nextToken" =: _giNextToken,
+        "nameContains" =: _giNameContains,
+        "maxResults" =: _giMaxResults
+      ]
 
 -- | /See:/ 'getIntentsResponse' smart constructor.
 data GetIntentsResponse = GetIntentsResponse'
-  { _gisrsIntents        :: !(Maybe [IntentMetadata])
-  , _gisrsNextToken      :: !(Maybe Text)
-  , _gisrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ggrsNextToken ::
+      !(Maybe Text),
+    _ggrsIntents ::
+      !(Maybe [IntentMetadata]),
+    _ggrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetIntentsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gisrsIntents' - An array of @Intent@ objects. For more information, see 'PutBot' .
+-- * 'ggrsNextToken' - If the response is truncated, the response includes a pagination token that you can specify in your next request to fetch the next page of intents.
 --
--- * 'gisrsNextToken' - If the response is truncated, the response includes a pagination token that you can specify in your next request to fetch the next page of intents.
+-- * 'ggrsIntents' - An array of @Intent@ objects. For more information, see 'PutBot' .
 --
--- * 'gisrsResponseStatus' - -- | The response status code.
-getIntentsResponse
-    :: Int -- ^ 'gisrsResponseStatus'
-    -> GetIntentsResponse
+-- * 'ggrsResponseStatus' - -- | The response status code.
+getIntentsResponse ::
+  -- | 'ggrsResponseStatus'
+  Int ->
+  GetIntentsResponse
 getIntentsResponse pResponseStatus_ =
   GetIntentsResponse'
-    { _gisrsIntents = Nothing
-    , _gisrsNextToken = Nothing
-    , _gisrsResponseStatus = pResponseStatus_
+    { _ggrsNextToken = Nothing,
+      _ggrsIntents = Nothing,
+      _ggrsResponseStatus = pResponseStatus_
     }
 
+-- | If the response is truncated, the response includes a pagination token that you can specify in your next request to fetch the next page of intents.
+ggrsNextToken :: Lens' GetIntentsResponse (Maybe Text)
+ggrsNextToken = lens _ggrsNextToken (\s a -> s {_ggrsNextToken = a})
 
 -- | An array of @Intent@ objects. For more information, see 'PutBot' .
-gisrsIntents :: Lens' GetIntentsResponse [IntentMetadata]
-gisrsIntents = lens _gisrsIntents (\ s a -> s{_gisrsIntents = a}) . _Default . _Coerce
-
--- | If the response is truncated, the response includes a pagination token that you can specify in your next request to fetch the next page of intents.
-gisrsNextToken :: Lens' GetIntentsResponse (Maybe Text)
-gisrsNextToken = lens _gisrsNextToken (\ s a -> s{_gisrsNextToken = a})
+ggrsIntents :: Lens' GetIntentsResponse [IntentMetadata]
+ggrsIntents = lens _ggrsIntents (\s a -> s {_ggrsIntents = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-gisrsResponseStatus :: Lens' GetIntentsResponse Int
-gisrsResponseStatus = lens _gisrsResponseStatus (\ s a -> s{_gisrsResponseStatus = a})
+ggrsResponseStatus :: Lens' GetIntentsResponse Int
+ggrsResponseStatus = lens _ggrsResponseStatus (\s a -> s {_ggrsResponseStatus = a})
 
-instance NFData GetIntentsResponse where
+instance NFData GetIntentsResponse
