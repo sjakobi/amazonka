@@ -1,90 +1,96 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.IAM.ListOpenIdConnectProviders
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Lists information about the IAM OpenID Connect (OIDC) provider resource objects defined in the AWS account.
---
---
 module Network.AWS.IAM.ListOpenIdConnectProviders
-    (
-    -- * Creating a Request
-      listOpenIdConnectProviders
-    , ListOpenIdConnectProviders
+  ( -- * Creating a Request
+    listOpenIdConnectProviders,
+    ListOpenIdConnectProviders,
 
     -- * Destructuring the Response
-    , listOpenIdConnectProvidersResponse
-    , ListOpenIdConnectProvidersResponse
+    listOpenIdConnectProvidersResponse,
+    ListOpenIdConnectProvidersResponse,
+
     -- * Response Lenses
-    , loicprsOpenIdConnectProviderList
-    , loicprsResponseStatus
-    ) where
+    loicprrsOpenIdConnectProviderList,
+    loicprrsResponseStatus,
+  )
+where
 
 import Network.AWS.IAM.Types
-import Network.AWS.IAM.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'listOpenIdConnectProviders' smart constructor.
-data ListOpenIdConnectProviders =
-  ListOpenIdConnectProviders'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+data ListOpenIdConnectProviders = ListOpenIdConnectProviders'
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListOpenIdConnectProviders' with the minimum fields required to make a request.
---
-listOpenIdConnectProviders
-    :: ListOpenIdConnectProviders
-listOpenIdConnectProviders = ListOpenIdConnectProviders'
-
+listOpenIdConnectProviders ::
+  ListOpenIdConnectProviders
+listOpenIdConnectProviders =
+  ListOpenIdConnectProviders'
 
 instance AWSRequest ListOpenIdConnectProviders where
-        type Rs ListOpenIdConnectProviders =
-             ListOpenIdConnectProvidersResponse
-        request = postQuery iam
-        response
-          = receiveXMLWrapper
-              "ListOpenIDConnectProvidersResult"
-              (\ s h x ->
-                 ListOpenIdConnectProvidersResponse' <$>
-                   (x .@? "OpenIDConnectProviderList" .!@ mempty >>=
-                      may (parseXMLList "member"))
-                     <*> (pure (fromEnum s)))
+  type
+    Rs ListOpenIdConnectProviders =
+      ListOpenIdConnectProvidersResponse
+  request = postQuery iam
+  response =
+    receiveXMLWrapper
+      "ListOpenIDConnectProvidersResult"
+      ( \s h x ->
+          ListOpenIdConnectProvidersResponse'
+            <$> ( x .@? "OpenIDConnectProviderList" .!@ mempty
+                    >>= may (parseXMLList "member")
+                )
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable ListOpenIdConnectProviders where
+instance Hashable ListOpenIdConnectProviders
 
-instance NFData ListOpenIdConnectProviders where
+instance NFData ListOpenIdConnectProviders
 
 instance ToHeaders ListOpenIdConnectProviders where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath ListOpenIdConnectProviders where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery ListOpenIdConnectProviders where
-        toQuery
-          = const
-              (mconcat
-                 ["Action" =:
-                    ("ListOpenIDConnectProviders" :: ByteString),
-                  "Version" =: ("2010-05-08" :: ByteString)])
+  toQuery =
+    const
+      ( mconcat
+          [ "Action"
+              =: ("ListOpenIDConnectProviders" :: ByteString),
+            "Version" =: ("2010-05-08" :: ByteString)
+          ]
+      )
 
 -- | Contains the response to a successful 'ListOpenIDConnectProviders' request.
 --
@@ -92,35 +98,47 @@ instance ToQuery ListOpenIdConnectProviders where
 --
 -- /See:/ 'listOpenIdConnectProvidersResponse' smart constructor.
 data ListOpenIdConnectProvidersResponse = ListOpenIdConnectProvidersResponse'
-  { _loicprsOpenIdConnectProviderList :: !(Maybe [OpenIdConnectProviderListEntry])
-  , _loicprsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _loicprrsOpenIdConnectProviderList ::
+      !( Maybe
+           [OpenIdConnectProviderListEntry]
+       ),
+    _loicprrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListOpenIdConnectProvidersResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'loicprsOpenIdConnectProviderList' - The list of IAM OIDC provider resource objects defined in the AWS account.
+-- * 'loicprrsOpenIdConnectProviderList' - The list of IAM OIDC provider resource objects defined in the AWS account.
 --
--- * 'loicprsResponseStatus' - -- | The response status code.
-listOpenIdConnectProvidersResponse
-    :: Int -- ^ 'loicprsResponseStatus'
-    -> ListOpenIdConnectProvidersResponse
+-- * 'loicprrsResponseStatus' - -- | The response status code.
+listOpenIdConnectProvidersResponse ::
+  -- | 'loicprrsResponseStatus'
+  Int ->
+  ListOpenIdConnectProvidersResponse
 listOpenIdConnectProvidersResponse pResponseStatus_ =
   ListOpenIdConnectProvidersResponse'
-    { _loicprsOpenIdConnectProviderList = Nothing
-    , _loicprsResponseStatus = pResponseStatus_
+    { _loicprrsOpenIdConnectProviderList =
+        Nothing,
+      _loicprrsResponseStatus =
+        pResponseStatus_
     }
 
-
 -- | The list of IAM OIDC provider resource objects defined in the AWS account.
-loicprsOpenIdConnectProviderList :: Lens' ListOpenIdConnectProvidersResponse [OpenIdConnectProviderListEntry]
-loicprsOpenIdConnectProviderList = lens _loicprsOpenIdConnectProviderList (\ s a -> s{_loicprsOpenIdConnectProviderList = a}) . _Default . _Coerce
+loicprrsOpenIdConnectProviderList :: Lens' ListOpenIdConnectProvidersResponse [OpenIdConnectProviderListEntry]
+loicprrsOpenIdConnectProviderList = lens _loicprrsOpenIdConnectProviderList (\s a -> s {_loicprrsOpenIdConnectProviderList = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-loicprsResponseStatus :: Lens' ListOpenIdConnectProvidersResponse Int
-loicprsResponseStatus = lens _loicprsResponseStatus (\ s a -> s{_loicprsResponseStatus = a})
+loicprrsResponseStatus :: Lens' ListOpenIdConnectProvidersResponse Int
+loicprrsResponseStatus = lens _loicprrsResponseStatus (\s a -> s {_loicprrsResponseStatus = a})
 
 instance NFData ListOpenIdConnectProvidersResponse
-         where
