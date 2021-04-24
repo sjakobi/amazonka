@@ -1,18 +1,16 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeFamilies      #-}
-
+{-# LANGUAGE TypeFamilies #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Route53.Waiters
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Network.AWS.Route53.Waiters where
 
 import Network.AWS.Lens
@@ -25,14 +23,13 @@ import Network.AWS.Waiter
 resourceRecordSetsChanged :: Wait GetChange
 resourceRecordSetsChanged =
   Wait
-    { _waitName = "ResourceRecordSetsChanged"
-    , _waitAttempts = 60
-    , _waitDelay = 30
-    , _waitAcceptors =
+    { _waitName = "ResourceRecordSetsChanged",
+      _waitAttempts = 60,
+      _waitDelay = 30,
+      _waitAcceptors =
         [ matchAll
             "INSYNC"
             AcceptSuccess
-            (gcrsChangeInfo . ciStatus . to toTextCI)
+            (gcrrsChangeInfo . ciStatus . to toTextCI)
         ]
     }
-
