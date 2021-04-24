@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.MediaConvert
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.MediaConvert where
 
 import Data.Proxy
@@ -28,372 +27,512 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDeletePreset $
---             deletePreset
+--         [ requestDisassociateCertificate $
+--             disassociateCertificate
 --
 --         , requestUpdatePreset $
 --             updatePreset
 --
---         , requestListQueues $
---             listQueues
---
---         , requestDeleteQueue $
---             deleteQueue
---
---         , requestUpdateQueue $
---             updateQueue
---
---         , requestGetPreset $
---             getPreset
---
---         , requestCreateJob $
---             createJob
---
---         , requestListJobs $
---             listJobs
---
---         , requestGetJob $
---             getJob
---
---         , requestCreatePreset $
---             createPreset
---
 --         , requestListPresets $
 --             listPresets
 --
---         , requestGetQueue $
---             getQueue
---
---         , requestDescribeEndpoints $
---             describeEndpoints
---
---         , requestCreateQueue $
---             createQueue
---
---         , requestCreateJobTemplate $
---             createJobTemplate
---
---         , requestDeleteJobTemplate $
---             deleteJobTemplate
---
---         , requestUpdateJobTemplate $
---             updateJobTemplate
---
---         , requestListJobTemplates $
---             listJobTemplates
---
---         , requestGetJobTemplate $
---             getJobTemplate
+--         , requestDeletePreset $
+--             deletePreset
 --
 --         , requestCancelJob $
 --             cancelJob
 --
+--         , requestCreatePreset $
+--             createPreset
+--
+--         , requestGetJob $
+--             getJob
+--
+--         , requestListJobTemplates $
+--             listJobTemplates
+--
+--         , requestUntagResource $
+--             untagResource
+--
+--         , requestCreateJobTemplate $
+--             createJobTemplate
+--
+--         , requestListQueues $
+--             listQueues
+--
+--         , requestTagResource $
+--             tagResource
+--
+--         , requestGetQueue $
+--             getQueue
+--
+--         , requestGetJobTemplate $
+--             getJobTemplate
+--
+--         , requestAssociateCertificate $
+--             associateCertificate
+--
+--         , requestListJobs $
+--             listJobs
+--
+--         , requestUpdateJobTemplate $
+--             updateJobTemplate
+--
+--         , requestDeleteJobTemplate $
+--             deleteJobTemplate
+--
+--         , requestCreateJob $
+--             createJob
+--
+--         , requestGetPreset $
+--             getPreset
+--
+--         , requestUpdateQueue $
+--             updateQueue
+--
+--         , requestDeleteQueue $
+--             deleteQueue
+--
+--         , requestCreateQueue $
+--             createQueue
+--
+--         , requestDescribeEndpoints $
+--             describeEndpoints
+--
+--         , requestListTagsForResource $
+--             listTagsForResource
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseDeletePreset $
---             deletePresetResponse
+--         [ responseDisassociateCertificate $
+--             disassociateCertificateResponse
 --
 --         , responseUpdatePreset $
 --             updatePresetResponse
 --
---         , responseListQueues $
---             listQueuesResponse
+--         , responseListPresets $
+--             listPresetsResponse
 --
---         , responseDeleteQueue $
---             deleteQueueResponse
+--         , responseDeletePreset $
+--             deletePresetResponse
 --
---         , responseUpdateQueue $
---             updateQueueResponse
---
---         , responseGetPreset $
---             getPresetResponse
---
---         , responseCreateJob $
---             createJobResponse
---
---         , responseListJobs $
---             listJobsResponse
---
---         , responseGetJob $
---             getJobResponse
+--         , responseCancelJob $
+--             cancelJobResponse
 --
 --         , responseCreatePreset $
 --             createPresetResponse
 --
---         , responseListPresets $
---             listPresetsResponse
---
---         , responseGetQueue $
---             getQueueResponse
---
---         , responseDescribeEndpoints $
---             describeEndpointsResponse
---
---         , responseCreateQueue $
---             createQueueResponse
---
---         , responseCreateJobTemplate $
---             createJobTemplateResponse
---
---         , responseDeleteJobTemplate $
---             deleteJobTemplateResponse
---
---         , responseUpdateJobTemplate $
---             updateJobTemplateResponse
+--         , responseGetJob $
+--             getJobResponse
 --
 --         , responseListJobTemplates $
 --             listJobTemplatesResponse
 --
+--         , responseUntagResource $
+--             untagResourceResponse
+--
+--         , responseCreateJobTemplate $
+--             createJobTemplateResponse
+--
+--         , responseListQueues $
+--             listQueuesResponse
+--
+--         , responseTagResource $
+--             tagResourceResponse
+--
+--         , responseGetQueue $
+--             getQueueResponse
+--
 --         , responseGetJobTemplate $
 --             getJobTemplateResponse
 --
---         , responseCancelJob $
---             cancelJobResponse
+--         , responseAssociateCertificate $
+--             associateCertificateResponse
+--
+--         , responseListJobs $
+--             listJobsResponse
+--
+--         , responseUpdateJobTemplate $
+--             updateJobTemplateResponse
+--
+--         , responseDeleteJobTemplate $
+--             deleteJobTemplateResponse
+--
+--         , responseCreateJob $
+--             createJobResponse
+--
+--         , responseGetPreset $
+--             getPresetResponse
+--
+--         , responseUpdateQueue $
+--             updateQueueResponse
+--
+--         , responseDeleteQueue $
+--             deleteQueueResponse
+--
+--         , responseCreateQueue $
+--             createQueueResponse
+--
+--         , responseDescribeEndpoints $
+--             describeEndpointsResponse
+--
+--         , responseListTagsForResource $
+--             listTagsForResourceResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestDeletePreset :: DeletePreset -> TestTree
-requestDeletePreset = req
-    "DeletePreset"
-    "fixture/DeletePreset.yaml"
+requestDisassociateCertificate :: DisassociateCertificate -> TestTree
+requestDisassociateCertificate =
+  req
+    "DisassociateCertificate"
+    "fixture/DisassociateCertificate.yaml"
 
 requestUpdatePreset :: UpdatePreset -> TestTree
-requestUpdatePreset = req
+requestUpdatePreset =
+  req
     "UpdatePreset"
     "fixture/UpdatePreset.yaml"
 
-requestListQueues :: ListQueues -> TestTree
-requestListQueues = req
-    "ListQueues"
-    "fixture/ListQueues.yaml"
-
-requestDeleteQueue :: DeleteQueue -> TestTree
-requestDeleteQueue = req
-    "DeleteQueue"
-    "fixture/DeleteQueue.yaml"
-
-requestUpdateQueue :: UpdateQueue -> TestTree
-requestUpdateQueue = req
-    "UpdateQueue"
-    "fixture/UpdateQueue.yaml"
-
-requestGetPreset :: GetPreset -> TestTree
-requestGetPreset = req
-    "GetPreset"
-    "fixture/GetPreset.yaml"
-
-requestCreateJob :: CreateJob -> TestTree
-requestCreateJob = req
-    "CreateJob"
-    "fixture/CreateJob.yaml"
-
-requestListJobs :: ListJobs -> TestTree
-requestListJobs = req
-    "ListJobs"
-    "fixture/ListJobs.yaml"
-
-requestGetJob :: GetJob -> TestTree
-requestGetJob = req
-    "GetJob"
-    "fixture/GetJob.yaml"
-
-requestCreatePreset :: CreatePreset -> TestTree
-requestCreatePreset = req
-    "CreatePreset"
-    "fixture/CreatePreset.yaml"
-
 requestListPresets :: ListPresets -> TestTree
-requestListPresets = req
+requestListPresets =
+  req
     "ListPresets"
     "fixture/ListPresets.yaml"
 
-requestGetQueue :: GetQueue -> TestTree
-requestGetQueue = req
-    "GetQueue"
-    "fixture/GetQueue.yaml"
-
-requestDescribeEndpoints :: DescribeEndpoints -> TestTree
-requestDescribeEndpoints = req
-    "DescribeEndpoints"
-    "fixture/DescribeEndpoints.yaml"
-
-requestCreateQueue :: CreateQueue -> TestTree
-requestCreateQueue = req
-    "CreateQueue"
-    "fixture/CreateQueue.yaml"
-
-requestCreateJobTemplate :: CreateJobTemplate -> TestTree
-requestCreateJobTemplate = req
-    "CreateJobTemplate"
-    "fixture/CreateJobTemplate.yaml"
-
-requestDeleteJobTemplate :: DeleteJobTemplate -> TestTree
-requestDeleteJobTemplate = req
-    "DeleteJobTemplate"
-    "fixture/DeleteJobTemplate.yaml"
-
-requestUpdateJobTemplate :: UpdateJobTemplate -> TestTree
-requestUpdateJobTemplate = req
-    "UpdateJobTemplate"
-    "fixture/UpdateJobTemplate.yaml"
-
-requestListJobTemplates :: ListJobTemplates -> TestTree
-requestListJobTemplates = req
-    "ListJobTemplates"
-    "fixture/ListJobTemplates.yaml"
-
-requestGetJobTemplate :: GetJobTemplate -> TestTree
-requestGetJobTemplate = req
-    "GetJobTemplate"
-    "fixture/GetJobTemplate.yaml"
+requestDeletePreset :: DeletePreset -> TestTree
+requestDeletePreset =
+  req
+    "DeletePreset"
+    "fixture/DeletePreset.yaml"
 
 requestCancelJob :: CancelJob -> TestTree
-requestCancelJob = req
+requestCancelJob =
+  req
     "CancelJob"
     "fixture/CancelJob.yaml"
 
+requestCreatePreset :: CreatePreset -> TestTree
+requestCreatePreset =
+  req
+    "CreatePreset"
+    "fixture/CreatePreset.yaml"
+
+requestGetJob :: GetJob -> TestTree
+requestGetJob =
+  req
+    "GetJob"
+    "fixture/GetJob.yaml"
+
+requestListJobTemplates :: ListJobTemplates -> TestTree
+requestListJobTemplates =
+  req
+    "ListJobTemplates"
+    "fixture/ListJobTemplates.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestCreateJobTemplate :: CreateJobTemplate -> TestTree
+requestCreateJobTemplate =
+  req
+    "CreateJobTemplate"
+    "fixture/CreateJobTemplate.yaml"
+
+requestListQueues :: ListQueues -> TestTree
+requestListQueues =
+  req
+    "ListQueues"
+    "fixture/ListQueues.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestGetQueue :: GetQueue -> TestTree
+requestGetQueue =
+  req
+    "GetQueue"
+    "fixture/GetQueue.yaml"
+
+requestGetJobTemplate :: GetJobTemplate -> TestTree
+requestGetJobTemplate =
+  req
+    "GetJobTemplate"
+    "fixture/GetJobTemplate.yaml"
+
+requestAssociateCertificate :: AssociateCertificate -> TestTree
+requestAssociateCertificate =
+  req
+    "AssociateCertificate"
+    "fixture/AssociateCertificate.yaml"
+
+requestListJobs :: ListJobs -> TestTree
+requestListJobs =
+  req
+    "ListJobs"
+    "fixture/ListJobs.yaml"
+
+requestUpdateJobTemplate :: UpdateJobTemplate -> TestTree
+requestUpdateJobTemplate =
+  req
+    "UpdateJobTemplate"
+    "fixture/UpdateJobTemplate.yaml"
+
+requestDeleteJobTemplate :: DeleteJobTemplate -> TestTree
+requestDeleteJobTemplate =
+  req
+    "DeleteJobTemplate"
+    "fixture/DeleteJobTemplate.yaml"
+
+requestCreateJob :: CreateJob -> TestTree
+requestCreateJob =
+  req
+    "CreateJob"
+    "fixture/CreateJob.yaml"
+
+requestGetPreset :: GetPreset -> TestTree
+requestGetPreset =
+  req
+    "GetPreset"
+    "fixture/GetPreset.yaml"
+
+requestUpdateQueue :: UpdateQueue -> TestTree
+requestUpdateQueue =
+  req
+    "UpdateQueue"
+    "fixture/UpdateQueue.yaml"
+
+requestDeleteQueue :: DeleteQueue -> TestTree
+requestDeleteQueue =
+  req
+    "DeleteQueue"
+    "fixture/DeleteQueue.yaml"
+
+requestCreateQueue :: CreateQueue -> TestTree
+requestCreateQueue =
+  req
+    "CreateQueue"
+    "fixture/CreateQueue.yaml"
+
+requestDescribeEndpoints :: DescribeEndpoints -> TestTree
+requestDescribeEndpoints =
+  req
+    "DescribeEndpoints"
+    "fixture/DescribeEndpoints.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
 -- Responses
 
-responseDeletePreset :: DeletePresetResponse -> TestTree
-responseDeletePreset = res
-    "DeletePresetResponse"
-    "fixture/DeletePresetResponse.proto"
+responseDisassociateCertificate :: DisassociateCertificateResponse -> TestTree
+responseDisassociateCertificate =
+  res
+    "DisassociateCertificateResponse"
+    "fixture/DisassociateCertificateResponse.proto"
     mediaConvert
-    (Proxy :: Proxy DeletePreset)
+    (Proxy :: Proxy DisassociateCertificate)
 
 responseUpdatePreset :: UpdatePresetResponse -> TestTree
-responseUpdatePreset = res
+responseUpdatePreset =
+  res
     "UpdatePresetResponse"
     "fixture/UpdatePresetResponse.proto"
     mediaConvert
     (Proxy :: Proxy UpdatePreset)
 
-responseListQueues :: ListQueuesResponse -> TestTree
-responseListQueues = res
-    "ListQueuesResponse"
-    "fixture/ListQueuesResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy ListQueues)
-
-responseDeleteQueue :: DeleteQueueResponse -> TestTree
-responseDeleteQueue = res
-    "DeleteQueueResponse"
-    "fixture/DeleteQueueResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy DeleteQueue)
-
-responseUpdateQueue :: UpdateQueueResponse -> TestTree
-responseUpdateQueue = res
-    "UpdateQueueResponse"
-    "fixture/UpdateQueueResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy UpdateQueue)
-
-responseGetPreset :: GetPresetResponse -> TestTree
-responseGetPreset = res
-    "GetPresetResponse"
-    "fixture/GetPresetResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy GetPreset)
-
-responseCreateJob :: CreateJobResponse -> TestTree
-responseCreateJob = res
-    "CreateJobResponse"
-    "fixture/CreateJobResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy CreateJob)
-
-responseListJobs :: ListJobsResponse -> TestTree
-responseListJobs = res
-    "ListJobsResponse"
-    "fixture/ListJobsResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy ListJobs)
-
-responseGetJob :: GetJobResponse -> TestTree
-responseGetJob = res
-    "GetJobResponse"
-    "fixture/GetJobResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy GetJob)
-
-responseCreatePreset :: CreatePresetResponse -> TestTree
-responseCreatePreset = res
-    "CreatePresetResponse"
-    "fixture/CreatePresetResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy CreatePreset)
-
 responseListPresets :: ListPresetsResponse -> TestTree
-responseListPresets = res
+responseListPresets =
+  res
     "ListPresetsResponse"
     "fixture/ListPresetsResponse.proto"
     mediaConvert
     (Proxy :: Proxy ListPresets)
 
-responseGetQueue :: GetQueueResponse -> TestTree
-responseGetQueue = res
-    "GetQueueResponse"
-    "fixture/GetQueueResponse.proto"
+responseDeletePreset :: DeletePresetResponse -> TestTree
+responseDeletePreset =
+  res
+    "DeletePresetResponse"
+    "fixture/DeletePresetResponse.proto"
     mediaConvert
-    (Proxy :: Proxy GetQueue)
+    (Proxy :: Proxy DeletePreset)
 
-responseDescribeEndpoints :: DescribeEndpointsResponse -> TestTree
-responseDescribeEndpoints = res
-    "DescribeEndpointsResponse"
-    "fixture/DescribeEndpointsResponse.proto"
+responseCancelJob :: CancelJobResponse -> TestTree
+responseCancelJob =
+  res
+    "CancelJobResponse"
+    "fixture/CancelJobResponse.proto"
     mediaConvert
-    (Proxy :: Proxy DescribeEndpoints)
+    (Proxy :: Proxy CancelJob)
 
-responseCreateQueue :: CreateQueueResponse -> TestTree
-responseCreateQueue = res
-    "CreateQueueResponse"
-    "fixture/CreateQueueResponse.proto"
+responseCreatePreset :: CreatePresetResponse -> TestTree
+responseCreatePreset =
+  res
+    "CreatePresetResponse"
+    "fixture/CreatePresetResponse.proto"
     mediaConvert
-    (Proxy :: Proxy CreateQueue)
+    (Proxy :: Proxy CreatePreset)
 
-responseCreateJobTemplate :: CreateJobTemplateResponse -> TestTree
-responseCreateJobTemplate = res
-    "CreateJobTemplateResponse"
-    "fixture/CreateJobTemplateResponse.proto"
+responseGetJob :: GetJobResponse -> TestTree
+responseGetJob =
+  res
+    "GetJobResponse"
+    "fixture/GetJobResponse.proto"
     mediaConvert
-    (Proxy :: Proxy CreateJobTemplate)
-
-responseDeleteJobTemplate :: DeleteJobTemplateResponse -> TestTree
-responseDeleteJobTemplate = res
-    "DeleteJobTemplateResponse"
-    "fixture/DeleteJobTemplateResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy DeleteJobTemplate)
-
-responseUpdateJobTemplate :: UpdateJobTemplateResponse -> TestTree
-responseUpdateJobTemplate = res
-    "UpdateJobTemplateResponse"
-    "fixture/UpdateJobTemplateResponse.proto"
-    mediaConvert
-    (Proxy :: Proxy UpdateJobTemplate)
+    (Proxy :: Proxy GetJob)
 
 responseListJobTemplates :: ListJobTemplatesResponse -> TestTree
-responseListJobTemplates = res
+responseListJobTemplates =
+  res
     "ListJobTemplatesResponse"
     "fixture/ListJobTemplatesResponse.proto"
     mediaConvert
     (Proxy :: Proxy ListJobTemplates)
 
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy UntagResource)
+
+responseCreateJobTemplate :: CreateJobTemplateResponse -> TestTree
+responseCreateJobTemplate =
+  res
+    "CreateJobTemplateResponse"
+    "fixture/CreateJobTemplateResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy CreateJobTemplate)
+
+responseListQueues :: ListQueuesResponse -> TestTree
+responseListQueues =
+  res
+    "ListQueuesResponse"
+    "fixture/ListQueuesResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy ListQueues)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy TagResource)
+
+responseGetQueue :: GetQueueResponse -> TestTree
+responseGetQueue =
+  res
+    "GetQueueResponse"
+    "fixture/GetQueueResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy GetQueue)
+
 responseGetJobTemplate :: GetJobTemplateResponse -> TestTree
-responseGetJobTemplate = res
+responseGetJobTemplate =
+  res
     "GetJobTemplateResponse"
     "fixture/GetJobTemplateResponse.proto"
     mediaConvert
     (Proxy :: Proxy GetJobTemplate)
 
-responseCancelJob :: CancelJobResponse -> TestTree
-responseCancelJob = res
-    "CancelJobResponse"
-    "fixture/CancelJobResponse.proto"
+responseAssociateCertificate :: AssociateCertificateResponse -> TestTree
+responseAssociateCertificate =
+  res
+    "AssociateCertificateResponse"
+    "fixture/AssociateCertificateResponse.proto"
     mediaConvert
-    (Proxy :: Proxy CancelJob)
+    (Proxy :: Proxy AssociateCertificate)
+
+responseListJobs :: ListJobsResponse -> TestTree
+responseListJobs =
+  res
+    "ListJobsResponse"
+    "fixture/ListJobsResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy ListJobs)
+
+responseUpdateJobTemplate :: UpdateJobTemplateResponse -> TestTree
+responseUpdateJobTemplate =
+  res
+    "UpdateJobTemplateResponse"
+    "fixture/UpdateJobTemplateResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy UpdateJobTemplate)
+
+responseDeleteJobTemplate :: DeleteJobTemplateResponse -> TestTree
+responseDeleteJobTemplate =
+  res
+    "DeleteJobTemplateResponse"
+    "fixture/DeleteJobTemplateResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy DeleteJobTemplate)
+
+responseCreateJob :: CreateJobResponse -> TestTree
+responseCreateJob =
+  res
+    "CreateJobResponse"
+    "fixture/CreateJobResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy CreateJob)
+
+responseGetPreset :: GetPresetResponse -> TestTree
+responseGetPreset =
+  res
+    "GetPresetResponse"
+    "fixture/GetPresetResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy GetPreset)
+
+responseUpdateQueue :: UpdateQueueResponse -> TestTree
+responseUpdateQueue =
+  res
+    "UpdateQueueResponse"
+    "fixture/UpdateQueueResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy UpdateQueue)
+
+responseDeleteQueue :: DeleteQueueResponse -> TestTree
+responseDeleteQueue =
+  res
+    "DeleteQueueResponse"
+    "fixture/DeleteQueueResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy DeleteQueue)
+
+responseCreateQueue :: CreateQueueResponse -> TestTree
+responseCreateQueue =
+  res
+    "CreateQueueResponse"
+    "fixture/CreateQueueResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy CreateQueue)
+
+responseDescribeEndpoints :: DescribeEndpointsResponse -> TestTree
+responseDescribeEndpoints =
+  res
+    "DescribeEndpointsResponse"
+    "fixture/DescribeEndpointsResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy DescribeEndpoints)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    mediaConvert
+    (Proxy :: Proxy ListTagsForResource)
