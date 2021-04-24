@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.DataPipeline
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.DataPipeline where
 
 import Data.Proxy
@@ -28,23 +27,38 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribePipelines $
---             describePipelines
+--         [ requestRemoveTags $
+--             removeTags
 --
 --         , requestQueryObjects $
 --             queryObjects
 --
---         , requestRemoveTags $
---             removeTags
+--         , requestEvaluateExpression $
+--             evaluateExpression
+--
+--         , requestCreatePipeline $
+--             createPipeline
+--
+--         , requestReportTaskProgress $
+--             reportTaskProgress
+--
+--         , requestSetTaskStatus $
+--             setTaskStatus
+--
+--         , requestDescribeObjects $
+--             describeObjects
 --
 --         , requestDeletePipeline $
 --             deletePipeline
 --
---         , requestListPipelines $
---             listPipelines
+--         , requestReportTaskRunnerHeartbeat $
+--             reportTaskRunnerHeartbeat
 --
---         , requestEvaluateExpression $
---             evaluateExpression
+--         , requestAddTags $
+--             addTags
+--
+--         , requestDescribePipelines $
+--             describePipelines
 --
 --         , requestGetPipelineDefinition $
 --             getPipelineDefinition
@@ -52,59 +66,59 @@ import Test.Tasty
 --         , requestPollForTask $
 --             pollForTask
 --
---         , requestDeactivatePipeline $
---             deactivatePipeline
---
---         , requestAddTags $
---             addTags
---
---         , requestDescribeObjects $
---             describeObjects
---
---         , requestReportTaskRunnerHeartbeat $
---             reportTaskRunnerHeartbeat
---
---         , requestActivatePipeline $
---             activatePipeline
---
---         , requestSetTaskStatus $
---             setTaskStatus
---
---         , requestSetStatus $
---             setStatus
---
---         , requestReportTaskProgress $
---             reportTaskProgress
---
---         , requestCreatePipeline $
---             createPipeline
+--         , requestValidatePipelineDefinition $
+--             validatePipelineDefinition
 --
 --         , requestPutPipelineDefinition $
 --             putPipelineDefinition
 --
---         , requestValidatePipelineDefinition $
---             validatePipelineDefinition
+--         , requestSetStatus $
+--             setStatus
+--
+--         , requestListPipelines $
+--             listPipelines
+--
+--         , requestActivatePipeline $
+--             activatePipeline
+--
+--         , requestDeactivatePipeline $
+--             deactivatePipeline
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribePipelines $
---             describePipelinesResponse
+--         [ responseRemoveTags $
+--             removeTagsResponse
 --
 --         , responseQueryObjects $
 --             queryObjectsResponse
 --
---         , responseRemoveTags $
---             removeTagsResponse
+--         , responseEvaluateExpression $
+--             evaluateExpressionResponse
+--
+--         , responseCreatePipeline $
+--             createPipelineResponse
+--
+--         , responseReportTaskProgress $
+--             reportTaskProgressResponse
+--
+--         , responseSetTaskStatus $
+--             setTaskStatusResponse
+--
+--         , responseDescribeObjects $
+--             describeObjectsResponse
 --
 --         , responseDeletePipeline $
 --             deletePipelineResponse
 --
---         , responseListPipelines $
---             listPipelinesResponse
+--         , responseReportTaskRunnerHeartbeat $
+--             reportTaskRunnerHeartbeatResponse
 --
---         , responseEvaluateExpression $
---             evaluateExpressionResponse
+--         , responseAddTags $
+--             addTagsResponse
+--
+--         , responseDescribePipelines $
+--             describePipelinesResponse
 --
 --         , responseGetPipelineDefinition $
 --             getPipelineDefinitionResponse
@@ -112,270 +126,293 @@ import Test.Tasty
 --         , responsePollForTask $
 --             pollForTaskResponse
 --
---         , responseDeactivatePipeline $
---             deactivatePipelineResponse
---
---         , responseAddTags $
---             addTagsResponse
---
---         , responseDescribeObjects $
---             describeObjectsResponse
---
---         , responseReportTaskRunnerHeartbeat $
---             reportTaskRunnerHeartbeatResponse
---
---         , responseActivatePipeline $
---             activatePipelineResponse
---
---         , responseSetTaskStatus $
---             setTaskStatusResponse
---
---         , responseSetStatus $
---             setStatusResponse
---
---         , responseReportTaskProgress $
---             reportTaskProgressResponse
---
---         , responseCreatePipeline $
---             createPipelineResponse
+--         , responseValidatePipelineDefinition $
+--             validatePipelineDefinitionResponse
 --
 --         , responsePutPipelineDefinition $
 --             putPipelineDefinitionResponse
 --
---         , responseValidatePipelineDefinition $
---             validatePipelineDefinitionResponse
+--         , responseSetStatus $
+--             setStatusResponse
+--
+--         , responseListPipelines $
+--             listPipelinesResponse
+--
+--         , responseActivatePipeline $
+--             activatePipelineResponse
+--
+--         , responseDeactivatePipeline $
+--             deactivatePipelineResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestDescribePipelines :: DescribePipelines -> TestTree
-requestDescribePipelines = req
-    "DescribePipelines"
-    "fixture/DescribePipelines.yaml"
-
-requestQueryObjects :: QueryObjects -> TestTree
-requestQueryObjects = req
-    "QueryObjects"
-    "fixture/QueryObjects.yaml"
-
 requestRemoveTags :: RemoveTags -> TestTree
-requestRemoveTags = req
+requestRemoveTags =
+  req
     "RemoveTags"
     "fixture/RemoveTags.yaml"
 
-requestDeletePipeline :: DeletePipeline -> TestTree
-requestDeletePipeline = req
-    "DeletePipeline"
-    "fixture/DeletePipeline.yaml"
-
-requestListPipelines :: ListPipelines -> TestTree
-requestListPipelines = req
-    "ListPipelines"
-    "fixture/ListPipelines.yaml"
+requestQueryObjects :: QueryObjects -> TestTree
+requestQueryObjects =
+  req
+    "QueryObjects"
+    "fixture/QueryObjects.yaml"
 
 requestEvaluateExpression :: EvaluateExpression -> TestTree
-requestEvaluateExpression = req
+requestEvaluateExpression =
+  req
     "EvaluateExpression"
     "fixture/EvaluateExpression.yaml"
 
+requestCreatePipeline :: CreatePipeline -> TestTree
+requestCreatePipeline =
+  req
+    "CreatePipeline"
+    "fixture/CreatePipeline.yaml"
+
+requestReportTaskProgress :: ReportTaskProgress -> TestTree
+requestReportTaskProgress =
+  req
+    "ReportTaskProgress"
+    "fixture/ReportTaskProgress.yaml"
+
+requestSetTaskStatus :: SetTaskStatus -> TestTree
+requestSetTaskStatus =
+  req
+    "SetTaskStatus"
+    "fixture/SetTaskStatus.yaml"
+
+requestDescribeObjects :: DescribeObjects -> TestTree
+requestDescribeObjects =
+  req
+    "DescribeObjects"
+    "fixture/DescribeObjects.yaml"
+
+requestDeletePipeline :: DeletePipeline -> TestTree
+requestDeletePipeline =
+  req
+    "DeletePipeline"
+    "fixture/DeletePipeline.yaml"
+
+requestReportTaskRunnerHeartbeat :: ReportTaskRunnerHeartbeat -> TestTree
+requestReportTaskRunnerHeartbeat =
+  req
+    "ReportTaskRunnerHeartbeat"
+    "fixture/ReportTaskRunnerHeartbeat.yaml"
+
+requestAddTags :: AddTags -> TestTree
+requestAddTags =
+  req
+    "AddTags"
+    "fixture/AddTags.yaml"
+
+requestDescribePipelines :: DescribePipelines -> TestTree
+requestDescribePipelines =
+  req
+    "DescribePipelines"
+    "fixture/DescribePipelines.yaml"
+
 requestGetPipelineDefinition :: GetPipelineDefinition -> TestTree
-requestGetPipelineDefinition = req
+requestGetPipelineDefinition =
+  req
     "GetPipelineDefinition"
     "fixture/GetPipelineDefinition.yaml"
 
 requestPollForTask :: PollForTask -> TestTree
-requestPollForTask = req
+requestPollForTask =
+  req
     "PollForTask"
     "fixture/PollForTask.yaml"
 
-requestDeactivatePipeline :: DeactivatePipeline -> TestTree
-requestDeactivatePipeline = req
-    "DeactivatePipeline"
-    "fixture/DeactivatePipeline.yaml"
-
-requestAddTags :: AddTags -> TestTree
-requestAddTags = req
-    "AddTags"
-    "fixture/AddTags.yaml"
-
-requestDescribeObjects :: DescribeObjects -> TestTree
-requestDescribeObjects = req
-    "DescribeObjects"
-    "fixture/DescribeObjects.yaml"
-
-requestReportTaskRunnerHeartbeat :: ReportTaskRunnerHeartbeat -> TestTree
-requestReportTaskRunnerHeartbeat = req
-    "ReportTaskRunnerHeartbeat"
-    "fixture/ReportTaskRunnerHeartbeat.yaml"
-
-requestActivatePipeline :: ActivatePipeline -> TestTree
-requestActivatePipeline = req
-    "ActivatePipeline"
-    "fixture/ActivatePipeline.yaml"
-
-requestSetTaskStatus :: SetTaskStatus -> TestTree
-requestSetTaskStatus = req
-    "SetTaskStatus"
-    "fixture/SetTaskStatus.yaml"
-
-requestSetStatus :: SetStatus -> TestTree
-requestSetStatus = req
-    "SetStatus"
-    "fixture/SetStatus.yaml"
-
-requestReportTaskProgress :: ReportTaskProgress -> TestTree
-requestReportTaskProgress = req
-    "ReportTaskProgress"
-    "fixture/ReportTaskProgress.yaml"
-
-requestCreatePipeline :: CreatePipeline -> TestTree
-requestCreatePipeline = req
-    "CreatePipeline"
-    "fixture/CreatePipeline.yaml"
-
-requestPutPipelineDefinition :: PutPipelineDefinition -> TestTree
-requestPutPipelineDefinition = req
-    "PutPipelineDefinition"
-    "fixture/PutPipelineDefinition.yaml"
-
 requestValidatePipelineDefinition :: ValidatePipelineDefinition -> TestTree
-requestValidatePipelineDefinition = req
+requestValidatePipelineDefinition =
+  req
     "ValidatePipelineDefinition"
     "fixture/ValidatePipelineDefinition.yaml"
 
+requestPutPipelineDefinition :: PutPipelineDefinition -> TestTree
+requestPutPipelineDefinition =
+  req
+    "PutPipelineDefinition"
+    "fixture/PutPipelineDefinition.yaml"
+
+requestSetStatus :: SetStatus -> TestTree
+requestSetStatus =
+  req
+    "SetStatus"
+    "fixture/SetStatus.yaml"
+
+requestListPipelines :: ListPipelines -> TestTree
+requestListPipelines =
+  req
+    "ListPipelines"
+    "fixture/ListPipelines.yaml"
+
+requestActivatePipeline :: ActivatePipeline -> TestTree
+requestActivatePipeline =
+  req
+    "ActivatePipeline"
+    "fixture/ActivatePipeline.yaml"
+
+requestDeactivatePipeline :: DeactivatePipeline -> TestTree
+requestDeactivatePipeline =
+  req
+    "DeactivatePipeline"
+    "fixture/DeactivatePipeline.yaml"
+
 -- Responses
 
-responseDescribePipelines :: DescribePipelinesResponse -> TestTree
-responseDescribePipelines = res
-    "DescribePipelinesResponse"
-    "fixture/DescribePipelinesResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy DescribePipelines)
-
-responseQueryObjects :: QueryObjectsResponse -> TestTree
-responseQueryObjects = res
-    "QueryObjectsResponse"
-    "fixture/QueryObjectsResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy QueryObjects)
-
 responseRemoveTags :: RemoveTagsResponse -> TestTree
-responseRemoveTags = res
+responseRemoveTags =
+  res
     "RemoveTagsResponse"
     "fixture/RemoveTagsResponse.proto"
     dataPipeline
     (Proxy :: Proxy RemoveTags)
 
-responseDeletePipeline :: DeletePipelineResponse -> TestTree
-responseDeletePipeline = res
-    "DeletePipelineResponse"
-    "fixture/DeletePipelineResponse.proto"
+responseQueryObjects :: QueryObjectsResponse -> TestTree
+responseQueryObjects =
+  res
+    "QueryObjectsResponse"
+    "fixture/QueryObjectsResponse.proto"
     dataPipeline
-    (Proxy :: Proxy DeletePipeline)
-
-responseListPipelines :: ListPipelinesResponse -> TestTree
-responseListPipelines = res
-    "ListPipelinesResponse"
-    "fixture/ListPipelinesResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy ListPipelines)
+    (Proxy :: Proxy QueryObjects)
 
 responseEvaluateExpression :: EvaluateExpressionResponse -> TestTree
-responseEvaluateExpression = res
+responseEvaluateExpression =
+  res
     "EvaluateExpressionResponse"
     "fixture/EvaluateExpressionResponse.proto"
     dataPipeline
     (Proxy :: Proxy EvaluateExpression)
 
+responseCreatePipeline :: CreatePipelineResponse -> TestTree
+responseCreatePipeline =
+  res
+    "CreatePipelineResponse"
+    "fixture/CreatePipelineResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy CreatePipeline)
+
+responseReportTaskProgress :: ReportTaskProgressResponse -> TestTree
+responseReportTaskProgress =
+  res
+    "ReportTaskProgressResponse"
+    "fixture/ReportTaskProgressResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy ReportTaskProgress)
+
+responseSetTaskStatus :: SetTaskStatusResponse -> TestTree
+responseSetTaskStatus =
+  res
+    "SetTaskStatusResponse"
+    "fixture/SetTaskStatusResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy SetTaskStatus)
+
+responseDescribeObjects :: DescribeObjectsResponse -> TestTree
+responseDescribeObjects =
+  res
+    "DescribeObjectsResponse"
+    "fixture/DescribeObjectsResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy DescribeObjects)
+
+responseDeletePipeline :: DeletePipelineResponse -> TestTree
+responseDeletePipeline =
+  res
+    "DeletePipelineResponse"
+    "fixture/DeletePipelineResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy DeletePipeline)
+
+responseReportTaskRunnerHeartbeat :: ReportTaskRunnerHeartbeatResponse -> TestTree
+responseReportTaskRunnerHeartbeat =
+  res
+    "ReportTaskRunnerHeartbeatResponse"
+    "fixture/ReportTaskRunnerHeartbeatResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy ReportTaskRunnerHeartbeat)
+
+responseAddTags :: AddTagsResponse -> TestTree
+responseAddTags =
+  res
+    "AddTagsResponse"
+    "fixture/AddTagsResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy AddTags)
+
+responseDescribePipelines :: DescribePipelinesResponse -> TestTree
+responseDescribePipelines =
+  res
+    "DescribePipelinesResponse"
+    "fixture/DescribePipelinesResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy DescribePipelines)
+
 responseGetPipelineDefinition :: GetPipelineDefinitionResponse -> TestTree
-responseGetPipelineDefinition = res
+responseGetPipelineDefinition =
+  res
     "GetPipelineDefinitionResponse"
     "fixture/GetPipelineDefinitionResponse.proto"
     dataPipeline
     (Proxy :: Proxy GetPipelineDefinition)
 
 responsePollForTask :: PollForTaskResponse -> TestTree
-responsePollForTask = res
+responsePollForTask =
+  res
     "PollForTaskResponse"
     "fixture/PollForTaskResponse.proto"
     dataPipeline
     (Proxy :: Proxy PollForTask)
 
-responseDeactivatePipeline :: DeactivatePipelineResponse -> TestTree
-responseDeactivatePipeline = res
-    "DeactivatePipelineResponse"
-    "fixture/DeactivatePipelineResponse.proto"
+responseValidatePipelineDefinition :: ValidatePipelineDefinitionResponse -> TestTree
+responseValidatePipelineDefinition =
+  res
+    "ValidatePipelineDefinitionResponse"
+    "fixture/ValidatePipelineDefinitionResponse.proto"
     dataPipeline
-    (Proxy :: Proxy DeactivatePipeline)
-
-responseAddTags :: AddTagsResponse -> TestTree
-responseAddTags = res
-    "AddTagsResponse"
-    "fixture/AddTagsResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy AddTags)
-
-responseDescribeObjects :: DescribeObjectsResponse -> TestTree
-responseDescribeObjects = res
-    "DescribeObjectsResponse"
-    "fixture/DescribeObjectsResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy DescribeObjects)
-
-responseReportTaskRunnerHeartbeat :: ReportTaskRunnerHeartbeatResponse -> TestTree
-responseReportTaskRunnerHeartbeat = res
-    "ReportTaskRunnerHeartbeatResponse"
-    "fixture/ReportTaskRunnerHeartbeatResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy ReportTaskRunnerHeartbeat)
-
-responseActivatePipeline :: ActivatePipelineResponse -> TestTree
-responseActivatePipeline = res
-    "ActivatePipelineResponse"
-    "fixture/ActivatePipelineResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy ActivatePipeline)
-
-responseSetTaskStatus :: SetTaskStatusResponse -> TestTree
-responseSetTaskStatus = res
-    "SetTaskStatusResponse"
-    "fixture/SetTaskStatusResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy SetTaskStatus)
-
-responseSetStatus :: SetStatusResponse -> TestTree
-responseSetStatus = res
-    "SetStatusResponse"
-    "fixture/SetStatusResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy SetStatus)
-
-responseReportTaskProgress :: ReportTaskProgressResponse -> TestTree
-responseReportTaskProgress = res
-    "ReportTaskProgressResponse"
-    "fixture/ReportTaskProgressResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy ReportTaskProgress)
-
-responseCreatePipeline :: CreatePipelineResponse -> TestTree
-responseCreatePipeline = res
-    "CreatePipelineResponse"
-    "fixture/CreatePipelineResponse.proto"
-    dataPipeline
-    (Proxy :: Proxy CreatePipeline)
+    (Proxy :: Proxy ValidatePipelineDefinition)
 
 responsePutPipelineDefinition :: PutPipelineDefinitionResponse -> TestTree
-responsePutPipelineDefinition = res
+responsePutPipelineDefinition =
+  res
     "PutPipelineDefinitionResponse"
     "fixture/PutPipelineDefinitionResponse.proto"
     dataPipeline
     (Proxy :: Proxy PutPipelineDefinition)
 
-responseValidatePipelineDefinition :: ValidatePipelineDefinitionResponse -> TestTree
-responseValidatePipelineDefinition = res
-    "ValidatePipelineDefinitionResponse"
-    "fixture/ValidatePipelineDefinitionResponse.proto"
+responseSetStatus :: SetStatusResponse -> TestTree
+responseSetStatus =
+  res
+    "SetStatusResponse"
+    "fixture/SetStatusResponse.proto"
     dataPipeline
-    (Proxy :: Proxy ValidatePipelineDefinition)
+    (Proxy :: Proxy SetStatus)
+
+responseListPipelines :: ListPipelinesResponse -> TestTree
+responseListPipelines =
+  res
+    "ListPipelinesResponse"
+    "fixture/ListPipelinesResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy ListPipelines)
+
+responseActivatePipeline :: ActivatePipelineResponse -> TestTree
+responseActivatePipeline =
+  res
+    "ActivatePipelineResponse"
+    "fixture/ActivatePipelineResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy ActivatePipeline)
+
+responseDeactivatePipeline :: DeactivatePipelineResponse -> TestTree
+responseDeactivatePipeline =
+  res
+    "DeactivatePipelineResponse"
+    "fixture/DeactivatePipelineResponse.proto"
+    dataPipeline
+    (Proxy :: Proxy DeactivatePipeline)
