@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.AutoScaling
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.AutoScaling where
 
 import Data.Proxy
@@ -28,110 +27,17 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribeMetricCollectionTypes $
---             describeMetricCollectionTypes
+--         [ requestSuspendProcesses $
+--             suspendProcesses
 --
---         , requestDescribeLoadBalancers $
---             describeLoadBalancers
---
---         , requestPutNotificationConfiguration $
---             putNotificationConfiguration
---
---         , requestDescribeTags $
---             describeTags
---
---         , requestDeleteNotificationConfiguration $
---             deleteNotificationConfiguration
---
---         , requestPutScalingPolicy $
---             putScalingPolicy
---
---         , requestAttachLoadBalancerTargetGroups $
---             attachLoadBalancerTargetGroups
---
---         , requestDeleteLaunchConfiguration $
---             deleteLaunchConfiguration
+--         , requestDescribeInstanceRefreshes $
+--             describeInstanceRefreshes
 --
 --         , requestEnterStandby $
 --             enterStandby
 --
---         , requestSuspendProcesses $
---             suspendProcesses
---
---         , requestSetInstanceHealth $
---             setInstanceHealth
---
---         , requestExitStandby $
---             exitStandby
---
---         , requestDescribeTerminationPolicyTypes $
---             describeTerminationPolicyTypes
---
---         , requestDescribeAutoScalingInstances $
---             describeAutoScalingInstances
---
---         , requestRecordLifecycleActionHeartbeat $
---             recordLifecycleActionHeartbeat
---
---         , requestDisableMetricsCollection $
---             disableMetricsCollection
---
---         , requestDetachInstances $
---             detachInstances
---
---         , requestEnableMetricsCollection $
---             enableMetricsCollection
---
---         , requestDescribeScalingProcessTypes $
---             describeScalingProcessTypes
---
---         , requestDeleteTags $
---             deleteTags
---
---         , requestDetachLoadBalancerTargetGroups $
---             detachLoadBalancerTargetGroups
---
---         , requestDescribeLifecycleHooks $
---             describeLifecycleHooks
---
---         , requestDescribeAutoScalingGroups $
---             describeAutoScalingGroups
---
---         , requestDeleteScheduledAction $
---             deleteScheduledAction
---
---         , requestSetDesiredCapacity $
---             setDesiredCapacity
---
---         , requestDetachLoadBalancers $
---             detachLoadBalancers
---
---         , requestDescribeAutoScalingNotificationTypes $
---             describeAutoScalingNotificationTypes
---
---         , requestDescribeScheduledActions $
---             describeScheduledActions
---
---         , requestCreateOrUpdateTags $
---             createOrUpdateTags
---
---         , requestCompleteLifecycleAction $
---             completeLifecycleAction
---
---         , requestDeletePolicy $
---             deletePolicy
---
---         , requestAttachInstances $
---             attachInstances
---
---         , requestUpdateAutoScalingGroup $
---             updateAutoScalingGroup
---
---         , requestDeleteAutoScalingGroup $
---             deleteAutoScalingGroup
---
---         , requestPutLifecycleHook $
---             putLifecycleHook
+--         , requestExecutePolicy $
+--             executePolicy
 --
 --         , requestDeleteLifecycleHook $
 --             deleteLifecycleHook
@@ -139,20 +45,53 @@ import Test.Tasty
 --         , requestResumeProcesses $
 --             resumeProcesses
 --
---         , requestExecutePolicy $
---             executePolicy
+--         , requestPutNotificationConfiguration $
+--             putNotificationConfiguration
 --
---         , requestDescribeAccountLimits $
---             describeAccountLimits
+--         , requestAttachLoadBalancerTargetGroups $
+--             attachLoadBalancerTargetGroups
 --
---         , requestAttachLoadBalancers $
---             attachLoadBalancers
+--         , requestPutScalingPolicy $
+--             putScalingPolicy
 --
---         , requestTerminateInstanceInAutoScalingGroup $
---             terminateInstanceInAutoScalingGroup
+--         , requestStartInstanceRefresh $
+--             startInstanceRefresh
 --
---         , requestDescribeLoadBalancerTargetGroups $
---             describeLoadBalancerTargetGroups
+--         , requestDescribeTags $
+--             describeTags
+--
+--         , requestDeletePolicy $
+--             deletePolicy
+--
+--         , requestCreateLaunchConfiguration $
+--             createLaunchConfiguration
+--
+--         , requestCreateOrUpdateTags $
+--             createOrUpdateTags
+--
+--         , requestDescribeScheduledActions $
+--             describeScheduledActions
+--
+--         , requestDescribeAutoScalingNotificationTypes $
+--             describeAutoScalingNotificationTypes
+--
+--         , requestDescribeAdjustmentTypes $
+--             describeAdjustmentTypes
+--
+--         , requestDetachLoadBalancers $
+--             detachLoadBalancers
+--
+--         , requestDeleteScheduledAction $
+--             deleteScheduledAction
+--
+--         , requestDescribeScalingActivities $
+--             describeScalingActivities
+--
+--         , requestDescribeLifecycleHooks $
+--             describeLifecycleHooks
+--
+--         , requestDetachLoadBalancerTargetGroups $
+--             detachLoadBalancerTargetGroups
 --
 --         , requestPutScheduledUpdateGroupAction $
 --             putScheduledUpdateGroupAction
@@ -160,14 +99,74 @@ import Test.Tasty
 --         , requestSetInstanceProtection $
 --             setInstanceProtection
 --
+--         , requestDeleteTags $
+--             deleteTags
+--
+--         , requestDetachInstances $
+--             detachInstances
+--
+--         , requestAttachLoadBalancers $
+--             attachLoadBalancers
+--
+--         , requestDescribeAccountLimits $
+--             describeAccountLimits
+--
+--         , requestTerminateInstanceInAutoScalingGroup $
+--             terminateInstanceInAutoScalingGroup
+--
+--         , requestDescribeTerminationPolicyTypes $
+--             describeTerminationPolicyTypes
+--
+--         , requestSetInstanceHealth $
+--             setInstanceHealth
+--
+--         , requestExitStandby $
+--             exitStandby
+--
+--         , requestPutLifecycleHook $
+--             putLifecycleHook
+--
+--         , requestBatchPutScheduledUpdateGroupAction $
+--             batchPutScheduledUpdateGroupAction
+--
+--         , requestDeleteLaunchConfiguration $
+--             deleteLaunchConfiguration
+--
+--         , requestDeleteNotificationConfiguration $
+--             deleteNotificationConfiguration
+--
+--         , requestUpdateAutoScalingGroup $
+--             updateAutoScalingGroup
+--
+--         , requestDescribeLoadBalancers $
+--             describeLoadBalancers
+--
+--         , requestDeleteAutoScalingGroup $
+--             deleteAutoScalingGroup
+--
+--         , requestDescribeMetricCollectionTypes $
+--             describeMetricCollectionTypes
+--
+--         , requestCreateAutoScalingGroup $
+--             createAutoScalingGroup
+--
+--         , requestCompleteLifecycleAction $
+--             completeLifecycleAction
+--
+--         , requestAttachInstances $
+--             attachInstances
+--
+--         , requestSetDesiredCapacity $
+--             setDesiredCapacity
+--
 --         , requestDescribePolicies $
 --             describePolicies
 --
+--         , requestDescribeAutoScalingGroups $
+--             describeAutoScalingGroups
+--
 --         , requestDescribeLaunchConfigurations $
 --             describeLaunchConfigurations
---
---         , requestDescribeScalingActivities $
---             describeScalingActivities
 --
 --         , requestDescribeNotificationConfigurations $
 --             describeNotificationConfigurations
@@ -175,122 +174,44 @@ import Test.Tasty
 --         , requestDescribeLifecycleHookTypes $
 --             describeLifecycleHookTypes
 --
---         , requestDescribeAdjustmentTypes $
---             describeAdjustmentTypes
+--         , requestEnableMetricsCollection $
+--             enableMetricsCollection
 --
---         , requestCreateAutoScalingGroup $
---             createAutoScalingGroup
+--         , requestDescribeScalingProcessTypes $
+--             describeScalingProcessTypes
 --
---         , requestCreateLaunchConfiguration $
---             createLaunchConfiguration
+--         , requestDescribeAutoScalingInstances $
+--             describeAutoScalingInstances
+--
+--         , requestDisableMetricsCollection $
+--             disableMetricsCollection
+--
+--         , requestRecordLifecycleActionHeartbeat $
+--             recordLifecycleActionHeartbeat
+--
+--         , requestBatchDeleteScheduledAction $
+--             batchDeleteScheduledAction
+--
+--         , requestDescribeLoadBalancerTargetGroups $
+--             describeLoadBalancerTargetGroups
+--
+--         , requestCancelInstanceRefresh $
+--             cancelInstanceRefresh
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribeMetricCollectionTypes $
---             describeMetricCollectionTypesResponse
+--         [ responseSuspendProcesses $
+--             suspendProcessesResponse
 --
---         , responseDescribeLoadBalancers $
---             describeLoadBalancersResponse
---
---         , responsePutNotificationConfiguration $
---             putNotificationConfigurationResponse
---
---         , responseDescribeTags $
---             describeTagsResponse
---
---         , responseDeleteNotificationConfiguration $
---             deleteNotificationConfigurationResponse
---
---         , responsePutScalingPolicy $
---             putScalingPolicyResponse
---
---         , responseAttachLoadBalancerTargetGroups $
---             attachLoadBalancerTargetGroupsResponse
---
---         , responseDeleteLaunchConfiguration $
---             deleteLaunchConfigurationResponse
+--         , responseDescribeInstanceRefreshes $
+--             describeInstanceRefreshesResponse
 --
 --         , responseEnterStandby $
 --             enterStandbyResponse
 --
---         , responseSuspendProcesses $
---             suspendProcessesResponse
---
---         , responseSetInstanceHealth $
---             setInstanceHealthResponse
---
---         , responseExitStandby $
---             exitStandbyResponse
---
---         , responseDescribeTerminationPolicyTypes $
---             describeTerminationPolicyTypesResponse
---
---         , responseDescribeAutoScalingInstances $
---             describeAutoScalingInstancesResponse
---
---         , responseRecordLifecycleActionHeartbeat $
---             recordLifecycleActionHeartbeatResponse
---
---         , responseDisableMetricsCollection $
---             disableMetricsCollectionResponse
---
---         , responseDetachInstances $
---             detachInstancesResponse
---
---         , responseEnableMetricsCollection $
---             enableMetricsCollectionResponse
---
---         , responseDescribeScalingProcessTypes $
---             describeScalingProcessTypesResponse
---
---         , responseDeleteTags $
---             deleteTagsResponse
---
---         , responseDetachLoadBalancerTargetGroups $
---             detachLoadBalancerTargetGroupsResponse
---
---         , responseDescribeLifecycleHooks $
---             describeLifecycleHooksResponse
---
---         , responseDescribeAutoScalingGroups $
---             describeAutoScalingGroupsResponse
---
---         , responseDeleteScheduledAction $
---             deleteScheduledActionResponse
---
---         , responseSetDesiredCapacity $
---             setDesiredCapacityResponse
---
---         , responseDetachLoadBalancers $
---             detachLoadBalancersResponse
---
---         , responseDescribeAutoScalingNotificationTypes $
---             describeAutoScalingNotificationTypesResponse
---
---         , responseDescribeScheduledActions $
---             describeScheduledActionsResponse
---
---         , responseCreateOrUpdateTags $
---             createOrUpdateTagsResponse
---
---         , responseCompleteLifecycleAction $
---             completeLifecycleActionResponse
---
---         , responseDeletePolicy $
---             deletePolicyResponse
---
---         , responseAttachInstances $
---             attachInstancesResponse
---
---         , responseUpdateAutoScalingGroup $
---             updateAutoScalingGroupResponse
---
---         , responseDeleteAutoScalingGroup $
---             deleteAutoScalingGroupResponse
---
---         , responsePutLifecycleHook $
---             putLifecycleHookResponse
+--         , responseExecutePolicy $
+--             executePolicyResponse
 --
 --         , responseDeleteLifecycleHook $
 --             deleteLifecycleHookResponse
@@ -298,20 +219,53 @@ import Test.Tasty
 --         , responseResumeProcesses $
 --             resumeProcessesResponse
 --
---         , responseExecutePolicy $
---             executePolicyResponse
+--         , responsePutNotificationConfiguration $
+--             putNotificationConfigurationResponse
 --
---         , responseDescribeAccountLimits $
---             describeAccountLimitsResponse
+--         , responseAttachLoadBalancerTargetGroups $
+--             attachLoadBalancerTargetGroupsResponse
 --
---         , responseAttachLoadBalancers $
---             attachLoadBalancersResponse
+--         , responsePutScalingPolicy $
+--             putScalingPolicyResponse
 --
---         , responseTerminateInstanceInAutoScalingGroup $
---             terminateInstanceInAutoScalingGroupResponse
+--         , responseStartInstanceRefresh $
+--             startInstanceRefreshResponse
 --
---         , responseDescribeLoadBalancerTargetGroups $
---             describeLoadBalancerTargetGroupsResponse
+--         , responseDescribeTags $
+--             describeTagsResponse
+--
+--         , responseDeletePolicy $
+--             deletePolicyResponse
+--
+--         , responseCreateLaunchConfiguration $
+--             createLaunchConfigurationResponse
+--
+--         , responseCreateOrUpdateTags $
+--             createOrUpdateTagsResponse
+--
+--         , responseDescribeScheduledActions $
+--             describeScheduledActionsResponse
+--
+--         , responseDescribeAutoScalingNotificationTypes $
+--             describeAutoScalingNotificationTypesResponse
+--
+--         , responseDescribeAdjustmentTypes $
+--             describeAdjustmentTypesResponse
+--
+--         , responseDetachLoadBalancers $
+--             detachLoadBalancersResponse
+--
+--         , responseDeleteScheduledAction $
+--             deleteScheduledActionResponse
+--
+--         , responseDescribeScalingActivities $
+--             describeScalingActivitiesResponse
+--
+--         , responseDescribeLifecycleHooks $
+--             describeLifecycleHooksResponse
+--
+--         , responseDetachLoadBalancerTargetGroups $
+--             detachLoadBalancerTargetGroupsResponse
 --
 --         , responsePutScheduledUpdateGroupAction $
 --             putScheduledUpdateGroupActionResponse
@@ -319,14 +273,74 @@ import Test.Tasty
 --         , responseSetInstanceProtection $
 --             setInstanceProtectionResponse
 --
+--         , responseDeleteTags $
+--             deleteTagsResponse
+--
+--         , responseDetachInstances $
+--             detachInstancesResponse
+--
+--         , responseAttachLoadBalancers $
+--             attachLoadBalancersResponse
+--
+--         , responseDescribeAccountLimits $
+--             describeAccountLimitsResponse
+--
+--         , responseTerminateInstanceInAutoScalingGroup $
+--             terminateInstanceInAutoScalingGroupResponse
+--
+--         , responseDescribeTerminationPolicyTypes $
+--             describeTerminationPolicyTypesResponse
+--
+--         , responseSetInstanceHealth $
+--             setInstanceHealthResponse
+--
+--         , responseExitStandby $
+--             exitStandbyResponse
+--
+--         , responsePutLifecycleHook $
+--             putLifecycleHookResponse
+--
+--         , responseBatchPutScheduledUpdateGroupAction $
+--             batchPutScheduledUpdateGroupActionResponse
+--
+--         , responseDeleteLaunchConfiguration $
+--             deleteLaunchConfigurationResponse
+--
+--         , responseDeleteNotificationConfiguration $
+--             deleteNotificationConfigurationResponse
+--
+--         , responseUpdateAutoScalingGroup $
+--             updateAutoScalingGroupResponse
+--
+--         , responseDescribeLoadBalancers $
+--             describeLoadBalancersResponse
+--
+--         , responseDeleteAutoScalingGroup $
+--             deleteAutoScalingGroupResponse
+--
+--         , responseDescribeMetricCollectionTypes $
+--             describeMetricCollectionTypesResponse
+--
+--         , responseCreateAutoScalingGroup $
+--             createAutoScalingGroupResponse
+--
+--         , responseCompleteLifecycleAction $
+--             completeLifecycleActionResponse
+--
+--         , responseAttachInstances $
+--             attachInstancesResponse
+--
+--         , responseSetDesiredCapacity $
+--             setDesiredCapacityResponse
+--
 --         , responseDescribePolicies $
 --             describePoliciesResponse
 --
+--         , responseDescribeAutoScalingGroups $
+--             describeAutoScalingGroupsResponse
+--
 --         , responseDescribeLaunchConfigurations $
 --             describeLaunchConfigurationsResponse
---
---         , responseDescribeScalingActivities $
---             describeScalingActivitiesResponse
 --
 --         , responseDescribeNotificationConfigurations $
 --             describeNotificationConfigurationsResponse
@@ -334,642 +348,831 @@ import Test.Tasty
 --         , responseDescribeLifecycleHookTypes $
 --             describeLifecycleHookTypesResponse
 --
---         , responseDescribeAdjustmentTypes $
---             describeAdjustmentTypesResponse
+--         , responseEnableMetricsCollection $
+--             enableMetricsCollectionResponse
 --
---         , responseCreateAutoScalingGroup $
---             createAutoScalingGroupResponse
+--         , responseDescribeScalingProcessTypes $
+--             describeScalingProcessTypesResponse
 --
---         , responseCreateLaunchConfiguration $
---             createLaunchConfigurationResponse
+--         , responseDescribeAutoScalingInstances $
+--             describeAutoScalingInstancesResponse
+--
+--         , responseDisableMetricsCollection $
+--             disableMetricsCollectionResponse
+--
+--         , responseRecordLifecycleActionHeartbeat $
+--             recordLifecycleActionHeartbeatResponse
+--
+--         , responseBatchDeleteScheduledAction $
+--             batchDeleteScheduledActionResponse
+--
+--         , responseDescribeLoadBalancerTargetGroups $
+--             describeLoadBalancerTargetGroupsResponse
+--
+--         , responseCancelInstanceRefresh $
+--             cancelInstanceRefreshResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestDescribeMetricCollectionTypes :: DescribeMetricCollectionTypes -> TestTree
-requestDescribeMetricCollectionTypes = req
-    "DescribeMetricCollectionTypes"
-    "fixture/DescribeMetricCollectionTypes.yaml"
-
-requestDescribeLoadBalancers :: DescribeLoadBalancers -> TestTree
-requestDescribeLoadBalancers = req
-    "DescribeLoadBalancers"
-    "fixture/DescribeLoadBalancers.yaml"
-
-requestPutNotificationConfiguration :: PutNotificationConfiguration -> TestTree
-requestPutNotificationConfiguration = req
-    "PutNotificationConfiguration"
-    "fixture/PutNotificationConfiguration.yaml"
-
-requestDescribeTags :: DescribeTags -> TestTree
-requestDescribeTags = req
-    "DescribeTags"
-    "fixture/DescribeTags.yaml"
-
-requestDeleteNotificationConfiguration :: DeleteNotificationConfiguration -> TestTree
-requestDeleteNotificationConfiguration = req
-    "DeleteNotificationConfiguration"
-    "fixture/DeleteNotificationConfiguration.yaml"
-
-requestPutScalingPolicy :: PutScalingPolicy -> TestTree
-requestPutScalingPolicy = req
-    "PutScalingPolicy"
-    "fixture/PutScalingPolicy.yaml"
-
-requestAttachLoadBalancerTargetGroups :: AttachLoadBalancerTargetGroups -> TestTree
-requestAttachLoadBalancerTargetGroups = req
-    "AttachLoadBalancerTargetGroups"
-    "fixture/AttachLoadBalancerTargetGroups.yaml"
-
-requestDeleteLaunchConfiguration :: DeleteLaunchConfiguration -> TestTree
-requestDeleteLaunchConfiguration = req
-    "DeleteLaunchConfiguration"
-    "fixture/DeleteLaunchConfiguration.yaml"
-
-requestEnterStandby :: EnterStandby -> TestTree
-requestEnterStandby = req
-    "EnterStandby"
-    "fixture/EnterStandby.yaml"
-
 requestSuspendProcesses :: SuspendProcesses -> TestTree
-requestSuspendProcesses = req
+requestSuspendProcesses =
+  req
     "SuspendProcesses"
     "fixture/SuspendProcesses.yaml"
 
-requestSetInstanceHealth :: SetInstanceHealth -> TestTree
-requestSetInstanceHealth = req
-    "SetInstanceHealth"
-    "fixture/SetInstanceHealth.yaml"
+requestDescribeInstanceRefreshes :: DescribeInstanceRefreshes -> TestTree
+requestDescribeInstanceRefreshes =
+  req
+    "DescribeInstanceRefreshes"
+    "fixture/DescribeInstanceRefreshes.yaml"
 
-requestExitStandby :: ExitStandby -> TestTree
-requestExitStandby = req
-    "ExitStandby"
-    "fixture/ExitStandby.yaml"
+requestEnterStandby :: EnterStandby -> TestTree
+requestEnterStandby =
+  req
+    "EnterStandby"
+    "fixture/EnterStandby.yaml"
 
-requestDescribeTerminationPolicyTypes :: DescribeTerminationPolicyTypes -> TestTree
-requestDescribeTerminationPolicyTypes = req
-    "DescribeTerminationPolicyTypes"
-    "fixture/DescribeTerminationPolicyTypes.yaml"
-
-requestDescribeAutoScalingInstances :: DescribeAutoScalingInstances -> TestTree
-requestDescribeAutoScalingInstances = req
-    "DescribeAutoScalingInstances"
-    "fixture/DescribeAutoScalingInstances.yaml"
-
-requestRecordLifecycleActionHeartbeat :: RecordLifecycleActionHeartbeat -> TestTree
-requestRecordLifecycleActionHeartbeat = req
-    "RecordLifecycleActionHeartbeat"
-    "fixture/RecordLifecycleActionHeartbeat.yaml"
-
-requestDisableMetricsCollection :: DisableMetricsCollection -> TestTree
-requestDisableMetricsCollection = req
-    "DisableMetricsCollection"
-    "fixture/DisableMetricsCollection.yaml"
-
-requestDetachInstances :: DetachInstances -> TestTree
-requestDetachInstances = req
-    "DetachInstances"
-    "fixture/DetachInstances.yaml"
-
-requestEnableMetricsCollection :: EnableMetricsCollection -> TestTree
-requestEnableMetricsCollection = req
-    "EnableMetricsCollection"
-    "fixture/EnableMetricsCollection.yaml"
-
-requestDescribeScalingProcessTypes :: DescribeScalingProcessTypes -> TestTree
-requestDescribeScalingProcessTypes = req
-    "DescribeScalingProcessTypes"
-    "fixture/DescribeScalingProcessTypes.yaml"
-
-requestDeleteTags :: DeleteTags -> TestTree
-requestDeleteTags = req
-    "DeleteTags"
-    "fixture/DeleteTags.yaml"
-
-requestDetachLoadBalancerTargetGroups :: DetachLoadBalancerTargetGroups -> TestTree
-requestDetachLoadBalancerTargetGroups = req
-    "DetachLoadBalancerTargetGroups"
-    "fixture/DetachLoadBalancerTargetGroups.yaml"
-
-requestDescribeLifecycleHooks :: DescribeLifecycleHooks -> TestTree
-requestDescribeLifecycleHooks = req
-    "DescribeLifecycleHooks"
-    "fixture/DescribeLifecycleHooks.yaml"
-
-requestDescribeAutoScalingGroups :: DescribeAutoScalingGroups -> TestTree
-requestDescribeAutoScalingGroups = req
-    "DescribeAutoScalingGroups"
-    "fixture/DescribeAutoScalingGroups.yaml"
-
-requestDeleteScheduledAction :: DeleteScheduledAction -> TestTree
-requestDeleteScheduledAction = req
-    "DeleteScheduledAction"
-    "fixture/DeleteScheduledAction.yaml"
-
-requestSetDesiredCapacity :: SetDesiredCapacity -> TestTree
-requestSetDesiredCapacity = req
-    "SetDesiredCapacity"
-    "fixture/SetDesiredCapacity.yaml"
-
-requestDetachLoadBalancers :: DetachLoadBalancers -> TestTree
-requestDetachLoadBalancers = req
-    "DetachLoadBalancers"
-    "fixture/DetachLoadBalancers.yaml"
-
-requestDescribeAutoScalingNotificationTypes :: DescribeAutoScalingNotificationTypes -> TestTree
-requestDescribeAutoScalingNotificationTypes = req
-    "DescribeAutoScalingNotificationTypes"
-    "fixture/DescribeAutoScalingNotificationTypes.yaml"
-
-requestDescribeScheduledActions :: DescribeScheduledActions -> TestTree
-requestDescribeScheduledActions = req
-    "DescribeScheduledActions"
-    "fixture/DescribeScheduledActions.yaml"
-
-requestCreateOrUpdateTags :: CreateOrUpdateTags -> TestTree
-requestCreateOrUpdateTags = req
-    "CreateOrUpdateTags"
-    "fixture/CreateOrUpdateTags.yaml"
-
-requestCompleteLifecycleAction :: CompleteLifecycleAction -> TestTree
-requestCompleteLifecycleAction = req
-    "CompleteLifecycleAction"
-    "fixture/CompleteLifecycleAction.yaml"
-
-requestDeletePolicy :: DeletePolicy -> TestTree
-requestDeletePolicy = req
-    "DeletePolicy"
-    "fixture/DeletePolicy.yaml"
-
-requestAttachInstances :: AttachInstances -> TestTree
-requestAttachInstances = req
-    "AttachInstances"
-    "fixture/AttachInstances.yaml"
-
-requestUpdateAutoScalingGroup :: UpdateAutoScalingGroup -> TestTree
-requestUpdateAutoScalingGroup = req
-    "UpdateAutoScalingGroup"
-    "fixture/UpdateAutoScalingGroup.yaml"
-
-requestDeleteAutoScalingGroup :: DeleteAutoScalingGroup -> TestTree
-requestDeleteAutoScalingGroup = req
-    "DeleteAutoScalingGroup"
-    "fixture/DeleteAutoScalingGroup.yaml"
-
-requestPutLifecycleHook :: PutLifecycleHook -> TestTree
-requestPutLifecycleHook = req
-    "PutLifecycleHook"
-    "fixture/PutLifecycleHook.yaml"
+requestExecutePolicy :: ExecutePolicy -> TestTree
+requestExecutePolicy =
+  req
+    "ExecutePolicy"
+    "fixture/ExecutePolicy.yaml"
 
 requestDeleteLifecycleHook :: DeleteLifecycleHook -> TestTree
-requestDeleteLifecycleHook = req
+requestDeleteLifecycleHook =
+  req
     "DeleteLifecycleHook"
     "fixture/DeleteLifecycleHook.yaml"
 
 requestResumeProcesses :: ResumeProcesses -> TestTree
-requestResumeProcesses = req
+requestResumeProcesses =
+  req
     "ResumeProcesses"
     "fixture/ResumeProcesses.yaml"
 
-requestExecutePolicy :: ExecutePolicy -> TestTree
-requestExecutePolicy = req
-    "ExecutePolicy"
-    "fixture/ExecutePolicy.yaml"
+requestPutNotificationConfiguration :: PutNotificationConfiguration -> TestTree
+requestPutNotificationConfiguration =
+  req
+    "PutNotificationConfiguration"
+    "fixture/PutNotificationConfiguration.yaml"
 
-requestDescribeAccountLimits :: DescribeAccountLimits -> TestTree
-requestDescribeAccountLimits = req
-    "DescribeAccountLimits"
-    "fixture/DescribeAccountLimits.yaml"
+requestAttachLoadBalancerTargetGroups :: AttachLoadBalancerTargetGroups -> TestTree
+requestAttachLoadBalancerTargetGroups =
+  req
+    "AttachLoadBalancerTargetGroups"
+    "fixture/AttachLoadBalancerTargetGroups.yaml"
 
-requestAttachLoadBalancers :: AttachLoadBalancers -> TestTree
-requestAttachLoadBalancers = req
-    "AttachLoadBalancers"
-    "fixture/AttachLoadBalancers.yaml"
+requestPutScalingPolicy :: PutScalingPolicy -> TestTree
+requestPutScalingPolicy =
+  req
+    "PutScalingPolicy"
+    "fixture/PutScalingPolicy.yaml"
 
-requestTerminateInstanceInAutoScalingGroup :: TerminateInstanceInAutoScalingGroup -> TestTree
-requestTerminateInstanceInAutoScalingGroup = req
-    "TerminateInstanceInAutoScalingGroup"
-    "fixture/TerminateInstanceInAutoScalingGroup.yaml"
+requestStartInstanceRefresh :: StartInstanceRefresh -> TestTree
+requestStartInstanceRefresh =
+  req
+    "StartInstanceRefresh"
+    "fixture/StartInstanceRefresh.yaml"
 
-requestDescribeLoadBalancerTargetGroups :: DescribeLoadBalancerTargetGroups -> TestTree
-requestDescribeLoadBalancerTargetGroups = req
-    "DescribeLoadBalancerTargetGroups"
-    "fixture/DescribeLoadBalancerTargetGroups.yaml"
+requestDescribeTags :: DescribeTags -> TestTree
+requestDescribeTags =
+  req
+    "DescribeTags"
+    "fixture/DescribeTags.yaml"
+
+requestDeletePolicy :: DeletePolicy -> TestTree
+requestDeletePolicy =
+  req
+    "DeletePolicy"
+    "fixture/DeletePolicy.yaml"
+
+requestCreateLaunchConfiguration :: CreateLaunchConfiguration -> TestTree
+requestCreateLaunchConfiguration =
+  req
+    "CreateLaunchConfiguration"
+    "fixture/CreateLaunchConfiguration.yaml"
+
+requestCreateOrUpdateTags :: CreateOrUpdateTags -> TestTree
+requestCreateOrUpdateTags =
+  req
+    "CreateOrUpdateTags"
+    "fixture/CreateOrUpdateTags.yaml"
+
+requestDescribeScheduledActions :: DescribeScheduledActions -> TestTree
+requestDescribeScheduledActions =
+  req
+    "DescribeScheduledActions"
+    "fixture/DescribeScheduledActions.yaml"
+
+requestDescribeAutoScalingNotificationTypes :: DescribeAutoScalingNotificationTypes -> TestTree
+requestDescribeAutoScalingNotificationTypes =
+  req
+    "DescribeAutoScalingNotificationTypes"
+    "fixture/DescribeAutoScalingNotificationTypes.yaml"
+
+requestDescribeAdjustmentTypes :: DescribeAdjustmentTypes -> TestTree
+requestDescribeAdjustmentTypes =
+  req
+    "DescribeAdjustmentTypes"
+    "fixture/DescribeAdjustmentTypes.yaml"
+
+requestDetachLoadBalancers :: DetachLoadBalancers -> TestTree
+requestDetachLoadBalancers =
+  req
+    "DetachLoadBalancers"
+    "fixture/DetachLoadBalancers.yaml"
+
+requestDeleteScheduledAction :: DeleteScheduledAction -> TestTree
+requestDeleteScheduledAction =
+  req
+    "DeleteScheduledAction"
+    "fixture/DeleteScheduledAction.yaml"
+
+requestDescribeScalingActivities :: DescribeScalingActivities -> TestTree
+requestDescribeScalingActivities =
+  req
+    "DescribeScalingActivities"
+    "fixture/DescribeScalingActivities.yaml"
+
+requestDescribeLifecycleHooks :: DescribeLifecycleHooks -> TestTree
+requestDescribeLifecycleHooks =
+  req
+    "DescribeLifecycleHooks"
+    "fixture/DescribeLifecycleHooks.yaml"
+
+requestDetachLoadBalancerTargetGroups :: DetachLoadBalancerTargetGroups -> TestTree
+requestDetachLoadBalancerTargetGroups =
+  req
+    "DetachLoadBalancerTargetGroups"
+    "fixture/DetachLoadBalancerTargetGroups.yaml"
 
 requestPutScheduledUpdateGroupAction :: PutScheduledUpdateGroupAction -> TestTree
-requestPutScheduledUpdateGroupAction = req
+requestPutScheduledUpdateGroupAction =
+  req
     "PutScheduledUpdateGroupAction"
     "fixture/PutScheduledUpdateGroupAction.yaml"
 
 requestSetInstanceProtection :: SetInstanceProtection -> TestTree
-requestSetInstanceProtection = req
+requestSetInstanceProtection =
+  req
     "SetInstanceProtection"
     "fixture/SetInstanceProtection.yaml"
 
+requestDeleteTags :: DeleteTags -> TestTree
+requestDeleteTags =
+  req
+    "DeleteTags"
+    "fixture/DeleteTags.yaml"
+
+requestDetachInstances :: DetachInstances -> TestTree
+requestDetachInstances =
+  req
+    "DetachInstances"
+    "fixture/DetachInstances.yaml"
+
+requestAttachLoadBalancers :: AttachLoadBalancers -> TestTree
+requestAttachLoadBalancers =
+  req
+    "AttachLoadBalancers"
+    "fixture/AttachLoadBalancers.yaml"
+
+requestDescribeAccountLimits :: DescribeAccountLimits -> TestTree
+requestDescribeAccountLimits =
+  req
+    "DescribeAccountLimits"
+    "fixture/DescribeAccountLimits.yaml"
+
+requestTerminateInstanceInAutoScalingGroup :: TerminateInstanceInAutoScalingGroup -> TestTree
+requestTerminateInstanceInAutoScalingGroup =
+  req
+    "TerminateInstanceInAutoScalingGroup"
+    "fixture/TerminateInstanceInAutoScalingGroup.yaml"
+
+requestDescribeTerminationPolicyTypes :: DescribeTerminationPolicyTypes -> TestTree
+requestDescribeTerminationPolicyTypes =
+  req
+    "DescribeTerminationPolicyTypes"
+    "fixture/DescribeTerminationPolicyTypes.yaml"
+
+requestSetInstanceHealth :: SetInstanceHealth -> TestTree
+requestSetInstanceHealth =
+  req
+    "SetInstanceHealth"
+    "fixture/SetInstanceHealth.yaml"
+
+requestExitStandby :: ExitStandby -> TestTree
+requestExitStandby =
+  req
+    "ExitStandby"
+    "fixture/ExitStandby.yaml"
+
+requestPutLifecycleHook :: PutLifecycleHook -> TestTree
+requestPutLifecycleHook =
+  req
+    "PutLifecycleHook"
+    "fixture/PutLifecycleHook.yaml"
+
+requestBatchPutScheduledUpdateGroupAction :: BatchPutScheduledUpdateGroupAction -> TestTree
+requestBatchPutScheduledUpdateGroupAction =
+  req
+    "BatchPutScheduledUpdateGroupAction"
+    "fixture/BatchPutScheduledUpdateGroupAction.yaml"
+
+requestDeleteLaunchConfiguration :: DeleteLaunchConfiguration -> TestTree
+requestDeleteLaunchConfiguration =
+  req
+    "DeleteLaunchConfiguration"
+    "fixture/DeleteLaunchConfiguration.yaml"
+
+requestDeleteNotificationConfiguration :: DeleteNotificationConfiguration -> TestTree
+requestDeleteNotificationConfiguration =
+  req
+    "DeleteNotificationConfiguration"
+    "fixture/DeleteNotificationConfiguration.yaml"
+
+requestUpdateAutoScalingGroup :: UpdateAutoScalingGroup -> TestTree
+requestUpdateAutoScalingGroup =
+  req
+    "UpdateAutoScalingGroup"
+    "fixture/UpdateAutoScalingGroup.yaml"
+
+requestDescribeLoadBalancers :: DescribeLoadBalancers -> TestTree
+requestDescribeLoadBalancers =
+  req
+    "DescribeLoadBalancers"
+    "fixture/DescribeLoadBalancers.yaml"
+
+requestDeleteAutoScalingGroup :: DeleteAutoScalingGroup -> TestTree
+requestDeleteAutoScalingGroup =
+  req
+    "DeleteAutoScalingGroup"
+    "fixture/DeleteAutoScalingGroup.yaml"
+
+requestDescribeMetricCollectionTypes :: DescribeMetricCollectionTypes -> TestTree
+requestDescribeMetricCollectionTypes =
+  req
+    "DescribeMetricCollectionTypes"
+    "fixture/DescribeMetricCollectionTypes.yaml"
+
+requestCreateAutoScalingGroup :: CreateAutoScalingGroup -> TestTree
+requestCreateAutoScalingGroup =
+  req
+    "CreateAutoScalingGroup"
+    "fixture/CreateAutoScalingGroup.yaml"
+
+requestCompleteLifecycleAction :: CompleteLifecycleAction -> TestTree
+requestCompleteLifecycleAction =
+  req
+    "CompleteLifecycleAction"
+    "fixture/CompleteLifecycleAction.yaml"
+
+requestAttachInstances :: AttachInstances -> TestTree
+requestAttachInstances =
+  req
+    "AttachInstances"
+    "fixture/AttachInstances.yaml"
+
+requestSetDesiredCapacity :: SetDesiredCapacity -> TestTree
+requestSetDesiredCapacity =
+  req
+    "SetDesiredCapacity"
+    "fixture/SetDesiredCapacity.yaml"
+
 requestDescribePolicies :: DescribePolicies -> TestTree
-requestDescribePolicies = req
+requestDescribePolicies =
+  req
     "DescribePolicies"
     "fixture/DescribePolicies.yaml"
 
+requestDescribeAutoScalingGroups :: DescribeAutoScalingGroups -> TestTree
+requestDescribeAutoScalingGroups =
+  req
+    "DescribeAutoScalingGroups"
+    "fixture/DescribeAutoScalingGroups.yaml"
+
 requestDescribeLaunchConfigurations :: DescribeLaunchConfigurations -> TestTree
-requestDescribeLaunchConfigurations = req
+requestDescribeLaunchConfigurations =
+  req
     "DescribeLaunchConfigurations"
     "fixture/DescribeLaunchConfigurations.yaml"
 
-requestDescribeScalingActivities :: DescribeScalingActivities -> TestTree
-requestDescribeScalingActivities = req
-    "DescribeScalingActivities"
-    "fixture/DescribeScalingActivities.yaml"
-
 requestDescribeNotificationConfigurations :: DescribeNotificationConfigurations -> TestTree
-requestDescribeNotificationConfigurations = req
+requestDescribeNotificationConfigurations =
+  req
     "DescribeNotificationConfigurations"
     "fixture/DescribeNotificationConfigurations.yaml"
 
 requestDescribeLifecycleHookTypes :: DescribeLifecycleHookTypes -> TestTree
-requestDescribeLifecycleHookTypes = req
+requestDescribeLifecycleHookTypes =
+  req
     "DescribeLifecycleHookTypes"
     "fixture/DescribeLifecycleHookTypes.yaml"
 
-requestDescribeAdjustmentTypes :: DescribeAdjustmentTypes -> TestTree
-requestDescribeAdjustmentTypes = req
-    "DescribeAdjustmentTypes"
-    "fixture/DescribeAdjustmentTypes.yaml"
+requestEnableMetricsCollection :: EnableMetricsCollection -> TestTree
+requestEnableMetricsCollection =
+  req
+    "EnableMetricsCollection"
+    "fixture/EnableMetricsCollection.yaml"
 
-requestCreateAutoScalingGroup :: CreateAutoScalingGroup -> TestTree
-requestCreateAutoScalingGroup = req
-    "CreateAutoScalingGroup"
-    "fixture/CreateAutoScalingGroup.yaml"
+requestDescribeScalingProcessTypes :: DescribeScalingProcessTypes -> TestTree
+requestDescribeScalingProcessTypes =
+  req
+    "DescribeScalingProcessTypes"
+    "fixture/DescribeScalingProcessTypes.yaml"
 
-requestCreateLaunchConfiguration :: CreateLaunchConfiguration -> TestTree
-requestCreateLaunchConfiguration = req
-    "CreateLaunchConfiguration"
-    "fixture/CreateLaunchConfiguration.yaml"
+requestDescribeAutoScalingInstances :: DescribeAutoScalingInstances -> TestTree
+requestDescribeAutoScalingInstances =
+  req
+    "DescribeAutoScalingInstances"
+    "fixture/DescribeAutoScalingInstances.yaml"
+
+requestDisableMetricsCollection :: DisableMetricsCollection -> TestTree
+requestDisableMetricsCollection =
+  req
+    "DisableMetricsCollection"
+    "fixture/DisableMetricsCollection.yaml"
+
+requestRecordLifecycleActionHeartbeat :: RecordLifecycleActionHeartbeat -> TestTree
+requestRecordLifecycleActionHeartbeat =
+  req
+    "RecordLifecycleActionHeartbeat"
+    "fixture/RecordLifecycleActionHeartbeat.yaml"
+
+requestBatchDeleteScheduledAction :: BatchDeleteScheduledAction -> TestTree
+requestBatchDeleteScheduledAction =
+  req
+    "BatchDeleteScheduledAction"
+    "fixture/BatchDeleteScheduledAction.yaml"
+
+requestDescribeLoadBalancerTargetGroups :: DescribeLoadBalancerTargetGroups -> TestTree
+requestDescribeLoadBalancerTargetGroups =
+  req
+    "DescribeLoadBalancerTargetGroups"
+    "fixture/DescribeLoadBalancerTargetGroups.yaml"
+
+requestCancelInstanceRefresh :: CancelInstanceRefresh -> TestTree
+requestCancelInstanceRefresh =
+  req
+    "CancelInstanceRefresh"
+    "fixture/CancelInstanceRefresh.yaml"
 
 -- Responses
 
-responseDescribeMetricCollectionTypes :: DescribeMetricCollectionTypesResponse -> TestTree
-responseDescribeMetricCollectionTypes = res
-    "DescribeMetricCollectionTypesResponse"
-    "fixture/DescribeMetricCollectionTypesResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeMetricCollectionTypes)
-
-responseDescribeLoadBalancers :: DescribeLoadBalancersResponse -> TestTree
-responseDescribeLoadBalancers = res
-    "DescribeLoadBalancersResponse"
-    "fixture/DescribeLoadBalancersResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeLoadBalancers)
-
-responsePutNotificationConfiguration :: PutNotificationConfigurationResponse -> TestTree
-responsePutNotificationConfiguration = res
-    "PutNotificationConfigurationResponse"
-    "fixture/PutNotificationConfigurationResponse.proto"
-    autoScaling
-    (Proxy :: Proxy PutNotificationConfiguration)
-
-responseDescribeTags :: DescribeTagsResponse -> TestTree
-responseDescribeTags = res
-    "DescribeTagsResponse"
-    "fixture/DescribeTagsResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeTags)
-
-responseDeleteNotificationConfiguration :: DeleteNotificationConfigurationResponse -> TestTree
-responseDeleteNotificationConfiguration = res
-    "DeleteNotificationConfigurationResponse"
-    "fixture/DeleteNotificationConfigurationResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DeleteNotificationConfiguration)
-
-responsePutScalingPolicy :: PutScalingPolicyResponse -> TestTree
-responsePutScalingPolicy = res
-    "PutScalingPolicyResponse"
-    "fixture/PutScalingPolicyResponse.proto"
-    autoScaling
-    (Proxy :: Proxy PutScalingPolicy)
-
-responseAttachLoadBalancerTargetGroups :: AttachLoadBalancerTargetGroupsResponse -> TestTree
-responseAttachLoadBalancerTargetGroups = res
-    "AttachLoadBalancerTargetGroupsResponse"
-    "fixture/AttachLoadBalancerTargetGroupsResponse.proto"
-    autoScaling
-    (Proxy :: Proxy AttachLoadBalancerTargetGroups)
-
-responseDeleteLaunchConfiguration :: DeleteLaunchConfigurationResponse -> TestTree
-responseDeleteLaunchConfiguration = res
-    "DeleteLaunchConfigurationResponse"
-    "fixture/DeleteLaunchConfigurationResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DeleteLaunchConfiguration)
-
-responseEnterStandby :: EnterStandbyResponse -> TestTree
-responseEnterStandby = res
-    "EnterStandbyResponse"
-    "fixture/EnterStandbyResponse.proto"
-    autoScaling
-    (Proxy :: Proxy EnterStandby)
-
 responseSuspendProcesses :: SuspendProcessesResponse -> TestTree
-responseSuspendProcesses = res
+responseSuspendProcesses =
+  res
     "SuspendProcessesResponse"
     "fixture/SuspendProcessesResponse.proto"
     autoScaling
     (Proxy :: Proxy SuspendProcesses)
 
-responseSetInstanceHealth :: SetInstanceHealthResponse -> TestTree
-responseSetInstanceHealth = res
-    "SetInstanceHealthResponse"
-    "fixture/SetInstanceHealthResponse.proto"
+responseDescribeInstanceRefreshes :: DescribeInstanceRefreshesResponse -> TestTree
+responseDescribeInstanceRefreshes =
+  res
+    "DescribeInstanceRefreshesResponse"
+    "fixture/DescribeInstanceRefreshesResponse.proto"
     autoScaling
-    (Proxy :: Proxy SetInstanceHealth)
+    (Proxy :: Proxy DescribeInstanceRefreshes)
 
-responseExitStandby :: ExitStandbyResponse -> TestTree
-responseExitStandby = res
-    "ExitStandbyResponse"
-    "fixture/ExitStandbyResponse.proto"
+responseEnterStandby :: EnterStandbyResponse -> TestTree
+responseEnterStandby =
+  res
+    "EnterStandbyResponse"
+    "fixture/EnterStandbyResponse.proto"
     autoScaling
-    (Proxy :: Proxy ExitStandby)
+    (Proxy :: Proxy EnterStandby)
 
-responseDescribeTerminationPolicyTypes :: DescribeTerminationPolicyTypesResponse -> TestTree
-responseDescribeTerminationPolicyTypes = res
-    "DescribeTerminationPolicyTypesResponse"
-    "fixture/DescribeTerminationPolicyTypesResponse.proto"
+responseExecutePolicy :: ExecutePolicyResponse -> TestTree
+responseExecutePolicy =
+  res
+    "ExecutePolicyResponse"
+    "fixture/ExecutePolicyResponse.proto"
     autoScaling
-    (Proxy :: Proxy DescribeTerminationPolicyTypes)
-
-responseDescribeAutoScalingInstances :: DescribeAutoScalingInstancesResponse -> TestTree
-responseDescribeAutoScalingInstances = res
-    "DescribeAutoScalingInstancesResponse"
-    "fixture/DescribeAutoScalingInstancesResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeAutoScalingInstances)
-
-responseRecordLifecycleActionHeartbeat :: RecordLifecycleActionHeartbeatResponse -> TestTree
-responseRecordLifecycleActionHeartbeat = res
-    "RecordLifecycleActionHeartbeatResponse"
-    "fixture/RecordLifecycleActionHeartbeatResponse.proto"
-    autoScaling
-    (Proxy :: Proxy RecordLifecycleActionHeartbeat)
-
-responseDisableMetricsCollection :: DisableMetricsCollectionResponse -> TestTree
-responseDisableMetricsCollection = res
-    "DisableMetricsCollectionResponse"
-    "fixture/DisableMetricsCollectionResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DisableMetricsCollection)
-
-responseDetachInstances :: DetachInstancesResponse -> TestTree
-responseDetachInstances = res
-    "DetachInstancesResponse"
-    "fixture/DetachInstancesResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DetachInstances)
-
-responseEnableMetricsCollection :: EnableMetricsCollectionResponse -> TestTree
-responseEnableMetricsCollection = res
-    "EnableMetricsCollectionResponse"
-    "fixture/EnableMetricsCollectionResponse.proto"
-    autoScaling
-    (Proxy :: Proxy EnableMetricsCollection)
-
-responseDescribeScalingProcessTypes :: DescribeScalingProcessTypesResponse -> TestTree
-responseDescribeScalingProcessTypes = res
-    "DescribeScalingProcessTypesResponse"
-    "fixture/DescribeScalingProcessTypesResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeScalingProcessTypes)
-
-responseDeleteTags :: DeleteTagsResponse -> TestTree
-responseDeleteTags = res
-    "DeleteTagsResponse"
-    "fixture/DeleteTagsResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DeleteTags)
-
-responseDetachLoadBalancerTargetGroups :: DetachLoadBalancerTargetGroupsResponse -> TestTree
-responseDetachLoadBalancerTargetGroups = res
-    "DetachLoadBalancerTargetGroupsResponse"
-    "fixture/DetachLoadBalancerTargetGroupsResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DetachLoadBalancerTargetGroups)
-
-responseDescribeLifecycleHooks :: DescribeLifecycleHooksResponse -> TestTree
-responseDescribeLifecycleHooks = res
-    "DescribeLifecycleHooksResponse"
-    "fixture/DescribeLifecycleHooksResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeLifecycleHooks)
-
-responseDescribeAutoScalingGroups :: DescribeAutoScalingGroupsResponse -> TestTree
-responseDescribeAutoScalingGroups = res
-    "DescribeAutoScalingGroupsResponse"
-    "fixture/DescribeAutoScalingGroupsResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeAutoScalingGroups)
-
-responseDeleteScheduledAction :: DeleteScheduledActionResponse -> TestTree
-responseDeleteScheduledAction = res
-    "DeleteScheduledActionResponse"
-    "fixture/DeleteScheduledActionResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DeleteScheduledAction)
-
-responseSetDesiredCapacity :: SetDesiredCapacityResponse -> TestTree
-responseSetDesiredCapacity = res
-    "SetDesiredCapacityResponse"
-    "fixture/SetDesiredCapacityResponse.proto"
-    autoScaling
-    (Proxy :: Proxy SetDesiredCapacity)
-
-responseDetachLoadBalancers :: DetachLoadBalancersResponse -> TestTree
-responseDetachLoadBalancers = res
-    "DetachLoadBalancersResponse"
-    "fixture/DetachLoadBalancersResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DetachLoadBalancers)
-
-responseDescribeAutoScalingNotificationTypes :: DescribeAutoScalingNotificationTypesResponse -> TestTree
-responseDescribeAutoScalingNotificationTypes = res
-    "DescribeAutoScalingNotificationTypesResponse"
-    "fixture/DescribeAutoScalingNotificationTypesResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeAutoScalingNotificationTypes)
-
-responseDescribeScheduledActions :: DescribeScheduledActionsResponse -> TestTree
-responseDescribeScheduledActions = res
-    "DescribeScheduledActionsResponse"
-    "fixture/DescribeScheduledActionsResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeScheduledActions)
-
-responseCreateOrUpdateTags :: CreateOrUpdateTagsResponse -> TestTree
-responseCreateOrUpdateTags = res
-    "CreateOrUpdateTagsResponse"
-    "fixture/CreateOrUpdateTagsResponse.proto"
-    autoScaling
-    (Proxy :: Proxy CreateOrUpdateTags)
-
-responseCompleteLifecycleAction :: CompleteLifecycleActionResponse -> TestTree
-responseCompleteLifecycleAction = res
-    "CompleteLifecycleActionResponse"
-    "fixture/CompleteLifecycleActionResponse.proto"
-    autoScaling
-    (Proxy :: Proxy CompleteLifecycleAction)
-
-responseDeletePolicy :: DeletePolicyResponse -> TestTree
-responseDeletePolicy = res
-    "DeletePolicyResponse"
-    "fixture/DeletePolicyResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DeletePolicy)
-
-responseAttachInstances :: AttachInstancesResponse -> TestTree
-responseAttachInstances = res
-    "AttachInstancesResponse"
-    "fixture/AttachInstancesResponse.proto"
-    autoScaling
-    (Proxy :: Proxy AttachInstances)
-
-responseUpdateAutoScalingGroup :: UpdateAutoScalingGroupResponse -> TestTree
-responseUpdateAutoScalingGroup = res
-    "UpdateAutoScalingGroupResponse"
-    "fixture/UpdateAutoScalingGroupResponse.proto"
-    autoScaling
-    (Proxy :: Proxy UpdateAutoScalingGroup)
-
-responseDeleteAutoScalingGroup :: DeleteAutoScalingGroupResponse -> TestTree
-responseDeleteAutoScalingGroup = res
-    "DeleteAutoScalingGroupResponse"
-    "fixture/DeleteAutoScalingGroupResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DeleteAutoScalingGroup)
-
-responsePutLifecycleHook :: PutLifecycleHookResponse -> TestTree
-responsePutLifecycleHook = res
-    "PutLifecycleHookResponse"
-    "fixture/PutLifecycleHookResponse.proto"
-    autoScaling
-    (Proxy :: Proxy PutLifecycleHook)
+    (Proxy :: Proxy ExecutePolicy)
 
 responseDeleteLifecycleHook :: DeleteLifecycleHookResponse -> TestTree
-responseDeleteLifecycleHook = res
+responseDeleteLifecycleHook =
+  res
     "DeleteLifecycleHookResponse"
     "fixture/DeleteLifecycleHookResponse.proto"
     autoScaling
     (Proxy :: Proxy DeleteLifecycleHook)
 
 responseResumeProcesses :: ResumeProcessesResponse -> TestTree
-responseResumeProcesses = res
+responseResumeProcesses =
+  res
     "ResumeProcessesResponse"
     "fixture/ResumeProcessesResponse.proto"
     autoScaling
     (Proxy :: Proxy ResumeProcesses)
 
-responseExecutePolicy :: ExecutePolicyResponse -> TestTree
-responseExecutePolicy = res
-    "ExecutePolicyResponse"
-    "fixture/ExecutePolicyResponse.proto"
+responsePutNotificationConfiguration :: PutNotificationConfigurationResponse -> TestTree
+responsePutNotificationConfiguration =
+  res
+    "PutNotificationConfigurationResponse"
+    "fixture/PutNotificationConfigurationResponse.proto"
     autoScaling
-    (Proxy :: Proxy ExecutePolicy)
+    (Proxy :: Proxy PutNotificationConfiguration)
 
-responseDescribeAccountLimits :: DescribeAccountLimitsResponse -> TestTree
-responseDescribeAccountLimits = res
-    "DescribeAccountLimitsResponse"
-    "fixture/DescribeAccountLimitsResponse.proto"
+responseAttachLoadBalancerTargetGroups :: AttachLoadBalancerTargetGroupsResponse -> TestTree
+responseAttachLoadBalancerTargetGroups =
+  res
+    "AttachLoadBalancerTargetGroupsResponse"
+    "fixture/AttachLoadBalancerTargetGroupsResponse.proto"
     autoScaling
-    (Proxy :: Proxy DescribeAccountLimits)
+    (Proxy :: Proxy AttachLoadBalancerTargetGroups)
 
-responseAttachLoadBalancers :: AttachLoadBalancersResponse -> TestTree
-responseAttachLoadBalancers = res
-    "AttachLoadBalancersResponse"
-    "fixture/AttachLoadBalancersResponse.proto"
+responsePutScalingPolicy :: PutScalingPolicyResponse -> TestTree
+responsePutScalingPolicy =
+  res
+    "PutScalingPolicyResponse"
+    "fixture/PutScalingPolicyResponse.proto"
     autoScaling
-    (Proxy :: Proxy AttachLoadBalancers)
+    (Proxy :: Proxy PutScalingPolicy)
 
-responseTerminateInstanceInAutoScalingGroup :: TerminateInstanceInAutoScalingGroupResponse -> TestTree
-responseTerminateInstanceInAutoScalingGroup = res
-    "TerminateInstanceInAutoScalingGroupResponse"
-    "fixture/TerminateInstanceInAutoScalingGroupResponse.proto"
+responseStartInstanceRefresh :: StartInstanceRefreshResponse -> TestTree
+responseStartInstanceRefresh =
+  res
+    "StartInstanceRefreshResponse"
+    "fixture/StartInstanceRefreshResponse.proto"
     autoScaling
-    (Proxy :: Proxy TerminateInstanceInAutoScalingGroup)
+    (Proxy :: Proxy StartInstanceRefresh)
 
-responseDescribeLoadBalancerTargetGroups :: DescribeLoadBalancerTargetGroupsResponse -> TestTree
-responseDescribeLoadBalancerTargetGroups = res
-    "DescribeLoadBalancerTargetGroupsResponse"
-    "fixture/DescribeLoadBalancerTargetGroupsResponse.proto"
+responseDescribeTags :: DescribeTagsResponse -> TestTree
+responseDescribeTags =
+  res
+    "DescribeTagsResponse"
+    "fixture/DescribeTagsResponse.proto"
     autoScaling
-    (Proxy :: Proxy DescribeLoadBalancerTargetGroups)
+    (Proxy :: Proxy DescribeTags)
+
+responseDeletePolicy :: DeletePolicyResponse -> TestTree
+responseDeletePolicy =
+  res
+    "DeletePolicyResponse"
+    "fixture/DeletePolicyResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DeletePolicy)
+
+responseCreateLaunchConfiguration :: CreateLaunchConfigurationResponse -> TestTree
+responseCreateLaunchConfiguration =
+  res
+    "CreateLaunchConfigurationResponse"
+    "fixture/CreateLaunchConfigurationResponse.proto"
+    autoScaling
+    (Proxy :: Proxy CreateLaunchConfiguration)
+
+responseCreateOrUpdateTags :: CreateOrUpdateTagsResponse -> TestTree
+responseCreateOrUpdateTags =
+  res
+    "CreateOrUpdateTagsResponse"
+    "fixture/CreateOrUpdateTagsResponse.proto"
+    autoScaling
+    (Proxy :: Proxy CreateOrUpdateTags)
+
+responseDescribeScheduledActions :: DescribeScheduledActionsResponse -> TestTree
+responseDescribeScheduledActions =
+  res
+    "DescribeScheduledActionsResponse"
+    "fixture/DescribeScheduledActionsResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeScheduledActions)
+
+responseDescribeAutoScalingNotificationTypes :: DescribeAutoScalingNotificationTypesResponse -> TestTree
+responseDescribeAutoScalingNotificationTypes =
+  res
+    "DescribeAutoScalingNotificationTypesResponse"
+    "fixture/DescribeAutoScalingNotificationTypesResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeAutoScalingNotificationTypes)
+
+responseDescribeAdjustmentTypes :: DescribeAdjustmentTypesResponse -> TestTree
+responseDescribeAdjustmentTypes =
+  res
+    "DescribeAdjustmentTypesResponse"
+    "fixture/DescribeAdjustmentTypesResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeAdjustmentTypes)
+
+responseDetachLoadBalancers :: DetachLoadBalancersResponse -> TestTree
+responseDetachLoadBalancers =
+  res
+    "DetachLoadBalancersResponse"
+    "fixture/DetachLoadBalancersResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DetachLoadBalancers)
+
+responseDeleteScheduledAction :: DeleteScheduledActionResponse -> TestTree
+responseDeleteScheduledAction =
+  res
+    "DeleteScheduledActionResponse"
+    "fixture/DeleteScheduledActionResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DeleteScheduledAction)
+
+responseDescribeScalingActivities :: DescribeScalingActivitiesResponse -> TestTree
+responseDescribeScalingActivities =
+  res
+    "DescribeScalingActivitiesResponse"
+    "fixture/DescribeScalingActivitiesResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeScalingActivities)
+
+responseDescribeLifecycleHooks :: DescribeLifecycleHooksResponse -> TestTree
+responseDescribeLifecycleHooks =
+  res
+    "DescribeLifecycleHooksResponse"
+    "fixture/DescribeLifecycleHooksResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeLifecycleHooks)
+
+responseDetachLoadBalancerTargetGroups :: DetachLoadBalancerTargetGroupsResponse -> TestTree
+responseDetachLoadBalancerTargetGroups =
+  res
+    "DetachLoadBalancerTargetGroupsResponse"
+    "fixture/DetachLoadBalancerTargetGroupsResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DetachLoadBalancerTargetGroups)
 
 responsePutScheduledUpdateGroupAction :: PutScheduledUpdateGroupActionResponse -> TestTree
-responsePutScheduledUpdateGroupAction = res
+responsePutScheduledUpdateGroupAction =
+  res
     "PutScheduledUpdateGroupActionResponse"
     "fixture/PutScheduledUpdateGroupActionResponse.proto"
     autoScaling
     (Proxy :: Proxy PutScheduledUpdateGroupAction)
 
 responseSetInstanceProtection :: SetInstanceProtectionResponse -> TestTree
-responseSetInstanceProtection = res
+responseSetInstanceProtection =
+  res
     "SetInstanceProtectionResponse"
     "fixture/SetInstanceProtectionResponse.proto"
     autoScaling
     (Proxy :: Proxy SetInstanceProtection)
 
+responseDeleteTags :: DeleteTagsResponse -> TestTree
+responseDeleteTags =
+  res
+    "DeleteTagsResponse"
+    "fixture/DeleteTagsResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DeleteTags)
+
+responseDetachInstances :: DetachInstancesResponse -> TestTree
+responseDetachInstances =
+  res
+    "DetachInstancesResponse"
+    "fixture/DetachInstancesResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DetachInstances)
+
+responseAttachLoadBalancers :: AttachLoadBalancersResponse -> TestTree
+responseAttachLoadBalancers =
+  res
+    "AttachLoadBalancersResponse"
+    "fixture/AttachLoadBalancersResponse.proto"
+    autoScaling
+    (Proxy :: Proxy AttachLoadBalancers)
+
+responseDescribeAccountLimits :: DescribeAccountLimitsResponse -> TestTree
+responseDescribeAccountLimits =
+  res
+    "DescribeAccountLimitsResponse"
+    "fixture/DescribeAccountLimitsResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeAccountLimits)
+
+responseTerminateInstanceInAutoScalingGroup :: TerminateInstanceInAutoScalingGroupResponse -> TestTree
+responseTerminateInstanceInAutoScalingGroup =
+  res
+    "TerminateInstanceInAutoScalingGroupResponse"
+    "fixture/TerminateInstanceInAutoScalingGroupResponse.proto"
+    autoScaling
+    (Proxy :: Proxy TerminateInstanceInAutoScalingGroup)
+
+responseDescribeTerminationPolicyTypes :: DescribeTerminationPolicyTypesResponse -> TestTree
+responseDescribeTerminationPolicyTypes =
+  res
+    "DescribeTerminationPolicyTypesResponse"
+    "fixture/DescribeTerminationPolicyTypesResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeTerminationPolicyTypes)
+
+responseSetInstanceHealth :: SetInstanceHealthResponse -> TestTree
+responseSetInstanceHealth =
+  res
+    "SetInstanceHealthResponse"
+    "fixture/SetInstanceHealthResponse.proto"
+    autoScaling
+    (Proxy :: Proxy SetInstanceHealth)
+
+responseExitStandby :: ExitStandbyResponse -> TestTree
+responseExitStandby =
+  res
+    "ExitStandbyResponse"
+    "fixture/ExitStandbyResponse.proto"
+    autoScaling
+    (Proxy :: Proxy ExitStandby)
+
+responsePutLifecycleHook :: PutLifecycleHookResponse -> TestTree
+responsePutLifecycleHook =
+  res
+    "PutLifecycleHookResponse"
+    "fixture/PutLifecycleHookResponse.proto"
+    autoScaling
+    (Proxy :: Proxy PutLifecycleHook)
+
+responseBatchPutScheduledUpdateGroupAction :: BatchPutScheduledUpdateGroupActionResponse -> TestTree
+responseBatchPutScheduledUpdateGroupAction =
+  res
+    "BatchPutScheduledUpdateGroupActionResponse"
+    "fixture/BatchPutScheduledUpdateGroupActionResponse.proto"
+    autoScaling
+    (Proxy :: Proxy BatchPutScheduledUpdateGroupAction)
+
+responseDeleteLaunchConfiguration :: DeleteLaunchConfigurationResponse -> TestTree
+responseDeleteLaunchConfiguration =
+  res
+    "DeleteLaunchConfigurationResponse"
+    "fixture/DeleteLaunchConfigurationResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DeleteLaunchConfiguration)
+
+responseDeleteNotificationConfiguration :: DeleteNotificationConfigurationResponse -> TestTree
+responseDeleteNotificationConfiguration =
+  res
+    "DeleteNotificationConfigurationResponse"
+    "fixture/DeleteNotificationConfigurationResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DeleteNotificationConfiguration)
+
+responseUpdateAutoScalingGroup :: UpdateAutoScalingGroupResponse -> TestTree
+responseUpdateAutoScalingGroup =
+  res
+    "UpdateAutoScalingGroupResponse"
+    "fixture/UpdateAutoScalingGroupResponse.proto"
+    autoScaling
+    (Proxy :: Proxy UpdateAutoScalingGroup)
+
+responseDescribeLoadBalancers :: DescribeLoadBalancersResponse -> TestTree
+responseDescribeLoadBalancers =
+  res
+    "DescribeLoadBalancersResponse"
+    "fixture/DescribeLoadBalancersResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeLoadBalancers)
+
+responseDeleteAutoScalingGroup :: DeleteAutoScalingGroupResponse -> TestTree
+responseDeleteAutoScalingGroup =
+  res
+    "DeleteAutoScalingGroupResponse"
+    "fixture/DeleteAutoScalingGroupResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DeleteAutoScalingGroup)
+
+responseDescribeMetricCollectionTypes :: DescribeMetricCollectionTypesResponse -> TestTree
+responseDescribeMetricCollectionTypes =
+  res
+    "DescribeMetricCollectionTypesResponse"
+    "fixture/DescribeMetricCollectionTypesResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeMetricCollectionTypes)
+
+responseCreateAutoScalingGroup :: CreateAutoScalingGroupResponse -> TestTree
+responseCreateAutoScalingGroup =
+  res
+    "CreateAutoScalingGroupResponse"
+    "fixture/CreateAutoScalingGroupResponse.proto"
+    autoScaling
+    (Proxy :: Proxy CreateAutoScalingGroup)
+
+responseCompleteLifecycleAction :: CompleteLifecycleActionResponse -> TestTree
+responseCompleteLifecycleAction =
+  res
+    "CompleteLifecycleActionResponse"
+    "fixture/CompleteLifecycleActionResponse.proto"
+    autoScaling
+    (Proxy :: Proxy CompleteLifecycleAction)
+
+responseAttachInstances :: AttachInstancesResponse -> TestTree
+responseAttachInstances =
+  res
+    "AttachInstancesResponse"
+    "fixture/AttachInstancesResponse.proto"
+    autoScaling
+    (Proxy :: Proxy AttachInstances)
+
+responseSetDesiredCapacity :: SetDesiredCapacityResponse -> TestTree
+responseSetDesiredCapacity =
+  res
+    "SetDesiredCapacityResponse"
+    "fixture/SetDesiredCapacityResponse.proto"
+    autoScaling
+    (Proxy :: Proxy SetDesiredCapacity)
+
 responseDescribePolicies :: DescribePoliciesResponse -> TestTree
-responseDescribePolicies = res
+responseDescribePolicies =
+  res
     "DescribePoliciesResponse"
     "fixture/DescribePoliciesResponse.proto"
     autoScaling
     (Proxy :: Proxy DescribePolicies)
 
+responseDescribeAutoScalingGroups :: DescribeAutoScalingGroupsResponse -> TestTree
+responseDescribeAutoScalingGroups =
+  res
+    "DescribeAutoScalingGroupsResponse"
+    "fixture/DescribeAutoScalingGroupsResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeAutoScalingGroups)
+
 responseDescribeLaunchConfigurations :: DescribeLaunchConfigurationsResponse -> TestTree
-responseDescribeLaunchConfigurations = res
+responseDescribeLaunchConfigurations =
+  res
     "DescribeLaunchConfigurationsResponse"
     "fixture/DescribeLaunchConfigurationsResponse.proto"
     autoScaling
     (Proxy :: Proxy DescribeLaunchConfigurations)
 
-responseDescribeScalingActivities :: DescribeScalingActivitiesResponse -> TestTree
-responseDescribeScalingActivities = res
-    "DescribeScalingActivitiesResponse"
-    "fixture/DescribeScalingActivitiesResponse.proto"
-    autoScaling
-    (Proxy :: Proxy DescribeScalingActivities)
-
 responseDescribeNotificationConfigurations :: DescribeNotificationConfigurationsResponse -> TestTree
-responseDescribeNotificationConfigurations = res
+responseDescribeNotificationConfigurations =
+  res
     "DescribeNotificationConfigurationsResponse"
     "fixture/DescribeNotificationConfigurationsResponse.proto"
     autoScaling
     (Proxy :: Proxy DescribeNotificationConfigurations)
 
 responseDescribeLifecycleHookTypes :: DescribeLifecycleHookTypesResponse -> TestTree
-responseDescribeLifecycleHookTypes = res
+responseDescribeLifecycleHookTypes =
+  res
     "DescribeLifecycleHookTypesResponse"
     "fixture/DescribeLifecycleHookTypesResponse.proto"
     autoScaling
     (Proxy :: Proxy DescribeLifecycleHookTypes)
 
-responseDescribeAdjustmentTypes :: DescribeAdjustmentTypesResponse -> TestTree
-responseDescribeAdjustmentTypes = res
-    "DescribeAdjustmentTypesResponse"
-    "fixture/DescribeAdjustmentTypesResponse.proto"
+responseEnableMetricsCollection :: EnableMetricsCollectionResponse -> TestTree
+responseEnableMetricsCollection =
+  res
+    "EnableMetricsCollectionResponse"
+    "fixture/EnableMetricsCollectionResponse.proto"
     autoScaling
-    (Proxy :: Proxy DescribeAdjustmentTypes)
+    (Proxy :: Proxy EnableMetricsCollection)
 
-responseCreateAutoScalingGroup :: CreateAutoScalingGroupResponse -> TestTree
-responseCreateAutoScalingGroup = res
-    "CreateAutoScalingGroupResponse"
-    "fixture/CreateAutoScalingGroupResponse.proto"
+responseDescribeScalingProcessTypes :: DescribeScalingProcessTypesResponse -> TestTree
+responseDescribeScalingProcessTypes =
+  res
+    "DescribeScalingProcessTypesResponse"
+    "fixture/DescribeScalingProcessTypesResponse.proto"
     autoScaling
-    (Proxy :: Proxy CreateAutoScalingGroup)
+    (Proxy :: Proxy DescribeScalingProcessTypes)
 
-responseCreateLaunchConfiguration :: CreateLaunchConfigurationResponse -> TestTree
-responseCreateLaunchConfiguration = res
-    "CreateLaunchConfigurationResponse"
-    "fixture/CreateLaunchConfigurationResponse.proto"
+responseDescribeAutoScalingInstances :: DescribeAutoScalingInstancesResponse -> TestTree
+responseDescribeAutoScalingInstances =
+  res
+    "DescribeAutoScalingInstancesResponse"
+    "fixture/DescribeAutoScalingInstancesResponse.proto"
     autoScaling
-    (Proxy :: Proxy CreateLaunchConfiguration)
+    (Proxy :: Proxy DescribeAutoScalingInstances)
+
+responseDisableMetricsCollection :: DisableMetricsCollectionResponse -> TestTree
+responseDisableMetricsCollection =
+  res
+    "DisableMetricsCollectionResponse"
+    "fixture/DisableMetricsCollectionResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DisableMetricsCollection)
+
+responseRecordLifecycleActionHeartbeat :: RecordLifecycleActionHeartbeatResponse -> TestTree
+responseRecordLifecycleActionHeartbeat =
+  res
+    "RecordLifecycleActionHeartbeatResponse"
+    "fixture/RecordLifecycleActionHeartbeatResponse.proto"
+    autoScaling
+    (Proxy :: Proxy RecordLifecycleActionHeartbeat)
+
+responseBatchDeleteScheduledAction :: BatchDeleteScheduledActionResponse -> TestTree
+responseBatchDeleteScheduledAction =
+  res
+    "BatchDeleteScheduledActionResponse"
+    "fixture/BatchDeleteScheduledActionResponse.proto"
+    autoScaling
+    (Proxy :: Proxy BatchDeleteScheduledAction)
+
+responseDescribeLoadBalancerTargetGroups :: DescribeLoadBalancerTargetGroupsResponse -> TestTree
+responseDescribeLoadBalancerTargetGroups =
+  res
+    "DescribeLoadBalancerTargetGroupsResponse"
+    "fixture/DescribeLoadBalancerTargetGroupsResponse.proto"
+    autoScaling
+    (Proxy :: Proxy DescribeLoadBalancerTargetGroups)
+
+responseCancelInstanceRefresh :: CancelInstanceRefreshResponse -> TestTree
+responseCancelInstanceRefresh =
+  res
+    "CancelInstanceRefreshResponse"
+    "fixture/CancelInstanceRefreshResponse.proto"
+    autoScaling
+    (Proxy :: Proxy CancelInstanceRefresh)
