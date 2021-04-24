@@ -885,11 +885,11 @@ module Network.AWS.AlexaBusiness
     tagKey,
     tagValue,
 
-    -- ** Text
-    Text,
-    text,
-    tLocale,
-    tValue,
+    -- ** TextMessage
+    TextMessage,
+    textMessage,
+    tmLocale,
+    tmValue,
 
     -- ** UpdateEndOfMeetingReminder
     UpdateEndOfMeetingReminder,

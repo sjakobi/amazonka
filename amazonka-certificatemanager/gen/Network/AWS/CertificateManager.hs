@@ -72,9 +72,6 @@ module Network.AWS.CertificateManager
     -- * Waiters
     -- $waiters
 
-    -- ** CertificateValidated
-    certificateValidated,
-
     -- * Operations
     -- $operations
 

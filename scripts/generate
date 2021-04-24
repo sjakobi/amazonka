@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Usage: generate MODELS
+
+# Run nix-build generate and copy the output to the local working tree.
+
+set -euo pipefail
+
+function join_by() {
+  local d="${1-}" f="${2-}"
+
+  if shift 2; then
+    printf %s "$f" "${@/#/$d}"
+  fi
+}
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+models=""
+
+if [ ! $# -eq 0 ]; then
+  models="$(join_by '", "' "$@")"
+  models="--arg models [\"$models\"]"
+fi
+
+result="$(nix-build generate.nix --no-out-link $models)"
+
+for input in $result/amazonka-*; do
+  output="$(basename input)"
+
+  rm -rf "$output/gen"
+  cp -r  "$input" .
+done
+
+sudo chmod -R ug+w .
