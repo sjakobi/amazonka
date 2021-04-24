@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.EC2.CancelSpotFleetRequests
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,28 +21,28 @@
 --
 --
 -- After you cancel a Spot Fleet request, the Spot Fleet launches no new Spot Instances. You must specify whether the Spot Fleet should also terminate its Spot Instances. If you terminate the instances, the Spot Fleet request enters the @cancelled_terminating@ state. Otherwise, the Spot Fleet request enters the @cancelled_running@ state and the instances continue to run until they are interrupted or you terminate them manually.
---
 module Network.AWS.EC2.CancelSpotFleetRequests
-    (
-    -- * Creating a Request
-      cancelSpotFleetRequests
-    , CancelSpotFleetRequests
+  ( -- * Creating a Request
+    cancelSpotFleetRequests,
+    CancelSpotFleetRequests,
+
     -- * Request Lenses
-    , csfrDryRun
-    , csfrSpotFleetRequestIds
-    , csfrTerminateInstances
+    csfrDryRun,
+    csfrSpotFleetRequestIds,
+    csfrTerminateInstances,
 
     -- * Destructuring the Response
-    , cancelSpotFleetRequestsResponse
-    , CancelSpotFleetRequestsResponse
+    cancelSpotFleetRequestsResponse,
+    CancelSpotFleetRequestsResponse,
+
     -- * Response Lenses
-    , csfrrsSuccessfulFleetRequests
-    , csfrrsUnsuccessfulFleetRequests
-    , csfrrsResponseStatus
-    ) where
+    csfrrrsUnsuccessfulFleetRequests,
+    csfrrrsSuccessfulFleetRequests,
+    csfrrrsResponseStatus,
+  )
+where
 
 import Network.AWS.EC2.Types
-import Network.AWS.EC2.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -55,11 +54,21 @@ import Network.AWS.Response
 --
 -- /See:/ 'cancelSpotFleetRequests' smart constructor.
 data CancelSpotFleetRequests = CancelSpotFleetRequests'
-  { _csfrDryRun              :: !(Maybe Bool)
-  , _csfrSpotFleetRequestIds :: ![Text]
-  , _csfrTerminateInstances  :: !Bool
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _csfrDryRun ::
+      !(Maybe Bool),
+    _csfrSpotFleetRequestIds ::
+      ![Text],
+    _csfrTerminateInstances ::
+      !Bool
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CancelSpotFleetRequests' with the minimum fields required to make a request.
 --
@@ -70,64 +79,69 @@ data CancelSpotFleetRequests = CancelSpotFleetRequests'
 -- * 'csfrSpotFleetRequestIds' - The IDs of the Spot Fleet requests.
 --
 -- * 'csfrTerminateInstances' - Indicates whether to terminate instances for a Spot Fleet request if it is canceled successfully.
-cancelSpotFleetRequests
-    :: Bool -- ^ 'csfrTerminateInstances'
-    -> CancelSpotFleetRequests
+cancelSpotFleetRequests ::
+  -- | 'csfrTerminateInstances'
+  Bool ->
+  CancelSpotFleetRequests
 cancelSpotFleetRequests pTerminateInstances_ =
   CancelSpotFleetRequests'
-    { _csfrDryRun = Nothing
-    , _csfrSpotFleetRequestIds = mempty
-    , _csfrTerminateInstances = pTerminateInstances_
+    { _csfrDryRun = Nothing,
+      _csfrSpotFleetRequestIds = mempty,
+      _csfrTerminateInstances = pTerminateInstances_
     }
-
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 csfrDryRun :: Lens' CancelSpotFleetRequests (Maybe Bool)
-csfrDryRun = lens _csfrDryRun (\ s a -> s{_csfrDryRun = a})
+csfrDryRun = lens _csfrDryRun (\s a -> s {_csfrDryRun = a})
 
 -- | The IDs of the Spot Fleet requests.
 csfrSpotFleetRequestIds :: Lens' CancelSpotFleetRequests [Text]
-csfrSpotFleetRequestIds = lens _csfrSpotFleetRequestIds (\ s a -> s{_csfrSpotFleetRequestIds = a}) . _Coerce
+csfrSpotFleetRequestIds = lens _csfrSpotFleetRequestIds (\s a -> s {_csfrSpotFleetRequestIds = a}) . _Coerce
 
 -- | Indicates whether to terminate instances for a Spot Fleet request if it is canceled successfully.
 csfrTerminateInstances :: Lens' CancelSpotFleetRequests Bool
-csfrTerminateInstances = lens _csfrTerminateInstances (\ s a -> s{_csfrTerminateInstances = a})
+csfrTerminateInstances = lens _csfrTerminateInstances (\s a -> s {_csfrTerminateInstances = a})
 
 instance AWSRequest CancelSpotFleetRequests where
-        type Rs CancelSpotFleetRequests =
-             CancelSpotFleetRequestsResponse
-        request = postQuery ec2
-        response
-          = receiveXML
-              (\ s h x ->
-                 CancelSpotFleetRequestsResponse' <$>
-                   (x .@? "successfulFleetRequestSet" .!@ mempty >>=
-                      may (parseXMLList "item"))
-                     <*>
-                     (x .@? "unsuccessfulFleetRequestSet" .!@ mempty >>=
-                        may (parseXMLList "item"))
-                     <*> (pure (fromEnum s)))
+  type
+    Rs CancelSpotFleetRequests =
+      CancelSpotFleetRequestsResponse
+  request = postQuery ec2
+  response =
+    receiveXML
+      ( \s h x ->
+          CancelSpotFleetRequestsResponse'
+            <$> ( x .@? "unsuccessfulFleetRequestSet" .!@ mempty
+                    >>= may (parseXMLList "item")
+                )
+            <*> ( x .@? "successfulFleetRequestSet" .!@ mempty
+                    >>= may (parseXMLList "item")
+                )
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable CancelSpotFleetRequests where
+instance Hashable CancelSpotFleetRequests
 
-instance NFData CancelSpotFleetRequests where
+instance NFData CancelSpotFleetRequests
 
 instance ToHeaders CancelSpotFleetRequests where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath CancelSpotFleetRequests where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery CancelSpotFleetRequests where
-        toQuery CancelSpotFleetRequests'{..}
-          = mconcat
-              ["Action" =:
-                 ("CancelSpotFleetRequests" :: ByteString),
-               "Version" =: ("2016-11-15" :: ByteString),
-               "DryRun" =: _csfrDryRun,
-               toQueryList "SpotFleetRequestId"
-                 _csfrSpotFleetRequestIds,
-               "TerminateInstances" =: _csfrTerminateInstances]
+  toQuery CancelSpotFleetRequests' {..} =
+    mconcat
+      [ "Action"
+          =: ("CancelSpotFleetRequests" :: ByteString),
+        "Version" =: ("2016-11-15" :: ByteString),
+        "DryRun" =: _csfrDryRun,
+        toQueryList
+          "SpotFleetRequestId"
+          _csfrSpotFleetRequestIds,
+        "TerminateInstances" =: _csfrTerminateInstances
+      ]
 
 -- | Contains the output of CancelSpotFleetRequests.
 --
@@ -135,42 +149,57 @@ instance ToQuery CancelSpotFleetRequests where
 --
 -- /See:/ 'cancelSpotFleetRequestsResponse' smart constructor.
 data CancelSpotFleetRequestsResponse = CancelSpotFleetRequestsResponse'
-  { _csfrrsSuccessfulFleetRequests :: !(Maybe [CancelSpotFleetRequestsSuccessItem])
-  , _csfrrsUnsuccessfulFleetRequests :: !(Maybe [CancelSpotFleetRequestsErrorItem])
-  , _csfrrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _csfrrrsUnsuccessfulFleetRequests ::
+      !( Maybe
+           [CancelSpotFleetRequestsErrorItem]
+       ),
+    _csfrrrsSuccessfulFleetRequests ::
+      !( Maybe
+           [CancelSpotFleetRequestsSuccessItem]
+       ),
+    _csfrrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CancelSpotFleetRequestsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'csfrrsSuccessfulFleetRequests' - Information about the Spot Fleet requests that are successfully canceled.
+-- * 'csfrrrsUnsuccessfulFleetRequests' - Information about the Spot Fleet requests that are not successfully canceled.
 --
--- * 'csfrrsUnsuccessfulFleetRequests' - Information about the Spot Fleet requests that are not successfully canceled.
+-- * 'csfrrrsSuccessfulFleetRequests' - Information about the Spot Fleet requests that are successfully canceled.
 --
--- * 'csfrrsResponseStatus' - -- | The response status code.
-cancelSpotFleetRequestsResponse
-    :: Int -- ^ 'csfrrsResponseStatus'
-    -> CancelSpotFleetRequestsResponse
+-- * 'csfrrrsResponseStatus' - -- | The response status code.
+cancelSpotFleetRequestsResponse ::
+  -- | 'csfrrrsResponseStatus'
+  Int ->
+  CancelSpotFleetRequestsResponse
 cancelSpotFleetRequestsResponse pResponseStatus_ =
   CancelSpotFleetRequestsResponse'
-    { _csfrrsSuccessfulFleetRequests = Nothing
-    , _csfrrsUnsuccessfulFleetRequests = Nothing
-    , _csfrrsResponseStatus = pResponseStatus_
+    { _csfrrrsUnsuccessfulFleetRequests =
+        Nothing,
+      _csfrrrsSuccessfulFleetRequests = Nothing,
+      _csfrrrsResponseStatus = pResponseStatus_
     }
 
+-- | Information about the Spot Fleet requests that are not successfully canceled.
+csfrrrsUnsuccessfulFleetRequests :: Lens' CancelSpotFleetRequestsResponse [CancelSpotFleetRequestsErrorItem]
+csfrrrsUnsuccessfulFleetRequests = lens _csfrrrsUnsuccessfulFleetRequests (\s a -> s {_csfrrrsUnsuccessfulFleetRequests = a}) . _Default . _Coerce
 
 -- | Information about the Spot Fleet requests that are successfully canceled.
-csfrrsSuccessfulFleetRequests :: Lens' CancelSpotFleetRequestsResponse [CancelSpotFleetRequestsSuccessItem]
-csfrrsSuccessfulFleetRequests = lens _csfrrsSuccessfulFleetRequests (\ s a -> s{_csfrrsSuccessfulFleetRequests = a}) . _Default . _Coerce
-
--- | Information about the Spot Fleet requests that are not successfully canceled.
-csfrrsUnsuccessfulFleetRequests :: Lens' CancelSpotFleetRequestsResponse [CancelSpotFleetRequestsErrorItem]
-csfrrsUnsuccessfulFleetRequests = lens _csfrrsUnsuccessfulFleetRequests (\ s a -> s{_csfrrsUnsuccessfulFleetRequests = a}) . _Default . _Coerce
+csfrrrsSuccessfulFleetRequests :: Lens' CancelSpotFleetRequestsResponse [CancelSpotFleetRequestsSuccessItem]
+csfrrrsSuccessfulFleetRequests = lens _csfrrrsSuccessfulFleetRequests (\s a -> s {_csfrrrsSuccessfulFleetRequests = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-csfrrsResponseStatus :: Lens' CancelSpotFleetRequestsResponse Int
-csfrrsResponseStatus = lens _csfrrsResponseStatus (\ s a -> s{_csfrrsResponseStatus = a})
+csfrrrsResponseStatus :: Lens' CancelSpotFleetRequestsResponse Int
+csfrrrsResponseStatus = lens _csfrrrsResponseStatus (\s a -> s {_csfrrrsResponseStatus = a})
 
-instance NFData CancelSpotFleetRequestsResponse where
+instance NFData CancelSpotFleetRequestsResponse

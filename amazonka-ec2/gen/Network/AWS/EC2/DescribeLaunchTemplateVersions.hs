@@ -1,229 +1,294 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.EC2.DescribeLaunchTemplateVersions
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more versions of a specified launch template. You can describe all versions, individual versions, or a range of versions.
+-- Describes one or more versions of a specified launch template. You can describe all versions, individual versions, or a range of versions. You can also describe all the latest versions or all the default versions of all the launch templates in your account.
 --
 --
+--
+-- This operation returns paginated results.
 module Network.AWS.EC2.DescribeLaunchTemplateVersions
-    (
-    -- * Creating a Request
-      describeLaunchTemplateVersions
-    , DescribeLaunchTemplateVersions
+  ( -- * Creating a Request
+    describeLaunchTemplateVersions,
+    DescribeLaunchTemplateVersions,
+
     -- * Request Lenses
-    , dltvsLaunchTemplateName
-    , dltvsLaunchTemplateId
-    , dltvsMinVersion
-    , dltvsFilters
-    , dltvsMaxVersion
-    , dltvsVersions
-    , dltvsNextToken
-    , dltvsDryRun
-    , dltvsMaxResults
+    dltvNextToken,
+    dltvVersions,
+    dltvDryRun,
+    dltvMaxResults,
+    dltvMinVersion,
+    dltvLaunchTemplateId,
+    dltvLaunchTemplateName,
+    dltvMaxVersion,
+    dltvFilters,
 
     -- * Destructuring the Response
-    , describeLaunchTemplateVersionsResponse
-    , DescribeLaunchTemplateVersionsResponse
+    describeLaunchTemplateVersionsResponse,
+    DescribeLaunchTemplateVersionsResponse,
+
     -- * Response Lenses
-    , dltvrsNextToken
-    , dltvrsLaunchTemplateVersions
-    , dltvrsResponseStatus
-    ) where
+    dltvrlrsNextToken,
+    dltvrlrsLaunchTemplateVersions,
+    dltvrlrsResponseStatus,
+  )
+where
 
 import Network.AWS.EC2.Types
-import Network.AWS.EC2.Types.Product
 import Network.AWS.Lens
+import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'describeLaunchTemplateVersions' smart constructor.
 data DescribeLaunchTemplateVersions = DescribeLaunchTemplateVersions'
-  { _dltvsLaunchTemplateName :: !(Maybe Text)
-  , _dltvsLaunchTemplateId   :: !(Maybe Text)
-  , _dltvsMinVersion         :: !(Maybe Text)
-  , _dltvsFilters            :: !(Maybe [Filter])
-  , _dltvsMaxVersion         :: !(Maybe Text)
-  , _dltvsVersions           :: !(Maybe [Text])
-  , _dltvsNextToken          :: !(Maybe Text)
-  , _dltvsDryRun             :: !(Maybe Bool)
-  , _dltvsMaxResults         :: !(Maybe Int)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dltvNextToken ::
+      !( Maybe
+           Text
+       ),
+    _dltvVersions ::
+      !( Maybe
+           [Text]
+       ),
+    _dltvDryRun ::
+      !( Maybe
+           Bool
+       ),
+    _dltvMaxResults ::
+      !( Maybe
+           Int
+       ),
+    _dltvMinVersion ::
+      !( Maybe
+           Text
+       ),
+    _dltvLaunchTemplateId ::
+      !( Maybe
+           Text
+       ),
+    _dltvLaunchTemplateName ::
+      !( Maybe
+           Text
+       ),
+    _dltvMaxVersion ::
+      !( Maybe
+           Text
+       ),
+    _dltvFilters ::
+      !( Maybe
+           [Filter]
+       )
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeLaunchTemplateVersions' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dltvsLaunchTemplateName' - The name of the launch template. You must specify either the launch template ID or launch template name in the request.
+-- * 'dltvNextToken' - The token to request the next page of results.
 --
--- * 'dltvsLaunchTemplateId' - The ID of the launch template. You must specify either the launch template ID or launch template name in the request.
+-- * 'dltvVersions' - One or more versions of the launch template. Valid values depend on whether you are describing a specified launch template (by ID or name) or all launch templates in your account. To describe one or more versions of a specified launch template, valid values are @> Latest@ , @> Default@ , and numbers. To describe all launch templates in your account that are defined as the latest version, the valid value is @> Latest@ . To describe all launch templates in your account that are defined as the default version, the valid value is @> Default@ . You can specify @> Latest@ and @> Default@ in the same call. You cannot specify numbers.
 --
--- * 'dltvsMinVersion' - The version number after which to describe launch template versions.
+-- * 'dltvDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
--- * 'dltvsFilters' - One or more filters.     * @create-time@ - The time the launch template version was created.     * @ebs-optimized@ - A boolean that indicates whether the instance is optimized for Amazon EBS I/O.     * @iam-instance-profile@ - The ARN of the IAM instance profile.     * @image-id@ - The ID of the AMI.     * @instance-type@ - The instance type.     * @is-default-version@ - A boolean that indicates whether the launch template version is the default version.     * @kernel-id@ - The kernel ID.     * @ram-disk-id@ - The RAM disk ID.
+-- * 'dltvMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value. This value can be between 1 and 200.
 --
--- * 'dltvsMaxVersion' - The version number up to which to describe launch template versions.
+-- * 'dltvMinVersion' - The version number after which to describe launch template versions.
 --
--- * 'dltvsVersions' - One or more versions of the launch template.
+-- * 'dltvLaunchTemplateId' - The ID of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
 --
--- * 'dltvsNextToken' - The token to request the next page of results.
+-- * 'dltvLaunchTemplateName' - The name of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
 --
--- * 'dltvsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- * 'dltvMaxVersion' - The version number up to which to describe launch template versions.
 --
--- * 'dltvsMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value. This value can be between 5 and 1000.
-describeLaunchTemplateVersions
-    :: DescribeLaunchTemplateVersions
+-- * 'dltvFilters' - One or more filters.     * @create-time@ - The time the launch template version was created.     * @ebs-optimized@ - A boolean that indicates whether the instance is optimized for Amazon EBS I/O.     * @iam-instance-profile@ - The ARN of the IAM instance profile.     * @image-id@ - The ID of the AMI.     * @instance-type@ - The instance type.     * @is-default-version@ - A boolean that indicates whether the launch template version is the default version.     * @kernel-id@ - The kernel ID.     * @ram-disk-id@ - The RAM disk ID.
+describeLaunchTemplateVersions ::
+  DescribeLaunchTemplateVersions
 describeLaunchTemplateVersions =
   DescribeLaunchTemplateVersions'
-    { _dltvsLaunchTemplateName = Nothing
-    , _dltvsLaunchTemplateId = Nothing
-    , _dltvsMinVersion = Nothing
-    , _dltvsFilters = Nothing
-    , _dltvsMaxVersion = Nothing
-    , _dltvsVersions = Nothing
-    , _dltvsNextToken = Nothing
-    , _dltvsDryRun = Nothing
-    , _dltvsMaxResults = Nothing
+    { _dltvNextToken =
+        Nothing,
+      _dltvVersions = Nothing,
+      _dltvDryRun = Nothing,
+      _dltvMaxResults = Nothing,
+      _dltvMinVersion = Nothing,
+      _dltvLaunchTemplateId = Nothing,
+      _dltvLaunchTemplateName = Nothing,
+      _dltvMaxVersion = Nothing,
+      _dltvFilters = Nothing
     }
 
-
--- | The name of the launch template. You must specify either the launch template ID or launch template name in the request.
-dltvsLaunchTemplateName :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvsLaunchTemplateName = lens _dltvsLaunchTemplateName (\ s a -> s{_dltvsLaunchTemplateName = a})
-
--- | The ID of the launch template. You must specify either the launch template ID or launch template name in the request.
-dltvsLaunchTemplateId :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvsLaunchTemplateId = lens _dltvsLaunchTemplateId (\ s a -> s{_dltvsLaunchTemplateId = a})
-
--- | The version number after which to describe launch template versions.
-dltvsMinVersion :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvsMinVersion = lens _dltvsMinVersion (\ s a -> s{_dltvsMinVersion = a})
-
--- | One or more filters.     * @create-time@ - The time the launch template version was created.     * @ebs-optimized@ - A boolean that indicates whether the instance is optimized for Amazon EBS I/O.     * @iam-instance-profile@ - The ARN of the IAM instance profile.     * @image-id@ - The ID of the AMI.     * @instance-type@ - The instance type.     * @is-default-version@ - A boolean that indicates whether the launch template version is the default version.     * @kernel-id@ - The kernel ID.     * @ram-disk-id@ - The RAM disk ID.
-dltvsFilters :: Lens' DescribeLaunchTemplateVersions [Filter]
-dltvsFilters = lens _dltvsFilters (\ s a -> s{_dltvsFilters = a}) . _Default . _Coerce
-
--- | The version number up to which to describe launch template versions.
-dltvsMaxVersion :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvsMaxVersion = lens _dltvsMaxVersion (\ s a -> s{_dltvsMaxVersion = a})
-
--- | One or more versions of the launch template.
-dltvsVersions :: Lens' DescribeLaunchTemplateVersions [Text]
-dltvsVersions = lens _dltvsVersions (\ s a -> s{_dltvsVersions = a}) . _Default . _Coerce
-
 -- | The token to request the next page of results.
-dltvsNextToken :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvsNextToken = lens _dltvsNextToken (\ s a -> s{_dltvsNextToken = a})
+dltvNextToken :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
+dltvNextToken = lens _dltvNextToken (\s a -> s {_dltvNextToken = a})
+
+-- | One or more versions of the launch template. Valid values depend on whether you are describing a specified launch template (by ID or name) or all launch templates in your account. To describe one or more versions of a specified launch template, valid values are @> Latest@ , @> Default@ , and numbers. To describe all launch templates in your account that are defined as the latest version, the valid value is @> Latest@ . To describe all launch templates in your account that are defined as the default version, the valid value is @> Default@ . You can specify @> Latest@ and @> Default@ in the same call. You cannot specify numbers.
+dltvVersions :: Lens' DescribeLaunchTemplateVersions [Text]
+dltvVersions = lens _dltvVersions (\s a -> s {_dltvVersions = a}) . _Default . _Coerce
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dltvsDryRun :: Lens' DescribeLaunchTemplateVersions (Maybe Bool)
-dltvsDryRun = lens _dltvsDryRun (\ s a -> s{_dltvsDryRun = a})
+dltvDryRun :: Lens' DescribeLaunchTemplateVersions (Maybe Bool)
+dltvDryRun = lens _dltvDryRun (\s a -> s {_dltvDryRun = a})
 
--- | The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value. This value can be between 5 and 1000.
-dltvsMaxResults :: Lens' DescribeLaunchTemplateVersions (Maybe Int)
-dltvsMaxResults = lens _dltvsMaxResults (\ s a -> s{_dltvsMaxResults = a})
+-- | The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value. This value can be between 1 and 200.
+dltvMaxResults :: Lens' DescribeLaunchTemplateVersions (Maybe Int)
+dltvMaxResults = lens _dltvMaxResults (\s a -> s {_dltvMaxResults = a})
 
-instance AWSRequest DescribeLaunchTemplateVersions
-         where
-        type Rs DescribeLaunchTemplateVersions =
-             DescribeLaunchTemplateVersionsResponse
-        request = postQuery ec2
-        response
-          = receiveXML
-              (\ s h x ->
-                 DescribeLaunchTemplateVersionsResponse' <$>
-                   (x .@? "nextToken") <*>
-                     (x .@? "launchTemplateVersionSet" .!@ mempty >>=
-                        may (parseXMLList "item"))
-                     <*> (pure (fromEnum s)))
+-- | The version number after which to describe launch template versions.
+dltvMinVersion :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
+dltvMinVersion = lens _dltvMinVersion (\s a -> s {_dltvMinVersion = a})
+
+-- | The ID of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
+dltvLaunchTemplateId :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
+dltvLaunchTemplateId = lens _dltvLaunchTemplateId (\s a -> s {_dltvLaunchTemplateId = a})
+
+-- | The name of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
+dltvLaunchTemplateName :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
+dltvLaunchTemplateName = lens _dltvLaunchTemplateName (\s a -> s {_dltvLaunchTemplateName = a})
+
+-- | The version number up to which to describe launch template versions.
+dltvMaxVersion :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
+dltvMaxVersion = lens _dltvMaxVersion (\s a -> s {_dltvMaxVersion = a})
+
+-- | One or more filters.     * @create-time@ - The time the launch template version was created.     * @ebs-optimized@ - A boolean that indicates whether the instance is optimized for Amazon EBS I/O.     * @iam-instance-profile@ - The ARN of the IAM instance profile.     * @image-id@ - The ID of the AMI.     * @instance-type@ - The instance type.     * @is-default-version@ - A boolean that indicates whether the launch template version is the default version.     * @kernel-id@ - The kernel ID.     * @ram-disk-id@ - The RAM disk ID.
+dltvFilters :: Lens' DescribeLaunchTemplateVersions [Filter]
+dltvFilters = lens _dltvFilters (\s a -> s {_dltvFilters = a}) . _Default . _Coerce
+
+instance AWSPager DescribeLaunchTemplateVersions where
+  page rq rs
+    | stop (rs ^. dltvrlrsNextToken) = Nothing
+    | stop (rs ^. dltvrlrsLaunchTemplateVersions) =
+      Nothing
+    | otherwise =
+      Just $ rq & dltvNextToken .~ rs ^. dltvrlrsNextToken
+
+instance AWSRequest DescribeLaunchTemplateVersions where
+  type
+    Rs DescribeLaunchTemplateVersions =
+      DescribeLaunchTemplateVersionsResponse
+  request = postQuery ec2
+  response =
+    receiveXML
+      ( \s h x ->
+          DescribeLaunchTemplateVersionsResponse'
+            <$> (x .@? "nextToken")
+            <*> ( x .@? "launchTemplateVersionSet" .!@ mempty
+                    >>= may (parseXMLList "item")
+                )
+            <*> (pure (fromEnum s))
+      )
 
 instance Hashable DescribeLaunchTemplateVersions
-         where
 
-instance NFData DescribeLaunchTemplateVersions where
+instance NFData DescribeLaunchTemplateVersions
 
-instance ToHeaders DescribeLaunchTemplateVersions
-         where
-        toHeaders = const mempty
+instance ToHeaders DescribeLaunchTemplateVersions where
+  toHeaders = const mempty
 
 instance ToPath DescribeLaunchTemplateVersions where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeLaunchTemplateVersions where
-        toQuery DescribeLaunchTemplateVersions'{..}
-          = mconcat
-              ["Action" =:
-                 ("DescribeLaunchTemplateVersions" :: ByteString),
-               "Version" =: ("2016-11-15" :: ByteString),
-               "LaunchTemplateName" =: _dltvsLaunchTemplateName,
-               "LaunchTemplateId" =: _dltvsLaunchTemplateId,
-               "MinVersion" =: _dltvsMinVersion,
-               toQuery (toQueryList "Filter" <$> _dltvsFilters),
-               "MaxVersion" =: _dltvsMaxVersion,
-               toQuery
-                 (toQueryList "LaunchTemplateVersion" <$>
-                    _dltvsVersions),
-               "NextToken" =: _dltvsNextToken,
-               "DryRun" =: _dltvsDryRun,
-               "MaxResults" =: _dltvsMaxResults]
+  toQuery DescribeLaunchTemplateVersions' {..} =
+    mconcat
+      [ "Action"
+          =: ("DescribeLaunchTemplateVersions" :: ByteString),
+        "Version" =: ("2016-11-15" :: ByteString),
+        "NextToken" =: _dltvNextToken,
+        toQuery
+          ( toQueryList "LaunchTemplateVersion"
+              <$> _dltvVersions
+          ),
+        "DryRun" =: _dltvDryRun,
+        "MaxResults" =: _dltvMaxResults,
+        "MinVersion" =: _dltvMinVersion,
+        "LaunchTemplateId" =: _dltvLaunchTemplateId,
+        "LaunchTemplateName" =: _dltvLaunchTemplateName,
+        "MaxVersion" =: _dltvMaxVersion,
+        toQuery (toQueryList "Filter" <$> _dltvFilters)
+      ]
 
 -- | /See:/ 'describeLaunchTemplateVersionsResponse' smart constructor.
 data DescribeLaunchTemplateVersionsResponse = DescribeLaunchTemplateVersionsResponse'
-  { _dltvrsNextToken              :: !(Maybe Text)
-  , _dltvrsLaunchTemplateVersions :: !(Maybe [LaunchTemplateVersion])
-  , _dltvrsResponseStatus         :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dltvrlrsNextToken ::
+      !( Maybe
+           Text
+       ),
+    _dltvrlrsLaunchTemplateVersions ::
+      !( Maybe
+           [LaunchTemplateVersion]
+       ),
+    _dltvrlrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeLaunchTemplateVersionsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dltvrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- * 'dltvrlrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
 --
--- * 'dltvrsLaunchTemplateVersions' - Information about the launch template versions.
+-- * 'dltvrlrsLaunchTemplateVersions' - Information about the launch template versions.
 --
--- * 'dltvrsResponseStatus' - -- | The response status code.
+-- * 'dltvrlrsResponseStatus' - -- | The response status code.
+describeLaunchTemplateVersionsResponse ::
+  -- | 'dltvrlrsResponseStatus'
+  Int ->
+  DescribeLaunchTemplateVersionsResponse
 describeLaunchTemplateVersionsResponse
-    :: Int -- ^ 'dltvrsResponseStatus'
-    -> DescribeLaunchTemplateVersionsResponse
-describeLaunchTemplateVersionsResponse pResponseStatus_ =
-  DescribeLaunchTemplateVersionsResponse'
-    { _dltvrsNextToken = Nothing
-    , _dltvrsLaunchTemplateVersions = Nothing
-    , _dltvrsResponseStatus = pResponseStatus_
-    }
-
+  pResponseStatus_ =
+    DescribeLaunchTemplateVersionsResponse'
+      { _dltvrlrsNextToken =
+          Nothing,
+        _dltvrlrsLaunchTemplateVersions =
+          Nothing,
+        _dltvrlrsResponseStatus =
+          pResponseStatus_
+      }
 
 -- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dltvrsNextToken :: Lens' DescribeLaunchTemplateVersionsResponse (Maybe Text)
-dltvrsNextToken = lens _dltvrsNextToken (\ s a -> s{_dltvrsNextToken = a})
+dltvrlrsNextToken :: Lens' DescribeLaunchTemplateVersionsResponse (Maybe Text)
+dltvrlrsNextToken = lens _dltvrlrsNextToken (\s a -> s {_dltvrlrsNextToken = a})
 
 -- | Information about the launch template versions.
-dltvrsLaunchTemplateVersions :: Lens' DescribeLaunchTemplateVersionsResponse [LaunchTemplateVersion]
-dltvrsLaunchTemplateVersions = lens _dltvrsLaunchTemplateVersions (\ s a -> s{_dltvrsLaunchTemplateVersions = a}) . _Default . _Coerce
+dltvrlrsLaunchTemplateVersions :: Lens' DescribeLaunchTemplateVersionsResponse [LaunchTemplateVersion]
+dltvrlrsLaunchTemplateVersions = lens _dltvrlrsLaunchTemplateVersions (\s a -> s {_dltvrlrsLaunchTemplateVersions = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-dltvrsResponseStatus :: Lens' DescribeLaunchTemplateVersionsResponse Int
-dltvrsResponseStatus = lens _dltvrsResponseStatus (\ s a -> s{_dltvrsResponseStatus = a})
+dltvrlrsResponseStatus :: Lens' DescribeLaunchTemplateVersionsResponse Int
+dltvrlrsResponseStatus = lens _dltvrlrsResponseStatus (\s a -> s {_dltvrlrsResponseStatus = a})
 
-instance NFData
-           DescribeLaunchTemplateVersionsResponse
-         where
+instance
+  NFData
+    DescribeLaunchTemplateVersionsResponse

@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.EC2.RunScheduledInstances
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,30 +22,30 @@
 --
 -- Before you can launch a Scheduled Instance, you must purchase it and obtain an identifier using 'PurchaseScheduledInstances' .
 --
--- You must launch a Scheduled Instance during its scheduled time period. You can't stop or reboot a Scheduled Instance, but you can terminate it as needed. If you terminate a Scheduled Instance before the current scheduled time period ends, you can launch it again after a few minutes. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-scheduled-instances.html Scheduled Instances> in the /Amazon Elastic Compute Cloud User Guide/ .
---
+-- You must launch a Scheduled Instance during its scheduled time period. You can't stop or reboot a Scheduled Instance, but you can terminate it as needed. If you terminate a Scheduled Instance before the current scheduled time period ends, you can launch it again after a few minutes. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-scheduled-instances.html Scheduled Instances> in the /Amazon EC2 User Guide/ .
 module Network.AWS.EC2.RunScheduledInstances
-    (
-    -- * Creating a Request
-      runScheduledInstances
-    , RunScheduledInstances
+  ( -- * Creating a Request
+    runScheduledInstances,
+    RunScheduledInstances,
+
     -- * Request Lenses
-    , rsiClientToken
-    , rsiInstanceCount
-    , rsiDryRun
-    , rsiLaunchSpecification
-    , rsiScheduledInstanceId
+    rsisDryRun,
+    rsisClientToken,
+    rsisInstanceCount,
+    rsisLaunchSpecification,
+    rsisScheduledInstanceId,
 
     -- * Destructuring the Response
-    , runScheduledInstancesResponse
-    , RunScheduledInstancesResponse
+    runScheduledInstancesResponse,
+    RunScheduledInstancesResponse,
+
     -- * Response Lenses
-    , rrsInstanceIdSet
-    , rrsResponseStatus
-    ) where
+    rrsInstanceIdSet,
+    rrsResponseStatus,
+  )
+where
 
 import Network.AWS.EC2.Types
-import Network.AWS.EC2.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -58,93 +57,112 @@ import Network.AWS.Response
 --
 -- /See:/ 'runScheduledInstances' smart constructor.
 data RunScheduledInstances = RunScheduledInstances'
-  { _rsiClientToken         :: !(Maybe Text)
-  , _rsiInstanceCount       :: !(Maybe Int)
-  , _rsiDryRun              :: !(Maybe Bool)
-  , _rsiLaunchSpecification :: !ScheduledInstancesLaunchSpecification
-  , _rsiScheduledInstanceId :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _rsisDryRun ::
+      !(Maybe Bool),
+    _rsisClientToken ::
+      !(Maybe Text),
+    _rsisInstanceCount ::
+      !(Maybe Int),
+    _rsisLaunchSpecification ::
+      !ScheduledInstancesLaunchSpecification,
+    _rsisScheduledInstanceId ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'RunScheduledInstances' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'rsiClientToken' - Unique, case-sensitive identifier that ensures the idempotency of the request. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
+-- * 'rsisDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
--- * 'rsiInstanceCount' - The number of instances. Default: 1
+-- * 'rsisClientToken' - Unique, case-sensitive identifier that ensures the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
 --
--- * 'rsiDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- * 'rsisInstanceCount' - The number of instances. Default: 1
 --
--- * 'rsiLaunchSpecification' - The launch specification. You must match the instance type, Availability Zone, network, and platform of the schedule that you purchased.
+-- * 'rsisLaunchSpecification' - The launch specification. You must match the instance type, Availability Zone, network, and platform of the schedule that you purchased.
 --
--- * 'rsiScheduledInstanceId' - The Scheduled Instance ID.
+-- * 'rsisScheduledInstanceId' - The Scheduled Instance ID.
+runScheduledInstances ::
+  -- | 'rsisLaunchSpecification'
+  ScheduledInstancesLaunchSpecification ->
+  -- | 'rsisScheduledInstanceId'
+  Text ->
+  RunScheduledInstances
 runScheduledInstances
-    :: ScheduledInstancesLaunchSpecification -- ^ 'rsiLaunchSpecification'
-    -> Text -- ^ 'rsiScheduledInstanceId'
-    -> RunScheduledInstances
-runScheduledInstances pLaunchSpecification_ pScheduledInstanceId_ =
-  RunScheduledInstances'
-    { _rsiClientToken = Nothing
-    , _rsiInstanceCount = Nothing
-    , _rsiDryRun = Nothing
-    , _rsiLaunchSpecification = pLaunchSpecification_
-    , _rsiScheduledInstanceId = pScheduledInstanceId_
-    }
-
-
--- | Unique, case-sensitive identifier that ensures the idempotency of the request. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-rsiClientToken :: Lens' RunScheduledInstances (Maybe Text)
-rsiClientToken = lens _rsiClientToken (\ s a -> s{_rsiClientToken = a})
-
--- | The number of instances. Default: 1
-rsiInstanceCount :: Lens' RunScheduledInstances (Maybe Int)
-rsiInstanceCount = lens _rsiInstanceCount (\ s a -> s{_rsiInstanceCount = a})
+  pLaunchSpecification_
+  pScheduledInstanceId_ =
+    RunScheduledInstances'
+      { _rsisDryRun = Nothing,
+        _rsisClientToken = Nothing,
+        _rsisInstanceCount = Nothing,
+        _rsisLaunchSpecification = pLaunchSpecification_,
+        _rsisScheduledInstanceId = pScheduledInstanceId_
+      }
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rsiDryRun :: Lens' RunScheduledInstances (Maybe Bool)
-rsiDryRun = lens _rsiDryRun (\ s a -> s{_rsiDryRun = a})
+rsisDryRun :: Lens' RunScheduledInstances (Maybe Bool)
+rsisDryRun = lens _rsisDryRun (\s a -> s {_rsisDryRun = a})
+
+-- | Unique, case-sensitive identifier that ensures the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
+rsisClientToken :: Lens' RunScheduledInstances (Maybe Text)
+rsisClientToken = lens _rsisClientToken (\s a -> s {_rsisClientToken = a})
+
+-- | The number of instances. Default: 1
+rsisInstanceCount :: Lens' RunScheduledInstances (Maybe Int)
+rsisInstanceCount = lens _rsisInstanceCount (\s a -> s {_rsisInstanceCount = a})
 
 -- | The launch specification. You must match the instance type, Availability Zone, network, and platform of the schedule that you purchased.
-rsiLaunchSpecification :: Lens' RunScheduledInstances ScheduledInstancesLaunchSpecification
-rsiLaunchSpecification = lens _rsiLaunchSpecification (\ s a -> s{_rsiLaunchSpecification = a})
+rsisLaunchSpecification :: Lens' RunScheduledInstances ScheduledInstancesLaunchSpecification
+rsisLaunchSpecification = lens _rsisLaunchSpecification (\s a -> s {_rsisLaunchSpecification = a})
 
 -- | The Scheduled Instance ID.
-rsiScheduledInstanceId :: Lens' RunScheduledInstances Text
-rsiScheduledInstanceId = lens _rsiScheduledInstanceId (\ s a -> s{_rsiScheduledInstanceId = a})
+rsisScheduledInstanceId :: Lens' RunScheduledInstances Text
+rsisScheduledInstanceId = lens _rsisScheduledInstanceId (\s a -> s {_rsisScheduledInstanceId = a})
 
 instance AWSRequest RunScheduledInstances where
-        type Rs RunScheduledInstances =
-             RunScheduledInstancesResponse
-        request = postQuery ec2
-        response
-          = receiveXML
-              (\ s h x ->
-                 RunScheduledInstancesResponse' <$>
-                   (x .@? "instanceIdSet" .!@ mempty >>=
-                      may (parseXMLList "item"))
-                     <*> (pure (fromEnum s)))
+  type
+    Rs RunScheduledInstances =
+      RunScheduledInstancesResponse
+  request = postQuery ec2
+  response =
+    receiveXML
+      ( \s h x ->
+          RunScheduledInstancesResponse'
+            <$> ( x .@? "instanceIdSet" .!@ mempty
+                    >>= may (parseXMLList "item")
+                )
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable RunScheduledInstances where
+instance Hashable RunScheduledInstances
 
-instance NFData RunScheduledInstances where
+instance NFData RunScheduledInstances
 
 instance ToHeaders RunScheduledInstances where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath RunScheduledInstances where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery RunScheduledInstances where
-        toQuery RunScheduledInstances'{..}
-          = mconcat
-              ["Action" =: ("RunScheduledInstances" :: ByteString),
-               "Version" =: ("2016-11-15" :: ByteString),
-               "ClientToken" =: _rsiClientToken,
-               "InstanceCount" =: _rsiInstanceCount,
-               "DryRun" =: _rsiDryRun,
-               "LaunchSpecification" =: _rsiLaunchSpecification,
-               "ScheduledInstanceId" =: _rsiScheduledInstanceId]
+  toQuery RunScheduledInstances' {..} =
+    mconcat
+      [ "Action" =: ("RunScheduledInstances" :: ByteString),
+        "Version" =: ("2016-11-15" :: ByteString),
+        "DryRun" =: _rsisDryRun,
+        "ClientToken" =: _rsisClientToken,
+        "InstanceCount" =: _rsisInstanceCount,
+        "LaunchSpecification" =: _rsisLaunchSpecification,
+        "ScheduledInstanceId" =: _rsisScheduledInstanceId
+      ]
 
 -- | Contains the output of RunScheduledInstances.
 --
@@ -152,10 +170,21 @@ instance ToQuery RunScheduledInstances where
 --
 -- /See:/ 'runScheduledInstancesResponse' smart constructor.
 data RunScheduledInstancesResponse = RunScheduledInstancesResponse'
-  { _rrsInstanceIdSet  :: !(Maybe [Text])
-  , _rrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _rrsInstanceIdSet ::
+      !( Maybe
+           [Text]
+       ),
+    _rrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'RunScheduledInstancesResponse' with the minimum fields required to make a request.
 --
@@ -164,20 +193,23 @@ data RunScheduledInstancesResponse = RunScheduledInstancesResponse'
 -- * 'rrsInstanceIdSet' - The IDs of the newly launched instances.
 --
 -- * 'rrsResponseStatus' - -- | The response status code.
-runScheduledInstancesResponse
-    :: Int -- ^ 'rrsResponseStatus'
-    -> RunScheduledInstancesResponse
+runScheduledInstancesResponse ::
+  -- | 'rrsResponseStatus'
+  Int ->
+  RunScheduledInstancesResponse
 runScheduledInstancesResponse pResponseStatus_ =
   RunScheduledInstancesResponse'
-    {_rrsInstanceIdSet = Nothing, _rrsResponseStatus = pResponseStatus_}
-
+    { _rrsInstanceIdSet =
+        Nothing,
+      _rrsResponseStatus = pResponseStatus_
+    }
 
 -- | The IDs of the newly launched instances.
 rrsInstanceIdSet :: Lens' RunScheduledInstancesResponse [Text]
-rrsInstanceIdSet = lens _rrsInstanceIdSet (\ s a -> s{_rrsInstanceIdSet = a}) . _Default . _Coerce
+rrsInstanceIdSet = lens _rrsInstanceIdSet (\s a -> s {_rrsInstanceIdSet = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
 rrsResponseStatus :: Lens' RunScheduledInstancesResponse Int
-rrsResponseStatus = lens _rrsResponseStatus (\ s a -> s{_rrsResponseStatus = a})
+rrsResponseStatus = lens _rrsResponseStatus (\s a -> s {_rrsResponseStatus = a})
 
-instance NFData RunScheduledInstancesResponse where
+instance NFData RunScheduledInstancesResponse

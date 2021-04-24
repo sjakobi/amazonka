@@ -1,183 +1,218 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.EC2.CreateVPCPeeringConnection
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests a VPC peering connection between two VPCs: a requester VPC that you own and an accepter VPC with which to create the connection. The accepter VPC can belong to another AWS account and can be in a different region to the requester VPC. The requester VPC and accepter VPC cannot have overlapping CIDR blocks.
+-- Requests a VPC peering connection between two VPCs: a requester VPC that you own and an accepter VPC with which to create the connection. The accepter VPC can belong to another AWS account and can be in a different Region to the requester VPC. The requester VPC and accepter VPC cannot have overlapping CIDR blocks.
 --
 --
 -- The owner of the accepter VPC must accept the peering request to activate the peering connection. The VPC peering connection request expires after 7 days, after which it cannot be accepted or rejected.
 --
 -- If you create a VPC peering connection request between VPCs with overlapping CIDR blocks, the VPC peering connection has a status of @failed@ .
---
 module Network.AWS.EC2.CreateVPCPeeringConnection
-    (
-    -- * Creating a Request
-      createVPCPeeringConnection
-    , CreateVPCPeeringConnection
+  ( -- * Creating a Request
+    createVPCPeeringConnection,
+    CreateVPCPeeringConnection,
+
     -- * Request Lenses
-    , cvpcPeerVPCId
-    , cvpcVPCId
-    , cvpcPeerOwnerId
-    , cvpcPeerRegion
-    , cvpcDryRun
+    cvpcpcTagSpecifications,
+    cvpcpcDryRun,
+    cvpcpcPeerOwnerId,
+    cvpcpcVPCId,
+    cvpcpcPeerRegion,
+    cvpcpcPeerVPCId,
 
     -- * Destructuring the Response
-    , createVPCPeeringConnectionResponse
-    , CreateVPCPeeringConnectionResponse
+    createVPCPeeringConnectionResponse,
+    CreateVPCPeeringConnectionResponse,
+
     -- * Response Lenses
-    , cvpcrsVPCPeeringConnection
-    , cvpcrsResponseStatus
-    ) where
+    cvpcrrsVPCPeeringConnection,
+    cvpcrrsResponseStatus,
+  )
+where
 
 import Network.AWS.EC2.Types
-import Network.AWS.EC2.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
--- | Contains the parameters for CreateVpcPeeringConnection.
---
---
---
--- /See:/ 'createVPCPeeringConnection' smart constructor.
+-- | /See:/ 'createVPCPeeringConnection' smart constructor.
 data CreateVPCPeeringConnection = CreateVPCPeeringConnection'
-  { _cvpcPeerVPCId   :: !(Maybe Text)
-  , _cvpcVPCId       :: !(Maybe Text)
-  , _cvpcPeerOwnerId :: !(Maybe Text)
-  , _cvpcPeerRegion  :: !(Maybe Text)
-  , _cvpcDryRun      :: !(Maybe Bool)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cvpcpcTagSpecifications ::
+      !( Maybe
+           [TagSpecification]
+       ),
+    _cvpcpcDryRun ::
+      !(Maybe Bool),
+    _cvpcpcPeerOwnerId ::
+      !(Maybe Text),
+    _cvpcpcVPCId ::
+      !(Maybe Text),
+    _cvpcpcPeerRegion ::
+      !(Maybe Text),
+    _cvpcpcPeerVPCId ::
+      !(Maybe Text)
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateVPCPeeringConnection' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cvpcPeerVPCId' - The ID of the VPC with which you are creating the VPC peering connection. You must specify this parameter in the request.
+-- * 'cvpcpcTagSpecifications' - The tags to assign to the peering connection.
 --
--- * 'cvpcVPCId' - The ID of the requester VPC. You must specify this parameter in the request.
+-- * 'cvpcpcDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
--- * 'cvpcPeerOwnerId' - The AWS account ID of the owner of the accepter VPC. Default: Your AWS account ID
+-- * 'cvpcpcPeerOwnerId' - The AWS account ID of the owner of the accepter VPC. Default: Your AWS account ID
 --
--- * 'cvpcPeerRegion' - The region code for the accepter VPC, if the accepter VPC is located in a region other than the region in which you make the request. Default: The region in which you make the request.
+-- * 'cvpcpcVPCId' - The ID of the requester VPC. You must specify this parameter in the request.
 --
--- * 'cvpcDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-createVPCPeeringConnection
-    :: CreateVPCPeeringConnection
+-- * 'cvpcpcPeerRegion' - The Region code for the accepter VPC, if the accepter VPC is located in a Region other than the Region in which you make the request. Default: The Region in which you make the request.
+--
+-- * 'cvpcpcPeerVPCId' - The ID of the VPC with which you are creating the VPC peering connection. You must specify this parameter in the request.
+createVPCPeeringConnection ::
+  CreateVPCPeeringConnection
 createVPCPeeringConnection =
   CreateVPCPeeringConnection'
-    { _cvpcPeerVPCId = Nothing
-    , _cvpcVPCId = Nothing
-    , _cvpcPeerOwnerId = Nothing
-    , _cvpcPeerRegion = Nothing
-    , _cvpcDryRun = Nothing
+    { _cvpcpcTagSpecifications =
+        Nothing,
+      _cvpcpcDryRun = Nothing,
+      _cvpcpcPeerOwnerId = Nothing,
+      _cvpcpcVPCId = Nothing,
+      _cvpcpcPeerRegion = Nothing,
+      _cvpcpcPeerVPCId = Nothing
     }
 
-
--- | The ID of the VPC with which you are creating the VPC peering connection. You must specify this parameter in the request.
-cvpcPeerVPCId :: Lens' CreateVPCPeeringConnection (Maybe Text)
-cvpcPeerVPCId = lens _cvpcPeerVPCId (\ s a -> s{_cvpcPeerVPCId = a})
-
--- | The ID of the requester VPC. You must specify this parameter in the request.
-cvpcVPCId :: Lens' CreateVPCPeeringConnection (Maybe Text)
-cvpcVPCId = lens _cvpcVPCId (\ s a -> s{_cvpcVPCId = a})
-
--- | The AWS account ID of the owner of the accepter VPC. Default: Your AWS account ID
-cvpcPeerOwnerId :: Lens' CreateVPCPeeringConnection (Maybe Text)
-cvpcPeerOwnerId = lens _cvpcPeerOwnerId (\ s a -> s{_cvpcPeerOwnerId = a})
-
--- | The region code for the accepter VPC, if the accepter VPC is located in a region other than the region in which you make the request. Default: The region in which you make the request.
-cvpcPeerRegion :: Lens' CreateVPCPeeringConnection (Maybe Text)
-cvpcPeerRegion = lens _cvpcPeerRegion (\ s a -> s{_cvpcPeerRegion = a})
+-- | The tags to assign to the peering connection.
+cvpcpcTagSpecifications :: Lens' CreateVPCPeeringConnection [TagSpecification]
+cvpcpcTagSpecifications = lens _cvpcpcTagSpecifications (\s a -> s {_cvpcpcTagSpecifications = a}) . _Default . _Coerce
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-cvpcDryRun :: Lens' CreateVPCPeeringConnection (Maybe Bool)
-cvpcDryRun = lens _cvpcDryRun (\ s a -> s{_cvpcDryRun = a})
+cvpcpcDryRun :: Lens' CreateVPCPeeringConnection (Maybe Bool)
+cvpcpcDryRun = lens _cvpcpcDryRun (\s a -> s {_cvpcpcDryRun = a})
+
+-- | The AWS account ID of the owner of the accepter VPC. Default: Your AWS account ID
+cvpcpcPeerOwnerId :: Lens' CreateVPCPeeringConnection (Maybe Text)
+cvpcpcPeerOwnerId = lens _cvpcpcPeerOwnerId (\s a -> s {_cvpcpcPeerOwnerId = a})
+
+-- | The ID of the requester VPC. You must specify this parameter in the request.
+cvpcpcVPCId :: Lens' CreateVPCPeeringConnection (Maybe Text)
+cvpcpcVPCId = lens _cvpcpcVPCId (\s a -> s {_cvpcpcVPCId = a})
+
+-- | The Region code for the accepter VPC, if the accepter VPC is located in a Region other than the Region in which you make the request. Default: The Region in which you make the request.
+cvpcpcPeerRegion :: Lens' CreateVPCPeeringConnection (Maybe Text)
+cvpcpcPeerRegion = lens _cvpcpcPeerRegion (\s a -> s {_cvpcpcPeerRegion = a})
+
+-- | The ID of the VPC with which you are creating the VPC peering connection. You must specify this parameter in the request.
+cvpcpcPeerVPCId :: Lens' CreateVPCPeeringConnection (Maybe Text)
+cvpcpcPeerVPCId = lens _cvpcpcPeerVPCId (\s a -> s {_cvpcpcPeerVPCId = a})
 
 instance AWSRequest CreateVPCPeeringConnection where
-        type Rs CreateVPCPeeringConnection =
-             CreateVPCPeeringConnectionResponse
-        request = postQuery ec2
-        response
-          = receiveXML
-              (\ s h x ->
-                 CreateVPCPeeringConnectionResponse' <$>
-                   (x .@? "vpcPeeringConnection") <*>
-                     (pure (fromEnum s)))
+  type
+    Rs CreateVPCPeeringConnection =
+      CreateVPCPeeringConnectionResponse
+  request = postQuery ec2
+  response =
+    receiveXML
+      ( \s h x ->
+          CreateVPCPeeringConnectionResponse'
+            <$> (x .@? "vpcPeeringConnection")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable CreateVPCPeeringConnection where
+instance Hashable CreateVPCPeeringConnection
 
-instance NFData CreateVPCPeeringConnection where
+instance NFData CreateVPCPeeringConnection
 
 instance ToHeaders CreateVPCPeeringConnection where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath CreateVPCPeeringConnection where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery CreateVPCPeeringConnection where
-        toQuery CreateVPCPeeringConnection'{..}
-          = mconcat
-              ["Action" =:
-                 ("CreateVpcPeeringConnection" :: ByteString),
-               "Version" =: ("2016-11-15" :: ByteString),
-               "PeerVpcId" =: _cvpcPeerVPCId, "VpcId" =: _cvpcVPCId,
-               "PeerOwnerId" =: _cvpcPeerOwnerId,
-               "PeerRegion" =: _cvpcPeerRegion,
-               "DryRun" =: _cvpcDryRun]
+  toQuery CreateVPCPeeringConnection' {..} =
+    mconcat
+      [ "Action"
+          =: ("CreateVpcPeeringConnection" :: ByteString),
+        "Version" =: ("2016-11-15" :: ByteString),
+        toQuery
+          ( toQueryList "TagSpecification"
+              <$> _cvpcpcTagSpecifications
+          ),
+        "DryRun" =: _cvpcpcDryRun,
+        "PeerOwnerId" =: _cvpcpcPeerOwnerId,
+        "VpcId" =: _cvpcpcVPCId,
+        "PeerRegion" =: _cvpcpcPeerRegion,
+        "PeerVpcId" =: _cvpcpcPeerVPCId
+      ]
 
--- | Contains the output of CreateVpcPeeringConnection.
---
---
---
--- /See:/ 'createVPCPeeringConnectionResponse' smart constructor.
+-- | /See:/ 'createVPCPeeringConnectionResponse' smart constructor.
 data CreateVPCPeeringConnectionResponse = CreateVPCPeeringConnectionResponse'
-  { _cvpcrsVPCPeeringConnection :: !(Maybe VPCPeeringConnection)
-  , _cvpcrsResponseStatus       :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cvpcrrsVPCPeeringConnection ::
+      !( Maybe
+           VPCPeeringConnection
+       ),
+    _cvpcrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateVPCPeeringConnectionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cvpcrsVPCPeeringConnection' - Information about the VPC peering connection.
+-- * 'cvpcrrsVPCPeeringConnection' - Information about the VPC peering connection.
 --
--- * 'cvpcrsResponseStatus' - -- | The response status code.
-createVPCPeeringConnectionResponse
-    :: Int -- ^ 'cvpcrsResponseStatus'
-    -> CreateVPCPeeringConnectionResponse
+-- * 'cvpcrrsResponseStatus' - -- | The response status code.
+createVPCPeeringConnectionResponse ::
+  -- | 'cvpcrrsResponseStatus'
+  Int ->
+  CreateVPCPeeringConnectionResponse
 createVPCPeeringConnectionResponse pResponseStatus_ =
   CreateVPCPeeringConnectionResponse'
-    { _cvpcrsVPCPeeringConnection = Nothing
-    , _cvpcrsResponseStatus = pResponseStatus_
+    { _cvpcrrsVPCPeeringConnection =
+        Nothing,
+      _cvpcrrsResponseStatus =
+        pResponseStatus_
     }
 
-
 -- | Information about the VPC peering connection.
-cvpcrsVPCPeeringConnection :: Lens' CreateVPCPeeringConnectionResponse (Maybe VPCPeeringConnection)
-cvpcrsVPCPeeringConnection = lens _cvpcrsVPCPeeringConnection (\ s a -> s{_cvpcrsVPCPeeringConnection = a})
+cvpcrrsVPCPeeringConnection :: Lens' CreateVPCPeeringConnectionResponse (Maybe VPCPeeringConnection)
+cvpcrrsVPCPeeringConnection = lens _cvpcrrsVPCPeeringConnection (\s a -> s {_cvpcrrsVPCPeeringConnection = a})
 
 -- | -- | The response status code.
-cvpcrsResponseStatus :: Lens' CreateVPCPeeringConnectionResponse Int
-cvpcrsResponseStatus = lens _cvpcrsResponseStatus (\ s a -> s{_cvpcrsResponseStatus = a})
+cvpcrrsResponseStatus :: Lens' CreateVPCPeeringConnectionResponse Int
+cvpcrrsResponseStatus = lens _cvpcrrsResponseStatus (\s a -> s {_cvpcrrsResponseStatus = a})
 
 instance NFData CreateVPCPeeringConnectionResponse
-         where

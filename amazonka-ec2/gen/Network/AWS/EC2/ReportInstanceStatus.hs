@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.EC2.ReportInstanceStatus
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,149 +21,156 @@
 --
 --
 -- Use of this action does not change the value returned by 'DescribeInstanceStatus' .
---
 module Network.AWS.EC2.ReportInstanceStatus
-    (
-    -- * Creating a Request
-      reportInstanceStatus
-    , ReportInstanceStatus
+  ( -- * Creating a Request
+    reportInstanceStatus,
+    ReportInstanceStatus,
+
     -- * Request Lenses
-    , rissStartTime
-    , rissEndTime
-    , rissDescription
-    , rissDryRun
-    , rissInstances
-    , rissReasonCodes
-    , rissStatus
+    risDryRun,
+    risStartTime,
+    risEndTime,
+    risDescription,
+    risInstances,
+    risReasonCodes,
+    risStatus,
 
     -- * Destructuring the Response
-    , reportInstanceStatusResponse
-    , ReportInstanceStatusResponse
-    ) where
+    reportInstanceStatusResponse,
+    ReportInstanceStatusResponse,
+  )
+where
 
 import Network.AWS.EC2.Types
-import Network.AWS.EC2.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
--- | Contains the parameters for ReportInstanceStatus.
---
---
---
--- /See:/ 'reportInstanceStatus' smart constructor.
+-- | /See:/ 'reportInstanceStatus' smart constructor.
 data ReportInstanceStatus = ReportInstanceStatus'
-  { _rissStartTime   :: !(Maybe ISO8601)
-  , _rissEndTime     :: !(Maybe ISO8601)
-  , _rissDescription :: !(Maybe Text)
-  , _rissDryRun      :: !(Maybe Bool)
-  , _rissInstances   :: ![Text]
-  , _rissReasonCodes :: ![ReportInstanceReasonCodes]
-  , _rissStatus      :: !ReportStatusType
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _risDryRun ::
+      !(Maybe Bool),
+    _risStartTime ::
+      !(Maybe ISO8601),
+    _risEndTime ::
+      !(Maybe ISO8601),
+    _risDescription ::
+      !(Maybe Text),
+    _risInstances :: ![Text],
+    _risReasonCodes ::
+      ![ReportInstanceReasonCodes],
+    _risStatus ::
+      !ReportStatusType
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'ReportInstanceStatus' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'rissStartTime' - The time at which the reported instance health state began.
+-- * 'risDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
--- * 'rissEndTime' - The time at which the reported instance health state ended.
+-- * 'risStartTime' - The time at which the reported instance health state began.
 --
--- * 'rissDescription' - Descriptive text about the health state of your instance.
+-- * 'risEndTime' - The time at which the reported instance health state ended.
 --
--- * 'rissDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- * 'risDescription' - Descriptive text about the health state of your instance.
 --
--- * 'rissInstances' - One or more instances.
+-- * 'risInstances' - The instances.
 --
--- * 'rissReasonCodes' - One or more reason codes that describe the health state of your instance.     * @instance-stuck-in-state@ : My instance is stuck in a state.     * @unresponsive@ : My instance is unresponsive.     * @not-accepting-credentials@ : My instance is not accepting my credentials.     * @password-not-available@ : A password is not available for my instance.     * @performance-network@ : My instance is experiencing performance problems that I believe are network related.     * @performance-instance-store@ : My instance is experiencing performance problems that I believe are related to the instance stores.     * @performance-ebs-volume@ : My instance is experiencing performance problems that I believe are related to an EBS volume.     * @performance-other@ : My instance is experiencing performance problems.     * @other@ : [explain using the description parameter]
+-- * 'risReasonCodes' - The reason codes that describe the health state of your instance.     * @instance-stuck-in-state@ : My instance is stuck in a state.     * @unresponsive@ : My instance is unresponsive.     * @not-accepting-credentials@ : My instance is not accepting my credentials.     * @password-not-available@ : A password is not available for my instance.     * @performance-network@ : My instance is experiencing performance problems that I believe are network related.     * @performance-instance-store@ : My instance is experiencing performance problems that I believe are related to the instance stores.     * @performance-ebs-volume@ : My instance is experiencing performance problems that I believe are related to an EBS volume.     * @performance-other@ : My instance is experiencing performance problems.     * @other@ : [explain using the description parameter]
 --
--- * 'rissStatus' - The status of all instances listed.
-reportInstanceStatus
-    :: ReportStatusType -- ^ 'rissStatus'
-    -> ReportInstanceStatus
+-- * 'risStatus' - The status of all instances listed.
+reportInstanceStatus ::
+  -- | 'risStatus'
+  ReportStatusType ->
+  ReportInstanceStatus
 reportInstanceStatus pStatus_ =
   ReportInstanceStatus'
-    { _rissStartTime = Nothing
-    , _rissEndTime = Nothing
-    , _rissDescription = Nothing
-    , _rissDryRun = Nothing
-    , _rissInstances = mempty
-    , _rissReasonCodes = mempty
-    , _rissStatus = pStatus_
+    { _risDryRun = Nothing,
+      _risStartTime = Nothing,
+      _risEndTime = Nothing,
+      _risDescription = Nothing,
+      _risInstances = mempty,
+      _risReasonCodes = mempty,
+      _risStatus = pStatus_
     }
 
+-- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+risDryRun :: Lens' ReportInstanceStatus (Maybe Bool)
+risDryRun = lens _risDryRun (\s a -> s {_risDryRun = a})
 
 -- | The time at which the reported instance health state began.
-rissStartTime :: Lens' ReportInstanceStatus (Maybe UTCTime)
-rissStartTime = lens _rissStartTime (\ s a -> s{_rissStartTime = a}) . mapping _Time
+risStartTime :: Lens' ReportInstanceStatus (Maybe UTCTime)
+risStartTime = lens _risStartTime (\s a -> s {_risStartTime = a}) . mapping _Time
 
 -- | The time at which the reported instance health state ended.
-rissEndTime :: Lens' ReportInstanceStatus (Maybe UTCTime)
-rissEndTime = lens _rissEndTime (\ s a -> s{_rissEndTime = a}) . mapping _Time
+risEndTime :: Lens' ReportInstanceStatus (Maybe UTCTime)
+risEndTime = lens _risEndTime (\s a -> s {_risEndTime = a}) . mapping _Time
 
 -- | Descriptive text about the health state of your instance.
-rissDescription :: Lens' ReportInstanceStatus (Maybe Text)
-rissDescription = lens _rissDescription (\ s a -> s{_rissDescription = a})
+risDescription :: Lens' ReportInstanceStatus (Maybe Text)
+risDescription = lens _risDescription (\s a -> s {_risDescription = a})
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rissDryRun :: Lens' ReportInstanceStatus (Maybe Bool)
-rissDryRun = lens _rissDryRun (\ s a -> s{_rissDryRun = a})
+-- | The instances.
+risInstances :: Lens' ReportInstanceStatus [Text]
+risInstances = lens _risInstances (\s a -> s {_risInstances = a}) . _Coerce
 
--- | One or more instances.
-rissInstances :: Lens' ReportInstanceStatus [Text]
-rissInstances = lens _rissInstances (\ s a -> s{_rissInstances = a}) . _Coerce
-
--- | One or more reason codes that describe the health state of your instance.     * @instance-stuck-in-state@ : My instance is stuck in a state.     * @unresponsive@ : My instance is unresponsive.     * @not-accepting-credentials@ : My instance is not accepting my credentials.     * @password-not-available@ : A password is not available for my instance.     * @performance-network@ : My instance is experiencing performance problems that I believe are network related.     * @performance-instance-store@ : My instance is experiencing performance problems that I believe are related to the instance stores.     * @performance-ebs-volume@ : My instance is experiencing performance problems that I believe are related to an EBS volume.     * @performance-other@ : My instance is experiencing performance problems.     * @other@ : [explain using the description parameter]
-rissReasonCodes :: Lens' ReportInstanceStatus [ReportInstanceReasonCodes]
-rissReasonCodes = lens _rissReasonCodes (\ s a -> s{_rissReasonCodes = a}) . _Coerce
+-- | The reason codes that describe the health state of your instance.     * @instance-stuck-in-state@ : My instance is stuck in a state.     * @unresponsive@ : My instance is unresponsive.     * @not-accepting-credentials@ : My instance is not accepting my credentials.     * @password-not-available@ : A password is not available for my instance.     * @performance-network@ : My instance is experiencing performance problems that I believe are network related.     * @performance-instance-store@ : My instance is experiencing performance problems that I believe are related to the instance stores.     * @performance-ebs-volume@ : My instance is experiencing performance problems that I believe are related to an EBS volume.     * @performance-other@ : My instance is experiencing performance problems.     * @other@ : [explain using the description parameter]
+risReasonCodes :: Lens' ReportInstanceStatus [ReportInstanceReasonCodes]
+risReasonCodes = lens _risReasonCodes (\s a -> s {_risReasonCodes = a}) . _Coerce
 
 -- | The status of all instances listed.
-rissStatus :: Lens' ReportInstanceStatus ReportStatusType
-rissStatus = lens _rissStatus (\ s a -> s{_rissStatus = a})
+risStatus :: Lens' ReportInstanceStatus ReportStatusType
+risStatus = lens _risStatus (\s a -> s {_risStatus = a})
 
 instance AWSRequest ReportInstanceStatus where
-        type Rs ReportInstanceStatus =
-             ReportInstanceStatusResponse
-        request = postQuery ec2
-        response = receiveNull ReportInstanceStatusResponse'
+  type
+    Rs ReportInstanceStatus =
+      ReportInstanceStatusResponse
+  request = postQuery ec2
+  response = receiveNull ReportInstanceStatusResponse'
 
-instance Hashable ReportInstanceStatus where
+instance Hashable ReportInstanceStatus
 
-instance NFData ReportInstanceStatus where
+instance NFData ReportInstanceStatus
 
 instance ToHeaders ReportInstanceStatus where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath ReportInstanceStatus where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery ReportInstanceStatus where
-        toQuery ReportInstanceStatus'{..}
-          = mconcat
-              ["Action" =: ("ReportInstanceStatus" :: ByteString),
-               "Version" =: ("2016-11-15" :: ByteString),
-               "StartTime" =: _rissStartTime,
-               "EndTime" =: _rissEndTime,
-               "Description" =: _rissDescription,
-               "DryRun" =: _rissDryRun,
-               toQueryList "InstanceId" _rissInstances,
-               toQueryList "ReasonCode" _rissReasonCodes,
-               "Status" =: _rissStatus]
+  toQuery ReportInstanceStatus' {..} =
+    mconcat
+      [ "Action" =: ("ReportInstanceStatus" :: ByteString),
+        "Version" =: ("2016-11-15" :: ByteString),
+        "DryRun" =: _risDryRun,
+        "StartTime" =: _risStartTime,
+        "EndTime" =: _risEndTime,
+        "Description" =: _risDescription,
+        toQueryList "InstanceId" _risInstances,
+        toQueryList "ReasonCode" _risReasonCodes,
+        "Status" =: _risStatus
+      ]
 
 -- | /See:/ 'reportInstanceStatusResponse' smart constructor.
-data ReportInstanceStatusResponse =
-  ReportInstanceStatusResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+data ReportInstanceStatusResponse = ReportInstanceStatusResponse'
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ReportInstanceStatusResponse' with the minimum fields required to make a request.
---
-reportInstanceStatusResponse
-    :: ReportInstanceStatusResponse
-reportInstanceStatusResponse = ReportInstanceStatusResponse'
+reportInstanceStatusResponse ::
+  ReportInstanceStatusResponse
+reportInstanceStatusResponse =
+  ReportInstanceStatusResponse'
 
-
-instance NFData ReportInstanceStatusResponse where
+instance NFData ReportInstanceStatusResponse

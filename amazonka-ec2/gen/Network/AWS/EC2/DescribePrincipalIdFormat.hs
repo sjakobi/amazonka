@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.EC2.DescribePrincipalIdFormat
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,153 +24,194 @@
 --
 -- The following resource types support longer IDs: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@ .
 --
+--
+-- This operation returns paginated results.
 module Network.AWS.EC2.DescribePrincipalIdFormat
-    (
-    -- * Creating a Request
-      describePrincipalIdFormat
-    , DescribePrincipalIdFormat
+  ( -- * Creating a Request
+    describePrincipalIdFormat,
+    DescribePrincipalIdFormat,
+
     -- * Request Lenses
-    , dpifResources
-    , dpifNextToken
-    , dpifDryRun
-    , dpifMaxResults
+    dpifNextToken,
+    dpifDryRun,
+    dpifMaxResults,
+    dpifResources,
 
     -- * Destructuring the Response
-    , describePrincipalIdFormatResponse
-    , DescribePrincipalIdFormatResponse
+    describePrincipalIdFormatResponse,
+    DescribePrincipalIdFormatResponse,
+
     -- * Response Lenses
-    , dpifrsPrincipals
-    , dpifrsNextToken
-    , dpifrsResponseStatus
-    ) where
+    dpifrrsNextToken,
+    dpifrrsPrincipals,
+    dpifrrsResponseStatus,
+  )
+where
 
 import Network.AWS.EC2.Types
-import Network.AWS.EC2.Types.Product
 import Network.AWS.Lens
+import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'describePrincipalIdFormat' smart constructor.
 data DescribePrincipalIdFormat = DescribePrincipalIdFormat'
-  { _dpifResources  :: !(Maybe [Text])
-  , _dpifNextToken  :: !(Maybe Text)
-  , _dpifDryRun     :: !(Maybe Bool)
-  , _dpifMaxResults :: !(Maybe Int)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dpifNextToken ::
+      !(Maybe Text),
+    _dpifDryRun ::
+      !(Maybe Bool),
+    _dpifMaxResults ::
+      !(Maybe Nat),
+    _dpifResources ::
+      !(Maybe [Text])
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribePrincipalIdFormat' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
---
--- * 'dpifResources' - The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@
 --
 -- * 'dpifNextToken' - The token to request the next page of results.
 --
 -- * 'dpifDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
 -- * 'dpifMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned NextToken value.
-describePrincipalIdFormat
-    :: DescribePrincipalIdFormat
+--
+-- * 'dpifResources' - The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@
+describePrincipalIdFormat ::
+  DescribePrincipalIdFormat
 describePrincipalIdFormat =
   DescribePrincipalIdFormat'
-    { _dpifResources = Nothing
-    , _dpifNextToken = Nothing
-    , _dpifDryRun = Nothing
-    , _dpifMaxResults = Nothing
+    { _dpifNextToken =
+        Nothing,
+      _dpifDryRun = Nothing,
+      _dpifMaxResults = Nothing,
+      _dpifResources = Nothing
     }
-
-
--- | The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@
-dpifResources :: Lens' DescribePrincipalIdFormat [Text]
-dpifResources = lens _dpifResources (\ s a -> s{_dpifResources = a}) . _Default . _Coerce
 
 -- | The token to request the next page of results.
 dpifNextToken :: Lens' DescribePrincipalIdFormat (Maybe Text)
-dpifNextToken = lens _dpifNextToken (\ s a -> s{_dpifNextToken = a})
+dpifNextToken = lens _dpifNextToken (\s a -> s {_dpifNextToken = a})
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 dpifDryRun :: Lens' DescribePrincipalIdFormat (Maybe Bool)
-dpifDryRun = lens _dpifDryRun (\ s a -> s{_dpifDryRun = a})
+dpifDryRun = lens _dpifDryRun (\s a -> s {_dpifDryRun = a})
 
 -- | The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned NextToken value.
-dpifMaxResults :: Lens' DescribePrincipalIdFormat (Maybe Int)
-dpifMaxResults = lens _dpifMaxResults (\ s a -> s{_dpifMaxResults = a})
+dpifMaxResults :: Lens' DescribePrincipalIdFormat (Maybe Natural)
+dpifMaxResults = lens _dpifMaxResults (\s a -> s {_dpifMaxResults = a}) . mapping _Nat
+
+-- | The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@
+dpifResources :: Lens' DescribePrincipalIdFormat [Text]
+dpifResources = lens _dpifResources (\s a -> s {_dpifResources = a}) . _Default . _Coerce
+
+instance AWSPager DescribePrincipalIdFormat where
+  page rq rs
+    | stop (rs ^. dpifrrsNextToken) = Nothing
+    | stop (rs ^. dpifrrsPrincipals) = Nothing
+    | otherwise =
+      Just $ rq & dpifNextToken .~ rs ^. dpifrrsNextToken
 
 instance AWSRequest DescribePrincipalIdFormat where
-        type Rs DescribePrincipalIdFormat =
-             DescribePrincipalIdFormatResponse
-        request = postQuery ec2
-        response
-          = receiveXML
-              (\ s h x ->
-                 DescribePrincipalIdFormatResponse' <$>
-                   (x .@? "principalSet" .!@ mempty >>=
-                      may (parseXMLList "item"))
-                     <*> (x .@? "nextToken")
-                     <*> (pure (fromEnum s)))
+  type
+    Rs DescribePrincipalIdFormat =
+      DescribePrincipalIdFormatResponse
+  request = postQuery ec2
+  response =
+    receiveXML
+      ( \s h x ->
+          DescribePrincipalIdFormatResponse'
+            <$> (x .@? "nextToken")
+            <*> ( x .@? "principalSet" .!@ mempty
+                    >>= may (parseXMLList "item")
+                )
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribePrincipalIdFormat where
+instance Hashable DescribePrincipalIdFormat
 
-instance NFData DescribePrincipalIdFormat where
+instance NFData DescribePrincipalIdFormat
 
 instance ToHeaders DescribePrincipalIdFormat where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath DescribePrincipalIdFormat where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribePrincipalIdFormat where
-        toQuery DescribePrincipalIdFormat'{..}
-          = mconcat
-              ["Action" =:
-                 ("DescribePrincipalIdFormat" :: ByteString),
-               "Version" =: ("2016-11-15" :: ByteString),
-               toQuery (toQueryList "Resource" <$> _dpifResources),
-               "NextToken" =: _dpifNextToken,
-               "DryRun" =: _dpifDryRun,
-               "MaxResults" =: _dpifMaxResults]
+  toQuery DescribePrincipalIdFormat' {..} =
+    mconcat
+      [ "Action"
+          =: ("DescribePrincipalIdFormat" :: ByteString),
+        "Version" =: ("2016-11-15" :: ByteString),
+        "NextToken" =: _dpifNextToken,
+        "DryRun" =: _dpifDryRun,
+        "MaxResults" =: _dpifMaxResults,
+        toQuery (toQueryList "Resource" <$> _dpifResources)
+      ]
 
 -- | /See:/ 'describePrincipalIdFormatResponse' smart constructor.
 data DescribePrincipalIdFormatResponse = DescribePrincipalIdFormatResponse'
-  { _dpifrsPrincipals     :: !(Maybe [PrincipalIdFormat])
-  , _dpifrsNextToken      :: !(Maybe Text)
-  , _dpifrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dpifrrsNextToken ::
+      !( Maybe
+           Text
+       ),
+    _dpifrrsPrincipals ::
+      !( Maybe
+           [PrincipalIdFormat]
+       ),
+    _dpifrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribePrincipalIdFormatResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpifrsPrincipals' - Information about the ID format settings for the ARN.
+-- * 'dpifrrsNextToken' - The token to use to retrieve the next page of results. This value is null when there are no more results to return.
 --
--- * 'dpifrsNextToken' - The token to use to retrieve the next page of results. This value is null when there are no more results to return.
+-- * 'dpifrrsPrincipals' - Information about the ID format settings for the ARN.
 --
--- * 'dpifrsResponseStatus' - -- | The response status code.
-describePrincipalIdFormatResponse
-    :: Int -- ^ 'dpifrsResponseStatus'
-    -> DescribePrincipalIdFormatResponse
+-- * 'dpifrrsResponseStatus' - -- | The response status code.
+describePrincipalIdFormatResponse ::
+  -- | 'dpifrrsResponseStatus'
+  Int ->
+  DescribePrincipalIdFormatResponse
 describePrincipalIdFormatResponse pResponseStatus_ =
   DescribePrincipalIdFormatResponse'
-    { _dpifrsPrincipals = Nothing
-    , _dpifrsNextToken = Nothing
-    , _dpifrsResponseStatus = pResponseStatus_
+    { _dpifrrsNextToken =
+        Nothing,
+      _dpifrrsPrincipals = Nothing,
+      _dpifrrsResponseStatus =
+        pResponseStatus_
     }
 
+-- | The token to use to retrieve the next page of results. This value is null when there are no more results to return.
+dpifrrsNextToken :: Lens' DescribePrincipalIdFormatResponse (Maybe Text)
+dpifrrsNextToken = lens _dpifrrsNextToken (\s a -> s {_dpifrrsNextToken = a})
 
 -- | Information about the ID format settings for the ARN.
-dpifrsPrincipals :: Lens' DescribePrincipalIdFormatResponse [PrincipalIdFormat]
-dpifrsPrincipals = lens _dpifrsPrincipals (\ s a -> s{_dpifrsPrincipals = a}) . _Default . _Coerce
-
--- | The token to use to retrieve the next page of results. This value is null when there are no more results to return.
-dpifrsNextToken :: Lens' DescribePrincipalIdFormatResponse (Maybe Text)
-dpifrsNextToken = lens _dpifrsNextToken (\ s a -> s{_dpifrsNextToken = a})
+dpifrrsPrincipals :: Lens' DescribePrincipalIdFormatResponse [PrincipalIdFormat]
+dpifrrsPrincipals = lens _dpifrrsPrincipals (\s a -> s {_dpifrrsPrincipals = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-dpifrsResponseStatus :: Lens' DescribePrincipalIdFormatResponse Int
-dpifrsResponseStatus = lens _dpifrsResponseStatus (\ s a -> s{_dpifrsResponseStatus = a})
+dpifrrsResponseStatus :: Lens' DescribePrincipalIdFormatResponse Int
+dpifrrsResponseStatus = lens _dpifrrsResponseStatus (\s a -> s {_dpifrrsResponseStatus = a})
 
 instance NFData DescribePrincipalIdFormatResponse
-         where
