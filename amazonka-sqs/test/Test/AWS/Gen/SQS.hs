@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.SQS
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.SQS where
 
 import Data.Proxy
@@ -28,23 +27,17 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetQueueURL $
---             getQueueURL
+--         [ requestChangeMessageVisibilityBatch $
+--             changeMessageVisibilityBatch
 --
 --         , requestPurgeQueue $
 --             purgeQueue
 --
---         , requestChangeMessageVisibilityBatch $
---             changeMessageVisibilityBatch
+--         , requestChangeMessageVisibility $
+--             changeMessageVisibility
 --
---         , requestSendMessage $
---             sendMessage
---
---         , requestRemovePermission $
---             removePermission
---
---         , requestGetQueueAttributes $
---             getQueueAttributes
+--         , requestTagQueue $
+--             tagQueue
 --
 --         , requestListQueues $
 --             listQueues
@@ -52,62 +45,62 @@ import Test.Tasty
 --         , requestReceiveMessage $
 --             receiveMessage
 --
---         , requestDeleteQueue $
---             deleteQueue
---
---         , requestTagQueue $
---             tagQueue
---
---         , requestDeleteMessageBatch $
---             deleteMessageBatch
---
---         , requestSetQueueAttributes $
---             setQueueAttributes
---
---         , requestListDeadLetterSourceQueues $
---             listDeadLetterSourceQueues
---
---         , requestAddPermission $
---             addPermission
+--         , requestGetQueueAttributes $
+--             getQueueAttributes
 --
 --         , requestDeleteMessage $
 --             deleteMessage
 --
+--         , requestAddPermission $
+--             addPermission
+--
 --         , requestListQueueTags $
 --             listQueueTags
 --
---         , requestCreateQueue $
---             createQueue
+--         , requestSendMessage $
+--             sendMessage
 --
---         , requestUntagQueue $
---             untagQueue
+--         , requestListDeadLetterSourceQueues $
+--             listDeadLetterSourceQueues
+--
+--         , requestGetQueueURL $
+--             getQueueURL
+--
+--         , requestSetQueueAttributes $
+--             setQueueAttributes
+--
+--         , requestDeleteMessageBatch $
+--             deleteMessageBatch
 --
 --         , requestSendMessageBatch $
 --             sendMessageBatch
 --
---         , requestChangeMessageVisibility $
---             changeMessageVisibility
+--         , requestUntagQueue $
+--             untagQueue
+--
+--         , requestDeleteQueue $
+--             deleteQueue
+--
+--         , requestCreateQueue $
+--             createQueue
+--
+--         , requestRemovePermission $
+--             removePermission
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseGetQueueURL $
---             getQueueURLResponse
+--         [ responseChangeMessageVisibilityBatch $
+--             changeMessageVisibilityBatchResponse
 --
 --         , responsePurgeQueue $
 --             purgeQueueResponse
 --
---         , responseChangeMessageVisibilityBatch $
---             changeMessageVisibilityBatchResponse
+--         , responseChangeMessageVisibility $
+--             changeMessageVisibilityResponse
 --
---         , responseSendMessage $
---             sendMessageResponse
---
---         , responseRemovePermission $
---             removePermissionResponse
---
---         , responseGetQueueAttributes $
---             getQueueAttributesResponse
+--         , responseTagQueue $
+--             tagQueueResponse
 --
 --         , responseListQueues $
 --             listQueuesResponse
@@ -115,285 +108,331 @@ import Test.Tasty
 --         , responseReceiveMessage $
 --             receiveMessageResponse
 --
---         , responseDeleteQueue $
---             deleteQueueResponse
---
---         , responseTagQueue $
---             tagQueueResponse
---
---         , responseDeleteMessageBatch $
---             deleteMessageBatchResponse
---
---         , responseSetQueueAttributes $
---             setQueueAttributesResponse
---
---         , responseListDeadLetterSourceQueues $
---             listDeadLetterSourceQueuesResponse
---
---         , responseAddPermission $
---             addPermissionResponse
+--         , responseGetQueueAttributes $
+--             getQueueAttributesResponse
 --
 --         , responseDeleteMessage $
 --             deleteMessageResponse
 --
+--         , responseAddPermission $
+--             addPermissionResponse
+--
 --         , responseListQueueTags $
 --             listQueueTagsResponse
 --
---         , responseCreateQueue $
---             createQueueResponse
+--         , responseSendMessage $
+--             sendMessageResponse
 --
---         , responseUntagQueue $
---             untagQueueResponse
+--         , responseListDeadLetterSourceQueues $
+--             listDeadLetterSourceQueuesResponse
+--
+--         , responseGetQueueURL $
+--             getQueueURLResponse
+--
+--         , responseSetQueueAttributes $
+--             setQueueAttributesResponse
+--
+--         , responseDeleteMessageBatch $
+--             deleteMessageBatchResponse
 --
 --         , responseSendMessageBatch $
 --             sendMessageBatchResponse
 --
---         , responseChangeMessageVisibility $
---             changeMessageVisibilityResponse
+--         , responseUntagQueue $
+--             untagQueueResponse
+--
+--         , responseDeleteQueue $
+--             deleteQueueResponse
+--
+--         , responseCreateQueue $
+--             createQueueResponse
+--
+--         , responseRemovePermission $
+--             removePermissionResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestGetQueueURL :: GetQueueURL -> TestTree
-requestGetQueueURL = req
-    "GetQueueURL"
-    "fixture/GetQueueURL.yaml"
-
-requestPurgeQueue :: PurgeQueue -> TestTree
-requestPurgeQueue = req
-    "PurgeQueue"
-    "fixture/PurgeQueue.yaml"
-
 requestChangeMessageVisibilityBatch :: ChangeMessageVisibilityBatch -> TestTree
-requestChangeMessageVisibilityBatch = req
+requestChangeMessageVisibilityBatch =
+  req
     "ChangeMessageVisibilityBatch"
     "fixture/ChangeMessageVisibilityBatch.yaml"
 
-requestSendMessage :: SendMessage -> TestTree
-requestSendMessage = req
-    "SendMessage"
-    "fixture/SendMessage.yaml"
+requestPurgeQueue :: PurgeQueue -> TestTree
+requestPurgeQueue =
+  req
+    "PurgeQueue"
+    "fixture/PurgeQueue.yaml"
 
-requestRemovePermission :: RemovePermission -> TestTree
-requestRemovePermission = req
-    "RemovePermission"
-    "fixture/RemovePermission.yaml"
+requestChangeMessageVisibility :: ChangeMessageVisibility -> TestTree
+requestChangeMessageVisibility =
+  req
+    "ChangeMessageVisibility"
+    "fixture/ChangeMessageVisibility.yaml"
 
-requestGetQueueAttributes :: GetQueueAttributes -> TestTree
-requestGetQueueAttributes = req
-    "GetQueueAttributes"
-    "fixture/GetQueueAttributes.yaml"
+requestTagQueue :: TagQueue -> TestTree
+requestTagQueue =
+  req
+    "TagQueue"
+    "fixture/TagQueue.yaml"
 
 requestListQueues :: ListQueues -> TestTree
-requestListQueues = req
+requestListQueues =
+  req
     "ListQueues"
     "fixture/ListQueues.yaml"
 
 requestReceiveMessage :: ReceiveMessage -> TestTree
-requestReceiveMessage = req
+requestReceiveMessage =
+  req
     "ReceiveMessage"
     "fixture/ReceiveMessage.yaml"
 
-requestDeleteQueue :: DeleteQueue -> TestTree
-requestDeleteQueue = req
-    "DeleteQueue"
-    "fixture/DeleteQueue.yaml"
-
-requestTagQueue :: TagQueue -> TestTree
-requestTagQueue = req
-    "TagQueue"
-    "fixture/TagQueue.yaml"
-
-requestDeleteMessageBatch :: DeleteMessageBatch -> TestTree
-requestDeleteMessageBatch = req
-    "DeleteMessageBatch"
-    "fixture/DeleteMessageBatch.yaml"
-
-requestSetQueueAttributes :: SetQueueAttributes -> TestTree
-requestSetQueueAttributes = req
-    "SetQueueAttributes"
-    "fixture/SetQueueAttributes.yaml"
-
-requestListDeadLetterSourceQueues :: ListDeadLetterSourceQueues -> TestTree
-requestListDeadLetterSourceQueues = req
-    "ListDeadLetterSourceQueues"
-    "fixture/ListDeadLetterSourceQueues.yaml"
-
-requestAddPermission :: AddPermission -> TestTree
-requestAddPermission = req
-    "AddPermission"
-    "fixture/AddPermission.yaml"
+requestGetQueueAttributes :: GetQueueAttributes -> TestTree
+requestGetQueueAttributes =
+  req
+    "GetQueueAttributes"
+    "fixture/GetQueueAttributes.yaml"
 
 requestDeleteMessage :: DeleteMessage -> TestTree
-requestDeleteMessage = req
+requestDeleteMessage =
+  req
     "DeleteMessage"
     "fixture/DeleteMessage.yaml"
 
+requestAddPermission :: AddPermission -> TestTree
+requestAddPermission =
+  req
+    "AddPermission"
+    "fixture/AddPermission.yaml"
+
 requestListQueueTags :: ListQueueTags -> TestTree
-requestListQueueTags = req
+requestListQueueTags =
+  req
     "ListQueueTags"
     "fixture/ListQueueTags.yaml"
 
-requestCreateQueue :: CreateQueue -> TestTree
-requestCreateQueue = req
-    "CreateQueue"
-    "fixture/CreateQueue.yaml"
+requestSendMessage :: SendMessage -> TestTree
+requestSendMessage =
+  req
+    "SendMessage"
+    "fixture/SendMessage.yaml"
 
-requestUntagQueue :: UntagQueue -> TestTree
-requestUntagQueue = req
-    "UntagQueue"
-    "fixture/UntagQueue.yaml"
+requestListDeadLetterSourceQueues :: ListDeadLetterSourceQueues -> TestTree
+requestListDeadLetterSourceQueues =
+  req
+    "ListDeadLetterSourceQueues"
+    "fixture/ListDeadLetterSourceQueues.yaml"
+
+requestGetQueueURL :: GetQueueURL -> TestTree
+requestGetQueueURL =
+  req
+    "GetQueueURL"
+    "fixture/GetQueueURL.yaml"
+
+requestSetQueueAttributes :: SetQueueAttributes -> TestTree
+requestSetQueueAttributes =
+  req
+    "SetQueueAttributes"
+    "fixture/SetQueueAttributes.yaml"
+
+requestDeleteMessageBatch :: DeleteMessageBatch -> TestTree
+requestDeleteMessageBatch =
+  req
+    "DeleteMessageBatch"
+    "fixture/DeleteMessageBatch.yaml"
 
 requestSendMessageBatch :: SendMessageBatch -> TestTree
-requestSendMessageBatch = req
+requestSendMessageBatch =
+  req
     "SendMessageBatch"
     "fixture/SendMessageBatch.yaml"
 
-requestChangeMessageVisibility :: ChangeMessageVisibility -> TestTree
-requestChangeMessageVisibility = req
-    "ChangeMessageVisibility"
-    "fixture/ChangeMessageVisibility.yaml"
+requestUntagQueue :: UntagQueue -> TestTree
+requestUntagQueue =
+  req
+    "UntagQueue"
+    "fixture/UntagQueue.yaml"
+
+requestDeleteQueue :: DeleteQueue -> TestTree
+requestDeleteQueue =
+  req
+    "DeleteQueue"
+    "fixture/DeleteQueue.yaml"
+
+requestCreateQueue :: CreateQueue -> TestTree
+requestCreateQueue =
+  req
+    "CreateQueue"
+    "fixture/CreateQueue.yaml"
+
+requestRemovePermission :: RemovePermission -> TestTree
+requestRemovePermission =
+  req
+    "RemovePermission"
+    "fixture/RemovePermission.yaml"
 
 -- Responses
 
-responseGetQueueURL :: GetQueueURLResponse -> TestTree
-responseGetQueueURL = res
-    "GetQueueURLResponse"
-    "fixture/GetQueueURLResponse.proto"
-    sqs
-    (Proxy :: Proxy GetQueueURL)
-
-responsePurgeQueue :: PurgeQueueResponse -> TestTree
-responsePurgeQueue = res
-    "PurgeQueueResponse"
-    "fixture/PurgeQueueResponse.proto"
-    sqs
-    (Proxy :: Proxy PurgeQueue)
-
 responseChangeMessageVisibilityBatch :: ChangeMessageVisibilityBatchResponse -> TestTree
-responseChangeMessageVisibilityBatch = res
+responseChangeMessageVisibilityBatch =
+  res
     "ChangeMessageVisibilityBatchResponse"
     "fixture/ChangeMessageVisibilityBatchResponse.proto"
     sqs
     (Proxy :: Proxy ChangeMessageVisibilityBatch)
 
-responseSendMessage :: SendMessageResponse -> TestTree
-responseSendMessage = res
-    "SendMessageResponse"
-    "fixture/SendMessageResponse.proto"
+responsePurgeQueue :: PurgeQueueResponse -> TestTree
+responsePurgeQueue =
+  res
+    "PurgeQueueResponse"
+    "fixture/PurgeQueueResponse.proto"
     sqs
-    (Proxy :: Proxy SendMessage)
+    (Proxy :: Proxy PurgeQueue)
 
-responseRemovePermission :: RemovePermissionResponse -> TestTree
-responseRemovePermission = res
-    "RemovePermissionResponse"
-    "fixture/RemovePermissionResponse.proto"
+responseChangeMessageVisibility :: ChangeMessageVisibilityResponse -> TestTree
+responseChangeMessageVisibility =
+  res
+    "ChangeMessageVisibilityResponse"
+    "fixture/ChangeMessageVisibilityResponse.proto"
     sqs
-    (Proxy :: Proxy RemovePermission)
+    (Proxy :: Proxy ChangeMessageVisibility)
 
-responseGetQueueAttributes :: GetQueueAttributesResponse -> TestTree
-responseGetQueueAttributes = res
-    "GetQueueAttributesResponse"
-    "fixture/GetQueueAttributesResponse.proto"
+responseTagQueue :: TagQueueResponse -> TestTree
+responseTagQueue =
+  res
+    "TagQueueResponse"
+    "fixture/TagQueueResponse.proto"
     sqs
-    (Proxy :: Proxy GetQueueAttributes)
+    (Proxy :: Proxy TagQueue)
 
 responseListQueues :: ListQueuesResponse -> TestTree
-responseListQueues = res
+responseListQueues =
+  res
     "ListQueuesResponse"
     "fixture/ListQueuesResponse.proto"
     sqs
     (Proxy :: Proxy ListQueues)
 
 responseReceiveMessage :: ReceiveMessageResponse -> TestTree
-responseReceiveMessage = res
+responseReceiveMessage =
+  res
     "ReceiveMessageResponse"
     "fixture/ReceiveMessageResponse.proto"
     sqs
     (Proxy :: Proxy ReceiveMessage)
 
-responseDeleteQueue :: DeleteQueueResponse -> TestTree
-responseDeleteQueue = res
-    "DeleteQueueResponse"
-    "fixture/DeleteQueueResponse.proto"
+responseGetQueueAttributes :: GetQueueAttributesResponse -> TestTree
+responseGetQueueAttributes =
+  res
+    "GetQueueAttributesResponse"
+    "fixture/GetQueueAttributesResponse.proto"
     sqs
-    (Proxy :: Proxy DeleteQueue)
-
-responseTagQueue :: TagQueueResponse -> TestTree
-responseTagQueue = res
-    "TagQueueResponse"
-    "fixture/TagQueueResponse.proto"
-    sqs
-    (Proxy :: Proxy TagQueue)
-
-responseDeleteMessageBatch :: DeleteMessageBatchResponse -> TestTree
-responseDeleteMessageBatch = res
-    "DeleteMessageBatchResponse"
-    "fixture/DeleteMessageBatchResponse.proto"
-    sqs
-    (Proxy :: Proxy DeleteMessageBatch)
-
-responseSetQueueAttributes :: SetQueueAttributesResponse -> TestTree
-responseSetQueueAttributes = res
-    "SetQueueAttributesResponse"
-    "fixture/SetQueueAttributesResponse.proto"
-    sqs
-    (Proxy :: Proxy SetQueueAttributes)
-
-responseListDeadLetterSourceQueues :: ListDeadLetterSourceQueuesResponse -> TestTree
-responseListDeadLetterSourceQueues = res
-    "ListDeadLetterSourceQueuesResponse"
-    "fixture/ListDeadLetterSourceQueuesResponse.proto"
-    sqs
-    (Proxy :: Proxy ListDeadLetterSourceQueues)
-
-responseAddPermission :: AddPermissionResponse -> TestTree
-responseAddPermission = res
-    "AddPermissionResponse"
-    "fixture/AddPermissionResponse.proto"
-    sqs
-    (Proxy :: Proxy AddPermission)
+    (Proxy :: Proxy GetQueueAttributes)
 
 responseDeleteMessage :: DeleteMessageResponse -> TestTree
-responseDeleteMessage = res
+responseDeleteMessage =
+  res
     "DeleteMessageResponse"
     "fixture/DeleteMessageResponse.proto"
     sqs
     (Proxy :: Proxy DeleteMessage)
 
+responseAddPermission :: AddPermissionResponse -> TestTree
+responseAddPermission =
+  res
+    "AddPermissionResponse"
+    "fixture/AddPermissionResponse.proto"
+    sqs
+    (Proxy :: Proxy AddPermission)
+
 responseListQueueTags :: ListQueueTagsResponse -> TestTree
-responseListQueueTags = res
+responseListQueueTags =
+  res
     "ListQueueTagsResponse"
     "fixture/ListQueueTagsResponse.proto"
     sqs
     (Proxy :: Proxy ListQueueTags)
 
-responseCreateQueue :: CreateQueueResponse -> TestTree
-responseCreateQueue = res
-    "CreateQueueResponse"
-    "fixture/CreateQueueResponse.proto"
+responseSendMessage :: SendMessageResponse -> TestTree
+responseSendMessage =
+  res
+    "SendMessageResponse"
+    "fixture/SendMessageResponse.proto"
     sqs
-    (Proxy :: Proxy CreateQueue)
+    (Proxy :: Proxy SendMessage)
 
-responseUntagQueue :: UntagQueueResponse -> TestTree
-responseUntagQueue = res
-    "UntagQueueResponse"
-    "fixture/UntagQueueResponse.proto"
+responseListDeadLetterSourceQueues :: ListDeadLetterSourceQueuesResponse -> TestTree
+responseListDeadLetterSourceQueues =
+  res
+    "ListDeadLetterSourceQueuesResponse"
+    "fixture/ListDeadLetterSourceQueuesResponse.proto"
     sqs
-    (Proxy :: Proxy UntagQueue)
+    (Proxy :: Proxy ListDeadLetterSourceQueues)
+
+responseGetQueueURL :: GetQueueURLResponse -> TestTree
+responseGetQueueURL =
+  res
+    "GetQueueURLResponse"
+    "fixture/GetQueueURLResponse.proto"
+    sqs
+    (Proxy :: Proxy GetQueueURL)
+
+responseSetQueueAttributes :: SetQueueAttributesResponse -> TestTree
+responseSetQueueAttributes =
+  res
+    "SetQueueAttributesResponse"
+    "fixture/SetQueueAttributesResponse.proto"
+    sqs
+    (Proxy :: Proxy SetQueueAttributes)
+
+responseDeleteMessageBatch :: DeleteMessageBatchResponse -> TestTree
+responseDeleteMessageBatch =
+  res
+    "DeleteMessageBatchResponse"
+    "fixture/DeleteMessageBatchResponse.proto"
+    sqs
+    (Proxy :: Proxy DeleteMessageBatch)
 
 responseSendMessageBatch :: SendMessageBatchResponse -> TestTree
-responseSendMessageBatch = res
+responseSendMessageBatch =
+  res
     "SendMessageBatchResponse"
     "fixture/SendMessageBatchResponse.proto"
     sqs
     (Proxy :: Proxy SendMessageBatch)
 
-responseChangeMessageVisibility :: ChangeMessageVisibilityResponse -> TestTree
-responseChangeMessageVisibility = res
-    "ChangeMessageVisibilityResponse"
-    "fixture/ChangeMessageVisibilityResponse.proto"
+responseUntagQueue :: UntagQueueResponse -> TestTree
+responseUntagQueue =
+  res
+    "UntagQueueResponse"
+    "fixture/UntagQueueResponse.proto"
     sqs
-    (Proxy :: Proxy ChangeMessageVisibility)
+    (Proxy :: Proxy UntagQueue)
+
+responseDeleteQueue :: DeleteQueueResponse -> TestTree
+responseDeleteQueue =
+  res
+    "DeleteQueueResponse"
+    "fixture/DeleteQueueResponse.proto"
+    sqs
+    (Proxy :: Proxy DeleteQueue)
+
+responseCreateQueue :: CreateQueueResponse -> TestTree
+responseCreateQueue =
+  res
+    "CreateQueueResponse"
+    "fixture/CreateQueueResponse.proto"
+    sqs
+    (Proxy :: Proxy CreateQueue)
+
+responseRemovePermission :: RemovePermissionResponse -> TestTree
+responseRemovePermission =
+  res
+    "RemovePermissionResponse"
+    "fixture/RemovePermissionResponse.proto"
+    sqs
+    (Proxy :: Proxy RemovePermission)
