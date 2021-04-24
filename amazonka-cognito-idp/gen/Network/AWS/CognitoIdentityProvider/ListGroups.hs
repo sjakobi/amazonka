@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CognitoIdentityProvider.ListGroups
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,41 +20,46 @@
 -- Lists the groups associated with a user pool.
 --
 --
--- Requires developer credentials.
+-- Calling this action requires developer credentials.
 --
+--
+-- This operation returns paginated results.
 module Network.AWS.CognitoIdentityProvider.ListGroups
-    (
-    -- * Creating a Request
-      listGroups
-    , ListGroups
+  ( -- * Creating a Request
+    listGroups,
+    ListGroups,
+
     -- * Request Lenses
-    , lgNextToken
-    , lgLimit
-    , lgUserPoolId
+    lgNextToken,
+    lgLimit,
+    lgUserPoolId,
 
     -- * Destructuring the Response
-    , listGroupsResponse
-    , ListGroupsResponse
+    listGroupsResponse,
+    ListGroupsResponse,
+
     -- * Response Lenses
-    , lgrsGroups
-    , lgrsNextToken
-    , lgrsResponseStatus
-    ) where
+    lgrrsGroups,
+    lgrrsNextToken,
+    lgrrsResponseStatus,
+  )
+where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.CognitoIdentityProvider.Types.Product
 import Network.AWS.Lens
+import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'listGroups' smart constructor.
 data ListGroups = ListGroups'
-  { _lgNextToken  :: !(Maybe Text)
-  , _lgLimit      :: !(Maybe Nat)
-  , _lgUserPoolId :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lgNextToken ::
+      !(Maybe Text),
+    _lgLimit :: !(Maybe Nat),
+    _lgUserPoolId :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'ListGroups' with the minimum fields required to make a request.
 --
@@ -66,102 +70,120 @@ data ListGroups = ListGroups'
 -- * 'lgLimit' - The limit of the request to list groups.
 --
 -- * 'lgUserPoolId' - The user pool ID for the user pool.
-listGroups
-    :: Text -- ^ 'lgUserPoolId'
-    -> ListGroups
+listGroups ::
+  -- | 'lgUserPoolId'
+  Text ->
+  ListGroups
 listGroups pUserPoolId_ =
   ListGroups'
-    {_lgNextToken = Nothing, _lgLimit = Nothing, _lgUserPoolId = pUserPoolId_}
-
+    { _lgNextToken = Nothing,
+      _lgLimit = Nothing,
+      _lgUserPoolId = pUserPoolId_
+    }
 
 -- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
 lgNextToken :: Lens' ListGroups (Maybe Text)
-lgNextToken = lens _lgNextToken (\ s a -> s{_lgNextToken = a})
+lgNextToken = lens _lgNextToken (\s a -> s {_lgNextToken = a})
 
 -- | The limit of the request to list groups.
 lgLimit :: Lens' ListGroups (Maybe Natural)
-lgLimit = lens _lgLimit (\ s a -> s{_lgLimit = a}) . mapping _Nat
+lgLimit = lens _lgLimit (\s a -> s {_lgLimit = a}) . mapping _Nat
 
 -- | The user pool ID for the user pool.
 lgUserPoolId :: Lens' ListGroups Text
-lgUserPoolId = lens _lgUserPoolId (\ s a -> s{_lgUserPoolId = a})
+lgUserPoolId = lens _lgUserPoolId (\s a -> s {_lgUserPoolId = a})
+
+instance AWSPager ListGroups where
+  page rq rs
+    | stop (rs ^. lgrrsNextToken) = Nothing
+    | stop (rs ^. lgrrsGroups) = Nothing
+    | otherwise =
+      Just $ rq & lgNextToken .~ rs ^. lgrrsNextToken
 
 instance AWSRequest ListGroups where
-        type Rs ListGroups = ListGroupsResponse
-        request = postJSON cognitoIdentityProvider
-        response
-          = receiveJSON
-              (\ s h x ->
-                 ListGroupsResponse' <$>
-                   (x .?> "Groups" .!@ mempty) <*> (x .?> "NextToken")
-                     <*> (pure (fromEnum s)))
+  type Rs ListGroups = ListGroupsResponse
+  request = postJSON cognitoIdentityProvider
+  response =
+    receiveJSON
+      ( \s h x ->
+          ListGroupsResponse'
+            <$> (x .?> "Groups" .!@ mempty)
+            <*> (x .?> "NextToken")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable ListGroups where
+instance Hashable ListGroups
 
-instance NFData ListGroups where
+instance NFData ListGroups
 
 instance ToHeaders ListGroups where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSCognitoIdentityProviderService.ListGroups" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWSCognitoIdentityProviderService.ListGroups" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON ListGroups where
-        toJSON ListGroups'{..}
-          = object
-              (catMaybes
-                 [("NextToken" .=) <$> _lgNextToken,
-                  ("Limit" .=) <$> _lgLimit,
-                  Just ("UserPoolId" .= _lgUserPoolId)])
+  toJSON ListGroups' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _lgNextToken,
+            ("Limit" .=) <$> _lgLimit,
+            Just ("UserPoolId" .= _lgUserPoolId)
+          ]
+      )
 
 instance ToPath ListGroups where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery ListGroups where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'listGroupsResponse' smart constructor.
 data ListGroupsResponse = ListGroupsResponse'
-  { _lgrsGroups         :: !(Maybe [GroupType])
-  , _lgrsNextToken      :: !(Maybe Text)
-  , _lgrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lgrrsGroups ::
+      !(Maybe [GroupType]),
+    _lgrrsNextToken :: !(Maybe Text),
+    _lgrrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'ListGroupsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lgrsGroups' - The group objects for the groups.
+-- * 'lgrrsGroups' - The group objects for the groups.
 --
--- * 'lgrsNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- * 'lgrrsNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
 --
--- * 'lgrsResponseStatus' - -- | The response status code.
-listGroupsResponse
-    :: Int -- ^ 'lgrsResponseStatus'
-    -> ListGroupsResponse
+-- * 'lgrrsResponseStatus' - -- | The response status code.
+listGroupsResponse ::
+  -- | 'lgrrsResponseStatus'
+  Int ->
+  ListGroupsResponse
 listGroupsResponse pResponseStatus_ =
   ListGroupsResponse'
-    { _lgrsGroups = Nothing
-    , _lgrsNextToken = Nothing
-    , _lgrsResponseStatus = pResponseStatus_
+    { _lgrrsGroups = Nothing,
+      _lgrrsNextToken = Nothing,
+      _lgrrsResponseStatus = pResponseStatus_
     }
 
-
 -- | The group objects for the groups.
-lgrsGroups :: Lens' ListGroupsResponse [GroupType]
-lgrsGroups = lens _lgrsGroups (\ s a -> s{_lgrsGroups = a}) . _Default . _Coerce
+lgrrsGroups :: Lens' ListGroupsResponse [GroupType]
+lgrrsGroups = lens _lgrrsGroups (\s a -> s {_lgrrsGroups = a}) . _Default . _Coerce
 
 -- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lgrsNextToken :: Lens' ListGroupsResponse (Maybe Text)
-lgrsNextToken = lens _lgrsNextToken (\ s a -> s{_lgrsNextToken = a})
+lgrrsNextToken :: Lens' ListGroupsResponse (Maybe Text)
+lgrrsNextToken = lens _lgrrsNextToken (\s a -> s {_lgrrsNextToken = a})
 
 -- | -- | The response status code.
-lgrsResponseStatus :: Lens' ListGroupsResponse Int
-lgrsResponseStatus = lens _lgrsResponseStatus (\ s a -> s{_lgrsResponseStatus = a})
+lgrrsResponseStatus :: Lens' ListGroupsResponse Int
+lgrrsResponseStatus = lens _lgrrsResponseStatus (\s a -> s {_lgrrsResponseStatus = a})
 
-instance NFData ListGroupsResponse where
+instance NFData ListGroupsResponse

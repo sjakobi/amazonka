@@ -1,45 +1,43 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CognitoIdentityProvider.DescribeResourceServer
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes a resource server.
---
---
 module Network.AWS.CognitoIdentityProvider.DescribeResourceServer
-    (
-    -- * Creating a Request
-      describeResourceServer
-    , DescribeResourceServer
+  ( -- * Creating a Request
+    describeResourceServer,
+    DescribeResourceServer,
+
     -- * Request Lenses
-    , desUserPoolId
-    , desIdentifier
+    drsrUserPoolId,
+    drsrIdentifier,
 
     -- * Destructuring the Response
-    , describeResourceServerResponse
-    , DescribeResourceServerResponse
+    describeResourceServerResponse,
+    DescribeResourceServerResponse,
+
     -- * Response Lenses
-    , drsrsResponseStatus
-    , drsrsResourceServer
-    ) where
+    drsrrsResponseStatus,
+    drsrrsResourceServer,
+  )
+where
 
 import Network.AWS.CognitoIdentityProvider.Types
-import Network.AWS.CognitoIdentityProvider.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -47,103 +45,135 @@ import Network.AWS.Response
 
 -- | /See:/ 'describeResourceServer' smart constructor.
 data DescribeResourceServer = DescribeResourceServer'
-  { _desUserPoolId :: !Text
-  , _desIdentifier :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _drsrUserPoolId ::
+      !Text,
+    _drsrIdentifier :: !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeResourceServer' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'desUserPoolId' - The user pool ID for the user pool that hosts the resource server.
+-- * 'drsrUserPoolId' - The user pool ID for the user pool that hosts the resource server.
 --
--- * 'desIdentifier' - The identifier for the resource server
-describeResourceServer
-    :: Text -- ^ 'desUserPoolId'
-    -> Text -- ^ 'desIdentifier'
-    -> DescribeResourceServer
+-- * 'drsrIdentifier' - The identifier for the resource server
+describeResourceServer ::
+  -- | 'drsrUserPoolId'
+  Text ->
+  -- | 'drsrIdentifier'
+  Text ->
+  DescribeResourceServer
 describeResourceServer pUserPoolId_ pIdentifier_ =
   DescribeResourceServer'
-    {_desUserPoolId = pUserPoolId_, _desIdentifier = pIdentifier_}
-
+    { _drsrUserPoolId =
+        pUserPoolId_,
+      _drsrIdentifier = pIdentifier_
+    }
 
 -- | The user pool ID for the user pool that hosts the resource server.
-desUserPoolId :: Lens' DescribeResourceServer Text
-desUserPoolId = lens _desUserPoolId (\ s a -> s{_desUserPoolId = a})
+drsrUserPoolId :: Lens' DescribeResourceServer Text
+drsrUserPoolId = lens _drsrUserPoolId (\s a -> s {_drsrUserPoolId = a})
 
 -- | The identifier for the resource server
-desIdentifier :: Lens' DescribeResourceServer Text
-desIdentifier = lens _desIdentifier (\ s a -> s{_desIdentifier = a})
+drsrIdentifier :: Lens' DescribeResourceServer Text
+drsrIdentifier = lens _drsrIdentifier (\s a -> s {_drsrIdentifier = a})
 
 instance AWSRequest DescribeResourceServer where
-        type Rs DescribeResourceServer =
-             DescribeResourceServerResponse
-        request = postJSON cognitoIdentityProvider
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeResourceServerResponse' <$>
-                   (pure (fromEnum s)) <*> (x .:> "ResourceServer"))
+  type
+    Rs DescribeResourceServer =
+      DescribeResourceServerResponse
+  request = postJSON cognitoIdentityProvider
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeResourceServerResponse'
+            <$> (pure (fromEnum s)) <*> (x .:> "ResourceServer")
+      )
 
-instance Hashable DescribeResourceServer where
+instance Hashable DescribeResourceServer
 
-instance NFData DescribeResourceServer where
+instance NFData DescribeResourceServer
 
 instance ToHeaders DescribeResourceServer where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSCognitoIdentityProviderService.DescribeResourceServer"
-                       :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWSCognitoIdentityProviderService.DescribeResourceServer" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeResourceServer where
-        toJSON DescribeResourceServer'{..}
-          = object
-              (catMaybes
-                 [Just ("UserPoolId" .= _desUserPoolId),
-                  Just ("Identifier" .= _desIdentifier)])
+  toJSON DescribeResourceServer' {..} =
+    object
+      ( catMaybes
+          [ Just ("UserPoolId" .= _drsrUserPoolId),
+            Just ("Identifier" .= _drsrIdentifier)
+          ]
+      )
 
 instance ToPath DescribeResourceServer where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeResourceServer where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describeResourceServerResponse' smart constructor.
 data DescribeResourceServerResponse = DescribeResourceServerResponse'
-  { _drsrsResponseStatus :: !Int
-  , _drsrsResourceServer :: !ResourceServerType
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _drsrrsResponseStatus ::
+      !Int,
+    _drsrrsResourceServer ::
+      !ResourceServerType
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeResourceServerResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'drsrsResponseStatus' - -- | The response status code.
+-- * 'drsrrsResponseStatus' - -- | The response status code.
 --
--- * 'drsrsResourceServer' - The resource server.
+-- * 'drsrrsResourceServer' - The resource server.
+describeResourceServerResponse ::
+  -- | 'drsrrsResponseStatus'
+  Int ->
+  -- | 'drsrrsResourceServer'
+  ResourceServerType ->
+  DescribeResourceServerResponse
 describeResourceServerResponse
-    :: Int -- ^ 'drsrsResponseStatus'
-    -> ResourceServerType -- ^ 'drsrsResourceServer'
-    -> DescribeResourceServerResponse
-describeResourceServerResponse pResponseStatus_ pResourceServer_ =
-  DescribeResourceServerResponse'
-    { _drsrsResponseStatus = pResponseStatus_
-    , _drsrsResourceServer = pResourceServer_
-    }
-
+  pResponseStatus_
+  pResourceServer_ =
+    DescribeResourceServerResponse'
+      { _drsrrsResponseStatus =
+          pResponseStatus_,
+        _drsrrsResourceServer = pResourceServer_
+      }
 
 -- | -- | The response status code.
-drsrsResponseStatus :: Lens' DescribeResourceServerResponse Int
-drsrsResponseStatus = lens _drsrsResponseStatus (\ s a -> s{_drsrsResponseStatus = a})
+drsrrsResponseStatus :: Lens' DescribeResourceServerResponse Int
+drsrrsResponseStatus = lens _drsrrsResponseStatus (\s a -> s {_drsrrsResponseStatus = a})
 
 -- | The resource server.
-drsrsResourceServer :: Lens' DescribeResourceServerResponse ResourceServerType
-drsrsResourceServer = lens _drsrsResourceServer (\ s a -> s{_drsrsResourceServer = a})
+drsrrsResourceServer :: Lens' DescribeResourceServerResponse ResourceServerType
+drsrrsResourceServer = lens _drsrrsResourceServer (\s a -> s {_drsrrsResourceServer = a})
 
-instance NFData DescribeResourceServerResponse where
+instance NFData DescribeResourceServerResponse
