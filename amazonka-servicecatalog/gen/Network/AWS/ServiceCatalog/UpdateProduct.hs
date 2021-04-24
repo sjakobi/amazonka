@@ -1,249 +1,265 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.UpdateProduct
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates the specified product.
---
---
 module Network.AWS.ServiceCatalog.UpdateProduct
-    (
-    -- * Creating a Request
-      updateProduct
-    , UpdateProduct
+  ( -- * Creating a Request
+    updateProduct,
+    UpdateProduct,
+
     -- * Request Lenses
-    , upRemoveTags
-    , upOwner
-    , upSupportURL
-    , upDistributor
-    , upName
-    , upAcceptLanguage
-    , upAddTags
-    , upSupportEmail
-    , upDescription
-    , upSupportDescription
-    , upId
+    uDistributor,
+    uRemoveTags,
+    uAddTags,
+    uName,
+    uSupportURL,
+    uSupportDescription,
+    uOwner,
+    uDescription,
+    uSupportEmail,
+    uAcceptLanguage,
+    uId,
 
     -- * Destructuring the Response
-    , updateProductResponse
-    , UpdateProductResponse
+    updateProductResponse,
+    UpdateProductResponse,
+
     -- * Response Lenses
-    , ursProductViewDetail
-    , ursTags
-    , ursResponseStatus
-    ) where
+    uprrsProductViewDetail,
+    uprrsTags,
+    uprrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.ServiceCatalog.Types
-import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'updateProduct' smart constructor.
 data UpdateProduct = UpdateProduct'
-  { _upRemoveTags         :: !(Maybe [Text])
-  , _upOwner              :: !(Maybe Text)
-  , _upSupportURL         :: !(Maybe Text)
-  , _upDistributor        :: !(Maybe Text)
-  , _upName               :: !(Maybe Text)
-  , _upAcceptLanguage     :: !(Maybe Text)
-  , _upAddTags            :: !(Maybe [Tag])
-  , _upSupportEmail       :: !(Maybe Text)
-  , _upDescription        :: !(Maybe Text)
-  , _upSupportDescription :: !(Maybe Text)
-  , _upId                 :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _uDistributor ::
+      !(Maybe Text),
+    _uRemoveTags :: !(Maybe [Text]),
+    _uAddTags :: !(Maybe [Tag]),
+    _uName :: !(Maybe Text),
+    _uSupportURL :: !(Maybe Text),
+    _uSupportDescription :: !(Maybe Text),
+    _uOwner :: !(Maybe Text),
+    _uDescription :: !(Maybe Text),
+    _uSupportEmail :: !(Maybe Text),
+    _uAcceptLanguage :: !(Maybe Text),
+    _uId :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'UpdateProduct' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'upRemoveTags' - The tags to remove from the product.
+-- * 'uDistributor' - The updated distributor of the product.
 --
--- * 'upOwner' - The updated owner of the product.
+-- * 'uRemoveTags' - The tags to remove from the product.
 --
--- * 'upSupportURL' - The updated support URL for the product.
+-- * 'uAddTags' - The tags to add to the product.
 --
--- * 'upDistributor' - The updated distributor of the product.
+-- * 'uName' - The updated product name.
 --
--- * 'upName' - The updated product name.
+-- * 'uSupportURL' - The updated support URL for the product.
 --
--- * 'upAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- * 'uSupportDescription' - The updated support description for the product.
 --
--- * 'upAddTags' - The tags to add to the product.
+-- * 'uOwner' - The updated owner of the product.
 --
--- * 'upSupportEmail' - The updated support email for the product.
+-- * 'uDescription' - The updated description of the product.
 --
--- * 'upDescription' - The updated description of the product.
+-- * 'uSupportEmail' - The updated support email for the product.
 --
--- * 'upSupportDescription' - The updated support description for the product.
+-- * 'uAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
--- * 'upId' - The product identifier.
-updateProduct
-    :: Text -- ^ 'upId'
-    -> UpdateProduct
+-- * 'uId' - The product identifier.
+updateProduct ::
+  -- | 'uId'
+  Text ->
+  UpdateProduct
 updateProduct pId_ =
   UpdateProduct'
-    { _upRemoveTags = Nothing
-    , _upOwner = Nothing
-    , _upSupportURL = Nothing
-    , _upDistributor = Nothing
-    , _upName = Nothing
-    , _upAcceptLanguage = Nothing
-    , _upAddTags = Nothing
-    , _upSupportEmail = Nothing
-    , _upDescription = Nothing
-    , _upSupportDescription = Nothing
-    , _upId = pId_
+    { _uDistributor = Nothing,
+      _uRemoveTags = Nothing,
+      _uAddTags = Nothing,
+      _uName = Nothing,
+      _uSupportURL = Nothing,
+      _uSupportDescription = Nothing,
+      _uOwner = Nothing,
+      _uDescription = Nothing,
+      _uSupportEmail = Nothing,
+      _uAcceptLanguage = Nothing,
+      _uId = pId_
     }
 
+-- | The updated distributor of the product.
+uDistributor :: Lens' UpdateProduct (Maybe Text)
+uDistributor = lens _uDistributor (\s a -> s {_uDistributor = a})
 
 -- | The tags to remove from the product.
-upRemoveTags :: Lens' UpdateProduct [Text]
-upRemoveTags = lens _upRemoveTags (\ s a -> s{_upRemoveTags = a}) . _Default . _Coerce
-
--- | The updated owner of the product.
-upOwner :: Lens' UpdateProduct (Maybe Text)
-upOwner = lens _upOwner (\ s a -> s{_upOwner = a})
-
--- | The updated support URL for the product.
-upSupportURL :: Lens' UpdateProduct (Maybe Text)
-upSupportURL = lens _upSupportURL (\ s a -> s{_upSupportURL = a})
-
--- | The updated distributor of the product.
-upDistributor :: Lens' UpdateProduct (Maybe Text)
-upDistributor = lens _upDistributor (\ s a -> s{_upDistributor = a})
-
--- | The updated product name.
-upName :: Lens' UpdateProduct (Maybe Text)
-upName = lens _upName (\ s a -> s{_upName = a})
-
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-upAcceptLanguage :: Lens' UpdateProduct (Maybe Text)
-upAcceptLanguage = lens _upAcceptLanguage (\ s a -> s{_upAcceptLanguage = a})
+uRemoveTags :: Lens' UpdateProduct [Text]
+uRemoveTags = lens _uRemoveTags (\s a -> s {_uRemoveTags = a}) . _Default . _Coerce
 
 -- | The tags to add to the product.
-upAddTags :: Lens' UpdateProduct [Tag]
-upAddTags = lens _upAddTags (\ s a -> s{_upAddTags = a}) . _Default . _Coerce
+uAddTags :: Lens' UpdateProduct [Tag]
+uAddTags = lens _uAddTags (\s a -> s {_uAddTags = a}) . _Default . _Coerce
 
--- | The updated support email for the product.
-upSupportEmail :: Lens' UpdateProduct (Maybe Text)
-upSupportEmail = lens _upSupportEmail (\ s a -> s{_upSupportEmail = a})
+-- | The updated product name.
+uName :: Lens' UpdateProduct (Maybe Text)
+uName = lens _uName (\s a -> s {_uName = a})
 
--- | The updated description of the product.
-upDescription :: Lens' UpdateProduct (Maybe Text)
-upDescription = lens _upDescription (\ s a -> s{_upDescription = a})
+-- | The updated support URL for the product.
+uSupportURL :: Lens' UpdateProduct (Maybe Text)
+uSupportURL = lens _uSupportURL (\s a -> s {_uSupportURL = a})
 
 -- | The updated support description for the product.
-upSupportDescription :: Lens' UpdateProduct (Maybe Text)
-upSupportDescription = lens _upSupportDescription (\ s a -> s{_upSupportDescription = a})
+uSupportDescription :: Lens' UpdateProduct (Maybe Text)
+uSupportDescription = lens _uSupportDescription (\s a -> s {_uSupportDescription = a})
+
+-- | The updated owner of the product.
+uOwner :: Lens' UpdateProduct (Maybe Text)
+uOwner = lens _uOwner (\s a -> s {_uOwner = a})
+
+-- | The updated description of the product.
+uDescription :: Lens' UpdateProduct (Maybe Text)
+uDescription = lens _uDescription (\s a -> s {_uDescription = a})
+
+-- | The updated support email for the product.
+uSupportEmail :: Lens' UpdateProduct (Maybe Text)
+uSupportEmail = lens _uSupportEmail (\s a -> s {_uSupportEmail = a})
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+uAcceptLanguage :: Lens' UpdateProduct (Maybe Text)
+uAcceptLanguage = lens _uAcceptLanguage (\s a -> s {_uAcceptLanguage = a})
 
 -- | The product identifier.
-upId :: Lens' UpdateProduct Text
-upId = lens _upId (\ s a -> s{_upId = a})
+uId :: Lens' UpdateProduct Text
+uId = lens _uId (\s a -> s {_uId = a})
 
 instance AWSRequest UpdateProduct where
-        type Rs UpdateProduct = UpdateProductResponse
-        request = postJSON serviceCatalog
-        response
-          = receiveJSON
-              (\ s h x ->
-                 UpdateProductResponse' <$>
-                   (x .?> "ProductViewDetail") <*>
-                     (x .?> "Tags" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type Rs UpdateProduct = UpdateProductResponse
+  request = postJSON serviceCatalog
+  response =
+    receiveJSON
+      ( \s h x ->
+          UpdateProductResponse'
+            <$> (x .?> "ProductViewDetail")
+            <*> (x .?> "Tags" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable UpdateProduct where
+instance Hashable UpdateProduct
 
-instance NFData UpdateProduct where
+instance NFData UpdateProduct
 
 instance ToHeaders UpdateProduct where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWS242ServiceCatalogService.UpdateProduct" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWS242ServiceCatalogService.UpdateProduct" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON UpdateProduct where
-        toJSON UpdateProduct'{..}
-          = object
-              (catMaybes
-                 [("RemoveTags" .=) <$> _upRemoveTags,
-                  ("Owner" .=) <$> _upOwner,
-                  ("SupportUrl" .=) <$> _upSupportURL,
-                  ("Distributor" .=) <$> _upDistributor,
-                  ("Name" .=) <$> _upName,
-                  ("AcceptLanguage" .=) <$> _upAcceptLanguage,
-                  ("AddTags" .=) <$> _upAddTags,
-                  ("SupportEmail" .=) <$> _upSupportEmail,
-                  ("Description" .=) <$> _upDescription,
-                  ("SupportDescription" .=) <$> _upSupportDescription,
-                  Just ("Id" .= _upId)])
+  toJSON UpdateProduct' {..} =
+    object
+      ( catMaybes
+          [ ("Distributor" .=) <$> _uDistributor,
+            ("RemoveTags" .=) <$> _uRemoveTags,
+            ("AddTags" .=) <$> _uAddTags,
+            ("Name" .=) <$> _uName,
+            ("SupportUrl" .=) <$> _uSupportURL,
+            ("SupportDescription" .=) <$> _uSupportDescription,
+            ("Owner" .=) <$> _uOwner,
+            ("Description" .=) <$> _uDescription,
+            ("SupportEmail" .=) <$> _uSupportEmail,
+            ("AcceptLanguage" .=) <$> _uAcceptLanguage,
+            Just ("Id" .= _uId)
+          ]
+      )
 
 instance ToPath UpdateProduct where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery UpdateProduct where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'updateProductResponse' smart constructor.
 data UpdateProductResponse = UpdateProductResponse'
-  { _ursProductViewDetail :: !(Maybe ProductViewDetail)
-  , _ursTags              :: !(Maybe [Tag])
-  , _ursResponseStatus    :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _uprrsProductViewDetail ::
+      !(Maybe ProductViewDetail),
+    _uprrsTags ::
+      !(Maybe [Tag]),
+    _uprrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'UpdateProductResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ursProductViewDetail' - Information about the product view.
+-- * 'uprrsProductViewDetail' - Information about the product view.
 --
--- * 'ursTags' - Information about the tags associated with the product.
+-- * 'uprrsTags' - Information about the tags associated with the product.
 --
--- * 'ursResponseStatus' - -- | The response status code.
-updateProductResponse
-    :: Int -- ^ 'ursResponseStatus'
-    -> UpdateProductResponse
+-- * 'uprrsResponseStatus' - -- | The response status code.
+updateProductResponse ::
+  -- | 'uprrsResponseStatus'
+  Int ->
+  UpdateProductResponse
 updateProductResponse pResponseStatus_ =
   UpdateProductResponse'
-    { _ursProductViewDetail = Nothing
-    , _ursTags = Nothing
-    , _ursResponseStatus = pResponseStatus_
+    { _uprrsProductViewDetail =
+        Nothing,
+      _uprrsTags = Nothing,
+      _uprrsResponseStatus = pResponseStatus_
     }
 
-
 -- | Information about the product view.
-ursProductViewDetail :: Lens' UpdateProductResponse (Maybe ProductViewDetail)
-ursProductViewDetail = lens _ursProductViewDetail (\ s a -> s{_ursProductViewDetail = a})
+uprrsProductViewDetail :: Lens' UpdateProductResponse (Maybe ProductViewDetail)
+uprrsProductViewDetail = lens _uprrsProductViewDetail (\s a -> s {_uprrsProductViewDetail = a})
 
 -- | Information about the tags associated with the product.
-ursTags :: Lens' UpdateProductResponse [Tag]
-ursTags = lens _ursTags (\ s a -> s{_ursTags = a}) . _Default . _Coerce
+uprrsTags :: Lens' UpdateProductResponse [Tag]
+uprrsTags = lens _uprrsTags (\s a -> s {_uprrsTags = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-ursResponseStatus :: Lens' UpdateProductResponse Int
-ursResponseStatus = lens _ursResponseStatus (\ s a -> s{_ursResponseStatus = a})
+uprrsResponseStatus :: Lens' UpdateProductResponse Int
+uprrsResponseStatus = lens _uprrsResponseStatus (\s a -> s {_uprrsResponseStatus = a})
 
-instance NFData UpdateProductResponse where
+instance NFData UpdateProductResponse

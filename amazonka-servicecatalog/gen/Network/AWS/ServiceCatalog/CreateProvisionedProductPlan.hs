@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.CreateProvisionedProductPlan
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,59 +23,83 @@
 -- You can create one plan per provisioned product. To create a plan for an existing provisioned product, the product status must be AVAILBLE or TAINTED.
 --
 -- To view the resource changes in the change set, use 'DescribeProvisionedProductPlan' . To create or modify the provisioned product, use 'ExecuteProvisionedProductPlan' .
---
 module Network.AWS.ServiceCatalog.CreateProvisionedProductPlan
-    (
-    -- * Creating a Request
-      createProvisionedProductPlan
-    , CreateProvisionedProductPlan
+  ( -- * Creating a Request
+    createProvisionedProductPlan,
+    CreateProvisionedProductPlan,
+
     -- * Request Lenses
-    , cpppNotificationARNs
-    , cpppAcceptLanguage
-    , cpppPathId
-    , cpppProvisioningParameters
-    , cpppTags
-    , cpppPlanName
-    , cpppPlanType
-    , cpppProductId
-    , cpppProvisionedProductName
-    , cpppProvisioningArtifactId
-    , cpppIdempotencyToken
+    cpppNotificationARNs,
+    cpppTags,
+    cpppProvisioningParameters,
+    cpppPathId,
+    cpppAcceptLanguage,
+    cpppPlanName,
+    cpppPlanType,
+    cpppProductId,
+    cpppProvisionedProductName,
+    cpppProvisioningArtifactId,
+    cpppIdempotencyToken,
 
     -- * Destructuring the Response
-    , createProvisionedProductPlanResponse
-    , CreateProvisionedProductPlanResponse
+    createProvisionedProductPlanResponse,
+    CreateProvisionedProductPlanResponse,
+
     -- * Response Lenses
-    , cppprsProvisionedProductName
-    , cppprsProvisionProductId
-    , cppprsProvisioningArtifactId
-    , cppprsPlanId
-    , cppprsPlanName
-    , cppprsResponseStatus
-    ) where
+    cppprrsProvisionProductId,
+    cppprrsProvisionedProductName,
+    cppprrsProvisioningArtifactId,
+    cppprrsPlanName,
+    cppprrsPlanId,
+    cppprrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.ServiceCatalog.Types
-import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'createProvisionedProductPlan' smart constructor.
 data CreateProvisionedProductPlan = CreateProvisionedProductPlan'
-  { _cpppNotificationARNs       :: !(Maybe [Text])
-  , _cpppAcceptLanguage         :: !(Maybe Text)
-  , _cpppPathId                 :: !(Maybe Text)
-  , _cpppProvisioningParameters :: !(Maybe [UpdateProvisioningParameter])
-  , _cpppTags                   :: !(Maybe [Tag])
-  , _cpppPlanName               :: !Text
-  , _cpppPlanType               :: !ProvisionedProductPlanType
-  , _cpppProductId              :: !Text
-  , _cpppProvisionedProductName :: !Text
-  , _cpppProvisioningArtifactId :: !Text
-  , _cpppIdempotencyToken       :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cpppNotificationARNs ::
+      !( Maybe
+           [Text]
+       ),
+    _cpppTags ::
+      !( Maybe
+           [Tag]
+       ),
+    _cpppProvisioningParameters ::
+      !( Maybe
+           [UpdateProvisioningParameter]
+       ),
+    _cpppPathId ::
+      !(Maybe Text),
+    _cpppAcceptLanguage ::
+      !(Maybe Text),
+    _cpppPlanName ::
+      !Text,
+    _cpppPlanType ::
+      !ProvisionedProductPlanType,
+    _cpppProductId ::
+      !Text,
+    _cpppProvisionedProductName ::
+      !Text,
+    _cpppProvisioningArtifactId ::
+      !Text,
+    _cpppIdempotencyToken ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateProvisionedProductPlan' with the minimum fields required to make a request.
 --
@@ -84,13 +107,13 @@ data CreateProvisionedProductPlan = CreateProvisionedProductPlan'
 --
 -- * 'cpppNotificationARNs' - Passed to CloudFormation. The SNS topic ARNs to which to publish stack-related events.
 --
--- * 'cpppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
---
--- * 'cpppPathId' - The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' .
+-- * 'cpppTags' - One or more tags. If the plan is for an existing provisioned product, the product must have a @RESOURCE_UPDATE@ constraint with @TagUpdatesOnProvisionedProduct@ set to @ALLOWED@ to allow tag updates.
 --
 -- * 'cpppProvisioningParameters' - Parameters specified by the administrator that are required for provisioning the product.
 --
--- * 'cpppTags' - One or more tags.
+-- * 'cpppPathId' - The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' .
+--
+-- * 'cpppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'cpppPlanName' - The name of the plan.
 --
@@ -103,194 +126,242 @@ data CreateProvisionedProductPlan = CreateProvisionedProductPlan'
 -- * 'cpppProvisioningArtifactId' - The identifier of the provisioning artifact.
 --
 -- * 'cpppIdempotencyToken' - A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
+createProvisionedProductPlan ::
+  -- | 'cpppPlanName'
+  Text ->
+  -- | 'cpppPlanType'
+  ProvisionedProductPlanType ->
+  -- | 'cpppProductId'
+  Text ->
+  -- | 'cpppProvisionedProductName'
+  Text ->
+  -- | 'cpppProvisioningArtifactId'
+  Text ->
+  -- | 'cpppIdempotencyToken'
+  Text ->
+  CreateProvisionedProductPlan
 createProvisionedProductPlan
-    :: Text -- ^ 'cpppPlanName'
-    -> ProvisionedProductPlanType -- ^ 'cpppPlanType'
-    -> Text -- ^ 'cpppProductId'
-    -> Text -- ^ 'cpppProvisionedProductName'
-    -> Text -- ^ 'cpppProvisioningArtifactId'
-    -> Text -- ^ 'cpppIdempotencyToken'
-    -> CreateProvisionedProductPlan
-createProvisionedProductPlan pPlanName_ pPlanType_ pProductId_ pProvisionedProductName_ pProvisioningArtifactId_ pIdempotencyToken_ =
-  CreateProvisionedProductPlan'
-    { _cpppNotificationARNs = Nothing
-    , _cpppAcceptLanguage = Nothing
-    , _cpppPathId = Nothing
-    , _cpppProvisioningParameters = Nothing
-    , _cpppTags = Nothing
-    , _cpppPlanName = pPlanName_
-    , _cpppPlanType = pPlanType_
-    , _cpppProductId = pProductId_
-    , _cpppProvisionedProductName = pProvisionedProductName_
-    , _cpppProvisioningArtifactId = pProvisioningArtifactId_
-    , _cpppIdempotencyToken = pIdempotencyToken_
-    }
-
+  pPlanName_
+  pPlanType_
+  pProductId_
+  pProvisionedProductName_
+  pProvisioningArtifactId_
+  pIdempotencyToken_ =
+    CreateProvisionedProductPlan'
+      { _cpppNotificationARNs =
+          Nothing,
+        _cpppTags = Nothing,
+        _cpppProvisioningParameters = Nothing,
+        _cpppPathId = Nothing,
+        _cpppAcceptLanguage = Nothing,
+        _cpppPlanName = pPlanName_,
+        _cpppPlanType = pPlanType_,
+        _cpppProductId = pProductId_,
+        _cpppProvisionedProductName =
+          pProvisionedProductName_,
+        _cpppProvisioningArtifactId =
+          pProvisioningArtifactId_,
+        _cpppIdempotencyToken = pIdempotencyToken_
+      }
 
 -- | Passed to CloudFormation. The SNS topic ARNs to which to publish stack-related events.
 cpppNotificationARNs :: Lens' CreateProvisionedProductPlan [Text]
-cpppNotificationARNs = lens _cpppNotificationARNs (\ s a -> s{_cpppNotificationARNs = a}) . _Default . _Coerce
+cpppNotificationARNs = lens _cpppNotificationARNs (\s a -> s {_cpppNotificationARNs = a}) . _Default . _Coerce
 
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-cpppAcceptLanguage :: Lens' CreateProvisionedProductPlan (Maybe Text)
-cpppAcceptLanguage = lens _cpppAcceptLanguage (\ s a -> s{_cpppAcceptLanguage = a})
-
--- | The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' .
-cpppPathId :: Lens' CreateProvisionedProductPlan (Maybe Text)
-cpppPathId = lens _cpppPathId (\ s a -> s{_cpppPathId = a})
+-- | One or more tags. If the plan is for an existing provisioned product, the product must have a @RESOURCE_UPDATE@ constraint with @TagUpdatesOnProvisionedProduct@ set to @ALLOWED@ to allow tag updates.
+cpppTags :: Lens' CreateProvisionedProductPlan [Tag]
+cpppTags = lens _cpppTags (\s a -> s {_cpppTags = a}) . _Default . _Coerce
 
 -- | Parameters specified by the administrator that are required for provisioning the product.
 cpppProvisioningParameters :: Lens' CreateProvisionedProductPlan [UpdateProvisioningParameter]
-cpppProvisioningParameters = lens _cpppProvisioningParameters (\ s a -> s{_cpppProvisioningParameters = a}) . _Default . _Coerce
+cpppProvisioningParameters = lens _cpppProvisioningParameters (\s a -> s {_cpppProvisioningParameters = a}) . _Default . _Coerce
 
--- | One or more tags.
-cpppTags :: Lens' CreateProvisionedProductPlan [Tag]
-cpppTags = lens _cpppTags (\ s a -> s{_cpppTags = a}) . _Default . _Coerce
+-- | The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path. To list the paths for a product, use 'ListLaunchPaths' .
+cpppPathId :: Lens' CreateProvisionedProductPlan (Maybe Text)
+cpppPathId = lens _cpppPathId (\s a -> s {_cpppPathId = a})
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+cpppAcceptLanguage :: Lens' CreateProvisionedProductPlan (Maybe Text)
+cpppAcceptLanguage = lens _cpppAcceptLanguage (\s a -> s {_cpppAcceptLanguage = a})
 
 -- | The name of the plan.
 cpppPlanName :: Lens' CreateProvisionedProductPlan Text
-cpppPlanName = lens _cpppPlanName (\ s a -> s{_cpppPlanName = a})
+cpppPlanName = lens _cpppPlanName (\s a -> s {_cpppPlanName = a})
 
 -- | The plan type.
 cpppPlanType :: Lens' CreateProvisionedProductPlan ProvisionedProductPlanType
-cpppPlanType = lens _cpppPlanType (\ s a -> s{_cpppPlanType = a})
+cpppPlanType = lens _cpppPlanType (\s a -> s {_cpppPlanType = a})
 
 -- | The product identifier.
 cpppProductId :: Lens' CreateProvisionedProductPlan Text
-cpppProductId = lens _cpppProductId (\ s a -> s{_cpppProductId = a})
+cpppProductId = lens _cpppProductId (\s a -> s {_cpppProductId = a})
 
 -- | A user-friendly name for the provisioned product. This value must be unique for the AWS account and cannot be updated after the product is provisioned.
 cpppProvisionedProductName :: Lens' CreateProvisionedProductPlan Text
-cpppProvisionedProductName = lens _cpppProvisionedProductName (\ s a -> s{_cpppProvisionedProductName = a})
+cpppProvisionedProductName = lens _cpppProvisionedProductName (\s a -> s {_cpppProvisionedProductName = a})
 
 -- | The identifier of the provisioning artifact.
 cpppProvisioningArtifactId :: Lens' CreateProvisionedProductPlan Text
-cpppProvisioningArtifactId = lens _cpppProvisioningArtifactId (\ s a -> s{_cpppProvisioningArtifactId = a})
+cpppProvisioningArtifactId = lens _cpppProvisioningArtifactId (\s a -> s {_cpppProvisioningArtifactId = a})
 
 -- | A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.
 cpppIdempotencyToken :: Lens' CreateProvisionedProductPlan Text
-cpppIdempotencyToken = lens _cpppIdempotencyToken (\ s a -> s{_cpppIdempotencyToken = a})
+cpppIdempotencyToken = lens _cpppIdempotencyToken (\s a -> s {_cpppIdempotencyToken = a})
 
-instance AWSRequest CreateProvisionedProductPlan
-         where
-        type Rs CreateProvisionedProductPlan =
-             CreateProvisionedProductPlanResponse
-        request = postJSON serviceCatalog
-        response
-          = receiveJSON
-              (\ s h x ->
-                 CreateProvisionedProductPlanResponse' <$>
-                   (x .?> "ProvisionedProductName") <*>
-                     (x .?> "ProvisionProductId")
-                     <*> (x .?> "ProvisioningArtifactId")
-                     <*> (x .?> "PlanId")
-                     <*> (x .?> "PlanName")
-                     <*> (pure (fromEnum s)))
+instance AWSRequest CreateProvisionedProductPlan where
+  type
+    Rs CreateProvisionedProductPlan =
+      CreateProvisionedProductPlanResponse
+  request = postJSON serviceCatalog
+  response =
+    receiveJSON
+      ( \s h x ->
+          CreateProvisionedProductPlanResponse'
+            <$> (x .?> "ProvisionProductId")
+            <*> (x .?> "ProvisionedProductName")
+            <*> (x .?> "ProvisioningArtifactId")
+            <*> (x .?> "PlanName")
+            <*> (x .?> "PlanId")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable CreateProvisionedProductPlan where
+instance Hashable CreateProvisionedProductPlan
 
-instance NFData CreateProvisionedProductPlan where
+instance NFData CreateProvisionedProductPlan
 
 instance ToHeaders CreateProvisionedProductPlan where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWS242ServiceCatalogService.CreateProvisionedProductPlan"
-                       :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWS242ServiceCatalogService.CreateProvisionedProductPlan" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON CreateProvisionedProductPlan where
-        toJSON CreateProvisionedProductPlan'{..}
-          = object
-              (catMaybes
-                 [("NotificationArns" .=) <$> _cpppNotificationARNs,
-                  ("AcceptLanguage" .=) <$> _cpppAcceptLanguage,
-                  ("PathId" .=) <$> _cpppPathId,
-                  ("ProvisioningParameters" .=) <$>
-                    _cpppProvisioningParameters,
-                  ("Tags" .=) <$> _cpppTags,
-                  Just ("PlanName" .= _cpppPlanName),
-                  Just ("PlanType" .= _cpppPlanType),
-                  Just ("ProductId" .= _cpppProductId),
-                  Just
-                    ("ProvisionedProductName" .=
-                       _cpppProvisionedProductName),
-                  Just
-                    ("ProvisioningArtifactId" .=
-                       _cpppProvisioningArtifactId),
-                  Just ("IdempotencyToken" .= _cpppIdempotencyToken)])
+  toJSON CreateProvisionedProductPlan' {..} =
+    object
+      ( catMaybes
+          [ ("NotificationArns" .=) <$> _cpppNotificationARNs,
+            ("Tags" .=) <$> _cpppTags,
+            ("ProvisioningParameters" .=)
+              <$> _cpppProvisioningParameters,
+            ("PathId" .=) <$> _cpppPathId,
+            ("AcceptLanguage" .=) <$> _cpppAcceptLanguage,
+            Just ("PlanName" .= _cpppPlanName),
+            Just ("PlanType" .= _cpppPlanType),
+            Just ("ProductId" .= _cpppProductId),
+            Just
+              ( "ProvisionedProductName"
+                  .= _cpppProvisionedProductName
+              ),
+            Just
+              ( "ProvisioningArtifactId"
+                  .= _cpppProvisioningArtifactId
+              ),
+            Just ("IdempotencyToken" .= _cpppIdempotencyToken)
+          ]
+      )
 
 instance ToPath CreateProvisionedProductPlan where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery CreateProvisionedProductPlan where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'createProvisionedProductPlanResponse' smart constructor.
 data CreateProvisionedProductPlanResponse = CreateProvisionedProductPlanResponse'
-  { _cppprsProvisionedProductName :: !(Maybe Text)
-  , _cppprsProvisionProductId     :: !(Maybe Text)
-  , _cppprsProvisioningArtifactId :: !(Maybe Text)
-  , _cppprsPlanId                 :: !(Maybe Text)
-  , _cppprsPlanName               :: !(Maybe Text)
-  , _cppprsResponseStatus         :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _cppprrsProvisionProductId ::
+      !( Maybe
+           Text
+       ),
+    _cppprrsProvisionedProductName ::
+      !( Maybe
+           Text
+       ),
+    _cppprrsProvisioningArtifactId ::
+      !( Maybe
+           Text
+       ),
+    _cppprrsPlanName ::
+      !( Maybe
+           Text
+       ),
+    _cppprrsPlanId ::
+      !( Maybe
+           Text
+       ),
+    _cppprrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateProvisionedProductPlanResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cppprsProvisionedProductName' - The user-friendly name of the provisioned product.
+-- * 'cppprrsProvisionProductId' - The product identifier.
 --
--- * 'cppprsProvisionProductId' - The product identifier.
+-- * 'cppprrsProvisionedProductName' - The user-friendly name of the provisioned product.
 --
--- * 'cppprsProvisioningArtifactId' - The identifier of the provisioning artifact.
+-- * 'cppprrsProvisioningArtifactId' - The identifier of the provisioning artifact.
 --
--- * 'cppprsPlanId' - The plan identifier.
+-- * 'cppprrsPlanName' - The name of the plan.
 --
--- * 'cppprsPlanName' - The name of the plan.
+-- * 'cppprrsPlanId' - The plan identifier.
 --
--- * 'cppprsResponseStatus' - -- | The response status code.
-createProvisionedProductPlanResponse
-    :: Int -- ^ 'cppprsResponseStatus'
-    -> CreateProvisionedProductPlanResponse
+-- * 'cppprrsResponseStatus' - -- | The response status code.
+createProvisionedProductPlanResponse ::
+  -- | 'cppprrsResponseStatus'
+  Int ->
+  CreateProvisionedProductPlanResponse
 createProvisionedProductPlanResponse pResponseStatus_ =
   CreateProvisionedProductPlanResponse'
-    { _cppprsProvisionedProductName = Nothing
-    , _cppprsProvisionProductId = Nothing
-    , _cppprsProvisioningArtifactId = Nothing
-    , _cppprsPlanId = Nothing
-    , _cppprsPlanName = Nothing
-    , _cppprsResponseStatus = pResponseStatus_
+    { _cppprrsProvisionProductId =
+        Nothing,
+      _cppprrsProvisionedProductName =
+        Nothing,
+      _cppprrsProvisioningArtifactId =
+        Nothing,
+      _cppprrsPlanName = Nothing,
+      _cppprrsPlanId = Nothing,
+      _cppprrsResponseStatus =
+        pResponseStatus_
     }
 
+-- | The product identifier.
+cppprrsProvisionProductId :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
+cppprrsProvisionProductId = lens _cppprrsProvisionProductId (\s a -> s {_cppprrsProvisionProductId = a})
 
 -- | The user-friendly name of the provisioned product.
-cppprsProvisionedProductName :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
-cppprsProvisionedProductName = lens _cppprsProvisionedProductName (\ s a -> s{_cppprsProvisionedProductName = a})
-
--- | The product identifier.
-cppprsProvisionProductId :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
-cppprsProvisionProductId = lens _cppprsProvisionProductId (\ s a -> s{_cppprsProvisionProductId = a})
+cppprrsProvisionedProductName :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
+cppprrsProvisionedProductName = lens _cppprrsProvisionedProductName (\s a -> s {_cppprrsProvisionedProductName = a})
 
 -- | The identifier of the provisioning artifact.
-cppprsProvisioningArtifactId :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
-cppprsProvisioningArtifactId = lens _cppprsProvisioningArtifactId (\ s a -> s{_cppprsProvisioningArtifactId = a})
-
--- | The plan identifier.
-cppprsPlanId :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
-cppprsPlanId = lens _cppprsPlanId (\ s a -> s{_cppprsPlanId = a})
+cppprrsProvisioningArtifactId :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
+cppprrsProvisioningArtifactId = lens _cppprrsProvisioningArtifactId (\s a -> s {_cppprrsProvisioningArtifactId = a})
 
 -- | The name of the plan.
-cppprsPlanName :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
-cppprsPlanName = lens _cppprsPlanName (\ s a -> s{_cppprsPlanName = a})
+cppprrsPlanName :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
+cppprrsPlanName = lens _cppprrsPlanName (\s a -> s {_cppprrsPlanName = a})
+
+-- | The plan identifier.
+cppprrsPlanId :: Lens' CreateProvisionedProductPlanResponse (Maybe Text)
+cppprrsPlanId = lens _cppprrsPlanId (\s a -> s {_cppprrsPlanId = a})
 
 -- | -- | The response status code.
-cppprsResponseStatus :: Lens' CreateProvisionedProductPlanResponse Int
-cppprsResponseStatus = lens _cppprsResponseStatus (\ s a -> s{_cppprsResponseStatus = a})
+cppprrsResponseStatus :: Lens' CreateProvisionedProductPlanResponse Int
+cppprrsResponseStatus = lens _cppprrsResponseStatus (\s a -> s {_cppprrsResponseStatus = a})
 
 instance NFData CreateProvisionedProductPlanResponse
-         where

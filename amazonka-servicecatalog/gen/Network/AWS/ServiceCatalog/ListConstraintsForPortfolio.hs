@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.ListConstraintsForPortfolio
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,25 +23,27 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.ServiceCatalog.ListConstraintsForPortfolio
-    (
-    -- * Creating a Request
-      listConstraintsForPortfolio
-    , ListConstraintsForPortfolio
+  ( -- * Creating a Request
+    listConstraintsForPortfolio,
+    ListConstraintsForPortfolio,
+
     -- * Request Lenses
-    , lcfpAcceptLanguage
-    , lcfpPageToken
-    , lcfpPageSize
-    , lcfpProductId
-    , lcfpPortfolioId
+    lcfpPageSize,
+    lcfpPageToken,
+    lcfpProductId,
+    lcfpAcceptLanguage,
+    lcfpPortfolioId,
 
     -- * Destructuring the Response
-    , listConstraintsForPortfolioResponse
-    , ListConstraintsForPortfolioResponse
+    listConstraintsForPortfolioResponse,
+    ListConstraintsForPortfolioResponse,
+
     -- * Response Lenses
-    , lcfprsNextPageToken
-    , lcfprsConstraintDetails
-    , lcfprsResponseStatus
-    ) where
+    lcfprrsConstraintDetails,
+    lcfprrsNextPageToken,
+    lcfprrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Pager
@@ -50,153 +51,188 @@ import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.ServiceCatalog.Types
-import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'listConstraintsForPortfolio' smart constructor.
 data ListConstraintsForPortfolio = ListConstraintsForPortfolio'
-  { _lcfpAcceptLanguage :: !(Maybe Text)
-  , _lcfpPageToken      :: !(Maybe Text)
-  , _lcfpPageSize       :: !(Maybe Nat)
-  , _lcfpProductId      :: !(Maybe Text)
-  , _lcfpPortfolioId    :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lcfpPageSize ::
+      !(Maybe Nat),
+    _lcfpPageToken ::
+      !(Maybe Text),
+    _lcfpProductId ::
+      !(Maybe Text),
+    _lcfpAcceptLanguage ::
+      !(Maybe Text),
+    _lcfpPortfolioId ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListConstraintsForPortfolio' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lcfpAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- * 'lcfpPageSize' - The maximum number of items to return with this call.
 --
 -- * 'lcfpPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
 --
--- * 'lcfpPageSize' - The maximum number of items to return with this call.
---
 -- * 'lcfpProductId' - The product identifier.
 --
+-- * 'lcfpAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+--
 -- * 'lcfpPortfolioId' - The portfolio identifier.
-listConstraintsForPortfolio
-    :: Text -- ^ 'lcfpPortfolioId'
-    -> ListConstraintsForPortfolio
+listConstraintsForPortfolio ::
+  -- | 'lcfpPortfolioId'
+  Text ->
+  ListConstraintsForPortfolio
 listConstraintsForPortfolio pPortfolioId_ =
   ListConstraintsForPortfolio'
-    { _lcfpAcceptLanguage = Nothing
-    , _lcfpPageToken = Nothing
-    , _lcfpPageSize = Nothing
-    , _lcfpProductId = Nothing
-    , _lcfpPortfolioId = pPortfolioId_
+    { _lcfpPageSize =
+        Nothing,
+      _lcfpPageToken = Nothing,
+      _lcfpProductId = Nothing,
+      _lcfpAcceptLanguage = Nothing,
+      _lcfpPortfolioId = pPortfolioId_
     }
-
-
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-lcfpAcceptLanguage :: Lens' ListConstraintsForPortfolio (Maybe Text)
-lcfpAcceptLanguage = lens _lcfpAcceptLanguage (\ s a -> s{_lcfpAcceptLanguage = a})
-
--- | The page token for the next set of results. To retrieve the first set of results, use null.
-lcfpPageToken :: Lens' ListConstraintsForPortfolio (Maybe Text)
-lcfpPageToken = lens _lcfpPageToken (\ s a -> s{_lcfpPageToken = a})
 
 -- | The maximum number of items to return with this call.
 lcfpPageSize :: Lens' ListConstraintsForPortfolio (Maybe Natural)
-lcfpPageSize = lens _lcfpPageSize (\ s a -> s{_lcfpPageSize = a}) . mapping _Nat
+lcfpPageSize = lens _lcfpPageSize (\s a -> s {_lcfpPageSize = a}) . mapping _Nat
+
+-- | The page token for the next set of results. To retrieve the first set of results, use null.
+lcfpPageToken :: Lens' ListConstraintsForPortfolio (Maybe Text)
+lcfpPageToken = lens _lcfpPageToken (\s a -> s {_lcfpPageToken = a})
 
 -- | The product identifier.
 lcfpProductId :: Lens' ListConstraintsForPortfolio (Maybe Text)
-lcfpProductId = lens _lcfpProductId (\ s a -> s{_lcfpProductId = a})
+lcfpProductId = lens _lcfpProductId (\s a -> s {_lcfpProductId = a})
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+lcfpAcceptLanguage :: Lens' ListConstraintsForPortfolio (Maybe Text)
+lcfpAcceptLanguage = lens _lcfpAcceptLanguage (\s a -> s {_lcfpAcceptLanguage = a})
 
 -- | The portfolio identifier.
 lcfpPortfolioId :: Lens' ListConstraintsForPortfolio Text
-lcfpPortfolioId = lens _lcfpPortfolioId (\ s a -> s{_lcfpPortfolioId = a})
+lcfpPortfolioId = lens _lcfpPortfolioId (\s a -> s {_lcfpPortfolioId = a})
 
 instance AWSPager ListConstraintsForPortfolio where
-        page rq rs
-          | stop (rs ^. lcfprsNextPageToken) = Nothing
-          | stop (rs ^. lcfprsConstraintDetails) = Nothing
-          | otherwise =
-            Just $ rq &
-              lcfpPageToken .~ rs ^. lcfprsNextPageToken
+  page rq rs
+    | stop (rs ^. lcfprrsNextPageToken) = Nothing
+    | stop (rs ^. lcfprrsConstraintDetails) = Nothing
+    | otherwise =
+      Just $
+        rq
+          & lcfpPageToken .~ rs ^. lcfprrsNextPageToken
 
 instance AWSRequest ListConstraintsForPortfolio where
-        type Rs ListConstraintsForPortfolio =
-             ListConstraintsForPortfolioResponse
-        request = postJSON serviceCatalog
-        response
-          = receiveJSON
-              (\ s h x ->
-                 ListConstraintsForPortfolioResponse' <$>
-                   (x .?> "NextPageToken") <*>
-                     (x .?> "ConstraintDetails" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type
+    Rs ListConstraintsForPortfolio =
+      ListConstraintsForPortfolioResponse
+  request = postJSON serviceCatalog
+  response =
+    receiveJSON
+      ( \s h x ->
+          ListConstraintsForPortfolioResponse'
+            <$> (x .?> "ConstraintDetails" .!@ mempty)
+            <*> (x .?> "NextPageToken")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable ListConstraintsForPortfolio where
+instance Hashable ListConstraintsForPortfolio
 
-instance NFData ListConstraintsForPortfolio where
+instance NFData ListConstraintsForPortfolio
 
 instance ToHeaders ListConstraintsForPortfolio where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWS242ServiceCatalogService.ListConstraintsForPortfolio"
-                       :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWS242ServiceCatalogService.ListConstraintsForPortfolio" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON ListConstraintsForPortfolio where
-        toJSON ListConstraintsForPortfolio'{..}
-          = object
-              (catMaybes
-                 [("AcceptLanguage" .=) <$> _lcfpAcceptLanguage,
-                  ("PageToken" .=) <$> _lcfpPageToken,
-                  ("PageSize" .=) <$> _lcfpPageSize,
-                  ("ProductId" .=) <$> _lcfpProductId,
-                  Just ("PortfolioId" .= _lcfpPortfolioId)])
+  toJSON ListConstraintsForPortfolio' {..} =
+    object
+      ( catMaybes
+          [ ("PageSize" .=) <$> _lcfpPageSize,
+            ("PageToken" .=) <$> _lcfpPageToken,
+            ("ProductId" .=) <$> _lcfpProductId,
+            ("AcceptLanguage" .=) <$> _lcfpAcceptLanguage,
+            Just ("PortfolioId" .= _lcfpPortfolioId)
+          ]
+      )
 
 instance ToPath ListConstraintsForPortfolio where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery ListConstraintsForPortfolio where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'listConstraintsForPortfolioResponse' smart constructor.
 data ListConstraintsForPortfolioResponse = ListConstraintsForPortfolioResponse'
-  { _lcfprsNextPageToken     :: !(Maybe Text)
-  , _lcfprsConstraintDetails :: !(Maybe [ConstraintDetail])
-  , _lcfprsResponseStatus    :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lcfprrsConstraintDetails ::
+      !( Maybe
+           [ConstraintDetail]
+       ),
+    _lcfprrsNextPageToken ::
+      !( Maybe
+           Text
+       ),
+    _lcfprrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListConstraintsForPortfolioResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lcfprsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- * 'lcfprrsConstraintDetails' - Information about the constraints.
 --
--- * 'lcfprsConstraintDetails' - Information about the constraints.
+-- * 'lcfprrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
 --
--- * 'lcfprsResponseStatus' - -- | The response status code.
-listConstraintsForPortfolioResponse
-    :: Int -- ^ 'lcfprsResponseStatus'
-    -> ListConstraintsForPortfolioResponse
+-- * 'lcfprrsResponseStatus' - -- | The response status code.
+listConstraintsForPortfolioResponse ::
+  -- | 'lcfprrsResponseStatus'
+  Int ->
+  ListConstraintsForPortfolioResponse
 listConstraintsForPortfolioResponse pResponseStatus_ =
   ListConstraintsForPortfolioResponse'
-    { _lcfprsNextPageToken = Nothing
-    , _lcfprsConstraintDetails = Nothing
-    , _lcfprsResponseStatus = pResponseStatus_
+    { _lcfprrsConstraintDetails =
+        Nothing,
+      _lcfprrsNextPageToken = Nothing,
+      _lcfprrsResponseStatus =
+        pResponseStatus_
     }
 
+-- | Information about the constraints.
+lcfprrsConstraintDetails :: Lens' ListConstraintsForPortfolioResponse [ConstraintDetail]
+lcfprrsConstraintDetails = lens _lcfprrsConstraintDetails (\s a -> s {_lcfprrsConstraintDetails = a}) . _Default . _Coerce
 
 -- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-lcfprsNextPageToken :: Lens' ListConstraintsForPortfolioResponse (Maybe Text)
-lcfprsNextPageToken = lens _lcfprsNextPageToken (\ s a -> s{_lcfprsNextPageToken = a})
-
--- | Information about the constraints.
-lcfprsConstraintDetails :: Lens' ListConstraintsForPortfolioResponse [ConstraintDetail]
-lcfprsConstraintDetails = lens _lcfprsConstraintDetails (\ s a -> s{_lcfprsConstraintDetails = a}) . _Default . _Coerce
+lcfprrsNextPageToken :: Lens' ListConstraintsForPortfolioResponse (Maybe Text)
+lcfprrsNextPageToken = lens _lcfprrsNextPageToken (\s a -> s {_lcfprrsNextPageToken = a})
 
 -- | -- | The response status code.
-lcfprsResponseStatus :: Lens' ListConstraintsForPortfolioResponse Int
-lcfprsResponseStatus = lens _lcfprsResponseStatus (\ s a -> s{_lcfprsResponseStatus = a})
+lcfprrsResponseStatus :: Lens' ListConstraintsForPortfolioResponse Int
+lcfprrsResponseStatus = lens _lcfprrsResponseStatus (\s a -> s {_lcfprrsResponseStatus = a})
 
 instance NFData ListConstraintsForPortfolioResponse
-         where

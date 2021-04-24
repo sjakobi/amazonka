@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DeleteProvisioningArtifact
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,133 +21,166 @@
 --
 --
 -- You cannot delete a provisioning artifact associated with a product that was shared with you. You cannot delete the last provisioning artifact for a product, because a product must have at least one provisioning artifact.
---
 module Network.AWS.ServiceCatalog.DeleteProvisioningArtifact
-    (
-    -- * Creating a Request
-      deleteProvisioningArtifact
-    , DeleteProvisioningArtifact
+  ( -- * Creating a Request
+    deleteProvisioningArtifact,
+    DeleteProvisioningArtifact,
+
     -- * Request Lenses
-    , dpapAcceptLanguage
-    , dpapProductId
-    , dpapProvisioningArtifactId
+    dpaAcceptLanguage,
+    dpaProductId,
+    dpaProvisioningArtifactId,
 
     -- * Destructuring the Response
-    , deleteProvisioningArtifactResponse
-    , DeleteProvisioningArtifactResponse
+    deleteProvisioningArtifactResponse,
+    DeleteProvisioningArtifactResponse,
+
     -- * Response Lenses
-    , dparsResponseStatus
-    ) where
+    dparprsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.ServiceCatalog.Types
-import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'deleteProvisioningArtifact' smart constructor.
 data DeleteProvisioningArtifact = DeleteProvisioningArtifact'
-  { _dpapAcceptLanguage         :: !(Maybe Text)
-  , _dpapProductId              :: !Text
-  , _dpapProvisioningArtifactId :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dpaAcceptLanguage ::
+      !(Maybe Text),
+    _dpaProductId ::
+      !Text,
+    _dpaProvisioningArtifactId ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DeleteProvisioningArtifact' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpapAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- * 'dpaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
--- * 'dpapProductId' - The product identifier.
+-- * 'dpaProductId' - The product identifier.
 --
--- * 'dpapProvisioningArtifactId' - The identifier of the provisioning artifact.
+-- * 'dpaProvisioningArtifactId' - The identifier of the provisioning artifact.
+deleteProvisioningArtifact ::
+  -- | 'dpaProductId'
+  Text ->
+  -- | 'dpaProvisioningArtifactId'
+  Text ->
+  DeleteProvisioningArtifact
 deleteProvisioningArtifact
-    :: Text -- ^ 'dpapProductId'
-    -> Text -- ^ 'dpapProvisioningArtifactId'
-    -> DeleteProvisioningArtifact
-deleteProvisioningArtifact pProductId_ pProvisioningArtifactId_ =
-  DeleteProvisioningArtifact'
-    { _dpapAcceptLanguage = Nothing
-    , _dpapProductId = pProductId_
-    , _dpapProvisioningArtifactId = pProvisioningArtifactId_
-    }
-
+  pProductId_
+  pProvisioningArtifactId_ =
+    DeleteProvisioningArtifact'
+      { _dpaAcceptLanguage =
+          Nothing,
+        _dpaProductId = pProductId_,
+        _dpaProvisioningArtifactId =
+          pProvisioningArtifactId_
+      }
 
 -- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dpapAcceptLanguage :: Lens' DeleteProvisioningArtifact (Maybe Text)
-dpapAcceptLanguage = lens _dpapAcceptLanguage (\ s a -> s{_dpapAcceptLanguage = a})
+dpaAcceptLanguage :: Lens' DeleteProvisioningArtifact (Maybe Text)
+dpaAcceptLanguage = lens _dpaAcceptLanguage (\s a -> s {_dpaAcceptLanguage = a})
 
 -- | The product identifier.
-dpapProductId :: Lens' DeleteProvisioningArtifact Text
-dpapProductId = lens _dpapProductId (\ s a -> s{_dpapProductId = a})
+dpaProductId :: Lens' DeleteProvisioningArtifact Text
+dpaProductId = lens _dpaProductId (\s a -> s {_dpaProductId = a})
 
 -- | The identifier of the provisioning artifact.
-dpapProvisioningArtifactId :: Lens' DeleteProvisioningArtifact Text
-dpapProvisioningArtifactId = lens _dpapProvisioningArtifactId (\ s a -> s{_dpapProvisioningArtifactId = a})
+dpaProvisioningArtifactId :: Lens' DeleteProvisioningArtifact Text
+dpaProvisioningArtifactId = lens _dpaProvisioningArtifactId (\s a -> s {_dpaProvisioningArtifactId = a})
 
 instance AWSRequest DeleteProvisioningArtifact where
-        type Rs DeleteProvisioningArtifact =
-             DeleteProvisioningArtifactResponse
-        request = postJSON serviceCatalog
-        response
-          = receiveEmpty
-              (\ s h x ->
-                 DeleteProvisioningArtifactResponse' <$>
-                   (pure (fromEnum s)))
+  type
+    Rs DeleteProvisioningArtifact =
+      DeleteProvisioningArtifactResponse
+  request = postJSON serviceCatalog
+  response =
+    receiveEmpty
+      ( \s h x ->
+          DeleteProvisioningArtifactResponse'
+            <$> (pure (fromEnum s))
+      )
 
-instance Hashable DeleteProvisioningArtifact where
+instance Hashable DeleteProvisioningArtifact
 
-instance NFData DeleteProvisioningArtifact where
+instance NFData DeleteProvisioningArtifact
 
 instance ToHeaders DeleteProvisioningArtifact where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWS242ServiceCatalogService.DeleteProvisioningArtifact"
-                       :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWS242ServiceCatalogService.DeleteProvisioningArtifact" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DeleteProvisioningArtifact where
-        toJSON DeleteProvisioningArtifact'{..}
-          = object
-              (catMaybes
-                 [("AcceptLanguage" .=) <$> _dpapAcceptLanguage,
-                  Just ("ProductId" .= _dpapProductId),
-                  Just
-                    ("ProvisioningArtifactId" .=
-                       _dpapProvisioningArtifactId)])
+  toJSON DeleteProvisioningArtifact' {..} =
+    object
+      ( catMaybes
+          [ ("AcceptLanguage" .=) <$> _dpaAcceptLanguage,
+            Just ("ProductId" .= _dpaProductId),
+            Just
+              ( "ProvisioningArtifactId"
+                  .= _dpaProvisioningArtifactId
+              )
+          ]
+      )
 
 instance ToPath DeleteProvisioningArtifact where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DeleteProvisioningArtifact where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'deleteProvisioningArtifactResponse' smart constructor.
 newtype DeleteProvisioningArtifactResponse = DeleteProvisioningArtifactResponse'
-  { _dparsResponseStatus :: Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dparprsResponseStatus ::
+      Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DeleteProvisioningArtifactResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dparsResponseStatus' - -- | The response status code.
-deleteProvisioningArtifactResponse
-    :: Int -- ^ 'dparsResponseStatus'
-    -> DeleteProvisioningArtifactResponse
+-- * 'dparprsResponseStatus' - -- | The response status code.
+deleteProvisioningArtifactResponse ::
+  -- | 'dparprsResponseStatus'
+  Int ->
+  DeleteProvisioningArtifactResponse
 deleteProvisioningArtifactResponse pResponseStatus_ =
-  DeleteProvisioningArtifactResponse' {_dparsResponseStatus = pResponseStatus_}
-
+  DeleteProvisioningArtifactResponse'
+    { _dparprsResponseStatus =
+        pResponseStatus_
+    }
 
 -- | -- | The response status code.
-dparsResponseStatus :: Lens' DeleteProvisioningArtifactResponse Int
-dparsResponseStatus = lens _dparsResponseStatus (\ s a -> s{_dparsResponseStatus = a})
+dparprsResponseStatus :: Lens' DeleteProvisioningArtifactResponse Int
+dparprsResponseStatus = lens _dparprsResponseStatus (\s a -> s {_dparprsResponseStatus = a})
 
 instance NFData DeleteProvisioningArtifactResponse
-         where

@@ -1,195 +1,236 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DescribeProvisionedProductPlan
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Gets information about the resource changes for the specified plan.
---
---
 module Network.AWS.ServiceCatalog.DescribeProvisionedProductPlan
-    (
-    -- * Creating a Request
-      describeProvisionedProductPlan
-    , DescribeProvisionedProductPlan
+  ( -- * Creating a Request
+    describeProvisionedProductPlan,
+    DescribeProvisionedProductPlan,
+
     -- * Request Lenses
-    , dpppAcceptLanguage
-    , dpppPageToken
-    , dpppPageSize
-    , dpppPlanId
+    dppppPageSize,
+    dppppPageToken,
+    dppppAcceptLanguage,
+    dppppPlanId,
 
     -- * Destructuring the Response
-    , describeProvisionedProductPlanResponse
-    , DescribeProvisionedProductPlanResponse
+    describeProvisionedProductPlanResponse,
+    DescribeProvisionedProductPlanResponse,
+
     -- * Response Lenses
-    , dpppprsNextPageToken
-    , dpppprsProvisionedProductPlanDetails
-    , dpppprsResourceChanges
-    , dpppprsResponseStatus
-    ) where
+    dppprrsResourceChanges,
+    dppprrsNextPageToken,
+    dppprrsProvisionedProductPlanDetails,
+    dppprrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.ServiceCatalog.Types
-import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'describeProvisionedProductPlan' smart constructor.
 data DescribeProvisionedProductPlan = DescribeProvisionedProductPlan'
-  { _dpppAcceptLanguage :: !(Maybe Text)
-  , _dpppPageToken      :: !(Maybe Text)
-  , _dpppPageSize       :: !(Maybe Nat)
-  , _dpppPlanId         :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dppppPageSize ::
+      !( Maybe
+           Nat
+       ),
+    _dppppPageToken ::
+      !( Maybe
+           Text
+       ),
+    _dppppAcceptLanguage ::
+      !( Maybe
+           Text
+       ),
+    _dppppPlanId ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeProvisionedProductPlan' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+-- * 'dppppPageSize' - The maximum number of items to return with this call.
 --
--- * 'dpppPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
+-- * 'dppppPageToken' - The page token for the next set of results. To retrieve the first set of results, use null.
 --
--- * 'dpppPageSize' - The maximum number of items to return with this call.
+-- * 'dppppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
--- * 'dpppPlanId' - The plan identifier.
-describeProvisionedProductPlan
-    :: Text -- ^ 'dpppPlanId'
-    -> DescribeProvisionedProductPlan
+-- * 'dppppPlanId' - The plan identifier.
+describeProvisionedProductPlan ::
+  -- | 'dppppPlanId'
+  Text ->
+  DescribeProvisionedProductPlan
 describeProvisionedProductPlan pPlanId_ =
   DescribeProvisionedProductPlan'
-    { _dpppAcceptLanguage = Nothing
-    , _dpppPageToken = Nothing
-    , _dpppPageSize = Nothing
-    , _dpppPlanId = pPlanId_
+    { _dppppPageSize =
+        Nothing,
+      _dppppPageToken = Nothing,
+      _dppppAcceptLanguage = Nothing,
+      _dppppPlanId = pPlanId_
     }
 
-
--- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
-dpppAcceptLanguage :: Lens' DescribeProvisionedProductPlan (Maybe Text)
-dpppAcceptLanguage = lens _dpppAcceptLanguage (\ s a -> s{_dpppAcceptLanguage = a})
+-- | The maximum number of items to return with this call.
+dppppPageSize :: Lens' DescribeProvisionedProductPlan (Maybe Natural)
+dppppPageSize = lens _dppppPageSize (\s a -> s {_dppppPageSize = a}) . mapping _Nat
 
 -- | The page token for the next set of results. To retrieve the first set of results, use null.
-dpppPageToken :: Lens' DescribeProvisionedProductPlan (Maybe Text)
-dpppPageToken = lens _dpppPageToken (\ s a -> s{_dpppPageToken = a})
+dppppPageToken :: Lens' DescribeProvisionedProductPlan (Maybe Text)
+dppppPageToken = lens _dppppPageToken (\s a -> s {_dppppPageToken = a})
 
--- | The maximum number of items to return with this call.
-dpppPageSize :: Lens' DescribeProvisionedProductPlan (Maybe Natural)
-dpppPageSize = lens _dpppPageSize (\ s a -> s{_dpppPageSize = a}) . mapping _Nat
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
+dppppAcceptLanguage :: Lens' DescribeProvisionedProductPlan (Maybe Text)
+dppppAcceptLanguage = lens _dppppAcceptLanguage (\s a -> s {_dppppAcceptLanguage = a})
 
 -- | The plan identifier.
-dpppPlanId :: Lens' DescribeProvisionedProductPlan Text
-dpppPlanId = lens _dpppPlanId (\ s a -> s{_dpppPlanId = a})
+dppppPlanId :: Lens' DescribeProvisionedProductPlan Text
+dppppPlanId = lens _dppppPlanId (\s a -> s {_dppppPlanId = a})
 
-instance AWSRequest DescribeProvisionedProductPlan
-         where
-        type Rs DescribeProvisionedProductPlan =
-             DescribeProvisionedProductPlanResponse
-        request = postJSON serviceCatalog
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeProvisionedProductPlanResponse' <$>
-                   (x .?> "NextPageToken") <*>
-                     (x .?> "ProvisionedProductPlanDetails")
-                     <*> (x .?> "ResourceChanges" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+instance AWSRequest DescribeProvisionedProductPlan where
+  type
+    Rs DescribeProvisionedProductPlan =
+      DescribeProvisionedProductPlanResponse
+  request = postJSON serviceCatalog
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeProvisionedProductPlanResponse'
+            <$> (x .?> "ResourceChanges" .!@ mempty)
+            <*> (x .?> "NextPageToken")
+            <*> (x .?> "ProvisionedProductPlanDetails")
+            <*> (pure (fromEnum s))
+      )
 
 instance Hashable DescribeProvisionedProductPlan
-         where
 
-instance NFData DescribeProvisionedProductPlan where
+instance NFData DescribeProvisionedProductPlan
 
-instance ToHeaders DescribeProvisionedProductPlan
-         where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWS242ServiceCatalogService.DescribeProvisionedProductPlan"
-                       :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+instance ToHeaders DescribeProvisionedProductPlan where
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWS242ServiceCatalogService.DescribeProvisionedProductPlan" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeProvisionedProductPlan where
-        toJSON DescribeProvisionedProductPlan'{..}
-          = object
-              (catMaybes
-                 [("AcceptLanguage" .=) <$> _dpppAcceptLanguage,
-                  ("PageToken" .=) <$> _dpppPageToken,
-                  ("PageSize" .=) <$> _dpppPageSize,
-                  Just ("PlanId" .= _dpppPlanId)])
+  toJSON DescribeProvisionedProductPlan' {..} =
+    object
+      ( catMaybes
+          [ ("PageSize" .=) <$> _dppppPageSize,
+            ("PageToken" .=) <$> _dppppPageToken,
+            ("AcceptLanguage" .=) <$> _dppppAcceptLanguage,
+            Just ("PlanId" .= _dppppPlanId)
+          ]
+      )
 
 instance ToPath DescribeProvisionedProductPlan where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeProvisionedProductPlan where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describeProvisionedProductPlanResponse' smart constructor.
 data DescribeProvisionedProductPlanResponse = DescribeProvisionedProductPlanResponse'
-  { _dpppprsNextPageToken :: !(Maybe Text)
-  , _dpppprsProvisionedProductPlanDetails :: !(Maybe ProvisionedProductPlanDetails)
-  , _dpppprsResourceChanges :: !(Maybe [ResourceChange])
-  , _dpppprsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dppprrsResourceChanges ::
+      !( Maybe
+           [ResourceChange]
+       ),
+    _dppprrsNextPageToken ::
+      !( Maybe
+           Text
+       ),
+    _dppprrsProvisionedProductPlanDetails ::
+      !( Maybe
+           ProvisionedProductPlanDetails
+       ),
+    _dppprrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeProvisionedProductPlanResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpppprsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+-- * 'dppprrsResourceChanges' - Information about the resource changes that will occur when the plan is executed.
 --
--- * 'dpppprsProvisionedProductPlanDetails' - Information about the plan.
+-- * 'dppprrsNextPageToken' - The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
 --
--- * 'dpppprsResourceChanges' - Information about the resource changes that will occur when the plan is executed.
+-- * 'dppprrsProvisionedProductPlanDetails' - Information about the plan.
 --
--- * 'dpppprsResponseStatus' - -- | The response status code.
+-- * 'dppprrsResponseStatus' - -- | The response status code.
+describeProvisionedProductPlanResponse ::
+  -- | 'dppprrsResponseStatus'
+  Int ->
+  DescribeProvisionedProductPlanResponse
 describeProvisionedProductPlanResponse
-    :: Int -- ^ 'dpppprsResponseStatus'
-    -> DescribeProvisionedProductPlanResponse
-describeProvisionedProductPlanResponse pResponseStatus_ =
-  DescribeProvisionedProductPlanResponse'
-    { _dpppprsNextPageToken = Nothing
-    , _dpppprsProvisionedProductPlanDetails = Nothing
-    , _dpppprsResourceChanges = Nothing
-    , _dpppprsResponseStatus = pResponseStatus_
-    }
-
-
--- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
-dpppprsNextPageToken :: Lens' DescribeProvisionedProductPlanResponse (Maybe Text)
-dpppprsNextPageToken = lens _dpppprsNextPageToken (\ s a -> s{_dpppprsNextPageToken = a})
-
--- | Information about the plan.
-dpppprsProvisionedProductPlanDetails :: Lens' DescribeProvisionedProductPlanResponse (Maybe ProvisionedProductPlanDetails)
-dpppprsProvisionedProductPlanDetails = lens _dpppprsProvisionedProductPlanDetails (\ s a -> s{_dpppprsProvisionedProductPlanDetails = a})
+  pResponseStatus_ =
+    DescribeProvisionedProductPlanResponse'
+      { _dppprrsResourceChanges =
+          Nothing,
+        _dppprrsNextPageToken = Nothing,
+        _dppprrsProvisionedProductPlanDetails =
+          Nothing,
+        _dppprrsResponseStatus =
+          pResponseStatus_
+      }
 
 -- | Information about the resource changes that will occur when the plan is executed.
-dpppprsResourceChanges :: Lens' DescribeProvisionedProductPlanResponse [ResourceChange]
-dpppprsResourceChanges = lens _dpppprsResourceChanges (\ s a -> s{_dpppprsResourceChanges = a}) . _Default . _Coerce
+dppprrsResourceChanges :: Lens' DescribeProvisionedProductPlanResponse [ResourceChange]
+dppprrsResourceChanges = lens _dppprrsResourceChanges (\s a -> s {_dppprrsResourceChanges = a}) . _Default . _Coerce
+
+-- | The page token to use to retrieve the next set of results. If there are no additional results, this value is null.
+dppprrsNextPageToken :: Lens' DescribeProvisionedProductPlanResponse (Maybe Text)
+dppprrsNextPageToken = lens _dppprrsNextPageToken (\s a -> s {_dppprrsNextPageToken = a})
+
+-- | Information about the plan.
+dppprrsProvisionedProductPlanDetails :: Lens' DescribeProvisionedProductPlanResponse (Maybe ProvisionedProductPlanDetails)
+dppprrsProvisionedProductPlanDetails = lens _dppprrsProvisionedProductPlanDetails (\s a -> s {_dppprrsProvisionedProductPlanDetails = a})
 
 -- | -- | The response status code.
-dpppprsResponseStatus :: Lens' DescribeProvisionedProductPlanResponse Int
-dpppprsResponseStatus = lens _dpppprsResponseStatus (\ s a -> s{_dpppprsResponseStatus = a})
+dppprrsResponseStatus :: Lens' DescribeProvisionedProductPlanResponse Int
+dppprrsResponseStatus = lens _dppprrsResponseStatus (\s a -> s {_dppprrsResponseStatus = a})
 
-instance NFData
-           DescribeProvisionedProductPlanResponse
-         where
+instance
+  NFData
+    DescribeProvisionedProductPlanResponse
