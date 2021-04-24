@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Pricing.DescribeServices
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,174 +23,196 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.Pricing.DescribeServices
-    (
-    -- * Creating a Request
-      describeServices
-    , DescribeServices
+  ( -- * Creating a Request
+    describeServices,
+    DescribeServices,
+
     -- * Request Lenses
-    , dsFormatVersion
-    , dsNextToken
-    , dsServiceCode
-    , dsMaxResults
+    dsNextToken,
+    dsMaxResults,
+    dsServiceCode,
+    dsFormatVersion,
 
     -- * Destructuring the Response
-    , describeServicesResponse
-    , DescribeServicesResponse
+    describeServicesResponse,
+    DescribeServicesResponse,
+
     -- * Response Lenses
-    , dsrsFormatVersion
-    , dsrsNextToken
-    , dsrsServices
-    , dsrsResponseStatus
-    ) where
+    dsrrsNextToken,
+    dsrrsServices,
+    dsrrsFormatVersion,
+    dsrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Pricing.Types
-import Network.AWS.Pricing.Types.Product
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'describeServices' smart constructor.
 data DescribeServices = DescribeServices'
-  { _dsFormatVersion :: !(Maybe Text)
-  , _dsNextToken     :: !(Maybe Text)
-  , _dsServiceCode   :: !(Maybe Text)
-  , _dsMaxResults    :: !(Maybe Nat)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dsNextToken ::
+      !(Maybe Text),
+    _dsMaxResults :: !(Maybe Nat),
+    _dsServiceCode :: !(Maybe Text),
+    _dsFormatVersion :: !(Maybe Text)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeServices' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dsFormatVersion' - The format version that you want the response to be in. Valid values are: @aws_v1@
---
 -- * 'dsNextToken' - The pagination token that indicates the next set of results that you want to retrieve.
+--
+-- * 'dsMaxResults' - The maximum number of results that you want returned in the response.
 --
 -- * 'dsServiceCode' - The code for the service whose information you want to retrieve, such as @AmazonEC2@ . You can use the @ServiceCode@ to filter the results in a @GetProducts@ call. To retrieve a list of all services, leave this blank.
 --
--- * 'dsMaxResults' - The maximum number of results that you want returned in the response.
-describeServices
-    :: DescribeServices
+-- * 'dsFormatVersion' - The format version that you want the response to be in. Valid values are: @aws_v1@
+describeServices ::
+  DescribeServices
 describeServices =
   DescribeServices'
-    { _dsFormatVersion = Nothing
-    , _dsNextToken = Nothing
-    , _dsServiceCode = Nothing
-    , _dsMaxResults = Nothing
+    { _dsNextToken = Nothing,
+      _dsMaxResults = Nothing,
+      _dsServiceCode = Nothing,
+      _dsFormatVersion = Nothing
     }
-
-
--- | The format version that you want the response to be in. Valid values are: @aws_v1@
-dsFormatVersion :: Lens' DescribeServices (Maybe Text)
-dsFormatVersion = lens _dsFormatVersion (\ s a -> s{_dsFormatVersion = a})
 
 -- | The pagination token that indicates the next set of results that you want to retrieve.
 dsNextToken :: Lens' DescribeServices (Maybe Text)
-dsNextToken = lens _dsNextToken (\ s a -> s{_dsNextToken = a})
-
--- | The code for the service whose information you want to retrieve, such as @AmazonEC2@ . You can use the @ServiceCode@ to filter the results in a @GetProducts@ call. To retrieve a list of all services, leave this blank.
-dsServiceCode :: Lens' DescribeServices (Maybe Text)
-dsServiceCode = lens _dsServiceCode (\ s a -> s{_dsServiceCode = a})
+dsNextToken = lens _dsNextToken (\s a -> s {_dsNextToken = a})
 
 -- | The maximum number of results that you want returned in the response.
 dsMaxResults :: Lens' DescribeServices (Maybe Natural)
-dsMaxResults = lens _dsMaxResults (\ s a -> s{_dsMaxResults = a}) . mapping _Nat
+dsMaxResults = lens _dsMaxResults (\s a -> s {_dsMaxResults = a}) . mapping _Nat
+
+-- | The code for the service whose information you want to retrieve, such as @AmazonEC2@ . You can use the @ServiceCode@ to filter the results in a @GetProducts@ call. To retrieve a list of all services, leave this blank.
+dsServiceCode :: Lens' DescribeServices (Maybe Text)
+dsServiceCode = lens _dsServiceCode (\s a -> s {_dsServiceCode = a})
+
+-- | The format version that you want the response to be in. Valid values are: @aws_v1@
+dsFormatVersion :: Lens' DescribeServices (Maybe Text)
+dsFormatVersion = lens _dsFormatVersion (\s a -> s {_dsFormatVersion = a})
 
 instance AWSPager DescribeServices where
-        page rq rs
-          | stop (rs ^. dsrsNextToken) = Nothing
-          | stop (rs ^. dsrsServices) = Nothing
-          | otherwise =
-            Just $ rq & dsNextToken .~ rs ^. dsrsNextToken
+  page rq rs
+    | stop (rs ^. dsrrsNextToken) = Nothing
+    | stop (rs ^. dsrrsServices) = Nothing
+    | otherwise =
+      Just $ rq & dsNextToken .~ rs ^. dsrrsNextToken
 
 instance AWSRequest DescribeServices where
-        type Rs DescribeServices = DescribeServicesResponse
-        request = postJSON pricing
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeServicesResponse' <$>
-                   (x .?> "FormatVersion") <*> (x .?> "NextToken") <*>
-                     (x .?> "Services" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type Rs DescribeServices = DescribeServicesResponse
+  request = postJSON pricing
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeServicesResponse'
+            <$> (x .?> "NextToken")
+            <*> (x .?> "Services" .!@ mempty)
+            <*> (x .?> "FormatVersion")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeServices where
+instance Hashable DescribeServices
 
-instance NFData DescribeServices where
+instance NFData DescribeServices
 
 instance ToHeaders DescribeServices where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSPriceListService.DescribeServices" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWSPriceListService.DescribeServices" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeServices where
-        toJSON DescribeServices'{..}
-          = object
-              (catMaybes
-                 [("FormatVersion" .=) <$> _dsFormatVersion,
-                  ("NextToken" .=) <$> _dsNextToken,
-                  ("ServiceCode" .=) <$> _dsServiceCode,
-                  ("MaxResults" .=) <$> _dsMaxResults])
+  toJSON DescribeServices' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _dsNextToken,
+            ("MaxResults" .=) <$> _dsMaxResults,
+            ("ServiceCode" .=) <$> _dsServiceCode,
+            ("FormatVersion" .=) <$> _dsFormatVersion
+          ]
+      )
 
 instance ToPath DescribeServices where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeServices where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describeServicesResponse' smart constructor.
 data DescribeServicesResponse = DescribeServicesResponse'
-  { _dsrsFormatVersion  :: !(Maybe Text)
-  , _dsrsNextToken      :: !(Maybe Text)
-  , _dsrsServices       :: !(Maybe [PricingService])
-  , _dsrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dsrrsNextToken ::
+      !(Maybe Text),
+    _dsrrsServices ::
+      !( Maybe
+           [PricingService]
+       ),
+    _dsrrsFormatVersion ::
+      !(Maybe Text),
+    _dsrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeServicesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dsrsFormatVersion' - The format version of the response. For example, @aws_v1@ .
+-- * 'dsrrsNextToken' - The pagination token for the next set of retreivable results.
 --
--- * 'dsrsNextToken' - The pagination token for the next set of retreivable results.
+-- * 'dsrrsServices' - The service metadata for the service or services in the response.
 --
--- * 'dsrsServices' - The service metadata for the service or services in the response.
+-- * 'dsrrsFormatVersion' - The format version of the response. For example, @aws_v1@ .
 --
--- * 'dsrsResponseStatus' - -- | The response status code.
-describeServicesResponse
-    :: Int -- ^ 'dsrsResponseStatus'
-    -> DescribeServicesResponse
+-- * 'dsrrsResponseStatus' - -- | The response status code.
+describeServicesResponse ::
+  -- | 'dsrrsResponseStatus'
+  Int ->
+  DescribeServicesResponse
 describeServicesResponse pResponseStatus_ =
   DescribeServicesResponse'
-    { _dsrsFormatVersion = Nothing
-    , _dsrsNextToken = Nothing
-    , _dsrsServices = Nothing
-    , _dsrsResponseStatus = pResponseStatus_
+    { _dsrrsNextToken =
+        Nothing,
+      _dsrrsServices = Nothing,
+      _dsrrsFormatVersion = Nothing,
+      _dsrrsResponseStatus = pResponseStatus_
     }
 
-
--- | The format version of the response. For example, @aws_v1@ .
-dsrsFormatVersion :: Lens' DescribeServicesResponse (Maybe Text)
-dsrsFormatVersion = lens _dsrsFormatVersion (\ s a -> s{_dsrsFormatVersion = a})
-
 -- | The pagination token for the next set of retreivable results.
-dsrsNextToken :: Lens' DescribeServicesResponse (Maybe Text)
-dsrsNextToken = lens _dsrsNextToken (\ s a -> s{_dsrsNextToken = a})
+dsrrsNextToken :: Lens' DescribeServicesResponse (Maybe Text)
+dsrrsNextToken = lens _dsrrsNextToken (\s a -> s {_dsrrsNextToken = a})
 
 -- | The service metadata for the service or services in the response.
-dsrsServices :: Lens' DescribeServicesResponse [PricingService]
-dsrsServices = lens _dsrsServices (\ s a -> s{_dsrsServices = a}) . _Default . _Coerce
+dsrrsServices :: Lens' DescribeServicesResponse [PricingService]
+dsrrsServices = lens _dsrrsServices (\s a -> s {_dsrrsServices = a}) . _Default . _Coerce
+
+-- | The format version of the response. For example, @aws_v1@ .
+dsrrsFormatVersion :: Lens' DescribeServicesResponse (Maybe Text)
+dsrrsFormatVersion = lens _dsrrsFormatVersion (\s a -> s {_dsrrsFormatVersion = a})
 
 -- | -- | The response status code.
-dsrsResponseStatus :: Lens' DescribeServicesResponse Int
-dsrsResponseStatus = lens _dsrsResponseStatus (\ s a -> s{_dsrsResponseStatus = a})
+dsrrsResponseStatus :: Lens' DescribeServicesResponse Int
+dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
 
-instance NFData DescribeServicesResponse where
+instance NFData DescribeServicesResponse
