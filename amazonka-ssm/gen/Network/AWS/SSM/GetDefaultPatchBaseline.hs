@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.SSM.GetDefaultPatchBaseline
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,126 +21,158 @@
 --
 --
 -- If you do not specify an operating system value, the default patch baseline for Windows is returned.
---
 module Network.AWS.SSM.GetDefaultPatchBaseline
-    (
-    -- * Creating a Request
-      getDefaultPatchBaseline
-    , GetDefaultPatchBaseline
+  ( -- * Creating a Request
+    getDefaultPatchBaseline,
+    GetDefaultPatchBaseline,
+
     -- * Request Lenses
-    , gdpbOperatingSystem
+    gdpbOperatingSystem,
 
     -- * Destructuring the Response
-    , getDefaultPatchBaselineResponse
-    , GetDefaultPatchBaselineResponse
+    getDefaultPatchBaselineResponse,
+    GetDefaultPatchBaselineResponse,
+
     -- * Response Lenses
-    , gdpbrsOperatingSystem
-    , gdpbrsBaselineId
-    , gdpbrsResponseStatus
-    ) where
+    gdpbrrsBaselineId,
+    gdpbrrsOperatingSystem,
+    gdpbrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.SSM.Types
-import Network.AWS.SSM.Types.Product
 
 -- | /See:/ 'getDefaultPatchBaseline' smart constructor.
 newtype GetDefaultPatchBaseline = GetDefaultPatchBaseline'
-  { _gdpbOperatingSystem :: Maybe OperatingSystem
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gdpbOperatingSystem ::
+      Maybe
+        OperatingSystem
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetDefaultPatchBaseline' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'gdpbOperatingSystem' - Returns the default patch baseline for the specified operating system.
-getDefaultPatchBaseline
-    :: GetDefaultPatchBaseline
+getDefaultPatchBaseline ::
+  GetDefaultPatchBaseline
 getDefaultPatchBaseline =
-  GetDefaultPatchBaseline' {_gdpbOperatingSystem = Nothing}
-
+  GetDefaultPatchBaseline'
+    { _gdpbOperatingSystem =
+        Nothing
+    }
 
 -- | Returns the default patch baseline for the specified operating system.
 gdpbOperatingSystem :: Lens' GetDefaultPatchBaseline (Maybe OperatingSystem)
-gdpbOperatingSystem = lens _gdpbOperatingSystem (\ s a -> s{_gdpbOperatingSystem = a})
+gdpbOperatingSystem = lens _gdpbOperatingSystem (\s a -> s {_gdpbOperatingSystem = a})
 
 instance AWSRequest GetDefaultPatchBaseline where
-        type Rs GetDefaultPatchBaseline =
-             GetDefaultPatchBaselineResponse
-        request = postJSON ssm
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetDefaultPatchBaselineResponse' <$>
-                   (x .?> "OperatingSystem") <*> (x .?> "BaselineId")
-                     <*> (pure (fromEnum s)))
+  type
+    Rs GetDefaultPatchBaseline =
+      GetDefaultPatchBaselineResponse
+  request = postJSON ssm
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetDefaultPatchBaselineResponse'
+            <$> (x .?> "BaselineId")
+            <*> (x .?> "OperatingSystem")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetDefaultPatchBaseline where
+instance Hashable GetDefaultPatchBaseline
 
-instance NFData GetDefaultPatchBaseline where
+instance NFData GetDefaultPatchBaseline
 
 instance ToHeaders GetDefaultPatchBaseline where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AmazonSSM.GetDefaultPatchBaseline" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("AmazonSSM.GetDefaultPatchBaseline" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON GetDefaultPatchBaseline where
-        toJSON GetDefaultPatchBaseline'{..}
-          = object
-              (catMaybes
-                 [("OperatingSystem" .=) <$> _gdpbOperatingSystem])
+  toJSON GetDefaultPatchBaseline' {..} =
+    object
+      ( catMaybes
+          [("OperatingSystem" .=) <$> _gdpbOperatingSystem]
+      )
 
 instance ToPath GetDefaultPatchBaseline where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetDefaultPatchBaseline where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getDefaultPatchBaselineResponse' smart constructor.
 data GetDefaultPatchBaselineResponse = GetDefaultPatchBaselineResponse'
-  { _gdpbrsOperatingSystem :: !(Maybe OperatingSystem)
-  , _gdpbrsBaselineId      :: !(Maybe Text)
-  , _gdpbrsResponseStatus  :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gdpbrrsBaselineId ::
+      !( Maybe
+           Text
+       ),
+    _gdpbrrsOperatingSystem ::
+      !( Maybe
+           OperatingSystem
+       ),
+    _gdpbrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetDefaultPatchBaselineResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gdpbrsOperatingSystem' - The operating system for the returned patch baseline.
+-- * 'gdpbrrsBaselineId' - The ID of the default patch baseline.
 --
--- * 'gdpbrsBaselineId' - The ID of the default patch baseline.
+-- * 'gdpbrrsOperatingSystem' - The operating system for the returned patch baseline.
 --
--- * 'gdpbrsResponseStatus' - -- | The response status code.
-getDefaultPatchBaselineResponse
-    :: Int -- ^ 'gdpbrsResponseStatus'
-    -> GetDefaultPatchBaselineResponse
+-- * 'gdpbrrsResponseStatus' - -- | The response status code.
+getDefaultPatchBaselineResponse ::
+  -- | 'gdpbrrsResponseStatus'
+  Int ->
+  GetDefaultPatchBaselineResponse
 getDefaultPatchBaselineResponse pResponseStatus_ =
   GetDefaultPatchBaselineResponse'
-    { _gdpbrsOperatingSystem = Nothing
-    , _gdpbrsBaselineId = Nothing
-    , _gdpbrsResponseStatus = pResponseStatus_
+    { _gdpbrrsBaselineId =
+        Nothing,
+      _gdpbrrsOperatingSystem = Nothing,
+      _gdpbrrsResponseStatus = pResponseStatus_
     }
 
+-- | The ID of the default patch baseline.
+gdpbrrsBaselineId :: Lens' GetDefaultPatchBaselineResponse (Maybe Text)
+gdpbrrsBaselineId = lens _gdpbrrsBaselineId (\s a -> s {_gdpbrrsBaselineId = a})
 
 -- | The operating system for the returned patch baseline.
-gdpbrsOperatingSystem :: Lens' GetDefaultPatchBaselineResponse (Maybe OperatingSystem)
-gdpbrsOperatingSystem = lens _gdpbrsOperatingSystem (\ s a -> s{_gdpbrsOperatingSystem = a})
-
--- | The ID of the default patch baseline.
-gdpbrsBaselineId :: Lens' GetDefaultPatchBaselineResponse (Maybe Text)
-gdpbrsBaselineId = lens _gdpbrsBaselineId (\ s a -> s{_gdpbrsBaselineId = a})
+gdpbrrsOperatingSystem :: Lens' GetDefaultPatchBaselineResponse (Maybe OperatingSystem)
+gdpbrrsOperatingSystem = lens _gdpbrrsOperatingSystem (\s a -> s {_gdpbrrsOperatingSystem = a})
 
 -- | -- | The response status code.
-gdpbrsResponseStatus :: Lens' GetDefaultPatchBaselineResponse Int
-gdpbrsResponseStatus = lens _gdpbrsResponseStatus (\ s a -> s{_gdpbrsResponseStatus = a})
+gdpbrrsResponseStatus :: Lens' GetDefaultPatchBaselineResponse Int
+gdpbrrsResponseStatus = lens _gdpbrrsResponseStatus (\s a -> s {_gdpbrrsResponseStatus = a})
 
-instance NFData GetDefaultPatchBaselineResponse where
+instance NFData GetDefaultPatchBaselineResponse

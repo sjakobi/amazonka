@@ -1,49 +1,50 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.SSM.ListCommandInvocations
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- An invocation is copy of a command sent to a specific instance. A command can apply to one or more instances. A command invocation applies to one instance. For example, if a user executes SendCommand against three instances, then a command invocation is created for each requested instance ID. ListCommandInvocations provide status about command execution.
+-- An invocation is copy of a command sent to a specific instance. A command can apply to one or more instances. A command invocation applies to one instance. For example, if a user runs SendCommand against three instances, then a command invocation is created for each requested instance ID. ListCommandInvocations provide status about command execution.
 --
 --
 --
 -- This operation returns paginated results.
 module Network.AWS.SSM.ListCommandInvocations
-    (
-    -- * Creating a Request
-      listCommandInvocations
-    , ListCommandInvocations
+  ( -- * Creating a Request
+    listCommandInvocations,
+    ListCommandInvocations,
+
     -- * Request Lenses
-    , lciInstanceId
-    , lciFilters
-    , lciNextToken
-    , lciCommandId
-    , lciDetails
-    , lciMaxResults
+    lNextToken,
+    lInstanceId,
+    lMaxResults,
+    lCommandId,
+    lDetails,
+    lFilters,
 
     -- * Destructuring the Response
-    , listCommandInvocationsResponse
-    , ListCommandInvocationsResponse
+    listCommandInvocationsResponse,
+    ListCommandInvocationsResponse,
+
     -- * Response Lenses
-    , lrsNextToken
-    , lrsCommandInvocations
-    , lrsResponseStatus
-    ) where
+    lcirrsNextToken,
+    lcirrsCommandInvocations,
+    lcirrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Pager
@@ -51,158 +52,194 @@ import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.SSM.Types
-import Network.AWS.SSM.Types.Product
 
 -- | /See:/ 'listCommandInvocations' smart constructor.
 data ListCommandInvocations = ListCommandInvocations'
-  { _lciInstanceId :: !(Maybe Text)
-  , _lciFilters    :: !(Maybe (List1 CommandFilter))
-  , _lciNextToken  :: !(Maybe Text)
-  , _lciCommandId  :: !(Maybe Text)
-  , _lciDetails    :: !(Maybe Bool)
-  , _lciMaxResults :: !(Maybe Nat)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lNextToken ::
+      !(Maybe Text),
+    _lInstanceId ::
+      !(Maybe Text),
+    _lMaxResults ::
+      !(Maybe Nat),
+    _lCommandId ::
+      !(Maybe Text),
+    _lDetails ::
+      !(Maybe Bool),
+    _lFilters ::
+      !( Maybe
+           ( List1
+               CommandFilter
+           )
+       )
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListCommandInvocations' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lciInstanceId' - (Optional) The command execution details for a specific instance ID.
+-- * 'lNextToken' - (Optional) The token for the next set of items to return. (You received this token from a previous call.)
 --
--- * 'lciFilters' - (Optional) One or more filters. Use a filter to return a more specific list of results.
+-- * 'lInstanceId' - (Optional) The command execution details for a specific instance ID.
 --
--- * 'lciNextToken' - (Optional) The token for the next set of items to return. (You received this token from a previous call.)
+-- * 'lMaxResults' - (Optional) The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
 --
--- * 'lciCommandId' - (Optional) The invocations for a specific command ID.
+-- * 'lCommandId' - (Optional) The invocations for a specific command ID.
 --
--- * 'lciDetails' - (Optional) If set this returns the response of the command executions and any command output. By default this is set to False.
+-- * 'lDetails' - (Optional) If set this returns the response of the command executions and any command output. By default this is set to False.
 --
--- * 'lciMaxResults' - (Optional) The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-listCommandInvocations
-    :: ListCommandInvocations
+-- * 'lFilters' - (Optional) One or more filters. Use a filter to return a more specific list of results.
+listCommandInvocations ::
+  ListCommandInvocations
 listCommandInvocations =
   ListCommandInvocations'
-    { _lciInstanceId = Nothing
-    , _lciFilters = Nothing
-    , _lciNextToken = Nothing
-    , _lciCommandId = Nothing
-    , _lciDetails = Nothing
-    , _lciMaxResults = Nothing
+    { _lNextToken = Nothing,
+      _lInstanceId = Nothing,
+      _lMaxResults = Nothing,
+      _lCommandId = Nothing,
+      _lDetails = Nothing,
+      _lFilters = Nothing
     }
 
+-- | (Optional) The token for the next set of items to return. (You received this token from a previous call.)
+lNextToken :: Lens' ListCommandInvocations (Maybe Text)
+lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
 
 -- | (Optional) The command execution details for a specific instance ID.
-lciInstanceId :: Lens' ListCommandInvocations (Maybe Text)
-lciInstanceId = lens _lciInstanceId (\ s a -> s{_lciInstanceId = a})
-
--- | (Optional) One or more filters. Use a filter to return a more specific list of results.
-lciFilters :: Lens' ListCommandInvocations (Maybe (NonEmpty CommandFilter))
-lciFilters = lens _lciFilters (\ s a -> s{_lciFilters = a}) . mapping _List1
-
--- | (Optional) The token for the next set of items to return. (You received this token from a previous call.)
-lciNextToken :: Lens' ListCommandInvocations (Maybe Text)
-lciNextToken = lens _lciNextToken (\ s a -> s{_lciNextToken = a})
-
--- | (Optional) The invocations for a specific command ID.
-lciCommandId :: Lens' ListCommandInvocations (Maybe Text)
-lciCommandId = lens _lciCommandId (\ s a -> s{_lciCommandId = a})
-
--- | (Optional) If set this returns the response of the command executions and any command output. By default this is set to False.
-lciDetails :: Lens' ListCommandInvocations (Maybe Bool)
-lciDetails = lens _lciDetails (\ s a -> s{_lciDetails = a})
+lInstanceId :: Lens' ListCommandInvocations (Maybe Text)
+lInstanceId = lens _lInstanceId (\s a -> s {_lInstanceId = a})
 
 -- | (Optional) The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.
-lciMaxResults :: Lens' ListCommandInvocations (Maybe Natural)
-lciMaxResults = lens _lciMaxResults (\ s a -> s{_lciMaxResults = a}) . mapping _Nat
+lMaxResults :: Lens' ListCommandInvocations (Maybe Natural)
+lMaxResults = lens _lMaxResults (\s a -> s {_lMaxResults = a}) . mapping _Nat
+
+-- | (Optional) The invocations for a specific command ID.
+lCommandId :: Lens' ListCommandInvocations (Maybe Text)
+lCommandId = lens _lCommandId (\s a -> s {_lCommandId = a})
+
+-- | (Optional) If set this returns the response of the command executions and any command output. By default this is set to False.
+lDetails :: Lens' ListCommandInvocations (Maybe Bool)
+lDetails = lens _lDetails (\s a -> s {_lDetails = a})
+
+-- | (Optional) One or more filters. Use a filter to return a more specific list of results.
+lFilters :: Lens' ListCommandInvocations (Maybe (NonEmpty CommandFilter))
+lFilters = lens _lFilters (\s a -> s {_lFilters = a}) . mapping _List1
 
 instance AWSPager ListCommandInvocations where
-        page rq rs
-          | stop (rs ^. lrsNextToken) = Nothing
-          | stop (rs ^. lrsCommandInvocations) = Nothing
-          | otherwise =
-            Just $ rq & lciNextToken .~ rs ^. lrsNextToken
+  page rq rs
+    | stop (rs ^. lcirrsNextToken) = Nothing
+    | stop (rs ^. lcirrsCommandInvocations) = Nothing
+    | otherwise =
+      Just $ rq & lNextToken .~ rs ^. lcirrsNextToken
 
 instance AWSRequest ListCommandInvocations where
-        type Rs ListCommandInvocations =
-             ListCommandInvocationsResponse
-        request = postJSON ssm
-        response
-          = receiveJSON
-              (\ s h x ->
-                 ListCommandInvocationsResponse' <$>
-                   (x .?> "NextToken") <*>
-                     (x .?> "CommandInvocations" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type
+    Rs ListCommandInvocations =
+      ListCommandInvocationsResponse
+  request = postJSON ssm
+  response =
+    receiveJSON
+      ( \s h x ->
+          ListCommandInvocationsResponse'
+            <$> (x .?> "NextToken")
+            <*> (x .?> "CommandInvocations" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable ListCommandInvocations where
+instance Hashable ListCommandInvocations
 
-instance NFData ListCommandInvocations where
+instance NFData ListCommandInvocations
 
 instance ToHeaders ListCommandInvocations where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AmazonSSM.ListCommandInvocations" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("AmazonSSM.ListCommandInvocations" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON ListCommandInvocations where
-        toJSON ListCommandInvocations'{..}
-          = object
-              (catMaybes
-                 [("InstanceId" .=) <$> _lciInstanceId,
-                  ("Filters" .=) <$> _lciFilters,
-                  ("NextToken" .=) <$> _lciNextToken,
-                  ("CommandId" .=) <$> _lciCommandId,
-                  ("Details" .=) <$> _lciDetails,
-                  ("MaxResults" .=) <$> _lciMaxResults])
+  toJSON ListCommandInvocations' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _lNextToken,
+            ("InstanceId" .=) <$> _lInstanceId,
+            ("MaxResults" .=) <$> _lMaxResults,
+            ("CommandId" .=) <$> _lCommandId,
+            ("Details" .=) <$> _lDetails,
+            ("Filters" .=) <$> _lFilters
+          ]
+      )
 
 instance ToPath ListCommandInvocations where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery ListCommandInvocations where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'listCommandInvocationsResponse' smart constructor.
 data ListCommandInvocationsResponse = ListCommandInvocationsResponse'
-  { _lrsNextToken          :: !(Maybe Text)
-  , _lrsCommandInvocations :: !(Maybe [CommandInvocation])
-  , _lrsResponseStatus     :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lcirrsNextToken ::
+      !( Maybe
+           Text
+       ),
+    _lcirrsCommandInvocations ::
+      !( Maybe
+           [CommandInvocation]
+       ),
+    _lcirrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListCommandInvocationsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lrsNextToken' - (Optional) The token for the next set of items to return. (You received this token from a previous call.)
+-- * 'lcirrsNextToken' - (Optional) The token for the next set of items to return. (You received this token from a previous call.)
 --
--- * 'lrsCommandInvocations' - (Optional) A list of all invocations.
+-- * 'lcirrsCommandInvocations' - (Optional) A list of all invocations.
 --
--- * 'lrsResponseStatus' - -- | The response status code.
-listCommandInvocationsResponse
-    :: Int -- ^ 'lrsResponseStatus'
-    -> ListCommandInvocationsResponse
+-- * 'lcirrsResponseStatus' - -- | The response status code.
+listCommandInvocationsResponse ::
+  -- | 'lcirrsResponseStatus'
+  Int ->
+  ListCommandInvocationsResponse
 listCommandInvocationsResponse pResponseStatus_ =
   ListCommandInvocationsResponse'
-    { _lrsNextToken = Nothing
-    , _lrsCommandInvocations = Nothing
-    , _lrsResponseStatus = pResponseStatus_
+    { _lcirrsNextToken =
+        Nothing,
+      _lcirrsCommandInvocations = Nothing,
+      _lcirrsResponseStatus = pResponseStatus_
     }
 
-
 -- | (Optional) The token for the next set of items to return. (You received this token from a previous call.)
-lrsNextToken :: Lens' ListCommandInvocationsResponse (Maybe Text)
-lrsNextToken = lens _lrsNextToken (\ s a -> s{_lrsNextToken = a})
+lcirrsNextToken :: Lens' ListCommandInvocationsResponse (Maybe Text)
+lcirrsNextToken = lens _lcirrsNextToken (\s a -> s {_lcirrsNextToken = a})
 
 -- | (Optional) A list of all invocations.
-lrsCommandInvocations :: Lens' ListCommandInvocationsResponse [CommandInvocation]
-lrsCommandInvocations = lens _lrsCommandInvocations (\ s a -> s{_lrsCommandInvocations = a}) . _Default . _Coerce
+lcirrsCommandInvocations :: Lens' ListCommandInvocationsResponse [CommandInvocation]
+lcirrsCommandInvocations = lens _lcirrsCommandInvocations (\s a -> s {_lcirrsCommandInvocations = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-lrsResponseStatus :: Lens' ListCommandInvocationsResponse Int
-lrsResponseStatus = lens _lrsResponseStatus (\ s a -> s{_lrsResponseStatus = a})
+lcirrsResponseStatus :: Lens' ListCommandInvocationsResponse Int
+lcirrsResponseStatus = lens _lcirrsResponseStatus (\s a -> s {_lcirrsResponseStatus = a})
 
-instance NFData ListCommandInvocationsResponse where
+instance NFData ListCommandInvocationsResponse

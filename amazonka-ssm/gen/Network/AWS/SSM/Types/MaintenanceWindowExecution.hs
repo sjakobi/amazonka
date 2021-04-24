@@ -1,0 +1,119 @@
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+
+-- Derived from AWS service descriptions, licensed under Apache 2.0.
+
+-- |
+-- Module      : Network.AWS.SSM.Types.MaintenanceWindowExecution
+-- Copyright   : (c) 2013-2021 Brendan Hay
+-- License     : Mozilla Public License, v. 2.0.
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+-- Stability   : auto-generated
+-- Portability : non-portable (GHC extensions)
+module Network.AWS.SSM.Types.MaintenanceWindowExecution where
+
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.SSM.Types.MaintenanceWindowExecutionStatus
+
+-- | Describes the information about an execution of a maintenance window.
+--
+--
+--
+-- /See:/ 'maintenanceWindowExecution' smart constructor.
+data MaintenanceWindowExecution = MaintenanceWindowExecution'
+  { _mweStatus ::
+      !( Maybe
+           MaintenanceWindowExecutionStatus
+       ),
+    _mweStatusDetails ::
+      !(Maybe Text),
+    _mweStartTime ::
+      !(Maybe POSIX),
+    _mweEndTime ::
+      !(Maybe POSIX),
+    _mweWindowId ::
+      !(Maybe Text),
+    _mweWindowExecutionId ::
+      !(Maybe Text)
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
+
+-- | Creates a value of 'MaintenanceWindowExecution' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'mweStatus' - The status of the execution.
+--
+-- * 'mweStatusDetails' - The details explaining the Status. Only available for certain status values.
+--
+-- * 'mweStartTime' - The time the execution started.
+--
+-- * 'mweEndTime' - The time the execution finished.
+--
+-- * 'mweWindowId' - The ID of the maintenance window.
+--
+-- * 'mweWindowExecutionId' - The ID of the maintenance window execution.
+maintenanceWindowExecution ::
+  MaintenanceWindowExecution
+maintenanceWindowExecution =
+  MaintenanceWindowExecution'
+    { _mweStatus = Nothing,
+      _mweStatusDetails = Nothing,
+      _mweStartTime = Nothing,
+      _mweEndTime = Nothing,
+      _mweWindowId = Nothing,
+      _mweWindowExecutionId = Nothing
+    }
+
+-- | The status of the execution.
+mweStatus :: Lens' MaintenanceWindowExecution (Maybe MaintenanceWindowExecutionStatus)
+mweStatus = lens _mweStatus (\s a -> s {_mweStatus = a})
+
+-- | The details explaining the Status. Only available for certain status values.
+mweStatusDetails :: Lens' MaintenanceWindowExecution (Maybe Text)
+mweStatusDetails = lens _mweStatusDetails (\s a -> s {_mweStatusDetails = a})
+
+-- | The time the execution started.
+mweStartTime :: Lens' MaintenanceWindowExecution (Maybe UTCTime)
+mweStartTime = lens _mweStartTime (\s a -> s {_mweStartTime = a}) . mapping _Time
+
+-- | The time the execution finished.
+mweEndTime :: Lens' MaintenanceWindowExecution (Maybe UTCTime)
+mweEndTime = lens _mweEndTime (\s a -> s {_mweEndTime = a}) . mapping _Time
+
+-- | The ID of the maintenance window.
+mweWindowId :: Lens' MaintenanceWindowExecution (Maybe Text)
+mweWindowId = lens _mweWindowId (\s a -> s {_mweWindowId = a})
+
+-- | The ID of the maintenance window execution.
+mweWindowExecutionId :: Lens' MaintenanceWindowExecution (Maybe Text)
+mweWindowExecutionId = lens _mweWindowExecutionId (\s a -> s {_mweWindowExecutionId = a})
+
+instance FromJSON MaintenanceWindowExecution where
+  parseJSON =
+    withObject
+      "MaintenanceWindowExecution"
+      ( \x ->
+          MaintenanceWindowExecution'
+            <$> (x .:? "Status")
+            <*> (x .:? "StatusDetails")
+            <*> (x .:? "StartTime")
+            <*> (x .:? "EndTime")
+            <*> (x .:? "WindowId")
+            <*> (x .:? "WindowExecutionId")
+      )
+
+instance Hashable MaintenanceWindowExecution
+
+instance NFData MaintenanceWindowExecution
