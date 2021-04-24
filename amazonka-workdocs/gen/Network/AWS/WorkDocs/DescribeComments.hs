@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.WorkDocs.DescribeComments
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,161 +20,185 @@
 -- List all the comments for the specified document version.
 --
 --
+--
+-- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeComments
-    (
-    -- * Creating a Request
-      describeComments
-    , DescribeComments
+  ( -- * Creating a Request
+    describeComments,
+    DescribeComments,
+
     -- * Request Lenses
-    , dcAuthenticationToken
-    , dcMarker
-    , dcLimit
-    , dcDocumentId
-    , dcVersionId
+    dcsAuthenticationToken,
+    dcsLimit,
+    dcsMarker,
+    dcsDocumentId,
+    dcsVersionId,
 
     -- * Destructuring the Response
-    , describeCommentsResponse
-    , DescribeCommentsResponse
+    describeCommentsResponse,
+    DescribeCommentsResponse,
+
     -- * Response Lenses
-    , dcrsMarker
-    , dcrsComments
-    , dcrsResponseStatus
-    ) where
+    dcrrsComments,
+    dcrrsMarker,
+    dcrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
+import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.WorkDocs.Types
-import Network.AWS.WorkDocs.Types.Product
 
 -- | /See:/ 'describeComments' smart constructor.
 data DescribeComments = DescribeComments'
-  { _dcAuthenticationToken :: !(Maybe (Sensitive Text))
-  , _dcMarker              :: !(Maybe Text)
-  , _dcLimit               :: !(Maybe Nat)
-  , _dcDocumentId          :: !Text
-  , _dcVersionId           :: !Text
-  } deriving (Eq, Show, Data, Typeable, Generic)
-
+  { _dcsAuthenticationToken ::
+      !(Maybe (Sensitive Text)),
+    _dcsLimit :: !(Maybe Nat),
+    _dcsMarker :: !(Maybe Text),
+    _dcsDocumentId :: !Text,
+    _dcsVersionId :: !Text
+  }
+  deriving (Eq, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeComments' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dcAuthenticationToken' - Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in accessing the API using AWS credentials.
+-- * 'dcsAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
 --
--- * 'dcMarker' - The marker for the next set of results. This marker was received from a previous call.
+-- * 'dcsLimit' - The maximum number of items to return.
 --
--- * 'dcLimit' - The maximum number of items to return.
+-- * 'dcsMarker' - The marker for the next set of results. This marker was received from a previous call.
 --
--- * 'dcDocumentId' - The ID of the document.
+-- * 'dcsDocumentId' - The ID of the document.
 --
--- * 'dcVersionId' - The ID of the document version.
-describeComments
-    :: Text -- ^ 'dcDocumentId'
-    -> Text -- ^ 'dcVersionId'
-    -> DescribeComments
+-- * 'dcsVersionId' - The ID of the document version.
+describeComments ::
+  -- | 'dcsDocumentId'
+  Text ->
+  -- | 'dcsVersionId'
+  Text ->
+  DescribeComments
 describeComments pDocumentId_ pVersionId_ =
   DescribeComments'
-    { _dcAuthenticationToken = Nothing
-    , _dcMarker = Nothing
-    , _dcLimit = Nothing
-    , _dcDocumentId = pDocumentId_
-    , _dcVersionId = pVersionId_
+    { _dcsAuthenticationToken =
+        Nothing,
+      _dcsLimit = Nothing,
+      _dcsMarker = Nothing,
+      _dcsDocumentId = pDocumentId_,
+      _dcsVersionId = pVersionId_
     }
 
-
--- | Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in accessing the API using AWS credentials.
-dcAuthenticationToken :: Lens' DescribeComments (Maybe Text)
-dcAuthenticationToken = lens _dcAuthenticationToken (\ s a -> s{_dcAuthenticationToken = a}) . mapping _Sensitive
-
--- | The marker for the next set of results. This marker was received from a previous call.
-dcMarker :: Lens' DescribeComments (Maybe Text)
-dcMarker = lens _dcMarker (\ s a -> s{_dcMarker = a})
+-- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+dcsAuthenticationToken :: Lens' DescribeComments (Maybe Text)
+dcsAuthenticationToken = lens _dcsAuthenticationToken (\s a -> s {_dcsAuthenticationToken = a}) . mapping _Sensitive
 
 -- | The maximum number of items to return.
-dcLimit :: Lens' DescribeComments (Maybe Natural)
-dcLimit = lens _dcLimit (\ s a -> s{_dcLimit = a}) . mapping _Nat
+dcsLimit :: Lens' DescribeComments (Maybe Natural)
+dcsLimit = lens _dcsLimit (\s a -> s {_dcsLimit = a}) . mapping _Nat
+
+-- | The marker for the next set of results. This marker was received from a previous call.
+dcsMarker :: Lens' DescribeComments (Maybe Text)
+dcsMarker = lens _dcsMarker (\s a -> s {_dcsMarker = a})
 
 -- | The ID of the document.
-dcDocumentId :: Lens' DescribeComments Text
-dcDocumentId = lens _dcDocumentId (\ s a -> s{_dcDocumentId = a})
+dcsDocumentId :: Lens' DescribeComments Text
+dcsDocumentId = lens _dcsDocumentId (\s a -> s {_dcsDocumentId = a})
 
 -- | The ID of the document version.
-dcVersionId :: Lens' DescribeComments Text
-dcVersionId = lens _dcVersionId (\ s a -> s{_dcVersionId = a})
+dcsVersionId :: Lens' DescribeComments Text
+dcsVersionId = lens _dcsVersionId (\s a -> s {_dcsVersionId = a})
+
+instance AWSPager DescribeComments where
+  page rq rs
+    | stop (rs ^. dcrrsMarker) = Nothing
+    | stop (rs ^. dcrrsComments) = Nothing
+    | otherwise =
+      Just $ rq & dcsMarker .~ rs ^. dcrrsMarker
 
 instance AWSRequest DescribeComments where
-        type Rs DescribeComments = DescribeCommentsResponse
-        request = get workDocs
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeCommentsResponse' <$>
-                   (x .?> "Marker") <*> (x .?> "Comments" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type Rs DescribeComments = DescribeCommentsResponse
+  request = get workDocs
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeCommentsResponse'
+            <$> (x .?> "Comments" .!@ mempty)
+            <*> (x .?> "Marker")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeComments where
+instance Hashable DescribeComments
 
-instance NFData DescribeComments where
+instance NFData DescribeComments
 
 instance ToHeaders DescribeComments where
-        toHeaders DescribeComments'{..}
-          = mconcat
-              ["Authentication" =# _dcAuthenticationToken,
-               "Content-Type" =#
-                 ("application/x-amz-json-1.1" :: ByteString)]
+  toHeaders DescribeComments' {..} =
+    mconcat
+      [ "Authentication" =# _dcsAuthenticationToken,
+        "Content-Type"
+          =# ("application/x-amz-json-1.1" :: ByteString)
+      ]
 
 instance ToPath DescribeComments where
-        toPath DescribeComments'{..}
-          = mconcat
-              ["/api/v1/documents/", toBS _dcDocumentId,
-               "/versions/", toBS _dcVersionId, "/comments"]
+  toPath DescribeComments' {..} =
+    mconcat
+      [ "/api/v1/documents/",
+        toBS _dcsDocumentId,
+        "/versions/",
+        toBS _dcsVersionId,
+        "/comments"
+      ]
 
 instance ToQuery DescribeComments where
-        toQuery DescribeComments'{..}
-          = mconcat
-              ["marker" =: _dcMarker, "limit" =: _dcLimit]
+  toQuery DescribeComments' {..} =
+    mconcat
+      ["limit" =: _dcsLimit, "marker" =: _dcsMarker]
 
 -- | /See:/ 'describeCommentsResponse' smart constructor.
 data DescribeCommentsResponse = DescribeCommentsResponse'
-  { _dcrsMarker         :: !(Maybe Text)
-  , _dcrsComments       :: !(Maybe [Comment])
-  , _dcrsResponseStatus :: !Int
-  } deriving (Eq, Show, Data, Typeable, Generic)
-
+  { _dcrrsComments ::
+      !(Maybe [Comment]),
+    _dcrrsMarker ::
+      !(Maybe Text),
+    _dcrrsResponseStatus ::
+      !Int
+  }
+  deriving (Eq, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeCommentsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dcrsMarker' - The marker for the next set of results. This marker was received from a previous call.
+-- * 'dcrrsComments' - The list of comments for the specified document version.
 --
--- * 'dcrsComments' - The list of comments for the specified document version.
+-- * 'dcrrsMarker' - The marker for the next set of results. This marker was received from a previous call.
 --
--- * 'dcrsResponseStatus' - -- | The response status code.
-describeCommentsResponse
-    :: Int -- ^ 'dcrsResponseStatus'
-    -> DescribeCommentsResponse
+-- * 'dcrrsResponseStatus' - -- | The response status code.
+describeCommentsResponse ::
+  -- | 'dcrrsResponseStatus'
+  Int ->
+  DescribeCommentsResponse
 describeCommentsResponse pResponseStatus_ =
   DescribeCommentsResponse'
-    { _dcrsMarker = Nothing
-    , _dcrsComments = Nothing
-    , _dcrsResponseStatus = pResponseStatus_
+    { _dcrrsComments = Nothing,
+      _dcrrsMarker = Nothing,
+      _dcrrsResponseStatus = pResponseStatus_
     }
 
+-- | The list of comments for the specified document version.
+dcrrsComments :: Lens' DescribeCommentsResponse [Comment]
+dcrrsComments = lens _dcrrsComments (\s a -> s {_dcrrsComments = a}) . _Default . _Coerce
 
 -- | The marker for the next set of results. This marker was received from a previous call.
-dcrsMarker :: Lens' DescribeCommentsResponse (Maybe Text)
-dcrsMarker = lens _dcrsMarker (\ s a -> s{_dcrsMarker = a})
-
--- | The list of comments for the specified document version.
-dcrsComments :: Lens' DescribeCommentsResponse [Comment]
-dcrsComments = lens _dcrsComments (\ s a -> s{_dcrsComments = a}) . _Default . _Coerce
+dcrrsMarker :: Lens' DescribeCommentsResponse (Maybe Text)
+dcrrsMarker = lens _dcrrsMarker (\s a -> s {_dcrrsMarker = a})
 
 -- | -- | The response status code.
-dcrsResponseStatus :: Lens' DescribeCommentsResponse Int
-dcrsResponseStatus = lens _dcrsResponseStatus (\ s a -> s{_dcrsResponseStatus = a})
+dcrrsResponseStatus :: Lens' DescribeCommentsResponse Int
+dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
 
-instance NFData DescribeCommentsResponse where
+instance NFData DescribeCommentsResponse
