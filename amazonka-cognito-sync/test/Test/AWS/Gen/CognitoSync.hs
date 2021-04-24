@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.CognitoSync
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.CognitoSync where
 
 import Data.Proxy
@@ -28,32 +27,11 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribeDataset $
---             describeDataset
+--         [ requestUpdateRecords $
+--             updateRecords
 --
---         , requestSetCognitoEvents $
---             setCognitoEvents
---
---         , requestDescribeIdentityPoolUsage $
---             describeIdentityPoolUsage
---
---         , requestGetBulkPublishDetails $
---             getBulkPublishDetails
---
---         , requestListIdentityPoolUsage $
---             listIdentityPoolUsage
---
---         , requestSetIdentityPoolConfiguration $
---             setIdentityPoolConfiguration
---
---         , requestDeleteDataset $
---             deleteDataset
---
---         , requestGetCognitoEvents $
---             getCognitoEvents
---
---         , requestDescribeIdentityUsage $
---             describeIdentityUsage
+--         , requestListRecords $
+--             listRecords
 --
 --         , requestRegisterDevice $
 --             registerDevice
@@ -61,53 +39,53 @@ import Test.Tasty
 --         , requestSubscribeToDataset $
 --             subscribeToDataset
 --
---         , requestGetIdentityPoolConfiguration $
---             getIdentityPoolConfiguration
+--         , requestBulkPublish $
+--             bulkPublish
 --
---         , requestListRecords $
---             listRecords
+--         , requestDescribeIdentityUsage $
+--             describeIdentityUsage
+--
+--         , requestSetIdentityPoolConfiguration $
+--             setIdentityPoolConfiguration
+--
+--         , requestGetBulkPublishDetails $
+--             getBulkPublishDetails
+--
+--         , requestListIdentityPoolUsage $
+--             listIdentityPoolUsage
+--
+--         , requestSetCognitoEvents $
+--             setCognitoEvents
+--
+--         , requestDescribeDataset $
+--             describeDataset
 --
 --         , requestUnsubscribeFromDataset $
 --             unsubscribeFromDataset
 --
---         , requestUpdateRecords $
---             updateRecords
+--         , requestGetIdentityPoolConfiguration $
+--             getIdentityPoolConfiguration
+--
+--         , requestGetCognitoEvents $
+--             getCognitoEvents
+--
+--         , requestDeleteDataset $
+--             deleteDataset
 --
 --         , requestListDatasets $
 --             listDatasets
 --
---         , requestBulkPublish $
---             bulkPublish
+--         , requestDescribeIdentityPoolUsage $
+--             describeIdentityPoolUsage
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribeDataset $
---             describeDatasetResponse
+--         [ responseUpdateRecords $
+--             updateRecordsResponse
 --
---         , responseSetCognitoEvents $
---             setCognitoEventsResponse
---
---         , responseDescribeIdentityPoolUsage $
---             describeIdentityPoolUsageResponse
---
---         , responseGetBulkPublishDetails $
---             getBulkPublishDetailsResponse
---
---         , responseListIdentityPoolUsage $
---             listIdentityPoolUsageResponse
---
---         , responseSetIdentityPoolConfiguration $
---             setIdentityPoolConfigurationResponse
---
---         , responseDeleteDataset $
---             deleteDatasetResponse
---
---         , responseGetCognitoEvents $
---             getCognitoEventsResponse
---
---         , responseDescribeIdentityUsage $
---             describeIdentityUsageResponse
+--         , responseListRecords $
+--             listRecordsResponse
 --
 --         , responseRegisterDevice $
 --             registerDeviceResponse
@@ -115,231 +93,286 @@ import Test.Tasty
 --         , responseSubscribeToDataset $
 --             subscribeToDatasetResponse
 --
---         , responseGetIdentityPoolConfiguration $
---             getIdentityPoolConfigurationResponse
+--         , responseBulkPublish $
+--             bulkPublishResponse
 --
---         , responseListRecords $
---             listRecordsResponse
+--         , responseDescribeIdentityUsage $
+--             describeIdentityUsageResponse
+--
+--         , responseSetIdentityPoolConfiguration $
+--             setIdentityPoolConfigurationResponse
+--
+--         , responseGetBulkPublishDetails $
+--             getBulkPublishDetailsResponse
+--
+--         , responseListIdentityPoolUsage $
+--             listIdentityPoolUsageResponse
+--
+--         , responseSetCognitoEvents $
+--             setCognitoEventsResponse
+--
+--         , responseDescribeDataset $
+--             describeDatasetResponse
 --
 --         , responseUnsubscribeFromDataset $
 --             unsubscribeFromDatasetResponse
 --
---         , responseUpdateRecords $
---             updateRecordsResponse
+--         , responseGetIdentityPoolConfiguration $
+--             getIdentityPoolConfigurationResponse
+--
+--         , responseGetCognitoEvents $
+--             getCognitoEventsResponse
+--
+--         , responseDeleteDataset $
+--             deleteDatasetResponse
 --
 --         , responseListDatasets $
 --             listDatasetsResponse
 --
---         , responseBulkPublish $
---             bulkPublishResponse
+--         , responseDescribeIdentityPoolUsage $
+--             describeIdentityPoolUsageResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestDescribeDataset :: DescribeDataset -> TestTree
-requestDescribeDataset = req
-    "DescribeDataset"
-    "fixture/DescribeDataset.yaml"
+requestUpdateRecords :: UpdateRecords -> TestTree
+requestUpdateRecords =
+  req
+    "UpdateRecords"
+    "fixture/UpdateRecords.yaml"
 
-requestSetCognitoEvents :: SetCognitoEvents -> TestTree
-requestSetCognitoEvents = req
-    "SetCognitoEvents"
-    "fixture/SetCognitoEvents.yaml"
-
-requestDescribeIdentityPoolUsage :: DescribeIdentityPoolUsage -> TestTree
-requestDescribeIdentityPoolUsage = req
-    "DescribeIdentityPoolUsage"
-    "fixture/DescribeIdentityPoolUsage.yaml"
-
-requestGetBulkPublishDetails :: GetBulkPublishDetails -> TestTree
-requestGetBulkPublishDetails = req
-    "GetBulkPublishDetails"
-    "fixture/GetBulkPublishDetails.yaml"
-
-requestListIdentityPoolUsage :: ListIdentityPoolUsage -> TestTree
-requestListIdentityPoolUsage = req
-    "ListIdentityPoolUsage"
-    "fixture/ListIdentityPoolUsage.yaml"
-
-requestSetIdentityPoolConfiguration :: SetIdentityPoolConfiguration -> TestTree
-requestSetIdentityPoolConfiguration = req
-    "SetIdentityPoolConfiguration"
-    "fixture/SetIdentityPoolConfiguration.yaml"
-
-requestDeleteDataset :: DeleteDataset -> TestTree
-requestDeleteDataset = req
-    "DeleteDataset"
-    "fixture/DeleteDataset.yaml"
-
-requestGetCognitoEvents :: GetCognitoEvents -> TestTree
-requestGetCognitoEvents = req
-    "GetCognitoEvents"
-    "fixture/GetCognitoEvents.yaml"
-
-requestDescribeIdentityUsage :: DescribeIdentityUsage -> TestTree
-requestDescribeIdentityUsage = req
-    "DescribeIdentityUsage"
-    "fixture/DescribeIdentityUsage.yaml"
+requestListRecords :: ListRecords -> TestTree
+requestListRecords =
+  req
+    "ListRecords"
+    "fixture/ListRecords.yaml"
 
 requestRegisterDevice :: RegisterDevice -> TestTree
-requestRegisterDevice = req
+requestRegisterDevice =
+  req
     "RegisterDevice"
     "fixture/RegisterDevice.yaml"
 
 requestSubscribeToDataset :: SubscribeToDataset -> TestTree
-requestSubscribeToDataset = req
+requestSubscribeToDataset =
+  req
     "SubscribeToDataset"
     "fixture/SubscribeToDataset.yaml"
 
-requestGetIdentityPoolConfiguration :: GetIdentityPoolConfiguration -> TestTree
-requestGetIdentityPoolConfiguration = req
-    "GetIdentityPoolConfiguration"
-    "fixture/GetIdentityPoolConfiguration.yaml"
-
-requestListRecords :: ListRecords -> TestTree
-requestListRecords = req
-    "ListRecords"
-    "fixture/ListRecords.yaml"
-
-requestUnsubscribeFromDataset :: UnsubscribeFromDataset -> TestTree
-requestUnsubscribeFromDataset = req
-    "UnsubscribeFromDataset"
-    "fixture/UnsubscribeFromDataset.yaml"
-
-requestUpdateRecords :: UpdateRecords -> TestTree
-requestUpdateRecords = req
-    "UpdateRecords"
-    "fixture/UpdateRecords.yaml"
-
-requestListDatasets :: ListDatasets -> TestTree
-requestListDatasets = req
-    "ListDatasets"
-    "fixture/ListDatasets.yaml"
-
 requestBulkPublish :: BulkPublish -> TestTree
-requestBulkPublish = req
+requestBulkPublish =
+  req
     "BulkPublish"
     "fixture/BulkPublish.yaml"
 
+requestDescribeIdentityUsage :: DescribeIdentityUsage -> TestTree
+requestDescribeIdentityUsage =
+  req
+    "DescribeIdentityUsage"
+    "fixture/DescribeIdentityUsage.yaml"
+
+requestSetIdentityPoolConfiguration :: SetIdentityPoolConfiguration -> TestTree
+requestSetIdentityPoolConfiguration =
+  req
+    "SetIdentityPoolConfiguration"
+    "fixture/SetIdentityPoolConfiguration.yaml"
+
+requestGetBulkPublishDetails :: GetBulkPublishDetails -> TestTree
+requestGetBulkPublishDetails =
+  req
+    "GetBulkPublishDetails"
+    "fixture/GetBulkPublishDetails.yaml"
+
+requestListIdentityPoolUsage :: ListIdentityPoolUsage -> TestTree
+requestListIdentityPoolUsage =
+  req
+    "ListIdentityPoolUsage"
+    "fixture/ListIdentityPoolUsage.yaml"
+
+requestSetCognitoEvents :: SetCognitoEvents -> TestTree
+requestSetCognitoEvents =
+  req
+    "SetCognitoEvents"
+    "fixture/SetCognitoEvents.yaml"
+
+requestDescribeDataset :: DescribeDataset -> TestTree
+requestDescribeDataset =
+  req
+    "DescribeDataset"
+    "fixture/DescribeDataset.yaml"
+
+requestUnsubscribeFromDataset :: UnsubscribeFromDataset -> TestTree
+requestUnsubscribeFromDataset =
+  req
+    "UnsubscribeFromDataset"
+    "fixture/UnsubscribeFromDataset.yaml"
+
+requestGetIdentityPoolConfiguration :: GetIdentityPoolConfiguration -> TestTree
+requestGetIdentityPoolConfiguration =
+  req
+    "GetIdentityPoolConfiguration"
+    "fixture/GetIdentityPoolConfiguration.yaml"
+
+requestGetCognitoEvents :: GetCognitoEvents -> TestTree
+requestGetCognitoEvents =
+  req
+    "GetCognitoEvents"
+    "fixture/GetCognitoEvents.yaml"
+
+requestDeleteDataset :: DeleteDataset -> TestTree
+requestDeleteDataset =
+  req
+    "DeleteDataset"
+    "fixture/DeleteDataset.yaml"
+
+requestListDatasets :: ListDatasets -> TestTree
+requestListDatasets =
+  req
+    "ListDatasets"
+    "fixture/ListDatasets.yaml"
+
+requestDescribeIdentityPoolUsage :: DescribeIdentityPoolUsage -> TestTree
+requestDescribeIdentityPoolUsage =
+  req
+    "DescribeIdentityPoolUsage"
+    "fixture/DescribeIdentityPoolUsage.yaml"
+
 -- Responses
 
-responseDescribeDataset :: DescribeDatasetResponse -> TestTree
-responseDescribeDataset = res
-    "DescribeDatasetResponse"
-    "fixture/DescribeDatasetResponse.proto"
+responseUpdateRecords :: UpdateRecordsResponse -> TestTree
+responseUpdateRecords =
+  res
+    "UpdateRecordsResponse"
+    "fixture/UpdateRecordsResponse.proto"
     cognitoSync
-    (Proxy :: Proxy DescribeDataset)
+    (Proxy :: Proxy UpdateRecords)
 
-responseSetCognitoEvents :: SetCognitoEventsResponse -> TestTree
-responseSetCognitoEvents = res
-    "SetCognitoEventsResponse"
-    "fixture/SetCognitoEventsResponse.proto"
+responseListRecords :: ListRecordsResponse -> TestTree
+responseListRecords =
+  res
+    "ListRecordsResponse"
+    "fixture/ListRecordsResponse.proto"
     cognitoSync
-    (Proxy :: Proxy SetCognitoEvents)
-
-responseDescribeIdentityPoolUsage :: DescribeIdentityPoolUsageResponse -> TestTree
-responseDescribeIdentityPoolUsage = res
-    "DescribeIdentityPoolUsageResponse"
-    "fixture/DescribeIdentityPoolUsageResponse.proto"
-    cognitoSync
-    (Proxy :: Proxy DescribeIdentityPoolUsage)
-
-responseGetBulkPublishDetails :: GetBulkPublishDetailsResponse -> TestTree
-responseGetBulkPublishDetails = res
-    "GetBulkPublishDetailsResponse"
-    "fixture/GetBulkPublishDetailsResponse.proto"
-    cognitoSync
-    (Proxy :: Proxy GetBulkPublishDetails)
-
-responseListIdentityPoolUsage :: ListIdentityPoolUsageResponse -> TestTree
-responseListIdentityPoolUsage = res
-    "ListIdentityPoolUsageResponse"
-    "fixture/ListIdentityPoolUsageResponse.proto"
-    cognitoSync
-    (Proxy :: Proxy ListIdentityPoolUsage)
-
-responseSetIdentityPoolConfiguration :: SetIdentityPoolConfigurationResponse -> TestTree
-responseSetIdentityPoolConfiguration = res
-    "SetIdentityPoolConfigurationResponse"
-    "fixture/SetIdentityPoolConfigurationResponse.proto"
-    cognitoSync
-    (Proxy :: Proxy SetIdentityPoolConfiguration)
-
-responseDeleteDataset :: DeleteDatasetResponse -> TestTree
-responseDeleteDataset = res
-    "DeleteDatasetResponse"
-    "fixture/DeleteDatasetResponse.proto"
-    cognitoSync
-    (Proxy :: Proxy DeleteDataset)
-
-responseGetCognitoEvents :: GetCognitoEventsResponse -> TestTree
-responseGetCognitoEvents = res
-    "GetCognitoEventsResponse"
-    "fixture/GetCognitoEventsResponse.proto"
-    cognitoSync
-    (Proxy :: Proxy GetCognitoEvents)
-
-responseDescribeIdentityUsage :: DescribeIdentityUsageResponse -> TestTree
-responseDescribeIdentityUsage = res
-    "DescribeIdentityUsageResponse"
-    "fixture/DescribeIdentityUsageResponse.proto"
-    cognitoSync
-    (Proxy :: Proxy DescribeIdentityUsage)
+    (Proxy :: Proxy ListRecords)
 
 responseRegisterDevice :: RegisterDeviceResponse -> TestTree
-responseRegisterDevice = res
+responseRegisterDevice =
+  res
     "RegisterDeviceResponse"
     "fixture/RegisterDeviceResponse.proto"
     cognitoSync
     (Proxy :: Proxy RegisterDevice)
 
 responseSubscribeToDataset :: SubscribeToDatasetResponse -> TestTree
-responseSubscribeToDataset = res
+responseSubscribeToDataset =
+  res
     "SubscribeToDatasetResponse"
     "fixture/SubscribeToDatasetResponse.proto"
     cognitoSync
     (Proxy :: Proxy SubscribeToDataset)
 
-responseGetIdentityPoolConfiguration :: GetIdentityPoolConfigurationResponse -> TestTree
-responseGetIdentityPoolConfiguration = res
-    "GetIdentityPoolConfigurationResponse"
-    "fixture/GetIdentityPoolConfigurationResponse.proto"
+responseBulkPublish :: BulkPublishResponse -> TestTree
+responseBulkPublish =
+  res
+    "BulkPublishResponse"
+    "fixture/BulkPublishResponse.proto"
     cognitoSync
-    (Proxy :: Proxy GetIdentityPoolConfiguration)
+    (Proxy :: Proxy BulkPublish)
 
-responseListRecords :: ListRecordsResponse -> TestTree
-responseListRecords = res
-    "ListRecordsResponse"
-    "fixture/ListRecordsResponse.proto"
+responseDescribeIdentityUsage :: DescribeIdentityUsageResponse -> TestTree
+responseDescribeIdentityUsage =
+  res
+    "DescribeIdentityUsageResponse"
+    "fixture/DescribeIdentityUsageResponse.proto"
     cognitoSync
-    (Proxy :: Proxy ListRecords)
+    (Proxy :: Proxy DescribeIdentityUsage)
+
+responseSetIdentityPoolConfiguration :: SetIdentityPoolConfigurationResponse -> TestTree
+responseSetIdentityPoolConfiguration =
+  res
+    "SetIdentityPoolConfigurationResponse"
+    "fixture/SetIdentityPoolConfigurationResponse.proto"
+    cognitoSync
+    (Proxy :: Proxy SetIdentityPoolConfiguration)
+
+responseGetBulkPublishDetails :: GetBulkPublishDetailsResponse -> TestTree
+responseGetBulkPublishDetails =
+  res
+    "GetBulkPublishDetailsResponse"
+    "fixture/GetBulkPublishDetailsResponse.proto"
+    cognitoSync
+    (Proxy :: Proxy GetBulkPublishDetails)
+
+responseListIdentityPoolUsage :: ListIdentityPoolUsageResponse -> TestTree
+responseListIdentityPoolUsage =
+  res
+    "ListIdentityPoolUsageResponse"
+    "fixture/ListIdentityPoolUsageResponse.proto"
+    cognitoSync
+    (Proxy :: Proxy ListIdentityPoolUsage)
+
+responseSetCognitoEvents :: SetCognitoEventsResponse -> TestTree
+responseSetCognitoEvents =
+  res
+    "SetCognitoEventsResponse"
+    "fixture/SetCognitoEventsResponse.proto"
+    cognitoSync
+    (Proxy :: Proxy SetCognitoEvents)
+
+responseDescribeDataset :: DescribeDatasetResponse -> TestTree
+responseDescribeDataset =
+  res
+    "DescribeDatasetResponse"
+    "fixture/DescribeDatasetResponse.proto"
+    cognitoSync
+    (Proxy :: Proxy DescribeDataset)
 
 responseUnsubscribeFromDataset :: UnsubscribeFromDatasetResponse -> TestTree
-responseUnsubscribeFromDataset = res
+responseUnsubscribeFromDataset =
+  res
     "UnsubscribeFromDatasetResponse"
     "fixture/UnsubscribeFromDatasetResponse.proto"
     cognitoSync
     (Proxy :: Proxy UnsubscribeFromDataset)
 
-responseUpdateRecords :: UpdateRecordsResponse -> TestTree
-responseUpdateRecords = res
-    "UpdateRecordsResponse"
-    "fixture/UpdateRecordsResponse.proto"
+responseGetIdentityPoolConfiguration :: GetIdentityPoolConfigurationResponse -> TestTree
+responseGetIdentityPoolConfiguration =
+  res
+    "GetIdentityPoolConfigurationResponse"
+    "fixture/GetIdentityPoolConfigurationResponse.proto"
     cognitoSync
-    (Proxy :: Proxy UpdateRecords)
+    (Proxy :: Proxy GetIdentityPoolConfiguration)
+
+responseGetCognitoEvents :: GetCognitoEventsResponse -> TestTree
+responseGetCognitoEvents =
+  res
+    "GetCognitoEventsResponse"
+    "fixture/GetCognitoEventsResponse.proto"
+    cognitoSync
+    (Proxy :: Proxy GetCognitoEvents)
+
+responseDeleteDataset :: DeleteDatasetResponse -> TestTree
+responseDeleteDataset =
+  res
+    "DeleteDatasetResponse"
+    "fixture/DeleteDatasetResponse.proto"
+    cognitoSync
+    (Proxy :: Proxy DeleteDataset)
 
 responseListDatasets :: ListDatasetsResponse -> TestTree
-responseListDatasets = res
+responseListDatasets =
+  res
     "ListDatasetsResponse"
     "fixture/ListDatasetsResponse.proto"
     cognitoSync
     (Proxy :: Proxy ListDatasets)
 
-responseBulkPublish :: BulkPublishResponse -> TestTree
-responseBulkPublish = res
-    "BulkPublishResponse"
-    "fixture/BulkPublishResponse.proto"
+responseDescribeIdentityPoolUsage :: DescribeIdentityPoolUsageResponse -> TestTree
+responseDescribeIdentityPoolUsage =
+  res
+    "DescribeIdentityPoolUsageResponse"
+    "fixture/DescribeIdentityPoolUsageResponse.proto"
     cognitoSync
-    (Proxy :: Proxy BulkPublish)
+    (Proxy :: Proxy DescribeIdentityPoolUsage)
