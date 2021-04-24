@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.CloudHSMv2
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.CloudHSMv2 where
 
 import Data.Proxy
@@ -28,192 +27,312 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribeClusters $
+--         [ requestDeleteHSM $
+--             deleteHSM
+--
+--         , requestDeleteBackup $
+--             deleteBackup
+--
+--         , requestDescribeClusters $
 --             describeClusters
 --
---         , requestInitializeCluster $
---             initializeCluster
---
---         , requestCreateHSM $
---             createHSM
---
---         , requestDescribeBackups $
---             describeBackups
---
---         , requestDeleteCluster $
---             deleteCluster
+--         , requestRestoreBackup $
+--             restoreBackup
 --
 --         , requestCreateCluster $
 --             createCluster
 --
---         , requestDeleteHSM $
---             deleteHSM
+--         , requestUntagResource $
+--             untagResource
+--
+--         , requestCopyBackupToRegion $
+--             copyBackupToRegion
 --
 --         , requestTagResource $
 --             tagResource
 --
+--         , requestModifyCluster $
+--             modifyCluster
+--
+--         , requestModifyBackupAttributes $
+--             modifyBackupAttributes
+--
+--         , requestDeleteCluster $
+--             deleteCluster
+--
 --         , requestListTags $
 --             listTags
 --
---         , requestUntagResource $
---             untagResource
+--         , requestDescribeBackups $
+--             describeBackups
+--
+--         , requestCreateHSM $
+--             createHSM
+--
+--         , requestInitializeCluster $
+--             initializeCluster
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribeClusters $
+--         [ responseDeleteHSM $
+--             deleteHSMResponse
+--
+--         , responseDeleteBackup $
+--             deleteBackupResponse
+--
+--         , responseDescribeClusters $
 --             describeClustersResponse
 --
---         , responseInitializeCluster $
---             initializeClusterResponse
---
---         , responseCreateHSM $
---             createHSMResponse
---
---         , responseDescribeBackups $
---             describeBackupsResponse
---
---         , responseDeleteCluster $
---             deleteClusterResponse
+--         , responseRestoreBackup $
+--             restoreBackupResponse
 --
 --         , responseCreateCluster $
 --             createClusterResponse
 --
---         , responseDeleteHSM $
---             deleteHSMResponse
+--         , responseUntagResource $
+--             untagResourceResponse
+--
+--         , responseCopyBackupToRegion $
+--             copyBackupToRegionResponse
 --
 --         , responseTagResource $
 --             tagResourceResponse
 --
+--         , responseModifyCluster $
+--             modifyClusterResponse
+--
+--         , responseModifyBackupAttributes $
+--             modifyBackupAttributesResponse
+--
+--         , responseDeleteCluster $
+--             deleteClusterResponse
+--
 --         , responseListTags $
 --             listTagsResponse
 --
---         , responseUntagResource $
---             untagResourceResponse
+--         , responseDescribeBackups $
+--             describeBackupsResponse
+--
+--         , responseCreateHSM $
+--             createHSMResponse
+--
+--         , responseInitializeCluster $
+--             initializeClusterResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestDescribeClusters :: DescribeClusters -> TestTree
-requestDescribeClusters = req
-    "DescribeClusters"
-    "fixture/DescribeClusters.yaml"
-
-requestInitializeCluster :: InitializeCluster -> TestTree
-requestInitializeCluster = req
-    "InitializeCluster"
-    "fixture/InitializeCluster.yaml"
-
-requestCreateHSM :: CreateHSM -> TestTree
-requestCreateHSM = req
-    "CreateHSM"
-    "fixture/CreateHSM.yaml"
-
-requestDescribeBackups :: DescribeBackups -> TestTree
-requestDescribeBackups = req
-    "DescribeBackups"
-    "fixture/DescribeBackups.yaml"
-
-requestDeleteCluster :: DeleteCluster -> TestTree
-requestDeleteCluster = req
-    "DeleteCluster"
-    "fixture/DeleteCluster.yaml"
-
-requestCreateCluster :: CreateCluster -> TestTree
-requestCreateCluster = req
-    "CreateCluster"
-    "fixture/CreateCluster.yaml"
-
 requestDeleteHSM :: DeleteHSM -> TestTree
-requestDeleteHSM = req
+requestDeleteHSM =
+  req
     "DeleteHSM"
     "fixture/DeleteHSM.yaml"
 
-requestTagResource :: TagResource -> TestTree
-requestTagResource = req
-    "TagResource"
-    "fixture/TagResource.yaml"
+requestDeleteBackup :: DeleteBackup -> TestTree
+requestDeleteBackup =
+  req
+    "DeleteBackup"
+    "fixture/DeleteBackup.yaml"
 
-requestListTags :: ListTags -> TestTree
-requestListTags = req
-    "ListTags"
-    "fixture/ListTags.yaml"
+requestDescribeClusters :: DescribeClusters -> TestTree
+requestDescribeClusters =
+  req
+    "DescribeClusters"
+    "fixture/DescribeClusters.yaml"
+
+requestRestoreBackup :: RestoreBackup -> TestTree
+requestRestoreBackup =
+  req
+    "RestoreBackup"
+    "fixture/RestoreBackup.yaml"
+
+requestCreateCluster :: CreateCluster -> TestTree
+requestCreateCluster =
+  req
+    "CreateCluster"
+    "fixture/CreateCluster.yaml"
 
 requestUntagResource :: UntagResource -> TestTree
-requestUntagResource = req
+requestUntagResource =
+  req
     "UntagResource"
     "fixture/UntagResource.yaml"
 
+requestCopyBackupToRegion :: CopyBackupToRegion -> TestTree
+requestCopyBackupToRegion =
+  req
+    "CopyBackupToRegion"
+    "fixture/CopyBackupToRegion.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestModifyCluster :: ModifyCluster -> TestTree
+requestModifyCluster =
+  req
+    "ModifyCluster"
+    "fixture/ModifyCluster.yaml"
+
+requestModifyBackupAttributes :: ModifyBackupAttributes -> TestTree
+requestModifyBackupAttributes =
+  req
+    "ModifyBackupAttributes"
+    "fixture/ModifyBackupAttributes.yaml"
+
+requestDeleteCluster :: DeleteCluster -> TestTree
+requestDeleteCluster =
+  req
+    "DeleteCluster"
+    "fixture/DeleteCluster.yaml"
+
+requestListTags :: ListTags -> TestTree
+requestListTags =
+  req
+    "ListTags"
+    "fixture/ListTags.yaml"
+
+requestDescribeBackups :: DescribeBackups -> TestTree
+requestDescribeBackups =
+  req
+    "DescribeBackups"
+    "fixture/DescribeBackups.yaml"
+
+requestCreateHSM :: CreateHSM -> TestTree
+requestCreateHSM =
+  req
+    "CreateHSM"
+    "fixture/CreateHSM.yaml"
+
+requestInitializeCluster :: InitializeCluster -> TestTree
+requestInitializeCluster =
+  req
+    "InitializeCluster"
+    "fixture/InitializeCluster.yaml"
+
 -- Responses
 
-responseDescribeClusters :: DescribeClustersResponse -> TestTree
-responseDescribeClusters = res
-    "DescribeClustersResponse"
-    "fixture/DescribeClustersResponse.proto"
-    cloudHSMv2
-    (Proxy :: Proxy DescribeClusters)
-
-responseInitializeCluster :: InitializeClusterResponse -> TestTree
-responseInitializeCluster = res
-    "InitializeClusterResponse"
-    "fixture/InitializeClusterResponse.proto"
-    cloudHSMv2
-    (Proxy :: Proxy InitializeCluster)
-
-responseCreateHSM :: CreateHSMResponse -> TestTree
-responseCreateHSM = res
-    "CreateHSMResponse"
-    "fixture/CreateHSMResponse.proto"
-    cloudHSMv2
-    (Proxy :: Proxy CreateHSM)
-
-responseDescribeBackups :: DescribeBackupsResponse -> TestTree
-responseDescribeBackups = res
-    "DescribeBackupsResponse"
-    "fixture/DescribeBackupsResponse.proto"
-    cloudHSMv2
-    (Proxy :: Proxy DescribeBackups)
-
-responseDeleteCluster :: DeleteClusterResponse -> TestTree
-responseDeleteCluster = res
-    "DeleteClusterResponse"
-    "fixture/DeleteClusterResponse.proto"
-    cloudHSMv2
-    (Proxy :: Proxy DeleteCluster)
-
-responseCreateCluster :: CreateClusterResponse -> TestTree
-responseCreateCluster = res
-    "CreateClusterResponse"
-    "fixture/CreateClusterResponse.proto"
-    cloudHSMv2
-    (Proxy :: Proxy CreateCluster)
-
 responseDeleteHSM :: DeleteHSMResponse -> TestTree
-responseDeleteHSM = res
+responseDeleteHSM =
+  res
     "DeleteHSMResponse"
     "fixture/DeleteHSMResponse.proto"
     cloudHSMv2
     (Proxy :: Proxy DeleteHSM)
 
+responseDeleteBackup :: DeleteBackupResponse -> TestTree
+responseDeleteBackup =
+  res
+    "DeleteBackupResponse"
+    "fixture/DeleteBackupResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy DeleteBackup)
+
+responseDescribeClusters :: DescribeClustersResponse -> TestTree
+responseDescribeClusters =
+  res
+    "DescribeClustersResponse"
+    "fixture/DescribeClustersResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy DescribeClusters)
+
+responseRestoreBackup :: RestoreBackupResponse -> TestTree
+responseRestoreBackup =
+  res
+    "RestoreBackupResponse"
+    "fixture/RestoreBackupResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy RestoreBackup)
+
+responseCreateCluster :: CreateClusterResponse -> TestTree
+responseCreateCluster =
+  res
+    "CreateClusterResponse"
+    "fixture/CreateClusterResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy CreateCluster)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy UntagResource)
+
+responseCopyBackupToRegion :: CopyBackupToRegionResponse -> TestTree
+responseCopyBackupToRegion =
+  res
+    "CopyBackupToRegionResponse"
+    "fixture/CopyBackupToRegionResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy CopyBackupToRegion)
+
 responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource = res
+responseTagResource =
+  res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
     cloudHSMv2
     (Proxy :: Proxy TagResource)
 
+responseModifyCluster :: ModifyClusterResponse -> TestTree
+responseModifyCluster =
+  res
+    "ModifyClusterResponse"
+    "fixture/ModifyClusterResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy ModifyCluster)
+
+responseModifyBackupAttributes :: ModifyBackupAttributesResponse -> TestTree
+responseModifyBackupAttributes =
+  res
+    "ModifyBackupAttributesResponse"
+    "fixture/ModifyBackupAttributesResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy ModifyBackupAttributes)
+
+responseDeleteCluster :: DeleteClusterResponse -> TestTree
+responseDeleteCluster =
+  res
+    "DeleteClusterResponse"
+    "fixture/DeleteClusterResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy DeleteCluster)
+
 responseListTags :: ListTagsResponse -> TestTree
-responseListTags = res
+responseListTags =
+  res
     "ListTagsResponse"
     "fixture/ListTagsResponse.proto"
     cloudHSMv2
     (Proxy :: Proxy ListTags)
 
-responseUntagResource :: UntagResourceResponse -> TestTree
-responseUntagResource = res
-    "UntagResourceResponse"
-    "fixture/UntagResourceResponse.proto"
+responseDescribeBackups :: DescribeBackupsResponse -> TestTree
+responseDescribeBackups =
+  res
+    "DescribeBackupsResponse"
+    "fixture/DescribeBackupsResponse.proto"
     cloudHSMv2
-    (Proxy :: Proxy UntagResource)
+    (Proxy :: Proxy DescribeBackups)
+
+responseCreateHSM :: CreateHSMResponse -> TestTree
+responseCreateHSM =
+  res
+    "CreateHSMResponse"
+    "fixture/CreateHSMResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy CreateHSM)
+
+responseInitializeCluster :: InitializeClusterResponse -> TestTree
+responseInitializeCluster =
+  res
+    "InitializeClusterResponse"
+    "fixture/InitializeClusterResponse.proto"
+    cloudHSMv2
+    (Proxy :: Proxy InitializeCluster)
