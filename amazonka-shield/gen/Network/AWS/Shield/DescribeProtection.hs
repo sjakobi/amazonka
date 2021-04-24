@@ -1,135 +1,165 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Shield.DescribeProtection
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Lists the details of a 'Protection' object.
---
---
 module Network.AWS.Shield.DescribeProtection
-    (
-    -- * Creating a Request
-      describeProtection
-    , DescribeProtection
+  ( -- * Creating a Request
+    describeProtection,
+    DescribeProtection,
+
     -- * Request Lenses
-    , dpProtectionId
+    dpResourceARN,
+    dpProtectionId,
 
     -- * Destructuring the Response
-    , describeProtectionResponse
-    , DescribeProtectionResponse
+    describeProtectionResponse,
+    DescribeProtectionResponse,
+
     -- * Response Lenses
-    , dprsProtection
-    , dprsResponseStatus
-    ) where
+    dprrsProtection,
+    dprrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.Shield.Types
-import Network.AWS.Shield.Types.Product
 
 -- | /See:/ 'describeProtection' smart constructor.
-newtype DescribeProtection = DescribeProtection'
-  { _dpProtectionId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+data DescribeProtection = DescribeProtection'
+  { _dpResourceARN ::
+      !(Maybe Text),
+    _dpProtectionId :: !(Maybe Text)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeProtection' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpProtectionId' - The unique identifier (ID) for the 'Protection' object that is described.
-describeProtection
-    :: Text -- ^ 'dpProtectionId'
-    -> DescribeProtection
-describeProtection pProtectionId_ =
-  DescribeProtection' {_dpProtectionId = pProtectionId_}
+-- * 'dpResourceARN' - The ARN (Amazon Resource Name) of the AWS resource for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
+--
+-- * 'dpProtectionId' - The unique identifier (ID) for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
+describeProtection ::
+  DescribeProtection
+describeProtection =
+  DescribeProtection'
+    { _dpResourceARN = Nothing,
+      _dpProtectionId = Nothing
+    }
 
+-- | The ARN (Amazon Resource Name) of the AWS resource for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
+dpResourceARN :: Lens' DescribeProtection (Maybe Text)
+dpResourceARN = lens _dpResourceARN (\s a -> s {_dpResourceARN = a})
 
--- | The unique identifier (ID) for the 'Protection' object that is described.
-dpProtectionId :: Lens' DescribeProtection Text
-dpProtectionId = lens _dpProtectionId (\ s a -> s{_dpProtectionId = a})
+-- | The unique identifier (ID) for the 'Protection' object that is described. When submitting the @DescribeProtection@ request you must provide either the @ResourceArn@ or the @ProtectionID@ , but not both.
+dpProtectionId :: Lens' DescribeProtection (Maybe Text)
+dpProtectionId = lens _dpProtectionId (\s a -> s {_dpProtectionId = a})
 
 instance AWSRequest DescribeProtection where
-        type Rs DescribeProtection =
-             DescribeProtectionResponse
-        request = postJSON shield
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeProtectionResponse' <$>
-                   (x .?> "Protection") <*> (pure (fromEnum s)))
+  type
+    Rs DescribeProtection =
+      DescribeProtectionResponse
+  request = postJSON shield
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeProtectionResponse'
+            <$> (x .?> "Protection") <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeProtection where
+instance Hashable DescribeProtection
 
-instance NFData DescribeProtection where
+instance NFData DescribeProtection
 
 instance ToHeaders DescribeProtection where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSShield_20160616.DescribeProtection" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWSShield_20160616.DescribeProtection" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeProtection where
-        toJSON DescribeProtection'{..}
-          = object
-              (catMaybes
-                 [Just ("ProtectionId" .= _dpProtectionId)])
+  toJSON DescribeProtection' {..} =
+    object
+      ( catMaybes
+          [ ("ResourceArn" .=) <$> _dpResourceARN,
+            ("ProtectionId" .=) <$> _dpProtectionId
+          ]
+      )
 
 instance ToPath DescribeProtection where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeProtection where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describeProtectionResponse' smart constructor.
 data DescribeProtectionResponse = DescribeProtectionResponse'
-  { _dprsProtection     :: !(Maybe Protection)
-  , _dprsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dprrsProtection ::
+      !( Maybe
+           Protection
+       ),
+    _dprrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeProtectionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dprsProtection' - The 'Protection' object that is described.
+-- * 'dprrsProtection' - The 'Protection' object that is described.
 --
--- * 'dprsResponseStatus' - -- | The response status code.
-describeProtectionResponse
-    :: Int -- ^ 'dprsResponseStatus'
-    -> DescribeProtectionResponse
+-- * 'dprrsResponseStatus' - -- | The response status code.
+describeProtectionResponse ::
+  -- | 'dprrsResponseStatus'
+  Int ->
+  DescribeProtectionResponse
 describeProtectionResponse pResponseStatus_ =
   DescribeProtectionResponse'
-    {_dprsProtection = Nothing, _dprsResponseStatus = pResponseStatus_}
-
+    { _dprrsProtection =
+        Nothing,
+      _dprrsResponseStatus = pResponseStatus_
+    }
 
 -- | The 'Protection' object that is described.
-dprsProtection :: Lens' DescribeProtectionResponse (Maybe Protection)
-dprsProtection = lens _dprsProtection (\ s a -> s{_dprsProtection = a})
+dprrsProtection :: Lens' DescribeProtectionResponse (Maybe Protection)
+dprrsProtection = lens _dprrsProtection (\s a -> s {_dprrsProtection = a})
 
 -- | -- | The response status code.
-dprsResponseStatus :: Lens' DescribeProtectionResponse Int
-dprsResponseStatus = lens _dprsResponseStatus (\ s a -> s{_dprsResponseStatus = a})
+dprrsResponseStatus :: Lens' DescribeProtectionResponse Int
+dprrsResponseStatus = lens _dprrsResponseStatus (\s a -> s {_dprrsResponseStatus = a})
 
-instance NFData DescribeProtectionResponse where
+instance NFData DescribeProtectionResponse
