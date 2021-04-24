@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.MediaPackage.DescribeOriginEndpoint
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,228 +19,332 @@
 --
 -- Gets details about an existing OriginEndpoint.
 module Network.AWS.MediaPackage.DescribeOriginEndpoint
-    (
-    -- * Creating a Request
-      describeOriginEndpoint
-    , DescribeOriginEndpoint
+  ( -- * Creating a Request
+    describeOriginEndpoint,
+    DescribeOriginEndpoint,
+
     -- * Request Lenses
-    , doeId
+    dId,
 
     -- * Destructuring the Response
-    , describeOriginEndpointResponse
-    , DescribeOriginEndpointResponse
+    describeOriginEndpointResponse,
+    DescribeOriginEndpointResponse,
+
     -- * Response Lenses
-    , desrsWhitelist
-    , desrsHlsPackage
-    , desrsARN
-    , desrsManifestName
-    , desrsURL
-    , desrsChannelId
-    , desrsStartoverWindowSeconds
-    , desrsDashPackage
-    , desrsMssPackage
-    , desrsId
-    , desrsTimeDelaySeconds
-    , desrsCmafPackage
-    , desrsDescription
-    , desrsResponseStatus
-    ) where
+    doerrsDashPackage,
+    doerrsStartoverWindowSeconds,
+    doerrsOrigination,
+    doerrsChannelId,
+    doerrsCmafPackage,
+    doerrsManifestName,
+    doerrsARN,
+    doerrsId,
+    doerrsWhitelist,
+    doerrsMssPackage,
+    doerrsTags,
+    doerrsDescription,
+    doerrsTimeDelaySeconds,
+    doerrsAuthorization,
+    doerrsURL,
+    doerrsHlsPackage,
+    doerrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.MediaPackage.Types
-import Network.AWS.MediaPackage.Types.Product
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'describeOriginEndpoint' smart constructor.
 newtype DescribeOriginEndpoint = DescribeOriginEndpoint'
-  { _doeId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dId ::
+      Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeOriginEndpoint' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'doeId' - The ID of the OriginEndpoint.
-describeOriginEndpoint
-    :: Text -- ^ 'doeId'
-    -> DescribeOriginEndpoint
-describeOriginEndpoint pId_ = DescribeOriginEndpoint' {_doeId = pId_}
-
+-- * 'dId' - The ID of the OriginEndpoint.
+describeOriginEndpoint ::
+  -- | 'dId'
+  Text ->
+  DescribeOriginEndpoint
+describeOriginEndpoint pId_ =
+  DescribeOriginEndpoint' {_dId = pId_}
 
 -- | The ID of the OriginEndpoint.
-doeId :: Lens' DescribeOriginEndpoint Text
-doeId = lens _doeId (\ s a -> s{_doeId = a})
+dId :: Lens' DescribeOriginEndpoint Text
+dId = lens _dId (\s a -> s {_dId = a})
 
 instance AWSRequest DescribeOriginEndpoint where
-        type Rs DescribeOriginEndpoint =
-             DescribeOriginEndpointResponse
-        request = get mediaPackage
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeOriginEndpointResponse' <$>
-                   (x .?> "whitelist" .!@ mempty) <*>
-                     (x .?> "hlsPackage")
-                     <*> (x .?> "arn")
-                     <*> (x .?> "manifestName")
-                     <*> (x .?> "url")
-                     <*> (x .?> "channelId")
-                     <*> (x .?> "startoverWindowSeconds")
-                     <*> (x .?> "dashPackage")
-                     <*> (x .?> "mssPackage")
-                     <*> (x .?> "id")
-                     <*> (x .?> "timeDelaySeconds")
-                     <*> (x .?> "cmafPackage")
-                     <*> (x .?> "description")
-                     <*> (pure (fromEnum s)))
+  type
+    Rs DescribeOriginEndpoint =
+      DescribeOriginEndpointResponse
+  request = get mediaPackage
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeOriginEndpointResponse'
+            <$> (x .?> "dashPackage")
+            <*> (x .?> "startoverWindowSeconds")
+            <*> (x .?> "origination")
+            <*> (x .?> "channelId")
+            <*> (x .?> "cmafPackage")
+            <*> (x .?> "manifestName")
+            <*> (x .?> "arn")
+            <*> (x .?> "id")
+            <*> (x .?> "whitelist" .!@ mempty)
+            <*> (x .?> "mssPackage")
+            <*> (x .?> "tags" .!@ mempty)
+            <*> (x .?> "description")
+            <*> (x .?> "timeDelaySeconds")
+            <*> (x .?> "authorization")
+            <*> (x .?> "url")
+            <*> (x .?> "hlsPackage")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeOriginEndpoint where
+instance Hashable DescribeOriginEndpoint
 
-instance NFData DescribeOriginEndpoint where
+instance NFData DescribeOriginEndpoint
 
 instance ToHeaders DescribeOriginEndpoint where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath DescribeOriginEndpoint where
-        toPath DescribeOriginEndpoint'{..}
-          = mconcat ["/origin_endpoints/", toBS _doeId]
+  toPath DescribeOriginEndpoint' {..} =
+    mconcat ["/origin_endpoints/", toBS _dId]
 
 instance ToQuery DescribeOriginEndpoint where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describeOriginEndpointResponse' smart constructor.
 data DescribeOriginEndpointResponse = DescribeOriginEndpointResponse'
-  { _desrsWhitelist              :: !(Maybe [Text])
-  , _desrsHlsPackage             :: !(Maybe HlsPackage)
-  , _desrsARN                    :: !(Maybe Text)
-  , _desrsManifestName           :: !(Maybe Text)
-  , _desrsURL                    :: !(Maybe Text)
-  , _desrsChannelId              :: !(Maybe Text)
-  , _desrsStartoverWindowSeconds :: !(Maybe Int)
-  , _desrsDashPackage            :: !(Maybe DashPackage)
-  , _desrsMssPackage             :: !(Maybe MssPackage)
-  , _desrsId                     :: !(Maybe Text)
-  , _desrsTimeDelaySeconds       :: !(Maybe Int)
-  , _desrsCmafPackage            :: !(Maybe CmafPackage)
-  , _desrsDescription            :: !(Maybe Text)
-  , _desrsResponseStatus         :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _doerrsDashPackage ::
+      !( Maybe
+           DashPackage
+       ),
+    _doerrsStartoverWindowSeconds ::
+      !( Maybe
+           Int
+       ),
+    _doerrsOrigination ::
+      !( Maybe
+           Origination
+       ),
+    _doerrsChannelId ::
+      !( Maybe
+           Text
+       ),
+    _doerrsCmafPackage ::
+      !( Maybe
+           CmafPackage
+       ),
+    _doerrsManifestName ::
+      !( Maybe
+           Text
+       ),
+    _doerrsARN ::
+      !( Maybe
+           Text
+       ),
+    _doerrsId ::
+      !( Maybe
+           Text
+       ),
+    _doerrsWhitelist ::
+      !( Maybe
+           [Text]
+       ),
+    _doerrsMssPackage ::
+      !( Maybe
+           MssPackage
+       ),
+    _doerrsTags ::
+      !( Maybe
+           ( Map
+               Text
+               Text
+           )
+       ),
+    _doerrsDescription ::
+      !( Maybe
+           Text
+       ),
+    _doerrsTimeDelaySeconds ::
+      !( Maybe
+           Int
+       ),
+    _doerrsAuthorization ::
+      !( Maybe
+           Authorization
+       ),
+    _doerrsURL ::
+      !( Maybe
+           Text
+       ),
+    _doerrsHlsPackage ::
+      !( Maybe
+           HlsPackage
+       ),
+    _doerrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeOriginEndpointResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'desrsWhitelist' - A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
+-- * 'doerrsDashPackage' - Undocumented member.
 --
--- * 'desrsHlsPackage' - Undocumented member.
+-- * 'doerrsStartoverWindowSeconds' - Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
 --
--- * 'desrsARN' - The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
+-- * 'doerrsOrigination' - Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
 --
--- * 'desrsManifestName' - A short string appended to the end of the OriginEndpoint URL.
+-- * 'doerrsChannelId' - The ID of the Channel the OriginEndpoint is associated with.
 --
--- * 'desrsURL' - The URL of the packaged OriginEndpoint for consumption.
+-- * 'doerrsCmafPackage' - Undocumented member.
 --
--- * 'desrsChannelId' - The ID of the Channel the OriginEndpoint is associated with.
+-- * 'doerrsManifestName' - A short string appended to the end of the OriginEndpoint URL.
 --
--- * 'desrsStartoverWindowSeconds' - Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
+-- * 'doerrsARN' - The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
 --
--- * 'desrsDashPackage' - Undocumented member.
+-- * 'doerrsId' - The ID of the OriginEndpoint.
 --
--- * 'desrsMssPackage' - Undocumented member.
+-- * 'doerrsWhitelist' - A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
 --
--- * 'desrsId' - The ID of the OriginEndpoint.
+-- * 'doerrsMssPackage' - Undocumented member.
 --
--- * 'desrsTimeDelaySeconds' - Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
+-- * 'doerrsTags' - Undocumented member.
 --
--- * 'desrsCmafPackage' - Undocumented member.
+-- * 'doerrsDescription' - A short text description of the OriginEndpoint.
 --
--- * 'desrsDescription' - A short text description of the OriginEndpoint.
+-- * 'doerrsTimeDelaySeconds' - Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeOriginEndpointResponse
-    :: Int -- ^ 'desrsResponseStatus'
-    -> DescribeOriginEndpointResponse
+-- * 'doerrsAuthorization' - Undocumented member.
+--
+-- * 'doerrsURL' - The URL of the packaged OriginEndpoint for consumption.
+--
+-- * 'doerrsHlsPackage' - Undocumented member.
+--
+-- * 'doerrsResponseStatus' - -- | The response status code.
+describeOriginEndpointResponse ::
+  -- | 'doerrsResponseStatus'
+  Int ->
+  DescribeOriginEndpointResponse
 describeOriginEndpointResponse pResponseStatus_ =
   DescribeOriginEndpointResponse'
-    { _desrsWhitelist = Nothing
-    , _desrsHlsPackage = Nothing
-    , _desrsARN = Nothing
-    , _desrsManifestName = Nothing
-    , _desrsURL = Nothing
-    , _desrsChannelId = Nothing
-    , _desrsStartoverWindowSeconds = Nothing
-    , _desrsDashPackage = Nothing
-    , _desrsMssPackage = Nothing
-    , _desrsId = Nothing
-    , _desrsTimeDelaySeconds = Nothing
-    , _desrsCmafPackage = Nothing
-    , _desrsDescription = Nothing
-    , _desrsResponseStatus = pResponseStatus_
+    { _doerrsDashPackage =
+        Nothing,
+      _doerrsStartoverWindowSeconds = Nothing,
+      _doerrsOrigination = Nothing,
+      _doerrsChannelId = Nothing,
+      _doerrsCmafPackage = Nothing,
+      _doerrsManifestName = Nothing,
+      _doerrsARN = Nothing,
+      _doerrsId = Nothing,
+      _doerrsWhitelist = Nothing,
+      _doerrsMssPackage = Nothing,
+      _doerrsTags = Nothing,
+      _doerrsDescription = Nothing,
+      _doerrsTimeDelaySeconds = Nothing,
+      _doerrsAuthorization = Nothing,
+      _doerrsURL = Nothing,
+      _doerrsHlsPackage = Nothing,
+      _doerrsResponseStatus = pResponseStatus_
     }
 
-
--- | A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
-desrsWhitelist :: Lens' DescribeOriginEndpointResponse [Text]
-desrsWhitelist = lens _desrsWhitelist (\ s a -> s{_desrsWhitelist = a}) . _Default . _Coerce
-
 -- | Undocumented member.
-desrsHlsPackage :: Lens' DescribeOriginEndpointResponse (Maybe HlsPackage)
-desrsHlsPackage = lens _desrsHlsPackage (\ s a -> s{_desrsHlsPackage = a})
-
--- | The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
-desrsARN :: Lens' DescribeOriginEndpointResponse (Maybe Text)
-desrsARN = lens _desrsARN (\ s a -> s{_desrsARN = a})
-
--- | A short string appended to the end of the OriginEndpoint URL.
-desrsManifestName :: Lens' DescribeOriginEndpointResponse (Maybe Text)
-desrsManifestName = lens _desrsManifestName (\ s a -> s{_desrsManifestName = a})
-
--- | The URL of the packaged OriginEndpoint for consumption.
-desrsURL :: Lens' DescribeOriginEndpointResponse (Maybe Text)
-desrsURL = lens _desrsURL (\ s a -> s{_desrsURL = a})
-
--- | The ID of the Channel the OriginEndpoint is associated with.
-desrsChannelId :: Lens' DescribeOriginEndpointResponse (Maybe Text)
-desrsChannelId = lens _desrsChannelId (\ s a -> s{_desrsChannelId = a})
+doerrsDashPackage :: Lens' DescribeOriginEndpointResponse (Maybe DashPackage)
+doerrsDashPackage = lens _doerrsDashPackage (\s a -> s {_doerrsDashPackage = a})
 
 -- | Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
-desrsStartoverWindowSeconds :: Lens' DescribeOriginEndpointResponse (Maybe Int)
-desrsStartoverWindowSeconds = lens _desrsStartoverWindowSeconds (\ s a -> s{_desrsStartoverWindowSeconds = a})
+doerrsStartoverWindowSeconds :: Lens' DescribeOriginEndpointResponse (Maybe Int)
+doerrsStartoverWindowSeconds = lens _doerrsStartoverWindowSeconds (\s a -> s {_doerrsStartoverWindowSeconds = a})
+
+-- | Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+doerrsOrigination :: Lens' DescribeOriginEndpointResponse (Maybe Origination)
+doerrsOrigination = lens _doerrsOrigination (\s a -> s {_doerrsOrigination = a})
+
+-- | The ID of the Channel the OriginEndpoint is associated with.
+doerrsChannelId :: Lens' DescribeOriginEndpointResponse (Maybe Text)
+doerrsChannelId = lens _doerrsChannelId (\s a -> s {_doerrsChannelId = a})
 
 -- | Undocumented member.
-desrsDashPackage :: Lens' DescribeOriginEndpointResponse (Maybe DashPackage)
-desrsDashPackage = lens _desrsDashPackage (\ s a -> s{_desrsDashPackage = a})
+doerrsCmafPackage :: Lens' DescribeOriginEndpointResponse (Maybe CmafPackage)
+doerrsCmafPackage = lens _doerrsCmafPackage (\s a -> s {_doerrsCmafPackage = a})
 
--- | Undocumented member.
-desrsMssPackage :: Lens' DescribeOriginEndpointResponse (Maybe MssPackage)
-desrsMssPackage = lens _desrsMssPackage (\ s a -> s{_desrsMssPackage = a})
+-- | A short string appended to the end of the OriginEndpoint URL.
+doerrsManifestName :: Lens' DescribeOriginEndpointResponse (Maybe Text)
+doerrsManifestName = lens _doerrsManifestName (\s a -> s {_doerrsManifestName = a})
+
+-- | The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
+doerrsARN :: Lens' DescribeOriginEndpointResponse (Maybe Text)
+doerrsARN = lens _doerrsARN (\s a -> s {_doerrsARN = a})
 
 -- | The ID of the OriginEndpoint.
-desrsId :: Lens' DescribeOriginEndpointResponse (Maybe Text)
-desrsId = lens _desrsId (\ s a -> s{_desrsId = a})
+doerrsId :: Lens' DescribeOriginEndpointResponse (Maybe Text)
+doerrsId = lens _doerrsId (\s a -> s {_doerrsId = a})
 
--- | Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
-desrsTimeDelaySeconds :: Lens' DescribeOriginEndpointResponse (Maybe Int)
-desrsTimeDelaySeconds = lens _desrsTimeDelaySeconds (\ s a -> s{_desrsTimeDelaySeconds = a})
+-- | A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
+doerrsWhitelist :: Lens' DescribeOriginEndpointResponse [Text]
+doerrsWhitelist = lens _doerrsWhitelist (\s a -> s {_doerrsWhitelist = a}) . _Default . _Coerce
 
 -- | Undocumented member.
-desrsCmafPackage :: Lens' DescribeOriginEndpointResponse (Maybe CmafPackage)
-desrsCmafPackage = lens _desrsCmafPackage (\ s a -> s{_desrsCmafPackage = a})
+doerrsMssPackage :: Lens' DescribeOriginEndpointResponse (Maybe MssPackage)
+doerrsMssPackage = lens _doerrsMssPackage (\s a -> s {_doerrsMssPackage = a})
+
+-- | Undocumented member.
+doerrsTags :: Lens' DescribeOriginEndpointResponse (HashMap Text Text)
+doerrsTags = lens _doerrsTags (\s a -> s {_doerrsTags = a}) . _Default . _Map
 
 -- | A short text description of the OriginEndpoint.
-desrsDescription :: Lens' DescribeOriginEndpointResponse (Maybe Text)
-desrsDescription = lens _desrsDescription (\ s a -> s{_desrsDescription = a})
+doerrsDescription :: Lens' DescribeOriginEndpointResponse (Maybe Text)
+doerrsDescription = lens _doerrsDescription (\s a -> s {_doerrsDescription = a})
+
+-- | Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
+doerrsTimeDelaySeconds :: Lens' DescribeOriginEndpointResponse (Maybe Int)
+doerrsTimeDelaySeconds = lens _doerrsTimeDelaySeconds (\s a -> s {_doerrsTimeDelaySeconds = a})
+
+-- | Undocumented member.
+doerrsAuthorization :: Lens' DescribeOriginEndpointResponse (Maybe Authorization)
+doerrsAuthorization = lens _doerrsAuthorization (\s a -> s {_doerrsAuthorization = a})
+
+-- | The URL of the packaged OriginEndpoint for consumption.
+doerrsURL :: Lens' DescribeOriginEndpointResponse (Maybe Text)
+doerrsURL = lens _doerrsURL (\s a -> s {_doerrsURL = a})
+
+-- | Undocumented member.
+doerrsHlsPackage :: Lens' DescribeOriginEndpointResponse (Maybe HlsPackage)
+doerrsHlsPackage = lens _doerrsHlsPackage (\s a -> s {_doerrsHlsPackage = a})
 
 -- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeOriginEndpointResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\ s a -> s{_desrsResponseStatus = a})
+doerrsResponseStatus :: Lens' DescribeOriginEndpointResponse Int
+doerrsResponseStatus = lens _doerrsResponseStatus (\s a -> s {_doerrsResponseStatus = a})
 
-instance NFData DescribeOriginEndpointResponse where
+instance NFData DescribeOriginEndpointResponse
