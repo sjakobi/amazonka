@@ -1,129 +1,151 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Pinpoint.GetADMChannel
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get an ADM channel
+-- Retrieves information about the status and settings of the ADM channel for an application.
 module Network.AWS.Pinpoint.GetADMChannel
-    (
-    -- * Creating a Request
-      getADMChannel
-    , GetADMChannel
+  ( -- * Creating a Request
+    getADMChannel,
+    GetADMChannel,
+
     -- * Request Lenses
-    , gadmcApplicationId
+    gadmcApplicationId,
 
     -- * Destructuring the Response
-    , getADMChannelResponse
-    , GetADMChannelResponse
+    getADMChannelResponse,
+    GetADMChannelResponse,
+
     -- * Response Lenses
-    , gadmcrsResponseStatus
-    , gadmcrsADMChannelResponse
-    ) where
+    gadmcrrsResponseStatus,
+    gadmcrrsADMChannelResponse,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Pinpoint.Types
-import Network.AWS.Pinpoint.Types.Product
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'getADMChannel' smart constructor.
 newtype GetADMChannel = GetADMChannel'
-  { _gadmcApplicationId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gadmcApplicationId ::
+      Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetADMChannel' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gadmcApplicationId' - Undocumented member.
-getADMChannel
-    :: Text -- ^ 'gadmcApplicationId'
-    -> GetADMChannel
+-- * 'gadmcApplicationId' - The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
+getADMChannel ::
+  -- | 'gadmcApplicationId'
+  Text ->
+  GetADMChannel
 getADMChannel pApplicationId_ =
-  GetADMChannel' {_gadmcApplicationId = pApplicationId_}
+  GetADMChannel'
+    { _gadmcApplicationId =
+        pApplicationId_
+    }
 
-
--- | Undocumented member.
+-- | The unique identifier for the application. This identifier is displayed as the __Project ID__ on the Amazon Pinpoint console.
 gadmcApplicationId :: Lens' GetADMChannel Text
-gadmcApplicationId = lens _gadmcApplicationId (\ s a -> s{_gadmcApplicationId = a})
+gadmcApplicationId = lens _gadmcApplicationId (\s a -> s {_gadmcApplicationId = a})
 
 instance AWSRequest GetADMChannel where
-        type Rs GetADMChannel = GetADMChannelResponse
-        request = get pinpoint
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetADMChannelResponse' <$>
-                   (pure (fromEnum s)) <*> (eitherParseJSON x))
+  type Rs GetADMChannel = GetADMChannelResponse
+  request = get pinpoint
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetADMChannelResponse'
+            <$> (pure (fromEnum s)) <*> (eitherParseJSON x)
+      )
 
-instance Hashable GetADMChannel where
+instance Hashable GetADMChannel
 
-instance NFData GetADMChannel where
+instance NFData GetADMChannel
 
 instance ToHeaders GetADMChannel where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToPath GetADMChannel where
-        toPath GetADMChannel'{..}
-          = mconcat
-              ["/v1/apps/", toBS _gadmcApplicationId,
-               "/channels/adm"]
+  toPath GetADMChannel' {..} =
+    mconcat
+      [ "/v1/apps/",
+        toBS _gadmcApplicationId,
+        "/channels/adm"
+      ]
 
 instance ToQuery GetADMChannel where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getADMChannelResponse' smart constructor.
 data GetADMChannelResponse = GetADMChannelResponse'
-  { _gadmcrsResponseStatus     :: !Int
-  , _gadmcrsADMChannelResponse :: !ADMChannelResponse
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gadmcrrsResponseStatus ::
+      !Int,
+    _gadmcrrsADMChannelResponse ::
+      !ADMChannelResponse
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetADMChannelResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gadmcrsResponseStatus' - -- | The response status code.
+-- * 'gadmcrrsResponseStatus' - -- | The response status code.
 --
--- * 'gadmcrsADMChannelResponse' - Undocumented member.
+-- * 'gadmcrrsADMChannelResponse' - Undocumented member.
+getADMChannelResponse ::
+  -- | 'gadmcrrsResponseStatus'
+  Int ->
+  -- | 'gadmcrrsADMChannelResponse'
+  ADMChannelResponse ->
+  GetADMChannelResponse
 getADMChannelResponse
-    :: Int -- ^ 'gadmcrsResponseStatus'
-    -> ADMChannelResponse -- ^ 'gadmcrsADMChannelResponse'
-    -> GetADMChannelResponse
-getADMChannelResponse pResponseStatus_ pADMChannelResponse_ =
-  GetADMChannelResponse'
-    { _gadmcrsResponseStatus = pResponseStatus_
-    , _gadmcrsADMChannelResponse = pADMChannelResponse_
-    }
-
+  pResponseStatus_
+  pADMChannelResponse_ =
+    GetADMChannelResponse'
+      { _gadmcrrsResponseStatus =
+          pResponseStatus_,
+        _gadmcrrsADMChannelResponse = pADMChannelResponse_
+      }
 
 -- | -- | The response status code.
-gadmcrsResponseStatus :: Lens' GetADMChannelResponse Int
-gadmcrsResponseStatus = lens _gadmcrsResponseStatus (\ s a -> s{_gadmcrsResponseStatus = a})
+gadmcrrsResponseStatus :: Lens' GetADMChannelResponse Int
+gadmcrrsResponseStatus = lens _gadmcrrsResponseStatus (\s a -> s {_gadmcrrsResponseStatus = a})
 
 -- | Undocumented member.
-gadmcrsADMChannelResponse :: Lens' GetADMChannelResponse ADMChannelResponse
-gadmcrsADMChannelResponse = lens _gadmcrsADMChannelResponse (\ s a -> s{_gadmcrsADMChannelResponse = a})
+gadmcrrsADMChannelResponse :: Lens' GetADMChannelResponse ADMChannelResponse
+gadmcrrsADMChannelResponse = lens _gadmcrrsADMChannelResponse (\s a -> s {_gadmcrrsADMChannelResponse = a})
 
-instance NFData GetADMChannelResponse where
+instance NFData GetADMChannelResponse
