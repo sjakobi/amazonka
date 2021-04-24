@@ -1,0 +1,185 @@
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
+
+-- Derived from AWS service descriptions, licensed under Apache 2.0.
+
+-- |
+-- Module      : Network.AWS.Translate.GetTerminology
+-- Copyright   : (c) 2013-2021 Brendan Hay
+-- License     : Mozilla Public License, v. 2.0.
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+-- Stability   : auto-generated
+-- Portability : non-portable (GHC extensions)
+--
+-- Retrieves a custom terminology.
+module Network.AWS.Translate.GetTerminology
+  ( -- * Creating a Request
+    getTerminology,
+    GetTerminology,
+
+    -- * Request Lenses
+    gtName,
+    gtTerminologyDataFormat,
+
+    -- * Destructuring the Response
+    getTerminologyResponse,
+    GetTerminologyResponse,
+
+    -- * Response Lenses
+    gtrrsTerminologyDataLocation,
+    gtrrsTerminologyProperties,
+    gtrrsResponseStatus,
+  )
+where
+
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.Translate.Types
+
+-- | /See:/ 'getTerminology' smart constructor.
+data GetTerminology = GetTerminology'
+  { _gtName ::
+      !Text,
+    _gtTerminologyDataFormat ::
+      !TerminologyDataFormat
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+-- | Creates a value of 'GetTerminology' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'gtName' - The name of the custom terminology being retrieved.
+--
+-- * 'gtTerminologyDataFormat' - The data format of the custom terminology being retrieved, either CSV or TMX.
+getTerminology ::
+  -- | 'gtName'
+  Text ->
+  -- | 'gtTerminologyDataFormat'
+  TerminologyDataFormat ->
+  GetTerminology
+getTerminology pName_ pTerminologyDataFormat_ =
+  GetTerminology'
+    { _gtName = pName_,
+      _gtTerminologyDataFormat = pTerminologyDataFormat_
+    }
+
+-- | The name of the custom terminology being retrieved.
+gtName :: Lens' GetTerminology Text
+gtName = lens _gtName (\s a -> s {_gtName = a})
+
+-- | The data format of the custom terminology being retrieved, either CSV or TMX.
+gtTerminologyDataFormat :: Lens' GetTerminology TerminologyDataFormat
+gtTerminologyDataFormat = lens _gtTerminologyDataFormat (\s a -> s {_gtTerminologyDataFormat = a})
+
+instance AWSRequest GetTerminology where
+  type Rs GetTerminology = GetTerminologyResponse
+  request = postJSON translate
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetTerminologyResponse'
+            <$> (x .?> "TerminologyDataLocation")
+            <*> (x .?> "TerminologyProperties")
+            <*> (pure (fromEnum s))
+      )
+
+instance Hashable GetTerminology
+
+instance NFData GetTerminology
+
+instance ToHeaders GetTerminology where
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWSShineFrontendService_20170701.GetTerminology" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
+
+instance ToJSON GetTerminology where
+  toJSON GetTerminology' {..} =
+    object
+      ( catMaybes
+          [ Just ("Name" .= _gtName),
+            Just
+              ( "TerminologyDataFormat"
+                  .= _gtTerminologyDataFormat
+              )
+          ]
+      )
+
+instance ToPath GetTerminology where
+  toPath = const "/"
+
+instance ToQuery GetTerminology where
+  toQuery = const mempty
+
+-- | /See:/ 'getTerminologyResponse' smart constructor.
+data GetTerminologyResponse = GetTerminologyResponse'
+  { _gtrrsTerminologyDataLocation ::
+      !( Maybe
+           TerminologyDataLocation
+       ),
+    _gtrrsTerminologyProperties ::
+      !( Maybe
+           TerminologyProperties
+       ),
+    _gtrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
+
+-- | Creates a value of 'GetTerminologyResponse' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'gtrrsTerminologyDataLocation' - The data location of the custom terminology being retrieved. The custom terminology file is returned in a presigned url that has a 30 minute expiration.
+--
+-- * 'gtrrsTerminologyProperties' - The properties of the custom terminology being retrieved.
+--
+-- * 'gtrrsResponseStatus' - -- | The response status code.
+getTerminologyResponse ::
+  -- | 'gtrrsResponseStatus'
+  Int ->
+  GetTerminologyResponse
+getTerminologyResponse pResponseStatus_ =
+  GetTerminologyResponse'
+    { _gtrrsTerminologyDataLocation =
+        Nothing,
+      _gtrrsTerminologyProperties = Nothing,
+      _gtrrsResponseStatus = pResponseStatus_
+    }
+
+-- | The data location of the custom terminology being retrieved. The custom terminology file is returned in a presigned url that has a 30 minute expiration.
+gtrrsTerminologyDataLocation :: Lens' GetTerminologyResponse (Maybe TerminologyDataLocation)
+gtrrsTerminologyDataLocation = lens _gtrrsTerminologyDataLocation (\s a -> s {_gtrrsTerminologyDataLocation = a})
+
+-- | The properties of the custom terminology being retrieved.
+gtrrsTerminologyProperties :: Lens' GetTerminologyResponse (Maybe TerminologyProperties)
+gtrrsTerminologyProperties = lens _gtrrsTerminologyProperties (\s a -> s {_gtrrsTerminologyProperties = a})
+
+-- | -- | The response status code.
+gtrrsResponseStatus :: Lens' GetTerminologyResponse Int
+gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+
+instance NFData GetTerminologyResponse
