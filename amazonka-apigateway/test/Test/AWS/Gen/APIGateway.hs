@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.APIGateway
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.APIGateway where
 
 import Data.Proxy
@@ -28,134 +27,77 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetResource $
---             getResource
+--         [ requestGenerateClientCertificate $
+--             generateClientCertificate
+--
+--         , requestUpdateIntegration $
+--             updateIntegration
+--
+--         , requestDeleteUsagePlan $
+--             deleteUsagePlan
+--
+--         , requestDeleteIntegration $
+--             deleteIntegration
+--
+--         , requestGetUsagePlanKey $
+--             getUsagePlanKey
+--
+--         , requestGetAuthorizer $
+--             getAuthorizer
+--
+--         , requestUpdateUsagePlan $
+--             updateUsagePlan
 --
 --         , requestGetDeployments $
 --             getDeployments
 --
---         , requestGetDeployment $
---             getDeployment
+--         , requestDeleteIntegrationResponse $
+--             deleteIntegrationResponse
 --
---         , requestGetTags $
---             getTags
+--         , requestFlushStageCache $
+--             flushStageCache
 --
---         , requestDeleteGatewayResponse $
---             deleteGatewayResponse
+--         , requestDeleteVPCLink $
+--             deleteVPCLink
 --
---         , requestUpdateGatewayResponse $
---             updateGatewayResponse
+--         , requestDeleteDocumentationPart $
+--             deleteDocumentationPart
 --
---         , requestCreateUsagePlan $
---             createUsagePlan
+--         , requestUpdateVPCLink $
+--             updateVPCLink
 --
---         , requestGetDomainNames $
---             getDomainNames
+--         , requestCreateRestAPI $
+--             createRestAPI
 --
---         , requestGetClientCertificate $
---             getClientCertificate
+--         , requestUpdateUsage $
+--             updateUsage
 --
---         , requestPutGatewayResponse $
---             putGatewayResponse
+--         , requestUpdateIntegrationResponse $
+--             updateIntegrationResponse
 --
---         , requestGetSDKType $
---             getSDKType
+--         , requestUpdateDocumentationPart $
+--             updateDocumentationPart
 --
---         , requestGetMethodResponse $
---             getMethodResponse
+--         , requestGetSDKTypes $
+--             getSDKTypes
 --
---         , requestGetModels $
---             getModels
+--         , requestGetBasePathMappings $
+--             getBasePathMappings
 --
---         , requestGetBasePathMapping $
---             getBasePathMapping
+--         , requestGetModel $
+--             getModel
 --
---         , requestGetRequestValidators $
---             getRequestValidators
+--         , requestGetClientCertificates $
+--             getClientCertificates
 --
---         , requestPutMethodResponse $
---             putMethodResponse
+--         , requestTestInvokeMethod $
+--             testInvokeMethod
 --
---         , requestImportRestAPI $
---             importRestAPI
+--         , requestPutRestAPI $
+--             putRestAPI
 --
---         , requestDeleteMethodResponse $
---             deleteMethodResponse
---
---         , requestUpdateMethodResponse $
---             updateMethodResponse
---
---         , requestDeleteStage $
---             deleteStage
---
---         , requestUpdateStage $
---             updateStage
---
---         , requestGetRestAPIs $
---             getRestAPIs
---
---         , requestGetDocumentationVersions $
---             getDocumentationVersions
---
---         , requestCreateDeployment $
---             createDeployment
---
---         , requestGetVPCLinks $
---             getVPCLinks
---
---         , requestCreateBasePathMapping $
---             createBasePathMapping
---
---         , requestGetIntegration $
---             getIntegration
---
---         , requestGetDocumentationParts $
---             getDocumentationParts
---
---         , requestUpdateAccount $
---             updateAccount
---
---         , requestGetUsagePlan $
---             getUsagePlan
---
---         , requestDeleteDeployment $
---             deleteDeployment
---
---         , requestUpdateDeployment $
---             updateDeployment
---
---         , requestGetDocumentationPart $
---             getDocumentationPart
---
---         , requestDeleteResource $
---             deleteResource
---
---         , requestUpdateResource $
---             updateResource
---
---         , requestCreateRequestValidator $
---             createRequestValidator
---
---         , requestImportDocumentationParts $
---             importDocumentationParts
---
---         , requestGetUsage $
---             getUsage
---
---         , requestGetVPCLink $
---             getVPCLink
---
---         , requestCreateModel $
---             createModel
---
---         , requestGetIntegrationResponse $
---             getIntegrationResponse
---
---         , requestCreateDomainName $
---             createDomainName
---
---         , requestFlushStageAuthorizersCache $
---             flushStageAuthorizersCache
+--         , requestGetAPIKey $
+--             getAPIKey
 --
 --         , requestGetGatewayResponses $
 --             getGatewayResponses
@@ -163,203 +105,26 @@ import Test.Tasty
 --         , requestDeleteModel $
 --             deleteModel
 --
---         , requestUpdateModel $
---             updateModel
+--         , requestDeleteMethod $
+--             deleteMethod
 --
 --         , requestGetDocumentationVersion $
 --             getDocumentationVersion
 --
---         , requestDeleteAPIKey $
---             deleteAPIKey
+--         , requestUpdateMethod $
+--             updateMethod
 --
---         , requestUpdateAPIKey $
---             updateAPIKey
---
---         , requestGetRestAPI $
---             getRestAPI
---
---         , requestGetStages $
---             getStages
---
---         , requestPutRestAPI $
---             putRestAPI
---
---         , requestGetMethod $
---             getMethod
---
---         , requestGetModel $
---             getModel
---
---         , requestUpdateRestAPI $
---             updateRestAPI
---
---         , requestDeleteRestAPI $
---             deleteRestAPI
---
---         , requestImportAPIKeys $
---             importAPIKeys
---
---         , requestCreateDocumentationPart $
---             createDocumentationPart
---
---         , requestTestInvokeMethod $
---             testInvokeMethod
---
---         , requestGetRequestValidator $
---             getRequestValidator
---
---         , requestGetDomainName $
---             getDomainName
---
---         , requestCreateVPCLink $
---             createVPCLink
---
---         , requestDeleteDocumentationPart $
---             deleteDocumentationPart
---
---         , requestUpdateDocumentationPart $
---             updateDocumentationPart
---
---         , requestGetAuthorizers $
---             getAuthorizers
---
---         , requestCreateDocumentationVersion $
---             createDocumentationVersion
---
---         , requestPutIntegrationResponse $
---             putIntegrationResponse
---
---         , requestGetUsagePlanKeys $
---             getUsagePlanKeys
---
---         , requestDeleteVPCLink $
---             deleteVPCLink
---
---         , requestUpdateVPCLink $
---             updateVPCLink
---
---         , requestFlushStageCache $
---             flushStageCache
---
---         , requestCreateRestAPI $
---             createRestAPI
---
---         , requestDeleteIntegrationResponse $
---             deleteIntegrationResponse
---
---         , requestUpdateIntegrationResponse $
---             updateIntegrationResponse
---
---         , requestUpdateUsage $
---             updateUsage
---
---         , requestDeleteIntegration $
---             deleteIntegration
---
---         , requestUpdateIntegration $
---             updateIntegration
---
---         , requestTestInvokeAuthorizer $
---             testInvokeAuthorizer
---
---         , requestGenerateClientCertificate $
---             generateClientCertificate
---
---         , requestGetResources $
---             getResources
---
---         , requestGetUsagePlanKey $
---             getUsagePlanKey
---
---         , requestGetAccount $
---             getAccount
---
---         , requestPutIntegration $
---             putIntegration
---
---         , requestGetAuthorizer $
---             getAuthorizer
---
---         , requestDeleteUsagePlan $
---             deleteUsagePlan
---
---         , requestUpdateUsagePlan $
---             updateUsagePlan
---
---         , requestGetStage $
---             getStage
---
---         , requestGetExport $
---             getExport
---
---         , requestGetSDK $
---             getSDK
---
---         , requestGetAPIKeys $
---             getAPIKeys
---
---         , requestDeleteBasePathMapping $
---             deleteBasePathMapping
---
---         , requestUpdateBasePathMapping $
---             updateBasePathMapping
---
---         , requestDeleteClientCertificate $
---             deleteClientCertificate
---
---         , requestUpdateClientCertificate $
---             updateClientCertificate
---
---         , requestGetGatewayResponse $
---             getGatewayResponse
---
---         , requestCreateUsagePlanKey $
---             createUsagePlanKey
---
---         , requestCreateAuthorizer $
---             createAuthorizer
---
---         , requestUpdateAuthorizer $
---             updateAuthorizer
---
---         , requestDeleteAuthorizer $
---             deleteAuthorizer
---
---         , requestTagResource $
---             tagResource
---
---         , requestCreateStage $
---             createStage
---
---         , requestDeleteUsagePlanKey $
---             deleteUsagePlanKey
---
---         , requestUntagResource $
---             untagResource
---
---         , requestCreateAPIKey $
---             createAPIKey
---
---         , requestGetUsagePlans $
---             getUsagePlans
---
---         , requestPutMethod $
---             putMethod
+--         , requestUpdateModel $
+--             updateModel
 --
 --         , requestUpdateDomainName $
 --             updateDomainName
 --
---         , requestDeleteDomainName $
---             deleteDomainName
---
 --         , requestCreateResource $
 --             createResource
 --
---         , requestDeleteMethod $
---             deleteMethod
---
---         , requestUpdateMethod $
---             updateMethod
+--         , requestDeleteDomainName $
+--             deleteDomainName
 --
 --         , requestUpdateRequestValidator $
 --             updateRequestValidator
@@ -367,158 +132,335 @@ import Test.Tasty
 --         , requestDeleteRequestValidator $
 --             deleteRequestValidator
 --
---         , requestGetSDKTypes $
---             getSDKTypes
+--         , requestGetUsagePlans $
+--             getUsagePlans
 --
---         , requestGetClientCertificates $
---             getClientCertificates
+--         , requestCreateRequestValidator $
+--             createRequestValidator
+--
+--         , requestCreateDomainName $
+--             createDomainName
+--
+--         , requestGetVPCLink $
+--             getVPCLink
+--
+--         , requestUpdateResource $
+--             updateResource
+--
+--         , requestGetDocumentationPart $
+--             getDocumentationPart
+--
+--         , requestGetUsage $
+--             getUsage
+--
+--         , requestImportDocumentationParts $
+--             importDocumentationParts
+--
+--         , requestUntagResource $
+--             untagResource
+--
+--         , requestDeleteResource $
+--             deleteResource
+--
+--         , requestGetIntegrationResponse $
+--             getIntegrationResponse
+--
+--         , requestDeleteDeployment $
+--             deleteDeployment
+--
+--         , requestCreateStage $
+--             createStage
+--
+--         , requestGetIntegration $
+--             getIntegration
+--
+--         , requestTagResource $
+--             tagResource
+--
+--         , requestUpdateDeployment $
+--             updateDeployment
+--
+--         , requestGetUsagePlan $
+--             getUsagePlan
+--
+--         , requestGetRestAPIs $
+--             getRestAPIs
+--
+--         , requestCreateAuthorizer $
+--             createAuthorizer
+--
+--         , requestDeleteStage $
+--             deleteStage
+--
+--         , requestUpdateStage $
+--             updateStage
+--
+--         , requestCreateUsagePlanKey $
+--             createUsagePlanKey
+--
+--         , requestGetGatewayResponse $
+--             getGatewayResponse
+--
+--         , requestImportRestAPI $
+--             importRestAPI
+--
+--         , requestPutMethodResponse $
+--             putMethodResponse
+--
+--         , requestGetBasePathMapping $
+--             getBasePathMapping
+--
+--         , requestGetRequestValidators $
+--             getRequestValidators
+--
+--         , requestGetDomainNames $
+--             getDomainNames
+--
+--         , requestGetSDKType $
+--             getSDKType
+--
+--         , requestPutGatewayResponse $
+--             putGatewayResponse
+--
+--         , requestGetExport $
+--             getExport
+--
+--         , requestGetClientCertificate $
+--             getClientCertificate
+--
+--         , requestTestInvokeAuthorizer $
+--             testInvokeAuthorizer
+--
+--         , requestGetTags $
+--             getTags
+--
+--         , requestGetDeployment $
+--             getDeployment
+--
+--         , requestGetAccount $
+--             getAccount
+--
+--         , requestPutIntegration $
+--             putIntegration
+--
+--         , requestGetResources $
+--             getResources
+--
+--         , requestGetResource $
+--             getResource
+--
+--         , requestCreateDocumentationVersion $
+--             createDocumentationVersion
+--
+--         , requestGetAuthorizers $
+--             getAuthorizers
+--
+--         , requestPutIntegrationResponse $
+--             putIntegrationResponse
+--
+--         , requestGetUsagePlanKeys $
+--             getUsagePlanKeys
+--
+--         , requestCreateDocumentationPart $
+--             createDocumentationPart
+--
+--         , requestGetStages $
+--             getStages
+--
+--         , requestGetDomainName $
+--             getDomainName
 --
 --         , requestGetModelTemplate $
 --             getModelTemplate
 --
+--         , requestDeleteRestAPI $
+--             deleteRestAPI
+--
+--         , requestGetMethod $
+--             getMethod
+--
+--         , requestUpdateRestAPI $
+--             updateRestAPI
+--
+--         , requestCreateVPCLink $
+--             createVPCLink
+--
+--         , requestGetRequestValidator $
+--             getRequestValidator
+--
 --         , requestUpdateDocumentationVersion $
 --             updateDocumentationVersion
+--
+--         , requestImportAPIKeys $
+--             importAPIKeys
 --
 --         , requestDeleteDocumentationVersion $
 --             deleteDocumentationVersion
 --
---         , requestGetBasePathMappings $
---             getBasePathMappings
+--         , requestPutMethod $
+--             putMethod
 --
---         , requestGetAPIKey $
---             getAPIKey
+--         , requestDeleteAPIKey $
+--             deleteAPIKey
+--
+--         , requestFlushStageAuthorizersCache $
+--             flushStageAuthorizersCache
+--
+--         , requestUpdateAPIKey $
+--             updateAPIKey
+--
+--         , requestGetRestAPI $
+--             getRestAPI
+--
+--         , requestCreateModel $
+--             createModel
+--
+--         , requestCreateAPIKey $
+--             createAPIKey
+--
+--         , requestDeleteUsagePlanKey $
+--             deleteUsagePlanKey
+--
+--         , requestUpdateAccount $
+--             updateAccount
+--
+--         , requestGetVPCLinks $
+--             getVPCLinks
+--
+--         , requestUpdateAuthorizer $
+--             updateAuthorizer
+--
+--         , requestCreateBasePathMapping $
+--             createBasePathMapping
+--
+--         , requestGetDocumentationParts $
+--             getDocumentationParts
+--
+--         , requestDeleteAuthorizer $
+--             deleteAuthorizer
+--
+--         , requestDeleteClientCertificate $
+--             deleteClientCertificate
+--
+--         , requestDeleteMethodResponse $
+--             deleteMethodResponse
+--
+--         , requestDeleteBasePathMapping $
+--             deleteBasePathMapping
+--
+--         , requestGetDocumentationVersions $
+--             getDocumentationVersions
+--
+--         , requestUpdateBasePathMapping $
+--             updateBasePathMapping
+--
+--         , requestUpdateClientCertificate $
+--             updateClientCertificate
+--
+--         , requestUpdateMethodResponse $
+--             updateMethodResponse
+--
+--         , requestCreateDeployment $
+--             createDeployment
+--
+--         , requestGetAPIKeys $
+--             getAPIKeys
+--
+--         , requestCreateUsagePlan $
+--             createUsagePlan
+--
+--         , requestUpdateGatewayResponse $
+--             updateGatewayResponse
+--
+--         , requestGetSDK $
+--             getSDK
+--
+--         , requestGetMethodResponse $
+--             getMethodResponse
+--
+--         , requestGetModels $
+--             getModels
+--
+--         , requestGetStage $
+--             getStage
+--
+--         , requestDeleteGatewayResponse $
+--             deleteGatewayResponse
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseGetResource $
---             resource
+--         [ responseGenerateClientCertificate $
+--             clientCertificate
+--
+--         , responseUpdateIntegration $
+--             integration
+--
+--         , responseDeleteUsagePlan $
+--             deleteUsagePlanResponse
+--
+--         , responseDeleteIntegration $
+--             deleteIntegrationResponse'
+--
+--         , responseGetUsagePlanKey $
+--             usagePlanKey
+--
+--         , responseGetAuthorizer $
+--             authorizer
+--
+--         , responseUpdateUsagePlan $
+--             usagePlan
 --
 --         , responseGetDeployments $
 --             getDeploymentsResponse
 --
---         , responseGetDeployment $
---             deployment
+--         , responseDeleteIntegrationResponse $
+--             deleteIntegrationResponseResponse
 --
---         , responseGetTags $
---             getTagsResponse
+--         , responseFlushStageCache $
+--             flushStageCacheResponse
 --
---         , responseDeleteGatewayResponse $
---             deleteGatewayResponseResponse
+--         , responseDeleteVPCLink $
+--             deleteVPCLinkResponse
 --
---         , responseUpdateGatewayResponse $
---             gatewayResponse
+--         , responseDeleteDocumentationPart $
+--             deleteDocumentationPartResponse
 --
---         , responseCreateUsagePlan $
---             usagePlan
---
---         , responseGetDomainNames $
---             getDomainNamesResponse
---
---         , responseGetClientCertificate $
---             clientCertificate
---
---         , responsePutGatewayResponse $
---             gatewayResponse
---
---         , responseGetSDKType $
---             sdkType
---
---         , responseGetMethodResponse $
---             methodResponse
---
---         , responseGetModels $
---             getModelsResponse
---
---         , responseGetBasePathMapping $
---             basePathMapping
---
---         , responseGetRequestValidators $
---             getRequestValidatorsResponse
---
---         , responsePutMethodResponse $
---             methodResponse
---
---         , responseImportRestAPI $
---             restAPI
---
---         , responseDeleteMethodResponse $
---             deleteMethodResponseResponse
---
---         , responseUpdateMethodResponse $
---             methodResponse
---
---         , responseDeleteStage $
---             deleteStageResponse
---
---         , responseUpdateStage $
---             stage
---
---         , responseGetRestAPIs $
---             getRestAPIsResponse
---
---         , responseGetDocumentationVersions $
---             getDocumentationVersionsResponse
---
---         , responseCreateDeployment $
---             deployment
---
---         , responseGetVPCLinks $
---             getVPCLinksResponse
---
---         , responseCreateBasePathMapping $
---             basePathMapping
---
---         , responseGetIntegration $
---             integration
---
---         , responseGetDocumentationParts $
---             getDocumentationPartsResponse
---
---         , responseUpdateAccount $
---             account
---
---         , responseGetUsagePlan $
---             usagePlan
---
---         , responseDeleteDeployment $
---             deleteDeploymentResponse
---
---         , responseUpdateDeployment $
---             deployment
---
---         , responseGetDocumentationPart $
---             documentationPart
---
---         , responseDeleteResource $
---             deleteResourceResponse
---
---         , responseUpdateResource $
---             resource
---
---         , responseCreateRequestValidator $
---             requestValidator
---
---         , responseImportDocumentationParts $
---             importDocumentationPartsResponse
---
---         , responseGetUsage $
---             usage
---
---         , responseGetVPCLink $
+--         , responseUpdateVPCLink $
 --             vpcLink
 --
---         , responseCreateModel $
---             model
+--         , responseCreateRestAPI $
+--             restAPI
 --
---         , responseGetIntegrationResponse $
+--         , responseUpdateUsage $
+--             usage
+--
+--         , responseUpdateIntegrationResponse $
 --             integrationResponse
 --
---         , responseCreateDomainName $
---             domainName
+--         , responseUpdateDocumentationPart $
+--             documentationPart
 --
---         , responseFlushStageAuthorizersCache $
---             flushStageAuthorizersCacheResponse
+--         , responseGetSDKTypes $
+--             getSDKTypesResponse
+--
+--         , responseGetBasePathMappings $
+--             getBasePathMappingsResponse
+--
+--         , responseGetModel $
+--             model
+--
+--         , responseGetClientCertificates $
+--             getClientCertificatesResponse
+--
+--         , responseTestInvokeMethod $
+--             testInvokeMethodResponse
+--
+--         , responsePutRestAPI $
+--             restAPI
+--
+--         , responseGetAPIKey $
+--             apiKey
 --
 --         , responseGetGatewayResponses $
 --             getGatewayResponsesResponse
@@ -526,203 +468,26 @@ import Test.Tasty
 --         , responseDeleteModel $
 --             deleteModelResponse
 --
---         , responseUpdateModel $
---             model
+--         , responseDeleteMethod $
+--             deleteMethodResponse'
 --
 --         , responseGetDocumentationVersion $
 --             documentationVersion
 --
---         , responseDeleteAPIKey $
---             deleteAPIKeyResponse
---
---         , responseUpdateAPIKey $
---             apiKey
---
---         , responseGetRestAPI $
---             restAPI
---
---         , responseGetStages $
---             getStagesResponse
---
---         , responsePutRestAPI $
---             restAPI
---
---         , responseGetMethod $
+--         , responseUpdateMethod $
 --             method
 --
---         , responseGetModel $
+--         , responseUpdateModel $
 --             model
---
---         , responseUpdateRestAPI $
---             restAPI
---
---         , responseDeleteRestAPI $
---             deleteRestAPIResponse
---
---         , responseImportAPIKeys $
---             importAPIKeysResponse
---
---         , responseCreateDocumentationPart $
---             documentationPart
---
---         , responseTestInvokeMethod $
---             testInvokeMethodResponse
---
---         , responseGetRequestValidator $
---             requestValidator
---
---         , responseGetDomainName $
---             domainName
---
---         , responseCreateVPCLink $
---             vpcLink
---
---         , responseDeleteDocumentationPart $
---             deleteDocumentationPartResponse
---
---         , responseUpdateDocumentationPart $
---             documentationPart
---
---         , responseGetAuthorizers $
---             getAuthorizersResponse
---
---         , responseCreateDocumentationVersion $
---             documentationVersion
---
---         , responsePutIntegrationResponse $
---             integrationResponse
---
---         , responseGetUsagePlanKeys $
---             getUsagePlanKeysResponse
---
---         , responseDeleteVPCLink $
---             deleteVPCLinkResponse
---
---         , responseUpdateVPCLink $
---             vpcLink
---
---         , responseFlushStageCache $
---             flushStageCacheResponse
---
---         , responseCreateRestAPI $
---             restAPI
---
---         , responseDeleteIntegrationResponse $
---             deleteIntegrationResponseResponse
---
---         , responseUpdateIntegrationResponse $
---             integrationResponse
---
---         , responseUpdateUsage $
---             usage
---
---         , responseDeleteIntegration $
---             deleteIntegrationResponse'
---
---         , responseUpdateIntegration $
---             integration
---
---         , responseTestInvokeAuthorizer $
---             testInvokeAuthorizerResponse
---
---         , responseGenerateClientCertificate $
---             clientCertificate
---
---         , responseGetResources $
---             getResourcesResponse
---
---         , responseGetUsagePlanKey $
---             usagePlanKey
---
---         , responseGetAccount $
---             account
---
---         , responsePutIntegration $
---             integration
---
---         , responseGetAuthorizer $
---             authorizer
---
---         , responseDeleteUsagePlan $
---             deleteUsagePlanResponse
---
---         , responseUpdateUsagePlan $
---             usagePlan
---
---         , responseGetStage $
---             stage
---
---         , responseGetExport $
---             getExportResponse
---
---         , responseGetSDK $
---             getSDKResponse
---
---         , responseGetAPIKeys $
---             getAPIKeysResponse
---
---         , responseDeleteBasePathMapping $
---             deleteBasePathMappingResponse
---
---         , responseUpdateBasePathMapping $
---             basePathMapping
---
---         , responseDeleteClientCertificate $
---             deleteClientCertificateResponse
---
---         , responseUpdateClientCertificate $
---             clientCertificate
---
---         , responseGetGatewayResponse $
---             gatewayResponse
---
---         , responseCreateUsagePlanKey $
---             usagePlanKey
---
---         , responseCreateAuthorizer $
---             authorizer
---
---         , responseUpdateAuthorizer $
---             authorizer
---
---         , responseDeleteAuthorizer $
---             deleteAuthorizerResponse
---
---         , responseTagResource $
---             tagResourceResponse
---
---         , responseCreateStage $
---             stage
---
---         , responseDeleteUsagePlanKey $
---             deleteUsagePlanKeyResponse
---
---         , responseUntagResource $
---             untagResourceResponse
---
---         , responseCreateAPIKey $
---             apiKey
---
---         , responseGetUsagePlans $
---             getUsagePlansResponse
---
---         , responsePutMethod $
---             method
 --
 --         , responseUpdateDomainName $
 --             domainName
 --
---         , responseDeleteDomainName $
---             deleteDomainNameResponse
---
 --         , responseCreateResource $
 --             resource
 --
---         , responseDeleteMethod $
---             deleteMethodResponse'
---
---         , responseUpdateMethod $
---             method
+--         , responseDeleteDomainName $
+--             deleteDomainNameResponse
 --
 --         , responseUpdateRequestValidator $
 --             requestValidator
@@ -730,1470 +495,1944 @@ import Test.Tasty
 --         , responseDeleteRequestValidator $
 --             deleteRequestValidatorResponse
 --
---         , responseGetSDKTypes $
---             getSDKTypesResponse
+--         , responseGetUsagePlans $
+--             getUsagePlansResponse
 --
---         , responseGetClientCertificates $
---             getClientCertificatesResponse
+--         , responseCreateRequestValidator $
+--             requestValidator
+--
+--         , responseCreateDomainName $
+--             domainName
+--
+--         , responseGetVPCLink $
+--             vpcLink
+--
+--         , responseUpdateResource $
+--             resource
+--
+--         , responseGetDocumentationPart $
+--             documentationPart
+--
+--         , responseGetUsage $
+--             usage
+--
+--         , responseImportDocumentationParts $
+--             importDocumentationPartsResponse
+--
+--         , responseUntagResource $
+--             untagResourceResponse
+--
+--         , responseDeleteResource $
+--             deleteResourceResponse
+--
+--         , responseGetIntegrationResponse $
+--             integrationResponse
+--
+--         , responseDeleteDeployment $
+--             deleteDeploymentResponse
+--
+--         , responseCreateStage $
+--             stage
+--
+--         , responseGetIntegration $
+--             integration
+--
+--         , responseTagResource $
+--             tagResourceResponse
+--
+--         , responseUpdateDeployment $
+--             deployment
+--
+--         , responseGetUsagePlan $
+--             usagePlan
+--
+--         , responseGetRestAPIs $
+--             getRestAPIsResponse
+--
+--         , responseCreateAuthorizer $
+--             authorizer
+--
+--         , responseDeleteStage $
+--             deleteStageResponse
+--
+--         , responseUpdateStage $
+--             stage
+--
+--         , responseCreateUsagePlanKey $
+--             usagePlanKey
+--
+--         , responseGetGatewayResponse $
+--             gatewayResponse
+--
+--         , responseImportRestAPI $
+--             restAPI
+--
+--         , responsePutMethodResponse $
+--             methodResponse
+--
+--         , responseGetBasePathMapping $
+--             basePathMapping
+--
+--         , responseGetRequestValidators $
+--             getRequestValidatorsResponse
+--
+--         , responseGetDomainNames $
+--             getDomainNamesResponse
+--
+--         , responseGetSDKType $
+--             sdkType
+--
+--         , responsePutGatewayResponse $
+--             gatewayResponse
+--
+--         , responseGetExport $
+--             getExportResponse
+--
+--         , responseGetClientCertificate $
+--             clientCertificate
+--
+--         , responseTestInvokeAuthorizer $
+--             testInvokeAuthorizerResponse
+--
+--         , responseGetTags $
+--             getTagsResponse
+--
+--         , responseGetDeployment $
+--             deployment
+--
+--         , responseGetAccount $
+--             account
+--
+--         , responsePutIntegration $
+--             integration
+--
+--         , responseGetResources $
+--             getResourcesResponse
+--
+--         , responseGetResource $
+--             resource
+--
+--         , responseCreateDocumentationVersion $
+--             documentationVersion
+--
+--         , responseGetAuthorizers $
+--             getAuthorizersResponse
+--
+--         , responsePutIntegrationResponse $
+--             integrationResponse
+--
+--         , responseGetUsagePlanKeys $
+--             getUsagePlanKeysResponse
+--
+--         , responseCreateDocumentationPart $
+--             documentationPart
+--
+--         , responseGetStages $
+--             getStagesResponse
+--
+--         , responseGetDomainName $
+--             domainName
 --
 --         , responseGetModelTemplate $
 --             getModelTemplateResponse
 --
+--         , responseDeleteRestAPI $
+--             deleteRestAPIResponse
+--
+--         , responseGetMethod $
+--             method
+--
+--         , responseUpdateRestAPI $
+--             restAPI
+--
+--         , responseCreateVPCLink $
+--             vpcLink
+--
+--         , responseGetRequestValidator $
+--             requestValidator
+--
 --         , responseUpdateDocumentationVersion $
 --             documentationVersion
+--
+--         , responseImportAPIKeys $
+--             importAPIKeysResponse
 --
 --         , responseDeleteDocumentationVersion $
 --             deleteDocumentationVersionResponse
 --
---         , responseGetBasePathMappings $
---             getBasePathMappingsResponse
+--         , responsePutMethod $
+--             method
 --
---         , responseGetAPIKey $
+--         , responseDeleteAPIKey $
+--             deleteAPIKeyResponse
+--
+--         , responseFlushStageAuthorizersCache $
+--             flushStageAuthorizersCacheResponse
+--
+--         , responseUpdateAPIKey $
 --             apiKey
+--
+--         , responseGetRestAPI $
+--             restAPI
+--
+--         , responseCreateModel $
+--             model
+--
+--         , responseCreateAPIKey $
+--             apiKey
+--
+--         , responseDeleteUsagePlanKey $
+--             deleteUsagePlanKeyResponse
+--
+--         , responseUpdateAccount $
+--             account
+--
+--         , responseGetVPCLinks $
+--             getVPCLinksResponse
+--
+--         , responseUpdateAuthorizer $
+--             authorizer
+--
+--         , responseCreateBasePathMapping $
+--             basePathMapping
+--
+--         , responseGetDocumentationParts $
+--             getDocumentationPartsResponse
+--
+--         , responseDeleteAuthorizer $
+--             deleteAuthorizerResponse
+--
+--         , responseDeleteClientCertificate $
+--             deleteClientCertificateResponse
+--
+--         , responseDeleteMethodResponse $
+--             deleteMethodResponseResponse
+--
+--         , responseDeleteBasePathMapping $
+--             deleteBasePathMappingResponse
+--
+--         , responseGetDocumentationVersions $
+--             getDocumentationVersionsResponse
+--
+--         , responseUpdateBasePathMapping $
+--             basePathMapping
+--
+--         , responseUpdateClientCertificate $
+--             clientCertificate
+--
+--         , responseUpdateMethodResponse $
+--             methodResponse
+--
+--         , responseCreateDeployment $
+--             deployment
+--
+--         , responseGetAPIKeys $
+--             getAPIKeysResponse
+--
+--         , responseCreateUsagePlan $
+--             usagePlan
+--
+--         , responseUpdateGatewayResponse $
+--             gatewayResponse
+--
+--         , responseGetSDK $
+--             getSDKResponse
+--
+--         , responseGetMethodResponse $
+--             methodResponse
+--
+--         , responseGetModels $
+--             getModelsResponse
+--
+--         , responseGetStage $
+--             stage
+--
+--         , responseDeleteGatewayResponse $
+--             deleteGatewayResponseResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestGetResource :: GetResource -> TestTree
-requestGetResource = req
-    "GetResource"
-    "fixture/GetResource.yaml"
+requestGenerateClientCertificate :: GenerateClientCertificate -> TestTree
+requestGenerateClientCertificate =
+  req
+    "GenerateClientCertificate"
+    "fixture/GenerateClientCertificate.yaml"
+
+requestUpdateIntegration :: UpdateIntegration -> TestTree
+requestUpdateIntegration =
+  req
+    "UpdateIntegration"
+    "fixture/UpdateIntegration.yaml"
+
+requestDeleteUsagePlan :: DeleteUsagePlan -> TestTree
+requestDeleteUsagePlan =
+  req
+    "DeleteUsagePlan"
+    "fixture/DeleteUsagePlan.yaml"
+
+requestDeleteIntegration :: DeleteIntegration -> TestTree
+requestDeleteIntegration =
+  req
+    "DeleteIntegration"
+    "fixture/DeleteIntegration.yaml"
+
+requestGetUsagePlanKey :: GetUsagePlanKey -> TestTree
+requestGetUsagePlanKey =
+  req
+    "GetUsagePlanKey"
+    "fixture/GetUsagePlanKey.yaml"
+
+requestGetAuthorizer :: GetAuthorizer -> TestTree
+requestGetAuthorizer =
+  req
+    "GetAuthorizer"
+    "fixture/GetAuthorizer.yaml"
+
+requestUpdateUsagePlan :: UpdateUsagePlan -> TestTree
+requestUpdateUsagePlan =
+  req
+    "UpdateUsagePlan"
+    "fixture/UpdateUsagePlan.yaml"
 
 requestGetDeployments :: GetDeployments -> TestTree
-requestGetDeployments = req
+requestGetDeployments =
+  req
     "GetDeployments"
     "fixture/GetDeployments.yaml"
 
-requestGetDeployment :: GetDeployment -> TestTree
-requestGetDeployment = req
-    "GetDeployment"
-    "fixture/GetDeployment.yaml"
+requestDeleteIntegrationResponse :: DeleteIntegrationResponse -> TestTree
+requestDeleteIntegrationResponse =
+  req
+    "DeleteIntegrationResponse"
+    "fixture/DeleteIntegrationResponse.yaml"
 
-requestGetTags :: GetTags -> TestTree
-requestGetTags = req
-    "GetTags"
-    "fixture/GetTags.yaml"
+requestFlushStageCache :: FlushStageCache -> TestTree
+requestFlushStageCache =
+  req
+    "FlushStageCache"
+    "fixture/FlushStageCache.yaml"
 
-requestDeleteGatewayResponse :: DeleteGatewayResponse -> TestTree
-requestDeleteGatewayResponse = req
-    "DeleteGatewayResponse"
-    "fixture/DeleteGatewayResponse.yaml"
+requestDeleteVPCLink :: DeleteVPCLink -> TestTree
+requestDeleteVPCLink =
+  req
+    "DeleteVPCLink"
+    "fixture/DeleteVPCLink.yaml"
 
-requestUpdateGatewayResponse :: UpdateGatewayResponse -> TestTree
-requestUpdateGatewayResponse = req
-    "UpdateGatewayResponse"
-    "fixture/UpdateGatewayResponse.yaml"
+requestDeleteDocumentationPart :: DeleteDocumentationPart -> TestTree
+requestDeleteDocumentationPart =
+  req
+    "DeleteDocumentationPart"
+    "fixture/DeleteDocumentationPart.yaml"
 
-requestCreateUsagePlan :: CreateUsagePlan -> TestTree
-requestCreateUsagePlan = req
-    "CreateUsagePlan"
-    "fixture/CreateUsagePlan.yaml"
+requestUpdateVPCLink :: UpdateVPCLink -> TestTree
+requestUpdateVPCLink =
+  req
+    "UpdateVPCLink"
+    "fixture/UpdateVPCLink.yaml"
 
-requestGetDomainNames :: GetDomainNames -> TestTree
-requestGetDomainNames = req
-    "GetDomainNames"
-    "fixture/GetDomainNames.yaml"
+requestCreateRestAPI :: CreateRestAPI -> TestTree
+requestCreateRestAPI =
+  req
+    "CreateRestAPI"
+    "fixture/CreateRestAPI.yaml"
 
-requestGetClientCertificate :: GetClientCertificate -> TestTree
-requestGetClientCertificate = req
-    "GetClientCertificate"
-    "fixture/GetClientCertificate.yaml"
+requestUpdateUsage :: UpdateUsage -> TestTree
+requestUpdateUsage =
+  req
+    "UpdateUsage"
+    "fixture/UpdateUsage.yaml"
 
-requestPutGatewayResponse :: PutGatewayResponse -> TestTree
-requestPutGatewayResponse = req
-    "PutGatewayResponse"
-    "fixture/PutGatewayResponse.yaml"
+requestUpdateIntegrationResponse :: UpdateIntegrationResponse -> TestTree
+requestUpdateIntegrationResponse =
+  req
+    "UpdateIntegrationResponse"
+    "fixture/UpdateIntegrationResponse.yaml"
 
-requestGetSDKType :: GetSDKType -> TestTree
-requestGetSDKType = req
-    "GetSDKType"
-    "fixture/GetSDKType.yaml"
+requestUpdateDocumentationPart :: UpdateDocumentationPart -> TestTree
+requestUpdateDocumentationPart =
+  req
+    "UpdateDocumentationPart"
+    "fixture/UpdateDocumentationPart.yaml"
 
-requestGetMethodResponse :: GetMethodResponse -> TestTree
-requestGetMethodResponse = req
-    "GetMethodResponse"
-    "fixture/GetMethodResponse.yaml"
+requestGetSDKTypes :: GetSDKTypes -> TestTree
+requestGetSDKTypes =
+  req
+    "GetSDKTypes"
+    "fixture/GetSDKTypes.yaml"
 
-requestGetModels :: GetModels -> TestTree
-requestGetModels = req
-    "GetModels"
-    "fixture/GetModels.yaml"
+requestGetBasePathMappings :: GetBasePathMappings -> TestTree
+requestGetBasePathMappings =
+  req
+    "GetBasePathMappings"
+    "fixture/GetBasePathMappings.yaml"
 
-requestGetBasePathMapping :: GetBasePathMapping -> TestTree
-requestGetBasePathMapping = req
-    "GetBasePathMapping"
-    "fixture/GetBasePathMapping.yaml"
+requestGetModel :: GetModel -> TestTree
+requestGetModel =
+  req
+    "GetModel"
+    "fixture/GetModel.yaml"
 
-requestGetRequestValidators :: GetRequestValidators -> TestTree
-requestGetRequestValidators = req
-    "GetRequestValidators"
-    "fixture/GetRequestValidators.yaml"
+requestGetClientCertificates :: GetClientCertificates -> TestTree
+requestGetClientCertificates =
+  req
+    "GetClientCertificates"
+    "fixture/GetClientCertificates.yaml"
 
-requestPutMethodResponse :: PutMethodResponse -> TestTree
-requestPutMethodResponse = req
-    "PutMethodResponse"
-    "fixture/PutMethodResponse.yaml"
+requestTestInvokeMethod :: TestInvokeMethod -> TestTree
+requestTestInvokeMethod =
+  req
+    "TestInvokeMethod"
+    "fixture/TestInvokeMethod.yaml"
 
-requestImportRestAPI :: ImportRestAPI -> TestTree
-requestImportRestAPI = req
-    "ImportRestAPI"
-    "fixture/ImportRestAPI.yaml"
+requestPutRestAPI :: PutRestAPI -> TestTree
+requestPutRestAPI =
+  req
+    "PutRestAPI"
+    "fixture/PutRestAPI.yaml"
 
-requestDeleteMethodResponse :: DeleteMethodResponse -> TestTree
-requestDeleteMethodResponse = req
-    "DeleteMethodResponse"
-    "fixture/DeleteMethodResponse.yaml"
-
-requestUpdateMethodResponse :: UpdateMethodResponse -> TestTree
-requestUpdateMethodResponse = req
-    "UpdateMethodResponse"
-    "fixture/UpdateMethodResponse.yaml"
-
-requestDeleteStage :: DeleteStage -> TestTree
-requestDeleteStage = req
-    "DeleteStage"
-    "fixture/DeleteStage.yaml"
-
-requestUpdateStage :: UpdateStage -> TestTree
-requestUpdateStage = req
-    "UpdateStage"
-    "fixture/UpdateStage.yaml"
-
-requestGetRestAPIs :: GetRestAPIs -> TestTree
-requestGetRestAPIs = req
-    "GetRestAPIs"
-    "fixture/GetRestAPIs.yaml"
-
-requestGetDocumentationVersions :: GetDocumentationVersions -> TestTree
-requestGetDocumentationVersions = req
-    "GetDocumentationVersions"
-    "fixture/GetDocumentationVersions.yaml"
-
-requestCreateDeployment :: CreateDeployment -> TestTree
-requestCreateDeployment = req
-    "CreateDeployment"
-    "fixture/CreateDeployment.yaml"
-
-requestGetVPCLinks :: GetVPCLinks -> TestTree
-requestGetVPCLinks = req
-    "GetVPCLinks"
-    "fixture/GetVPCLinks.yaml"
-
-requestCreateBasePathMapping :: CreateBasePathMapping -> TestTree
-requestCreateBasePathMapping = req
-    "CreateBasePathMapping"
-    "fixture/CreateBasePathMapping.yaml"
-
-requestGetIntegration :: GetIntegration -> TestTree
-requestGetIntegration = req
-    "GetIntegration"
-    "fixture/GetIntegration.yaml"
-
-requestGetDocumentationParts :: GetDocumentationParts -> TestTree
-requestGetDocumentationParts = req
-    "GetDocumentationParts"
-    "fixture/GetDocumentationParts.yaml"
-
-requestUpdateAccount :: UpdateAccount -> TestTree
-requestUpdateAccount = req
-    "UpdateAccount"
-    "fixture/UpdateAccount.yaml"
-
-requestGetUsagePlan :: GetUsagePlan -> TestTree
-requestGetUsagePlan = req
-    "GetUsagePlan"
-    "fixture/GetUsagePlan.yaml"
-
-requestDeleteDeployment :: DeleteDeployment -> TestTree
-requestDeleteDeployment = req
-    "DeleteDeployment"
-    "fixture/DeleteDeployment.yaml"
-
-requestUpdateDeployment :: UpdateDeployment -> TestTree
-requestUpdateDeployment = req
-    "UpdateDeployment"
-    "fixture/UpdateDeployment.yaml"
-
-requestGetDocumentationPart :: GetDocumentationPart -> TestTree
-requestGetDocumentationPart = req
-    "GetDocumentationPart"
-    "fixture/GetDocumentationPart.yaml"
-
-requestDeleteResource :: DeleteResource -> TestTree
-requestDeleteResource = req
-    "DeleteResource"
-    "fixture/DeleteResource.yaml"
-
-requestUpdateResource :: UpdateResource -> TestTree
-requestUpdateResource = req
-    "UpdateResource"
-    "fixture/UpdateResource.yaml"
-
-requestCreateRequestValidator :: CreateRequestValidator -> TestTree
-requestCreateRequestValidator = req
-    "CreateRequestValidator"
-    "fixture/CreateRequestValidator.yaml"
-
-requestImportDocumentationParts :: ImportDocumentationParts -> TestTree
-requestImportDocumentationParts = req
-    "ImportDocumentationParts"
-    "fixture/ImportDocumentationParts.yaml"
-
-requestGetUsage :: GetUsage -> TestTree
-requestGetUsage = req
-    "GetUsage"
-    "fixture/GetUsage.yaml"
-
-requestGetVPCLink :: GetVPCLink -> TestTree
-requestGetVPCLink = req
-    "GetVPCLink"
-    "fixture/GetVPCLink.yaml"
-
-requestCreateModel :: CreateModel -> TestTree
-requestCreateModel = req
-    "CreateModel"
-    "fixture/CreateModel.yaml"
-
-requestGetIntegrationResponse :: GetIntegrationResponse -> TestTree
-requestGetIntegrationResponse = req
-    "GetIntegrationResponse"
-    "fixture/GetIntegrationResponse.yaml"
-
-requestCreateDomainName :: CreateDomainName -> TestTree
-requestCreateDomainName = req
-    "CreateDomainName"
-    "fixture/CreateDomainName.yaml"
-
-requestFlushStageAuthorizersCache :: FlushStageAuthorizersCache -> TestTree
-requestFlushStageAuthorizersCache = req
-    "FlushStageAuthorizersCache"
-    "fixture/FlushStageAuthorizersCache.yaml"
+requestGetAPIKey :: GetAPIKey -> TestTree
+requestGetAPIKey =
+  req
+    "GetAPIKey"
+    "fixture/GetAPIKey.yaml"
 
 requestGetGatewayResponses :: GetGatewayResponses -> TestTree
-requestGetGatewayResponses = req
+requestGetGatewayResponses =
+  req
     "GetGatewayResponses"
     "fixture/GetGatewayResponses.yaml"
 
 requestDeleteModel :: DeleteModel -> TestTree
-requestDeleteModel = req
+requestDeleteModel =
+  req
     "DeleteModel"
     "fixture/DeleteModel.yaml"
 
-requestUpdateModel :: UpdateModel -> TestTree
-requestUpdateModel = req
-    "UpdateModel"
-    "fixture/UpdateModel.yaml"
-
-requestGetDocumentationVersion :: GetDocumentationVersion -> TestTree
-requestGetDocumentationVersion = req
-    "GetDocumentationVersion"
-    "fixture/GetDocumentationVersion.yaml"
-
-requestDeleteAPIKey :: DeleteAPIKey -> TestTree
-requestDeleteAPIKey = req
-    "DeleteAPIKey"
-    "fixture/DeleteAPIKey.yaml"
-
-requestUpdateAPIKey :: UpdateAPIKey -> TestTree
-requestUpdateAPIKey = req
-    "UpdateAPIKey"
-    "fixture/UpdateAPIKey.yaml"
-
-requestGetRestAPI :: GetRestAPI -> TestTree
-requestGetRestAPI = req
-    "GetRestAPI"
-    "fixture/GetRestAPI.yaml"
-
-requestGetStages :: GetStages -> TestTree
-requestGetStages = req
-    "GetStages"
-    "fixture/GetStages.yaml"
-
-requestPutRestAPI :: PutRestAPI -> TestTree
-requestPutRestAPI = req
-    "PutRestAPI"
-    "fixture/PutRestAPI.yaml"
-
-requestGetMethod :: GetMethod -> TestTree
-requestGetMethod = req
-    "GetMethod"
-    "fixture/GetMethod.yaml"
-
-requestGetModel :: GetModel -> TestTree
-requestGetModel = req
-    "GetModel"
-    "fixture/GetModel.yaml"
-
-requestUpdateRestAPI :: UpdateRestAPI -> TestTree
-requestUpdateRestAPI = req
-    "UpdateRestAPI"
-    "fixture/UpdateRestAPI.yaml"
-
-requestDeleteRestAPI :: DeleteRestAPI -> TestTree
-requestDeleteRestAPI = req
-    "DeleteRestAPI"
-    "fixture/DeleteRestAPI.yaml"
-
-requestImportAPIKeys :: ImportAPIKeys -> TestTree
-requestImportAPIKeys = req
-    "ImportAPIKeys"
-    "fixture/ImportAPIKeys.yaml"
-
-requestCreateDocumentationPart :: CreateDocumentationPart -> TestTree
-requestCreateDocumentationPart = req
-    "CreateDocumentationPart"
-    "fixture/CreateDocumentationPart.yaml"
-
-requestTestInvokeMethod :: TestInvokeMethod -> TestTree
-requestTestInvokeMethod = req
-    "TestInvokeMethod"
-    "fixture/TestInvokeMethod.yaml"
-
-requestGetRequestValidator :: GetRequestValidator -> TestTree
-requestGetRequestValidator = req
-    "GetRequestValidator"
-    "fixture/GetRequestValidator.yaml"
-
-requestGetDomainName :: GetDomainName -> TestTree
-requestGetDomainName = req
-    "GetDomainName"
-    "fixture/GetDomainName.yaml"
-
-requestCreateVPCLink :: CreateVPCLink -> TestTree
-requestCreateVPCLink = req
-    "CreateVPCLink"
-    "fixture/CreateVPCLink.yaml"
-
-requestDeleteDocumentationPart :: DeleteDocumentationPart -> TestTree
-requestDeleteDocumentationPart = req
-    "DeleteDocumentationPart"
-    "fixture/DeleteDocumentationPart.yaml"
-
-requestUpdateDocumentationPart :: UpdateDocumentationPart -> TestTree
-requestUpdateDocumentationPart = req
-    "UpdateDocumentationPart"
-    "fixture/UpdateDocumentationPart.yaml"
-
-requestGetAuthorizers :: GetAuthorizers -> TestTree
-requestGetAuthorizers = req
-    "GetAuthorizers"
-    "fixture/GetAuthorizers.yaml"
-
-requestCreateDocumentationVersion :: CreateDocumentationVersion -> TestTree
-requestCreateDocumentationVersion = req
-    "CreateDocumentationVersion"
-    "fixture/CreateDocumentationVersion.yaml"
-
-requestPutIntegrationResponse :: PutIntegrationResponse -> TestTree
-requestPutIntegrationResponse = req
-    "PutIntegrationResponse"
-    "fixture/PutIntegrationResponse.yaml"
-
-requestGetUsagePlanKeys :: GetUsagePlanKeys -> TestTree
-requestGetUsagePlanKeys = req
-    "GetUsagePlanKeys"
-    "fixture/GetUsagePlanKeys.yaml"
-
-requestDeleteVPCLink :: DeleteVPCLink -> TestTree
-requestDeleteVPCLink = req
-    "DeleteVPCLink"
-    "fixture/DeleteVPCLink.yaml"
-
-requestUpdateVPCLink :: UpdateVPCLink -> TestTree
-requestUpdateVPCLink = req
-    "UpdateVPCLink"
-    "fixture/UpdateVPCLink.yaml"
-
-requestFlushStageCache :: FlushStageCache -> TestTree
-requestFlushStageCache = req
-    "FlushStageCache"
-    "fixture/FlushStageCache.yaml"
-
-requestCreateRestAPI :: CreateRestAPI -> TestTree
-requestCreateRestAPI = req
-    "CreateRestAPI"
-    "fixture/CreateRestAPI.yaml"
-
-requestDeleteIntegrationResponse :: DeleteIntegrationResponse -> TestTree
-requestDeleteIntegrationResponse = req
-    "DeleteIntegrationResponse"
-    "fixture/DeleteIntegrationResponse.yaml"
-
-requestUpdateIntegrationResponse :: UpdateIntegrationResponse -> TestTree
-requestUpdateIntegrationResponse = req
-    "UpdateIntegrationResponse"
-    "fixture/UpdateIntegrationResponse.yaml"
-
-requestUpdateUsage :: UpdateUsage -> TestTree
-requestUpdateUsage = req
-    "UpdateUsage"
-    "fixture/UpdateUsage.yaml"
-
-requestDeleteIntegration :: DeleteIntegration -> TestTree
-requestDeleteIntegration = req
-    "DeleteIntegration"
-    "fixture/DeleteIntegration.yaml"
-
-requestUpdateIntegration :: UpdateIntegration -> TestTree
-requestUpdateIntegration = req
-    "UpdateIntegration"
-    "fixture/UpdateIntegration.yaml"
-
-requestTestInvokeAuthorizer :: TestInvokeAuthorizer -> TestTree
-requestTestInvokeAuthorizer = req
-    "TestInvokeAuthorizer"
-    "fixture/TestInvokeAuthorizer.yaml"
-
-requestGenerateClientCertificate :: GenerateClientCertificate -> TestTree
-requestGenerateClientCertificate = req
-    "GenerateClientCertificate"
-    "fixture/GenerateClientCertificate.yaml"
-
-requestGetResources :: GetResources -> TestTree
-requestGetResources = req
-    "GetResources"
-    "fixture/GetResources.yaml"
-
-requestGetUsagePlanKey :: GetUsagePlanKey -> TestTree
-requestGetUsagePlanKey = req
-    "GetUsagePlanKey"
-    "fixture/GetUsagePlanKey.yaml"
-
-requestGetAccount :: GetAccount -> TestTree
-requestGetAccount = req
-    "GetAccount"
-    "fixture/GetAccount.yaml"
-
-requestPutIntegration :: PutIntegration -> TestTree
-requestPutIntegration = req
-    "PutIntegration"
-    "fixture/PutIntegration.yaml"
-
-requestGetAuthorizer :: GetAuthorizer -> TestTree
-requestGetAuthorizer = req
-    "GetAuthorizer"
-    "fixture/GetAuthorizer.yaml"
-
-requestDeleteUsagePlan :: DeleteUsagePlan -> TestTree
-requestDeleteUsagePlan = req
-    "DeleteUsagePlan"
-    "fixture/DeleteUsagePlan.yaml"
-
-requestUpdateUsagePlan :: UpdateUsagePlan -> TestTree
-requestUpdateUsagePlan = req
-    "UpdateUsagePlan"
-    "fixture/UpdateUsagePlan.yaml"
-
-requestGetStage :: GetStage -> TestTree
-requestGetStage = req
-    "GetStage"
-    "fixture/GetStage.yaml"
-
-requestGetExport :: GetExport -> TestTree
-requestGetExport = req
-    "GetExport"
-    "fixture/GetExport.yaml"
-
-requestGetSDK :: GetSDK -> TestTree
-requestGetSDK = req
-    "GetSDK"
-    "fixture/GetSDK.yaml"
-
-requestGetAPIKeys :: GetAPIKeys -> TestTree
-requestGetAPIKeys = req
-    "GetAPIKeys"
-    "fixture/GetAPIKeys.yaml"
-
-requestDeleteBasePathMapping :: DeleteBasePathMapping -> TestTree
-requestDeleteBasePathMapping = req
-    "DeleteBasePathMapping"
-    "fixture/DeleteBasePathMapping.yaml"
-
-requestUpdateBasePathMapping :: UpdateBasePathMapping -> TestTree
-requestUpdateBasePathMapping = req
-    "UpdateBasePathMapping"
-    "fixture/UpdateBasePathMapping.yaml"
-
-requestDeleteClientCertificate :: DeleteClientCertificate -> TestTree
-requestDeleteClientCertificate = req
-    "DeleteClientCertificate"
-    "fixture/DeleteClientCertificate.yaml"
-
-requestUpdateClientCertificate :: UpdateClientCertificate -> TestTree
-requestUpdateClientCertificate = req
-    "UpdateClientCertificate"
-    "fixture/UpdateClientCertificate.yaml"
-
-requestGetGatewayResponse :: GetGatewayResponse -> TestTree
-requestGetGatewayResponse = req
-    "GetGatewayResponse"
-    "fixture/GetGatewayResponse.yaml"
-
-requestCreateUsagePlanKey :: CreateUsagePlanKey -> TestTree
-requestCreateUsagePlanKey = req
-    "CreateUsagePlanKey"
-    "fixture/CreateUsagePlanKey.yaml"
-
-requestCreateAuthorizer :: CreateAuthorizer -> TestTree
-requestCreateAuthorizer = req
-    "CreateAuthorizer"
-    "fixture/CreateAuthorizer.yaml"
-
-requestUpdateAuthorizer :: UpdateAuthorizer -> TestTree
-requestUpdateAuthorizer = req
-    "UpdateAuthorizer"
-    "fixture/UpdateAuthorizer.yaml"
-
-requestDeleteAuthorizer :: DeleteAuthorizer -> TestTree
-requestDeleteAuthorizer = req
-    "DeleteAuthorizer"
-    "fixture/DeleteAuthorizer.yaml"
-
-requestTagResource :: TagResource -> TestTree
-requestTagResource = req
-    "TagResource"
-    "fixture/TagResource.yaml"
-
-requestCreateStage :: CreateStage -> TestTree
-requestCreateStage = req
-    "CreateStage"
-    "fixture/CreateStage.yaml"
-
-requestDeleteUsagePlanKey :: DeleteUsagePlanKey -> TestTree
-requestDeleteUsagePlanKey = req
-    "DeleteUsagePlanKey"
-    "fixture/DeleteUsagePlanKey.yaml"
-
-requestUntagResource :: UntagResource -> TestTree
-requestUntagResource = req
-    "UntagResource"
-    "fixture/UntagResource.yaml"
-
-requestCreateAPIKey :: CreateAPIKey -> TestTree
-requestCreateAPIKey = req
-    "CreateAPIKey"
-    "fixture/CreateAPIKey.yaml"
-
-requestGetUsagePlans :: GetUsagePlans -> TestTree
-requestGetUsagePlans = req
-    "GetUsagePlans"
-    "fixture/GetUsagePlans.yaml"
-
-requestPutMethod :: PutMethod -> TestTree
-requestPutMethod = req
-    "PutMethod"
-    "fixture/PutMethod.yaml"
-
-requestUpdateDomainName :: UpdateDomainName -> TestTree
-requestUpdateDomainName = req
-    "UpdateDomainName"
-    "fixture/UpdateDomainName.yaml"
-
-requestDeleteDomainName :: DeleteDomainName -> TestTree
-requestDeleteDomainName = req
-    "DeleteDomainName"
-    "fixture/DeleteDomainName.yaml"
-
-requestCreateResource :: CreateResource -> TestTree
-requestCreateResource = req
-    "CreateResource"
-    "fixture/CreateResource.yaml"
-
 requestDeleteMethod :: DeleteMethod -> TestTree
-requestDeleteMethod = req
+requestDeleteMethod =
+  req
     "DeleteMethod"
     "fixture/DeleteMethod.yaml"
 
+requestGetDocumentationVersion :: GetDocumentationVersion -> TestTree
+requestGetDocumentationVersion =
+  req
+    "GetDocumentationVersion"
+    "fixture/GetDocumentationVersion.yaml"
+
 requestUpdateMethod :: UpdateMethod -> TestTree
-requestUpdateMethod = req
+requestUpdateMethod =
+  req
     "UpdateMethod"
     "fixture/UpdateMethod.yaml"
 
+requestUpdateModel :: UpdateModel -> TestTree
+requestUpdateModel =
+  req
+    "UpdateModel"
+    "fixture/UpdateModel.yaml"
+
+requestUpdateDomainName :: UpdateDomainName -> TestTree
+requestUpdateDomainName =
+  req
+    "UpdateDomainName"
+    "fixture/UpdateDomainName.yaml"
+
+requestCreateResource :: CreateResource -> TestTree
+requestCreateResource =
+  req
+    "CreateResource"
+    "fixture/CreateResource.yaml"
+
+requestDeleteDomainName :: DeleteDomainName -> TestTree
+requestDeleteDomainName =
+  req
+    "DeleteDomainName"
+    "fixture/DeleteDomainName.yaml"
+
 requestUpdateRequestValidator :: UpdateRequestValidator -> TestTree
-requestUpdateRequestValidator = req
+requestUpdateRequestValidator =
+  req
     "UpdateRequestValidator"
     "fixture/UpdateRequestValidator.yaml"
 
 requestDeleteRequestValidator :: DeleteRequestValidator -> TestTree
-requestDeleteRequestValidator = req
+requestDeleteRequestValidator =
+  req
     "DeleteRequestValidator"
     "fixture/DeleteRequestValidator.yaml"
 
-requestGetSDKTypes :: GetSDKTypes -> TestTree
-requestGetSDKTypes = req
-    "GetSDKTypes"
-    "fixture/GetSDKTypes.yaml"
+requestGetUsagePlans :: GetUsagePlans -> TestTree
+requestGetUsagePlans =
+  req
+    "GetUsagePlans"
+    "fixture/GetUsagePlans.yaml"
 
-requestGetClientCertificates :: GetClientCertificates -> TestTree
-requestGetClientCertificates = req
-    "GetClientCertificates"
-    "fixture/GetClientCertificates.yaml"
+requestCreateRequestValidator :: CreateRequestValidator -> TestTree
+requestCreateRequestValidator =
+  req
+    "CreateRequestValidator"
+    "fixture/CreateRequestValidator.yaml"
+
+requestCreateDomainName :: CreateDomainName -> TestTree
+requestCreateDomainName =
+  req
+    "CreateDomainName"
+    "fixture/CreateDomainName.yaml"
+
+requestGetVPCLink :: GetVPCLink -> TestTree
+requestGetVPCLink =
+  req
+    "GetVPCLink"
+    "fixture/GetVPCLink.yaml"
+
+requestUpdateResource :: UpdateResource -> TestTree
+requestUpdateResource =
+  req
+    "UpdateResource"
+    "fixture/UpdateResource.yaml"
+
+requestGetDocumentationPart :: GetDocumentationPart -> TestTree
+requestGetDocumentationPart =
+  req
+    "GetDocumentationPart"
+    "fixture/GetDocumentationPart.yaml"
+
+requestGetUsage :: GetUsage -> TestTree
+requestGetUsage =
+  req
+    "GetUsage"
+    "fixture/GetUsage.yaml"
+
+requestImportDocumentationParts :: ImportDocumentationParts -> TestTree
+requestImportDocumentationParts =
+  req
+    "ImportDocumentationParts"
+    "fixture/ImportDocumentationParts.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestDeleteResource :: DeleteResource -> TestTree
+requestDeleteResource =
+  req
+    "DeleteResource"
+    "fixture/DeleteResource.yaml"
+
+requestGetIntegrationResponse :: GetIntegrationResponse -> TestTree
+requestGetIntegrationResponse =
+  req
+    "GetIntegrationResponse"
+    "fixture/GetIntegrationResponse.yaml"
+
+requestDeleteDeployment :: DeleteDeployment -> TestTree
+requestDeleteDeployment =
+  req
+    "DeleteDeployment"
+    "fixture/DeleteDeployment.yaml"
+
+requestCreateStage :: CreateStage -> TestTree
+requestCreateStage =
+  req
+    "CreateStage"
+    "fixture/CreateStage.yaml"
+
+requestGetIntegration :: GetIntegration -> TestTree
+requestGetIntegration =
+  req
+    "GetIntegration"
+    "fixture/GetIntegration.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUpdateDeployment :: UpdateDeployment -> TestTree
+requestUpdateDeployment =
+  req
+    "UpdateDeployment"
+    "fixture/UpdateDeployment.yaml"
+
+requestGetUsagePlan :: GetUsagePlan -> TestTree
+requestGetUsagePlan =
+  req
+    "GetUsagePlan"
+    "fixture/GetUsagePlan.yaml"
+
+requestGetRestAPIs :: GetRestAPIs -> TestTree
+requestGetRestAPIs =
+  req
+    "GetRestAPIs"
+    "fixture/GetRestAPIs.yaml"
+
+requestCreateAuthorizer :: CreateAuthorizer -> TestTree
+requestCreateAuthorizer =
+  req
+    "CreateAuthorizer"
+    "fixture/CreateAuthorizer.yaml"
+
+requestDeleteStage :: DeleteStage -> TestTree
+requestDeleteStage =
+  req
+    "DeleteStage"
+    "fixture/DeleteStage.yaml"
+
+requestUpdateStage :: UpdateStage -> TestTree
+requestUpdateStage =
+  req
+    "UpdateStage"
+    "fixture/UpdateStage.yaml"
+
+requestCreateUsagePlanKey :: CreateUsagePlanKey -> TestTree
+requestCreateUsagePlanKey =
+  req
+    "CreateUsagePlanKey"
+    "fixture/CreateUsagePlanKey.yaml"
+
+requestGetGatewayResponse :: GetGatewayResponse -> TestTree
+requestGetGatewayResponse =
+  req
+    "GetGatewayResponse"
+    "fixture/GetGatewayResponse.yaml"
+
+requestImportRestAPI :: ImportRestAPI -> TestTree
+requestImportRestAPI =
+  req
+    "ImportRestAPI"
+    "fixture/ImportRestAPI.yaml"
+
+requestPutMethodResponse :: PutMethodResponse -> TestTree
+requestPutMethodResponse =
+  req
+    "PutMethodResponse"
+    "fixture/PutMethodResponse.yaml"
+
+requestGetBasePathMapping :: GetBasePathMapping -> TestTree
+requestGetBasePathMapping =
+  req
+    "GetBasePathMapping"
+    "fixture/GetBasePathMapping.yaml"
+
+requestGetRequestValidators :: GetRequestValidators -> TestTree
+requestGetRequestValidators =
+  req
+    "GetRequestValidators"
+    "fixture/GetRequestValidators.yaml"
+
+requestGetDomainNames :: GetDomainNames -> TestTree
+requestGetDomainNames =
+  req
+    "GetDomainNames"
+    "fixture/GetDomainNames.yaml"
+
+requestGetSDKType :: GetSDKType -> TestTree
+requestGetSDKType =
+  req
+    "GetSDKType"
+    "fixture/GetSDKType.yaml"
+
+requestPutGatewayResponse :: PutGatewayResponse -> TestTree
+requestPutGatewayResponse =
+  req
+    "PutGatewayResponse"
+    "fixture/PutGatewayResponse.yaml"
+
+requestGetExport :: GetExport -> TestTree
+requestGetExport =
+  req
+    "GetExport"
+    "fixture/GetExport.yaml"
+
+requestGetClientCertificate :: GetClientCertificate -> TestTree
+requestGetClientCertificate =
+  req
+    "GetClientCertificate"
+    "fixture/GetClientCertificate.yaml"
+
+requestTestInvokeAuthorizer :: TestInvokeAuthorizer -> TestTree
+requestTestInvokeAuthorizer =
+  req
+    "TestInvokeAuthorizer"
+    "fixture/TestInvokeAuthorizer.yaml"
+
+requestGetTags :: GetTags -> TestTree
+requestGetTags =
+  req
+    "GetTags"
+    "fixture/GetTags.yaml"
+
+requestGetDeployment :: GetDeployment -> TestTree
+requestGetDeployment =
+  req
+    "GetDeployment"
+    "fixture/GetDeployment.yaml"
+
+requestGetAccount :: GetAccount -> TestTree
+requestGetAccount =
+  req
+    "GetAccount"
+    "fixture/GetAccount.yaml"
+
+requestPutIntegration :: PutIntegration -> TestTree
+requestPutIntegration =
+  req
+    "PutIntegration"
+    "fixture/PutIntegration.yaml"
+
+requestGetResources :: GetResources -> TestTree
+requestGetResources =
+  req
+    "GetResources"
+    "fixture/GetResources.yaml"
+
+requestGetResource :: GetResource -> TestTree
+requestGetResource =
+  req
+    "GetResource"
+    "fixture/GetResource.yaml"
+
+requestCreateDocumentationVersion :: CreateDocumentationVersion -> TestTree
+requestCreateDocumentationVersion =
+  req
+    "CreateDocumentationVersion"
+    "fixture/CreateDocumentationVersion.yaml"
+
+requestGetAuthorizers :: GetAuthorizers -> TestTree
+requestGetAuthorizers =
+  req
+    "GetAuthorizers"
+    "fixture/GetAuthorizers.yaml"
+
+requestPutIntegrationResponse :: PutIntegrationResponse -> TestTree
+requestPutIntegrationResponse =
+  req
+    "PutIntegrationResponse"
+    "fixture/PutIntegrationResponse.yaml"
+
+requestGetUsagePlanKeys :: GetUsagePlanKeys -> TestTree
+requestGetUsagePlanKeys =
+  req
+    "GetUsagePlanKeys"
+    "fixture/GetUsagePlanKeys.yaml"
+
+requestCreateDocumentationPart :: CreateDocumentationPart -> TestTree
+requestCreateDocumentationPart =
+  req
+    "CreateDocumentationPart"
+    "fixture/CreateDocumentationPart.yaml"
+
+requestGetStages :: GetStages -> TestTree
+requestGetStages =
+  req
+    "GetStages"
+    "fixture/GetStages.yaml"
+
+requestGetDomainName :: GetDomainName -> TestTree
+requestGetDomainName =
+  req
+    "GetDomainName"
+    "fixture/GetDomainName.yaml"
 
 requestGetModelTemplate :: GetModelTemplate -> TestTree
-requestGetModelTemplate = req
+requestGetModelTemplate =
+  req
     "GetModelTemplate"
     "fixture/GetModelTemplate.yaml"
 
+requestDeleteRestAPI :: DeleteRestAPI -> TestTree
+requestDeleteRestAPI =
+  req
+    "DeleteRestAPI"
+    "fixture/DeleteRestAPI.yaml"
+
+requestGetMethod :: GetMethod -> TestTree
+requestGetMethod =
+  req
+    "GetMethod"
+    "fixture/GetMethod.yaml"
+
+requestUpdateRestAPI :: UpdateRestAPI -> TestTree
+requestUpdateRestAPI =
+  req
+    "UpdateRestAPI"
+    "fixture/UpdateRestAPI.yaml"
+
+requestCreateVPCLink :: CreateVPCLink -> TestTree
+requestCreateVPCLink =
+  req
+    "CreateVPCLink"
+    "fixture/CreateVPCLink.yaml"
+
+requestGetRequestValidator :: GetRequestValidator -> TestTree
+requestGetRequestValidator =
+  req
+    "GetRequestValidator"
+    "fixture/GetRequestValidator.yaml"
+
 requestUpdateDocumentationVersion :: UpdateDocumentationVersion -> TestTree
-requestUpdateDocumentationVersion = req
+requestUpdateDocumentationVersion =
+  req
     "UpdateDocumentationVersion"
     "fixture/UpdateDocumentationVersion.yaml"
 
+requestImportAPIKeys :: ImportAPIKeys -> TestTree
+requestImportAPIKeys =
+  req
+    "ImportAPIKeys"
+    "fixture/ImportAPIKeys.yaml"
+
 requestDeleteDocumentationVersion :: DeleteDocumentationVersion -> TestTree
-requestDeleteDocumentationVersion = req
+requestDeleteDocumentationVersion =
+  req
     "DeleteDocumentationVersion"
     "fixture/DeleteDocumentationVersion.yaml"
 
-requestGetBasePathMappings :: GetBasePathMappings -> TestTree
-requestGetBasePathMappings = req
-    "GetBasePathMappings"
-    "fixture/GetBasePathMappings.yaml"
+requestPutMethod :: PutMethod -> TestTree
+requestPutMethod =
+  req
+    "PutMethod"
+    "fixture/PutMethod.yaml"
 
-requestGetAPIKey :: GetAPIKey -> TestTree
-requestGetAPIKey = req
-    "GetAPIKey"
-    "fixture/GetAPIKey.yaml"
+requestDeleteAPIKey :: DeleteAPIKey -> TestTree
+requestDeleteAPIKey =
+  req
+    "DeleteAPIKey"
+    "fixture/DeleteAPIKey.yaml"
+
+requestFlushStageAuthorizersCache :: FlushStageAuthorizersCache -> TestTree
+requestFlushStageAuthorizersCache =
+  req
+    "FlushStageAuthorizersCache"
+    "fixture/FlushStageAuthorizersCache.yaml"
+
+requestUpdateAPIKey :: UpdateAPIKey -> TestTree
+requestUpdateAPIKey =
+  req
+    "UpdateAPIKey"
+    "fixture/UpdateAPIKey.yaml"
+
+requestGetRestAPI :: GetRestAPI -> TestTree
+requestGetRestAPI =
+  req
+    "GetRestAPI"
+    "fixture/GetRestAPI.yaml"
+
+requestCreateModel :: CreateModel -> TestTree
+requestCreateModel =
+  req
+    "CreateModel"
+    "fixture/CreateModel.yaml"
+
+requestCreateAPIKey :: CreateAPIKey -> TestTree
+requestCreateAPIKey =
+  req
+    "CreateAPIKey"
+    "fixture/CreateAPIKey.yaml"
+
+requestDeleteUsagePlanKey :: DeleteUsagePlanKey -> TestTree
+requestDeleteUsagePlanKey =
+  req
+    "DeleteUsagePlanKey"
+    "fixture/DeleteUsagePlanKey.yaml"
+
+requestUpdateAccount :: UpdateAccount -> TestTree
+requestUpdateAccount =
+  req
+    "UpdateAccount"
+    "fixture/UpdateAccount.yaml"
+
+requestGetVPCLinks :: GetVPCLinks -> TestTree
+requestGetVPCLinks =
+  req
+    "GetVPCLinks"
+    "fixture/GetVPCLinks.yaml"
+
+requestUpdateAuthorizer :: UpdateAuthorizer -> TestTree
+requestUpdateAuthorizer =
+  req
+    "UpdateAuthorizer"
+    "fixture/UpdateAuthorizer.yaml"
+
+requestCreateBasePathMapping :: CreateBasePathMapping -> TestTree
+requestCreateBasePathMapping =
+  req
+    "CreateBasePathMapping"
+    "fixture/CreateBasePathMapping.yaml"
+
+requestGetDocumentationParts :: GetDocumentationParts -> TestTree
+requestGetDocumentationParts =
+  req
+    "GetDocumentationParts"
+    "fixture/GetDocumentationParts.yaml"
+
+requestDeleteAuthorizer :: DeleteAuthorizer -> TestTree
+requestDeleteAuthorizer =
+  req
+    "DeleteAuthorizer"
+    "fixture/DeleteAuthorizer.yaml"
+
+requestDeleteClientCertificate :: DeleteClientCertificate -> TestTree
+requestDeleteClientCertificate =
+  req
+    "DeleteClientCertificate"
+    "fixture/DeleteClientCertificate.yaml"
+
+requestDeleteMethodResponse :: DeleteMethodResponse -> TestTree
+requestDeleteMethodResponse =
+  req
+    "DeleteMethodResponse"
+    "fixture/DeleteMethodResponse.yaml"
+
+requestDeleteBasePathMapping :: DeleteBasePathMapping -> TestTree
+requestDeleteBasePathMapping =
+  req
+    "DeleteBasePathMapping"
+    "fixture/DeleteBasePathMapping.yaml"
+
+requestGetDocumentationVersions :: GetDocumentationVersions -> TestTree
+requestGetDocumentationVersions =
+  req
+    "GetDocumentationVersions"
+    "fixture/GetDocumentationVersions.yaml"
+
+requestUpdateBasePathMapping :: UpdateBasePathMapping -> TestTree
+requestUpdateBasePathMapping =
+  req
+    "UpdateBasePathMapping"
+    "fixture/UpdateBasePathMapping.yaml"
+
+requestUpdateClientCertificate :: UpdateClientCertificate -> TestTree
+requestUpdateClientCertificate =
+  req
+    "UpdateClientCertificate"
+    "fixture/UpdateClientCertificate.yaml"
+
+requestUpdateMethodResponse :: UpdateMethodResponse -> TestTree
+requestUpdateMethodResponse =
+  req
+    "UpdateMethodResponse"
+    "fixture/UpdateMethodResponse.yaml"
+
+requestCreateDeployment :: CreateDeployment -> TestTree
+requestCreateDeployment =
+  req
+    "CreateDeployment"
+    "fixture/CreateDeployment.yaml"
+
+requestGetAPIKeys :: GetAPIKeys -> TestTree
+requestGetAPIKeys =
+  req
+    "GetAPIKeys"
+    "fixture/GetAPIKeys.yaml"
+
+requestCreateUsagePlan :: CreateUsagePlan -> TestTree
+requestCreateUsagePlan =
+  req
+    "CreateUsagePlan"
+    "fixture/CreateUsagePlan.yaml"
+
+requestUpdateGatewayResponse :: UpdateGatewayResponse -> TestTree
+requestUpdateGatewayResponse =
+  req
+    "UpdateGatewayResponse"
+    "fixture/UpdateGatewayResponse.yaml"
+
+requestGetSDK :: GetSDK -> TestTree
+requestGetSDK =
+  req
+    "GetSDK"
+    "fixture/GetSDK.yaml"
+
+requestGetMethodResponse :: GetMethodResponse -> TestTree
+requestGetMethodResponse =
+  req
+    "GetMethodResponse"
+    "fixture/GetMethodResponse.yaml"
+
+requestGetModels :: GetModels -> TestTree
+requestGetModels =
+  req
+    "GetModels"
+    "fixture/GetModels.yaml"
+
+requestGetStage :: GetStage -> TestTree
+requestGetStage =
+  req
+    "GetStage"
+    "fixture/GetStage.yaml"
+
+requestDeleteGatewayResponse :: DeleteGatewayResponse -> TestTree
+requestDeleteGatewayResponse =
+  req
+    "DeleteGatewayResponse"
+    "fixture/DeleteGatewayResponse.yaml"
 
 -- Responses
 
-responseGetResource :: Resource -> TestTree
-responseGetResource = res
-    "GetResourceResponse"
-    "fixture/GetResourceResponse.proto"
+responseGenerateClientCertificate :: ClientCertificate -> TestTree
+responseGenerateClientCertificate =
+  res
+    "GenerateClientCertificateResponse"
+    "fixture/GenerateClientCertificateResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetResource)
+    (Proxy :: Proxy GenerateClientCertificate)
+
+responseUpdateIntegration :: Integration -> TestTree
+responseUpdateIntegration =
+  res
+    "UpdateIntegrationResponse"
+    "fixture/UpdateIntegrationResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateIntegration)
+
+responseDeleteUsagePlan :: DeleteUsagePlanResponse -> TestTree
+responseDeleteUsagePlan =
+  res
+    "DeleteUsagePlanResponse"
+    "fixture/DeleteUsagePlanResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteUsagePlan)
+
+responseDeleteIntegration :: DeleteIntegrationResponse' -> TestTree
+responseDeleteIntegration =
+  res
+    "DeleteIntegrationResponse"
+    "fixture/DeleteIntegrationResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteIntegration)
+
+responseGetUsagePlanKey :: UsagePlanKey -> TestTree
+responseGetUsagePlanKey =
+  res
+    "GetUsagePlanKeyResponse"
+    "fixture/GetUsagePlanKeyResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetUsagePlanKey)
+
+responseGetAuthorizer :: Authorizer -> TestTree
+responseGetAuthorizer =
+  res
+    "GetAuthorizerResponse"
+    "fixture/GetAuthorizerResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetAuthorizer)
+
+responseUpdateUsagePlan :: UsagePlan -> TestTree
+responseUpdateUsagePlan =
+  res
+    "UpdateUsagePlanResponse"
+    "fixture/UpdateUsagePlanResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateUsagePlan)
 
 responseGetDeployments :: GetDeploymentsResponse -> TestTree
-responseGetDeployments = res
+responseGetDeployments =
+  res
     "GetDeploymentsResponse"
     "fixture/GetDeploymentsResponse.proto"
     apiGateway
     (Proxy :: Proxy GetDeployments)
 
-responseGetDeployment :: Deployment -> TestTree
-responseGetDeployment = res
-    "GetDeploymentResponse"
-    "fixture/GetDeploymentResponse.proto"
+responseDeleteIntegrationResponse :: DeleteIntegrationResponseResponse -> TestTree
+responseDeleteIntegrationResponse =
+  res
+    "DeleteIntegrationResponseResponse"
+    "fixture/DeleteIntegrationResponseResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetDeployment)
+    (Proxy :: Proxy DeleteIntegrationResponse)
 
-responseGetTags :: GetTagsResponse -> TestTree
-responseGetTags = res
-    "GetTagsResponse"
-    "fixture/GetTagsResponse.proto"
+responseFlushStageCache :: FlushStageCacheResponse -> TestTree
+responseFlushStageCache =
+  res
+    "FlushStageCacheResponse"
+    "fixture/FlushStageCacheResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetTags)
+    (Proxy :: Proxy FlushStageCache)
 
-responseDeleteGatewayResponse :: DeleteGatewayResponseResponse -> TestTree
-responseDeleteGatewayResponse = res
-    "DeleteGatewayResponseResponse"
-    "fixture/DeleteGatewayResponseResponse.proto"
+responseDeleteVPCLink :: DeleteVPCLinkResponse -> TestTree
+responseDeleteVPCLink =
+  res
+    "DeleteVPCLinkResponse"
+    "fixture/DeleteVPCLinkResponse.proto"
     apiGateway
-    (Proxy :: Proxy DeleteGatewayResponse)
+    (Proxy :: Proxy DeleteVPCLink)
 
-responseUpdateGatewayResponse :: GatewayResponse -> TestTree
-responseUpdateGatewayResponse = res
-    "UpdateGatewayResponseResponse"
-    "fixture/UpdateGatewayResponseResponse.proto"
+responseDeleteDocumentationPart :: DeleteDocumentationPartResponse -> TestTree
+responseDeleteDocumentationPart =
+  res
+    "DeleteDocumentationPartResponse"
+    "fixture/DeleteDocumentationPartResponse.proto"
     apiGateway
-    (Proxy :: Proxy UpdateGatewayResponse)
+    (Proxy :: Proxy DeleteDocumentationPart)
 
-responseCreateUsagePlan :: UsagePlan -> TestTree
-responseCreateUsagePlan = res
-    "CreateUsagePlanResponse"
-    "fixture/CreateUsagePlanResponse.proto"
+responseUpdateVPCLink :: VPCLink -> TestTree
+responseUpdateVPCLink =
+  res
+    "UpdateVPCLinkResponse"
+    "fixture/UpdateVPCLinkResponse.proto"
     apiGateway
-    (Proxy :: Proxy CreateUsagePlan)
+    (Proxy :: Proxy UpdateVPCLink)
 
-responseGetDomainNames :: GetDomainNamesResponse -> TestTree
-responseGetDomainNames = res
-    "GetDomainNamesResponse"
-    "fixture/GetDomainNamesResponse.proto"
+responseCreateRestAPI :: RestAPI -> TestTree
+responseCreateRestAPI =
+  res
+    "CreateRestAPIResponse"
+    "fixture/CreateRestAPIResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetDomainNames)
+    (Proxy :: Proxy CreateRestAPI)
 
-responseGetClientCertificate :: ClientCertificate -> TestTree
-responseGetClientCertificate = res
-    "GetClientCertificateResponse"
-    "fixture/GetClientCertificateResponse.proto"
+responseUpdateUsage :: Usage -> TestTree
+responseUpdateUsage =
+  res
+    "UpdateUsageResponse"
+    "fixture/UpdateUsageResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetClientCertificate)
+    (Proxy :: Proxy UpdateUsage)
 
-responsePutGatewayResponse :: GatewayResponse -> TestTree
-responsePutGatewayResponse = res
-    "PutGatewayResponseResponse"
-    "fixture/PutGatewayResponseResponse.proto"
+responseUpdateIntegrationResponse :: IntegrationResponse -> TestTree
+responseUpdateIntegrationResponse =
+  res
+    "UpdateIntegrationResponseResponse"
+    "fixture/UpdateIntegrationResponseResponse.proto"
     apiGateway
-    (Proxy :: Proxy PutGatewayResponse)
+    (Proxy :: Proxy UpdateIntegrationResponse)
 
-responseGetSDKType :: SDKType -> TestTree
-responseGetSDKType = res
-    "GetSDKTypeResponse"
-    "fixture/GetSDKTypeResponse.proto"
+responseUpdateDocumentationPart :: DocumentationPart -> TestTree
+responseUpdateDocumentationPart =
+  res
+    "UpdateDocumentationPartResponse"
+    "fixture/UpdateDocumentationPartResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetSDKType)
+    (Proxy :: Proxy UpdateDocumentationPart)
 
-responseGetMethodResponse :: MethodResponse -> TestTree
-responseGetMethodResponse = res
-    "GetMethodResponseResponse"
-    "fixture/GetMethodResponseResponse.proto"
+responseGetSDKTypes :: GetSDKTypesResponse -> TestTree
+responseGetSDKTypes =
+  res
+    "GetSDKTypesResponse"
+    "fixture/GetSDKTypesResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetMethodResponse)
+    (Proxy :: Proxy GetSDKTypes)
 
-responseGetModels :: GetModelsResponse -> TestTree
-responseGetModels = res
-    "GetModelsResponse"
-    "fixture/GetModelsResponse.proto"
+responseGetBasePathMappings :: GetBasePathMappingsResponse -> TestTree
+responseGetBasePathMappings =
+  res
+    "GetBasePathMappingsResponse"
+    "fixture/GetBasePathMappingsResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetModels)
+    (Proxy :: Proxy GetBasePathMappings)
 
-responseGetBasePathMapping :: BasePathMapping -> TestTree
-responseGetBasePathMapping = res
-    "GetBasePathMappingResponse"
-    "fixture/GetBasePathMappingResponse.proto"
+responseGetModel :: Model -> TestTree
+responseGetModel =
+  res
+    "GetModelResponse"
+    "fixture/GetModelResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetBasePathMapping)
+    (Proxy :: Proxy GetModel)
 
-responseGetRequestValidators :: GetRequestValidatorsResponse -> TestTree
-responseGetRequestValidators = res
-    "GetRequestValidatorsResponse"
-    "fixture/GetRequestValidatorsResponse.proto"
+responseGetClientCertificates :: GetClientCertificatesResponse -> TestTree
+responseGetClientCertificates =
+  res
+    "GetClientCertificatesResponse"
+    "fixture/GetClientCertificatesResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetRequestValidators)
+    (Proxy :: Proxy GetClientCertificates)
 
-responsePutMethodResponse :: MethodResponse -> TestTree
-responsePutMethodResponse = res
-    "PutMethodResponseResponse"
-    "fixture/PutMethodResponseResponse.proto"
+responseTestInvokeMethod :: TestInvokeMethodResponse -> TestTree
+responseTestInvokeMethod =
+  res
+    "TestInvokeMethodResponse"
+    "fixture/TestInvokeMethodResponse.proto"
     apiGateway
-    (Proxy :: Proxy PutMethodResponse)
+    (Proxy :: Proxy TestInvokeMethod)
 
-responseImportRestAPI :: RestAPI -> TestTree
-responseImportRestAPI = res
-    "ImportRestAPIResponse"
-    "fixture/ImportRestAPIResponse.proto"
+responsePutRestAPI :: RestAPI -> TestTree
+responsePutRestAPI =
+  res
+    "PutRestAPIResponse"
+    "fixture/PutRestAPIResponse.proto"
     apiGateway
-    (Proxy :: Proxy ImportRestAPI)
+    (Proxy :: Proxy PutRestAPI)
 
-responseDeleteMethodResponse :: DeleteMethodResponseResponse -> TestTree
-responseDeleteMethodResponse = res
-    "DeleteMethodResponseResponse"
-    "fixture/DeleteMethodResponseResponse.proto"
+responseGetAPIKey :: APIKey -> TestTree
+responseGetAPIKey =
+  res
+    "GetAPIKeyResponse"
+    "fixture/GetAPIKeyResponse.proto"
     apiGateway
-    (Proxy :: Proxy DeleteMethodResponse)
-
-responseUpdateMethodResponse :: MethodResponse -> TestTree
-responseUpdateMethodResponse = res
-    "UpdateMethodResponseResponse"
-    "fixture/UpdateMethodResponseResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateMethodResponse)
-
-responseDeleteStage :: DeleteStageResponse -> TestTree
-responseDeleteStage = res
-    "DeleteStageResponse"
-    "fixture/DeleteStageResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteStage)
-
-responseUpdateStage :: Stage -> TestTree
-responseUpdateStage = res
-    "UpdateStageResponse"
-    "fixture/UpdateStageResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateStage)
-
-responseGetRestAPIs :: GetRestAPIsResponse -> TestTree
-responseGetRestAPIs = res
-    "GetRestAPIsResponse"
-    "fixture/GetRestAPIsResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetRestAPIs)
-
-responseGetDocumentationVersions :: GetDocumentationVersionsResponse -> TestTree
-responseGetDocumentationVersions = res
-    "GetDocumentationVersionsResponse"
-    "fixture/GetDocumentationVersionsResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetDocumentationVersions)
-
-responseCreateDeployment :: Deployment -> TestTree
-responseCreateDeployment = res
-    "CreateDeploymentResponse"
-    "fixture/CreateDeploymentResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateDeployment)
-
-responseGetVPCLinks :: GetVPCLinksResponse -> TestTree
-responseGetVPCLinks = res
-    "GetVPCLinksResponse"
-    "fixture/GetVPCLinksResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetVPCLinks)
-
-responseCreateBasePathMapping :: BasePathMapping -> TestTree
-responseCreateBasePathMapping = res
-    "CreateBasePathMappingResponse"
-    "fixture/CreateBasePathMappingResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateBasePathMapping)
-
-responseGetIntegration :: Integration -> TestTree
-responseGetIntegration = res
-    "GetIntegrationResponse"
-    "fixture/GetIntegrationResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetIntegration)
-
-responseGetDocumentationParts :: GetDocumentationPartsResponse -> TestTree
-responseGetDocumentationParts = res
-    "GetDocumentationPartsResponse"
-    "fixture/GetDocumentationPartsResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetDocumentationParts)
-
-responseUpdateAccount :: Account -> TestTree
-responseUpdateAccount = res
-    "UpdateAccountResponse"
-    "fixture/UpdateAccountResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateAccount)
-
-responseGetUsagePlan :: UsagePlan -> TestTree
-responseGetUsagePlan = res
-    "GetUsagePlanResponse"
-    "fixture/GetUsagePlanResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetUsagePlan)
-
-responseDeleteDeployment :: DeleteDeploymentResponse -> TestTree
-responseDeleteDeployment = res
-    "DeleteDeploymentResponse"
-    "fixture/DeleteDeploymentResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteDeployment)
-
-responseUpdateDeployment :: Deployment -> TestTree
-responseUpdateDeployment = res
-    "UpdateDeploymentResponse"
-    "fixture/UpdateDeploymentResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateDeployment)
-
-responseGetDocumentationPart :: DocumentationPart -> TestTree
-responseGetDocumentationPart = res
-    "GetDocumentationPartResponse"
-    "fixture/GetDocumentationPartResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetDocumentationPart)
-
-responseDeleteResource :: DeleteResourceResponse -> TestTree
-responseDeleteResource = res
-    "DeleteResourceResponse"
-    "fixture/DeleteResourceResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteResource)
-
-responseUpdateResource :: Resource -> TestTree
-responseUpdateResource = res
-    "UpdateResourceResponse"
-    "fixture/UpdateResourceResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateResource)
-
-responseCreateRequestValidator :: RequestValidator -> TestTree
-responseCreateRequestValidator = res
-    "CreateRequestValidatorResponse"
-    "fixture/CreateRequestValidatorResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateRequestValidator)
-
-responseImportDocumentationParts :: ImportDocumentationPartsResponse -> TestTree
-responseImportDocumentationParts = res
-    "ImportDocumentationPartsResponse"
-    "fixture/ImportDocumentationPartsResponse.proto"
-    apiGateway
-    (Proxy :: Proxy ImportDocumentationParts)
-
-responseGetUsage :: Usage -> TestTree
-responseGetUsage = res
-    "GetUsageResponse"
-    "fixture/GetUsageResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetUsage)
-
-responseGetVPCLink :: VPCLink -> TestTree
-responseGetVPCLink = res
-    "GetVPCLinkResponse"
-    "fixture/GetVPCLinkResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetVPCLink)
-
-responseCreateModel :: Model -> TestTree
-responseCreateModel = res
-    "CreateModelResponse"
-    "fixture/CreateModelResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateModel)
-
-responseGetIntegrationResponse :: IntegrationResponse -> TestTree
-responseGetIntegrationResponse = res
-    "GetIntegrationResponseResponse"
-    "fixture/GetIntegrationResponseResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetIntegrationResponse)
-
-responseCreateDomainName :: DomainName -> TestTree
-responseCreateDomainName = res
-    "CreateDomainNameResponse"
-    "fixture/CreateDomainNameResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateDomainName)
-
-responseFlushStageAuthorizersCache :: FlushStageAuthorizersCacheResponse -> TestTree
-responseFlushStageAuthorizersCache = res
-    "FlushStageAuthorizersCacheResponse"
-    "fixture/FlushStageAuthorizersCacheResponse.proto"
-    apiGateway
-    (Proxy :: Proxy FlushStageAuthorizersCache)
+    (Proxy :: Proxy GetAPIKey)
 
 responseGetGatewayResponses :: GetGatewayResponsesResponse -> TestTree
-responseGetGatewayResponses = res
+responseGetGatewayResponses =
+  res
     "GetGatewayResponsesResponse"
     "fixture/GetGatewayResponsesResponse.proto"
     apiGateway
     (Proxy :: Proxy GetGatewayResponses)
 
 responseDeleteModel :: DeleteModelResponse -> TestTree
-responseDeleteModel = res
+responseDeleteModel =
+  res
     "DeleteModelResponse"
     "fixture/DeleteModelResponse.proto"
     apiGateway
     (Proxy :: Proxy DeleteModel)
 
-responseUpdateModel :: Model -> TestTree
-responseUpdateModel = res
-    "UpdateModelResponse"
-    "fixture/UpdateModelResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateModel)
-
-responseGetDocumentationVersion :: DocumentationVersion -> TestTree
-responseGetDocumentationVersion = res
-    "GetDocumentationVersionResponse"
-    "fixture/GetDocumentationVersionResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetDocumentationVersion)
-
-responseDeleteAPIKey :: DeleteAPIKeyResponse -> TestTree
-responseDeleteAPIKey = res
-    "DeleteAPIKeyResponse"
-    "fixture/DeleteAPIKeyResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteAPIKey)
-
-responseUpdateAPIKey :: APIKey -> TestTree
-responseUpdateAPIKey = res
-    "UpdateAPIKeyResponse"
-    "fixture/UpdateAPIKeyResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateAPIKey)
-
-responseGetRestAPI :: RestAPI -> TestTree
-responseGetRestAPI = res
-    "GetRestAPIResponse"
-    "fixture/GetRestAPIResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetRestAPI)
-
-responseGetStages :: GetStagesResponse -> TestTree
-responseGetStages = res
-    "GetStagesResponse"
-    "fixture/GetStagesResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetStages)
-
-responsePutRestAPI :: RestAPI -> TestTree
-responsePutRestAPI = res
-    "PutRestAPIResponse"
-    "fixture/PutRestAPIResponse.proto"
-    apiGateway
-    (Proxy :: Proxy PutRestAPI)
-
-responseGetMethod :: Method -> TestTree
-responseGetMethod = res
-    "GetMethodResponse"
-    "fixture/GetMethodResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetMethod)
-
-responseGetModel :: Model -> TestTree
-responseGetModel = res
-    "GetModelResponse"
-    "fixture/GetModelResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetModel)
-
-responseUpdateRestAPI :: RestAPI -> TestTree
-responseUpdateRestAPI = res
-    "UpdateRestAPIResponse"
-    "fixture/UpdateRestAPIResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateRestAPI)
-
-responseDeleteRestAPI :: DeleteRestAPIResponse -> TestTree
-responseDeleteRestAPI = res
-    "DeleteRestAPIResponse"
-    "fixture/DeleteRestAPIResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteRestAPI)
-
-responseImportAPIKeys :: ImportAPIKeysResponse -> TestTree
-responseImportAPIKeys = res
-    "ImportAPIKeysResponse"
-    "fixture/ImportAPIKeysResponse.proto"
-    apiGateway
-    (Proxy :: Proxy ImportAPIKeys)
-
-responseCreateDocumentationPart :: DocumentationPart -> TestTree
-responseCreateDocumentationPart = res
-    "CreateDocumentationPartResponse"
-    "fixture/CreateDocumentationPartResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateDocumentationPart)
-
-responseTestInvokeMethod :: TestInvokeMethodResponse -> TestTree
-responseTestInvokeMethod = res
-    "TestInvokeMethodResponse"
-    "fixture/TestInvokeMethodResponse.proto"
-    apiGateway
-    (Proxy :: Proxy TestInvokeMethod)
-
-responseGetRequestValidator :: RequestValidator -> TestTree
-responseGetRequestValidator = res
-    "GetRequestValidatorResponse"
-    "fixture/GetRequestValidatorResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetRequestValidator)
-
-responseGetDomainName :: DomainName -> TestTree
-responseGetDomainName = res
-    "GetDomainNameResponse"
-    "fixture/GetDomainNameResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetDomainName)
-
-responseCreateVPCLink :: VPCLink -> TestTree
-responseCreateVPCLink = res
-    "CreateVPCLinkResponse"
-    "fixture/CreateVPCLinkResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateVPCLink)
-
-responseDeleteDocumentationPart :: DeleteDocumentationPartResponse -> TestTree
-responseDeleteDocumentationPart = res
-    "DeleteDocumentationPartResponse"
-    "fixture/DeleteDocumentationPartResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteDocumentationPart)
-
-responseUpdateDocumentationPart :: DocumentationPart -> TestTree
-responseUpdateDocumentationPart = res
-    "UpdateDocumentationPartResponse"
-    "fixture/UpdateDocumentationPartResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateDocumentationPart)
-
-responseGetAuthorizers :: GetAuthorizersResponse -> TestTree
-responseGetAuthorizers = res
-    "GetAuthorizersResponse"
-    "fixture/GetAuthorizersResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetAuthorizers)
-
-responseCreateDocumentationVersion :: DocumentationVersion -> TestTree
-responseCreateDocumentationVersion = res
-    "CreateDocumentationVersionResponse"
-    "fixture/CreateDocumentationVersionResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateDocumentationVersion)
-
-responsePutIntegrationResponse :: IntegrationResponse -> TestTree
-responsePutIntegrationResponse = res
-    "PutIntegrationResponseResponse"
-    "fixture/PutIntegrationResponseResponse.proto"
-    apiGateway
-    (Proxy :: Proxy PutIntegrationResponse)
-
-responseGetUsagePlanKeys :: GetUsagePlanKeysResponse -> TestTree
-responseGetUsagePlanKeys = res
-    "GetUsagePlanKeysResponse"
-    "fixture/GetUsagePlanKeysResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetUsagePlanKeys)
-
-responseDeleteVPCLink :: DeleteVPCLinkResponse -> TestTree
-responseDeleteVPCLink = res
-    "DeleteVPCLinkResponse"
-    "fixture/DeleteVPCLinkResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteVPCLink)
-
-responseUpdateVPCLink :: VPCLink -> TestTree
-responseUpdateVPCLink = res
-    "UpdateVPCLinkResponse"
-    "fixture/UpdateVPCLinkResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateVPCLink)
-
-responseFlushStageCache :: FlushStageCacheResponse -> TestTree
-responseFlushStageCache = res
-    "FlushStageCacheResponse"
-    "fixture/FlushStageCacheResponse.proto"
-    apiGateway
-    (Proxy :: Proxy FlushStageCache)
-
-responseCreateRestAPI :: RestAPI -> TestTree
-responseCreateRestAPI = res
-    "CreateRestAPIResponse"
-    "fixture/CreateRestAPIResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateRestAPI)
-
-responseDeleteIntegrationResponse :: DeleteIntegrationResponseResponse -> TestTree
-responseDeleteIntegrationResponse = res
-    "DeleteIntegrationResponseResponse"
-    "fixture/DeleteIntegrationResponseResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteIntegrationResponse)
-
-responseUpdateIntegrationResponse :: IntegrationResponse -> TestTree
-responseUpdateIntegrationResponse = res
-    "UpdateIntegrationResponseResponse"
-    "fixture/UpdateIntegrationResponseResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateIntegrationResponse)
-
-responseUpdateUsage :: Usage -> TestTree
-responseUpdateUsage = res
-    "UpdateUsageResponse"
-    "fixture/UpdateUsageResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateUsage)
-
-responseDeleteIntegration :: DeleteIntegrationResponse' -> TestTree
-responseDeleteIntegration = res
-    "DeleteIntegrationResponse"
-    "fixture/DeleteIntegrationResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteIntegration)
-
-responseUpdateIntegration :: Integration -> TestTree
-responseUpdateIntegration = res
-    "UpdateIntegrationResponse"
-    "fixture/UpdateIntegrationResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateIntegration)
-
-responseTestInvokeAuthorizer :: TestInvokeAuthorizerResponse -> TestTree
-responseTestInvokeAuthorizer = res
-    "TestInvokeAuthorizerResponse"
-    "fixture/TestInvokeAuthorizerResponse.proto"
-    apiGateway
-    (Proxy :: Proxy TestInvokeAuthorizer)
-
-responseGenerateClientCertificate :: ClientCertificate -> TestTree
-responseGenerateClientCertificate = res
-    "GenerateClientCertificateResponse"
-    "fixture/GenerateClientCertificateResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GenerateClientCertificate)
-
-responseGetResources :: GetResourcesResponse -> TestTree
-responseGetResources = res
-    "GetResourcesResponse"
-    "fixture/GetResourcesResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetResources)
-
-responseGetUsagePlanKey :: UsagePlanKey -> TestTree
-responseGetUsagePlanKey = res
-    "GetUsagePlanKeyResponse"
-    "fixture/GetUsagePlanKeyResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetUsagePlanKey)
-
-responseGetAccount :: Account -> TestTree
-responseGetAccount = res
-    "GetAccountResponse"
-    "fixture/GetAccountResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetAccount)
-
-responsePutIntegration :: Integration -> TestTree
-responsePutIntegration = res
-    "PutIntegrationResponse"
-    "fixture/PutIntegrationResponse.proto"
-    apiGateway
-    (Proxy :: Proxy PutIntegration)
-
-responseGetAuthorizer :: Authorizer -> TestTree
-responseGetAuthorizer = res
-    "GetAuthorizerResponse"
-    "fixture/GetAuthorizerResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetAuthorizer)
-
-responseDeleteUsagePlan :: DeleteUsagePlanResponse -> TestTree
-responseDeleteUsagePlan = res
-    "DeleteUsagePlanResponse"
-    "fixture/DeleteUsagePlanResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteUsagePlan)
-
-responseUpdateUsagePlan :: UsagePlan -> TestTree
-responseUpdateUsagePlan = res
-    "UpdateUsagePlanResponse"
-    "fixture/UpdateUsagePlanResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateUsagePlan)
-
-responseGetStage :: Stage -> TestTree
-responseGetStage = res
-    "GetStageResponse"
-    "fixture/GetStageResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetStage)
-
-responseGetExport :: GetExportResponse -> TestTree
-responseGetExport = res
-    "GetExportResponse"
-    "fixture/GetExportResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetExport)
-
-responseGetSDK :: GetSDKResponse -> TestTree
-responseGetSDK = res
-    "GetSDKResponse"
-    "fixture/GetSDKResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetSDK)
-
-responseGetAPIKeys :: GetAPIKeysResponse -> TestTree
-responseGetAPIKeys = res
-    "GetAPIKeysResponse"
-    "fixture/GetAPIKeysResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetAPIKeys)
-
-responseDeleteBasePathMapping :: DeleteBasePathMappingResponse -> TestTree
-responseDeleteBasePathMapping = res
-    "DeleteBasePathMappingResponse"
-    "fixture/DeleteBasePathMappingResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteBasePathMapping)
-
-responseUpdateBasePathMapping :: BasePathMapping -> TestTree
-responseUpdateBasePathMapping = res
-    "UpdateBasePathMappingResponse"
-    "fixture/UpdateBasePathMappingResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateBasePathMapping)
-
-responseDeleteClientCertificate :: DeleteClientCertificateResponse -> TestTree
-responseDeleteClientCertificate = res
-    "DeleteClientCertificateResponse"
-    "fixture/DeleteClientCertificateResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteClientCertificate)
-
-responseUpdateClientCertificate :: ClientCertificate -> TestTree
-responseUpdateClientCertificate = res
-    "UpdateClientCertificateResponse"
-    "fixture/UpdateClientCertificateResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateClientCertificate)
-
-responseGetGatewayResponse :: GatewayResponse -> TestTree
-responseGetGatewayResponse = res
-    "GetGatewayResponseResponse"
-    "fixture/GetGatewayResponseResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetGatewayResponse)
-
-responseCreateUsagePlanKey :: UsagePlanKey -> TestTree
-responseCreateUsagePlanKey = res
-    "CreateUsagePlanKeyResponse"
-    "fixture/CreateUsagePlanKeyResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateUsagePlanKey)
-
-responseCreateAuthorizer :: Authorizer -> TestTree
-responseCreateAuthorizer = res
-    "CreateAuthorizerResponse"
-    "fixture/CreateAuthorizerResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateAuthorizer)
-
-responseUpdateAuthorizer :: Authorizer -> TestTree
-responseUpdateAuthorizer = res
-    "UpdateAuthorizerResponse"
-    "fixture/UpdateAuthorizerResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateAuthorizer)
-
-responseDeleteAuthorizer :: DeleteAuthorizerResponse -> TestTree
-responseDeleteAuthorizer = res
-    "DeleteAuthorizerResponse"
-    "fixture/DeleteAuthorizerResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteAuthorizer)
-
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource = res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
-    apiGateway
-    (Proxy :: Proxy TagResource)
-
-responseCreateStage :: Stage -> TestTree
-responseCreateStage = res
-    "CreateStageResponse"
-    "fixture/CreateStageResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateStage)
-
-responseDeleteUsagePlanKey :: DeleteUsagePlanKeyResponse -> TestTree
-responseDeleteUsagePlanKey = res
-    "DeleteUsagePlanKeyResponse"
-    "fixture/DeleteUsagePlanKeyResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteUsagePlanKey)
-
-responseUntagResource :: UntagResourceResponse -> TestTree
-responseUntagResource = res
-    "UntagResourceResponse"
-    "fixture/UntagResourceResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UntagResource)
-
-responseCreateAPIKey :: APIKey -> TestTree
-responseCreateAPIKey = res
-    "CreateAPIKeyResponse"
-    "fixture/CreateAPIKeyResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateAPIKey)
-
-responseGetUsagePlans :: GetUsagePlansResponse -> TestTree
-responseGetUsagePlans = res
-    "GetUsagePlansResponse"
-    "fixture/GetUsagePlansResponse.proto"
-    apiGateway
-    (Proxy :: Proxy GetUsagePlans)
-
-responsePutMethod :: Method -> TestTree
-responsePutMethod = res
-    "PutMethodResponse"
-    "fixture/PutMethodResponse.proto"
-    apiGateway
-    (Proxy :: Proxy PutMethod)
-
-responseUpdateDomainName :: DomainName -> TestTree
-responseUpdateDomainName = res
-    "UpdateDomainNameResponse"
-    "fixture/UpdateDomainNameResponse.proto"
-    apiGateway
-    (Proxy :: Proxy UpdateDomainName)
-
-responseDeleteDomainName :: DeleteDomainNameResponse -> TestTree
-responseDeleteDomainName = res
-    "DeleteDomainNameResponse"
-    "fixture/DeleteDomainNameResponse.proto"
-    apiGateway
-    (Proxy :: Proxy DeleteDomainName)
-
-responseCreateResource :: Resource -> TestTree
-responseCreateResource = res
-    "CreateResourceResponse"
-    "fixture/CreateResourceResponse.proto"
-    apiGateway
-    (Proxy :: Proxy CreateResource)
-
 responseDeleteMethod :: DeleteMethodResponse' -> TestTree
-responseDeleteMethod = res
+responseDeleteMethod =
+  res
     "DeleteMethodResponse"
     "fixture/DeleteMethodResponse.proto"
     apiGateway
     (Proxy :: Proxy DeleteMethod)
 
+responseGetDocumentationVersion :: DocumentationVersion -> TestTree
+responseGetDocumentationVersion =
+  res
+    "GetDocumentationVersionResponse"
+    "fixture/GetDocumentationVersionResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetDocumentationVersion)
+
 responseUpdateMethod :: Method -> TestTree
-responseUpdateMethod = res
+responseUpdateMethod =
+  res
     "UpdateMethodResponse"
     "fixture/UpdateMethodResponse.proto"
     apiGateway
     (Proxy :: Proxy UpdateMethod)
 
+responseUpdateModel :: Model -> TestTree
+responseUpdateModel =
+  res
+    "UpdateModelResponse"
+    "fixture/UpdateModelResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateModel)
+
+responseUpdateDomainName :: DomainName -> TestTree
+responseUpdateDomainName =
+  res
+    "UpdateDomainNameResponse"
+    "fixture/UpdateDomainNameResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateDomainName)
+
+responseCreateResource :: Resource -> TestTree
+responseCreateResource =
+  res
+    "CreateResourceResponse"
+    "fixture/CreateResourceResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateResource)
+
+responseDeleteDomainName :: DeleteDomainNameResponse -> TestTree
+responseDeleteDomainName =
+  res
+    "DeleteDomainNameResponse"
+    "fixture/DeleteDomainNameResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteDomainName)
+
 responseUpdateRequestValidator :: RequestValidator -> TestTree
-responseUpdateRequestValidator = res
+responseUpdateRequestValidator =
+  res
     "UpdateRequestValidatorResponse"
     "fixture/UpdateRequestValidatorResponse.proto"
     apiGateway
     (Proxy :: Proxy UpdateRequestValidator)
 
 responseDeleteRequestValidator :: DeleteRequestValidatorResponse -> TestTree
-responseDeleteRequestValidator = res
+responseDeleteRequestValidator =
+  res
     "DeleteRequestValidatorResponse"
     "fixture/DeleteRequestValidatorResponse.proto"
     apiGateway
     (Proxy :: Proxy DeleteRequestValidator)
 
-responseGetSDKTypes :: GetSDKTypesResponse -> TestTree
-responseGetSDKTypes = res
-    "GetSDKTypesResponse"
-    "fixture/GetSDKTypesResponse.proto"
+responseGetUsagePlans :: GetUsagePlansResponse -> TestTree
+responseGetUsagePlans =
+  res
+    "GetUsagePlansResponse"
+    "fixture/GetUsagePlansResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetSDKTypes)
+    (Proxy :: Proxy GetUsagePlans)
 
-responseGetClientCertificates :: GetClientCertificatesResponse -> TestTree
-responseGetClientCertificates = res
-    "GetClientCertificatesResponse"
-    "fixture/GetClientCertificatesResponse.proto"
+responseCreateRequestValidator :: RequestValidator -> TestTree
+responseCreateRequestValidator =
+  res
+    "CreateRequestValidatorResponse"
+    "fixture/CreateRequestValidatorResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetClientCertificates)
+    (Proxy :: Proxy CreateRequestValidator)
+
+responseCreateDomainName :: DomainName -> TestTree
+responseCreateDomainName =
+  res
+    "CreateDomainNameResponse"
+    "fixture/CreateDomainNameResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateDomainName)
+
+responseGetVPCLink :: VPCLink -> TestTree
+responseGetVPCLink =
+  res
+    "GetVPCLinkResponse"
+    "fixture/GetVPCLinkResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetVPCLink)
+
+responseUpdateResource :: Resource -> TestTree
+responseUpdateResource =
+  res
+    "UpdateResourceResponse"
+    "fixture/UpdateResourceResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateResource)
+
+responseGetDocumentationPart :: DocumentationPart -> TestTree
+responseGetDocumentationPart =
+  res
+    "GetDocumentationPartResponse"
+    "fixture/GetDocumentationPartResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetDocumentationPart)
+
+responseGetUsage :: Usage -> TestTree
+responseGetUsage =
+  res
+    "GetUsageResponse"
+    "fixture/GetUsageResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetUsage)
+
+responseImportDocumentationParts :: ImportDocumentationPartsResponse -> TestTree
+responseImportDocumentationParts =
+  res
+    "ImportDocumentationPartsResponse"
+    "fixture/ImportDocumentationPartsResponse.proto"
+    apiGateway
+    (Proxy :: Proxy ImportDocumentationParts)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UntagResource)
+
+responseDeleteResource :: DeleteResourceResponse -> TestTree
+responseDeleteResource =
+  res
+    "DeleteResourceResponse"
+    "fixture/DeleteResourceResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteResource)
+
+responseGetIntegrationResponse :: IntegrationResponse -> TestTree
+responseGetIntegrationResponse =
+  res
+    "GetIntegrationResponseResponse"
+    "fixture/GetIntegrationResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetIntegrationResponse)
+
+responseDeleteDeployment :: DeleteDeploymentResponse -> TestTree
+responseDeleteDeployment =
+  res
+    "DeleteDeploymentResponse"
+    "fixture/DeleteDeploymentResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteDeployment)
+
+responseCreateStage :: Stage -> TestTree
+responseCreateStage =
+  res
+    "CreateStageResponse"
+    "fixture/CreateStageResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateStage)
+
+responseGetIntegration :: Integration -> TestTree
+responseGetIntegration =
+  res
+    "GetIntegrationResponse"
+    "fixture/GetIntegrationResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetIntegration)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    apiGateway
+    (Proxy :: Proxy TagResource)
+
+responseUpdateDeployment :: Deployment -> TestTree
+responseUpdateDeployment =
+  res
+    "UpdateDeploymentResponse"
+    "fixture/UpdateDeploymentResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateDeployment)
+
+responseGetUsagePlan :: UsagePlan -> TestTree
+responseGetUsagePlan =
+  res
+    "GetUsagePlanResponse"
+    "fixture/GetUsagePlanResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetUsagePlan)
+
+responseGetRestAPIs :: GetRestAPIsResponse -> TestTree
+responseGetRestAPIs =
+  res
+    "GetRestAPIsResponse"
+    "fixture/GetRestAPIsResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetRestAPIs)
+
+responseCreateAuthorizer :: Authorizer -> TestTree
+responseCreateAuthorizer =
+  res
+    "CreateAuthorizerResponse"
+    "fixture/CreateAuthorizerResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateAuthorizer)
+
+responseDeleteStage :: DeleteStageResponse -> TestTree
+responseDeleteStage =
+  res
+    "DeleteStageResponse"
+    "fixture/DeleteStageResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteStage)
+
+responseUpdateStage :: Stage -> TestTree
+responseUpdateStage =
+  res
+    "UpdateStageResponse"
+    "fixture/UpdateStageResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateStage)
+
+responseCreateUsagePlanKey :: UsagePlanKey -> TestTree
+responseCreateUsagePlanKey =
+  res
+    "CreateUsagePlanKeyResponse"
+    "fixture/CreateUsagePlanKeyResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateUsagePlanKey)
+
+responseGetGatewayResponse :: GatewayResponse -> TestTree
+responseGetGatewayResponse =
+  res
+    "GetGatewayResponseResponse"
+    "fixture/GetGatewayResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetGatewayResponse)
+
+responseImportRestAPI :: RestAPI -> TestTree
+responseImportRestAPI =
+  res
+    "ImportRestAPIResponse"
+    "fixture/ImportRestAPIResponse.proto"
+    apiGateway
+    (Proxy :: Proxy ImportRestAPI)
+
+responsePutMethodResponse :: MethodResponse -> TestTree
+responsePutMethodResponse =
+  res
+    "PutMethodResponseResponse"
+    "fixture/PutMethodResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy PutMethodResponse)
+
+responseGetBasePathMapping :: BasePathMapping -> TestTree
+responseGetBasePathMapping =
+  res
+    "GetBasePathMappingResponse"
+    "fixture/GetBasePathMappingResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetBasePathMapping)
+
+responseGetRequestValidators :: GetRequestValidatorsResponse -> TestTree
+responseGetRequestValidators =
+  res
+    "GetRequestValidatorsResponse"
+    "fixture/GetRequestValidatorsResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetRequestValidators)
+
+responseGetDomainNames :: GetDomainNamesResponse -> TestTree
+responseGetDomainNames =
+  res
+    "GetDomainNamesResponse"
+    "fixture/GetDomainNamesResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetDomainNames)
+
+responseGetSDKType :: SDKType -> TestTree
+responseGetSDKType =
+  res
+    "GetSDKTypeResponse"
+    "fixture/GetSDKTypeResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetSDKType)
+
+responsePutGatewayResponse :: GatewayResponse -> TestTree
+responsePutGatewayResponse =
+  res
+    "PutGatewayResponseResponse"
+    "fixture/PutGatewayResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy PutGatewayResponse)
+
+responseGetExport :: GetExportResponse -> TestTree
+responseGetExport =
+  res
+    "GetExportResponse"
+    "fixture/GetExportResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetExport)
+
+responseGetClientCertificate :: ClientCertificate -> TestTree
+responseGetClientCertificate =
+  res
+    "GetClientCertificateResponse"
+    "fixture/GetClientCertificateResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetClientCertificate)
+
+responseTestInvokeAuthorizer :: TestInvokeAuthorizerResponse -> TestTree
+responseTestInvokeAuthorizer =
+  res
+    "TestInvokeAuthorizerResponse"
+    "fixture/TestInvokeAuthorizerResponse.proto"
+    apiGateway
+    (Proxy :: Proxy TestInvokeAuthorizer)
+
+responseGetTags :: GetTagsResponse -> TestTree
+responseGetTags =
+  res
+    "GetTagsResponse"
+    "fixture/GetTagsResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetTags)
+
+responseGetDeployment :: Deployment -> TestTree
+responseGetDeployment =
+  res
+    "GetDeploymentResponse"
+    "fixture/GetDeploymentResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetDeployment)
+
+responseGetAccount :: Account -> TestTree
+responseGetAccount =
+  res
+    "GetAccountResponse"
+    "fixture/GetAccountResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetAccount)
+
+responsePutIntegration :: Integration -> TestTree
+responsePutIntegration =
+  res
+    "PutIntegrationResponse"
+    "fixture/PutIntegrationResponse.proto"
+    apiGateway
+    (Proxy :: Proxy PutIntegration)
+
+responseGetResources :: GetResourcesResponse -> TestTree
+responseGetResources =
+  res
+    "GetResourcesResponse"
+    "fixture/GetResourcesResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetResources)
+
+responseGetResource :: Resource -> TestTree
+responseGetResource =
+  res
+    "GetResourceResponse"
+    "fixture/GetResourceResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetResource)
+
+responseCreateDocumentationVersion :: DocumentationVersion -> TestTree
+responseCreateDocumentationVersion =
+  res
+    "CreateDocumentationVersionResponse"
+    "fixture/CreateDocumentationVersionResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateDocumentationVersion)
+
+responseGetAuthorizers :: GetAuthorizersResponse -> TestTree
+responseGetAuthorizers =
+  res
+    "GetAuthorizersResponse"
+    "fixture/GetAuthorizersResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetAuthorizers)
+
+responsePutIntegrationResponse :: IntegrationResponse -> TestTree
+responsePutIntegrationResponse =
+  res
+    "PutIntegrationResponseResponse"
+    "fixture/PutIntegrationResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy PutIntegrationResponse)
+
+responseGetUsagePlanKeys :: GetUsagePlanKeysResponse -> TestTree
+responseGetUsagePlanKeys =
+  res
+    "GetUsagePlanKeysResponse"
+    "fixture/GetUsagePlanKeysResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetUsagePlanKeys)
+
+responseCreateDocumentationPart :: DocumentationPart -> TestTree
+responseCreateDocumentationPart =
+  res
+    "CreateDocumentationPartResponse"
+    "fixture/CreateDocumentationPartResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateDocumentationPart)
+
+responseGetStages :: GetStagesResponse -> TestTree
+responseGetStages =
+  res
+    "GetStagesResponse"
+    "fixture/GetStagesResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetStages)
+
+responseGetDomainName :: DomainName -> TestTree
+responseGetDomainName =
+  res
+    "GetDomainNameResponse"
+    "fixture/GetDomainNameResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetDomainName)
 
 responseGetModelTemplate :: GetModelTemplateResponse -> TestTree
-responseGetModelTemplate = res
+responseGetModelTemplate =
+  res
     "GetModelTemplateResponse"
     "fixture/GetModelTemplateResponse.proto"
     apiGateway
     (Proxy :: Proxy GetModelTemplate)
 
+responseDeleteRestAPI :: DeleteRestAPIResponse -> TestTree
+responseDeleteRestAPI =
+  res
+    "DeleteRestAPIResponse"
+    "fixture/DeleteRestAPIResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteRestAPI)
+
+responseGetMethod :: Method -> TestTree
+responseGetMethod =
+  res
+    "GetMethodResponse"
+    "fixture/GetMethodResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetMethod)
+
+responseUpdateRestAPI :: RestAPI -> TestTree
+responseUpdateRestAPI =
+  res
+    "UpdateRestAPIResponse"
+    "fixture/UpdateRestAPIResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateRestAPI)
+
+responseCreateVPCLink :: VPCLink -> TestTree
+responseCreateVPCLink =
+  res
+    "CreateVPCLinkResponse"
+    "fixture/CreateVPCLinkResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateVPCLink)
+
+responseGetRequestValidator :: RequestValidator -> TestTree
+responseGetRequestValidator =
+  res
+    "GetRequestValidatorResponse"
+    "fixture/GetRequestValidatorResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetRequestValidator)
+
 responseUpdateDocumentationVersion :: DocumentationVersion -> TestTree
-responseUpdateDocumentationVersion = res
+responseUpdateDocumentationVersion =
+  res
     "UpdateDocumentationVersionResponse"
     "fixture/UpdateDocumentationVersionResponse.proto"
     apiGateway
     (Proxy :: Proxy UpdateDocumentationVersion)
 
+responseImportAPIKeys :: ImportAPIKeysResponse -> TestTree
+responseImportAPIKeys =
+  res
+    "ImportAPIKeysResponse"
+    "fixture/ImportAPIKeysResponse.proto"
+    apiGateway
+    (Proxy :: Proxy ImportAPIKeys)
+
 responseDeleteDocumentationVersion :: DeleteDocumentationVersionResponse -> TestTree
-responseDeleteDocumentationVersion = res
+responseDeleteDocumentationVersion =
+  res
     "DeleteDocumentationVersionResponse"
     "fixture/DeleteDocumentationVersionResponse.proto"
     apiGateway
     (Proxy :: Proxy DeleteDocumentationVersion)
 
-responseGetBasePathMappings :: GetBasePathMappingsResponse -> TestTree
-responseGetBasePathMappings = res
-    "GetBasePathMappingsResponse"
-    "fixture/GetBasePathMappingsResponse.proto"
+responsePutMethod :: Method -> TestTree
+responsePutMethod =
+  res
+    "PutMethodResponse"
+    "fixture/PutMethodResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetBasePathMappings)
+    (Proxy :: Proxy PutMethod)
 
-responseGetAPIKey :: APIKey -> TestTree
-responseGetAPIKey = res
-    "GetAPIKeyResponse"
-    "fixture/GetAPIKeyResponse.proto"
+responseDeleteAPIKey :: DeleteAPIKeyResponse -> TestTree
+responseDeleteAPIKey =
+  res
+    "DeleteAPIKeyResponse"
+    "fixture/DeleteAPIKeyResponse.proto"
     apiGateway
-    (Proxy :: Proxy GetAPIKey)
+    (Proxy :: Proxy DeleteAPIKey)
+
+responseFlushStageAuthorizersCache :: FlushStageAuthorizersCacheResponse -> TestTree
+responseFlushStageAuthorizersCache =
+  res
+    "FlushStageAuthorizersCacheResponse"
+    "fixture/FlushStageAuthorizersCacheResponse.proto"
+    apiGateway
+    (Proxy :: Proxy FlushStageAuthorizersCache)
+
+responseUpdateAPIKey :: APIKey -> TestTree
+responseUpdateAPIKey =
+  res
+    "UpdateAPIKeyResponse"
+    "fixture/UpdateAPIKeyResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateAPIKey)
+
+responseGetRestAPI :: RestAPI -> TestTree
+responseGetRestAPI =
+  res
+    "GetRestAPIResponse"
+    "fixture/GetRestAPIResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetRestAPI)
+
+responseCreateModel :: Model -> TestTree
+responseCreateModel =
+  res
+    "CreateModelResponse"
+    "fixture/CreateModelResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateModel)
+
+responseCreateAPIKey :: APIKey -> TestTree
+responseCreateAPIKey =
+  res
+    "CreateAPIKeyResponse"
+    "fixture/CreateAPIKeyResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateAPIKey)
+
+responseDeleteUsagePlanKey :: DeleteUsagePlanKeyResponse -> TestTree
+responseDeleteUsagePlanKey =
+  res
+    "DeleteUsagePlanKeyResponse"
+    "fixture/DeleteUsagePlanKeyResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteUsagePlanKey)
+
+responseUpdateAccount :: Account -> TestTree
+responseUpdateAccount =
+  res
+    "UpdateAccountResponse"
+    "fixture/UpdateAccountResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateAccount)
+
+responseGetVPCLinks :: GetVPCLinksResponse -> TestTree
+responseGetVPCLinks =
+  res
+    "GetVPCLinksResponse"
+    "fixture/GetVPCLinksResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetVPCLinks)
+
+responseUpdateAuthorizer :: Authorizer -> TestTree
+responseUpdateAuthorizer =
+  res
+    "UpdateAuthorizerResponse"
+    "fixture/UpdateAuthorizerResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateAuthorizer)
+
+responseCreateBasePathMapping :: BasePathMapping -> TestTree
+responseCreateBasePathMapping =
+  res
+    "CreateBasePathMappingResponse"
+    "fixture/CreateBasePathMappingResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateBasePathMapping)
+
+responseGetDocumentationParts :: GetDocumentationPartsResponse -> TestTree
+responseGetDocumentationParts =
+  res
+    "GetDocumentationPartsResponse"
+    "fixture/GetDocumentationPartsResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetDocumentationParts)
+
+responseDeleteAuthorizer :: DeleteAuthorizerResponse -> TestTree
+responseDeleteAuthorizer =
+  res
+    "DeleteAuthorizerResponse"
+    "fixture/DeleteAuthorizerResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteAuthorizer)
+
+responseDeleteClientCertificate :: DeleteClientCertificateResponse -> TestTree
+responseDeleteClientCertificate =
+  res
+    "DeleteClientCertificateResponse"
+    "fixture/DeleteClientCertificateResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteClientCertificate)
+
+responseDeleteMethodResponse :: DeleteMethodResponseResponse -> TestTree
+responseDeleteMethodResponse =
+  res
+    "DeleteMethodResponseResponse"
+    "fixture/DeleteMethodResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteMethodResponse)
+
+responseDeleteBasePathMapping :: DeleteBasePathMappingResponse -> TestTree
+responseDeleteBasePathMapping =
+  res
+    "DeleteBasePathMappingResponse"
+    "fixture/DeleteBasePathMappingResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteBasePathMapping)
+
+responseGetDocumentationVersions :: GetDocumentationVersionsResponse -> TestTree
+responseGetDocumentationVersions =
+  res
+    "GetDocumentationVersionsResponse"
+    "fixture/GetDocumentationVersionsResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetDocumentationVersions)
+
+responseUpdateBasePathMapping :: BasePathMapping -> TestTree
+responseUpdateBasePathMapping =
+  res
+    "UpdateBasePathMappingResponse"
+    "fixture/UpdateBasePathMappingResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateBasePathMapping)
+
+responseUpdateClientCertificate :: ClientCertificate -> TestTree
+responseUpdateClientCertificate =
+  res
+    "UpdateClientCertificateResponse"
+    "fixture/UpdateClientCertificateResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateClientCertificate)
+
+responseUpdateMethodResponse :: MethodResponse -> TestTree
+responseUpdateMethodResponse =
+  res
+    "UpdateMethodResponseResponse"
+    "fixture/UpdateMethodResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateMethodResponse)
+
+responseCreateDeployment :: Deployment -> TestTree
+responseCreateDeployment =
+  res
+    "CreateDeploymentResponse"
+    "fixture/CreateDeploymentResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateDeployment)
+
+responseGetAPIKeys :: GetAPIKeysResponse -> TestTree
+responseGetAPIKeys =
+  res
+    "GetAPIKeysResponse"
+    "fixture/GetAPIKeysResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetAPIKeys)
+
+responseCreateUsagePlan :: UsagePlan -> TestTree
+responseCreateUsagePlan =
+  res
+    "CreateUsagePlanResponse"
+    "fixture/CreateUsagePlanResponse.proto"
+    apiGateway
+    (Proxy :: Proxy CreateUsagePlan)
+
+responseUpdateGatewayResponse :: GatewayResponse -> TestTree
+responseUpdateGatewayResponse =
+  res
+    "UpdateGatewayResponseResponse"
+    "fixture/UpdateGatewayResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy UpdateGatewayResponse)
+
+responseGetSDK :: GetSDKResponse -> TestTree
+responseGetSDK =
+  res
+    "GetSDKResponse"
+    "fixture/GetSDKResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetSDK)
+
+responseGetMethodResponse :: MethodResponse -> TestTree
+responseGetMethodResponse =
+  res
+    "GetMethodResponseResponse"
+    "fixture/GetMethodResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetMethodResponse)
+
+responseGetModels :: GetModelsResponse -> TestTree
+responseGetModels =
+  res
+    "GetModelsResponse"
+    "fixture/GetModelsResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetModels)
+
+responseGetStage :: Stage -> TestTree
+responseGetStage =
+  res
+    "GetStageResponse"
+    "fixture/GetStageResponse.proto"
+    apiGateway
+    (Proxy :: Proxy GetStage)
+
+responseDeleteGatewayResponse :: DeleteGatewayResponseResponse -> TestTree
+responseDeleteGatewayResponse =
+  res
+    "DeleteGatewayResponseResponse"
+    "fixture/DeleteGatewayResponseResponse.proto"
+    apiGateway
+    (Proxy :: Proxy DeleteGatewayResponse)

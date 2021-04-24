@@ -1,56 +1,54 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.APIGateway.UpdateMethod
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates an existing 'Method' resource.
---
---
 module Network.AWS.APIGateway.UpdateMethod
-    (
-    -- * Creating a Request
-      updateMethod
-    , UpdateMethod
+  ( -- * Creating a Request
+    updateMethod,
+    UpdateMethod,
+
     -- * Request Lenses
-    , ummPatchOperations
-    , ummRestAPIId
-    , ummResourceId
-    , ummHttpMethod
+    umPatchOperations,
+    umRestAPIId,
+    umResourceId,
+    umHttpMethod,
 
     -- * Destructuring the Response
-    , method
-    , Method
+    method,
+    Method,
+
     -- * Response Lenses
-    , mMethodResponses
-    , mHttpMethod
-    , mAuthorizationScopes
-    , mRequestValidatorId
-    , mRequestModels
-    , mRequestParameters
-    , mAuthorizerId
-    , mOperationName
-    , mAuthorizationType
-    , mApiKeyRequired
-    , mMethodIntegration
-    ) where
+    mHttpMethod,
+    mMethodIntegration,
+    mApiKeyRequired,
+    mAuthorizationType,
+    mRequestModels,
+    mOperationName,
+    mRequestValidatorId,
+    mMethodResponses,
+    mAuthorizerId,
+    mRequestParameters,
+    mAuthorizationScopes,
+  )
+where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.APIGateway.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -62,81 +60,90 @@ import Network.AWS.Response
 --
 -- /See:/ 'updateMethod' smart constructor.
 data UpdateMethod = UpdateMethod'
-  { _ummPatchOperations :: !(Maybe [PatchOperation])
-  , _ummRestAPIId       :: !Text
-  , _ummResourceId      :: !Text
-  , _ummHttpMethod      :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _umPatchOperations ::
+      !(Maybe [PatchOperation]),
+    _umRestAPIId :: !Text,
+    _umResourceId :: !Text,
+    _umHttpMethod :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'UpdateMethod' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ummPatchOperations' - A list of update operations to be applied to the specified resource and in the order specified in this list.
+-- * 'umPatchOperations' - A list of update operations to be applied to the specified resource and in the order specified in this list.
 --
--- * 'ummRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- * 'umRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
 --
--- * 'ummResourceId' - [Required] The 'Resource' identifier for the 'Method' resource.
+-- * 'umResourceId' - [Required] The 'Resource' identifier for the 'Method' resource.
 --
--- * 'ummHttpMethod' - [Required] The HTTP verb of the 'Method' resource.
-updateMethod
-    :: Text -- ^ 'ummRestAPIId'
-    -> Text -- ^ 'ummResourceId'
-    -> Text -- ^ 'ummHttpMethod'
-    -> UpdateMethod
+-- * 'umHttpMethod' - [Required] The HTTP verb of the 'Method' resource.
+updateMethod ::
+  -- | 'umRestAPIId'
+  Text ->
+  -- | 'umResourceId'
+  Text ->
+  -- | 'umHttpMethod'
+  Text ->
+  UpdateMethod
 updateMethod pRestAPIId_ pResourceId_ pHttpMethod_ =
   UpdateMethod'
-    { _ummPatchOperations = Nothing
-    , _ummRestAPIId = pRestAPIId_
-    , _ummResourceId = pResourceId_
-    , _ummHttpMethod = pHttpMethod_
+    { _umPatchOperations = Nothing,
+      _umRestAPIId = pRestAPIId_,
+      _umResourceId = pResourceId_,
+      _umHttpMethod = pHttpMethod_
     }
 
-
 -- | A list of update operations to be applied to the specified resource and in the order specified in this list.
-ummPatchOperations :: Lens' UpdateMethod [PatchOperation]
-ummPatchOperations = lens _ummPatchOperations (\ s a -> s{_ummPatchOperations = a}) . _Default . _Coerce
+umPatchOperations :: Lens' UpdateMethod [PatchOperation]
+umPatchOperations = lens _umPatchOperations (\s a -> s {_umPatchOperations = a}) . _Default . _Coerce
 
 -- | [Required] The string identifier of the associated 'RestApi' .
-ummRestAPIId :: Lens' UpdateMethod Text
-ummRestAPIId = lens _ummRestAPIId (\ s a -> s{_ummRestAPIId = a})
+umRestAPIId :: Lens' UpdateMethod Text
+umRestAPIId = lens _umRestAPIId (\s a -> s {_umRestAPIId = a})
 
 -- | [Required] The 'Resource' identifier for the 'Method' resource.
-ummResourceId :: Lens' UpdateMethod Text
-ummResourceId = lens _ummResourceId (\ s a -> s{_ummResourceId = a})
+umResourceId :: Lens' UpdateMethod Text
+umResourceId = lens _umResourceId (\s a -> s {_umResourceId = a})
 
 -- | [Required] The HTTP verb of the 'Method' resource.
-ummHttpMethod :: Lens' UpdateMethod Text
-ummHttpMethod = lens _ummHttpMethod (\ s a -> s{_ummHttpMethod = a})
+umHttpMethod :: Lens' UpdateMethod Text
+umHttpMethod = lens _umHttpMethod (\s a -> s {_umHttpMethod = a})
 
 instance AWSRequest UpdateMethod where
-        type Rs UpdateMethod = Method
-        request = patchJSON apiGateway
-        response = receiveJSON (\ s h x -> eitherParseJSON x)
+  type Rs UpdateMethod = Method
+  request = patchJSON apiGateway
+  response = receiveJSON (\s h x -> eitherParseJSON x)
 
-instance Hashable UpdateMethod where
+instance Hashable UpdateMethod
 
-instance NFData UpdateMethod where
+instance NFData UpdateMethod
 
 instance ToHeaders UpdateMethod where
-        toHeaders
-          = const
-              (mconcat
-                 ["Accept" =# ("application/json" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          ["Accept" =# ("application/json" :: ByteString)]
+      )
 
 instance ToJSON UpdateMethod where
-        toJSON UpdateMethod'{..}
-          = object
-              (catMaybes
-                 [("patchOperations" .=) <$> _ummPatchOperations])
+  toJSON UpdateMethod' {..} =
+    object
+      ( catMaybes
+          [("patchOperations" .=) <$> _umPatchOperations]
+      )
 
 instance ToPath UpdateMethod where
-        toPath UpdateMethod'{..}
-          = mconcat
-              ["/restapis/", toBS _ummRestAPIId, "/resources/",
-               toBS _ummResourceId, "/methods/",
-               toBS _ummHttpMethod]
+  toPath UpdateMethod' {..} =
+    mconcat
+      [ "/restapis/",
+        toBS _umRestAPIId,
+        "/resources/",
+        toBS _umResourceId,
+        "/methods/",
+        toBS _umHttpMethod
+      ]
 
 instance ToQuery UpdateMethod where
-        toQuery = const mempty
+  toQuery = const mempty

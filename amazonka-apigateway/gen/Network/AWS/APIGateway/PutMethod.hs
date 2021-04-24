@@ -1,63 +1,61 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.APIGateway.PutMethod
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Add a method to an existing 'Resource' resource.
---
---
 module Network.AWS.APIGateway.PutMethod
-    (
-    -- * Creating a Request
-      putMethod
-    , PutMethod
+  ( -- * Creating a Request
+    putMethod,
+    PutMethod,
+
     -- * Request Lenses
-    , putAuthorizationScopes
-    , putRequestValidatorId
-    , putRequestModels
-    , putRequestParameters
-    , putAuthorizerId
-    , putOperationName
-    , putApiKeyRequired
-    , putRestAPIId
-    , putResourceId
-    , putHttpMethod
-    , putAuthorizationType
+    pmApiKeyRequired,
+    pmRequestModels,
+    pmOperationName,
+    pmRequestValidatorId,
+    pmAuthorizerId,
+    pmRequestParameters,
+    pmAuthorizationScopes,
+    pmRestAPIId,
+    pmResourceId,
+    pmHttpMethod,
+    pmAuthorizationType,
 
     -- * Destructuring the Response
-    , method
-    , Method
+    method,
+    Method,
+
     -- * Response Lenses
-    , mMethodResponses
-    , mHttpMethod
-    , mAuthorizationScopes
-    , mRequestValidatorId
-    , mRequestModels
-    , mRequestParameters
-    , mAuthorizerId
-    , mOperationName
-    , mAuthorizationType
-    , mApiKeyRequired
-    , mMethodIntegration
-    ) where
+    mHttpMethod,
+    mMethodIntegration,
+    mApiKeyRequired,
+    mAuthorizationType,
+    mRequestModels,
+    mOperationName,
+    mRequestValidatorId,
+    mMethodResponses,
+    mAuthorizerId,
+    mRequestParameters,
+    mAuthorizationScopes,
+  )
+where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.APIGateway.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -69,146 +67,161 @@ import Network.AWS.Response
 --
 -- /See:/ 'putMethod' smart constructor.
 data PutMethod = PutMethod'
-  { _putAuthorizationScopes :: !(Maybe [Text])
-  , _putRequestValidatorId  :: !(Maybe Text)
-  , _putRequestModels       :: !(Maybe (Map Text Text))
-  , _putRequestParameters   :: !(Maybe (Map Text Bool))
-  , _putAuthorizerId        :: !(Maybe Text)
-  , _putOperationName       :: !(Maybe Text)
-  , _putApiKeyRequired      :: !(Maybe Bool)
-  , _putRestAPIId           :: !Text
-  , _putResourceId          :: !Text
-  , _putHttpMethod          :: !Text
-  , _putAuthorizationType   :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _pmApiKeyRequired ::
+      !(Maybe Bool),
+    _pmRequestModels :: !(Maybe (Map Text Text)),
+    _pmOperationName :: !(Maybe Text),
+    _pmRequestValidatorId :: !(Maybe Text),
+    _pmAuthorizerId :: !(Maybe Text),
+    _pmRequestParameters :: !(Maybe (Map Text Bool)),
+    _pmAuthorizationScopes :: !(Maybe [Text]),
+    _pmRestAPIId :: !Text,
+    _pmResourceId :: !Text,
+    _pmHttpMethod :: !Text,
+    _pmAuthorizationType :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'PutMethod' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'putAuthorizationScopes' - A list of authorization scopes configured on the method. The scopes are used with a @COGNITO_USER_POOLS@ authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.
+-- * 'pmApiKeyRequired' - Specifies whether the method required a valid 'ApiKey' .
 --
--- * 'putRequestValidatorId' - The identifier of a 'RequestValidator' for validating the method request.
+-- * 'pmRequestModels' - Specifies the 'Model' resources used for the request's content type. Request models are represented as a key/value map, with a content type as the key and a 'Model' name as the value.
 --
--- * 'putRequestModels' - Specifies the 'Model' resources used for the request's content type. Request models are represented as a key/value map, with a content type as the key and a 'Model' name as the value.
+-- * 'pmOperationName' - A human-friendly operation identifier for the method. For example, you can assign the @operationName@ of @ListPets@ for the @GET /pets@ method in the @PetStore@ example.
 --
--- * 'putRequestParameters' - A key-value map defining required or optional method request parameters that can be accepted by API Gateway. A key defines a method request parameter name matching the pattern of @method.request.{location}.{name}@ , where @location@ is @querystring@ , @path@ , or @header@ and @name@ is a valid and unique parameter name. The value associated with the key is a Boolean flag indicating whether the parameter is required (@true@ ) or optional (@false@ ). The method request parameter names defined here are available in 'Integration' to be mapped to integration request parameters or body-mapping templates.
+-- * 'pmRequestValidatorId' - The identifier of a 'RequestValidator' for validating the method request.
 --
--- * 'putAuthorizerId' - Specifies the identifier of an 'Authorizer' to use on this Method, if the type is CUSTOM or COGNITO_USER_POOLS. The authorizer identifier is generated by API Gateway when you created the authorizer.
+-- * 'pmAuthorizerId' - Specifies the identifier of an 'Authorizer' to use on this Method, if the type is CUSTOM or COGNITO_USER_POOLS. The authorizer identifier is generated by API Gateway when you created the authorizer.
 --
--- * 'putOperationName' - A human-friendly operation identifier for the method. For example, you can assign the @operationName@ of @ListPets@ for the @GET /pets@ method in <http://petstore-demo-endpoint.execute-api.com/petstore/pets PetStore> example.
+-- * 'pmRequestParameters' - A key-value map defining required or optional method request parameters that can be accepted by API Gateway. A key defines a method request parameter name matching the pattern of @method.request.{location}.{name}@ , where @location@ is @querystring@ , @path@ , or @header@ and @name@ is a valid and unique parameter name. The value associated with the key is a Boolean flag indicating whether the parameter is required (@true@ ) or optional (@false@ ). The method request parameter names defined here are available in 'Integration' to be mapped to integration request parameters or body-mapping templates.
 --
--- * 'putApiKeyRequired' - Specifies whether the method required a valid 'ApiKey' .
+-- * 'pmAuthorizationScopes' - A list of authorization scopes configured on the method. The scopes are used with a @COGNITO_USER_POOLS@ authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.
 --
--- * 'putRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- * 'pmRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
 --
--- * 'putResourceId' - [Required] The 'Resource' identifier for the new 'Method' resource.
+-- * 'pmResourceId' - [Required] The 'Resource' identifier for the new 'Method' resource.
 --
--- * 'putHttpMethod' - [Required] Specifies the method request's HTTP method type.
+-- * 'pmHttpMethod' - [Required] Specifies the method request's HTTP method type.
 --
--- * 'putAuthorizationType' - [Required] The method's authorization type. Valid values are @NONE@ for open access, @AWS_IAM@ for using AWS IAM permissions, @CUSTOM@ for using a custom authorizer, or @COGNITO_USER_POOLS@ for using a Cognito user pool.
+-- * 'pmAuthorizationType' - [Required] The method's authorization type. Valid values are @NONE@ for open access, @AWS_IAM@ for using AWS IAM permissions, @CUSTOM@ for using a custom authorizer, or @COGNITO_USER_POOLS@ for using a Cognito user pool.
+putMethod ::
+  -- | 'pmRestAPIId'
+  Text ->
+  -- | 'pmResourceId'
+  Text ->
+  -- | 'pmHttpMethod'
+  Text ->
+  -- | 'pmAuthorizationType'
+  Text ->
+  PutMethod
 putMethod
-    :: Text -- ^ 'putRestAPIId'
-    -> Text -- ^ 'putResourceId'
-    -> Text -- ^ 'putHttpMethod'
-    -> Text -- ^ 'putAuthorizationType'
-    -> PutMethod
-putMethod pRestAPIId_ pResourceId_ pHttpMethod_ pAuthorizationType_ =
-  PutMethod'
-    { _putAuthorizationScopes = Nothing
-    , _putRequestValidatorId = Nothing
-    , _putRequestModels = Nothing
-    , _putRequestParameters = Nothing
-    , _putAuthorizerId = Nothing
-    , _putOperationName = Nothing
-    , _putApiKeyRequired = Nothing
-    , _putRestAPIId = pRestAPIId_
-    , _putResourceId = pResourceId_
-    , _putHttpMethod = pHttpMethod_
-    , _putAuthorizationType = pAuthorizationType_
-    }
-
-
--- | A list of authorization scopes configured on the method. The scopes are used with a @COGNITO_USER_POOLS@ authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.
-putAuthorizationScopes :: Lens' PutMethod [Text]
-putAuthorizationScopes = lens _putAuthorizationScopes (\ s a -> s{_putAuthorizationScopes = a}) . _Default . _Coerce
-
--- | The identifier of a 'RequestValidator' for validating the method request.
-putRequestValidatorId :: Lens' PutMethod (Maybe Text)
-putRequestValidatorId = lens _putRequestValidatorId (\ s a -> s{_putRequestValidatorId = a})
-
--- | Specifies the 'Model' resources used for the request's content type. Request models are represented as a key/value map, with a content type as the key and a 'Model' name as the value.
-putRequestModels :: Lens' PutMethod (HashMap Text Text)
-putRequestModels = lens _putRequestModels (\ s a -> s{_putRequestModels = a}) . _Default . _Map
-
--- | A key-value map defining required or optional method request parameters that can be accepted by API Gateway. A key defines a method request parameter name matching the pattern of @method.request.{location}.{name}@ , where @location@ is @querystring@ , @path@ , or @header@ and @name@ is a valid and unique parameter name. The value associated with the key is a Boolean flag indicating whether the parameter is required (@true@ ) or optional (@false@ ). The method request parameter names defined here are available in 'Integration' to be mapped to integration request parameters or body-mapping templates.
-putRequestParameters :: Lens' PutMethod (HashMap Text Bool)
-putRequestParameters = lens _putRequestParameters (\ s a -> s{_putRequestParameters = a}) . _Default . _Map
-
--- | Specifies the identifier of an 'Authorizer' to use on this Method, if the type is CUSTOM or COGNITO_USER_POOLS. The authorizer identifier is generated by API Gateway when you created the authorizer.
-putAuthorizerId :: Lens' PutMethod (Maybe Text)
-putAuthorizerId = lens _putAuthorizerId (\ s a -> s{_putAuthorizerId = a})
-
--- | A human-friendly operation identifier for the method. For example, you can assign the @operationName@ of @ListPets@ for the @GET /pets@ method in <http://petstore-demo-endpoint.execute-api.com/petstore/pets PetStore> example.
-putOperationName :: Lens' PutMethod (Maybe Text)
-putOperationName = lens _putOperationName (\ s a -> s{_putOperationName = a})
+  pRestAPIId_
+  pResourceId_
+  pHttpMethod_
+  pAuthorizationType_ =
+    PutMethod'
+      { _pmApiKeyRequired = Nothing,
+        _pmRequestModels = Nothing,
+        _pmOperationName = Nothing,
+        _pmRequestValidatorId = Nothing,
+        _pmAuthorizerId = Nothing,
+        _pmRequestParameters = Nothing,
+        _pmAuthorizationScopes = Nothing,
+        _pmRestAPIId = pRestAPIId_,
+        _pmResourceId = pResourceId_,
+        _pmHttpMethod = pHttpMethod_,
+        _pmAuthorizationType = pAuthorizationType_
+      }
 
 -- | Specifies whether the method required a valid 'ApiKey' .
-putApiKeyRequired :: Lens' PutMethod (Maybe Bool)
-putApiKeyRequired = lens _putApiKeyRequired (\ s a -> s{_putApiKeyRequired = a})
+pmApiKeyRequired :: Lens' PutMethod (Maybe Bool)
+pmApiKeyRequired = lens _pmApiKeyRequired (\s a -> s {_pmApiKeyRequired = a})
+
+-- | Specifies the 'Model' resources used for the request's content type. Request models are represented as a key/value map, with a content type as the key and a 'Model' name as the value.
+pmRequestModels :: Lens' PutMethod (HashMap Text Text)
+pmRequestModels = lens _pmRequestModels (\s a -> s {_pmRequestModels = a}) . _Default . _Map
+
+-- | A human-friendly operation identifier for the method. For example, you can assign the @operationName@ of @ListPets@ for the @GET /pets@ method in the @PetStore@ example.
+pmOperationName :: Lens' PutMethod (Maybe Text)
+pmOperationName = lens _pmOperationName (\s a -> s {_pmOperationName = a})
+
+-- | The identifier of a 'RequestValidator' for validating the method request.
+pmRequestValidatorId :: Lens' PutMethod (Maybe Text)
+pmRequestValidatorId = lens _pmRequestValidatorId (\s a -> s {_pmRequestValidatorId = a})
+
+-- | Specifies the identifier of an 'Authorizer' to use on this Method, if the type is CUSTOM or COGNITO_USER_POOLS. The authorizer identifier is generated by API Gateway when you created the authorizer.
+pmAuthorizerId :: Lens' PutMethod (Maybe Text)
+pmAuthorizerId = lens _pmAuthorizerId (\s a -> s {_pmAuthorizerId = a})
+
+-- | A key-value map defining required or optional method request parameters that can be accepted by API Gateway. A key defines a method request parameter name matching the pattern of @method.request.{location}.{name}@ , where @location@ is @querystring@ , @path@ , or @header@ and @name@ is a valid and unique parameter name. The value associated with the key is a Boolean flag indicating whether the parameter is required (@true@ ) or optional (@false@ ). The method request parameter names defined here are available in 'Integration' to be mapped to integration request parameters or body-mapping templates.
+pmRequestParameters :: Lens' PutMethod (HashMap Text Bool)
+pmRequestParameters = lens _pmRequestParameters (\s a -> s {_pmRequestParameters = a}) . _Default . _Map
+
+-- | A list of authorization scopes configured on the method. The scopes are used with a @COGNITO_USER_POOLS@ authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.
+pmAuthorizationScopes :: Lens' PutMethod [Text]
+pmAuthorizationScopes = lens _pmAuthorizationScopes (\s a -> s {_pmAuthorizationScopes = a}) . _Default . _Coerce
 
 -- | [Required] The string identifier of the associated 'RestApi' .
-putRestAPIId :: Lens' PutMethod Text
-putRestAPIId = lens _putRestAPIId (\ s a -> s{_putRestAPIId = a})
+pmRestAPIId :: Lens' PutMethod Text
+pmRestAPIId = lens _pmRestAPIId (\s a -> s {_pmRestAPIId = a})
 
 -- | [Required] The 'Resource' identifier for the new 'Method' resource.
-putResourceId :: Lens' PutMethod Text
-putResourceId = lens _putResourceId (\ s a -> s{_putResourceId = a})
+pmResourceId :: Lens' PutMethod Text
+pmResourceId = lens _pmResourceId (\s a -> s {_pmResourceId = a})
 
 -- | [Required] Specifies the method request's HTTP method type.
-putHttpMethod :: Lens' PutMethod Text
-putHttpMethod = lens _putHttpMethod (\ s a -> s{_putHttpMethod = a})
+pmHttpMethod :: Lens' PutMethod Text
+pmHttpMethod = lens _pmHttpMethod (\s a -> s {_pmHttpMethod = a})
 
 -- | [Required] The method's authorization type. Valid values are @NONE@ for open access, @AWS_IAM@ for using AWS IAM permissions, @CUSTOM@ for using a custom authorizer, or @COGNITO_USER_POOLS@ for using a Cognito user pool.
-putAuthorizationType :: Lens' PutMethod Text
-putAuthorizationType = lens _putAuthorizationType (\ s a -> s{_putAuthorizationType = a})
+pmAuthorizationType :: Lens' PutMethod Text
+pmAuthorizationType = lens _pmAuthorizationType (\s a -> s {_pmAuthorizationType = a})
 
 instance AWSRequest PutMethod where
-        type Rs PutMethod = Method
-        request = putJSON apiGateway
-        response = receiveJSON (\ s h x -> eitherParseJSON x)
+  type Rs PutMethod = Method
+  request = putJSON apiGateway
+  response = receiveJSON (\s h x -> eitherParseJSON x)
 
-instance Hashable PutMethod where
+instance Hashable PutMethod
 
-instance NFData PutMethod where
+instance NFData PutMethod
 
 instance ToHeaders PutMethod where
-        toHeaders
-          = const
-              (mconcat
-                 ["Accept" =# ("application/json" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          ["Accept" =# ("application/json" :: ByteString)]
+      )
 
 instance ToJSON PutMethod where
-        toJSON PutMethod'{..}
-          = object
-              (catMaybes
-                 [("authorizationScopes" .=) <$>
-                    _putAuthorizationScopes,
-                  ("requestValidatorId" .=) <$> _putRequestValidatorId,
-                  ("requestModels" .=) <$> _putRequestModels,
-                  ("requestParameters" .=) <$> _putRequestParameters,
-                  ("authorizerId" .=) <$> _putAuthorizerId,
-                  ("operationName" .=) <$> _putOperationName,
-                  ("apiKeyRequired" .=) <$> _putApiKeyRequired,
-                  Just ("authorizationType" .= _putAuthorizationType)])
+  toJSON PutMethod' {..} =
+    object
+      ( catMaybes
+          [ ("apiKeyRequired" .=) <$> _pmApiKeyRequired,
+            ("requestModels" .=) <$> _pmRequestModels,
+            ("operationName" .=) <$> _pmOperationName,
+            ("requestValidatorId" .=) <$> _pmRequestValidatorId,
+            ("authorizerId" .=) <$> _pmAuthorizerId,
+            ("requestParameters" .=) <$> _pmRequestParameters,
+            ("authorizationScopes" .=)
+              <$> _pmAuthorizationScopes,
+            Just ("authorizationType" .= _pmAuthorizationType)
+          ]
+      )
 
 instance ToPath PutMethod where
-        toPath PutMethod'{..}
-          = mconcat
-              ["/restapis/", toBS _putRestAPIId, "/resources/",
-               toBS _putResourceId, "/methods/",
-               toBS _putHttpMethod]
+  toPath PutMethod' {..} =
+    mconcat
+      [ "/restapis/",
+        toBS _pmRestAPIId,
+        "/resources/",
+        toBS _pmResourceId,
+        "/methods/",
+        toBS _pmHttpMethod
+      ]
 
 instance ToQuery PutMethod where
-        toQuery = const mempty
+  toQuery = const mempty
