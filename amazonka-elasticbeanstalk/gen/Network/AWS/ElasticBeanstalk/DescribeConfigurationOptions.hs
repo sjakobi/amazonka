@@ -1,51 +1,49 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ElasticBeanstalk.DescribeConfigurationOptions
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes the configuration options that are used in a particular configuration template or environment, or that a specified solution stack defines. The description includes the values the options, their default values, and an indication of the required action on a running environment if an option value is changed.
---
---
 module Network.AWS.ElasticBeanstalk.DescribeConfigurationOptions
-    (
-    -- * Creating a Request
-      describeConfigurationOptions
-    , DescribeConfigurationOptions
+  ( -- * Creating a Request
+    describeConfigurationOptions,
+    DescribeConfigurationOptions,
+
     -- * Request Lenses
-    , dcoTemplateName
-    , dcoPlatformARN
-    , dcoEnvironmentName
-    , dcoApplicationName
-    , dcoSolutionStackName
-    , dcoOptions
+    dcoTemplateName,
+    dcoOptions,
+    dcoSolutionStackName,
+    dcoEnvironmentName,
+    dcoPlatformARN,
+    dcoApplicationName,
 
     -- * Destructuring the Response
-    , describeConfigurationOptionsResponse
-    , DescribeConfigurationOptionsResponse
+    describeConfigurationOptionsResponse,
+    DescribeConfigurationOptionsResponse,
+
     -- * Response Lenses
-    , dcorsPlatformARN
-    , dcorsSolutionStackName
-    , dcorsOptions
-    , dcorsResponseStatus
-    ) where
+    dcorrsOptions,
+    dcorrsSolutionStackName,
+    dcorrsPlatformARN,
+    dcorrsResponseStatus,
+  )
+where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.ElasticBeanstalk.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -57,14 +55,29 @@ import Network.AWS.Response
 --
 -- /See:/ 'describeConfigurationOptions' smart constructor.
 data DescribeConfigurationOptions = DescribeConfigurationOptions'
-  { _dcoTemplateName      :: !(Maybe Text)
-  , _dcoPlatformARN       :: !(Maybe Text)
-  , _dcoEnvironmentName   :: !(Maybe Text)
-  , _dcoApplicationName   :: !(Maybe Text)
-  , _dcoSolutionStackName :: !(Maybe Text)
-  , _dcoOptions           :: !(Maybe [OptionSpecification])
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dcoTemplateName ::
+      !(Maybe Text),
+    _dcoOptions ::
+      !( Maybe
+           [OptionSpecification]
+       ),
+    _dcoSolutionStackName ::
+      !(Maybe Text),
+    _dcoEnvironmentName ::
+      !(Maybe Text),
+    _dcoPlatformARN ::
+      !(Maybe Text),
+    _dcoApplicationName ::
+      !(Maybe Text)
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeConfigurationOptions' with the minimum fields required to make a request.
 --
@@ -72,91 +85,94 @@ data DescribeConfigurationOptions = DescribeConfigurationOptions'
 --
 -- * 'dcoTemplateName' - The name of the configuration template whose configuration options you want to describe.
 --
--- * 'dcoPlatformARN' - The ARN of the custom platform.
---
--- * 'dcoEnvironmentName' - The name of the environment whose configuration options you want to describe.
---
--- * 'dcoApplicationName' - The name of the application associated with the configuration template or environment. Only needed if you want to describe the configuration options associated with either the configuration template or environment.
+-- * 'dcoOptions' - If specified, restricts the descriptions to only the specified options.
 --
 -- * 'dcoSolutionStackName' - The name of the solution stack whose configuration options you want to describe.
 --
--- * 'dcoOptions' - If specified, restricts the descriptions to only the specified options.
-describeConfigurationOptions
-    :: DescribeConfigurationOptions
+-- * 'dcoEnvironmentName' - The name of the environment whose configuration options you want to describe.
+--
+-- * 'dcoPlatformARN' - The ARN of the custom platform.
+--
+-- * 'dcoApplicationName' - The name of the application associated with the configuration template or environment. Only needed if you want to describe the configuration options associated with either the configuration template or environment.
+describeConfigurationOptions ::
+  DescribeConfigurationOptions
 describeConfigurationOptions =
   DescribeConfigurationOptions'
-    { _dcoTemplateName = Nothing
-    , _dcoPlatformARN = Nothing
-    , _dcoEnvironmentName = Nothing
-    , _dcoApplicationName = Nothing
-    , _dcoSolutionStackName = Nothing
-    , _dcoOptions = Nothing
+    { _dcoTemplateName =
+        Nothing,
+      _dcoOptions = Nothing,
+      _dcoSolutionStackName = Nothing,
+      _dcoEnvironmentName = Nothing,
+      _dcoPlatformARN = Nothing,
+      _dcoApplicationName = Nothing
     }
-
 
 -- | The name of the configuration template whose configuration options you want to describe.
 dcoTemplateName :: Lens' DescribeConfigurationOptions (Maybe Text)
-dcoTemplateName = lens _dcoTemplateName (\ s a -> s{_dcoTemplateName = a})
-
--- | The ARN of the custom platform.
-dcoPlatformARN :: Lens' DescribeConfigurationOptions (Maybe Text)
-dcoPlatformARN = lens _dcoPlatformARN (\ s a -> s{_dcoPlatformARN = a})
-
--- | The name of the environment whose configuration options you want to describe.
-dcoEnvironmentName :: Lens' DescribeConfigurationOptions (Maybe Text)
-dcoEnvironmentName = lens _dcoEnvironmentName (\ s a -> s{_dcoEnvironmentName = a})
-
--- | The name of the application associated with the configuration template or environment. Only needed if you want to describe the configuration options associated with either the configuration template or environment.
-dcoApplicationName :: Lens' DescribeConfigurationOptions (Maybe Text)
-dcoApplicationName = lens _dcoApplicationName (\ s a -> s{_dcoApplicationName = a})
-
--- | The name of the solution stack whose configuration options you want to describe.
-dcoSolutionStackName :: Lens' DescribeConfigurationOptions (Maybe Text)
-dcoSolutionStackName = lens _dcoSolutionStackName (\ s a -> s{_dcoSolutionStackName = a})
+dcoTemplateName = lens _dcoTemplateName (\s a -> s {_dcoTemplateName = a})
 
 -- | If specified, restricts the descriptions to only the specified options.
 dcoOptions :: Lens' DescribeConfigurationOptions [OptionSpecification]
-dcoOptions = lens _dcoOptions (\ s a -> s{_dcoOptions = a}) . _Default . _Coerce
+dcoOptions = lens _dcoOptions (\s a -> s {_dcoOptions = a}) . _Default . _Coerce
 
-instance AWSRequest DescribeConfigurationOptions
-         where
-        type Rs DescribeConfigurationOptions =
-             DescribeConfigurationOptionsResponse
-        request = postQuery elasticBeanstalk
-        response
-          = receiveXMLWrapper
-              "DescribeConfigurationOptionsResult"
-              (\ s h x ->
-                 DescribeConfigurationOptionsResponse' <$>
-                   (x .@? "PlatformArn") <*> (x .@? "SolutionStackName")
-                     <*>
-                     (x .@? "Options" .!@ mempty >>=
-                        may (parseXMLList "member"))
-                     <*> (pure (fromEnum s)))
+-- | The name of the solution stack whose configuration options you want to describe.
+dcoSolutionStackName :: Lens' DescribeConfigurationOptions (Maybe Text)
+dcoSolutionStackName = lens _dcoSolutionStackName (\s a -> s {_dcoSolutionStackName = a})
 
-instance Hashable DescribeConfigurationOptions where
+-- | The name of the environment whose configuration options you want to describe.
+dcoEnvironmentName :: Lens' DescribeConfigurationOptions (Maybe Text)
+dcoEnvironmentName = lens _dcoEnvironmentName (\s a -> s {_dcoEnvironmentName = a})
 
-instance NFData DescribeConfigurationOptions where
+-- | The ARN of the custom platform.
+dcoPlatformARN :: Lens' DescribeConfigurationOptions (Maybe Text)
+dcoPlatformARN = lens _dcoPlatformARN (\s a -> s {_dcoPlatformARN = a})
+
+-- | The name of the application associated with the configuration template or environment. Only needed if you want to describe the configuration options associated with either the configuration template or environment.
+dcoApplicationName :: Lens' DescribeConfigurationOptions (Maybe Text)
+dcoApplicationName = lens _dcoApplicationName (\s a -> s {_dcoApplicationName = a})
+
+instance AWSRequest DescribeConfigurationOptions where
+  type
+    Rs DescribeConfigurationOptions =
+      DescribeConfigurationOptionsResponse
+  request = postQuery elasticBeanstalk
+  response =
+    receiveXMLWrapper
+      "DescribeConfigurationOptionsResult"
+      ( \s h x ->
+          DescribeConfigurationOptionsResponse'
+            <$> ( x .@? "Options" .!@ mempty
+                    >>= may (parseXMLList "member")
+                )
+            <*> (x .@? "SolutionStackName")
+            <*> (x .@? "PlatformArn")
+            <*> (pure (fromEnum s))
+      )
+
+instance Hashable DescribeConfigurationOptions
+
+instance NFData DescribeConfigurationOptions
 
 instance ToHeaders DescribeConfigurationOptions where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath DescribeConfigurationOptions where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeConfigurationOptions where
-        toQuery DescribeConfigurationOptions'{..}
-          = mconcat
-              ["Action" =:
-                 ("DescribeConfigurationOptions" :: ByteString),
-               "Version" =: ("2010-12-01" :: ByteString),
-               "TemplateName" =: _dcoTemplateName,
-               "PlatformArn" =: _dcoPlatformARN,
-               "EnvironmentName" =: _dcoEnvironmentName,
-               "ApplicationName" =: _dcoApplicationName,
-               "SolutionStackName" =: _dcoSolutionStackName,
-               "Options" =:
-                 toQuery (toQueryList "member" <$> _dcoOptions)]
+  toQuery DescribeConfigurationOptions' {..} =
+    mconcat
+      [ "Action"
+          =: ("DescribeConfigurationOptions" :: ByteString),
+        "Version" =: ("2010-12-01" :: ByteString),
+        "TemplateName" =: _dcoTemplateName,
+        "Options"
+          =: toQuery (toQueryList "member" <$> _dcoOptions),
+        "SolutionStackName" =: _dcoSolutionStackName,
+        "EnvironmentName" =: _dcoEnvironmentName,
+        "PlatformArn" =: _dcoPlatformARN,
+        "ApplicationName" =: _dcoApplicationName
+      ]
 
 -- | Describes the settings for a specified configuration set.
 --
@@ -164,51 +180,69 @@ instance ToQuery DescribeConfigurationOptions where
 --
 -- /See:/ 'describeConfigurationOptionsResponse' smart constructor.
 data DescribeConfigurationOptionsResponse = DescribeConfigurationOptionsResponse'
-  { _dcorsPlatformARN       :: !(Maybe Text)
-  , _dcorsSolutionStackName :: !(Maybe Text)
-  , _dcorsOptions           :: !(Maybe [ConfigurationOptionDescription])
-  , _dcorsResponseStatus    :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dcorrsOptions ::
+      !( Maybe
+           [ConfigurationOptionDescription]
+       ),
+    _dcorrsSolutionStackName ::
+      !( Maybe
+           Text
+       ),
+    _dcorrsPlatformARN ::
+      !( Maybe
+           Text
+       ),
+    _dcorrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeConfigurationOptionsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dcorsPlatformARN' - The ARN of the platform.
+-- * 'dcorrsOptions' - A list of 'ConfigurationOptionDescription' .
 --
--- * 'dcorsSolutionStackName' - The name of the solution stack these configuration options belong to.
+-- * 'dcorrsSolutionStackName' - The name of the solution stack these configuration options belong to.
 --
--- * 'dcorsOptions' - A list of 'ConfigurationOptionDescription' .
+-- * 'dcorrsPlatformARN' - The ARN of the platform version.
 --
--- * 'dcorsResponseStatus' - -- | The response status code.
-describeConfigurationOptionsResponse
-    :: Int -- ^ 'dcorsResponseStatus'
-    -> DescribeConfigurationOptionsResponse
+-- * 'dcorrsResponseStatus' - -- | The response status code.
+describeConfigurationOptionsResponse ::
+  -- | 'dcorrsResponseStatus'
+  Int ->
+  DescribeConfigurationOptionsResponse
 describeConfigurationOptionsResponse pResponseStatus_ =
   DescribeConfigurationOptionsResponse'
-    { _dcorsPlatformARN = Nothing
-    , _dcorsSolutionStackName = Nothing
-    , _dcorsOptions = Nothing
-    , _dcorsResponseStatus = pResponseStatus_
+    { _dcorrsOptions =
+        Nothing,
+      _dcorrsSolutionStackName = Nothing,
+      _dcorrsPlatformARN = Nothing,
+      _dcorrsResponseStatus =
+        pResponseStatus_
     }
 
-
--- | The ARN of the platform.
-dcorsPlatformARN :: Lens' DescribeConfigurationOptionsResponse (Maybe Text)
-dcorsPlatformARN = lens _dcorsPlatformARN (\ s a -> s{_dcorsPlatformARN = a})
+-- | A list of 'ConfigurationOptionDescription' .
+dcorrsOptions :: Lens' DescribeConfigurationOptionsResponse [ConfigurationOptionDescription]
+dcorrsOptions = lens _dcorrsOptions (\s a -> s {_dcorrsOptions = a}) . _Default . _Coerce
 
 -- | The name of the solution stack these configuration options belong to.
-dcorsSolutionStackName :: Lens' DescribeConfigurationOptionsResponse (Maybe Text)
-dcorsSolutionStackName = lens _dcorsSolutionStackName (\ s a -> s{_dcorsSolutionStackName = a})
+dcorrsSolutionStackName :: Lens' DescribeConfigurationOptionsResponse (Maybe Text)
+dcorrsSolutionStackName = lens _dcorrsSolutionStackName (\s a -> s {_dcorrsSolutionStackName = a})
 
--- | A list of 'ConfigurationOptionDescription' .
-dcorsOptions :: Lens' DescribeConfigurationOptionsResponse [ConfigurationOptionDescription]
-dcorsOptions = lens _dcorsOptions (\ s a -> s{_dcorsOptions = a}) . _Default . _Coerce
+-- | The ARN of the platform version.
+dcorrsPlatformARN :: Lens' DescribeConfigurationOptionsResponse (Maybe Text)
+dcorrsPlatformARN = lens _dcorrsPlatformARN (\s a -> s {_dcorrsPlatformARN = a})
 
 -- | -- | The response status code.
-dcorsResponseStatus :: Lens' DescribeConfigurationOptionsResponse Int
-dcorsResponseStatus = lens _dcorsResponseStatus (\ s a -> s{_dcorsResponseStatus = a})
+dcorrsResponseStatus :: Lens' DescribeConfigurationOptionsResponse Int
+dcorrsResponseStatus = lens _dcorrsResponseStatus (\s a -> s {_dcorrsResponseStatus = a})
 
 instance NFData DescribeConfigurationOptionsResponse
-         where
