@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.DynamoDB
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.DynamoDB where
 
 import Data.Proxy
@@ -28,8 +27,14 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestPutItem $
---             putItem
+--         [ requestBatchGetItem $
+--             batchGetItem
+--
+--         , requestUpdateContributorInsights $
+--             updateContributorInsights
+--
+--         , requestDeleteBackup $
+--             deleteBackup
 --
 --         , requestDeleteItem $
 --             deleteItem
@@ -37,62 +42,59 @@ import Test.Tasty
 --         , requestUpdateItem $
 --             updateItem
 --
+--         , requestListContributorInsights $
+--             listContributorInsights
+--
 --         , requestListGlobalTables $
 --             listGlobalTables
 --
---         , requestUpdateGlobalTable $
---             updateGlobalTable
+--         , requestDisableKinesisStreamingDestination $
+--             disableKinesisStreamingDestination
 --
---         , requestDeleteTable $
---             deleteTable
+--         , requestUpdateContinuousBackups $
+--             updateContinuousBackups
 --
---         , requestUpdateTable $
---             updateTable
+--         , requestCreateGlobalTable $
+--             createGlobalTable
 --
---         , requestBatchGetItem $
---             batchGetItem
+--         , requestBatchExecuteStatement $
+--             batchExecuteStatement
 --
---         , requestListBackups $
---             listBackups
---
---         , requestDeleteBackup $
---             deleteBackup
---
---         , requestCreateBackup $
---             createBackup
---
---         , requestDescribeGlobalTableSettings $
---             describeGlobalTableSettings
---
---         , requestListTagsOfResource $
---             listTagsOfResource
---
---         , requestDescribeGlobalTable $
---             describeGlobalTable
---
---         , requestDescribeTable $
---             describeTable
+--         , requestRestoreTableFromBackup $
+--             restoreTableFromBackup
 --
 --         , requestDescribeLimits $
 --             describeLimits
 --
---         , requestGetItem $
---             getItem
+--         , requestExecuteTransaction $
+--             executeTransaction
+--
+--         , requestRestoreTableToPointInTime $
+--             restoreTableToPointInTime
+--
+--         , requestUntagResource $
+--             untagResource
+--
+--         , requestDescribeContributorInsights $
+--             describeContributorInsights
 --
 --         , requestDescribeBackup $
 --             describeBackup
 --
---         , requestUpdateGlobalTableSettings $
---             updateGlobalTableSettings
+--         , requestListTagsOfResource $
+--             listTagsOfResource
 --
---         , requestBatchWriteItem $
---             batchWriteItem
+--         , requestTagResource $
+--             tagResource
 --
---         , requestListTables $
---             listTables
+--         , requestDescribeGlobalTableSettings $
+--             describeGlobalTableSettings
 --
---         , requestScan $
---             scan
+--         , requestUpdateTableReplicaAutoScaling $
+--             updateTableReplicaAutoScaling
+--
+--         , requestDescribeTimeToLive $
+--             describeTimeToLive
 --
 --         , requestQuery $
 --             query
@@ -100,38 +102,92 @@ import Test.Tasty
 --         , requestCreateTable $
 --             createTable
 --
---         , requestDescribeTimeToLive $
---             describeTimeToLive
+--         , requestCreateBackup $
+--             createBackup
 --
---         , requestDescribeContinuousBackups $
---             describeContinuousBackups
+--         , requestListTables $
+--             listTables
 --
---         , requestTagResource $
---             tagResource
+--         , requestScan $
+--             scan
 --
---         , requestUntagResource $
---             untagResource
+--         , requestUpdateTable $
+--             updateTable
 --
---         , requestRestoreTableToPointInTime $
---             restoreTableToPointInTime
+--         , requestDeleteTable $
+--             deleteTable
 --
---         , requestRestoreTableFromBackup $
---             restoreTableFromBackup
+--         , requestTransactWriteItems $
+--             transactWriteItems
+--
+--         , requestExportTableToPointInTime $
+--             exportTableToPointInTime
+--
+--         , requestListBackups $
+--             listBackups
+--
+--         , requestTransactGetItems $
+--             transactGetItems
+--
+--         , requestUpdateGlobalTable $
+--             updateGlobalTable
+--
+--         , requestBatchWriteItem $
+--             batchWriteItem
+--
+--         , requestPutItem $
+--             putItem
 --
 --         , requestUpdateTimeToLive $
 --             updateTimeToLive
 --
---         , requestCreateGlobalTable $
---             createGlobalTable
+--         , requestUpdateGlobalTableSettings $
+--             updateGlobalTableSettings
 --
---         , requestUpdateContinuousBackups $
---             updateContinuousBackups
+--         , requestEnableKinesisStreamingDestination $
+--             enableKinesisStreamingDestination
+--
+--         , requestDescribeExport $
+--             describeExport
+--
+--         , requestDescribeTableReplicaAutoScaling $
+--             describeTableReplicaAutoScaling
+--
+--         , requestGetItem $
+--             getItem
+--
+--         , requestDescribeTable $
+--             describeTable
+--
+--         , requestDescribeGlobalTable $
+--             describeGlobalTable
+--
+--         , requestListExports $
+--             listExports
+--
+--         , requestDescribeContinuousBackups $
+--             describeContinuousBackups
+--
+--         , requestDescribeKinesisStreamingDestination $
+--             describeKinesisStreamingDestination
+--
+--         , requestDescribeEndpoints $
+--             describeEndpoints
+--
+--         , requestExecuteStatement $
+--             executeStatement
 --
 --           ]
 
 --     , testGroup "response"
---         [ responsePutItem $
---             putItemResponse
+--         [ responseBatchGetItem $
+--             batchGetItemResponse
+--
+--         , responseUpdateContributorInsights $
+--             updateContributorInsightsResponse
+--
+--         , responseDeleteBackup $
+--             deleteBackupResponse
 --
 --         , responseDeleteItem $
 --             deleteItemResponse
@@ -139,62 +195,59 @@ import Test.Tasty
 --         , responseUpdateItem $
 --             updateItemResponse
 --
+--         , responseListContributorInsights $
+--             listContributorInsightsResponse
+--
 --         , responseListGlobalTables $
 --             listGlobalTablesResponse
 --
---         , responseUpdateGlobalTable $
---             updateGlobalTableResponse
+--         , responseDisableKinesisStreamingDestination $
+--             kinesisStreamingDestinationOutput
 --
---         , responseDeleteTable $
---             deleteTableResponse
+--         , responseUpdateContinuousBackups $
+--             updateContinuousBackupsResponse
 --
---         , responseUpdateTable $
---             updateTableResponse
+--         , responseCreateGlobalTable $
+--             createGlobalTableResponse
 --
---         , responseBatchGetItem $
---             batchGetItemResponse
+--         , responseBatchExecuteStatement $
+--             batchExecuteStatementResponse
 --
---         , responseListBackups $
---             listBackupsResponse
---
---         , responseDeleteBackup $
---             deleteBackupResponse
---
---         , responseCreateBackup $
---             createBackupResponse
---
---         , responseDescribeGlobalTableSettings $
---             describeGlobalTableSettingsResponse
---
---         , responseListTagsOfResource $
---             listTagsOfResourceResponse
---
---         , responseDescribeGlobalTable $
---             describeGlobalTableResponse
---
---         , responseDescribeTable $
---             describeTableResponse
+--         , responseRestoreTableFromBackup $
+--             restoreTableFromBackupResponse
 --
 --         , responseDescribeLimits $
 --             describeLimitsResponse
 --
---         , responseGetItem $
---             getItemResponse
+--         , responseExecuteTransaction $
+--             executeTransactionResponse
+--
+--         , responseRestoreTableToPointInTime $
+--             restoreTableToPointInTimeResponse
+--
+--         , responseUntagResource $
+--             untagResourceResponse
+--
+--         , responseDescribeContributorInsights $
+--             describeContributorInsightsResponse
 --
 --         , responseDescribeBackup $
 --             describeBackupResponse
 --
---         , responseUpdateGlobalTableSettings $
---             updateGlobalTableSettingsResponse
+--         , responseListTagsOfResource $
+--             listTagsOfResourceResponse
 --
---         , responseBatchWriteItem $
---             batchWriteItemResponse
+--         , responseTagResource $
+--             tagResourceResponse
 --
---         , responseListTables $
---             listTablesResponse
+--         , responseDescribeGlobalTableSettings $
+--             describeGlobalTableSettingsResponse
 --
---         , responseScan $
---             scanResponse
+--         , responseUpdateTableReplicaAutoScaling $
+--             updateTableReplicaAutoScalingResponse
+--
+--         , responseDescribeTimeToLive $
+--             describeTimeToLiveResponse
 --
 --         , responseQuery $
 --             queryResponse
@@ -202,432 +255,784 @@ import Test.Tasty
 --         , responseCreateTable $
 --             createTableResponse
 --
---         , responseDescribeTimeToLive $
---             describeTimeToLiveResponse
+--         , responseCreateBackup $
+--             createBackupResponse
 --
---         , responseDescribeContinuousBackups $
---             describeContinuousBackupsResponse
+--         , responseListTables $
+--             listTablesResponse
 --
---         , responseTagResource $
---             tagResourceResponse
+--         , responseScan $
+--             scanResponse
 --
---         , responseUntagResource $
---             untagResourceResponse
+--         , responseUpdateTable $
+--             updateTableResponse
 --
---         , responseRestoreTableToPointInTime $
---             restoreTableToPointInTimeResponse
+--         , responseDeleteTable $
+--             deleteTableResponse
 --
---         , responseRestoreTableFromBackup $
---             restoreTableFromBackupResponse
+--         , responseTransactWriteItems $
+--             transactWriteItemsResponse
+--
+--         , responseExportTableToPointInTime $
+--             exportTableToPointInTimeResponse
+--
+--         , responseListBackups $
+--             listBackupsResponse
+--
+--         , responseTransactGetItems $
+--             transactGetItemsResponse
+--
+--         , responseUpdateGlobalTable $
+--             updateGlobalTableResponse
+--
+--         , responseBatchWriteItem $
+--             batchWriteItemResponse
+--
+--         , responsePutItem $
+--             putItemResponse
 --
 --         , responseUpdateTimeToLive $
 --             updateTimeToLiveResponse
 --
---         , responseCreateGlobalTable $
---             createGlobalTableResponse
+--         , responseUpdateGlobalTableSettings $
+--             updateGlobalTableSettingsResponse
 --
---         , responseUpdateContinuousBackups $
---             updateContinuousBackupsResponse
+--         , responseEnableKinesisStreamingDestination $
+--             kinesisStreamingDestinationOutput
+--
+--         , responseDescribeExport $
+--             describeExportResponse
+--
+--         , responseDescribeTableReplicaAutoScaling $
+--             describeTableReplicaAutoScalingResponse
+--
+--         , responseGetItem $
+--             getItemResponse
+--
+--         , responseDescribeTable $
+--             describeTableResponse
+--
+--         , responseDescribeGlobalTable $
+--             describeGlobalTableResponse
+--
+--         , responseListExports $
+--             listExportsResponse
+--
+--         , responseDescribeContinuousBackups $
+--             describeContinuousBackupsResponse
+--
+--         , responseDescribeKinesisStreamingDestination $
+--             describeKinesisStreamingDestinationResponse
+--
+--         , responseDescribeEndpoints $
+--             describeEndpointsResponse
+--
+--         , responseExecuteStatement $
+--             executeStatementResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestPutItem :: PutItem -> TestTree
-requestPutItem = req
-    "PutItem"
-    "fixture/PutItem.yaml"
+requestBatchGetItem :: BatchGetItem -> TestTree
+requestBatchGetItem =
+  req
+    "BatchGetItem"
+    "fixture/BatchGetItem.yaml"
+
+requestUpdateContributorInsights :: UpdateContributorInsights -> TestTree
+requestUpdateContributorInsights =
+  req
+    "UpdateContributorInsights"
+    "fixture/UpdateContributorInsights.yaml"
+
+requestDeleteBackup :: DeleteBackup -> TestTree
+requestDeleteBackup =
+  req
+    "DeleteBackup"
+    "fixture/DeleteBackup.yaml"
 
 requestDeleteItem :: DeleteItem -> TestTree
-requestDeleteItem = req
+requestDeleteItem =
+  req
     "DeleteItem"
     "fixture/DeleteItem.yaml"
 
 requestUpdateItem :: UpdateItem -> TestTree
-requestUpdateItem = req
+requestUpdateItem =
+  req
     "UpdateItem"
     "fixture/UpdateItem.yaml"
 
+requestListContributorInsights :: ListContributorInsights -> TestTree
+requestListContributorInsights =
+  req
+    "ListContributorInsights"
+    "fixture/ListContributorInsights.yaml"
+
 requestListGlobalTables :: ListGlobalTables -> TestTree
-requestListGlobalTables = req
+requestListGlobalTables =
+  req
     "ListGlobalTables"
     "fixture/ListGlobalTables.yaml"
 
-requestUpdateGlobalTable :: UpdateGlobalTable -> TestTree
-requestUpdateGlobalTable = req
-    "UpdateGlobalTable"
-    "fixture/UpdateGlobalTable.yaml"
+requestDisableKinesisStreamingDestination :: DisableKinesisStreamingDestination -> TestTree
+requestDisableKinesisStreamingDestination =
+  req
+    "DisableKinesisStreamingDestination"
+    "fixture/DisableKinesisStreamingDestination.yaml"
 
-requestDeleteTable :: DeleteTable -> TestTree
-requestDeleteTable = req
-    "DeleteTable"
-    "fixture/DeleteTable.yaml"
+requestUpdateContinuousBackups :: UpdateContinuousBackups -> TestTree
+requestUpdateContinuousBackups =
+  req
+    "UpdateContinuousBackups"
+    "fixture/UpdateContinuousBackups.yaml"
 
-requestUpdateTable :: UpdateTable -> TestTree
-requestUpdateTable = req
-    "UpdateTable"
-    "fixture/UpdateTable.yaml"
+requestCreateGlobalTable :: CreateGlobalTable -> TestTree
+requestCreateGlobalTable =
+  req
+    "CreateGlobalTable"
+    "fixture/CreateGlobalTable.yaml"
 
-requestBatchGetItem :: BatchGetItem -> TestTree
-requestBatchGetItem = req
-    "BatchGetItem"
-    "fixture/BatchGetItem.yaml"
+requestBatchExecuteStatement :: BatchExecuteStatement -> TestTree
+requestBatchExecuteStatement =
+  req
+    "BatchExecuteStatement"
+    "fixture/BatchExecuteStatement.yaml"
 
-requestListBackups :: ListBackups -> TestTree
-requestListBackups = req
-    "ListBackups"
-    "fixture/ListBackups.yaml"
-
-requestDeleteBackup :: DeleteBackup -> TestTree
-requestDeleteBackup = req
-    "DeleteBackup"
-    "fixture/DeleteBackup.yaml"
-
-requestCreateBackup :: CreateBackup -> TestTree
-requestCreateBackup = req
-    "CreateBackup"
-    "fixture/CreateBackup.yaml"
-
-requestDescribeGlobalTableSettings :: DescribeGlobalTableSettings -> TestTree
-requestDescribeGlobalTableSettings = req
-    "DescribeGlobalTableSettings"
-    "fixture/DescribeGlobalTableSettings.yaml"
-
-requestListTagsOfResource :: ListTagsOfResource -> TestTree
-requestListTagsOfResource = req
-    "ListTagsOfResource"
-    "fixture/ListTagsOfResource.yaml"
-
-requestDescribeGlobalTable :: DescribeGlobalTable -> TestTree
-requestDescribeGlobalTable = req
-    "DescribeGlobalTable"
-    "fixture/DescribeGlobalTable.yaml"
-
-requestDescribeTable :: DescribeTable -> TestTree
-requestDescribeTable = req
-    "DescribeTable"
-    "fixture/DescribeTable.yaml"
+requestRestoreTableFromBackup :: RestoreTableFromBackup -> TestTree
+requestRestoreTableFromBackup =
+  req
+    "RestoreTableFromBackup"
+    "fixture/RestoreTableFromBackup.yaml"
 
 requestDescribeLimits :: DescribeLimits -> TestTree
-requestDescribeLimits = req
+requestDescribeLimits =
+  req
     "DescribeLimits"
     "fixture/DescribeLimits.yaml"
 
-requestGetItem :: GetItem -> TestTree
-requestGetItem = req
-    "GetItem"
-    "fixture/GetItem.yaml"
+requestExecuteTransaction :: ExecuteTransaction -> TestTree
+requestExecuteTransaction =
+  req
+    "ExecuteTransaction"
+    "fixture/ExecuteTransaction.yaml"
+
+requestRestoreTableToPointInTime :: RestoreTableToPointInTime -> TestTree
+requestRestoreTableToPointInTime =
+  req
+    "RestoreTableToPointInTime"
+    "fixture/RestoreTableToPointInTime.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestDescribeContributorInsights :: DescribeContributorInsights -> TestTree
+requestDescribeContributorInsights =
+  req
+    "DescribeContributorInsights"
+    "fixture/DescribeContributorInsights.yaml"
 
 requestDescribeBackup :: DescribeBackup -> TestTree
-requestDescribeBackup = req
+requestDescribeBackup =
+  req
     "DescribeBackup"
     "fixture/DescribeBackup.yaml"
 
-requestUpdateGlobalTableSettings :: UpdateGlobalTableSettings -> TestTree
-requestUpdateGlobalTableSettings = req
-    "UpdateGlobalTableSettings"
-    "fixture/UpdateGlobalTableSettings.yaml"
+requestListTagsOfResource :: ListTagsOfResource -> TestTree
+requestListTagsOfResource =
+  req
+    "ListTagsOfResource"
+    "fixture/ListTagsOfResource.yaml"
 
-requestBatchWriteItem :: BatchWriteItem -> TestTree
-requestBatchWriteItem = req
-    "BatchWriteItem"
-    "fixture/BatchWriteItem.yaml"
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
 
-requestListTables :: ListTables -> TestTree
-requestListTables = req
-    "ListTables"
-    "fixture/ListTables.yaml"
+requestDescribeGlobalTableSettings :: DescribeGlobalTableSettings -> TestTree
+requestDescribeGlobalTableSettings =
+  req
+    "DescribeGlobalTableSettings"
+    "fixture/DescribeGlobalTableSettings.yaml"
 
-requestScan :: Scan -> TestTree
-requestScan = req
-    "Scan"
-    "fixture/Scan.yaml"
+requestUpdateTableReplicaAutoScaling :: UpdateTableReplicaAutoScaling -> TestTree
+requestUpdateTableReplicaAutoScaling =
+  req
+    "UpdateTableReplicaAutoScaling"
+    "fixture/UpdateTableReplicaAutoScaling.yaml"
+
+requestDescribeTimeToLive :: DescribeTimeToLive -> TestTree
+requestDescribeTimeToLive =
+  req
+    "DescribeTimeToLive"
+    "fixture/DescribeTimeToLive.yaml"
 
 requestQuery :: Query -> TestTree
-requestQuery = req
+requestQuery =
+  req
     "Query"
     "fixture/Query.yaml"
 
 requestCreateTable :: CreateTable -> TestTree
-requestCreateTable = req
+requestCreateTable =
+  req
     "CreateTable"
     "fixture/CreateTable.yaml"
 
-requestDescribeTimeToLive :: DescribeTimeToLive -> TestTree
-requestDescribeTimeToLive = req
-    "DescribeTimeToLive"
-    "fixture/DescribeTimeToLive.yaml"
+requestCreateBackup :: CreateBackup -> TestTree
+requestCreateBackup =
+  req
+    "CreateBackup"
+    "fixture/CreateBackup.yaml"
 
-requestDescribeContinuousBackups :: DescribeContinuousBackups -> TestTree
-requestDescribeContinuousBackups = req
-    "DescribeContinuousBackups"
-    "fixture/DescribeContinuousBackups.yaml"
+requestListTables :: ListTables -> TestTree
+requestListTables =
+  req
+    "ListTables"
+    "fixture/ListTables.yaml"
 
-requestTagResource :: TagResource -> TestTree
-requestTagResource = req
-    "TagResource"
-    "fixture/TagResource.yaml"
+requestScan :: Scan -> TestTree
+requestScan =
+  req
+    "Scan"
+    "fixture/Scan.yaml"
 
-requestUntagResource :: UntagResource -> TestTree
-requestUntagResource = req
-    "UntagResource"
-    "fixture/UntagResource.yaml"
+requestUpdateTable :: UpdateTable -> TestTree
+requestUpdateTable =
+  req
+    "UpdateTable"
+    "fixture/UpdateTable.yaml"
 
-requestRestoreTableToPointInTime :: RestoreTableToPointInTime -> TestTree
-requestRestoreTableToPointInTime = req
-    "RestoreTableToPointInTime"
-    "fixture/RestoreTableToPointInTime.yaml"
+requestDeleteTable :: DeleteTable -> TestTree
+requestDeleteTable =
+  req
+    "DeleteTable"
+    "fixture/DeleteTable.yaml"
 
-requestRestoreTableFromBackup :: RestoreTableFromBackup -> TestTree
-requestRestoreTableFromBackup = req
-    "RestoreTableFromBackup"
-    "fixture/RestoreTableFromBackup.yaml"
+requestTransactWriteItems :: TransactWriteItems -> TestTree
+requestTransactWriteItems =
+  req
+    "TransactWriteItems"
+    "fixture/TransactWriteItems.yaml"
+
+requestExportTableToPointInTime :: ExportTableToPointInTime -> TestTree
+requestExportTableToPointInTime =
+  req
+    "ExportTableToPointInTime"
+    "fixture/ExportTableToPointInTime.yaml"
+
+requestListBackups :: ListBackups -> TestTree
+requestListBackups =
+  req
+    "ListBackups"
+    "fixture/ListBackups.yaml"
+
+requestTransactGetItems :: TransactGetItems -> TestTree
+requestTransactGetItems =
+  req
+    "TransactGetItems"
+    "fixture/TransactGetItems.yaml"
+
+requestUpdateGlobalTable :: UpdateGlobalTable -> TestTree
+requestUpdateGlobalTable =
+  req
+    "UpdateGlobalTable"
+    "fixture/UpdateGlobalTable.yaml"
+
+requestBatchWriteItem :: BatchWriteItem -> TestTree
+requestBatchWriteItem =
+  req
+    "BatchWriteItem"
+    "fixture/BatchWriteItem.yaml"
+
+requestPutItem :: PutItem -> TestTree
+requestPutItem =
+  req
+    "PutItem"
+    "fixture/PutItem.yaml"
 
 requestUpdateTimeToLive :: UpdateTimeToLive -> TestTree
-requestUpdateTimeToLive = req
+requestUpdateTimeToLive =
+  req
     "UpdateTimeToLive"
     "fixture/UpdateTimeToLive.yaml"
 
-requestCreateGlobalTable :: CreateGlobalTable -> TestTree
-requestCreateGlobalTable = req
-    "CreateGlobalTable"
-    "fixture/CreateGlobalTable.yaml"
+requestUpdateGlobalTableSettings :: UpdateGlobalTableSettings -> TestTree
+requestUpdateGlobalTableSettings =
+  req
+    "UpdateGlobalTableSettings"
+    "fixture/UpdateGlobalTableSettings.yaml"
 
-requestUpdateContinuousBackups :: UpdateContinuousBackups -> TestTree
-requestUpdateContinuousBackups = req
-    "UpdateContinuousBackups"
-    "fixture/UpdateContinuousBackups.yaml"
+requestEnableKinesisStreamingDestination :: EnableKinesisStreamingDestination -> TestTree
+requestEnableKinesisStreamingDestination =
+  req
+    "EnableKinesisStreamingDestination"
+    "fixture/EnableKinesisStreamingDestination.yaml"
+
+requestDescribeExport :: DescribeExport -> TestTree
+requestDescribeExport =
+  req
+    "DescribeExport"
+    "fixture/DescribeExport.yaml"
+
+requestDescribeTableReplicaAutoScaling :: DescribeTableReplicaAutoScaling -> TestTree
+requestDescribeTableReplicaAutoScaling =
+  req
+    "DescribeTableReplicaAutoScaling"
+    "fixture/DescribeTableReplicaAutoScaling.yaml"
+
+requestGetItem :: GetItem -> TestTree
+requestGetItem =
+  req
+    "GetItem"
+    "fixture/GetItem.yaml"
+
+requestDescribeTable :: DescribeTable -> TestTree
+requestDescribeTable =
+  req
+    "DescribeTable"
+    "fixture/DescribeTable.yaml"
+
+requestDescribeGlobalTable :: DescribeGlobalTable -> TestTree
+requestDescribeGlobalTable =
+  req
+    "DescribeGlobalTable"
+    "fixture/DescribeGlobalTable.yaml"
+
+requestListExports :: ListExports -> TestTree
+requestListExports =
+  req
+    "ListExports"
+    "fixture/ListExports.yaml"
+
+requestDescribeContinuousBackups :: DescribeContinuousBackups -> TestTree
+requestDescribeContinuousBackups =
+  req
+    "DescribeContinuousBackups"
+    "fixture/DescribeContinuousBackups.yaml"
+
+requestDescribeKinesisStreamingDestination :: DescribeKinesisStreamingDestination -> TestTree
+requestDescribeKinesisStreamingDestination =
+  req
+    "DescribeKinesisStreamingDestination"
+    "fixture/DescribeKinesisStreamingDestination.yaml"
+
+requestDescribeEndpoints :: DescribeEndpoints -> TestTree
+requestDescribeEndpoints =
+  req
+    "DescribeEndpoints"
+    "fixture/DescribeEndpoints.yaml"
+
+requestExecuteStatement :: ExecuteStatement -> TestTree
+requestExecuteStatement =
+  req
+    "ExecuteStatement"
+    "fixture/ExecuteStatement.yaml"
 
 -- Responses
 
-responsePutItem :: PutItemResponse -> TestTree
-responsePutItem = res
-    "PutItemResponse"
-    "fixture/PutItemResponse.proto"
+responseBatchGetItem :: BatchGetItemResponse -> TestTree
+responseBatchGetItem =
+  res
+    "BatchGetItemResponse"
+    "fixture/BatchGetItemResponse.proto"
     dynamoDB
-    (Proxy :: Proxy PutItem)
+    (Proxy :: Proxy BatchGetItem)
+
+responseUpdateContributorInsights :: UpdateContributorInsightsResponse -> TestTree
+responseUpdateContributorInsights =
+  res
+    "UpdateContributorInsightsResponse"
+    "fixture/UpdateContributorInsightsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy UpdateContributorInsights)
+
+responseDeleteBackup :: DeleteBackupResponse -> TestTree
+responseDeleteBackup =
+  res
+    "DeleteBackupResponse"
+    "fixture/DeleteBackupResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DeleteBackup)
 
 responseDeleteItem :: DeleteItemResponse -> TestTree
-responseDeleteItem = res
+responseDeleteItem =
+  res
     "DeleteItemResponse"
     "fixture/DeleteItemResponse.proto"
     dynamoDB
     (Proxy :: Proxy DeleteItem)
 
 responseUpdateItem :: UpdateItemResponse -> TestTree
-responseUpdateItem = res
+responseUpdateItem =
+  res
     "UpdateItemResponse"
     "fixture/UpdateItemResponse.proto"
     dynamoDB
     (Proxy :: Proxy UpdateItem)
 
+responseListContributorInsights :: ListContributorInsightsResponse -> TestTree
+responseListContributorInsights =
+  res
+    "ListContributorInsightsResponse"
+    "fixture/ListContributorInsightsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy ListContributorInsights)
+
 responseListGlobalTables :: ListGlobalTablesResponse -> TestTree
-responseListGlobalTables = res
+responseListGlobalTables =
+  res
     "ListGlobalTablesResponse"
     "fixture/ListGlobalTablesResponse.proto"
     dynamoDB
     (Proxy :: Proxy ListGlobalTables)
 
-responseUpdateGlobalTable :: UpdateGlobalTableResponse -> TestTree
-responseUpdateGlobalTable = res
-    "UpdateGlobalTableResponse"
-    "fixture/UpdateGlobalTableResponse.proto"
+responseDisableKinesisStreamingDestination :: KinesisStreamingDestinationOutput -> TestTree
+responseDisableKinesisStreamingDestination =
+  res
+    "DisableKinesisStreamingDestinationResponse"
+    "fixture/DisableKinesisStreamingDestinationResponse.proto"
     dynamoDB
-    (Proxy :: Proxy UpdateGlobalTable)
+    (Proxy :: Proxy DisableKinesisStreamingDestination)
 
-responseDeleteTable :: DeleteTableResponse -> TestTree
-responseDeleteTable = res
-    "DeleteTableResponse"
-    "fixture/DeleteTableResponse.proto"
+responseUpdateContinuousBackups :: UpdateContinuousBackupsResponse -> TestTree
+responseUpdateContinuousBackups =
+  res
+    "UpdateContinuousBackupsResponse"
+    "fixture/UpdateContinuousBackupsResponse.proto"
     dynamoDB
-    (Proxy :: Proxy DeleteTable)
+    (Proxy :: Proxy UpdateContinuousBackups)
 
-responseUpdateTable :: UpdateTableResponse -> TestTree
-responseUpdateTable = res
-    "UpdateTableResponse"
-    "fixture/UpdateTableResponse.proto"
+responseCreateGlobalTable :: CreateGlobalTableResponse -> TestTree
+responseCreateGlobalTable =
+  res
+    "CreateGlobalTableResponse"
+    "fixture/CreateGlobalTableResponse.proto"
     dynamoDB
-    (Proxy :: Proxy UpdateTable)
+    (Proxy :: Proxy CreateGlobalTable)
 
-responseBatchGetItem :: BatchGetItemResponse -> TestTree
-responseBatchGetItem = res
-    "BatchGetItemResponse"
-    "fixture/BatchGetItemResponse.proto"
+responseBatchExecuteStatement :: BatchExecuteStatementResponse -> TestTree
+responseBatchExecuteStatement =
+  res
+    "BatchExecuteStatementResponse"
+    "fixture/BatchExecuteStatementResponse.proto"
     dynamoDB
-    (Proxy :: Proxy BatchGetItem)
+    (Proxy :: Proxy BatchExecuteStatement)
 
-responseListBackups :: ListBackupsResponse -> TestTree
-responseListBackups = res
-    "ListBackupsResponse"
-    "fixture/ListBackupsResponse.proto"
+responseRestoreTableFromBackup :: RestoreTableFromBackupResponse -> TestTree
+responseRestoreTableFromBackup =
+  res
+    "RestoreTableFromBackupResponse"
+    "fixture/RestoreTableFromBackupResponse.proto"
     dynamoDB
-    (Proxy :: Proxy ListBackups)
-
-responseDeleteBackup :: DeleteBackupResponse -> TestTree
-responseDeleteBackup = res
-    "DeleteBackupResponse"
-    "fixture/DeleteBackupResponse.proto"
-    dynamoDB
-    (Proxy :: Proxy DeleteBackup)
-
-responseCreateBackup :: CreateBackupResponse -> TestTree
-responseCreateBackup = res
-    "CreateBackupResponse"
-    "fixture/CreateBackupResponse.proto"
-    dynamoDB
-    (Proxy :: Proxy CreateBackup)
-
-responseDescribeGlobalTableSettings :: DescribeGlobalTableSettingsResponse -> TestTree
-responseDescribeGlobalTableSettings = res
-    "DescribeGlobalTableSettingsResponse"
-    "fixture/DescribeGlobalTableSettingsResponse.proto"
-    dynamoDB
-    (Proxy :: Proxy DescribeGlobalTableSettings)
-
-responseListTagsOfResource :: ListTagsOfResourceResponse -> TestTree
-responseListTagsOfResource = res
-    "ListTagsOfResourceResponse"
-    "fixture/ListTagsOfResourceResponse.proto"
-    dynamoDB
-    (Proxy :: Proxy ListTagsOfResource)
-
-responseDescribeGlobalTable :: DescribeGlobalTableResponse -> TestTree
-responseDescribeGlobalTable = res
-    "DescribeGlobalTableResponse"
-    "fixture/DescribeGlobalTableResponse.proto"
-    dynamoDB
-    (Proxy :: Proxy DescribeGlobalTable)
-
-responseDescribeTable :: DescribeTableResponse -> TestTree
-responseDescribeTable = res
-    "DescribeTableResponse"
-    "fixture/DescribeTableResponse.proto"
-    dynamoDB
-    (Proxy :: Proxy DescribeTable)
+    (Proxy :: Proxy RestoreTableFromBackup)
 
 responseDescribeLimits :: DescribeLimitsResponse -> TestTree
-responseDescribeLimits = res
+responseDescribeLimits =
+  res
     "DescribeLimitsResponse"
     "fixture/DescribeLimitsResponse.proto"
     dynamoDB
     (Proxy :: Proxy DescribeLimits)
 
-responseGetItem :: GetItemResponse -> TestTree
-responseGetItem = res
-    "GetItemResponse"
-    "fixture/GetItemResponse.proto"
+responseExecuteTransaction :: ExecuteTransactionResponse -> TestTree
+responseExecuteTransaction =
+  res
+    "ExecuteTransactionResponse"
+    "fixture/ExecuteTransactionResponse.proto"
     dynamoDB
-    (Proxy :: Proxy GetItem)
+    (Proxy :: Proxy ExecuteTransaction)
+
+responseRestoreTableToPointInTime :: RestoreTableToPointInTimeResponse -> TestTree
+responseRestoreTableToPointInTime =
+  res
+    "RestoreTableToPointInTimeResponse"
+    "fixture/RestoreTableToPointInTimeResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy RestoreTableToPointInTime)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy UntagResource)
+
+responseDescribeContributorInsights :: DescribeContributorInsightsResponse -> TestTree
+responseDescribeContributorInsights =
+  res
+    "DescribeContributorInsightsResponse"
+    "fixture/DescribeContributorInsightsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeContributorInsights)
 
 responseDescribeBackup :: DescribeBackupResponse -> TestTree
-responseDescribeBackup = res
+responseDescribeBackup =
+  res
     "DescribeBackupResponse"
     "fixture/DescribeBackupResponse.proto"
     dynamoDB
     (Proxy :: Proxy DescribeBackup)
 
-responseUpdateGlobalTableSettings :: UpdateGlobalTableSettingsResponse -> TestTree
-responseUpdateGlobalTableSettings = res
-    "UpdateGlobalTableSettingsResponse"
-    "fixture/UpdateGlobalTableSettingsResponse.proto"
+responseListTagsOfResource :: ListTagsOfResourceResponse -> TestTree
+responseListTagsOfResource =
+  res
+    "ListTagsOfResourceResponse"
+    "fixture/ListTagsOfResourceResponse.proto"
     dynamoDB
-    (Proxy :: Proxy UpdateGlobalTableSettings)
+    (Proxy :: Proxy ListTagsOfResource)
 
-responseBatchWriteItem :: BatchWriteItemResponse -> TestTree
-responseBatchWriteItem = res
-    "BatchWriteItemResponse"
-    "fixture/BatchWriteItemResponse.proto"
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
     dynamoDB
-    (Proxy :: Proxy BatchWriteItem)
+    (Proxy :: Proxy TagResource)
 
-responseListTables :: ListTablesResponse -> TestTree
-responseListTables = res
-    "ListTablesResponse"
-    "fixture/ListTablesResponse.proto"
+responseDescribeGlobalTableSettings :: DescribeGlobalTableSettingsResponse -> TestTree
+responseDescribeGlobalTableSettings =
+  res
+    "DescribeGlobalTableSettingsResponse"
+    "fixture/DescribeGlobalTableSettingsResponse.proto"
     dynamoDB
-    (Proxy :: Proxy ListTables)
+    (Proxy :: Proxy DescribeGlobalTableSettings)
 
-responseScan :: ScanResponse -> TestTree
-responseScan = res
-    "ScanResponse"
-    "fixture/ScanResponse.proto"
+responseUpdateTableReplicaAutoScaling :: UpdateTableReplicaAutoScalingResponse -> TestTree
+responseUpdateTableReplicaAutoScaling =
+  res
+    "UpdateTableReplicaAutoScalingResponse"
+    "fixture/UpdateTableReplicaAutoScalingResponse.proto"
     dynamoDB
-    (Proxy :: Proxy Scan)
+    (Proxy :: Proxy UpdateTableReplicaAutoScaling)
+
+responseDescribeTimeToLive :: DescribeTimeToLiveResponse -> TestTree
+responseDescribeTimeToLive =
+  res
+    "DescribeTimeToLiveResponse"
+    "fixture/DescribeTimeToLiveResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeTimeToLive)
 
 responseQuery :: QueryResponse -> TestTree
-responseQuery = res
+responseQuery =
+  res
     "QueryResponse"
     "fixture/QueryResponse.proto"
     dynamoDB
     (Proxy :: Proxy Query)
 
 responseCreateTable :: CreateTableResponse -> TestTree
-responseCreateTable = res
+responseCreateTable =
+  res
     "CreateTableResponse"
     "fixture/CreateTableResponse.proto"
     dynamoDB
     (Proxy :: Proxy CreateTable)
 
-responseDescribeTimeToLive :: DescribeTimeToLiveResponse -> TestTree
-responseDescribeTimeToLive = res
-    "DescribeTimeToLiveResponse"
-    "fixture/DescribeTimeToLiveResponse.proto"
+responseCreateBackup :: CreateBackupResponse -> TestTree
+responseCreateBackup =
+  res
+    "CreateBackupResponse"
+    "fixture/CreateBackupResponse.proto"
     dynamoDB
-    (Proxy :: Proxy DescribeTimeToLive)
+    (Proxy :: Proxy CreateBackup)
 
-responseDescribeContinuousBackups :: DescribeContinuousBackupsResponse -> TestTree
-responseDescribeContinuousBackups = res
-    "DescribeContinuousBackupsResponse"
-    "fixture/DescribeContinuousBackupsResponse.proto"
+responseListTables :: ListTablesResponse -> TestTree
+responseListTables =
+  res
+    "ListTablesResponse"
+    "fixture/ListTablesResponse.proto"
     dynamoDB
-    (Proxy :: Proxy DescribeContinuousBackups)
+    (Proxy :: Proxy ListTables)
 
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource = res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
+responseScan :: ScanResponse -> TestTree
+responseScan =
+  res
+    "ScanResponse"
+    "fixture/ScanResponse.proto"
     dynamoDB
-    (Proxy :: Proxy TagResource)
+    (Proxy :: Proxy Scan)
 
-responseUntagResource :: UntagResourceResponse -> TestTree
-responseUntagResource = res
-    "UntagResourceResponse"
-    "fixture/UntagResourceResponse.proto"
+responseUpdateTable :: UpdateTableResponse -> TestTree
+responseUpdateTable =
+  res
+    "UpdateTableResponse"
+    "fixture/UpdateTableResponse.proto"
     dynamoDB
-    (Proxy :: Proxy UntagResource)
+    (Proxy :: Proxy UpdateTable)
 
-responseRestoreTableToPointInTime :: RestoreTableToPointInTimeResponse -> TestTree
-responseRestoreTableToPointInTime = res
-    "RestoreTableToPointInTimeResponse"
-    "fixture/RestoreTableToPointInTimeResponse.proto"
+responseDeleteTable :: DeleteTableResponse -> TestTree
+responseDeleteTable =
+  res
+    "DeleteTableResponse"
+    "fixture/DeleteTableResponse.proto"
     dynamoDB
-    (Proxy :: Proxy RestoreTableToPointInTime)
+    (Proxy :: Proxy DeleteTable)
 
-responseRestoreTableFromBackup :: RestoreTableFromBackupResponse -> TestTree
-responseRestoreTableFromBackup = res
-    "RestoreTableFromBackupResponse"
-    "fixture/RestoreTableFromBackupResponse.proto"
+responseTransactWriteItems :: TransactWriteItemsResponse -> TestTree
+responseTransactWriteItems =
+  res
+    "TransactWriteItemsResponse"
+    "fixture/TransactWriteItemsResponse.proto"
     dynamoDB
-    (Proxy :: Proxy RestoreTableFromBackup)
+    (Proxy :: Proxy TransactWriteItems)
+
+responseExportTableToPointInTime :: ExportTableToPointInTimeResponse -> TestTree
+responseExportTableToPointInTime =
+  res
+    "ExportTableToPointInTimeResponse"
+    "fixture/ExportTableToPointInTimeResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy ExportTableToPointInTime)
+
+responseListBackups :: ListBackupsResponse -> TestTree
+responseListBackups =
+  res
+    "ListBackupsResponse"
+    "fixture/ListBackupsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy ListBackups)
+
+responseTransactGetItems :: TransactGetItemsResponse -> TestTree
+responseTransactGetItems =
+  res
+    "TransactGetItemsResponse"
+    "fixture/TransactGetItemsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy TransactGetItems)
+
+responseUpdateGlobalTable :: UpdateGlobalTableResponse -> TestTree
+responseUpdateGlobalTable =
+  res
+    "UpdateGlobalTableResponse"
+    "fixture/UpdateGlobalTableResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy UpdateGlobalTable)
+
+responseBatchWriteItem :: BatchWriteItemResponse -> TestTree
+responseBatchWriteItem =
+  res
+    "BatchWriteItemResponse"
+    "fixture/BatchWriteItemResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy BatchWriteItem)
+
+responsePutItem :: PutItemResponse -> TestTree
+responsePutItem =
+  res
+    "PutItemResponse"
+    "fixture/PutItemResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy PutItem)
 
 responseUpdateTimeToLive :: UpdateTimeToLiveResponse -> TestTree
-responseUpdateTimeToLive = res
+responseUpdateTimeToLive =
+  res
     "UpdateTimeToLiveResponse"
     "fixture/UpdateTimeToLiveResponse.proto"
     dynamoDB
     (Proxy :: Proxy UpdateTimeToLive)
 
-responseCreateGlobalTable :: CreateGlobalTableResponse -> TestTree
-responseCreateGlobalTable = res
-    "CreateGlobalTableResponse"
-    "fixture/CreateGlobalTableResponse.proto"
+responseUpdateGlobalTableSettings :: UpdateGlobalTableSettingsResponse -> TestTree
+responseUpdateGlobalTableSettings =
+  res
+    "UpdateGlobalTableSettingsResponse"
+    "fixture/UpdateGlobalTableSettingsResponse.proto"
     dynamoDB
-    (Proxy :: Proxy CreateGlobalTable)
+    (Proxy :: Proxy UpdateGlobalTableSettings)
 
-responseUpdateContinuousBackups :: UpdateContinuousBackupsResponse -> TestTree
-responseUpdateContinuousBackups = res
-    "UpdateContinuousBackupsResponse"
-    "fixture/UpdateContinuousBackupsResponse.proto"
+responseEnableKinesisStreamingDestination :: KinesisStreamingDestinationOutput -> TestTree
+responseEnableKinesisStreamingDestination =
+  res
+    "EnableKinesisStreamingDestinationResponse"
+    "fixture/EnableKinesisStreamingDestinationResponse.proto"
     dynamoDB
-    (Proxy :: Proxy UpdateContinuousBackups)
+    (Proxy :: Proxy EnableKinesisStreamingDestination)
+
+responseDescribeExport :: DescribeExportResponse -> TestTree
+responseDescribeExport =
+  res
+    "DescribeExportResponse"
+    "fixture/DescribeExportResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeExport)
+
+responseDescribeTableReplicaAutoScaling :: DescribeTableReplicaAutoScalingResponse -> TestTree
+responseDescribeTableReplicaAutoScaling =
+  res
+    "DescribeTableReplicaAutoScalingResponse"
+    "fixture/DescribeTableReplicaAutoScalingResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeTableReplicaAutoScaling)
+
+responseGetItem :: GetItemResponse -> TestTree
+responseGetItem =
+  res
+    "GetItemResponse"
+    "fixture/GetItemResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy GetItem)
+
+responseDescribeTable :: DescribeTableResponse -> TestTree
+responseDescribeTable =
+  res
+    "DescribeTableResponse"
+    "fixture/DescribeTableResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeTable)
+
+responseDescribeGlobalTable :: DescribeGlobalTableResponse -> TestTree
+responseDescribeGlobalTable =
+  res
+    "DescribeGlobalTableResponse"
+    "fixture/DescribeGlobalTableResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeGlobalTable)
+
+responseListExports :: ListExportsResponse -> TestTree
+responseListExports =
+  res
+    "ListExportsResponse"
+    "fixture/ListExportsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy ListExports)
+
+responseDescribeContinuousBackups :: DescribeContinuousBackupsResponse -> TestTree
+responseDescribeContinuousBackups =
+  res
+    "DescribeContinuousBackupsResponse"
+    "fixture/DescribeContinuousBackupsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeContinuousBackups)
+
+responseDescribeKinesisStreamingDestination :: DescribeKinesisStreamingDestinationResponse -> TestTree
+responseDescribeKinesisStreamingDestination =
+  res
+    "DescribeKinesisStreamingDestinationResponse"
+    "fixture/DescribeKinesisStreamingDestinationResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeKinesisStreamingDestination)
+
+responseDescribeEndpoints :: DescribeEndpointsResponse -> TestTree
+responseDescribeEndpoints =
+  res
+    "DescribeEndpointsResponse"
+    "fixture/DescribeEndpointsResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy DescribeEndpoints)
+
+responseExecuteStatement :: ExecuteStatementResponse -> TestTree
+responseExecuteStatement =
+  res
+    "ExecuteStatementResponse"
+    "fixture/ExecuteStatementResponse.proto"
+    dynamoDB
+    (Proxy :: Proxy ExecuteStatement)
