@@ -1,45 +1,43 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudWatchEvents.DescribePartnerEventSource
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- An SaaS partner can use this operation to list details about a partner event source that they have created.
---
---
+-- An SaaS partner can use this operation to list details about a partner event source that they have created. AWS customers do not use this operation. Instead, AWS customers can use 'DescribeEventSource' to see details about a partner event source that is shared with them.
 module Network.AWS.CloudWatchEvents.DescribePartnerEventSource
-    (
-    -- * Creating a Request
-      describePartnerEventSource
-    , DescribePartnerEventSource
+  ( -- * Creating a Request
+    describePartnerEventSource,
+    DescribePartnerEventSource,
+
     -- * Request Lenses
-    , dpespName
+    dpespName,
 
     -- * Destructuring the Response
-    , describePartnerEventSourceResponse
-    , DescribePartnerEventSourceResponse
+    describePartnerEventSourceResponse,
+    DescribePartnerEventSourceResponse,
+
     -- * Response Lenses
-    , dpesrsARN
-    , dpesrsName
-    , dpesrsResponseStatus
-    ) where
+    dpesrrsARN,
+    dpesrrsName,
+    dpesrrsResponseStatus,
+  )
+where
 
 import Network.AWS.CloudWatchEvents.Types
-import Network.AWS.CloudWatchEvents.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -47,100 +45,129 @@ import Network.AWS.Response
 
 -- | /See:/ 'describePartnerEventSource' smart constructor.
 newtype DescribePartnerEventSource = DescribePartnerEventSource'
-  { _dpespName :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dpespName ::
+      Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribePartnerEventSource' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'dpespName' - The name of the event source to display.
-describePartnerEventSource
-    :: Text -- ^ 'dpespName'
-    -> DescribePartnerEventSource
+describePartnerEventSource ::
+  -- | 'dpespName'
+  Text ->
+  DescribePartnerEventSource
 describePartnerEventSource pName_ =
   DescribePartnerEventSource' {_dpespName = pName_}
 
-
 -- | The name of the event source to display.
 dpespName :: Lens' DescribePartnerEventSource Text
-dpespName = lens _dpespName (\ s a -> s{_dpespName = a})
+dpespName = lens _dpespName (\s a -> s {_dpespName = a})
 
 instance AWSRequest DescribePartnerEventSource where
-        type Rs DescribePartnerEventSource =
-             DescribePartnerEventSourceResponse
-        request = postJSON cloudWatchEvents
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribePartnerEventSourceResponse' <$>
-                   (x .?> "Arn") <*> (x .?> "Name") <*>
-                     (pure (fromEnum s)))
+  type
+    Rs DescribePartnerEventSource =
+      DescribePartnerEventSourceResponse
+  request = postJSON cloudWatchEvents
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribePartnerEventSourceResponse'
+            <$> (x .?> "Arn")
+            <*> (x .?> "Name")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribePartnerEventSource where
+instance Hashable DescribePartnerEventSource
 
-instance NFData DescribePartnerEventSource where
+instance NFData DescribePartnerEventSource
 
 instance ToHeaders DescribePartnerEventSource where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSEvents.DescribePartnerEventSource" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWSEvents.DescribePartnerEventSource" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribePartnerEventSource where
-        toJSON DescribePartnerEventSource'{..}
-          = object (catMaybes [Just ("Name" .= _dpespName)])
+  toJSON DescribePartnerEventSource' {..} =
+    object (catMaybes [Just ("Name" .= _dpespName)])
 
 instance ToPath DescribePartnerEventSource where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribePartnerEventSource where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describePartnerEventSourceResponse' smart constructor.
 data DescribePartnerEventSourceResponse = DescribePartnerEventSourceResponse'
-  { _dpesrsARN            :: !(Maybe Text)
-  , _dpesrsName           :: !(Maybe Text)
-  , _dpesrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dpesrrsARN ::
+      !( Maybe
+           Text
+       ),
+    _dpesrrsName ::
+      !( Maybe
+           Text
+       ),
+    _dpesrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribePartnerEventSourceResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpesrsARN' - The ARN of the event source.
+-- * 'dpesrrsARN' - The ARN of the event source.
 --
--- * 'dpesrsName' - The name of the event source.
+-- * 'dpesrrsName' - The name of the event source.
 --
--- * 'dpesrsResponseStatus' - -- | The response status code.
-describePartnerEventSourceResponse
-    :: Int -- ^ 'dpesrsResponseStatus'
-    -> DescribePartnerEventSourceResponse
+-- * 'dpesrrsResponseStatus' - -- | The response status code.
+describePartnerEventSourceResponse ::
+  -- | 'dpesrrsResponseStatus'
+  Int ->
+  DescribePartnerEventSourceResponse
 describePartnerEventSourceResponse pResponseStatus_ =
   DescribePartnerEventSourceResponse'
-    { _dpesrsARN = Nothing
-    , _dpesrsName = Nothing
-    , _dpesrsResponseStatus = pResponseStatus_
+    { _dpesrrsARN =
+        Nothing,
+      _dpesrrsName = Nothing,
+      _dpesrrsResponseStatus =
+        pResponseStatus_
     }
 
-
 -- | The ARN of the event source.
-dpesrsARN :: Lens' DescribePartnerEventSourceResponse (Maybe Text)
-dpesrsARN = lens _dpesrsARN (\ s a -> s{_dpesrsARN = a})
+dpesrrsARN :: Lens' DescribePartnerEventSourceResponse (Maybe Text)
+dpesrrsARN = lens _dpesrrsARN (\s a -> s {_dpesrrsARN = a})
 
 -- | The name of the event source.
-dpesrsName :: Lens' DescribePartnerEventSourceResponse (Maybe Text)
-dpesrsName = lens _dpesrsName (\ s a -> s{_dpesrsName = a})
+dpesrrsName :: Lens' DescribePartnerEventSourceResponse (Maybe Text)
+dpesrrsName = lens _dpesrrsName (\s a -> s {_dpesrrsName = a})
 
 -- | -- | The response status code.
-dpesrsResponseStatus :: Lens' DescribePartnerEventSourceResponse Int
-dpesrsResponseStatus = lens _dpesrsResponseStatus (\ s a -> s{_dpesrsResponseStatus = a})
+dpesrrsResponseStatus :: Lens' DescribePartnerEventSourceResponse Int
+dpesrrsResponseStatus = lens _dpesrrsResponseStatus (\s a -> s {_dpesrrsResponseStatus = a})
 
 instance NFData DescribePartnerEventSourceResponse
-         where
