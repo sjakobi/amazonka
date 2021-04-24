@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.SES.GetSendQuota
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,70 +21,70 @@
 --
 --
 -- You can execute this operation no more than once per second.
---
 module Network.AWS.SES.GetSendQuota
-    (
-    -- * Creating a Request
-      getSendQuota
-    , GetSendQuota
+  ( -- * Creating a Request
+    getSendQuota,
+    GetSendQuota,
 
     -- * Destructuring the Response
-    , getSendQuotaResponse
-    , GetSendQuotaResponse
+    getSendQuotaResponse,
+    GetSendQuotaResponse,
+
     -- * Response Lenses
-    , gsqrsMaxSendRate
-    , gsqrsSentLast24Hours
-    , gsqrsMax24HourSend
-    , gsqrsResponseStatus
-    ) where
+    gsqrrsMax24HourSend,
+    gsqrrsSentLast24Hours,
+    gsqrrsMaxSendRate,
+    gsqrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.SES.Types
-import Network.AWS.SES.Types.Product
 
 -- | /See:/ 'getSendQuota' smart constructor.
-data GetSendQuota =
-  GetSendQuota'
+data GetSendQuota = GetSendQuota'
   deriving (Eq, Read, Show, Data, Typeable, Generic)
 
-
 -- | Creates a value of 'GetSendQuota' with the minimum fields required to make a request.
---
-getSendQuota
-    :: GetSendQuota
+getSendQuota ::
+  GetSendQuota
 getSendQuota = GetSendQuota'
 
-
 instance AWSRequest GetSendQuota where
-        type Rs GetSendQuota = GetSendQuotaResponse
-        request = postQuery ses
-        response
-          = receiveXMLWrapper "GetSendQuotaResult"
-              (\ s h x ->
-                 GetSendQuotaResponse' <$>
-                   (x .@? "MaxSendRate") <*> (x .@? "SentLast24Hours")
-                     <*> (x .@? "Max24HourSend")
-                     <*> (pure (fromEnum s)))
+  type Rs GetSendQuota = GetSendQuotaResponse
+  request = postQuery ses
+  response =
+    receiveXMLWrapper
+      "GetSendQuotaResult"
+      ( \s h x ->
+          GetSendQuotaResponse'
+            <$> (x .@? "Max24HourSend")
+            <*> (x .@? "SentLast24Hours")
+            <*> (x .@? "MaxSendRate")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetSendQuota where
+instance Hashable GetSendQuota
 
-instance NFData GetSendQuota where
+instance NFData GetSendQuota
 
 instance ToHeaders GetSendQuota where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath GetSendQuota where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetSendQuota where
-        toQuery
-          = const
-              (mconcat
-                 ["Action" =: ("GetSendQuota" :: ByteString),
-                  "Version" =: ("2010-12-01" :: ByteString)])
+  toQuery =
+    const
+      ( mconcat
+          [ "Action" =: ("GetSendQuota" :: ByteString),
+            "Version" =: ("2010-12-01" :: ByteString)
+          ]
+      )
 
 -- | Represents your Amazon SES daily sending quota, maximum send rate, and the number of emails you have sent in the last 24 hours.
 --
@@ -93,50 +92,54 @@ instance ToQuery GetSendQuota where
 --
 -- /See:/ 'getSendQuotaResponse' smart constructor.
 data GetSendQuotaResponse = GetSendQuotaResponse'
-  { _gsqrsMaxSendRate     :: !(Maybe Double)
-  , _gsqrsSentLast24Hours :: !(Maybe Double)
-  , _gsqrsMax24HourSend   :: !(Maybe Double)
-  , _gsqrsResponseStatus  :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gsqrrsMax24HourSend ::
+      !(Maybe Double),
+    _gsqrrsSentLast24Hours ::
+      !(Maybe Double),
+    _gsqrrsMaxSendRate ::
+      !(Maybe Double),
+    _gsqrrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetSendQuotaResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gsqrsMaxSendRate' - The maximum number of emails that Amazon SES can accept from the user's account per second.
+-- * 'gsqrrsMax24HourSend' - The maximum number of emails the user is allowed to send in a 24-hour interval. A value of -1 signifies an unlimited quota.
 --
--- * 'gsqrsSentLast24Hours' - The number of emails sent during the previous 24 hours.
+-- * 'gsqrrsSentLast24Hours' - The number of emails sent during the previous 24 hours.
 --
--- * 'gsqrsMax24HourSend' - The maximum number of emails the user is allowed to send in a 24-hour interval. A value of -1 signifies an unlimited quota.
+-- * 'gsqrrsMaxSendRate' - The maximum number of emails that Amazon SES can accept from the user's account per second.
 --
--- * 'gsqrsResponseStatus' - -- | The response status code.
-getSendQuotaResponse
-    :: Int -- ^ 'gsqrsResponseStatus'
-    -> GetSendQuotaResponse
+-- * 'gsqrrsResponseStatus' - -- | The response status code.
+getSendQuotaResponse ::
+  -- | 'gsqrrsResponseStatus'
+  Int ->
+  GetSendQuotaResponse
 getSendQuotaResponse pResponseStatus_ =
   GetSendQuotaResponse'
-    { _gsqrsMaxSendRate = Nothing
-    , _gsqrsSentLast24Hours = Nothing
-    , _gsqrsMax24HourSend = Nothing
-    , _gsqrsResponseStatus = pResponseStatus_
+    { _gsqrrsMax24HourSend =
+        Nothing,
+      _gsqrrsSentLast24Hours = Nothing,
+      _gsqrrsMaxSendRate = Nothing,
+      _gsqrrsResponseStatus = pResponseStatus_
     }
 
-
--- | The maximum number of emails that Amazon SES can accept from the user's account per second.
-gsqrsMaxSendRate :: Lens' GetSendQuotaResponse (Maybe Double)
-gsqrsMaxSendRate = lens _gsqrsMaxSendRate (\ s a -> s{_gsqrsMaxSendRate = a})
+-- | The maximum number of emails the user is allowed to send in a 24-hour interval. A value of -1 signifies an unlimited quota.
+gsqrrsMax24HourSend :: Lens' GetSendQuotaResponse (Maybe Double)
+gsqrrsMax24HourSend = lens _gsqrrsMax24HourSend (\s a -> s {_gsqrrsMax24HourSend = a})
 
 -- | The number of emails sent during the previous 24 hours.
-gsqrsSentLast24Hours :: Lens' GetSendQuotaResponse (Maybe Double)
-gsqrsSentLast24Hours = lens _gsqrsSentLast24Hours (\ s a -> s{_gsqrsSentLast24Hours = a})
+gsqrrsSentLast24Hours :: Lens' GetSendQuotaResponse (Maybe Double)
+gsqrrsSentLast24Hours = lens _gsqrrsSentLast24Hours (\s a -> s {_gsqrrsSentLast24Hours = a})
 
--- | The maximum number of emails the user is allowed to send in a 24-hour interval. A value of -1 signifies an unlimited quota.
-gsqrsMax24HourSend :: Lens' GetSendQuotaResponse (Maybe Double)
-gsqrsMax24HourSend = lens _gsqrsMax24HourSend (\ s a -> s{_gsqrsMax24HourSend = a})
+-- | The maximum number of emails that Amazon SES can accept from the user's account per second.
+gsqrrsMaxSendRate :: Lens' GetSendQuotaResponse (Maybe Double)
+gsqrrsMaxSendRate = lens _gsqrrsMaxSendRate (\s a -> s {_gsqrrsMaxSendRate = a})
 
 -- | -- | The response status code.
-gsqrsResponseStatus :: Lens' GetSendQuotaResponse Int
-gsqrsResponseStatus = lens _gsqrsResponseStatus (\ s a -> s{_gsqrsResponseStatus = a})
+gsqrrsResponseStatus :: Lens' GetSendQuotaResponse Int
+gsqrrsResponseStatus = lens _gsqrrsResponseStatus (\s a -> s {_gsqrrsResponseStatus = a})
 
-instance NFData GetSendQuotaResponse where
+instance NFData GetSendQuotaResponse
