@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.KinesisVideo.UntagStream
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,26 +21,26 @@
 --
 --
 -- In the request, you must provide the @StreamName@ or @StreamARN@ .
---
 module Network.AWS.KinesisVideo.UntagStream
-    (
-    -- * Creating a Request
-      untagStream
-    , UntagStream
+  ( -- * Creating a Request
+    untagStream,
+    UntagStream,
+
     -- * Request Lenses
-    , usStreamARN
-    , usStreamName
-    , usTagKeyList
+    uStreamARN,
+    uStreamName,
+    uTagKeyList,
 
     -- * Destructuring the Response
-    , untagStreamResponse
-    , UntagStreamResponse
+    untagStreamResponse,
+    UntagStreamResponse,
+
     -- * Response Lenses
-    , ursResponseStatus
-    ) where
+    ursResponseStatus,
+  )
+where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.KinesisVideo.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -49,93 +48,108 @@ import Network.AWS.Response
 
 -- | /See:/ 'untagStream' smart constructor.
 data UntagStream = UntagStream'
-  { _usStreamARN  :: !(Maybe Text)
-  , _usStreamName :: !(Maybe Text)
-  , _usTagKeyList :: !(List1 Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _uStreamARN ::
+      !(Maybe Text),
+    _uStreamName :: !(Maybe Text),
+    _uTagKeyList :: !(List1 Text)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'UntagStream' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'usStreamARN' - The Amazon Resource Name (ARN) of the stream that you want to remove tags from.
+-- * 'uStreamARN' - The Amazon Resource Name (ARN) of the stream that you want to remove tags from.
 --
--- * 'usStreamName' - The name of the stream that you want to remove tags from.
+-- * 'uStreamName' - The name of the stream that you want to remove tags from.
 --
--- * 'usTagKeyList' - A list of the keys of the tags that you want to remove.
-untagStream
-    :: NonEmpty Text -- ^ 'usTagKeyList'
-    -> UntagStream
+-- * 'uTagKeyList' - A list of the keys of the tags that you want to remove.
+untagStream ::
+  -- | 'uTagKeyList'
+  NonEmpty Text ->
+  UntagStream
 untagStream pTagKeyList_ =
   UntagStream'
-    { _usStreamARN = Nothing
-    , _usStreamName = Nothing
-    , _usTagKeyList = _List1 # pTagKeyList_
+    { _uStreamARN = Nothing,
+      _uStreamName = Nothing,
+      _uTagKeyList = _List1 # pTagKeyList_
     }
 
-
 -- | The Amazon Resource Name (ARN) of the stream that you want to remove tags from.
-usStreamARN :: Lens' UntagStream (Maybe Text)
-usStreamARN = lens _usStreamARN (\ s a -> s{_usStreamARN = a})
+uStreamARN :: Lens' UntagStream (Maybe Text)
+uStreamARN = lens _uStreamARN (\s a -> s {_uStreamARN = a})
 
 -- | The name of the stream that you want to remove tags from.
-usStreamName :: Lens' UntagStream (Maybe Text)
-usStreamName = lens _usStreamName (\ s a -> s{_usStreamName = a})
+uStreamName :: Lens' UntagStream (Maybe Text)
+uStreamName = lens _uStreamName (\s a -> s {_uStreamName = a})
 
 -- | A list of the keys of the tags that you want to remove.
-usTagKeyList :: Lens' UntagStream (NonEmpty Text)
-usTagKeyList = lens _usTagKeyList (\ s a -> s{_usTagKeyList = a}) . _List1
+uTagKeyList :: Lens' UntagStream (NonEmpty Text)
+uTagKeyList = lens _uTagKeyList (\s a -> s {_uTagKeyList = a}) . _List1
 
 instance AWSRequest UntagStream where
-        type Rs UntagStream = UntagStreamResponse
-        request = postJSON kinesisVideo
-        response
-          = receiveEmpty
-              (\ s h x ->
-                 UntagStreamResponse' <$> (pure (fromEnum s)))
+  type Rs UntagStream = UntagStreamResponse
+  request = postJSON kinesisVideo
+  response =
+    receiveEmpty
+      ( \s h x ->
+          UntagStreamResponse' <$> (pure (fromEnum s))
+      )
 
-instance Hashable UntagStream where
+instance Hashable UntagStream
 
-instance NFData UntagStream where
+instance NFData UntagStream
 
 instance ToHeaders UntagStream where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToJSON UntagStream where
-        toJSON UntagStream'{..}
-          = object
-              (catMaybes
-                 [("StreamARN" .=) <$> _usStreamARN,
-                  ("StreamName" .=) <$> _usStreamName,
-                  Just ("TagKeyList" .= _usTagKeyList)])
+  toJSON UntagStream' {..} =
+    object
+      ( catMaybes
+          [ ("StreamARN" .=) <$> _uStreamARN,
+            ("StreamName" .=) <$> _uStreamName,
+            Just ("TagKeyList" .= _uTagKeyList)
+          ]
+      )
 
 instance ToPath UntagStream where
-        toPath = const "/untagStream"
+  toPath = const "/untagStream"
 
 instance ToQuery UntagStream where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'untagStreamResponse' smart constructor.
 newtype UntagStreamResponse = UntagStreamResponse'
-  { _ursResponseStatus :: Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ursResponseStatus ::
+      Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'UntagStreamResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'ursResponseStatus' - -- | The response status code.
-untagStreamResponse
-    :: Int -- ^ 'ursResponseStatus'
-    -> UntagStreamResponse
+untagStreamResponse ::
+  -- | 'ursResponseStatus'
+  Int ->
+  UntagStreamResponse
 untagStreamResponse pResponseStatus_ =
-  UntagStreamResponse' {_ursResponseStatus = pResponseStatus_}
-
+  UntagStreamResponse'
+    { _ursResponseStatus =
+        pResponseStatus_
+    }
 
 -- | -- | The response status code.
 ursResponseStatus :: Lens' UntagStreamResponse Int
-ursResponseStatus = lens _ursResponseStatus (\ s a -> s{_ursResponseStatus = a})
+ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
 
-instance NFData UntagStreamResponse where
+instance NFData UntagStreamResponse

@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.KinesisVideo
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.KinesisVideo where
 
 import Data.Proxy
@@ -28,17 +27,17 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestUntagStream $
---             untagStream
+--         [ requestListTagsForStream $
+--             listTagsForStream
 --
---         , requestUpdateDataRetention $
---             updateDataRetention
+--         , requestUntagResource $
+--             untagResource
+--
+--         , requestTagResource $
+--             tagResource
 --
 --         , requestGetDataEndpoint $
 --             getDataEndpoint
---
---         , requestListTagsForStream $
---             listTagsForStream
 --
 --         , requestUpdateStream $
 --             updateStream
@@ -46,32 +45,59 @@ import Test.Tasty
 --         , requestDeleteStream $
 --             deleteStream
 --
---         , requestListStreams $
---             listStreams
+--         , requestUntagStream $
+--             untagStream
 --
---         , requestCreateStream $
---             createStream
+--         , requestUpdateDataRetention $
+--             updateDataRetention
 --
---         , requestTagStream $
---             tagStream
+--         , requestUpdateSignalingChannel $
+--             updateSignalingChannel
+--
+--         , requestDeleteSignalingChannel $
+--             deleteSignalingChannel
+--
+--         , requestListSignalingChannels $
+--             listSignalingChannels
+--
+--         , requestCreateSignalingChannel $
+--             createSignalingChannel
 --
 --         , requestDescribeStream $
 --             describeStream
 --
+--         , requestTagStream $
+--             tagStream
+--
+--         , requestGetSignalingChannelEndpoint $
+--             getSignalingChannelEndpoint
+--
+--         , requestDescribeSignalingChannel $
+--             describeSignalingChannel
+--
+--         , requestCreateStream $
+--             createStream
+--
+--         , requestListStreams $
+--             listStreams
+--
+--         , requestListTagsForResource $
+--             listTagsForResource
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseUntagStream $
---             untagStreamResponse
+--         [ responseListTagsForStream $
+--             listTagsForStreamResponse
 --
---         , responseUpdateDataRetention $
---             updateDataRetentionResponse
+--         , responseUntagResource $
+--             untagResourceResponse
+--
+--         , responseTagResource $
+--             tagResourceResponse
 --
 --         , responseGetDataEndpoint $
 --             getDataEndpointResponse
---
---         , responseListTagsForStream $
---             listTagsForStreamResponse
 --
 --         , responseUpdateStream $
 --             updateStreamResponse
@@ -79,141 +105,314 @@ import Test.Tasty
 --         , responseDeleteStream $
 --             deleteStreamResponse
 --
---         , responseListStreams $
---             listStreamsResponse
+--         , responseUntagStream $
+--             untagStreamResponse
 --
---         , responseCreateStream $
---             createStreamResponse
+--         , responseUpdateDataRetention $
+--             updateDataRetentionResponse
+--
+--         , responseUpdateSignalingChannel $
+--             updateSignalingChannelResponse
+--
+--         , responseDeleteSignalingChannel $
+--             deleteSignalingChannelResponse
+--
+--         , responseListSignalingChannels $
+--             listSignalingChannelsResponse
+--
+--         , responseCreateSignalingChannel $
+--             createSignalingChannelResponse
+--
+--         , responseDescribeStream $
+--             describeStreamResponse
 --
 --         , responseTagStream $
 --             tagStreamResponse
 --
---         , responseDescribeStream $
---             describeStreamResponse
+--         , responseGetSignalingChannelEndpoint $
+--             getSignalingChannelEndpointResponse
+--
+--         , responseDescribeSignalingChannel $
+--             describeSignalingChannelResponse
+--
+--         , responseCreateStream $
+--             createStreamResponse
+--
+--         , responseListStreams $
+--             listStreamsResponse
+--
+--         , responseListTagsForResource $
+--             listTagsForResourceResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestUntagStream :: UntagStream -> TestTree
-requestUntagStream = req
-    "UntagStream"
-    "fixture/UntagStream.yaml"
-
-requestUpdateDataRetention :: UpdateDataRetention -> TestTree
-requestUpdateDataRetention = req
-    "UpdateDataRetention"
-    "fixture/UpdateDataRetention.yaml"
-
-requestGetDataEndpoint :: GetDataEndpoint -> TestTree
-requestGetDataEndpoint = req
-    "GetDataEndpoint"
-    "fixture/GetDataEndpoint.yaml"
-
 requestListTagsForStream :: ListTagsForStream -> TestTree
-requestListTagsForStream = req
+requestListTagsForStream =
+  req
     "ListTagsForStream"
     "fixture/ListTagsForStream.yaml"
 
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestGetDataEndpoint :: GetDataEndpoint -> TestTree
+requestGetDataEndpoint =
+  req
+    "GetDataEndpoint"
+    "fixture/GetDataEndpoint.yaml"
+
 requestUpdateStream :: UpdateStream -> TestTree
-requestUpdateStream = req
+requestUpdateStream =
+  req
     "UpdateStream"
     "fixture/UpdateStream.yaml"
 
 requestDeleteStream :: DeleteStream -> TestTree
-requestDeleteStream = req
+requestDeleteStream =
+  req
     "DeleteStream"
     "fixture/DeleteStream.yaml"
 
-requestListStreams :: ListStreams -> TestTree
-requestListStreams = req
-    "ListStreams"
-    "fixture/ListStreams.yaml"
+requestUntagStream :: UntagStream -> TestTree
+requestUntagStream =
+  req
+    "UntagStream"
+    "fixture/UntagStream.yaml"
 
-requestCreateStream :: CreateStream -> TestTree
-requestCreateStream = req
-    "CreateStream"
-    "fixture/CreateStream.yaml"
+requestUpdateDataRetention :: UpdateDataRetention -> TestTree
+requestUpdateDataRetention =
+  req
+    "UpdateDataRetention"
+    "fixture/UpdateDataRetention.yaml"
 
-requestTagStream :: TagStream -> TestTree
-requestTagStream = req
-    "TagStream"
-    "fixture/TagStream.yaml"
+requestUpdateSignalingChannel :: UpdateSignalingChannel -> TestTree
+requestUpdateSignalingChannel =
+  req
+    "UpdateSignalingChannel"
+    "fixture/UpdateSignalingChannel.yaml"
+
+requestDeleteSignalingChannel :: DeleteSignalingChannel -> TestTree
+requestDeleteSignalingChannel =
+  req
+    "DeleteSignalingChannel"
+    "fixture/DeleteSignalingChannel.yaml"
+
+requestListSignalingChannels :: ListSignalingChannels -> TestTree
+requestListSignalingChannels =
+  req
+    "ListSignalingChannels"
+    "fixture/ListSignalingChannels.yaml"
+
+requestCreateSignalingChannel :: CreateSignalingChannel -> TestTree
+requestCreateSignalingChannel =
+  req
+    "CreateSignalingChannel"
+    "fixture/CreateSignalingChannel.yaml"
 
 requestDescribeStream :: DescribeStream -> TestTree
-requestDescribeStream = req
+requestDescribeStream =
+  req
     "DescribeStream"
     "fixture/DescribeStream.yaml"
 
+requestTagStream :: TagStream -> TestTree
+requestTagStream =
+  req
+    "TagStream"
+    "fixture/TagStream.yaml"
+
+requestGetSignalingChannelEndpoint :: GetSignalingChannelEndpoint -> TestTree
+requestGetSignalingChannelEndpoint =
+  req
+    "GetSignalingChannelEndpoint"
+    "fixture/GetSignalingChannelEndpoint.yaml"
+
+requestDescribeSignalingChannel :: DescribeSignalingChannel -> TestTree
+requestDescribeSignalingChannel =
+  req
+    "DescribeSignalingChannel"
+    "fixture/DescribeSignalingChannel.yaml"
+
+requestCreateStream :: CreateStream -> TestTree
+requestCreateStream =
+  req
+    "CreateStream"
+    "fixture/CreateStream.yaml"
+
+requestListStreams :: ListStreams -> TestTree
+requestListStreams =
+  req
+    "ListStreams"
+    "fixture/ListStreams.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
 -- Responses
 
-responseUntagStream :: UntagStreamResponse -> TestTree
-responseUntagStream = res
-    "UntagStreamResponse"
-    "fixture/UntagStreamResponse.proto"
-    kinesisVideo
-    (Proxy :: Proxy UntagStream)
-
-responseUpdateDataRetention :: UpdateDataRetentionResponse -> TestTree
-responseUpdateDataRetention = res
-    "UpdateDataRetentionResponse"
-    "fixture/UpdateDataRetentionResponse.proto"
-    kinesisVideo
-    (Proxy :: Proxy UpdateDataRetention)
-
-responseGetDataEndpoint :: GetDataEndpointResponse -> TestTree
-responseGetDataEndpoint = res
-    "GetDataEndpointResponse"
-    "fixture/GetDataEndpointResponse.proto"
-    kinesisVideo
-    (Proxy :: Proxy GetDataEndpoint)
-
 responseListTagsForStream :: ListTagsForStreamResponse -> TestTree
-responseListTagsForStream = res
+responseListTagsForStream =
+  res
     "ListTagsForStreamResponse"
     "fixture/ListTagsForStreamResponse.proto"
     kinesisVideo
     (Proxy :: Proxy ListTagsForStream)
 
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy UntagResource)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy TagResource)
+
+responseGetDataEndpoint :: GetDataEndpointResponse -> TestTree
+responseGetDataEndpoint =
+  res
+    "GetDataEndpointResponse"
+    "fixture/GetDataEndpointResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy GetDataEndpoint)
+
 responseUpdateStream :: UpdateStreamResponse -> TestTree
-responseUpdateStream = res
+responseUpdateStream =
+  res
     "UpdateStreamResponse"
     "fixture/UpdateStreamResponse.proto"
     kinesisVideo
     (Proxy :: Proxy UpdateStream)
 
 responseDeleteStream :: DeleteStreamResponse -> TestTree
-responseDeleteStream = res
+responseDeleteStream =
+  res
     "DeleteStreamResponse"
     "fixture/DeleteStreamResponse.proto"
     kinesisVideo
     (Proxy :: Proxy DeleteStream)
 
-responseListStreams :: ListStreamsResponse -> TestTree
-responseListStreams = res
-    "ListStreamsResponse"
-    "fixture/ListStreamsResponse.proto"
+responseUntagStream :: UntagStreamResponse -> TestTree
+responseUntagStream =
+  res
+    "UntagStreamResponse"
+    "fixture/UntagStreamResponse.proto"
     kinesisVideo
-    (Proxy :: Proxy ListStreams)
+    (Proxy :: Proxy UntagStream)
 
-responseCreateStream :: CreateStreamResponse -> TestTree
-responseCreateStream = res
-    "CreateStreamResponse"
-    "fixture/CreateStreamResponse.proto"
+responseUpdateDataRetention :: UpdateDataRetentionResponse -> TestTree
+responseUpdateDataRetention =
+  res
+    "UpdateDataRetentionResponse"
+    "fixture/UpdateDataRetentionResponse.proto"
     kinesisVideo
-    (Proxy :: Proxy CreateStream)
+    (Proxy :: Proxy UpdateDataRetention)
+
+responseUpdateSignalingChannel :: UpdateSignalingChannelResponse -> TestTree
+responseUpdateSignalingChannel =
+  res
+    "UpdateSignalingChannelResponse"
+    "fixture/UpdateSignalingChannelResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy UpdateSignalingChannel)
+
+responseDeleteSignalingChannel :: DeleteSignalingChannelResponse -> TestTree
+responseDeleteSignalingChannel =
+  res
+    "DeleteSignalingChannelResponse"
+    "fixture/DeleteSignalingChannelResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy DeleteSignalingChannel)
+
+responseListSignalingChannels :: ListSignalingChannelsResponse -> TestTree
+responseListSignalingChannels =
+  res
+    "ListSignalingChannelsResponse"
+    "fixture/ListSignalingChannelsResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy ListSignalingChannels)
+
+responseCreateSignalingChannel :: CreateSignalingChannelResponse -> TestTree
+responseCreateSignalingChannel =
+  res
+    "CreateSignalingChannelResponse"
+    "fixture/CreateSignalingChannelResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy CreateSignalingChannel)
+
+responseDescribeStream :: DescribeStreamResponse -> TestTree
+responseDescribeStream =
+  res
+    "DescribeStreamResponse"
+    "fixture/DescribeStreamResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy DescribeStream)
 
 responseTagStream :: TagStreamResponse -> TestTree
-responseTagStream = res
+responseTagStream =
+  res
     "TagStreamResponse"
     "fixture/TagStreamResponse.proto"
     kinesisVideo
     (Proxy :: Proxy TagStream)
 
-responseDescribeStream :: DescribeStreamResponse -> TestTree
-responseDescribeStream = res
-    "DescribeStreamResponse"
-    "fixture/DescribeStreamResponse.proto"
+responseGetSignalingChannelEndpoint :: GetSignalingChannelEndpointResponse -> TestTree
+responseGetSignalingChannelEndpoint =
+  res
+    "GetSignalingChannelEndpointResponse"
+    "fixture/GetSignalingChannelEndpointResponse.proto"
     kinesisVideo
-    (Proxy :: Proxy DescribeStream)
+    (Proxy :: Proxy GetSignalingChannelEndpoint)
+
+responseDescribeSignalingChannel :: DescribeSignalingChannelResponse -> TestTree
+responseDescribeSignalingChannel =
+  res
+    "DescribeSignalingChannelResponse"
+    "fixture/DescribeSignalingChannelResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy DescribeSignalingChannel)
+
+responseCreateStream :: CreateStreamResponse -> TestTree
+responseCreateStream =
+  res
+    "CreateStreamResponse"
+    "fixture/CreateStreamResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy CreateStream)
+
+responseListStreams :: ListStreamsResponse -> TestTree
+responseListStreams =
+  res
+    "ListStreamsResponse"
+    "fixture/ListStreamsResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy ListStreams)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    kinesisVideo
+    (Proxy :: Proxy ListTagsForResource)
