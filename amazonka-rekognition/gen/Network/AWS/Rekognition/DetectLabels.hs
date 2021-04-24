@@ -1,29 +1,30 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Rekognition.DetectLabels
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Detects instances of real-world entities within an image (JPEG or PNG) provided as input. This includes objects like flower, tree, and table; events like wedding, graduation, and birthday party; and concepts like landscape, evening, and nature. For an example, see 'images-s3' .
+-- Detects instances of real-world entities within an image (JPEG or PNG) provided as input. This includes objects like flower, tree, and table; events like wedding, graduation, and birthday party; and concepts like landscape, evening, and nature.
 --
 --
--- You pass the input image as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. If you use the Amazon CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be either a PNG or JPEG formatted file.
+-- For an example, see Analyzing Images Stored in an Amazon S3 Bucket in the Amazon Rekognition Developer Guide.
 --
--- For each object, scene, and concept the API returns one or more labels. Each label provides the object name, and the level of confidence that the image contains the object. For example, suppose the input image has a lighthouse, the sea, and a rock. The response will include all three labels, one for each object.
+-- You pass the input image as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be either a PNG or JPEG formatted file.
+--
+-- For each object, scene, and concept the API returns one or more labels. Each label provides the object name, and the level of confidence that the image contains the object. For example, suppose the input image has a lighthouse, the sea, and a rock. The response includes all three labels, one for each object.
 --
 -- @{Name: lighthouse, Confidence: 98.4629}@
 --
@@ -41,151 +42,180 @@
 --
 -- In this example, the detection algorithm more precisely identifies the flower as a tulip.
 --
--- In response, the API returns an array of labels. In addition, the response also includes the orientation correction. Optionally, you can specify @MinConfidence@ to control the confidence threshold for the labels returned. The default is 50%. You can also add the @MaxLabels@ parameter to limit the number of labels returned.
+-- In response, the API returns an array of labels. In addition, the response also includes the orientation correction. Optionally, you can specify @MinConfidence@ to control the confidence threshold for the labels returned. The default is 55%. You can also add the @MaxLabels@ parameter to limit the number of labels returned.
+--
+-- @DetectLabels@ returns bounding boxes for instances of common object labels in an array of 'Instance' objects. An @Instance@ object contains a 'BoundingBox' object, for the location of the label on the image. It also includes the confidence by which the bounding box was detected.
+--
+-- @DetectLabels@ also returns a hierarchical taxonomy of detected labels. For example, a detected car might be assigned the label /car/ . The label /car/ has two parent labels: /Vehicle/ (its parent) and /Transportation/ (its grandparent). The response returns the entire list of ancestors for a label. Each ancestor is a unique label in the response. In the previous example, /Car/ , /Vehicle/ , and /Transportation/ are returned as unique labels in the response.
 --
 -- This is a stateless API operation. That is, the operation does not persist any data.
 --
 -- This operation requires permissions to perform the @rekognition:DetectLabels@ action.
---
 module Network.AWS.Rekognition.DetectLabels
-    (
-    -- * Creating a Request
-      detectLabels
-    , DetectLabels
+  ( -- * Creating a Request
+    detectLabels,
+    DetectLabels,
+
     -- * Request Lenses
-    , dlMinConfidence
-    , dlMaxLabels
-    , dlImage
+    dlMaxLabels,
+    dlMinConfidence,
+    dlImage,
 
     -- * Destructuring the Response
-    , detectLabelsResponse
-    , DetectLabelsResponse
+    detectLabelsResponse,
+    DetectLabelsResponse,
+
     -- * Response Lenses
-    , dlrsLabels
-    , dlrsOrientationCorrection
-    , dlrsResponseStatus
-    ) where
+    dlrrsLabelModelVersion,
+    dlrrsOrientationCorrection,
+    dlrrsLabels,
+    dlrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Rekognition.Types.Product
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'detectLabels' smart constructor.
 data DetectLabels = DetectLabels'
-  { _dlMinConfidence :: !(Maybe Double)
-  , _dlMaxLabels     :: !(Maybe Nat)
-  , _dlImage         :: !Image
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dlMaxLabels ::
+      !(Maybe Nat),
+    _dlMinConfidence :: !(Maybe Double),
+    _dlImage :: !Image
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DetectLabels' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dlMinConfidence' - Specifies the minimum confidence level for the labels to return. Amazon Rekognition doesn't return any labels with confidence lower than this specified value. If @MinConfidence@ is not specified, the operation returns labels with a confidence values greater than or equal to 50 percent.
---
 -- * 'dlMaxLabels' - Maximum number of labels you want the service to return in the response. The service returns the specified number of highest confidence labels.
 --
--- * 'dlImage' - The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.
-detectLabels
-    :: Image -- ^ 'dlImage'
-    -> DetectLabels
+-- * 'dlMinConfidence' - Specifies the minimum confidence level for the labels to return. Amazon Rekognition doesn't return any labels with confidence lower than this specified value. If @MinConfidence@ is not specified, the operation returns labels with a confidence values greater than or equal to 55 percent.
+--
+-- * 'dlImage' - The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. Images stored in an S3 Bucket do not need to be base64-encoded. If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the @Bytes@ field. For more information, see Images in the Amazon Rekognition developer guide.
+detectLabels ::
+  -- | 'dlImage'
+  Image ->
+  DetectLabels
 detectLabels pImage_ =
   DetectLabels'
-    {_dlMinConfidence = Nothing, _dlMaxLabels = Nothing, _dlImage = pImage_}
-
-
--- | Specifies the minimum confidence level for the labels to return. Amazon Rekognition doesn't return any labels with confidence lower than this specified value. If @MinConfidence@ is not specified, the operation returns labels with a confidence values greater than or equal to 50 percent.
-dlMinConfidence :: Lens' DetectLabels (Maybe Double)
-dlMinConfidence = lens _dlMinConfidence (\ s a -> s{_dlMinConfidence = a})
+    { _dlMaxLabels = Nothing,
+      _dlMinConfidence = Nothing,
+      _dlImage = pImage_
+    }
 
 -- | Maximum number of labels you want the service to return in the response. The service returns the specified number of highest confidence labels.
 dlMaxLabels :: Lens' DetectLabels (Maybe Natural)
-dlMaxLabels = lens _dlMaxLabels (\ s a -> s{_dlMaxLabels = a}) . mapping _Nat
+dlMaxLabels = lens _dlMaxLabels (\s a -> s {_dlMaxLabels = a}) . mapping _Nat
 
--- | The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.
+-- | Specifies the minimum confidence level for the labels to return. Amazon Rekognition doesn't return any labels with confidence lower than this specified value. If @MinConfidence@ is not specified, the operation returns labels with a confidence values greater than or equal to 55 percent.
+dlMinConfidence :: Lens' DetectLabels (Maybe Double)
+dlMinConfidence = lens _dlMinConfidence (\s a -> s {_dlMinConfidence = a})
+
+-- | The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. Images stored in an S3 Bucket do not need to be base64-encoded. If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the @Bytes@ field. For more information, see Images in the Amazon Rekognition developer guide.
 dlImage :: Lens' DetectLabels Image
-dlImage = lens _dlImage (\ s a -> s{_dlImage = a})
+dlImage = lens _dlImage (\s a -> s {_dlImage = a})
 
 instance AWSRequest DetectLabels where
-        type Rs DetectLabels = DetectLabelsResponse
-        request = postJSON rekognition
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DetectLabelsResponse' <$>
-                   (x .?> "Labels" .!@ mempty) <*>
-                     (x .?> "OrientationCorrection")
-                     <*> (pure (fromEnum s)))
+  type Rs DetectLabels = DetectLabelsResponse
+  request = postJSON rekognition
+  response =
+    receiveJSON
+      ( \s h x ->
+          DetectLabelsResponse'
+            <$> (x .?> "LabelModelVersion")
+            <*> (x .?> "OrientationCorrection")
+            <*> (x .?> "Labels" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DetectLabels where
+instance Hashable DetectLabels
 
-instance NFData DetectLabels where
+instance NFData DetectLabels
 
 instance ToHeaders DetectLabels where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("RekognitionService.DetectLabels" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("RekognitionService.DetectLabels" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DetectLabels where
-        toJSON DetectLabels'{..}
-          = object
-              (catMaybes
-                 [("MinConfidence" .=) <$> _dlMinConfidence,
-                  ("MaxLabels" .=) <$> _dlMaxLabels,
-                  Just ("Image" .= _dlImage)])
+  toJSON DetectLabels' {..} =
+    object
+      ( catMaybes
+          [ ("MaxLabels" .=) <$> _dlMaxLabels,
+            ("MinConfidence" .=) <$> _dlMinConfidence,
+            Just ("Image" .= _dlImage)
+          ]
+      )
 
 instance ToPath DetectLabels where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DetectLabels where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'detectLabelsResponse' smart constructor.
 data DetectLabelsResponse = DetectLabelsResponse'
-  { _dlrsLabels                :: !(Maybe [Label])
-  , _dlrsOrientationCorrection :: !(Maybe OrientationCorrection)
-  , _dlrsResponseStatus        :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dlrrsLabelModelVersion ::
+      !(Maybe Text),
+    _dlrrsOrientationCorrection ::
+      !( Maybe
+           OrientationCorrection
+       ),
+    _dlrrsLabels ::
+      !(Maybe [Label]),
+    _dlrrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DetectLabelsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dlrsLabels' - An array of labels for the real-world objects detected.
+-- * 'dlrrsLabelModelVersion' - Version number of the label detection model that was used to detect labels.
 --
--- * 'dlrsOrientationCorrection' - The orientation of the input image (counter-clockwise direction). If your application displays the image, you can use this value to correct the orientation. If Amazon Rekognition detects that the input image was rotated (for example, by 90 degrees), it first corrects the orientation before detecting the labels.
+-- * 'dlrrsOrientationCorrection' - The value of @OrientationCorrection@ is always null. If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata. Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.
 --
--- * 'dlrsResponseStatus' - -- | The response status code.
-detectLabelsResponse
-    :: Int -- ^ 'dlrsResponseStatus'
-    -> DetectLabelsResponse
+-- * 'dlrrsLabels' - An array of labels for the real-world objects detected.
+--
+-- * 'dlrrsResponseStatus' - -- | The response status code.
+detectLabelsResponse ::
+  -- | 'dlrrsResponseStatus'
+  Int ->
+  DetectLabelsResponse
 detectLabelsResponse pResponseStatus_ =
   DetectLabelsResponse'
-    { _dlrsLabels = Nothing
-    , _dlrsOrientationCorrection = Nothing
-    , _dlrsResponseStatus = pResponseStatus_
+    { _dlrrsLabelModelVersion =
+        Nothing,
+      _dlrrsOrientationCorrection = Nothing,
+      _dlrrsLabels = Nothing,
+      _dlrrsResponseStatus = pResponseStatus_
     }
 
+-- | Version number of the label detection model that was used to detect labels.
+dlrrsLabelModelVersion :: Lens' DetectLabelsResponse (Maybe Text)
+dlrrsLabelModelVersion = lens _dlrrsLabelModelVersion (\s a -> s {_dlrrsLabelModelVersion = a})
+
+-- | The value of @OrientationCorrection@ is always null. If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata. Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.
+dlrrsOrientationCorrection :: Lens' DetectLabelsResponse (Maybe OrientationCorrection)
+dlrrsOrientationCorrection = lens _dlrrsOrientationCorrection (\s a -> s {_dlrrsOrientationCorrection = a})
 
 -- | An array of labels for the real-world objects detected.
-dlrsLabels :: Lens' DetectLabelsResponse [Label]
-dlrsLabels = lens _dlrsLabels (\ s a -> s{_dlrsLabels = a}) . _Default . _Coerce
-
--- | The orientation of the input image (counter-clockwise direction). If your application displays the image, you can use this value to correct the orientation. If Amazon Rekognition detects that the input image was rotated (for example, by 90 degrees), it first corrects the orientation before detecting the labels.
-dlrsOrientationCorrection :: Lens' DetectLabelsResponse (Maybe OrientationCorrection)
-dlrsOrientationCorrection = lens _dlrsOrientationCorrection (\ s a -> s{_dlrsOrientationCorrection = a})
+dlrrsLabels :: Lens' DetectLabelsResponse [Label]
+dlrrsLabels = lens _dlrrsLabels (\s a -> s {_dlrrsLabels = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-dlrsResponseStatus :: Lens' DetectLabelsResponse Int
-dlrsResponseStatus = lens _dlrsResponseStatus (\ s a -> s{_dlrsResponseStatus = a})
+dlrrsResponseStatus :: Lens' DetectLabelsResponse Int
+dlrrsResponseStatus = lens _dlrrsResponseStatus (\s a -> s {_dlrrsResponseStatus = a})
 
-instance NFData DetectLabelsResponse where
+instance NFData DetectLabelsResponse
