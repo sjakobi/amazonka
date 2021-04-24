@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.OpsWorksCM.DescribeServers
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,147 +24,168 @@
 --
 -- A @ResourceNotFoundException@ is thrown when the server does not exist. A @ValidationException@ is raised when parameters of the request are not valid.
 --
+--
+-- This operation returns paginated results.
 module Network.AWS.OpsWorksCM.DescribeServers
-    (
-    -- * Creating a Request
-      describeServers
-    , DescribeServers
+  ( -- * Creating a Request
+    describeServers,
+    DescribeServers,
+
     -- * Request Lenses
-    , dssServerName
-    , dssNextToken
-    , dssMaxResults
+    dNextToken,
+    dMaxResults,
+    dServerName,
 
     -- * Destructuring the Response
-    , describeServersResponse
-    , DescribeServersResponse
+    describeServersResponse,
+    DescribeServersResponse,
+
     -- * Response Lenses
-    , dssrsServers
-    , dssrsNextToken
-    , dssrsResponseStatus
-    ) where
+    drsNextToken,
+    drsServers,
+    drsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.OpsWorksCM.Types
-import Network.AWS.OpsWorksCM.Types.Product
+import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'describeServers' smart constructor.
 data DescribeServers = DescribeServers'
-  { _dssServerName :: !(Maybe Text)
-  , _dssNextToken  :: !(Maybe Text)
-  , _dssMaxResults :: !(Maybe Nat)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dNextToken ::
+      !(Maybe Text),
+    _dMaxResults :: !(Maybe Nat),
+    _dServerName :: !(Maybe Text)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeServers' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dssServerName' - Describes the server with the specified ServerName.
+-- * 'dNextToken' - This is not currently implemented for @DescribeServers@ requests.
 --
--- * 'dssNextToken' - NextToken is a string that is returned in some command responses. It indicates that not all entries have been returned, and that you must run at least one more request to get remaining items. To get remaining results, call @DescribeServers@ again, and assign the token from the previous results as the value of the @nextToken@ parameter. If there are no more results, the response object's @nextToken@ parameter value is @null@ . Setting a @nextToken@ value that was not returned in your previous results causes an @InvalidNextTokenException@ to occur.
+-- * 'dMaxResults' - This is not currently implemented for @DescribeServers@ requests.
 --
--- * 'dssMaxResults' - To receive a paginated response, use this parameter to specify the maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
-describeServers
-    :: DescribeServers
+-- * 'dServerName' - Describes the server with the specified ServerName.
+describeServers ::
+  DescribeServers
 describeServers =
   DescribeServers'
-    { _dssServerName = Nothing
-    , _dssNextToken = Nothing
-    , _dssMaxResults = Nothing
+    { _dNextToken = Nothing,
+      _dMaxResults = Nothing,
+      _dServerName = Nothing
     }
 
+-- | This is not currently implemented for @DescribeServers@ requests.
+dNextToken :: Lens' DescribeServers (Maybe Text)
+dNextToken = lens _dNextToken (\s a -> s {_dNextToken = a})
+
+-- | This is not currently implemented for @DescribeServers@ requests.
+dMaxResults :: Lens' DescribeServers (Maybe Natural)
+dMaxResults = lens _dMaxResults (\s a -> s {_dMaxResults = a}) . mapping _Nat
 
 -- | Describes the server with the specified ServerName.
-dssServerName :: Lens' DescribeServers (Maybe Text)
-dssServerName = lens _dssServerName (\ s a -> s{_dssServerName = a})
+dServerName :: Lens' DescribeServers (Maybe Text)
+dServerName = lens _dServerName (\s a -> s {_dServerName = a})
 
--- | NextToken is a string that is returned in some command responses. It indicates that not all entries have been returned, and that you must run at least one more request to get remaining items. To get remaining results, call @DescribeServers@ again, and assign the token from the previous results as the value of the @nextToken@ parameter. If there are no more results, the response object's @nextToken@ parameter value is @null@ . Setting a @nextToken@ value that was not returned in your previous results causes an @InvalidNextTokenException@ to occur.
-dssNextToken :: Lens' DescribeServers (Maybe Text)
-dssNextToken = lens _dssNextToken (\ s a -> s{_dssNextToken = a})
-
--- | To receive a paginated response, use this parameter to specify the maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a @NextToken@ value that you can assign to the @NextToken@ request parameter to get the next set of results.
-dssMaxResults :: Lens' DescribeServers (Maybe Natural)
-dssMaxResults = lens _dssMaxResults (\ s a -> s{_dssMaxResults = a}) . mapping _Nat
+instance AWSPager DescribeServers where
+  page rq rs
+    | stop (rs ^. drsNextToken) = Nothing
+    | stop (rs ^. drsServers) = Nothing
+    | otherwise =
+      Just $ rq & dNextToken .~ rs ^. drsNextToken
 
 instance AWSRequest DescribeServers where
-        type Rs DescribeServers = DescribeServersResponse
-        request = postJSON opsWorksCM
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeServersResponse' <$>
-                   (x .?> "Servers" .!@ mempty) <*> (x .?> "NextToken")
-                     <*> (pure (fromEnum s)))
+  type Rs DescribeServers = DescribeServersResponse
+  request = postJSON opsWorksCM
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeServersResponse'
+            <$> (x .?> "NextToken")
+            <*> (x .?> "Servers" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeServers where
+instance Hashable DescribeServers
 
-instance NFData DescribeServers where
+instance NFData DescribeServers
 
 instance ToHeaders DescribeServers where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("OpsWorksCM_V2016_11_01.DescribeServers" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "OpsWorksCM_V2016_11_01.DescribeServers" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeServers where
-        toJSON DescribeServers'{..}
-          = object
-              (catMaybes
-                 [("ServerName" .=) <$> _dssServerName,
-                  ("NextToken" .=) <$> _dssNextToken,
-                  ("MaxResults" .=) <$> _dssMaxResults])
+  toJSON DescribeServers' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _dNextToken,
+            ("MaxResults" .=) <$> _dMaxResults,
+            ("ServerName" .=) <$> _dServerName
+          ]
+      )
 
 instance ToPath DescribeServers where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeServers where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'describeServersResponse' smart constructor.
 data DescribeServersResponse = DescribeServersResponse'
-  { _dssrsServers        :: !(Maybe [Server])
-  , _dssrsNextToken      :: !(Maybe Text)
-  , _dssrsResponseStatus :: !Int
-  } deriving (Eq, Show, Data, Typeable, Generic)
-
+  { _drsNextToken ::
+      !(Maybe Text),
+    _drsServers ::
+      !(Maybe [Server]),
+    _drsResponseStatus ::
+      !Int
+  }
+  deriving (Eq, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeServersResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dssrsServers' - Contains the response to a @DescribeServers@ request. /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@ contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that is used by the Puppet API over TCP port number 8140. The CA certificate is also used to sign node certificates.
+-- * 'drsNextToken' - This is not currently implemented for @DescribeServers@ requests.
 --
--- * 'dssrsNextToken' - NextToken is a string that is returned in some command responses. It indicates that not all entries have been returned, and that you must run at least one more request to get remaining items. To get remaining results, call @DescribeServers@ again, and assign the token from the previous results as the value of the @nextToken@ parameter. If there are no more results, the response object's @nextToken@ parameter value is @null@ . Setting a @nextToken@ value that was not returned in your previous results causes an @InvalidNextTokenException@ to occur.
+-- * 'drsServers' - Contains the response to a @DescribeServers@ request. /For Chef Automate servers:/ If @DescribeServersResponse$Servers$EngineAttributes@ includes CHEF_MAJOR_UPGRADE_AVAILABLE, you can upgrade the Chef Automate server to Chef Automate 2. To be eligible for upgrade, a server running Chef Automate 1 must have had at least one successful maintenance run after November 1, 2019. /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@ contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that is used by the Puppet API over TCP port number 8140. The CA certificate is also used to sign node certificates.
 --
--- * 'dssrsResponseStatus' - -- | The response status code.
-describeServersResponse
-    :: Int -- ^ 'dssrsResponseStatus'
-    -> DescribeServersResponse
+-- * 'drsResponseStatus' - -- | The response status code.
+describeServersResponse ::
+  -- | 'drsResponseStatus'
+  Int ->
+  DescribeServersResponse
 describeServersResponse pResponseStatus_ =
   DescribeServersResponse'
-    { _dssrsServers = Nothing
-    , _dssrsNextToken = Nothing
-    , _dssrsResponseStatus = pResponseStatus_
+    { _drsNextToken = Nothing,
+      _drsServers = Nothing,
+      _drsResponseStatus = pResponseStatus_
     }
 
+-- | This is not currently implemented for @DescribeServers@ requests.
+drsNextToken :: Lens' DescribeServersResponse (Maybe Text)
+drsNextToken = lens _drsNextToken (\s a -> s {_drsNextToken = a})
 
--- | Contains the response to a @DescribeServers@ request. /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@ contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that is used by the Puppet API over TCP port number 8140. The CA certificate is also used to sign node certificates.
-dssrsServers :: Lens' DescribeServersResponse [Server]
-dssrsServers = lens _dssrsServers (\ s a -> s{_dssrsServers = a}) . _Default . _Coerce
-
--- | NextToken is a string that is returned in some command responses. It indicates that not all entries have been returned, and that you must run at least one more request to get remaining items. To get remaining results, call @DescribeServers@ again, and assign the token from the previous results as the value of the @nextToken@ parameter. If there are no more results, the response object's @nextToken@ parameter value is @null@ . Setting a @nextToken@ value that was not returned in your previous results causes an @InvalidNextTokenException@ to occur.
-dssrsNextToken :: Lens' DescribeServersResponse (Maybe Text)
-dssrsNextToken = lens _dssrsNextToken (\ s a -> s{_dssrsNextToken = a})
+-- | Contains the response to a @DescribeServers@ request. /For Chef Automate servers:/ If @DescribeServersResponse$Servers$EngineAttributes@ includes CHEF_MAJOR_UPGRADE_AVAILABLE, you can upgrade the Chef Automate server to Chef Automate 2. To be eligible for upgrade, a server running Chef Automate 1 must have had at least one successful maintenance run after November 1, 2019. /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@ contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that is used by the Puppet API over TCP port number 8140. The CA certificate is also used to sign node certificates.
+drsServers :: Lens' DescribeServersResponse [Server]
+drsServers = lens _drsServers (\s a -> s {_drsServers = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-dssrsResponseStatus :: Lens' DescribeServersResponse Int
-dssrsResponseStatus = lens _dssrsResponseStatus (\ s a -> s{_dssrsResponseStatus = a})
+drsResponseStatus :: Lens' DescribeServersResponse Int
+drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
 
-instance NFData DescribeServersResponse where
+instance NFData DescribeServersResponse
