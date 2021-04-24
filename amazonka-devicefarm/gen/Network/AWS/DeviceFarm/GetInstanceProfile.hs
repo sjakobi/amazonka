@@ -1,44 +1,42 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.DeviceFarm.GetInstanceProfile
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns information about the specified instance profile.
---
---
 module Network.AWS.DeviceFarm.GetInstanceProfile
-    (
-    -- * Creating a Request
-      getInstanceProfile
-    , GetInstanceProfile
+  ( -- * Creating a Request
+    getInstanceProfile,
+    GetInstanceProfile,
+
     -- * Request Lenses
-    , gipArn
+    gipArn,
 
     -- * Destructuring the Response
-    , getInstanceProfileResponse
-    , GetInstanceProfileResponse
+    getInstanceProfileResponse,
+    GetInstanceProfileResponse,
+
     -- * Response Lenses
-    , giprsInstanceProfile
-    , giprsResponseStatus
-    ) where
+    giprrsInstanceProfile,
+    giprrsResponseStatus,
+  )
+where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.DeviceFarm.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -46,87 +44,115 @@ import Network.AWS.Response
 
 -- | /See:/ 'getInstanceProfile' smart constructor.
 newtype GetInstanceProfile = GetInstanceProfile'
-  { _gipArn :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gipArn ::
+      Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetInstanceProfile' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gipArn' - The Amazon Resource Name (ARN) of your instance profile.
-getInstanceProfile
-    :: Text -- ^ 'gipArn'
-    -> GetInstanceProfile
-getInstanceProfile pArn_ = GetInstanceProfile' {_gipArn = pArn_}
+-- * 'gipArn' - The Amazon Resource Name (ARN) of an instance profile.
+getInstanceProfile ::
+  -- | 'gipArn'
+  Text ->
+  GetInstanceProfile
+getInstanceProfile pArn_ =
+  GetInstanceProfile' {_gipArn = pArn_}
 
-
--- | The Amazon Resource Name (ARN) of your instance profile.
+-- | The Amazon Resource Name (ARN) of an instance profile.
 gipArn :: Lens' GetInstanceProfile Text
-gipArn = lens _gipArn (\ s a -> s{_gipArn = a})
+gipArn = lens _gipArn (\s a -> s {_gipArn = a})
 
 instance AWSRequest GetInstanceProfile where
-        type Rs GetInstanceProfile =
-             GetInstanceProfileResponse
-        request = postJSON deviceFarm
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetInstanceProfileResponse' <$>
-                   (x .?> "instanceProfile") <*> (pure (fromEnum s)))
+  type
+    Rs GetInstanceProfile =
+      GetInstanceProfileResponse
+  request = postJSON deviceFarm
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetInstanceProfileResponse'
+            <$> (x .?> "instanceProfile") <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetInstanceProfile where
+instance Hashable GetInstanceProfile
 
-instance NFData GetInstanceProfile where
+instance NFData GetInstanceProfile
 
 instance ToHeaders GetInstanceProfile where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("DeviceFarm_20150623.GetInstanceProfile" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "DeviceFarm_20150623.GetInstanceProfile" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON GetInstanceProfile where
-        toJSON GetInstanceProfile'{..}
-          = object (catMaybes [Just ("arn" .= _gipArn)])
+  toJSON GetInstanceProfile' {..} =
+    object (catMaybes [Just ("arn" .= _gipArn)])
 
 instance ToPath GetInstanceProfile where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetInstanceProfile where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getInstanceProfileResponse' smart constructor.
 data GetInstanceProfileResponse = GetInstanceProfileResponse'
-  { _giprsInstanceProfile :: !(Maybe InstanceProfile)
-  , _giprsResponseStatus  :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _giprrsInstanceProfile ::
+      !( Maybe
+           InstanceProfile
+       ),
+    _giprrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetInstanceProfileResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'giprsInstanceProfile' - An object containing information about your instance profile.
+-- * 'giprrsInstanceProfile' - An object that contains information about an instance profile.
 --
--- * 'giprsResponseStatus' - -- | The response status code.
-getInstanceProfileResponse
-    :: Int -- ^ 'giprsResponseStatus'
-    -> GetInstanceProfileResponse
+-- * 'giprrsResponseStatus' - -- | The response status code.
+getInstanceProfileResponse ::
+  -- | 'giprrsResponseStatus'
+  Int ->
+  GetInstanceProfileResponse
 getInstanceProfileResponse pResponseStatus_ =
   GetInstanceProfileResponse'
-    {_giprsInstanceProfile = Nothing, _giprsResponseStatus = pResponseStatus_}
+    { _giprrsInstanceProfile =
+        Nothing,
+      _giprrsResponseStatus = pResponseStatus_
+    }
 
-
--- | An object containing information about your instance profile.
-giprsInstanceProfile :: Lens' GetInstanceProfileResponse (Maybe InstanceProfile)
-giprsInstanceProfile = lens _giprsInstanceProfile (\ s a -> s{_giprsInstanceProfile = a})
+-- | An object that contains information about an instance profile.
+giprrsInstanceProfile :: Lens' GetInstanceProfileResponse (Maybe InstanceProfile)
+giprrsInstanceProfile = lens _giprrsInstanceProfile (\s a -> s {_giprrsInstanceProfile = a})
 
 -- | -- | The response status code.
-giprsResponseStatus :: Lens' GetInstanceProfileResponse Int
-giprsResponseStatus = lens _giprsResponseStatus (\ s a -> s{_giprsResponseStatus = a})
+giprrsResponseStatus :: Lens' GetInstanceProfileResponse Int
+giprrsResponseStatus = lens _giprrsResponseStatus (\s a -> s {_giprrsResponseStatus = a})
 
-instance NFData GetInstanceProfileResponse where
+instance NFData GetInstanceProfileResponse
