@@ -1,52 +1,54 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Glue.CreateCrawler
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new crawler with specified targets, role, configuration, and optional schedule. At least one crawl target must be specified, in either the /s3Targets/ or the /jdbcTargets/ field.
---
---
+-- Creates a new crawler with specified targets, role, configuration, and optional schedule. At least one crawl target must be specified, in the @s3Targets@ field, the @jdbcTargets@ field, or the @DynamoDBTargets@ field.
 module Network.AWS.Glue.CreateCrawler
-    (
-    -- * Creating a Request
-      createCrawler
-    , CreateCrawler
+  ( -- * Creating a Request
+    createCrawler,
+    CreateCrawler,
+
     -- * Request Lenses
-    , ccSchemaChangePolicy
-    , ccSchedule
-    , ccClassifiers
-    , ccConfiguration
-    , ccTablePrefix
-    , ccDescription
-    , ccName
-    , ccRole
-    , ccDatabaseName
-    , ccTargets
+    creSchemaChangePolicy,
+    creRecrawlPolicy,
+    creClassifiers,
+    creConfiguration,
+    creLineageConfiguration,
+    creTags,
+    creTablePrefix,
+    creDescription,
+    creSchedule,
+    creCrawlerSecurityConfiguration,
+    creDatabaseName,
+    creName,
+    creRole,
+    creTargets,
 
     -- * Destructuring the Response
-    , createCrawlerResponse
-    , CreateCrawlerResponse
+    createCrawlerResponse,
+    CreateCrawlerResponse,
+
     -- * Response Lenses
-    , crersResponseStatus
-    ) where
+    crsResponseStatus,
+  )
+where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Glue.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -54,164 +56,224 @@ import Network.AWS.Response
 
 -- | /See:/ 'createCrawler' smart constructor.
 data CreateCrawler = CreateCrawler'
-  { _ccSchemaChangePolicy :: !(Maybe SchemaChangePolicy)
-  , _ccSchedule           :: !(Maybe Text)
-  , _ccClassifiers        :: !(Maybe [Text])
-  , _ccConfiguration      :: !(Maybe Text)
-  , _ccTablePrefix        :: !(Maybe Text)
-  , _ccDescription        :: !(Maybe Text)
-  , _ccName               :: !Text
-  , _ccRole               :: !Text
-  , _ccDatabaseName       :: !Text
-  , _ccTargets            :: !CrawlerTargets
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _creSchemaChangePolicy ::
+      !(Maybe SchemaChangePolicy),
+    _creRecrawlPolicy :: !(Maybe RecrawlPolicy),
+    _creClassifiers :: !(Maybe [Text]),
+    _creConfiguration :: !(Maybe Text),
+    _creLineageConfiguration ::
+      !(Maybe LineageConfiguration),
+    _creTags :: !(Maybe (Map Text Text)),
+    _creTablePrefix :: !(Maybe Text),
+    _creDescription :: !(Maybe Text),
+    _creSchedule :: !(Maybe Text),
+    _creCrawlerSecurityConfiguration ::
+      !(Maybe Text),
+    _creDatabaseName :: !(Maybe Text),
+    _creName :: !Text,
+    _creRole :: !Text,
+    _creTargets :: !CrawlerTargets
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'CreateCrawler' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ccSchemaChangePolicy' - Policy for the crawler's update and deletion behavior.
+-- * 'creSchemaChangePolicy' - The policy for the crawler's update and deletion behavior.
 --
--- * 'ccSchedule' - A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
+-- * 'creRecrawlPolicy' - A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run.
 --
--- * 'ccClassifiers' - A list of custom classifiers that the user has registered. By default, all AWS classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.
+-- * 'creClassifiers' - A list of custom classifiers that the user has registered. By default, all built-in classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.
 --
--- * 'ccConfiguration' - Crawler configuration information. This versioned JSON string allows users to specify aspects of a Crawler's behavior. You can use this field to force partitions to inherit metadata such as classification, input format, output format, serde information, and schema from their parent table, rather than detect this information separately for each partition. Use the following JSON string to specify that behavior: Example: @'{ "Version": 1.0, "CrawlerOutput": { "Partitions": { "AddOrUpdateBehavior": "InheritFromTable" } } }'@
+-- * 'creConfiguration' - Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler> .
 --
--- * 'ccTablePrefix' - The table prefix used for catalog tables that are created.
+-- * 'creLineageConfiguration' - Specifies data lineage configuration settings for the crawler.
 --
--- * 'ccDescription' - A description of the new crawler.
+-- * 'creTags' - The tags to use with this crawler request. You may use tags to limit access to the crawler. For more information about tags in AWS Glue, see <https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html AWS Tags in AWS Glue> in the developer guide.
 --
--- * 'ccName' - Name of the new crawler.
+-- * 'creTablePrefix' - The table prefix used for catalog tables that are created.
 --
--- * 'ccRole' - The IAM role (or ARN of an IAM role) used by the new crawler to access customer resources.
+-- * 'creDescription' - A description of the new crawler.
 --
--- * 'ccDatabaseName' - The AWS Glue database where results are written, such as: @arn:aws:daylight:us-east-1::database/sometable/*@ .
+-- * 'creSchedule' - A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 --
--- * 'ccTargets' - A list of collection of targets to crawl.
-createCrawler
-    :: Text -- ^ 'ccName'
-    -> Text -- ^ 'ccRole'
-    -> Text -- ^ 'ccDatabaseName'
-    -> CrawlerTargets -- ^ 'ccTargets'
-    -> CreateCrawler
-createCrawler pName_ pRole_ pDatabaseName_ pTargets_ =
+-- * 'creCrawlerSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used by this crawler.
+--
+-- * 'creDatabaseName' - The AWS Glue database where results are written, such as: @arn:aws:daylight:us-east-1::database/sometable/*@ .
+--
+-- * 'creName' - Name of the new crawler.
+--
+-- * 'creRole' - The IAM role or Amazon Resource Name (ARN) of an IAM role used by the new crawler to access customer resources.
+--
+-- * 'creTargets' - A list of collection of targets to crawl.
+createCrawler ::
+  -- | 'creName'
+  Text ->
+  -- | 'creRole'
+  Text ->
+  -- | 'creTargets'
+  CrawlerTargets ->
+  CreateCrawler
+createCrawler pName_ pRole_ pTargets_ =
   CreateCrawler'
-    { _ccSchemaChangePolicy = Nothing
-    , _ccSchedule = Nothing
-    , _ccClassifiers = Nothing
-    , _ccConfiguration = Nothing
-    , _ccTablePrefix = Nothing
-    , _ccDescription = Nothing
-    , _ccName = pName_
-    , _ccRole = pRole_
-    , _ccDatabaseName = pDatabaseName_
-    , _ccTargets = pTargets_
+    { _creSchemaChangePolicy = Nothing,
+      _creRecrawlPolicy = Nothing,
+      _creClassifiers = Nothing,
+      _creConfiguration = Nothing,
+      _creLineageConfiguration = Nothing,
+      _creTags = Nothing,
+      _creTablePrefix = Nothing,
+      _creDescription = Nothing,
+      _creSchedule = Nothing,
+      _creCrawlerSecurityConfiguration = Nothing,
+      _creDatabaseName = Nothing,
+      _creName = pName_,
+      _creRole = pRole_,
+      _creTargets = pTargets_
     }
 
+-- | The policy for the crawler's update and deletion behavior.
+creSchemaChangePolicy :: Lens' CreateCrawler (Maybe SchemaChangePolicy)
+creSchemaChangePolicy = lens _creSchemaChangePolicy (\s a -> s {_creSchemaChangePolicy = a})
 
--- | Policy for the crawler's update and deletion behavior.
-ccSchemaChangePolicy :: Lens' CreateCrawler (Maybe SchemaChangePolicy)
-ccSchemaChangePolicy = lens _ccSchemaChangePolicy (\ s a -> s{_ccSchemaChangePolicy = a})
+-- | A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run.
+creRecrawlPolicy :: Lens' CreateCrawler (Maybe RecrawlPolicy)
+creRecrawlPolicy = lens _creRecrawlPolicy (\s a -> s {_creRecrawlPolicy = a})
 
--- | A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
-ccSchedule :: Lens' CreateCrawler (Maybe Text)
-ccSchedule = lens _ccSchedule (\ s a -> s{_ccSchedule = a})
+-- | A list of custom classifiers that the user has registered. By default, all built-in classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.
+creClassifiers :: Lens' CreateCrawler [Text]
+creClassifiers = lens _creClassifiers (\s a -> s {_creClassifiers = a}) . _Default . _Coerce
 
--- | A list of custom classifiers that the user has registered. By default, all AWS classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.
-ccClassifiers :: Lens' CreateCrawler [Text]
-ccClassifiers = lens _ccClassifiers (\ s a -> s{_ccClassifiers = a}) . _Default . _Coerce
+-- | Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler> .
+creConfiguration :: Lens' CreateCrawler (Maybe Text)
+creConfiguration = lens _creConfiguration (\s a -> s {_creConfiguration = a})
 
--- | Crawler configuration information. This versioned JSON string allows users to specify aspects of a Crawler's behavior. You can use this field to force partitions to inherit metadata such as classification, input format, output format, serde information, and schema from their parent table, rather than detect this information separately for each partition. Use the following JSON string to specify that behavior: Example: @'{ "Version": 1.0, "CrawlerOutput": { "Partitions": { "AddOrUpdateBehavior": "InheritFromTable" } } }'@
-ccConfiguration :: Lens' CreateCrawler (Maybe Text)
-ccConfiguration = lens _ccConfiguration (\ s a -> s{_ccConfiguration = a})
+-- | Specifies data lineage configuration settings for the crawler.
+creLineageConfiguration :: Lens' CreateCrawler (Maybe LineageConfiguration)
+creLineageConfiguration = lens _creLineageConfiguration (\s a -> s {_creLineageConfiguration = a})
+
+-- | The tags to use with this crawler request. You may use tags to limit access to the crawler. For more information about tags in AWS Glue, see <https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html AWS Tags in AWS Glue> in the developer guide.
+creTags :: Lens' CreateCrawler (HashMap Text Text)
+creTags = lens _creTags (\s a -> s {_creTags = a}) . _Default . _Map
 
 -- | The table prefix used for catalog tables that are created.
-ccTablePrefix :: Lens' CreateCrawler (Maybe Text)
-ccTablePrefix = lens _ccTablePrefix (\ s a -> s{_ccTablePrefix = a})
+creTablePrefix :: Lens' CreateCrawler (Maybe Text)
+creTablePrefix = lens _creTablePrefix (\s a -> s {_creTablePrefix = a})
 
 -- | A description of the new crawler.
-ccDescription :: Lens' CreateCrawler (Maybe Text)
-ccDescription = lens _ccDescription (\ s a -> s{_ccDescription = a})
+creDescription :: Lens' CreateCrawler (Maybe Text)
+creDescription = lens _creDescription (\s a -> s {_creDescription = a})
 
--- | Name of the new crawler.
-ccName :: Lens' CreateCrawler Text
-ccName = lens _ccName (\ s a -> s{_ccName = a})
+-- | A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
+creSchedule :: Lens' CreateCrawler (Maybe Text)
+creSchedule = lens _creSchedule (\s a -> s {_creSchedule = a})
 
--- | The IAM role (or ARN of an IAM role) used by the new crawler to access customer resources.
-ccRole :: Lens' CreateCrawler Text
-ccRole = lens _ccRole (\ s a -> s{_ccRole = a})
+-- | The name of the @SecurityConfiguration@ structure to be used by this crawler.
+creCrawlerSecurityConfiguration :: Lens' CreateCrawler (Maybe Text)
+creCrawlerSecurityConfiguration = lens _creCrawlerSecurityConfiguration (\s a -> s {_creCrawlerSecurityConfiguration = a})
 
 -- | The AWS Glue database where results are written, such as: @arn:aws:daylight:us-east-1::database/sometable/*@ .
-ccDatabaseName :: Lens' CreateCrawler Text
-ccDatabaseName = lens _ccDatabaseName (\ s a -> s{_ccDatabaseName = a})
+creDatabaseName :: Lens' CreateCrawler (Maybe Text)
+creDatabaseName = lens _creDatabaseName (\s a -> s {_creDatabaseName = a})
+
+-- | Name of the new crawler.
+creName :: Lens' CreateCrawler Text
+creName = lens _creName (\s a -> s {_creName = a})
+
+-- | The IAM role or Amazon Resource Name (ARN) of an IAM role used by the new crawler to access customer resources.
+creRole :: Lens' CreateCrawler Text
+creRole = lens _creRole (\s a -> s {_creRole = a})
 
 -- | A list of collection of targets to crawl.
-ccTargets :: Lens' CreateCrawler CrawlerTargets
-ccTargets = lens _ccTargets (\ s a -> s{_ccTargets = a})
+creTargets :: Lens' CreateCrawler CrawlerTargets
+creTargets = lens _creTargets (\s a -> s {_creTargets = a})
 
 instance AWSRequest CreateCrawler where
-        type Rs CreateCrawler = CreateCrawlerResponse
-        request = postJSON glue
-        response
-          = receiveEmpty
-              (\ s h x ->
-                 CreateCrawlerResponse' <$> (pure (fromEnum s)))
+  type Rs CreateCrawler = CreateCrawlerResponse
+  request = postJSON glue
+  response =
+    receiveEmpty
+      ( \s h x ->
+          CreateCrawlerResponse' <$> (pure (fromEnum s))
+      )
 
-instance Hashable CreateCrawler where
+instance Hashable CreateCrawler
 
-instance NFData CreateCrawler where
+instance NFData CreateCrawler
 
 instance ToHeaders CreateCrawler where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSGlue.CreateCrawler" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("AWSGlue.CreateCrawler" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON CreateCrawler where
-        toJSON CreateCrawler'{..}
-          = object
-              (catMaybes
-                 [("SchemaChangePolicy" .=) <$> _ccSchemaChangePolicy,
-                  ("Schedule" .=) <$> _ccSchedule,
-                  ("Classifiers" .=) <$> _ccClassifiers,
-                  ("Configuration" .=) <$> _ccConfiguration,
-                  ("TablePrefix" .=) <$> _ccTablePrefix,
-                  ("Description" .=) <$> _ccDescription,
-                  Just ("Name" .= _ccName), Just ("Role" .= _ccRole),
-                  Just ("DatabaseName" .= _ccDatabaseName),
-                  Just ("Targets" .= _ccTargets)])
+  toJSON CreateCrawler' {..} =
+    object
+      ( catMaybes
+          [ ("SchemaChangePolicy" .=)
+              <$> _creSchemaChangePolicy,
+            ("RecrawlPolicy" .=) <$> _creRecrawlPolicy,
+            ("Classifiers" .=) <$> _creClassifiers,
+            ("Configuration" .=) <$> _creConfiguration,
+            ("LineageConfiguration" .=)
+              <$> _creLineageConfiguration,
+            ("Tags" .=) <$> _creTags,
+            ("TablePrefix" .=) <$> _creTablePrefix,
+            ("Description" .=) <$> _creDescription,
+            ("Schedule" .=) <$> _creSchedule,
+            ("CrawlerSecurityConfiguration" .=)
+              <$> _creCrawlerSecurityConfiguration,
+            ("DatabaseName" .=) <$> _creDatabaseName,
+            Just ("Name" .= _creName),
+            Just ("Role" .= _creRole),
+            Just ("Targets" .= _creTargets)
+          ]
+      )
 
 instance ToPath CreateCrawler where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery CreateCrawler where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'createCrawlerResponse' smart constructor.
 newtype CreateCrawlerResponse = CreateCrawlerResponse'
-  { _crersResponseStatus :: Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _crsResponseStatus ::
+      Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'CreateCrawlerResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'crersResponseStatus' - -- | The response status code.
-createCrawlerResponse
-    :: Int -- ^ 'crersResponseStatus'
-    -> CreateCrawlerResponse
+-- * 'crsResponseStatus' - -- | The response status code.
+createCrawlerResponse ::
+  -- | 'crsResponseStatus'
+  Int ->
+  CreateCrawlerResponse
 createCrawlerResponse pResponseStatus_ =
-  CreateCrawlerResponse' {_crersResponseStatus = pResponseStatus_}
-
+  CreateCrawlerResponse'
+    { _crsResponseStatus =
+        pResponseStatus_
+    }
 
 -- | -- | The response status code.
-crersResponseStatus :: Lens' CreateCrawlerResponse Int
-crersResponseStatus = lens _crersResponseStatus (\ s a -> s{_crersResponseStatus = a})
+crsResponseStatus :: Lens' CreateCrawlerResponse Int
+crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
 
-instance NFData CreateCrawlerResponse where
+instance NFData CreateCrawlerResponse

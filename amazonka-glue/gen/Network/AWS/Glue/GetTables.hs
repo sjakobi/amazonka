@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Glue.GetTables
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,28 +23,29 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetTables
-    (
-    -- * Creating a Request
-      getTables
-    , GetTables
+  ( -- * Creating a Request
+    getTables,
+    GetTables,
+
     -- * Request Lenses
-    , gtCatalogId
-    , gtNextToken
-    , gtExpression
-    , gtMaxResults
-    , gtDatabaseName
+    gtsNextToken,
+    gtsCatalogId,
+    gtsMaxResults,
+    gtsExpression,
+    gtsDatabaseName,
 
     -- * Destructuring the Response
-    , getTablesResponse
-    , GetTablesResponse
+    getTablesResponse,
+    GetTablesResponse,
+
     -- * Response Lenses
-    , gtsrsTableList
-    , gtsrsNextToken
-    , gtsrsResponseStatus
-    ) where
+    gettablesresponseersNextToken,
+    gettablesresponseersTableList,
+    gettablesresponseersResponseStatus,
+  )
+where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Glue.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Pager
 import Network.AWS.Prelude
@@ -54,145 +54,160 @@ import Network.AWS.Response
 
 -- | /See:/ 'getTables' smart constructor.
 data GetTables = GetTables'
-  { _gtCatalogId    :: !(Maybe Text)
-  , _gtNextToken    :: !(Maybe Text)
-  , _gtExpression   :: !(Maybe Text)
-  , _gtMaxResults   :: !(Maybe Nat)
-  , _gtDatabaseName :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gtsNextToken ::
+      !(Maybe Text),
+    _gtsCatalogId :: !(Maybe Text),
+    _gtsMaxResults :: !(Maybe Nat),
+    _gtsExpression :: !(Maybe Text),
+    _gtsDatabaseName :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetTables' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gtCatalogId' - The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.
+-- * 'gtsNextToken' - A continuation token, included if this is a continuation call.
 --
--- * 'gtNextToken' - A continuation token, included if this is a continuation call.
+-- * 'gtsCatalogId' - The ID of the Data Catalog where the tables reside. If none is provided, the AWS account ID is used by default.
 --
--- * 'gtExpression' - A regular expression pattern. If present, only those tables whose names match the pattern are returned.
+-- * 'gtsMaxResults' - The maximum number of tables to return in a single response.
 --
--- * 'gtMaxResults' - The maximum number of tables to return in a single response.
+-- * 'gtsExpression' - A regular expression pattern. If present, only those tables whose names match the pattern are returned.
 --
--- * 'gtDatabaseName' - The database in the catalog whose tables to list. For Hive compatibility, this name is entirely lowercase.
-getTables
-    :: Text -- ^ 'gtDatabaseName'
-    -> GetTables
+-- * 'gtsDatabaseName' - The database in the catalog whose tables to list. For Hive compatibility, this name is entirely lowercase.
+getTables ::
+  -- | 'gtsDatabaseName'
+  Text ->
+  GetTables
 getTables pDatabaseName_ =
   GetTables'
-    { _gtCatalogId = Nothing
-    , _gtNextToken = Nothing
-    , _gtExpression = Nothing
-    , _gtMaxResults = Nothing
-    , _gtDatabaseName = pDatabaseName_
+    { _gtsNextToken = Nothing,
+      _gtsCatalogId = Nothing,
+      _gtsMaxResults = Nothing,
+      _gtsExpression = Nothing,
+      _gtsDatabaseName = pDatabaseName_
     }
 
-
--- | The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.
-gtCatalogId :: Lens' GetTables (Maybe Text)
-gtCatalogId = lens _gtCatalogId (\ s a -> s{_gtCatalogId = a})
-
 -- | A continuation token, included if this is a continuation call.
-gtNextToken :: Lens' GetTables (Maybe Text)
-gtNextToken = lens _gtNextToken (\ s a -> s{_gtNextToken = a})
+gtsNextToken :: Lens' GetTables (Maybe Text)
+gtsNextToken = lens _gtsNextToken (\s a -> s {_gtsNextToken = a})
 
--- | A regular expression pattern. If present, only those tables whose names match the pattern are returned.
-gtExpression :: Lens' GetTables (Maybe Text)
-gtExpression = lens _gtExpression (\ s a -> s{_gtExpression = a})
+-- | The ID of the Data Catalog where the tables reside. If none is provided, the AWS account ID is used by default.
+gtsCatalogId :: Lens' GetTables (Maybe Text)
+gtsCatalogId = lens _gtsCatalogId (\s a -> s {_gtsCatalogId = a})
 
 -- | The maximum number of tables to return in a single response.
-gtMaxResults :: Lens' GetTables (Maybe Natural)
-gtMaxResults = lens _gtMaxResults (\ s a -> s{_gtMaxResults = a}) . mapping _Nat
+gtsMaxResults :: Lens' GetTables (Maybe Natural)
+gtsMaxResults = lens _gtsMaxResults (\s a -> s {_gtsMaxResults = a}) . mapping _Nat
+
+-- | A regular expression pattern. If present, only those tables whose names match the pattern are returned.
+gtsExpression :: Lens' GetTables (Maybe Text)
+gtsExpression = lens _gtsExpression (\s a -> s {_gtsExpression = a})
 
 -- | The database in the catalog whose tables to list. For Hive compatibility, this name is entirely lowercase.
-gtDatabaseName :: Lens' GetTables Text
-gtDatabaseName = lens _gtDatabaseName (\ s a -> s{_gtDatabaseName = a})
+gtsDatabaseName :: Lens' GetTables Text
+gtsDatabaseName = lens _gtsDatabaseName (\s a -> s {_gtsDatabaseName = a})
 
 instance AWSPager GetTables where
-        page rq rs
-          | stop (rs ^. gtsrsNextToken) = Nothing
-          | stop (rs ^. gtsrsTableList) = Nothing
-          | otherwise =
-            Just $ rq & gtNextToken .~ rs ^. gtsrsNextToken
+  page rq rs
+    | stop (rs ^. gettablesresponseersNextToken) =
+      Nothing
+    | stop (rs ^. gettablesresponseersTableList) =
+      Nothing
+    | otherwise =
+      Just $
+        rq
+          & gtsNextToken .~ rs ^. gettablesresponseersNextToken
 
 instance AWSRequest GetTables where
-        type Rs GetTables = GetTablesResponse
-        request = postJSON glue
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetTablesResponse' <$>
-                   (x .?> "TableList" .!@ mempty) <*>
-                     (x .?> "NextToken")
-                     <*> (pure (fromEnum s)))
+  type Rs GetTables = GetTablesResponse
+  request = postJSON glue
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetTablesResponse'
+            <$> (x .?> "NextToken")
+            <*> (x .?> "TableList" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetTables where
+instance Hashable GetTables
 
-instance NFData GetTables where
+instance NFData GetTables
 
 instance ToHeaders GetTables where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSGlue.GetTables" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("AWSGlue.GetTables" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON GetTables where
-        toJSON GetTables'{..}
-          = object
-              (catMaybes
-                 [("CatalogId" .=) <$> _gtCatalogId,
-                  ("NextToken" .=) <$> _gtNextToken,
-                  ("Expression" .=) <$> _gtExpression,
-                  ("MaxResults" .=) <$> _gtMaxResults,
-                  Just ("DatabaseName" .= _gtDatabaseName)])
+  toJSON GetTables' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _gtsNextToken,
+            ("CatalogId" .=) <$> _gtsCatalogId,
+            ("MaxResults" .=) <$> _gtsMaxResults,
+            ("Expression" .=) <$> _gtsExpression,
+            Just ("DatabaseName" .= _gtsDatabaseName)
+          ]
+      )
 
 instance ToPath GetTables where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetTables where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getTablesResponse' smart constructor.
 data GetTablesResponse = GetTablesResponse'
-  { _gtsrsTableList      :: !(Maybe [Table])
-  , _gtsrsNextToken      :: !(Maybe Text)
-  , _gtsrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gettablesresponseersNextToken ::
+      !(Maybe Text),
+    _gettablesresponseersTableList ::
+      !(Maybe [Table]),
+    _gettablesresponseersResponseStatus ::
+      !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetTablesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gtsrsTableList' - A list of the requested @Table@ objects.
+-- * 'gettablesresponseersNextToken' - A continuation token, present if the current list segment is not the last.
 --
--- * 'gtsrsNextToken' - A continuation token, present if the current list segment is not the last.
+-- * 'gettablesresponseersTableList' - A list of the requested @Table@ objects.
 --
--- * 'gtsrsResponseStatus' - -- | The response status code.
-getTablesResponse
-    :: Int -- ^ 'gtsrsResponseStatus'
-    -> GetTablesResponse
+-- * 'gettablesresponseersResponseStatus' - -- | The response status code.
+getTablesResponse ::
+  -- | 'gettablesresponseersResponseStatus'
+  Int ->
+  GetTablesResponse
 getTablesResponse pResponseStatus_ =
   GetTablesResponse'
-    { _gtsrsTableList = Nothing
-    , _gtsrsNextToken = Nothing
-    , _gtsrsResponseStatus = pResponseStatus_
+    { _gettablesresponseersNextToken =
+        Nothing,
+      _gettablesresponseersTableList = Nothing,
+      _gettablesresponseersResponseStatus =
+        pResponseStatus_
     }
 
+-- | A continuation token, present if the current list segment is not the last.
+gettablesresponseersNextToken :: Lens' GetTablesResponse (Maybe Text)
+gettablesresponseersNextToken = lens _gettablesresponseersNextToken (\s a -> s {_gettablesresponseersNextToken = a})
 
 -- | A list of the requested @Table@ objects.
-gtsrsTableList :: Lens' GetTablesResponse [Table]
-gtsrsTableList = lens _gtsrsTableList (\ s a -> s{_gtsrsTableList = a}) . _Default . _Coerce
-
--- | A continuation token, present if the current list segment is not the last.
-gtsrsNextToken :: Lens' GetTablesResponse (Maybe Text)
-gtsrsNextToken = lens _gtsrsNextToken (\ s a -> s{_gtsrsNextToken = a})
+gettablesresponseersTableList :: Lens' GetTablesResponse [Table]
+gettablesresponseersTableList = lens _gettablesresponseersTableList (\s a -> s {_gettablesresponseersTableList = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-gtsrsResponseStatus :: Lens' GetTablesResponse Int
-gtsrsResponseStatus = lens _gtsrsResponseStatus (\ s a -> s{_gtsrsResponseStatus = a})
+gettablesresponseersResponseStatus :: Lens' GetTablesResponse Int
+gettablesresponseersResponseStatus = lens _gettablesresponseersResponseStatus (\s a -> s {_gettablesresponseersResponseStatus = a})
 
-instance NFData GetTablesResponse where
+instance NFData GetTablesResponse
