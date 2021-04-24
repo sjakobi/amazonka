@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.SDB
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.SDB where
 
 import Data.Proxy
@@ -28,192 +27,212 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestBatchDeleteAttributes $
---             batchDeleteAttributes
---
---         , requestBatchPutAttributes $
---             batchPutAttributes
---
---         , requestGetAttributes $
---             getAttributes
---
---         , requestCreateDomain $
---             createDomain
---
---         , requestDomainMetadata $
---             domainMetadata
---
---         , requestSelect $
---             select
+--         [ requestListDomains $
+--             listDomains
 --
 --         , requestDeleteAttributes $
 --             deleteAttributes
 --
---         , requestPutAttributes $
---             putAttributes
+--         , requestDomainMetadata $
+--             domainMetadata
+--
+--         , requestBatchPutAttributes $
+--             batchPutAttributes
+--
+--         , requestCreateDomain $
+--             createDomain
+--
+--         , requestGetAttributes $
+--             getAttributes
 --
 --         , requestDeleteDomain $
 --             deleteDomain
 --
---         , requestListDomains $
---             listDomains
+--         , requestPutAttributes $
+--             putAttributes
+--
+--         , requestSelect $
+--             select
+--
+--         , requestBatchDeleteAttributes $
+--             batchDeleteAttributes
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseBatchDeleteAttributes $
---             batchDeleteAttributesResponse
---
---         , responseBatchPutAttributes $
---             batchPutAttributesResponse
---
---         , responseGetAttributes $
---             getAttributesResponse
---
---         , responseCreateDomain $
---             createDomainResponse
---
---         , responseDomainMetadata $
---             domainMetadataResponse
---
---         , responseSelect $
---             selectResponse
+--         [ responseListDomains $
+--             listDomainsResponse
 --
 --         , responseDeleteAttributes $
 --             deleteAttributesResponse
 --
---         , responsePutAttributes $
---             putAttributesResponse
+--         , responseDomainMetadata $
+--             domainMetadataResponse
+--
+--         , responseBatchPutAttributes $
+--             batchPutAttributesResponse
+--
+--         , responseCreateDomain $
+--             createDomainResponse
+--
+--         , responseGetAttributes $
+--             getAttributesResponse
 --
 --         , responseDeleteDomain $
 --             deleteDomainResponse
 --
---         , responseListDomains $
---             listDomainsResponse
+--         , responsePutAttributes $
+--             putAttributesResponse
+--
+--         , responseSelect $
+--             selectResponse
+--
+--         , responseBatchDeleteAttributes $
+--             batchDeleteAttributesResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestBatchDeleteAttributes :: BatchDeleteAttributes -> TestTree
-requestBatchDeleteAttributes = req
-    "BatchDeleteAttributes"
-    "fixture/BatchDeleteAttributes.yaml"
-
-requestBatchPutAttributes :: BatchPutAttributes -> TestTree
-requestBatchPutAttributes = req
-    "BatchPutAttributes"
-    "fixture/BatchPutAttributes.yaml"
-
-requestGetAttributes :: GetAttributes -> TestTree
-requestGetAttributes = req
-    "GetAttributes"
-    "fixture/GetAttributes.yaml"
-
-requestCreateDomain :: CreateDomain -> TestTree
-requestCreateDomain = req
-    "CreateDomain"
-    "fixture/CreateDomain.yaml"
-
-requestDomainMetadata :: DomainMetadata -> TestTree
-requestDomainMetadata = req
-    "DomainMetadata"
-    "fixture/DomainMetadata.yaml"
-
-requestSelect :: Select -> TestTree
-requestSelect = req
-    "Select"
-    "fixture/Select.yaml"
-
-requestDeleteAttributes :: DeleteAttributes -> TestTree
-requestDeleteAttributes = req
-    "DeleteAttributes"
-    "fixture/DeleteAttributes.yaml"
-
-requestPutAttributes :: PutAttributes -> TestTree
-requestPutAttributes = req
-    "PutAttributes"
-    "fixture/PutAttributes.yaml"
-
-requestDeleteDomain :: DeleteDomain -> TestTree
-requestDeleteDomain = req
-    "DeleteDomain"
-    "fixture/DeleteDomain.yaml"
-
 requestListDomains :: ListDomains -> TestTree
-requestListDomains = req
+requestListDomains =
+  req
     "ListDomains"
     "fixture/ListDomains.yaml"
 
+requestDeleteAttributes :: DeleteAttributes -> TestTree
+requestDeleteAttributes =
+  req
+    "DeleteAttributes"
+    "fixture/DeleteAttributes.yaml"
+
+requestDomainMetadata :: DomainMetadata -> TestTree
+requestDomainMetadata =
+  req
+    "DomainMetadata"
+    "fixture/DomainMetadata.yaml"
+
+requestBatchPutAttributes :: BatchPutAttributes -> TestTree
+requestBatchPutAttributes =
+  req
+    "BatchPutAttributes"
+    "fixture/BatchPutAttributes.yaml"
+
+requestCreateDomain :: CreateDomain -> TestTree
+requestCreateDomain =
+  req
+    "CreateDomain"
+    "fixture/CreateDomain.yaml"
+
+requestGetAttributes :: GetAttributes -> TestTree
+requestGetAttributes =
+  req
+    "GetAttributes"
+    "fixture/GetAttributes.yaml"
+
+requestDeleteDomain :: DeleteDomain -> TestTree
+requestDeleteDomain =
+  req
+    "DeleteDomain"
+    "fixture/DeleteDomain.yaml"
+
+requestPutAttributes :: PutAttributes -> TestTree
+requestPutAttributes =
+  req
+    "PutAttributes"
+    "fixture/PutAttributes.yaml"
+
+requestSelect :: Select -> TestTree
+requestSelect =
+  req
+    "Select"
+    "fixture/Select.yaml"
+
+requestBatchDeleteAttributes :: BatchDeleteAttributes -> TestTree
+requestBatchDeleteAttributes =
+  req
+    "BatchDeleteAttributes"
+    "fixture/BatchDeleteAttributes.yaml"
+
 -- Responses
 
-responseBatchDeleteAttributes :: BatchDeleteAttributesResponse -> TestTree
-responseBatchDeleteAttributes = res
-    "BatchDeleteAttributesResponse"
-    "fixture/BatchDeleteAttributesResponse.proto"
+responseListDomains :: ListDomainsResponse -> TestTree
+responseListDomains =
+  res
+    "ListDomainsResponse"
+    "fixture/ListDomainsResponse.proto"
     sdb
-    (Proxy :: Proxy BatchDeleteAttributes)
-
-responseBatchPutAttributes :: BatchPutAttributesResponse -> TestTree
-responseBatchPutAttributes = res
-    "BatchPutAttributesResponse"
-    "fixture/BatchPutAttributesResponse.proto"
-    sdb
-    (Proxy :: Proxy BatchPutAttributes)
-
-responseGetAttributes :: GetAttributesResponse -> TestTree
-responseGetAttributes = res
-    "GetAttributesResponse"
-    "fixture/GetAttributesResponse.proto"
-    sdb
-    (Proxy :: Proxy GetAttributes)
-
-responseCreateDomain :: CreateDomainResponse -> TestTree
-responseCreateDomain = res
-    "CreateDomainResponse"
-    "fixture/CreateDomainResponse.proto"
-    sdb
-    (Proxy :: Proxy CreateDomain)
-
-responseDomainMetadata :: DomainMetadataResponse -> TestTree
-responseDomainMetadata = res
-    "DomainMetadataResponse"
-    "fixture/DomainMetadataResponse.proto"
-    sdb
-    (Proxy :: Proxy DomainMetadata)
-
-responseSelect :: SelectResponse -> TestTree
-responseSelect = res
-    "SelectResponse"
-    "fixture/SelectResponse.proto"
-    sdb
-    (Proxy :: Proxy Select)
+    (Proxy :: Proxy ListDomains)
 
 responseDeleteAttributes :: DeleteAttributesResponse -> TestTree
-responseDeleteAttributes = res
+responseDeleteAttributes =
+  res
     "DeleteAttributesResponse"
     "fixture/DeleteAttributesResponse.proto"
     sdb
     (Proxy :: Proxy DeleteAttributes)
 
-responsePutAttributes :: PutAttributesResponse -> TestTree
-responsePutAttributes = res
-    "PutAttributesResponse"
-    "fixture/PutAttributesResponse.proto"
+responseDomainMetadata :: DomainMetadataResponse -> TestTree
+responseDomainMetadata =
+  res
+    "DomainMetadataResponse"
+    "fixture/DomainMetadataResponse.proto"
     sdb
-    (Proxy :: Proxy PutAttributes)
+    (Proxy :: Proxy DomainMetadata)
+
+responseBatchPutAttributes :: BatchPutAttributesResponse -> TestTree
+responseBatchPutAttributes =
+  res
+    "BatchPutAttributesResponse"
+    "fixture/BatchPutAttributesResponse.proto"
+    sdb
+    (Proxy :: Proxy BatchPutAttributes)
+
+responseCreateDomain :: CreateDomainResponse -> TestTree
+responseCreateDomain =
+  res
+    "CreateDomainResponse"
+    "fixture/CreateDomainResponse.proto"
+    sdb
+    (Proxy :: Proxy CreateDomain)
+
+responseGetAttributes :: GetAttributesResponse -> TestTree
+responseGetAttributes =
+  res
+    "GetAttributesResponse"
+    "fixture/GetAttributesResponse.proto"
+    sdb
+    (Proxy :: Proxy GetAttributes)
 
 responseDeleteDomain :: DeleteDomainResponse -> TestTree
-responseDeleteDomain = res
+responseDeleteDomain =
+  res
     "DeleteDomainResponse"
     "fixture/DeleteDomainResponse.proto"
     sdb
     (Proxy :: Proxy DeleteDomain)
 
-responseListDomains :: ListDomainsResponse -> TestTree
-responseListDomains = res
-    "ListDomainsResponse"
-    "fixture/ListDomainsResponse.proto"
+responsePutAttributes :: PutAttributesResponse -> TestTree
+responsePutAttributes =
+  res
+    "PutAttributesResponse"
+    "fixture/PutAttributesResponse.proto"
     sdb
-    (Proxy :: Proxy ListDomains)
+    (Proxy :: Proxy PutAttributes)
+
+responseSelect :: SelectResponse -> TestTree
+responseSelect =
+  res
+    "SelectResponse"
+    "fixture/SelectResponse.proto"
+    sdb
+    (Proxy :: Proxy Select)
+
+responseBatchDeleteAttributes :: BatchDeleteAttributesResponse -> TestTree
+responseBatchDeleteAttributes =
+  res
+    "BatchDeleteAttributesResponse"
+    "fixture/BatchDeleteAttributesResponse.proto"
+    sdb
+    (Proxy :: Proxy BatchDeleteAttributes)
