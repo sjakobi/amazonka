@@ -4,53 +4,80 @@
 
 -- |
 -- Module      : Network.AWS.MediaStore.Types
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Network.AWS.MediaStore.Types
-    (
-    -- * Service Configuration
-      mediaStore
+  ( -- * Service Configuration
+    mediaStore,
 
     -- * Errors
-    , _PolicyNotFoundException
-    , _CORSPolicyNotFoundException
-    , _ContainerInUseException
-    , _InternalServerError
-    , _ContainerNotFoundException
-    , _LimitExceededException
+    _ContainerInUseException,
+    _InternalServerError,
+    _PolicyNotFoundException,
+    _LimitExceededException,
+    _CORSPolicyNotFoundException,
+    _ContainerNotFoundException,
+
+    -- * ContainerLevelMetrics
+    ContainerLevelMetrics (..),
 
     -- * ContainerStatus
-    , ContainerStatus (..)
+    ContainerStatus (..),
 
     -- * MethodName
-    , MethodName (..)
+    MethodName (..),
 
     -- * CORSRule
-    , CORSRule
-    , corsRule
-    , crAllowedMethods
-    , crMaxAgeSeconds
-    , crAllowedHeaders
-    , crAllowedOrigins
-    , crExposeHeaders
+    CORSRule (..),
+    corsRule,
+    crAllowedMethods,
+    crMaxAgeSeconds,
+    crExposeHeaders,
+    crAllowedOrigins,
+    crAllowedHeaders,
 
     -- * Container
-    , Container
-    , container
-    , cCreationTime
-    , cStatus
-    , cARN
-    , cName
-    , cEndpoint
-    ) where
+    Container (..),
+    container,
+    cStatus,
+    cCreationTime,
+    cARN,
+    cAccessLoggingEnabled,
+    cName,
+    cEndpoint,
+
+    -- * MetricPolicy
+    MetricPolicy (..),
+    metricPolicy,
+    mpMetricPolicyRules,
+    mpContainerLevelMetrics,
+
+    -- * MetricPolicyRule
+    MetricPolicyRule (..),
+    metricPolicyRule,
+    mprObjectGroup,
+    mprObjectGroupName,
+
+    -- * Tag
+    Tag (..),
+    tag,
+    tagValue,
+    tagKey,
+  )
+where
 
 import Network.AWS.Lens
-import Network.AWS.MediaStore.Types.Product
-import Network.AWS.MediaStore.Types.Sum
+import Network.AWS.MediaStore.Types.CORSRule
+import Network.AWS.MediaStore.Types.Container
+import Network.AWS.MediaStore.Types.ContainerLevelMetrics
+import Network.AWS.MediaStore.Types.ContainerStatus
+import Network.AWS.MediaStore.Types.MethodName
+import Network.AWS.MediaStore.Types.MetricPolicy
+import Network.AWS.MediaStore.Types.MetricPolicyRule
+import Network.AWS.MediaStore.Types.Tag
 import Network.AWS.Prelude
 import Network.AWS.Sign.V4
 
@@ -58,83 +85,89 @@ import Network.AWS.Sign.V4
 mediaStore :: Service
 mediaStore =
   Service
-    { _svcAbbrev = "MediaStore"
-    , _svcSigner = v4
-    , _svcPrefix = "mediastore"
-    , _svcVersion = "2017-09-01"
-    , _svcEndpoint = defaultEndpoint mediaStore
-    , _svcTimeout = Just 70
-    , _svcCheck = statusSuccess
-    , _svcError = parseJSONError "MediaStore"
-    , _svcRetry = retry
+    { _svcAbbrev = "MediaStore",
+      _svcSigner = v4,
+      _svcPrefix = "mediastore",
+      _svcVersion = "2017-09-01",
+      _svcEndpoint = defaultEndpoint mediaStore,
+      _svcTimeout = Just 70,
+      _svcCheck = statusSuccess,
+      _svcError = parseJSONError "MediaStore",
+      _svcRetry = retry
     }
   where
     retry =
       Exponential
-        { _retryBase = 5.0e-2
-        , _retryGrowth = 2
-        , _retryAttempts = 5
-        , _retryCheck = check
+        { _retryBase = 5.0e-2,
+          _retryGrowth = 2,
+          _retryAttempts = 5,
+          _retryCheck = check
         }
     check e
-      | has (hasCode "ThrottledException" . hasStatus 400) e =
-        Just "throttled_exception"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has (hasCode "ThrottlingException" . hasStatus 400) e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e = Just "throttling"
       | has (hasStatus 504) e = Just "gateway_timeout"
-      | has (hasCode "RequestThrottledException" . hasStatus 400) e =
-        Just "request_throttled_exception"
-      | has (hasStatus 502) e = Just "bad_gateway"
+      | has
+          ( hasCode "ProvisionedThroughputExceededException"
+              . hasStatus 400
+          )
+          e =
+        Just "throughput_exceeded"
       | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 500) e = Just "general_server_error"
+      | has (hasStatus 502) e = Just "bad_gateway"
+      | has (hasStatus 429) e = Just "too_many_requests"
+      | has
+          (hasCode "RequestThrottledException" . hasStatus 400)
+          e =
+        Just "request_throttled_exception"
+      | has
+          (hasCode "ThrottledException" . hasStatus 400)
+          e =
+        Just "throttled_exception"
       | has (hasStatus 509) e = Just "limit_exceeded"
+      | has (hasStatus 500) e = Just "general_server_error"
+      | has
+          (hasCode "ThrottlingException" . hasStatus 400)
+          e =
+        Just "throttling_exception"
+      | has (hasCode "Throttling" . hasStatus 400) e =
+        Just "throttling"
       | otherwise = Nothing
 
-
--- | Could not perform an operation on a policy that does not exist.
---
---
-_PolicyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
-_PolicyNotFoundException =
-  _MatchServiceError mediaStore "PolicyNotFoundException"
-
-
--- | Could not perform an operation on a policy that does not exist.
---
---
-_CORSPolicyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
-_CORSPolicyNotFoundException =
-  _MatchServiceError mediaStore "CorsPolicyNotFoundException"
-
-
--- | Resource already exists or is being updated.
---
---
+-- | The container that you specified in the request already exists or is being updated.
 _ContainerInUseException :: AsError a => Getting (First ServiceError) a ServiceError
 _ContainerInUseException =
-  _MatchServiceError mediaStore "ContainerInUseException"
-
+  _MatchServiceError
+    mediaStore
+    "ContainerInUseException"
 
 -- | The service is temporarily unavailable.
---
---
 _InternalServerError :: AsError a => Getting (First ServiceError) a ServiceError
-_InternalServerError = _MatchServiceError mediaStore "InternalServerError"
+_InternalServerError =
+  _MatchServiceError mediaStore "InternalServerError"
 
-
--- | Could not perform an operation on a container that does not exist.
---
---
-_ContainerNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
-_ContainerNotFoundException =
-  _MatchServiceError mediaStore "ContainerNotFoundException"
-
+-- | The policy that you specified in the request does not exist.
+_PolicyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_PolicyNotFoundException =
+  _MatchServiceError
+    mediaStore
+    "PolicyNotFoundException"
 
 -- | A service limit has been exceeded.
---
---
 _LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
-_LimitExceededException = _MatchServiceError mediaStore "LimitExceededException"
+_LimitExceededException =
+  _MatchServiceError
+    mediaStore
+    "LimitExceededException"
 
+-- | The CORS policy that you specified in the request does not exist.
+_CORSPolicyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_CORSPolicyNotFoundException =
+  _MatchServiceError
+    mediaStore
+    "CorsPolicyNotFoundException"
+
+-- | The container that you specified in the request does not exist.
+_ContainerNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ContainerNotFoundException =
+  _MatchServiceError
+    mediaStore
+    "ContainerNotFoundException"
