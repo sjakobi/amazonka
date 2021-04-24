@@ -1,0 +1,54 @@
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+
+-- Derived from AWS service descriptions, licensed under Apache 2.0.
+
+-- |
+-- Module      : Network.AWS.ResourceGroups.Types.PendingResource
+-- Copyright   : (c) 2013-2021 Brendan Hay
+-- License     : Mozilla Public License, v. 2.0.
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+-- Stability   : auto-generated
+-- Portability : non-portable (GHC extensions)
+module Network.AWS.ResourceGroups.Types.PendingResource where
+
+import Network.AWS.Lens
+import Network.AWS.Prelude
+
+-- | A structure that identifies a resource that is currently pending addition to the group as a member. Adding a resource to a resource group happens asynchronously as a background task and this one isn't completed yet.
+--
+--
+--
+-- /See:/ 'pendingResource' smart constructor.
+newtype PendingResource = PendingResource'
+  { _prResourceARN ::
+      Maybe Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+-- | Creates a value of 'PendingResource' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'prResourceARN' - The Amazon resource name (ARN) of the resource that's in a pending state.
+pendingResource ::
+  PendingResource
+pendingResource =
+  PendingResource' {_prResourceARN = Nothing}
+
+-- | The Amazon resource name (ARN) of the resource that's in a pending state.
+prResourceARN :: Lens' PendingResource (Maybe Text)
+prResourceARN = lens _prResourceARN (\s a -> s {_prResourceARN = a})
+
+instance FromJSON PendingResource where
+  parseJSON =
+    withObject
+      "PendingResource"
+      (\x -> PendingResource' <$> (x .:? "ResourceArn"))
+
+instance Hashable PendingResource
+
+instance NFData PendingResource

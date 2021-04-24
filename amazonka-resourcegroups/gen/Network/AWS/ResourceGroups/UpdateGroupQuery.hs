@@ -1,138 +1,170 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ResourceGroups.UpdateGroupQuery
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the resource query of a group.
+-- Updates the resource query of a group. For more information about resource queries, see <https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag Create a tag-based group in Resource Groups> .
 --
 --
+-- __Minimum permissions__
+--
+-- To run this command, you must have the following permissions:
+--
+--     * @resource-groups:UpdateGroupQuery@
 module Network.AWS.ResourceGroups.UpdateGroupQuery
-    (
-    -- * Creating a Request
-      updateGroupQuery
-    , UpdateGroupQuery
+  ( -- * Creating a Request
+    updateGroupQuery,
+    UpdateGroupQuery,
+
     -- * Request Lenses
-    , ugqGroupName
-    , ugqResourceQuery
+    ugqGroupName,
+    ugqGroup,
+    ugqResourceQuery,
 
     -- * Destructuring the Response
-    , updateGroupQueryResponse
-    , UpdateGroupQueryResponse
+    updateGroupQueryResponse,
+    UpdateGroupQueryResponse,
+
     -- * Response Lenses
-    , ugqrsGroupQuery
-    , ugqrsResponseStatus
-    ) where
+    ugqrrsGroupQuery,
+    ugqrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.ResourceGroups.Types.Product
 import Network.AWS.Response
 
 -- | /See:/ 'updateGroupQuery' smart constructor.
 data UpdateGroupQuery = UpdateGroupQuery'
-  { _ugqGroupName     :: !Text
-  , _ugqResourceQuery :: !ResourceQuery
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ugqGroupName ::
+      !(Maybe Text),
+    _ugqGroup :: !(Maybe Text),
+    _ugqResourceQuery :: !ResourceQuery
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'UpdateGroupQuery' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ugqGroupName' - The name of the resource group for which you want to edit the query.
+-- * 'ugqGroupName' - Don't use this parameter. Use @Group@ instead.
 --
--- * 'ugqResourceQuery' - The resource query that determines which AWS resources are members of the resource group.
-updateGroupQuery
-    :: Text -- ^ 'ugqGroupName'
-    -> ResourceQuery -- ^ 'ugqResourceQuery'
-    -> UpdateGroupQuery
-updateGroupQuery pGroupName_ pResourceQuery_ =
+-- * 'ugqGroup' - The name or the ARN of the resource group to query.
+--
+-- * 'ugqResourceQuery' - The resource query to determine which AWS resources are members of this resource group.
+updateGroupQuery ::
+  -- | 'ugqResourceQuery'
+  ResourceQuery ->
+  UpdateGroupQuery
+updateGroupQuery pResourceQuery_ =
   UpdateGroupQuery'
-    {_ugqGroupName = pGroupName_, _ugqResourceQuery = pResourceQuery_}
+    { _ugqGroupName = Nothing,
+      _ugqGroup = Nothing,
+      _ugqResourceQuery = pResourceQuery_
+    }
 
+-- | Don't use this parameter. Use @Group@ instead.
+ugqGroupName :: Lens' UpdateGroupQuery (Maybe Text)
+ugqGroupName = lens _ugqGroupName (\s a -> s {_ugqGroupName = a})
 
--- | The name of the resource group for which you want to edit the query.
-ugqGroupName :: Lens' UpdateGroupQuery Text
-ugqGroupName = lens _ugqGroupName (\ s a -> s{_ugqGroupName = a})
+-- | The name or the ARN of the resource group to query.
+ugqGroup :: Lens' UpdateGroupQuery (Maybe Text)
+ugqGroup = lens _ugqGroup (\s a -> s {_ugqGroup = a})
 
--- | The resource query that determines which AWS resources are members of the resource group.
+-- | The resource query to determine which AWS resources are members of this resource group.
 ugqResourceQuery :: Lens' UpdateGroupQuery ResourceQuery
-ugqResourceQuery = lens _ugqResourceQuery (\ s a -> s{_ugqResourceQuery = a})
+ugqResourceQuery = lens _ugqResourceQuery (\s a -> s {_ugqResourceQuery = a})
 
 instance AWSRequest UpdateGroupQuery where
-        type Rs UpdateGroupQuery = UpdateGroupQueryResponse
-        request = putJSON resourceGroups
-        response
-          = receiveJSON
-              (\ s h x ->
-                 UpdateGroupQueryResponse' <$>
-                   (x .?> "GroupQuery") <*> (pure (fromEnum s)))
+  type Rs UpdateGroupQuery = UpdateGroupQueryResponse
+  request = postJSON resourceGroups
+  response =
+    receiveJSON
+      ( \s h x ->
+          UpdateGroupQueryResponse'
+            <$> (x .?> "GroupQuery") <*> (pure (fromEnum s))
+      )
 
-instance Hashable UpdateGroupQuery where
+instance Hashable UpdateGroupQuery
 
-instance NFData UpdateGroupQuery where
+instance NFData UpdateGroupQuery
 
 instance ToHeaders UpdateGroupQuery where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToJSON UpdateGroupQuery where
-        toJSON UpdateGroupQuery'{..}
-          = object
-              (catMaybes
-                 [Just ("ResourceQuery" .= _ugqResourceQuery)])
+  toJSON UpdateGroupQuery' {..} =
+    object
+      ( catMaybes
+          [ ("GroupName" .=) <$> _ugqGroupName,
+            ("Group" .=) <$> _ugqGroup,
+            Just ("ResourceQuery" .= _ugqResourceQuery)
+          ]
+      )
 
 instance ToPath UpdateGroupQuery where
-        toPath UpdateGroupQuery'{..}
-          = mconcat ["/groups/", toBS _ugqGroupName, "/query"]
+  toPath = const "/update-group-query"
 
 instance ToQuery UpdateGroupQuery where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'updateGroupQueryResponse' smart constructor.
 data UpdateGroupQueryResponse = UpdateGroupQueryResponse'
-  { _ugqrsGroupQuery     :: !(Maybe GroupQuery)
-  , _ugqrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ugqrrsGroupQuery ::
+      !(Maybe GroupQuery),
+    _ugqrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'UpdateGroupQueryResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ugqrsGroupQuery' - The resource query associated with the resource group after the update.
+-- * 'ugqrrsGroupQuery' - The updated resource query associated with the resource group after the update.
 --
--- * 'ugqrsResponseStatus' - -- | The response status code.
-updateGroupQueryResponse
-    :: Int -- ^ 'ugqrsResponseStatus'
-    -> UpdateGroupQueryResponse
+-- * 'ugqrrsResponseStatus' - -- | The response status code.
+updateGroupQueryResponse ::
+  -- | 'ugqrrsResponseStatus'
+  Int ->
+  UpdateGroupQueryResponse
 updateGroupQueryResponse pResponseStatus_ =
   UpdateGroupQueryResponse'
-    {_ugqrsGroupQuery = Nothing, _ugqrsResponseStatus = pResponseStatus_}
+    { _ugqrrsGroupQuery =
+        Nothing,
+      _ugqrrsResponseStatus = pResponseStatus_
+    }
 
-
--- | The resource query associated with the resource group after the update.
-ugqrsGroupQuery :: Lens' UpdateGroupQueryResponse (Maybe GroupQuery)
-ugqrsGroupQuery = lens _ugqrsGroupQuery (\ s a -> s{_ugqrsGroupQuery = a})
+-- | The updated resource query associated with the resource group after the update.
+ugqrrsGroupQuery :: Lens' UpdateGroupQueryResponse (Maybe GroupQuery)
+ugqrrsGroupQuery = lens _ugqrrsGroupQuery (\s a -> s {_ugqrrsGroupQuery = a})
 
 -- | -- | The response status code.
-ugqrsResponseStatus :: Lens' UpdateGroupQueryResponse Int
-ugqrsResponseStatus = lens _ugqrsResponseStatus (\ s a -> s{_ugqrsResponseStatus = a})
+ugqrrsResponseStatus :: Lens' UpdateGroupQueryResponse Int
+ugqrrsResponseStatus = lens _ugqrrsResponseStatus (\s a -> s {_ugqrrsResponseStatus = a})
 
-instance NFData UpdateGroupQueryResponse where
+instance NFData UpdateGroupQueryResponse
