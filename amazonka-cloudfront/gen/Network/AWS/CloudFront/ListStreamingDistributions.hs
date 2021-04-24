@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudFront.ListStreamingDistributions
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,24 +23,25 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudFront.ListStreamingDistributions
-    (
-    -- * Creating a Request
-      listStreamingDistributions
-    , ListStreamingDistributions
+  ( -- * Creating a Request
+    listStreamingDistributions,
+    ListStreamingDistributions,
+
     -- * Request Lenses
-    , lsdMarker
-    , lsdMaxItems
+    lsdMaxItems,
+    lsdMarker,
 
     -- * Destructuring the Response
-    , listStreamingDistributionsResponse
-    , ListStreamingDistributionsResponse
+    listStreamingDistributionsResponse,
+    ListStreamingDistributionsResponse,
+
     -- * Response Lenses
-    , lsdrsResponseStatus
-    , lsdrsStreamingDistributionList
-    ) where
+    lsdrrsResponseStatus,
+    lsdrrsStreamingDistributionList,
+  )
+where
 
 import Network.AWS.CloudFront.Types
-import Network.AWS.CloudFront.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Pager
 import Network.AWS.Prelude
@@ -54,74 +54,92 @@ import Network.AWS.Response
 --
 -- /See:/ 'listStreamingDistributions' smart constructor.
 data ListStreamingDistributions = ListStreamingDistributions'
-  { _lsdMarker   :: !(Maybe Text)
-  , _lsdMaxItems :: !(Maybe Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lsdMaxItems ::
+      !(Maybe Text),
+    _lsdMarker ::
+      !(Maybe Text)
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListStreamingDistributions' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lsdMarker' - The value that you provided for the @Marker@ request parameter.
---
 -- * 'lsdMaxItems' - The value that you provided for the @MaxItems@ request parameter.
-listStreamingDistributions
-    :: ListStreamingDistributions
+--
+-- * 'lsdMarker' - The value that you provided for the @Marker@ request parameter.
+listStreamingDistributions ::
+  ListStreamingDistributions
 listStreamingDistributions =
-  ListStreamingDistributions' {_lsdMarker = Nothing, _lsdMaxItems = Nothing}
-
-
--- | The value that you provided for the @Marker@ request parameter.
-lsdMarker :: Lens' ListStreamingDistributions (Maybe Text)
-lsdMarker = lens _lsdMarker (\ s a -> s{_lsdMarker = a})
+  ListStreamingDistributions'
+    { _lsdMaxItems = Nothing,
+      _lsdMarker = Nothing
+    }
 
 -- | The value that you provided for the @MaxItems@ request parameter.
 lsdMaxItems :: Lens' ListStreamingDistributions (Maybe Text)
-lsdMaxItems = lens _lsdMaxItems (\ s a -> s{_lsdMaxItems = a})
+lsdMaxItems = lens _lsdMaxItems (\s a -> s {_lsdMaxItems = a})
+
+-- | The value that you provided for the @Marker@ request parameter.
+lsdMarker :: Lens' ListStreamingDistributions (Maybe Text)
+lsdMarker = lens _lsdMarker (\s a -> s {_lsdMarker = a})
 
 instance AWSPager ListStreamingDistributions where
-        page rq rs
-          | stop
-              (rs ^.
-                 lsdrsStreamingDistributionList . sdlIsTruncated)
-            = Nothing
-          | isNothing
-              (rs ^?
-                 lsdrsStreamingDistributionList .
-                   sdlNextMarker . _Just)
-            = Nothing
-          | otherwise =
-            Just $ rq &
-              lsdMarker .~
-                rs ^?
-                  lsdrsStreamingDistributionList .
-                    sdlNextMarker . _Just
+  page rq rs
+    | stop
+        ( rs
+            ^. lsdrrsStreamingDistributionList . sdlIsTruncated
+        ) =
+      Nothing
+    | isNothing
+        ( rs
+            ^? lsdrrsStreamingDistributionList
+              . sdlNextMarker
+              . _Just
+        ) =
+      Nothing
+    | otherwise =
+      Just $
+        rq
+          & lsdMarker
+          .~ rs
+          ^? lsdrrsStreamingDistributionList
+            . sdlNextMarker
+            . _Just
 
 instance AWSRequest ListStreamingDistributions where
-        type Rs ListStreamingDistributions =
-             ListStreamingDistributionsResponse
-        request = get cloudFront
-        response
-          = receiveXML
-              (\ s h x ->
-                 ListStreamingDistributionsResponse' <$>
-                   (pure (fromEnum s)) <*> (parseXML x))
+  type
+    Rs ListStreamingDistributions =
+      ListStreamingDistributionsResponse
+  request = get cloudFront
+  response =
+    receiveXML
+      ( \s h x ->
+          ListStreamingDistributionsResponse'
+            <$> (pure (fromEnum s)) <*> (parseXML x)
+      )
 
-instance Hashable ListStreamingDistributions where
+instance Hashable ListStreamingDistributions
 
-instance NFData ListStreamingDistributions where
+instance NFData ListStreamingDistributions
 
 instance ToHeaders ListStreamingDistributions where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath ListStreamingDistributions where
-        toPath = const "/2017-10-30/streaming-distribution"
+  toPath = const "/2020-05-31/streaming-distribution"
 
 instance ToQuery ListStreamingDistributions where
-        toQuery ListStreamingDistributions'{..}
-          = mconcat
-              ["Marker" =: _lsdMarker, "MaxItems" =: _lsdMaxItems]
+  toQuery ListStreamingDistributions' {..} =
+    mconcat
+      ["MaxItems" =: _lsdMaxItems, "Marker" =: _lsdMarker]
 
 -- | The returned result of the corresponding request.
 --
@@ -129,36 +147,49 @@ instance ToQuery ListStreamingDistributions where
 --
 -- /See:/ 'listStreamingDistributionsResponse' smart constructor.
 data ListStreamingDistributionsResponse = ListStreamingDistributionsResponse'
-  { _lsdrsResponseStatus            :: !Int
-  , _lsdrsStreamingDistributionList :: !StreamingDistributionList
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _lsdrrsResponseStatus ::
+      !Int,
+    _lsdrrsStreamingDistributionList ::
+      !StreamingDistributionList
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListStreamingDistributionsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lsdrsResponseStatus' - -- | The response status code.
+-- * 'lsdrrsResponseStatus' - -- | The response status code.
 --
--- * 'lsdrsStreamingDistributionList' - The @StreamingDistributionList@ type.
+-- * 'lsdrrsStreamingDistributionList' - The @StreamingDistributionList@ type.
+listStreamingDistributionsResponse ::
+  -- | 'lsdrrsResponseStatus'
+  Int ->
+  -- | 'lsdrrsStreamingDistributionList'
+  StreamingDistributionList ->
+  ListStreamingDistributionsResponse
 listStreamingDistributionsResponse
-    :: Int -- ^ 'lsdrsResponseStatus'
-    -> StreamingDistributionList -- ^ 'lsdrsStreamingDistributionList'
-    -> ListStreamingDistributionsResponse
-listStreamingDistributionsResponse pResponseStatus_ pStreamingDistributionList_ =
-  ListStreamingDistributionsResponse'
-    { _lsdrsResponseStatus = pResponseStatus_
-    , _lsdrsStreamingDistributionList = pStreamingDistributionList_
-    }
-
+  pResponseStatus_
+  pStreamingDistributionList_ =
+    ListStreamingDistributionsResponse'
+      { _lsdrrsResponseStatus =
+          pResponseStatus_,
+        _lsdrrsStreamingDistributionList =
+          pStreamingDistributionList_
+      }
 
 -- | -- | The response status code.
-lsdrsResponseStatus :: Lens' ListStreamingDistributionsResponse Int
-lsdrsResponseStatus = lens _lsdrsResponseStatus (\ s a -> s{_lsdrsResponseStatus = a})
+lsdrrsResponseStatus :: Lens' ListStreamingDistributionsResponse Int
+lsdrrsResponseStatus = lens _lsdrrsResponseStatus (\s a -> s {_lsdrrsResponseStatus = a})
 
 -- | The @StreamingDistributionList@ type.
-lsdrsStreamingDistributionList :: Lens' ListStreamingDistributionsResponse StreamingDistributionList
-lsdrsStreamingDistributionList = lens _lsdrsStreamingDistributionList (\ s a -> s{_lsdrsStreamingDistributionList = a})
+lsdrrsStreamingDistributionList :: Lens' ListStreamingDistributionsResponse StreamingDistributionList
+lsdrrsStreamingDistributionList = lens _lsdrrsStreamingDistributionList (\s a -> s {_lsdrrsStreamingDistributionList = a})
 
 instance NFData ListStreamingDistributionsResponse
-         where
