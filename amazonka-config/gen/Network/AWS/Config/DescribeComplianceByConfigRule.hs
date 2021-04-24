@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Config.DescribeComplianceByConfigRule
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,26 +35,27 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.Config.DescribeComplianceByConfigRule
-    (
-    -- * Creating a Request
-      describeComplianceByConfigRule
-    , DescribeComplianceByConfigRule
+  ( -- * Creating a Request
+    describeComplianceByConfigRule,
+    DescribeComplianceByConfigRule,
+
     -- * Request Lenses
-    , dcbcrConfigRuleNames
-    , dcbcrComplianceTypes
-    , dcbcrNextToken
+    dcbcrNextToken,
+    dcbcrComplianceTypes,
+    dcbcrConfigRuleNames,
 
     -- * Destructuring the Response
-    , describeComplianceByConfigRuleResponse
-    , DescribeComplianceByConfigRuleResponse
+    describeComplianceByConfigRuleResponse,
+    DescribeComplianceByConfigRuleResponse,
+
     -- * Response Lenses
-    , dcbcrrsComplianceByConfigRules
-    , dcbcrrsNextToken
-    , dcbcrrsResponseStatus
-    ) where
+    dcbcrrrsNextToken,
+    dcbcrrrsComplianceByConfigRules,
+    dcbcrrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Config.Types
-import Network.AWS.Config.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Pager
 import Network.AWS.Prelude
@@ -68,94 +68,113 @@ import Network.AWS.Response
 --
 -- /See:/ 'describeComplianceByConfigRule' smart constructor.
 data DescribeComplianceByConfigRule = DescribeComplianceByConfigRule'
-  { _dcbcrConfigRuleNames :: !(Maybe [Text])
-  , _dcbcrComplianceTypes :: !(Maybe [ComplianceType])
-  , _dcbcrNextToken       :: !(Maybe Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dcbcrNextToken ::
+      !( Maybe
+           Text
+       ),
+    _dcbcrComplianceTypes ::
+      !( Maybe
+           [ComplianceType]
+       ),
+    _dcbcrConfigRuleNames ::
+      !( Maybe
+           [Text]
+       )
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeComplianceByConfigRule' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dcbcrConfigRuleNames' - Specify one or more AWS Config rule names to filter the results by rule.
---
--- * 'dcbcrComplianceTypes' - Filters the results by compliance. The allowed values are @COMPLIANT@ , @NON_COMPLIANT@ , and @INSUFFICIENT_DATA@ .
---
 -- * 'dcbcrNextToken' - The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
-describeComplianceByConfigRule
-    :: DescribeComplianceByConfigRule
+--
+-- * 'dcbcrComplianceTypes' - Filters the results by compliance. The allowed values are @COMPLIANT@ and @NON_COMPLIANT@ .
+--
+-- * 'dcbcrConfigRuleNames' - Specify one or more AWS Config rule names to filter the results by rule.
+describeComplianceByConfigRule ::
+  DescribeComplianceByConfigRule
 describeComplianceByConfigRule =
   DescribeComplianceByConfigRule'
-    { _dcbcrConfigRuleNames = Nothing
-    , _dcbcrComplianceTypes = Nothing
-    , _dcbcrNextToken = Nothing
+    { _dcbcrNextToken =
+        Nothing,
+      _dcbcrComplianceTypes = Nothing,
+      _dcbcrConfigRuleNames = Nothing
     }
-
-
--- | Specify one or more AWS Config rule names to filter the results by rule.
-dcbcrConfigRuleNames :: Lens' DescribeComplianceByConfigRule [Text]
-dcbcrConfigRuleNames = lens _dcbcrConfigRuleNames (\ s a -> s{_dcbcrConfigRuleNames = a}) . _Default . _Coerce
-
--- | Filters the results by compliance. The allowed values are @COMPLIANT@ , @NON_COMPLIANT@ , and @INSUFFICIENT_DATA@ .
-dcbcrComplianceTypes :: Lens' DescribeComplianceByConfigRule [ComplianceType]
-dcbcrComplianceTypes = lens _dcbcrComplianceTypes (\ s a -> s{_dcbcrComplianceTypes = a}) . _Default . _Coerce
 
 -- | The @nextToken@ string returned on a previous page that you use to get the next page of results in a paginated response.
 dcbcrNextToken :: Lens' DescribeComplianceByConfigRule (Maybe Text)
-dcbcrNextToken = lens _dcbcrNextToken (\ s a -> s{_dcbcrNextToken = a})
+dcbcrNextToken = lens _dcbcrNextToken (\s a -> s {_dcbcrNextToken = a})
 
-instance AWSPager DescribeComplianceByConfigRule
-         where
-        page rq rs
-          | stop (rs ^. dcbcrrsNextToken) = Nothing
-          | stop (rs ^. dcbcrrsComplianceByConfigRules) =
-            Nothing
-          | otherwise =
-            Just $ rq & dcbcrNextToken .~ rs ^. dcbcrrsNextToken
+-- | Filters the results by compliance. The allowed values are @COMPLIANT@ and @NON_COMPLIANT@ .
+dcbcrComplianceTypes :: Lens' DescribeComplianceByConfigRule [ComplianceType]
+dcbcrComplianceTypes = lens _dcbcrComplianceTypes (\s a -> s {_dcbcrComplianceTypes = a}) . _Default . _Coerce
 
-instance AWSRequest DescribeComplianceByConfigRule
-         where
-        type Rs DescribeComplianceByConfigRule =
-             DescribeComplianceByConfigRuleResponse
-        request = postJSON config
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeComplianceByConfigRuleResponse' <$>
-                   (x .?> "ComplianceByConfigRules" .!@ mempty) <*>
-                     (x .?> "NextToken")
-                     <*> (pure (fromEnum s)))
+-- | Specify one or more AWS Config rule names to filter the results by rule.
+dcbcrConfigRuleNames :: Lens' DescribeComplianceByConfigRule [Text]
+dcbcrConfigRuleNames = lens _dcbcrConfigRuleNames (\s a -> s {_dcbcrConfigRuleNames = a}) . _Default . _Coerce
+
+instance AWSPager DescribeComplianceByConfigRule where
+  page rq rs
+    | stop (rs ^. dcbcrrrsNextToken) = Nothing
+    | stop (rs ^. dcbcrrrsComplianceByConfigRules) =
+      Nothing
+    | otherwise =
+      Just $ rq & dcbcrNextToken .~ rs ^. dcbcrrrsNextToken
+
+instance AWSRequest DescribeComplianceByConfigRule where
+  type
+    Rs DescribeComplianceByConfigRule =
+      DescribeComplianceByConfigRuleResponse
+  request = postJSON config
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeComplianceByConfigRuleResponse'
+            <$> (x .?> "NextToken")
+            <*> (x .?> "ComplianceByConfigRules" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
 instance Hashable DescribeComplianceByConfigRule
-         where
 
-instance NFData DescribeComplianceByConfigRule where
+instance NFData DescribeComplianceByConfigRule
 
-instance ToHeaders DescribeComplianceByConfigRule
-         where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("StarlingDoveService.DescribeComplianceByConfigRule"
-                       :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+instance ToHeaders DescribeComplianceByConfigRule where
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "StarlingDoveService.DescribeComplianceByConfigRule" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeComplianceByConfigRule where
-        toJSON DescribeComplianceByConfigRule'{..}
-          = object
-              (catMaybes
-                 [("ConfigRuleNames" .=) <$> _dcbcrConfigRuleNames,
-                  ("ComplianceTypes" .=) <$> _dcbcrComplianceTypes,
-                  ("NextToken" .=) <$> _dcbcrNextToken])
+  toJSON DescribeComplianceByConfigRule' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _dcbcrNextToken,
+            ("ComplianceTypes" .=) <$> _dcbcrComplianceTypes,
+            ("ConfigRuleNames" .=) <$> _dcbcrConfigRuleNames
+          ]
+      )
 
 instance ToPath DescribeComplianceByConfigRule where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeComplianceByConfigRule where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- |
 --
@@ -163,44 +182,62 @@ instance ToQuery DescribeComplianceByConfigRule where
 --
 -- /See:/ 'describeComplianceByConfigRuleResponse' smart constructor.
 data DescribeComplianceByConfigRuleResponse = DescribeComplianceByConfigRuleResponse'
-  { _dcbcrrsComplianceByConfigRules :: !(Maybe [ComplianceByConfigRule])
-  , _dcbcrrsNextToken               :: !(Maybe Text)
-  , _dcbcrrsResponseStatus          :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dcbcrrrsNextToken ::
+      !( Maybe
+           Text
+       ),
+    _dcbcrrrsComplianceByConfigRules ::
+      !( Maybe
+           [ComplianceByConfigRule]
+       ),
+    _dcbcrrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DescribeComplianceByConfigRuleResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dcbcrrsComplianceByConfigRules' - Indicates whether each of the specified AWS Config rules is compliant.
+-- * 'dcbcrrrsNextToken' - The string that you use in a subsequent request to get the next page of results in a paginated response.
 --
--- * 'dcbcrrsNextToken' - The string that you use in a subsequent request to get the next page of results in a paginated response.
+-- * 'dcbcrrrsComplianceByConfigRules' - Indicates whether each of the specified AWS Config rules is compliant.
 --
--- * 'dcbcrrsResponseStatus' - -- | The response status code.
+-- * 'dcbcrrrsResponseStatus' - -- | The response status code.
+describeComplianceByConfigRuleResponse ::
+  -- | 'dcbcrrrsResponseStatus'
+  Int ->
+  DescribeComplianceByConfigRuleResponse
 describeComplianceByConfigRuleResponse
-    :: Int -- ^ 'dcbcrrsResponseStatus'
-    -> DescribeComplianceByConfigRuleResponse
-describeComplianceByConfigRuleResponse pResponseStatus_ =
-  DescribeComplianceByConfigRuleResponse'
-    { _dcbcrrsComplianceByConfigRules = Nothing
-    , _dcbcrrsNextToken = Nothing
-    , _dcbcrrsResponseStatus = pResponseStatus_
-    }
-
-
--- | Indicates whether each of the specified AWS Config rules is compliant.
-dcbcrrsComplianceByConfigRules :: Lens' DescribeComplianceByConfigRuleResponse [ComplianceByConfigRule]
-dcbcrrsComplianceByConfigRules = lens _dcbcrrsComplianceByConfigRules (\ s a -> s{_dcbcrrsComplianceByConfigRules = a}) . _Default . _Coerce
+  pResponseStatus_ =
+    DescribeComplianceByConfigRuleResponse'
+      { _dcbcrrrsNextToken =
+          Nothing,
+        _dcbcrrrsComplianceByConfigRules =
+          Nothing,
+        _dcbcrrrsResponseStatus =
+          pResponseStatus_
+      }
 
 -- | The string that you use in a subsequent request to get the next page of results in a paginated response.
-dcbcrrsNextToken :: Lens' DescribeComplianceByConfigRuleResponse (Maybe Text)
-dcbcrrsNextToken = lens _dcbcrrsNextToken (\ s a -> s{_dcbcrrsNextToken = a})
+dcbcrrrsNextToken :: Lens' DescribeComplianceByConfigRuleResponse (Maybe Text)
+dcbcrrrsNextToken = lens _dcbcrrrsNextToken (\s a -> s {_dcbcrrrsNextToken = a})
+
+-- | Indicates whether each of the specified AWS Config rules is compliant.
+dcbcrrrsComplianceByConfigRules :: Lens' DescribeComplianceByConfigRuleResponse [ComplianceByConfigRule]
+dcbcrrrsComplianceByConfigRules = lens _dcbcrrrsComplianceByConfigRules (\s a -> s {_dcbcrrrsComplianceByConfigRules = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-dcbcrrsResponseStatus :: Lens' DescribeComplianceByConfigRuleResponse Int
-dcbcrrsResponseStatus = lens _dcbcrrsResponseStatus (\ s a -> s{_dcbcrrsResponseStatus = a})
+dcbcrrrsResponseStatus :: Lens' DescribeComplianceByConfigRuleResponse Int
+dcbcrrrsResponseStatus = lens _dcbcrrrsResponseStatus (\s a -> s {_dcbcrrrsResponseStatus = a})
 
-instance NFData
-           DescribeComplianceByConfigRuleResponse
-         where
+instance
+  NFData
+    DescribeComplianceByConfigRuleResponse

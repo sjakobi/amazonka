@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Config.PutConfigurationAggregator
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,26 +20,29 @@
 -- Creates and updates the configuration aggregator with the selected source accounts and regions. The source account can be individual account(s) or an organization.
 --
 --
+-- @accountIds@ that are passed will be replaced with existing accounts. If you want to add additional accounts into the aggregator, call @DescribeAggregator@ to get the previous accounts and then append new ones.
 module Network.AWS.Config.PutConfigurationAggregator
-    (
-    -- * Creating a Request
-      putConfigurationAggregator
-    , PutConfigurationAggregator
+  ( -- * Creating a Request
+    putConfigurationAggregator,
+    PutConfigurationAggregator,
+
     -- * Request Lenses
-    , pcaOrganizationAggregationSource
-    , pcaAccountAggregationSources
-    , pcaConfigurationAggregatorName
+    pcaTags,
+    pcaAccountAggregationSources,
+    pcaOrganizationAggregationSource,
+    pcaConfigurationAggregatorName,
 
     -- * Destructuring the Response
-    , putConfigurationAggregatorResponse
-    , PutConfigurationAggregatorResponse
+    putConfigurationAggregatorResponse,
+    PutConfigurationAggregatorResponse,
+
     -- * Response Lenses
-    , pcarsConfigurationAggregator
-    , pcarsResponseStatus
-    ) where
+    pcarrsConfigurationAggregator,
+    pcarrsResponseStatus,
+  )
+where
 
 import Network.AWS.Config.Types
-import Network.AWS.Config.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -48,118 +50,164 @@ import Network.AWS.Response
 
 -- | /See:/ 'putConfigurationAggregator' smart constructor.
 data PutConfigurationAggregator = PutConfigurationAggregator'
-  { _pcaOrganizationAggregationSource :: !(Maybe OrganizationAggregationSource)
-  , _pcaAccountAggregationSources     :: !(Maybe [AccountAggregationSource])
-  , _pcaConfigurationAggregatorName   :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _pcaTags ::
+      !(Maybe [Tag]),
+    _pcaAccountAggregationSources ::
+      !( Maybe
+           [AccountAggregationSource]
+       ),
+    _pcaOrganizationAggregationSource ::
+      !( Maybe
+           OrganizationAggregationSource
+       ),
+    _pcaConfigurationAggregatorName ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'PutConfigurationAggregator' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'pcaOrganizationAggregationSource' - An OrganizationAggregationSource object.
+-- * 'pcaTags' - An array of tag object.
 --
 -- * 'pcaAccountAggregationSources' - A list of AccountAggregationSource object.
 --
+-- * 'pcaOrganizationAggregationSource' - An OrganizationAggregationSource object.
+--
 -- * 'pcaConfigurationAggregatorName' - The name of the configuration aggregator.
+putConfigurationAggregator ::
+  -- | 'pcaConfigurationAggregatorName'
+  Text ->
+  PutConfigurationAggregator
 putConfigurationAggregator
-    :: Text -- ^ 'pcaConfigurationAggregatorName'
-    -> PutConfigurationAggregator
-putConfigurationAggregator pConfigurationAggregatorName_ =
-  PutConfigurationAggregator'
-    { _pcaOrganizationAggregationSource = Nothing
-    , _pcaAccountAggregationSources = Nothing
-    , _pcaConfigurationAggregatorName = pConfigurationAggregatorName_
-    }
+  pConfigurationAggregatorName_ =
+    PutConfigurationAggregator'
+      { _pcaTags = Nothing,
+        _pcaAccountAggregationSources = Nothing,
+        _pcaOrganizationAggregationSource = Nothing,
+        _pcaConfigurationAggregatorName =
+          pConfigurationAggregatorName_
+      }
 
-
--- | An OrganizationAggregationSource object.
-pcaOrganizationAggregationSource :: Lens' PutConfigurationAggregator (Maybe OrganizationAggregationSource)
-pcaOrganizationAggregationSource = lens _pcaOrganizationAggregationSource (\ s a -> s{_pcaOrganizationAggregationSource = a})
+-- | An array of tag object.
+pcaTags :: Lens' PutConfigurationAggregator [Tag]
+pcaTags = lens _pcaTags (\s a -> s {_pcaTags = a}) . _Default . _Coerce
 
 -- | A list of AccountAggregationSource object.
 pcaAccountAggregationSources :: Lens' PutConfigurationAggregator [AccountAggregationSource]
-pcaAccountAggregationSources = lens _pcaAccountAggregationSources (\ s a -> s{_pcaAccountAggregationSources = a}) . _Default . _Coerce
+pcaAccountAggregationSources = lens _pcaAccountAggregationSources (\s a -> s {_pcaAccountAggregationSources = a}) . _Default . _Coerce
+
+-- | An OrganizationAggregationSource object.
+pcaOrganizationAggregationSource :: Lens' PutConfigurationAggregator (Maybe OrganizationAggregationSource)
+pcaOrganizationAggregationSource = lens _pcaOrganizationAggregationSource (\s a -> s {_pcaOrganizationAggregationSource = a})
 
 -- | The name of the configuration aggregator.
 pcaConfigurationAggregatorName :: Lens' PutConfigurationAggregator Text
-pcaConfigurationAggregatorName = lens _pcaConfigurationAggregatorName (\ s a -> s{_pcaConfigurationAggregatorName = a})
+pcaConfigurationAggregatorName = lens _pcaConfigurationAggregatorName (\s a -> s {_pcaConfigurationAggregatorName = a})
 
 instance AWSRequest PutConfigurationAggregator where
-        type Rs PutConfigurationAggregator =
-             PutConfigurationAggregatorResponse
-        request = postJSON config
-        response
-          = receiveJSON
-              (\ s h x ->
-                 PutConfigurationAggregatorResponse' <$>
-                   (x .?> "ConfigurationAggregator") <*>
-                     (pure (fromEnum s)))
+  type
+    Rs PutConfigurationAggregator =
+      PutConfigurationAggregatorResponse
+  request = postJSON config
+  response =
+    receiveJSON
+      ( \s h x ->
+          PutConfigurationAggregatorResponse'
+            <$> (x .?> "ConfigurationAggregator")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable PutConfigurationAggregator where
+instance Hashable PutConfigurationAggregator
 
-instance NFData PutConfigurationAggregator where
+instance NFData PutConfigurationAggregator
 
 instance ToHeaders PutConfigurationAggregator where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("StarlingDoveService.PutConfigurationAggregator" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "StarlingDoveService.PutConfigurationAggregator" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON PutConfigurationAggregator where
-        toJSON PutConfigurationAggregator'{..}
-          = object
-              (catMaybes
-                 [("OrganizationAggregationSource" .=) <$>
-                    _pcaOrganizationAggregationSource,
-                  ("AccountAggregationSources" .=) <$>
-                    _pcaAccountAggregationSources,
-                  Just
-                    ("ConfigurationAggregatorName" .=
-                       _pcaConfigurationAggregatorName)])
+  toJSON PutConfigurationAggregator' {..} =
+    object
+      ( catMaybes
+          [ ("Tags" .=) <$> _pcaTags,
+            ("AccountAggregationSources" .=)
+              <$> _pcaAccountAggregationSources,
+            ("OrganizationAggregationSource" .=)
+              <$> _pcaOrganizationAggregationSource,
+            Just
+              ( "ConfigurationAggregatorName"
+                  .= _pcaConfigurationAggregatorName
+              )
+          ]
+      )
 
 instance ToPath PutConfigurationAggregator where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery PutConfigurationAggregator where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'putConfigurationAggregatorResponse' smart constructor.
 data PutConfigurationAggregatorResponse = PutConfigurationAggregatorResponse'
-  { _pcarsConfigurationAggregator :: !(Maybe ConfigurationAggregator)
-  , _pcarsResponseStatus          :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _pcarrsConfigurationAggregator ::
+      !( Maybe
+           ConfigurationAggregator
+       ),
+    _pcarrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'PutConfigurationAggregatorResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'pcarsConfigurationAggregator' - Returns a ConfigurationAggregator object.
+-- * 'pcarrsConfigurationAggregator' - Returns a ConfigurationAggregator object.
 --
--- * 'pcarsResponseStatus' - -- | The response status code.
-putConfigurationAggregatorResponse
-    :: Int -- ^ 'pcarsResponseStatus'
-    -> PutConfigurationAggregatorResponse
+-- * 'pcarrsResponseStatus' - -- | The response status code.
+putConfigurationAggregatorResponse ::
+  -- | 'pcarrsResponseStatus'
+  Int ->
+  PutConfigurationAggregatorResponse
 putConfigurationAggregatorResponse pResponseStatus_ =
   PutConfigurationAggregatorResponse'
-    { _pcarsConfigurationAggregator = Nothing
-    , _pcarsResponseStatus = pResponseStatus_
+    { _pcarrsConfigurationAggregator =
+        Nothing,
+      _pcarrsResponseStatus =
+        pResponseStatus_
     }
 
-
 -- | Returns a ConfigurationAggregator object.
-pcarsConfigurationAggregator :: Lens' PutConfigurationAggregatorResponse (Maybe ConfigurationAggregator)
-pcarsConfigurationAggregator = lens _pcarsConfigurationAggregator (\ s a -> s{_pcarsConfigurationAggregator = a})
+pcarrsConfigurationAggregator :: Lens' PutConfigurationAggregatorResponse (Maybe ConfigurationAggregator)
+pcarrsConfigurationAggregator = lens _pcarrsConfigurationAggregator (\s a -> s {_pcarrsConfigurationAggregator = a})
 
 -- | -- | The response status code.
-pcarsResponseStatus :: Lens' PutConfigurationAggregatorResponse Int
-pcarsResponseStatus = lens _pcarsResponseStatus (\ s a -> s{_pcarsResponseStatus = a})
+pcarrsResponseStatus :: Lens' PutConfigurationAggregatorResponse Int
+pcarrsResponseStatus = lens _pcarrsResponseStatus (\s a -> s {_pcarrsResponseStatus = a})
 
 instance NFData PutConfigurationAggregatorResponse
-         where
