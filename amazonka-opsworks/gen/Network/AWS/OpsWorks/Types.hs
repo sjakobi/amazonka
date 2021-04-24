@@ -4,562 +4,617 @@
 
 -- |
 -- Module      : Network.AWS.OpsWorks.Types
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Network.AWS.OpsWorks.Types
-    (
-    -- * Service Configuration
-      opsWorks
+  ( -- * Service Configuration
+    opsWorks,
 
     -- * Errors
-    , _ValidationException
-    , _ResourceNotFoundException
+    _ValidationException,
+    _ResourceNotFoundException,
 
     -- * AppAttributesKeys
-    , AppAttributesKeys (..)
+    AppAttributesKeys (..),
 
     -- * AppType
-    , AppType (..)
+    AppType (..),
 
     -- * Architecture
-    , Architecture (..)
+    Architecture (..),
 
     -- * AutoScalingType
-    , AutoScalingType (..)
+    AutoScalingType (..),
 
     -- * CloudWatchLogsEncoding
-    , CloudWatchLogsEncoding (..)
+    CloudWatchLogsEncoding (..),
 
     -- * CloudWatchLogsInitialPosition
-    , CloudWatchLogsInitialPosition (..)
+    CloudWatchLogsInitialPosition (..),
 
     -- * CloudWatchLogsTimeZone
-    , CloudWatchLogsTimeZone (..)
+    CloudWatchLogsTimeZone (..),
 
     -- * DeploymentCommandName
-    , DeploymentCommandName (..)
+    DeploymentCommandName (..),
 
     -- * LayerAttributesKeys
-    , LayerAttributesKeys (..)
+    LayerAttributesKeys (..),
 
     -- * LayerType
-    , LayerType (..)
+    LayerType (..),
 
     -- * RootDeviceType
-    , RootDeviceType (..)
+    RootDeviceType (..),
 
     -- * SourceType
-    , SourceType (..)
+    SourceType (..),
 
     -- * StackAttributesKeys
-    , StackAttributesKeys (..)
+    StackAttributesKeys (..),
 
     -- * VirtualizationType
-    , VirtualizationType (..)
+    VirtualizationType (..),
 
     -- * VolumeType
-    , VolumeType (..)
+    VolumeType (..),
 
     -- * AgentVersion
-    , AgentVersion
-    , agentVersion
-    , avVersion
-    , avConfigurationManager
+    AgentVersion (..),
+    agentVersion,
+    avVersion,
+    avConfigurationManager,
 
     -- * App
-    , App
-    , app
-    , appSSLConfiguration
-    , appEnvironment
-    , appEnableSSL
-    , appCreatedAt
-    , appShortname
-    , appDataSources
-    , appAppSource
-    , appAppId
-    , appAttributes
-    , appName
-    , appType
-    , appStackId
-    , appDomains
-    , appDescription
+    App (..),
+    app,
+    appSSLConfiguration,
+    appAppSource,
+    appAppId,
+    appDataSources,
+    appStackId,
+    appDomains,
+    appEnableSSL,
+    appShortname,
+    appCreatedAt,
+    appEnvironment,
+    appAttributes,
+    appName,
+    appDescription,
+    appType,
 
     -- * AutoScalingThresholds
-    , AutoScalingThresholds
-    , autoScalingThresholds
-    , astInstanceCount
-    , astIgnoreMetricsTime
-    , astLoadThreshold
-    , astThresholdsWaitTime
-    , astAlarms
-    , astMemoryThreshold
-    , astCPUThreshold
+    AutoScalingThresholds (..),
+    autoScalingThresholds,
+    astLoadThreshold,
+    astCPUThreshold,
+    astMemoryThreshold,
+    astAlarms,
+    astIgnoreMetricsTime,
+    astThresholdsWaitTime,
+    astInstanceCount,
 
     -- * BlockDeviceMapping
-    , BlockDeviceMapping
-    , blockDeviceMapping
-    , bdmVirtualName
-    , bdmNoDevice
-    , bdmEBS
-    , bdmDeviceName
+    BlockDeviceMapping (..),
+    blockDeviceMapping,
+    bdmEBS,
+    bdmNoDevice,
+    bdmVirtualName,
+    bdmDeviceName,
 
     -- * ChefConfiguration
-    , ChefConfiguration
-    , chefConfiguration
-    , ccBerkshelfVersion
-    , ccManageBerkshelf
+    ChefConfiguration (..),
+    chefConfiguration,
+    ccManageBerkshelf,
+    ccBerkshelfVersion,
 
     -- * CloudWatchLogsConfiguration
-    , CloudWatchLogsConfiguration
-    , cloudWatchLogsConfiguration
-    , cwlcEnabled
-    , cwlcLogStreams
+    CloudWatchLogsConfiguration (..),
+    cloudWatchLogsConfiguration,
+    cwlcEnabled,
+    cwlcLogStreams,
 
     -- * CloudWatchLogsLogStream
-    , CloudWatchLogsLogStream
-    , cloudWatchLogsLogStream
-    , cwllsBatchCount
-    , cwllsFileFingerprintLines
-    , cwllsBufferDuration
-    , cwllsBatchSize
-    , cwllsLogGroupName
-    , cwllsMultiLineStartPattern
-    , cwllsInitialPosition
-    , cwllsDatetimeFormat
-    , cwllsEncoding
-    , cwllsTimeZone
-    , cwllsFile
+    CloudWatchLogsLogStream (..),
+    cloudWatchLogsLogStream,
+    cwllsMultiLineStartPattern,
+    cwllsInitialPosition,
+    cwllsBatchCount,
+    cwllsFile,
+    cwllsFileFingerprintLines,
+    cwllsLogGroupName,
+    cwllsBatchSize,
+    cwllsBufferDuration,
+    cwllsEncoding,
+    cwllsTimeZone,
+    cwllsDatetimeFormat,
 
     -- * Command
-    , Command
-    , command
-    , cDeploymentId
-    , cInstanceId
-    , cStatus
-    , cLogURL
-    , cCreatedAt
-    , cCommandId
-    , cExitCode
-    , cType
-    , cCompletedAt
-    , cAcknowledgedAt
+    Command (..),
+    command,
+    cLogURL,
+    cStatus,
+    cDeploymentId,
+    cInstanceId,
+    cCompletedAt,
+    cCreatedAt,
+    cExitCode,
+    cCommandId,
+    cAcknowledgedAt,
+    cType,
 
     -- * DataSource
-    , DataSource
-    , dataSource
-    , dsARN
-    , dsDatabaseName
-    , dsType
+    DataSource (..),
+    dataSource,
+    dsARN,
+    dsType,
+    dsDatabaseName,
 
     -- * Deployment
-    , Deployment
-    , deployment
-    , dDeploymentId
-    , dStatus
-    , dCommand
-    , dCreatedAt
-    , dCustomJSON
-    , dIAMUserARN
-    , dAppId
-    , dInstanceIds
-    , dCompletedAt
-    , dStackId
-    , dComment
-    , dDuration
+    Deployment (..),
+    deployment,
+    dInstanceIds,
+    dStatus,
+    dDeploymentId,
+    dAppId,
+    dIAMUserARN,
+    dDuration,
+    dStackId,
+    dComment,
+    dCustomJSON,
+    dCompletedAt,
+    dCreatedAt,
+    dCommand,
 
     -- * DeploymentCommand
-    , DeploymentCommand
-    , deploymentCommand
-    , dcArgs
-    , dcName
+    DeploymentCommand (..),
+    deploymentCommand,
+    dcArgs,
+    dcName,
 
     -- * EBSBlockDevice
-    , EBSBlockDevice
-    , ebsBlockDevice
-    , ebdDeleteOnTermination
-    , ebdVolumeSize
-    , ebdIOPS
-    , ebdVolumeType
-    , ebdSnapshotId
+    EBSBlockDevice (..),
+    ebsBlockDevice,
+    ebdDeleteOnTermination,
+    ebdSnapshotId,
+    ebdVolumeType,
+    ebdVolumeSize,
+    ebdIOPS,
 
     -- * EcsCluster
-    , EcsCluster
-    , ecsCluster
-    , ecEcsClusterARN
-    , ecEcsClusterName
-    , ecRegisteredAt
-    , ecStackId
+    EcsCluster (..),
+    ecsCluster,
+    ecStackId,
+    ecEcsClusterName,
+    ecRegisteredAt,
+    ecEcsClusterARN,
 
     -- * ElasticIP
-    , ElasticIP
-    , elasticIP
-    , eiInstanceId
-    , eiDomain
-    , eiIP
-    , eiName
-    , eiRegion
+    ElasticIP (..),
+    elasticIP,
+    eiInstanceId,
+    eiIP,
+    eiDomain,
+    eiName,
+    eiRegion,
 
     -- * ElasticLoadBalancer
-    , ElasticLoadBalancer
-    , elasticLoadBalancer
-    , elbSubnetIds
-    , elbVPCId
-    , elbAvailabilityZones
-    , elbRegion
-    , elbElasticLoadBalancerName
-    , elbStackId
-    , elbEC2InstanceIds
-    , elbLayerId
-    , elbDNSName
+    ElasticLoadBalancer (..),
+    elasticLoadBalancer,
+    elbAvailabilityZones,
+    elbStackId,
+    elbElasticLoadBalancerName,
+    elbSubnetIds,
+    elbDNSName,
+    elbLayerId,
+    elbEC2InstanceIds,
+    elbRegion,
+    elbVPCId,
 
     -- * EnvironmentVariable
-    , EnvironmentVariable
-    , environmentVariable
-    , evSecure
-    , evKey
-    , evValue
+    EnvironmentVariable (..),
+    environmentVariable,
+    evSecure,
+    evKey,
+    evValue,
 
     -- * Instance
-    , Instance
-    , instance'
-    , iPrivateDNS
-    , iReportedAgentVersion
-    , iInstanceId
-    , iStatus
-    , iPrivateIP
-    , iInstallUpdatesOnBoot
-    , iVirtualizationType
-    , iInstanceProfileARN
-    , iPlatform
-    , iHostname
-    , iSSHHostRsaKeyFingerprint
-    , iSecurityGroupIds
-    , iEcsClusterARN
-    , iARN
-    , iCreatedAt
-    , iEC2InstanceId
-    , iSSHKeyName
-    , iAgentVersion
-    , iRootDeviceVolumeId
-    , iSubnetId
-    , iInfrastructureClass
-    , iSSHHostDsaKeyFingerprint
-    , iInstanceType
-    , iEBSOptimized
-    , iElasticIP
-    , iOS
-    , iAvailabilityZone
-    , iLastServiceErrorId
-    , iTenancy
-    , iAutoScalingType
-    , iLayerIds
-    , iArchitecture
-    , iPublicDNS
-    , iAMIId
-    , iPublicIP
-    , iReportedOS
-    , iRegisteredBy
-    , iStackId
-    , iRootDeviceType
-    , iEcsContainerInstanceARN
-    , iBlockDeviceMappings
+    Instance (..),
+    instance',
+    iHostname,
+    iPlatform,
+    iSecurityGroupIds,
+    iSSHHostRsaKeyFingerprint,
+    iInstanceProfileARN,
+    iVirtualizationType,
+    iPrivateDNS,
+    iElasticIP,
+    iStatus,
+    iInstallUpdatesOnBoot,
+    iInstanceId,
+    iReportedAgentVersion,
+    iInstanceType,
+    iSSHHostDsaKeyFingerprint,
+    iEBSOptimized,
+    iRootDeviceType,
+    iStackId,
+    iAgentVersion,
+    iRootDeviceVolumeId,
+    iSSHKeyName,
+    iPublicDNS,
+    iAMIId,
+    iARN,
+    iCreatedAt,
+    iLayerIds,
+    iArchitecture,
+    iTenancy,
+    iAutoScalingType,
+    iAvailabilityZone,
+    iOS,
+    iPrivateIP,
+    iInfrastructureClass,
+    iBlockDeviceMappings,
+    iSubnetId,
+    iEcsContainerInstanceARN,
+    iRegisteredBy,
+    iReportedOS,
+    iPublicIP,
+    iEC2InstanceId,
+    iEcsClusterARN,
+    iLastServiceErrorId,
 
     -- * InstanceIdentity
-    , InstanceIdentity
-    , instanceIdentity
-    , iiSignature
-    , iiDocument
+    InstanceIdentity (..),
+    instanceIdentity,
+    iiDocument,
+    iiSignature,
 
     -- * InstancesCount
-    , InstancesCount
-    , instancesCount
-    , icTerminating
-    , icPending
-    , icOnline
-    , icUnassigning
-    , icDeregistering
-    , icRunningSetup
-    , icRequested
-    , icStopFailed
-    , icBooting
-    , icStopped
-    , icRebooting
-    , icAssigning
-    , icShuttingDown
-    , icSetupFailed
-    , icConnectionLost
-    , icTerminated
-    , icStopping
-    , icRegistered
-    , icStartFailed
-    , icRegistering
+    InstancesCount (..),
+    instancesCount,
+    icOnline,
+    icSetupFailed,
+    icRegistering,
+    icBooting,
+    icStopFailed,
+    icStartFailed,
+    icRunningSetup,
+    icTerminated,
+    icPending,
+    icTerminating,
+    icShuttingDown,
+    icAssigning,
+    icStopped,
+    icRebooting,
+    icRegistered,
+    icRequested,
+    icDeregistering,
+    icStopping,
+    icUnassigning,
+    icConnectionLost,
 
     -- * Layer
-    , Layer
-    , layer
-    , lCustomInstanceProfileARN
-    , lCustomSecurityGroupIds
-    , lInstallUpdatesOnBoot
-    , lCloudWatchLogsConfiguration
-    , lLifecycleEventConfiguration
-    , lARN
-    , lCreatedAt
-    , lShortname
-    , lDefaultRecipes
-    , lCustomRecipes
-    , lCustomJSON
-    , lVolumeConfigurations
-    , lEnableAutoHealing
-    , lPackages
-    , lAttributes
-    , lName
-    , lAutoAssignPublicIPs
-    , lType
-    , lUseEBSOptimizedInstances
-    , lStackId
-    , lLayerId
-    , lDefaultSecurityGroupNames
-    , lAutoAssignElasticIPs
+    Layer (..),
+    layer,
+    lInstallUpdatesOnBoot,
+    lCustomInstanceProfileARN,
+    lCustomSecurityGroupIds,
+    lPackages,
+    lEnableAutoHealing,
+    lVolumeConfigurations,
+    lStackId,
+    lCustomJSON,
+    lDefaultRecipes,
+    lARN,
+    lShortname,
+    lCreatedAt,
+    lAttributes,
+    lName,
+    lCloudWatchLogsConfiguration,
+    lAutoAssignElasticIPs,
+    lLayerId,
+    lDefaultSecurityGroupNames,
+    lType,
+    lUseEBSOptimizedInstances,
+    lCustomRecipes,
+    lAutoAssignPublicIPs,
+    lLifecycleEventConfiguration,
 
     -- * LifecycleEventConfiguration
-    , LifecycleEventConfiguration
-    , lifecycleEventConfiguration
-    , lecShutdown
+    LifecycleEventConfiguration (..),
+    lifecycleEventConfiguration,
+    lecShutdown,
 
     -- * LoadBasedAutoScalingConfiguration
-    , LoadBasedAutoScalingConfiguration
-    , loadBasedAutoScalingConfiguration
-    , lbascUpScaling
-    , lbascEnable
-    , lbascDownScaling
-    , lbascLayerId
+    LoadBasedAutoScalingConfiguration (..),
+    loadBasedAutoScalingConfiguration,
+    lbascDownScaling,
+    lbascEnable,
+    lbascLayerId,
+    lbascUpScaling,
 
     -- * OperatingSystem
-    , OperatingSystem
-    , operatingSystem
-    , osReportedVersion
-    , osSupported
-    , osName
-    , osId
-    , osConfigurationManagers
-    , osType
-    , osReportedName
+    OperatingSystem (..),
+    operatingSystem,
+    osSupported,
+    osConfigurationManagers,
+    osId,
+    osReportedVersion,
+    osName,
+    osType,
+    osReportedName,
 
     -- * OperatingSystemConfigurationManager
-    , OperatingSystemConfigurationManager
-    , operatingSystemConfigurationManager
-    , oscmName
-    , oscmVersion
+    OperatingSystemConfigurationManager (..),
+    operatingSystemConfigurationManager,
+    oscmVersion,
+    oscmName,
 
     -- * Permission
-    , Permission
-    , permission
-    , pIAMUserARN
-    , pAllowSudo
-    , pStackId
-    , pLevel
-    , pAllowSSH
+    Permission (..),
+    permission,
+    pAllowSudo,
+    pIAMUserARN,
+    pStackId,
+    pAllowSSH,
+    pLevel,
 
     -- * RAIdArray
-    , RAIdArray
-    , rAIdArray
-    , raiaInstanceId
-    , raiaSize
-    , raiaIOPS
-    , raiaCreatedAt
-    , raiaRAIdLevel
-    , raiaDevice
-    , raiaNumberOfDisks
-    , raiaAvailabilityZone
-    , raiaName
-    , raiaRAIdArrayId
-    , raiaVolumeType
-    , raiaStackId
-    , raiaMountPoint
+    RAIdArray (..),
+    rAIdArray,
+    raiaNumberOfDisks,
+    raiaInstanceId,
+    raiaStackId,
+    raiaDevice,
+    raiaCreatedAt,
+    raiaRAIdArrayId,
+    raiaAvailabilityZone,
+    raiaName,
+    raiaMountPoint,
+    raiaVolumeType,
+    raiaRAIdLevel,
+    raiaIOPS,
+    raiaSize,
 
     -- * RDSDBInstance
-    , RDSDBInstance
-    , rdsDBInstance
-    , rdiRDSDBInstanceARN
-    , rdiDBUser
-    , rdiMissingOnRDS
-    , rdiEngine
-    , rdiAddress
-    , rdiDBInstanceIdentifier
-    , rdiRegion
-    , rdiStackId
-    , rdiDBPassword
+    RDSDBInstance (..),
+    rdsDBInstance,
+    rdiRDSDBInstanceARN,
+    rdiDBUser,
+    rdiAddress,
+    rdiStackId,
+    rdiMissingOnRDS,
+    rdiDBInstanceIdentifier,
+    rdiDBPassword,
+    rdiEngine,
+    rdiRegion,
 
     -- * Recipes
-    , Recipes
-    , recipes
-    , rSetup
-    , rShutdown
-    , rUndeploy
-    , rConfigure
-    , rDeploy
+    Recipes (..),
+    recipes,
+    rShutdown,
+    rConfigure,
+    rUndeploy,
+    rSetup,
+    rDeploy,
 
     -- * ReportedOS
-    , ReportedOS
-    , reportedOS
-    , roFamily
-    , roName
-    , roVersion
+    ReportedOS (..),
+    reportedOS,
+    roVersion,
+    roName,
+    roFamily,
 
     -- * SSLConfiguration
-    , SSLConfiguration
-    , sslConfiguration
-    , scPrivateKey
-    , scCertificate
-    , scChain
+    SSLConfiguration (..),
+    sslConfiguration,
+    scPrivateKey,
+    scCertificate,
+    scChain,
 
     -- * SelfUserProfile
-    , SelfUserProfile
-    , selfUserProfile
-    , supSSHPublicKey
-    , supSSHUsername
-    , supIAMUserARN
-    , supName
+    SelfUserProfile (..),
+    selfUserProfile,
+    supIAMUserARN,
+    supSSHUsername,
+    supName,
+    supSSHPublicKey,
 
     -- * ServiceError'
-    , ServiceError'
-    , serviceError'
-    , seInstanceId
-    , seCreatedAt
-    , seServiceErrorId
-    , seType
-    , seStackId
-    , seMessage
+    ServiceError' (..),
+    serviceError',
+    seInstanceId,
+    seStackId,
+    seMessage,
+    seServiceErrorId,
+    seCreatedAt,
+    seType,
 
     -- * ShutdownEventConfiguration
-    , ShutdownEventConfiguration
-    , shutdownEventConfiguration
-    , secExecutionTimeout
-    , secDelayUntilElbConnectionsDrained
+    ShutdownEventConfiguration (..),
+    shutdownEventConfiguration,
+    secExecutionTimeout,
+    secDelayUntilElbConnectionsDrained,
 
     -- * Source
-    , Source
-    , source
-    , sURL
-    , sUsername
-    , sSSHKey
-    , sPassword
-    , sType
-    , sRevision
+    Source (..),
+    source,
+    sSSHKey,
+    sPassword,
+    sUsername,
+    sURL,
+    sRevision,
+    sType,
 
     -- * Stack
-    , Stack
-    , stack
-    , sDefaultInstanceProfileARN
-    , sServiceRoleARN
-    , sDefaultRootDeviceType
-    , sARN
-    , sCreatedAt
-    , sVPCId
-    , sChefConfiguration
-    , sAgentVersion
-    , sDefaultSSHKeyName
-    , sCustomJSON
-    , sCustomCookbooksSource
-    , sDefaultAvailabilityZone
-    , sAttributes
-    , sName
-    , sDefaultOS
-    , sUseOpsworksSecurityGroups
-    , sUseCustomCookbooks
-    , sDefaultSubnetId
-    , sRegion
-    , sConfigurationManager
-    , sStackId
-    , sHostnameTheme
+    Stack (..),
+    stack,
+    staDefaultOS,
+    staUseOpsworksSecurityGroups,
+    staCustomCookbooksSource,
+    staServiceRoleARN,
+    staDefaultAvailabilityZone,
+    staStackId,
+    staAgentVersion,
+    staCustomJSON,
+    staARN,
+    staCreatedAt,
+    staDefaultRootDeviceType,
+    staAttributes,
+    staName,
+    staDefaultInstanceProfileARN,
+    staHostnameTheme,
+    staDefaultSSHKeyName,
+    staConfigurationManager,
+    staRegion,
+    staVPCId,
+    staChefConfiguration,
+    staDefaultSubnetId,
+    staUseCustomCookbooks,
 
     -- * StackConfigurationManager
-    , StackConfigurationManager
-    , stackConfigurationManager
-    , scmName
-    , scmVersion
+    StackConfigurationManager (..),
+    stackConfigurationManager,
+    scmVersion,
+    scmName,
 
     -- * StackSummary
-    , StackSummary
-    , stackSummary
-    , ssARN
-    , ssAppsCount
-    , ssName
-    , ssStackId
-    , ssLayersCount
-    , ssInstancesCount
+    StackSummary (..),
+    stackSummary,
+    sssStackId,
+    sssLayersCount,
+    sssARN,
+    sssName,
+    sssInstancesCount,
+    sssAppsCount,
 
     -- * TemporaryCredential
-    , TemporaryCredential
-    , temporaryCredential
-    , tcInstanceId
-    , tcUsername
-    , tcPassword
-    , tcValidForInMinutes
+    TemporaryCredential (..),
+    temporaryCredential,
+    tcValidForInMinutes,
+    tcInstanceId,
+    tcPassword,
+    tcUsername,
 
     -- * TimeBasedAutoScalingConfiguration
-    , TimeBasedAutoScalingConfiguration
-    , timeBasedAutoScalingConfiguration
-    , tbascInstanceId
-    , tbascAutoScalingSchedule
+    TimeBasedAutoScalingConfiguration (..),
+    timeBasedAutoScalingConfiguration,
+    tbascInstanceId,
+    tbascAutoScalingSchedule,
 
     -- * UserProfile
-    , UserProfile
-    , userProfile
-    , upAllowSelfManagement
-    , upSSHPublicKey
-    , upSSHUsername
-    , upIAMUserARN
-    , upName
+    UserProfile (..),
+    userProfile,
+    upIAMUserARN,
+    upAllowSelfManagement,
+    upSSHUsername,
+    upName,
+    upSSHPublicKey,
 
     -- * Volume
-    , Volume
-    , volume
-    , vInstanceId
-    , vStatus
-    , vSize
-    , vIOPS
-    , vDevice
-    , vEncrypted
-    , vAvailabilityZone
-    , vName
-    , vRAIdArrayId
-    , vVolumeId
-    , vRegion
-    , vVolumeType
-    , vEC2VolumeId
-    , vMountPoint
+    Volume (..),
+    volume,
+    vStatus,
+    vInstanceId,
+    vEC2VolumeId,
+    vEncrypted,
+    vDevice,
+    vVolumeId,
+    vRAIdArrayId,
+    vAvailabilityZone,
+    vName,
+    vMountPoint,
+    vVolumeType,
+    vRegion,
+    vIOPS,
+    vSize,
 
     -- * VolumeConfiguration
-    , VolumeConfiguration
-    , volumeConfiguration
-    , vcIOPS
-    , vcRAIdLevel
-    , vcEncrypted
-    , vcVolumeType
-    , vcMountPoint
-    , vcNumberOfDisks
-    , vcSize
+    VolumeConfiguration (..),
+    volumeConfiguration,
+    vcEncrypted,
+    vcVolumeType,
+    vcRAIdLevel,
+    vcIOPS,
+    vcMountPoint,
+    vcNumberOfDisks,
+    vcSize,
 
     -- * WeeklyAutoScalingSchedule
-    , WeeklyAutoScalingSchedule
-    , weeklyAutoScalingSchedule
-    , wassThursday
-    , wassWednesday
-    , wassSaturday
-    , wassMonday
-    , wassFriday
-    , wassSunday
-    , wassTuesday
-    ) where
+    WeeklyAutoScalingSchedule (..),
+    weeklyAutoScalingSchedule,
+    wassThursday,
+    wassFriday,
+    wassTuesday,
+    wassMonday,
+    wassSunday,
+    wassSaturday,
+    wassWednesday,
+  )
+where
 
 import Network.AWS.Lens
-import Network.AWS.OpsWorks.Types.Product
-import Network.AWS.OpsWorks.Types.Sum
+import Network.AWS.OpsWorks.Types.AgentVersion
+import Network.AWS.OpsWorks.Types.App
+import Network.AWS.OpsWorks.Types.AppAttributesKeys
+import Network.AWS.OpsWorks.Types.AppType
+import Network.AWS.OpsWorks.Types.Architecture
+import Network.AWS.OpsWorks.Types.AutoScalingThresholds
+import Network.AWS.OpsWorks.Types.AutoScalingType
+import Network.AWS.OpsWorks.Types.BlockDeviceMapping
+import Network.AWS.OpsWorks.Types.ChefConfiguration
+import Network.AWS.OpsWorks.Types.CloudWatchLogsConfiguration
+import Network.AWS.OpsWorks.Types.CloudWatchLogsEncoding
+import Network.AWS.OpsWorks.Types.CloudWatchLogsInitialPosition
+import Network.AWS.OpsWorks.Types.CloudWatchLogsLogStream
+import Network.AWS.OpsWorks.Types.CloudWatchLogsTimeZone
+import Network.AWS.OpsWorks.Types.Command
+import Network.AWS.OpsWorks.Types.DataSource
+import Network.AWS.OpsWorks.Types.Deployment
+import Network.AWS.OpsWorks.Types.DeploymentCommand
+import Network.AWS.OpsWorks.Types.DeploymentCommandName
+import Network.AWS.OpsWorks.Types.EBSBlockDevice
+import Network.AWS.OpsWorks.Types.EcsCluster
+import Network.AWS.OpsWorks.Types.ElasticIP
+import Network.AWS.OpsWorks.Types.ElasticLoadBalancer
+import Network.AWS.OpsWorks.Types.EnvironmentVariable
+import Network.AWS.OpsWorks.Types.Instance
+import Network.AWS.OpsWorks.Types.InstanceIdentity
+import Network.AWS.OpsWorks.Types.InstancesCount
+import Network.AWS.OpsWorks.Types.Layer
+import Network.AWS.OpsWorks.Types.LayerAttributesKeys
+import Network.AWS.OpsWorks.Types.LayerType
+import Network.AWS.OpsWorks.Types.LifecycleEventConfiguration
+import Network.AWS.OpsWorks.Types.LoadBasedAutoScalingConfiguration
+import Network.AWS.OpsWorks.Types.OperatingSystem
+import Network.AWS.OpsWorks.Types.OperatingSystemConfigurationManager
+import Network.AWS.OpsWorks.Types.Permission
+import Network.AWS.OpsWorks.Types.RAIdArray
+import Network.AWS.OpsWorks.Types.RDSDBInstance
+import Network.AWS.OpsWorks.Types.Recipes
+import Network.AWS.OpsWorks.Types.ReportedOS
+import Network.AWS.OpsWorks.Types.RootDeviceType
+import Network.AWS.OpsWorks.Types.SSLConfiguration
+import Network.AWS.OpsWorks.Types.SelfUserProfile
+import Network.AWS.OpsWorks.Types.ServiceError'
+import Network.AWS.OpsWorks.Types.ShutdownEventConfiguration
+import Network.AWS.OpsWorks.Types.Source
+import Network.AWS.OpsWorks.Types.SourceType
+import Network.AWS.OpsWorks.Types.Stack
+import Network.AWS.OpsWorks.Types.StackAttributesKeys
+import Network.AWS.OpsWorks.Types.StackConfigurationManager
+import Network.AWS.OpsWorks.Types.StackSummary
+import Network.AWS.OpsWorks.Types.TemporaryCredential
+import Network.AWS.OpsWorks.Types.TimeBasedAutoScalingConfiguration
+import Network.AWS.OpsWorks.Types.UserProfile
+import Network.AWS.OpsWorks.Types.VirtualizationType
+import Network.AWS.OpsWorks.Types.Volume
+import Network.AWS.OpsWorks.Types.VolumeConfiguration
+import Network.AWS.OpsWorks.Types.VolumeType
+import Network.AWS.OpsWorks.Types.WeeklyAutoScalingSchedule
 import Network.AWS.Prelude
 import Network.AWS.Sign.V4
 
@@ -567,52 +622,61 @@ import Network.AWS.Sign.V4
 opsWorks :: Service
 opsWorks =
   Service
-    { _svcAbbrev = "OpsWorks"
-    , _svcSigner = v4
-    , _svcPrefix = "opsworks"
-    , _svcVersion = "2013-02-18"
-    , _svcEndpoint = defaultEndpoint opsWorks
-    , _svcTimeout = Just 70
-    , _svcCheck = statusSuccess
-    , _svcError = parseJSONError "OpsWorks"
-    , _svcRetry = retry
+    { _svcAbbrev = "OpsWorks",
+      _svcSigner = v4,
+      _svcPrefix = "opsworks",
+      _svcVersion = "2013-02-18",
+      _svcEndpoint = defaultEndpoint opsWorks,
+      _svcTimeout = Just 70,
+      _svcCheck = statusSuccess,
+      _svcError = parseJSONError "OpsWorks",
+      _svcRetry = retry
     }
   where
     retry =
       Exponential
-        { _retryBase = 5.0e-2
-        , _retryGrowth = 2
-        , _retryAttempts = 5
-        , _retryCheck = check
+        { _retryBase = 5.0e-2,
+          _retryGrowth = 2,
+          _retryAttempts = 5,
+          _retryCheck = check
         }
     check e
-      | has (hasCode "ThrottledException" . hasStatus 400) e =
-        Just "throttled_exception"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has (hasCode "ThrottlingException" . hasStatus 400) e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e = Just "throttling"
       | has (hasStatus 504) e = Just "gateway_timeout"
-      | has (hasCode "RequestThrottledException" . hasStatus 400) e =
-        Just "request_throttled_exception"
-      | has (hasStatus 502) e = Just "bad_gateway"
+      | has
+          ( hasCode "ProvisionedThroughputExceededException"
+              . hasStatus 400
+          )
+          e =
+        Just "throughput_exceeded"
       | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 500) e = Just "general_server_error"
+      | has (hasStatus 502) e = Just "bad_gateway"
+      | has (hasStatus 429) e = Just "too_many_requests"
+      | has
+          (hasCode "RequestThrottledException" . hasStatus 400)
+          e =
+        Just "request_throttled_exception"
+      | has
+          (hasCode "ThrottledException" . hasStatus 400)
+          e =
+        Just "throttled_exception"
       | has (hasStatus 509) e = Just "limit_exceeded"
+      | has (hasStatus 500) e = Just "general_server_error"
+      | has
+          (hasCode "ThrottlingException" . hasStatus 400)
+          e =
+        Just "throttling_exception"
+      | has (hasCode "Throttling" . hasStatus 400) e =
+        Just "throttling"
       | otherwise = Nothing
 
-
 -- | Indicates that a request was not valid.
---
---
 _ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
-_ValidationException = _MatchServiceError opsWorks "ValidationException"
-
+_ValidationException =
+  _MatchServiceError opsWorks "ValidationException"
 
 -- | Indicates that a resource was not found.
---
---
 _ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError opsWorks "ResourceNotFoundException"
-
+  _MatchServiceError
+    opsWorks
+    "ResourceNotFoundException"
