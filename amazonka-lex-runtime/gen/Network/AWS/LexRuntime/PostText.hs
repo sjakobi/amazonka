@@ -1,24 +1,23 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.LexRuntime.PostText
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sends user input (text-only) to Amazon Lex. Client applications can use this API to send requests to Amazon Lex at runtime. Amazon Lex then interprets the user input using the machine learning model it built for the bot.
+-- Sends user input to Amazon Lex. Client applications can use this API to send requests to Amazon Lex at runtime. Amazon Lex then interprets the user input using the machine learning model it built for the bot.
 --
 --
 -- In response, Amazon Lex returns the next @message@ to convey to the user an optional @responseCard@ to display. Consider the following example messages:
@@ -51,61 +50,74 @@
 --
 --
 --
--- In addition, Amazon Lex also returns your application-specific @sessionAttributes@ . For more information, see <http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html Managing Conversation Context> .
---
+-- In addition, Amazon Lex also returns your application-specific @sessionAttributes@ . For more information, see <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html Managing Conversation Context> .
 module Network.AWS.LexRuntime.PostText
-    (
-    -- * Creating a Request
-      postText
-    , PostText
+  ( -- * Creating a Request
+    postText,
+    PostText,
+
     -- * Request Lenses
-    , ptRequestAttributes
-    , ptSessionAttributes
-    , ptBotName
-    , ptBotAlias
-    , ptUserId
-    , ptInputText
+    ptSessionAttributes,
+    ptRequestAttributes,
+    ptActiveContexts,
+    ptBotName,
+    ptBotAlias,
+    ptUserId,
+    ptInputText,
 
     -- * Destructuring the Response
-    , postTextResponse
-    , PostTextResponse
+    postTextResponse,
+    PostTextResponse,
+
     -- * Response Lenses
-    , ptrsSlots
-    , ptrsResponseCard
-    , ptrsIntentName
-    , ptrsDialogState
-    , ptrsMessageFormat
-    , ptrsMessage
-    , ptrsSlotToElicit
-    , ptrsSessionAttributes
-    , ptrsResponseStatus
-    ) where
+    ptrrsResponseCard,
+    ptrrsDialogState,
+    ptrrsSessionAttributes,
+    ptrrsMessage,
+    ptrrsSessionId,
+    ptrrsIntentName,
+    ptrrsBotVersion,
+    ptrrsMessageFormat,
+    ptrrsSlots,
+    ptrrsNluIntentConfidence,
+    ptrrsSentimentResponse,
+    ptrrsSlotToElicit,
+    ptrrsActiveContexts,
+    ptrrsAlternativeIntents,
+    ptrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.LexRuntime.Types
-import Network.AWS.LexRuntime.Types.Product
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 
 -- | /See:/ 'postText' smart constructor.
 data PostText = PostText'
-  { _ptRequestAttributes :: !(Maybe (Sensitive (Map Text Text)))
-  , _ptSessionAttributes :: !(Maybe (Sensitive (Map Text Text)))
-  , _ptBotName           :: !Text
-  , _ptBotAlias          :: !Text
-  , _ptUserId            :: !Text
-  , _ptInputText         :: !(Sensitive Text)
-  } deriving (Eq, Show, Data, Typeable, Generic)
-
+  { _ptSessionAttributes ::
+      !(Maybe (Sensitive (Map Text Text))),
+    _ptRequestAttributes ::
+      !(Maybe (Sensitive (Map Text Text))),
+    _ptActiveContexts ::
+      !(Maybe (Sensitive [ActiveContext])),
+    _ptBotName :: !Text,
+    _ptBotAlias :: !Text,
+    _ptUserId :: !Text,
+    _ptInputText :: !(Sensitive Text)
+  }
+  deriving (Eq, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'PostText' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ptRequestAttributes' - Request-specific information passed between Amazon Lex and a client application. The namespace @x-amz-lex:@ is reserved for special attributes. Don't create any request attributes with the prefix @x-amz-lex:@ . For more information, see <http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs Setting Request Attributes> .
+-- * 'ptSessionAttributes' - Application-specific information passed between Amazon Lex and a client application. For more information, see <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs Setting Session Attributes> .
 --
--- * 'ptSessionAttributes' - Application-specific information passed between Amazon Lex and a client application. For more information, see <http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs Setting Session Attributes> .
+-- * 'ptRequestAttributes' - Request-specific information passed between Amazon Lex and a client application. The namespace @x-amz-lex:@ is reserved for special attributes. Don't create any request attributes with the prefix @x-amz-lex:@ . For more information, see <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs Setting Request Attributes> .
+--
+-- * 'ptActiveContexts' - A list of contexts active for the request. A context can be activated when a previous intent is fulfilled, or by including the context in the request, If you don't specify a list of contexts, Amazon Lex will use the current list of contexts for the session. If you specify an empty list, all contexts for the session are cleared.
 --
 -- * 'ptBotName' - The name of the Amazon Lex bot.
 --
@@ -114,177 +126,262 @@ data PostText = PostText'
 -- * 'ptUserId' - The ID of the client application user. Amazon Lex uses this to identify a user's conversation with your bot. At runtime, each request must contain the @userID@ field. To decide the user ID to use for your application, consider the following factors.     * The @userID@ field must not contain any personally identifiable information of the user, for example, name, personal identification numbers, or other end user personal information.     * If you want a user to start a conversation on one device and continue on another device, use a user-specific identifier.     * If you want the same user to be able to have two independent conversations on two different devices, choose a device-specific identifier.     * A user can't have two independent conversations with two different versions of the same bot. For example, a user can't have a conversation with the PROD and BETA versions of the same bot. If you anticipate that a user will need to have conversation with two different versions, for example, while testing, include the bot alias in the user ID to separate the two conversations.
 --
 -- * 'ptInputText' - The text that the user entered (Amazon Lex interprets this text).
-postText
-    :: Text -- ^ 'ptBotName'
-    -> Text -- ^ 'ptBotAlias'
-    -> Text -- ^ 'ptUserId'
-    -> Text -- ^ 'ptInputText'
-    -> PostText
+postText ::
+  -- | 'ptBotName'
+  Text ->
+  -- | 'ptBotAlias'
+  Text ->
+  -- | 'ptUserId'
+  Text ->
+  -- | 'ptInputText'
+  Text ->
+  PostText
 postText pBotName_ pBotAlias_ pUserId_ pInputText_ =
   PostText'
-    { _ptRequestAttributes = Nothing
-    , _ptSessionAttributes = Nothing
-    , _ptBotName = pBotName_
-    , _ptBotAlias = pBotAlias_
-    , _ptUserId = pUserId_
-    , _ptInputText = _Sensitive # pInputText_
+    { _ptSessionAttributes = Nothing,
+      _ptRequestAttributes = Nothing,
+      _ptActiveContexts = Nothing,
+      _ptBotName = pBotName_,
+      _ptBotAlias = pBotAlias_,
+      _ptUserId = pUserId_,
+      _ptInputText = _Sensitive # pInputText_
     }
 
-
--- | Request-specific information passed between Amazon Lex and a client application. The namespace @x-amz-lex:@ is reserved for special attributes. Don't create any request attributes with the prefix @x-amz-lex:@ . For more information, see <http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs Setting Request Attributes> .
-ptRequestAttributes :: Lens' PostText (Maybe (HashMap Text Text))
-ptRequestAttributes = lens _ptRequestAttributes (\ s a -> s{_ptRequestAttributes = a}) . mapping (_Sensitive . _Map)
-
--- | Application-specific information passed between Amazon Lex and a client application. For more information, see <http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs Setting Session Attributes> .
+-- | Application-specific information passed between Amazon Lex and a client application. For more information, see <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs Setting Session Attributes> .
 ptSessionAttributes :: Lens' PostText (Maybe (HashMap Text Text))
-ptSessionAttributes = lens _ptSessionAttributes (\ s a -> s{_ptSessionAttributes = a}) . mapping (_Sensitive . _Map)
+ptSessionAttributes = lens _ptSessionAttributes (\s a -> s {_ptSessionAttributes = a}) . mapping (_Sensitive . _Map)
+
+-- | Request-specific information passed between Amazon Lex and a client application. The namespace @x-amz-lex:@ is reserved for special attributes. Don't create any request attributes with the prefix @x-amz-lex:@ . For more information, see <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs Setting Request Attributes> .
+ptRequestAttributes :: Lens' PostText (Maybe (HashMap Text Text))
+ptRequestAttributes = lens _ptRequestAttributes (\s a -> s {_ptRequestAttributes = a}) . mapping (_Sensitive . _Map)
+
+-- | A list of contexts active for the request. A context can be activated when a previous intent is fulfilled, or by including the context in the request, If you don't specify a list of contexts, Amazon Lex will use the current list of contexts for the session. If you specify an empty list, all contexts for the session are cleared.
+ptActiveContexts :: Lens' PostText (Maybe [ActiveContext])
+ptActiveContexts = lens _ptActiveContexts (\s a -> s {_ptActiveContexts = a}) . mapping (_Sensitive . _Coerce)
 
 -- | The name of the Amazon Lex bot.
 ptBotName :: Lens' PostText Text
-ptBotName = lens _ptBotName (\ s a -> s{_ptBotName = a})
+ptBotName = lens _ptBotName (\s a -> s {_ptBotName = a})
 
 -- | The alias of the Amazon Lex bot.
 ptBotAlias :: Lens' PostText Text
-ptBotAlias = lens _ptBotAlias (\ s a -> s{_ptBotAlias = a})
+ptBotAlias = lens _ptBotAlias (\s a -> s {_ptBotAlias = a})
 
 -- | The ID of the client application user. Amazon Lex uses this to identify a user's conversation with your bot. At runtime, each request must contain the @userID@ field. To decide the user ID to use for your application, consider the following factors.     * The @userID@ field must not contain any personally identifiable information of the user, for example, name, personal identification numbers, or other end user personal information.     * If you want a user to start a conversation on one device and continue on another device, use a user-specific identifier.     * If you want the same user to be able to have two independent conversations on two different devices, choose a device-specific identifier.     * A user can't have two independent conversations with two different versions of the same bot. For example, a user can't have a conversation with the PROD and BETA versions of the same bot. If you anticipate that a user will need to have conversation with two different versions, for example, while testing, include the bot alias in the user ID to separate the two conversations.
 ptUserId :: Lens' PostText Text
-ptUserId = lens _ptUserId (\ s a -> s{_ptUserId = a})
+ptUserId = lens _ptUserId (\s a -> s {_ptUserId = a})
 
 -- | The text that the user entered (Amazon Lex interprets this text).
 ptInputText :: Lens' PostText Text
-ptInputText = lens _ptInputText (\ s a -> s{_ptInputText = a}) . _Sensitive
+ptInputText = lens _ptInputText (\s a -> s {_ptInputText = a}) . _Sensitive
 
 instance AWSRequest PostText where
-        type Rs PostText = PostTextResponse
-        request = postJSON lexRuntime
-        response
-          = receiveJSON
-              (\ s h x ->
-                 PostTextResponse' <$>
-                   (x .?> "slots" .!@ mempty) <*> (x .?> "responseCard")
-                     <*> (x .?> "intentName")
-                     <*> (x .?> "dialogState")
-                     <*> (x .?> "messageFormat")
-                     <*> (x .?> "message")
-                     <*> (x .?> "slotToElicit")
-                     <*> (x .?> "sessionAttributes" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type Rs PostText = PostTextResponse
+  request = postJSON lexRuntime
+  response =
+    receiveJSON
+      ( \s h x ->
+          PostTextResponse'
+            <$> (x .?> "responseCard")
+            <*> (x .?> "dialogState")
+            <*> (x .?> "sessionAttributes" .!@ mempty)
+            <*> (x .?> "message")
+            <*> (x .?> "sessionId")
+            <*> (x .?> "intentName")
+            <*> (x .?> "botVersion")
+            <*> (x .?> "messageFormat")
+            <*> (x .?> "slots" .!@ mempty)
+            <*> (x .?> "nluIntentConfidence")
+            <*> (x .?> "sentimentResponse")
+            <*> (x .?> "slotToElicit")
+            <*> (x .?> "activeContexts" .!@ mempty)
+            <*> (x .?> "alternativeIntents" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable PostText where
+instance Hashable PostText
 
-instance NFData PostText where
+instance NFData PostText
 
 instance ToHeaders PostText where
-        toHeaders
-          = const
-              (mconcat
-                 ["Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON PostText where
-        toJSON PostText'{..}
-          = object
-              (catMaybes
-                 [("requestAttributes" .=) <$> _ptRequestAttributes,
-                  ("sessionAttributes" .=) <$> _ptSessionAttributes,
-                  Just ("inputText" .= _ptInputText)])
+  toJSON PostText' {..} =
+    object
+      ( catMaybes
+          [ ("sessionAttributes" .=) <$> _ptSessionAttributes,
+            ("requestAttributes" .=) <$> _ptRequestAttributes,
+            ("activeContexts" .=) <$> _ptActiveContexts,
+            Just ("inputText" .= _ptInputText)
+          ]
+      )
 
 instance ToPath PostText where
-        toPath PostText'{..}
-          = mconcat
-              ["/bot/", toBS _ptBotName, "/alias/",
-               toBS _ptBotAlias, "/user/", toBS _ptUserId, "/text"]
+  toPath PostText' {..} =
+    mconcat
+      [ "/bot/",
+        toBS _ptBotName,
+        "/alias/",
+        toBS _ptBotAlias,
+        "/user/",
+        toBS _ptUserId,
+        "/text"
+      ]
 
 instance ToQuery PostText where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'postTextResponse' smart constructor.
 data PostTextResponse = PostTextResponse'
-  { _ptrsSlots             :: !(Maybe (Sensitive (Map Text Text)))
-  , _ptrsResponseCard      :: !(Maybe ResponseCard)
-  , _ptrsIntentName        :: !(Maybe Text)
-  , _ptrsDialogState       :: !(Maybe DialogState)
-  , _ptrsMessageFormat     :: !(Maybe MessageFormatType)
-  , _ptrsMessage           :: !(Maybe (Sensitive Text))
-  , _ptrsSlotToElicit      :: !(Maybe Text)
-  , _ptrsSessionAttributes :: !(Maybe (Sensitive (Map Text Text)))
-  , _ptrsResponseStatus    :: !Int
-  } deriving (Eq, Show, Data, Typeable, Generic)
-
+  { _ptrrsResponseCard ::
+      !(Maybe ResponseCard),
+    _ptrrsDialogState ::
+      !(Maybe DialogState),
+    _ptrrsSessionAttributes ::
+      !(Maybe (Sensitive (Map Text Text))),
+    _ptrrsMessage ::
+      !(Maybe (Sensitive Text)),
+    _ptrrsSessionId :: !(Maybe Text),
+    _ptrrsIntentName :: !(Maybe Text),
+    _ptrrsBotVersion :: !(Maybe Text),
+    _ptrrsMessageFormat ::
+      !(Maybe MessageFormatType),
+    _ptrrsSlots ::
+      !(Maybe (Sensitive (Map Text Text))),
+    _ptrrsNluIntentConfidence ::
+      !(Maybe IntentConfidence),
+    _ptrrsSentimentResponse ::
+      !(Maybe SentimentResponse),
+    _ptrrsSlotToElicit :: !(Maybe Text),
+    _ptrrsActiveContexts ::
+      !(Maybe (Sensitive [ActiveContext])),
+    _ptrrsAlternativeIntents ::
+      !(Maybe [PredictedIntent]),
+    _ptrrsResponseStatus :: !Int
+  }
+  deriving (Eq, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'PostTextResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ptrsSlots' - The intent slots that Amazon Lex detected from the user input in the conversation.  Amazon Lex creates a resolution list containing likely values for a slot. The value that it returns is determined by the @valueSelectionStrategy@ selected when the slot type was created or updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@ , the value provided by the user is returned, if the user value is similar to the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@ Amazon Lex returns the first value in the resolution list or, if there is no resolution list, null. If you don't specify a @valueSelectionStrategy@ , the default is @ORIGINAL_VALUE@ .
+-- * 'ptrrsResponseCard' - Represents the options that the user has to respond to the current prompt. Response Card can come from the bot configuration (in the Amazon Lex console, choose the settings button next to a slot) or from a code hook (Lambda function).
 --
--- * 'ptrsResponseCard' - Represents the options that the user has to respond to the current prompt. Response Card can come from the bot configuration (in the Amazon Lex console, choose the settings button next to a slot) or from a code hook (Lambda function).
+-- * 'ptrrsDialogState' - Identifies the current state of the user interaction. Amazon Lex returns one of the following values as @dialogState@ . The client can optionally use this information to customize the user interface.      * @ElicitIntent@ - Amazon Lex wants to elicit user intent.  For example, a user might utter an intent ("I want to order a pizza"). If Amazon Lex cannot infer the user intent from this utterance, it will return this dialogState.     * @ConfirmIntent@ - Amazon Lex is expecting a "yes" or "no" response.  For example, Amazon Lex wants user confirmation before fulfilling an intent.  Instead of a simple "yes" or "no," a user might respond with additional information. For example, "yes, but make it thick crust pizza" or "no, I want to order a drink". Amazon Lex can process such additional information (in these examples, update the crust type slot value, or change intent from OrderPizza to OrderDrink).     * @ElicitSlot@ - Amazon Lex is expecting a slot value for the current intent.  For example, suppose that in the response Amazon Lex sends this message: "What size pizza would you like?". A user might reply with the slot value (e.g., "medium"). The user might also provide additional information in the response (e.g., "medium thick crust pizza"). Amazon Lex can process such additional information appropriately.      * @Fulfilled@ - Conveys that the Lambda function configured for the intent has successfully fulfilled the intent.      * @ReadyForFulfillment@ - Conveys that the client has to fulfill the intent.      * @Failed@ - Conveys that the conversation with the user failed.  This can happen for various reasons including that the user did not provide an appropriate response to prompts from the service (you can configure how many times Amazon Lex can prompt a user for specific information), or the Lambda function failed to fulfill the intent.
 --
--- * 'ptrsIntentName' - The current user intent that Amazon Lex is aware of.
+-- * 'ptrrsSessionAttributes' - A map of key-value pairs representing the session-specific context information.
 --
--- * 'ptrsDialogState' - Identifies the current state of the user interaction. Amazon Lex returns one of the following values as @dialogState@ . The client can optionally use this information to customize the user interface.      * @ElicitIntent@ - Amazon Lex wants to elicit user intent.  For example, a user might utter an intent ("I want to order a pizza"). If Amazon Lex cannot infer the user intent from this utterance, it will return this dialogState.     * @ConfirmIntent@ - Amazon Lex is expecting a "yes" or "no" response.  For example, Amazon Lex wants user confirmation before fulfilling an intent.  Instead of a simple "yes" or "no," a user might respond with additional information. For example, "yes, but make it thick crust pizza" or "no, I want to order a drink". Amazon Lex can process such additional information (in these examples, update the crust type slot value, or change intent from OrderPizza to OrderDrink).     * @ElicitSlot@ - Amazon Lex is expecting a slot value for the current intent.  For example, suppose that in the response Amazon Lex sends this message: "What size pizza would you like?". A user might reply with the slot value (e.g., "medium"). The user might also provide additional information in the response (e.g., "medium thick crust pizza"). Amazon Lex can process such additional information appropriately.      * @Fulfilled@ - Conveys that the Lambda function configured for the intent has successfully fulfilled the intent.      * @ReadyForFulfillment@ - Conveys that the client has to fulfill the intent.      * @Failed@ - Conveys that the conversation with the user failed.  This can happen for various reasons including that the user did not provide an appropriate response to prompts from the service (you can configure how many times Amazon Lex can prompt a user for specific information), or the Lambda function failed to fulfill the intent.
+-- * 'ptrrsMessage' - The message to convey to the user. The message can come from the bot's configuration or from a Lambda function. If the intent is not configured with a Lambda function, or if the Lambda function returned @Delegate@ as the @dialogAction.type@ its response, Amazon Lex decides on the next course of action and selects an appropriate message from the bot's configuration based on the current interaction context. For example, if Amazon Lex isn't able to understand user input, it uses a clarification prompt message. When you create an intent you can assign messages to groups. When messages are assigned to groups Amazon Lex returns one message from each group in the response. The message field is an escaped JSON string containing the messages. For more information about the structure of the JSON string returned, see 'msg-prompts-formats' . If the Lambda function returns a message, Amazon Lex passes it to the client in its response.
 --
--- * 'ptrsMessageFormat' - The format of the response message. One of the following values:     * @PlainText@ - The message contains plain UTF-8 text.     * @CustomPayload@ - The message is a custom format defined by the Lambda function.     * @SSML@ - The message contains text formatted for voice output.     * @Composite@ - The message contains an escaped JSON object containing one or more messages from the groups that messages were assigned to when the intent was created.
+-- * 'ptrrsSessionId' - A unique identifier for the session.
 --
--- * 'ptrsMessage' - The message to convey to the user. The message can come from the bot's configuration or from a Lambda function. If the intent is not configured with a Lambda function, or if the Lambda function returned @Delegate@ as the @dialogAction.type@ its response, Amazon Lex decides on the next course of action and selects an appropriate message from the bot's configuration based on the current interaction context. For example, if Amazon Lex isn't able to understand user input, it uses a clarification prompt message. When you create an intent you can assign messages to groups. When messages are assigned to groups Amazon Lex returns one message from each group in the response. The message field is an escaped JSON string containing the messages. For more information about the structure of the JSON string returned, see 'msg-prompts-formats' . If the Lambda function returns a message, Amazon Lex passes it to the client in its response.
+-- * 'ptrrsIntentName' - The current user intent that Amazon Lex is aware of.
 --
--- * 'ptrsSlotToElicit' - If the @dialogState@ value is @ElicitSlot@ , returns the name of the slot for which Amazon Lex is eliciting a value.
+-- * 'ptrrsBotVersion' - The version of the bot that responded to the conversation. You can use this information to help determine if one version of a bot is performing better than another version.
 --
--- * 'ptrsSessionAttributes' - A map of key-value pairs representing the session-specific context information.
+-- * 'ptrrsMessageFormat' - The format of the response message. One of the following values:     * @PlainText@ - The message contains plain UTF-8 text.     * @CustomPayload@ - The message is a custom format defined by the Lambda function.     * @SSML@ - The message contains text formatted for voice output.     * @Composite@ - The message contains an escaped JSON object containing one or more messages from the groups that messages were assigned to when the intent was created.
 --
--- * 'ptrsResponseStatus' - -- | The response status code.
-postTextResponse
-    :: Int -- ^ 'ptrsResponseStatus'
-    -> PostTextResponse
+-- * 'ptrrsSlots' - The intent slots that Amazon Lex detected from the user input in the conversation.  Amazon Lex creates a resolution list containing likely values for a slot. The value that it returns is determined by the @valueSelectionStrategy@ selected when the slot type was created or updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@ , the value provided by the user is returned, if the user value is similar to the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@ Amazon Lex returns the first value in the resolution list or, if there is no resolution list, null. If you don't specify a @valueSelectionStrategy@ , the default is @ORIGINAL_VALUE@ .
+--
+-- * 'ptrrsNluIntentConfidence' - Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that matches the user's intent. The score is between 0.0 and 1.0. For more information, see <https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html Confidence Scores> . The score is a relative score, not an absolute score. The score may change based on improvements to Amazon Lex.
+--
+-- * 'ptrrsSentimentResponse' - The sentiment expressed in and utterance. When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains the result of the analysis.
+--
+-- * 'ptrrsSlotToElicit' - If the @dialogState@ value is @ElicitSlot@ , returns the name of the slot for which Amazon Lex is eliciting a value.
+--
+-- * 'ptrrsActiveContexts' - A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling the @PostContent@ , @PostText@ , or @PutSession@ operation. You can use a context to control the intents that can follow up an intent, or to modify the operation of your application.
+--
+-- * 'ptrrsAlternativeIntents' - One to four alternative intents that may be applicable to the user's intent. Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the user's intent. The intents are sorted by the confidence score.
+--
+-- * 'ptrrsResponseStatus' - -- | The response status code.
+postTextResponse ::
+  -- | 'ptrrsResponseStatus'
+  Int ->
+  PostTextResponse
 postTextResponse pResponseStatus_ =
   PostTextResponse'
-    { _ptrsSlots = Nothing
-    , _ptrsResponseCard = Nothing
-    , _ptrsIntentName = Nothing
-    , _ptrsDialogState = Nothing
-    , _ptrsMessageFormat = Nothing
-    , _ptrsMessage = Nothing
-    , _ptrsSlotToElicit = Nothing
-    , _ptrsSessionAttributes = Nothing
-    , _ptrsResponseStatus = pResponseStatus_
+    { _ptrrsResponseCard = Nothing,
+      _ptrrsDialogState = Nothing,
+      _ptrrsSessionAttributes = Nothing,
+      _ptrrsMessage = Nothing,
+      _ptrrsSessionId = Nothing,
+      _ptrrsIntentName = Nothing,
+      _ptrrsBotVersion = Nothing,
+      _ptrrsMessageFormat = Nothing,
+      _ptrrsSlots = Nothing,
+      _ptrrsNluIntentConfidence = Nothing,
+      _ptrrsSentimentResponse = Nothing,
+      _ptrrsSlotToElicit = Nothing,
+      _ptrrsActiveContexts = Nothing,
+      _ptrrsAlternativeIntents = Nothing,
+      _ptrrsResponseStatus = pResponseStatus_
     }
 
-
--- | The intent slots that Amazon Lex detected from the user input in the conversation.  Amazon Lex creates a resolution list containing likely values for a slot. The value that it returns is determined by the @valueSelectionStrategy@ selected when the slot type was created or updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@ , the value provided by the user is returned, if the user value is similar to the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@ Amazon Lex returns the first value in the resolution list or, if there is no resolution list, null. If you don't specify a @valueSelectionStrategy@ , the default is @ORIGINAL_VALUE@ .
-ptrsSlots :: Lens' PostTextResponse (Maybe (HashMap Text Text))
-ptrsSlots = lens _ptrsSlots (\ s a -> s{_ptrsSlots = a}) . mapping (_Sensitive . _Map)
-
 -- | Represents the options that the user has to respond to the current prompt. Response Card can come from the bot configuration (in the Amazon Lex console, choose the settings button next to a slot) or from a code hook (Lambda function).
-ptrsResponseCard :: Lens' PostTextResponse (Maybe ResponseCard)
-ptrsResponseCard = lens _ptrsResponseCard (\ s a -> s{_ptrsResponseCard = a})
-
--- | The current user intent that Amazon Lex is aware of.
-ptrsIntentName :: Lens' PostTextResponse (Maybe Text)
-ptrsIntentName = lens _ptrsIntentName (\ s a -> s{_ptrsIntentName = a})
+ptrrsResponseCard :: Lens' PostTextResponse (Maybe ResponseCard)
+ptrrsResponseCard = lens _ptrrsResponseCard (\s a -> s {_ptrrsResponseCard = a})
 
 -- | Identifies the current state of the user interaction. Amazon Lex returns one of the following values as @dialogState@ . The client can optionally use this information to customize the user interface.      * @ElicitIntent@ - Amazon Lex wants to elicit user intent.  For example, a user might utter an intent ("I want to order a pizza"). If Amazon Lex cannot infer the user intent from this utterance, it will return this dialogState.     * @ConfirmIntent@ - Amazon Lex is expecting a "yes" or "no" response.  For example, Amazon Lex wants user confirmation before fulfilling an intent.  Instead of a simple "yes" or "no," a user might respond with additional information. For example, "yes, but make it thick crust pizza" or "no, I want to order a drink". Amazon Lex can process such additional information (in these examples, update the crust type slot value, or change intent from OrderPizza to OrderDrink).     * @ElicitSlot@ - Amazon Lex is expecting a slot value for the current intent.  For example, suppose that in the response Amazon Lex sends this message: "What size pizza would you like?". A user might reply with the slot value (e.g., "medium"). The user might also provide additional information in the response (e.g., "medium thick crust pizza"). Amazon Lex can process such additional information appropriately.      * @Fulfilled@ - Conveys that the Lambda function configured for the intent has successfully fulfilled the intent.      * @ReadyForFulfillment@ - Conveys that the client has to fulfill the intent.      * @Failed@ - Conveys that the conversation with the user failed.  This can happen for various reasons including that the user did not provide an appropriate response to prompts from the service (you can configure how many times Amazon Lex can prompt a user for specific information), or the Lambda function failed to fulfill the intent.
-ptrsDialogState :: Lens' PostTextResponse (Maybe DialogState)
-ptrsDialogState = lens _ptrsDialogState (\ s a -> s{_ptrsDialogState = a})
-
--- | The format of the response message. One of the following values:     * @PlainText@ - The message contains plain UTF-8 text.     * @CustomPayload@ - The message is a custom format defined by the Lambda function.     * @SSML@ - The message contains text formatted for voice output.     * @Composite@ - The message contains an escaped JSON object containing one or more messages from the groups that messages were assigned to when the intent was created.
-ptrsMessageFormat :: Lens' PostTextResponse (Maybe MessageFormatType)
-ptrsMessageFormat = lens _ptrsMessageFormat (\ s a -> s{_ptrsMessageFormat = a})
-
--- | The message to convey to the user. The message can come from the bot's configuration or from a Lambda function. If the intent is not configured with a Lambda function, or if the Lambda function returned @Delegate@ as the @dialogAction.type@ its response, Amazon Lex decides on the next course of action and selects an appropriate message from the bot's configuration based on the current interaction context. For example, if Amazon Lex isn't able to understand user input, it uses a clarification prompt message. When you create an intent you can assign messages to groups. When messages are assigned to groups Amazon Lex returns one message from each group in the response. The message field is an escaped JSON string containing the messages. For more information about the structure of the JSON string returned, see 'msg-prompts-formats' . If the Lambda function returns a message, Amazon Lex passes it to the client in its response.
-ptrsMessage :: Lens' PostTextResponse (Maybe Text)
-ptrsMessage = lens _ptrsMessage (\ s a -> s{_ptrsMessage = a}) . mapping _Sensitive
-
--- | If the @dialogState@ value is @ElicitSlot@ , returns the name of the slot for which Amazon Lex is eliciting a value.
-ptrsSlotToElicit :: Lens' PostTextResponse (Maybe Text)
-ptrsSlotToElicit = lens _ptrsSlotToElicit (\ s a -> s{_ptrsSlotToElicit = a})
+ptrrsDialogState :: Lens' PostTextResponse (Maybe DialogState)
+ptrrsDialogState = lens _ptrrsDialogState (\s a -> s {_ptrrsDialogState = a})
 
 -- | A map of key-value pairs representing the session-specific context information.
-ptrsSessionAttributes :: Lens' PostTextResponse (Maybe (HashMap Text Text))
-ptrsSessionAttributes = lens _ptrsSessionAttributes (\ s a -> s{_ptrsSessionAttributes = a}) . mapping (_Sensitive . _Map)
+ptrrsSessionAttributes :: Lens' PostTextResponse (Maybe (HashMap Text Text))
+ptrrsSessionAttributes = lens _ptrrsSessionAttributes (\s a -> s {_ptrrsSessionAttributes = a}) . mapping (_Sensitive . _Map)
+
+-- | The message to convey to the user. The message can come from the bot's configuration or from a Lambda function. If the intent is not configured with a Lambda function, or if the Lambda function returned @Delegate@ as the @dialogAction.type@ its response, Amazon Lex decides on the next course of action and selects an appropriate message from the bot's configuration based on the current interaction context. For example, if Amazon Lex isn't able to understand user input, it uses a clarification prompt message. When you create an intent you can assign messages to groups. When messages are assigned to groups Amazon Lex returns one message from each group in the response. The message field is an escaped JSON string containing the messages. For more information about the structure of the JSON string returned, see 'msg-prompts-formats' . If the Lambda function returns a message, Amazon Lex passes it to the client in its response.
+ptrrsMessage :: Lens' PostTextResponse (Maybe Text)
+ptrrsMessage = lens _ptrrsMessage (\s a -> s {_ptrrsMessage = a}) . mapping _Sensitive
+
+-- | A unique identifier for the session.
+ptrrsSessionId :: Lens' PostTextResponse (Maybe Text)
+ptrrsSessionId = lens _ptrrsSessionId (\s a -> s {_ptrrsSessionId = a})
+
+-- | The current user intent that Amazon Lex is aware of.
+ptrrsIntentName :: Lens' PostTextResponse (Maybe Text)
+ptrrsIntentName = lens _ptrrsIntentName (\s a -> s {_ptrrsIntentName = a})
+
+-- | The version of the bot that responded to the conversation. You can use this information to help determine if one version of a bot is performing better than another version.
+ptrrsBotVersion :: Lens' PostTextResponse (Maybe Text)
+ptrrsBotVersion = lens _ptrrsBotVersion (\s a -> s {_ptrrsBotVersion = a})
+
+-- | The format of the response message. One of the following values:     * @PlainText@ - The message contains plain UTF-8 text.     * @CustomPayload@ - The message is a custom format defined by the Lambda function.     * @SSML@ - The message contains text formatted for voice output.     * @Composite@ - The message contains an escaped JSON object containing one or more messages from the groups that messages were assigned to when the intent was created.
+ptrrsMessageFormat :: Lens' PostTextResponse (Maybe MessageFormatType)
+ptrrsMessageFormat = lens _ptrrsMessageFormat (\s a -> s {_ptrrsMessageFormat = a})
+
+-- | The intent slots that Amazon Lex detected from the user input in the conversation.  Amazon Lex creates a resolution list containing likely values for a slot. The value that it returns is determined by the @valueSelectionStrategy@ selected when the slot type was created or updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@ , the value provided by the user is returned, if the user value is similar to the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@ Amazon Lex returns the first value in the resolution list or, if there is no resolution list, null. If you don't specify a @valueSelectionStrategy@ , the default is @ORIGINAL_VALUE@ .
+ptrrsSlots :: Lens' PostTextResponse (Maybe (HashMap Text Text))
+ptrrsSlots = lens _ptrrsSlots (\s a -> s {_ptrrsSlots = a}) . mapping (_Sensitive . _Map)
+
+-- | Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that matches the user's intent. The score is between 0.0 and 1.0. For more information, see <https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html Confidence Scores> . The score is a relative score, not an absolute score. The score may change based on improvements to Amazon Lex.
+ptrrsNluIntentConfidence :: Lens' PostTextResponse (Maybe IntentConfidence)
+ptrrsNluIntentConfidence = lens _ptrrsNluIntentConfidence (\s a -> s {_ptrrsNluIntentConfidence = a})
+
+-- | The sentiment expressed in and utterance. When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains the result of the analysis.
+ptrrsSentimentResponse :: Lens' PostTextResponse (Maybe SentimentResponse)
+ptrrsSentimentResponse = lens _ptrrsSentimentResponse (\s a -> s {_ptrrsSentimentResponse = a})
+
+-- | If the @dialogState@ value is @ElicitSlot@ , returns the name of the slot for which Amazon Lex is eliciting a value.
+ptrrsSlotToElicit :: Lens' PostTextResponse (Maybe Text)
+ptrrsSlotToElicit = lens _ptrrsSlotToElicit (\s a -> s {_ptrrsSlotToElicit = a})
+
+-- | A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling the @PostContent@ , @PostText@ , or @PutSession@ operation. You can use a context to control the intents that can follow up an intent, or to modify the operation of your application.
+ptrrsActiveContexts :: Lens' PostTextResponse (Maybe [ActiveContext])
+ptrrsActiveContexts = lens _ptrrsActiveContexts (\s a -> s {_ptrrsActiveContexts = a}) . mapping (_Sensitive . _Coerce)
+
+-- | One to four alternative intents that may be applicable to the user's intent. Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the user's intent. The intents are sorted by the confidence score.
+ptrrsAlternativeIntents :: Lens' PostTextResponse [PredictedIntent]
+ptrrsAlternativeIntents = lens _ptrrsAlternativeIntents (\s a -> s {_ptrrsAlternativeIntents = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-ptrsResponseStatus :: Lens' PostTextResponse Int
-ptrsResponseStatus = lens _ptrsResponseStatus (\ s a -> s{_ptrsResponseStatus = a})
+ptrrsResponseStatus :: Lens' PostTextResponse Int
+ptrrsResponseStatus = lens _ptrrsResponseStatus (\s a -> s {_ptrrsResponseStatus = a})
 
-instance NFData PostTextResponse where
+instance NFData PostTextResponse
