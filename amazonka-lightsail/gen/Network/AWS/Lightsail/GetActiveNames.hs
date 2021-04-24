@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Lightsail.GetActiveNames
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,25 +23,26 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetActiveNames
-    (
-    -- * Creating a Request
-      getActiveNames
-    , GetActiveNames
+  ( -- * Creating a Request
+    getActiveNames,
+    GetActiveNames,
+
     -- * Request Lenses
-    , ganPageToken
+    ganPageToken,
 
     -- * Destructuring the Response
-    , getActiveNamesResponse
-    , GetActiveNamesResponse
+    getActiveNamesResponse,
+    GetActiveNamesResponse,
+
     -- * Response Lenses
-    , ganrsNextPageToken
-    , ganrsActiveNames
-    , ganrsResponseStatus
-    ) where
+    ganrrsNextPageToken,
+    ganrrsActiveNames,
+    ganrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Lightsail.Types.Product
 import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -50,104 +50,119 @@ import Network.AWS.Response
 
 -- | /See:/ 'getActiveNames' smart constructor.
 newtype GetActiveNames = GetActiveNames'
-  { _ganPageToken :: Maybe Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ganPageToken ::
+      Maybe Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetActiveNames' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ganPageToken' - A token used for paginating results from your get active names request.
-getActiveNames
-    :: GetActiveNames
-getActiveNames = GetActiveNames' {_ganPageToken = Nothing}
+-- * 'ganPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetActiveNames@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+getActiveNames ::
+  GetActiveNames
+getActiveNames =
+  GetActiveNames' {_ganPageToken = Nothing}
 
-
--- | A token used for paginating results from your get active names request.
+-- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetActiveNames@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 ganPageToken :: Lens' GetActiveNames (Maybe Text)
-ganPageToken = lens _ganPageToken (\ s a -> s{_ganPageToken = a})
+ganPageToken = lens _ganPageToken (\s a -> s {_ganPageToken = a})
 
 instance AWSPager GetActiveNames where
-        page rq rs
-          | stop (rs ^. ganrsNextPageToken) = Nothing
-          | stop (rs ^. ganrsActiveNames) = Nothing
-          | otherwise =
-            Just $ rq & ganPageToken .~ rs ^. ganrsNextPageToken
+  page rq rs
+    | stop (rs ^. ganrrsNextPageToken) = Nothing
+    | stop (rs ^. ganrrsActiveNames) = Nothing
+    | otherwise =
+      Just $ rq & ganPageToken .~ rs ^. ganrrsNextPageToken
 
 instance AWSRequest GetActiveNames where
-        type Rs GetActiveNames = GetActiveNamesResponse
-        request = postJSON lightsail
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetActiveNamesResponse' <$>
-                   (x .?> "nextPageToken") <*>
-                     (x .?> "activeNames" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type Rs GetActiveNames = GetActiveNamesResponse
+  request = postJSON lightsail
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetActiveNamesResponse'
+            <$> (x .?> "nextPageToken")
+            <*> (x .?> "activeNames" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetActiveNames where
+instance Hashable GetActiveNames
 
-instance NFData GetActiveNames where
+instance NFData GetActiveNames
 
 instance ToHeaders GetActiveNames where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("Lightsail_20161128.GetActiveNames" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("Lightsail_20161128.GetActiveNames" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON GetActiveNames where
-        toJSON GetActiveNames'{..}
-          = object
-              (catMaybes [("pageToken" .=) <$> _ganPageToken])
+  toJSON GetActiveNames' {..} =
+    object
+      (catMaybes [("pageToken" .=) <$> _ganPageToken])
 
 instance ToPath GetActiveNames where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetActiveNames where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getActiveNamesResponse' smart constructor.
 data GetActiveNamesResponse = GetActiveNamesResponse'
-  { _ganrsNextPageToken  :: !(Maybe Text)
-  , _ganrsActiveNames    :: !(Maybe [Text])
-  , _ganrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ganrrsNextPageToken ::
+      !(Maybe Text),
+    _ganrrsActiveNames ::
+      !(Maybe [Text]),
+    _ganrrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetActiveNamesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ganrsNextPageToken' - A token used for advancing to the next page of results from your get active names request.
+-- * 'ganrrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetActiveNames@ request and specify the next page token using the @pageToken@ parameter.
 --
--- * 'ganrsActiveNames' - The list of active names returned by the get active names request.
+-- * 'ganrrsActiveNames' - The list of active names returned by the get active names request.
 --
--- * 'ganrsResponseStatus' - -- | The response status code.
-getActiveNamesResponse
-    :: Int -- ^ 'ganrsResponseStatus'
-    -> GetActiveNamesResponse
+-- * 'ganrrsResponseStatus' - -- | The response status code.
+getActiveNamesResponse ::
+  -- | 'ganrrsResponseStatus'
+  Int ->
+  GetActiveNamesResponse
 getActiveNamesResponse pResponseStatus_ =
   GetActiveNamesResponse'
-    { _ganrsNextPageToken = Nothing
-    , _ganrsActiveNames = Nothing
-    , _ganrsResponseStatus = pResponseStatus_
+    { _ganrrsNextPageToken =
+        Nothing,
+      _ganrrsActiveNames = Nothing,
+      _ganrrsResponseStatus = pResponseStatus_
     }
 
-
--- | A token used for advancing to the next page of results from your get active names request.
-ganrsNextPageToken :: Lens' GetActiveNamesResponse (Maybe Text)
-ganrsNextPageToken = lens _ganrsNextPageToken (\ s a -> s{_ganrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetActiveNames@ request and specify the next page token using the @pageToken@ parameter.
+ganrrsNextPageToken :: Lens' GetActiveNamesResponse (Maybe Text)
+ganrrsNextPageToken = lens _ganrrsNextPageToken (\s a -> s {_ganrrsNextPageToken = a})
 
 -- | The list of active names returned by the get active names request.
-ganrsActiveNames :: Lens' GetActiveNamesResponse [Text]
-ganrsActiveNames = lens _ganrsActiveNames (\ s a -> s{_ganrsActiveNames = a}) . _Default . _Coerce
+ganrrsActiveNames :: Lens' GetActiveNamesResponse [Text]
+ganrrsActiveNames = lens _ganrrsActiveNames (\s a -> s {_ganrrsActiveNames = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-ganrsResponseStatus :: Lens' GetActiveNamesResponse Int
-ganrsResponseStatus = lens _ganrsResponseStatus (\ s a -> s{_ganrsResponseStatus = a})
+ganrrsResponseStatus :: Lens' GetActiveNamesResponse Int
+ganrrsResponseStatus = lens _ganrrsResponseStatus (\s a -> s {_ganrrsResponseStatus = a})
 
-instance NFData GetActiveNamesResponse where
+instance NFData GetActiveNamesResponse
