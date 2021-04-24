@@ -1,11 +1,11 @@
-{-# OPTIONS_GHC -fno-warn-unused-imports    #-}
 {-# OPTIONS_GHC -fno-warn-duplicate-exports #-}
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.MigrationHub
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,37 +14,43 @@
 -- The AWS Migration Hub API methods help to obtain server and application migration status and integrate your resource-specific migration tool by providing a programmatic interface to Migration Hub.
 --
 --
+-- Remember that you must set your AWS Migration Hub home region before you call any of these APIs, or a @HomeRegionNotSetException@ error will be returned. Also, you must make the API calls while in your home region.
 module Network.AWS.MigrationHub
-    (
-    -- * Service Configuration
-      migrationHub
+  ( -- * Service Configuration
+    migrationHub,
 
     -- * Errors
     -- $errors
 
-    -- ** AccessDeniedException
-    , _AccessDeniedException
-
-    -- ** DryRunOperation
-    , _DryRunOperation
-
-    -- ** PolicyErrorException
-    , _PolicyErrorException
-
-    -- ** InternalServerError
-    , _InternalServerError
+    -- ** UnauthorizedOperation
+    _UnauthorizedOperation,
 
     -- ** InvalidInputException
-    , _InvalidInputException
+    _InvalidInputException,
 
     -- ** ServiceUnavailableException
-    , _ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** InternalServerError
+    _InternalServerError,
+
+    -- ** HomeRegionNotSetException
+    _HomeRegionNotSetException,
+
+    -- ** PolicyErrorException
+    _PolicyErrorException,
+
+    -- ** AccessDeniedException
+    _AccessDeniedException,
 
     -- ** ResourceNotFoundException
-    , _ResourceNotFoundException
+    _ResourceNotFoundException,
 
-    -- ** UnauthorizedOperation
-    , _UnauthorizedOperation
+    -- ** DryRunOperation
+    _DryRunOperation,
 
     -- * Waiters
     -- $waiters
@@ -52,114 +58,125 @@ module Network.AWS.MigrationHub
     -- * Operations
     -- $operations
 
-    -- ** AssociateDiscoveredResource
-    , module Network.AWS.MigrationHub.AssociateDiscoveredResource
-
-    -- ** CreateProgressUpdateStream
-    , module Network.AWS.MigrationHub.CreateProgressUpdateStream
-
-    -- ** ListCreatedArtifacts
-    , module Network.AWS.MigrationHub.ListCreatedArtifacts
-
-    -- ** DisassociateDiscoveredResource
-    , module Network.AWS.MigrationHub.DisassociateDiscoveredResource
-
-    -- ** NotifyApplicationState
-    , module Network.AWS.MigrationHub.NotifyApplicationState
-
-    -- ** DeleteProgressUpdateStream
-    , module Network.AWS.MigrationHub.DeleteProgressUpdateStream
-
-    -- ** ListProgressUpdateStreams
-    , module Network.AWS.MigrationHub.ListProgressUpdateStreams
-
-    -- ** DisassociateCreatedArtifact
-    , module Network.AWS.MigrationHub.DisassociateCreatedArtifact
-
-    -- ** ImportMigrationTask
-    , module Network.AWS.MigrationHub.ImportMigrationTask
+    -- ** ListCreatedArtifacts (Paginated)
+    module Network.AWS.MigrationHub.ListCreatedArtifacts,
 
     -- ** DescribeMigrationTask
-    , module Network.AWS.MigrationHub.DescribeMigrationTask
+    module Network.AWS.MigrationHub.DescribeMigrationTask,
+
+    -- ** DisassociateCreatedArtifact
+    module Network.AWS.MigrationHub.DisassociateCreatedArtifact,
+
+    -- ** ImportMigrationTask
+    module Network.AWS.MigrationHub.ImportMigrationTask,
+
+    -- ** CreateProgressUpdateStream
+    module Network.AWS.MigrationHub.CreateProgressUpdateStream,
 
     -- ** PutResourceAttributes
-    , module Network.AWS.MigrationHub.PutResourceAttributes
+    module Network.AWS.MigrationHub.PutResourceAttributes,
 
-    -- ** AssociateCreatedArtifact
-    , module Network.AWS.MigrationHub.AssociateCreatedArtifact
+    -- ** ListDiscoveredResources (Paginated)
+    module Network.AWS.MigrationHub.ListDiscoveredResources,
+
+    -- ** DeleteProgressUpdateStream
+    module Network.AWS.MigrationHub.DeleteProgressUpdateStream,
 
     -- ** NotifyMigrationTaskState
-    , module Network.AWS.MigrationHub.NotifyMigrationTaskState
+    module Network.AWS.MigrationHub.NotifyMigrationTaskState,
+
+    -- ** DisassociateDiscoveredResource
+    module Network.AWS.MigrationHub.DisassociateDiscoveredResource,
+
+    -- ** ListApplicationStates (Paginated)
+    module Network.AWS.MigrationHub.ListApplicationStates,
+
+    -- ** AssociateDiscoveredResource
+    module Network.AWS.MigrationHub.AssociateDiscoveredResource,
+
+    -- ** ListProgressUpdateStreams (Paginated)
+    module Network.AWS.MigrationHub.ListProgressUpdateStreams,
+
+    -- ** NotifyApplicationState
+    module Network.AWS.MigrationHub.NotifyApplicationState,
+
+    -- ** ListMigrationTasks (Paginated)
+    module Network.AWS.MigrationHub.ListMigrationTasks,
 
     -- ** DescribeApplicationState
-    , module Network.AWS.MigrationHub.DescribeApplicationState
+    module Network.AWS.MigrationHub.DescribeApplicationState,
 
-    -- ** ListMigrationTasks
-    , module Network.AWS.MigrationHub.ListMigrationTasks
-
-    -- ** ListDiscoveredResources
-    , module Network.AWS.MigrationHub.ListDiscoveredResources
+    -- ** AssociateCreatedArtifact
+    module Network.AWS.MigrationHub.AssociateCreatedArtifact,
 
     -- * Types
 
     -- ** ApplicationStatus
-    , ApplicationStatus (..)
+    ApplicationStatus (..),
 
     -- ** MigrationStatus
-    , MigrationStatus (..)
+    MigrationStatus (..),
 
     -- ** ResourceAttributeType
-    , ResourceAttributeType (..)
+    ResourceAttributeType (..),
+
+    -- ** ApplicationState
+    ApplicationState,
+    applicationState,
+    asApplicationId,
+    asApplicationStatus,
+    asLastUpdatedTime,
 
     -- ** CreatedArtifact
-    , CreatedArtifact
-    , createdArtifact
-    , caDescription
-    , caName
+    CreatedArtifact,
+    createdArtifact,
+    caDescription,
+    caName,
 
     -- ** DiscoveredResource
-    , DiscoveredResource
-    , discoveredResource
-    , drDescription
-    , drConfigurationId
+    DiscoveredResource,
+    discoveredResource,
+    drDescription,
+    drConfigurationId,
 
     -- ** MigrationTask
-    , MigrationTask
-    , migrationTask
-    , mtUpdateDateTime
-    , mtResourceAttributeList
-    , mtTask
-    , mtProgressUpdateStream
-    , mtMigrationTaskName
+    MigrationTask,
+    migrationTask,
+    mtResourceAttributeList,
+    mtUpdateDateTime,
+    mtTask,
+    mtMigrationTaskName,
+    mtProgressUpdateStream,
 
     -- ** MigrationTaskSummary
-    , MigrationTaskSummary
-    , migrationTaskSummary
-    , mtsStatus
-    , mtsUpdateDateTime
-    , mtsProgressPercent
-    , mtsStatusDetail
-    , mtsProgressUpdateStream
-    , mtsMigrationTaskName
+    MigrationTaskSummary,
+    migrationTaskSummary,
+    mtsStatus,
+    mtsProgressPercent,
+    mtsUpdateDateTime,
+    mtsStatusDetail,
+    mtsMigrationTaskName,
+    mtsProgressUpdateStream,
 
     -- ** ProgressUpdateStreamSummary
-    , ProgressUpdateStreamSummary
-    , progressUpdateStreamSummary
-    , pussProgressUpdateStreamName
+    ProgressUpdateStreamSummary,
+    progressUpdateStreamSummary,
+    pussProgressUpdateStreamName,
 
     -- ** ResourceAttribute
-    , ResourceAttribute
-    , resourceAttribute
-    , raType
-    , raValue
+    ResourceAttribute,
+    resourceAttribute,
+    raType,
+    raValue,
 
     -- ** Task
-    , Task
-    , task
-    , tProgressPercent
-    , tStatusDetail
-    , tStatus
-    ) where
+    Task,
+    task,
+    tProgressPercent,
+    tStatusDetail,
+    tStatus,
+  )
+where
 
 import Network.AWS.MigrationHub.AssociateCreatedArtifact
 import Network.AWS.MigrationHub.AssociateDiscoveredResource
@@ -170,6 +187,7 @@ import Network.AWS.MigrationHub.DescribeMigrationTask
 import Network.AWS.MigrationHub.DisassociateCreatedArtifact
 import Network.AWS.MigrationHub.DisassociateDiscoveredResource
 import Network.AWS.MigrationHub.ImportMigrationTask
+import Network.AWS.MigrationHub.ListApplicationStates
 import Network.AWS.MigrationHub.ListCreatedArtifacts
 import Network.AWS.MigrationHub.ListDiscoveredResources
 import Network.AWS.MigrationHub.ListMigrationTasks
@@ -180,32 +198,29 @@ import Network.AWS.MigrationHub.PutResourceAttributes
 import Network.AWS.MigrationHub.Types
 import Network.AWS.MigrationHub.Waiters
 
-{- $errors
-Error matchers are designed for use with the functions provided by
-<http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens>.
-This allows catching (and rethrowing) service specific errors returned
-by 'MigrationHub'.
--}
+-- $errors
+-- Error matchers are designed for use with the functions provided by
+-- <http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens>.
+-- This allows catching (and rethrowing) service specific errors returned
+-- by 'MigrationHub'.
 
-{- $operations
-Some AWS operations return results that are incomplete and require subsequent
-requests in order to obtain the entire result set. The process of sending
-subsequent requests to continue where a previous request left off is called
-pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
-1000 objects at a time, and you must send subsequent requests with the
-appropriate Marker in order to retrieve the next page of results.
+-- $operations
+-- Some AWS operations return results that are incomplete and require subsequent
+-- requests in order to obtain the entire result set. The process of sending
+-- subsequent requests to continue where a previous request left off is called
+-- pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+-- 1000 objects at a time, and you must send subsequent requests with the
+-- appropriate Marker in order to retrieve the next page of results.
+--
+-- Operations that have an 'AWSPager' instance can transparently perform subsequent
+-- requests, correctly setting Markers and other request facets to iterate through
+-- the entire result set of a truncated API operation. Operations which support
+-- this have an additional note in the documentation.
+--
+-- Many operations have the ability to filter results on the server side. See the
+-- individual operation parameters for details.
 
-Operations that have an 'AWSPager' instance can transparently perform subsequent
-requests, correctly setting Markers and other request facets to iterate through
-the entire result set of a truncated API operation. Operations which support
-this have an additional note in the documentation.
-
-Many operations have the ability to filter results on the server side. See the
-individual operation parameters for details.
--}
-
-{- $waiters
-Waiters poll by repeatedly sending a request until some remote success condition
-configured by the 'Wait' specification is fulfilled. The 'Wait' specification
-determines how many attempts should be made, in addition to delay and retry strategies.
--}
+-- $waiters
+-- Waiters poll by repeatedly sending a request until some remote success condition
+-- configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+-- determines how many attempts should be made, in addition to delay and retry strategies.
