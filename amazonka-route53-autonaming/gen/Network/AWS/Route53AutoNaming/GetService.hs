@@ -1,131 +1,134 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Route53AutoNaming.GetService
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Gets the settings for a specified service.
---
---
 module Network.AWS.Route53AutoNaming.GetService
-    (
-    -- * Creating a Request
-      getService
-    , GetService
+  ( -- * Creating a Request
+    getService,
+    GetService,
+
     -- * Request Lenses
-    , gsId
+    gsId,
 
     -- * Destructuring the Response
-    , getServiceResponse
-    , GetServiceResponse
+    getServiceResponse,
+    GetServiceResponse,
+
     -- * Response Lenses
-    , gsrsService
-    , gsrsResponseStatus
-    ) where
+    gsrrsService,
+    gsrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.Route53AutoNaming.Types
-import Network.AWS.Route53AutoNaming.Types.Product
 
 -- | /See:/ 'getService' smart constructor.
-newtype GetService = GetService'
-  { _gsId :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+newtype GetService = GetService' {_gsId :: Text}
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetService' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'gsId' - The ID of the service that you want to get settings for.
-getService
-    :: Text -- ^ 'gsId'
-    -> GetService
+getService ::
+  -- | 'gsId'
+  Text ->
+  GetService
 getService pId_ = GetService' {_gsId = pId_}
-
 
 -- | The ID of the service that you want to get settings for.
 gsId :: Lens' GetService Text
-gsId = lens _gsId (\ s a -> s{_gsId = a})
+gsId = lens _gsId (\s a -> s {_gsId = a})
 
 instance AWSRequest GetService where
-        type Rs GetService = GetServiceResponse
-        request = postJSON route53AutoNaming
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetServiceResponse' <$>
-                   (x .?> "Service") <*> (pure (fromEnum s)))
+  type Rs GetService = GetServiceResponse
+  request = postJSON route53AutoNaming
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetServiceResponse'
+            <$> (x .?> "Service") <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetService where
+instance Hashable GetService
 
-instance NFData GetService where
+instance NFData GetService
 
 instance ToHeaders GetService where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("Route53AutoNaming_v20170314.GetService" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "Route53AutoNaming_v20170314.GetService" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON GetService where
-        toJSON GetService'{..}
-          = object (catMaybes [Just ("Id" .= _gsId)])
+  toJSON GetService' {..} =
+    object (catMaybes [Just ("Id" .= _gsId)])
 
 instance ToPath GetService where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetService where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getServiceResponse' smart constructor.
 data GetServiceResponse = GetServiceResponse'
-  { _gsrsService        :: !(Maybe ServiceInfo)
-  , _gsrsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gsrrsService ::
+      !(Maybe ServiceInfo),
+    _gsrrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetServiceResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gsrsService' - A complex type that contains information about the service.
+-- * 'gsrrsService' - A complex type that contains information about the service.
 --
--- * 'gsrsResponseStatus' - -- | The response status code.
-getServiceResponse
-    :: Int -- ^ 'gsrsResponseStatus'
-    -> GetServiceResponse
+-- * 'gsrrsResponseStatus' - -- | The response status code.
+getServiceResponse ::
+  -- | 'gsrrsResponseStatus'
+  Int ->
+  GetServiceResponse
 getServiceResponse pResponseStatus_ =
   GetServiceResponse'
-    {_gsrsService = Nothing, _gsrsResponseStatus = pResponseStatus_}
-
+    { _gsrrsService = Nothing,
+      _gsrrsResponseStatus = pResponseStatus_
+    }
 
 -- | A complex type that contains information about the service.
-gsrsService :: Lens' GetServiceResponse (Maybe ServiceInfo)
-gsrsService = lens _gsrsService (\ s a -> s{_gsrsService = a})
+gsrrsService :: Lens' GetServiceResponse (Maybe ServiceInfo)
+gsrrsService = lens _gsrrsService (\s a -> s {_gsrrsService = a})
 
 -- | -- | The response status code.
-gsrsResponseStatus :: Lens' GetServiceResponse Int
-gsrsResponseStatus = lens _gsrsResponseStatus (\ s a -> s{_gsrsResponseStatus = a})
+gsrrsResponseStatus :: Lens' GetServiceResponse Int
+gsrrsResponseStatus = lens _gsrrsResponseStatus (\s a -> s {_gsrrsResponseStatus = a})
 
-instance NFData GetServiceResponse where
+instance NFData GetServiceResponse
