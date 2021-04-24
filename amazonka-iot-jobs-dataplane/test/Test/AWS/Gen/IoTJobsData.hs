@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.IoTJobsData
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.IoTJobsData where
 
 import Data.Proxy
@@ -28,84 +27,92 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestUpdateJobExecution $
---             updateJobExecution
+--         [ requestGetPendingJobExecutions $
+--             getPendingJobExecutions
 --
---         , requestStartNextPendingJobExecution $
---             startNextPendingJobExecution
+--         , requestUpdateJobExecution $
+--             updateJobExecution
 --
 --         , requestDescribeJobExecution $
 --             describeJobExecution
 --
---         , requestGetPendingJobExecutions $
---             getPendingJobExecutions
+--         , requestStartNextPendingJobExecution $
+--             startNextPendingJobExecution
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseUpdateJobExecution $
---             updateJobExecutionResponse
+--         [ responseGetPendingJobExecutions $
+--             getPendingJobExecutionsResponse
 --
---         , responseStartNextPendingJobExecution $
---             startNextPendingJobExecutionResponse
+--         , responseUpdateJobExecution $
+--             updateJobExecutionResponse
 --
 --         , responseDescribeJobExecution $
 --             describeJobExecutionResponse
 --
---         , responseGetPendingJobExecutions $
---             getPendingJobExecutionsResponse
+--         , responseStartNextPendingJobExecution $
+--             startNextPendingJobExecutionResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestUpdateJobExecution :: UpdateJobExecution -> TestTree
-requestUpdateJobExecution = req
-    "UpdateJobExecution"
-    "fixture/UpdateJobExecution.yaml"
-
-requestStartNextPendingJobExecution :: StartNextPendingJobExecution -> TestTree
-requestStartNextPendingJobExecution = req
-    "StartNextPendingJobExecution"
-    "fixture/StartNextPendingJobExecution.yaml"
-
-requestDescribeJobExecution :: DescribeJobExecution -> TestTree
-requestDescribeJobExecution = req
-    "DescribeJobExecution"
-    "fixture/DescribeJobExecution.yaml"
-
 requestGetPendingJobExecutions :: GetPendingJobExecutions -> TestTree
-requestGetPendingJobExecutions = req
+requestGetPendingJobExecutions =
+  req
     "GetPendingJobExecutions"
     "fixture/GetPendingJobExecutions.yaml"
 
+requestUpdateJobExecution :: UpdateJobExecution -> TestTree
+requestUpdateJobExecution =
+  req
+    "UpdateJobExecution"
+    "fixture/UpdateJobExecution.yaml"
+
+requestDescribeJobExecution :: DescribeJobExecution -> TestTree
+requestDescribeJobExecution =
+  req
+    "DescribeJobExecution"
+    "fixture/DescribeJobExecution.yaml"
+
+requestStartNextPendingJobExecution :: StartNextPendingJobExecution -> TestTree
+requestStartNextPendingJobExecution =
+  req
+    "StartNextPendingJobExecution"
+    "fixture/StartNextPendingJobExecution.yaml"
+
 -- Responses
 
+responseGetPendingJobExecutions :: GetPendingJobExecutionsResponse -> TestTree
+responseGetPendingJobExecutions =
+  res
+    "GetPendingJobExecutionsResponse"
+    "fixture/GetPendingJobExecutionsResponse.proto"
+    ioTJobsData
+    (Proxy :: Proxy GetPendingJobExecutions)
+
 responseUpdateJobExecution :: UpdateJobExecutionResponse -> TestTree
-responseUpdateJobExecution = res
+responseUpdateJobExecution =
+  res
     "UpdateJobExecutionResponse"
     "fixture/UpdateJobExecutionResponse.proto"
     ioTJobsData
     (Proxy :: Proxy UpdateJobExecution)
 
-responseStartNextPendingJobExecution :: StartNextPendingJobExecutionResponse -> TestTree
-responseStartNextPendingJobExecution = res
-    "StartNextPendingJobExecutionResponse"
-    "fixture/StartNextPendingJobExecutionResponse.proto"
-    ioTJobsData
-    (Proxy :: Proxy StartNextPendingJobExecution)
-
 responseDescribeJobExecution :: DescribeJobExecutionResponse -> TestTree
-responseDescribeJobExecution = res
+responseDescribeJobExecution =
+  res
     "DescribeJobExecutionResponse"
     "fixture/DescribeJobExecutionResponse.proto"
     ioTJobsData
     (Proxy :: Proxy DescribeJobExecution)
 
-responseGetPendingJobExecutions :: GetPendingJobExecutionsResponse -> TestTree
-responseGetPendingJobExecutions = res
-    "GetPendingJobExecutionsResponse"
-    "fixture/GetPendingJobExecutionsResponse.proto"
+responseStartNextPendingJobExecution :: StartNextPendingJobExecutionResponse -> TestTree
+responseStartNextPendingJobExecution =
+  res
+    "StartNextPendingJobExecutionResponse"
+    "fixture/StartNextPendingJobExecutionResponse.proto"
     ioTJobsData
-    (Proxy :: Proxy GetPendingJobExecutions)
+    (Proxy :: Proxy StartNextPendingJobExecution)
