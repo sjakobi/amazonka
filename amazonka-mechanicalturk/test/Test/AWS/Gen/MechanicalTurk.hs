@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.MechanicalTurk
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.MechanicalTurk where
 
 import Data.Proxy
@@ -28,32 +27,41 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestApproveAssignment $
---             approveAssignment
---
---         , requestListReviewPolicyResultsForHIT $
---             listReviewPolicyResultsForHIT
---
---         , requestListHITs $
---             listHITs
---
---         , requestListWorkersWithQualificationType $
---             listWorkersWithQualificationType
---
---         , requestDeleteHIT $
---             deleteHIT
+--         [ requestGetQualificationScore $
+--             getQualificationScore
 --
 --         , requestListReviewableHITs $
 --             listReviewableHITs
 --
---         , requestGetAssignment $
---             getAssignment
+--         , requestListHITs $
+--             listHITs
 --
---         , requestDeleteQualificationType $
---             deleteQualificationType
+--         , requestListAssignmentsForHIT $
+--             listAssignmentsForHIT
 --
---         , requestUpdateQualificationType $
---             updateQualificationType
+--         , requestListWorkersWithQualificationType $
+--             listWorkersWithQualificationType
+--
+--         , requestGetAccountBalance $
+--             getAccountBalance
+--
+--         , requestCreateHIT $
+--             createHIT
+--
+--         , requestNotifyWorkers $
+--             notifyWorkers
+--
+--         , requestListWorkerBlocks $
+--             listWorkerBlocks
+--
+--         , requestListHITsForQualificationType $
+--             listHITsForQualificationType
+--
+--         , requestCreateWorkerBlock $
+--             createWorkerBlock
+--
+--         , requestCreateAdditionalAssignmentsForHIT $
+--             createAdditionalAssignmentsForHIT
 --
 --         , requestListQualificationTypes $
 --             listQualificationTypes
@@ -61,20 +69,38 @@ import Test.Tasty
 --         , requestUpdateHITTypeOfHIT $
 --             updateHITTypeOfHIT
 --
---         , requestDisassociateQualificationFromWorker $
---             disassociateQualificationFromWorker
+--         , requestGetAssignment $
+--             getAssignment
 --
---         , requestSendTestEventNotification $
---             sendTestEventNotification
+--         , requestUpdateHITReviewStatus $
+--             updateHITReviewStatus
 --
---         , requestNotifyWorkers $
---             notifyWorkers
+--         , requestRejectQualificationRequest $
+--             rejectQualificationRequest
 --
---         , requestCreateHITWithHITType $
---             createHITWithHITType
+--         , requestGetQualificationType $
+--             getQualificationType
+--
+--         , requestRejectAssignment $
+--             rejectAssignment
+--
+--         , requestUpdateExpirationForHIT $
+--             updateExpirationForHIT
+--
+--         , requestApproveAssignment $
+--             approveAssignment
+--
+--         , requestDeleteHIT $
+--             deleteHIT
+--
+--         , requestListReviewPolicyResultsForHIT $
+--             listReviewPolicyResultsForHIT
 --
 --         , requestCreateHITType $
 --             createHITType
+--
+--         , requestUpdateNotificationSettings $
+--             updateNotificationSettings
 --
 --         , requestSendBonus $
 --             sendBonus
@@ -82,98 +108,80 @@ import Test.Tasty
 --         , requestListQualificationRequests $
 --             listQualificationRequests
 --
---         , requestUpdateExpirationForHIT $
---             updateExpirationForHIT
+--         , requestAssociateQualificationWithWorker $
+--             associateQualificationWithWorker
 --
---         , requestRejectAssignment $
---             rejectAssignment
---
---         , requestListAssignmentsForHIT $
---             listAssignmentsForHIT
---
---         , requestRejectQualificationRequest $
---             rejectQualificationRequest
---
---         , requestGetQualificationScore $
---             getQualificationScore
---
---         , requestGetQualificationType $
---             getQualificationType
---
---         , requestUpdateHITReviewStatus $
---             updateHITReviewStatus
---
---         , requestCreateQualificationType $
---             createQualificationType
---
---         , requestAcceptQualificationRequest $
---             acceptQualificationRequest
---
---         , requestGetFileUploadURL $
---             getFileUploadURL
---
---         , requestCreateAdditionalAssignmentsForHIT $
---             createAdditionalAssignmentsForHIT
---
---         , requestGetHIT $
---             getHIT
---
---         , requestCreateWorkerBlock $
---             createWorkerBlock
---
---         , requestListHITsForQualificationType $
---             listHITsForQualificationType
---
---         , requestListBonusPayments $
---             listBonusPayments
---
---         , requestListWorkerBlocks $
---             listWorkerBlocks
+--         , requestCreateHITWithHITType $
+--             createHITWithHITType
 --
 --         , requestDeleteWorkerBlock $
 --             deleteWorkerBlock
 --
---         , requestUpdateNotificationSettings $
---             updateNotificationSettings
+--         , requestListBonusPayments $
+--             listBonusPayments
 --
---         , requestAssociateQualificationWithWorker $
---             associateQualificationWithWorker
+--         , requestDisassociateQualificationFromWorker $
+--             disassociateQualificationFromWorker
 --
---         , requestCreateHIT $
---             createHIT
+--         , requestSendTestEventNotification $
+--             sendTestEventNotification
 --
---         , requestGetAccountBalance $
---             getAccountBalance
+--         , requestGetHIT $
+--             getHIT
+--
+--         , requestUpdateQualificationType $
+--             updateQualificationType
+--
+--         , requestAcceptQualificationRequest $
+--             acceptQualificationRequest
+--
+--         , requestDeleteQualificationType $
+--             deleteQualificationType
+--
+--         , requestGetFileUploadURL $
+--             getFileUploadURL
+--
+--         , requestCreateQualificationType $
+--             createQualificationType
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseApproveAssignment $
---             approveAssignmentResponse
---
---         , responseListReviewPolicyResultsForHIT $
---             listReviewPolicyResultsForHITResponse
---
---         , responseListHITs $
---             listHITsResponse
---
---         , responseListWorkersWithQualificationType $
---             listWorkersWithQualificationTypeResponse
---
---         , responseDeleteHIT $
---             deleteHITResponse
+--         [ responseGetQualificationScore $
+--             getQualificationScoreResponse
 --
 --         , responseListReviewableHITs $
 --             listReviewableHITsResponse
 --
---         , responseGetAssignment $
---             getAssignmentResponse
+--         , responseListHITs $
+--             listHITsResponse
 --
---         , responseDeleteQualificationType $
---             deleteQualificationTypeResponse
+--         , responseListAssignmentsForHIT $
+--             listAssignmentsForHITResponse
 --
---         , responseUpdateQualificationType $
---             updateQualificationTypeResponse
+--         , responseListWorkersWithQualificationType $
+--             listWorkersWithQualificationTypeResponse
+--
+--         , responseGetAccountBalance $
+--             getAccountBalanceResponse
+--
+--         , responseCreateHIT $
+--             createHITResponse
+--
+--         , responseNotifyWorkers $
+--             notifyWorkersResponse
+--
+--         , responseListWorkerBlocks $
+--             listWorkerBlocksResponse
+--
+--         , responseListHITsForQualificationType $
+--             listHITsForQualificationTypeResponse
+--
+--         , responseCreateWorkerBlock $
+--             createWorkerBlockResponse
+--
+--         , responseCreateAdditionalAssignmentsForHIT $
+--             createAdditionalAssignmentsForHITResponse
 --
 --         , responseListQualificationTypes $
 --             listQualificationTypesResponse
@@ -181,20 +189,38 @@ import Test.Tasty
 --         , responseUpdateHITTypeOfHIT $
 --             updateHITTypeOfHITResponse
 --
---         , responseDisassociateQualificationFromWorker $
---             disassociateQualificationFromWorkerResponse
+--         , responseGetAssignment $
+--             getAssignmentResponse
 --
---         , responseSendTestEventNotification $
---             sendTestEventNotificationResponse
+--         , responseUpdateHITReviewStatus $
+--             updateHITReviewStatusResponse
 --
---         , responseNotifyWorkers $
---             notifyWorkersResponse
+--         , responseRejectQualificationRequest $
+--             rejectQualificationRequestResponse
 --
---         , responseCreateHITWithHITType $
---             createHITWithHITTypeResponse
+--         , responseGetQualificationType $
+--             getQualificationTypeResponse
+--
+--         , responseRejectAssignment $
+--             rejectAssignmentResponse
+--
+--         , responseUpdateExpirationForHIT $
+--             updateExpirationForHITResponse
+--
+--         , responseApproveAssignment $
+--             approveAssignmentResponse
+--
+--         , responseDeleteHIT $
+--             deleteHITResponse
+--
+--         , responseListReviewPolicyResultsForHIT $
+--             listReviewPolicyResultsForHITResponse
 --
 --         , responseCreateHITType $
 --             createHITTypeResponse
+--
+--         , responseUpdateNotificationSettings $
+--             updateNotificationSettingsResponse
 --
 --         , responseSendBonus $
 --             sendBonusResponse
@@ -202,540 +228,591 @@ import Test.Tasty
 --         , responseListQualificationRequests $
 --             listQualificationRequestsResponse
 --
---         , responseUpdateExpirationForHIT $
---             updateExpirationForHITResponse
+--         , responseAssociateQualificationWithWorker $
+--             associateQualificationWithWorkerResponse
 --
---         , responseRejectAssignment $
---             rejectAssignmentResponse
---
---         , responseListAssignmentsForHIT $
---             listAssignmentsForHITResponse
---
---         , responseRejectQualificationRequest $
---             rejectQualificationRequestResponse
---
---         , responseGetQualificationScore $
---             getQualificationScoreResponse
---
---         , responseGetQualificationType $
---             getQualificationTypeResponse
---
---         , responseUpdateHITReviewStatus $
---             updateHITReviewStatusResponse
---
---         , responseCreateQualificationType $
---             createQualificationTypeResponse
---
---         , responseAcceptQualificationRequest $
---             acceptQualificationRequestResponse
---
---         , responseGetFileUploadURL $
---             getFileUploadURLResponse
---
---         , responseCreateAdditionalAssignmentsForHIT $
---             createAdditionalAssignmentsForHITResponse
---
---         , responseGetHIT $
---             getHITResponse
---
---         , responseCreateWorkerBlock $
---             createWorkerBlockResponse
---
---         , responseListHITsForQualificationType $
---             listHITsForQualificationTypeResponse
---
---         , responseListBonusPayments $
---             listBonusPaymentsResponse
---
---         , responseListWorkerBlocks $
---             listWorkerBlocksResponse
+--         , responseCreateHITWithHITType $
+--             createHITWithHITTypeResponse
 --
 --         , responseDeleteWorkerBlock $
 --             deleteWorkerBlockResponse
 --
---         , responseUpdateNotificationSettings $
---             updateNotificationSettingsResponse
+--         , responseListBonusPayments $
+--             listBonusPaymentsResponse
 --
---         , responseAssociateQualificationWithWorker $
---             associateQualificationWithWorkerResponse
+--         , responseDisassociateQualificationFromWorker $
+--             disassociateQualificationFromWorkerResponse
 --
---         , responseCreateHIT $
---             createHITResponse
+--         , responseSendTestEventNotification $
+--             sendTestEventNotificationResponse
 --
---         , responseGetAccountBalance $
---             getAccountBalanceResponse
+--         , responseGetHIT $
+--             getHITResponse
+--
+--         , responseUpdateQualificationType $
+--             updateQualificationTypeResponse
+--
+--         , responseAcceptQualificationRequest $
+--             acceptQualificationRequestResponse
+--
+--         , responseDeleteQualificationType $
+--             deleteQualificationTypeResponse
+--
+--         , responseGetFileUploadURL $
+--             getFileUploadURLResponse
+--
+--         , responseCreateQualificationType $
+--             createQualificationTypeResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestApproveAssignment :: ApproveAssignment -> TestTree
-requestApproveAssignment = req
-    "ApproveAssignment"
-    "fixture/ApproveAssignment.yaml"
-
-requestListReviewPolicyResultsForHIT :: ListReviewPolicyResultsForHIT -> TestTree
-requestListReviewPolicyResultsForHIT = req
-    "ListReviewPolicyResultsForHIT"
-    "fixture/ListReviewPolicyResultsForHIT.yaml"
-
-requestListHITs :: ListHITs -> TestTree
-requestListHITs = req
-    "ListHITs"
-    "fixture/ListHITs.yaml"
-
-requestListWorkersWithQualificationType :: ListWorkersWithQualificationType -> TestTree
-requestListWorkersWithQualificationType = req
-    "ListWorkersWithQualificationType"
-    "fixture/ListWorkersWithQualificationType.yaml"
-
-requestDeleteHIT :: DeleteHIT -> TestTree
-requestDeleteHIT = req
-    "DeleteHIT"
-    "fixture/DeleteHIT.yaml"
+requestGetQualificationScore :: GetQualificationScore -> TestTree
+requestGetQualificationScore =
+  req
+    "GetQualificationScore"
+    "fixture/GetQualificationScore.yaml"
 
 requestListReviewableHITs :: ListReviewableHITs -> TestTree
-requestListReviewableHITs = req
+requestListReviewableHITs =
+  req
     "ListReviewableHITs"
     "fixture/ListReviewableHITs.yaml"
 
-requestGetAssignment :: GetAssignment -> TestTree
-requestGetAssignment = req
-    "GetAssignment"
-    "fixture/GetAssignment.yaml"
+requestListHITs :: ListHITs -> TestTree
+requestListHITs =
+  req
+    "ListHITs"
+    "fixture/ListHITs.yaml"
 
-requestDeleteQualificationType :: DeleteQualificationType -> TestTree
-requestDeleteQualificationType = req
-    "DeleteQualificationType"
-    "fixture/DeleteQualificationType.yaml"
+requestListAssignmentsForHIT :: ListAssignmentsForHIT -> TestTree
+requestListAssignmentsForHIT =
+  req
+    "ListAssignmentsForHIT"
+    "fixture/ListAssignmentsForHIT.yaml"
 
-requestUpdateQualificationType :: UpdateQualificationType -> TestTree
-requestUpdateQualificationType = req
-    "UpdateQualificationType"
-    "fixture/UpdateQualificationType.yaml"
+requestListWorkersWithQualificationType :: ListWorkersWithQualificationType -> TestTree
+requestListWorkersWithQualificationType =
+  req
+    "ListWorkersWithQualificationType"
+    "fixture/ListWorkersWithQualificationType.yaml"
+
+requestGetAccountBalance :: GetAccountBalance -> TestTree
+requestGetAccountBalance =
+  req
+    "GetAccountBalance"
+    "fixture/GetAccountBalance.yaml"
+
+requestCreateHIT :: CreateHIT -> TestTree
+requestCreateHIT =
+  req
+    "CreateHIT"
+    "fixture/CreateHIT.yaml"
+
+requestNotifyWorkers :: NotifyWorkers -> TestTree
+requestNotifyWorkers =
+  req
+    "NotifyWorkers"
+    "fixture/NotifyWorkers.yaml"
+
+requestListWorkerBlocks :: ListWorkerBlocks -> TestTree
+requestListWorkerBlocks =
+  req
+    "ListWorkerBlocks"
+    "fixture/ListWorkerBlocks.yaml"
+
+requestListHITsForQualificationType :: ListHITsForQualificationType -> TestTree
+requestListHITsForQualificationType =
+  req
+    "ListHITsForQualificationType"
+    "fixture/ListHITsForQualificationType.yaml"
+
+requestCreateWorkerBlock :: CreateWorkerBlock -> TestTree
+requestCreateWorkerBlock =
+  req
+    "CreateWorkerBlock"
+    "fixture/CreateWorkerBlock.yaml"
+
+requestCreateAdditionalAssignmentsForHIT :: CreateAdditionalAssignmentsForHIT -> TestTree
+requestCreateAdditionalAssignmentsForHIT =
+  req
+    "CreateAdditionalAssignmentsForHIT"
+    "fixture/CreateAdditionalAssignmentsForHIT.yaml"
 
 requestListQualificationTypes :: ListQualificationTypes -> TestTree
-requestListQualificationTypes = req
+requestListQualificationTypes =
+  req
     "ListQualificationTypes"
     "fixture/ListQualificationTypes.yaml"
 
 requestUpdateHITTypeOfHIT :: UpdateHITTypeOfHIT -> TestTree
-requestUpdateHITTypeOfHIT = req
+requestUpdateHITTypeOfHIT =
+  req
     "UpdateHITTypeOfHIT"
     "fixture/UpdateHITTypeOfHIT.yaml"
 
-requestDisassociateQualificationFromWorker :: DisassociateQualificationFromWorker -> TestTree
-requestDisassociateQualificationFromWorker = req
-    "DisassociateQualificationFromWorker"
-    "fixture/DisassociateQualificationFromWorker.yaml"
+requestGetAssignment :: GetAssignment -> TestTree
+requestGetAssignment =
+  req
+    "GetAssignment"
+    "fixture/GetAssignment.yaml"
 
-requestSendTestEventNotification :: SendTestEventNotification -> TestTree
-requestSendTestEventNotification = req
-    "SendTestEventNotification"
-    "fixture/SendTestEventNotification.yaml"
+requestUpdateHITReviewStatus :: UpdateHITReviewStatus -> TestTree
+requestUpdateHITReviewStatus =
+  req
+    "UpdateHITReviewStatus"
+    "fixture/UpdateHITReviewStatus.yaml"
 
-requestNotifyWorkers :: NotifyWorkers -> TestTree
-requestNotifyWorkers = req
-    "NotifyWorkers"
-    "fixture/NotifyWorkers.yaml"
+requestRejectQualificationRequest :: RejectQualificationRequest -> TestTree
+requestRejectQualificationRequest =
+  req
+    "RejectQualificationRequest"
+    "fixture/RejectQualificationRequest.yaml"
 
-requestCreateHITWithHITType :: CreateHITWithHITType -> TestTree
-requestCreateHITWithHITType = req
-    "CreateHITWithHITType"
-    "fixture/CreateHITWithHITType.yaml"
+requestGetQualificationType :: GetQualificationType -> TestTree
+requestGetQualificationType =
+  req
+    "GetQualificationType"
+    "fixture/GetQualificationType.yaml"
+
+requestRejectAssignment :: RejectAssignment -> TestTree
+requestRejectAssignment =
+  req
+    "RejectAssignment"
+    "fixture/RejectAssignment.yaml"
+
+requestUpdateExpirationForHIT :: UpdateExpirationForHIT -> TestTree
+requestUpdateExpirationForHIT =
+  req
+    "UpdateExpirationForHIT"
+    "fixture/UpdateExpirationForHIT.yaml"
+
+requestApproveAssignment :: ApproveAssignment -> TestTree
+requestApproveAssignment =
+  req
+    "ApproveAssignment"
+    "fixture/ApproveAssignment.yaml"
+
+requestDeleteHIT :: DeleteHIT -> TestTree
+requestDeleteHIT =
+  req
+    "DeleteHIT"
+    "fixture/DeleteHIT.yaml"
+
+requestListReviewPolicyResultsForHIT :: ListReviewPolicyResultsForHIT -> TestTree
+requestListReviewPolicyResultsForHIT =
+  req
+    "ListReviewPolicyResultsForHIT"
+    "fixture/ListReviewPolicyResultsForHIT.yaml"
 
 requestCreateHITType :: CreateHITType -> TestTree
-requestCreateHITType = req
+requestCreateHITType =
+  req
     "CreateHITType"
     "fixture/CreateHITType.yaml"
 
+requestUpdateNotificationSettings :: UpdateNotificationSettings -> TestTree
+requestUpdateNotificationSettings =
+  req
+    "UpdateNotificationSettings"
+    "fixture/UpdateNotificationSettings.yaml"
+
 requestSendBonus :: SendBonus -> TestTree
-requestSendBonus = req
+requestSendBonus =
+  req
     "SendBonus"
     "fixture/SendBonus.yaml"
 
 requestListQualificationRequests :: ListQualificationRequests -> TestTree
-requestListQualificationRequests = req
+requestListQualificationRequests =
+  req
     "ListQualificationRequests"
     "fixture/ListQualificationRequests.yaml"
 
-requestUpdateExpirationForHIT :: UpdateExpirationForHIT -> TestTree
-requestUpdateExpirationForHIT = req
-    "UpdateExpirationForHIT"
-    "fixture/UpdateExpirationForHIT.yaml"
-
-requestRejectAssignment :: RejectAssignment -> TestTree
-requestRejectAssignment = req
-    "RejectAssignment"
-    "fixture/RejectAssignment.yaml"
-
-requestListAssignmentsForHIT :: ListAssignmentsForHIT -> TestTree
-requestListAssignmentsForHIT = req
-    "ListAssignmentsForHIT"
-    "fixture/ListAssignmentsForHIT.yaml"
-
-requestRejectQualificationRequest :: RejectQualificationRequest -> TestTree
-requestRejectQualificationRequest = req
-    "RejectQualificationRequest"
-    "fixture/RejectQualificationRequest.yaml"
-
-requestGetQualificationScore :: GetQualificationScore -> TestTree
-requestGetQualificationScore = req
-    "GetQualificationScore"
-    "fixture/GetQualificationScore.yaml"
-
-requestGetQualificationType :: GetQualificationType -> TestTree
-requestGetQualificationType = req
-    "GetQualificationType"
-    "fixture/GetQualificationType.yaml"
-
-requestUpdateHITReviewStatus :: UpdateHITReviewStatus -> TestTree
-requestUpdateHITReviewStatus = req
-    "UpdateHITReviewStatus"
-    "fixture/UpdateHITReviewStatus.yaml"
-
-requestCreateQualificationType :: CreateQualificationType -> TestTree
-requestCreateQualificationType = req
-    "CreateQualificationType"
-    "fixture/CreateQualificationType.yaml"
-
-requestAcceptQualificationRequest :: AcceptQualificationRequest -> TestTree
-requestAcceptQualificationRequest = req
-    "AcceptQualificationRequest"
-    "fixture/AcceptQualificationRequest.yaml"
-
-requestGetFileUploadURL :: GetFileUploadURL -> TestTree
-requestGetFileUploadURL = req
-    "GetFileUploadURL"
-    "fixture/GetFileUploadURL.yaml"
-
-requestCreateAdditionalAssignmentsForHIT :: CreateAdditionalAssignmentsForHIT -> TestTree
-requestCreateAdditionalAssignmentsForHIT = req
-    "CreateAdditionalAssignmentsForHIT"
-    "fixture/CreateAdditionalAssignmentsForHIT.yaml"
-
-requestGetHIT :: GetHIT -> TestTree
-requestGetHIT = req
-    "GetHIT"
-    "fixture/GetHIT.yaml"
-
-requestCreateWorkerBlock :: CreateWorkerBlock -> TestTree
-requestCreateWorkerBlock = req
-    "CreateWorkerBlock"
-    "fixture/CreateWorkerBlock.yaml"
-
-requestListHITsForQualificationType :: ListHITsForQualificationType -> TestTree
-requestListHITsForQualificationType = req
-    "ListHITsForQualificationType"
-    "fixture/ListHITsForQualificationType.yaml"
-
-requestListBonusPayments :: ListBonusPayments -> TestTree
-requestListBonusPayments = req
-    "ListBonusPayments"
-    "fixture/ListBonusPayments.yaml"
-
-requestListWorkerBlocks :: ListWorkerBlocks -> TestTree
-requestListWorkerBlocks = req
-    "ListWorkerBlocks"
-    "fixture/ListWorkerBlocks.yaml"
-
-requestDeleteWorkerBlock :: DeleteWorkerBlock -> TestTree
-requestDeleteWorkerBlock = req
-    "DeleteWorkerBlock"
-    "fixture/DeleteWorkerBlock.yaml"
-
-requestUpdateNotificationSettings :: UpdateNotificationSettings -> TestTree
-requestUpdateNotificationSettings = req
-    "UpdateNotificationSettings"
-    "fixture/UpdateNotificationSettings.yaml"
-
 requestAssociateQualificationWithWorker :: AssociateQualificationWithWorker -> TestTree
-requestAssociateQualificationWithWorker = req
+requestAssociateQualificationWithWorker =
+  req
     "AssociateQualificationWithWorker"
     "fixture/AssociateQualificationWithWorker.yaml"
 
-requestCreateHIT :: CreateHIT -> TestTree
-requestCreateHIT = req
-    "CreateHIT"
-    "fixture/CreateHIT.yaml"
+requestCreateHITWithHITType :: CreateHITWithHITType -> TestTree
+requestCreateHITWithHITType =
+  req
+    "CreateHITWithHITType"
+    "fixture/CreateHITWithHITType.yaml"
 
-requestGetAccountBalance :: GetAccountBalance -> TestTree
-requestGetAccountBalance = req
-    "GetAccountBalance"
-    "fixture/GetAccountBalance.yaml"
+requestDeleteWorkerBlock :: DeleteWorkerBlock -> TestTree
+requestDeleteWorkerBlock =
+  req
+    "DeleteWorkerBlock"
+    "fixture/DeleteWorkerBlock.yaml"
+
+requestListBonusPayments :: ListBonusPayments -> TestTree
+requestListBonusPayments =
+  req
+    "ListBonusPayments"
+    "fixture/ListBonusPayments.yaml"
+
+requestDisassociateQualificationFromWorker :: DisassociateQualificationFromWorker -> TestTree
+requestDisassociateQualificationFromWorker =
+  req
+    "DisassociateQualificationFromWorker"
+    "fixture/DisassociateQualificationFromWorker.yaml"
+
+requestSendTestEventNotification :: SendTestEventNotification -> TestTree
+requestSendTestEventNotification =
+  req
+    "SendTestEventNotification"
+    "fixture/SendTestEventNotification.yaml"
+
+requestGetHIT :: GetHIT -> TestTree
+requestGetHIT =
+  req
+    "GetHIT"
+    "fixture/GetHIT.yaml"
+
+requestUpdateQualificationType :: UpdateQualificationType -> TestTree
+requestUpdateQualificationType =
+  req
+    "UpdateQualificationType"
+    "fixture/UpdateQualificationType.yaml"
+
+requestAcceptQualificationRequest :: AcceptQualificationRequest -> TestTree
+requestAcceptQualificationRequest =
+  req
+    "AcceptQualificationRequest"
+    "fixture/AcceptQualificationRequest.yaml"
+
+requestDeleteQualificationType :: DeleteQualificationType -> TestTree
+requestDeleteQualificationType =
+  req
+    "DeleteQualificationType"
+    "fixture/DeleteQualificationType.yaml"
+
+requestGetFileUploadURL :: GetFileUploadURL -> TestTree
+requestGetFileUploadURL =
+  req
+    "GetFileUploadURL"
+    "fixture/GetFileUploadURL.yaml"
+
+requestCreateQualificationType :: CreateQualificationType -> TestTree
+requestCreateQualificationType =
+  req
+    "CreateQualificationType"
+    "fixture/CreateQualificationType.yaml"
 
 -- Responses
 
-responseApproveAssignment :: ApproveAssignmentResponse -> TestTree
-responseApproveAssignment = res
-    "ApproveAssignmentResponse"
-    "fixture/ApproveAssignmentResponse.proto"
+responseGetQualificationScore :: GetQualificationScoreResponse -> TestTree
+responseGetQualificationScore =
+  res
+    "GetQualificationScoreResponse"
+    "fixture/GetQualificationScoreResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy ApproveAssignment)
-
-responseListReviewPolicyResultsForHIT :: ListReviewPolicyResultsForHITResponse -> TestTree
-responseListReviewPolicyResultsForHIT = res
-    "ListReviewPolicyResultsForHITResponse"
-    "fixture/ListReviewPolicyResultsForHITResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy ListReviewPolicyResultsForHIT)
-
-responseListHITs :: ListHITsResponse -> TestTree
-responseListHITs = res
-    "ListHITsResponse"
-    "fixture/ListHITsResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy ListHITs)
-
-responseListWorkersWithQualificationType :: ListWorkersWithQualificationTypeResponse -> TestTree
-responseListWorkersWithQualificationType = res
-    "ListWorkersWithQualificationTypeResponse"
-    "fixture/ListWorkersWithQualificationTypeResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy ListWorkersWithQualificationType)
-
-responseDeleteHIT :: DeleteHITResponse -> TestTree
-responseDeleteHIT = res
-    "DeleteHITResponse"
-    "fixture/DeleteHITResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy DeleteHIT)
+    (Proxy :: Proxy GetQualificationScore)
 
 responseListReviewableHITs :: ListReviewableHITsResponse -> TestTree
-responseListReviewableHITs = res
+responseListReviewableHITs =
+  res
     "ListReviewableHITsResponse"
     "fixture/ListReviewableHITsResponse.proto"
     mechanicalTurk
     (Proxy :: Proxy ListReviewableHITs)
 
-responseGetAssignment :: GetAssignmentResponse -> TestTree
-responseGetAssignment = res
-    "GetAssignmentResponse"
-    "fixture/GetAssignmentResponse.proto"
+responseListHITs :: ListHITsResponse -> TestTree
+responseListHITs =
+  res
+    "ListHITsResponse"
+    "fixture/ListHITsResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy GetAssignment)
+    (Proxy :: Proxy ListHITs)
 
-responseDeleteQualificationType :: DeleteQualificationTypeResponse -> TestTree
-responseDeleteQualificationType = res
-    "DeleteQualificationTypeResponse"
-    "fixture/DeleteQualificationTypeResponse.proto"
+responseListAssignmentsForHIT :: ListAssignmentsForHITResponse -> TestTree
+responseListAssignmentsForHIT =
+  res
+    "ListAssignmentsForHITResponse"
+    "fixture/ListAssignmentsForHITResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy DeleteQualificationType)
+    (Proxy :: Proxy ListAssignmentsForHIT)
 
-responseUpdateQualificationType :: UpdateQualificationTypeResponse -> TestTree
-responseUpdateQualificationType = res
-    "UpdateQualificationTypeResponse"
-    "fixture/UpdateQualificationTypeResponse.proto"
+responseListWorkersWithQualificationType :: ListWorkersWithQualificationTypeResponse -> TestTree
+responseListWorkersWithQualificationType =
+  res
+    "ListWorkersWithQualificationTypeResponse"
+    "fixture/ListWorkersWithQualificationTypeResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy UpdateQualificationType)
+    (Proxy :: Proxy ListWorkersWithQualificationType)
+
+responseGetAccountBalance :: GetAccountBalanceResponse -> TestTree
+responseGetAccountBalance =
+  res
+    "GetAccountBalanceResponse"
+    "fixture/GetAccountBalanceResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy GetAccountBalance)
+
+responseCreateHIT :: CreateHITResponse -> TestTree
+responseCreateHIT =
+  res
+    "CreateHITResponse"
+    "fixture/CreateHITResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy CreateHIT)
+
+responseNotifyWorkers :: NotifyWorkersResponse -> TestTree
+responseNotifyWorkers =
+  res
+    "NotifyWorkersResponse"
+    "fixture/NotifyWorkersResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy NotifyWorkers)
+
+responseListWorkerBlocks :: ListWorkerBlocksResponse -> TestTree
+responseListWorkerBlocks =
+  res
+    "ListWorkerBlocksResponse"
+    "fixture/ListWorkerBlocksResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy ListWorkerBlocks)
+
+responseListHITsForQualificationType :: ListHITsForQualificationTypeResponse -> TestTree
+responseListHITsForQualificationType =
+  res
+    "ListHITsForQualificationTypeResponse"
+    "fixture/ListHITsForQualificationTypeResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy ListHITsForQualificationType)
+
+responseCreateWorkerBlock :: CreateWorkerBlockResponse -> TestTree
+responseCreateWorkerBlock =
+  res
+    "CreateWorkerBlockResponse"
+    "fixture/CreateWorkerBlockResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy CreateWorkerBlock)
+
+responseCreateAdditionalAssignmentsForHIT :: CreateAdditionalAssignmentsForHITResponse -> TestTree
+responseCreateAdditionalAssignmentsForHIT =
+  res
+    "CreateAdditionalAssignmentsForHITResponse"
+    "fixture/CreateAdditionalAssignmentsForHITResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy CreateAdditionalAssignmentsForHIT)
 
 responseListQualificationTypes :: ListQualificationTypesResponse -> TestTree
-responseListQualificationTypes = res
+responseListQualificationTypes =
+  res
     "ListQualificationTypesResponse"
     "fixture/ListQualificationTypesResponse.proto"
     mechanicalTurk
     (Proxy :: Proxy ListQualificationTypes)
 
 responseUpdateHITTypeOfHIT :: UpdateHITTypeOfHITResponse -> TestTree
-responseUpdateHITTypeOfHIT = res
+responseUpdateHITTypeOfHIT =
+  res
     "UpdateHITTypeOfHITResponse"
     "fixture/UpdateHITTypeOfHITResponse.proto"
     mechanicalTurk
     (Proxy :: Proxy UpdateHITTypeOfHIT)
 
-responseDisassociateQualificationFromWorker :: DisassociateQualificationFromWorkerResponse -> TestTree
-responseDisassociateQualificationFromWorker = res
-    "DisassociateQualificationFromWorkerResponse"
-    "fixture/DisassociateQualificationFromWorkerResponse.proto"
+responseGetAssignment :: GetAssignmentResponse -> TestTree
+responseGetAssignment =
+  res
+    "GetAssignmentResponse"
+    "fixture/GetAssignmentResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy DisassociateQualificationFromWorker)
+    (Proxy :: Proxy GetAssignment)
 
-responseSendTestEventNotification :: SendTestEventNotificationResponse -> TestTree
-responseSendTestEventNotification = res
-    "SendTestEventNotificationResponse"
-    "fixture/SendTestEventNotificationResponse.proto"
+responseUpdateHITReviewStatus :: UpdateHITReviewStatusResponse -> TestTree
+responseUpdateHITReviewStatus =
+  res
+    "UpdateHITReviewStatusResponse"
+    "fixture/UpdateHITReviewStatusResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy SendTestEventNotification)
+    (Proxy :: Proxy UpdateHITReviewStatus)
 
-responseNotifyWorkers :: NotifyWorkersResponse -> TestTree
-responseNotifyWorkers = res
-    "NotifyWorkersResponse"
-    "fixture/NotifyWorkersResponse.proto"
+responseRejectQualificationRequest :: RejectQualificationRequestResponse -> TestTree
+responseRejectQualificationRequest =
+  res
+    "RejectQualificationRequestResponse"
+    "fixture/RejectQualificationRequestResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy NotifyWorkers)
+    (Proxy :: Proxy RejectQualificationRequest)
 
-responseCreateHITWithHITType :: CreateHITWithHITTypeResponse -> TestTree
-responseCreateHITWithHITType = res
-    "CreateHITWithHITTypeResponse"
-    "fixture/CreateHITWithHITTypeResponse.proto"
+responseGetQualificationType :: GetQualificationTypeResponse -> TestTree
+responseGetQualificationType =
+  res
+    "GetQualificationTypeResponse"
+    "fixture/GetQualificationTypeResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy CreateHITWithHITType)
+    (Proxy :: Proxy GetQualificationType)
+
+responseRejectAssignment :: RejectAssignmentResponse -> TestTree
+responseRejectAssignment =
+  res
+    "RejectAssignmentResponse"
+    "fixture/RejectAssignmentResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy RejectAssignment)
+
+responseUpdateExpirationForHIT :: UpdateExpirationForHITResponse -> TestTree
+responseUpdateExpirationForHIT =
+  res
+    "UpdateExpirationForHITResponse"
+    "fixture/UpdateExpirationForHITResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy UpdateExpirationForHIT)
+
+responseApproveAssignment :: ApproveAssignmentResponse -> TestTree
+responseApproveAssignment =
+  res
+    "ApproveAssignmentResponse"
+    "fixture/ApproveAssignmentResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy ApproveAssignment)
+
+responseDeleteHIT :: DeleteHITResponse -> TestTree
+responseDeleteHIT =
+  res
+    "DeleteHITResponse"
+    "fixture/DeleteHITResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy DeleteHIT)
+
+responseListReviewPolicyResultsForHIT :: ListReviewPolicyResultsForHITResponse -> TestTree
+responseListReviewPolicyResultsForHIT =
+  res
+    "ListReviewPolicyResultsForHITResponse"
+    "fixture/ListReviewPolicyResultsForHITResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy ListReviewPolicyResultsForHIT)
 
 responseCreateHITType :: CreateHITTypeResponse -> TestTree
-responseCreateHITType = res
+responseCreateHITType =
+  res
     "CreateHITTypeResponse"
     "fixture/CreateHITTypeResponse.proto"
     mechanicalTurk
     (Proxy :: Proxy CreateHITType)
 
+responseUpdateNotificationSettings :: UpdateNotificationSettingsResponse -> TestTree
+responseUpdateNotificationSettings =
+  res
+    "UpdateNotificationSettingsResponse"
+    "fixture/UpdateNotificationSettingsResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy UpdateNotificationSettings)
+
 responseSendBonus :: SendBonusResponse -> TestTree
-responseSendBonus = res
+responseSendBonus =
+  res
     "SendBonusResponse"
     "fixture/SendBonusResponse.proto"
     mechanicalTurk
     (Proxy :: Proxy SendBonus)
 
 responseListQualificationRequests :: ListQualificationRequestsResponse -> TestTree
-responseListQualificationRequests = res
+responseListQualificationRequests =
+  res
     "ListQualificationRequestsResponse"
     "fixture/ListQualificationRequestsResponse.proto"
     mechanicalTurk
     (Proxy :: Proxy ListQualificationRequests)
 
-responseUpdateExpirationForHIT :: UpdateExpirationForHITResponse -> TestTree
-responseUpdateExpirationForHIT = res
-    "UpdateExpirationForHITResponse"
-    "fixture/UpdateExpirationForHITResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy UpdateExpirationForHIT)
-
-responseRejectAssignment :: RejectAssignmentResponse -> TestTree
-responseRejectAssignment = res
-    "RejectAssignmentResponse"
-    "fixture/RejectAssignmentResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy RejectAssignment)
-
-responseListAssignmentsForHIT :: ListAssignmentsForHITResponse -> TestTree
-responseListAssignmentsForHIT = res
-    "ListAssignmentsForHITResponse"
-    "fixture/ListAssignmentsForHITResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy ListAssignmentsForHIT)
-
-responseRejectQualificationRequest :: RejectQualificationRequestResponse -> TestTree
-responseRejectQualificationRequest = res
-    "RejectQualificationRequestResponse"
-    "fixture/RejectQualificationRequestResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy RejectQualificationRequest)
-
-responseGetQualificationScore :: GetQualificationScoreResponse -> TestTree
-responseGetQualificationScore = res
-    "GetQualificationScoreResponse"
-    "fixture/GetQualificationScoreResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy GetQualificationScore)
-
-responseGetQualificationType :: GetQualificationTypeResponse -> TestTree
-responseGetQualificationType = res
-    "GetQualificationTypeResponse"
-    "fixture/GetQualificationTypeResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy GetQualificationType)
-
-responseUpdateHITReviewStatus :: UpdateHITReviewStatusResponse -> TestTree
-responseUpdateHITReviewStatus = res
-    "UpdateHITReviewStatusResponse"
-    "fixture/UpdateHITReviewStatusResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy UpdateHITReviewStatus)
-
-responseCreateQualificationType :: CreateQualificationTypeResponse -> TestTree
-responseCreateQualificationType = res
-    "CreateQualificationTypeResponse"
-    "fixture/CreateQualificationTypeResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy CreateQualificationType)
-
-responseAcceptQualificationRequest :: AcceptQualificationRequestResponse -> TestTree
-responseAcceptQualificationRequest = res
-    "AcceptQualificationRequestResponse"
-    "fixture/AcceptQualificationRequestResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy AcceptQualificationRequest)
-
-responseGetFileUploadURL :: GetFileUploadURLResponse -> TestTree
-responseGetFileUploadURL = res
-    "GetFileUploadURLResponse"
-    "fixture/GetFileUploadURLResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy GetFileUploadURL)
-
-responseCreateAdditionalAssignmentsForHIT :: CreateAdditionalAssignmentsForHITResponse -> TestTree
-responseCreateAdditionalAssignmentsForHIT = res
-    "CreateAdditionalAssignmentsForHITResponse"
-    "fixture/CreateAdditionalAssignmentsForHITResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy CreateAdditionalAssignmentsForHIT)
-
-responseGetHIT :: GetHITResponse -> TestTree
-responseGetHIT = res
-    "GetHITResponse"
-    "fixture/GetHITResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy GetHIT)
-
-responseCreateWorkerBlock :: CreateWorkerBlockResponse -> TestTree
-responseCreateWorkerBlock = res
-    "CreateWorkerBlockResponse"
-    "fixture/CreateWorkerBlockResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy CreateWorkerBlock)
-
-responseListHITsForQualificationType :: ListHITsForQualificationTypeResponse -> TestTree
-responseListHITsForQualificationType = res
-    "ListHITsForQualificationTypeResponse"
-    "fixture/ListHITsForQualificationTypeResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy ListHITsForQualificationType)
-
-responseListBonusPayments :: ListBonusPaymentsResponse -> TestTree
-responseListBonusPayments = res
-    "ListBonusPaymentsResponse"
-    "fixture/ListBonusPaymentsResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy ListBonusPayments)
-
-responseListWorkerBlocks :: ListWorkerBlocksResponse -> TestTree
-responseListWorkerBlocks = res
-    "ListWorkerBlocksResponse"
-    "fixture/ListWorkerBlocksResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy ListWorkerBlocks)
-
-responseDeleteWorkerBlock :: DeleteWorkerBlockResponse -> TestTree
-responseDeleteWorkerBlock = res
-    "DeleteWorkerBlockResponse"
-    "fixture/DeleteWorkerBlockResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy DeleteWorkerBlock)
-
-responseUpdateNotificationSettings :: UpdateNotificationSettingsResponse -> TestTree
-responseUpdateNotificationSettings = res
-    "UpdateNotificationSettingsResponse"
-    "fixture/UpdateNotificationSettingsResponse.proto"
-    mechanicalTurk
-    (Proxy :: Proxy UpdateNotificationSettings)
-
 responseAssociateQualificationWithWorker :: AssociateQualificationWithWorkerResponse -> TestTree
-responseAssociateQualificationWithWorker = res
+responseAssociateQualificationWithWorker =
+  res
     "AssociateQualificationWithWorkerResponse"
     "fixture/AssociateQualificationWithWorkerResponse.proto"
     mechanicalTurk
     (Proxy :: Proxy AssociateQualificationWithWorker)
 
-responseCreateHIT :: CreateHITResponse -> TestTree
-responseCreateHIT = res
-    "CreateHITResponse"
-    "fixture/CreateHITResponse.proto"
+responseCreateHITWithHITType :: CreateHITWithHITTypeResponse -> TestTree
+responseCreateHITWithHITType =
+  res
+    "CreateHITWithHITTypeResponse"
+    "fixture/CreateHITWithHITTypeResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy CreateHIT)
+    (Proxy :: Proxy CreateHITWithHITType)
 
-responseGetAccountBalance :: GetAccountBalanceResponse -> TestTree
-responseGetAccountBalance = res
-    "GetAccountBalanceResponse"
-    "fixture/GetAccountBalanceResponse.proto"
+responseDeleteWorkerBlock :: DeleteWorkerBlockResponse -> TestTree
+responseDeleteWorkerBlock =
+  res
+    "DeleteWorkerBlockResponse"
+    "fixture/DeleteWorkerBlockResponse.proto"
     mechanicalTurk
-    (Proxy :: Proxy GetAccountBalance)
+    (Proxy :: Proxy DeleteWorkerBlock)
+
+responseListBonusPayments :: ListBonusPaymentsResponse -> TestTree
+responseListBonusPayments =
+  res
+    "ListBonusPaymentsResponse"
+    "fixture/ListBonusPaymentsResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy ListBonusPayments)
+
+responseDisassociateQualificationFromWorker :: DisassociateQualificationFromWorkerResponse -> TestTree
+responseDisassociateQualificationFromWorker =
+  res
+    "DisassociateQualificationFromWorkerResponse"
+    "fixture/DisassociateQualificationFromWorkerResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy DisassociateQualificationFromWorker)
+
+responseSendTestEventNotification :: SendTestEventNotificationResponse -> TestTree
+responseSendTestEventNotification =
+  res
+    "SendTestEventNotificationResponse"
+    "fixture/SendTestEventNotificationResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy SendTestEventNotification)
+
+responseGetHIT :: GetHITResponse -> TestTree
+responseGetHIT =
+  res
+    "GetHITResponse"
+    "fixture/GetHITResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy GetHIT)
+
+responseUpdateQualificationType :: UpdateQualificationTypeResponse -> TestTree
+responseUpdateQualificationType =
+  res
+    "UpdateQualificationTypeResponse"
+    "fixture/UpdateQualificationTypeResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy UpdateQualificationType)
+
+responseAcceptQualificationRequest :: AcceptQualificationRequestResponse -> TestTree
+responseAcceptQualificationRequest =
+  res
+    "AcceptQualificationRequestResponse"
+    "fixture/AcceptQualificationRequestResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy AcceptQualificationRequest)
+
+responseDeleteQualificationType :: DeleteQualificationTypeResponse -> TestTree
+responseDeleteQualificationType =
+  res
+    "DeleteQualificationTypeResponse"
+    "fixture/DeleteQualificationTypeResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy DeleteQualificationType)
+
+responseGetFileUploadURL :: GetFileUploadURLResponse -> TestTree
+responseGetFileUploadURL =
+  res
+    "GetFileUploadURLResponse"
+    "fixture/GetFileUploadURLResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy GetFileUploadURL)
+
+responseCreateQualificationType :: CreateQualificationTypeResponse -> TestTree
+responseCreateQualificationType =
+  res
+    "CreateQualificationTypeResponse"
+    "fixture/CreateQualificationTypeResponse.proto"
+    mechanicalTurk
+    (Proxy :: Proxy CreateQualificationType)
