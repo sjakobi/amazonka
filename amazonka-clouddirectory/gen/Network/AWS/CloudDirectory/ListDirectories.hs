@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudDirectory.ListDirectories
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,26 +23,27 @@
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudDirectory.ListDirectories
-    (
-    -- * Creating a Request
-      listDirectories
-    , ListDirectories
+  ( -- * Creating a Request
+    listDirectories,
+    ListDirectories,
+
     -- * Request Lenses
-    , ldState
-    , ldNextToken
-    , ldMaxResults
+    ldNextToken,
+    ldMaxResults,
+    ldState,
 
     -- * Destructuring the Response
-    , listDirectoriesResponse
-    , ListDirectoriesResponse
+    listDirectoriesResponse,
+    ListDirectoriesResponse,
+
     -- * Response Lenses
-    , ldrsNextToken
-    , ldrsResponseStatus
-    , ldrsDirectories
-    ) where
+    ldrrsNextToken,
+    ldrrsResponseStatus,
+    ldrrsDirectories,
+  )
+where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.CloudDirectory.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Pager
 import Network.AWS.Prelude
@@ -52,118 +52,135 @@ import Network.AWS.Response
 
 -- | /See:/ 'listDirectories' smart constructor.
 data ListDirectories = ListDirectories'
-  { _ldState      :: !(Maybe DirectoryState)
-  , _ldNextToken  :: !(Maybe Text)
-  , _ldMaxResults :: !(Maybe Nat)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ldNextToken ::
+      !(Maybe Text),
+    _ldMaxResults :: !(Maybe Nat),
+    _ldState :: !(Maybe DirectoryState)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'ListDirectories' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ldState' - The state of the directories in the list. Can be either Enabled, Disabled, or Deleted.
---
 -- * 'ldNextToken' - The pagination token.
 --
 -- * 'ldMaxResults' - The maximum number of results to retrieve.
-listDirectories
-    :: ListDirectories
+--
+-- * 'ldState' - The state of the directories in the list. Can be either Enabled, Disabled, or Deleted.
+listDirectories ::
+  ListDirectories
 listDirectories =
   ListDirectories'
-    {_ldState = Nothing, _ldNextToken = Nothing, _ldMaxResults = Nothing}
-
-
--- | The state of the directories in the list. Can be either Enabled, Disabled, or Deleted.
-ldState :: Lens' ListDirectories (Maybe DirectoryState)
-ldState = lens _ldState (\ s a -> s{_ldState = a})
+    { _ldNextToken = Nothing,
+      _ldMaxResults = Nothing,
+      _ldState = Nothing
+    }
 
 -- | The pagination token.
 ldNextToken :: Lens' ListDirectories (Maybe Text)
-ldNextToken = lens _ldNextToken (\ s a -> s{_ldNextToken = a})
+ldNextToken = lens _ldNextToken (\s a -> s {_ldNextToken = a})
 
 -- | The maximum number of results to retrieve.
 ldMaxResults :: Lens' ListDirectories (Maybe Natural)
-ldMaxResults = lens _ldMaxResults (\ s a -> s{_ldMaxResults = a}) . mapping _Nat
+ldMaxResults = lens _ldMaxResults (\s a -> s {_ldMaxResults = a}) . mapping _Nat
+
+-- | The state of the directories in the list. Can be either Enabled, Disabled, or Deleted.
+ldState :: Lens' ListDirectories (Maybe DirectoryState)
+ldState = lens _ldState (\s a -> s {_ldState = a})
 
 instance AWSPager ListDirectories where
-        page rq rs
-          | stop (rs ^. ldrsNextToken) = Nothing
-          | stop (rs ^. ldrsDirectories) = Nothing
-          | otherwise =
-            Just $ rq & ldNextToken .~ rs ^. ldrsNextToken
+  page rq rs
+    | stop (rs ^. ldrrsNextToken) = Nothing
+    | stop (rs ^. ldrrsDirectories) = Nothing
+    | otherwise =
+      Just $ rq & ldNextToken .~ rs ^. ldrrsNextToken
 
 instance AWSRequest ListDirectories where
-        type Rs ListDirectories = ListDirectoriesResponse
-        request = postJSON cloudDirectory
-        response
-          = receiveJSON
-              (\ s h x ->
-                 ListDirectoriesResponse' <$>
-                   (x .?> "NextToken") <*> (pure (fromEnum s)) <*>
-                     (x .?> "Directories" .!@ mempty))
+  type Rs ListDirectories = ListDirectoriesResponse
+  request = postJSON cloudDirectory
+  response =
+    receiveJSON
+      ( \s h x ->
+          ListDirectoriesResponse'
+            <$> (x .?> "NextToken")
+            <*> (pure (fromEnum s))
+            <*> (x .?> "Directories" .!@ mempty)
+      )
 
-instance Hashable ListDirectories where
+instance Hashable ListDirectories
 
-instance NFData ListDirectories where
+instance NFData ListDirectories
 
 instance ToHeaders ListDirectories where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToJSON ListDirectories where
-        toJSON ListDirectories'{..}
-          = object
-              (catMaybes
-                 [("state" .=) <$> _ldState,
-                  ("NextToken" .=) <$> _ldNextToken,
-                  ("MaxResults" .=) <$> _ldMaxResults])
+  toJSON ListDirectories' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _ldNextToken,
+            ("MaxResults" .=) <$> _ldMaxResults,
+            ("state" .=) <$> _ldState
+          ]
+      )
 
 instance ToPath ListDirectories where
-        toPath
-          = const
-              "/amazonclouddirectory/2017-01-11/directory/list"
+  toPath =
+    const
+      "/amazonclouddirectory/2017-01-11/directory/list"
 
 instance ToQuery ListDirectories where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'listDirectoriesResponse' smart constructor.
 data ListDirectoriesResponse = ListDirectoriesResponse'
-  { _ldrsNextToken      :: !(Maybe Text)
-  , _ldrsResponseStatus :: !Int
-  , _ldrsDirectories    :: ![Directory]
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ldrrsNextToken ::
+      !(Maybe Text),
+    _ldrrsResponseStatus ::
+      !Int,
+    _ldrrsDirectories ::
+      ![Directory]
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListDirectoriesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ldrsNextToken' - The pagination token.
+-- * 'ldrrsNextToken' - The pagination token.
 --
--- * 'ldrsResponseStatus' - -- | The response status code.
+-- * 'ldrrsResponseStatus' - -- | The response status code.
 --
--- * 'ldrsDirectories' - Lists all directories that are associated with your account in pagination fashion.
-listDirectoriesResponse
-    :: Int -- ^ 'ldrsResponseStatus'
-    -> ListDirectoriesResponse
+-- * 'ldrrsDirectories' - Lists all directories that are associated with your account in pagination fashion.
+listDirectoriesResponse ::
+  -- | 'ldrrsResponseStatus'
+  Int ->
+  ListDirectoriesResponse
 listDirectoriesResponse pResponseStatus_ =
   ListDirectoriesResponse'
-    { _ldrsNextToken = Nothing
-    , _ldrsResponseStatus = pResponseStatus_
-    , _ldrsDirectories = mempty
+    { _ldrrsNextToken = Nothing,
+      _ldrrsResponseStatus = pResponseStatus_,
+      _ldrrsDirectories = mempty
     }
 
-
 -- | The pagination token.
-ldrsNextToken :: Lens' ListDirectoriesResponse (Maybe Text)
-ldrsNextToken = lens _ldrsNextToken (\ s a -> s{_ldrsNextToken = a})
+ldrrsNextToken :: Lens' ListDirectoriesResponse (Maybe Text)
+ldrrsNextToken = lens _ldrrsNextToken (\s a -> s {_ldrrsNextToken = a})
 
 -- | -- | The response status code.
-ldrsResponseStatus :: Lens' ListDirectoriesResponse Int
-ldrsResponseStatus = lens _ldrsResponseStatus (\ s a -> s{_ldrsResponseStatus = a})
+ldrrsResponseStatus :: Lens' ListDirectoriesResponse Int
+ldrrsResponseStatus = lens _ldrrsResponseStatus (\s a -> s {_ldrrsResponseStatus = a})
 
 -- | Lists all directories that are associated with your account in pagination fashion.
-ldrsDirectories :: Lens' ListDirectoriesResponse [Directory]
-ldrsDirectories = lens _ldrsDirectories (\ s a -> s{_ldrsDirectories = a}) . _Coerce
+ldrrsDirectories :: Lens' ListDirectoriesResponse [Directory]
+ldrrsDirectories = lens _ldrrsDirectories (\s a -> s {_ldrrsDirectories = a}) . _Coerce
 
-instance NFData ListDirectoriesResponse where
+instance NFData ListDirectoriesResponse

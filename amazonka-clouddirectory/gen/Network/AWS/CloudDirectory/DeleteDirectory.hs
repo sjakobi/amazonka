@@ -1,44 +1,42 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudDirectory.DeleteDirectory
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a directory. Only disabled directories can be deleted. A deleted directory cannot be undone. Exercise extreme caution when deleting directories.
---
---
 module Network.AWS.CloudDirectory.DeleteDirectory
-    (
-    -- * Creating a Request
-      deleteDirectory
-    , DeleteDirectory
+  ( -- * Creating a Request
+    deleteDirectory,
+    DeleteDirectory,
+
     -- * Request Lenses
-    , delDirectoryARN
+    ddDirectoryARN,
 
     -- * Destructuring the Response
-    , deleteDirectoryResponse
-    , DeleteDirectoryResponse
+    deleteDirectoryResponse,
+    DeleteDirectoryResponse,
+
     -- * Response Lenses
-    , ddrsResponseStatus
-    , ddrsDirectoryARN
-    ) where
+    drsResponseStatus,
+    drsDirectoryARN,
+  )
+where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.CloudDirectory.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -46,83 +44,99 @@ import Network.AWS.Response
 
 -- | /See:/ 'deleteDirectory' smart constructor.
 newtype DeleteDirectory = DeleteDirectory'
-  { _delDirectoryARN :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ddDirectoryARN ::
+      Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DeleteDirectory' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'delDirectoryARN' - The ARN of the directory to delete.
-deleteDirectory
-    :: Text -- ^ 'delDirectoryARN'
-    -> DeleteDirectory
+-- * 'ddDirectoryARN' - The ARN of the directory to delete.
+deleteDirectory ::
+  -- | 'ddDirectoryARN'
+  Text ->
+  DeleteDirectory
 deleteDirectory pDirectoryARN_ =
-  DeleteDirectory' {_delDirectoryARN = pDirectoryARN_}
-
+  DeleteDirectory' {_ddDirectoryARN = pDirectoryARN_}
 
 -- | The ARN of the directory to delete.
-delDirectoryARN :: Lens' DeleteDirectory Text
-delDirectoryARN = lens _delDirectoryARN (\ s a -> s{_delDirectoryARN = a})
+ddDirectoryARN :: Lens' DeleteDirectory Text
+ddDirectoryARN = lens _ddDirectoryARN (\s a -> s {_ddDirectoryARN = a})
 
 instance AWSRequest DeleteDirectory where
-        type Rs DeleteDirectory = DeleteDirectoryResponse
-        request = putJSON cloudDirectory
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DeleteDirectoryResponse' <$>
-                   (pure (fromEnum s)) <*> (x .:> "DirectoryArn"))
+  type Rs DeleteDirectory = DeleteDirectoryResponse
+  request = putJSON cloudDirectory
+  response =
+    receiveJSON
+      ( \s h x ->
+          DeleteDirectoryResponse'
+            <$> (pure (fromEnum s)) <*> (x .:> "DirectoryArn")
+      )
 
-instance Hashable DeleteDirectory where
+instance Hashable DeleteDirectory
 
-instance NFData DeleteDirectory where
+instance NFData DeleteDirectory
 
 instance ToHeaders DeleteDirectory where
-        toHeaders DeleteDirectory'{..}
-          = mconcat
-              ["x-amz-data-partition" =# _delDirectoryARN]
+  toHeaders DeleteDirectory' {..} =
+    mconcat ["x-amz-data-partition" =# _ddDirectoryARN]
 
 instance ToJSON DeleteDirectory where
-        toJSON = const (Object mempty)
+  toJSON = const (Object mempty)
 
 instance ToPath DeleteDirectory where
-        toPath
-          = const "/amazonclouddirectory/2017-01-11/directory"
+  toPath =
+    const "/amazonclouddirectory/2017-01-11/directory"
 
 instance ToQuery DeleteDirectory where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'deleteDirectoryResponse' smart constructor.
 data DeleteDirectoryResponse = DeleteDirectoryResponse'
-  { _ddrsResponseStatus :: !Int
-  , _ddrsDirectoryARN   :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _drsResponseStatus ::
+      !Int,
+    _drsDirectoryARN ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DeleteDirectoryResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ddrsResponseStatus' - -- | The response status code.
+-- * 'drsResponseStatus' - -- | The response status code.
 --
--- * 'ddrsDirectoryARN' - The ARN of the deleted directory.
+-- * 'drsDirectoryARN' - The ARN of the deleted directory.
+deleteDirectoryResponse ::
+  -- | 'drsResponseStatus'
+  Int ->
+  -- | 'drsDirectoryARN'
+  Text ->
+  DeleteDirectoryResponse
 deleteDirectoryResponse
-    :: Int -- ^ 'ddrsResponseStatus'
-    -> Text -- ^ 'ddrsDirectoryARN'
-    -> DeleteDirectoryResponse
-deleteDirectoryResponse pResponseStatus_ pDirectoryARN_ =
-  DeleteDirectoryResponse'
-    {_ddrsResponseStatus = pResponseStatus_, _ddrsDirectoryARN = pDirectoryARN_}
-
+  pResponseStatus_
+  pDirectoryARN_ =
+    DeleteDirectoryResponse'
+      { _drsResponseStatus =
+          pResponseStatus_,
+        _drsDirectoryARN = pDirectoryARN_
+      }
 
 -- | -- | The response status code.
-ddrsResponseStatus :: Lens' DeleteDirectoryResponse Int
-ddrsResponseStatus = lens _ddrsResponseStatus (\ s a -> s{_ddrsResponseStatus = a})
+drsResponseStatus :: Lens' DeleteDirectoryResponse Int
+drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
 
 -- | The ARN of the deleted directory.
-ddrsDirectoryARN :: Lens' DeleteDirectoryResponse Text
-ddrsDirectoryARN = lens _ddrsDirectoryARN (\ s a -> s{_ddrsDirectoryARN = a})
+drsDirectoryARN :: Lens' DeleteDirectoryResponse Text
+drsDirectoryARN = lens _drsDirectoryARN (\s a -> s {_drsDirectoryARN = a})
 
-instance NFData DeleteDirectoryResponse where
+instance NFData DeleteDirectoryResponse

@@ -1,50 +1,50 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudDirectory.ListTypedLinkFacetAttributes
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a paginated list of all attribute definitions for a particular 'TypedLinkFacet' . For more information, see <http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink Typed link> .
+-- Returns a paginated list of all attribute definitions for a particular 'TypedLinkFacet' . For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
 --
 --
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudDirectory.ListTypedLinkFacetAttributes
-    (
-    -- * Creating a Request
-      listTypedLinkFacetAttributes
-    , ListTypedLinkFacetAttributes
+  ( -- * Creating a Request
+    listTypedLinkFacetAttributes,
+    ListTypedLinkFacetAttributes,
+
     -- * Request Lenses
-    , ltlfaNextToken
-    , ltlfaMaxResults
-    , ltlfaSchemaARN
-    , ltlfaName
+    ltlfaNextToken,
+    ltlfaMaxResults,
+    ltlfaSchemaARN,
+    ltlfaName,
 
     -- * Destructuring the Response
-    , listTypedLinkFacetAttributesResponse
-    , ListTypedLinkFacetAttributesResponse
+    listTypedLinkFacetAttributesResponse,
+    ListTypedLinkFacetAttributesResponse,
+
     -- * Response Lenses
-    , ltlfarsNextToken
-    , ltlfarsAttributes
-    , ltlfarsResponseStatus
-    ) where
+    ltlfarrsNextToken,
+    ltlfarrsAttributes,
+    ltlfarrsResponseStatus,
+  )
+where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.CloudDirectory.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Pager
 import Network.AWS.Prelude
@@ -53,12 +53,23 @@ import Network.AWS.Response
 
 -- | /See:/ 'listTypedLinkFacetAttributes' smart constructor.
 data ListTypedLinkFacetAttributes = ListTypedLinkFacetAttributes'
-  { _ltlfaNextToken  :: !(Maybe Text)
-  , _ltlfaMaxResults :: !(Maybe Nat)
-  , _ltlfaSchemaARN  :: !Text
-  , _ltlfaName       :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ltlfaNextToken ::
+      !(Maybe Text),
+    _ltlfaMaxResults ::
+      !(Maybe Nat),
+    _ltlfaSchemaARN ::
+      !Text,
+    _ltlfaName ::
+      !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListTypedLinkFacetAttributes' with the minimum fields required to make a request.
 --
@@ -71,118 +82,138 @@ data ListTypedLinkFacetAttributes = ListTypedLinkFacetAttributes'
 -- * 'ltlfaSchemaARN' - The Amazon Resource Name (ARN) that is associated with the schema. For more information, see 'arns' .
 --
 -- * 'ltlfaName' - The unique name of the typed link facet.
-listTypedLinkFacetAttributes
-    :: Text -- ^ 'ltlfaSchemaARN'
-    -> Text -- ^ 'ltlfaName'
-    -> ListTypedLinkFacetAttributes
+listTypedLinkFacetAttributes ::
+  -- | 'ltlfaSchemaARN'
+  Text ->
+  -- | 'ltlfaName'
+  Text ->
+  ListTypedLinkFacetAttributes
 listTypedLinkFacetAttributes pSchemaARN_ pName_ =
   ListTypedLinkFacetAttributes'
-    { _ltlfaNextToken = Nothing
-    , _ltlfaMaxResults = Nothing
-    , _ltlfaSchemaARN = pSchemaARN_
-    , _ltlfaName = pName_
+    { _ltlfaNextToken =
+        Nothing,
+      _ltlfaMaxResults = Nothing,
+      _ltlfaSchemaARN = pSchemaARN_,
+      _ltlfaName = pName_
     }
-
 
 -- | The pagination token.
 ltlfaNextToken :: Lens' ListTypedLinkFacetAttributes (Maybe Text)
-ltlfaNextToken = lens _ltlfaNextToken (\ s a -> s{_ltlfaNextToken = a})
+ltlfaNextToken = lens _ltlfaNextToken (\s a -> s {_ltlfaNextToken = a})
 
 -- | The maximum number of results to retrieve.
 ltlfaMaxResults :: Lens' ListTypedLinkFacetAttributes (Maybe Natural)
-ltlfaMaxResults = lens _ltlfaMaxResults (\ s a -> s{_ltlfaMaxResults = a}) . mapping _Nat
+ltlfaMaxResults = lens _ltlfaMaxResults (\s a -> s {_ltlfaMaxResults = a}) . mapping _Nat
 
 -- | The Amazon Resource Name (ARN) that is associated with the schema. For more information, see 'arns' .
 ltlfaSchemaARN :: Lens' ListTypedLinkFacetAttributes Text
-ltlfaSchemaARN = lens _ltlfaSchemaARN (\ s a -> s{_ltlfaSchemaARN = a})
+ltlfaSchemaARN = lens _ltlfaSchemaARN (\s a -> s {_ltlfaSchemaARN = a})
 
 -- | The unique name of the typed link facet.
 ltlfaName :: Lens' ListTypedLinkFacetAttributes Text
-ltlfaName = lens _ltlfaName (\ s a -> s{_ltlfaName = a})
+ltlfaName = lens _ltlfaName (\s a -> s {_ltlfaName = a})
 
 instance AWSPager ListTypedLinkFacetAttributes where
-        page rq rs
-          | stop (rs ^. ltlfarsNextToken) = Nothing
-          | stop (rs ^. ltlfarsAttributes) = Nothing
-          | otherwise =
-            Just $ rq & ltlfaNextToken .~ rs ^. ltlfarsNextToken
+  page rq rs
+    | stop (rs ^. ltlfarrsNextToken) = Nothing
+    | stop (rs ^. ltlfarrsAttributes) = Nothing
+    | otherwise =
+      Just $ rq & ltlfaNextToken .~ rs ^. ltlfarrsNextToken
 
-instance AWSRequest ListTypedLinkFacetAttributes
-         where
-        type Rs ListTypedLinkFacetAttributes =
-             ListTypedLinkFacetAttributesResponse
-        request = postJSON cloudDirectory
-        response
-          = receiveJSON
-              (\ s h x ->
-                 ListTypedLinkFacetAttributesResponse' <$>
-                   (x .?> "NextToken") <*>
-                     (x .?> "Attributes" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+instance AWSRequest ListTypedLinkFacetAttributes where
+  type
+    Rs ListTypedLinkFacetAttributes =
+      ListTypedLinkFacetAttributesResponse
+  request = postJSON cloudDirectory
+  response =
+    receiveJSON
+      ( \s h x ->
+          ListTypedLinkFacetAttributesResponse'
+            <$> (x .?> "NextToken")
+            <*> (x .?> "Attributes" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable ListTypedLinkFacetAttributes where
+instance Hashable ListTypedLinkFacetAttributes
 
-instance NFData ListTypedLinkFacetAttributes where
+instance NFData ListTypedLinkFacetAttributes
 
 instance ToHeaders ListTypedLinkFacetAttributes where
-        toHeaders ListTypedLinkFacetAttributes'{..}
-          = mconcat ["x-amz-data-partition" =# _ltlfaSchemaARN]
+  toHeaders ListTypedLinkFacetAttributes' {..} =
+    mconcat ["x-amz-data-partition" =# _ltlfaSchemaARN]
 
 instance ToJSON ListTypedLinkFacetAttributes where
-        toJSON ListTypedLinkFacetAttributes'{..}
-          = object
-              (catMaybes
-                 [("NextToken" .=) <$> _ltlfaNextToken,
-                  ("MaxResults" .=) <$> _ltlfaMaxResults,
-                  Just ("Name" .= _ltlfaName)])
+  toJSON ListTypedLinkFacetAttributes' {..} =
+    object
+      ( catMaybes
+          [ ("NextToken" .=) <$> _ltlfaNextToken,
+            ("MaxResults" .=) <$> _ltlfaMaxResults,
+            Just ("Name" .= _ltlfaName)
+          ]
+      )
 
 instance ToPath ListTypedLinkFacetAttributes where
-        toPath
-          = const
-              "/amazonclouddirectory/2017-01-11/typedlink/facet/attributes"
+  toPath =
+    const
+      "/amazonclouddirectory/2017-01-11/typedlink/facet/attributes"
 
 instance ToQuery ListTypedLinkFacetAttributes where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'listTypedLinkFacetAttributesResponse' smart constructor.
 data ListTypedLinkFacetAttributesResponse = ListTypedLinkFacetAttributesResponse'
-  { _ltlfarsNextToken      :: !(Maybe Text)
-  , _ltlfarsAttributes     :: !(Maybe [TypedLinkAttributeDefinition])
-  , _ltlfarsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ltlfarrsNextToken ::
+      !( Maybe
+           Text
+       ),
+    _ltlfarrsAttributes ::
+      !( Maybe
+           [TypedLinkAttributeDefinition]
+       ),
+    _ltlfarrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'ListTypedLinkFacetAttributesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ltlfarsNextToken' - The pagination token.
+-- * 'ltlfarrsNextToken' - The pagination token.
 --
--- * 'ltlfarsAttributes' - An ordered set of attributes associate with the typed link.
+-- * 'ltlfarrsAttributes' - An ordered set of attributes associate with the typed link.
 --
--- * 'ltlfarsResponseStatus' - -- | The response status code.
-listTypedLinkFacetAttributesResponse
-    :: Int -- ^ 'ltlfarsResponseStatus'
-    -> ListTypedLinkFacetAttributesResponse
+-- * 'ltlfarrsResponseStatus' - -- | The response status code.
+listTypedLinkFacetAttributesResponse ::
+  -- | 'ltlfarrsResponseStatus'
+  Int ->
+  ListTypedLinkFacetAttributesResponse
 listTypedLinkFacetAttributesResponse pResponseStatus_ =
   ListTypedLinkFacetAttributesResponse'
-    { _ltlfarsNextToken = Nothing
-    , _ltlfarsAttributes = Nothing
-    , _ltlfarsResponseStatus = pResponseStatus_
+    { _ltlfarrsNextToken =
+        Nothing,
+      _ltlfarrsAttributes = Nothing,
+      _ltlfarrsResponseStatus =
+        pResponseStatus_
     }
 
-
 -- | The pagination token.
-ltlfarsNextToken :: Lens' ListTypedLinkFacetAttributesResponse (Maybe Text)
-ltlfarsNextToken = lens _ltlfarsNextToken (\ s a -> s{_ltlfarsNextToken = a})
+ltlfarrsNextToken :: Lens' ListTypedLinkFacetAttributesResponse (Maybe Text)
+ltlfarrsNextToken = lens _ltlfarrsNextToken (\s a -> s {_ltlfarrsNextToken = a})
 
 -- | An ordered set of attributes associate with the typed link.
-ltlfarsAttributes :: Lens' ListTypedLinkFacetAttributesResponse [TypedLinkAttributeDefinition]
-ltlfarsAttributes = lens _ltlfarsAttributes (\ s a -> s{_ltlfarsAttributes = a}) . _Default . _Coerce
+ltlfarrsAttributes :: Lens' ListTypedLinkFacetAttributesResponse [TypedLinkAttributeDefinition]
+ltlfarrsAttributes = lens _ltlfarrsAttributes (\s a -> s {_ltlfarrsAttributes = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-ltlfarsResponseStatus :: Lens' ListTypedLinkFacetAttributesResponse Int
-ltlfarsResponseStatus = lens _ltlfarsResponseStatus (\ s a -> s{_ltlfarsResponseStatus = a})
+ltlfarrsResponseStatus :: Lens' ListTypedLinkFacetAttributesResponse Int
+ltlfarrsResponseStatus = lens _ltlfarrsResponseStatus (\s a -> s {_ltlfarrsResponseStatus = a})
 
 instance NFData ListTypedLinkFacetAttributesResponse
-         where
