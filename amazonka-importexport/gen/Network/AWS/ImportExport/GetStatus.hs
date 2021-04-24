@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ImportExport.GetStatus
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,39 +19,40 @@
 --
 -- This operation returns information about a job, including where the job is in the processing pipeline, the status of the results, and the signature value associated with the job. You can only return information about jobs you own.
 module Network.AWS.ImportExport.GetStatus
-    (
-    -- * Creating a Request
-      getStatus
-    , GetStatus
+  ( -- * Creating a Request
+    getStatus,
+    GetStatus,
+
     -- * Request Lenses
-    , gsAPIVersion
-    , gsJobId
+    gsAPIVersion,
+    gsJobId,
 
     -- * Destructuring the Response
-    , getStatusResponse
-    , GetStatusResponse
+    getStatusResponse,
+    GetStatusResponse,
+
     -- * Response Lenses
-    , gsrsCarrier
-    , gsrsTrackingNumber
-    , gsrsSignature
-    , gsrsJobType
-    , gsrsJobId
-    , gsrsSignatureFileContents
-    , gsrsErrorCount
-    , gsrsCurrentManifest
-    , gsrsArtifactList
-    , gsrsLogBucket
-    , gsrsCreationDate
-    , gsrsProgressCode
-    , gsrsLocationCode
-    , gsrsLogKey
-    , gsrsLocationMessage
-    , gsrsProgressMessage
-    , gsrsResponseStatus
-    ) where
+    gsrrsTrackingNumber,
+    gsrrsCurrentManifest,
+    gsrrsErrorCount,
+    gsrrsCreationDate,
+    gsrrsLogBucket,
+    gsrrsJobType,
+    gsrrsArtifactList,
+    gsrrsSignature,
+    gsrrsCarrier,
+    gsrrsProgressMessage,
+    gsrrsLocationMessage,
+    gsrrsLogKey,
+    gsrrsSignatureFileContents,
+    gsrrsProgressCode,
+    gsrrsLocationCode,
+    gsrrsJobId,
+    gsrrsResponseStatus,
+  )
+where
 
 import Network.AWS.ImportExport.Types
-import Network.AWS.ImportExport.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -62,10 +62,11 @@ import Network.AWS.Response
 --
 -- /See:/ 'getStatus' smart constructor.
 data GetStatus = GetStatus'
-  { _gsAPIVersion :: !(Maybe Text)
-  , _gsJobId      :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gsAPIVersion ::
+      !(Maybe Text),
+    _gsJobId :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetStatus' with the minimum fields required to make a request.
 --
@@ -74,216 +75,232 @@ data GetStatus = GetStatus'
 -- * 'gsAPIVersion' - Undocumented member.
 --
 -- * 'gsJobId' - Undocumented member.
-getStatus
-    :: Text -- ^ 'gsJobId'
-    -> GetStatus
-getStatus pJobId_ = GetStatus' {_gsAPIVersion = Nothing, _gsJobId = pJobId_}
-
+getStatus ::
+  -- | 'gsJobId'
+  Text ->
+  GetStatus
+getStatus pJobId_ =
+  GetStatus'
+    { _gsAPIVersion = Nothing,
+      _gsJobId = pJobId_
+    }
 
 -- | Undocumented member.
 gsAPIVersion :: Lens' GetStatus (Maybe Text)
-gsAPIVersion = lens _gsAPIVersion (\ s a -> s{_gsAPIVersion = a})
+gsAPIVersion = lens _gsAPIVersion (\s a -> s {_gsAPIVersion = a})
 
 -- | Undocumented member.
 gsJobId :: Lens' GetStatus Text
-gsJobId = lens _gsJobId (\ s a -> s{_gsJobId = a})
+gsJobId = lens _gsJobId (\s a -> s {_gsJobId = a})
 
 instance AWSRequest GetStatus where
-        type Rs GetStatus = GetStatusResponse
-        request = postQuery importExport
-        response
-          = receiveXMLWrapper "GetStatusResult"
-              (\ s h x ->
-                 GetStatusResponse' <$>
-                   (x .@? "Carrier") <*> (x .@? "TrackingNumber") <*>
-                     (x .@? "Signature")
-                     <*> (x .@? "JobType")
-                     <*> (x .@? "JobId")
-                     <*> (x .@? "SignatureFileContents")
-                     <*> (x .@? "ErrorCount")
-                     <*> (x .@? "CurrentManifest")
-                     <*>
-                     (x .@? "ArtifactList" .!@ mempty >>=
-                        may (parseXMLList "member"))
-                     <*> (x .@? "LogBucket")
-                     <*> (x .@? "CreationDate")
-                     <*> (x .@? "ProgressCode")
-                     <*> (x .@? "LocationCode")
-                     <*> (x .@? "LogKey")
-                     <*> (x .@? "LocationMessage")
-                     <*> (x .@? "ProgressMessage")
-                     <*> (pure (fromEnum s)))
+  type Rs GetStatus = GetStatusResponse
+  request = postQuery importExport
+  response =
+    receiveXMLWrapper
+      "GetStatusResult"
+      ( \s h x ->
+          GetStatusResponse'
+            <$> (x .@? "TrackingNumber")
+            <*> (x .@? "CurrentManifest")
+            <*> (x .@? "ErrorCount")
+            <*> (x .@? "CreationDate")
+            <*> (x .@? "LogBucket")
+            <*> (x .@? "JobType")
+            <*> ( x .@? "ArtifactList" .!@ mempty
+                    >>= may (parseXMLList "member")
+                )
+            <*> (x .@? "Signature")
+            <*> (x .@? "Carrier")
+            <*> (x .@? "ProgressMessage")
+            <*> (x .@? "LocationMessage")
+            <*> (x .@? "LogKey")
+            <*> (x .@? "SignatureFileContents")
+            <*> (x .@? "ProgressCode")
+            <*> (x .@? "LocationCode")
+            <*> (x .@? "JobId")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetStatus where
+instance Hashable GetStatus
 
-instance NFData GetStatus where
+instance NFData GetStatus
 
 instance ToHeaders GetStatus where
-        toHeaders = const mempty
+  toHeaders = const mempty
 
 instance ToPath GetStatus where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetStatus where
-        toQuery GetStatus'{..}
-          = mconcat
-              ["Operation=GetStatus",
-               "Action" =: ("GetStatus" :: ByteString),
-               "Version" =: ("2010-06-01" :: ByteString),
-               "APIVersion" =: _gsAPIVersion, "JobId" =: _gsJobId]
+  toQuery GetStatus' {..} =
+    mconcat
+      [ "Operation=GetStatus",
+        "Action" =: ("GetStatus" :: ByteString),
+        "Version" =: ("2010-06-01" :: ByteString),
+        "APIVersion" =: _gsAPIVersion,
+        "JobId" =: _gsJobId
+      ]
 
 -- | Output structure for the GetStatus operation.
 --
 -- /See:/ 'getStatusResponse' smart constructor.
 data GetStatusResponse = GetStatusResponse'
-  { _gsrsCarrier               :: !(Maybe Text)
-  , _gsrsTrackingNumber        :: !(Maybe Text)
-  , _gsrsSignature             :: !(Maybe Text)
-  , _gsrsJobType               :: !(Maybe JobType)
-  , _gsrsJobId                 :: !(Maybe Text)
-  , _gsrsSignatureFileContents :: !(Maybe Text)
-  , _gsrsErrorCount            :: !(Maybe Int)
-  , _gsrsCurrentManifest       :: !(Maybe Text)
-  , _gsrsArtifactList          :: !(Maybe [Artifact])
-  , _gsrsLogBucket             :: !(Maybe Text)
-  , _gsrsCreationDate          :: !(Maybe ISO8601)
-  , _gsrsProgressCode          :: !(Maybe Text)
-  , _gsrsLocationCode          :: !(Maybe Text)
-  , _gsrsLogKey                :: !(Maybe Text)
-  , _gsrsLocationMessage       :: !(Maybe Text)
-  , _gsrsProgressMessage       :: !(Maybe Text)
-  , _gsrsResponseStatus        :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gsrrsTrackingNumber ::
+      !(Maybe Text),
+    _gsrrsCurrentManifest ::
+      !(Maybe Text),
+    _gsrrsErrorCount :: !(Maybe Int),
+    _gsrrsCreationDate ::
+      !(Maybe ISO8601),
+    _gsrrsLogBucket :: !(Maybe Text),
+    _gsrrsJobType :: !(Maybe JobType),
+    _gsrrsArtifactList ::
+      !(Maybe [Artifact]),
+    _gsrrsSignature :: !(Maybe Text),
+    _gsrrsCarrier :: !(Maybe Text),
+    _gsrrsProgressMessage ::
+      !(Maybe Text),
+    _gsrrsLocationMessage ::
+      !(Maybe Text),
+    _gsrrsLogKey :: !(Maybe Text),
+    _gsrrsSignatureFileContents ::
+      !(Maybe Text),
+    _gsrrsProgressCode :: !(Maybe Text),
+    _gsrrsLocationCode :: !(Maybe Text),
+    _gsrrsJobId :: !(Maybe Text),
+    _gsrrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetStatusResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gsrsCarrier' - Undocumented member.
+-- * 'gsrrsTrackingNumber' - Undocumented member.
 --
--- * 'gsrsTrackingNumber' - Undocumented member.
+-- * 'gsrrsCurrentManifest' - Undocumented member.
 --
--- * 'gsrsSignature' - Undocumented member.
+-- * 'gsrrsErrorCount' - Undocumented member.
 --
--- * 'gsrsJobType' - Undocumented member.
+-- * 'gsrrsCreationDate' - Undocumented member.
 --
--- * 'gsrsJobId' - Undocumented member.
+-- * 'gsrrsLogBucket' - Undocumented member.
 --
--- * 'gsrsSignatureFileContents' - Undocumented member.
+-- * 'gsrrsJobType' - Undocumented member.
 --
--- * 'gsrsErrorCount' - Undocumented member.
+-- * 'gsrrsArtifactList' - Undocumented member.
 --
--- * 'gsrsCurrentManifest' - Undocumented member.
+-- * 'gsrrsSignature' - Undocumented member.
 --
--- * 'gsrsArtifactList' - Undocumented member.
+-- * 'gsrrsCarrier' - Undocumented member.
 --
--- * 'gsrsLogBucket' - Undocumented member.
+-- * 'gsrrsProgressMessage' - Undocumented member.
 --
--- * 'gsrsCreationDate' - Undocumented member.
+-- * 'gsrrsLocationMessage' - Undocumented member.
 --
--- * 'gsrsProgressCode' - Undocumented member.
+-- * 'gsrrsLogKey' - Undocumented member.
 --
--- * 'gsrsLocationCode' - Undocumented member.
+-- * 'gsrrsSignatureFileContents' - Undocumented member.
 --
--- * 'gsrsLogKey' - Undocumented member.
+-- * 'gsrrsProgressCode' - Undocumented member.
 --
--- * 'gsrsLocationMessage' - Undocumented member.
+-- * 'gsrrsLocationCode' - Undocumented member.
 --
--- * 'gsrsProgressMessage' - Undocumented member.
+-- * 'gsrrsJobId' - Undocumented member.
 --
--- * 'gsrsResponseStatus' - -- | The response status code.
-getStatusResponse
-    :: Int -- ^ 'gsrsResponseStatus'
-    -> GetStatusResponse
+-- * 'gsrrsResponseStatus' - -- | The response status code.
+getStatusResponse ::
+  -- | 'gsrrsResponseStatus'
+  Int ->
+  GetStatusResponse
 getStatusResponse pResponseStatus_ =
   GetStatusResponse'
-    { _gsrsCarrier = Nothing
-    , _gsrsTrackingNumber = Nothing
-    , _gsrsSignature = Nothing
-    , _gsrsJobType = Nothing
-    , _gsrsJobId = Nothing
-    , _gsrsSignatureFileContents = Nothing
-    , _gsrsErrorCount = Nothing
-    , _gsrsCurrentManifest = Nothing
-    , _gsrsArtifactList = Nothing
-    , _gsrsLogBucket = Nothing
-    , _gsrsCreationDate = Nothing
-    , _gsrsProgressCode = Nothing
-    , _gsrsLocationCode = Nothing
-    , _gsrsLogKey = Nothing
-    , _gsrsLocationMessage = Nothing
-    , _gsrsProgressMessage = Nothing
-    , _gsrsResponseStatus = pResponseStatus_
+    { _gsrrsTrackingNumber = Nothing,
+      _gsrrsCurrentManifest = Nothing,
+      _gsrrsErrorCount = Nothing,
+      _gsrrsCreationDate = Nothing,
+      _gsrrsLogBucket = Nothing,
+      _gsrrsJobType = Nothing,
+      _gsrrsArtifactList = Nothing,
+      _gsrrsSignature = Nothing,
+      _gsrrsCarrier = Nothing,
+      _gsrrsProgressMessage = Nothing,
+      _gsrrsLocationMessage = Nothing,
+      _gsrrsLogKey = Nothing,
+      _gsrrsSignatureFileContents = Nothing,
+      _gsrrsProgressCode = Nothing,
+      _gsrrsLocationCode = Nothing,
+      _gsrrsJobId = Nothing,
+      _gsrrsResponseStatus = pResponseStatus_
     }
 
+-- | Undocumented member.
+gsrrsTrackingNumber :: Lens' GetStatusResponse (Maybe Text)
+gsrrsTrackingNumber = lens _gsrrsTrackingNumber (\s a -> s {_gsrrsTrackingNumber = a})
 
 -- | Undocumented member.
-gsrsCarrier :: Lens' GetStatusResponse (Maybe Text)
-gsrsCarrier = lens _gsrsCarrier (\ s a -> s{_gsrsCarrier = a})
+gsrrsCurrentManifest :: Lens' GetStatusResponse (Maybe Text)
+gsrrsCurrentManifest = lens _gsrrsCurrentManifest (\s a -> s {_gsrrsCurrentManifest = a})
 
 -- | Undocumented member.
-gsrsTrackingNumber :: Lens' GetStatusResponse (Maybe Text)
-gsrsTrackingNumber = lens _gsrsTrackingNumber (\ s a -> s{_gsrsTrackingNumber = a})
+gsrrsErrorCount :: Lens' GetStatusResponse (Maybe Int)
+gsrrsErrorCount = lens _gsrrsErrorCount (\s a -> s {_gsrrsErrorCount = a})
 
 -- | Undocumented member.
-gsrsSignature :: Lens' GetStatusResponse (Maybe Text)
-gsrsSignature = lens _gsrsSignature (\ s a -> s{_gsrsSignature = a})
+gsrrsCreationDate :: Lens' GetStatusResponse (Maybe UTCTime)
+gsrrsCreationDate = lens _gsrrsCreationDate (\s a -> s {_gsrrsCreationDate = a}) . mapping _Time
 
 -- | Undocumented member.
-gsrsJobType :: Lens' GetStatusResponse (Maybe JobType)
-gsrsJobType = lens _gsrsJobType (\ s a -> s{_gsrsJobType = a})
+gsrrsLogBucket :: Lens' GetStatusResponse (Maybe Text)
+gsrrsLogBucket = lens _gsrrsLogBucket (\s a -> s {_gsrrsLogBucket = a})
 
 -- | Undocumented member.
-gsrsJobId :: Lens' GetStatusResponse (Maybe Text)
-gsrsJobId = lens _gsrsJobId (\ s a -> s{_gsrsJobId = a})
+gsrrsJobType :: Lens' GetStatusResponse (Maybe JobType)
+gsrrsJobType = lens _gsrrsJobType (\s a -> s {_gsrrsJobType = a})
 
 -- | Undocumented member.
-gsrsSignatureFileContents :: Lens' GetStatusResponse (Maybe Text)
-gsrsSignatureFileContents = lens _gsrsSignatureFileContents (\ s a -> s{_gsrsSignatureFileContents = a})
+gsrrsArtifactList :: Lens' GetStatusResponse [Artifact]
+gsrrsArtifactList = lens _gsrrsArtifactList (\s a -> s {_gsrrsArtifactList = a}) . _Default . _Coerce
 
 -- | Undocumented member.
-gsrsErrorCount :: Lens' GetStatusResponse (Maybe Int)
-gsrsErrorCount = lens _gsrsErrorCount (\ s a -> s{_gsrsErrorCount = a})
+gsrrsSignature :: Lens' GetStatusResponse (Maybe Text)
+gsrrsSignature = lens _gsrrsSignature (\s a -> s {_gsrrsSignature = a})
 
 -- | Undocumented member.
-gsrsCurrentManifest :: Lens' GetStatusResponse (Maybe Text)
-gsrsCurrentManifest = lens _gsrsCurrentManifest (\ s a -> s{_gsrsCurrentManifest = a})
+gsrrsCarrier :: Lens' GetStatusResponse (Maybe Text)
+gsrrsCarrier = lens _gsrrsCarrier (\s a -> s {_gsrrsCarrier = a})
 
 -- | Undocumented member.
-gsrsArtifactList :: Lens' GetStatusResponse [Artifact]
-gsrsArtifactList = lens _gsrsArtifactList (\ s a -> s{_gsrsArtifactList = a}) . _Default . _Coerce
+gsrrsProgressMessage :: Lens' GetStatusResponse (Maybe Text)
+gsrrsProgressMessage = lens _gsrrsProgressMessage (\s a -> s {_gsrrsProgressMessage = a})
 
 -- | Undocumented member.
-gsrsLogBucket :: Lens' GetStatusResponse (Maybe Text)
-gsrsLogBucket = lens _gsrsLogBucket (\ s a -> s{_gsrsLogBucket = a})
+gsrrsLocationMessage :: Lens' GetStatusResponse (Maybe Text)
+gsrrsLocationMessage = lens _gsrrsLocationMessage (\s a -> s {_gsrrsLocationMessage = a})
 
 -- | Undocumented member.
-gsrsCreationDate :: Lens' GetStatusResponse (Maybe UTCTime)
-gsrsCreationDate = lens _gsrsCreationDate (\ s a -> s{_gsrsCreationDate = a}) . mapping _Time
+gsrrsLogKey :: Lens' GetStatusResponse (Maybe Text)
+gsrrsLogKey = lens _gsrrsLogKey (\s a -> s {_gsrrsLogKey = a})
 
 -- | Undocumented member.
-gsrsProgressCode :: Lens' GetStatusResponse (Maybe Text)
-gsrsProgressCode = lens _gsrsProgressCode (\ s a -> s{_gsrsProgressCode = a})
+gsrrsSignatureFileContents :: Lens' GetStatusResponse (Maybe Text)
+gsrrsSignatureFileContents = lens _gsrrsSignatureFileContents (\s a -> s {_gsrrsSignatureFileContents = a})
 
 -- | Undocumented member.
-gsrsLocationCode :: Lens' GetStatusResponse (Maybe Text)
-gsrsLocationCode = lens _gsrsLocationCode (\ s a -> s{_gsrsLocationCode = a})
+gsrrsProgressCode :: Lens' GetStatusResponse (Maybe Text)
+gsrrsProgressCode = lens _gsrrsProgressCode (\s a -> s {_gsrrsProgressCode = a})
 
 -- | Undocumented member.
-gsrsLogKey :: Lens' GetStatusResponse (Maybe Text)
-gsrsLogKey = lens _gsrsLogKey (\ s a -> s{_gsrsLogKey = a})
+gsrrsLocationCode :: Lens' GetStatusResponse (Maybe Text)
+gsrrsLocationCode = lens _gsrrsLocationCode (\s a -> s {_gsrrsLocationCode = a})
 
 -- | Undocumented member.
-gsrsLocationMessage :: Lens' GetStatusResponse (Maybe Text)
-gsrsLocationMessage = lens _gsrsLocationMessage (\ s a -> s{_gsrsLocationMessage = a})
-
--- | Undocumented member.
-gsrsProgressMessage :: Lens' GetStatusResponse (Maybe Text)
-gsrsProgressMessage = lens _gsrsProgressMessage (\ s a -> s{_gsrsProgressMessage = a})
+gsrrsJobId :: Lens' GetStatusResponse (Maybe Text)
+gsrrsJobId = lens _gsrrsJobId (\s a -> s {_gsrrsJobId = a})
 
 -- | -- | The response status code.
-gsrsResponseStatus :: Lens' GetStatusResponse Int
-gsrsResponseStatus = lens _gsrsResponseStatus (\ s a -> s{_gsrsResponseStatus = a})
+gsrrsResponseStatus :: Lens' GetStatusResponse Int
+gsrrsResponseStatus = lens _gsrrsResponseStatus (\s a -> s {_gsrrsResponseStatus = a})
 
-instance NFData GetStatusResponse where
+instance NFData GetStatusResponse
