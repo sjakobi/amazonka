@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.CodeStar
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.CodeStar where
 
 import Data.Proxy
@@ -28,8 +27,38 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListProjects $
+--         [ requestDisassociateTeamMember $
+--             disassociateTeamMember
+--
+--         , requestDescribeUserProfile $
+--             describeUserProfile
+--
+--         , requestTagProject $
+--             tagProject
+--
+--         , requestListProjects $
 --             listProjects
+--
+--         , requestCreateProject $
+--             createProject
+--
+--         , requestListUserProfiles $
+--             listUserProfiles
+--
+--         , requestUpdateUserProfile $
+--             updateUserProfile
+--
+--         , requestDeleteUserProfile $
+--             deleteUserProfile
+--
+--         , requestListTagsForProject $
+--             listTagsForProject
+--
+--         , requestUpdateTeamMember $
+--             updateTeamMember
+--
+--         , requestUntagProject $
+--             untagProject
 --
 --         , requestListTeamMembers $
 --             listTeamMembers
@@ -40,53 +69,53 @@ import Test.Tasty
 --         , requestUpdateProject $
 --             updateProject
 --
---         , requestDisassociateTeamMember $
---             disassociateTeamMember
---
---         , requestTagProject $
---             tagProject
---
---         , requestDescribeProject $
---             describeProject
---
---         , requestListUserProfiles $
---             listUserProfiles
---
---         , requestListResources $
---             listResources
---
 --         , requestAssociateTeamMember $
 --             associateTeamMember
---
---         , requestUntagProject $
---             untagProject
---
---         , requestUpdateTeamMember $
---             updateTeamMember
---
---         , requestDescribeUserProfile $
---             describeUserProfile
---
---         , requestListTagsForProject $
---             listTagsForProject
---
---         , requestDeleteUserProfile $
---             deleteUserProfile
---
---         , requestUpdateUserProfile $
---             updateUserProfile
 --
 --         , requestCreateUserProfile $
 --             createUserProfile
 --
---         , requestCreateProject $
---             createProject
+--         , requestListResources $
+--             listResources
+--
+--         , requestDescribeProject $
+--             describeProject
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseListProjects $
+--         [ responseDisassociateTeamMember $
+--             disassociateTeamMemberResponse
+--
+--         , responseDescribeUserProfile $
+--             describeUserProfileResponse
+--
+--         , responseTagProject $
+--             tagProjectResponse
+--
+--         , responseListProjects $
 --             listProjectsResponse
+--
+--         , responseCreateProject $
+--             createProjectResponse
+--
+--         , responseListUserProfiles $
+--             listUserProfilesResponse
+--
+--         , responseUpdateUserProfile $
+--             updateUserProfileResponse
+--
+--         , responseDeleteUserProfile $
+--             deleteUserProfileResponse
+--
+--         , responseListTagsForProject $
+--             listTagsForProjectResponse
+--
+--         , responseUpdateTeamMember $
+--             updateTeamMemberResponse
+--
+--         , responseUntagProject $
+--             untagProjectResponse
 --
 --         , responseListTeamMembers $
 --             listTeamMembersResponse
@@ -97,267 +126,273 @@ import Test.Tasty
 --         , responseUpdateProject $
 --             updateProjectResponse
 --
---         , responseDisassociateTeamMember $
---             disassociateTeamMemberResponse
---
---         , responseTagProject $
---             tagProjectResponse
---
---         , responseDescribeProject $
---             describeProjectResponse
---
---         , responseListUserProfiles $
---             listUserProfilesResponse
---
---         , responseListResources $
---             listResourcesResponse
---
 --         , responseAssociateTeamMember $
 --             associateTeamMemberResponse
---
---         , responseUntagProject $
---             untagProjectResponse
---
---         , responseUpdateTeamMember $
---             updateTeamMemberResponse
---
---         , responseDescribeUserProfile $
---             describeUserProfileResponse
---
---         , responseListTagsForProject $
---             listTagsForProjectResponse
---
---         , responseDeleteUserProfile $
---             deleteUserProfileResponse
---
---         , responseUpdateUserProfile $
---             updateUserProfileResponse
 --
 --         , responseCreateUserProfile $
 --             createUserProfileResponse
 --
---         , responseCreateProject $
---             createProjectResponse
+--         , responseListResources $
+--             listResourcesResponse
+--
+--         , responseDescribeProject $
+--             describeProjectResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
+requestDisassociateTeamMember :: DisassociateTeamMember -> TestTree
+requestDisassociateTeamMember =
+  req
+    "DisassociateTeamMember"
+    "fixture/DisassociateTeamMember.yaml"
+
+requestDescribeUserProfile :: DescribeUserProfile -> TestTree
+requestDescribeUserProfile =
+  req
+    "DescribeUserProfile"
+    "fixture/DescribeUserProfile.yaml"
+
+requestTagProject :: TagProject -> TestTree
+requestTagProject =
+  req
+    "TagProject"
+    "fixture/TagProject.yaml"
+
 requestListProjects :: ListProjects -> TestTree
-requestListProjects = req
+requestListProjects =
+  req
     "ListProjects"
     "fixture/ListProjects.yaml"
 
+requestCreateProject :: CreateProject -> TestTree
+requestCreateProject =
+  req
+    "CreateProject"
+    "fixture/CreateProject.yaml"
+
+requestListUserProfiles :: ListUserProfiles -> TestTree
+requestListUserProfiles =
+  req
+    "ListUserProfiles"
+    "fixture/ListUserProfiles.yaml"
+
+requestUpdateUserProfile :: UpdateUserProfile -> TestTree
+requestUpdateUserProfile =
+  req
+    "UpdateUserProfile"
+    "fixture/UpdateUserProfile.yaml"
+
+requestDeleteUserProfile :: DeleteUserProfile -> TestTree
+requestDeleteUserProfile =
+  req
+    "DeleteUserProfile"
+    "fixture/DeleteUserProfile.yaml"
+
+requestListTagsForProject :: ListTagsForProject -> TestTree
+requestListTagsForProject =
+  req
+    "ListTagsForProject"
+    "fixture/ListTagsForProject.yaml"
+
+requestUpdateTeamMember :: UpdateTeamMember -> TestTree
+requestUpdateTeamMember =
+  req
+    "UpdateTeamMember"
+    "fixture/UpdateTeamMember.yaml"
+
+requestUntagProject :: UntagProject -> TestTree
+requestUntagProject =
+  req
+    "UntagProject"
+    "fixture/UntagProject.yaml"
+
 requestListTeamMembers :: ListTeamMembers -> TestTree
-requestListTeamMembers = req
+requestListTeamMembers =
+  req
     "ListTeamMembers"
     "fixture/ListTeamMembers.yaml"
 
 requestDeleteProject :: DeleteProject -> TestTree
-requestDeleteProject = req
+requestDeleteProject =
+  req
     "DeleteProject"
     "fixture/DeleteProject.yaml"
 
 requestUpdateProject :: UpdateProject -> TestTree
-requestUpdateProject = req
+requestUpdateProject =
+  req
     "UpdateProject"
     "fixture/UpdateProject.yaml"
 
-requestDisassociateTeamMember :: DisassociateTeamMember -> TestTree
-requestDisassociateTeamMember = req
-    "DisassociateTeamMember"
-    "fixture/DisassociateTeamMember.yaml"
-
-requestTagProject :: TagProject -> TestTree
-requestTagProject = req
-    "TagProject"
-    "fixture/TagProject.yaml"
-
-requestDescribeProject :: DescribeProject -> TestTree
-requestDescribeProject = req
-    "DescribeProject"
-    "fixture/DescribeProject.yaml"
-
-requestListUserProfiles :: ListUserProfiles -> TestTree
-requestListUserProfiles = req
-    "ListUserProfiles"
-    "fixture/ListUserProfiles.yaml"
-
-requestListResources :: ListResources -> TestTree
-requestListResources = req
-    "ListResources"
-    "fixture/ListResources.yaml"
-
 requestAssociateTeamMember :: AssociateTeamMember -> TestTree
-requestAssociateTeamMember = req
+requestAssociateTeamMember =
+  req
     "AssociateTeamMember"
     "fixture/AssociateTeamMember.yaml"
 
-requestUntagProject :: UntagProject -> TestTree
-requestUntagProject = req
-    "UntagProject"
-    "fixture/UntagProject.yaml"
-
-requestUpdateTeamMember :: UpdateTeamMember -> TestTree
-requestUpdateTeamMember = req
-    "UpdateTeamMember"
-    "fixture/UpdateTeamMember.yaml"
-
-requestDescribeUserProfile :: DescribeUserProfile -> TestTree
-requestDescribeUserProfile = req
-    "DescribeUserProfile"
-    "fixture/DescribeUserProfile.yaml"
-
-requestListTagsForProject :: ListTagsForProject -> TestTree
-requestListTagsForProject = req
-    "ListTagsForProject"
-    "fixture/ListTagsForProject.yaml"
-
-requestDeleteUserProfile :: DeleteUserProfile -> TestTree
-requestDeleteUserProfile = req
-    "DeleteUserProfile"
-    "fixture/DeleteUserProfile.yaml"
-
-requestUpdateUserProfile :: UpdateUserProfile -> TestTree
-requestUpdateUserProfile = req
-    "UpdateUserProfile"
-    "fixture/UpdateUserProfile.yaml"
-
 requestCreateUserProfile :: CreateUserProfile -> TestTree
-requestCreateUserProfile = req
+requestCreateUserProfile =
+  req
     "CreateUserProfile"
     "fixture/CreateUserProfile.yaml"
 
-requestCreateProject :: CreateProject -> TestTree
-requestCreateProject = req
-    "CreateProject"
-    "fixture/CreateProject.yaml"
+requestListResources :: ListResources -> TestTree
+requestListResources =
+  req
+    "ListResources"
+    "fixture/ListResources.yaml"
+
+requestDescribeProject :: DescribeProject -> TestTree
+requestDescribeProject =
+  req
+    "DescribeProject"
+    "fixture/DescribeProject.yaml"
 
 -- Responses
 
+responseDisassociateTeamMember :: DisassociateTeamMemberResponse -> TestTree
+responseDisassociateTeamMember =
+  res
+    "DisassociateTeamMemberResponse"
+    "fixture/DisassociateTeamMemberResponse.proto"
+    codeStar
+    (Proxy :: Proxy DisassociateTeamMember)
+
+responseDescribeUserProfile :: DescribeUserProfileResponse -> TestTree
+responseDescribeUserProfile =
+  res
+    "DescribeUserProfileResponse"
+    "fixture/DescribeUserProfileResponse.proto"
+    codeStar
+    (Proxy :: Proxy DescribeUserProfile)
+
+responseTagProject :: TagProjectResponse -> TestTree
+responseTagProject =
+  res
+    "TagProjectResponse"
+    "fixture/TagProjectResponse.proto"
+    codeStar
+    (Proxy :: Proxy TagProject)
+
 responseListProjects :: ListProjectsResponse -> TestTree
-responseListProjects = res
+responseListProjects =
+  res
     "ListProjectsResponse"
     "fixture/ListProjectsResponse.proto"
     codeStar
     (Proxy :: Proxy ListProjects)
 
+responseCreateProject :: CreateProjectResponse -> TestTree
+responseCreateProject =
+  res
+    "CreateProjectResponse"
+    "fixture/CreateProjectResponse.proto"
+    codeStar
+    (Proxy :: Proxy CreateProject)
+
+responseListUserProfiles :: ListUserProfilesResponse -> TestTree
+responseListUserProfiles =
+  res
+    "ListUserProfilesResponse"
+    "fixture/ListUserProfilesResponse.proto"
+    codeStar
+    (Proxy :: Proxy ListUserProfiles)
+
+responseUpdateUserProfile :: UpdateUserProfileResponse -> TestTree
+responseUpdateUserProfile =
+  res
+    "UpdateUserProfileResponse"
+    "fixture/UpdateUserProfileResponse.proto"
+    codeStar
+    (Proxy :: Proxy UpdateUserProfile)
+
+responseDeleteUserProfile :: DeleteUserProfileResponse -> TestTree
+responseDeleteUserProfile =
+  res
+    "DeleteUserProfileResponse"
+    "fixture/DeleteUserProfileResponse.proto"
+    codeStar
+    (Proxy :: Proxy DeleteUserProfile)
+
+responseListTagsForProject :: ListTagsForProjectResponse -> TestTree
+responseListTagsForProject =
+  res
+    "ListTagsForProjectResponse"
+    "fixture/ListTagsForProjectResponse.proto"
+    codeStar
+    (Proxy :: Proxy ListTagsForProject)
+
+responseUpdateTeamMember :: UpdateTeamMemberResponse -> TestTree
+responseUpdateTeamMember =
+  res
+    "UpdateTeamMemberResponse"
+    "fixture/UpdateTeamMemberResponse.proto"
+    codeStar
+    (Proxy :: Proxy UpdateTeamMember)
+
+responseUntagProject :: UntagProjectResponse -> TestTree
+responseUntagProject =
+  res
+    "UntagProjectResponse"
+    "fixture/UntagProjectResponse.proto"
+    codeStar
+    (Proxy :: Proxy UntagProject)
+
 responseListTeamMembers :: ListTeamMembersResponse -> TestTree
-responseListTeamMembers = res
+responseListTeamMembers =
+  res
     "ListTeamMembersResponse"
     "fixture/ListTeamMembersResponse.proto"
     codeStar
     (Proxy :: Proxy ListTeamMembers)
 
 responseDeleteProject :: DeleteProjectResponse -> TestTree
-responseDeleteProject = res
+responseDeleteProject =
+  res
     "DeleteProjectResponse"
     "fixture/DeleteProjectResponse.proto"
     codeStar
     (Proxy :: Proxy DeleteProject)
 
 responseUpdateProject :: UpdateProjectResponse -> TestTree
-responseUpdateProject = res
+responseUpdateProject =
+  res
     "UpdateProjectResponse"
     "fixture/UpdateProjectResponse.proto"
     codeStar
     (Proxy :: Proxy UpdateProject)
 
-responseDisassociateTeamMember :: DisassociateTeamMemberResponse -> TestTree
-responseDisassociateTeamMember = res
-    "DisassociateTeamMemberResponse"
-    "fixture/DisassociateTeamMemberResponse.proto"
-    codeStar
-    (Proxy :: Proxy DisassociateTeamMember)
-
-responseTagProject :: TagProjectResponse -> TestTree
-responseTagProject = res
-    "TagProjectResponse"
-    "fixture/TagProjectResponse.proto"
-    codeStar
-    (Proxy :: Proxy TagProject)
-
-responseDescribeProject :: DescribeProjectResponse -> TestTree
-responseDescribeProject = res
-    "DescribeProjectResponse"
-    "fixture/DescribeProjectResponse.proto"
-    codeStar
-    (Proxy :: Proxy DescribeProject)
-
-responseListUserProfiles :: ListUserProfilesResponse -> TestTree
-responseListUserProfiles = res
-    "ListUserProfilesResponse"
-    "fixture/ListUserProfilesResponse.proto"
-    codeStar
-    (Proxy :: Proxy ListUserProfiles)
-
-responseListResources :: ListResourcesResponse -> TestTree
-responseListResources = res
-    "ListResourcesResponse"
-    "fixture/ListResourcesResponse.proto"
-    codeStar
-    (Proxy :: Proxy ListResources)
-
 responseAssociateTeamMember :: AssociateTeamMemberResponse -> TestTree
-responseAssociateTeamMember = res
+responseAssociateTeamMember =
+  res
     "AssociateTeamMemberResponse"
     "fixture/AssociateTeamMemberResponse.proto"
     codeStar
     (Proxy :: Proxy AssociateTeamMember)
 
-responseUntagProject :: UntagProjectResponse -> TestTree
-responseUntagProject = res
-    "UntagProjectResponse"
-    "fixture/UntagProjectResponse.proto"
-    codeStar
-    (Proxy :: Proxy UntagProject)
-
-responseUpdateTeamMember :: UpdateTeamMemberResponse -> TestTree
-responseUpdateTeamMember = res
-    "UpdateTeamMemberResponse"
-    "fixture/UpdateTeamMemberResponse.proto"
-    codeStar
-    (Proxy :: Proxy UpdateTeamMember)
-
-responseDescribeUserProfile :: DescribeUserProfileResponse -> TestTree
-responseDescribeUserProfile = res
-    "DescribeUserProfileResponse"
-    "fixture/DescribeUserProfileResponse.proto"
-    codeStar
-    (Proxy :: Proxy DescribeUserProfile)
-
-responseListTagsForProject :: ListTagsForProjectResponse -> TestTree
-responseListTagsForProject = res
-    "ListTagsForProjectResponse"
-    "fixture/ListTagsForProjectResponse.proto"
-    codeStar
-    (Proxy :: Proxy ListTagsForProject)
-
-responseDeleteUserProfile :: DeleteUserProfileResponse -> TestTree
-responseDeleteUserProfile = res
-    "DeleteUserProfileResponse"
-    "fixture/DeleteUserProfileResponse.proto"
-    codeStar
-    (Proxy :: Proxy DeleteUserProfile)
-
-responseUpdateUserProfile :: UpdateUserProfileResponse -> TestTree
-responseUpdateUserProfile = res
-    "UpdateUserProfileResponse"
-    "fixture/UpdateUserProfileResponse.proto"
-    codeStar
-    (Proxy :: Proxy UpdateUserProfile)
-
 responseCreateUserProfile :: CreateUserProfileResponse -> TestTree
-responseCreateUserProfile = res
+responseCreateUserProfile =
+  res
     "CreateUserProfileResponse"
     "fixture/CreateUserProfileResponse.proto"
     codeStar
     (Proxy :: Proxy CreateUserProfile)
 
-responseCreateProject :: CreateProjectResponse -> TestTree
-responseCreateProject = res
-    "CreateProjectResponse"
-    "fixture/CreateProjectResponse.proto"
+responseListResources :: ListResourcesResponse -> TestTree
+responseListResources =
+  res
+    "ListResourcesResponse"
+    "fixture/ListResourcesResponse.proto"
     codeStar
-    (Proxy :: Proxy CreateProject)
+    (Proxy :: Proxy ListResources)
+
+responseDescribeProject :: DescribeProjectResponse -> TestTree
+responseDescribeProject =
+  res
+    "DescribeProjectResponse"
+    "fixture/DescribeProjectResponse.proto"
+    codeStar
+    (Proxy :: Proxy DescribeProject)

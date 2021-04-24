@@ -1,45 +1,43 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CodeStar.UpdateProject
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates a project in AWS CodeStar.
---
---
 module Network.AWS.CodeStar.UpdateProject
-    (
-    -- * Creating a Request
-      updateProject
-    , UpdateProject
+  ( -- * Creating a Request
+    updateProject,
+    UpdateProject,
+
     -- * Request Lenses
-    , upName
-    , upDescription
-    , upId
+    uName,
+    uDescription,
+    uId,
 
     -- * Destructuring the Response
-    , updateProjectResponse
-    , UpdateProjectResponse
+    updateProjectResponse,
+    UpdateProjectResponse,
+
     -- * Response Lenses
-    , uprsResponseStatus
-    ) where
+    ursResponseStatus,
+  )
+where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.CodeStar.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -47,95 +45,116 @@ import Network.AWS.Response
 
 -- | /See:/ 'updateProject' smart constructor.
 data UpdateProject = UpdateProject'
-  { _upName        :: !(Maybe (Sensitive Text))
-  , _upDescription :: !(Maybe (Sensitive Text))
-  , _upId          :: !Text
-  } deriving (Eq, Show, Data, Typeable, Generic)
-
+  { _uName ::
+      !(Maybe (Sensitive Text)),
+    _uDescription :: !(Maybe (Sensitive Text)),
+    _uId :: !Text
+  }
+  deriving (Eq, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'UpdateProject' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'upName' - The name of the project you want to update.
+-- * 'uName' - The name of the project you want to update.
 --
--- * 'upDescription' - The description of the project, if any.
+-- * 'uDescription' - The description of the project, if any.
 --
--- * 'upId' - The ID of the project you want to update.
-updateProject
-    :: Text -- ^ 'upId'
-    -> UpdateProject
+-- * 'uId' - The ID of the project you want to update.
+updateProject ::
+  -- | 'uId'
+  Text ->
+  UpdateProject
 updateProject pId_ =
-  UpdateProject' {_upName = Nothing, _upDescription = Nothing, _upId = pId_}
-
+  UpdateProject'
+    { _uName = Nothing,
+      _uDescription = Nothing,
+      _uId = pId_
+    }
 
 -- | The name of the project you want to update.
-upName :: Lens' UpdateProject (Maybe Text)
-upName = lens _upName (\ s a -> s{_upName = a}) . mapping _Sensitive
+uName :: Lens' UpdateProject (Maybe Text)
+uName = lens _uName (\s a -> s {_uName = a}) . mapping _Sensitive
 
 -- | The description of the project, if any.
-upDescription :: Lens' UpdateProject (Maybe Text)
-upDescription = lens _upDescription (\ s a -> s{_upDescription = a}) . mapping _Sensitive
+uDescription :: Lens' UpdateProject (Maybe Text)
+uDescription = lens _uDescription (\s a -> s {_uDescription = a}) . mapping _Sensitive
 
 -- | The ID of the project you want to update.
-upId :: Lens' UpdateProject Text
-upId = lens _upId (\ s a -> s{_upId = a})
+uId :: Lens' UpdateProject Text
+uId = lens _uId (\s a -> s {_uId = a})
 
 instance AWSRequest UpdateProject where
-        type Rs UpdateProject = UpdateProjectResponse
-        request = postJSON codeStar
-        response
-          = receiveEmpty
-              (\ s h x ->
-                 UpdateProjectResponse' <$> (pure (fromEnum s)))
+  type Rs UpdateProject = UpdateProjectResponse
+  request = postJSON codeStar
+  response =
+    receiveEmpty
+      ( \s h x ->
+          UpdateProjectResponse' <$> (pure (fromEnum s))
+      )
 
-instance Hashable UpdateProject where
+instance Hashable UpdateProject
 
-instance NFData UpdateProject where
+instance NFData UpdateProject
 
 instance ToHeaders UpdateProject where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("CodeStar_20170419.UpdateProject" :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ("CodeStar_20170419.UpdateProject" :: ByteString),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON UpdateProject where
-        toJSON UpdateProject'{..}
-          = object
-              (catMaybes
-                 [("name" .=) <$> _upName,
-                  ("description" .=) <$> _upDescription,
-                  Just ("id" .= _upId)])
+  toJSON UpdateProject' {..} =
+    object
+      ( catMaybes
+          [ ("name" .=) <$> _uName,
+            ("description" .=) <$> _uDescription,
+            Just ("id" .= _uId)
+          ]
+      )
 
 instance ToPath UpdateProject where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery UpdateProject where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'updateProjectResponse' smart constructor.
 newtype UpdateProjectResponse = UpdateProjectResponse'
-  { _uprsResponseStatus :: Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _ursResponseStatus ::
+      Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'UpdateProjectResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'uprsResponseStatus' - -- | The response status code.
-updateProjectResponse
-    :: Int -- ^ 'uprsResponseStatus'
-    -> UpdateProjectResponse
+-- * 'ursResponseStatus' - -- | The response status code.
+updateProjectResponse ::
+  -- | 'ursResponseStatus'
+  Int ->
+  UpdateProjectResponse
 updateProjectResponse pResponseStatus_ =
-  UpdateProjectResponse' {_uprsResponseStatus = pResponseStatus_}
-
+  UpdateProjectResponse'
+    { _ursResponseStatus =
+        pResponseStatus_
+    }
 
 -- | -- | The response status code.
-uprsResponseStatus :: Lens' UpdateProjectResponse Int
-uprsResponseStatus = lens _uprsResponseStatus (\ s a -> s{_uprsResponseStatus = a})
+ursResponseStatus :: Lens' UpdateProjectResponse Int
+ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
 
-instance NFData UpdateProjectResponse where
+instance NFData UpdateProjectResponse
