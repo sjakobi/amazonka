@@ -1,167 +1,183 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.ResourceGroupsTagging.GetTagValues
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all tag values for the specified key in the specified region for the AWS account.
+-- Returns all tag values for the specified key that are used in the specified AWS Region for the calling AWS account.
 --
+--
+-- This operation supports pagination, where the response can be sent in multiple pages. You should check the @PaginationToken@ response parameter to determine if there are additional results available to return. Repeat the query, passing the @PaginationToken@ response parameter value as an input to the next request until you recieve a @null@ value. A null value for @PaginationToken@ indicates that there are no more results waiting to be returned.
 --
 --
 -- This operation returns paginated results.
 module Network.AWS.ResourceGroupsTagging.GetTagValues
-    (
-    -- * Creating a Request
-      getTagValues
-    , GetTagValues
+  ( -- * Creating a Request
+    getTagValues,
+    GetTagValues,
+
     -- * Request Lenses
-    , gtvPaginationToken
-    , gtvKey
+    gtvPaginationToken,
+    gtvKey,
 
     -- * Destructuring the Response
-    , getTagValuesResponse
-    , GetTagValuesResponse
+    getTagValuesResponse,
+    GetTagValuesResponse,
+
     -- * Response Lenses
-    , gtvrsPaginationToken
-    , gtvrsTagValues
-    , gtvrsResponseStatus
-    ) where
+    gtvrrsPaginationToken,
+    gtvrrsTagValues,
+    gtvrrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Pager
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.ResourceGroupsTagging.Types
-import Network.AWS.ResourceGroupsTagging.Types.Product
 import Network.AWS.Response
 
 -- | /See:/ 'getTagValues' smart constructor.
 data GetTagValues = GetTagValues'
-  { _gtvPaginationToken :: !(Maybe Text)
-  , _gtvKey             :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gtvPaginationToken ::
+      !(Maybe Text),
+    _gtvKey :: !Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetTagValues' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gtvPaginationToken' - A string that indicates that additional data is available. Leave this value empty for your initial request. If the response includes a PaginationToken, use that string for this value to request an additional page of data.
+-- * 'gtvPaginationToken' - Specifies a @PaginationToken@ response value from a previous request to indicate that you want the next page of results. Leave this parameter empty in your initial request.
 --
--- * 'gtvKey' - The key for which you want to list all existing values in the specified region for the AWS account.
-getTagValues
-    :: Text -- ^ 'gtvKey'
-    -> GetTagValues
+-- * 'gtvKey' - Specifies the tag key for which you want to list all existing values that are currently used in the specified AWS Region for the calling AWS account.
+getTagValues ::
+  -- | 'gtvKey'
+  Text ->
+  GetTagValues
 getTagValues pKey_ =
-  GetTagValues' {_gtvPaginationToken = Nothing, _gtvKey = pKey_}
+  GetTagValues'
+    { _gtvPaginationToken = Nothing,
+      _gtvKey = pKey_
+    }
 
-
--- | A string that indicates that additional data is available. Leave this value empty for your initial request. If the response includes a PaginationToken, use that string for this value to request an additional page of data.
+-- | Specifies a @PaginationToken@ response value from a previous request to indicate that you want the next page of results. Leave this parameter empty in your initial request.
 gtvPaginationToken :: Lens' GetTagValues (Maybe Text)
-gtvPaginationToken = lens _gtvPaginationToken (\ s a -> s{_gtvPaginationToken = a})
+gtvPaginationToken = lens _gtvPaginationToken (\s a -> s {_gtvPaginationToken = a})
 
--- | The key for which you want to list all existing values in the specified region for the AWS account.
+-- | Specifies the tag key for which you want to list all existing values that are currently used in the specified AWS Region for the calling AWS account.
 gtvKey :: Lens' GetTagValues Text
-gtvKey = lens _gtvKey (\ s a -> s{_gtvKey = a})
+gtvKey = lens _gtvKey (\s a -> s {_gtvKey = a})
 
 instance AWSPager GetTagValues where
-        page rq rs
-          | stop (rs ^. gtvrsPaginationToken) = Nothing
-          | stop (rs ^. gtvrsTagValues) = Nothing
-          | otherwise =
-            Just $ rq &
-              gtvPaginationToken .~ rs ^. gtvrsPaginationToken
+  page rq rs
+    | stop (rs ^. gtvrrsPaginationToken) = Nothing
+    | stop (rs ^. gtvrrsTagValues) = Nothing
+    | otherwise =
+      Just $
+        rq
+          & gtvPaginationToken .~ rs ^. gtvrrsPaginationToken
 
 instance AWSRequest GetTagValues where
-        type Rs GetTagValues = GetTagValuesResponse
-        request = postJSON resourceGroupsTagging
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetTagValuesResponse' <$>
-                   (x .?> "PaginationToken") <*>
-                     (x .?> "TagValues" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type Rs GetTagValues = GetTagValuesResponse
+  request = postJSON resourceGroupsTagging
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetTagValuesResponse'
+            <$> (x .?> "PaginationToken")
+            <*> (x .?> "TagValues" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable GetTagValues where
+instance Hashable GetTagValues
 
-instance NFData GetTagValues where
+instance NFData GetTagValues
 
 instance ToHeaders GetTagValues where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("ResourceGroupsTaggingAPI_20170126.GetTagValues" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "ResourceGroupsTaggingAPI_20170126.GetTagValues" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON GetTagValues where
-        toJSON GetTagValues'{..}
-          = object
-              (catMaybes
-                 [("PaginationToken" .=) <$> _gtvPaginationToken,
-                  Just ("Key" .= _gtvKey)])
+  toJSON GetTagValues' {..} =
+    object
+      ( catMaybes
+          [ ("PaginationToken" .=) <$> _gtvPaginationToken,
+            Just ("Key" .= _gtvKey)
+          ]
+      )
 
 instance ToPath GetTagValues where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery GetTagValues where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'getTagValuesResponse' smart constructor.
 data GetTagValuesResponse = GetTagValuesResponse'
-  { _gtvrsPaginationToken :: !(Maybe Text)
-  , _gtvrsTagValues       :: !(Maybe [Text])
-  , _gtvrsResponseStatus  :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _gtvrrsPaginationToken ::
+      !(Maybe Text),
+    _gtvrrsTagValues ::
+      !(Maybe [Text]),
+    _gtvrrsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'GetTagValuesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gtvrsPaginationToken' - A string that indicates that the response contains more data than can be returned in a single response. To receive additional data, specify this string for the @PaginationToken@ value in a subsequent request.
+-- * 'gtvrrsPaginationToken' - A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the @PaginationToken@ value in the request for the next page.
 --
--- * 'gtvrsTagValues' - A list of all tag values for the specified key in the AWS account.
+-- * 'gtvrrsTagValues' - A list of all tag values for the specified key currently used in the specified AWS Region for the calling AWS account.
 --
--- * 'gtvrsResponseStatus' - -- | The response status code.
-getTagValuesResponse
-    :: Int -- ^ 'gtvrsResponseStatus'
-    -> GetTagValuesResponse
+-- * 'gtvrrsResponseStatus' - -- | The response status code.
+getTagValuesResponse ::
+  -- | 'gtvrrsResponseStatus'
+  Int ->
+  GetTagValuesResponse
 getTagValuesResponse pResponseStatus_ =
   GetTagValuesResponse'
-    { _gtvrsPaginationToken = Nothing
-    , _gtvrsTagValues = Nothing
-    , _gtvrsResponseStatus = pResponseStatus_
+    { _gtvrrsPaginationToken =
+        Nothing,
+      _gtvrrsTagValues = Nothing,
+      _gtvrrsResponseStatus = pResponseStatus_
     }
 
+-- | A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the @PaginationToken@ value in the request for the next page.
+gtvrrsPaginationToken :: Lens' GetTagValuesResponse (Maybe Text)
+gtvrrsPaginationToken = lens _gtvrrsPaginationToken (\s a -> s {_gtvrrsPaginationToken = a})
 
--- | A string that indicates that the response contains more data than can be returned in a single response. To receive additional data, specify this string for the @PaginationToken@ value in a subsequent request.
-gtvrsPaginationToken :: Lens' GetTagValuesResponse (Maybe Text)
-gtvrsPaginationToken = lens _gtvrsPaginationToken (\ s a -> s{_gtvrsPaginationToken = a})
-
--- | A list of all tag values for the specified key in the AWS account.
-gtvrsTagValues :: Lens' GetTagValuesResponse [Text]
-gtvrsTagValues = lens _gtvrsTagValues (\ s a -> s{_gtvrsTagValues = a}) . _Default . _Coerce
+-- | A list of all tag values for the specified key currently used in the specified AWS Region for the calling AWS account.
+gtvrrsTagValues :: Lens' GetTagValuesResponse [Text]
+gtvrrsTagValues = lens _gtvrrsTagValues (\s a -> s {_gtvrrsTagValues = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-gtvrsResponseStatus :: Lens' GetTagValuesResponse Int
-gtvrsResponseStatus = lens _gtvrsResponseStatus (\ s a -> s{_gtvrsResponseStatus = a})
+gtvrrsResponseStatus :: Lens' GetTagValuesResponse Int
+gtvrrsResponseStatus = lens _gtvrrsResponseStatus (\s a -> s {_gtvrrsResponseStatus = a})
 
-instance NFData GetTagValuesResponse where
+instance NFData GetTagValuesResponse

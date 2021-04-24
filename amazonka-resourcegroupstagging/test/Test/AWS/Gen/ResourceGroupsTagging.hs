@@ -1,16 +1,15 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-orphans        #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Test.AWS.Gen.ResourceGroupsTagging
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
---
 module Test.AWS.Gen.ResourceGroupsTagging where
 
 import Data.Proxy
@@ -28,17 +27,26 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetTagKeys $
---             getTagKeys
+--         [ requestGetComplianceSummary $
+--             getComplianceSummary
+--
+--         , requestStartReportCreation $
+--             startReportCreation
 --
 --         , requestTagResources $
 --             tagResources
 --
---         , requestGetTagValues $
---             getTagValues
+--         , requestGetTagKeys $
+--             getTagKeys
+--
+--         , requestDescribeReportCreation $
+--             describeReportCreation
 --
 --         , requestGetResources $
 --             getResources
+--
+--         , requestGetTagValues $
+--             getTagValues
 --
 --         , requestUntagResources $
 --             untagResources
@@ -46,17 +54,26 @@ import Test.Tasty
 --           ]
 
 --     , testGroup "response"
---         [ responseGetTagKeys $
---             getTagKeysResponse
+--         [ responseGetComplianceSummary $
+--             getComplianceSummaryResponse
+--
+--         , responseStartReportCreation $
+--             startReportCreationResponse
 --
 --         , responseTagResources $
 --             tagResourcesResponse
 --
---         , responseGetTagValues $
---             getTagValuesResponse
+--         , responseGetTagKeys $
+--             getTagKeysResponse
+--
+--         , responseDescribeReportCreation $
+--             describeReportCreationResponse
 --
 --         , responseGetResources $
 --             getResourcesResponse
+--
+--         , responseGetTagValues $
+--             getTagValuesResponse
 --
 --         , responseUntagResources $
 --             untagResourcesResponse
@@ -66,63 +83,115 @@ import Test.Tasty
 
 -- Requests
 
-requestGetTagKeys :: GetTagKeys -> TestTree
-requestGetTagKeys = req
-    "GetTagKeys"
-    "fixture/GetTagKeys.yaml"
+requestGetComplianceSummary :: GetComplianceSummary -> TestTree
+requestGetComplianceSummary =
+  req
+    "GetComplianceSummary"
+    "fixture/GetComplianceSummary.yaml"
+
+requestStartReportCreation :: StartReportCreation -> TestTree
+requestStartReportCreation =
+  req
+    "StartReportCreation"
+    "fixture/StartReportCreation.yaml"
 
 requestTagResources :: TagResources -> TestTree
-requestTagResources = req
+requestTagResources =
+  req
     "TagResources"
     "fixture/TagResources.yaml"
 
-requestGetTagValues :: GetTagValues -> TestTree
-requestGetTagValues = req
-    "GetTagValues"
-    "fixture/GetTagValues.yaml"
+requestGetTagKeys :: GetTagKeys -> TestTree
+requestGetTagKeys =
+  req
+    "GetTagKeys"
+    "fixture/GetTagKeys.yaml"
+
+requestDescribeReportCreation :: DescribeReportCreation -> TestTree
+requestDescribeReportCreation =
+  req
+    "DescribeReportCreation"
+    "fixture/DescribeReportCreation.yaml"
 
 requestGetResources :: GetResources -> TestTree
-requestGetResources = req
+requestGetResources =
+  req
     "GetResources"
     "fixture/GetResources.yaml"
 
+requestGetTagValues :: GetTagValues -> TestTree
+requestGetTagValues =
+  req
+    "GetTagValues"
+    "fixture/GetTagValues.yaml"
+
 requestUntagResources :: UntagResources -> TestTree
-requestUntagResources = req
+requestUntagResources =
+  req
     "UntagResources"
     "fixture/UntagResources.yaml"
 
 -- Responses
 
-responseGetTagKeys :: GetTagKeysResponse -> TestTree
-responseGetTagKeys = res
-    "GetTagKeysResponse"
-    "fixture/GetTagKeysResponse.proto"
+responseGetComplianceSummary :: GetComplianceSummaryResponse -> TestTree
+responseGetComplianceSummary =
+  res
+    "GetComplianceSummaryResponse"
+    "fixture/GetComplianceSummaryResponse.proto"
     resourceGroupsTagging
-    (Proxy :: Proxy GetTagKeys)
+    (Proxy :: Proxy GetComplianceSummary)
+
+responseStartReportCreation :: StartReportCreationResponse -> TestTree
+responseStartReportCreation =
+  res
+    "StartReportCreationResponse"
+    "fixture/StartReportCreationResponse.proto"
+    resourceGroupsTagging
+    (Proxy :: Proxy StartReportCreation)
 
 responseTagResources :: TagResourcesResponse -> TestTree
-responseTagResources = res
+responseTagResources =
+  res
     "TagResourcesResponse"
     "fixture/TagResourcesResponse.proto"
     resourceGroupsTagging
     (Proxy :: Proxy TagResources)
 
-responseGetTagValues :: GetTagValuesResponse -> TestTree
-responseGetTagValues = res
-    "GetTagValuesResponse"
-    "fixture/GetTagValuesResponse.proto"
+responseGetTagKeys :: GetTagKeysResponse -> TestTree
+responseGetTagKeys =
+  res
+    "GetTagKeysResponse"
+    "fixture/GetTagKeysResponse.proto"
     resourceGroupsTagging
-    (Proxy :: Proxy GetTagValues)
+    (Proxy :: Proxy GetTagKeys)
+
+responseDescribeReportCreation :: DescribeReportCreationResponse -> TestTree
+responseDescribeReportCreation =
+  res
+    "DescribeReportCreationResponse"
+    "fixture/DescribeReportCreationResponse.proto"
+    resourceGroupsTagging
+    (Proxy :: Proxy DescribeReportCreation)
 
 responseGetResources :: GetResourcesResponse -> TestTree
-responseGetResources = res
+responseGetResources =
+  res
     "GetResourcesResponse"
     "fixture/GetResourcesResponse.proto"
     resourceGroupsTagging
     (Proxy :: Proxy GetResources)
 
+responseGetTagValues :: GetTagValuesResponse -> TestTree
+responseGetTagValues =
+  res
+    "GetTagValuesResponse"
+    "fixture/GetTagValuesResponse.proto"
+    resourceGroupsTagging
+    (Proxy :: Proxy GetTagValues)
+
 responseUntagResources :: UntagResourcesResponse -> TestTree
-responseUntagResources = res
+responseUntagResources =
+  res
     "UntagResourcesResponse"
     "fixture/UntagResourcesResponse.proto"
     resourceGroupsTagging
