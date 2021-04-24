@@ -1,45 +1,43 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.Athena.BatchGetQueryExecution
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the details of a single query execution or a list of up to 50 query executions, which you provide as an array of query execution ID strings. To get a list of query execution IDs, use 'ListQueryExecutions' . Query executions are different from named (saved) queries. Use 'BatchGetNamedQuery' to get details about named queries.
---
---
+-- Returns the details of a single query execution or a list of up to 50 query executions, which you provide as an array of query execution ID strings. Requires you to have access to the workgroup in which the queries ran. To get a list of query execution IDs, use 'ListQueryExecutionsInput$WorkGroup' . Query executions differ from named (saved) queries. Use 'BatchGetNamedQueryInput' to get details about named queries.
 module Network.AWS.Athena.BatchGetQueryExecution
-    (
-    -- * Creating a Request
-      batchGetQueryExecution
-    , BatchGetQueryExecution
+  ( -- * Creating a Request
+    batchGetQueryExecution,
+    BatchGetQueryExecution,
+
     -- * Request Lenses
-    , bgqeQueryExecutionIds
+    bgqeQueryExecutionIds,
 
     -- * Destructuring the Response
-    , batchGetQueryExecutionResponse
-    , BatchGetQueryExecutionResponse
+    batchGetQueryExecutionResponse,
+    BatchGetQueryExecutionResponse,
+
     -- * Response Lenses
-    , bgqersUnprocessedQueryExecutionIds
-    , bgqersQueryExecutions
-    , bgqersResponseStatus
-    ) where
+    bgqerrsQueryExecutions,
+    bgqerrsUnprocessedQueryExecutionIds,
+    bgqerrsResponseStatus,
+  )
+where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Athena.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -47,104 +45,137 @@ import Network.AWS.Response
 
 -- | /See:/ 'batchGetQueryExecution' smart constructor.
 newtype BatchGetQueryExecution = BatchGetQueryExecution'
-  { _bgqeQueryExecutionIds :: List1 Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _bgqeQueryExecutionIds ::
+      List1 Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'BatchGetQueryExecution' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'bgqeQueryExecutionIds' - An array of query execution IDs.
-batchGetQueryExecution
-    :: NonEmpty Text -- ^ 'bgqeQueryExecutionIds'
-    -> BatchGetQueryExecution
+batchGetQueryExecution ::
+  -- | 'bgqeQueryExecutionIds'
+  NonEmpty Text ->
+  BatchGetQueryExecution
 batchGetQueryExecution pQueryExecutionIds_ =
   BatchGetQueryExecution'
-    {_bgqeQueryExecutionIds = _List1 # pQueryExecutionIds_}
-
+    { _bgqeQueryExecutionIds =
+        _List1 # pQueryExecutionIds_
+    }
 
 -- | An array of query execution IDs.
 bgqeQueryExecutionIds :: Lens' BatchGetQueryExecution (NonEmpty Text)
-bgqeQueryExecutionIds = lens _bgqeQueryExecutionIds (\ s a -> s{_bgqeQueryExecutionIds = a}) . _List1
+bgqeQueryExecutionIds = lens _bgqeQueryExecutionIds (\s a -> s {_bgqeQueryExecutionIds = a}) . _List1
 
 instance AWSRequest BatchGetQueryExecution where
-        type Rs BatchGetQueryExecution =
-             BatchGetQueryExecutionResponse
-        request = postJSON athena
-        response
-          = receiveJSON
-              (\ s h x ->
-                 BatchGetQueryExecutionResponse' <$>
-                   (x .?> "UnprocessedQueryExecutionIds" .!@ mempty) <*>
-                     (x .?> "QueryExecutions" .!@ mempty)
-                     <*> (pure (fromEnum s)))
+  type
+    Rs BatchGetQueryExecution =
+      BatchGetQueryExecutionResponse
+  request = postJSON athena
+  response =
+    receiveJSON
+      ( \s h x ->
+          BatchGetQueryExecutionResponse'
+            <$> (x .?> "QueryExecutions" .!@ mempty)
+            <*> (x .?> "UnprocessedQueryExecutionIds" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable BatchGetQueryExecution where
+instance Hashable BatchGetQueryExecution
 
-instance NFData BatchGetQueryExecution where
+instance NFData BatchGetQueryExecution
 
 instance ToHeaders BatchGetQueryExecution where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AmazonAthena.BatchGetQueryExecution" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AmazonAthena.BatchGetQueryExecution" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON BatchGetQueryExecution where
-        toJSON BatchGetQueryExecution'{..}
-          = object
-              (catMaybes
-                 [Just
-                    ("QueryExecutionIds" .= _bgqeQueryExecutionIds)])
+  toJSON BatchGetQueryExecution' {..} =
+    object
+      ( catMaybes
+          [ Just
+              ("QueryExecutionIds" .= _bgqeQueryExecutionIds)
+          ]
+      )
 
 instance ToPath BatchGetQueryExecution where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery BatchGetQueryExecution where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | /See:/ 'batchGetQueryExecutionResponse' smart constructor.
 data BatchGetQueryExecutionResponse = BatchGetQueryExecutionResponse'
-  { _bgqersUnprocessedQueryExecutionIds :: !(Maybe [UnprocessedQueryExecutionId])
-  , _bgqersQueryExecutions :: !(Maybe [QueryExecution])
-  , _bgqersResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _bgqerrsQueryExecutions ::
+      !( Maybe
+           [QueryExecution]
+       ),
+    _bgqerrsUnprocessedQueryExecutionIds ::
+      !( Maybe
+           [UnprocessedQueryExecutionId]
+       ),
+    _bgqerrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'BatchGetQueryExecutionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'bgqersUnprocessedQueryExecutionIds' - Information about the query executions that failed to run.
+-- * 'bgqerrsQueryExecutions' - Information about a query execution.
 --
--- * 'bgqersQueryExecutions' - Information about a query execution.
+-- * 'bgqerrsUnprocessedQueryExecutionIds' - Information about the query executions that failed to run.
 --
--- * 'bgqersResponseStatus' - -- | The response status code.
-batchGetQueryExecutionResponse
-    :: Int -- ^ 'bgqersResponseStatus'
-    -> BatchGetQueryExecutionResponse
+-- * 'bgqerrsResponseStatus' - -- | The response status code.
+batchGetQueryExecutionResponse ::
+  -- | 'bgqerrsResponseStatus'
+  Int ->
+  BatchGetQueryExecutionResponse
 batchGetQueryExecutionResponse pResponseStatus_ =
   BatchGetQueryExecutionResponse'
-    { _bgqersUnprocessedQueryExecutionIds = Nothing
-    , _bgqersQueryExecutions = Nothing
-    , _bgqersResponseStatus = pResponseStatus_
+    { _bgqerrsQueryExecutions =
+        Nothing,
+      _bgqerrsUnprocessedQueryExecutionIds =
+        Nothing,
+      _bgqerrsResponseStatus = pResponseStatus_
     }
 
+-- | Information about a query execution.
+bgqerrsQueryExecutions :: Lens' BatchGetQueryExecutionResponse [QueryExecution]
+bgqerrsQueryExecutions = lens _bgqerrsQueryExecutions (\s a -> s {_bgqerrsQueryExecutions = a}) . _Default . _Coerce
 
 -- | Information about the query executions that failed to run.
-bgqersUnprocessedQueryExecutionIds :: Lens' BatchGetQueryExecutionResponse [UnprocessedQueryExecutionId]
-bgqersUnprocessedQueryExecutionIds = lens _bgqersUnprocessedQueryExecutionIds (\ s a -> s{_bgqersUnprocessedQueryExecutionIds = a}) . _Default . _Coerce
-
--- | Information about a query execution.
-bgqersQueryExecutions :: Lens' BatchGetQueryExecutionResponse [QueryExecution]
-bgqersQueryExecutions = lens _bgqersQueryExecutions (\ s a -> s{_bgqersQueryExecutions = a}) . _Default . _Coerce
+bgqerrsUnprocessedQueryExecutionIds :: Lens' BatchGetQueryExecutionResponse [UnprocessedQueryExecutionId]
+bgqerrsUnprocessedQueryExecutionIds = lens _bgqerrsUnprocessedQueryExecutionIds (\s a -> s {_bgqerrsUnprocessedQueryExecutionIds = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-bgqersResponseStatus :: Lens' BatchGetQueryExecutionResponse Int
-bgqersResponseStatus = lens _bgqersResponseStatus (\ s a -> s{_bgqersResponseStatus = a})
+bgqerrsResponseStatus :: Lens' BatchGetQueryExecutionResponse Int
+bgqerrsResponseStatus = lens _bgqerrsResponseStatus (\s a -> s {_bgqerrsResponseStatus = a})
 
-instance NFData BatchGetQueryExecutionResponse where
+instance NFData BatchGetQueryExecutionResponse
