@@ -1,50 +1,48 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.StorageGateway.DeleteChapCredentials
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target and initiator pair.
---
---
+-- Deletes Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target and initiator pair. This operation is supported in volume and tape gateway types.
 module Network.AWS.StorageGateway.DeleteChapCredentials
-    (
-    -- * Creating a Request
-      deleteChapCredentials
-    , DeleteChapCredentials
+  ( -- * Creating a Request
+    deleteChapCredentials,
+    DeleteChapCredentials,
+
     -- * Request Lenses
-    , dTargetARN
-    , dInitiatorName
+    dTargetARN,
+    dInitiatorName,
 
     -- * Destructuring the Response
-    , deleteChapCredentialsResponse
-    , DeleteChapCredentialsResponse
+    deleteChapCredentialsResponse,
+    DeleteChapCredentialsResponse,
+
     -- * Response Lenses
-    , drsTargetARN
-    , drsInitiatorName
-    , drsResponseStatus
-    ) where
+    dccrcrsInitiatorName,
+    dccrcrsTargetARN,
+    dccrcrsResponseStatus,
+  )
+where
 
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
 import Network.AWS.Response
 import Network.AWS.StorageGateway.Types
-import Network.AWS.StorageGateway.Types.Product
 
 -- | A JSON object containing one or more of the following fields:
 --
@@ -58,10 +56,18 @@ import Network.AWS.StorageGateway.Types.Product
 --
 -- /See:/ 'deleteChapCredentials' smart constructor.
 data DeleteChapCredentials = DeleteChapCredentials'
-  { _dTargetARN     :: !Text
-  , _dInitiatorName :: !Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dTargetARN ::
+      !Text,
+    _dInitiatorName :: !Text
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DeleteChapCredentials' with the minimum fields required to make a request.
 --
@@ -70,60 +76,71 @@ data DeleteChapCredentials = DeleteChapCredentials'
 -- * 'dTargetARN' - The Amazon Resource Name (ARN) of the iSCSI volume target. Use the 'DescribeStorediSCSIVolumes' operation to return to retrieve the TargetARN for specified VolumeARN.
 --
 -- * 'dInitiatorName' - The iSCSI initiator that connects to the target.
-deleteChapCredentials
-    :: Text -- ^ 'dTargetARN'
-    -> Text -- ^ 'dInitiatorName'
-    -> DeleteChapCredentials
+deleteChapCredentials ::
+  -- | 'dTargetARN'
+  Text ->
+  -- | 'dInitiatorName'
+  Text ->
+  DeleteChapCredentials
 deleteChapCredentials pTargetARN_ pInitiatorName_ =
   DeleteChapCredentials'
-    {_dTargetARN = pTargetARN_, _dInitiatorName = pInitiatorName_}
-
+    { _dTargetARN = pTargetARN_,
+      _dInitiatorName = pInitiatorName_
+    }
 
 -- | The Amazon Resource Name (ARN) of the iSCSI volume target. Use the 'DescribeStorediSCSIVolumes' operation to return to retrieve the TargetARN for specified VolumeARN.
 dTargetARN :: Lens' DeleteChapCredentials Text
-dTargetARN = lens _dTargetARN (\ s a -> s{_dTargetARN = a})
+dTargetARN = lens _dTargetARN (\s a -> s {_dTargetARN = a})
 
 -- | The iSCSI initiator that connects to the target.
 dInitiatorName :: Lens' DeleteChapCredentials Text
-dInitiatorName = lens _dInitiatorName (\ s a -> s{_dInitiatorName = a})
+dInitiatorName = lens _dInitiatorName (\s a -> s {_dInitiatorName = a})
 
 instance AWSRequest DeleteChapCredentials where
-        type Rs DeleteChapCredentials =
-             DeleteChapCredentialsResponse
-        request = postJSON storageGateway
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DeleteChapCredentialsResponse' <$>
-                   (x .?> "TargetARN") <*> (x .?> "InitiatorName") <*>
-                     (pure (fromEnum s)))
+  type
+    Rs DeleteChapCredentials =
+      DeleteChapCredentialsResponse
+  request = postJSON storageGateway
+  response =
+    receiveJSON
+      ( \s h x ->
+          DeleteChapCredentialsResponse'
+            <$> (x .?> "InitiatorName")
+            <*> (x .?> "TargetARN")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DeleteChapCredentials where
+instance Hashable DeleteChapCredentials
 
-instance NFData DeleteChapCredentials where
+instance NFData DeleteChapCredentials
 
 instance ToHeaders DeleteChapCredentials where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("StorageGateway_20130630.DeleteChapCredentials" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "StorageGateway_20130630.DeleteChapCredentials" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DeleteChapCredentials where
-        toJSON DeleteChapCredentials'{..}
-          = object
-              (catMaybes
-                 [Just ("TargetARN" .= _dTargetARN),
-                  Just ("InitiatorName" .= _dInitiatorName)])
+  toJSON DeleteChapCredentials' {..} =
+    object
+      ( catMaybes
+          [ Just ("TargetARN" .= _dTargetARN),
+            Just ("InitiatorName" .= _dInitiatorName)
+          ]
+      )
 
 instance ToPath DeleteChapCredentials where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DeleteChapCredentials where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | A JSON object containing the following fields:
 --
@@ -131,42 +148,57 @@ instance ToQuery DeleteChapCredentials where
 --
 -- /See:/ 'deleteChapCredentialsResponse' smart constructor.
 data DeleteChapCredentialsResponse = DeleteChapCredentialsResponse'
-  { _drsTargetARN      :: !(Maybe Text)
-  , _drsInitiatorName  :: !(Maybe Text)
-  , _drsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dccrcrsInitiatorName ::
+      !( Maybe
+           Text
+       ),
+    _dccrcrsTargetARN ::
+      !( Maybe
+           Text
+       ),
+    _dccrcrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'DeleteChapCredentialsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'drsTargetARN' - The Amazon Resource Name (ARN) of the target.
+-- * 'dccrcrsInitiatorName' - The iSCSI initiator that connects to the target.
 --
--- * 'drsInitiatorName' - The iSCSI initiator that connects to the target.
+-- * 'dccrcrsTargetARN' - The Amazon Resource Name (ARN) of the target.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteChapCredentialsResponse
-    :: Int -- ^ 'drsResponseStatus'
-    -> DeleteChapCredentialsResponse
+-- * 'dccrcrsResponseStatus' - -- | The response status code.
+deleteChapCredentialsResponse ::
+  -- | 'dccrcrsResponseStatus'
+  Int ->
+  DeleteChapCredentialsResponse
 deleteChapCredentialsResponse pResponseStatus_ =
   DeleteChapCredentialsResponse'
-    { _drsTargetARN = Nothing
-    , _drsInitiatorName = Nothing
-    , _drsResponseStatus = pResponseStatus_
+    { _dccrcrsInitiatorName =
+        Nothing,
+      _dccrcrsTargetARN = Nothing,
+      _dccrcrsResponseStatus = pResponseStatus_
     }
 
+-- | The iSCSI initiator that connects to the target.
+dccrcrsInitiatorName :: Lens' DeleteChapCredentialsResponse (Maybe Text)
+dccrcrsInitiatorName = lens _dccrcrsInitiatorName (\s a -> s {_dccrcrsInitiatorName = a})
 
 -- | The Amazon Resource Name (ARN) of the target.
-drsTargetARN :: Lens' DeleteChapCredentialsResponse (Maybe Text)
-drsTargetARN = lens _drsTargetARN (\ s a -> s{_drsTargetARN = a})
-
--- | The iSCSI initiator that connects to the target.
-drsInitiatorName :: Lens' DeleteChapCredentialsResponse (Maybe Text)
-drsInitiatorName = lens _drsInitiatorName (\ s a -> s{_drsInitiatorName = a})
+dccrcrsTargetARN :: Lens' DeleteChapCredentialsResponse (Maybe Text)
+dccrcrsTargetARN = lens _dccrcrsTargetARN (\s a -> s {_dccrcrsTargetARN = a})
 
 -- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteChapCredentialsResponse Int
-drsResponseStatus = lens _drsResponseStatus (\ s a -> s{_drsResponseStatus = a})
+dccrcrsResponseStatus :: Lens' DeleteChapCredentialsResponse Int
+dccrcrsResponseStatus = lens _dccrcrsResponseStatus (\s a -> s {_dccrcrsResponseStatus = a})
 
-instance NFData DeleteChapCredentialsResponse where
+instance NFData DeleteChapCredentialsResponse
