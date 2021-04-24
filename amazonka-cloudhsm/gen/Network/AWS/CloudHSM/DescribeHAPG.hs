@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudHSM.DescribeHAPG
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,33 +23,33 @@
 -- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
 --
 -- Retrieves information about a high-availability partition group.
---
 module Network.AWS.CloudHSM.DescribeHAPG
-    (
-    -- * Creating a Request
-      describeHAPG
-    , DescribeHAPG
+  ( -- * Creating a Request
+    describeHAPG,
+    DescribeHAPG,
+
     -- * Request Lenses
-    , dhapgHAPGARN
+    dhapgHAPGARN,
 
     -- * Destructuring the Response
-    , describeHAPGResponse
-    , DescribeHAPGResponse
+    describeHAPGResponse,
+    DescribeHAPGResponse,
+
     -- * Response Lenses
-    , dhapgrsState
-    , dhapgrsLastModifiedTimestamp
-    , dhapgrsHSMsPendingRegistration
-    , dhapgrsHSMsPendingDeletion
-    , dhapgrsHAPGSerial
-    , dhapgrsHSMsLastActionFailed
-    , dhapgrsPartitionSerialList
-    , dhapgrsHAPGARN
-    , dhapgrsLabel
-    , dhapgrsResponseStatus
-    ) where
+    dhapgrrsHSMsPendingDeletion,
+    dhapgrrsHAPGARN,
+    dhapgrrsPartitionSerialList,
+    dhapgrrsLastModifiedTimestamp,
+    dhapgrrsState,
+    dhapgrrsLabel,
+    dhapgrrsHAPGSerial,
+    dhapgrrsHSMsPendingRegistration,
+    dhapgrrsHSMsLastActionFailed,
+    dhapgrrsResponseStatus,
+  )
+where
 
 import Network.AWS.CloudHSM.Types
-import Network.AWS.CloudHSM.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -62,66 +61,73 @@ import Network.AWS.Response
 --
 -- /See:/ 'describeHAPG' smart constructor.
 newtype DescribeHAPG = DescribeHAPG'
-  { _dhapgHAPGARN :: Text
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dhapgHAPGARN ::
+      Text
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeHAPG' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'dhapgHAPGARN' - The ARN of the high-availability partition group to describe.
-describeHAPG
-    :: Text -- ^ 'dhapgHAPGARN'
-    -> DescribeHAPG
-describeHAPG pHAPGARN_ = DescribeHAPG' {_dhapgHAPGARN = pHAPGARN_}
-
+describeHAPG ::
+  -- | 'dhapgHAPGARN'
+  Text ->
+  DescribeHAPG
+describeHAPG pHAPGARN_ =
+  DescribeHAPG' {_dhapgHAPGARN = pHAPGARN_}
 
 -- | The ARN of the high-availability partition group to describe.
 dhapgHAPGARN :: Lens' DescribeHAPG Text
-dhapgHAPGARN = lens _dhapgHAPGARN (\ s a -> s{_dhapgHAPGARN = a})
+dhapgHAPGARN = lens _dhapgHAPGARN (\s a -> s {_dhapgHAPGARN = a})
 
 instance AWSRequest DescribeHAPG where
-        type Rs DescribeHAPG = DescribeHAPGResponse
-        request = postJSON cloudHSM
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeHAPGResponse' <$>
-                   (x .?> "State") <*> (x .?> "LastModifiedTimestamp")
-                     <*> (x .?> "HsmsPendingRegistration" .!@ mempty)
-                     <*> (x .?> "HsmsPendingDeletion" .!@ mempty)
-                     <*> (x .?> "HapgSerial")
-                     <*> (x .?> "HsmsLastActionFailed" .!@ mempty)
-                     <*> (x .?> "PartitionSerialList" .!@ mempty)
-                     <*> (x .?> "HapgArn")
-                     <*> (x .?> "Label")
-                     <*> (pure (fromEnum s)))
+  type Rs DescribeHAPG = DescribeHAPGResponse
+  request = postJSON cloudHSM
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeHAPGResponse'
+            <$> (x .?> "HsmsPendingDeletion" .!@ mempty)
+            <*> (x .?> "HapgArn")
+            <*> (x .?> "PartitionSerialList" .!@ mempty)
+            <*> (x .?> "LastModifiedTimestamp")
+            <*> (x .?> "State")
+            <*> (x .?> "Label")
+            <*> (x .?> "HapgSerial")
+            <*> (x .?> "HsmsPendingRegistration" .!@ mempty)
+            <*> (x .?> "HsmsLastActionFailed" .!@ mempty)
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeHAPG where
+instance Hashable DescribeHAPG
 
-instance NFData DescribeHAPG where
+instance NFData DescribeHAPG
 
 instance ToHeaders DescribeHAPG where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("CloudHsmFrontendService.DescribeHapg" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "CloudHsmFrontendService.DescribeHapg" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeHAPG where
-        toJSON DescribeHAPG'{..}
-          = object
-              (catMaybes [Just ("HapgArn" .= _dhapgHAPGARN)])
+  toJSON DescribeHAPG' {..} =
+    object
+      (catMaybes [Just ("HapgArn" .= _dhapgHAPGARN)])
 
 instance ToPath DescribeHAPG where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeHAPG where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | Contains the output of the 'DescribeHapg' action.
 --
@@ -129,98 +135,109 @@ instance ToQuery DescribeHAPG where
 --
 -- /See:/ 'describeHAPGResponse' smart constructor.
 data DescribeHAPGResponse = DescribeHAPGResponse'
-  { _dhapgrsState                   :: !(Maybe CloudHSMObjectState)
-  , _dhapgrsLastModifiedTimestamp   :: !(Maybe Text)
-  , _dhapgrsHSMsPendingRegistration :: !(Maybe [Text])
-  , _dhapgrsHSMsPendingDeletion     :: !(Maybe [Text])
-  , _dhapgrsHAPGSerial              :: !(Maybe Text)
-  , _dhapgrsHSMsLastActionFailed    :: !(Maybe [Text])
-  , _dhapgrsPartitionSerialList     :: !(Maybe [Text])
-  , _dhapgrsHAPGARN                 :: !(Maybe Text)
-  , _dhapgrsLabel                   :: !(Maybe Text)
-  , _dhapgrsResponseStatus          :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dhapgrrsHSMsPendingDeletion ::
+      !(Maybe [Text]),
+    _dhapgrrsHAPGARN ::
+      !(Maybe Text),
+    _dhapgrrsPartitionSerialList ::
+      !(Maybe [Text]),
+    _dhapgrrsLastModifiedTimestamp ::
+      !(Maybe Text),
+    _dhapgrrsState ::
+      !(Maybe CloudHSMObjectState),
+    _dhapgrrsLabel ::
+      !(Maybe Text),
+    _dhapgrrsHAPGSerial ::
+      !(Maybe Text),
+    _dhapgrrsHSMsPendingRegistration ::
+      !(Maybe [Text]),
+    _dhapgrrsHSMsLastActionFailed ::
+      !(Maybe [Text]),
+    _dhapgrrsResponseStatus ::
+      !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeHAPGResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dhapgrsState' - The state of the high-availability partition group.
+-- * 'dhapgrrsHSMsPendingDeletion' -
 --
--- * 'dhapgrsLastModifiedTimestamp' - The date and time the high-availability partition group was last modified.
+-- * 'dhapgrrsHAPGARN' - The ARN of the high-availability partition group.
 --
--- * 'dhapgrsHSMsPendingRegistration' -
+-- * 'dhapgrrsPartitionSerialList' - The list of partition serial numbers that belong to the high-availability partition group.
 --
--- * 'dhapgrsHSMsPendingDeletion' -
+-- * 'dhapgrrsLastModifiedTimestamp' - The date and time the high-availability partition group was last modified.
 --
--- * 'dhapgrsHAPGSerial' - The serial number of the high-availability partition group.
+-- * 'dhapgrrsState' - The state of the high-availability partition group.
 --
--- * 'dhapgrsHSMsLastActionFailed' -
+-- * 'dhapgrrsLabel' - The label for the high-availability partition group.
 --
--- * 'dhapgrsPartitionSerialList' - The list of partition serial numbers that belong to the high-availability partition group.
+-- * 'dhapgrrsHAPGSerial' - The serial number of the high-availability partition group.
 --
--- * 'dhapgrsHAPGARN' - The ARN of the high-availability partition group.
+-- * 'dhapgrrsHSMsPendingRegistration' -
 --
--- * 'dhapgrsLabel' - The label for the high-availability partition group.
+-- * 'dhapgrrsHSMsLastActionFailed' -
 --
--- * 'dhapgrsResponseStatus' - -- | The response status code.
-describeHAPGResponse
-    :: Int -- ^ 'dhapgrsResponseStatus'
-    -> DescribeHAPGResponse
+-- * 'dhapgrrsResponseStatus' - -- | The response status code.
+describeHAPGResponse ::
+  -- | 'dhapgrrsResponseStatus'
+  Int ->
+  DescribeHAPGResponse
 describeHAPGResponse pResponseStatus_ =
   DescribeHAPGResponse'
-    { _dhapgrsState = Nothing
-    , _dhapgrsLastModifiedTimestamp = Nothing
-    , _dhapgrsHSMsPendingRegistration = Nothing
-    , _dhapgrsHSMsPendingDeletion = Nothing
-    , _dhapgrsHAPGSerial = Nothing
-    , _dhapgrsHSMsLastActionFailed = Nothing
-    , _dhapgrsPartitionSerialList = Nothing
-    , _dhapgrsHAPGARN = Nothing
-    , _dhapgrsLabel = Nothing
-    , _dhapgrsResponseStatus = pResponseStatus_
+    { _dhapgrrsHSMsPendingDeletion =
+        Nothing,
+      _dhapgrrsHAPGARN = Nothing,
+      _dhapgrrsPartitionSerialList = Nothing,
+      _dhapgrrsLastModifiedTimestamp = Nothing,
+      _dhapgrrsState = Nothing,
+      _dhapgrrsLabel = Nothing,
+      _dhapgrrsHAPGSerial = Nothing,
+      _dhapgrrsHSMsPendingRegistration = Nothing,
+      _dhapgrrsHSMsLastActionFailed = Nothing,
+      _dhapgrrsResponseStatus = pResponseStatus_
     }
 
-
--- | The state of the high-availability partition group.
-dhapgrsState :: Lens' DescribeHAPGResponse (Maybe CloudHSMObjectState)
-dhapgrsState = lens _dhapgrsState (\ s a -> s{_dhapgrsState = a})
-
--- | The date and time the high-availability partition group was last modified.
-dhapgrsLastModifiedTimestamp :: Lens' DescribeHAPGResponse (Maybe Text)
-dhapgrsLastModifiedTimestamp = lens _dhapgrsLastModifiedTimestamp (\ s a -> s{_dhapgrsLastModifiedTimestamp = a})
-
 -- |
-dhapgrsHSMsPendingRegistration :: Lens' DescribeHAPGResponse [Text]
-dhapgrsHSMsPendingRegistration = lens _dhapgrsHSMsPendingRegistration (\ s a -> s{_dhapgrsHSMsPendingRegistration = a}) . _Default . _Coerce
-
--- |
-dhapgrsHSMsPendingDeletion :: Lens' DescribeHAPGResponse [Text]
-dhapgrsHSMsPendingDeletion = lens _dhapgrsHSMsPendingDeletion (\ s a -> s{_dhapgrsHSMsPendingDeletion = a}) . _Default . _Coerce
-
--- | The serial number of the high-availability partition group.
-dhapgrsHAPGSerial :: Lens' DescribeHAPGResponse (Maybe Text)
-dhapgrsHAPGSerial = lens _dhapgrsHAPGSerial (\ s a -> s{_dhapgrsHAPGSerial = a})
-
--- |
-dhapgrsHSMsLastActionFailed :: Lens' DescribeHAPGResponse [Text]
-dhapgrsHSMsLastActionFailed = lens _dhapgrsHSMsLastActionFailed (\ s a -> s{_dhapgrsHSMsLastActionFailed = a}) . _Default . _Coerce
-
--- | The list of partition serial numbers that belong to the high-availability partition group.
-dhapgrsPartitionSerialList :: Lens' DescribeHAPGResponse [Text]
-dhapgrsPartitionSerialList = lens _dhapgrsPartitionSerialList (\ s a -> s{_dhapgrsPartitionSerialList = a}) . _Default . _Coerce
+dhapgrrsHSMsPendingDeletion :: Lens' DescribeHAPGResponse [Text]
+dhapgrrsHSMsPendingDeletion = lens _dhapgrrsHSMsPendingDeletion (\s a -> s {_dhapgrrsHSMsPendingDeletion = a}) . _Default . _Coerce
 
 -- | The ARN of the high-availability partition group.
-dhapgrsHAPGARN :: Lens' DescribeHAPGResponse (Maybe Text)
-dhapgrsHAPGARN = lens _dhapgrsHAPGARN (\ s a -> s{_dhapgrsHAPGARN = a})
+dhapgrrsHAPGARN :: Lens' DescribeHAPGResponse (Maybe Text)
+dhapgrrsHAPGARN = lens _dhapgrrsHAPGARN (\s a -> s {_dhapgrrsHAPGARN = a})
+
+-- | The list of partition serial numbers that belong to the high-availability partition group.
+dhapgrrsPartitionSerialList :: Lens' DescribeHAPGResponse [Text]
+dhapgrrsPartitionSerialList = lens _dhapgrrsPartitionSerialList (\s a -> s {_dhapgrrsPartitionSerialList = a}) . _Default . _Coerce
+
+-- | The date and time the high-availability partition group was last modified.
+dhapgrrsLastModifiedTimestamp :: Lens' DescribeHAPGResponse (Maybe Text)
+dhapgrrsLastModifiedTimestamp = lens _dhapgrrsLastModifiedTimestamp (\s a -> s {_dhapgrrsLastModifiedTimestamp = a})
+
+-- | The state of the high-availability partition group.
+dhapgrrsState :: Lens' DescribeHAPGResponse (Maybe CloudHSMObjectState)
+dhapgrrsState = lens _dhapgrrsState (\s a -> s {_dhapgrrsState = a})
 
 -- | The label for the high-availability partition group.
-dhapgrsLabel :: Lens' DescribeHAPGResponse (Maybe Text)
-dhapgrsLabel = lens _dhapgrsLabel (\ s a -> s{_dhapgrsLabel = a})
+dhapgrrsLabel :: Lens' DescribeHAPGResponse (Maybe Text)
+dhapgrrsLabel = lens _dhapgrrsLabel (\s a -> s {_dhapgrrsLabel = a})
+
+-- | The serial number of the high-availability partition group.
+dhapgrrsHAPGSerial :: Lens' DescribeHAPGResponse (Maybe Text)
+dhapgrrsHAPGSerial = lens _dhapgrrsHAPGSerial (\s a -> s {_dhapgrrsHAPGSerial = a})
+
+-- |
+dhapgrrsHSMsPendingRegistration :: Lens' DescribeHAPGResponse [Text]
+dhapgrrsHSMsPendingRegistration = lens _dhapgrrsHSMsPendingRegistration (\s a -> s {_dhapgrrsHSMsPendingRegistration = a}) . _Default . _Coerce
+
+-- |
+dhapgrrsHSMsLastActionFailed :: Lens' DescribeHAPGResponse [Text]
+dhapgrrsHSMsLastActionFailed = lens _dhapgrrsHSMsLastActionFailed (\s a -> s {_dhapgrrsHSMsLastActionFailed = a}) . _Default . _Coerce
 
 -- | -- | The response status code.
-dhapgrsResponseStatus :: Lens' DescribeHAPGResponse Int
-dhapgrsResponseStatus = lens _dhapgrsResponseStatus (\ s a -> s{_dhapgrsResponseStatus = a})
+dhapgrrsResponseStatus :: Lens' DescribeHAPGResponse Int
+dhapgrrsResponseStatus = lens _dhapgrrsResponseStatus (\s a -> s {_dhapgrrsResponseStatus = a})
 
-instance NFData DescribeHAPGResponse where
+instance NFData DescribeHAPGResponse

@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CloudHSM.DescribeHSM
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,46 +23,46 @@
 -- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
 --
 -- Retrieves information about an HSM. You can identify the HSM by its ARN or its serial number.
---
 module Network.AWS.CloudHSM.DescribeHSM
-    (
-    -- * Creating a Request
-      describeHSM
-    , DescribeHSM
+  ( -- * Creating a Request
+    describeHSM,
+    DescribeHSM,
+
     -- * Request Lenses
-    , dhsmHSMSerialNumber
-    , dhsmHSMARN
+    dhsmHSMSerialNumber,
+    dhsmHSMARN,
 
     -- * Destructuring the Response
-    , describeHSMResponse
-    , DescribeHSMResponse
+    describeHSMResponse,
+    DescribeHSMResponse,
+
     -- * Response Lenses
-    , desrsStatus
-    , desrsIAMRoleARN
-    , desrsEniId
-    , desrsVPCId
-    , desrsSSHKeyLastUpdated
-    , desrsSubscriptionEndDate
-    , desrsServerCertURI
-    , desrsSubscriptionType
-    , desrsSSHPublicKey
-    , desrsSubnetId
-    , desrsStatusDetails
-    , desrsPartitions
-    , desrsSubscriptionStartDate
-    , desrsAvailabilityZone
-    , desrsServerCertLastUpdated
-    , desrsSoftwareVersion
-    , desrsVendorName
-    , desrsSerialNumber
-    , desrsHSMARN
-    , desrsEniIP
-    , desrsHSMType
-    , desrsResponseStatus
-    ) where
+    drsSubscriptionStartDate,
+    drsIAMRoleARN,
+    drsStatus,
+    drsPartitions,
+    drsStatusDetails,
+    drsEniIP,
+    drsSubscriptionType,
+    drsServerCertLastUpdated,
+    drsEniId,
+    drsAvailabilityZone,
+    drsSSHPublicKey,
+    drsHSMType,
+    drsSubnetId,
+    drsVendorName,
+    drsServerCertURI,
+    drsHSMARN,
+    drsSerialNumber,
+    drsSSHKeyLastUpdated,
+    drsSubscriptionEndDate,
+    drsVPCId,
+    drsSoftwareVersion,
+    drsResponseStatus,
+  )
+where
 
 import Network.AWS.CloudHSM.Types
-import Network.AWS.CloudHSM.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -75,10 +74,11 @@ import Network.AWS.Response
 --
 -- /See:/ 'describeHSM' smart constructor.
 data DescribeHSM = DescribeHSM'
-  { _dhsmHSMSerialNumber :: !(Maybe Text)
-  , _dhsmHSMARN          :: !(Maybe Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _dhsmHSMSerialNumber ::
+      !(Maybe Text),
+    _dhsmHSMARN :: !(Maybe Text)
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeHSM' with the minimum fields required to make a request.
 --
@@ -87,75 +87,84 @@ data DescribeHSM = DescribeHSM'
 -- * 'dhsmHSMSerialNumber' - The serial number of the HSM. Either the @HsmArn@ or the @HsmSerialNumber@ parameter must be specified.
 --
 -- * 'dhsmHSMARN' - The ARN of the HSM. Either the @HsmArn@ or the @SerialNumber@ parameter must be specified.
-describeHSM
-    :: DescribeHSM
+describeHSM ::
+  DescribeHSM
 describeHSM =
-  DescribeHSM' {_dhsmHSMSerialNumber = Nothing, _dhsmHSMARN = Nothing}
-
+  DescribeHSM'
+    { _dhsmHSMSerialNumber = Nothing,
+      _dhsmHSMARN = Nothing
+    }
 
 -- | The serial number of the HSM. Either the @HsmArn@ or the @HsmSerialNumber@ parameter must be specified.
 dhsmHSMSerialNumber :: Lens' DescribeHSM (Maybe Text)
-dhsmHSMSerialNumber = lens _dhsmHSMSerialNumber (\ s a -> s{_dhsmHSMSerialNumber = a})
+dhsmHSMSerialNumber = lens _dhsmHSMSerialNumber (\s a -> s {_dhsmHSMSerialNumber = a})
 
 -- | The ARN of the HSM. Either the @HsmArn@ or the @SerialNumber@ parameter must be specified.
 dhsmHSMARN :: Lens' DescribeHSM (Maybe Text)
-dhsmHSMARN = lens _dhsmHSMARN (\ s a -> s{_dhsmHSMARN = a})
+dhsmHSMARN = lens _dhsmHSMARN (\s a -> s {_dhsmHSMARN = a})
 
 instance AWSRequest DescribeHSM where
-        type Rs DescribeHSM = DescribeHSMResponse
-        request = postJSON cloudHSM
-        response
-          = receiveJSON
-              (\ s h x ->
-                 DescribeHSMResponse' <$>
-                   (x .?> "Status") <*> (x .?> "IamRoleArn") <*>
-                     (x .?> "EniId")
-                     <*> (x .?> "VpcId")
-                     <*> (x .?> "SshKeyLastUpdated")
-                     <*> (x .?> "SubscriptionEndDate")
-                     <*> (x .?> "ServerCertUri")
-                     <*> (x .?> "SubscriptionType")
-                     <*> (x .?> "SshPublicKey")
-                     <*> (x .?> "SubnetId")
-                     <*> (x .?> "StatusDetails")
-                     <*> (x .?> "Partitions" .!@ mempty)
-                     <*> (x .?> "SubscriptionStartDate")
-                     <*> (x .?> "AvailabilityZone")
-                     <*> (x .?> "ServerCertLastUpdated")
-                     <*> (x .?> "SoftwareVersion")
-                     <*> (x .?> "VendorName")
-                     <*> (x .?> "SerialNumber")
-                     <*> (x .?> "HsmArn")
-                     <*> (x .?> "EniIp")
-                     <*> (x .?> "HsmType")
-                     <*> (pure (fromEnum s)))
+  type Rs DescribeHSM = DescribeHSMResponse
+  request = postJSON cloudHSM
+  response =
+    receiveJSON
+      ( \s h x ->
+          DescribeHSMResponse'
+            <$> (x .?> "SubscriptionStartDate")
+            <*> (x .?> "IamRoleArn")
+            <*> (x .?> "Status")
+            <*> (x .?> "Partitions" .!@ mempty)
+            <*> (x .?> "StatusDetails")
+            <*> (x .?> "EniIp")
+            <*> (x .?> "SubscriptionType")
+            <*> (x .?> "ServerCertLastUpdated")
+            <*> (x .?> "EniId")
+            <*> (x .?> "AvailabilityZone")
+            <*> (x .?> "SshPublicKey")
+            <*> (x .?> "HsmType")
+            <*> (x .?> "SubnetId")
+            <*> (x .?> "VendorName")
+            <*> (x .?> "ServerCertUri")
+            <*> (x .?> "HsmArn")
+            <*> (x .?> "SerialNumber")
+            <*> (x .?> "SshKeyLastUpdated")
+            <*> (x .?> "SubscriptionEndDate")
+            <*> (x .?> "VpcId")
+            <*> (x .?> "SoftwareVersion")
+            <*> (pure (fromEnum s))
+      )
 
-instance Hashable DescribeHSM where
+instance Hashable DescribeHSM
 
-instance NFData DescribeHSM where
+instance NFData DescribeHSM
 
 instance ToHeaders DescribeHSM where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("CloudHsmFrontendService.DescribeHsm" ::
-                       ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "CloudHsmFrontendService.DescribeHsm" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
 instance ToJSON DescribeHSM where
-        toJSON DescribeHSM'{..}
-          = object
-              (catMaybes
-                 [("HsmSerialNumber" .=) <$> _dhsmHSMSerialNumber,
-                  ("HsmArn" .=) <$> _dhsmHSMARN])
+  toJSON DescribeHSM' {..} =
+    object
+      ( catMaybes
+          [ ("HsmSerialNumber" .=) <$> _dhsmHSMSerialNumber,
+            ("HsmArn" .=) <$> _dhsmHSMARN
+          ]
+      )
 
 instance ToPath DescribeHSM where
-        toPath = const "/"
+  toPath = const "/"
 
 instance ToQuery DescribeHSM where
-        toQuery = const mempty
+  toQuery = const mempty
 
 -- | Contains the output of the 'DescribeHsm' operation.
 --
@@ -163,194 +172,208 @@ instance ToQuery DescribeHSM where
 --
 -- /See:/ 'describeHSMResponse' smart constructor.
 data DescribeHSMResponse = DescribeHSMResponse'
-  { _desrsStatus                :: !(Maybe HSMStatus)
-  , _desrsIAMRoleARN            :: !(Maybe Text)
-  , _desrsEniId                 :: !(Maybe Text)
-  , _desrsVPCId                 :: !(Maybe Text)
-  , _desrsSSHKeyLastUpdated     :: !(Maybe Text)
-  , _desrsSubscriptionEndDate   :: !(Maybe Text)
-  , _desrsServerCertURI         :: !(Maybe Text)
-  , _desrsSubscriptionType      :: !(Maybe SubscriptionType)
-  , _desrsSSHPublicKey          :: !(Maybe Text)
-  , _desrsSubnetId              :: !(Maybe Text)
-  , _desrsStatusDetails         :: !(Maybe Text)
-  , _desrsPartitions            :: !(Maybe [Text])
-  , _desrsSubscriptionStartDate :: !(Maybe Text)
-  , _desrsAvailabilityZone      :: !(Maybe Text)
-  , _desrsServerCertLastUpdated :: !(Maybe Text)
-  , _desrsSoftwareVersion       :: !(Maybe Text)
-  , _desrsVendorName            :: !(Maybe Text)
-  , _desrsSerialNumber          :: !(Maybe Text)
-  , _desrsHSMARN                :: !(Maybe Text)
-  , _desrsEniIP                 :: !(Maybe Text)
-  , _desrsHSMType               :: !(Maybe Text)
-  , _desrsResponseStatus        :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _drsSubscriptionStartDate ::
+      !(Maybe Text),
+    _drsIAMRoleARN :: !(Maybe Text),
+    _drsStatus ::
+      !(Maybe HSMStatus),
+    _drsPartitions ::
+      !(Maybe [Text]),
+    _drsStatusDetails ::
+      !(Maybe Text),
+    _drsEniIP :: !(Maybe Text),
+    _drsSubscriptionType ::
+      !(Maybe SubscriptionType),
+    _drsServerCertLastUpdated ::
+      !(Maybe Text),
+    _drsEniId :: !(Maybe Text),
+    _drsAvailabilityZone ::
+      !(Maybe Text),
+    _drsSSHPublicKey ::
+      !(Maybe Text),
+    _drsHSMType :: !(Maybe Text),
+    _drsSubnetId :: !(Maybe Text),
+    _drsVendorName :: !(Maybe Text),
+    _drsServerCertURI ::
+      !(Maybe Text),
+    _drsHSMARN :: !(Maybe Text),
+    _drsSerialNumber ::
+      !(Maybe Text),
+    _drsSSHKeyLastUpdated ::
+      !(Maybe Text),
+    _drsSubscriptionEndDate ::
+      !(Maybe Text),
+    _drsVPCId :: !(Maybe Text),
+    _drsSoftwareVersion ::
+      !(Maybe Text),
+    _drsResponseStatus :: !Int
+  }
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 -- | Creates a value of 'DescribeHSMResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'desrsStatus' - The status of the HSM.
+-- * 'drsSubscriptionStartDate' - The subscription start date.
 --
--- * 'desrsIAMRoleARN' - The ARN of the IAM role assigned to the HSM.
+-- * 'drsIAMRoleARN' - The ARN of the IAM role assigned to the HSM.
 --
--- * 'desrsEniId' - The identifier of the elastic network interface (ENI) attached to the HSM.
+-- * 'drsStatus' - The status of the HSM.
 --
--- * 'desrsVPCId' - The identifier of the VPC that the HSM is in.
+-- * 'drsPartitions' - The list of partitions on the HSM.
 --
--- * 'desrsSSHKeyLastUpdated' - The date and time that the SSH key was last updated.
+-- * 'drsStatusDetails' - Contains additional information about the status of the HSM.
 --
--- * 'desrsSubscriptionEndDate' - The subscription end date.
+-- * 'drsEniIP' - The IP address assigned to the HSM's ENI.
 --
--- * 'desrsServerCertURI' - The URI of the certificate server.
+-- * 'drsSubscriptionType' - Undocumented member.
 --
--- * 'desrsSubscriptionType' - Undocumented member.
+-- * 'drsServerCertLastUpdated' - The date and time that the server certificate was last updated.
 --
--- * 'desrsSSHPublicKey' - The public SSH key.
+-- * 'drsEniId' - The identifier of the elastic network interface (ENI) attached to the HSM.
 --
--- * 'desrsSubnetId' - The identifier of the subnet that the HSM is in.
+-- * 'drsAvailabilityZone' - The Availability Zone that the HSM is in.
 --
--- * 'desrsStatusDetails' - Contains additional information about the status of the HSM.
+-- * 'drsSSHPublicKey' - The public SSH key.
 --
--- * 'desrsPartitions' - The list of partitions on the HSM.
+-- * 'drsHSMType' - The HSM model type.
 --
--- * 'desrsSubscriptionStartDate' - The subscription start date.
+-- * 'drsSubnetId' - The identifier of the subnet that the HSM is in.
 --
--- * 'desrsAvailabilityZone' - The Availability Zone that the HSM is in.
+-- * 'drsVendorName' - The name of the HSM vendor.
 --
--- * 'desrsServerCertLastUpdated' - The date and time that the server certificate was last updated.
+-- * 'drsServerCertURI' - The URI of the certificate server.
 --
--- * 'desrsSoftwareVersion' - The HSM software version.
+-- * 'drsHSMARN' - The ARN of the HSM.
 --
--- * 'desrsVendorName' - The name of the HSM vendor.
+-- * 'drsSerialNumber' - The serial number of the HSM.
 --
--- * 'desrsSerialNumber' - The serial number of the HSM.
+-- * 'drsSSHKeyLastUpdated' - The date and time that the SSH key was last updated.
 --
--- * 'desrsHSMARN' - The ARN of the HSM.
+-- * 'drsSubscriptionEndDate' - The subscription end date.
 --
--- * 'desrsEniIP' - The IP address assigned to the HSM's ENI.
+-- * 'drsVPCId' - The identifier of the VPC that the HSM is in.
 --
--- * 'desrsHSMType' - The HSM model type.
+-- * 'drsSoftwareVersion' - The HSM software version.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeHSMResponse
-    :: Int -- ^ 'desrsResponseStatus'
-    -> DescribeHSMResponse
+-- * 'drsResponseStatus' - -- | The response status code.
+describeHSMResponse ::
+  -- | 'drsResponseStatus'
+  Int ->
+  DescribeHSMResponse
 describeHSMResponse pResponseStatus_ =
   DescribeHSMResponse'
-    { _desrsStatus = Nothing
-    , _desrsIAMRoleARN = Nothing
-    , _desrsEniId = Nothing
-    , _desrsVPCId = Nothing
-    , _desrsSSHKeyLastUpdated = Nothing
-    , _desrsSubscriptionEndDate = Nothing
-    , _desrsServerCertURI = Nothing
-    , _desrsSubscriptionType = Nothing
-    , _desrsSSHPublicKey = Nothing
-    , _desrsSubnetId = Nothing
-    , _desrsStatusDetails = Nothing
-    , _desrsPartitions = Nothing
-    , _desrsSubscriptionStartDate = Nothing
-    , _desrsAvailabilityZone = Nothing
-    , _desrsServerCertLastUpdated = Nothing
-    , _desrsSoftwareVersion = Nothing
-    , _desrsVendorName = Nothing
-    , _desrsSerialNumber = Nothing
-    , _desrsHSMARN = Nothing
-    , _desrsEniIP = Nothing
-    , _desrsHSMType = Nothing
-    , _desrsResponseStatus = pResponseStatus_
+    { _drsSubscriptionStartDate =
+        Nothing,
+      _drsIAMRoleARN = Nothing,
+      _drsStatus = Nothing,
+      _drsPartitions = Nothing,
+      _drsStatusDetails = Nothing,
+      _drsEniIP = Nothing,
+      _drsSubscriptionType = Nothing,
+      _drsServerCertLastUpdated = Nothing,
+      _drsEniId = Nothing,
+      _drsAvailabilityZone = Nothing,
+      _drsSSHPublicKey = Nothing,
+      _drsHSMType = Nothing,
+      _drsSubnetId = Nothing,
+      _drsVendorName = Nothing,
+      _drsServerCertURI = Nothing,
+      _drsHSMARN = Nothing,
+      _drsSerialNumber = Nothing,
+      _drsSSHKeyLastUpdated = Nothing,
+      _drsSubscriptionEndDate = Nothing,
+      _drsVPCId = Nothing,
+      _drsSoftwareVersion = Nothing,
+      _drsResponseStatus = pResponseStatus_
     }
 
-
--- | The status of the HSM.
-desrsStatus :: Lens' DescribeHSMResponse (Maybe HSMStatus)
-desrsStatus = lens _desrsStatus (\ s a -> s{_desrsStatus = a})
+-- | The subscription start date.
+drsSubscriptionStartDate :: Lens' DescribeHSMResponse (Maybe Text)
+drsSubscriptionStartDate = lens _drsSubscriptionStartDate (\s a -> s {_drsSubscriptionStartDate = a})
 
 -- | The ARN of the IAM role assigned to the HSM.
-desrsIAMRoleARN :: Lens' DescribeHSMResponse (Maybe Text)
-desrsIAMRoleARN = lens _desrsIAMRoleARN (\ s a -> s{_desrsIAMRoleARN = a})
+drsIAMRoleARN :: Lens' DescribeHSMResponse (Maybe Text)
+drsIAMRoleARN = lens _drsIAMRoleARN (\s a -> s {_drsIAMRoleARN = a})
 
--- | The identifier of the elastic network interface (ENI) attached to the HSM.
-desrsEniId :: Lens' DescribeHSMResponse (Maybe Text)
-desrsEniId = lens _desrsEniId (\ s a -> s{_desrsEniId = a})
-
--- | The identifier of the VPC that the HSM is in.
-desrsVPCId :: Lens' DescribeHSMResponse (Maybe Text)
-desrsVPCId = lens _desrsVPCId (\ s a -> s{_desrsVPCId = a})
-
--- | The date and time that the SSH key was last updated.
-desrsSSHKeyLastUpdated :: Lens' DescribeHSMResponse (Maybe Text)
-desrsSSHKeyLastUpdated = lens _desrsSSHKeyLastUpdated (\ s a -> s{_desrsSSHKeyLastUpdated = a})
-
--- | The subscription end date.
-desrsSubscriptionEndDate :: Lens' DescribeHSMResponse (Maybe Text)
-desrsSubscriptionEndDate = lens _desrsSubscriptionEndDate (\ s a -> s{_desrsSubscriptionEndDate = a})
-
--- | The URI of the certificate server.
-desrsServerCertURI :: Lens' DescribeHSMResponse (Maybe Text)
-desrsServerCertURI = lens _desrsServerCertURI (\ s a -> s{_desrsServerCertURI = a})
-
--- | Undocumented member.
-desrsSubscriptionType :: Lens' DescribeHSMResponse (Maybe SubscriptionType)
-desrsSubscriptionType = lens _desrsSubscriptionType (\ s a -> s{_desrsSubscriptionType = a})
-
--- | The public SSH key.
-desrsSSHPublicKey :: Lens' DescribeHSMResponse (Maybe Text)
-desrsSSHPublicKey = lens _desrsSSHPublicKey (\ s a -> s{_desrsSSHPublicKey = a})
-
--- | The identifier of the subnet that the HSM is in.
-desrsSubnetId :: Lens' DescribeHSMResponse (Maybe Text)
-desrsSubnetId = lens _desrsSubnetId (\ s a -> s{_desrsSubnetId = a})
-
--- | Contains additional information about the status of the HSM.
-desrsStatusDetails :: Lens' DescribeHSMResponse (Maybe Text)
-desrsStatusDetails = lens _desrsStatusDetails (\ s a -> s{_desrsStatusDetails = a})
+-- | The status of the HSM.
+drsStatus :: Lens' DescribeHSMResponse (Maybe HSMStatus)
+drsStatus = lens _drsStatus (\s a -> s {_drsStatus = a})
 
 -- | The list of partitions on the HSM.
-desrsPartitions :: Lens' DescribeHSMResponse [Text]
-desrsPartitions = lens _desrsPartitions (\ s a -> s{_desrsPartitions = a}) . _Default . _Coerce
+drsPartitions :: Lens' DescribeHSMResponse [Text]
+drsPartitions = lens _drsPartitions (\s a -> s {_drsPartitions = a}) . _Default . _Coerce
 
--- | The subscription start date.
-desrsSubscriptionStartDate :: Lens' DescribeHSMResponse (Maybe Text)
-desrsSubscriptionStartDate = lens _desrsSubscriptionStartDate (\ s a -> s{_desrsSubscriptionStartDate = a})
-
--- | The Availability Zone that the HSM is in.
-desrsAvailabilityZone :: Lens' DescribeHSMResponse (Maybe Text)
-desrsAvailabilityZone = lens _desrsAvailabilityZone (\ s a -> s{_desrsAvailabilityZone = a})
-
--- | The date and time that the server certificate was last updated.
-desrsServerCertLastUpdated :: Lens' DescribeHSMResponse (Maybe Text)
-desrsServerCertLastUpdated = lens _desrsServerCertLastUpdated (\ s a -> s{_desrsServerCertLastUpdated = a})
-
--- | The HSM software version.
-desrsSoftwareVersion :: Lens' DescribeHSMResponse (Maybe Text)
-desrsSoftwareVersion = lens _desrsSoftwareVersion (\ s a -> s{_desrsSoftwareVersion = a})
-
--- | The name of the HSM vendor.
-desrsVendorName :: Lens' DescribeHSMResponse (Maybe Text)
-desrsVendorName = lens _desrsVendorName (\ s a -> s{_desrsVendorName = a})
-
--- | The serial number of the HSM.
-desrsSerialNumber :: Lens' DescribeHSMResponse (Maybe Text)
-desrsSerialNumber = lens _desrsSerialNumber (\ s a -> s{_desrsSerialNumber = a})
-
--- | The ARN of the HSM.
-desrsHSMARN :: Lens' DescribeHSMResponse (Maybe Text)
-desrsHSMARN = lens _desrsHSMARN (\ s a -> s{_desrsHSMARN = a})
+-- | Contains additional information about the status of the HSM.
+drsStatusDetails :: Lens' DescribeHSMResponse (Maybe Text)
+drsStatusDetails = lens _drsStatusDetails (\s a -> s {_drsStatusDetails = a})
 
 -- | The IP address assigned to the HSM's ENI.
-desrsEniIP :: Lens' DescribeHSMResponse (Maybe Text)
-desrsEniIP = lens _desrsEniIP (\ s a -> s{_desrsEniIP = a})
+drsEniIP :: Lens' DescribeHSMResponse (Maybe Text)
+drsEniIP = lens _drsEniIP (\s a -> s {_drsEniIP = a})
+
+-- | Undocumented member.
+drsSubscriptionType :: Lens' DescribeHSMResponse (Maybe SubscriptionType)
+drsSubscriptionType = lens _drsSubscriptionType (\s a -> s {_drsSubscriptionType = a})
+
+-- | The date and time that the server certificate was last updated.
+drsServerCertLastUpdated :: Lens' DescribeHSMResponse (Maybe Text)
+drsServerCertLastUpdated = lens _drsServerCertLastUpdated (\s a -> s {_drsServerCertLastUpdated = a})
+
+-- | The identifier of the elastic network interface (ENI) attached to the HSM.
+drsEniId :: Lens' DescribeHSMResponse (Maybe Text)
+drsEniId = lens _drsEniId (\s a -> s {_drsEniId = a})
+
+-- | The Availability Zone that the HSM is in.
+drsAvailabilityZone :: Lens' DescribeHSMResponse (Maybe Text)
+drsAvailabilityZone = lens _drsAvailabilityZone (\s a -> s {_drsAvailabilityZone = a})
+
+-- | The public SSH key.
+drsSSHPublicKey :: Lens' DescribeHSMResponse (Maybe Text)
+drsSSHPublicKey = lens _drsSSHPublicKey (\s a -> s {_drsSSHPublicKey = a})
 
 -- | The HSM model type.
-desrsHSMType :: Lens' DescribeHSMResponse (Maybe Text)
-desrsHSMType = lens _desrsHSMType (\ s a -> s{_desrsHSMType = a})
+drsHSMType :: Lens' DescribeHSMResponse (Maybe Text)
+drsHSMType = lens _drsHSMType (\s a -> s {_drsHSMType = a})
+
+-- | The identifier of the subnet that the HSM is in.
+drsSubnetId :: Lens' DescribeHSMResponse (Maybe Text)
+drsSubnetId = lens _drsSubnetId (\s a -> s {_drsSubnetId = a})
+
+-- | The name of the HSM vendor.
+drsVendorName :: Lens' DescribeHSMResponse (Maybe Text)
+drsVendorName = lens _drsVendorName (\s a -> s {_drsVendorName = a})
+
+-- | The URI of the certificate server.
+drsServerCertURI :: Lens' DescribeHSMResponse (Maybe Text)
+drsServerCertURI = lens _drsServerCertURI (\s a -> s {_drsServerCertURI = a})
+
+-- | The ARN of the HSM.
+drsHSMARN :: Lens' DescribeHSMResponse (Maybe Text)
+drsHSMARN = lens _drsHSMARN (\s a -> s {_drsHSMARN = a})
+
+-- | The serial number of the HSM.
+drsSerialNumber :: Lens' DescribeHSMResponse (Maybe Text)
+drsSerialNumber = lens _drsSerialNumber (\s a -> s {_drsSerialNumber = a})
+
+-- | The date and time that the SSH key was last updated.
+drsSSHKeyLastUpdated :: Lens' DescribeHSMResponse (Maybe Text)
+drsSSHKeyLastUpdated = lens _drsSSHKeyLastUpdated (\s a -> s {_drsSSHKeyLastUpdated = a})
+
+-- | The subscription end date.
+drsSubscriptionEndDate :: Lens' DescribeHSMResponse (Maybe Text)
+drsSubscriptionEndDate = lens _drsSubscriptionEndDate (\s a -> s {_drsSubscriptionEndDate = a})
+
+-- | The identifier of the VPC that the HSM is in.
+drsVPCId :: Lens' DescribeHSMResponse (Maybe Text)
+drsVPCId = lens _drsVPCId (\s a -> s {_drsVPCId = a})
+
+-- | The HSM software version.
+drsSoftwareVersion :: Lens' DescribeHSMResponse (Maybe Text)
+drsSoftwareVersion = lens _drsSoftwareVersion (\s a -> s {_drsSoftwareVersion = a})
 
 -- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeHSMResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\ s a -> s{_desrsResponseStatus = a})
+drsResponseStatus :: Lens' DescribeHSMResponse Int
+drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
 
-instance NFData DescribeHSMResponse where
+instance NFData DescribeHSMResponse
