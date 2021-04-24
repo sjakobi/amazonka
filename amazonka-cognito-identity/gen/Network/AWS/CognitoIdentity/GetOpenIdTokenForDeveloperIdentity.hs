@@ -1,18 +1,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE OverloadedStrings  #-}
-{-# LANGUAGE RecordWildCards    #-}
-{-# LANGUAGE TypeFamilies       #-}
-
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds   #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
 -- Module      : Network.AWS.CognitoIdentity.GetOpenIdTokenForDeveloperIdentity
--- Copyright   : (c) 2013-2018 Brendan Hay
+-- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,29 +23,30 @@
 -- You can use @GetOpenIdTokenForDeveloperIdentity@ to create a new identity and to link new logins (that is, user credentials issued by a public provider or developer provider) to an existing identity. When you want to create a new identity, the @IdentityId@ should be null. When you want to associate a new login with an existing authenticated/unauthenticated identity, you can do so by providing the existing @IdentityId@ . This API will create the identity in the specified @IdentityPoolId@ .
 --
 -- You must use AWS Developer credentials to call this API.
---
 module Network.AWS.CognitoIdentity.GetOpenIdTokenForDeveloperIdentity
-    (
-    -- * Creating a Request
-      getOpenIdTokenForDeveloperIdentity
-    , GetOpenIdTokenForDeveloperIdentity
+  ( -- * Creating a Request
+    getOpenIdTokenForDeveloperIdentity,
+    GetOpenIdTokenForDeveloperIdentity,
+
     -- * Request Lenses
-    , goitfdiTokenDuration
-    , goitfdiIdentityId
-    , goitfdiIdentityPoolId
-    , goitfdiLogins
+    goitfdiTokenDuration,
+    goitfdiIdentityId,
+    goitfdiPrincipalTags,
+    goitfdiIdentityPoolId,
+    goitfdiLogins,
 
     -- * Destructuring the Response
-    , getOpenIdTokenForDeveloperIdentityResponse
-    , GetOpenIdTokenForDeveloperIdentityResponse
+    getOpenIdTokenForDeveloperIdentityResponse,
+    GetOpenIdTokenForDeveloperIdentityResponse,
+
     -- * Response Lenses
-    , goitfdirsToken
-    , goitfdirsIdentityId
-    , goitfdirsResponseStatus
-    ) where
+    goitfdirrsIdentityId,
+    goitfdirrsToken,
+    goitfdirrsResponseStatus,
+  )
+where
 
 import Network.AWS.CognitoIdentity.Types
-import Network.AWS.CognitoIdentity.Types.Product
 import Network.AWS.Lens
 import Network.AWS.Prelude
 import Network.AWS.Request
@@ -58,12 +58,37 @@ import Network.AWS.Response
 --
 -- /See:/ 'getOpenIdTokenForDeveloperIdentity' smart constructor.
 data GetOpenIdTokenForDeveloperIdentity = GetOpenIdTokenForDeveloperIdentity'
-  { _goitfdiTokenDuration  :: !(Maybe Nat)
-  , _goitfdiIdentityId     :: !(Maybe Text)
-  , _goitfdiIdentityPoolId :: !Text
-  , _goitfdiLogins         :: !(Map Text Text)
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _goitfdiTokenDuration ::
+      !( Maybe
+           Nat
+       ),
+    _goitfdiIdentityId ::
+      !( Maybe
+           Text
+       ),
+    _goitfdiPrincipalTags ::
+      !( Maybe
+           ( Map
+               Text
+               Text
+           )
+       ),
+    _goitfdiIdentityPoolId ::
+      !Text,
+    _goitfdiLogins ::
+      !( Map
+           Text
+           Text
+       )
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetOpenIdTokenForDeveloperIdentity' with the minimum fields required to make a request.
 --
@@ -73,84 +98,97 @@ data GetOpenIdTokenForDeveloperIdentity = GetOpenIdTokenForDeveloperIdentity'
 --
 -- * 'goitfdiIdentityId' - A unique identifier in the format REGION:GUID.
 --
+-- * 'goitfdiPrincipalTags' - Use this operation to configure attribute mappings for custom providers.
+--
 -- * 'goitfdiIdentityPoolId' - An identity pool ID in the format REGION:GUID.
 --
 -- * 'goitfdiLogins' - A set of optional name-value pairs that map provider names to provider tokens. Each name-value pair represents a user from a public provider or developer provider. If the user is from a developer provider, the name-value pair will follow the syntax @"developer_provider_name": "developer_user_identifier"@ . The developer provider is the "domain" by which Cognito will refer to your users; you provided this domain while creating/updating the identity pool. The developer user identifier is an identifier from your backend that uniquely identifies a user. When you create an identity pool, you can specify the supported logins.
-getOpenIdTokenForDeveloperIdentity
-    :: Text -- ^ 'goitfdiIdentityPoolId'
-    -> GetOpenIdTokenForDeveloperIdentity
+getOpenIdTokenForDeveloperIdentity ::
+  -- | 'goitfdiIdentityPoolId'
+  Text ->
+  GetOpenIdTokenForDeveloperIdentity
 getOpenIdTokenForDeveloperIdentity pIdentityPoolId_ =
   GetOpenIdTokenForDeveloperIdentity'
-    { _goitfdiTokenDuration = Nothing
-    , _goitfdiIdentityId = Nothing
-    , _goitfdiIdentityPoolId = pIdentityPoolId_
-    , _goitfdiLogins = mempty
+    { _goitfdiTokenDuration =
+        Nothing,
+      _goitfdiIdentityId = Nothing,
+      _goitfdiPrincipalTags = Nothing,
+      _goitfdiIdentityPoolId =
+        pIdentityPoolId_,
+      _goitfdiLogins = mempty
     }
-
 
 -- | The expiration time of the token, in seconds. You can specify a custom expiration time for the token so that you can cache it. If you don't provide an expiration time, the token is valid for 15 minutes. You can exchange the token with Amazon STS for temporary AWS credentials, which are valid for a maximum of one hour. The maximum token duration you can set is 24 hours. You should take care in setting the expiration time for a token, as there are significant security implications: an attacker could use a leaked token to access your AWS resources for the token's duration.
 goitfdiTokenDuration :: Lens' GetOpenIdTokenForDeveloperIdentity (Maybe Natural)
-goitfdiTokenDuration = lens _goitfdiTokenDuration (\ s a -> s{_goitfdiTokenDuration = a}) . mapping _Nat
+goitfdiTokenDuration = lens _goitfdiTokenDuration (\s a -> s {_goitfdiTokenDuration = a}) . mapping _Nat
 
 -- | A unique identifier in the format REGION:GUID.
 goitfdiIdentityId :: Lens' GetOpenIdTokenForDeveloperIdentity (Maybe Text)
-goitfdiIdentityId = lens _goitfdiIdentityId (\ s a -> s{_goitfdiIdentityId = a})
+goitfdiIdentityId = lens _goitfdiIdentityId (\s a -> s {_goitfdiIdentityId = a})
+
+-- | Use this operation to configure attribute mappings for custom providers.
+goitfdiPrincipalTags :: Lens' GetOpenIdTokenForDeveloperIdentity (HashMap Text Text)
+goitfdiPrincipalTags = lens _goitfdiPrincipalTags (\s a -> s {_goitfdiPrincipalTags = a}) . _Default . _Map
 
 -- | An identity pool ID in the format REGION:GUID.
 goitfdiIdentityPoolId :: Lens' GetOpenIdTokenForDeveloperIdentity Text
-goitfdiIdentityPoolId = lens _goitfdiIdentityPoolId (\ s a -> s{_goitfdiIdentityPoolId = a})
+goitfdiIdentityPoolId = lens _goitfdiIdentityPoolId (\s a -> s {_goitfdiIdentityPoolId = a})
 
 -- | A set of optional name-value pairs that map provider names to provider tokens. Each name-value pair represents a user from a public provider or developer provider. If the user is from a developer provider, the name-value pair will follow the syntax @"developer_provider_name": "developer_user_identifier"@ . The developer provider is the "domain" by which Cognito will refer to your users; you provided this domain while creating/updating the identity pool. The developer user identifier is an identifier from your backend that uniquely identifies a user. When you create an identity pool, you can specify the supported logins.
 goitfdiLogins :: Lens' GetOpenIdTokenForDeveloperIdentity (HashMap Text Text)
-goitfdiLogins = lens _goitfdiLogins (\ s a -> s{_goitfdiLogins = a}) . _Map
+goitfdiLogins = lens _goitfdiLogins (\s a -> s {_goitfdiLogins = a}) . _Map
 
-instance AWSRequest
-           GetOpenIdTokenForDeveloperIdentity
-         where
-        type Rs GetOpenIdTokenForDeveloperIdentity =
-             GetOpenIdTokenForDeveloperIdentityResponse
-        request = postJSON cognitoIdentity
-        response
-          = receiveJSON
-              (\ s h x ->
-                 GetOpenIdTokenForDeveloperIdentityResponse' <$>
-                   (x .?> "Token") <*> (x .?> "IdentityId") <*>
-                     (pure (fromEnum s)))
+instance
+  AWSRequest
+    GetOpenIdTokenForDeveloperIdentity
+  where
+  type
+    Rs GetOpenIdTokenForDeveloperIdentity =
+      GetOpenIdTokenForDeveloperIdentityResponse
+  request = postJSON cognitoIdentity
+  response =
+    receiveJSON
+      ( \s h x ->
+          GetOpenIdTokenForDeveloperIdentityResponse'
+            <$> (x .?> "IdentityId")
+            <*> (x .?> "Token")
+            <*> (pure (fromEnum s))
+      )
 
 instance Hashable GetOpenIdTokenForDeveloperIdentity
-         where
 
 instance NFData GetOpenIdTokenForDeveloperIdentity
-         where
 
-instance ToHeaders GetOpenIdTokenForDeveloperIdentity
-         where
-        toHeaders
-          = const
-              (mconcat
-                 ["X-Amz-Target" =#
-                    ("AWSCognitoIdentityService.GetOpenIdTokenForDeveloperIdentity"
-                       :: ByteString),
-                  "Content-Type" =#
-                    ("application/x-amz-json-1.1" :: ByteString)])
+instance ToHeaders GetOpenIdTokenForDeveloperIdentity where
+  toHeaders =
+    const
+      ( mconcat
+          [ "X-Amz-Target"
+              =# ( "AWSCognitoIdentityService.GetOpenIdTokenForDeveloperIdentity" ::
+                     ByteString
+                 ),
+            "Content-Type"
+              =# ("application/x-amz-json-1.1" :: ByteString)
+          ]
+      )
 
-instance ToJSON GetOpenIdTokenForDeveloperIdentity
-         where
-        toJSON GetOpenIdTokenForDeveloperIdentity'{..}
-          = object
-              (catMaybes
-                 [("TokenDuration" .=) <$> _goitfdiTokenDuration,
-                  ("IdentityId" .=) <$> _goitfdiIdentityId,
-                  Just ("IdentityPoolId" .= _goitfdiIdentityPoolId),
-                  Just ("Logins" .= _goitfdiLogins)])
+instance ToJSON GetOpenIdTokenForDeveloperIdentity where
+  toJSON GetOpenIdTokenForDeveloperIdentity' {..} =
+    object
+      ( catMaybes
+          [ ("TokenDuration" .=) <$> _goitfdiTokenDuration,
+            ("IdentityId" .=) <$> _goitfdiIdentityId,
+            ("PrincipalTags" .=) <$> _goitfdiPrincipalTags,
+            Just ("IdentityPoolId" .= _goitfdiIdentityPoolId),
+            Just ("Logins" .= _goitfdiLogins)
+          ]
+      )
 
-instance ToPath GetOpenIdTokenForDeveloperIdentity
-         where
-        toPath = const "/"
+instance ToPath GetOpenIdTokenForDeveloperIdentity where
+  toPath = const "/"
 
-instance ToQuery GetOpenIdTokenForDeveloperIdentity
-         where
-        toQuery = const mempty
+instance ToQuery GetOpenIdTokenForDeveloperIdentity where
+  toQuery = const mempty
 
 -- | Returned in response to a successful @GetOpenIdTokenForDeveloperIdentity@ request.
 --
@@ -158,44 +196,61 @@ instance ToQuery GetOpenIdTokenForDeveloperIdentity
 --
 -- /See:/ 'getOpenIdTokenForDeveloperIdentityResponse' smart constructor.
 data GetOpenIdTokenForDeveloperIdentityResponse = GetOpenIdTokenForDeveloperIdentityResponse'
-  { _goitfdirsToken          :: !(Maybe Text)
-  , _goitfdirsIdentityId     :: !(Maybe Text)
-  , _goitfdirsResponseStatus :: !Int
-  } deriving (Eq, Read, Show, Data, Typeable, Generic)
-
+  { _goitfdirrsIdentityId ::
+      !( Maybe
+           Text
+       ),
+    _goitfdirrsToken ::
+      !( Maybe
+           Text
+       ),
+    _goitfdirrsResponseStatus ::
+      !Int
+  }
+  deriving
+    ( Eq,
+      Read,
+      Show,
+      Data,
+      Typeable,
+      Generic
+    )
 
 -- | Creates a value of 'GetOpenIdTokenForDeveloperIdentityResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'goitfdirsToken' - An OpenID token.
+-- * 'goitfdirrsIdentityId' - A unique identifier in the format REGION:GUID.
 --
--- * 'goitfdirsIdentityId' - A unique identifier in the format REGION:GUID.
+-- * 'goitfdirrsToken' - An OpenID token.
 --
--- * 'goitfdirsResponseStatus' - -- | The response status code.
+-- * 'goitfdirrsResponseStatus' - -- | The response status code.
+getOpenIdTokenForDeveloperIdentityResponse ::
+  -- | 'goitfdirrsResponseStatus'
+  Int ->
+  GetOpenIdTokenForDeveloperIdentityResponse
 getOpenIdTokenForDeveloperIdentityResponse
-    :: Int -- ^ 'goitfdirsResponseStatus'
-    -> GetOpenIdTokenForDeveloperIdentityResponse
-getOpenIdTokenForDeveloperIdentityResponse pResponseStatus_ =
-  GetOpenIdTokenForDeveloperIdentityResponse'
-    { _goitfdirsToken = Nothing
-    , _goitfdirsIdentityId = Nothing
-    , _goitfdirsResponseStatus = pResponseStatus_
-    }
-
-
--- | An OpenID token.
-goitfdirsToken :: Lens' GetOpenIdTokenForDeveloperIdentityResponse (Maybe Text)
-goitfdirsToken = lens _goitfdirsToken (\ s a -> s{_goitfdirsToken = a})
+  pResponseStatus_ =
+    GetOpenIdTokenForDeveloperIdentityResponse'
+      { _goitfdirrsIdentityId =
+          Nothing,
+        _goitfdirrsToken = Nothing,
+        _goitfdirrsResponseStatus =
+          pResponseStatus_
+      }
 
 -- | A unique identifier in the format REGION:GUID.
-goitfdirsIdentityId :: Lens' GetOpenIdTokenForDeveloperIdentityResponse (Maybe Text)
-goitfdirsIdentityId = lens _goitfdirsIdentityId (\ s a -> s{_goitfdirsIdentityId = a})
+goitfdirrsIdentityId :: Lens' GetOpenIdTokenForDeveloperIdentityResponse (Maybe Text)
+goitfdirrsIdentityId = lens _goitfdirrsIdentityId (\s a -> s {_goitfdirrsIdentityId = a})
+
+-- | An OpenID token.
+goitfdirrsToken :: Lens' GetOpenIdTokenForDeveloperIdentityResponse (Maybe Text)
+goitfdirrsToken = lens _goitfdirrsToken (\s a -> s {_goitfdirrsToken = a})
 
 -- | -- | The response status code.
-goitfdirsResponseStatus :: Lens' GetOpenIdTokenForDeveloperIdentityResponse Int
-goitfdirsResponseStatus = lens _goitfdirsResponseStatus (\ s a -> s{_goitfdirsResponseStatus = a})
+goitfdirrsResponseStatus :: Lens' GetOpenIdTokenForDeveloperIdentityResponse Int
+goitfdirrsResponseStatus = lens _goitfdirrsResponseStatus (\s a -> s {_goitfdirrsResponseStatus = a})
 
-instance NFData
-           GetOpenIdTokenForDeveloperIdentityResponse
-         where
+instance
+  NFData
+    GetOpenIdTokenForDeveloperIdentityResponse
