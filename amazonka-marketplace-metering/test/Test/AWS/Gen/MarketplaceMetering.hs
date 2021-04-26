@@ -28,31 +28,31 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestMeterUsage $
---             meterUsage
+--             newMeterUsage
 --
 --         , requestRegisterUsage $
---             registerUsage
+--             newRegisterUsage
 --
 --         , requestResolveCustomer $
---             resolveCustomer
+--             newResolveCustomer
 --
 --         , requestBatchMeterUsage $
---             batchMeterUsage
+--             newBatchMeterUsage
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseMeterUsage $
---             meterUsageResponse
+--             newMeterUsageResponse
 --
 --         , responseRegisterUsage $
---             registerUsageResponse
+--             newRegisterUsageResponse
 --
 --         , responseResolveCustomer $
---             resolveCustomerResponse
+--             newResolveCustomerResponse
 --
 --         , responseBatchMeterUsage $
---             batchMeterUsageResponse
+--             newBatchMeterUsageResponse
 --
 --           ]
 --     ]
@@ -90,7 +90,7 @@ responseMeterUsage =
   res
     "MeterUsageResponse"
     "fixture/MeterUsageResponse.proto"
-    marketplaceMetering
+    defaultService
     (Proxy :: Proxy MeterUsage)
 
 responseRegisterUsage :: RegisterUsageResponse -> TestTree
@@ -98,7 +98,7 @@ responseRegisterUsage =
   res
     "RegisterUsageResponse"
     "fixture/RegisterUsageResponse.proto"
-    marketplaceMetering
+    defaultService
     (Proxy :: Proxy RegisterUsage)
 
 responseResolveCustomer :: ResolveCustomerResponse -> TestTree
@@ -106,7 +106,7 @@ responseResolveCustomer =
   res
     "ResolveCustomerResponse"
     "fixture/ResolveCustomerResponse.proto"
-    marketplaceMetering
+    defaultService
     (Proxy :: Proxy ResolveCustomer)
 
 responseBatchMeterUsage :: BatchMeterUsageResponse -> TestTree
@@ -114,5 +114,5 @@ responseBatchMeterUsage =
   res
     "BatchMeterUsageResponse"
     "fixture/BatchMeterUsageResponse.proto"
-    marketplaceMetering
+    defaultService
     (Proxy :: Proxy BatchMeterUsage)

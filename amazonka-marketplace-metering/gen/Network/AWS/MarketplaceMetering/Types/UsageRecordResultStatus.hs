@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.MarketplaceMetering.Types.UsageRecordResultStatus
   ( UsageRecordResultStatus
       ( ..,
-        CustomerNotSubscribed,
-        DuplicateRecord,
-        Success
+        UsageRecordResultStatusCustomerNotSubscribed,
+        UsageRecordResultStatusDuplicateRecord,
+        UsageRecordResultStatusSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UsageRecordResultStatus
-  = UsageRecordResultStatus'
-      ( CI
-          Text
-      )
+newtype UsageRecordResultStatus = UsageRecordResultStatus'
+  { fromUsageRecordResultStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CustomerNotSubscribed :: UsageRecordResultStatus
-pattern CustomerNotSubscribed = UsageRecordResultStatus' "CustomerNotSubscribed"
+pattern UsageRecordResultStatusCustomerNotSubscribed :: UsageRecordResultStatus
+pattern UsageRecordResultStatusCustomerNotSubscribed = UsageRecordResultStatus' "CustomerNotSubscribed"
 
-pattern DuplicateRecord :: UsageRecordResultStatus
-pattern DuplicateRecord = UsageRecordResultStatus' "DuplicateRecord"
+pattern UsageRecordResultStatusDuplicateRecord :: UsageRecordResultStatus
+pattern UsageRecordResultStatusDuplicateRecord = UsageRecordResultStatus' "DuplicateRecord"
 
-pattern Success :: UsageRecordResultStatus
-pattern Success = UsageRecordResultStatus' "Success"
+pattern UsageRecordResultStatusSuccess :: UsageRecordResultStatus
+pattern UsageRecordResultStatusSuccess = UsageRecordResultStatus' "Success"
 
 {-# COMPLETE
-  CustomerNotSubscribed,
-  DuplicateRecord,
-  Success,
+  UsageRecordResultStatusCustomerNotSubscribed,
+  UsageRecordResultStatusDuplicateRecord,
+  UsageRecordResultStatusSuccess,
   UsageRecordResultStatus'
   #-}
 
-instance FromText UsageRecordResultStatus where
-  parser = (UsageRecordResultStatus' . mk) <$> takeText
+instance Prelude.FromText UsageRecordResultStatus where
+  parser = UsageRecordResultStatus' Prelude.<$> Prelude.takeText
 
-instance ToText UsageRecordResultStatus where
-  toText (UsageRecordResultStatus' ci) = original ci
+instance Prelude.ToText UsageRecordResultStatus where
+  toText (UsageRecordResultStatus' x) = x
 
-instance Hashable UsageRecordResultStatus
+instance Prelude.Hashable UsageRecordResultStatus
 
-instance NFData UsageRecordResultStatus
+instance Prelude.NFData UsageRecordResultStatus
 
-instance ToByteString UsageRecordResultStatus
+instance Prelude.ToByteString UsageRecordResultStatus
 
-instance ToQuery UsageRecordResultStatus
+instance Prelude.ToQuery UsageRecordResultStatus
 
-instance ToHeader UsageRecordResultStatus
+instance Prelude.ToHeader UsageRecordResultStatus
 
-instance FromJSON UsageRecordResultStatus where
-  parseJSON = parseJSONText "UsageRecordResultStatus"
+instance Prelude.FromJSON UsageRecordResultStatus where
+  parseJSON = Prelude.parseJSONText "UsageRecordResultStatus"

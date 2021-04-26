@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MarketplaceMetering.Types.UsageRecordResult where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MarketplaceMetering.Types.UsageRecord
 import Network.AWS.MarketplaceMetering.Types.UsageRecordResultStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A UsageRecordResult indicates the status of a given UsageRecord processed by BatchMeterUsage.
+-- | A UsageRecordResult indicates the status of a given UsageRecord
+-- processed by BatchMeterUsage.
 --
---
---
--- /See:/ 'usageRecordResult' smart constructor.
+-- /See:/ 'newUsageRecordResult' smart constructor.
 data UsageRecordResult = UsageRecordResult'
-  { _urrStatus ::
-      !(Maybe UsageRecordResultStatus),
-    _urrMeteringRecordId ::
-      !(Maybe Text),
-    _urrUsageRecord ::
-      !(Maybe UsageRecord)
+  { -- | The UsageRecordResult Status indicates the status of an individual
+    -- UsageRecord processed by BatchMeterUsage.
+    --
+    -- -   /Success/- The UsageRecord was accepted and honored by
+    --     BatchMeterUsage.
+    --
+    -- -   /CustomerNotSubscribed/- The CustomerIdentifier specified is not
+    --     subscribed to your product. The UsageRecord was not honored. Future
+    --     UsageRecords for this customer will fail until the customer
+    --     subscribes to your product.
+    --
+    -- -   /DuplicateRecord/- Indicates that the UsageRecord was invalid and
+    --     not honored. A previously metered UsageRecord had the same customer,
+    --     dimension, and time, but a different quantity.
+    status :: Prelude.Maybe UsageRecordResultStatus,
+    -- | The MeteringRecordId is a unique identifier for this metering event.
+    meteringRecordId :: Prelude.Maybe Prelude.Text,
+    -- | The UsageRecord that was part of the BatchMeterUsage request.
+    usageRecord :: Prelude.Maybe UsageRecord
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UsageRecordResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UsageRecordResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrStatus' - The UsageRecordResult Status indicates the status of an individual UsageRecord processed by BatchMeterUsage.     * /Success/ - The UsageRecord was accepted and honored by BatchMeterUsage.     * /CustomerNotSubscribed/ - The CustomerIdentifier specified is not subscribed to your product. The UsageRecord was not honored. Future UsageRecords for this customer will fail until the customer subscribes to your product.     * /DuplicateRecord/ - Indicates that the UsageRecord was invalid and not honored. A previously metered UsageRecord had the same customer, dimension, and time, but a different quantity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrMeteringRecordId' - The MeteringRecordId is a unique identifier for this metering event.
+-- 'status', 'usageRecordResult_status' - The UsageRecordResult Status indicates the status of an individual
+-- UsageRecord processed by BatchMeterUsage.
 --
--- * 'urrUsageRecord' - The UsageRecord that was part of the BatchMeterUsage request.
-usageRecordResult ::
+-- -   /Success/- The UsageRecord was accepted and honored by
+--     BatchMeterUsage.
+--
+-- -   /CustomerNotSubscribed/- The CustomerIdentifier specified is not
+--     subscribed to your product. The UsageRecord was not honored. Future
+--     UsageRecords for this customer will fail until the customer
+--     subscribes to your product.
+--
+-- -   /DuplicateRecord/- Indicates that the UsageRecord was invalid and
+--     not honored. A previously metered UsageRecord had the same customer,
+--     dimension, and time, but a different quantity.
+--
+-- 'meteringRecordId', 'usageRecordResult_meteringRecordId' - The MeteringRecordId is a unique identifier for this metering event.
+--
+-- 'usageRecord', 'usageRecordResult_usageRecord' - The UsageRecord that was part of the BatchMeterUsage request.
+newUsageRecordResult ::
   UsageRecordResult
-usageRecordResult =
+newUsageRecordResult =
   UsageRecordResult'
-    { _urrStatus = Nothing,
-      _urrMeteringRecordId = Nothing,
-      _urrUsageRecord = Nothing
+    { status = Prelude.Nothing,
+      meteringRecordId = Prelude.Nothing,
+      usageRecord = Prelude.Nothing
     }
 
--- | The UsageRecordResult Status indicates the status of an individual UsageRecord processed by BatchMeterUsage.     * /Success/ - The UsageRecord was accepted and honored by BatchMeterUsage.     * /CustomerNotSubscribed/ - The CustomerIdentifier specified is not subscribed to your product. The UsageRecord was not honored. Future UsageRecords for this customer will fail until the customer subscribes to your product.     * /DuplicateRecord/ - Indicates that the UsageRecord was invalid and not honored. A previously metered UsageRecord had the same customer, dimension, and time, but a different quantity.
-urrStatus :: Lens' UsageRecordResult (Maybe UsageRecordResultStatus)
-urrStatus = lens _urrStatus (\s a -> s {_urrStatus = a})
+-- | The UsageRecordResult Status indicates the status of an individual
+-- UsageRecord processed by BatchMeterUsage.
+--
+-- -   /Success/- The UsageRecord was accepted and honored by
+--     BatchMeterUsage.
+--
+-- -   /CustomerNotSubscribed/- The CustomerIdentifier specified is not
+--     subscribed to your product. The UsageRecord was not honored. Future
+--     UsageRecords for this customer will fail until the customer
+--     subscribes to your product.
+--
+-- -   /DuplicateRecord/- Indicates that the UsageRecord was invalid and
+--     not honored. A previously metered UsageRecord had the same customer,
+--     dimension, and time, but a different quantity.
+usageRecordResult_status :: Lens.Lens' UsageRecordResult (Prelude.Maybe UsageRecordResultStatus)
+usageRecordResult_status = Lens.lens (\UsageRecordResult' {status} -> status) (\s@UsageRecordResult' {} a -> s {status = a} :: UsageRecordResult)
 
 -- | The MeteringRecordId is a unique identifier for this metering event.
-urrMeteringRecordId :: Lens' UsageRecordResult (Maybe Text)
-urrMeteringRecordId = lens _urrMeteringRecordId (\s a -> s {_urrMeteringRecordId = a})
+usageRecordResult_meteringRecordId :: Lens.Lens' UsageRecordResult (Prelude.Maybe Prelude.Text)
+usageRecordResult_meteringRecordId = Lens.lens (\UsageRecordResult' {meteringRecordId} -> meteringRecordId) (\s@UsageRecordResult' {} a -> s {meteringRecordId = a} :: UsageRecordResult)
 
 -- | The UsageRecord that was part of the BatchMeterUsage request.
-urrUsageRecord :: Lens' UsageRecordResult (Maybe UsageRecord)
-urrUsageRecord = lens _urrUsageRecord (\s a -> s {_urrUsageRecord = a})
+usageRecordResult_usageRecord :: Lens.Lens' UsageRecordResult (Prelude.Maybe UsageRecord)
+usageRecordResult_usageRecord = Lens.lens (\UsageRecordResult' {usageRecord} -> usageRecord) (\s@UsageRecordResult' {} a -> s {usageRecord = a} :: UsageRecordResult)
 
-instance FromJSON UsageRecordResult where
+instance Prelude.FromJSON UsageRecordResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UsageRecordResult"
       ( \x ->
           UsageRecordResult'
-            <$> (x .:? "Status")
-            <*> (x .:? "MeteringRecordId")
-            <*> (x .:? "UsageRecord")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "MeteringRecordId")
+            Prelude.<*> (x Prelude..:? "UsageRecord")
       )
 
-instance Hashable UsageRecordResult
+instance Prelude.Hashable UsageRecordResult
 
-instance NFData UsageRecordResult
+instance Prelude.NFData UsageRecordResult

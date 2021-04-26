@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MarketplaceMetering.Types.UsageAllocation where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MarketplaceMetering.Types.Tag
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Usage allocations allow you to split usage into buckets by tags.
 --
+-- Each UsageAllocation indicates the usage quantity for a specific set of
+-- tags.
 --
--- Each UsageAllocation indicates the usage quantity for a specific set of tags.
---
---
--- /See:/ 'usageAllocation' smart constructor.
+-- /See:/ 'newUsageAllocation' smart constructor.
 data UsageAllocation = UsageAllocation'
-  { _uaTags ::
-      !(Maybe (List1 Tag)),
-    _uaAllocatedUsageQuantity :: !Nat
+  { -- | The set of tags that define the bucket of usage. For the bucket of items
+    -- with no tags, this parameter can be left out.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | The total quantity allocated to this bucket of usage.
+    allocatedUsageQuantity :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UsageAllocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UsageAllocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaTags' - The set of tags that define the bucket of usage. For the bucket of items with no tags, this parameter can be left out.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaAllocatedUsageQuantity' - The total quantity allocated to this bucket of usage.
-usageAllocation ::
-  -- | 'uaAllocatedUsageQuantity'
-  Natural ->
+-- 'tags', 'usageAllocation_tags' - The set of tags that define the bucket of usage. For the bucket of items
+-- with no tags, this parameter can be left out.
+--
+-- 'allocatedUsageQuantity', 'usageAllocation_allocatedUsageQuantity' - The total quantity allocated to this bucket of usage.
+newUsageAllocation ::
+  -- | 'allocatedUsageQuantity'
+  Prelude.Natural ->
   UsageAllocation
-usageAllocation pAllocatedUsageQuantity_ =
+newUsageAllocation pAllocatedUsageQuantity_ =
   UsageAllocation'
-    { _uaTags = Nothing,
-      _uaAllocatedUsageQuantity =
-        _Nat # pAllocatedUsageQuantity_
+    { tags = Prelude.Nothing,
+      allocatedUsageQuantity =
+        Prelude._Nat Lens.# pAllocatedUsageQuantity_
     }
 
--- | The set of tags that define the bucket of usage. For the bucket of items with no tags, this parameter can be left out.
-uaTags :: Lens' UsageAllocation (Maybe (NonEmpty Tag))
-uaTags = lens _uaTags (\s a -> s {_uaTags = a}) . mapping _List1
+-- | The set of tags that define the bucket of usage. For the bucket of items
+-- with no tags, this parameter can be left out.
+usageAllocation_tags :: Lens.Lens' UsageAllocation (Prelude.Maybe (Prelude.NonEmpty Tag))
+usageAllocation_tags = Lens.lens (\UsageAllocation' {tags} -> tags) (\s@UsageAllocation' {} a -> s {tags = a} :: UsageAllocation) Prelude.. Lens.mapping Prelude._List1
 
 -- | The total quantity allocated to this bucket of usage.
-uaAllocatedUsageQuantity :: Lens' UsageAllocation Natural
-uaAllocatedUsageQuantity = lens _uaAllocatedUsageQuantity (\s a -> s {_uaAllocatedUsageQuantity = a}) . _Nat
+usageAllocation_allocatedUsageQuantity :: Lens.Lens' UsageAllocation Prelude.Natural
+usageAllocation_allocatedUsageQuantity = Lens.lens (\UsageAllocation' {allocatedUsageQuantity} -> allocatedUsageQuantity) (\s@UsageAllocation' {} a -> s {allocatedUsageQuantity = a} :: UsageAllocation) Prelude.. Prelude._Nat
 
-instance FromJSON UsageAllocation where
+instance Prelude.FromJSON UsageAllocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UsageAllocation"
       ( \x ->
           UsageAllocation'
-            <$> (x .:? "Tags") <*> (x .: "AllocatedUsageQuantity")
+            Prelude.<$> (x Prelude..:? "Tags")
+            Prelude.<*> (x Prelude..: "AllocatedUsageQuantity")
       )
 
-instance Hashable UsageAllocation
+instance Prelude.Hashable UsageAllocation
 
-instance NFData UsageAllocation
+instance Prelude.NFData UsageAllocation
 
-instance ToJSON UsageAllocation where
+instance Prelude.ToJSON UsageAllocation where
   toJSON UsageAllocation' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _uaTags,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
               ( "AllocatedUsageQuantity"
-                  .= _uaAllocatedUsageQuantity
+                  Prelude..= allocatedUsageQuantity
               )
           ]
       )

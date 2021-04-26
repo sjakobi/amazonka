@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MarketplaceMetering.Types
   ( -- * Service Configuration
-    marketplaceMetering,
+    defaultService,
 
     -- * Errors
     _TimestampOutOfBoundsException,
@@ -20,7 +23,7 @@ module Network.AWS.MarketplaceMetering.Types
     _InvalidUsageDimensionException,
     _ExpiredTokenException,
     _ThrottlingException,
-    _DisabledAPIException,
+    _DisabledApiException,
     _InvalidTagException,
     _DuplicateRequestException,
     _InvalidCustomerIdentifierException,
@@ -37,209 +40,235 @@ module Network.AWS.MarketplaceMetering.Types
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * UsageAllocation
     UsageAllocation (..),
-    usageAllocation,
-    uaTags,
-    uaAllocatedUsageQuantity,
+    newUsageAllocation,
 
     -- * UsageRecord
     UsageRecord (..),
-    usageRecord,
-    urUsageAllocations,
-    urQuantity,
-    urTimestamp,
-    urCustomerIdentifier,
-    urDimension,
+    newUsageRecord,
 
     -- * UsageRecordResult
     UsageRecordResult (..),
-    usageRecordResult,
-    urrStatus,
-    urrMeteringRecordId,
-    urrUsageRecord,
+    newUsageRecordResult,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MarketplaceMetering.Types.Tag
 import Network.AWS.MarketplaceMetering.Types.UsageAllocation
 import Network.AWS.MarketplaceMetering.Types.UsageRecord
 import Network.AWS.MarketplaceMetering.Types.UsageRecordResult
 import Network.AWS.MarketplaceMetering.Types.UsageRecordResultStatus
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-01-14@ of the Amazon Marketplace Metering SDK configuration.
-marketplaceMetering :: Service
-marketplaceMetering =
-  Service
-    { _svcAbbrev = "MarketplaceMetering",
-      _svcSigner = v4,
-      _svcPrefix = "metering.marketplace",
-      _svcVersion = "2016-01-14",
-      _svcEndpoint = defaultEndpoint marketplaceMetering,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "MarketplaceMetering",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "MarketplaceMetering",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "metering.marketplace",
+      Prelude._svcVersion = "2016-01-14",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "MarketplaceMetering",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The timestamp value passed in the meterUsage() is out of allowed range.
-_TimestampOutOfBoundsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TimestampOutOfBoundsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TimestampOutOfBoundsException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "TimestampOutOfBoundsException"
 
--- | Exception thrown when the customer does not have a valid subscription for the product.
-_CustomerNotEntitledException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception thrown when the customer does not have a valid subscription
+-- for the product.
+_CustomerNotEntitledException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CustomerNotEntitledException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "CustomerNotEntitledException"
 
--- | RegisterUsage must be called in the same AWS Region the ECS task was launched in. This prevents a container from hardcoding a Region (e.g. withRegion(“us-east-1”) when calling RegisterUsage.
-_InvalidRegionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | RegisterUsage must be called in the same AWS Region the ECS task was
+-- launched in. This prevents a container from hardcoding a Region (e.g.
+-- withRegion(“us-east-1”) when calling RegisterUsage.
+_InvalidRegionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRegionException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRegionException"
 
--- | The usage dimension does not match one of the UsageDimensions associated with products.
-_InvalidUsageDimensionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The usage dimension does not match one of the UsageDimensions associated
+-- with products.
+_InvalidUsageDimensionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidUsageDimensionException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidUsageDimensionException"
 
--- | The submitted registration token has expired. This can happen if the buyer's browser takes too long to redirect to your page, the buyer has resubmitted the registration token, or your application has held on to the registration token for too long. Your SaaS registration website should redeem this token as soon as it is submitted by the buyer's browser.
-_ExpiredTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The submitted registration token has expired. This can happen if the
+-- buyer\'s browser takes too long to redirect to your page, the buyer has
+-- resubmitted the registration token, or your application has held on to
+-- the registration token for too long. Your SaaS registration website
+-- should redeem this token as soon as it is submitted by the buyer\'s
+-- browser.
+_ExpiredTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExpiredTokenException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "ExpiredTokenException"
 
 -- | The calls to the API are throttled.
-_ThrottlingException :: AsError a => Getting (First ServiceError) a ServiceError
+_ThrottlingException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ThrottlingException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "ThrottlingException"
 
 -- | The API is disabled in the Region.
-_DisabledAPIException :: AsError a => Getting (First ServiceError) a ServiceError
-_DisabledAPIException =
-  _MatchServiceError
-    marketplaceMetering
+_DisabledApiException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_DisabledApiException =
+  Prelude._MatchServiceError
+    defaultService
     "DisabledApiException"
 
 -- | The tag is invalid, or the number of tags is greater than 5.
-_InvalidTagException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidTagException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTagException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTagException"
 
--- | A metering record has already been emitted by the same EC2 instance, ECS task, or EKS pod for the given {usageDimension, timestamp} with a different usageQuantity.
-_DuplicateRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A metering record has already been emitted by the same EC2 instance, ECS
+-- task, or EKS pod for the given {usageDimension, timestamp} with a
+-- different usageQuantity.
+_DuplicateRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DuplicateRequestException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "DuplicateRequestException"
 
 -- | You have metered usage for a CustomerIdentifier that does not exist.
-_InvalidCustomerIdentifierException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidCustomerIdentifierException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCustomerIdentifierException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidCustomerIdentifierException"
 
--- | AWS Marketplace does not support metering usage from the underlying platform. Currently, Amazon ECS, Amazon EKS, and AWS Fargate are supported.
-_PlatformNotSupportedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | AWS Marketplace does not support metering usage from the underlying
+-- platform. Currently, Amazon ECS, Amazon EKS, and AWS Fargate are
+-- supported.
+_PlatformNotSupportedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PlatformNotSupportedException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "PlatformNotSupportedException"
 
--- | The product code passed does not match the product code used for publishing the product.
-_InvalidProductCodeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The product code passed does not match the product code used for
+-- publishing the product.
+_InvalidProductCodeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidProductCodeException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidProductCodeException"
 
--- | The usage allocation objects are invalid, or the number of allocations is greater than 500 for a single usage record.
-_InvalidUsageAllocationsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The usage allocation objects are invalid, or the number of allocations
+-- is greater than 500 for a single usage record.
+_InvalidUsageAllocationsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidUsageAllocationsException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidUsageAllocationsException"
 
--- | An internal error has occurred. Retry your request. If the problem persists, post a message with details on the AWS forums.
-_InternalServiceErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An internal error has occurred. Retry your request. If the problem
+-- persists, post a message with details on the AWS forums.
+_InternalServiceErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceErrorException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceErrorException"
 
--- | The endpoint being called is in a AWS Region different from your EC2 instance, ECS task, or EKS pod. The Region of the Metering Service endpoint and the AWS Region of the resource must match.
-_InvalidEndpointRegionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The endpoint being called is in a AWS Region different from your EC2
+-- instance, ECS task, or EKS pod. The Region of the Metering Service
+-- endpoint and the AWS Region of the resource must match.
+_InvalidEndpointRegionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidEndpointRegionException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidEndpointRegionException"
 
 -- | Registration token is invalid.
-_InvalidTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTokenException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTokenException"
 
 -- | Public Key version is invalid.
-_InvalidPublicKeyVersionException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidPublicKeyVersionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPublicKeyVersionException =
-  _MatchServiceError
-    marketplaceMetering
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPublicKeyVersionException"
