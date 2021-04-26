@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,228 +21,347 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Shows usage limits on a cluster. Results are filtered based on the combination of input usage limit identifier, cluster identifier, and feature type parameters:
+-- Shows usage limits on a cluster. Results are filtered based on the
+-- combination of input usage limit identifier, cluster identifier, and
+-- feature type parameters:
 --
+-- -   If usage limit identifier, cluster identifier, and feature type are
+--     not provided, then all usage limit objects for the current account
+--     in the current region are returned.
 --
---     * If usage limit identifier, cluster identifier, and feature type are not provided, then all usage limit objects for the current account in the current region are returned.
+-- -   If usage limit identifier is provided, then the corresponding usage
+--     limit object is returned.
 --
---     * If usage limit identifier is provided, then the corresponding usage limit object is returned.
+-- -   If cluster identifier is provided, then all usage limit objects for
+--     the specified cluster are returned.
 --
---     * If cluster identifier is provided, then all usage limit objects for the specified cluster are returned.
---
---     * If cluster identifier and feature type are provided, then all usage limit objects for the combination of cluster and feature are returned.
---
---
---
+-- -   If cluster identifier and feature type are provided, then all usage
+--     limit objects for the combination of cluster and feature are
+--     returned.
 --
 -- This operation returns paginated results.
 module Network.AWS.Redshift.DescribeUsageLimits
   ( -- * Creating a Request
-    describeUsageLimits,
-    DescribeUsageLimits,
+    DescribeUsageLimits (..),
+    newDescribeUsageLimits,
 
     -- * Request Lenses
-    dulsFeatureType,
-    dulsTagKeys,
-    dulsClusterIdentifier,
-    dulsUsageLimitId,
-    dulsTagValues,
-    dulsMarker,
-    dulsMaxRecords,
+    describeUsageLimits_featureType,
+    describeUsageLimits_tagKeys,
+    describeUsageLimits_clusterIdentifier,
+    describeUsageLimits_usageLimitId,
+    describeUsageLimits_tagValues,
+    describeUsageLimits_marker,
+    describeUsageLimits_maxRecords,
 
     -- * Destructuring the Response
-    describeUsageLimitsResponse,
-    DescribeUsageLimitsResponse,
+    DescribeUsageLimitsResponse (..),
+    newDescribeUsageLimitsResponse,
 
     -- * Response Lenses
-    dulrrsUsageLimits,
-    dulrrsMarker,
-    dulrrsResponseStatus,
+    describeUsageLimitsResponse_usageLimits,
+    describeUsageLimitsResponse_marker,
+    describeUsageLimitsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.UsageLimit
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUsageLimits' smart constructor.
+-- | /See:/ 'newDescribeUsageLimits' smart constructor.
 data DescribeUsageLimits = DescribeUsageLimits'
-  { _dulsFeatureType ::
-      !(Maybe UsageLimitFeatureType),
-    _dulsTagKeys :: !(Maybe [Text]),
-    _dulsClusterIdentifier ::
-      !(Maybe Text),
-    _dulsUsageLimitId ::
-      !(Maybe Text),
-    _dulsTagValues ::
-      !(Maybe [Text]),
-    _dulsMarker :: !(Maybe Text),
-    _dulsMaxRecords :: !(Maybe Int)
+  { -- | The feature type for which you want to describe usage limits.
+    featureType :: Prelude.Maybe UsageLimitFeatureType,
+    -- | A tag key or keys for which you want to return all matching usage limit
+    -- objects that are associated with the specified key or keys. For example,
+    -- suppose that you have parameter groups that are tagged with keys called
+    -- @owner@ and @environment@. If you specify both of these tag keys in the
+    -- request, Amazon Redshift returns a response with the usage limit objects
+    -- have either or both of these tag keys associated with them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | The identifier of the cluster for which you want to describe usage
+    -- limits.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the usage limit to describe.
+    usageLimitId :: Prelude.Maybe Prelude.Text,
+    -- | A tag value or values for which you want to return all matching usage
+    -- limit objects that are associated with the specified tag value or
+    -- values. For example, suppose that you have parameter groups that are
+    -- tagged with values called @admin@ and @test@. If you specify both of
+    -- these tag values in the request, Amazon Redshift returns a response with
+    -- the usage limit objects that have either or both of these tag values
+    -- associated with them.
+    tagValues :: Prelude.Maybe [Prelude.Text],
+    -- | An optional parameter that specifies the starting point to return a set
+    -- of response records. When the results of a DescribeUsageLimits request
+    -- exceed the value specified in @MaxRecords@, AWS returns a value in the
+    -- @Marker@ field of the response. You can retrieve the next set of
+    -- response records by providing the returned marker value in the @Marker@
+    -- parameter and retrying the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of response records to return in each call. If the
+    -- number of remaining response records exceeds the specified @MaxRecords@
+    -- value, a value is returned in a @marker@ field of the response. You can
+    -- retrieve the next set of records by retrying the command with the
+    -- returned marker value.
+    --
+    -- Default: @100@
+    --
+    -- Constraints: minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUsageLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUsageLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dulsFeatureType' - The feature type for which you want to describe usage limits.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dulsTagKeys' - A tag key or keys for which you want to return all matching usage limit objects that are associated with the specified key or keys. For example, suppose that you have parameter groups that are tagged with keys called @owner@ and @environment@ . If you specify both of these tag keys in the request, Amazon Redshift returns a response with the usage limit objects have either or both of these tag keys associated with them.
+-- 'featureType', 'describeUsageLimits_featureType' - The feature type for which you want to describe usage limits.
 --
--- * 'dulsClusterIdentifier' - The identifier of the cluster for which you want to describe usage limits.
+-- 'tagKeys', 'describeUsageLimits_tagKeys' - A tag key or keys for which you want to return all matching usage limit
+-- objects that are associated with the specified key or keys. For example,
+-- suppose that you have parameter groups that are tagged with keys called
+-- @owner@ and @environment@. If you specify both of these tag keys in the
+-- request, Amazon Redshift returns a response with the usage limit objects
+-- have either or both of these tag keys associated with them.
 --
--- * 'dulsUsageLimitId' - The identifier of the usage limit to describe.
+-- 'clusterIdentifier', 'describeUsageLimits_clusterIdentifier' - The identifier of the cluster for which you want to describe usage
+-- limits.
 --
--- * 'dulsTagValues' - A tag value or values for which you want to return all matching usage limit objects that are associated with the specified tag value or values. For example, suppose that you have parameter groups that are tagged with values called @admin@ and @test@ . If you specify both of these tag values in the request, Amazon Redshift returns a response with the usage limit objects that have either or both of these tag values associated with them.
+-- 'usageLimitId', 'describeUsageLimits_usageLimitId' - The identifier of the usage limit to describe.
 --
--- * 'dulsMarker' - An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeUsageLimits' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
+-- 'tagValues', 'describeUsageLimits_tagValues' - A tag value or values for which you want to return all matching usage
+-- limit objects that are associated with the specified tag value or
+-- values. For example, suppose that you have parameter groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the usage limit objects that have either or both of these tag values
+-- associated with them.
 --
--- * 'dulsMaxRecords' - The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @100@  Constraints: minimum 20, maximum 100.
-describeUsageLimits ::
+-- 'marker', 'describeUsageLimits_marker' - An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a DescribeUsageLimits request
+-- exceed the value specified in @MaxRecords@, AWS returns a value in the
+-- @Marker@ field of the response. You can retrieve the next set of
+-- response records by providing the returned marker value in the @Marker@
+-- parameter and retrying the request.
+--
+-- 'maxRecords', 'describeUsageLimits_maxRecords' - The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @100@
+--
+-- Constraints: minimum 20, maximum 100.
+newDescribeUsageLimits ::
   DescribeUsageLimits
-describeUsageLimits =
+newDescribeUsageLimits =
   DescribeUsageLimits'
-    { _dulsFeatureType = Nothing,
-      _dulsTagKeys = Nothing,
-      _dulsClusterIdentifier = Nothing,
-      _dulsUsageLimitId = Nothing,
-      _dulsTagValues = Nothing,
-      _dulsMarker = Nothing,
-      _dulsMaxRecords = Nothing
+    { featureType = Prelude.Nothing,
+      tagKeys = Prelude.Nothing,
+      clusterIdentifier = Prelude.Nothing,
+      usageLimitId = Prelude.Nothing,
+      tagValues = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The feature type for which you want to describe usage limits.
-dulsFeatureType :: Lens' DescribeUsageLimits (Maybe UsageLimitFeatureType)
-dulsFeatureType = lens _dulsFeatureType (\s a -> s {_dulsFeatureType = a})
+describeUsageLimits_featureType :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe UsageLimitFeatureType)
+describeUsageLimits_featureType = Lens.lens (\DescribeUsageLimits' {featureType} -> featureType) (\s@DescribeUsageLimits' {} a -> s {featureType = a} :: DescribeUsageLimits)
 
--- | A tag key or keys for which you want to return all matching usage limit objects that are associated with the specified key or keys. For example, suppose that you have parameter groups that are tagged with keys called @owner@ and @environment@ . If you specify both of these tag keys in the request, Amazon Redshift returns a response with the usage limit objects have either or both of these tag keys associated with them.
-dulsTagKeys :: Lens' DescribeUsageLimits [Text]
-dulsTagKeys = lens _dulsTagKeys (\s a -> s {_dulsTagKeys = a}) . _Default . _Coerce
+-- | A tag key or keys for which you want to return all matching usage limit
+-- objects that are associated with the specified key or keys. For example,
+-- suppose that you have parameter groups that are tagged with keys called
+-- @owner@ and @environment@. If you specify both of these tag keys in the
+-- request, Amazon Redshift returns a response with the usage limit objects
+-- have either or both of these tag keys associated with them.
+describeUsageLimits_tagKeys :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe [Prelude.Text])
+describeUsageLimits_tagKeys = Lens.lens (\DescribeUsageLimits' {tagKeys} -> tagKeys) (\s@DescribeUsageLimits' {} a -> s {tagKeys = a} :: DescribeUsageLimits) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The identifier of the cluster for which you want to describe usage limits.
-dulsClusterIdentifier :: Lens' DescribeUsageLimits (Maybe Text)
-dulsClusterIdentifier = lens _dulsClusterIdentifier (\s a -> s {_dulsClusterIdentifier = a})
+-- | The identifier of the cluster for which you want to describe usage
+-- limits.
+describeUsageLimits_clusterIdentifier :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe Prelude.Text)
+describeUsageLimits_clusterIdentifier = Lens.lens (\DescribeUsageLimits' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeUsageLimits' {} a -> s {clusterIdentifier = a} :: DescribeUsageLimits)
 
 -- | The identifier of the usage limit to describe.
-dulsUsageLimitId :: Lens' DescribeUsageLimits (Maybe Text)
-dulsUsageLimitId = lens _dulsUsageLimitId (\s a -> s {_dulsUsageLimitId = a})
+describeUsageLimits_usageLimitId :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe Prelude.Text)
+describeUsageLimits_usageLimitId = Lens.lens (\DescribeUsageLimits' {usageLimitId} -> usageLimitId) (\s@DescribeUsageLimits' {} a -> s {usageLimitId = a} :: DescribeUsageLimits)
 
--- | A tag value or values for which you want to return all matching usage limit objects that are associated with the specified tag value or values. For example, suppose that you have parameter groups that are tagged with values called @admin@ and @test@ . If you specify both of these tag values in the request, Amazon Redshift returns a response with the usage limit objects that have either or both of these tag values associated with them.
-dulsTagValues :: Lens' DescribeUsageLimits [Text]
-dulsTagValues = lens _dulsTagValues (\s a -> s {_dulsTagValues = a}) . _Default . _Coerce
+-- | A tag value or values for which you want to return all matching usage
+-- limit objects that are associated with the specified tag value or
+-- values. For example, suppose that you have parameter groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the usage limit objects that have either or both of these tag values
+-- associated with them.
+describeUsageLimits_tagValues :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe [Prelude.Text])
+describeUsageLimits_tagValues = Lens.lens (\DescribeUsageLimits' {tagValues} -> tagValues) (\s@DescribeUsageLimits' {} a -> s {tagValues = a} :: DescribeUsageLimits) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeUsageLimits' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
-dulsMarker :: Lens' DescribeUsageLimits (Maybe Text)
-dulsMarker = lens _dulsMarker (\s a -> s {_dulsMarker = a})
+-- | An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a DescribeUsageLimits request
+-- exceed the value specified in @MaxRecords@, AWS returns a value in the
+-- @Marker@ field of the response. You can retrieve the next set of
+-- response records by providing the returned marker value in the @Marker@
+-- parameter and retrying the request.
+describeUsageLimits_marker :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe Prelude.Text)
+describeUsageLimits_marker = Lens.lens (\DescribeUsageLimits' {marker} -> marker) (\s@DescribeUsageLimits' {} a -> s {marker = a} :: DescribeUsageLimits)
 
--- | The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @100@  Constraints: minimum 20, maximum 100.
-dulsMaxRecords :: Lens' DescribeUsageLimits (Maybe Int)
-dulsMaxRecords = lens _dulsMaxRecords (\s a -> s {_dulsMaxRecords = a})
+-- | The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @100@
+--
+-- Constraints: minimum 20, maximum 100.
+describeUsageLimits_maxRecords :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe Prelude.Int)
+describeUsageLimits_maxRecords = Lens.lens (\DescribeUsageLimits' {maxRecords} -> maxRecords) (\s@DescribeUsageLimits' {} a -> s {maxRecords = a} :: DescribeUsageLimits)
 
-instance AWSPager DescribeUsageLimits where
+instance Pager.AWSPager DescribeUsageLimits where
   page rq rs
-    | stop (rs ^. dulrrsMarker) = Nothing
-    | stop (rs ^. dulrrsUsageLimits) = Nothing
-    | otherwise =
-      Just $ rq & dulsMarker .~ rs ^. dulrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeUsageLimitsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeUsageLimitsResponse_usageLimits
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeUsageLimits_marker
+          Lens..~ rs
+          Lens.^? describeUsageLimitsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeUsageLimits where
+instance Prelude.AWSRequest DescribeUsageLimits where
   type
     Rs DescribeUsageLimits =
       DescribeUsageLimitsResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeUsageLimitsResult"
       ( \s h x ->
           DescribeUsageLimitsResponse'
-            <$> ( x .@? "UsageLimits" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "UsageLimits"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUsageLimits
+instance Prelude.Hashable DescribeUsageLimits
 
-instance NFData DescribeUsageLimits
+instance Prelude.NFData DescribeUsageLimits
 
-instance ToHeaders DescribeUsageLimits where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeUsageLimits where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeUsageLimits where
-  toPath = const "/"
+instance Prelude.ToPath DescribeUsageLimits where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeUsageLimits where
+instance Prelude.ToQuery DescribeUsageLimits where
   toQuery DescribeUsageLimits' {..} =
-    mconcat
-      [ "Action" =: ("DescribeUsageLimits" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "FeatureType" =: _dulsFeatureType,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeUsageLimits" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "FeatureType" Prelude.=: featureType,
         "TagKeys"
-          =: toQuery (toQueryList "TagKey" <$> _dulsTagKeys),
-        "ClusterIdentifier" =: _dulsClusterIdentifier,
-        "UsageLimitId" =: _dulsUsageLimitId,
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "ClusterIdentifier" Prelude.=: clusterIdentifier,
+        "UsageLimitId" Prelude.=: usageLimitId,
         "TagValues"
-          =: toQuery (toQueryList "TagValue" <$> _dulsTagValues),
-        "Marker" =: _dulsMarker,
-        "MaxRecords" =: _dulsMaxRecords
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "TagValue"
+                Prelude.<$> tagValues
+            ),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'describeUsageLimitsResponse' smart constructor.
+-- | /See:/ 'newDescribeUsageLimitsResponse' smart constructor.
 data DescribeUsageLimitsResponse = DescribeUsageLimitsResponse'
-  { _dulrrsUsageLimits ::
-      !( Maybe
-           [UsageLimit]
-       ),
-    _dulrrsMarker ::
-      !(Maybe Text),
-    _dulrrsResponseStatus ::
-      !Int
+  { -- | Contains the output from the DescribeUsageLimits action.
+    usageLimits :: Prelude.Maybe [UsageLimit],
+    -- | A value that indicates the starting point for the next set of response
+    -- records in a subsequent request. If a value is returned in a response,
+    -- you can retrieve the next set of records by providing this returned
+    -- marker value in the @Marker@ parameter and retrying the command. If the
+    -- @Marker@ field is empty, all response records have been retrieved for
+    -- the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUsageLimitsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUsageLimitsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dulrrsUsageLimits' - Contains the output from the 'DescribeUsageLimits' action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dulrrsMarker' - A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
+-- 'usageLimits', 'describeUsageLimitsResponse_usageLimits' - Contains the output from the DescribeUsageLimits action.
 --
--- * 'dulrrsResponseStatus' - -- | The response status code.
-describeUsageLimitsResponse ::
-  -- | 'dulrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeUsageLimitsResponse_marker' - A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+--
+-- 'httpStatus', 'describeUsageLimitsResponse_httpStatus' - The response's http status code.
+newDescribeUsageLimitsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUsageLimitsResponse
-describeUsageLimitsResponse pResponseStatus_ =
+newDescribeUsageLimitsResponse pHttpStatus_ =
   DescribeUsageLimitsResponse'
-    { _dulrrsUsageLimits =
-        Nothing,
-      _dulrrsMarker = Nothing,
-      _dulrrsResponseStatus = pResponseStatus_
+    { usageLimits =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Contains the output from the 'DescribeUsageLimits' action.
-dulrrsUsageLimits :: Lens' DescribeUsageLimitsResponse [UsageLimit]
-dulrrsUsageLimits = lens _dulrrsUsageLimits (\s a -> s {_dulrrsUsageLimits = a}) . _Default . _Coerce
+-- | Contains the output from the DescribeUsageLimits action.
+describeUsageLimitsResponse_usageLimits :: Lens.Lens' DescribeUsageLimitsResponse (Prelude.Maybe [UsageLimit])
+describeUsageLimitsResponse_usageLimits = Lens.lens (\DescribeUsageLimitsResponse' {usageLimits} -> usageLimits) (\s@DescribeUsageLimitsResponse' {} a -> s {usageLimits = a} :: DescribeUsageLimitsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
-dulrrsMarker :: Lens' DescribeUsageLimitsResponse (Maybe Text)
-dulrrsMarker = lens _dulrrsMarker (\s a -> s {_dulrrsMarker = a})
+-- | A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+describeUsageLimitsResponse_marker :: Lens.Lens' DescribeUsageLimitsResponse (Prelude.Maybe Prelude.Text)
+describeUsageLimitsResponse_marker = Lens.lens (\DescribeUsageLimitsResponse' {marker} -> marker) (\s@DescribeUsageLimitsResponse' {} a -> s {marker = a} :: DescribeUsageLimitsResponse)
 
--- | -- | The response status code.
-dulrrsResponseStatus :: Lens' DescribeUsageLimitsResponse Int
-dulrrsResponseStatus = lens _dulrrsResponseStatus (\s a -> s {_dulrrsResponseStatus = a})
+-- | The response's http status code.
+describeUsageLimitsResponse_httpStatus :: Lens.Lens' DescribeUsageLimitsResponse Prelude.Int
+describeUsageLimitsResponse_httpStatus = Lens.lens (\DescribeUsageLimitsResponse' {httpStatus} -> httpStatus) (\s@DescribeUsageLimitsResponse' {} a -> s {httpStatus = a} :: DescribeUsageLimitsResponse)
 
-instance NFData DescribeUsageLimitsResponse
+instance Prelude.NFData DescribeUsageLimitsResponse

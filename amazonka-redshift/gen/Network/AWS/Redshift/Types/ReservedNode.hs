@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,156 +19,222 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ReservedNode where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.RecurringCharge
 import Network.AWS.Redshift.Types.ReservedNodeOfferingType
 
--- | Describes a reserved node. You can call the 'DescribeReservedNodeOfferings' API to obtain the available reserved node offerings.
+-- | Describes a reserved node. You can call the
+-- DescribeReservedNodeOfferings API to obtain the available reserved node
+-- offerings.
 --
---
---
--- /See:/ 'reservedNode' smart constructor.
+-- /See:/ 'newReservedNode' smart constructor.
 data ReservedNode = ReservedNode'
-  { _rnReservedNodeOfferingType ::
-      !(Maybe ReservedNodeOfferingType),
-    _rnReservedNodeId :: !(Maybe Text),
-    _rnReservedNodeOfferingId :: !(Maybe Text),
-    _rnDuration :: !(Maybe Int),
-    _rnStartTime :: !(Maybe ISO8601),
-    _rnCurrencyCode :: !(Maybe Text),
-    _rnState :: !(Maybe Text),
-    _rnFixedPrice :: !(Maybe Double),
-    _rnNodeCount :: !(Maybe Int),
-    _rnUsagePrice :: !(Maybe Double),
-    _rnOfferingType :: !(Maybe Text),
-    _rnNodeType :: !(Maybe Text),
-    _rnRecurringCharges ::
-      !(Maybe [RecurringCharge])
+  { reservedNodeOfferingType :: Prelude.Maybe ReservedNodeOfferingType,
+    -- | The unique identifier for the reservation.
+    reservedNodeId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the reserved node offering.
+    reservedNodeOfferingId :: Prelude.Maybe Prelude.Text,
+    -- | The duration of the node reservation in seconds.
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | The time the reservation started. You purchase a reserved node offering
+    -- for a duration. This is the start time of that duration.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The currency code for the reserved cluster.
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | The state of the reserved compute node.
+    --
+    -- Possible Values:
+    --
+    -- -   pending-payment-This reserved node has recently been purchased, and
+    --     the sale has been approved, but payment has not yet been confirmed.
+    --
+    -- -   active-This reserved node is owned by the caller and is available
+    --     for use.
+    --
+    -- -   payment-failed-Payment failed for the purchase attempt.
+    --
+    -- -   retired-The reserved node is no longer available.
+    --
+    -- -   exchanging-The owner is exchanging the reserved node for another
+    --     reserved node.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | The fixed cost Amazon Redshift charges you for this reserved node.
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | The number of reserved compute nodes.
+    nodeCount :: Prelude.Maybe Prelude.Int,
+    -- | The hourly rate Amazon Redshift charges you for this reserved node.
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | The anticipated utilization of the reserved node, as defined in the
+    -- reserved node offering.
+    offeringType :: Prelude.Maybe Prelude.Text,
+    -- | The node type of the reserved node.
+    nodeType :: Prelude.Maybe Prelude.Text,
+    -- | The recurring charges for the reserved node.
+    recurringCharges :: Prelude.Maybe [RecurringCharge]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedNode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedNode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rnReservedNodeOfferingType' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rnReservedNodeId' - The unique identifier for the reservation.
+-- 'reservedNodeOfferingType', 'reservedNode_reservedNodeOfferingType' -
 --
--- * 'rnReservedNodeOfferingId' - The identifier for the reserved node offering.
+-- 'reservedNodeId', 'reservedNode_reservedNodeId' - The unique identifier for the reservation.
 --
--- * 'rnDuration' - The duration of the node reservation in seconds.
+-- 'reservedNodeOfferingId', 'reservedNode_reservedNodeOfferingId' - The identifier for the reserved node offering.
 --
--- * 'rnStartTime' - The time the reservation started. You purchase a reserved node offering for a duration. This is the start time of that duration.
+-- 'duration', 'reservedNode_duration' - The duration of the node reservation in seconds.
 --
--- * 'rnCurrencyCode' - The currency code for the reserved cluster.
+-- 'startTime', 'reservedNode_startTime' - The time the reservation started. You purchase a reserved node offering
+-- for a duration. This is the start time of that duration.
 --
--- * 'rnState' - The state of the reserved compute node. Possible Values:     * pending-payment-This reserved node has recently been purchased, and the sale has been approved, but payment has not yet been confirmed.     * active-This reserved node is owned by the caller and is available for use.     * payment-failed-Payment failed for the purchase attempt.     * retired-The reserved node is no longer available.      * exchanging-The owner is exchanging the reserved node for another reserved node.
+-- 'currencyCode', 'reservedNode_currencyCode' - The currency code for the reserved cluster.
 --
--- * 'rnFixedPrice' - The fixed cost Amazon Redshift charges you for this reserved node.
+-- 'state', 'reservedNode_state' - The state of the reserved compute node.
 --
--- * 'rnNodeCount' - The number of reserved compute nodes.
+-- Possible Values:
 --
--- * 'rnUsagePrice' - The hourly rate Amazon Redshift charges you for this reserved node.
+-- -   pending-payment-This reserved node has recently been purchased, and
+--     the sale has been approved, but payment has not yet been confirmed.
 --
--- * 'rnOfferingType' - The anticipated utilization of the reserved node, as defined in the reserved node offering.
+-- -   active-This reserved node is owned by the caller and is available
+--     for use.
 --
--- * 'rnNodeType' - The node type of the reserved node.
+-- -   payment-failed-Payment failed for the purchase attempt.
 --
--- * 'rnRecurringCharges' - The recurring charges for the reserved node.
-reservedNode ::
+-- -   retired-The reserved node is no longer available.
+--
+-- -   exchanging-The owner is exchanging the reserved node for another
+--     reserved node.
+--
+-- 'fixedPrice', 'reservedNode_fixedPrice' - The fixed cost Amazon Redshift charges you for this reserved node.
+--
+-- 'nodeCount', 'reservedNode_nodeCount' - The number of reserved compute nodes.
+--
+-- 'usagePrice', 'reservedNode_usagePrice' - The hourly rate Amazon Redshift charges you for this reserved node.
+--
+-- 'offeringType', 'reservedNode_offeringType' - The anticipated utilization of the reserved node, as defined in the
+-- reserved node offering.
+--
+-- 'nodeType', 'reservedNode_nodeType' - The node type of the reserved node.
+--
+-- 'recurringCharges', 'reservedNode_recurringCharges' - The recurring charges for the reserved node.
+newReservedNode ::
   ReservedNode
-reservedNode =
+newReservedNode =
   ReservedNode'
-    { _rnReservedNodeOfferingType =
-        Nothing,
-      _rnReservedNodeId = Nothing,
-      _rnReservedNodeOfferingId = Nothing,
-      _rnDuration = Nothing,
-      _rnStartTime = Nothing,
-      _rnCurrencyCode = Nothing,
-      _rnState = Nothing,
-      _rnFixedPrice = Nothing,
-      _rnNodeCount = Nothing,
-      _rnUsagePrice = Nothing,
-      _rnOfferingType = Nothing,
-      _rnNodeType = Nothing,
-      _rnRecurringCharges = Nothing
+    { reservedNodeOfferingType =
+        Prelude.Nothing,
+      reservedNodeId = Prelude.Nothing,
+      reservedNodeOfferingId = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      state = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      nodeCount = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
+      recurringCharges = Prelude.Nothing
     }
 
 -- |
-rnReservedNodeOfferingType :: Lens' ReservedNode (Maybe ReservedNodeOfferingType)
-rnReservedNodeOfferingType = lens _rnReservedNodeOfferingType (\s a -> s {_rnReservedNodeOfferingType = a})
+reservedNode_reservedNodeOfferingType :: Lens.Lens' ReservedNode (Prelude.Maybe ReservedNodeOfferingType)
+reservedNode_reservedNodeOfferingType = Lens.lens (\ReservedNode' {reservedNodeOfferingType} -> reservedNodeOfferingType) (\s@ReservedNode' {} a -> s {reservedNodeOfferingType = a} :: ReservedNode)
 
 -- | The unique identifier for the reservation.
-rnReservedNodeId :: Lens' ReservedNode (Maybe Text)
-rnReservedNodeId = lens _rnReservedNodeId (\s a -> s {_rnReservedNodeId = a})
+reservedNode_reservedNodeId :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Text)
+reservedNode_reservedNodeId = Lens.lens (\ReservedNode' {reservedNodeId} -> reservedNodeId) (\s@ReservedNode' {} a -> s {reservedNodeId = a} :: ReservedNode)
 
 -- | The identifier for the reserved node offering.
-rnReservedNodeOfferingId :: Lens' ReservedNode (Maybe Text)
-rnReservedNodeOfferingId = lens _rnReservedNodeOfferingId (\s a -> s {_rnReservedNodeOfferingId = a})
+reservedNode_reservedNodeOfferingId :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Text)
+reservedNode_reservedNodeOfferingId = Lens.lens (\ReservedNode' {reservedNodeOfferingId} -> reservedNodeOfferingId) (\s@ReservedNode' {} a -> s {reservedNodeOfferingId = a} :: ReservedNode)
 
 -- | The duration of the node reservation in seconds.
-rnDuration :: Lens' ReservedNode (Maybe Int)
-rnDuration = lens _rnDuration (\s a -> s {_rnDuration = a})
+reservedNode_duration :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Int)
+reservedNode_duration = Lens.lens (\ReservedNode' {duration} -> duration) (\s@ReservedNode' {} a -> s {duration = a} :: ReservedNode)
 
--- | The time the reservation started. You purchase a reserved node offering for a duration. This is the start time of that duration.
-rnStartTime :: Lens' ReservedNode (Maybe UTCTime)
-rnStartTime = lens _rnStartTime (\s a -> s {_rnStartTime = a}) . mapping _Time
+-- | The time the reservation started. You purchase a reserved node offering
+-- for a duration. This is the start time of that duration.
+reservedNode_startTime :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.UTCTime)
+reservedNode_startTime = Lens.lens (\ReservedNode' {startTime} -> startTime) (\s@ReservedNode' {} a -> s {startTime = a} :: ReservedNode) Prelude.. Lens.mapping Prelude._Time
 
 -- | The currency code for the reserved cluster.
-rnCurrencyCode :: Lens' ReservedNode (Maybe Text)
-rnCurrencyCode = lens _rnCurrencyCode (\s a -> s {_rnCurrencyCode = a})
+reservedNode_currencyCode :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Text)
+reservedNode_currencyCode = Lens.lens (\ReservedNode' {currencyCode} -> currencyCode) (\s@ReservedNode' {} a -> s {currencyCode = a} :: ReservedNode)
 
--- | The state of the reserved compute node. Possible Values:     * pending-payment-This reserved node has recently been purchased, and the sale has been approved, but payment has not yet been confirmed.     * active-This reserved node is owned by the caller and is available for use.     * payment-failed-Payment failed for the purchase attempt.     * retired-The reserved node is no longer available.      * exchanging-The owner is exchanging the reserved node for another reserved node.
-rnState :: Lens' ReservedNode (Maybe Text)
-rnState = lens _rnState (\s a -> s {_rnState = a})
+-- | The state of the reserved compute node.
+--
+-- Possible Values:
+--
+-- -   pending-payment-This reserved node has recently been purchased, and
+--     the sale has been approved, but payment has not yet been confirmed.
+--
+-- -   active-This reserved node is owned by the caller and is available
+--     for use.
+--
+-- -   payment-failed-Payment failed for the purchase attempt.
+--
+-- -   retired-The reserved node is no longer available.
+--
+-- -   exchanging-The owner is exchanging the reserved node for another
+--     reserved node.
+reservedNode_state :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Text)
+reservedNode_state = Lens.lens (\ReservedNode' {state} -> state) (\s@ReservedNode' {} a -> s {state = a} :: ReservedNode)
 
 -- | The fixed cost Amazon Redshift charges you for this reserved node.
-rnFixedPrice :: Lens' ReservedNode (Maybe Double)
-rnFixedPrice = lens _rnFixedPrice (\s a -> s {_rnFixedPrice = a})
+reservedNode_fixedPrice :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Double)
+reservedNode_fixedPrice = Lens.lens (\ReservedNode' {fixedPrice} -> fixedPrice) (\s@ReservedNode' {} a -> s {fixedPrice = a} :: ReservedNode)
 
 -- | The number of reserved compute nodes.
-rnNodeCount :: Lens' ReservedNode (Maybe Int)
-rnNodeCount = lens _rnNodeCount (\s a -> s {_rnNodeCount = a})
+reservedNode_nodeCount :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Int)
+reservedNode_nodeCount = Lens.lens (\ReservedNode' {nodeCount} -> nodeCount) (\s@ReservedNode' {} a -> s {nodeCount = a} :: ReservedNode)
 
 -- | The hourly rate Amazon Redshift charges you for this reserved node.
-rnUsagePrice :: Lens' ReservedNode (Maybe Double)
-rnUsagePrice = lens _rnUsagePrice (\s a -> s {_rnUsagePrice = a})
+reservedNode_usagePrice :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Double)
+reservedNode_usagePrice = Lens.lens (\ReservedNode' {usagePrice} -> usagePrice) (\s@ReservedNode' {} a -> s {usagePrice = a} :: ReservedNode)
 
--- | The anticipated utilization of the reserved node, as defined in the reserved node offering.
-rnOfferingType :: Lens' ReservedNode (Maybe Text)
-rnOfferingType = lens _rnOfferingType (\s a -> s {_rnOfferingType = a})
+-- | The anticipated utilization of the reserved node, as defined in the
+-- reserved node offering.
+reservedNode_offeringType :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Text)
+reservedNode_offeringType = Lens.lens (\ReservedNode' {offeringType} -> offeringType) (\s@ReservedNode' {} a -> s {offeringType = a} :: ReservedNode)
 
 -- | The node type of the reserved node.
-rnNodeType :: Lens' ReservedNode (Maybe Text)
-rnNodeType = lens _rnNodeType (\s a -> s {_rnNodeType = a})
+reservedNode_nodeType :: Lens.Lens' ReservedNode (Prelude.Maybe Prelude.Text)
+reservedNode_nodeType = Lens.lens (\ReservedNode' {nodeType} -> nodeType) (\s@ReservedNode' {} a -> s {nodeType = a} :: ReservedNode)
 
 -- | The recurring charges for the reserved node.
-rnRecurringCharges :: Lens' ReservedNode [RecurringCharge]
-rnRecurringCharges = lens _rnRecurringCharges (\s a -> s {_rnRecurringCharges = a}) . _Default . _Coerce
+reservedNode_recurringCharges :: Lens.Lens' ReservedNode (Prelude.Maybe [RecurringCharge])
+reservedNode_recurringCharges = Lens.lens (\ReservedNode' {recurringCharges} -> recurringCharges) (\s@ReservedNode' {} a -> s {recurringCharges = a} :: ReservedNode) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML ReservedNode where
+instance Prelude.FromXML ReservedNode where
   parseXML x =
     ReservedNode'
-      <$> (x .@? "ReservedNodeOfferingType")
-      <*> (x .@? "ReservedNodeId")
-      <*> (x .@? "ReservedNodeOfferingId")
-      <*> (x .@? "Duration")
-      <*> (x .@? "StartTime")
-      <*> (x .@? "CurrencyCode")
-      <*> (x .@? "State")
-      <*> (x .@? "FixedPrice")
-      <*> (x .@? "NodeCount")
-      <*> (x .@? "UsagePrice")
-      <*> (x .@? "OfferingType")
-      <*> (x .@? "NodeType")
-      <*> ( x .@? "RecurringCharges" .!@ mempty
-              >>= may (parseXMLList "RecurringCharge")
-          )
+      Prelude.<$> (x Prelude..@? "ReservedNodeOfferingType")
+      Prelude.<*> (x Prelude..@? "ReservedNodeId")
+      Prelude.<*> (x Prelude..@? "ReservedNodeOfferingId")
+      Prelude.<*> (x Prelude..@? "Duration")
+      Prelude.<*> (x Prelude..@? "StartTime")
+      Prelude.<*> (x Prelude..@? "CurrencyCode")
+      Prelude.<*> (x Prelude..@? "State")
+      Prelude.<*> (x Prelude..@? "FixedPrice")
+      Prelude.<*> (x Prelude..@? "NodeCount")
+      Prelude.<*> (x Prelude..@? "UsagePrice")
+      Prelude.<*> (x Prelude..@? "OfferingType")
+      Prelude.<*> (x Prelude..@? "NodeType")
+      Prelude.<*> ( x Prelude..@? "RecurringCharges"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "RecurringCharge")
+                  )
 
-instance Hashable ReservedNode
+instance Prelude.Hashable ReservedNode
 
-instance NFData ReservedNode
+instance Prelude.NFData ReservedNode

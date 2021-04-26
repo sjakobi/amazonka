@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.Subnet where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.AvailabilityZone
 
 -- | Describes a subnet.
 --
---
---
--- /See:/ 'subnet' smart constructor.
+-- /See:/ 'newSubnet' smart constructor.
 data Subnet = Subnet'
-  { _sSubnetStatus ::
-      !(Maybe Text),
-    _sSubnetIdentifier :: !(Maybe Text),
-    _sSubnetAvailabilityZone ::
-      !(Maybe AvailabilityZone)
+  { -- | The status of the subnet.
+    subnetStatus :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the subnet.
+    subnetIdentifier :: Prelude.Maybe Prelude.Text,
+    subnetAvailabilityZone :: Prelude.Maybe AvailabilityZone
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subnet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subnet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sSubnetStatus' - The status of the subnet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sSubnetIdentifier' - The identifier of the subnet.
+-- 'subnetStatus', 'subnet_subnetStatus' - The status of the subnet.
 --
--- * 'sSubnetAvailabilityZone' -
-subnet ::
+-- 'subnetIdentifier', 'subnet_subnetIdentifier' - The identifier of the subnet.
+--
+-- 'subnetAvailabilityZone', 'subnet_subnetAvailabilityZone' -
+newSubnet ::
   Subnet
-subnet =
+newSubnet =
   Subnet'
-    { _sSubnetStatus = Nothing,
-      _sSubnetIdentifier = Nothing,
-      _sSubnetAvailabilityZone = Nothing
+    { subnetStatus = Prelude.Nothing,
+      subnetIdentifier = Prelude.Nothing,
+      subnetAvailabilityZone = Prelude.Nothing
     }
 
 -- | The status of the subnet.
-sSubnetStatus :: Lens' Subnet (Maybe Text)
-sSubnetStatus = lens _sSubnetStatus (\s a -> s {_sSubnetStatus = a})
+subnet_subnetStatus :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_subnetStatus = Lens.lens (\Subnet' {subnetStatus} -> subnetStatus) (\s@Subnet' {} a -> s {subnetStatus = a} :: Subnet)
 
 -- | The identifier of the subnet.
-sSubnetIdentifier :: Lens' Subnet (Maybe Text)
-sSubnetIdentifier = lens _sSubnetIdentifier (\s a -> s {_sSubnetIdentifier = a})
+subnet_subnetIdentifier :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_subnetIdentifier = Lens.lens (\Subnet' {subnetIdentifier} -> subnetIdentifier) (\s@Subnet' {} a -> s {subnetIdentifier = a} :: Subnet)
 
 -- |
-sSubnetAvailabilityZone :: Lens' Subnet (Maybe AvailabilityZone)
-sSubnetAvailabilityZone = lens _sSubnetAvailabilityZone (\s a -> s {_sSubnetAvailabilityZone = a})
+subnet_subnetAvailabilityZone :: Lens.Lens' Subnet (Prelude.Maybe AvailabilityZone)
+subnet_subnetAvailabilityZone = Lens.lens (\Subnet' {subnetAvailabilityZone} -> subnetAvailabilityZone) (\s@Subnet' {} a -> s {subnetAvailabilityZone = a} :: Subnet)
 
-instance FromXML Subnet where
+instance Prelude.FromXML Subnet where
   parseXML x =
     Subnet'
-      <$> (x .@? "SubnetStatus")
-      <*> (x .@? "SubnetIdentifier")
-      <*> (x .@? "SubnetAvailabilityZone")
+      Prelude.<$> (x Prelude..@? "SubnetStatus")
+      Prelude.<*> (x Prelude..@? "SubnetIdentifier")
+      Prelude.<*> (x Prelude..@? "SubnetAvailabilityZone")
 
-instance Hashable Subnet
+instance Prelude.Hashable Subnet
 
-instance NFData Subnet
+instance Prelude.NFData Subnet

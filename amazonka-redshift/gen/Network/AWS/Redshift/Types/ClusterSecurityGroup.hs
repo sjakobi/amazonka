@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ClusterSecurityGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.EC2SecurityGroup
 import Network.AWS.Redshift.Types.IPRange
@@ -24,81 +28,95 @@ import Network.AWS.Redshift.Types.Tag
 
 -- | Describes a security group.
 --
---
---
--- /See:/ 'clusterSecurityGroup' smart constructor.
+-- /See:/ 'newClusterSecurityGroup' smart constructor.
 data ClusterSecurityGroup = ClusterSecurityGroup'
-  { _csgIPRanges ::
-      !(Maybe [IPRange]),
-    _csgClusterSecurityGroupName ::
-      !(Maybe Text),
-    _csgTags :: !(Maybe [Tag]),
-    _csgEC2SecurityGroups ::
-      !(Maybe [EC2SecurityGroup]),
-    _csgDescription ::
-      !(Maybe Text)
+  { -- | A list of IP ranges (CIDR blocks) that are permitted to access clusters
+    -- associated with this cluster security group.
+    iPRanges :: Prelude.Maybe [IPRange],
+    -- | The name of the cluster security group to which the operation was
+    -- applied.
+    clusterSecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The list of tags for the cluster security group.
+    tags :: Prelude.Maybe [Tag],
+    -- | A list of EC2 security groups that are permitted to access clusters
+    -- associated with this cluster security group.
+    eC2SecurityGroups :: Prelude.Maybe [EC2SecurityGroup],
+    -- | A description of the security group.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csgIPRanges' - A list of IP ranges (CIDR blocks) that are permitted to access clusters associated with this cluster security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csgClusterSecurityGroupName' - The name of the cluster security group to which the operation was applied.
+-- 'iPRanges', 'clusterSecurityGroup_iPRanges' - A list of IP ranges (CIDR blocks) that are permitted to access clusters
+-- associated with this cluster security group.
 --
--- * 'csgTags' - The list of tags for the cluster security group.
+-- 'clusterSecurityGroupName', 'clusterSecurityGroup_clusterSecurityGroupName' - The name of the cluster security group to which the operation was
+-- applied.
 --
--- * 'csgEC2SecurityGroups' - A list of EC2 security groups that are permitted to access clusters associated with this cluster security group.
+-- 'tags', 'clusterSecurityGroup_tags' - The list of tags for the cluster security group.
 --
--- * 'csgDescription' - A description of the security group.
-clusterSecurityGroup ::
+-- 'eC2SecurityGroups', 'clusterSecurityGroup_eC2SecurityGroups' - A list of EC2 security groups that are permitted to access clusters
+-- associated with this cluster security group.
+--
+-- 'description', 'clusterSecurityGroup_description' - A description of the security group.
+newClusterSecurityGroup ::
   ClusterSecurityGroup
-clusterSecurityGroup =
+newClusterSecurityGroup =
   ClusterSecurityGroup'
-    { _csgIPRanges = Nothing,
-      _csgClusterSecurityGroupName = Nothing,
-      _csgTags = Nothing,
-      _csgEC2SecurityGroups = Nothing,
-      _csgDescription = Nothing
+    { iPRanges = Prelude.Nothing,
+      clusterSecurityGroupName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      eC2SecurityGroups = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | A list of IP ranges (CIDR blocks) that are permitted to access clusters associated with this cluster security group.
-csgIPRanges :: Lens' ClusterSecurityGroup [IPRange]
-csgIPRanges = lens _csgIPRanges (\s a -> s {_csgIPRanges = a}) . _Default . _Coerce
+-- | A list of IP ranges (CIDR blocks) that are permitted to access clusters
+-- associated with this cluster security group.
+clusterSecurityGroup_iPRanges :: Lens.Lens' ClusterSecurityGroup (Prelude.Maybe [IPRange])
+clusterSecurityGroup_iPRanges = Lens.lens (\ClusterSecurityGroup' {iPRanges} -> iPRanges) (\s@ClusterSecurityGroup' {} a -> s {iPRanges = a} :: ClusterSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the cluster security group to which the operation was applied.
-csgClusterSecurityGroupName :: Lens' ClusterSecurityGroup (Maybe Text)
-csgClusterSecurityGroupName = lens _csgClusterSecurityGroupName (\s a -> s {_csgClusterSecurityGroupName = a})
+-- | The name of the cluster security group to which the operation was
+-- applied.
+clusterSecurityGroup_clusterSecurityGroupName :: Lens.Lens' ClusterSecurityGroup (Prelude.Maybe Prelude.Text)
+clusterSecurityGroup_clusterSecurityGroupName = Lens.lens (\ClusterSecurityGroup' {clusterSecurityGroupName} -> clusterSecurityGroupName) (\s@ClusterSecurityGroup' {} a -> s {clusterSecurityGroupName = a} :: ClusterSecurityGroup)
 
 -- | The list of tags for the cluster security group.
-csgTags :: Lens' ClusterSecurityGroup [Tag]
-csgTags = lens _csgTags (\s a -> s {_csgTags = a}) . _Default . _Coerce
+clusterSecurityGroup_tags :: Lens.Lens' ClusterSecurityGroup (Prelude.Maybe [Tag])
+clusterSecurityGroup_tags = Lens.lens (\ClusterSecurityGroup' {tags} -> tags) (\s@ClusterSecurityGroup' {} a -> s {tags = a} :: ClusterSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of EC2 security groups that are permitted to access clusters associated with this cluster security group.
-csgEC2SecurityGroups :: Lens' ClusterSecurityGroup [EC2SecurityGroup]
-csgEC2SecurityGroups = lens _csgEC2SecurityGroups (\s a -> s {_csgEC2SecurityGroups = a}) . _Default . _Coerce
+-- | A list of EC2 security groups that are permitted to access clusters
+-- associated with this cluster security group.
+clusterSecurityGroup_eC2SecurityGroups :: Lens.Lens' ClusterSecurityGroup (Prelude.Maybe [EC2SecurityGroup])
+clusterSecurityGroup_eC2SecurityGroups = Lens.lens (\ClusterSecurityGroup' {eC2SecurityGroups} -> eC2SecurityGroups) (\s@ClusterSecurityGroup' {} a -> s {eC2SecurityGroups = a} :: ClusterSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the security group.
-csgDescription :: Lens' ClusterSecurityGroup (Maybe Text)
-csgDescription = lens _csgDescription (\s a -> s {_csgDescription = a})
+clusterSecurityGroup_description :: Lens.Lens' ClusterSecurityGroup (Prelude.Maybe Prelude.Text)
+clusterSecurityGroup_description = Lens.lens (\ClusterSecurityGroup' {description} -> description) (\s@ClusterSecurityGroup' {} a -> s {description = a} :: ClusterSecurityGroup)
 
-instance FromXML ClusterSecurityGroup where
+instance Prelude.FromXML ClusterSecurityGroup where
   parseXML x =
     ClusterSecurityGroup'
-      <$> ( x .@? "IPRanges" .!@ mempty
-              >>= may (parseXMLList "IPRange")
-          )
-      <*> (x .@? "ClusterSecurityGroupName")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "Tag")
-          )
-      <*> ( x .@? "EC2SecurityGroups" .!@ mempty
-              >>= may (parseXMLList "EC2SecurityGroup")
-          )
-      <*> (x .@? "Description")
+      Prelude.<$> ( x Prelude..@? "IPRanges" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "IPRange")
+                  )
+      Prelude.<*> (x Prelude..@? "ClusterSecurityGroupName")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
+      Prelude.<*> ( x Prelude..@? "EC2SecurityGroups"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "EC2SecurityGroup")
+                  )
+      Prelude.<*> (x Prelude..@? "Description")
 
-instance Hashable ClusterSecurityGroup
+instance Prelude.Hashable ClusterSecurityGroup
 
-instance NFData ClusterSecurityGroup
+instance Prelude.NFData ClusterSecurityGroup

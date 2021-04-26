@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ResizeClusterMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
--- | Describes a resize cluster operation. For example, a scheduled action to run the @ResizeCluster@ API operation.
+-- | Describes a resize cluster operation. For example, a scheduled action to
+-- run the @ResizeCluster@ API operation.
 --
---
---
--- /See:/ 'resizeClusterMessage' smart constructor.
+-- /See:/ 'newResizeClusterMessage' smart constructor.
 data ResizeClusterMessage = ResizeClusterMessage'
-  { _rClassic ::
-      !(Maybe Bool),
-    _rClusterType ::
-      !(Maybe Text),
-    _rNumberOfNodes ::
-      !(Maybe Int),
-    _rNodeType :: !(Maybe Text),
-    _rClusterIdentifier :: !Text
+  { -- | A boolean value indicating whether the resize operation is using the
+    -- classic resize process. If you don\'t provide this parameter or set the
+    -- value to @false@, the resize type is elastic.
+    classic :: Prelude.Maybe Prelude.Bool,
+    -- | The new cluster type for the specified cluster.
+    clusterType :: Prelude.Maybe Prelude.Text,
+    -- | The new number of nodes for the cluster. If not specified, the
+    -- cluster\'s current number of nodes is used.
+    numberOfNodes :: Prelude.Maybe Prelude.Int,
+    -- | The new node type for the nodes you are adding. If not specified, the
+    -- cluster\'s current node type is used.
+    nodeType :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the cluster to resize.
+    clusterIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResizeClusterMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResizeClusterMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rClassic' - A boolean value indicating whether the resize operation is using the classic resize process. If you don't provide this parameter or set the value to @false@ , the resize type is elastic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rClusterType' - The new cluster type for the specified cluster.
+-- 'classic', 'resizeClusterMessage_classic' - A boolean value indicating whether the resize operation is using the
+-- classic resize process. If you don\'t provide this parameter or set the
+-- value to @false@, the resize type is elastic.
 --
--- * 'rNumberOfNodes' - The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
+-- 'clusterType', 'resizeClusterMessage_clusterType' - The new cluster type for the specified cluster.
 --
--- * 'rNodeType' - The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
+-- 'numberOfNodes', 'resizeClusterMessage_numberOfNodes' - The new number of nodes for the cluster. If not specified, the
+-- cluster\'s current number of nodes is used.
 --
--- * 'rClusterIdentifier' - The unique identifier for the cluster to resize.
-resizeClusterMessage ::
-  -- | 'rClusterIdentifier'
-  Text ->
+-- 'nodeType', 'resizeClusterMessage_nodeType' - The new node type for the nodes you are adding. If not specified, the
+-- cluster\'s current node type is used.
+--
+-- 'clusterIdentifier', 'resizeClusterMessage_clusterIdentifier' - The unique identifier for the cluster to resize.
+newResizeClusterMessage ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
   ResizeClusterMessage
-resizeClusterMessage pClusterIdentifier_ =
+newResizeClusterMessage pClusterIdentifier_ =
   ResizeClusterMessage'
-    { _rClassic = Nothing,
-      _rClusterType = Nothing,
-      _rNumberOfNodes = Nothing,
-      _rNodeType = Nothing,
-      _rClusterIdentifier = pClusterIdentifier_
+    { classic = Prelude.Nothing,
+      clusterType = Prelude.Nothing,
+      numberOfNodes = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
+      clusterIdentifier = pClusterIdentifier_
     }
 
--- | A boolean value indicating whether the resize operation is using the classic resize process. If you don't provide this parameter or set the value to @false@ , the resize type is elastic.
-rClassic :: Lens' ResizeClusterMessage (Maybe Bool)
-rClassic = lens _rClassic (\s a -> s {_rClassic = a})
+-- | A boolean value indicating whether the resize operation is using the
+-- classic resize process. If you don\'t provide this parameter or set the
+-- value to @false@, the resize type is elastic.
+resizeClusterMessage_classic :: Lens.Lens' ResizeClusterMessage (Prelude.Maybe Prelude.Bool)
+resizeClusterMessage_classic = Lens.lens (\ResizeClusterMessage' {classic} -> classic) (\s@ResizeClusterMessage' {} a -> s {classic = a} :: ResizeClusterMessage)
 
 -- | The new cluster type for the specified cluster.
-rClusterType :: Lens' ResizeClusterMessage (Maybe Text)
-rClusterType = lens _rClusterType (\s a -> s {_rClusterType = a})
+resizeClusterMessage_clusterType :: Lens.Lens' ResizeClusterMessage (Prelude.Maybe Prelude.Text)
+resizeClusterMessage_clusterType = Lens.lens (\ResizeClusterMessage' {clusterType} -> clusterType) (\s@ResizeClusterMessage' {} a -> s {clusterType = a} :: ResizeClusterMessage)
 
--- | The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
-rNumberOfNodes :: Lens' ResizeClusterMessage (Maybe Int)
-rNumberOfNodes = lens _rNumberOfNodes (\s a -> s {_rNumberOfNodes = a})
+-- | The new number of nodes for the cluster. If not specified, the
+-- cluster\'s current number of nodes is used.
+resizeClusterMessage_numberOfNodes :: Lens.Lens' ResizeClusterMessage (Prelude.Maybe Prelude.Int)
+resizeClusterMessage_numberOfNodes = Lens.lens (\ResizeClusterMessage' {numberOfNodes} -> numberOfNodes) (\s@ResizeClusterMessage' {} a -> s {numberOfNodes = a} :: ResizeClusterMessage)
 
--- | The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
-rNodeType :: Lens' ResizeClusterMessage (Maybe Text)
-rNodeType = lens _rNodeType (\s a -> s {_rNodeType = a})
+-- | The new node type for the nodes you are adding. If not specified, the
+-- cluster\'s current node type is used.
+resizeClusterMessage_nodeType :: Lens.Lens' ResizeClusterMessage (Prelude.Maybe Prelude.Text)
+resizeClusterMessage_nodeType = Lens.lens (\ResizeClusterMessage' {nodeType} -> nodeType) (\s@ResizeClusterMessage' {} a -> s {nodeType = a} :: ResizeClusterMessage)
 
 -- | The unique identifier for the cluster to resize.
-rClusterIdentifier :: Lens' ResizeClusterMessage Text
-rClusterIdentifier = lens _rClusterIdentifier (\s a -> s {_rClusterIdentifier = a})
+resizeClusterMessage_clusterIdentifier :: Lens.Lens' ResizeClusterMessage Prelude.Text
+resizeClusterMessage_clusterIdentifier = Lens.lens (\ResizeClusterMessage' {clusterIdentifier} -> clusterIdentifier) (\s@ResizeClusterMessage' {} a -> s {clusterIdentifier = a} :: ResizeClusterMessage)
 
-instance FromXML ResizeClusterMessage where
+instance Prelude.FromXML ResizeClusterMessage where
   parseXML x =
     ResizeClusterMessage'
-      <$> (x .@? "Classic")
-      <*> (x .@? "ClusterType")
-      <*> (x .@? "NumberOfNodes")
-      <*> (x .@? "NodeType")
-      <*> (x .@ "ClusterIdentifier")
+      Prelude.<$> (x Prelude..@? "Classic")
+      Prelude.<*> (x Prelude..@? "ClusterType")
+      Prelude.<*> (x Prelude..@? "NumberOfNodes")
+      Prelude.<*> (x Prelude..@? "NodeType")
+      Prelude.<*> (x Prelude..@ "ClusterIdentifier")
 
-instance Hashable ResizeClusterMessage
+instance Prelude.Hashable ResizeClusterMessage
 
-instance NFData ResizeClusterMessage
+instance Prelude.NFData ResizeClusterMessage
 
-instance ToQuery ResizeClusterMessage where
+instance Prelude.ToQuery ResizeClusterMessage where
   toQuery ResizeClusterMessage' {..} =
-    mconcat
-      [ "Classic" =: _rClassic,
-        "ClusterType" =: _rClusterType,
-        "NumberOfNodes" =: _rNumberOfNodes,
-        "NodeType" =: _rNodeType,
-        "ClusterIdentifier" =: _rClusterIdentifier
+    Prelude.mconcat
+      [ "Classic" Prelude.=: classic,
+        "ClusterType" Prelude.=: clusterType,
+        "NumberOfNodes" Prelude.=: numberOfNodes,
+        "NodeType" Prelude.=: nodeType,
+        "ClusterIdentifier" Prelude.=: clusterIdentifier
       ]

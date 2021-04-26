@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.DefaultClusterParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.Parameter
 
 -- | Describes the default cluster parameters for a parameter group family.
 --
---
---
--- /See:/ 'defaultClusterParameters' smart constructor.
+-- /See:/ 'newDefaultClusterParameters' smart constructor.
 data DefaultClusterParameters = DefaultClusterParameters'
-  { _dcpParameterGroupFamily ::
-      !(Maybe Text),
-    _dcpParameters ::
-      !(Maybe [Parameter]),
-    _dcpMarker ::
-      !(Maybe Text)
+  { -- | The name of the cluster parameter group family to which the engine
+    -- default parameters apply.
+    parameterGroupFamily :: Prelude.Maybe Prelude.Text,
+    -- | The list of cluster default parameters.
+    parameters :: Prelude.Maybe [Parameter],
+    -- | A value that indicates the starting point for the next set of response
+    -- records in a subsequent request. If a value is returned in a response,
+    -- you can retrieve the next set of records by providing this returned
+    -- marker value in the @Marker@ parameter and retrying the command. If the
+    -- @Marker@ field is empty, all response records have been retrieved for
+    -- the request.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefaultClusterParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefaultClusterParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpParameterGroupFamily' - The name of the cluster parameter group family to which the engine default parameters apply.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpParameters' - The list of cluster default parameters.
+-- 'parameterGroupFamily', 'defaultClusterParameters_parameterGroupFamily' - The name of the cluster parameter group family to which the engine
+-- default parameters apply.
 --
--- * 'dcpMarker' - A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
-defaultClusterParameters ::
+-- 'parameters', 'defaultClusterParameters_parameters' - The list of cluster default parameters.
+--
+-- 'marker', 'defaultClusterParameters_marker' - A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+newDefaultClusterParameters ::
   DefaultClusterParameters
-defaultClusterParameters =
+newDefaultClusterParameters =
   DefaultClusterParameters'
-    { _dcpParameterGroupFamily =
-        Nothing,
-      _dcpParameters = Nothing,
-      _dcpMarker = Nothing
+    { parameterGroupFamily =
+        Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The name of the cluster parameter group family to which the engine default parameters apply.
-dcpParameterGroupFamily :: Lens' DefaultClusterParameters (Maybe Text)
-dcpParameterGroupFamily = lens _dcpParameterGroupFamily (\s a -> s {_dcpParameterGroupFamily = a})
+-- | The name of the cluster parameter group family to which the engine
+-- default parameters apply.
+defaultClusterParameters_parameterGroupFamily :: Lens.Lens' DefaultClusterParameters (Prelude.Maybe Prelude.Text)
+defaultClusterParameters_parameterGroupFamily = Lens.lens (\DefaultClusterParameters' {parameterGroupFamily} -> parameterGroupFamily) (\s@DefaultClusterParameters' {} a -> s {parameterGroupFamily = a} :: DefaultClusterParameters)
 
 -- | The list of cluster default parameters.
-dcpParameters :: Lens' DefaultClusterParameters [Parameter]
-dcpParameters = lens _dcpParameters (\s a -> s {_dcpParameters = a}) . _Default . _Coerce
+defaultClusterParameters_parameters :: Lens.Lens' DefaultClusterParameters (Prelude.Maybe [Parameter])
+defaultClusterParameters_parameters = Lens.lens (\DefaultClusterParameters' {parameters} -> parameters) (\s@DefaultClusterParameters' {} a -> s {parameters = a} :: DefaultClusterParameters) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
-dcpMarker :: Lens' DefaultClusterParameters (Maybe Text)
-dcpMarker = lens _dcpMarker (\s a -> s {_dcpMarker = a})
+-- | A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+defaultClusterParameters_marker :: Lens.Lens' DefaultClusterParameters (Prelude.Maybe Prelude.Text)
+defaultClusterParameters_marker = Lens.lens (\DefaultClusterParameters' {marker} -> marker) (\s@DefaultClusterParameters' {} a -> s {marker = a} :: DefaultClusterParameters)
 
-instance FromXML DefaultClusterParameters where
+instance Prelude.FromXML DefaultClusterParameters where
   parseXML x =
     DefaultClusterParameters'
-      <$> (x .@? "ParameterGroupFamily")
-      <*> ( x .@? "Parameters" .!@ mempty
-              >>= may (parseXMLList "Parameter")
-          )
-      <*> (x .@? "Marker")
+      Prelude.<$> (x Prelude..@? "ParameterGroupFamily")
+      Prelude.<*> ( x Prelude..@? "Parameters"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Parameter")
+                  )
+      Prelude.<*> (x Prelude..@? "Marker")
 
-instance Hashable DefaultClusterParameters
+instance Prelude.Hashable DefaultClusterParameters
 
-instance NFData DefaultClusterParameters
+instance Prelude.NFData DefaultClusterParameters

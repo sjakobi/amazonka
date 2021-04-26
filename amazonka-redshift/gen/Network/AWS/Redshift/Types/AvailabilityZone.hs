@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.AvailabilityZone where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.SupportedPlatform
 
 -- | Describes an availability zone.
 --
---
---
--- /See:/ 'availabilityZone' smart constructor.
+-- /See:/ 'newAvailabilityZone' smart constructor.
 data AvailabilityZone = AvailabilityZone'
-  { _azName ::
-      !(Maybe Text),
-    _azSupportedPlatforms ::
-      !(Maybe [SupportedPlatform])
+  { -- | The name of the availability zone.
+    name :: Prelude.Maybe Prelude.Text,
+    supportedPlatforms :: Prelude.Maybe [SupportedPlatform]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AvailabilityZone' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AvailabilityZone' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'azName' - The name of the availability zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'azSupportedPlatforms' -
-availabilityZone ::
+-- 'name', 'availabilityZone_name' - The name of the availability zone.
+--
+-- 'supportedPlatforms', 'availabilityZone_supportedPlatforms' -
+newAvailabilityZone ::
   AvailabilityZone
-availabilityZone =
+newAvailabilityZone =
   AvailabilityZone'
-    { _azName = Nothing,
-      _azSupportedPlatforms = Nothing
+    { name = Prelude.Nothing,
+      supportedPlatforms = Prelude.Nothing
     }
 
 -- | The name of the availability zone.
-azName :: Lens' AvailabilityZone (Maybe Text)
-azName = lens _azName (\s a -> s {_azName = a})
+availabilityZone_name :: Lens.Lens' AvailabilityZone (Prelude.Maybe Prelude.Text)
+availabilityZone_name = Lens.lens (\AvailabilityZone' {name} -> name) (\s@AvailabilityZone' {} a -> s {name = a} :: AvailabilityZone)
 
 -- |
-azSupportedPlatforms :: Lens' AvailabilityZone [SupportedPlatform]
-azSupportedPlatforms = lens _azSupportedPlatforms (\s a -> s {_azSupportedPlatforms = a}) . _Default . _Coerce
+availabilityZone_supportedPlatforms :: Lens.Lens' AvailabilityZone (Prelude.Maybe [SupportedPlatform])
+availabilityZone_supportedPlatforms = Lens.lens (\AvailabilityZone' {supportedPlatforms} -> supportedPlatforms) (\s@AvailabilityZone' {} a -> s {supportedPlatforms = a} :: AvailabilityZone) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML AvailabilityZone where
+instance Prelude.FromXML AvailabilityZone where
   parseXML x =
     AvailabilityZone'
-      <$> (x .@? "Name")
-      <*> ( x .@? "SupportedPlatforms" .!@ mempty
-              >>= may (parseXMLList "SupportedPlatform")
-          )
+      Prelude.<$> (x Prelude..@? "Name")
+      Prelude.<*> ( x Prelude..@? "SupportedPlatforms"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "SupportedPlatform")
+                  )
 
-instance Hashable AvailabilityZone
+instance Prelude.Hashable AvailabilityZone
 
-instance NFData AvailabilityZone
+instance Prelude.NFData AvailabilityZone

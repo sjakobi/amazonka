@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.NodeConfigurationOption where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.Mode
 
 -- | A list of node configurations.
 --
---
---
--- /See:/ 'nodeConfigurationOption' smart constructor.
+-- /See:/ 'newNodeConfigurationOption' smart constructor.
 data NodeConfigurationOption = NodeConfigurationOption'
-  { _ncoMode ::
-      !(Maybe Mode),
-    _ncoNumberOfNodes ::
-      !(Maybe Int),
-    _ncoEstimatedDiskUtilizationPercent ::
-      !(Maybe Double),
-    _ncoNodeType ::
-      !(Maybe Text)
+  { -- | The category of the node configuration recommendation.
+    mode :: Prelude.Maybe Mode,
+    -- | The number of nodes.
+    numberOfNodes :: Prelude.Maybe Prelude.Int,
+    -- | The estimated disk utilizaton percentage.
+    estimatedDiskUtilizationPercent :: Prelude.Maybe Prelude.Double,
+    -- | The node type, such as, \"ds2.8xlarge\".
+    nodeType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeConfigurationOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeConfigurationOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncoMode' - The category of the node configuration recommendation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncoNumberOfNodes' - The number of nodes.
+-- 'mode', 'nodeConfigurationOption_mode' - The category of the node configuration recommendation.
 --
--- * 'ncoEstimatedDiskUtilizationPercent' - The estimated disk utilizaton percentage.
+-- 'numberOfNodes', 'nodeConfigurationOption_numberOfNodes' - The number of nodes.
 --
--- * 'ncoNodeType' - The node type, such as, "ds2.8xlarge".
-nodeConfigurationOption ::
+-- 'estimatedDiskUtilizationPercent', 'nodeConfigurationOption_estimatedDiskUtilizationPercent' - The estimated disk utilizaton percentage.
+--
+-- 'nodeType', 'nodeConfigurationOption_nodeType' - The node type, such as, \"ds2.8xlarge\".
+newNodeConfigurationOption ::
   NodeConfigurationOption
-nodeConfigurationOption =
+newNodeConfigurationOption =
   NodeConfigurationOption'
-    { _ncoMode = Nothing,
-      _ncoNumberOfNodes = Nothing,
-      _ncoEstimatedDiskUtilizationPercent = Nothing,
-      _ncoNodeType = Nothing
+    { mode = Prelude.Nothing,
+      numberOfNodes = Prelude.Nothing,
+      estimatedDiskUtilizationPercent = Prelude.Nothing,
+      nodeType = Prelude.Nothing
     }
 
 -- | The category of the node configuration recommendation.
-ncoMode :: Lens' NodeConfigurationOption (Maybe Mode)
-ncoMode = lens _ncoMode (\s a -> s {_ncoMode = a})
+nodeConfigurationOption_mode :: Lens.Lens' NodeConfigurationOption (Prelude.Maybe Mode)
+nodeConfigurationOption_mode = Lens.lens (\NodeConfigurationOption' {mode} -> mode) (\s@NodeConfigurationOption' {} a -> s {mode = a} :: NodeConfigurationOption)
 
 -- | The number of nodes.
-ncoNumberOfNodes :: Lens' NodeConfigurationOption (Maybe Int)
-ncoNumberOfNodes = lens _ncoNumberOfNodes (\s a -> s {_ncoNumberOfNodes = a})
+nodeConfigurationOption_numberOfNodes :: Lens.Lens' NodeConfigurationOption (Prelude.Maybe Prelude.Int)
+nodeConfigurationOption_numberOfNodes = Lens.lens (\NodeConfigurationOption' {numberOfNodes} -> numberOfNodes) (\s@NodeConfigurationOption' {} a -> s {numberOfNodes = a} :: NodeConfigurationOption)
 
 -- | The estimated disk utilizaton percentage.
-ncoEstimatedDiskUtilizationPercent :: Lens' NodeConfigurationOption (Maybe Double)
-ncoEstimatedDiskUtilizationPercent = lens _ncoEstimatedDiskUtilizationPercent (\s a -> s {_ncoEstimatedDiskUtilizationPercent = a})
+nodeConfigurationOption_estimatedDiskUtilizationPercent :: Lens.Lens' NodeConfigurationOption (Prelude.Maybe Prelude.Double)
+nodeConfigurationOption_estimatedDiskUtilizationPercent = Lens.lens (\NodeConfigurationOption' {estimatedDiskUtilizationPercent} -> estimatedDiskUtilizationPercent) (\s@NodeConfigurationOption' {} a -> s {estimatedDiskUtilizationPercent = a} :: NodeConfigurationOption)
 
--- | The node type, such as, "ds2.8xlarge".
-ncoNodeType :: Lens' NodeConfigurationOption (Maybe Text)
-ncoNodeType = lens _ncoNodeType (\s a -> s {_ncoNodeType = a})
+-- | The node type, such as, \"ds2.8xlarge\".
+nodeConfigurationOption_nodeType :: Lens.Lens' NodeConfigurationOption (Prelude.Maybe Prelude.Text)
+nodeConfigurationOption_nodeType = Lens.lens (\NodeConfigurationOption' {nodeType} -> nodeType) (\s@NodeConfigurationOption' {} a -> s {nodeType = a} :: NodeConfigurationOption)
 
-instance FromXML NodeConfigurationOption where
+instance Prelude.FromXML NodeConfigurationOption where
   parseXML x =
     NodeConfigurationOption'
-      <$> (x .@? "Mode")
-      <*> (x .@? "NumberOfNodes")
-      <*> (x .@? "EstimatedDiskUtilizationPercent")
-      <*> (x .@? "NodeType")
+      Prelude.<$> (x Prelude..@? "Mode")
+      Prelude.<*> (x Prelude..@? "NumberOfNodes")
+      Prelude.<*> (x Prelude..@? "EstimatedDiskUtilizationPercent")
+      Prelude.<*> (x Prelude..@? "NodeType")
 
-instance Hashable NodeConfigurationOption
+instance Prelude.Hashable NodeConfigurationOption
 
-instance NFData NodeConfigurationOption
+instance Prelude.NFData NodeConfigurationOption

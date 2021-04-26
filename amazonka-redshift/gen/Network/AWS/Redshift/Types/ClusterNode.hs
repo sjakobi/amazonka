@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ClusterNode where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
 -- | The identifier of a node in a cluster.
 --
---
---
--- /See:/ 'clusterNode' smart constructor.
+-- /See:/ 'newClusterNode' smart constructor.
 data ClusterNode = ClusterNode'
-  { _cnNodeRole ::
-      !(Maybe Text),
-    _cnPublicIPAddress :: !(Maybe Text),
-    _cnPrivateIPAddress :: !(Maybe Text)
+  { -- | Whether the node is a leader node or a compute node.
+    nodeRole :: Prelude.Maybe Prelude.Text,
+    -- | The public IP address of a node within a cluster.
+    publicIPAddress :: Prelude.Maybe Prelude.Text,
+    -- | The private IP address of a node within a cluster.
+    privateIPAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterNode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterNode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cnNodeRole' - Whether the node is a leader node or a compute node.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cnPublicIPAddress' - The public IP address of a node within a cluster.
+-- 'nodeRole', 'clusterNode_nodeRole' - Whether the node is a leader node or a compute node.
 --
--- * 'cnPrivateIPAddress' - The private IP address of a node within a cluster.
-clusterNode ::
+-- 'publicIPAddress', 'clusterNode_publicIPAddress' - The public IP address of a node within a cluster.
+--
+-- 'privateIPAddress', 'clusterNode_privateIPAddress' - The private IP address of a node within a cluster.
+newClusterNode ::
   ClusterNode
-clusterNode =
+newClusterNode =
   ClusterNode'
-    { _cnNodeRole = Nothing,
-      _cnPublicIPAddress = Nothing,
-      _cnPrivateIPAddress = Nothing
+    { nodeRole = Prelude.Nothing,
+      publicIPAddress = Prelude.Nothing,
+      privateIPAddress = Prelude.Nothing
     }
 
 -- | Whether the node is a leader node or a compute node.
-cnNodeRole :: Lens' ClusterNode (Maybe Text)
-cnNodeRole = lens _cnNodeRole (\s a -> s {_cnNodeRole = a})
+clusterNode_nodeRole :: Lens.Lens' ClusterNode (Prelude.Maybe Prelude.Text)
+clusterNode_nodeRole = Lens.lens (\ClusterNode' {nodeRole} -> nodeRole) (\s@ClusterNode' {} a -> s {nodeRole = a} :: ClusterNode)
 
 -- | The public IP address of a node within a cluster.
-cnPublicIPAddress :: Lens' ClusterNode (Maybe Text)
-cnPublicIPAddress = lens _cnPublicIPAddress (\s a -> s {_cnPublicIPAddress = a})
+clusterNode_publicIPAddress :: Lens.Lens' ClusterNode (Prelude.Maybe Prelude.Text)
+clusterNode_publicIPAddress = Lens.lens (\ClusterNode' {publicIPAddress} -> publicIPAddress) (\s@ClusterNode' {} a -> s {publicIPAddress = a} :: ClusterNode)
 
 -- | The private IP address of a node within a cluster.
-cnPrivateIPAddress :: Lens' ClusterNode (Maybe Text)
-cnPrivateIPAddress = lens _cnPrivateIPAddress (\s a -> s {_cnPrivateIPAddress = a})
+clusterNode_privateIPAddress :: Lens.Lens' ClusterNode (Prelude.Maybe Prelude.Text)
+clusterNode_privateIPAddress = Lens.lens (\ClusterNode' {privateIPAddress} -> privateIPAddress) (\s@ClusterNode' {} a -> s {privateIPAddress = a} :: ClusterNode)
 
-instance FromXML ClusterNode where
+instance Prelude.FromXML ClusterNode where
   parseXML x =
     ClusterNode'
-      <$> (x .@? "NodeRole")
-      <*> (x .@? "PublicIPAddress")
-      <*> (x .@? "PrivateIPAddress")
+      Prelude.<$> (x Prelude..@? "NodeRole")
+      Prelude.<*> (x Prelude..@? "PublicIPAddress")
+      Prelude.<*> (x Prelude..@? "PrivateIPAddress")
 
-instance Hashable ClusterNode
+instance Prelude.Hashable ClusterNode
 
-instance NFData ClusterNode
+instance Prelude.NFData ClusterNode

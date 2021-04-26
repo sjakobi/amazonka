@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,127 +19,144 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ReservedNodeOffering where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.RecurringCharge
 import Network.AWS.Redshift.Types.ReservedNodeOfferingType
 
 -- | Describes a reserved node offering.
 --
---
---
--- /See:/ 'reservedNodeOffering' smart constructor.
+-- /See:/ 'newReservedNodeOffering' smart constructor.
 data ReservedNodeOffering = ReservedNodeOffering'
-  { _rnoReservedNodeOfferingType ::
-      !( Maybe
-           ReservedNodeOfferingType
-       ),
-    _rnoReservedNodeOfferingId ::
-      !(Maybe Text),
-    _rnoDuration :: !(Maybe Int),
-    _rnoCurrencyCode ::
-      !(Maybe Text),
-    _rnoFixedPrice ::
-      !(Maybe Double),
-    _rnoUsagePrice ::
-      !(Maybe Double),
-    _rnoOfferingType ::
-      !(Maybe Text),
-    _rnoNodeType :: !(Maybe Text),
-    _rnoRecurringCharges ::
-      !(Maybe [RecurringCharge])
+  { reservedNodeOfferingType :: Prelude.Maybe ReservedNodeOfferingType,
+    -- | The offering identifier.
+    reservedNodeOfferingId :: Prelude.Maybe Prelude.Text,
+    -- | The duration, in seconds, for which the offering will reserve the node.
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | The currency code for the compute nodes offering.
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | The upfront fixed charge you will pay to purchase the specific reserved
+    -- node offering.
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | The rate you are charged for each hour the cluster that is using the
+    -- offering is running.
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | The anticipated utilization of the reserved node, as defined in the
+    -- reserved node offering.
+    offeringType :: Prelude.Maybe Prelude.Text,
+    -- | The node type offered by the reserved node offering.
+    nodeType :: Prelude.Maybe Prelude.Text,
+    -- | The charge to your account regardless of whether you are creating any
+    -- clusters using the node offering. Recurring charges are only in effect
+    -- for heavy-utilization reserved nodes.
+    recurringCharges :: Prelude.Maybe [RecurringCharge]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedNodeOffering' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedNodeOffering' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rnoReservedNodeOfferingType' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rnoReservedNodeOfferingId' - The offering identifier.
+-- 'reservedNodeOfferingType', 'reservedNodeOffering_reservedNodeOfferingType' -
 --
--- * 'rnoDuration' - The duration, in seconds, for which the offering will reserve the node.
+-- 'reservedNodeOfferingId', 'reservedNodeOffering_reservedNodeOfferingId' - The offering identifier.
 --
--- * 'rnoCurrencyCode' - The currency code for the compute nodes offering.
+-- 'duration', 'reservedNodeOffering_duration' - The duration, in seconds, for which the offering will reserve the node.
 --
--- * 'rnoFixedPrice' - The upfront fixed charge you will pay to purchase the specific reserved node offering.
+-- 'currencyCode', 'reservedNodeOffering_currencyCode' - The currency code for the compute nodes offering.
 --
--- * 'rnoUsagePrice' - The rate you are charged for each hour the cluster that is using the offering is running.
+-- 'fixedPrice', 'reservedNodeOffering_fixedPrice' - The upfront fixed charge you will pay to purchase the specific reserved
+-- node offering.
 --
--- * 'rnoOfferingType' - The anticipated utilization of the reserved node, as defined in the reserved node offering.
+-- 'usagePrice', 'reservedNodeOffering_usagePrice' - The rate you are charged for each hour the cluster that is using the
+-- offering is running.
 --
--- * 'rnoNodeType' - The node type offered by the reserved node offering.
+-- 'offeringType', 'reservedNodeOffering_offeringType' - The anticipated utilization of the reserved node, as defined in the
+-- reserved node offering.
 --
--- * 'rnoRecurringCharges' - The charge to your account regardless of whether you are creating any clusters using the node offering. Recurring charges are only in effect for heavy-utilization reserved nodes.
-reservedNodeOffering ::
+-- 'nodeType', 'reservedNodeOffering_nodeType' - The node type offered by the reserved node offering.
+--
+-- 'recurringCharges', 'reservedNodeOffering_recurringCharges' - The charge to your account regardless of whether you are creating any
+-- clusters using the node offering. Recurring charges are only in effect
+-- for heavy-utilization reserved nodes.
+newReservedNodeOffering ::
   ReservedNodeOffering
-reservedNodeOffering =
+newReservedNodeOffering =
   ReservedNodeOffering'
-    { _rnoReservedNodeOfferingType =
-        Nothing,
-      _rnoReservedNodeOfferingId = Nothing,
-      _rnoDuration = Nothing,
-      _rnoCurrencyCode = Nothing,
-      _rnoFixedPrice = Nothing,
-      _rnoUsagePrice = Nothing,
-      _rnoOfferingType = Nothing,
-      _rnoNodeType = Nothing,
-      _rnoRecurringCharges = Nothing
+    { reservedNodeOfferingType =
+        Prelude.Nothing,
+      reservedNodeOfferingId = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
+      recurringCharges = Prelude.Nothing
     }
 
 -- |
-rnoReservedNodeOfferingType :: Lens' ReservedNodeOffering (Maybe ReservedNodeOfferingType)
-rnoReservedNodeOfferingType = lens _rnoReservedNodeOfferingType (\s a -> s {_rnoReservedNodeOfferingType = a})
+reservedNodeOffering_reservedNodeOfferingType :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe ReservedNodeOfferingType)
+reservedNodeOffering_reservedNodeOfferingType = Lens.lens (\ReservedNodeOffering' {reservedNodeOfferingType} -> reservedNodeOfferingType) (\s@ReservedNodeOffering' {} a -> s {reservedNodeOfferingType = a} :: ReservedNodeOffering)
 
 -- | The offering identifier.
-rnoReservedNodeOfferingId :: Lens' ReservedNodeOffering (Maybe Text)
-rnoReservedNodeOfferingId = lens _rnoReservedNodeOfferingId (\s a -> s {_rnoReservedNodeOfferingId = a})
+reservedNodeOffering_reservedNodeOfferingId :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe Prelude.Text)
+reservedNodeOffering_reservedNodeOfferingId = Lens.lens (\ReservedNodeOffering' {reservedNodeOfferingId} -> reservedNodeOfferingId) (\s@ReservedNodeOffering' {} a -> s {reservedNodeOfferingId = a} :: ReservedNodeOffering)
 
 -- | The duration, in seconds, for which the offering will reserve the node.
-rnoDuration :: Lens' ReservedNodeOffering (Maybe Int)
-rnoDuration = lens _rnoDuration (\s a -> s {_rnoDuration = a})
+reservedNodeOffering_duration :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe Prelude.Int)
+reservedNodeOffering_duration = Lens.lens (\ReservedNodeOffering' {duration} -> duration) (\s@ReservedNodeOffering' {} a -> s {duration = a} :: ReservedNodeOffering)
 
 -- | The currency code for the compute nodes offering.
-rnoCurrencyCode :: Lens' ReservedNodeOffering (Maybe Text)
-rnoCurrencyCode = lens _rnoCurrencyCode (\s a -> s {_rnoCurrencyCode = a})
+reservedNodeOffering_currencyCode :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe Prelude.Text)
+reservedNodeOffering_currencyCode = Lens.lens (\ReservedNodeOffering' {currencyCode} -> currencyCode) (\s@ReservedNodeOffering' {} a -> s {currencyCode = a} :: ReservedNodeOffering)
 
--- | The upfront fixed charge you will pay to purchase the specific reserved node offering.
-rnoFixedPrice :: Lens' ReservedNodeOffering (Maybe Double)
-rnoFixedPrice = lens _rnoFixedPrice (\s a -> s {_rnoFixedPrice = a})
+-- | The upfront fixed charge you will pay to purchase the specific reserved
+-- node offering.
+reservedNodeOffering_fixedPrice :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe Prelude.Double)
+reservedNodeOffering_fixedPrice = Lens.lens (\ReservedNodeOffering' {fixedPrice} -> fixedPrice) (\s@ReservedNodeOffering' {} a -> s {fixedPrice = a} :: ReservedNodeOffering)
 
--- | The rate you are charged for each hour the cluster that is using the offering is running.
-rnoUsagePrice :: Lens' ReservedNodeOffering (Maybe Double)
-rnoUsagePrice = lens _rnoUsagePrice (\s a -> s {_rnoUsagePrice = a})
+-- | The rate you are charged for each hour the cluster that is using the
+-- offering is running.
+reservedNodeOffering_usagePrice :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe Prelude.Double)
+reservedNodeOffering_usagePrice = Lens.lens (\ReservedNodeOffering' {usagePrice} -> usagePrice) (\s@ReservedNodeOffering' {} a -> s {usagePrice = a} :: ReservedNodeOffering)
 
--- | The anticipated utilization of the reserved node, as defined in the reserved node offering.
-rnoOfferingType :: Lens' ReservedNodeOffering (Maybe Text)
-rnoOfferingType = lens _rnoOfferingType (\s a -> s {_rnoOfferingType = a})
+-- | The anticipated utilization of the reserved node, as defined in the
+-- reserved node offering.
+reservedNodeOffering_offeringType :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe Prelude.Text)
+reservedNodeOffering_offeringType = Lens.lens (\ReservedNodeOffering' {offeringType} -> offeringType) (\s@ReservedNodeOffering' {} a -> s {offeringType = a} :: ReservedNodeOffering)
 
 -- | The node type offered by the reserved node offering.
-rnoNodeType :: Lens' ReservedNodeOffering (Maybe Text)
-rnoNodeType = lens _rnoNodeType (\s a -> s {_rnoNodeType = a})
+reservedNodeOffering_nodeType :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe Prelude.Text)
+reservedNodeOffering_nodeType = Lens.lens (\ReservedNodeOffering' {nodeType} -> nodeType) (\s@ReservedNodeOffering' {} a -> s {nodeType = a} :: ReservedNodeOffering)
 
--- | The charge to your account regardless of whether you are creating any clusters using the node offering. Recurring charges are only in effect for heavy-utilization reserved nodes.
-rnoRecurringCharges :: Lens' ReservedNodeOffering [RecurringCharge]
-rnoRecurringCharges = lens _rnoRecurringCharges (\s a -> s {_rnoRecurringCharges = a}) . _Default . _Coerce
+-- | The charge to your account regardless of whether you are creating any
+-- clusters using the node offering. Recurring charges are only in effect
+-- for heavy-utilization reserved nodes.
+reservedNodeOffering_recurringCharges :: Lens.Lens' ReservedNodeOffering (Prelude.Maybe [RecurringCharge])
+reservedNodeOffering_recurringCharges = Lens.lens (\ReservedNodeOffering' {recurringCharges} -> recurringCharges) (\s@ReservedNodeOffering' {} a -> s {recurringCharges = a} :: ReservedNodeOffering) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML ReservedNodeOffering where
+instance Prelude.FromXML ReservedNodeOffering where
   parseXML x =
     ReservedNodeOffering'
-      <$> (x .@? "ReservedNodeOfferingType")
-      <*> (x .@? "ReservedNodeOfferingId")
-      <*> (x .@? "Duration")
-      <*> (x .@? "CurrencyCode")
-      <*> (x .@? "FixedPrice")
-      <*> (x .@? "UsagePrice")
-      <*> (x .@? "OfferingType")
-      <*> (x .@? "NodeType")
-      <*> ( x .@? "RecurringCharges" .!@ mempty
-              >>= may (parseXMLList "RecurringCharge")
-          )
+      Prelude.<$> (x Prelude..@? "ReservedNodeOfferingType")
+      Prelude.<*> (x Prelude..@? "ReservedNodeOfferingId")
+      Prelude.<*> (x Prelude..@? "Duration")
+      Prelude.<*> (x Prelude..@? "CurrencyCode")
+      Prelude.<*> (x Prelude..@? "FixedPrice")
+      Prelude.<*> (x Prelude..@? "UsagePrice")
+      Prelude.<*> (x Prelude..@? "OfferingType")
+      Prelude.<*> (x Prelude..@? "NodeType")
+      Prelude.<*> ( x Prelude..@? "RecurringCharges"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "RecurringCharge")
+                  )
 
-instance Hashable ReservedNodeOffering
+instance Prelude.Hashable ReservedNodeOffering
 
-instance NFData ReservedNodeOffering
+instance Prelude.NFData ReservedNodeOffering

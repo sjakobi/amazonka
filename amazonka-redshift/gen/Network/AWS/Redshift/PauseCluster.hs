@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,129 @@
 -- Pauses a cluster.
 module Network.AWS.Redshift.PauseCluster
   ( -- * Creating a Request
-    pauseCluster,
-    PauseCluster,
+    PauseCluster (..),
+    newPauseCluster,
 
     -- * Request Lenses
-    pcClusterIdentifier,
+    pauseCluster_clusterIdentifier,
 
     -- * Destructuring the Response
-    pauseClusterResponse,
-    PauseClusterResponse,
+    PauseClusterResponse (..),
+    newPauseClusterResponse,
 
     -- * Response Lenses
-    pcrrsCluster,
-    pcrrsResponseStatus,
+    pauseClusterResponse_cluster,
+    pauseClusterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.Cluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Describes a pause cluster operation. For example, a scheduled action to run the @PauseCluster@ API operation.
+-- | Describes a pause cluster operation. For example, a scheduled action to
+-- run the @PauseCluster@ API operation.
 --
---
---
--- /See:/ 'pauseCluster' smart constructor.
-newtype PauseCluster = PauseCluster'
-  { _pcClusterIdentifier ::
-      Text
+-- /See:/ 'newPauseCluster' smart constructor.
+data PauseCluster = PauseCluster'
+  { -- | The identifier of the cluster to be paused.
+    clusterIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PauseCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PauseCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcClusterIdentifier' - The identifier of the cluster to be paused.
-pauseCluster ::
-  -- | 'pcClusterIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clusterIdentifier', 'pauseCluster_clusterIdentifier' - The identifier of the cluster to be paused.
+newPauseCluster ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
   PauseCluster
-pauseCluster pClusterIdentifier_ =
+newPauseCluster pClusterIdentifier_ =
   PauseCluster'
-    { _pcClusterIdentifier =
+    { clusterIdentifier =
         pClusterIdentifier_
     }
 
 -- | The identifier of the cluster to be paused.
-pcClusterIdentifier :: Lens' PauseCluster Text
-pcClusterIdentifier = lens _pcClusterIdentifier (\s a -> s {_pcClusterIdentifier = a})
+pauseCluster_clusterIdentifier :: Lens.Lens' PauseCluster Prelude.Text
+pauseCluster_clusterIdentifier = Lens.lens (\PauseCluster' {clusterIdentifier} -> clusterIdentifier) (\s@PauseCluster' {} a -> s {clusterIdentifier = a} :: PauseCluster)
 
-instance AWSRequest PauseCluster where
+instance Prelude.AWSRequest PauseCluster where
   type Rs PauseCluster = PauseClusterResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "PauseClusterResult"
       ( \s h x ->
           PauseClusterResponse'
-            <$> (x .@? "Cluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Cluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PauseCluster
+instance Prelude.Hashable PauseCluster
 
-instance NFData PauseCluster
+instance Prelude.NFData PauseCluster
 
-instance ToHeaders PauseCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PauseCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath PauseCluster where
-  toPath = const "/"
+instance Prelude.ToPath PauseCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery PauseCluster where
+instance Prelude.ToQuery PauseCluster where
   toQuery PauseCluster' {..} =
-    mconcat
-      [ "Action" =: ("PauseCluster" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "ClusterIdentifier" =: _pcClusterIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("PauseCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Prelude.=: clusterIdentifier
       ]
 
--- | /See:/ 'pauseClusterResponse' smart constructor.
+-- | /See:/ 'newPauseClusterResponse' smart constructor.
 data PauseClusterResponse = PauseClusterResponse'
-  { _pcrrsCluster ::
-      !(Maybe Cluster),
-    _pcrrsResponseStatus :: !Int
+  { cluster :: Prelude.Maybe Cluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PauseClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PauseClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcrrsCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcrrsResponseStatus' - -- | The response status code.
-pauseClusterResponse ::
-  -- | 'pcrrsResponseStatus'
-  Int ->
+-- 'cluster', 'pauseClusterResponse_cluster' - Undocumented member.
+--
+-- 'httpStatus', 'pauseClusterResponse_httpStatus' - The response's http status code.
+newPauseClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PauseClusterResponse
-pauseClusterResponse pResponseStatus_ =
+newPauseClusterResponse pHttpStatus_ =
   PauseClusterResponse'
-    { _pcrrsCluster = Nothing,
-      _pcrrsResponseStatus = pResponseStatus_
+    { cluster = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-pcrrsCluster :: Lens' PauseClusterResponse (Maybe Cluster)
-pcrrsCluster = lens _pcrrsCluster (\s a -> s {_pcrrsCluster = a})
+pauseClusterResponse_cluster :: Lens.Lens' PauseClusterResponse (Prelude.Maybe Cluster)
+pauseClusterResponse_cluster = Lens.lens (\PauseClusterResponse' {cluster} -> cluster) (\s@PauseClusterResponse' {} a -> s {cluster = a} :: PauseClusterResponse)
 
--- | -- | The response status code.
-pcrrsResponseStatus :: Lens' PauseClusterResponse Int
-pcrrsResponseStatus = lens _pcrrsResponseStatus (\s a -> s {_pcrrsResponseStatus = a})
+-- | The response's http status code.
+pauseClusterResponse_httpStatus :: Lens.Lens' PauseClusterResponse Prelude.Int
+pauseClusterResponse_httpStatus = Lens.lens (\PauseClusterResponse' {httpStatus} -> httpStatus) (\s@PauseClusterResponse' {} a -> s {httpStatus = a} :: PauseClusterResponse)
 
-instance NFData PauseClusterResponse
+instance Prelude.NFData PauseClusterResponse

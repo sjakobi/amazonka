@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,137 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ClusterParameterStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
 -- | Describes the status of a parameter group.
 --
---
---
--- /See:/ 'clusterParameterStatus' smart constructor.
+-- /See:/ 'newClusterParameterStatus' smart constructor.
 data ClusterParameterStatus = ClusterParameterStatus'
-  { _cpsParameterApplyStatus ::
-      !(Maybe Text),
-    _cpsParameterName ::
-      !(Maybe Text),
-    _cpsParameterApplyErrorDescription ::
-      !(Maybe Text)
+  { -- | The status of the parameter that indicates whether the parameter is in
+    -- sync with the database, waiting for a cluster reboot, or encountered an
+    -- error when being applied.
+    --
+    -- The following are possible statuses and descriptions.
+    --
+    -- -   @in-sync@: The parameter value is in sync with the database.
+    --
+    -- -   @pending-reboot@: The parameter value will be applied after the
+    --     cluster reboots.
+    --
+    -- -   @applying@: The parameter value is being applied to the database.
+    --
+    -- -   @invalid-parameter@: Cannot apply the parameter value because it has
+    --     an invalid value or syntax.
+    --
+    -- -   @apply-deferred@: The parameter contains static property changes.
+    --     The changes are deferred until the cluster reboots.
+    --
+    -- -   @apply-error@: Cannot connect to the cluster. The parameter change
+    --     will be applied after the cluster reboots.
+    --
+    -- -   @unknown-error@: Cannot apply the parameter change right now. The
+    --     change will be applied after the cluster reboots.
+    parameterApplyStatus :: Prelude.Maybe Prelude.Text,
+    -- | The name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | The error that prevented the parameter from being applied to the
+    -- database.
+    parameterApplyErrorDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterParameterStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterParameterStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpsParameterApplyStatus' - The status of the parameter that indicates whether the parameter is in sync with the database, waiting for a cluster reboot, or encountered an error when being applied. The following are possible statuses and descriptions.     * @in-sync@ : The parameter value is in sync with the database.     * @pending-reboot@ : The parameter value will be applied after the cluster reboots.     * @applying@ : The parameter value is being applied to the database.     * @invalid-parameter@ : Cannot apply the parameter value because it has an invalid value or syntax.     * @apply-deferred@ : The parameter contains static property changes. The changes are deferred until the cluster reboots.     * @apply-error@ : Cannot connect to the cluster. The parameter change will be applied after the cluster reboots.     * @unknown-error@ : Cannot apply the parameter change right now. The change will be applied after the cluster reboots.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpsParameterName' - The name of the parameter.
+-- 'parameterApplyStatus', 'clusterParameterStatus_parameterApplyStatus' - The status of the parameter that indicates whether the parameter is in
+-- sync with the database, waiting for a cluster reboot, or encountered an
+-- error when being applied.
 --
--- * 'cpsParameterApplyErrorDescription' - The error that prevented the parameter from being applied to the database.
-clusterParameterStatus ::
+-- The following are possible statuses and descriptions.
+--
+-- -   @in-sync@: The parameter value is in sync with the database.
+--
+-- -   @pending-reboot@: The parameter value will be applied after the
+--     cluster reboots.
+--
+-- -   @applying@: The parameter value is being applied to the database.
+--
+-- -   @invalid-parameter@: Cannot apply the parameter value because it has
+--     an invalid value or syntax.
+--
+-- -   @apply-deferred@: The parameter contains static property changes.
+--     The changes are deferred until the cluster reboots.
+--
+-- -   @apply-error@: Cannot connect to the cluster. The parameter change
+--     will be applied after the cluster reboots.
+--
+-- -   @unknown-error@: Cannot apply the parameter change right now. The
+--     change will be applied after the cluster reboots.
+--
+-- 'parameterName', 'clusterParameterStatus_parameterName' - The name of the parameter.
+--
+-- 'parameterApplyErrorDescription', 'clusterParameterStatus_parameterApplyErrorDescription' - The error that prevented the parameter from being applied to the
+-- database.
+newClusterParameterStatus ::
   ClusterParameterStatus
-clusterParameterStatus =
+newClusterParameterStatus =
   ClusterParameterStatus'
-    { _cpsParameterApplyStatus =
-        Nothing,
-      _cpsParameterName = Nothing,
-      _cpsParameterApplyErrorDescription = Nothing
+    { parameterApplyStatus =
+        Prelude.Nothing,
+      parameterName = Prelude.Nothing,
+      parameterApplyErrorDescription = Prelude.Nothing
     }
 
--- | The status of the parameter that indicates whether the parameter is in sync with the database, waiting for a cluster reboot, or encountered an error when being applied. The following are possible statuses and descriptions.     * @in-sync@ : The parameter value is in sync with the database.     * @pending-reboot@ : The parameter value will be applied after the cluster reboots.     * @applying@ : The parameter value is being applied to the database.     * @invalid-parameter@ : Cannot apply the parameter value because it has an invalid value or syntax.     * @apply-deferred@ : The parameter contains static property changes. The changes are deferred until the cluster reboots.     * @apply-error@ : Cannot connect to the cluster. The parameter change will be applied after the cluster reboots.     * @unknown-error@ : Cannot apply the parameter change right now. The change will be applied after the cluster reboots.
-cpsParameterApplyStatus :: Lens' ClusterParameterStatus (Maybe Text)
-cpsParameterApplyStatus = lens _cpsParameterApplyStatus (\s a -> s {_cpsParameterApplyStatus = a})
+-- | The status of the parameter that indicates whether the parameter is in
+-- sync with the database, waiting for a cluster reboot, or encountered an
+-- error when being applied.
+--
+-- The following are possible statuses and descriptions.
+--
+-- -   @in-sync@: The parameter value is in sync with the database.
+--
+-- -   @pending-reboot@: The parameter value will be applied after the
+--     cluster reboots.
+--
+-- -   @applying@: The parameter value is being applied to the database.
+--
+-- -   @invalid-parameter@: Cannot apply the parameter value because it has
+--     an invalid value or syntax.
+--
+-- -   @apply-deferred@: The parameter contains static property changes.
+--     The changes are deferred until the cluster reboots.
+--
+-- -   @apply-error@: Cannot connect to the cluster. The parameter change
+--     will be applied after the cluster reboots.
+--
+-- -   @unknown-error@: Cannot apply the parameter change right now. The
+--     change will be applied after the cluster reboots.
+clusterParameterStatus_parameterApplyStatus :: Lens.Lens' ClusterParameterStatus (Prelude.Maybe Prelude.Text)
+clusterParameterStatus_parameterApplyStatus = Lens.lens (\ClusterParameterStatus' {parameterApplyStatus} -> parameterApplyStatus) (\s@ClusterParameterStatus' {} a -> s {parameterApplyStatus = a} :: ClusterParameterStatus)
 
 -- | The name of the parameter.
-cpsParameterName :: Lens' ClusterParameterStatus (Maybe Text)
-cpsParameterName = lens _cpsParameterName (\s a -> s {_cpsParameterName = a})
+clusterParameterStatus_parameterName :: Lens.Lens' ClusterParameterStatus (Prelude.Maybe Prelude.Text)
+clusterParameterStatus_parameterName = Lens.lens (\ClusterParameterStatus' {parameterName} -> parameterName) (\s@ClusterParameterStatus' {} a -> s {parameterName = a} :: ClusterParameterStatus)
 
--- | The error that prevented the parameter from being applied to the database.
-cpsParameterApplyErrorDescription :: Lens' ClusterParameterStatus (Maybe Text)
-cpsParameterApplyErrorDescription = lens _cpsParameterApplyErrorDescription (\s a -> s {_cpsParameterApplyErrorDescription = a})
+-- | The error that prevented the parameter from being applied to the
+-- database.
+clusterParameterStatus_parameterApplyErrorDescription :: Lens.Lens' ClusterParameterStatus (Prelude.Maybe Prelude.Text)
+clusterParameterStatus_parameterApplyErrorDescription = Lens.lens (\ClusterParameterStatus' {parameterApplyErrorDescription} -> parameterApplyErrorDescription) (\s@ClusterParameterStatus' {} a -> s {parameterApplyErrorDescription = a} :: ClusterParameterStatus)
 
-instance FromXML ClusterParameterStatus where
+instance Prelude.FromXML ClusterParameterStatus where
   parseXML x =
     ClusterParameterStatus'
-      <$> (x .@? "ParameterApplyStatus")
-      <*> (x .@? "ParameterName")
-      <*> (x .@? "ParameterApplyErrorDescription")
+      Prelude.<$> (x Prelude..@? "ParameterApplyStatus")
+      Prelude.<*> (x Prelude..@? "ParameterName")
+      Prelude.<*> (x Prelude..@? "ParameterApplyErrorDescription")
 
-instance Hashable ClusterParameterStatus
+instance Prelude.Hashable ClusterParameterStatus
 
-instance NFData ClusterParameterStatus
+instance Prelude.NFData ClusterParameterStatus

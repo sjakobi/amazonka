@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.Redshift.Types.OperatorType
   ( OperatorType
       ( ..,
-        Between,
-        EQ',
-        GE,
-        GT',
-        IN,
-        LE,
-        LT'
+        OperatorTypeBetween,
+        OperatorTypeEQ,
+        OperatorTypeGE,
+        OperatorTypeGT,
+        OperatorTypeIN,
+        OperatorTypeLE,
+        OperatorTypeLT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data OperatorType = OperatorType' (CI Text)
+newtype OperatorType = OperatorType'
+  { fromOperatorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Between :: OperatorType
-pattern Between = OperatorType' "between"
+pattern OperatorTypeBetween :: OperatorType
+pattern OperatorTypeBetween = OperatorType' "between"
 
-pattern EQ' :: OperatorType
-pattern EQ' = OperatorType' "eq"
+pattern OperatorTypeEQ :: OperatorType
+pattern OperatorTypeEQ = OperatorType' "eq"
 
-pattern GE :: OperatorType
-pattern GE = OperatorType' "ge"
+pattern OperatorTypeGE :: OperatorType
+pattern OperatorTypeGE = OperatorType' "ge"
 
-pattern GT' :: OperatorType
-pattern GT' = OperatorType' "gt"
+pattern OperatorTypeGT :: OperatorType
+pattern OperatorTypeGT = OperatorType' "gt"
 
-pattern IN :: OperatorType
-pattern IN = OperatorType' "in"
+pattern OperatorTypeIN :: OperatorType
+pattern OperatorTypeIN = OperatorType' "in"
 
-pattern LE :: OperatorType
-pattern LE = OperatorType' "le"
+pattern OperatorTypeLE :: OperatorType
+pattern OperatorTypeLE = OperatorType' "le"
 
-pattern LT' :: OperatorType
-pattern LT' = OperatorType' "lt"
+pattern OperatorTypeLT :: OperatorType
+pattern OperatorTypeLT = OperatorType' "lt"
 
 {-# COMPLETE
-  Between,
-  EQ',
-  GE,
-  GT',
-  IN,
-  LE,
-  LT',
+  OperatorTypeBetween,
+  OperatorTypeEQ,
+  OperatorTypeGE,
+  OperatorTypeGT,
+  OperatorTypeIN,
+  OperatorTypeLE,
+  OperatorTypeLT,
   OperatorType'
   #-}
 
-instance FromText OperatorType where
-  parser = (OperatorType' . mk) <$> takeText
+instance Prelude.FromText OperatorType where
+  parser = OperatorType' Prelude.<$> Prelude.takeText
 
-instance ToText OperatorType where
-  toText (OperatorType' ci) = original ci
+instance Prelude.ToText OperatorType where
+  toText (OperatorType' x) = x
 
-instance Hashable OperatorType
+instance Prelude.Hashable OperatorType
 
-instance NFData OperatorType
+instance Prelude.NFData OperatorType
 
-instance ToByteString OperatorType
+instance Prelude.ToByteString OperatorType
 
-instance ToQuery OperatorType
+instance Prelude.ToQuery OperatorType
 
-instance ToHeader OperatorType
+instance Prelude.ToHeader OperatorType

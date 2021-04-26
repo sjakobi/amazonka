@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.AccountWithRestoreAccess where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
 -- | Describes an AWS customer account authorized to restore a snapshot.
 --
---
---
--- /See:/ 'accountWithRestoreAccess' smart constructor.
+-- /See:/ 'newAccountWithRestoreAccess' smart constructor.
 data AccountWithRestoreAccess = AccountWithRestoreAccess'
-  { _awraAccountAlias ::
-      !(Maybe Text),
-    _awraAccountId ::
-      !(Maybe Text)
+  { -- | The identifier of an AWS support account authorized to restore a
+    -- snapshot. For AWS support, the identifier is @amazon-redshift-support@.
+    accountAlias :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of an AWS customer account authorized to restore a
+    -- snapshot.
+    accountId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountWithRestoreAccess' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountWithRestoreAccess' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'awraAccountAlias' - The identifier of an AWS support account authorized to restore a snapshot. For AWS support, the identifier is @amazon-redshift-support@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'awraAccountId' - The identifier of an AWS customer account authorized to restore a snapshot.
-accountWithRestoreAccess ::
+-- 'accountAlias', 'accountWithRestoreAccess_accountAlias' - The identifier of an AWS support account authorized to restore a
+-- snapshot. For AWS support, the identifier is @amazon-redshift-support@.
+--
+-- 'accountId', 'accountWithRestoreAccess_accountId' - The identifier of an AWS customer account authorized to restore a
+-- snapshot.
+newAccountWithRestoreAccess ::
   AccountWithRestoreAccess
-accountWithRestoreAccess =
+newAccountWithRestoreAccess =
   AccountWithRestoreAccess'
-    { _awraAccountAlias =
-        Nothing,
-      _awraAccountId = Nothing
+    { accountAlias =
+        Prelude.Nothing,
+      accountId = Prelude.Nothing
     }
 
--- | The identifier of an AWS support account authorized to restore a snapshot. For AWS support, the identifier is @amazon-redshift-support@ .
-awraAccountAlias :: Lens' AccountWithRestoreAccess (Maybe Text)
-awraAccountAlias = lens _awraAccountAlias (\s a -> s {_awraAccountAlias = a})
+-- | The identifier of an AWS support account authorized to restore a
+-- snapshot. For AWS support, the identifier is @amazon-redshift-support@.
+accountWithRestoreAccess_accountAlias :: Lens.Lens' AccountWithRestoreAccess (Prelude.Maybe Prelude.Text)
+accountWithRestoreAccess_accountAlias = Lens.lens (\AccountWithRestoreAccess' {accountAlias} -> accountAlias) (\s@AccountWithRestoreAccess' {} a -> s {accountAlias = a} :: AccountWithRestoreAccess)
 
--- | The identifier of an AWS customer account authorized to restore a snapshot.
-awraAccountId :: Lens' AccountWithRestoreAccess (Maybe Text)
-awraAccountId = lens _awraAccountId (\s a -> s {_awraAccountId = a})
+-- | The identifier of an AWS customer account authorized to restore a
+-- snapshot.
+accountWithRestoreAccess_accountId :: Lens.Lens' AccountWithRestoreAccess (Prelude.Maybe Prelude.Text)
+accountWithRestoreAccess_accountId = Lens.lens (\AccountWithRestoreAccess' {accountId} -> accountId) (\s@AccountWithRestoreAccess' {} a -> s {accountId = a} :: AccountWithRestoreAccess)
 
-instance FromXML AccountWithRestoreAccess where
+instance Prelude.FromXML AccountWithRestoreAccess where
   parseXML x =
     AccountWithRestoreAccess'
-      <$> (x .@? "AccountAlias") <*> (x .@? "AccountId")
+      Prelude.<$> (x Prelude..@? "AccountAlias")
+      Prelude.<*> (x Prelude..@? "AccountId")
 
-instance Hashable AccountWithRestoreAccess
+instance Prelude.Hashable AccountWithRestoreAccess
 
-instance NFData AccountWithRestoreAccess
+instance Prelude.NFData AccountWithRestoreAccess

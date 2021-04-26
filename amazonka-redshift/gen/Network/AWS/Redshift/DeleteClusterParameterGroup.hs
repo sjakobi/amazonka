@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,105 +22,130 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a specified Amazon Redshift parameter group.
+--
+-- You cannot delete a parameter group if it is associated with a cluster.
 module Network.AWS.Redshift.DeleteClusterParameterGroup
   ( -- * Creating a Request
-    deleteClusterParameterGroup,
-    DeleteClusterParameterGroup,
+    DeleteClusterParameterGroup (..),
+    newDeleteClusterParameterGroup,
 
     -- * Request Lenses
-    dcpgParameterGroupName,
+    deleteClusterParameterGroup_parameterGroupName,
 
     -- * Destructuring the Response
-    deleteClusterParameterGroupResponse,
-    DeleteClusterParameterGroupResponse,
+    DeleteClusterParameterGroupResponse (..),
+    newDeleteClusterParameterGroupResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteClusterParameterGroup' smart constructor.
-newtype DeleteClusterParameterGroup = DeleteClusterParameterGroup'
-  { _dcpgParameterGroupName ::
-      Text
+-- /See:/ 'newDeleteClusterParameterGroup' smart constructor.
+data DeleteClusterParameterGroup = DeleteClusterParameterGroup'
+  { -- | The name of the parameter group to be deleted.
+    --
+    -- Constraints:
+    --
+    -- -   Must be the name of an existing cluster parameter group.
+    --
+    -- -   Cannot delete a default cluster parameter group.
+    parameterGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteClusterParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteClusterParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpgParameterGroupName' - The name of the parameter group to be deleted. Constraints:     * Must be the name of an existing cluster parameter group.     * Cannot delete a default cluster parameter group.
-deleteClusterParameterGroup ::
-  -- | 'dcpgParameterGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'parameterGroupName', 'deleteClusterParameterGroup_parameterGroupName' - The name of the parameter group to be deleted.
+--
+-- Constraints:
+--
+-- -   Must be the name of an existing cluster parameter group.
+--
+-- -   Cannot delete a default cluster parameter group.
+newDeleteClusterParameterGroup ::
+  -- | 'parameterGroupName'
+  Prelude.Text ->
   DeleteClusterParameterGroup
-deleteClusterParameterGroup pParameterGroupName_ =
+newDeleteClusterParameterGroup pParameterGroupName_ =
   DeleteClusterParameterGroup'
-    { _dcpgParameterGroupName =
+    { parameterGroupName =
         pParameterGroupName_
     }
 
--- | The name of the parameter group to be deleted. Constraints:     * Must be the name of an existing cluster parameter group.     * Cannot delete a default cluster parameter group.
-dcpgParameterGroupName :: Lens' DeleteClusterParameterGroup Text
-dcpgParameterGroupName = lens _dcpgParameterGroupName (\s a -> s {_dcpgParameterGroupName = a})
+-- | The name of the parameter group to be deleted.
+--
+-- Constraints:
+--
+-- -   Must be the name of an existing cluster parameter group.
+--
+-- -   Cannot delete a default cluster parameter group.
+deleteClusterParameterGroup_parameterGroupName :: Lens.Lens' DeleteClusterParameterGroup Prelude.Text
+deleteClusterParameterGroup_parameterGroupName = Lens.lens (\DeleteClusterParameterGroup' {parameterGroupName} -> parameterGroupName) (\s@DeleteClusterParameterGroup' {} a -> s {parameterGroupName = a} :: DeleteClusterParameterGroup)
 
-instance AWSRequest DeleteClusterParameterGroup where
+instance
+  Prelude.AWSRequest
+    DeleteClusterParameterGroup
+  where
   type
     Rs DeleteClusterParameterGroup =
       DeleteClusterParameterGroupResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteClusterParameterGroupResponse'
+    Response.receiveNull
+      DeleteClusterParameterGroupResponse'
 
-instance Hashable DeleteClusterParameterGroup
+instance Prelude.Hashable DeleteClusterParameterGroup
 
-instance NFData DeleteClusterParameterGroup
+instance Prelude.NFData DeleteClusterParameterGroup
 
-instance ToHeaders DeleteClusterParameterGroup where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteClusterParameterGroup
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteClusterParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteClusterParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteClusterParameterGroup where
+instance Prelude.ToQuery DeleteClusterParameterGroup where
   toQuery DeleteClusterParameterGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteClusterParameterGroup" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "ParameterGroupName" =: _dcpgParameterGroupName
+          Prelude.=: ( "DeleteClusterParameterGroup" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "ParameterGroupName" Prelude.=: parameterGroupName
       ]
 
--- | /See:/ 'deleteClusterParameterGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteClusterParameterGroupResponse' smart constructor.
 data DeleteClusterParameterGroupResponse = DeleteClusterParameterGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteClusterParameterGroupResponse' with the minimum fields required to make a request.
-deleteClusterParameterGroupResponse ::
+-- |
+-- Create a value of 'DeleteClusterParameterGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteClusterParameterGroupResponse ::
   DeleteClusterParameterGroupResponse
-deleteClusterParameterGroupResponse =
+newDeleteClusterParameterGroupResponse =
   DeleteClusterParameterGroupResponse'
 
-instance NFData DeleteClusterParameterGroupResponse
+instance
+  Prelude.NFData
+    DeleteClusterParameterGroupResponse

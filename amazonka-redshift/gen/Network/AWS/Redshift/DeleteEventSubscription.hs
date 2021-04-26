@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,103 +24,103 @@
 -- Deletes an Amazon Redshift event notification subscription.
 module Network.AWS.Redshift.DeleteEventSubscription
   ( -- * Creating a Request
-    deleteEventSubscription,
-    DeleteEventSubscription,
+    DeleteEventSubscription (..),
+    newDeleteEventSubscription,
 
     -- * Request Lenses
-    dSubscriptionName,
+    deleteEventSubscription_subscriptionName,
 
     -- * Destructuring the Response
-    deleteEventSubscriptionResponse,
-    DeleteEventSubscriptionResponse,
+    DeleteEventSubscriptionResponse (..),
+    newDeleteEventSubscriptionResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteEventSubscription' smart constructor.
-newtype DeleteEventSubscription = DeleteEventSubscription'
-  { _dSubscriptionName ::
-      Text
+-- /See:/ 'newDeleteEventSubscription' smart constructor.
+data DeleteEventSubscription = DeleteEventSubscription'
+  { -- | The name of the Amazon Redshift event notification subscription to be
+    -- deleted.
+    subscriptionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEventSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEventSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dSubscriptionName' - The name of the Amazon Redshift event notification subscription to be deleted.
-deleteEventSubscription ::
-  -- | 'dSubscriptionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'subscriptionName', 'deleteEventSubscription_subscriptionName' - The name of the Amazon Redshift event notification subscription to be
+-- deleted.
+newDeleteEventSubscription ::
+  -- | 'subscriptionName'
+  Prelude.Text ->
   DeleteEventSubscription
-deleteEventSubscription pSubscriptionName_ =
+newDeleteEventSubscription pSubscriptionName_ =
   DeleteEventSubscription'
-    { _dSubscriptionName =
+    { subscriptionName =
         pSubscriptionName_
     }
 
--- | The name of the Amazon Redshift event notification subscription to be deleted.
-dSubscriptionName :: Lens' DeleteEventSubscription Text
-dSubscriptionName = lens _dSubscriptionName (\s a -> s {_dSubscriptionName = a})
+-- | The name of the Amazon Redshift event notification subscription to be
+-- deleted.
+deleteEventSubscription_subscriptionName :: Lens.Lens' DeleteEventSubscription Prelude.Text
+deleteEventSubscription_subscriptionName = Lens.lens (\DeleteEventSubscription' {subscriptionName} -> subscriptionName) (\s@DeleteEventSubscription' {} a -> s {subscriptionName = a} :: DeleteEventSubscription)
 
-instance AWSRequest DeleteEventSubscription where
+instance Prelude.AWSRequest DeleteEventSubscription where
   type
     Rs DeleteEventSubscription =
       DeleteEventSubscriptionResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteEventSubscriptionResponse'
+    Response.receiveNull
+      DeleteEventSubscriptionResponse'
 
-instance Hashable DeleteEventSubscription
+instance Prelude.Hashable DeleteEventSubscription
 
-instance NFData DeleteEventSubscription
+instance Prelude.NFData DeleteEventSubscription
 
-instance ToHeaders DeleteEventSubscription where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteEventSubscription where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteEventSubscription where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEventSubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEventSubscription where
+instance Prelude.ToQuery DeleteEventSubscription where
   toQuery DeleteEventSubscription' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteEventSubscription" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "SubscriptionName" =: _dSubscriptionName
+          Prelude.=: ("DeleteEventSubscription" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "SubscriptionName" Prelude.=: subscriptionName
       ]
 
--- | /See:/ 'deleteEventSubscriptionResponse' smart constructor.
+-- | /See:/ 'newDeleteEventSubscriptionResponse' smart constructor.
 data DeleteEventSubscriptionResponse = DeleteEventSubscriptionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEventSubscriptionResponse' with the minimum fields required to make a request.
-deleteEventSubscriptionResponse ::
+-- |
+-- Create a value of 'DeleteEventSubscriptionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteEventSubscriptionResponse ::
   DeleteEventSubscriptionResponse
-deleteEventSubscriptionResponse =
+newDeleteEventSubscriptionResponse =
   DeleteEventSubscriptionResponse'
 
-instance NFData DeleteEventSubscriptionResponse
+instance
+  Prelude.NFData
+    DeleteEventSubscriptionResponse

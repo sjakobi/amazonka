@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ScheduledActionFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.ScheduledActionFilterName
 
 -- | A set of elements to filter the returned scheduled actions.
 --
---
---
--- /See:/ 'scheduledActionFilter' smart constructor.
+-- /See:/ 'newScheduledActionFilter' smart constructor.
 data ScheduledActionFilter = ScheduledActionFilter'
-  { _safName ::
-      !ScheduledActionFilterName,
-    _safValues :: ![Text]
+  { -- | The type of element to filter.
+    name :: ScheduledActionFilterName,
+    -- | List of values. Compare if the value (of type defined by @Name@) equals
+    -- an item in the list of scheduled actions.
+    values :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduledActionFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduledActionFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'safName' - The type of element to filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'safValues' - List of values. Compare if the value (of type defined by @Name@ ) equals an item in the list of scheduled actions.
-scheduledActionFilter ::
-  -- | 'safName'
+-- 'name', 'scheduledActionFilter_name' - The type of element to filter.
+--
+-- 'values', 'scheduledActionFilter_values' - List of values. Compare if the value (of type defined by @Name@) equals
+-- an item in the list of scheduled actions.
+newScheduledActionFilter ::
+  -- | 'name'
   ScheduledActionFilterName ->
   ScheduledActionFilter
-scheduledActionFilter pName_ =
+newScheduledActionFilter pName_ =
   ScheduledActionFilter'
-    { _safName = pName_,
-      _safValues = mempty
+    { name = pName_,
+      values = Prelude.mempty
     }
 
 -- | The type of element to filter.
-safName :: Lens' ScheduledActionFilter ScheduledActionFilterName
-safName = lens _safName (\s a -> s {_safName = a})
+scheduledActionFilter_name :: Lens.Lens' ScheduledActionFilter ScheduledActionFilterName
+scheduledActionFilter_name = Lens.lens (\ScheduledActionFilter' {name} -> name) (\s@ScheduledActionFilter' {} a -> s {name = a} :: ScheduledActionFilter)
 
--- | List of values. Compare if the value (of type defined by @Name@ ) equals an item in the list of scheduled actions.
-safValues :: Lens' ScheduledActionFilter [Text]
-safValues = lens _safValues (\s a -> s {_safValues = a}) . _Coerce
+-- | List of values. Compare if the value (of type defined by @Name@) equals
+-- an item in the list of scheduled actions.
+scheduledActionFilter_values :: Lens.Lens' ScheduledActionFilter [Prelude.Text]
+scheduledActionFilter_values = Lens.lens (\ScheduledActionFilter' {values} -> values) (\s@ScheduledActionFilter' {} a -> s {values = a} :: ScheduledActionFilter) Prelude.. Prelude._Coerce
 
-instance Hashable ScheduledActionFilter
+instance Prelude.Hashable ScheduledActionFilter
 
-instance NFData ScheduledActionFilter
+instance Prelude.NFData ScheduledActionFilter
 
-instance ToQuery ScheduledActionFilter where
+instance Prelude.ToQuery ScheduledActionFilter where
   toQuery ScheduledActionFilter' {..} =
-    mconcat
-      [ "Name" =: _safName,
-        "Values" =: toQueryList "item" _safValues
+    Prelude.mconcat
+      [ "Name" Prelude.=: name,
+        "Values"
+          Prelude.=: Prelude.toQueryList "item" values
       ]

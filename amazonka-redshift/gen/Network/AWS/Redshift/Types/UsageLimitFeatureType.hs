@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.Redshift.Types.UsageLimitFeatureType
   ( UsageLimitFeatureType
       ( ..,
-        ConcurrencyScaling,
-        Spectrum
+        UsageLimitFeatureTypeConcurrencyScaling,
+        UsageLimitFeatureTypeSpectrum
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data UsageLimitFeatureType
-  = UsageLimitFeatureType'
-      ( CI
-          Text
-      )
+newtype UsageLimitFeatureType = UsageLimitFeatureType'
+  { fromUsageLimitFeatureType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConcurrencyScaling :: UsageLimitFeatureType
-pattern ConcurrencyScaling = UsageLimitFeatureType' "concurrency-scaling"
+pattern UsageLimitFeatureTypeConcurrencyScaling :: UsageLimitFeatureType
+pattern UsageLimitFeatureTypeConcurrencyScaling = UsageLimitFeatureType' "concurrency-scaling"
 
-pattern Spectrum :: UsageLimitFeatureType
-pattern Spectrum = UsageLimitFeatureType' "spectrum"
+pattern UsageLimitFeatureTypeSpectrum :: UsageLimitFeatureType
+pattern UsageLimitFeatureTypeSpectrum = UsageLimitFeatureType' "spectrum"
 
 {-# COMPLETE
-  ConcurrencyScaling,
-  Spectrum,
+  UsageLimitFeatureTypeConcurrencyScaling,
+  UsageLimitFeatureTypeSpectrum,
   UsageLimitFeatureType'
   #-}
 
-instance FromText UsageLimitFeatureType where
-  parser = (UsageLimitFeatureType' . mk) <$> takeText
+instance Prelude.FromText UsageLimitFeatureType where
+  parser = UsageLimitFeatureType' Prelude.<$> Prelude.takeText
 
-instance ToText UsageLimitFeatureType where
-  toText (UsageLimitFeatureType' ci) = original ci
+instance Prelude.ToText UsageLimitFeatureType where
+  toText (UsageLimitFeatureType' x) = x
 
-instance Hashable UsageLimitFeatureType
+instance Prelude.Hashable UsageLimitFeatureType
 
-instance NFData UsageLimitFeatureType
+instance Prelude.NFData UsageLimitFeatureType
 
-instance ToByteString UsageLimitFeatureType
+instance Prelude.ToByteString UsageLimitFeatureType
 
-instance ToQuery UsageLimitFeatureType
+instance Prelude.ToQuery UsageLimitFeatureType
 
-instance ToHeader UsageLimitFeatureType
+instance Prelude.ToHeader UsageLimitFeatureType
 
-instance FromXML UsageLimitFeatureType where
-  parseXML = parseXMLText "UsageLimitFeatureType"
+instance Prelude.FromXML UsageLimitFeatureType where
+  parseXML = Prelude.parseXMLText "UsageLimitFeatureType"

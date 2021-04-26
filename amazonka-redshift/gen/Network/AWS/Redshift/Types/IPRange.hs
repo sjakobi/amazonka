@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.IPRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.Tag
 
 -- | Describes an IP range used in a security group.
 --
---
---
--- /See:/ 'ipRange' smart constructor.
+-- /See:/ 'newIPRange' smart constructor.
 data IPRange = IPRange'
-  { _irStatus :: !(Maybe Text),
-    _irCIdRIP :: !(Maybe Text),
-    _irTags :: !(Maybe [Tag])
+  { -- | The status of the IP range, for example, \"authorized\".
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The IP range in Classless Inter-Domain Routing (CIDR) notation.
+    cIDRIP :: Prelude.Maybe Prelude.Text,
+    -- | The list of tags for the IP range.
+    tags :: Prelude.Maybe [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IPRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IPRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'irStatus' - The status of the IP range, for example, "authorized".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'irCIdRIP' - The IP range in Classless Inter-Domain Routing (CIDR) notation.
+-- 'status', 'iPRange_status' - The status of the IP range, for example, \"authorized\".
 --
--- * 'irTags' - The list of tags for the IP range.
-ipRange ::
+-- 'cIDRIP', 'iPRange_cIDRIP' - The IP range in Classless Inter-Domain Routing (CIDR) notation.
+--
+-- 'tags', 'iPRange_tags' - The list of tags for the IP range.
+newIPRange ::
   IPRange
-ipRange =
+newIPRange =
   IPRange'
-    { _irStatus = Nothing,
-      _irCIdRIP = Nothing,
-      _irTags = Nothing
+    { status = Prelude.Nothing,
+      cIDRIP = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
--- | The status of the IP range, for example, "authorized".
-irStatus :: Lens' IPRange (Maybe Text)
-irStatus = lens _irStatus (\s a -> s {_irStatus = a})
+-- | The status of the IP range, for example, \"authorized\".
+iPRange_status :: Lens.Lens' IPRange (Prelude.Maybe Prelude.Text)
+iPRange_status = Lens.lens (\IPRange' {status} -> status) (\s@IPRange' {} a -> s {status = a} :: IPRange)
 
 -- | The IP range in Classless Inter-Domain Routing (CIDR) notation.
-irCIdRIP :: Lens' IPRange (Maybe Text)
-irCIdRIP = lens _irCIdRIP (\s a -> s {_irCIdRIP = a})
+iPRange_cIDRIP :: Lens.Lens' IPRange (Prelude.Maybe Prelude.Text)
+iPRange_cIDRIP = Lens.lens (\IPRange' {cIDRIP} -> cIDRIP) (\s@IPRange' {} a -> s {cIDRIP = a} :: IPRange)
 
 -- | The list of tags for the IP range.
-irTags :: Lens' IPRange [Tag]
-irTags = lens _irTags (\s a -> s {_irTags = a}) . _Default . _Coerce
+iPRange_tags :: Lens.Lens' IPRange (Prelude.Maybe [Tag])
+iPRange_tags = Lens.lens (\IPRange' {tags} -> tags) (\s@IPRange' {} a -> s {tags = a} :: IPRange) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML IPRange where
+instance Prelude.FromXML IPRange where
   parseXML x =
     IPRange'
-      <$> (x .@? "Status")
-      <*> (x .@? "CIDRIP")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "Tag")
-          )
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "CIDRIP")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
 
-instance Hashable IPRange
+instance Prelude.Hashable IPRange
 
-instance NFData IPRange
+instance Prelude.NFData IPRange

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Redshift.Types.ScheduledActionTypeValues
   ( ScheduledActionTypeValues
       ( ..,
-        PauseCluster,
-        ResizeCluster,
-        ResumeCluster
+        ScheduledActionTypeValuesPauseCluster,
+        ScheduledActionTypeValuesResizeCluster,
+        ScheduledActionTypeValuesResumeCluster
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data ScheduledActionTypeValues
-  = ScheduledActionTypeValues'
-      ( CI
-          Text
-      )
+newtype ScheduledActionTypeValues = ScheduledActionTypeValues'
+  { fromScheduledActionTypeValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PauseCluster :: ScheduledActionTypeValues
-pattern PauseCluster = ScheduledActionTypeValues' "PauseCluster"
+pattern ScheduledActionTypeValuesPauseCluster :: ScheduledActionTypeValues
+pattern ScheduledActionTypeValuesPauseCluster = ScheduledActionTypeValues' "PauseCluster"
 
-pattern ResizeCluster :: ScheduledActionTypeValues
-pattern ResizeCluster = ScheduledActionTypeValues' "ResizeCluster"
+pattern ScheduledActionTypeValuesResizeCluster :: ScheduledActionTypeValues
+pattern ScheduledActionTypeValuesResizeCluster = ScheduledActionTypeValues' "ResizeCluster"
 
-pattern ResumeCluster :: ScheduledActionTypeValues
-pattern ResumeCluster = ScheduledActionTypeValues' "ResumeCluster"
+pattern ScheduledActionTypeValuesResumeCluster :: ScheduledActionTypeValues
+pattern ScheduledActionTypeValuesResumeCluster = ScheduledActionTypeValues' "ResumeCluster"
 
 {-# COMPLETE
-  PauseCluster,
-  ResizeCluster,
-  ResumeCluster,
+  ScheduledActionTypeValuesPauseCluster,
+  ScheduledActionTypeValuesResizeCluster,
+  ScheduledActionTypeValuesResumeCluster,
   ScheduledActionTypeValues'
   #-}
 
-instance FromText ScheduledActionTypeValues where
-  parser = (ScheduledActionTypeValues' . mk) <$> takeText
+instance Prelude.FromText ScheduledActionTypeValues where
+  parser = ScheduledActionTypeValues' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduledActionTypeValues where
-  toText (ScheduledActionTypeValues' ci) = original ci
+instance Prelude.ToText ScheduledActionTypeValues where
+  toText (ScheduledActionTypeValues' x) = x
 
-instance Hashable ScheduledActionTypeValues
+instance Prelude.Hashable ScheduledActionTypeValues
 
-instance NFData ScheduledActionTypeValues
+instance Prelude.NFData ScheduledActionTypeValues
 
-instance ToByteString ScheduledActionTypeValues
+instance Prelude.ToByteString ScheduledActionTypeValues
 
-instance ToQuery ScheduledActionTypeValues
+instance Prelude.ToQuery ScheduledActionTypeValues
 
-instance ToHeader ScheduledActionTypeValues
+instance Prelude.ToHeader ScheduledActionTypeValues

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,129 +19,164 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.Parameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.ParameterApplyType
 
 -- | Describes a parameter in a cluster parameter group.
 --
---
---
--- /See:/ 'parameter' smart constructor.
+-- /See:/ 'newParameter' smart constructor.
 data Parameter = Parameter'
-  { _pAllowedValues ::
-      !(Maybe Text),
-    _pSource :: !(Maybe Text),
-    _pParameterValue :: !(Maybe Text),
-    _pApplyType :: !(Maybe ParameterApplyType),
-    _pParameterName :: !(Maybe Text),
-    _pDescription :: !(Maybe Text),
-    _pDataType :: !(Maybe Text),
-    _pIsModifiable :: !(Maybe Bool),
-    _pMinimumEngineVersion :: !(Maybe Text)
+  { -- | The valid range of values for the parameter.
+    allowedValues :: Prelude.Maybe Prelude.Text,
+    -- | The source of the parameter value, such as \"engine-default\" or
+    -- \"user\".
+    source :: Prelude.Maybe Prelude.Text,
+    -- | The value of the parameter.
+    parameterValue :: Prelude.Maybe Prelude.Text,
+    -- | Specifies how to apply the WLM configuration parameter. Some properties
+    -- can be applied dynamically, while other properties require that any
+    -- associated clusters be rebooted for the configuration changes to be
+    -- applied. For more information about parameters and parameter groups, go
+    -- to
+    -- <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html Amazon Redshift Parameter Groups>
+    -- in the /Amazon Redshift Cluster Management Guide/.
+    applyType :: Prelude.Maybe ParameterApplyType,
+    -- | The name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the parameter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The data type of the parameter.
+    dataType :: Prelude.Maybe Prelude.Text,
+    -- | If @true@, the parameter can be modified. Some parameters have security
+    -- or operational implications that prevent them from being changed.
+    isModifiable :: Prelude.Maybe Prelude.Bool,
+    -- | The earliest engine version to which the parameter can apply.
+    minimumEngineVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Parameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Parameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pAllowedValues' - The valid range of values for the parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pSource' - The source of the parameter value, such as "engine-default" or "user".
+-- 'allowedValues', 'parameter_allowedValues' - The valid range of values for the parameter.
 --
--- * 'pParameterValue' - The value of the parameter.
+-- 'source', 'parameter_source' - The source of the parameter value, such as \"engine-default\" or
+-- \"user\".
 --
--- * 'pApplyType' - Specifies how to apply the WLM configuration parameter. Some properties can be applied dynamically, while other properties require that any associated clusters be rebooted for the configuration changes to be applied. For more information about parameters and parameter groups, go to <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html Amazon Redshift Parameter Groups> in the /Amazon Redshift Cluster Management Guide/ .
+-- 'parameterValue', 'parameter_parameterValue' - The value of the parameter.
 --
--- * 'pParameterName' - The name of the parameter.
+-- 'applyType', 'parameter_applyType' - Specifies how to apply the WLM configuration parameter. Some properties
+-- can be applied dynamically, while other properties require that any
+-- associated clusters be rebooted for the configuration changes to be
+-- applied. For more information about parameters and parameter groups, go
+-- to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html Amazon Redshift Parameter Groups>
+-- in the /Amazon Redshift Cluster Management Guide/.
 --
--- * 'pDescription' - A description of the parameter.
+-- 'parameterName', 'parameter_parameterName' - The name of the parameter.
 --
--- * 'pDataType' - The data type of the parameter.
+-- 'description', 'parameter_description' - A description of the parameter.
 --
--- * 'pIsModifiable' - If @true@ , the parameter can be modified. Some parameters have security or operational implications that prevent them from being changed.
+-- 'dataType', 'parameter_dataType' - The data type of the parameter.
 --
--- * 'pMinimumEngineVersion' - The earliest engine version to which the parameter can apply.
-parameter ::
+-- 'isModifiable', 'parameter_isModifiable' - If @true@, the parameter can be modified. Some parameters have security
+-- or operational implications that prevent them from being changed.
+--
+-- 'minimumEngineVersion', 'parameter_minimumEngineVersion' - The earliest engine version to which the parameter can apply.
+newParameter ::
   Parameter
-parameter =
+newParameter =
   Parameter'
-    { _pAllowedValues = Nothing,
-      _pSource = Nothing,
-      _pParameterValue = Nothing,
-      _pApplyType = Nothing,
-      _pParameterName = Nothing,
-      _pDescription = Nothing,
-      _pDataType = Nothing,
-      _pIsModifiable = Nothing,
-      _pMinimumEngineVersion = Nothing
+    { allowedValues = Prelude.Nothing,
+      source = Prelude.Nothing,
+      parameterValue = Prelude.Nothing,
+      applyType = Prelude.Nothing,
+      parameterName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      dataType = Prelude.Nothing,
+      isModifiable = Prelude.Nothing,
+      minimumEngineVersion = Prelude.Nothing
     }
 
 -- | The valid range of values for the parameter.
-pAllowedValues :: Lens' Parameter (Maybe Text)
-pAllowedValues = lens _pAllowedValues (\s a -> s {_pAllowedValues = a})
+parameter_allowedValues :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_allowedValues = Lens.lens (\Parameter' {allowedValues} -> allowedValues) (\s@Parameter' {} a -> s {allowedValues = a} :: Parameter)
 
--- | The source of the parameter value, such as "engine-default" or "user".
-pSource :: Lens' Parameter (Maybe Text)
-pSource = lens _pSource (\s a -> s {_pSource = a})
+-- | The source of the parameter value, such as \"engine-default\" or
+-- \"user\".
+parameter_source :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_source = Lens.lens (\Parameter' {source} -> source) (\s@Parameter' {} a -> s {source = a} :: Parameter)
 
 -- | The value of the parameter.
-pParameterValue :: Lens' Parameter (Maybe Text)
-pParameterValue = lens _pParameterValue (\s a -> s {_pParameterValue = a})
+parameter_parameterValue :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_parameterValue = Lens.lens (\Parameter' {parameterValue} -> parameterValue) (\s@Parameter' {} a -> s {parameterValue = a} :: Parameter)
 
--- | Specifies how to apply the WLM configuration parameter. Some properties can be applied dynamically, while other properties require that any associated clusters be rebooted for the configuration changes to be applied. For more information about parameters and parameter groups, go to <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html Amazon Redshift Parameter Groups> in the /Amazon Redshift Cluster Management Guide/ .
-pApplyType :: Lens' Parameter (Maybe ParameterApplyType)
-pApplyType = lens _pApplyType (\s a -> s {_pApplyType = a})
+-- | Specifies how to apply the WLM configuration parameter. Some properties
+-- can be applied dynamically, while other properties require that any
+-- associated clusters be rebooted for the configuration changes to be
+-- applied. For more information about parameters and parameter groups, go
+-- to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html Amazon Redshift Parameter Groups>
+-- in the /Amazon Redshift Cluster Management Guide/.
+parameter_applyType :: Lens.Lens' Parameter (Prelude.Maybe ParameterApplyType)
+parameter_applyType = Lens.lens (\Parameter' {applyType} -> applyType) (\s@Parameter' {} a -> s {applyType = a} :: Parameter)
 
 -- | The name of the parameter.
-pParameterName :: Lens' Parameter (Maybe Text)
-pParameterName = lens _pParameterName (\s a -> s {_pParameterName = a})
+parameter_parameterName :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_parameterName = Lens.lens (\Parameter' {parameterName} -> parameterName) (\s@Parameter' {} a -> s {parameterName = a} :: Parameter)
 
 -- | A description of the parameter.
-pDescription :: Lens' Parameter (Maybe Text)
-pDescription = lens _pDescription (\s a -> s {_pDescription = a})
+parameter_description :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_description = Lens.lens (\Parameter' {description} -> description) (\s@Parameter' {} a -> s {description = a} :: Parameter)
 
 -- | The data type of the parameter.
-pDataType :: Lens' Parameter (Maybe Text)
-pDataType = lens _pDataType (\s a -> s {_pDataType = a})
+parameter_dataType :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_dataType = Lens.lens (\Parameter' {dataType} -> dataType) (\s@Parameter' {} a -> s {dataType = a} :: Parameter)
 
--- | If @true@ , the parameter can be modified. Some parameters have security or operational implications that prevent them from being changed.
-pIsModifiable :: Lens' Parameter (Maybe Bool)
-pIsModifiable = lens _pIsModifiable (\s a -> s {_pIsModifiable = a})
+-- | If @true@, the parameter can be modified. Some parameters have security
+-- or operational implications that prevent them from being changed.
+parameter_isModifiable :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Bool)
+parameter_isModifiable = Lens.lens (\Parameter' {isModifiable} -> isModifiable) (\s@Parameter' {} a -> s {isModifiable = a} :: Parameter)
 
 -- | The earliest engine version to which the parameter can apply.
-pMinimumEngineVersion :: Lens' Parameter (Maybe Text)
-pMinimumEngineVersion = lens _pMinimumEngineVersion (\s a -> s {_pMinimumEngineVersion = a})
+parameter_minimumEngineVersion :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_minimumEngineVersion = Lens.lens (\Parameter' {minimumEngineVersion} -> minimumEngineVersion) (\s@Parameter' {} a -> s {minimumEngineVersion = a} :: Parameter)
 
-instance FromXML Parameter where
+instance Prelude.FromXML Parameter where
   parseXML x =
     Parameter'
-      <$> (x .@? "AllowedValues")
-      <*> (x .@? "Source")
-      <*> (x .@? "ParameterValue")
-      <*> (x .@? "ApplyType")
-      <*> (x .@? "ParameterName")
-      <*> (x .@? "Description")
-      <*> (x .@? "DataType")
-      <*> (x .@? "IsModifiable")
-      <*> (x .@? "MinimumEngineVersion")
+      Prelude.<$> (x Prelude..@? "AllowedValues")
+      Prelude.<*> (x Prelude..@? "Source")
+      Prelude.<*> (x Prelude..@? "ParameterValue")
+      Prelude.<*> (x Prelude..@? "ApplyType")
+      Prelude.<*> (x Prelude..@? "ParameterName")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "DataType")
+      Prelude.<*> (x Prelude..@? "IsModifiable")
+      Prelude.<*> (x Prelude..@? "MinimumEngineVersion")
 
-instance Hashable Parameter
+instance Prelude.Hashable Parameter
 
-instance NFData Parameter
+instance Prelude.NFData Parameter
 
-instance ToQuery Parameter where
+instance Prelude.ToQuery Parameter where
   toQuery Parameter' {..} =
-    mconcat
-      [ "AllowedValues" =: _pAllowedValues,
-        "Source" =: _pSource,
-        "ParameterValue" =: _pParameterValue,
-        "ApplyType" =: _pApplyType,
-        "ParameterName" =: _pParameterName,
-        "Description" =: _pDescription,
-        "DataType" =: _pDataType,
-        "IsModifiable" =: _pIsModifiable,
-        "MinimumEngineVersion" =: _pMinimumEngineVersion
+    Prelude.mconcat
+      [ "AllowedValues" Prelude.=: allowedValues,
+        "Source" Prelude.=: source,
+        "ParameterValue" Prelude.=: parameterValue,
+        "ApplyType" Prelude.=: applyType,
+        "ParameterName" Prelude.=: parameterName,
+        "Description" Prelude.=: description,
+        "DataType" Prelude.=: dataType,
+        "IsModifiable" Prelude.=: isModifiable,
+        "MinimumEngineVersion"
+          Prelude.=: minimumEngineVersion
       ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.RevisionTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
--- | Describes a @RevisionTarget@ .
+-- | Describes a @RevisionTarget@.
 --
---
---
--- /See:/ 'revisionTarget' smart constructor.
+-- /See:/ 'newRevisionTarget' smart constructor.
 data RevisionTarget = RevisionTarget'
-  { _rtDescription ::
-      !(Maybe Text),
-    _rtDatabaseRevision :: !(Maybe Text),
-    _rtDatabaseRevisionReleaseDate ::
-      !(Maybe ISO8601)
+  { -- | A string that describes the changes and features that will be applied to
+    -- the cluster when it is updated to the corresponding ClusterDbRevision.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A unique string that identifies the version to update the cluster to.
+    -- You can use this value in ModifyClusterDbRevision.
+    databaseRevision :: Prelude.Maybe Prelude.Text,
+    -- | The date on which the database revision was released.
+    databaseRevisionReleaseDate :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevisionTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RevisionTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtDescription' - A string that describes the changes and features that will be applied to the cluster when it is updated to the corresponding 'ClusterDbRevision' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtDatabaseRevision' - A unique string that identifies the version to update the cluster to. You can use this value in 'ModifyClusterDbRevision' .
+-- 'description', 'revisionTarget_description' - A string that describes the changes and features that will be applied to
+-- the cluster when it is updated to the corresponding ClusterDbRevision.
 --
--- * 'rtDatabaseRevisionReleaseDate' - The date on which the database revision was released.
-revisionTarget ::
+-- 'databaseRevision', 'revisionTarget_databaseRevision' - A unique string that identifies the version to update the cluster to.
+-- You can use this value in ModifyClusterDbRevision.
+--
+-- 'databaseRevisionReleaseDate', 'revisionTarget_databaseRevisionReleaseDate' - The date on which the database revision was released.
+newRevisionTarget ::
   RevisionTarget
-revisionTarget =
+newRevisionTarget =
   RevisionTarget'
-    { _rtDescription = Nothing,
-      _rtDatabaseRevision = Nothing,
-      _rtDatabaseRevisionReleaseDate = Nothing
+    { description = Prelude.Nothing,
+      databaseRevision = Prelude.Nothing,
+      databaseRevisionReleaseDate = Prelude.Nothing
     }
 
--- | A string that describes the changes and features that will be applied to the cluster when it is updated to the corresponding 'ClusterDbRevision' .
-rtDescription :: Lens' RevisionTarget (Maybe Text)
-rtDescription = lens _rtDescription (\s a -> s {_rtDescription = a})
+-- | A string that describes the changes and features that will be applied to
+-- the cluster when it is updated to the corresponding ClusterDbRevision.
+revisionTarget_description :: Lens.Lens' RevisionTarget (Prelude.Maybe Prelude.Text)
+revisionTarget_description = Lens.lens (\RevisionTarget' {description} -> description) (\s@RevisionTarget' {} a -> s {description = a} :: RevisionTarget)
 
--- | A unique string that identifies the version to update the cluster to. You can use this value in 'ModifyClusterDbRevision' .
-rtDatabaseRevision :: Lens' RevisionTarget (Maybe Text)
-rtDatabaseRevision = lens _rtDatabaseRevision (\s a -> s {_rtDatabaseRevision = a})
+-- | A unique string that identifies the version to update the cluster to.
+-- You can use this value in ModifyClusterDbRevision.
+revisionTarget_databaseRevision :: Lens.Lens' RevisionTarget (Prelude.Maybe Prelude.Text)
+revisionTarget_databaseRevision = Lens.lens (\RevisionTarget' {databaseRevision} -> databaseRevision) (\s@RevisionTarget' {} a -> s {databaseRevision = a} :: RevisionTarget)
 
 -- | The date on which the database revision was released.
-rtDatabaseRevisionReleaseDate :: Lens' RevisionTarget (Maybe UTCTime)
-rtDatabaseRevisionReleaseDate = lens _rtDatabaseRevisionReleaseDate (\s a -> s {_rtDatabaseRevisionReleaseDate = a}) . mapping _Time
+revisionTarget_databaseRevisionReleaseDate :: Lens.Lens' RevisionTarget (Prelude.Maybe Prelude.UTCTime)
+revisionTarget_databaseRevisionReleaseDate = Lens.lens (\RevisionTarget' {databaseRevisionReleaseDate} -> databaseRevisionReleaseDate) (\s@RevisionTarget' {} a -> s {databaseRevisionReleaseDate = a} :: RevisionTarget) Prelude.. Lens.mapping Prelude._Time
 
-instance FromXML RevisionTarget where
+instance Prelude.FromXML RevisionTarget where
   parseXML x =
     RevisionTarget'
-      <$> (x .@? "Description")
-      <*> (x .@? "DatabaseRevision")
-      <*> (x .@? "DatabaseRevisionReleaseDate")
+      Prelude.<$> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "DatabaseRevision")
+      Prelude.<*> (x Prelude..@? "DatabaseRevisionReleaseDate")
 
-instance Hashable RevisionTarget
+instance Prelude.Hashable RevisionTarget
 
-instance NFData RevisionTarget
+instance Prelude.NFData RevisionTarget

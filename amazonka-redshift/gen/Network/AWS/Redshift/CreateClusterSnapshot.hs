@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,233 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a manual snapshot of the specified cluster. The cluster must be in the @available@ state.
+-- Creates a manual snapshot of the specified cluster. The cluster must be
+-- in the @available@ state.
 --
---
--- For more information about working with snapshots, go to <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html Amazon Redshift Snapshots> in the /Amazon Redshift Cluster Management Guide/ .
+-- For more information about working with snapshots, go to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html Amazon Redshift Snapshots>
+-- in the /Amazon Redshift Cluster Management Guide/.
 module Network.AWS.Redshift.CreateClusterSnapshot
   ( -- * Creating a Request
-    createClusterSnapshot,
-    CreateClusterSnapshot,
+    CreateClusterSnapshot (..),
+    newCreateClusterSnapshot,
 
     -- * Request Lenses
-    creManualSnapshotRetentionPeriod,
-    creTags,
-    creSnapshotIdentifier,
-    creClusterIdentifier,
+    createClusterSnapshot_manualSnapshotRetentionPeriod,
+    createClusterSnapshot_tags,
+    createClusterSnapshot_snapshotIdentifier,
+    createClusterSnapshot_clusterIdentifier,
 
     -- * Destructuring the Response
-    createClusterSnapshotResponse,
-    CreateClusterSnapshotResponse,
+    CreateClusterSnapshotResponse (..),
+    newCreateClusterSnapshotResponse,
 
     -- * Response Lenses
-    ccsrrsSnapshot,
-    ccsrrsResponseStatus,
+    createClusterSnapshotResponse_snapshot,
+    createClusterSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.Snapshot
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'createClusterSnapshot' smart constructor.
+-- /See:/ 'newCreateClusterSnapshot' smart constructor.
 data CreateClusterSnapshot = CreateClusterSnapshot'
-  { _creManualSnapshotRetentionPeriod ::
-      !(Maybe Int),
-    _creTags :: !(Maybe [Tag]),
-    _creSnapshotIdentifier ::
-      !Text,
-    _creClusterIdentifier ::
-      !Text
+  { -- | The number of days that a manual snapshot is retained. If the value is
+    -- -1, the manual snapshot is retained indefinitely.
+    --
+    -- The value must be either -1 or an integer between 1 and 3,653.
+    --
+    -- The default value is -1.
+    manualSnapshotRetentionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | A list of tag instances.
+    tags :: Prelude.Maybe [Tag],
+    -- | A unique identifier for the snapshot that you are requesting. This
+    -- identifier must be unique for all snapshots within the AWS account.
+    --
+    -- Constraints:
+    --
+    -- -   Cannot be null, empty, or blank
+    --
+    -- -   Must contain from 1 to 255 alphanumeric characters or hyphens
+    --
+    -- -   First character must be a letter
+    --
+    -- -   Cannot end with a hyphen or contain two consecutive hyphens
+    --
+    -- Example: @my-snapshot-id@
+    snapshotIdentifier :: Prelude.Text,
+    -- | The cluster identifier for which you want a snapshot.
+    clusterIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateClusterSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateClusterSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'creManualSnapshotRetentionPeriod' - The number of days that a manual snapshot is retained. If the value is -1, the manual snapshot is retained indefinitely.  The value must be either -1 or an integer between 1 and 3,653. The default value is -1.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'creTags' - A list of tag instances.
+-- 'manualSnapshotRetentionPeriod', 'createClusterSnapshot_manualSnapshotRetentionPeriod' - The number of days that a manual snapshot is retained. If the value is
+-- -1, the manual snapshot is retained indefinitely.
 --
--- * 'creSnapshotIdentifier' - A unique identifier for the snapshot that you are requesting. This identifier must be unique for all snapshots within the AWS account. Constraints:     * Cannot be null, empty, or blank     * Must contain from 1 to 255 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
+-- The value must be either -1 or an integer between 1 and 3,653.
 --
--- * 'creClusterIdentifier' - The cluster identifier for which you want a snapshot.
-createClusterSnapshot ::
-  -- | 'creSnapshotIdentifier'
-  Text ->
-  -- | 'creClusterIdentifier'
-  Text ->
+-- The default value is -1.
+--
+-- 'tags', 'createClusterSnapshot_tags' - A list of tag instances.
+--
+-- 'snapshotIdentifier', 'createClusterSnapshot_snapshotIdentifier' - A unique identifier for the snapshot that you are requesting. This
+-- identifier must be unique for all snapshots within the AWS account.
+--
+-- Constraints:
+--
+-- -   Cannot be null, empty, or blank
+--
+-- -   Must contain from 1 to 255 alphanumeric characters or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Cannot end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-snapshot-id@
+--
+-- 'clusterIdentifier', 'createClusterSnapshot_clusterIdentifier' - The cluster identifier for which you want a snapshot.
+newCreateClusterSnapshot ::
+  -- | 'snapshotIdentifier'
+  Prelude.Text ->
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
   CreateClusterSnapshot
-createClusterSnapshot
+newCreateClusterSnapshot
   pSnapshotIdentifier_
   pClusterIdentifier_ =
     CreateClusterSnapshot'
-      { _creManualSnapshotRetentionPeriod =
-          Nothing,
-        _creTags = Nothing,
-        _creSnapshotIdentifier = pSnapshotIdentifier_,
-        _creClusterIdentifier = pClusterIdentifier_
+      { manualSnapshotRetentionPeriod =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
+        snapshotIdentifier = pSnapshotIdentifier_,
+        clusterIdentifier = pClusterIdentifier_
       }
 
--- | The number of days that a manual snapshot is retained. If the value is -1, the manual snapshot is retained indefinitely.  The value must be either -1 or an integer between 1 and 3,653. The default value is -1.
-creManualSnapshotRetentionPeriod :: Lens' CreateClusterSnapshot (Maybe Int)
-creManualSnapshotRetentionPeriod = lens _creManualSnapshotRetentionPeriod (\s a -> s {_creManualSnapshotRetentionPeriod = a})
+-- | The number of days that a manual snapshot is retained. If the value is
+-- -1, the manual snapshot is retained indefinitely.
+--
+-- The value must be either -1 or an integer between 1 and 3,653.
+--
+-- The default value is -1.
+createClusterSnapshot_manualSnapshotRetentionPeriod :: Lens.Lens' CreateClusterSnapshot (Prelude.Maybe Prelude.Int)
+createClusterSnapshot_manualSnapshotRetentionPeriod = Lens.lens (\CreateClusterSnapshot' {manualSnapshotRetentionPeriod} -> manualSnapshotRetentionPeriod) (\s@CreateClusterSnapshot' {} a -> s {manualSnapshotRetentionPeriod = a} :: CreateClusterSnapshot)
 
 -- | A list of tag instances.
-creTags :: Lens' CreateClusterSnapshot [Tag]
-creTags = lens _creTags (\s a -> s {_creTags = a}) . _Default . _Coerce
+createClusterSnapshot_tags :: Lens.Lens' CreateClusterSnapshot (Prelude.Maybe [Tag])
+createClusterSnapshot_tags = Lens.lens (\CreateClusterSnapshot' {tags} -> tags) (\s@CreateClusterSnapshot' {} a -> s {tags = a} :: CreateClusterSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A unique identifier for the snapshot that you are requesting. This identifier must be unique for all snapshots within the AWS account. Constraints:     * Cannot be null, empty, or blank     * Must contain from 1 to 255 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
-creSnapshotIdentifier :: Lens' CreateClusterSnapshot Text
-creSnapshotIdentifier = lens _creSnapshotIdentifier (\s a -> s {_creSnapshotIdentifier = a})
+-- | A unique identifier for the snapshot that you are requesting. This
+-- identifier must be unique for all snapshots within the AWS account.
+--
+-- Constraints:
+--
+-- -   Cannot be null, empty, or blank
+--
+-- -   Must contain from 1 to 255 alphanumeric characters or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Cannot end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-snapshot-id@
+createClusterSnapshot_snapshotIdentifier :: Lens.Lens' CreateClusterSnapshot Prelude.Text
+createClusterSnapshot_snapshotIdentifier = Lens.lens (\CreateClusterSnapshot' {snapshotIdentifier} -> snapshotIdentifier) (\s@CreateClusterSnapshot' {} a -> s {snapshotIdentifier = a} :: CreateClusterSnapshot)
 
 -- | The cluster identifier for which you want a snapshot.
-creClusterIdentifier :: Lens' CreateClusterSnapshot Text
-creClusterIdentifier = lens _creClusterIdentifier (\s a -> s {_creClusterIdentifier = a})
+createClusterSnapshot_clusterIdentifier :: Lens.Lens' CreateClusterSnapshot Prelude.Text
+createClusterSnapshot_clusterIdentifier = Lens.lens (\CreateClusterSnapshot' {clusterIdentifier} -> clusterIdentifier) (\s@CreateClusterSnapshot' {} a -> s {clusterIdentifier = a} :: CreateClusterSnapshot)
 
-instance AWSRequest CreateClusterSnapshot where
+instance Prelude.AWSRequest CreateClusterSnapshot where
   type
     Rs CreateClusterSnapshot =
       CreateClusterSnapshotResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateClusterSnapshotResult"
       ( \s h x ->
           CreateClusterSnapshotResponse'
-            <$> (x .@? "Snapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Snapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateClusterSnapshot
+instance Prelude.Hashable CreateClusterSnapshot
 
-instance NFData CreateClusterSnapshot
+instance Prelude.NFData CreateClusterSnapshot
 
-instance ToHeaders CreateClusterSnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateClusterSnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateClusterSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CreateClusterSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateClusterSnapshot where
+instance Prelude.ToQuery CreateClusterSnapshot where
   toQuery CreateClusterSnapshot' {..} =
-    mconcat
-      [ "Action" =: ("CreateClusterSnapshot" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateClusterSnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
         "ManualSnapshotRetentionPeriod"
-          =: _creManualSnapshotRetentionPeriod,
-        "Tags" =: toQuery (toQueryList "Tag" <$> _creTags),
-        "SnapshotIdentifier" =: _creSnapshotIdentifier,
-        "ClusterIdentifier" =: _creClusterIdentifier
+          Prelude.=: manualSnapshotRetentionPeriod,
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
+        "SnapshotIdentifier" Prelude.=: snapshotIdentifier,
+        "ClusterIdentifier" Prelude.=: clusterIdentifier
       ]
 
--- | /See:/ 'createClusterSnapshotResponse' smart constructor.
+-- | /See:/ 'newCreateClusterSnapshotResponse' smart constructor.
 data CreateClusterSnapshotResponse = CreateClusterSnapshotResponse'
-  { _ccsrrsSnapshot ::
-      !( Maybe
-           Snapshot
-       ),
-    _ccsrrsResponseStatus ::
-      !Int
+  { snapshot :: Prelude.Maybe Snapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateClusterSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateClusterSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccsrrsSnapshot' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccsrrsResponseStatus' - -- | The response status code.
-createClusterSnapshotResponse ::
-  -- | 'ccsrrsResponseStatus'
-  Int ->
+-- 'snapshot', 'createClusterSnapshotResponse_snapshot' - Undocumented member.
+--
+-- 'httpStatus', 'createClusterSnapshotResponse_httpStatus' - The response's http status code.
+newCreateClusterSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateClusterSnapshotResponse
-createClusterSnapshotResponse pResponseStatus_ =
+newCreateClusterSnapshotResponse pHttpStatus_ =
   CreateClusterSnapshotResponse'
-    { _ccsrrsSnapshot =
-        Nothing,
-      _ccsrrsResponseStatus = pResponseStatus_
+    { snapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ccsrrsSnapshot :: Lens' CreateClusterSnapshotResponse (Maybe Snapshot)
-ccsrrsSnapshot = lens _ccsrrsSnapshot (\s a -> s {_ccsrrsSnapshot = a})
+createClusterSnapshotResponse_snapshot :: Lens.Lens' CreateClusterSnapshotResponse (Prelude.Maybe Snapshot)
+createClusterSnapshotResponse_snapshot = Lens.lens (\CreateClusterSnapshotResponse' {snapshot} -> snapshot) (\s@CreateClusterSnapshotResponse' {} a -> s {snapshot = a} :: CreateClusterSnapshotResponse)
 
--- | -- | The response status code.
-ccsrrsResponseStatus :: Lens' CreateClusterSnapshotResponse Int
-ccsrrsResponseStatus = lens _ccsrrsResponseStatus (\s a -> s {_ccsrrsResponseStatus = a})
+-- | The response's http status code.
+createClusterSnapshotResponse_httpStatus :: Lens.Lens' CreateClusterSnapshotResponse Prelude.Int
+createClusterSnapshotResponse_httpStatus = Lens.lens (\CreateClusterSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateClusterSnapshotResponse' {} a -> s {httpStatus = a} :: CreateClusterSnapshotResponse)
 
-instance NFData CreateClusterSnapshotResponse
+instance Prelude.NFData CreateClusterSnapshotResponse

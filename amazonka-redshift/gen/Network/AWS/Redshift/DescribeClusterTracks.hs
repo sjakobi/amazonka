@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,182 +23,216 @@
 --
 -- Returns a list of all the available maintenance tracks.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Redshift.DescribeClusterTracks
   ( -- * Creating a Request
-    describeClusterTracks,
-    DescribeClusterTracks,
+    DescribeClusterTracks (..),
+    newDescribeClusterTracks,
 
     -- * Request Lenses
-    dctMaintenanceTrackName,
-    dctMarker,
-    dctMaxRecords,
+    describeClusterTracks_maintenanceTrackName,
+    describeClusterTracks_marker,
+    describeClusterTracks_maxRecords,
 
     -- * Destructuring the Response
-    describeClusterTracksResponse,
-    DescribeClusterTracksResponse,
+    DescribeClusterTracksResponse (..),
+    newDescribeClusterTracksResponse,
 
     -- * Response Lenses
-    dctrrsMaintenanceTracks,
-    dctrrsMarker,
-    dctrrsResponseStatus,
+    describeClusterTracksResponse_maintenanceTracks,
+    describeClusterTracksResponse_marker,
+    describeClusterTracksResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.MaintenanceTrack
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeClusterTracks' smart constructor.
+-- | /See:/ 'newDescribeClusterTracks' smart constructor.
 data DescribeClusterTracks = DescribeClusterTracks'
-  { _dctMaintenanceTrackName ::
-      !(Maybe Text),
-    _dctMarker :: !(Maybe Text),
-    _dctMaxRecords ::
-      !(Maybe Int)
+  { -- | The name of the maintenance track.
+    maintenanceTrackName :: Prelude.Maybe Prelude.Text,
+    -- | An optional parameter that specifies the starting point to return a set
+    -- of response records. When the results of a @DescribeClusterTracks@
+    -- request exceed the value specified in @MaxRecords@, Amazon Redshift
+    -- returns a value in the @Marker@ field of the response. You can retrieve
+    -- the next set of response records by providing the returned marker value
+    -- in the @Marker@ parameter and retrying the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | An integer value for the maximum number of maintenance tracks to return.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeClusterTracks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeClusterTracks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dctMaintenanceTrackName' - The name of the maintenance track.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dctMarker' - An optional parameter that specifies the starting point to return a set of response records. When the results of a @DescribeClusterTracks@ request exceed the value specified in @MaxRecords@ , Amazon Redshift returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
+-- 'maintenanceTrackName', 'describeClusterTracks_maintenanceTrackName' - The name of the maintenance track.
 --
--- * 'dctMaxRecords' - An integer value for the maximum number of maintenance tracks to return.
-describeClusterTracks ::
+-- 'marker', 'describeClusterTracks_marker' - An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a @DescribeClusterTracks@
+-- request exceed the value specified in @MaxRecords@, Amazon Redshift
+-- returns a value in the @Marker@ field of the response. You can retrieve
+-- the next set of response records by providing the returned marker value
+-- in the @Marker@ parameter and retrying the request.
+--
+-- 'maxRecords', 'describeClusterTracks_maxRecords' - An integer value for the maximum number of maintenance tracks to return.
+newDescribeClusterTracks ::
   DescribeClusterTracks
-describeClusterTracks =
+newDescribeClusterTracks =
   DescribeClusterTracks'
-    { _dctMaintenanceTrackName =
-        Nothing,
-      _dctMarker = Nothing,
-      _dctMaxRecords = Nothing
+    { maintenanceTrackName =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The name of the maintenance track.
-dctMaintenanceTrackName :: Lens' DescribeClusterTracks (Maybe Text)
-dctMaintenanceTrackName = lens _dctMaintenanceTrackName (\s a -> s {_dctMaintenanceTrackName = a})
+describeClusterTracks_maintenanceTrackName :: Lens.Lens' DescribeClusterTracks (Prelude.Maybe Prelude.Text)
+describeClusterTracks_maintenanceTrackName = Lens.lens (\DescribeClusterTracks' {maintenanceTrackName} -> maintenanceTrackName) (\s@DescribeClusterTracks' {} a -> s {maintenanceTrackName = a} :: DescribeClusterTracks)
 
--- | An optional parameter that specifies the starting point to return a set of response records. When the results of a @DescribeClusterTracks@ request exceed the value specified in @MaxRecords@ , Amazon Redshift returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
-dctMarker :: Lens' DescribeClusterTracks (Maybe Text)
-dctMarker = lens _dctMarker (\s a -> s {_dctMarker = a})
+-- | An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a @DescribeClusterTracks@
+-- request exceed the value specified in @MaxRecords@, Amazon Redshift
+-- returns a value in the @Marker@ field of the response. You can retrieve
+-- the next set of response records by providing the returned marker value
+-- in the @Marker@ parameter and retrying the request.
+describeClusterTracks_marker :: Lens.Lens' DescribeClusterTracks (Prelude.Maybe Prelude.Text)
+describeClusterTracks_marker = Lens.lens (\DescribeClusterTracks' {marker} -> marker) (\s@DescribeClusterTracks' {} a -> s {marker = a} :: DescribeClusterTracks)
 
 -- | An integer value for the maximum number of maintenance tracks to return.
-dctMaxRecords :: Lens' DescribeClusterTracks (Maybe Int)
-dctMaxRecords = lens _dctMaxRecords (\s a -> s {_dctMaxRecords = a})
+describeClusterTracks_maxRecords :: Lens.Lens' DescribeClusterTracks (Prelude.Maybe Prelude.Int)
+describeClusterTracks_maxRecords = Lens.lens (\DescribeClusterTracks' {maxRecords} -> maxRecords) (\s@DescribeClusterTracks' {} a -> s {maxRecords = a} :: DescribeClusterTracks)
 
-instance AWSPager DescribeClusterTracks where
+instance Pager.AWSPager DescribeClusterTracks where
   page rq rs
-    | stop (rs ^. dctrrsMarker) = Nothing
-    | stop (rs ^. dctrrsMaintenanceTracks) = Nothing
-    | otherwise =
-      Just $ rq & dctMarker .~ rs ^. dctrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeClusterTracksResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeClusterTracksResponse_maintenanceTracks
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeClusterTracks_marker
+          Lens..~ rs
+          Lens.^? describeClusterTracksResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeClusterTracks where
+instance Prelude.AWSRequest DescribeClusterTracks where
   type
     Rs DescribeClusterTracks =
       DescribeClusterTracksResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeClusterTracksResult"
       ( \s h x ->
           DescribeClusterTracksResponse'
-            <$> ( x .@? "MaintenanceTracks" .!@ mempty
-                    >>= may (parseXMLList "MaintenanceTrack")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "MaintenanceTracks"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "MaintenanceTrack")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeClusterTracks
+instance Prelude.Hashable DescribeClusterTracks
 
-instance NFData DescribeClusterTracks
+instance Prelude.NFData DescribeClusterTracks
 
-instance ToHeaders DescribeClusterTracks where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeClusterTracks where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeClusterTracks where
-  toPath = const "/"
+instance Prelude.ToPath DescribeClusterTracks where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeClusterTracks where
+instance Prelude.ToQuery DescribeClusterTracks where
   toQuery DescribeClusterTracks' {..} =
-    mconcat
-      [ "Action" =: ("DescribeClusterTracks" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "MaintenanceTrackName" =: _dctMaintenanceTrackName,
-        "Marker" =: _dctMarker,
-        "MaxRecords" =: _dctMaxRecords
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeClusterTracks" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "MaintenanceTrackName"
+          Prelude.=: maintenanceTrackName,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'describeClusterTracksResponse' smart constructor.
+-- | /See:/ 'newDescribeClusterTracksResponse' smart constructor.
 data DescribeClusterTracksResponse = DescribeClusterTracksResponse'
-  { _dctrrsMaintenanceTracks ::
-      !( Maybe
-           [MaintenanceTrack]
-       ),
-    _dctrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dctrrsResponseStatus ::
-      !Int
+  { -- | A list of maintenance tracks output by the @DescribeClusterTracks@
+    -- operation.
+    maintenanceTracks :: Prelude.Maybe [MaintenanceTrack],
+    -- | The starting point to return a set of response tracklist records. You
+    -- can retrieve the next set of response records by providing the returned
+    -- marker value in the @Marker@ parameter and retrying the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeClusterTracksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeClusterTracksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dctrrsMaintenanceTracks' - A list of maintenance tracks output by the @DescribeClusterTracks@ operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dctrrsMarker' - The starting point to return a set of response tracklist records. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
+-- 'maintenanceTracks', 'describeClusterTracksResponse_maintenanceTracks' - A list of maintenance tracks output by the @DescribeClusterTracks@
+-- operation.
 --
--- * 'dctrrsResponseStatus' - -- | The response status code.
-describeClusterTracksResponse ::
-  -- | 'dctrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeClusterTracksResponse_marker' - The starting point to return a set of response tracklist records. You
+-- can retrieve the next set of response records by providing the returned
+-- marker value in the @Marker@ parameter and retrying the request.
+--
+-- 'httpStatus', 'describeClusterTracksResponse_httpStatus' - The response's http status code.
+newDescribeClusterTracksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeClusterTracksResponse
-describeClusterTracksResponse pResponseStatus_ =
+newDescribeClusterTracksResponse pHttpStatus_ =
   DescribeClusterTracksResponse'
-    { _dctrrsMaintenanceTracks =
-        Nothing,
-      _dctrrsMarker = Nothing,
-      _dctrrsResponseStatus = pResponseStatus_
+    { maintenanceTracks =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of maintenance tracks output by the @DescribeClusterTracks@ operation.
-dctrrsMaintenanceTracks :: Lens' DescribeClusterTracksResponse [MaintenanceTrack]
-dctrrsMaintenanceTracks = lens _dctrrsMaintenanceTracks (\s a -> s {_dctrrsMaintenanceTracks = a}) . _Default . _Coerce
+-- | A list of maintenance tracks output by the @DescribeClusterTracks@
+-- operation.
+describeClusterTracksResponse_maintenanceTracks :: Lens.Lens' DescribeClusterTracksResponse (Prelude.Maybe [MaintenanceTrack])
+describeClusterTracksResponse_maintenanceTracks = Lens.lens (\DescribeClusterTracksResponse' {maintenanceTracks} -> maintenanceTracks) (\s@DescribeClusterTracksResponse' {} a -> s {maintenanceTracks = a} :: DescribeClusterTracksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The starting point to return a set of response tracklist records. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
-dctrrsMarker :: Lens' DescribeClusterTracksResponse (Maybe Text)
-dctrrsMarker = lens _dctrrsMarker (\s a -> s {_dctrrsMarker = a})
+-- | The starting point to return a set of response tracklist records. You
+-- can retrieve the next set of response records by providing the returned
+-- marker value in the @Marker@ parameter and retrying the request.
+describeClusterTracksResponse_marker :: Lens.Lens' DescribeClusterTracksResponse (Prelude.Maybe Prelude.Text)
+describeClusterTracksResponse_marker = Lens.lens (\DescribeClusterTracksResponse' {marker} -> marker) (\s@DescribeClusterTracksResponse' {} a -> s {marker = a} :: DescribeClusterTracksResponse)
 
--- | -- | The response status code.
-dctrrsResponseStatus :: Lens' DescribeClusterTracksResponse Int
-dctrrsResponseStatus = lens _dctrrsResponseStatus (\s a -> s {_dctrrsResponseStatus = a})
+-- | The response's http status code.
+describeClusterTracksResponse_httpStatus :: Lens.Lens' DescribeClusterTracksResponse Prelude.Int
+describeClusterTracksResponse_httpStatus = Lens.lens (\DescribeClusterTracksResponse' {httpStatus} -> httpStatus) (\s@DescribeClusterTracksResponse' {} a -> s {httpStatus = a} :: DescribeClusterTracksResponse)
 
-instance NFData DescribeClusterTracksResponse
+instance Prelude.NFData DescribeClusterTracksResponse

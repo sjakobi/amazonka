@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ResumeClusterMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
--- | Describes a resume cluster operation. For example, a scheduled action to run the @ResumeCluster@ API operation.
+-- | Describes a resume cluster operation. For example, a scheduled action to
+-- run the @ResumeCluster@ API operation.
 --
---
---
--- /See:/ 'resumeClusterMessage' smart constructor.
-newtype ResumeClusterMessage = ResumeClusterMessage'
-  { _rcmClusterIdentifier ::
-      Text
+-- /See:/ 'newResumeClusterMessage' smart constructor.
+data ResumeClusterMessage = ResumeClusterMessage'
+  { -- | The identifier of the cluster to be resumed.
+    clusterIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResumeClusterMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResumeClusterMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcmClusterIdentifier' - The identifier of the cluster to be resumed.
-resumeClusterMessage ::
-  -- | 'rcmClusterIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clusterIdentifier', 'resumeClusterMessage_clusterIdentifier' - The identifier of the cluster to be resumed.
+newResumeClusterMessage ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
   ResumeClusterMessage
-resumeClusterMessage pClusterIdentifier_ =
+newResumeClusterMessage pClusterIdentifier_ =
   ResumeClusterMessage'
-    { _rcmClusterIdentifier =
+    { clusterIdentifier =
         pClusterIdentifier_
     }
 
 -- | The identifier of the cluster to be resumed.
-rcmClusterIdentifier :: Lens' ResumeClusterMessage Text
-rcmClusterIdentifier = lens _rcmClusterIdentifier (\s a -> s {_rcmClusterIdentifier = a})
+resumeClusterMessage_clusterIdentifier :: Lens.Lens' ResumeClusterMessage Prelude.Text
+resumeClusterMessage_clusterIdentifier = Lens.lens (\ResumeClusterMessage' {clusterIdentifier} -> clusterIdentifier) (\s@ResumeClusterMessage' {} a -> s {clusterIdentifier = a} :: ResumeClusterMessage)
 
-instance FromXML ResumeClusterMessage where
+instance Prelude.FromXML ResumeClusterMessage where
   parseXML x =
     ResumeClusterMessage'
-      <$> (x .@ "ClusterIdentifier")
+      Prelude.<$> (x Prelude..@ "ClusterIdentifier")
 
-instance Hashable ResumeClusterMessage
+instance Prelude.Hashable ResumeClusterMessage
 
-instance NFData ResumeClusterMessage
+instance Prelude.NFData ResumeClusterMessage
 
-instance ToQuery ResumeClusterMessage where
+instance Prelude.ToQuery ResumeClusterMessage where
   toQuery ResumeClusterMessage' {..} =
-    mconcat
-      ["ClusterIdentifier" =: _rcmClusterIdentifier]
+    Prelude.mconcat
+      ["ClusterIdentifier" Prelude.=: clusterIdentifier]

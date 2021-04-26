@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Redshift.Types.SnapshotAttributeToSortBy
   ( SnapshotAttributeToSortBy
       ( ..,
-        CreateTime,
-        SourceType,
-        TotalSize
+        SnapshotAttributeToSortByCREATETIME,
+        SnapshotAttributeToSortBySOURCETYPE,
+        SnapshotAttributeToSortByTOTALSIZE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data SnapshotAttributeToSortBy
-  = SnapshotAttributeToSortBy'
-      ( CI
-          Text
-      )
+newtype SnapshotAttributeToSortBy = SnapshotAttributeToSortBy'
+  { fromSnapshotAttributeToSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateTime :: SnapshotAttributeToSortBy
-pattern CreateTime = SnapshotAttributeToSortBy' "CREATE_TIME"
+pattern SnapshotAttributeToSortByCREATETIME :: SnapshotAttributeToSortBy
+pattern SnapshotAttributeToSortByCREATETIME = SnapshotAttributeToSortBy' "CREATE_TIME"
 
-pattern SourceType :: SnapshotAttributeToSortBy
-pattern SourceType = SnapshotAttributeToSortBy' "SOURCE_TYPE"
+pattern SnapshotAttributeToSortBySOURCETYPE :: SnapshotAttributeToSortBy
+pattern SnapshotAttributeToSortBySOURCETYPE = SnapshotAttributeToSortBy' "SOURCE_TYPE"
 
-pattern TotalSize :: SnapshotAttributeToSortBy
-pattern TotalSize = SnapshotAttributeToSortBy' "TOTAL_SIZE"
+pattern SnapshotAttributeToSortByTOTALSIZE :: SnapshotAttributeToSortBy
+pattern SnapshotAttributeToSortByTOTALSIZE = SnapshotAttributeToSortBy' "TOTAL_SIZE"
 
 {-# COMPLETE
-  CreateTime,
-  SourceType,
-  TotalSize,
+  SnapshotAttributeToSortByCREATETIME,
+  SnapshotAttributeToSortBySOURCETYPE,
+  SnapshotAttributeToSortByTOTALSIZE,
   SnapshotAttributeToSortBy'
   #-}
 
-instance FromText SnapshotAttributeToSortBy where
-  parser = (SnapshotAttributeToSortBy' . mk) <$> takeText
+instance Prelude.FromText SnapshotAttributeToSortBy where
+  parser = SnapshotAttributeToSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText SnapshotAttributeToSortBy where
-  toText (SnapshotAttributeToSortBy' ci) = original ci
+instance Prelude.ToText SnapshotAttributeToSortBy where
+  toText (SnapshotAttributeToSortBy' x) = x
 
-instance Hashable SnapshotAttributeToSortBy
+instance Prelude.Hashable SnapshotAttributeToSortBy
 
-instance NFData SnapshotAttributeToSortBy
+instance Prelude.NFData SnapshotAttributeToSortBy
 
-instance ToByteString SnapshotAttributeToSortBy
+instance Prelude.ToByteString SnapshotAttributeToSortBy
 
-instance ToQuery SnapshotAttributeToSortBy
+instance Prelude.ToQuery SnapshotAttributeToSortBy
 
-instance ToHeader SnapshotAttributeToSortBy
+instance Prelude.ToHeader SnapshotAttributeToSortBy

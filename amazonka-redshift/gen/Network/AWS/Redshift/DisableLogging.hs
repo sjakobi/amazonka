@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,87 +21,99 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops logging information, such as queries and connection attempts, for the specified Amazon Redshift cluster.
+-- Stops logging information, such as queries and connection attempts, for
+-- the specified Amazon Redshift cluster.
 module Network.AWS.Redshift.DisableLogging
   ( -- * Creating a Request
-    disableLogging,
-    DisableLogging,
+    DisableLogging (..),
+    newDisableLogging,
 
     -- * Request Lenses
-    dlClusterIdentifier,
+    disableLogging_clusterIdentifier,
 
     -- * Destructuring the Response
-    loggingStatus,
-    LoggingStatus,
+    LoggingStatus (..),
+    newLoggingStatus,
 
     -- * Response Lenses
-    lsLastSuccessfulDeliveryTime,
-    lsBucketName,
-    lsLoggingEnabled,
-    lsLastFailureTime,
-    lsS3KeyPrefix,
-    lsLastFailureMessage,
+    loggingStatus_lastSuccessfulDeliveryTime,
+    loggingStatus_bucketName,
+    loggingStatus_loggingEnabled,
+    loggingStatus_lastFailureTime,
+    loggingStatus_s3KeyPrefix,
+    loggingStatus_lastFailureMessage,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.LoggingStatus
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'disableLogging' smart constructor.
-newtype DisableLogging = DisableLogging'
-  { _dlClusterIdentifier ::
-      Text
+-- /See:/ 'newDisableLogging' smart constructor.
+data DisableLogging = DisableLogging'
+  { -- | The identifier of the cluster on which logging is to be stopped.
+    --
+    -- Example: @examplecluster@
+    clusterIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableLogging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableLogging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlClusterIdentifier' - The identifier of the cluster on which logging is to be stopped. Example: @examplecluster@
-disableLogging ::
-  -- | 'dlClusterIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clusterIdentifier', 'disableLogging_clusterIdentifier' - The identifier of the cluster on which logging is to be stopped.
+--
+-- Example: @examplecluster@
+newDisableLogging ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
   DisableLogging
-disableLogging pClusterIdentifier_ =
+newDisableLogging pClusterIdentifier_ =
   DisableLogging'
-    { _dlClusterIdentifier =
+    { clusterIdentifier =
         pClusterIdentifier_
     }
 
--- | The identifier of the cluster on which logging is to be stopped. Example: @examplecluster@
-dlClusterIdentifier :: Lens' DisableLogging Text
-dlClusterIdentifier = lens _dlClusterIdentifier (\s a -> s {_dlClusterIdentifier = a})
+-- | The identifier of the cluster on which logging is to be stopped.
+--
+-- Example: @examplecluster@
+disableLogging_clusterIdentifier :: Lens.Lens' DisableLogging Prelude.Text
+disableLogging_clusterIdentifier = Lens.lens (\DisableLogging' {clusterIdentifier} -> clusterIdentifier) (\s@DisableLogging' {} a -> s {clusterIdentifier = a} :: DisableLogging)
 
-instance AWSRequest DisableLogging where
+instance Prelude.AWSRequest DisableLogging where
   type Rs DisableLogging = LoggingStatus
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DisableLoggingResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable DisableLogging
+instance Prelude.Hashable DisableLogging
 
-instance NFData DisableLogging
+instance Prelude.NFData DisableLogging
 
-instance ToHeaders DisableLogging where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DisableLogging where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DisableLogging where
-  toPath = const "/"
+instance Prelude.ToPath DisableLogging where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableLogging where
+instance Prelude.ToQuery DisableLogging where
   toQuery DisableLogging' {..} =
-    mconcat
-      [ "Action" =: ("DisableLogging" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "ClusterIdentifier" =: _dlClusterIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DisableLogging" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Prelude.=: clusterIdentifier
       ]

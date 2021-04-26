@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.Redshift.Types.ReservedNodeOfferingType
   ( ReservedNodeOfferingType
       ( ..,
-        Regular,
-        Upgradable
+        ReservedNodeOfferingTypeRegular,
+        ReservedNodeOfferingTypeUpgradable
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data ReservedNodeOfferingType
-  = ReservedNodeOfferingType'
-      ( CI
-          Text
-      )
+newtype ReservedNodeOfferingType = ReservedNodeOfferingType'
+  { fromReservedNodeOfferingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Regular :: ReservedNodeOfferingType
-pattern Regular = ReservedNodeOfferingType' "Regular"
+pattern ReservedNodeOfferingTypeRegular :: ReservedNodeOfferingType
+pattern ReservedNodeOfferingTypeRegular = ReservedNodeOfferingType' "Regular"
 
-pattern Upgradable :: ReservedNodeOfferingType
-pattern Upgradable = ReservedNodeOfferingType' "Upgradable"
+pattern ReservedNodeOfferingTypeUpgradable :: ReservedNodeOfferingType
+pattern ReservedNodeOfferingTypeUpgradable = ReservedNodeOfferingType' "Upgradable"
 
 {-# COMPLETE
-  Regular,
-  Upgradable,
+  ReservedNodeOfferingTypeRegular,
+  ReservedNodeOfferingTypeUpgradable,
   ReservedNodeOfferingType'
   #-}
 
-instance FromText ReservedNodeOfferingType where
-  parser = (ReservedNodeOfferingType' . mk) <$> takeText
+instance Prelude.FromText ReservedNodeOfferingType where
+  parser = ReservedNodeOfferingType' Prelude.<$> Prelude.takeText
 
-instance ToText ReservedNodeOfferingType where
-  toText (ReservedNodeOfferingType' ci) = original ci
+instance Prelude.ToText ReservedNodeOfferingType where
+  toText (ReservedNodeOfferingType' x) = x
 
-instance Hashable ReservedNodeOfferingType
+instance Prelude.Hashable ReservedNodeOfferingType
 
-instance NFData ReservedNodeOfferingType
+instance Prelude.NFData ReservedNodeOfferingType
 
-instance ToByteString ReservedNodeOfferingType
+instance Prelude.ToByteString ReservedNodeOfferingType
 
-instance ToQuery ReservedNodeOfferingType
+instance Prelude.ToQuery ReservedNodeOfferingType
 
-instance ToHeader ReservedNodeOfferingType
+instance Prelude.ToHeader ReservedNodeOfferingType
 
-instance FromXML ReservedNodeOfferingType where
-  parseXML = parseXMLText "ReservedNodeOfferingType"
+instance Prelude.FromXML ReservedNodeOfferingType where
+  parseXML = Prelude.parseXMLText "ReservedNodeOfferingType"

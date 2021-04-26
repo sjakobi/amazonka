@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,205 +21,277 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of the available reserved node offerings by Amazon Redshift with their descriptions including the node type, the fixed and recurring costs of reserving the node and duration the node will be reserved for you. These descriptions help you determine which reserve node offering you want to purchase. You then use the unique offering ID in you call to 'PurchaseReservedNodeOffering' to reserve one or more nodes for your Amazon Redshift cluster.
+-- Returns a list of the available reserved node offerings by Amazon
+-- Redshift with their descriptions including the node type, the fixed and
+-- recurring costs of reserving the node and duration the node will be
+-- reserved for you. These descriptions help you determine which reserve
+-- node offering you want to purchase. You then use the unique offering ID
+-- in you call to PurchaseReservedNodeOffering to reserve one or more nodes
+-- for your Amazon Redshift cluster.
 --
---
--- For more information about reserved node offerings, go to <https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html Purchasing Reserved Nodes> in the /Amazon Redshift Cluster Management Guide/ .
---
+-- For more information about reserved node offerings, go to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html Purchasing Reserved Nodes>
+-- in the /Amazon Redshift Cluster Management Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.Redshift.DescribeReservedNodeOfferings
   ( -- * Creating a Request
-    describeReservedNodeOfferings,
-    DescribeReservedNodeOfferings,
+    DescribeReservedNodeOfferings (..),
+    newDescribeReservedNodeOfferings,
 
     -- * Request Lenses
-    drnoReservedNodeOfferingId,
-    drnoMarker,
-    drnoMaxRecords,
+    describeReservedNodeOfferings_reservedNodeOfferingId,
+    describeReservedNodeOfferings_marker,
+    describeReservedNodeOfferings_maxRecords,
 
     -- * Destructuring the Response
-    describeReservedNodeOfferingsResponse,
-    DescribeReservedNodeOfferingsResponse,
+    DescribeReservedNodeOfferingsResponse (..),
+    newDescribeReservedNodeOfferingsResponse,
 
     -- * Response Lenses
-    drnorrsReservedNodeOfferings,
-    drnorrsMarker,
-    drnorrsResponseStatus,
+    describeReservedNodeOfferingsResponse_reservedNodeOfferings,
+    describeReservedNodeOfferingsResponse_marker,
+    describeReservedNodeOfferingsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.ReservedNodeOffering
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeReservedNodeOfferings' smart constructor.
+-- /See:/ 'newDescribeReservedNodeOfferings' smart constructor.
 data DescribeReservedNodeOfferings = DescribeReservedNodeOfferings'
-  { _drnoReservedNodeOfferingId ::
-      !( Maybe
-           Text
-       ),
-    _drnoMarker ::
-      !( Maybe
-           Text
-       ),
-    _drnoMaxRecords ::
-      !( Maybe
-           Int
-       )
+  { -- | The unique identifier for the offering.
+    reservedNodeOfferingId :: Prelude.Maybe Prelude.Text,
+    -- | An optional parameter that specifies the starting point to return a set
+    -- of response records. When the results of a DescribeReservedNodeOfferings
+    -- request exceed the value specified in @MaxRecords@, AWS returns a value
+    -- in the @Marker@ field of the response. You can retrieve the next set of
+    -- response records by providing the returned marker value in the @Marker@
+    -- parameter and retrying the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of response records to return in each call. If the
+    -- number of remaining response records exceeds the specified @MaxRecords@
+    -- value, a value is returned in a @marker@ field of the response. You can
+    -- retrieve the next set of records by retrying the command with the
+    -- returned marker value.
+    --
+    -- Default: @100@
+    --
+    -- Constraints: minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReservedNodeOfferings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReservedNodeOfferings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drnoReservedNodeOfferingId' - The unique identifier for the offering.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drnoMarker' - An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeReservedNodeOfferings' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
+-- 'reservedNodeOfferingId', 'describeReservedNodeOfferings_reservedNodeOfferingId' - The unique identifier for the offering.
 --
--- * 'drnoMaxRecords' - The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @100@  Constraints: minimum 20, maximum 100.
-describeReservedNodeOfferings ::
+-- 'marker', 'describeReservedNodeOfferings_marker' - An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a DescribeReservedNodeOfferings
+-- request exceed the value specified in @MaxRecords@, AWS returns a value
+-- in the @Marker@ field of the response. You can retrieve the next set of
+-- response records by providing the returned marker value in the @Marker@
+-- parameter and retrying the request.
+--
+-- 'maxRecords', 'describeReservedNodeOfferings_maxRecords' - The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @100@
+--
+-- Constraints: minimum 20, maximum 100.
+newDescribeReservedNodeOfferings ::
   DescribeReservedNodeOfferings
-describeReservedNodeOfferings =
+newDescribeReservedNodeOfferings =
   DescribeReservedNodeOfferings'
-    { _drnoReservedNodeOfferingId =
-        Nothing,
-      _drnoMarker = Nothing,
-      _drnoMaxRecords = Nothing
+    { reservedNodeOfferingId =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The unique identifier for the offering.
-drnoReservedNodeOfferingId :: Lens' DescribeReservedNodeOfferings (Maybe Text)
-drnoReservedNodeOfferingId = lens _drnoReservedNodeOfferingId (\s a -> s {_drnoReservedNodeOfferingId = a})
+describeReservedNodeOfferings_reservedNodeOfferingId :: Lens.Lens' DescribeReservedNodeOfferings (Prelude.Maybe Prelude.Text)
+describeReservedNodeOfferings_reservedNodeOfferingId = Lens.lens (\DescribeReservedNodeOfferings' {reservedNodeOfferingId} -> reservedNodeOfferingId) (\s@DescribeReservedNodeOfferings' {} a -> s {reservedNodeOfferingId = a} :: DescribeReservedNodeOfferings)
 
--- | An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeReservedNodeOfferings' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
-drnoMarker :: Lens' DescribeReservedNodeOfferings (Maybe Text)
-drnoMarker = lens _drnoMarker (\s a -> s {_drnoMarker = a})
+-- | An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a DescribeReservedNodeOfferings
+-- request exceed the value specified in @MaxRecords@, AWS returns a value
+-- in the @Marker@ field of the response. You can retrieve the next set of
+-- response records by providing the returned marker value in the @Marker@
+-- parameter and retrying the request.
+describeReservedNodeOfferings_marker :: Lens.Lens' DescribeReservedNodeOfferings (Prelude.Maybe Prelude.Text)
+describeReservedNodeOfferings_marker = Lens.lens (\DescribeReservedNodeOfferings' {marker} -> marker) (\s@DescribeReservedNodeOfferings' {} a -> s {marker = a} :: DescribeReservedNodeOfferings)
 
--- | The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @100@  Constraints: minimum 20, maximum 100.
-drnoMaxRecords :: Lens' DescribeReservedNodeOfferings (Maybe Int)
-drnoMaxRecords = lens _drnoMaxRecords (\s a -> s {_drnoMaxRecords = a})
+-- | The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @100@
+--
+-- Constraints: minimum 20, maximum 100.
+describeReservedNodeOfferings_maxRecords :: Lens.Lens' DescribeReservedNodeOfferings (Prelude.Maybe Prelude.Int)
+describeReservedNodeOfferings_maxRecords = Lens.lens (\DescribeReservedNodeOfferings' {maxRecords} -> maxRecords) (\s@DescribeReservedNodeOfferings' {} a -> s {maxRecords = a} :: DescribeReservedNodeOfferings)
 
-instance AWSPager DescribeReservedNodeOfferings where
+instance Pager.AWSPager DescribeReservedNodeOfferings where
   page rq rs
-    | stop (rs ^. drnorrsMarker) = Nothing
-    | stop (rs ^. drnorrsReservedNodeOfferings) = Nothing
-    | otherwise =
-      Just $ rq & drnoMarker .~ rs ^. drnorrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeReservedNodeOfferingsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeReservedNodeOfferingsResponse_reservedNodeOfferings
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeReservedNodeOfferings_marker
+          Lens..~ rs
+          Lens.^? describeReservedNodeOfferingsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeReservedNodeOfferings where
+instance
+  Prelude.AWSRequest
+    DescribeReservedNodeOfferings
+  where
   type
     Rs DescribeReservedNodeOfferings =
       DescribeReservedNodeOfferingsResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeReservedNodeOfferingsResult"
       ( \s h x ->
           DescribeReservedNodeOfferingsResponse'
-            <$> ( x .@? "ReservedNodeOfferings" .!@ mempty
-                    >>= may (parseXMLList "ReservedNodeOffering")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "ReservedNodeOfferings"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "ReservedNodeOffering")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeReservedNodeOfferings
+instance
+  Prelude.Hashable
+    DescribeReservedNodeOfferings
 
-instance NFData DescribeReservedNodeOfferings
+instance Prelude.NFData DescribeReservedNodeOfferings
 
-instance ToHeaders DescribeReservedNodeOfferings where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeReservedNodeOfferings
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeReservedNodeOfferings where
-  toPath = const "/"
+instance Prelude.ToPath DescribeReservedNodeOfferings where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeReservedNodeOfferings where
+instance
+  Prelude.ToQuery
+    DescribeReservedNodeOfferings
+  where
   toQuery DescribeReservedNodeOfferings' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeReservedNodeOfferings" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
+          Prelude.=: ( "DescribeReservedNodeOfferings" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
         "ReservedNodeOfferingId"
-          =: _drnoReservedNodeOfferingId,
-        "Marker" =: _drnoMarker,
-        "MaxRecords" =: _drnoMaxRecords
+          Prelude.=: reservedNodeOfferingId,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
 -- |
 --
---
---
--- /See:/ 'describeReservedNodeOfferingsResponse' smart constructor.
+-- /See:/ 'newDescribeReservedNodeOfferingsResponse' smart constructor.
 data DescribeReservedNodeOfferingsResponse = DescribeReservedNodeOfferingsResponse'
-  { _drnorrsReservedNodeOfferings ::
-      !( Maybe
-           [ReservedNodeOffering]
-       ),
-    _drnorrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _drnorrsResponseStatus ::
-      !Int
+  { -- | A list of @ReservedNodeOffering@ objects.
+    reservedNodeOfferings :: Prelude.Maybe [ReservedNodeOffering],
+    -- | A value that indicates the starting point for the next set of response
+    -- records in a subsequent request. If a value is returned in a response,
+    -- you can retrieve the next set of records by providing this returned
+    -- marker value in the @Marker@ parameter and retrying the command. If the
+    -- @Marker@ field is empty, all response records have been retrieved for
+    -- the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReservedNodeOfferingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReservedNodeOfferingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drnorrsReservedNodeOfferings' - A list of @ReservedNodeOffering@ objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drnorrsMarker' - A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
+-- 'reservedNodeOfferings', 'describeReservedNodeOfferingsResponse_reservedNodeOfferings' - A list of @ReservedNodeOffering@ objects.
 --
--- * 'drnorrsResponseStatus' - -- | The response status code.
-describeReservedNodeOfferingsResponse ::
-  -- | 'drnorrsResponseStatus'
-  Int ->
+-- 'marker', 'describeReservedNodeOfferingsResponse_marker' - A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+--
+-- 'httpStatus', 'describeReservedNodeOfferingsResponse_httpStatus' - The response's http status code.
+newDescribeReservedNodeOfferingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeReservedNodeOfferingsResponse
-describeReservedNodeOfferingsResponse
-  pResponseStatus_ =
-    DescribeReservedNodeOfferingsResponse'
-      { _drnorrsReservedNodeOfferings =
-          Nothing,
-        _drnorrsMarker = Nothing,
-        _drnorrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeReservedNodeOfferingsResponse pHttpStatus_ =
+  DescribeReservedNodeOfferingsResponse'
+    { reservedNodeOfferings =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | A list of @ReservedNodeOffering@ objects.
-drnorrsReservedNodeOfferings :: Lens' DescribeReservedNodeOfferingsResponse [ReservedNodeOffering]
-drnorrsReservedNodeOfferings = lens _drnorrsReservedNodeOfferings (\s a -> s {_drnorrsReservedNodeOfferings = a}) . _Default . _Coerce
+describeReservedNodeOfferingsResponse_reservedNodeOfferings :: Lens.Lens' DescribeReservedNodeOfferingsResponse (Prelude.Maybe [ReservedNodeOffering])
+describeReservedNodeOfferingsResponse_reservedNodeOfferings = Lens.lens (\DescribeReservedNodeOfferingsResponse' {reservedNodeOfferings} -> reservedNodeOfferings) (\s@DescribeReservedNodeOfferingsResponse' {} a -> s {reservedNodeOfferings = a} :: DescribeReservedNodeOfferingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
-drnorrsMarker :: Lens' DescribeReservedNodeOfferingsResponse (Maybe Text)
-drnorrsMarker = lens _drnorrsMarker (\s a -> s {_drnorrsMarker = a})
+-- | A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+describeReservedNodeOfferingsResponse_marker :: Lens.Lens' DescribeReservedNodeOfferingsResponse (Prelude.Maybe Prelude.Text)
+describeReservedNodeOfferingsResponse_marker = Lens.lens (\DescribeReservedNodeOfferingsResponse' {marker} -> marker) (\s@DescribeReservedNodeOfferingsResponse' {} a -> s {marker = a} :: DescribeReservedNodeOfferingsResponse)
 
--- | -- | The response status code.
-drnorrsResponseStatus :: Lens' DescribeReservedNodeOfferingsResponse Int
-drnorrsResponseStatus = lens _drnorrsResponseStatus (\s a -> s {_drnorrsResponseStatus = a})
+-- | The response's http status code.
+describeReservedNodeOfferingsResponse_httpStatus :: Lens.Lens' DescribeReservedNodeOfferingsResponse Prelude.Int
+describeReservedNodeOfferingsResponse_httpStatus = Lens.lens (\DescribeReservedNodeOfferingsResponse' {httpStatus} -> httpStatus) (\s@DescribeReservedNodeOfferingsResponse' {} a -> s {httpStatus = a} :: DescribeReservedNodeOfferingsResponse)
 
-instance NFData DescribeReservedNodeOfferingsResponse
+instance
+  Prelude.NFData
+    DescribeReservedNodeOfferingsResponse

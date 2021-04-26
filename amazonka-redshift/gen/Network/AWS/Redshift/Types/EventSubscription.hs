@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,141 +19,223 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.EventSubscription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.Tag
 
 -- | Describes event subscriptions.
 --
---
---
--- /See:/ 'eventSubscription' smart constructor.
+-- /See:/ 'newEventSubscription' smart constructor.
 data EventSubscription = EventSubscription'
-  { _esCustSubscriptionId ::
-      !(Maybe Text),
-    _esStatus :: !(Maybe Text),
-    _esSourceIdsList :: !(Maybe [Text]),
-    _esSeverity :: !(Maybe Text),
-    _esEventCategoriesList ::
-      !(Maybe [Text]),
-    _esEnabled :: !(Maybe Bool),
-    _esSubscriptionCreationTime ::
-      !(Maybe ISO8601),
-    _esCustomerAWSId :: !(Maybe Text),
-    _esTags :: !(Maybe [Tag]),
-    _esSourceType :: !(Maybe Text),
-    _esSNSTopicARN :: !(Maybe Text)
+  { -- | The name of the Amazon Redshift event notification subscription.
+    custSubscriptionId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the Amazon Redshift event notification subscription.
+    --
+    -- Constraints:
+    --
+    -- -   Can be one of the following: active | no-permission |
+    --     topic-not-exist
+    --
+    -- -   The status \"no-permission\" indicates that Amazon Redshift no
+    --     longer has permission to post to the Amazon SNS topic. The status
+    --     \"topic-not-exist\" indicates that the topic was deleted after the
+    --     subscription was created.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | A list of the sources that publish events to the Amazon Redshift event
+    -- notification subscription.
+    sourceIdsList :: Prelude.Maybe [Prelude.Text],
+    -- | The event severity specified in the Amazon Redshift event notification
+    -- subscription.
+    --
+    -- Values: ERROR, INFO
+    severity :: Prelude.Maybe Prelude.Text,
+    -- | The list of Amazon Redshift event categories specified in the event
+    -- notification subscription.
+    --
+    -- Values: Configuration, Management, Monitoring, Security
+    eventCategoriesList :: Prelude.Maybe [Prelude.Text],
+    -- | A boolean value indicating whether the subscription is enabled; @true@
+    -- indicates that the subscription is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The date and time the Amazon Redshift event notification subscription
+    -- was created.
+    subscriptionCreationTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The AWS customer account associated with the Amazon Redshift event
+    -- notification subscription.
+    customerAwsId :: Prelude.Maybe Prelude.Text,
+    -- | The list of tags for the event subscription.
+    tags :: Prelude.Maybe [Tag],
+    -- | The source type of the events returned by the Amazon Redshift event
+    -- notification, such as cluster, cluster-snapshot,
+    -- cluster-parameter-group, cluster-security-group, or scheduled-action.
+    sourceType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Amazon SNS topic used by the event
+    -- notification subscription.
+    snsTopicArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esCustSubscriptionId' - The name of the Amazon Redshift event notification subscription.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esStatus' - The status of the Amazon Redshift event notification subscription. Constraints:     * Can be one of the following: active | no-permission | topic-not-exist     * The status "no-permission" indicates that Amazon Redshift no longer has permission to post to the Amazon SNS topic. The status "topic-not-exist" indicates that the topic was deleted after the subscription was created.
+-- 'custSubscriptionId', 'eventSubscription_custSubscriptionId' - The name of the Amazon Redshift event notification subscription.
 --
--- * 'esSourceIdsList' - A list of the sources that publish events to the Amazon Redshift event notification subscription.
+-- 'status', 'eventSubscription_status' - The status of the Amazon Redshift event notification subscription.
 --
--- * 'esSeverity' - The event severity specified in the Amazon Redshift event notification subscription. Values: ERROR, INFO
+-- Constraints:
 --
--- * 'esEventCategoriesList' - The list of Amazon Redshift event categories specified in the event notification subscription. Values: Configuration, Management, Monitoring, Security
+-- -   Can be one of the following: active | no-permission |
+--     topic-not-exist
 --
--- * 'esEnabled' - A boolean value indicating whether the subscription is enabled; @true@ indicates that the subscription is enabled.
+-- -   The status \"no-permission\" indicates that Amazon Redshift no
+--     longer has permission to post to the Amazon SNS topic. The status
+--     \"topic-not-exist\" indicates that the topic was deleted after the
+--     subscription was created.
 --
--- * 'esSubscriptionCreationTime' - The date and time the Amazon Redshift event notification subscription was created.
+-- 'sourceIdsList', 'eventSubscription_sourceIdsList' - A list of the sources that publish events to the Amazon Redshift event
+-- notification subscription.
 --
--- * 'esCustomerAWSId' - The AWS customer account associated with the Amazon Redshift event notification subscription.
+-- 'severity', 'eventSubscription_severity' - The event severity specified in the Amazon Redshift event notification
+-- subscription.
 --
--- * 'esTags' - The list of tags for the event subscription.
+-- Values: ERROR, INFO
 --
--- * 'esSourceType' - The source type of the events returned by the Amazon Redshift event notification, such as cluster, cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
+-- 'eventCategoriesList', 'eventSubscription_eventCategoriesList' - The list of Amazon Redshift event categories specified in the event
+-- notification subscription.
 --
--- * 'esSNSTopicARN' - The Amazon Resource Name (ARN) of the Amazon SNS topic used by the event notification subscription.
-eventSubscription ::
+-- Values: Configuration, Management, Monitoring, Security
+--
+-- 'enabled', 'eventSubscription_enabled' - A boolean value indicating whether the subscription is enabled; @true@
+-- indicates that the subscription is enabled.
+--
+-- 'subscriptionCreationTime', 'eventSubscription_subscriptionCreationTime' - The date and time the Amazon Redshift event notification subscription
+-- was created.
+--
+-- 'customerAwsId', 'eventSubscription_customerAwsId' - The AWS customer account associated with the Amazon Redshift event
+-- notification subscription.
+--
+-- 'tags', 'eventSubscription_tags' - The list of tags for the event subscription.
+--
+-- 'sourceType', 'eventSubscription_sourceType' - The source type of the events returned by the Amazon Redshift event
+-- notification, such as cluster, cluster-snapshot,
+-- cluster-parameter-group, cluster-security-group, or scheduled-action.
+--
+-- 'snsTopicArn', 'eventSubscription_snsTopicArn' - The Amazon Resource Name (ARN) of the Amazon SNS topic used by the event
+-- notification subscription.
+newEventSubscription ::
   EventSubscription
-eventSubscription =
+newEventSubscription =
   EventSubscription'
-    { _esCustSubscriptionId = Nothing,
-      _esStatus = Nothing,
-      _esSourceIdsList = Nothing,
-      _esSeverity = Nothing,
-      _esEventCategoriesList = Nothing,
-      _esEnabled = Nothing,
-      _esSubscriptionCreationTime = Nothing,
-      _esCustomerAWSId = Nothing,
-      _esTags = Nothing,
-      _esSourceType = Nothing,
-      _esSNSTopicARN = Nothing
+    { custSubscriptionId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      sourceIdsList = Prelude.Nothing,
+      severity = Prelude.Nothing,
+      eventCategoriesList = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      subscriptionCreationTime = Prelude.Nothing,
+      customerAwsId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      sourceType = Prelude.Nothing,
+      snsTopicArn = Prelude.Nothing
     }
 
 -- | The name of the Amazon Redshift event notification subscription.
-esCustSubscriptionId :: Lens' EventSubscription (Maybe Text)
-esCustSubscriptionId = lens _esCustSubscriptionId (\s a -> s {_esCustSubscriptionId = a})
+eventSubscription_custSubscriptionId :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.Text)
+eventSubscription_custSubscriptionId = Lens.lens (\EventSubscription' {custSubscriptionId} -> custSubscriptionId) (\s@EventSubscription' {} a -> s {custSubscriptionId = a} :: EventSubscription)
 
--- | The status of the Amazon Redshift event notification subscription. Constraints:     * Can be one of the following: active | no-permission | topic-not-exist     * The status "no-permission" indicates that Amazon Redshift no longer has permission to post to the Amazon SNS topic. The status "topic-not-exist" indicates that the topic was deleted after the subscription was created.
-esStatus :: Lens' EventSubscription (Maybe Text)
-esStatus = lens _esStatus (\s a -> s {_esStatus = a})
+-- | The status of the Amazon Redshift event notification subscription.
+--
+-- Constraints:
+--
+-- -   Can be one of the following: active | no-permission |
+--     topic-not-exist
+--
+-- -   The status \"no-permission\" indicates that Amazon Redshift no
+--     longer has permission to post to the Amazon SNS topic. The status
+--     \"topic-not-exist\" indicates that the topic was deleted after the
+--     subscription was created.
+eventSubscription_status :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.Text)
+eventSubscription_status = Lens.lens (\EventSubscription' {status} -> status) (\s@EventSubscription' {} a -> s {status = a} :: EventSubscription)
 
--- | A list of the sources that publish events to the Amazon Redshift event notification subscription.
-esSourceIdsList :: Lens' EventSubscription [Text]
-esSourceIdsList = lens _esSourceIdsList (\s a -> s {_esSourceIdsList = a}) . _Default . _Coerce
+-- | A list of the sources that publish events to the Amazon Redshift event
+-- notification subscription.
+eventSubscription_sourceIdsList :: Lens.Lens' EventSubscription (Prelude.Maybe [Prelude.Text])
+eventSubscription_sourceIdsList = Lens.lens (\EventSubscription' {sourceIdsList} -> sourceIdsList) (\s@EventSubscription' {} a -> s {sourceIdsList = a} :: EventSubscription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The event severity specified in the Amazon Redshift event notification subscription. Values: ERROR, INFO
-esSeverity :: Lens' EventSubscription (Maybe Text)
-esSeverity = lens _esSeverity (\s a -> s {_esSeverity = a})
+-- | The event severity specified in the Amazon Redshift event notification
+-- subscription.
+--
+-- Values: ERROR, INFO
+eventSubscription_severity :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.Text)
+eventSubscription_severity = Lens.lens (\EventSubscription' {severity} -> severity) (\s@EventSubscription' {} a -> s {severity = a} :: EventSubscription)
 
--- | The list of Amazon Redshift event categories specified in the event notification subscription. Values: Configuration, Management, Monitoring, Security
-esEventCategoriesList :: Lens' EventSubscription [Text]
-esEventCategoriesList = lens _esEventCategoriesList (\s a -> s {_esEventCategoriesList = a}) . _Default . _Coerce
+-- | The list of Amazon Redshift event categories specified in the event
+-- notification subscription.
+--
+-- Values: Configuration, Management, Monitoring, Security
+eventSubscription_eventCategoriesList :: Lens.Lens' EventSubscription (Prelude.Maybe [Prelude.Text])
+eventSubscription_eventCategoriesList = Lens.lens (\EventSubscription' {eventCategoriesList} -> eventCategoriesList) (\s@EventSubscription' {} a -> s {eventCategoriesList = a} :: EventSubscription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A boolean value indicating whether the subscription is enabled; @true@ indicates that the subscription is enabled.
-esEnabled :: Lens' EventSubscription (Maybe Bool)
-esEnabled = lens _esEnabled (\s a -> s {_esEnabled = a})
+-- | A boolean value indicating whether the subscription is enabled; @true@
+-- indicates that the subscription is enabled.
+eventSubscription_enabled :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.Bool)
+eventSubscription_enabled = Lens.lens (\EventSubscription' {enabled} -> enabled) (\s@EventSubscription' {} a -> s {enabled = a} :: EventSubscription)
 
--- | The date and time the Amazon Redshift event notification subscription was created.
-esSubscriptionCreationTime :: Lens' EventSubscription (Maybe UTCTime)
-esSubscriptionCreationTime = lens _esSubscriptionCreationTime (\s a -> s {_esSubscriptionCreationTime = a}) . mapping _Time
+-- | The date and time the Amazon Redshift event notification subscription
+-- was created.
+eventSubscription_subscriptionCreationTime :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.UTCTime)
+eventSubscription_subscriptionCreationTime = Lens.lens (\EventSubscription' {subscriptionCreationTime} -> subscriptionCreationTime) (\s@EventSubscription' {} a -> s {subscriptionCreationTime = a} :: EventSubscription) Prelude.. Lens.mapping Prelude._Time
 
--- | The AWS customer account associated with the Amazon Redshift event notification subscription.
-esCustomerAWSId :: Lens' EventSubscription (Maybe Text)
-esCustomerAWSId = lens _esCustomerAWSId (\s a -> s {_esCustomerAWSId = a})
+-- | The AWS customer account associated with the Amazon Redshift event
+-- notification subscription.
+eventSubscription_customerAwsId :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.Text)
+eventSubscription_customerAwsId = Lens.lens (\EventSubscription' {customerAwsId} -> customerAwsId) (\s@EventSubscription' {} a -> s {customerAwsId = a} :: EventSubscription)
 
 -- | The list of tags for the event subscription.
-esTags :: Lens' EventSubscription [Tag]
-esTags = lens _esTags (\s a -> s {_esTags = a}) . _Default . _Coerce
+eventSubscription_tags :: Lens.Lens' EventSubscription (Prelude.Maybe [Tag])
+eventSubscription_tags = Lens.lens (\EventSubscription' {tags} -> tags) (\s@EventSubscription' {} a -> s {tags = a} :: EventSubscription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The source type of the events returned by the Amazon Redshift event notification, such as cluster, cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
-esSourceType :: Lens' EventSubscription (Maybe Text)
-esSourceType = lens _esSourceType (\s a -> s {_esSourceType = a})
+-- | The source type of the events returned by the Amazon Redshift event
+-- notification, such as cluster, cluster-snapshot,
+-- cluster-parameter-group, cluster-security-group, or scheduled-action.
+eventSubscription_sourceType :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.Text)
+eventSubscription_sourceType = Lens.lens (\EventSubscription' {sourceType} -> sourceType) (\s@EventSubscription' {} a -> s {sourceType = a} :: EventSubscription)
 
--- | The Amazon Resource Name (ARN) of the Amazon SNS topic used by the event notification subscription.
-esSNSTopicARN :: Lens' EventSubscription (Maybe Text)
-esSNSTopicARN = lens _esSNSTopicARN (\s a -> s {_esSNSTopicARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon SNS topic used by the event
+-- notification subscription.
+eventSubscription_snsTopicArn :: Lens.Lens' EventSubscription (Prelude.Maybe Prelude.Text)
+eventSubscription_snsTopicArn = Lens.lens (\EventSubscription' {snsTopicArn} -> snsTopicArn) (\s@EventSubscription' {} a -> s {snsTopicArn = a} :: EventSubscription)
 
-instance FromXML EventSubscription where
+instance Prelude.FromXML EventSubscription where
   parseXML x =
     EventSubscription'
-      <$> (x .@? "CustSubscriptionId")
-      <*> (x .@? "Status")
-      <*> ( x .@? "SourceIdsList" .!@ mempty
-              >>= may (parseXMLList "SourceId")
-          )
-      <*> (x .@? "Severity")
-      <*> ( x .@? "EventCategoriesList" .!@ mempty
-              >>= may (parseXMLList "EventCategory")
-          )
-      <*> (x .@? "Enabled")
-      <*> (x .@? "SubscriptionCreationTime")
-      <*> (x .@? "CustomerAwsId")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "Tag")
-          )
-      <*> (x .@? "SourceType")
-      <*> (x .@? "SnsTopicArn")
+      Prelude.<$> (x Prelude..@? "CustSubscriptionId")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> ( x Prelude..@? "SourceIdsList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "SourceId")
+                  )
+      Prelude.<*> (x Prelude..@? "Severity")
+      Prelude.<*> ( x Prelude..@? "EventCategoriesList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "EventCategory")
+                  )
+      Prelude.<*> (x Prelude..@? "Enabled")
+      Prelude.<*> (x Prelude..@? "SubscriptionCreationTime")
+      Prelude.<*> (x Prelude..@? "CustomerAwsId")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
+      Prelude.<*> (x Prelude..@? "SourceType")
+      Prelude.<*> (x Prelude..@? "SnsTopicArn")
 
-instance Hashable EventSubscription
+instance Prelude.Hashable EventSubscription
 
-instance NFData EventSubscription
+instance Prelude.NFData EventSubscription

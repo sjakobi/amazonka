@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,108 +23,113 @@
 --
 -- Deletes an Amazon Redshift security group.
 --
+-- You cannot delete a security group that is associated with any clusters.
+-- You cannot delete the default security group.
 --
--- For information about managing security groups, go to <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html Amazon Redshift Cluster Security Groups> in the /Amazon Redshift Cluster Management Guide/ .
+-- For information about managing security groups, go to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html Amazon Redshift Cluster Security Groups>
+-- in the /Amazon Redshift Cluster Management Guide/.
 module Network.AWS.Redshift.DeleteClusterSecurityGroup
   ( -- * Creating a Request
-    deleteClusterSecurityGroup,
-    DeleteClusterSecurityGroup,
+    DeleteClusterSecurityGroup (..),
+    newDeleteClusterSecurityGroup,
 
     -- * Request Lenses
-    dClusterSecurityGroupName,
+    deleteClusterSecurityGroup_clusterSecurityGroupName,
 
     -- * Destructuring the Response
-    deleteClusterSecurityGroupResponse,
-    DeleteClusterSecurityGroupResponse,
+    DeleteClusterSecurityGroupResponse (..),
+    newDeleteClusterSecurityGroupResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteClusterSecurityGroup' smart constructor.
-newtype DeleteClusterSecurityGroup = DeleteClusterSecurityGroup'
-  { _dClusterSecurityGroupName ::
-      Text
+-- /See:/ 'newDeleteClusterSecurityGroup' smart constructor.
+data DeleteClusterSecurityGroup = DeleteClusterSecurityGroup'
+  { -- | The name of the cluster security group to be deleted.
+    clusterSecurityGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteClusterSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteClusterSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dClusterSecurityGroupName' - The name of the cluster security group to be deleted.
-deleteClusterSecurityGroup ::
-  -- | 'dClusterSecurityGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clusterSecurityGroupName', 'deleteClusterSecurityGroup_clusterSecurityGroupName' - The name of the cluster security group to be deleted.
+newDeleteClusterSecurityGroup ::
+  -- | 'clusterSecurityGroupName'
+  Prelude.Text ->
   DeleteClusterSecurityGroup
-deleteClusterSecurityGroup pClusterSecurityGroupName_ =
-  DeleteClusterSecurityGroup'
-    { _dClusterSecurityGroupName =
-        pClusterSecurityGroupName_
-    }
+newDeleteClusterSecurityGroup
+  pClusterSecurityGroupName_ =
+    DeleteClusterSecurityGroup'
+      { clusterSecurityGroupName =
+          pClusterSecurityGroupName_
+      }
 
 -- | The name of the cluster security group to be deleted.
-dClusterSecurityGroupName :: Lens' DeleteClusterSecurityGroup Text
-dClusterSecurityGroupName = lens _dClusterSecurityGroupName (\s a -> s {_dClusterSecurityGroupName = a})
+deleteClusterSecurityGroup_clusterSecurityGroupName :: Lens.Lens' DeleteClusterSecurityGroup Prelude.Text
+deleteClusterSecurityGroup_clusterSecurityGroupName = Lens.lens (\DeleteClusterSecurityGroup' {clusterSecurityGroupName} -> clusterSecurityGroupName) (\s@DeleteClusterSecurityGroup' {} a -> s {clusterSecurityGroupName = a} :: DeleteClusterSecurityGroup)
 
-instance AWSRequest DeleteClusterSecurityGroup where
+instance
+  Prelude.AWSRequest
+    DeleteClusterSecurityGroup
+  where
   type
     Rs DeleteClusterSecurityGroup =
       DeleteClusterSecurityGroupResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteClusterSecurityGroupResponse'
+    Response.receiveNull
+      DeleteClusterSecurityGroupResponse'
 
-instance Hashable DeleteClusterSecurityGroup
+instance Prelude.Hashable DeleteClusterSecurityGroup
 
-instance NFData DeleteClusterSecurityGroup
+instance Prelude.NFData DeleteClusterSecurityGroup
 
-instance ToHeaders DeleteClusterSecurityGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteClusterSecurityGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteClusterSecurityGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteClusterSecurityGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteClusterSecurityGroup where
+instance Prelude.ToQuery DeleteClusterSecurityGroup where
   toQuery DeleteClusterSecurityGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteClusterSecurityGroup" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
+          Prelude.=: ("DeleteClusterSecurityGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
         "ClusterSecurityGroupName"
-          =: _dClusterSecurityGroupName
+          Prelude.=: clusterSecurityGroupName
       ]
 
--- | /See:/ 'deleteClusterSecurityGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteClusterSecurityGroupResponse' smart constructor.
 data DeleteClusterSecurityGroupResponse = DeleteClusterSecurityGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteClusterSecurityGroupResponse' with the minimum fields required to make a request.
-deleteClusterSecurityGroupResponse ::
+-- |
+-- Create a value of 'DeleteClusterSecurityGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteClusterSecurityGroupResponse ::
   DeleteClusterSecurityGroupResponse
-deleteClusterSecurityGroupResponse =
+newDeleteClusterSecurityGroupResponse =
   DeleteClusterSecurityGroupResponse'
 
-instance NFData DeleteClusterSecurityGroupResponse
+instance
+  Prelude.NFData
+    DeleteClusterSecurityGroupResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.UpdateTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.SupportedOperation
 
 -- | A maintenance track that you can switch the current track to.
 --
---
---
--- /See:/ 'updateTarget' smart constructor.
+-- /See:/ 'newUpdateTarget' smart constructor.
 data UpdateTarget = UpdateTarget'
-  { _utSupportedOperations ::
-      !(Maybe [SupportedOperation]),
-    _utDatabaseVersion :: !(Maybe Text),
-    _utMaintenanceTrackName :: !(Maybe Text)
+  { -- | A list of operations supported by the maintenance track.
+    supportedOperations :: Prelude.Maybe [SupportedOperation],
+    -- | The cluster version for the new maintenance track.
+    databaseVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the new maintenance track.
+    maintenanceTrackName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utSupportedOperations' - A list of operations supported by the maintenance track.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utDatabaseVersion' - The cluster version for the new maintenance track.
+-- 'supportedOperations', 'updateTarget_supportedOperations' - A list of operations supported by the maintenance track.
 --
--- * 'utMaintenanceTrackName' - The name of the new maintenance track.
-updateTarget ::
+-- 'databaseVersion', 'updateTarget_databaseVersion' - The cluster version for the new maintenance track.
+--
+-- 'maintenanceTrackName', 'updateTarget_maintenanceTrackName' - The name of the new maintenance track.
+newUpdateTarget ::
   UpdateTarget
-updateTarget =
+newUpdateTarget =
   UpdateTarget'
-    { _utSupportedOperations = Nothing,
-      _utDatabaseVersion = Nothing,
-      _utMaintenanceTrackName = Nothing
+    { supportedOperations =
+        Prelude.Nothing,
+      databaseVersion = Prelude.Nothing,
+      maintenanceTrackName = Prelude.Nothing
     }
 
 -- | A list of operations supported by the maintenance track.
-utSupportedOperations :: Lens' UpdateTarget [SupportedOperation]
-utSupportedOperations = lens _utSupportedOperations (\s a -> s {_utSupportedOperations = a}) . _Default . _Coerce
+updateTarget_supportedOperations :: Lens.Lens' UpdateTarget (Prelude.Maybe [SupportedOperation])
+updateTarget_supportedOperations = Lens.lens (\UpdateTarget' {supportedOperations} -> supportedOperations) (\s@UpdateTarget' {} a -> s {supportedOperations = a} :: UpdateTarget) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The cluster version for the new maintenance track.
-utDatabaseVersion :: Lens' UpdateTarget (Maybe Text)
-utDatabaseVersion = lens _utDatabaseVersion (\s a -> s {_utDatabaseVersion = a})
+updateTarget_databaseVersion :: Lens.Lens' UpdateTarget (Prelude.Maybe Prelude.Text)
+updateTarget_databaseVersion = Lens.lens (\UpdateTarget' {databaseVersion} -> databaseVersion) (\s@UpdateTarget' {} a -> s {databaseVersion = a} :: UpdateTarget)
 
 -- | The name of the new maintenance track.
-utMaintenanceTrackName :: Lens' UpdateTarget (Maybe Text)
-utMaintenanceTrackName = lens _utMaintenanceTrackName (\s a -> s {_utMaintenanceTrackName = a})
+updateTarget_maintenanceTrackName :: Lens.Lens' UpdateTarget (Prelude.Maybe Prelude.Text)
+updateTarget_maintenanceTrackName = Lens.lens (\UpdateTarget' {maintenanceTrackName} -> maintenanceTrackName) (\s@UpdateTarget' {} a -> s {maintenanceTrackName = a} :: UpdateTarget)
 
-instance FromXML UpdateTarget where
+instance Prelude.FromXML UpdateTarget where
   parseXML x =
     UpdateTarget'
-      <$> ( x .@? "SupportedOperations" .!@ mempty
-              >>= may (parseXMLList "SupportedOperation")
-          )
-      <*> (x .@? "DatabaseVersion")
-      <*> (x .@? "MaintenanceTrackName")
+      Prelude.<$> ( x Prelude..@? "SupportedOperations"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "SupportedOperation")
+                  )
+      Prelude.<*> (x Prelude..@? "DatabaseVersion")
+      Prelude.<*> (x Prelude..@? "MaintenanceTrackName")
 
-instance Hashable UpdateTarget
+instance Prelude.Hashable UpdateTarget
 
-instance NFData UpdateTarget
+instance Prelude.NFData UpdateTarget

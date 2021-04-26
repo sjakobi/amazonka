@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,218 +23,277 @@
 --
 -- Returns a list of snapshot schedules.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Redshift.DescribeSnapshotSchedules
   ( -- * Creating a Request
-    describeSnapshotSchedules,
-    DescribeSnapshotSchedules,
+    DescribeSnapshotSchedules (..),
+    newDescribeSnapshotSchedules,
 
     -- * Request Lenses
-    dssTagKeys,
-    dssScheduleIdentifier,
-    dssClusterIdentifier,
-    dssTagValues,
-    dssMarker,
-    dssMaxRecords,
+    describeSnapshotSchedules_tagKeys,
+    describeSnapshotSchedules_scheduleIdentifier,
+    describeSnapshotSchedules_clusterIdentifier,
+    describeSnapshotSchedules_tagValues,
+    describeSnapshotSchedules_marker,
+    describeSnapshotSchedules_maxRecords,
 
     -- * Destructuring the Response
-    describeSnapshotSchedulesResponse,
-    DescribeSnapshotSchedulesResponse,
+    DescribeSnapshotSchedulesResponse (..),
+    newDescribeSnapshotSchedulesResponse,
 
     -- * Response Lenses
-    dssrrsSnapshotSchedules,
-    dssrrsMarker,
-    dssrrsResponseStatus,
+    describeSnapshotSchedulesResponse_snapshotSchedules,
+    describeSnapshotSchedulesResponse_marker,
+    describeSnapshotSchedulesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.SnapshotSchedule
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeSnapshotSchedules' smart constructor.
+-- | /See:/ 'newDescribeSnapshotSchedules' smart constructor.
 data DescribeSnapshotSchedules = DescribeSnapshotSchedules'
-  { _dssTagKeys ::
-      !(Maybe [Text]),
-    _dssScheduleIdentifier ::
-      !(Maybe Text),
-    _dssClusterIdentifier ::
-      !(Maybe Text),
-    _dssTagValues ::
-      !(Maybe [Text]),
-    _dssMarker ::
-      !(Maybe Text),
-    _dssMaxRecords ::
-      !(Maybe Int)
+  { -- | The key value for a snapshot schedule tag.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A unique identifier for a snapshot schedule.
+    scheduleIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the cluster whose snapshot schedules you want
+    -- to view.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The value corresponding to the key of the snapshot schedule tag.
+    tagValues :: Prelude.Maybe [Prelude.Text],
+    -- | A value that indicates the starting point for the next set of response
+    -- records in a subsequent request. If a value is returned in a response,
+    -- you can retrieve the next set of records by providing this returned
+    -- marker value in the @marker@ parameter and retrying the command. If the
+    -- @marker@ field is empty, all response records have been retrieved for
+    -- the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number or response records to return in each call. If the
+    -- number of remaining response records exceeds the specified @MaxRecords@
+    -- value, a value is returned in a @marker@ field of the response. You can
+    -- retrieve the next set of records by retrying the command with the
+    -- returned @marker@ value.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSnapshotSchedules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSnapshotSchedules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssTagKeys' - The key value for a snapshot schedule tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssScheduleIdentifier' - A unique identifier for a snapshot schedule.
+-- 'tagKeys', 'describeSnapshotSchedules_tagKeys' - The key value for a snapshot schedule tag.
 --
--- * 'dssClusterIdentifier' - The unique identifier for the cluster whose snapshot schedules you want to view.
+-- 'scheduleIdentifier', 'describeSnapshotSchedules_scheduleIdentifier' - A unique identifier for a snapshot schedule.
 --
--- * 'dssTagValues' - The value corresponding to the key of the snapshot schedule tag.
+-- 'clusterIdentifier', 'describeSnapshotSchedules_clusterIdentifier' - The unique identifier for the cluster whose snapshot schedules you want
+-- to view.
 --
--- * 'dssMarker' - A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @marker@ parameter and retrying the command. If the @marker@ field is empty, all response records have been retrieved for the request.
+-- 'tagValues', 'describeSnapshotSchedules_tagValues' - The value corresponding to the key of the snapshot schedule tag.
 --
--- * 'dssMaxRecords' - The maximum number or response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned @marker@ value.
-describeSnapshotSchedules ::
+-- 'marker', 'describeSnapshotSchedules_marker' - A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @marker@ parameter and retrying the command. If the
+-- @marker@ field is empty, all response records have been retrieved for
+-- the request.
+--
+-- 'maxRecords', 'describeSnapshotSchedules_maxRecords' - The maximum number or response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned @marker@ value.
+newDescribeSnapshotSchedules ::
   DescribeSnapshotSchedules
-describeSnapshotSchedules =
+newDescribeSnapshotSchedules =
   DescribeSnapshotSchedules'
-    { _dssTagKeys = Nothing,
-      _dssScheduleIdentifier = Nothing,
-      _dssClusterIdentifier = Nothing,
-      _dssTagValues = Nothing,
-      _dssMarker = Nothing,
-      _dssMaxRecords = Nothing
+    { tagKeys =
+        Prelude.Nothing,
+      scheduleIdentifier = Prelude.Nothing,
+      clusterIdentifier = Prelude.Nothing,
+      tagValues = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The key value for a snapshot schedule tag.
-dssTagKeys :: Lens' DescribeSnapshotSchedules [Text]
-dssTagKeys = lens _dssTagKeys (\s a -> s {_dssTagKeys = a}) . _Default . _Coerce
+describeSnapshotSchedules_tagKeys :: Lens.Lens' DescribeSnapshotSchedules (Prelude.Maybe [Prelude.Text])
+describeSnapshotSchedules_tagKeys = Lens.lens (\DescribeSnapshotSchedules' {tagKeys} -> tagKeys) (\s@DescribeSnapshotSchedules' {} a -> s {tagKeys = a} :: DescribeSnapshotSchedules) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A unique identifier for a snapshot schedule.
-dssScheduleIdentifier :: Lens' DescribeSnapshotSchedules (Maybe Text)
-dssScheduleIdentifier = lens _dssScheduleIdentifier (\s a -> s {_dssScheduleIdentifier = a})
+describeSnapshotSchedules_scheduleIdentifier :: Lens.Lens' DescribeSnapshotSchedules (Prelude.Maybe Prelude.Text)
+describeSnapshotSchedules_scheduleIdentifier = Lens.lens (\DescribeSnapshotSchedules' {scheduleIdentifier} -> scheduleIdentifier) (\s@DescribeSnapshotSchedules' {} a -> s {scheduleIdentifier = a} :: DescribeSnapshotSchedules)
 
--- | The unique identifier for the cluster whose snapshot schedules you want to view.
-dssClusterIdentifier :: Lens' DescribeSnapshotSchedules (Maybe Text)
-dssClusterIdentifier = lens _dssClusterIdentifier (\s a -> s {_dssClusterIdentifier = a})
+-- | The unique identifier for the cluster whose snapshot schedules you want
+-- to view.
+describeSnapshotSchedules_clusterIdentifier :: Lens.Lens' DescribeSnapshotSchedules (Prelude.Maybe Prelude.Text)
+describeSnapshotSchedules_clusterIdentifier = Lens.lens (\DescribeSnapshotSchedules' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeSnapshotSchedules' {} a -> s {clusterIdentifier = a} :: DescribeSnapshotSchedules)
 
 -- | The value corresponding to the key of the snapshot schedule tag.
-dssTagValues :: Lens' DescribeSnapshotSchedules [Text]
-dssTagValues = lens _dssTagValues (\s a -> s {_dssTagValues = a}) . _Default . _Coerce
+describeSnapshotSchedules_tagValues :: Lens.Lens' DescribeSnapshotSchedules (Prelude.Maybe [Prelude.Text])
+describeSnapshotSchedules_tagValues = Lens.lens (\DescribeSnapshotSchedules' {tagValues} -> tagValues) (\s@DescribeSnapshotSchedules' {} a -> s {tagValues = a} :: DescribeSnapshotSchedules) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @marker@ parameter and retrying the command. If the @marker@ field is empty, all response records have been retrieved for the request.
-dssMarker :: Lens' DescribeSnapshotSchedules (Maybe Text)
-dssMarker = lens _dssMarker (\s a -> s {_dssMarker = a})
+-- | A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @marker@ parameter and retrying the command. If the
+-- @marker@ field is empty, all response records have been retrieved for
+-- the request.
+describeSnapshotSchedules_marker :: Lens.Lens' DescribeSnapshotSchedules (Prelude.Maybe Prelude.Text)
+describeSnapshotSchedules_marker = Lens.lens (\DescribeSnapshotSchedules' {marker} -> marker) (\s@DescribeSnapshotSchedules' {} a -> s {marker = a} :: DescribeSnapshotSchedules)
 
--- | The maximum number or response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned @marker@ value.
-dssMaxRecords :: Lens' DescribeSnapshotSchedules (Maybe Int)
-dssMaxRecords = lens _dssMaxRecords (\s a -> s {_dssMaxRecords = a})
+-- | The maximum number or response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned @marker@ value.
+describeSnapshotSchedules_maxRecords :: Lens.Lens' DescribeSnapshotSchedules (Prelude.Maybe Prelude.Int)
+describeSnapshotSchedules_maxRecords = Lens.lens (\DescribeSnapshotSchedules' {maxRecords} -> maxRecords) (\s@DescribeSnapshotSchedules' {} a -> s {maxRecords = a} :: DescribeSnapshotSchedules)
 
-instance AWSPager DescribeSnapshotSchedules where
+instance Pager.AWSPager DescribeSnapshotSchedules where
   page rq rs
-    | stop (rs ^. dssrrsMarker) = Nothing
-    | stop (rs ^. dssrrsSnapshotSchedules) = Nothing
-    | otherwise =
-      Just $ rq & dssMarker .~ rs ^. dssrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeSnapshotSchedulesResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSnapshotSchedulesResponse_snapshotSchedules
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSnapshotSchedules_marker
+          Lens..~ rs
+          Lens.^? describeSnapshotSchedulesResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeSnapshotSchedules where
+instance Prelude.AWSRequest DescribeSnapshotSchedules where
   type
     Rs DescribeSnapshotSchedules =
       DescribeSnapshotSchedulesResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeSnapshotSchedulesResult"
       ( \s h x ->
           DescribeSnapshotSchedulesResponse'
-            <$> ( x .@? "SnapshotSchedules" .!@ mempty
-                    >>= may (parseXMLList "SnapshotSchedule")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "SnapshotSchedules"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "SnapshotSchedule")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSnapshotSchedules
+instance Prelude.Hashable DescribeSnapshotSchedules
 
-instance NFData DescribeSnapshotSchedules
+instance Prelude.NFData DescribeSnapshotSchedules
 
-instance ToHeaders DescribeSnapshotSchedules where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSnapshotSchedules where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSnapshotSchedules where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSnapshotSchedules where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSnapshotSchedules where
+instance Prelude.ToQuery DescribeSnapshotSchedules where
   toQuery DescribeSnapshotSchedules' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeSnapshotSchedules" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
+          Prelude.=: ("DescribeSnapshotSchedules" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
         "TagKeys"
-          =: toQuery (toQueryList "TagKey" <$> _dssTagKeys),
-        "ScheduleIdentifier" =: _dssScheduleIdentifier,
-        "ClusterIdentifier" =: _dssClusterIdentifier,
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "ScheduleIdentifier" Prelude.=: scheduleIdentifier,
+        "ClusterIdentifier" Prelude.=: clusterIdentifier,
         "TagValues"
-          =: toQuery (toQueryList "TagValue" <$> _dssTagValues),
-        "Marker" =: _dssMarker,
-        "MaxRecords" =: _dssMaxRecords
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "TagValue"
+                Prelude.<$> tagValues
+            ),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'describeSnapshotSchedulesResponse' smart constructor.
+-- | /See:/ 'newDescribeSnapshotSchedulesResponse' smart constructor.
 data DescribeSnapshotSchedulesResponse = DescribeSnapshotSchedulesResponse'
-  { _dssrrsSnapshotSchedules ::
-      !( Maybe
-           [SnapshotSchedule]
-       ),
-    _dssrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dssrrsResponseStatus ::
-      !Int
+  { -- | A list of SnapshotSchedules.
+    snapshotSchedules :: Prelude.Maybe [SnapshotSchedule],
+    -- | A value that indicates the starting point for the next set of response
+    -- records in a subsequent request. If a value is returned in a response,
+    -- you can retrieve the next set of records by providing this returned
+    -- marker value in the @marker@ parameter and retrying the command. If the
+    -- @marker@ field is empty, all response records have been retrieved for
+    -- the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSnapshotSchedulesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSnapshotSchedulesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssrrsSnapshotSchedules' - A list of SnapshotSchedules.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssrrsMarker' - A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @marker@ parameter and retrying the command. If the @marker@ field is empty, all response records have been retrieved for the request.
+-- 'snapshotSchedules', 'describeSnapshotSchedulesResponse_snapshotSchedules' - A list of SnapshotSchedules.
 --
--- * 'dssrrsResponseStatus' - -- | The response status code.
-describeSnapshotSchedulesResponse ::
-  -- | 'dssrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeSnapshotSchedulesResponse_marker' - A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @marker@ parameter and retrying the command. If the
+-- @marker@ field is empty, all response records have been retrieved for
+-- the request.
+--
+-- 'httpStatus', 'describeSnapshotSchedulesResponse_httpStatus' - The response's http status code.
+newDescribeSnapshotSchedulesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSnapshotSchedulesResponse
-describeSnapshotSchedulesResponse pResponseStatus_ =
+newDescribeSnapshotSchedulesResponse pHttpStatus_ =
   DescribeSnapshotSchedulesResponse'
-    { _dssrrsSnapshotSchedules =
-        Nothing,
-      _dssrrsMarker = Nothing,
-      _dssrrsResponseStatus = pResponseStatus_
+    { snapshotSchedules =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of SnapshotSchedules.
-dssrrsSnapshotSchedules :: Lens' DescribeSnapshotSchedulesResponse [SnapshotSchedule]
-dssrrsSnapshotSchedules = lens _dssrrsSnapshotSchedules (\s a -> s {_dssrrsSnapshotSchedules = a}) . _Default . _Coerce
+describeSnapshotSchedulesResponse_snapshotSchedules :: Lens.Lens' DescribeSnapshotSchedulesResponse (Prelude.Maybe [SnapshotSchedule])
+describeSnapshotSchedulesResponse_snapshotSchedules = Lens.lens (\DescribeSnapshotSchedulesResponse' {snapshotSchedules} -> snapshotSchedules) (\s@DescribeSnapshotSchedulesResponse' {} a -> s {snapshotSchedules = a} :: DescribeSnapshotSchedulesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @marker@ parameter and retrying the command. If the @marker@ field is empty, all response records have been retrieved for the request.
-dssrrsMarker :: Lens' DescribeSnapshotSchedulesResponse (Maybe Text)
-dssrrsMarker = lens _dssrrsMarker (\s a -> s {_dssrrsMarker = a})
+-- | A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @marker@ parameter and retrying the command. If the
+-- @marker@ field is empty, all response records have been retrieved for
+-- the request.
+describeSnapshotSchedulesResponse_marker :: Lens.Lens' DescribeSnapshotSchedulesResponse (Prelude.Maybe Prelude.Text)
+describeSnapshotSchedulesResponse_marker = Lens.lens (\DescribeSnapshotSchedulesResponse' {marker} -> marker) (\s@DescribeSnapshotSchedulesResponse' {} a -> s {marker = a} :: DescribeSnapshotSchedulesResponse)
 
--- | -- | The response status code.
-dssrrsResponseStatus :: Lens' DescribeSnapshotSchedulesResponse Int
-dssrrsResponseStatus = lens _dssrrsResponseStatus (\s a -> s {_dssrrsResponseStatus = a})
+-- | The response's http status code.
+describeSnapshotSchedulesResponse_httpStatus :: Lens.Lens' DescribeSnapshotSchedulesResponse Prelude.Int
+describeSnapshotSchedulesResponse_httpStatus = Lens.lens (\DescribeSnapshotSchedulesResponse' {httpStatus} -> httpStatus) (\s@DescribeSnapshotSchedulesResponse' {} a -> s {httpStatus = a} :: DescribeSnapshotSchedulesResponse)
 
-instance NFData DescribeSnapshotSchedulesResponse
+instance
+  Prelude.NFData
+    DescribeSnapshotSchedulesResponse

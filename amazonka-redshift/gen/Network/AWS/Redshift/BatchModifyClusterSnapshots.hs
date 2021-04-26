@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,175 +24,206 @@
 -- Modifies the settings for a set of cluster snapshots.
 module Network.AWS.Redshift.BatchModifyClusterSnapshots
   ( -- * Creating a Request
-    batchModifyClusterSnapshots,
-    BatchModifyClusterSnapshots,
+    BatchModifyClusterSnapshots (..),
+    newBatchModifyClusterSnapshots,
 
     -- * Request Lenses
-    bmcsForce,
-    bmcsManualSnapshotRetentionPeriod,
-    bmcsSnapshotIdentifierList,
+    batchModifyClusterSnapshots_force,
+    batchModifyClusterSnapshots_manualSnapshotRetentionPeriod,
+    batchModifyClusterSnapshots_snapshotIdentifierList,
 
     -- * Destructuring the Response
-    batchModifyClusterSnapshotsResponse,
-    BatchModifyClusterSnapshotsResponse,
+    BatchModifyClusterSnapshotsResponse (..),
+    newBatchModifyClusterSnapshotsResponse,
 
     -- * Response Lenses
-    bmcsrrsResources,
-    bmcsrrsErrors,
-    bmcsrrsResponseStatus,
+    batchModifyClusterSnapshotsResponse_resources,
+    batchModifyClusterSnapshotsResponse_errors,
+    batchModifyClusterSnapshotsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.SnapshotErrorMessage
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchModifyClusterSnapshots' smart constructor.
+-- | /See:/ 'newBatchModifyClusterSnapshots' smart constructor.
 data BatchModifyClusterSnapshots = BatchModifyClusterSnapshots'
-  { _bmcsForce ::
-      !(Maybe Bool),
-    _bmcsManualSnapshotRetentionPeriod ::
-      !(Maybe Int),
-    _bmcsSnapshotIdentifierList ::
-      ![Text]
+  { -- | A boolean value indicating whether to override an exception if the
+    -- retention period has passed.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | The number of days that a manual snapshot is retained. If you specify
+    -- the value -1, the manual snapshot is retained indefinitely.
+    --
+    -- The number must be either -1 or an integer between 1 and 3,653.
+    --
+    -- If you decrease the manual snapshot retention period from its current
+    -- value, existing manual snapshots that fall outside of the new retention
+    -- period will return an error. If you want to suppress the errors and
+    -- delete the snapshots, use the force option.
+    manualSnapshotRetentionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | A list of snapshot identifiers you want to modify.
+    snapshotIdentifierList :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchModifyClusterSnapshots' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchModifyClusterSnapshots' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bmcsForce' - A boolean value indicating whether to override an exception if the retention period has passed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bmcsManualSnapshotRetentionPeriod' - The number of days that a manual snapshot is retained. If you specify the value -1, the manual snapshot is retained indefinitely. The number must be either -1 or an integer between 1 and 3,653. If you decrease the manual snapshot retention period from its current value, existing manual snapshots that fall outside of the new retention period will return an error. If you want to suppress the errors and delete the snapshots, use the force option.
+-- 'force', 'batchModifyClusterSnapshots_force' - A boolean value indicating whether to override an exception if the
+-- retention period has passed.
 --
--- * 'bmcsSnapshotIdentifierList' - A list of snapshot identifiers you want to modify.
-batchModifyClusterSnapshots ::
+-- 'manualSnapshotRetentionPeriod', 'batchModifyClusterSnapshots_manualSnapshotRetentionPeriod' - The number of days that a manual snapshot is retained. If you specify
+-- the value -1, the manual snapshot is retained indefinitely.
+--
+-- The number must be either -1 or an integer between 1 and 3,653.
+--
+-- If you decrease the manual snapshot retention period from its current
+-- value, existing manual snapshots that fall outside of the new retention
+-- period will return an error. If you want to suppress the errors and
+-- delete the snapshots, use the force option.
+--
+-- 'snapshotIdentifierList', 'batchModifyClusterSnapshots_snapshotIdentifierList' - A list of snapshot identifiers you want to modify.
+newBatchModifyClusterSnapshots ::
   BatchModifyClusterSnapshots
-batchModifyClusterSnapshots =
+newBatchModifyClusterSnapshots =
   BatchModifyClusterSnapshots'
-    { _bmcsForce = Nothing,
-      _bmcsManualSnapshotRetentionPeriod = Nothing,
-      _bmcsSnapshotIdentifierList = mempty
+    { force =
+        Prelude.Nothing,
+      manualSnapshotRetentionPeriod =
+        Prelude.Nothing,
+      snapshotIdentifierList = Prelude.mempty
     }
 
--- | A boolean value indicating whether to override an exception if the retention period has passed.
-bmcsForce :: Lens' BatchModifyClusterSnapshots (Maybe Bool)
-bmcsForce = lens _bmcsForce (\s a -> s {_bmcsForce = a})
+-- | A boolean value indicating whether to override an exception if the
+-- retention period has passed.
+batchModifyClusterSnapshots_force :: Lens.Lens' BatchModifyClusterSnapshots (Prelude.Maybe Prelude.Bool)
+batchModifyClusterSnapshots_force = Lens.lens (\BatchModifyClusterSnapshots' {force} -> force) (\s@BatchModifyClusterSnapshots' {} a -> s {force = a} :: BatchModifyClusterSnapshots)
 
--- | The number of days that a manual snapshot is retained. If you specify the value -1, the manual snapshot is retained indefinitely. The number must be either -1 or an integer between 1 and 3,653. If you decrease the manual snapshot retention period from its current value, existing manual snapshots that fall outside of the new retention period will return an error. If you want to suppress the errors and delete the snapshots, use the force option.
-bmcsManualSnapshotRetentionPeriod :: Lens' BatchModifyClusterSnapshots (Maybe Int)
-bmcsManualSnapshotRetentionPeriod = lens _bmcsManualSnapshotRetentionPeriod (\s a -> s {_bmcsManualSnapshotRetentionPeriod = a})
+-- | The number of days that a manual snapshot is retained. If you specify
+-- the value -1, the manual snapshot is retained indefinitely.
+--
+-- The number must be either -1 or an integer between 1 and 3,653.
+--
+-- If you decrease the manual snapshot retention period from its current
+-- value, existing manual snapshots that fall outside of the new retention
+-- period will return an error. If you want to suppress the errors and
+-- delete the snapshots, use the force option.
+batchModifyClusterSnapshots_manualSnapshotRetentionPeriod :: Lens.Lens' BatchModifyClusterSnapshots (Prelude.Maybe Prelude.Int)
+batchModifyClusterSnapshots_manualSnapshotRetentionPeriod = Lens.lens (\BatchModifyClusterSnapshots' {manualSnapshotRetentionPeriod} -> manualSnapshotRetentionPeriod) (\s@BatchModifyClusterSnapshots' {} a -> s {manualSnapshotRetentionPeriod = a} :: BatchModifyClusterSnapshots)
 
 -- | A list of snapshot identifiers you want to modify.
-bmcsSnapshotIdentifierList :: Lens' BatchModifyClusterSnapshots [Text]
-bmcsSnapshotIdentifierList = lens _bmcsSnapshotIdentifierList (\s a -> s {_bmcsSnapshotIdentifierList = a}) . _Coerce
+batchModifyClusterSnapshots_snapshotIdentifierList :: Lens.Lens' BatchModifyClusterSnapshots [Prelude.Text]
+batchModifyClusterSnapshots_snapshotIdentifierList = Lens.lens (\BatchModifyClusterSnapshots' {snapshotIdentifierList} -> snapshotIdentifierList) (\s@BatchModifyClusterSnapshots' {} a -> s {snapshotIdentifierList = a} :: BatchModifyClusterSnapshots) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchModifyClusterSnapshots where
+instance
+  Prelude.AWSRequest
+    BatchModifyClusterSnapshots
+  where
   type
     Rs BatchModifyClusterSnapshots =
       BatchModifyClusterSnapshotsResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "BatchModifyClusterSnapshotsResult"
       ( \s h x ->
           BatchModifyClusterSnapshotsResponse'
-            <$> ( x .@? "Resources" .!@ mempty
-                    >>= may (parseXMLList "String")
-                )
-            <*> ( x .@? "Errors" .!@ mempty
-                    >>= may (parseXMLList "SnapshotErrorMessage")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Resources" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "String")
+                        )
+            Prelude.<*> ( x Prelude..@? "Errors" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "SnapshotErrorMessage")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchModifyClusterSnapshots
+instance Prelude.Hashable BatchModifyClusterSnapshots
 
-instance NFData BatchModifyClusterSnapshots
+instance Prelude.NFData BatchModifyClusterSnapshots
 
-instance ToHeaders BatchModifyClusterSnapshots where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    BatchModifyClusterSnapshots
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath BatchModifyClusterSnapshots where
-  toPath = const "/"
+instance Prelude.ToPath BatchModifyClusterSnapshots where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchModifyClusterSnapshots where
+instance Prelude.ToQuery BatchModifyClusterSnapshots where
   toQuery BatchModifyClusterSnapshots' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("BatchModifyClusterSnapshots" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "Force" =: _bmcsForce,
+          Prelude.=: ( "BatchModifyClusterSnapshots" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "Force" Prelude.=: force,
         "ManualSnapshotRetentionPeriod"
-          =: _bmcsManualSnapshotRetentionPeriod,
+          Prelude.=: manualSnapshotRetentionPeriod,
         "SnapshotIdentifierList"
-          =: toQueryList "String" _bmcsSnapshotIdentifierList
+          Prelude.=: Prelude.toQueryList "String" snapshotIdentifierList
       ]
 
--- | /See:/ 'batchModifyClusterSnapshotsResponse' smart constructor.
+-- | /See:/ 'newBatchModifyClusterSnapshotsResponse' smart constructor.
 data BatchModifyClusterSnapshotsResponse = BatchModifyClusterSnapshotsResponse'
-  { _bmcsrrsResources ::
-      !( Maybe
-           [Text]
-       ),
-    _bmcsrrsErrors ::
-      !( Maybe
-           [SnapshotErrorMessage]
-       ),
-    _bmcsrrsResponseStatus ::
-      !Int
+  { -- | A list of the snapshots that were modified.
+    resources :: Prelude.Maybe [Prelude.Text],
+    -- | A list of any errors returned.
+    errors :: Prelude.Maybe [SnapshotErrorMessage],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchModifyClusterSnapshotsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchModifyClusterSnapshotsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bmcsrrsResources' - A list of the snapshots that were modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bmcsrrsErrors' - A list of any errors returned.
+-- 'resources', 'batchModifyClusterSnapshotsResponse_resources' - A list of the snapshots that were modified.
 --
--- * 'bmcsrrsResponseStatus' - -- | The response status code.
-batchModifyClusterSnapshotsResponse ::
-  -- | 'bmcsrrsResponseStatus'
-  Int ->
+-- 'errors', 'batchModifyClusterSnapshotsResponse_errors' - A list of any errors returned.
+--
+-- 'httpStatus', 'batchModifyClusterSnapshotsResponse_httpStatus' - The response's http status code.
+newBatchModifyClusterSnapshotsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchModifyClusterSnapshotsResponse
-batchModifyClusterSnapshotsResponse pResponseStatus_ =
+newBatchModifyClusterSnapshotsResponse pHttpStatus_ =
   BatchModifyClusterSnapshotsResponse'
-    { _bmcsrrsResources =
-        Nothing,
-      _bmcsrrsErrors = Nothing,
-      _bmcsrrsResponseStatus =
-        pResponseStatus_
+    { resources =
+        Prelude.Nothing,
+      errors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of the snapshots that were modified.
-bmcsrrsResources :: Lens' BatchModifyClusterSnapshotsResponse [Text]
-bmcsrrsResources = lens _bmcsrrsResources (\s a -> s {_bmcsrrsResources = a}) . _Default . _Coerce
+batchModifyClusterSnapshotsResponse_resources :: Lens.Lens' BatchModifyClusterSnapshotsResponse (Prelude.Maybe [Prelude.Text])
+batchModifyClusterSnapshotsResponse_resources = Lens.lens (\BatchModifyClusterSnapshotsResponse' {resources} -> resources) (\s@BatchModifyClusterSnapshotsResponse' {} a -> s {resources = a} :: BatchModifyClusterSnapshotsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of any errors returned.
-bmcsrrsErrors :: Lens' BatchModifyClusterSnapshotsResponse [SnapshotErrorMessage]
-bmcsrrsErrors = lens _bmcsrrsErrors (\s a -> s {_bmcsrrsErrors = a}) . _Default . _Coerce
+batchModifyClusterSnapshotsResponse_errors :: Lens.Lens' BatchModifyClusterSnapshotsResponse (Prelude.Maybe [SnapshotErrorMessage])
+batchModifyClusterSnapshotsResponse_errors = Lens.lens (\BatchModifyClusterSnapshotsResponse' {errors} -> errors) (\s@BatchModifyClusterSnapshotsResponse' {} a -> s {errors = a} :: BatchModifyClusterSnapshotsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bmcsrrsResponseStatus :: Lens' BatchModifyClusterSnapshotsResponse Int
-bmcsrrsResponseStatus = lens _bmcsrrsResponseStatus (\s a -> s {_bmcsrrsResponseStatus = a})
+-- | The response's http status code.
+batchModifyClusterSnapshotsResponse_httpStatus :: Lens.Lens' BatchModifyClusterSnapshotsResponse Prelude.Int
+batchModifyClusterSnapshotsResponse_httpStatus = Lens.lens (\BatchModifyClusterSnapshotsResponse' {httpStatus} -> httpStatus) (\s@BatchModifyClusterSnapshotsResponse' {} a -> s {httpStatus = a} :: BatchModifyClusterSnapshotsResponse)
 
-instance NFData BatchModifyClusterSnapshotsResponse
+instance
+  Prelude.NFData
+    BatchModifyClusterSnapshotsResponse

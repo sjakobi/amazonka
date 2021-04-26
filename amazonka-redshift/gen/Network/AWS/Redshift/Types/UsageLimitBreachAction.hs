@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.Redshift.Types.UsageLimitBreachAction
   ( UsageLimitBreachAction
       ( ..,
-        Disable,
-        EmitMetric,
-        Log
+        UsageLimitBreachActionDisable,
+        UsageLimitBreachActionEmitMetric,
+        UsageLimitBreachActionLog
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data UsageLimitBreachAction
-  = UsageLimitBreachAction'
-      ( CI
-          Text
-      )
+newtype UsageLimitBreachAction = UsageLimitBreachAction'
+  { fromUsageLimitBreachAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disable :: UsageLimitBreachAction
-pattern Disable = UsageLimitBreachAction' "disable"
+pattern UsageLimitBreachActionDisable :: UsageLimitBreachAction
+pattern UsageLimitBreachActionDisable = UsageLimitBreachAction' "disable"
 
-pattern EmitMetric :: UsageLimitBreachAction
-pattern EmitMetric = UsageLimitBreachAction' "emit-metric"
+pattern UsageLimitBreachActionEmitMetric :: UsageLimitBreachAction
+pattern UsageLimitBreachActionEmitMetric = UsageLimitBreachAction' "emit-metric"
 
-pattern Log :: UsageLimitBreachAction
-pattern Log = UsageLimitBreachAction' "log"
+pattern UsageLimitBreachActionLog :: UsageLimitBreachAction
+pattern UsageLimitBreachActionLog = UsageLimitBreachAction' "log"
 
 {-# COMPLETE
-  Disable,
-  EmitMetric,
-  Log,
+  UsageLimitBreachActionDisable,
+  UsageLimitBreachActionEmitMetric,
+  UsageLimitBreachActionLog,
   UsageLimitBreachAction'
   #-}
 
-instance FromText UsageLimitBreachAction where
-  parser = (UsageLimitBreachAction' . mk) <$> takeText
+instance Prelude.FromText UsageLimitBreachAction where
+  parser = UsageLimitBreachAction' Prelude.<$> Prelude.takeText
 
-instance ToText UsageLimitBreachAction where
-  toText (UsageLimitBreachAction' ci) = original ci
+instance Prelude.ToText UsageLimitBreachAction where
+  toText (UsageLimitBreachAction' x) = x
 
-instance Hashable UsageLimitBreachAction
+instance Prelude.Hashable UsageLimitBreachAction
 
-instance NFData UsageLimitBreachAction
+instance Prelude.NFData UsageLimitBreachAction
 
-instance ToByteString UsageLimitBreachAction
+instance Prelude.ToByteString UsageLimitBreachAction
 
-instance ToQuery UsageLimitBreachAction
+instance Prelude.ToQuery UsageLimitBreachAction
 
-instance ToHeader UsageLimitBreachAction
+instance Prelude.ToHeader UsageLimitBreachAction
 
-instance FromXML UsageLimitBreachAction where
-  parseXML = parseXMLText "UsageLimitBreachAction"
+instance Prelude.FromXML UsageLimitBreachAction where
+  parseXML = Prelude.parseXMLText "UsageLimitBreachAction"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.Redshift.Types.TableRestoreStatusType
   ( TableRestoreStatusType
       ( ..,
-        Canceled,
-        Failed,
-        InProgress,
-        Pending,
-        Succeeded
+        TableRestoreStatusTypeCANCELED,
+        TableRestoreStatusTypeFAILED,
+        TableRestoreStatusTypeINPROGRESS,
+        TableRestoreStatusTypePENDING,
+        TableRestoreStatusTypeSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data TableRestoreStatusType
-  = TableRestoreStatusType'
-      ( CI
-          Text
-      )
+newtype TableRestoreStatusType = TableRestoreStatusType'
+  { fromTableRestoreStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Canceled :: TableRestoreStatusType
-pattern Canceled = TableRestoreStatusType' "CANCELED"
+pattern TableRestoreStatusTypeCANCELED :: TableRestoreStatusType
+pattern TableRestoreStatusTypeCANCELED = TableRestoreStatusType' "CANCELED"
 
-pattern Failed :: TableRestoreStatusType
-pattern Failed = TableRestoreStatusType' "FAILED"
+pattern TableRestoreStatusTypeFAILED :: TableRestoreStatusType
+pattern TableRestoreStatusTypeFAILED = TableRestoreStatusType' "FAILED"
 
-pattern InProgress :: TableRestoreStatusType
-pattern InProgress = TableRestoreStatusType' "IN_PROGRESS"
+pattern TableRestoreStatusTypeINPROGRESS :: TableRestoreStatusType
+pattern TableRestoreStatusTypeINPROGRESS = TableRestoreStatusType' "IN_PROGRESS"
 
-pattern Pending :: TableRestoreStatusType
-pattern Pending = TableRestoreStatusType' "PENDING"
+pattern TableRestoreStatusTypePENDING :: TableRestoreStatusType
+pattern TableRestoreStatusTypePENDING = TableRestoreStatusType' "PENDING"
 
-pattern Succeeded :: TableRestoreStatusType
-pattern Succeeded = TableRestoreStatusType' "SUCCEEDED"
+pattern TableRestoreStatusTypeSUCCEEDED :: TableRestoreStatusType
+pattern TableRestoreStatusTypeSUCCEEDED = TableRestoreStatusType' "SUCCEEDED"
 
 {-# COMPLETE
-  Canceled,
-  Failed,
-  InProgress,
-  Pending,
-  Succeeded,
+  TableRestoreStatusTypeCANCELED,
+  TableRestoreStatusTypeFAILED,
+  TableRestoreStatusTypeINPROGRESS,
+  TableRestoreStatusTypePENDING,
+  TableRestoreStatusTypeSUCCEEDED,
   TableRestoreStatusType'
   #-}
 
-instance FromText TableRestoreStatusType where
-  parser = (TableRestoreStatusType' . mk) <$> takeText
+instance Prelude.FromText TableRestoreStatusType where
+  parser = TableRestoreStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText TableRestoreStatusType where
-  toText (TableRestoreStatusType' ci) = original ci
+instance Prelude.ToText TableRestoreStatusType where
+  toText (TableRestoreStatusType' x) = x
 
-instance Hashable TableRestoreStatusType
+instance Prelude.Hashable TableRestoreStatusType
 
-instance NFData TableRestoreStatusType
+instance Prelude.NFData TableRestoreStatusType
 
-instance ToByteString TableRestoreStatusType
+instance Prelude.ToByteString TableRestoreStatusType
 
-instance ToQuery TableRestoreStatusType
+instance Prelude.ToQuery TableRestoreStatusType
 
-instance ToHeader TableRestoreStatusType
+instance Prelude.ToHeader TableRestoreStatusType
 
-instance FromXML TableRestoreStatusType where
-  parseXML = parseXMLText "TableRestoreStatusType"
+instance Prelude.FromXML TableRestoreStatusType where
+  parseXML = Prelude.parseXMLText "TableRestoreStatusType"

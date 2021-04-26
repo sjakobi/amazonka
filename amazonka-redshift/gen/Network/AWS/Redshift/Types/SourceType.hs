@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.Redshift.Types.SourceType
   ( SourceType
       ( ..,
-        Cluster,
-        ClusterParameterGroup,
-        ClusterSecurityGroup,
-        ClusterSnapshot,
-        ScheduledAction
+        SourceTypeCluster,
+        SourceTypeClusterParameterGroup,
+        SourceTypeClusterSecurityGroup,
+        SourceTypeClusterSnapshot,
+        SourceTypeScheduledAction
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data SourceType = SourceType' (CI Text)
+newtype SourceType = SourceType'
+  { fromSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cluster :: SourceType
-pattern Cluster = SourceType' "cluster"
+pattern SourceTypeCluster :: SourceType
+pattern SourceTypeCluster = SourceType' "cluster"
 
-pattern ClusterParameterGroup :: SourceType
-pattern ClusterParameterGroup = SourceType' "cluster-parameter-group"
+pattern SourceTypeClusterParameterGroup :: SourceType
+pattern SourceTypeClusterParameterGroup = SourceType' "cluster-parameter-group"
 
-pattern ClusterSecurityGroup :: SourceType
-pattern ClusterSecurityGroup = SourceType' "cluster-security-group"
+pattern SourceTypeClusterSecurityGroup :: SourceType
+pattern SourceTypeClusterSecurityGroup = SourceType' "cluster-security-group"
 
-pattern ClusterSnapshot :: SourceType
-pattern ClusterSnapshot = SourceType' "cluster-snapshot"
+pattern SourceTypeClusterSnapshot :: SourceType
+pattern SourceTypeClusterSnapshot = SourceType' "cluster-snapshot"
 
-pattern ScheduledAction :: SourceType
-pattern ScheduledAction = SourceType' "scheduled-action"
+pattern SourceTypeScheduledAction :: SourceType
+pattern SourceTypeScheduledAction = SourceType' "scheduled-action"
 
 {-# COMPLETE
-  Cluster,
-  ClusterParameterGroup,
-  ClusterSecurityGroup,
-  ClusterSnapshot,
-  ScheduledAction,
+  SourceTypeCluster,
+  SourceTypeClusterParameterGroup,
+  SourceTypeClusterSecurityGroup,
+  SourceTypeClusterSnapshot,
+  SourceTypeScheduledAction,
   SourceType'
   #-}
 
-instance FromText SourceType where
-  parser = (SourceType' . mk) <$> takeText
+instance Prelude.FromText SourceType where
+  parser = SourceType' Prelude.<$> Prelude.takeText
 
-instance ToText SourceType where
-  toText (SourceType' ci) = original ci
+instance Prelude.ToText SourceType where
+  toText (SourceType' x) = x
 
-instance Hashable SourceType
+instance Prelude.Hashable SourceType
 
-instance NFData SourceType
+instance Prelude.NFData SourceType
 
-instance ToByteString SourceType
+instance Prelude.ToByteString SourceType
 
-instance ToQuery SourceType
+instance Prelude.ToQuery SourceType
 
-instance ToHeader SourceType
+instance Prelude.ToHeader SourceType
 
-instance FromXML SourceType where
-  parseXML = parseXMLText "SourceType"
+instance Prelude.FromXML SourceType where
+  parseXML = Prelude.parseXMLText "SourceType"

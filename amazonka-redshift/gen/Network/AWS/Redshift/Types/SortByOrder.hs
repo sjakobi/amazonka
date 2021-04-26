@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Redshift.Types.SortByOrder
   ( SortByOrder
       ( ..,
-        Asc,
-        Desc
+        SortByOrderASC,
+        SortByOrderDESC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data SortByOrder = SortByOrder' (CI Text)
+newtype SortByOrder = SortByOrder'
+  { fromSortByOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Asc :: SortByOrder
-pattern Asc = SortByOrder' "ASC"
+pattern SortByOrderASC :: SortByOrder
+pattern SortByOrderASC = SortByOrder' "ASC"
 
-pattern Desc :: SortByOrder
-pattern Desc = SortByOrder' "DESC"
+pattern SortByOrderDESC :: SortByOrder
+pattern SortByOrderDESC = SortByOrder' "DESC"
 
 {-# COMPLETE
-  Asc,
-  Desc,
+  SortByOrderASC,
+  SortByOrderDESC,
   SortByOrder'
   #-}
 
-instance FromText SortByOrder where
-  parser = (SortByOrder' . mk) <$> takeText
+instance Prelude.FromText SortByOrder where
+  parser = SortByOrder' Prelude.<$> Prelude.takeText
 
-instance ToText SortByOrder where
-  toText (SortByOrder' ci) = original ci
+instance Prelude.ToText SortByOrder where
+  toText (SortByOrder' x) = x
 
-instance Hashable SortByOrder
+instance Prelude.Hashable SortByOrder
 
-instance NFData SortByOrder
+instance Prelude.NFData SortByOrder
 
-instance ToByteString SortByOrder
+instance Prelude.ToByteString SortByOrder
 
-instance ToQuery SortByOrder
+instance Prelude.ToQuery SortByOrder
 
-instance ToHeader SortByOrder
+instance Prelude.ToHeader SortByOrder

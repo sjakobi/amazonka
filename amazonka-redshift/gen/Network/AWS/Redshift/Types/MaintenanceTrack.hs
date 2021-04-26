@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.MaintenanceTrack where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.UpdateTarget
 
--- | Defines a maintenance track that determines which Amazon Redshift version to apply during a maintenance window. If the value for @MaintenanceTrack@ is @current@ , the cluster is updated to the most recently certified maintenance release. If the value is @trailing@ , the cluster is updated to the previously certified maintenance release.
+-- | Defines a maintenance track that determines which Amazon Redshift
+-- version to apply during a maintenance window. If the value for
+-- @MaintenanceTrack@ is @current@, the cluster is updated to the most
+-- recently certified maintenance release. If the value is @trailing@, the
+-- cluster is updated to the previously certified maintenance release.
 --
---
---
--- /See:/ 'maintenanceTrack' smart constructor.
+-- /See:/ 'newMaintenanceTrack' smart constructor.
 data MaintenanceTrack = MaintenanceTrack'
-  { _mtUpdateTargets ::
-      !(Maybe [UpdateTarget]),
-    _mtDatabaseVersion :: !(Maybe Text),
-    _mtMaintenanceTrackName ::
-      !(Maybe Text)
+  { -- | An array of UpdateTarget objects to update with the maintenance track.
+    updateTargets :: Prelude.Maybe [UpdateTarget],
+    -- | The version number for the cluster release.
+    databaseVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the maintenance track. Possible values are @current@ and
+    -- @trailing@.
+    maintenanceTrackName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaintenanceTrack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaintenanceTrack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtUpdateTargets' - An array of 'UpdateTarget' objects to update with the maintenance track.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtDatabaseVersion' - The version number for the cluster release.
+-- 'updateTargets', 'maintenanceTrack_updateTargets' - An array of UpdateTarget objects to update with the maintenance track.
 --
--- * 'mtMaintenanceTrackName' - The name of the maintenance track. Possible values are @current@ and @trailing@ .
-maintenanceTrack ::
+-- 'databaseVersion', 'maintenanceTrack_databaseVersion' - The version number for the cluster release.
+--
+-- 'maintenanceTrackName', 'maintenanceTrack_maintenanceTrackName' - The name of the maintenance track. Possible values are @current@ and
+-- @trailing@.
+newMaintenanceTrack ::
   MaintenanceTrack
-maintenanceTrack =
+newMaintenanceTrack =
   MaintenanceTrack'
-    { _mtUpdateTargets = Nothing,
-      _mtDatabaseVersion = Nothing,
-      _mtMaintenanceTrackName = Nothing
+    { updateTargets = Prelude.Nothing,
+      databaseVersion = Prelude.Nothing,
+      maintenanceTrackName = Prelude.Nothing
     }
 
--- | An array of 'UpdateTarget' objects to update with the maintenance track.
-mtUpdateTargets :: Lens' MaintenanceTrack [UpdateTarget]
-mtUpdateTargets = lens _mtUpdateTargets (\s a -> s {_mtUpdateTargets = a}) . _Default . _Coerce
+-- | An array of UpdateTarget objects to update with the maintenance track.
+maintenanceTrack_updateTargets :: Lens.Lens' MaintenanceTrack (Prelude.Maybe [UpdateTarget])
+maintenanceTrack_updateTargets = Lens.lens (\MaintenanceTrack' {updateTargets} -> updateTargets) (\s@MaintenanceTrack' {} a -> s {updateTargets = a} :: MaintenanceTrack) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The version number for the cluster release.
-mtDatabaseVersion :: Lens' MaintenanceTrack (Maybe Text)
-mtDatabaseVersion = lens _mtDatabaseVersion (\s a -> s {_mtDatabaseVersion = a})
+maintenanceTrack_databaseVersion :: Lens.Lens' MaintenanceTrack (Prelude.Maybe Prelude.Text)
+maintenanceTrack_databaseVersion = Lens.lens (\MaintenanceTrack' {databaseVersion} -> databaseVersion) (\s@MaintenanceTrack' {} a -> s {databaseVersion = a} :: MaintenanceTrack)
 
--- | The name of the maintenance track. Possible values are @current@ and @trailing@ .
-mtMaintenanceTrackName :: Lens' MaintenanceTrack (Maybe Text)
-mtMaintenanceTrackName = lens _mtMaintenanceTrackName (\s a -> s {_mtMaintenanceTrackName = a})
+-- | The name of the maintenance track. Possible values are @current@ and
+-- @trailing@.
+maintenanceTrack_maintenanceTrackName :: Lens.Lens' MaintenanceTrack (Prelude.Maybe Prelude.Text)
+maintenanceTrack_maintenanceTrackName = Lens.lens (\MaintenanceTrack' {maintenanceTrackName} -> maintenanceTrackName) (\s@MaintenanceTrack' {} a -> s {maintenanceTrackName = a} :: MaintenanceTrack)
 
-instance FromXML MaintenanceTrack where
+instance Prelude.FromXML MaintenanceTrack where
   parseXML x =
     MaintenanceTrack'
-      <$> ( x .@? "UpdateTargets" .!@ mempty
-              >>= may (parseXMLList "UpdateTarget")
-          )
-      <*> (x .@? "DatabaseVersion")
-      <*> (x .@? "MaintenanceTrackName")
+      Prelude.<$> ( x Prelude..@? "UpdateTargets"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "UpdateTarget")
+                  )
+      Prelude.<*> (x Prelude..@? "DatabaseVersion")
+      Prelude.<*> (x Prelude..@? "MaintenanceTrackName")
 
-instance Hashable MaintenanceTrack
+instance Prelude.Hashable MaintenanceTrack
 
-instance NFData MaintenanceTrack
+instance Prelude.NFData MaintenanceTrack

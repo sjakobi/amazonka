@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ClusterVersion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
--- | Describes a cluster version, including the parameter group family and description of the version.
+-- | Describes a cluster version, including the parameter group family and
+-- description of the version.
 --
---
---
--- /See:/ 'clusterVersion' smart constructor.
+-- /See:/ 'newClusterVersion' smart constructor.
 data ClusterVersion = ClusterVersion'
-  { _cvClusterParameterGroupFamily ::
-      !(Maybe Text),
-    _cvDescription :: !(Maybe Text),
-    _cvClusterVersion :: !(Maybe Text)
+  { -- | The name of the cluster parameter group family for the cluster.
+    clusterParameterGroupFamily :: Prelude.Maybe Prelude.Text,
+    -- | The description of the cluster version.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The version number used by the cluster.
+    clusterVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvClusterParameterGroupFamily' - The name of the cluster parameter group family for the cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvDescription' - The description of the cluster version.
+-- 'clusterParameterGroupFamily', 'clusterVersion_clusterParameterGroupFamily' - The name of the cluster parameter group family for the cluster.
 --
--- * 'cvClusterVersion' - The version number used by the cluster.
-clusterVersion ::
+-- 'description', 'clusterVersion_description' - The description of the cluster version.
+--
+-- 'clusterVersion', 'clusterVersion_clusterVersion' - The version number used by the cluster.
+newClusterVersion ::
   ClusterVersion
-clusterVersion =
+newClusterVersion =
   ClusterVersion'
-    { _cvClusterParameterGroupFamily =
-        Nothing,
-      _cvDescription = Nothing,
-      _cvClusterVersion = Nothing
+    { clusterParameterGroupFamily =
+        Prelude.Nothing,
+      description = Prelude.Nothing,
+      clusterVersion = Prelude.Nothing
     }
 
 -- | The name of the cluster parameter group family for the cluster.
-cvClusterParameterGroupFamily :: Lens' ClusterVersion (Maybe Text)
-cvClusterParameterGroupFamily = lens _cvClusterParameterGroupFamily (\s a -> s {_cvClusterParameterGroupFamily = a})
+clusterVersion_clusterParameterGroupFamily :: Lens.Lens' ClusterVersion (Prelude.Maybe Prelude.Text)
+clusterVersion_clusterParameterGroupFamily = Lens.lens (\ClusterVersion' {clusterParameterGroupFamily} -> clusterParameterGroupFamily) (\s@ClusterVersion' {} a -> s {clusterParameterGroupFamily = a} :: ClusterVersion)
 
 -- | The description of the cluster version.
-cvDescription :: Lens' ClusterVersion (Maybe Text)
-cvDescription = lens _cvDescription (\s a -> s {_cvDescription = a})
+clusterVersion_description :: Lens.Lens' ClusterVersion (Prelude.Maybe Prelude.Text)
+clusterVersion_description = Lens.lens (\ClusterVersion' {description} -> description) (\s@ClusterVersion' {} a -> s {description = a} :: ClusterVersion)
 
 -- | The version number used by the cluster.
-cvClusterVersion :: Lens' ClusterVersion (Maybe Text)
-cvClusterVersion = lens _cvClusterVersion (\s a -> s {_cvClusterVersion = a})
+clusterVersion_clusterVersion :: Lens.Lens' ClusterVersion (Prelude.Maybe Prelude.Text)
+clusterVersion_clusterVersion = Lens.lens (\ClusterVersion' {clusterVersion} -> clusterVersion) (\s@ClusterVersion' {} a -> s {clusterVersion = a} :: ClusterVersion)
 
-instance FromXML ClusterVersion where
+instance Prelude.FromXML ClusterVersion where
   parseXML x =
     ClusterVersion'
-      <$> (x .@? "ClusterParameterGroupFamily")
-      <*> (x .@? "Description")
-      <*> (x .@? "ClusterVersion")
+      Prelude.<$> (x Prelude..@? "ClusterParameterGroupFamily")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "ClusterVersion")
 
-instance Hashable ClusterVersion
+instance Prelude.Hashable ClusterVersion
 
-instance NFData ClusterVersion
+instance Prelude.NFData ClusterVersion

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,178 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows you to purchase reserved nodes. Amazon Redshift offers a predefined set of reserved node offerings. You can purchase one or more of the offerings. You can call the 'DescribeReservedNodeOfferings' API to obtain the available reserved node offerings. You can call this API by providing a specific reserved node offering and the number of nodes you want to reserve.
+-- Allows you to purchase reserved nodes. Amazon Redshift offers a
+-- predefined set of reserved node offerings. You can purchase one or more
+-- of the offerings. You can call the DescribeReservedNodeOfferings API to
+-- obtain the available reserved node offerings. You can call this API by
+-- providing a specific reserved node offering and the number of nodes you
+-- want to reserve.
 --
---
--- For more information about reserved node offerings, go to <https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html Purchasing Reserved Nodes> in the /Amazon Redshift Cluster Management Guide/ .
+-- For more information about reserved node offerings, go to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html Purchasing Reserved Nodes>
+-- in the /Amazon Redshift Cluster Management Guide/.
 module Network.AWS.Redshift.PurchaseReservedNodeOffering
   ( -- * Creating a Request
-    purchaseReservedNodeOffering,
-    PurchaseReservedNodeOffering,
+    PurchaseReservedNodeOffering (..),
+    newPurchaseReservedNodeOffering,
 
     -- * Request Lenses
-    prnoNodeCount,
-    prnoReservedNodeOfferingId,
+    purchaseReservedNodeOffering_nodeCount,
+    purchaseReservedNodeOffering_reservedNodeOfferingId,
 
     -- * Destructuring the Response
-    purchaseReservedNodeOfferingResponse,
-    PurchaseReservedNodeOfferingResponse,
+    PurchaseReservedNodeOfferingResponse (..),
+    newPurchaseReservedNodeOfferingResponse,
 
     -- * Response Lenses
-    prnorrsReservedNode,
-    prnorrsResponseStatus,
+    purchaseReservedNodeOfferingResponse_reservedNode,
+    purchaseReservedNodeOfferingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.ReservedNode
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'purchaseReservedNodeOffering' smart constructor.
+-- /See:/ 'newPurchaseReservedNodeOffering' smart constructor.
 data PurchaseReservedNodeOffering = PurchaseReservedNodeOffering'
-  { _prnoNodeCount ::
-      !(Maybe Int),
-    _prnoReservedNodeOfferingId ::
-      !Text
+  { -- | The number of reserved nodes that you want to purchase.
+    --
+    -- Default: @1@
+    nodeCount :: Prelude.Maybe Prelude.Int,
+    -- | The unique identifier of the reserved node offering you want to
+    -- purchase.
+    reservedNodeOfferingId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PurchaseReservedNodeOffering' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PurchaseReservedNodeOffering' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prnoNodeCount' - The number of reserved nodes that you want to purchase. Default: @1@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prnoReservedNodeOfferingId' - The unique identifier of the reserved node offering you want to purchase.
-purchaseReservedNodeOffering ::
-  -- | 'prnoReservedNodeOfferingId'
-  Text ->
+-- 'nodeCount', 'purchaseReservedNodeOffering_nodeCount' - The number of reserved nodes that you want to purchase.
+--
+-- Default: @1@
+--
+-- 'reservedNodeOfferingId', 'purchaseReservedNodeOffering_reservedNodeOfferingId' - The unique identifier of the reserved node offering you want to
+-- purchase.
+newPurchaseReservedNodeOffering ::
+  -- | 'reservedNodeOfferingId'
+  Prelude.Text ->
   PurchaseReservedNodeOffering
-purchaseReservedNodeOffering pReservedNodeOfferingId_ =
-  PurchaseReservedNodeOffering'
-    { _prnoNodeCount =
-        Nothing,
-      _prnoReservedNodeOfferingId =
-        pReservedNodeOfferingId_
-    }
+newPurchaseReservedNodeOffering
+  pReservedNodeOfferingId_ =
+    PurchaseReservedNodeOffering'
+      { nodeCount =
+          Prelude.Nothing,
+        reservedNodeOfferingId =
+          pReservedNodeOfferingId_
+      }
 
--- | The number of reserved nodes that you want to purchase. Default: @1@
-prnoNodeCount :: Lens' PurchaseReservedNodeOffering (Maybe Int)
-prnoNodeCount = lens _prnoNodeCount (\s a -> s {_prnoNodeCount = a})
+-- | The number of reserved nodes that you want to purchase.
+--
+-- Default: @1@
+purchaseReservedNodeOffering_nodeCount :: Lens.Lens' PurchaseReservedNodeOffering (Prelude.Maybe Prelude.Int)
+purchaseReservedNodeOffering_nodeCount = Lens.lens (\PurchaseReservedNodeOffering' {nodeCount} -> nodeCount) (\s@PurchaseReservedNodeOffering' {} a -> s {nodeCount = a} :: PurchaseReservedNodeOffering)
 
--- | The unique identifier of the reserved node offering you want to purchase.
-prnoReservedNodeOfferingId :: Lens' PurchaseReservedNodeOffering Text
-prnoReservedNodeOfferingId = lens _prnoReservedNodeOfferingId (\s a -> s {_prnoReservedNodeOfferingId = a})
+-- | The unique identifier of the reserved node offering you want to
+-- purchase.
+purchaseReservedNodeOffering_reservedNodeOfferingId :: Lens.Lens' PurchaseReservedNodeOffering Prelude.Text
+purchaseReservedNodeOffering_reservedNodeOfferingId = Lens.lens (\PurchaseReservedNodeOffering' {reservedNodeOfferingId} -> reservedNodeOfferingId) (\s@PurchaseReservedNodeOffering' {} a -> s {reservedNodeOfferingId = a} :: PurchaseReservedNodeOffering)
 
-instance AWSRequest PurchaseReservedNodeOffering where
+instance
+  Prelude.AWSRequest
+    PurchaseReservedNodeOffering
+  where
   type
     Rs PurchaseReservedNodeOffering =
       PurchaseReservedNodeOfferingResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "PurchaseReservedNodeOfferingResult"
       ( \s h x ->
           PurchaseReservedNodeOfferingResponse'
-            <$> (x .@? "ReservedNode") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ReservedNode")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PurchaseReservedNodeOffering
+instance
+  Prelude.Hashable
+    PurchaseReservedNodeOffering
 
-instance NFData PurchaseReservedNodeOffering
+instance Prelude.NFData PurchaseReservedNodeOffering
 
-instance ToHeaders PurchaseReservedNodeOffering where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    PurchaseReservedNodeOffering
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath PurchaseReservedNodeOffering where
-  toPath = const "/"
+instance Prelude.ToPath PurchaseReservedNodeOffering where
+  toPath = Prelude.const "/"
 
-instance ToQuery PurchaseReservedNodeOffering where
+instance Prelude.ToQuery PurchaseReservedNodeOffering where
   toQuery PurchaseReservedNodeOffering' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("PurchaseReservedNodeOffering" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "NodeCount" =: _prnoNodeCount,
+          Prelude.=: ( "PurchaseReservedNodeOffering" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "NodeCount" Prelude.=: nodeCount,
         "ReservedNodeOfferingId"
-          =: _prnoReservedNodeOfferingId
+          Prelude.=: reservedNodeOfferingId
       ]
 
--- | /See:/ 'purchaseReservedNodeOfferingResponse' smart constructor.
+-- | /See:/ 'newPurchaseReservedNodeOfferingResponse' smart constructor.
 data PurchaseReservedNodeOfferingResponse = PurchaseReservedNodeOfferingResponse'
-  { _prnorrsReservedNode ::
-      !( Maybe
-           ReservedNode
-       ),
-    _prnorrsResponseStatus ::
-      !Int
+  { reservedNode :: Prelude.Maybe ReservedNode,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PurchaseReservedNodeOfferingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PurchaseReservedNodeOfferingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prnorrsReservedNode' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prnorrsResponseStatus' - -- | The response status code.
-purchaseReservedNodeOfferingResponse ::
-  -- | 'prnorrsResponseStatus'
-  Int ->
+-- 'reservedNode', 'purchaseReservedNodeOfferingResponse_reservedNode' - Undocumented member.
+--
+-- 'httpStatus', 'purchaseReservedNodeOfferingResponse_httpStatus' - The response's http status code.
+newPurchaseReservedNodeOfferingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PurchaseReservedNodeOfferingResponse
-purchaseReservedNodeOfferingResponse pResponseStatus_ =
+newPurchaseReservedNodeOfferingResponse pHttpStatus_ =
   PurchaseReservedNodeOfferingResponse'
-    { _prnorrsReservedNode =
-        Nothing,
-      _prnorrsResponseStatus =
-        pResponseStatus_
+    { reservedNode =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-prnorrsReservedNode :: Lens' PurchaseReservedNodeOfferingResponse (Maybe ReservedNode)
-prnorrsReservedNode = lens _prnorrsReservedNode (\s a -> s {_prnorrsReservedNode = a})
+purchaseReservedNodeOfferingResponse_reservedNode :: Lens.Lens' PurchaseReservedNodeOfferingResponse (Prelude.Maybe ReservedNode)
+purchaseReservedNodeOfferingResponse_reservedNode = Lens.lens (\PurchaseReservedNodeOfferingResponse' {reservedNode} -> reservedNode) (\s@PurchaseReservedNodeOfferingResponse' {} a -> s {reservedNode = a} :: PurchaseReservedNodeOfferingResponse)
 
--- | -- | The response status code.
-prnorrsResponseStatus :: Lens' PurchaseReservedNodeOfferingResponse Int
-prnorrsResponseStatus = lens _prnorrsResponseStatus (\s a -> s {_prnorrsResponseStatus = a})
+-- | The response's http status code.
+purchaseReservedNodeOfferingResponse_httpStatus :: Lens.Lens' PurchaseReservedNodeOfferingResponse Prelude.Int
+purchaseReservedNodeOfferingResponse_httpStatus = Lens.lens (\PurchaseReservedNodeOfferingResponse' {httpStatus} -> httpStatus) (\s@PurchaseReservedNodeOfferingResponse' {} a -> s {httpStatus = a} :: PurchaseReservedNodeOfferingResponse)
 
-instance NFData PurchaseReservedNodeOfferingResponse
+instance
+  Prelude.NFData
+    PurchaseReservedNodeOfferingResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,121 +19,201 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ScheduledAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.ScheduledActionState
 import Network.AWS.Redshift.Types.ScheduledActionType
 
--- | Describes a scheduled action. You can use a scheduled action to trigger some Amazon Redshift API operations on a schedule. For information about which API operations can be scheduled, see 'ScheduledActionType' .
+-- | Describes a scheduled action. You can use a scheduled action to trigger
+-- some Amazon Redshift API operations on a schedule. For information about
+-- which API operations can be scheduled, see ScheduledActionType.
 --
---
---
--- /See:/ 'scheduledAction' smart constructor.
+-- /See:/ 'newScheduledAction' smart constructor.
 data ScheduledAction = ScheduledAction'
-  { _saTargetAction ::
-      !(Maybe ScheduledActionType),
-    _saNextInvocations ::
-      !(Maybe [ISO8601]),
-    _saIAMRole :: !(Maybe Text),
-    _saScheduledActionDescription ::
-      !(Maybe Text),
-    _saStartTime :: !(Maybe ISO8601),
-    _saEndTime :: !(Maybe ISO8601),
-    _saState ::
-      !(Maybe ScheduledActionState),
-    _saScheduledActionName :: !(Maybe Text),
-    _saSchedule :: !(Maybe Text)
+  { -- | A JSON format string of the Amazon Redshift API operation with input
+    -- parameters.
+    --
+    -- \"@{\\\"ResizeCluster\\\":{\\\"NodeType\\\":\\\"ds2.8xlarge\\\",\\\"ClusterIdentifier\\\":\\\"my-test-cluster\\\",\\\"NumberOfNodes\\\":3}}@\".
+    targetAction :: Prelude.Maybe ScheduledActionType,
+    -- | List of times when the scheduled action will run.
+    nextInvocations :: Prelude.Maybe [Prelude.ISO8601],
+    -- | The IAM role to assume to run the scheduled action. This IAM role must
+    -- have permission to run the Amazon Redshift API operation in the
+    -- scheduled action. This IAM role must allow the Amazon Redshift scheduler
+    -- (Principal scheduler.redshift.amazonaws.com) to assume permissions on
+    -- your behalf. For more information about the IAM role to use with the
+    -- Amazon Redshift scheduler, see
+    -- <https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html Using Identity-Based Policies for Amazon Redshift>
+    -- in the /Amazon Redshift Cluster Management Guide/.
+    iamRole :: Prelude.Maybe Prelude.Text,
+    -- | The description of the scheduled action.
+    scheduledActionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The start time in UTC when the schedule is active. Before this time, the
+    -- scheduled action does not trigger.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The end time in UTC when the schedule is no longer active. After this
+    -- time, the scheduled action does not trigger.
+    endTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The state of the scheduled action. For example, @DISABLED@.
+    state :: Prelude.Maybe ScheduledActionState,
+    -- | The name of the scheduled action.
+    scheduledActionName :: Prelude.Maybe Prelude.Text,
+    -- | The schedule for a one-time (at format) or recurring (cron format)
+    -- scheduled action. Schedule invocations must be separated by at least one
+    -- hour.
+    --
+    -- Format of at expressions is \"@at(yyyy-mm-ddThh:mm:ss)@\". For example,
+    -- \"@at(2016-03-04T17:27:00)@\".
+    --
+    -- Format of cron expressions is
+    -- \"@cron(Minutes Hours Day-of-month Month Day-of-week Year)@\". For
+    -- example, \"@cron(0 10 ? * MON *)@\". For more information, see
+    -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions Cron Expressions>
+    -- in the /Amazon CloudWatch Events User Guide/.
+    schedule :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduledAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduledAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saTargetAction' - A JSON format string of the Amazon Redshift API operation with input parameters.  "@{\"ResizeCluster\":{\"NodeType\":\"ds2.8xlarge\",\"ClusterIdentifier\":\"my-test-cluster\",\"NumberOfNodes\":3}}@ ".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saNextInvocations' - List of times when the scheduled action will run.
+-- 'targetAction', 'scheduledAction_targetAction' - A JSON format string of the Amazon Redshift API operation with input
+-- parameters.
 --
--- * 'saIAMRole' - The IAM role to assume to run the scheduled action. This IAM role must have permission to run the Amazon Redshift API operation in the scheduled action. This IAM role must allow the Amazon Redshift scheduler (Principal scheduler.redshift.amazonaws.com) to assume permissions on your behalf. For more information about the IAM role to use with the Amazon Redshift scheduler, see <https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html Using Identity-Based Policies for Amazon Redshift> in the /Amazon Redshift Cluster Management Guide/ .
+-- \"@{\\\"ResizeCluster\\\":{\\\"NodeType\\\":\\\"ds2.8xlarge\\\",\\\"ClusterIdentifier\\\":\\\"my-test-cluster\\\",\\\"NumberOfNodes\\\":3}}@\".
 --
--- * 'saScheduledActionDescription' - The description of the scheduled action.
+-- 'nextInvocations', 'scheduledAction_nextInvocations' - List of times when the scheduled action will run.
 --
--- * 'saStartTime' - The start time in UTC when the schedule is active. Before this time, the scheduled action does not trigger.
+-- 'iamRole', 'scheduledAction_iamRole' - The IAM role to assume to run the scheduled action. This IAM role must
+-- have permission to run the Amazon Redshift API operation in the
+-- scheduled action. This IAM role must allow the Amazon Redshift scheduler
+-- (Principal scheduler.redshift.amazonaws.com) to assume permissions on
+-- your behalf. For more information about the IAM role to use with the
+-- Amazon Redshift scheduler, see
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html Using Identity-Based Policies for Amazon Redshift>
+-- in the /Amazon Redshift Cluster Management Guide/.
 --
--- * 'saEndTime' - The end time in UTC when the schedule is no longer active. After this time, the scheduled action does not trigger.
+-- 'scheduledActionDescription', 'scheduledAction_scheduledActionDescription' - The description of the scheduled action.
 --
--- * 'saState' - The state of the scheduled action. For example, @DISABLED@ .
+-- 'startTime', 'scheduledAction_startTime' - The start time in UTC when the schedule is active. Before this time, the
+-- scheduled action does not trigger.
 --
--- * 'saScheduledActionName' - The name of the scheduled action.
+-- 'endTime', 'scheduledAction_endTime' - The end time in UTC when the schedule is no longer active. After this
+-- time, the scheduled action does not trigger.
 --
--- * 'saSchedule' - The schedule for a one-time (at format) or recurring (cron format) scheduled action. Schedule invocations must be separated by at least one hour. Format of at expressions is "@at(yyyy-mm-ddThh:mm:ss)@ ". For example, "@at(2016-03-04T17:27:00)@ ". Format of cron expressions is "@cron(Minutes Hours Day-of-month Month Day-of-week Year)@ ". For example, "@cron(0 10 ? * MON *)@ ". For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions Cron Expressions> in the /Amazon CloudWatch Events User Guide/ .
-scheduledAction ::
+-- 'state', 'scheduledAction_state' - The state of the scheduled action. For example, @DISABLED@.
+--
+-- 'scheduledActionName', 'scheduledAction_scheduledActionName' - The name of the scheduled action.
+--
+-- 'schedule', 'scheduledAction_schedule' - The schedule for a one-time (at format) or recurring (cron format)
+-- scheduled action. Schedule invocations must be separated by at least one
+-- hour.
+--
+-- Format of at expressions is \"@at(yyyy-mm-ddThh:mm:ss)@\". For example,
+-- \"@at(2016-03-04T17:27:00)@\".
+--
+-- Format of cron expressions is
+-- \"@cron(Minutes Hours Day-of-month Month Day-of-week Year)@\". For
+-- example, \"@cron(0 10 ? * MON *)@\". For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions Cron Expressions>
+-- in the /Amazon CloudWatch Events User Guide/.
+newScheduledAction ::
   ScheduledAction
-scheduledAction =
+newScheduledAction =
   ScheduledAction'
-    { _saTargetAction = Nothing,
-      _saNextInvocations = Nothing,
-      _saIAMRole = Nothing,
-      _saScheduledActionDescription = Nothing,
-      _saStartTime = Nothing,
-      _saEndTime = Nothing,
-      _saState = Nothing,
-      _saScheduledActionName = Nothing,
-      _saSchedule = Nothing
+    { targetAction = Prelude.Nothing,
+      nextInvocations = Prelude.Nothing,
+      iamRole = Prelude.Nothing,
+      scheduledActionDescription = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      state = Prelude.Nothing,
+      scheduledActionName = Prelude.Nothing,
+      schedule = Prelude.Nothing
     }
 
--- | A JSON format string of the Amazon Redshift API operation with input parameters.  "@{\"ResizeCluster\":{\"NodeType\":\"ds2.8xlarge\",\"ClusterIdentifier\":\"my-test-cluster\",\"NumberOfNodes\":3}}@ ".
-saTargetAction :: Lens' ScheduledAction (Maybe ScheduledActionType)
-saTargetAction = lens _saTargetAction (\s a -> s {_saTargetAction = a})
+-- | A JSON format string of the Amazon Redshift API operation with input
+-- parameters.
+--
+-- \"@{\\\"ResizeCluster\\\":{\\\"NodeType\\\":\\\"ds2.8xlarge\\\",\\\"ClusterIdentifier\\\":\\\"my-test-cluster\\\",\\\"NumberOfNodes\\\":3}}@\".
+scheduledAction_targetAction :: Lens.Lens' ScheduledAction (Prelude.Maybe ScheduledActionType)
+scheduledAction_targetAction = Lens.lens (\ScheduledAction' {targetAction} -> targetAction) (\s@ScheduledAction' {} a -> s {targetAction = a} :: ScheduledAction)
 
 -- | List of times when the scheduled action will run.
-saNextInvocations :: Lens' ScheduledAction [UTCTime]
-saNextInvocations = lens _saNextInvocations (\s a -> s {_saNextInvocations = a}) . _Default . _Coerce
+scheduledAction_nextInvocations :: Lens.Lens' ScheduledAction (Prelude.Maybe [Prelude.UTCTime])
+scheduledAction_nextInvocations = Lens.lens (\ScheduledAction' {nextInvocations} -> nextInvocations) (\s@ScheduledAction' {} a -> s {nextInvocations = a} :: ScheduledAction) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The IAM role to assume to run the scheduled action. This IAM role must have permission to run the Amazon Redshift API operation in the scheduled action. This IAM role must allow the Amazon Redshift scheduler (Principal scheduler.redshift.amazonaws.com) to assume permissions on your behalf. For more information about the IAM role to use with the Amazon Redshift scheduler, see <https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html Using Identity-Based Policies for Amazon Redshift> in the /Amazon Redshift Cluster Management Guide/ .
-saIAMRole :: Lens' ScheduledAction (Maybe Text)
-saIAMRole = lens _saIAMRole (\s a -> s {_saIAMRole = a})
+-- | The IAM role to assume to run the scheduled action. This IAM role must
+-- have permission to run the Amazon Redshift API operation in the
+-- scheduled action. This IAM role must allow the Amazon Redshift scheduler
+-- (Principal scheduler.redshift.amazonaws.com) to assume permissions on
+-- your behalf. For more information about the IAM role to use with the
+-- Amazon Redshift scheduler, see
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html Using Identity-Based Policies for Amazon Redshift>
+-- in the /Amazon Redshift Cluster Management Guide/.
+scheduledAction_iamRole :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.Text)
+scheduledAction_iamRole = Lens.lens (\ScheduledAction' {iamRole} -> iamRole) (\s@ScheduledAction' {} a -> s {iamRole = a} :: ScheduledAction)
 
 -- | The description of the scheduled action.
-saScheduledActionDescription :: Lens' ScheduledAction (Maybe Text)
-saScheduledActionDescription = lens _saScheduledActionDescription (\s a -> s {_saScheduledActionDescription = a})
+scheduledAction_scheduledActionDescription :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.Text)
+scheduledAction_scheduledActionDescription = Lens.lens (\ScheduledAction' {scheduledActionDescription} -> scheduledActionDescription) (\s@ScheduledAction' {} a -> s {scheduledActionDescription = a} :: ScheduledAction)
 
--- | The start time in UTC when the schedule is active. Before this time, the scheduled action does not trigger.
-saStartTime :: Lens' ScheduledAction (Maybe UTCTime)
-saStartTime = lens _saStartTime (\s a -> s {_saStartTime = a}) . mapping _Time
+-- | The start time in UTC when the schedule is active. Before this time, the
+-- scheduled action does not trigger.
+scheduledAction_startTime :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.UTCTime)
+scheduledAction_startTime = Lens.lens (\ScheduledAction' {startTime} -> startTime) (\s@ScheduledAction' {} a -> s {startTime = a} :: ScheduledAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The end time in UTC when the schedule is no longer active. After this time, the scheduled action does not trigger.
-saEndTime :: Lens' ScheduledAction (Maybe UTCTime)
-saEndTime = lens _saEndTime (\s a -> s {_saEndTime = a}) . mapping _Time
+-- | The end time in UTC when the schedule is no longer active. After this
+-- time, the scheduled action does not trigger.
+scheduledAction_endTime :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.UTCTime)
+scheduledAction_endTime = Lens.lens (\ScheduledAction' {endTime} -> endTime) (\s@ScheduledAction' {} a -> s {endTime = a} :: ScheduledAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The state of the scheduled action. For example, @DISABLED@ .
-saState :: Lens' ScheduledAction (Maybe ScheduledActionState)
-saState = lens _saState (\s a -> s {_saState = a})
+-- | The state of the scheduled action. For example, @DISABLED@.
+scheduledAction_state :: Lens.Lens' ScheduledAction (Prelude.Maybe ScheduledActionState)
+scheduledAction_state = Lens.lens (\ScheduledAction' {state} -> state) (\s@ScheduledAction' {} a -> s {state = a} :: ScheduledAction)
 
 -- | The name of the scheduled action.
-saScheduledActionName :: Lens' ScheduledAction (Maybe Text)
-saScheduledActionName = lens _saScheduledActionName (\s a -> s {_saScheduledActionName = a})
+scheduledAction_scheduledActionName :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.Text)
+scheduledAction_scheduledActionName = Lens.lens (\ScheduledAction' {scheduledActionName} -> scheduledActionName) (\s@ScheduledAction' {} a -> s {scheduledActionName = a} :: ScheduledAction)
 
--- | The schedule for a one-time (at format) or recurring (cron format) scheduled action. Schedule invocations must be separated by at least one hour. Format of at expressions is "@at(yyyy-mm-ddThh:mm:ss)@ ". For example, "@at(2016-03-04T17:27:00)@ ". Format of cron expressions is "@cron(Minutes Hours Day-of-month Month Day-of-week Year)@ ". For example, "@cron(0 10 ? * MON *)@ ". For more information, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions Cron Expressions> in the /Amazon CloudWatch Events User Guide/ .
-saSchedule :: Lens' ScheduledAction (Maybe Text)
-saSchedule = lens _saSchedule (\s a -> s {_saSchedule = a})
+-- | The schedule for a one-time (at format) or recurring (cron format)
+-- scheduled action. Schedule invocations must be separated by at least one
+-- hour.
+--
+-- Format of at expressions is \"@at(yyyy-mm-ddThh:mm:ss)@\". For example,
+-- \"@at(2016-03-04T17:27:00)@\".
+--
+-- Format of cron expressions is
+-- \"@cron(Minutes Hours Day-of-month Month Day-of-week Year)@\". For
+-- example, \"@cron(0 10 ? * MON *)@\". For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions Cron Expressions>
+-- in the /Amazon CloudWatch Events User Guide/.
+scheduledAction_schedule :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.Text)
+scheduledAction_schedule = Lens.lens (\ScheduledAction' {schedule} -> schedule) (\s@ScheduledAction' {} a -> s {schedule = a} :: ScheduledAction)
 
-instance FromXML ScheduledAction where
+instance Prelude.FromXML ScheduledAction where
   parseXML x =
     ScheduledAction'
-      <$> (x .@? "TargetAction")
-      <*> ( x .@? "NextInvocations" .!@ mempty
-              >>= may (parseXMLList "ScheduledActionTime")
-          )
-      <*> (x .@? "IamRole")
-      <*> (x .@? "ScheduledActionDescription")
-      <*> (x .@? "StartTime")
-      <*> (x .@? "EndTime")
-      <*> (x .@? "State")
-      <*> (x .@? "ScheduledActionName")
-      <*> (x .@? "Schedule")
+      Prelude.<$> (x Prelude..@? "TargetAction")
+      Prelude.<*> ( x Prelude..@? "NextInvocations"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "ScheduledActionTime")
+                  )
+      Prelude.<*> (x Prelude..@? "IamRole")
+      Prelude.<*> (x Prelude..@? "ScheduledActionDescription")
+      Prelude.<*> (x Prelude..@? "StartTime")
+      Prelude.<*> (x Prelude..@? "EndTime")
+      Prelude.<*> (x Prelude..@? "State")
+      Prelude.<*> (x Prelude..@? "ScheduledActionName")
+      Prelude.<*> (x Prelude..@? "Schedule")
 
-instance Hashable ScheduledAction
+instance Prelude.Hashable ScheduledAction
 
-instance NFData ScheduledAction
+instance Prelude.NFData ScheduledAction

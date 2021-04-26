@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,53 @@
 module Network.AWS.Redshift.Types.Mode
   ( Mode
       ( ..,
-        HighPerformance,
-        Standard
+        ModeHighPerformance,
+        ModeStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data Mode = Mode' (CI Text)
+newtype Mode = Mode' {fromMode :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HighPerformance :: Mode
-pattern HighPerformance = Mode' "high-performance"
+pattern ModeHighPerformance :: Mode
+pattern ModeHighPerformance = Mode' "high-performance"
 
-pattern Standard :: Mode
-pattern Standard = Mode' "standard"
+pattern ModeStandard :: Mode
+pattern ModeStandard = Mode' "standard"
 
 {-# COMPLETE
-  HighPerformance,
-  Standard,
+  ModeHighPerformance,
+  ModeStandard,
   Mode'
   #-}
 
-instance FromText Mode where
-  parser = (Mode' . mk) <$> takeText
+instance Prelude.FromText Mode where
+  parser = Mode' Prelude.<$> Prelude.takeText
 
-instance ToText Mode where
-  toText (Mode' ci) = original ci
+instance Prelude.ToText Mode where
+  toText (Mode' x) = x
 
-instance Hashable Mode
+instance Prelude.Hashable Mode
 
-instance NFData Mode
+instance Prelude.NFData Mode
 
-instance ToByteString Mode
+instance Prelude.ToByteString Mode
 
-instance ToQuery Mode
+instance Prelude.ToQuery Mode
 
-instance ToHeader Mode
+instance Prelude.ToHeader Mode
 
-instance FromXML Mode where
-  parseXML = parseXMLText "Mode"
+instance Prelude.FromXML Mode where
+  parseXML = Prelude.parseXMLText "Mode"

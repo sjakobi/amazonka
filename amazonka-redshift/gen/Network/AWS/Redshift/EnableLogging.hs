@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,108 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts logging information, such as queries and connection attempts, for the specified Amazon Redshift cluster.
+-- Starts logging information, such as queries and connection attempts, for
+-- the specified Amazon Redshift cluster.
 module Network.AWS.Redshift.EnableLogging
   ( -- * Creating a Request
-    enableLogging,
-    EnableLogging,
+    EnableLogging (..),
+    newEnableLogging,
 
     -- * Request Lenses
-    elS3KeyPrefix,
-    elClusterIdentifier,
-    elBucketName,
+    enableLogging_s3KeyPrefix,
+    enableLogging_clusterIdentifier,
+    enableLogging_bucketName,
 
     -- * Destructuring the Response
-    loggingStatus,
-    LoggingStatus,
+    LoggingStatus (..),
+    newLoggingStatus,
 
     -- * Response Lenses
-    lsLastSuccessfulDeliveryTime,
-    lsBucketName,
-    lsLoggingEnabled,
-    lsLastFailureTime,
-    lsS3KeyPrefix,
-    lsLastFailureMessage,
+    loggingStatus_lastSuccessfulDeliveryTime,
+    loggingStatus_bucketName,
+    loggingStatus_loggingEnabled,
+    loggingStatus_lastFailureTime,
+    loggingStatus_s3KeyPrefix,
+    loggingStatus_lastFailureMessage,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.LoggingStatus
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'enableLogging' smart constructor.
+-- /See:/ 'newEnableLogging' smart constructor.
 data EnableLogging = EnableLogging'
-  { _elS3KeyPrefix ::
-      !(Maybe Text),
-    _elClusterIdentifier :: !Text,
-    _elBucketName :: !Text
+  { -- | The prefix applied to the log file names.
+    --
+    -- Constraints:
+    --
+    -- -   Cannot exceed 512 characters
+    --
+    -- -   Cannot contain spaces( ), double quotes (\"), single quotes (\'), a
+    --     backslash (\\), or control characters. The hexadecimal codes for
+    --     invalid characters are:
+    --
+    --     -   x00 to x20
+    --
+    --     -   x22
+    --
+    --     -   x27
+    --
+    --     -   x5c
+    --
+    --     -   x7f or larger
+    s3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the cluster on which logging is to be started.
+    --
+    -- Example: @examplecluster@
+    clusterIdentifier :: Prelude.Text,
+    -- | The name of an existing S3 bucket where the log files are to be stored.
+    --
+    -- Constraints:
+    --
+    -- -   Must be in the same region as the cluster
+    --
+    -- -   The cluster must have read bucket and put object permissions
+    bucketName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableLogging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableLogging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'elS3KeyPrefix' - The prefix applied to the log file names. Constraints:     * Cannot exceed 512 characters     * Cannot contain spaces( ), double quotes ("), single quotes ('), a backslash (\), or control characters. The hexadecimal codes for invalid characters are:      * x00 to x20     * x22     * x27     * x5c     * x7f or larger
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'elClusterIdentifier' - The identifier of the cluster on which logging is to be started. Example: @examplecluster@
+-- 's3KeyPrefix', 'enableLogging_s3KeyPrefix' - The prefix applied to the log file names.
 --
--- * 'elBucketName' - The name of an existing S3 bucket where the log files are to be stored. Constraints:     * Must be in the same region as the cluster     * The cluster must have read bucket and put object permissions
-enableLogging ::
-  -- | 'elClusterIdentifier'
-  Text ->
-  -- | 'elBucketName'
-  Text ->
+-- Constraints:
+--
+-- -   Cannot exceed 512 characters
+--
+-- -   Cannot contain spaces( ), double quotes (\"), single quotes (\'), a
+--     backslash (\\), or control characters. The hexadecimal codes for
+--     invalid characters are:
+--
+--     -   x00 to x20
+--
+--     -   x22
+--
+--     -   x27
+--
+--     -   x5c
+--
+--     -   x7f or larger
+--
+-- 'clusterIdentifier', 'enableLogging_clusterIdentifier' - The identifier of the cluster on which logging is to be started.
+--
+-- Example: @examplecluster@
+--
+-- 'bucketName', 'enableLogging_bucketName' - The name of an existing S3 bucket where the log files are to be stored.
+--
+-- Constraints:
+--
+-- -   Must be in the same region as the cluster
+--
+-- -   The cluster must have read bucket and put object permissions
+newEnableLogging ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
+  -- | 'bucketName'
+  Prelude.Text ->
   EnableLogging
-enableLogging pClusterIdentifier_ pBucketName_ =
+newEnableLogging pClusterIdentifier_ pBucketName_ =
   EnableLogging'
-    { _elS3KeyPrefix = Nothing,
-      _elClusterIdentifier = pClusterIdentifier_,
-      _elBucketName = pBucketName_
+    { s3KeyPrefix = Prelude.Nothing,
+      clusterIdentifier = pClusterIdentifier_,
+      bucketName = pBucketName_
     }
 
--- | The prefix applied to the log file names. Constraints:     * Cannot exceed 512 characters     * Cannot contain spaces( ), double quotes ("), single quotes ('), a backslash (\), or control characters. The hexadecimal codes for invalid characters are:      * x00 to x20     * x22     * x27     * x5c     * x7f or larger
-elS3KeyPrefix :: Lens' EnableLogging (Maybe Text)
-elS3KeyPrefix = lens _elS3KeyPrefix (\s a -> s {_elS3KeyPrefix = a})
+-- | The prefix applied to the log file names.
+--
+-- Constraints:
+--
+-- -   Cannot exceed 512 characters
+--
+-- -   Cannot contain spaces( ), double quotes (\"), single quotes (\'), a
+--     backslash (\\), or control characters. The hexadecimal codes for
+--     invalid characters are:
+--
+--     -   x00 to x20
+--
+--     -   x22
+--
+--     -   x27
+--
+--     -   x5c
+--
+--     -   x7f or larger
+enableLogging_s3KeyPrefix :: Lens.Lens' EnableLogging (Prelude.Maybe Prelude.Text)
+enableLogging_s3KeyPrefix = Lens.lens (\EnableLogging' {s3KeyPrefix} -> s3KeyPrefix) (\s@EnableLogging' {} a -> s {s3KeyPrefix = a} :: EnableLogging)
 
--- | The identifier of the cluster on which logging is to be started. Example: @examplecluster@
-elClusterIdentifier :: Lens' EnableLogging Text
-elClusterIdentifier = lens _elClusterIdentifier (\s a -> s {_elClusterIdentifier = a})
+-- | The identifier of the cluster on which logging is to be started.
+--
+-- Example: @examplecluster@
+enableLogging_clusterIdentifier :: Lens.Lens' EnableLogging Prelude.Text
+enableLogging_clusterIdentifier = Lens.lens (\EnableLogging' {clusterIdentifier} -> clusterIdentifier) (\s@EnableLogging' {} a -> s {clusterIdentifier = a} :: EnableLogging)
 
--- | The name of an existing S3 bucket where the log files are to be stored. Constraints:     * Must be in the same region as the cluster     * The cluster must have read bucket and put object permissions
-elBucketName :: Lens' EnableLogging Text
-elBucketName = lens _elBucketName (\s a -> s {_elBucketName = a})
+-- | The name of an existing S3 bucket where the log files are to be stored.
+--
+-- Constraints:
+--
+-- -   Must be in the same region as the cluster
+--
+-- -   The cluster must have read bucket and put object permissions
+enableLogging_bucketName :: Lens.Lens' EnableLogging Prelude.Text
+enableLogging_bucketName = Lens.lens (\EnableLogging' {bucketName} -> bucketName) (\s@EnableLogging' {} a -> s {bucketName = a} :: EnableLogging)
 
-instance AWSRequest EnableLogging where
+instance Prelude.AWSRequest EnableLogging where
   type Rs EnableLogging = LoggingStatus
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "EnableLoggingResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable EnableLogging
+instance Prelude.Hashable EnableLogging
 
-instance NFData EnableLogging
+instance Prelude.NFData EnableLogging
 
-instance ToHeaders EnableLogging where
-  toHeaders = const mempty
+instance Prelude.ToHeaders EnableLogging where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath EnableLogging where
-  toPath = const "/"
+instance Prelude.ToPath EnableLogging where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableLogging where
+instance Prelude.ToQuery EnableLogging where
   toQuery EnableLogging' {..} =
-    mconcat
-      [ "Action" =: ("EnableLogging" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "S3KeyPrefix" =: _elS3KeyPrefix,
-        "ClusterIdentifier" =: _elClusterIdentifier,
-        "BucketName" =: _elBucketName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("EnableLogging" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "S3KeyPrefix" Prelude.=: s3KeyPrefix,
+        "ClusterIdentifier" Prelude.=: clusterIdentifier,
+        "BucketName" Prelude.=: bucketName
       ]

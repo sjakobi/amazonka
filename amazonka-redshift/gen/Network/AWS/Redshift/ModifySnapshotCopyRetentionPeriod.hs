@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,269 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the number of days to retain snapshots in the destination AWS Region after they are copied from the source AWS Region. By default, this operation only changes the retention period of copied automated snapshots. The retention periods for both new and existing copied automated snapshots are updated with the new retention period. You can set the manual option to change only the retention periods of copied manual snapshots. If you set this option, only newly copied manual snapshots have the new retention period.
+-- Modifies the number of days to retain snapshots in the destination AWS
+-- Region after they are copied from the source AWS Region. By default,
+-- this operation only changes the retention period of copied automated
+-- snapshots. The retention periods for both new and existing copied
+-- automated snapshots are updated with the new retention period. You can
+-- set the manual option to change only the retention periods of copied
+-- manual snapshots. If you set this option, only newly copied manual
+-- snapshots have the new retention period.
 module Network.AWS.Redshift.ModifySnapshotCopyRetentionPeriod
   ( -- * Creating a Request
-    modifySnapshotCopyRetentionPeriod,
-    ModifySnapshotCopyRetentionPeriod,
+    ModifySnapshotCopyRetentionPeriod (..),
+    newModifySnapshotCopyRetentionPeriod,
 
     -- * Request Lenses
-    mscrpManual,
-    mscrpClusterIdentifier,
-    mscrpRetentionPeriod,
+    modifySnapshotCopyRetentionPeriod_manual,
+    modifySnapshotCopyRetentionPeriod_clusterIdentifier,
+    modifySnapshotCopyRetentionPeriod_retentionPeriod,
 
     -- * Destructuring the Response
-    modifySnapshotCopyRetentionPeriodResponse,
-    ModifySnapshotCopyRetentionPeriodResponse,
+    ModifySnapshotCopyRetentionPeriodResponse (..),
+    newModifySnapshotCopyRetentionPeriodResponse,
 
     -- * Response Lenses
-    mscrprrsCluster,
-    mscrprrsResponseStatus,
+    modifySnapshotCopyRetentionPeriodResponse_cluster,
+    modifySnapshotCopyRetentionPeriodResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.Cluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'modifySnapshotCopyRetentionPeriod' smart constructor.
+-- /See:/ 'newModifySnapshotCopyRetentionPeriod' smart constructor.
 data ModifySnapshotCopyRetentionPeriod = ModifySnapshotCopyRetentionPeriod'
-  { _mscrpManual ::
-      !( Maybe
-           Bool
-       ),
-    _mscrpClusterIdentifier ::
-      !Text,
-    _mscrpRetentionPeriod ::
-      !Int
+  { -- | Indicates whether to apply the snapshot retention period to newly copied
+    -- manual snapshots instead of automated snapshots.
+    manual :: Prelude.Maybe Prelude.Bool,
+    -- | The unique identifier of the cluster for which you want to change the
+    -- retention period for either automated or manual snapshots that are
+    -- copied to a destination AWS Region.
+    --
+    -- Constraints: Must be the valid name of an existing cluster that has
+    -- cross-region snapshot copy enabled.
+    clusterIdentifier :: Prelude.Text,
+    -- | The number of days to retain automated snapshots in the destination AWS
+    -- Region after they are copied from the source AWS Region.
+    --
+    -- By default, this only changes the retention period of copied automated
+    -- snapshots.
+    --
+    -- If you decrease the retention period for automated snapshots that are
+    -- copied to a destination AWS Region, Amazon Redshift deletes any existing
+    -- automated snapshots that were copied to the destination AWS Region and
+    -- that fall outside of the new retention period.
+    --
+    -- Constraints: Must be at least 1 and no more than 35 for automated
+    -- snapshots.
+    --
+    -- If you specify the @manual@ option, only newly copied manual snapshots
+    -- will have the new retention period.
+    --
+    -- If you specify the value of -1 newly copied manual snapshots are
+    -- retained indefinitely.
+    --
+    -- Constraints: The number of days must be either -1 or an integer between
+    -- 1 and 3,653 for manual snapshots.
+    retentionPeriod :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifySnapshotCopyRetentionPeriod' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifySnapshotCopyRetentionPeriod' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mscrpManual' - Indicates whether to apply the snapshot retention period to newly copied manual snapshots instead of automated snapshots.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mscrpClusterIdentifier' - The unique identifier of the cluster for which you want to change the retention period for either automated or manual snapshots that are copied to a destination AWS Region. Constraints: Must be the valid name of an existing cluster that has cross-region snapshot copy enabled.
+-- 'manual', 'modifySnapshotCopyRetentionPeriod_manual' - Indicates whether to apply the snapshot retention period to newly copied
+-- manual snapshots instead of automated snapshots.
 --
--- * 'mscrpRetentionPeriod' - The number of days to retain automated snapshots in the destination AWS Region after they are copied from the source AWS Region. By default, this only changes the retention period of copied automated snapshots.  If you decrease the retention period for automated snapshots that are copied to a destination AWS Region, Amazon Redshift deletes any existing automated snapshots that were copied to the destination AWS Region and that fall outside of the new retention period. Constraints: Must be at least 1 and no more than 35 for automated snapshots.  If you specify the @manual@ option, only newly copied manual snapshots will have the new retention period.  If you specify the value of -1 newly copied manual snapshots are retained indefinitely. Constraints: The number of days must be either -1 or an integer between 1 and 3,653 for manual snapshots.
-modifySnapshotCopyRetentionPeriod ::
-  -- | 'mscrpClusterIdentifier'
-  Text ->
-  -- | 'mscrpRetentionPeriod'
-  Int ->
+-- 'clusterIdentifier', 'modifySnapshotCopyRetentionPeriod_clusterIdentifier' - The unique identifier of the cluster for which you want to change the
+-- retention period for either automated or manual snapshots that are
+-- copied to a destination AWS Region.
+--
+-- Constraints: Must be the valid name of an existing cluster that has
+-- cross-region snapshot copy enabled.
+--
+-- 'retentionPeriod', 'modifySnapshotCopyRetentionPeriod_retentionPeriod' - The number of days to retain automated snapshots in the destination AWS
+-- Region after they are copied from the source AWS Region.
+--
+-- By default, this only changes the retention period of copied automated
+-- snapshots.
+--
+-- If you decrease the retention period for automated snapshots that are
+-- copied to a destination AWS Region, Amazon Redshift deletes any existing
+-- automated snapshots that were copied to the destination AWS Region and
+-- that fall outside of the new retention period.
+--
+-- Constraints: Must be at least 1 and no more than 35 for automated
+-- snapshots.
+--
+-- If you specify the @manual@ option, only newly copied manual snapshots
+-- will have the new retention period.
+--
+-- If you specify the value of -1 newly copied manual snapshots are
+-- retained indefinitely.
+--
+-- Constraints: The number of days must be either -1 or an integer between
+-- 1 and 3,653 for manual snapshots.
+newModifySnapshotCopyRetentionPeriod ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
+  -- | 'retentionPeriod'
+  Prelude.Int ->
   ModifySnapshotCopyRetentionPeriod
-modifySnapshotCopyRetentionPeriod
+newModifySnapshotCopyRetentionPeriod
   pClusterIdentifier_
   pRetentionPeriod_ =
     ModifySnapshotCopyRetentionPeriod'
-      { _mscrpManual =
-          Nothing,
-        _mscrpClusterIdentifier =
-          pClusterIdentifier_,
-        _mscrpRetentionPeriod =
-          pRetentionPeriod_
+      { manual =
+          Prelude.Nothing,
+        clusterIdentifier = pClusterIdentifier_,
+        retentionPeriod = pRetentionPeriod_
       }
 
--- | Indicates whether to apply the snapshot retention period to newly copied manual snapshots instead of automated snapshots.
-mscrpManual :: Lens' ModifySnapshotCopyRetentionPeriod (Maybe Bool)
-mscrpManual = lens _mscrpManual (\s a -> s {_mscrpManual = a})
+-- | Indicates whether to apply the snapshot retention period to newly copied
+-- manual snapshots instead of automated snapshots.
+modifySnapshotCopyRetentionPeriod_manual :: Lens.Lens' ModifySnapshotCopyRetentionPeriod (Prelude.Maybe Prelude.Bool)
+modifySnapshotCopyRetentionPeriod_manual = Lens.lens (\ModifySnapshotCopyRetentionPeriod' {manual} -> manual) (\s@ModifySnapshotCopyRetentionPeriod' {} a -> s {manual = a} :: ModifySnapshotCopyRetentionPeriod)
 
--- | The unique identifier of the cluster for which you want to change the retention period for either automated or manual snapshots that are copied to a destination AWS Region. Constraints: Must be the valid name of an existing cluster that has cross-region snapshot copy enabled.
-mscrpClusterIdentifier :: Lens' ModifySnapshotCopyRetentionPeriod Text
-mscrpClusterIdentifier = lens _mscrpClusterIdentifier (\s a -> s {_mscrpClusterIdentifier = a})
+-- | The unique identifier of the cluster for which you want to change the
+-- retention period for either automated or manual snapshots that are
+-- copied to a destination AWS Region.
+--
+-- Constraints: Must be the valid name of an existing cluster that has
+-- cross-region snapshot copy enabled.
+modifySnapshotCopyRetentionPeriod_clusterIdentifier :: Lens.Lens' ModifySnapshotCopyRetentionPeriod Prelude.Text
+modifySnapshotCopyRetentionPeriod_clusterIdentifier = Lens.lens (\ModifySnapshotCopyRetentionPeriod' {clusterIdentifier} -> clusterIdentifier) (\s@ModifySnapshotCopyRetentionPeriod' {} a -> s {clusterIdentifier = a} :: ModifySnapshotCopyRetentionPeriod)
 
--- | The number of days to retain automated snapshots in the destination AWS Region after they are copied from the source AWS Region. By default, this only changes the retention period of copied automated snapshots.  If you decrease the retention period for automated snapshots that are copied to a destination AWS Region, Amazon Redshift deletes any existing automated snapshots that were copied to the destination AWS Region and that fall outside of the new retention period. Constraints: Must be at least 1 and no more than 35 for automated snapshots.  If you specify the @manual@ option, only newly copied manual snapshots will have the new retention period.  If you specify the value of -1 newly copied manual snapshots are retained indefinitely. Constraints: The number of days must be either -1 or an integer between 1 and 3,653 for manual snapshots.
-mscrpRetentionPeriod :: Lens' ModifySnapshotCopyRetentionPeriod Int
-mscrpRetentionPeriod = lens _mscrpRetentionPeriod (\s a -> s {_mscrpRetentionPeriod = a})
+-- | The number of days to retain automated snapshots in the destination AWS
+-- Region after they are copied from the source AWS Region.
+--
+-- By default, this only changes the retention period of copied automated
+-- snapshots.
+--
+-- If you decrease the retention period for automated snapshots that are
+-- copied to a destination AWS Region, Amazon Redshift deletes any existing
+-- automated snapshots that were copied to the destination AWS Region and
+-- that fall outside of the new retention period.
+--
+-- Constraints: Must be at least 1 and no more than 35 for automated
+-- snapshots.
+--
+-- If you specify the @manual@ option, only newly copied manual snapshots
+-- will have the new retention period.
+--
+-- If you specify the value of -1 newly copied manual snapshots are
+-- retained indefinitely.
+--
+-- Constraints: The number of days must be either -1 or an integer between
+-- 1 and 3,653 for manual snapshots.
+modifySnapshotCopyRetentionPeriod_retentionPeriod :: Lens.Lens' ModifySnapshotCopyRetentionPeriod Prelude.Int
+modifySnapshotCopyRetentionPeriod_retentionPeriod = Lens.lens (\ModifySnapshotCopyRetentionPeriod' {retentionPeriod} -> retentionPeriod) (\s@ModifySnapshotCopyRetentionPeriod' {} a -> s {retentionPeriod = a} :: ModifySnapshotCopyRetentionPeriod)
 
-instance AWSRequest ModifySnapshotCopyRetentionPeriod where
+instance
+  Prelude.AWSRequest
+    ModifySnapshotCopyRetentionPeriod
+  where
   type
     Rs ModifySnapshotCopyRetentionPeriod =
       ModifySnapshotCopyRetentionPeriodResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifySnapshotCopyRetentionPeriodResult"
       ( \s h x ->
           ModifySnapshotCopyRetentionPeriodResponse'
-            <$> (x .@? "Cluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Cluster")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifySnapshotCopyRetentionPeriod
+instance
+  Prelude.Hashable
+    ModifySnapshotCopyRetentionPeriod
 
-instance NFData ModifySnapshotCopyRetentionPeriod
+instance
+  Prelude.NFData
+    ModifySnapshotCopyRetentionPeriod
 
-instance ToHeaders ModifySnapshotCopyRetentionPeriod where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ModifySnapshotCopyRetentionPeriod
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifySnapshotCopyRetentionPeriod where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    ModifySnapshotCopyRetentionPeriod
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifySnapshotCopyRetentionPeriod where
+instance
+  Prelude.ToQuery
+    ModifySnapshotCopyRetentionPeriod
+  where
   toQuery ModifySnapshotCopyRetentionPeriod' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifySnapshotCopyRetentionPeriod" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "Manual" =: _mscrpManual,
-        "ClusterIdentifier" =: _mscrpClusterIdentifier,
-        "RetentionPeriod" =: _mscrpRetentionPeriod
+          Prelude.=: ( "ModifySnapshotCopyRetentionPeriod" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "Manual" Prelude.=: manual,
+        "ClusterIdentifier" Prelude.=: clusterIdentifier,
+        "RetentionPeriod" Prelude.=: retentionPeriod
       ]
 
--- | /See:/ 'modifySnapshotCopyRetentionPeriodResponse' smart constructor.
+-- | /See:/ 'newModifySnapshotCopyRetentionPeriodResponse' smart constructor.
 data ModifySnapshotCopyRetentionPeriodResponse = ModifySnapshotCopyRetentionPeriodResponse'
-  { _mscrprrsCluster ::
-      !( Maybe
-           Cluster
-       ),
-    _mscrprrsResponseStatus ::
-      !Int
+  { cluster :: Prelude.Maybe Cluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifySnapshotCopyRetentionPeriodResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifySnapshotCopyRetentionPeriodResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mscrprrsCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mscrprrsResponseStatus' - -- | The response status code.
-modifySnapshotCopyRetentionPeriodResponse ::
-  -- | 'mscrprrsResponseStatus'
-  Int ->
+-- 'cluster', 'modifySnapshotCopyRetentionPeriodResponse_cluster' - Undocumented member.
+--
+-- 'httpStatus', 'modifySnapshotCopyRetentionPeriodResponse_httpStatus' - The response's http status code.
+newModifySnapshotCopyRetentionPeriodResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifySnapshotCopyRetentionPeriodResponse
-modifySnapshotCopyRetentionPeriodResponse
-  pResponseStatus_ =
+newModifySnapshotCopyRetentionPeriodResponse
+  pHttpStatus_ =
     ModifySnapshotCopyRetentionPeriodResponse'
-      { _mscrprrsCluster =
-          Nothing,
-        _mscrprrsResponseStatus =
-          pResponseStatus_
+      { cluster =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-mscrprrsCluster :: Lens' ModifySnapshotCopyRetentionPeriodResponse (Maybe Cluster)
-mscrprrsCluster = lens _mscrprrsCluster (\s a -> s {_mscrprrsCluster = a})
+modifySnapshotCopyRetentionPeriodResponse_cluster :: Lens.Lens' ModifySnapshotCopyRetentionPeriodResponse (Prelude.Maybe Cluster)
+modifySnapshotCopyRetentionPeriodResponse_cluster = Lens.lens (\ModifySnapshotCopyRetentionPeriodResponse' {cluster} -> cluster) (\s@ModifySnapshotCopyRetentionPeriodResponse' {} a -> s {cluster = a} :: ModifySnapshotCopyRetentionPeriodResponse)
 
--- | -- | The response status code.
-mscrprrsResponseStatus :: Lens' ModifySnapshotCopyRetentionPeriodResponse Int
-mscrprrsResponseStatus = lens _mscrprrsResponseStatus (\s a -> s {_mscrprrsResponseStatus = a})
+-- | The response's http status code.
+modifySnapshotCopyRetentionPeriodResponse_httpStatus :: Lens.Lens' ModifySnapshotCopyRetentionPeriodResponse Prelude.Int
+modifySnapshotCopyRetentionPeriodResponse_httpStatus = Lens.lens (\ModifySnapshotCopyRetentionPeriodResponse' {httpStatus} -> httpStatus) (\s@ModifySnapshotCopyRetentionPeriodResponse' {} a -> s {httpStatus = a} :: ModifySnapshotCopyRetentionPeriodResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ModifySnapshotCopyRetentionPeriodResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,105 +21,125 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies a usage limit in a cluster. You can't modify the feature type or period of a usage limit.
+-- Modifies a usage limit in a cluster. You can\'t modify the feature type
+-- or period of a usage limit.
 module Network.AWS.Redshift.ModifyUsageLimit
   ( -- * Creating a Request
-    modifyUsageLimit,
-    ModifyUsageLimit,
+    ModifyUsageLimit (..),
+    newModifyUsageLimit,
 
     -- * Request Lenses
-    mulAmount,
-    mulBreachAction,
-    mulUsageLimitId,
+    modifyUsageLimit_amount,
+    modifyUsageLimit_breachAction,
+    modifyUsageLimit_usageLimitId,
 
     -- * Destructuring the Response
-    usageLimit,
-    UsageLimit,
+    UsageLimit (..),
+    newUsageLimit,
 
     -- * Response Lenses
-    ulAmount,
-    ulFeatureType,
-    ulBreachAction,
-    ulLimitType,
-    ulClusterIdentifier,
-    ulTags,
-    ulPeriod,
-    ulUsageLimitId,
+    usageLimit_amount,
+    usageLimit_featureType,
+    usageLimit_breachAction,
+    usageLimit_limitType,
+    usageLimit_clusterIdentifier,
+    usageLimit_tags,
+    usageLimit_period,
+    usageLimit_usageLimitId,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.Tag
+import Network.AWS.Redshift.Types.UsageLimit
+import Network.AWS.Redshift.Types.UsageLimitBreachAction
+import Network.AWS.Redshift.Types.UsageLimitFeatureType
+import Network.AWS.Redshift.Types.UsageLimitLimitType
+import Network.AWS.Redshift.Types.UsageLimitPeriod
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyUsageLimit' smart constructor.
+-- | /See:/ 'newModifyUsageLimit' smart constructor.
 data ModifyUsageLimit = ModifyUsageLimit'
-  { _mulAmount ::
-      !(Maybe Integer),
-    _mulBreachAction ::
-      !(Maybe UsageLimitBreachAction),
-    _mulUsageLimitId :: !Text
+  { -- | The new limit amount. For more information about this parameter, see
+    -- UsageLimit.
+    amount :: Prelude.Maybe Prelude.Integer,
+    -- | The new action that Amazon Redshift takes when the limit is reached. For
+    -- more information about this parameter, see UsageLimit.
+    breachAction :: Prelude.Maybe UsageLimitBreachAction,
+    -- | The identifier of the usage limit to modify.
+    usageLimitId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyUsageLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyUsageLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mulAmount' - The new limit amount. For more information about this parameter, see 'UsageLimit' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mulBreachAction' - The new action that Amazon Redshift takes when the limit is reached. For more information about this parameter, see 'UsageLimit' .
+-- 'amount', 'modifyUsageLimit_amount' - The new limit amount. For more information about this parameter, see
+-- UsageLimit.
 --
--- * 'mulUsageLimitId' - The identifier of the usage limit to modify.
-modifyUsageLimit ::
-  -- | 'mulUsageLimitId'
-  Text ->
+-- 'breachAction', 'modifyUsageLimit_breachAction' - The new action that Amazon Redshift takes when the limit is reached. For
+-- more information about this parameter, see UsageLimit.
+--
+-- 'usageLimitId', 'modifyUsageLimit_usageLimitId' - The identifier of the usage limit to modify.
+newModifyUsageLimit ::
+  -- | 'usageLimitId'
+  Prelude.Text ->
   ModifyUsageLimit
-modifyUsageLimit pUsageLimitId_ =
+newModifyUsageLimit pUsageLimitId_ =
   ModifyUsageLimit'
-    { _mulAmount = Nothing,
-      _mulBreachAction = Nothing,
-      _mulUsageLimitId = pUsageLimitId_
+    { amount = Prelude.Nothing,
+      breachAction = Prelude.Nothing,
+      usageLimitId = pUsageLimitId_
     }
 
--- | The new limit amount. For more information about this parameter, see 'UsageLimit' .
-mulAmount :: Lens' ModifyUsageLimit (Maybe Integer)
-mulAmount = lens _mulAmount (\s a -> s {_mulAmount = a})
+-- | The new limit amount. For more information about this parameter, see
+-- UsageLimit.
+modifyUsageLimit_amount :: Lens.Lens' ModifyUsageLimit (Prelude.Maybe Prelude.Integer)
+modifyUsageLimit_amount = Lens.lens (\ModifyUsageLimit' {amount} -> amount) (\s@ModifyUsageLimit' {} a -> s {amount = a} :: ModifyUsageLimit)
 
--- | The new action that Amazon Redshift takes when the limit is reached. For more information about this parameter, see 'UsageLimit' .
-mulBreachAction :: Lens' ModifyUsageLimit (Maybe UsageLimitBreachAction)
-mulBreachAction = lens _mulBreachAction (\s a -> s {_mulBreachAction = a})
+-- | The new action that Amazon Redshift takes when the limit is reached. For
+-- more information about this parameter, see UsageLimit.
+modifyUsageLimit_breachAction :: Lens.Lens' ModifyUsageLimit (Prelude.Maybe UsageLimitBreachAction)
+modifyUsageLimit_breachAction = Lens.lens (\ModifyUsageLimit' {breachAction} -> breachAction) (\s@ModifyUsageLimit' {} a -> s {breachAction = a} :: ModifyUsageLimit)
 
 -- | The identifier of the usage limit to modify.
-mulUsageLimitId :: Lens' ModifyUsageLimit Text
-mulUsageLimitId = lens _mulUsageLimitId (\s a -> s {_mulUsageLimitId = a})
+modifyUsageLimit_usageLimitId :: Lens.Lens' ModifyUsageLimit Prelude.Text
+modifyUsageLimit_usageLimitId = Lens.lens (\ModifyUsageLimit' {usageLimitId} -> usageLimitId) (\s@ModifyUsageLimit' {} a -> s {usageLimitId = a} :: ModifyUsageLimit)
 
-instance AWSRequest ModifyUsageLimit where
+instance Prelude.AWSRequest ModifyUsageLimit where
   type Rs ModifyUsageLimit = UsageLimit
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyUsageLimitResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable ModifyUsageLimit
+instance Prelude.Hashable ModifyUsageLimit
 
-instance NFData ModifyUsageLimit
+instance Prelude.NFData ModifyUsageLimit
 
-instance ToHeaders ModifyUsageLimit where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyUsageLimit where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyUsageLimit where
-  toPath = const "/"
+instance Prelude.ToPath ModifyUsageLimit where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyUsageLimit where
+instance Prelude.ToQuery ModifyUsageLimit where
   toQuery ModifyUsageLimit' {..} =
-    mconcat
-      [ "Action" =: ("ModifyUsageLimit" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "Amount" =: _mulAmount,
-        "BreachAction" =: _mulBreachAction,
-        "UsageLimitId" =: _mulUsageLimitId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyUsageLimit" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "Amount" Prelude.=: amount,
+        "BreachAction" Prelude.=: breachAction,
+        "UsageLimitId" Prelude.=: usageLimitId
       ]

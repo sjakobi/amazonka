@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,350 +19,517 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.Snapshot where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.AccountWithRestoreAccess
 import Network.AWS.Redshift.Types.Tag
 
 -- | Describes a snapshot.
 --
---
---
--- /See:/ 'snapshot' smart constructor.
+-- /See:/ 'newSnapshot' smart constructor.
 data Snapshot = Snapshot'
-  { _sEnhancedVPCRouting ::
-      !(Maybe Bool),
-    _sSnapshotIdentifier :: !(Maybe Text),
-    _sStatus :: !(Maybe Text),
-    _sEstimatedSecondsToCompletion :: !(Maybe Integer),
-    _sEncrypted :: !(Maybe Bool),
-    _sClusterCreateTime :: !(Maybe ISO8601),
-    _sManualSnapshotRemainingDays :: !(Maybe Int),
-    _sSnapshotCreateTime :: !(Maybe ISO8601),
-    _sCurrentBackupRateInMegaBytesPerSecond ::
-      !(Maybe Double),
-    _sMasterUsername :: !(Maybe Text),
-    _sEncryptedWithHSM :: !(Maybe Bool),
-    _sManualSnapshotRetentionPeriod :: !(Maybe Int),
-    _sKMSKeyId :: !(Maybe Text),
-    _sEngineFullVersion :: !(Maybe Text),
-    _sAvailabilityZone :: !(Maybe Text),
-    _sRestorableNodeTypes :: !(Maybe [Text]),
-    _sSnapshotType :: !(Maybe Text),
-    _sAccountsWithRestoreAccess ::
-      !(Maybe [AccountWithRestoreAccess]),
-    _sActualIncrementalBackupSizeInMegaBytes ::
-      !(Maybe Double),
-    _sClusterIdentifier :: !(Maybe Text),
-    _sTags :: !(Maybe [Tag]),
-    _sNumberOfNodes :: !(Maybe Int),
-    _sPort :: !(Maybe Int),
-    _sTotalBackupSizeInMegaBytes :: !(Maybe Double),
-    _sDBName :: !(Maybe Text),
-    _sBackupProgressInMegaBytes :: !(Maybe Double),
-    _sElapsedTimeInSeconds :: !(Maybe Integer),
-    _sNodeType :: !(Maybe Text),
-    _sOwnerAccount :: !(Maybe Text),
-    _sClusterVersion :: !(Maybe Text),
-    _sVPCId :: !(Maybe Text),
-    _sSourceRegion :: !(Maybe Text),
-    _sSnapshotRetentionStartTime :: !(Maybe ISO8601),
-    _sMaintenanceTrackName :: !(Maybe Text)
+  { -- | An option that specifies whether to create the cluster with enhanced VPC
+    -- routing enabled. To create a cluster that uses enhanced VPC routing, the
+    -- cluster must be in a VPC. For more information, see
+    -- <https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html Enhanced VPC Routing>
+    -- in the Amazon Redshift Cluster Management Guide.
+    --
+    -- If this option is @true@, enhanced VPC routing is enabled.
+    --
+    -- Default: false
+    enhancedVpcRouting :: Prelude.Maybe Prelude.Bool,
+    -- | The snapshot identifier that is provided in the request.
+    snapshotIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The snapshot status. The value of the status depends on the API
+    -- operation used:
+    --
+    -- -   CreateClusterSnapshot and CopyClusterSnapshot returns status as
+    --     \"creating\".
+    --
+    -- -   DescribeClusterSnapshots returns status as \"creating\",
+    --     \"available\", \"final snapshot\", or \"failed\".
+    --
+    -- -   DeleteClusterSnapshot returns status as \"deleted\".
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The estimate of the time remaining before the snapshot backup will
+    -- complete. Returns @0@ for a completed backup.
+    estimatedSecondsToCompletion :: Prelude.Maybe Prelude.Integer,
+    -- | If @true@, the data in the snapshot is encrypted at rest.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The time (UTC) when the cluster was originally created.
+    clusterCreateTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The number of days until a manual snapshot will pass its retention
+    -- period.
+    manualSnapshotRemainingDays :: Prelude.Maybe Prelude.Int,
+    -- | The time (in UTC format) when Amazon Redshift began the snapshot. A
+    -- snapshot contains a copy of the cluster data as of this exact time.
+    snapshotCreateTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The number of megabytes per second being transferred to the snapshot
+    -- backup. Returns @0@ for a completed backup.
+    currentBackupRateInMegaBytesPerSecond :: Prelude.Maybe Prelude.Double,
+    -- | The master user name for the cluster.
+    masterUsername :: Prelude.Maybe Prelude.Text,
+    -- | A boolean that indicates whether the snapshot data is encrypted using
+    -- the HSM keys of the source cluster. @true@ indicates that the data is
+    -- encrypted using HSM keys.
+    encryptedWithHSM :: Prelude.Maybe Prelude.Bool,
+    -- | The number of days that a manual snapshot is retained. If the value is
+    -- -1, the manual snapshot is retained indefinitely.
+    --
+    -- The value must be either -1 or an integer between 1 and 3,653.
+    manualSnapshotRetentionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | The AWS Key Management Service (KMS) key ID of the encryption key that
+    -- was used to encrypt data in the cluster from which the snapshot was
+    -- taken.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The cluster version of the cluster used to create the snapshot. For
+    -- example, 1.0.15503.
+    engineFullVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Availability Zone in which the cluster was created.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The list of node types that this cluster snapshot is able to restore
+    -- into.
+    restorableNodeTypes :: Prelude.Maybe [Prelude.Text],
+    -- | The snapshot type. Snapshots created using CreateClusterSnapshot and
+    -- CopyClusterSnapshot are of type \"manual\".
+    snapshotType :: Prelude.Maybe Prelude.Text,
+    -- | A list of the AWS customer accounts authorized to restore the snapshot.
+    -- Returns @null@ if no accounts are authorized. Visible only to the
+    -- snapshot owner.
+    accountsWithRestoreAccess :: Prelude.Maybe [AccountWithRestoreAccess],
+    -- | The size of the incremental backup.
+    actualIncrementalBackupSizeInMegaBytes :: Prelude.Maybe Prelude.Double,
+    -- | The identifier of the cluster for which the snapshot was taken.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The list of tags for the cluster snapshot.
+    tags :: Prelude.Maybe [Tag],
+    -- | The number of nodes in the cluster.
+    numberOfNodes :: Prelude.Maybe Prelude.Int,
+    -- | The port that the cluster is listening on.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The size of the complete set of backup data that would be used to
+    -- restore the cluster.
+    totalBackupSizeInMegaBytes :: Prelude.Maybe Prelude.Double,
+    -- | The name of the database that was created when the cluster was created.
+    dBName :: Prelude.Maybe Prelude.Text,
+    -- | The number of megabytes that have been transferred to the snapshot
+    -- backup.
+    backupProgressInMegaBytes :: Prelude.Maybe Prelude.Double,
+    -- | The amount of time an in-progress snapshot backup has been running, or
+    -- the amount of time it took a completed backup to finish.
+    elapsedTimeInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The node type of the nodes in the cluster.
+    nodeType :: Prelude.Maybe Prelude.Text,
+    -- | For manual snapshots, the AWS customer account used to create or copy
+    -- the snapshot. For automatic snapshots, the owner of the cluster. The
+    -- owner can perform all snapshot actions, such as sharing a manual
+    -- snapshot.
+    ownerAccount :: Prelude.Maybe Prelude.Text,
+    -- | The version ID of the Amazon Redshift engine that is running on the
+    -- cluster.
+    clusterVersion :: Prelude.Maybe Prelude.Text,
+    -- | The VPC identifier of the cluster if the snapshot is from a cluster in a
+    -- VPC. Otherwise, this field is not in the output.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The source region from which the snapshot was copied.
+    sourceRegion :: Prelude.Maybe Prelude.Text,
+    -- | A timestamp representing the start of the retention period for the
+    -- snapshot.
+    snapshotRetentionStartTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the maintenance track for the snapshot.
+    maintenanceTrackName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Snapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Snapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sEnhancedVPCRouting' - An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see <https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html Enhanced VPC Routing> in the Amazon Redshift Cluster Management Guide. If this option is @true@ , enhanced VPC routing is enabled.  Default: false
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sSnapshotIdentifier' - The snapshot identifier that is provided in the request.
+-- 'enhancedVpcRouting', 'snapshot_enhancedVpcRouting' - An option that specifies whether to create the cluster with enhanced VPC
+-- routing enabled. To create a cluster that uses enhanced VPC routing, the
+-- cluster must be in a VPC. For more information, see
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html Enhanced VPC Routing>
+-- in the Amazon Redshift Cluster Management Guide.
 --
--- * 'sStatus' - The snapshot status. The value of the status depends on the API operation used:      * 'CreateClusterSnapshot' and 'CopyClusterSnapshot' returns status as "creating".      * 'DescribeClusterSnapshots' returns status as "creating", "available", "final snapshot", or "failed".     * 'DeleteClusterSnapshot' returns status as "deleted".
+-- If this option is @true@, enhanced VPC routing is enabled.
 --
--- * 'sEstimatedSecondsToCompletion' - The estimate of the time remaining before the snapshot backup will complete. Returns @0@ for a completed backup.
+-- Default: false
 --
--- * 'sEncrypted' - If @true@ , the data in the snapshot is encrypted at rest.
+-- 'snapshotIdentifier', 'snapshot_snapshotIdentifier' - The snapshot identifier that is provided in the request.
 --
--- * 'sClusterCreateTime' - The time (UTC) when the cluster was originally created.
+-- 'status', 'snapshot_status' - The snapshot status. The value of the status depends on the API
+-- operation used:
 --
--- * 'sManualSnapshotRemainingDays' - The number of days until a manual snapshot will pass its retention period.
+-- -   CreateClusterSnapshot and CopyClusterSnapshot returns status as
+--     \"creating\".
 --
--- * 'sSnapshotCreateTime' - The time (in UTC format) when Amazon Redshift began the snapshot. A snapshot contains a copy of the cluster data as of this exact time.
+-- -   DescribeClusterSnapshots returns status as \"creating\",
+--     \"available\", \"final snapshot\", or \"failed\".
 --
--- * 'sCurrentBackupRateInMegaBytesPerSecond' - The number of megabytes per second being transferred to the snapshot backup. Returns @0@ for a completed backup.
+-- -   DeleteClusterSnapshot returns status as \"deleted\".
 --
--- * 'sMasterUsername' - The master user name for the cluster.
+-- 'estimatedSecondsToCompletion', 'snapshot_estimatedSecondsToCompletion' - The estimate of the time remaining before the snapshot backup will
+-- complete. Returns @0@ for a completed backup.
 --
--- * 'sEncryptedWithHSM' - A boolean that indicates whether the snapshot data is encrypted using the HSM keys of the source cluster. @true@ indicates that the data is encrypted using HSM keys.
+-- 'encrypted', 'snapshot_encrypted' - If @true@, the data in the snapshot is encrypted at rest.
 --
--- * 'sManualSnapshotRetentionPeriod' - The number of days that a manual snapshot is retained. If the value is -1, the manual snapshot is retained indefinitely.  The value must be either -1 or an integer between 1 and 3,653.
+-- 'clusterCreateTime', 'snapshot_clusterCreateTime' - The time (UTC) when the cluster was originally created.
 --
--- * 'sKMSKeyId' - The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster from which the snapshot was taken.
+-- 'manualSnapshotRemainingDays', 'snapshot_manualSnapshotRemainingDays' - The number of days until a manual snapshot will pass its retention
+-- period.
 --
--- * 'sEngineFullVersion' - The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+-- 'snapshotCreateTime', 'snapshot_snapshotCreateTime' - The time (in UTC format) when Amazon Redshift began the snapshot. A
+-- snapshot contains a copy of the cluster data as of this exact time.
 --
--- * 'sAvailabilityZone' - The Availability Zone in which the cluster was created.
+-- 'currentBackupRateInMegaBytesPerSecond', 'snapshot_currentBackupRateInMegaBytesPerSecond' - The number of megabytes per second being transferred to the snapshot
+-- backup. Returns @0@ for a completed backup.
 --
--- * 'sRestorableNodeTypes' - The list of node types that this cluster snapshot is able to restore into.
+-- 'masterUsername', 'snapshot_masterUsername' - The master user name for the cluster.
 --
--- * 'sSnapshotType' - The snapshot type. Snapshots created using 'CreateClusterSnapshot' and 'CopyClusterSnapshot' are of type "manual".
+-- 'encryptedWithHSM', 'snapshot_encryptedWithHSM' - A boolean that indicates whether the snapshot data is encrypted using
+-- the HSM keys of the source cluster. @true@ indicates that the data is
+-- encrypted using HSM keys.
 --
--- * 'sAccountsWithRestoreAccess' - A list of the AWS customer accounts authorized to restore the snapshot. Returns @null@ if no accounts are authorized. Visible only to the snapshot owner.
+-- 'manualSnapshotRetentionPeriod', 'snapshot_manualSnapshotRetentionPeriod' - The number of days that a manual snapshot is retained. If the value is
+-- -1, the manual snapshot is retained indefinitely.
 --
--- * 'sActualIncrementalBackupSizeInMegaBytes' - The size of the incremental backup.
+-- The value must be either -1 or an integer between 1 and 3,653.
 --
--- * 'sClusterIdentifier' - The identifier of the cluster for which the snapshot was taken.
+-- 'kmsKeyId', 'snapshot_kmsKeyId' - The AWS Key Management Service (KMS) key ID of the encryption key that
+-- was used to encrypt data in the cluster from which the snapshot was
+-- taken.
 --
--- * 'sTags' - The list of tags for the cluster snapshot.
+-- 'engineFullVersion', 'snapshot_engineFullVersion' - The cluster version of the cluster used to create the snapshot. For
+-- example, 1.0.15503.
 --
--- * 'sNumberOfNodes' - The number of nodes in the cluster.
+-- 'availabilityZone', 'snapshot_availabilityZone' - The Availability Zone in which the cluster was created.
 --
--- * 'sPort' - The port that the cluster is listening on.
+-- 'restorableNodeTypes', 'snapshot_restorableNodeTypes' - The list of node types that this cluster snapshot is able to restore
+-- into.
 --
--- * 'sTotalBackupSizeInMegaBytes' - The size of the complete set of backup data that would be used to restore the cluster.
+-- 'snapshotType', 'snapshot_snapshotType' - The snapshot type. Snapshots created using CreateClusterSnapshot and
+-- CopyClusterSnapshot are of type \"manual\".
 --
--- * 'sDBName' - The name of the database that was created when the cluster was created.
+-- 'accountsWithRestoreAccess', 'snapshot_accountsWithRestoreAccess' - A list of the AWS customer accounts authorized to restore the snapshot.
+-- Returns @null@ if no accounts are authorized. Visible only to the
+-- snapshot owner.
 --
--- * 'sBackupProgressInMegaBytes' - The number of megabytes that have been transferred to the snapshot backup.
+-- 'actualIncrementalBackupSizeInMegaBytes', 'snapshot_actualIncrementalBackupSizeInMegaBytes' - The size of the incremental backup.
 --
--- * 'sElapsedTimeInSeconds' - The amount of time an in-progress snapshot backup has been running, or the amount of time it took a completed backup to finish.
+-- 'clusterIdentifier', 'snapshot_clusterIdentifier' - The identifier of the cluster for which the snapshot was taken.
 --
--- * 'sNodeType' - The node type of the nodes in the cluster.
+-- 'tags', 'snapshot_tags' - The list of tags for the cluster snapshot.
 --
--- * 'sOwnerAccount' - For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual snapshot.
+-- 'numberOfNodes', 'snapshot_numberOfNodes' - The number of nodes in the cluster.
 --
--- * 'sClusterVersion' - The version ID of the Amazon Redshift engine that is running on the cluster.
+-- 'port', 'snapshot_port' - The port that the cluster is listening on.
 --
--- * 'sVPCId' - The VPC identifier of the cluster if the snapshot is from a cluster in a VPC. Otherwise, this field is not in the output.
+-- 'totalBackupSizeInMegaBytes', 'snapshot_totalBackupSizeInMegaBytes' - The size of the complete set of backup data that would be used to
+-- restore the cluster.
 --
--- * 'sSourceRegion' - The source region from which the snapshot was copied.
+-- 'dBName', 'snapshot_dBName' - The name of the database that was created when the cluster was created.
 --
--- * 'sSnapshotRetentionStartTime' - A timestamp representing the start of the retention period for the snapshot.
+-- 'backupProgressInMegaBytes', 'snapshot_backupProgressInMegaBytes' - The number of megabytes that have been transferred to the snapshot
+-- backup.
 --
--- * 'sMaintenanceTrackName' - The name of the maintenance track for the snapshot.
-snapshot ::
+-- 'elapsedTimeInSeconds', 'snapshot_elapsedTimeInSeconds' - The amount of time an in-progress snapshot backup has been running, or
+-- the amount of time it took a completed backup to finish.
+--
+-- 'nodeType', 'snapshot_nodeType' - The node type of the nodes in the cluster.
+--
+-- 'ownerAccount', 'snapshot_ownerAccount' - For manual snapshots, the AWS customer account used to create or copy
+-- the snapshot. For automatic snapshots, the owner of the cluster. The
+-- owner can perform all snapshot actions, such as sharing a manual
+-- snapshot.
+--
+-- 'clusterVersion', 'snapshot_clusterVersion' - The version ID of the Amazon Redshift engine that is running on the
+-- cluster.
+--
+-- 'vpcId', 'snapshot_vpcId' - The VPC identifier of the cluster if the snapshot is from a cluster in a
+-- VPC. Otherwise, this field is not in the output.
+--
+-- 'sourceRegion', 'snapshot_sourceRegion' - The source region from which the snapshot was copied.
+--
+-- 'snapshotRetentionStartTime', 'snapshot_snapshotRetentionStartTime' - A timestamp representing the start of the retention period for the
+-- snapshot.
+--
+-- 'maintenanceTrackName', 'snapshot_maintenanceTrackName' - The name of the maintenance track for the snapshot.
+newSnapshot ::
   Snapshot
-snapshot =
+newSnapshot =
   Snapshot'
-    { _sEnhancedVPCRouting = Nothing,
-      _sSnapshotIdentifier = Nothing,
-      _sStatus = Nothing,
-      _sEstimatedSecondsToCompletion = Nothing,
-      _sEncrypted = Nothing,
-      _sClusterCreateTime = Nothing,
-      _sManualSnapshotRemainingDays = Nothing,
-      _sSnapshotCreateTime = Nothing,
-      _sCurrentBackupRateInMegaBytesPerSecond = Nothing,
-      _sMasterUsername = Nothing,
-      _sEncryptedWithHSM = Nothing,
-      _sManualSnapshotRetentionPeriod = Nothing,
-      _sKMSKeyId = Nothing,
-      _sEngineFullVersion = Nothing,
-      _sAvailabilityZone = Nothing,
-      _sRestorableNodeTypes = Nothing,
-      _sSnapshotType = Nothing,
-      _sAccountsWithRestoreAccess = Nothing,
-      _sActualIncrementalBackupSizeInMegaBytes = Nothing,
-      _sClusterIdentifier = Nothing,
-      _sTags = Nothing,
-      _sNumberOfNodes = Nothing,
-      _sPort = Nothing,
-      _sTotalBackupSizeInMegaBytes = Nothing,
-      _sDBName = Nothing,
-      _sBackupProgressInMegaBytes = Nothing,
-      _sElapsedTimeInSeconds = Nothing,
-      _sNodeType = Nothing,
-      _sOwnerAccount = Nothing,
-      _sClusterVersion = Nothing,
-      _sVPCId = Nothing,
-      _sSourceRegion = Nothing,
-      _sSnapshotRetentionStartTime = Nothing,
-      _sMaintenanceTrackName = Nothing
+    { enhancedVpcRouting = Prelude.Nothing,
+      snapshotIdentifier = Prelude.Nothing,
+      status = Prelude.Nothing,
+      estimatedSecondsToCompletion = Prelude.Nothing,
+      encrypted = Prelude.Nothing,
+      clusterCreateTime = Prelude.Nothing,
+      manualSnapshotRemainingDays = Prelude.Nothing,
+      snapshotCreateTime = Prelude.Nothing,
+      currentBackupRateInMegaBytesPerSecond =
+        Prelude.Nothing,
+      masterUsername = Prelude.Nothing,
+      encryptedWithHSM = Prelude.Nothing,
+      manualSnapshotRetentionPeriod = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      engineFullVersion = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      restorableNodeTypes = Prelude.Nothing,
+      snapshotType = Prelude.Nothing,
+      accountsWithRestoreAccess = Prelude.Nothing,
+      actualIncrementalBackupSizeInMegaBytes =
+        Prelude.Nothing,
+      clusterIdentifier = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      numberOfNodes = Prelude.Nothing,
+      port = Prelude.Nothing,
+      totalBackupSizeInMegaBytes = Prelude.Nothing,
+      dBName = Prelude.Nothing,
+      backupProgressInMegaBytes = Prelude.Nothing,
+      elapsedTimeInSeconds = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
+      ownerAccount = Prelude.Nothing,
+      clusterVersion = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      sourceRegion = Prelude.Nothing,
+      snapshotRetentionStartTime = Prelude.Nothing,
+      maintenanceTrackName = Prelude.Nothing
     }
 
--- | An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see <https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html Enhanced VPC Routing> in the Amazon Redshift Cluster Management Guide. If this option is @true@ , enhanced VPC routing is enabled.  Default: false
-sEnhancedVPCRouting :: Lens' Snapshot (Maybe Bool)
-sEnhancedVPCRouting = lens _sEnhancedVPCRouting (\s a -> s {_sEnhancedVPCRouting = a})
+-- | An option that specifies whether to create the cluster with enhanced VPC
+-- routing enabled. To create a cluster that uses enhanced VPC routing, the
+-- cluster must be in a VPC. For more information, see
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html Enhanced VPC Routing>
+-- in the Amazon Redshift Cluster Management Guide.
+--
+-- If this option is @true@, enhanced VPC routing is enabled.
+--
+-- Default: false
+snapshot_enhancedVpcRouting :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Bool)
+snapshot_enhancedVpcRouting = Lens.lens (\Snapshot' {enhancedVpcRouting} -> enhancedVpcRouting) (\s@Snapshot' {} a -> s {enhancedVpcRouting = a} :: Snapshot)
 
 -- | The snapshot identifier that is provided in the request.
-sSnapshotIdentifier :: Lens' Snapshot (Maybe Text)
-sSnapshotIdentifier = lens _sSnapshotIdentifier (\s a -> s {_sSnapshotIdentifier = a})
+snapshot_snapshotIdentifier :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_snapshotIdentifier = Lens.lens (\Snapshot' {snapshotIdentifier} -> snapshotIdentifier) (\s@Snapshot' {} a -> s {snapshotIdentifier = a} :: Snapshot)
 
--- | The snapshot status. The value of the status depends on the API operation used:      * 'CreateClusterSnapshot' and 'CopyClusterSnapshot' returns status as "creating".      * 'DescribeClusterSnapshots' returns status as "creating", "available", "final snapshot", or "failed".     * 'DeleteClusterSnapshot' returns status as "deleted".
-sStatus :: Lens' Snapshot (Maybe Text)
-sStatus = lens _sStatus (\s a -> s {_sStatus = a})
+-- | The snapshot status. The value of the status depends on the API
+-- operation used:
+--
+-- -   CreateClusterSnapshot and CopyClusterSnapshot returns status as
+--     \"creating\".
+--
+-- -   DescribeClusterSnapshots returns status as \"creating\",
+--     \"available\", \"final snapshot\", or \"failed\".
+--
+-- -   DeleteClusterSnapshot returns status as \"deleted\".
+snapshot_status :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_status = Lens.lens (\Snapshot' {status} -> status) (\s@Snapshot' {} a -> s {status = a} :: Snapshot)
 
--- | The estimate of the time remaining before the snapshot backup will complete. Returns @0@ for a completed backup.
-sEstimatedSecondsToCompletion :: Lens' Snapshot (Maybe Integer)
-sEstimatedSecondsToCompletion = lens _sEstimatedSecondsToCompletion (\s a -> s {_sEstimatedSecondsToCompletion = a})
+-- | The estimate of the time remaining before the snapshot backup will
+-- complete. Returns @0@ for a completed backup.
+snapshot_estimatedSecondsToCompletion :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Integer)
+snapshot_estimatedSecondsToCompletion = Lens.lens (\Snapshot' {estimatedSecondsToCompletion} -> estimatedSecondsToCompletion) (\s@Snapshot' {} a -> s {estimatedSecondsToCompletion = a} :: Snapshot)
 
--- | If @true@ , the data in the snapshot is encrypted at rest.
-sEncrypted :: Lens' Snapshot (Maybe Bool)
-sEncrypted = lens _sEncrypted (\s a -> s {_sEncrypted = a})
+-- | If @true@, the data in the snapshot is encrypted at rest.
+snapshot_encrypted :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Bool)
+snapshot_encrypted = Lens.lens (\Snapshot' {encrypted} -> encrypted) (\s@Snapshot' {} a -> s {encrypted = a} :: Snapshot)
 
 -- | The time (UTC) when the cluster was originally created.
-sClusterCreateTime :: Lens' Snapshot (Maybe UTCTime)
-sClusterCreateTime = lens _sClusterCreateTime (\s a -> s {_sClusterCreateTime = a}) . mapping _Time
+snapshot_clusterCreateTime :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.UTCTime)
+snapshot_clusterCreateTime = Lens.lens (\Snapshot' {clusterCreateTime} -> clusterCreateTime) (\s@Snapshot' {} a -> s {clusterCreateTime = a} :: Snapshot) Prelude.. Lens.mapping Prelude._Time
 
--- | The number of days until a manual snapshot will pass its retention period.
-sManualSnapshotRemainingDays :: Lens' Snapshot (Maybe Int)
-sManualSnapshotRemainingDays = lens _sManualSnapshotRemainingDays (\s a -> s {_sManualSnapshotRemainingDays = a})
+-- | The number of days until a manual snapshot will pass its retention
+-- period.
+snapshot_manualSnapshotRemainingDays :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Int)
+snapshot_manualSnapshotRemainingDays = Lens.lens (\Snapshot' {manualSnapshotRemainingDays} -> manualSnapshotRemainingDays) (\s@Snapshot' {} a -> s {manualSnapshotRemainingDays = a} :: Snapshot)
 
--- | The time (in UTC format) when Amazon Redshift began the snapshot. A snapshot contains a copy of the cluster data as of this exact time.
-sSnapshotCreateTime :: Lens' Snapshot (Maybe UTCTime)
-sSnapshotCreateTime = lens _sSnapshotCreateTime (\s a -> s {_sSnapshotCreateTime = a}) . mapping _Time
+-- | The time (in UTC format) when Amazon Redshift began the snapshot. A
+-- snapshot contains a copy of the cluster data as of this exact time.
+snapshot_snapshotCreateTime :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.UTCTime)
+snapshot_snapshotCreateTime = Lens.lens (\Snapshot' {snapshotCreateTime} -> snapshotCreateTime) (\s@Snapshot' {} a -> s {snapshotCreateTime = a} :: Snapshot) Prelude.. Lens.mapping Prelude._Time
 
--- | The number of megabytes per second being transferred to the snapshot backup. Returns @0@ for a completed backup.
-sCurrentBackupRateInMegaBytesPerSecond :: Lens' Snapshot (Maybe Double)
-sCurrentBackupRateInMegaBytesPerSecond = lens _sCurrentBackupRateInMegaBytesPerSecond (\s a -> s {_sCurrentBackupRateInMegaBytesPerSecond = a})
+-- | The number of megabytes per second being transferred to the snapshot
+-- backup. Returns @0@ for a completed backup.
+snapshot_currentBackupRateInMegaBytesPerSecond :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Double)
+snapshot_currentBackupRateInMegaBytesPerSecond = Lens.lens (\Snapshot' {currentBackupRateInMegaBytesPerSecond} -> currentBackupRateInMegaBytesPerSecond) (\s@Snapshot' {} a -> s {currentBackupRateInMegaBytesPerSecond = a} :: Snapshot)
 
 -- | The master user name for the cluster.
-sMasterUsername :: Lens' Snapshot (Maybe Text)
-sMasterUsername = lens _sMasterUsername (\s a -> s {_sMasterUsername = a})
+snapshot_masterUsername :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_masterUsername = Lens.lens (\Snapshot' {masterUsername} -> masterUsername) (\s@Snapshot' {} a -> s {masterUsername = a} :: Snapshot)
 
--- | A boolean that indicates whether the snapshot data is encrypted using the HSM keys of the source cluster. @true@ indicates that the data is encrypted using HSM keys.
-sEncryptedWithHSM :: Lens' Snapshot (Maybe Bool)
-sEncryptedWithHSM = lens _sEncryptedWithHSM (\s a -> s {_sEncryptedWithHSM = a})
+-- | A boolean that indicates whether the snapshot data is encrypted using
+-- the HSM keys of the source cluster. @true@ indicates that the data is
+-- encrypted using HSM keys.
+snapshot_encryptedWithHSM :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Bool)
+snapshot_encryptedWithHSM = Lens.lens (\Snapshot' {encryptedWithHSM} -> encryptedWithHSM) (\s@Snapshot' {} a -> s {encryptedWithHSM = a} :: Snapshot)
 
--- | The number of days that a manual snapshot is retained. If the value is -1, the manual snapshot is retained indefinitely.  The value must be either -1 or an integer between 1 and 3,653.
-sManualSnapshotRetentionPeriod :: Lens' Snapshot (Maybe Int)
-sManualSnapshotRetentionPeriod = lens _sManualSnapshotRetentionPeriod (\s a -> s {_sManualSnapshotRetentionPeriod = a})
+-- | The number of days that a manual snapshot is retained. If the value is
+-- -1, the manual snapshot is retained indefinitely.
+--
+-- The value must be either -1 or an integer between 1 and 3,653.
+snapshot_manualSnapshotRetentionPeriod :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Int)
+snapshot_manualSnapshotRetentionPeriod = Lens.lens (\Snapshot' {manualSnapshotRetentionPeriod} -> manualSnapshotRetentionPeriod) (\s@Snapshot' {} a -> s {manualSnapshotRetentionPeriod = a} :: Snapshot)
 
--- | The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster from which the snapshot was taken.
-sKMSKeyId :: Lens' Snapshot (Maybe Text)
-sKMSKeyId = lens _sKMSKeyId (\s a -> s {_sKMSKeyId = a})
+-- | The AWS Key Management Service (KMS) key ID of the encryption key that
+-- was used to encrypt data in the cluster from which the snapshot was
+-- taken.
+snapshot_kmsKeyId :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_kmsKeyId = Lens.lens (\Snapshot' {kmsKeyId} -> kmsKeyId) (\s@Snapshot' {} a -> s {kmsKeyId = a} :: Snapshot)
 
--- | The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
-sEngineFullVersion :: Lens' Snapshot (Maybe Text)
-sEngineFullVersion = lens _sEngineFullVersion (\s a -> s {_sEngineFullVersion = a})
+-- | The cluster version of the cluster used to create the snapshot. For
+-- example, 1.0.15503.
+snapshot_engineFullVersion :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_engineFullVersion = Lens.lens (\Snapshot' {engineFullVersion} -> engineFullVersion) (\s@Snapshot' {} a -> s {engineFullVersion = a} :: Snapshot)
 
 -- | The Availability Zone in which the cluster was created.
-sAvailabilityZone :: Lens' Snapshot (Maybe Text)
-sAvailabilityZone = lens _sAvailabilityZone (\s a -> s {_sAvailabilityZone = a})
+snapshot_availabilityZone :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_availabilityZone = Lens.lens (\Snapshot' {availabilityZone} -> availabilityZone) (\s@Snapshot' {} a -> s {availabilityZone = a} :: Snapshot)
 
--- | The list of node types that this cluster snapshot is able to restore into.
-sRestorableNodeTypes :: Lens' Snapshot [Text]
-sRestorableNodeTypes = lens _sRestorableNodeTypes (\s a -> s {_sRestorableNodeTypes = a}) . _Default . _Coerce
+-- | The list of node types that this cluster snapshot is able to restore
+-- into.
+snapshot_restorableNodeTypes :: Lens.Lens' Snapshot (Prelude.Maybe [Prelude.Text])
+snapshot_restorableNodeTypes = Lens.lens (\Snapshot' {restorableNodeTypes} -> restorableNodeTypes) (\s@Snapshot' {} a -> s {restorableNodeTypes = a} :: Snapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The snapshot type. Snapshots created using 'CreateClusterSnapshot' and 'CopyClusterSnapshot' are of type "manual".
-sSnapshotType :: Lens' Snapshot (Maybe Text)
-sSnapshotType = lens _sSnapshotType (\s a -> s {_sSnapshotType = a})
+-- | The snapshot type. Snapshots created using CreateClusterSnapshot and
+-- CopyClusterSnapshot are of type \"manual\".
+snapshot_snapshotType :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_snapshotType = Lens.lens (\Snapshot' {snapshotType} -> snapshotType) (\s@Snapshot' {} a -> s {snapshotType = a} :: Snapshot)
 
--- | A list of the AWS customer accounts authorized to restore the snapshot. Returns @null@ if no accounts are authorized. Visible only to the snapshot owner.
-sAccountsWithRestoreAccess :: Lens' Snapshot [AccountWithRestoreAccess]
-sAccountsWithRestoreAccess = lens _sAccountsWithRestoreAccess (\s a -> s {_sAccountsWithRestoreAccess = a}) . _Default . _Coerce
+-- | A list of the AWS customer accounts authorized to restore the snapshot.
+-- Returns @null@ if no accounts are authorized. Visible only to the
+-- snapshot owner.
+snapshot_accountsWithRestoreAccess :: Lens.Lens' Snapshot (Prelude.Maybe [AccountWithRestoreAccess])
+snapshot_accountsWithRestoreAccess = Lens.lens (\Snapshot' {accountsWithRestoreAccess} -> accountsWithRestoreAccess) (\s@Snapshot' {} a -> s {accountsWithRestoreAccess = a} :: Snapshot) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The size of the incremental backup.
-sActualIncrementalBackupSizeInMegaBytes :: Lens' Snapshot (Maybe Double)
-sActualIncrementalBackupSizeInMegaBytes = lens _sActualIncrementalBackupSizeInMegaBytes (\s a -> s {_sActualIncrementalBackupSizeInMegaBytes = a})
+snapshot_actualIncrementalBackupSizeInMegaBytes :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Double)
+snapshot_actualIncrementalBackupSizeInMegaBytes = Lens.lens (\Snapshot' {actualIncrementalBackupSizeInMegaBytes} -> actualIncrementalBackupSizeInMegaBytes) (\s@Snapshot' {} a -> s {actualIncrementalBackupSizeInMegaBytes = a} :: Snapshot)
 
 -- | The identifier of the cluster for which the snapshot was taken.
-sClusterIdentifier :: Lens' Snapshot (Maybe Text)
-sClusterIdentifier = lens _sClusterIdentifier (\s a -> s {_sClusterIdentifier = a})
+snapshot_clusterIdentifier :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_clusterIdentifier = Lens.lens (\Snapshot' {clusterIdentifier} -> clusterIdentifier) (\s@Snapshot' {} a -> s {clusterIdentifier = a} :: Snapshot)
 
 -- | The list of tags for the cluster snapshot.
-sTags :: Lens' Snapshot [Tag]
-sTags = lens _sTags (\s a -> s {_sTags = a}) . _Default . _Coerce
+snapshot_tags :: Lens.Lens' Snapshot (Prelude.Maybe [Tag])
+snapshot_tags = Lens.lens (\Snapshot' {tags} -> tags) (\s@Snapshot' {} a -> s {tags = a} :: Snapshot) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of nodes in the cluster.
-sNumberOfNodes :: Lens' Snapshot (Maybe Int)
-sNumberOfNodes = lens _sNumberOfNodes (\s a -> s {_sNumberOfNodes = a})
+snapshot_numberOfNodes :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Int)
+snapshot_numberOfNodes = Lens.lens (\Snapshot' {numberOfNodes} -> numberOfNodes) (\s@Snapshot' {} a -> s {numberOfNodes = a} :: Snapshot)
 
 -- | The port that the cluster is listening on.
-sPort :: Lens' Snapshot (Maybe Int)
-sPort = lens _sPort (\s a -> s {_sPort = a})
+snapshot_port :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Int)
+snapshot_port = Lens.lens (\Snapshot' {port} -> port) (\s@Snapshot' {} a -> s {port = a} :: Snapshot)
 
--- | The size of the complete set of backup data that would be used to restore the cluster.
-sTotalBackupSizeInMegaBytes :: Lens' Snapshot (Maybe Double)
-sTotalBackupSizeInMegaBytes = lens _sTotalBackupSizeInMegaBytes (\s a -> s {_sTotalBackupSizeInMegaBytes = a})
+-- | The size of the complete set of backup data that would be used to
+-- restore the cluster.
+snapshot_totalBackupSizeInMegaBytes :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Double)
+snapshot_totalBackupSizeInMegaBytes = Lens.lens (\Snapshot' {totalBackupSizeInMegaBytes} -> totalBackupSizeInMegaBytes) (\s@Snapshot' {} a -> s {totalBackupSizeInMegaBytes = a} :: Snapshot)
 
 -- | The name of the database that was created when the cluster was created.
-sDBName :: Lens' Snapshot (Maybe Text)
-sDBName = lens _sDBName (\s a -> s {_sDBName = a})
+snapshot_dBName :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_dBName = Lens.lens (\Snapshot' {dBName} -> dBName) (\s@Snapshot' {} a -> s {dBName = a} :: Snapshot)
 
--- | The number of megabytes that have been transferred to the snapshot backup.
-sBackupProgressInMegaBytes :: Lens' Snapshot (Maybe Double)
-sBackupProgressInMegaBytes = lens _sBackupProgressInMegaBytes (\s a -> s {_sBackupProgressInMegaBytes = a})
+-- | The number of megabytes that have been transferred to the snapshot
+-- backup.
+snapshot_backupProgressInMegaBytes :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Double)
+snapshot_backupProgressInMegaBytes = Lens.lens (\Snapshot' {backupProgressInMegaBytes} -> backupProgressInMegaBytes) (\s@Snapshot' {} a -> s {backupProgressInMegaBytes = a} :: Snapshot)
 
--- | The amount of time an in-progress snapshot backup has been running, or the amount of time it took a completed backup to finish.
-sElapsedTimeInSeconds :: Lens' Snapshot (Maybe Integer)
-sElapsedTimeInSeconds = lens _sElapsedTimeInSeconds (\s a -> s {_sElapsedTimeInSeconds = a})
+-- | The amount of time an in-progress snapshot backup has been running, or
+-- the amount of time it took a completed backup to finish.
+snapshot_elapsedTimeInSeconds :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Integer)
+snapshot_elapsedTimeInSeconds = Lens.lens (\Snapshot' {elapsedTimeInSeconds} -> elapsedTimeInSeconds) (\s@Snapshot' {} a -> s {elapsedTimeInSeconds = a} :: Snapshot)
 
 -- | The node type of the nodes in the cluster.
-sNodeType :: Lens' Snapshot (Maybe Text)
-sNodeType = lens _sNodeType (\s a -> s {_sNodeType = a})
+snapshot_nodeType :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_nodeType = Lens.lens (\Snapshot' {nodeType} -> nodeType) (\s@Snapshot' {} a -> s {nodeType = a} :: Snapshot)
 
--- | For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual snapshot.
-sOwnerAccount :: Lens' Snapshot (Maybe Text)
-sOwnerAccount = lens _sOwnerAccount (\s a -> s {_sOwnerAccount = a})
+-- | For manual snapshots, the AWS customer account used to create or copy
+-- the snapshot. For automatic snapshots, the owner of the cluster. The
+-- owner can perform all snapshot actions, such as sharing a manual
+-- snapshot.
+snapshot_ownerAccount :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_ownerAccount = Lens.lens (\Snapshot' {ownerAccount} -> ownerAccount) (\s@Snapshot' {} a -> s {ownerAccount = a} :: Snapshot)
 
--- | The version ID of the Amazon Redshift engine that is running on the cluster.
-sClusterVersion :: Lens' Snapshot (Maybe Text)
-sClusterVersion = lens _sClusterVersion (\s a -> s {_sClusterVersion = a})
+-- | The version ID of the Amazon Redshift engine that is running on the
+-- cluster.
+snapshot_clusterVersion :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_clusterVersion = Lens.lens (\Snapshot' {clusterVersion} -> clusterVersion) (\s@Snapshot' {} a -> s {clusterVersion = a} :: Snapshot)
 
--- | The VPC identifier of the cluster if the snapshot is from a cluster in a VPC. Otherwise, this field is not in the output.
-sVPCId :: Lens' Snapshot (Maybe Text)
-sVPCId = lens _sVPCId (\s a -> s {_sVPCId = a})
+-- | The VPC identifier of the cluster if the snapshot is from a cluster in a
+-- VPC. Otherwise, this field is not in the output.
+snapshot_vpcId :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_vpcId = Lens.lens (\Snapshot' {vpcId} -> vpcId) (\s@Snapshot' {} a -> s {vpcId = a} :: Snapshot)
 
 -- | The source region from which the snapshot was copied.
-sSourceRegion :: Lens' Snapshot (Maybe Text)
-sSourceRegion = lens _sSourceRegion (\s a -> s {_sSourceRegion = a})
+snapshot_sourceRegion :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_sourceRegion = Lens.lens (\Snapshot' {sourceRegion} -> sourceRegion) (\s@Snapshot' {} a -> s {sourceRegion = a} :: Snapshot)
 
--- | A timestamp representing the start of the retention period for the snapshot.
-sSnapshotRetentionStartTime :: Lens' Snapshot (Maybe UTCTime)
-sSnapshotRetentionStartTime = lens _sSnapshotRetentionStartTime (\s a -> s {_sSnapshotRetentionStartTime = a}) . mapping _Time
+-- | A timestamp representing the start of the retention period for the
+-- snapshot.
+snapshot_snapshotRetentionStartTime :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.UTCTime)
+snapshot_snapshotRetentionStartTime = Lens.lens (\Snapshot' {snapshotRetentionStartTime} -> snapshotRetentionStartTime) (\s@Snapshot' {} a -> s {snapshotRetentionStartTime = a} :: Snapshot) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the maintenance track for the snapshot.
-sMaintenanceTrackName :: Lens' Snapshot (Maybe Text)
-sMaintenanceTrackName = lens _sMaintenanceTrackName (\s a -> s {_sMaintenanceTrackName = a})
+snapshot_maintenanceTrackName :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.Text)
+snapshot_maintenanceTrackName = Lens.lens (\Snapshot' {maintenanceTrackName} -> maintenanceTrackName) (\s@Snapshot' {} a -> s {maintenanceTrackName = a} :: Snapshot)
 
-instance FromXML Snapshot where
+instance Prelude.FromXML Snapshot where
   parseXML x =
     Snapshot'
-      <$> (x .@? "EnhancedVpcRouting")
-      <*> (x .@? "SnapshotIdentifier")
-      <*> (x .@? "Status")
-      <*> (x .@? "EstimatedSecondsToCompletion")
-      <*> (x .@? "Encrypted")
-      <*> (x .@? "ClusterCreateTime")
-      <*> (x .@? "ManualSnapshotRemainingDays")
-      <*> (x .@? "SnapshotCreateTime")
-      <*> (x .@? "CurrentBackupRateInMegaBytesPerSecond")
-      <*> (x .@? "MasterUsername")
-      <*> (x .@? "EncryptedWithHSM")
-      <*> (x .@? "ManualSnapshotRetentionPeriod")
-      <*> (x .@? "KmsKeyId")
-      <*> (x .@? "EngineFullVersion")
-      <*> (x .@? "AvailabilityZone")
-      <*> ( x .@? "RestorableNodeTypes" .!@ mempty
-              >>= may (parseXMLList "NodeType")
-          )
-      <*> (x .@? "SnapshotType")
-      <*> ( x .@? "AccountsWithRestoreAccess" .!@ mempty
-              >>= may (parseXMLList "AccountWithRestoreAccess")
-          )
-      <*> (x .@? "ActualIncrementalBackupSizeInMegaBytes")
-      <*> (x .@? "ClusterIdentifier")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "Tag")
-          )
-      <*> (x .@? "NumberOfNodes")
-      <*> (x .@? "Port")
-      <*> (x .@? "TotalBackupSizeInMegaBytes")
-      <*> (x .@? "DBName")
-      <*> (x .@? "BackupProgressInMegaBytes")
-      <*> (x .@? "ElapsedTimeInSeconds")
-      <*> (x .@? "NodeType")
-      <*> (x .@? "OwnerAccount")
-      <*> (x .@? "ClusterVersion")
-      <*> (x .@? "VpcId")
-      <*> (x .@? "SourceRegion")
-      <*> (x .@? "SnapshotRetentionStartTime")
-      <*> (x .@? "MaintenanceTrackName")
+      Prelude.<$> (x Prelude..@? "EnhancedVpcRouting")
+      Prelude.<*> (x Prelude..@? "SnapshotIdentifier")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "EstimatedSecondsToCompletion")
+      Prelude.<*> (x Prelude..@? "Encrypted")
+      Prelude.<*> (x Prelude..@? "ClusterCreateTime")
+      Prelude.<*> (x Prelude..@? "ManualSnapshotRemainingDays")
+      Prelude.<*> (x Prelude..@? "SnapshotCreateTime")
+      Prelude.<*> ( x
+                      Prelude..@? "CurrentBackupRateInMegaBytesPerSecond"
+                  )
+      Prelude.<*> (x Prelude..@? "MasterUsername")
+      Prelude.<*> (x Prelude..@? "EncryptedWithHSM")
+      Prelude.<*> (x Prelude..@? "ManualSnapshotRetentionPeriod")
+      Prelude.<*> (x Prelude..@? "KmsKeyId")
+      Prelude.<*> (x Prelude..@? "EngineFullVersion")
+      Prelude.<*> (x Prelude..@? "AvailabilityZone")
+      Prelude.<*> ( x Prelude..@? "RestorableNodeTypes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "NodeType")
+                  )
+      Prelude.<*> (x Prelude..@? "SnapshotType")
+      Prelude.<*> ( x Prelude..@? "AccountsWithRestoreAccess"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AccountWithRestoreAccess")
+                  )
+      Prelude.<*> ( x
+                      Prelude..@? "ActualIncrementalBackupSizeInMegaBytes"
+                  )
+      Prelude.<*> (x Prelude..@? "ClusterIdentifier")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
+      Prelude.<*> (x Prelude..@? "NumberOfNodes")
+      Prelude.<*> (x Prelude..@? "Port")
+      Prelude.<*> (x Prelude..@? "TotalBackupSizeInMegaBytes")
+      Prelude.<*> (x Prelude..@? "DBName")
+      Prelude.<*> (x Prelude..@? "BackupProgressInMegaBytes")
+      Prelude.<*> (x Prelude..@? "ElapsedTimeInSeconds")
+      Prelude.<*> (x Prelude..@? "NodeType")
+      Prelude.<*> (x Prelude..@? "OwnerAccount")
+      Prelude.<*> (x Prelude..@? "ClusterVersion")
+      Prelude.<*> (x Prelude..@? "VpcId")
+      Prelude.<*> (x Prelude..@? "SourceRegion")
+      Prelude.<*> (x Prelude..@? "SnapshotRetentionStartTime")
+      Prelude.<*> (x Prelude..@? "MaintenanceTrackName")
 
-instance Hashable Snapshot
+instance Prelude.Hashable Snapshot
 
-instance NFData Snapshot
+instance Prelude.NFData Snapshot

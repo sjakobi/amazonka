@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,253 +21,352 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns properties of possible node configurations such as node type, number of nodes, and disk usage for the specified action type.
---
---
+-- Returns properties of possible node configurations such as node type,
+-- number of nodes, and disk usage for the specified action type.
 --
 -- This operation returns paginated results.
 module Network.AWS.Redshift.DescribeNodeConfigurationOptions
   ( -- * Creating a Request
-    describeNodeConfigurationOptions,
-    DescribeNodeConfigurationOptions,
+    DescribeNodeConfigurationOptions (..),
+    newDescribeNodeConfigurationOptions,
 
     -- * Request Lenses
-    dncoSnapshotIdentifier,
-    dncoClusterIdentifier,
-    dncoFilters,
-    dncoOwnerAccount,
-    dncoMarker,
-    dncoMaxRecords,
-    dncoActionType,
+    describeNodeConfigurationOptions_snapshotIdentifier,
+    describeNodeConfigurationOptions_clusterIdentifier,
+    describeNodeConfigurationOptions_filters,
+    describeNodeConfigurationOptions_ownerAccount,
+    describeNodeConfigurationOptions_marker,
+    describeNodeConfigurationOptions_maxRecords,
+    describeNodeConfigurationOptions_actionType,
 
     -- * Destructuring the Response
-    describeNodeConfigurationOptionsResponse,
-    DescribeNodeConfigurationOptionsResponse,
+    DescribeNodeConfigurationOptionsResponse (..),
+    newDescribeNodeConfigurationOptionsResponse,
 
     -- * Response Lenses
-    dncorrsNodeConfigurationOptionList,
-    dncorrsMarker,
-    dncorrsResponseStatus,
+    describeNodeConfigurationOptionsResponse_nodeConfigurationOptionList,
+    describeNodeConfigurationOptionsResponse_marker,
+    describeNodeConfigurationOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.NodeConfigurationOption
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeNodeConfigurationOptions' smart constructor.
+-- | /See:/ 'newDescribeNodeConfigurationOptions' smart constructor.
 data DescribeNodeConfigurationOptions = DescribeNodeConfigurationOptions'
-  { _dncoSnapshotIdentifier ::
-      !( Maybe
-           Text
-       ),
-    _dncoClusterIdentifier ::
-      !( Maybe
-           Text
-       ),
-    _dncoFilters ::
-      !( Maybe
-           [NodeConfigurationOptionsFilter]
-       ),
-    _dncoOwnerAccount ::
-      !( Maybe
-           Text
-       ),
-    _dncoMarker ::
-      !( Maybe
-           Text
-       ),
-    _dncoMaxRecords ::
-      !( Maybe
-           Int
-       ),
-    _dncoActionType ::
-      !ActionType
+  { -- | The identifier of the snapshot to evaluate for possible node
+    -- configurations.
+    snapshotIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the cluster to evaluate for possible node
+    -- configurations.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A set of name, operator, and value items to filter the results.
+    filters :: Prelude.Maybe [NodeConfigurationOptionsFilter],
+    -- | The AWS customer account used to create or copy the snapshot. Required
+    -- if you are restoring a snapshot you do not own, optional if you own the
+    -- snapshot.
+    ownerAccount :: Prelude.Maybe Prelude.Text,
+    -- | An optional parameter that specifies the starting point to return a set
+    -- of response records. When the results of a
+    -- DescribeNodeConfigurationOptions request exceed the value specified in
+    -- @MaxRecords@, AWS returns a value in the @Marker@ field of the response.
+    -- You can retrieve the next set of response records by providing the
+    -- returned marker value in the @Marker@ parameter and retrying the
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of response records to return in each call. If the
+    -- number of remaining response records exceeds the specified @MaxRecords@
+    -- value, a value is returned in a @marker@ field of the response. You can
+    -- retrieve the next set of records by retrying the command with the
+    -- returned marker value.
+    --
+    -- Default: @500@
+    --
+    -- Constraints: minimum 100, maximum 500.
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The action type to evaluate for possible node configurations. Specify
+    -- \"restore-cluster\" to get configuration combinations based on an
+    -- existing snapshot. Specify \"recommend-node-config\" to get
+    -- configuration recommendations based on an existing cluster or snapshot.
+    -- Specify \"resize-cluster\" to get configuration combinations for elastic
+    -- resize based on an existing cluster.
+    actionType :: ActionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNodeConfigurationOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNodeConfigurationOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dncoSnapshotIdentifier' - The identifier of the snapshot to evaluate for possible node configurations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dncoClusterIdentifier' - The identifier of the cluster to evaluate for possible node configurations.
+-- 'snapshotIdentifier', 'describeNodeConfigurationOptions_snapshotIdentifier' - The identifier of the snapshot to evaluate for possible node
+-- configurations.
 --
--- * 'dncoFilters' - A set of name, operator, and value items to filter the results.
+-- 'clusterIdentifier', 'describeNodeConfigurationOptions_clusterIdentifier' - The identifier of the cluster to evaluate for possible node
+-- configurations.
 --
--- * 'dncoOwnerAccount' - The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you do not own, optional if you own the snapshot.
+-- 'filters', 'describeNodeConfigurationOptions_filters' - A set of name, operator, and value items to filter the results.
 --
--- * 'dncoMarker' - An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeNodeConfigurationOptions' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
+-- 'ownerAccount', 'describeNodeConfigurationOptions_ownerAccount' - The AWS customer account used to create or copy the snapshot. Required
+-- if you are restoring a snapshot you do not own, optional if you own the
+-- snapshot.
 --
--- * 'dncoMaxRecords' - The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @500@  Constraints: minimum 100, maximum 500.
+-- 'marker', 'describeNodeConfigurationOptions_marker' - An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a
+-- DescribeNodeConfigurationOptions request exceed the value specified in
+-- @MaxRecords@, AWS returns a value in the @Marker@ field of the response.
+-- You can retrieve the next set of response records by providing the
+-- returned marker value in the @Marker@ parameter and retrying the
+-- request.
 --
--- * 'dncoActionType' - The action type to evaluate for possible node configurations. Specify "restore-cluster" to get configuration combinations based on an existing snapshot. Specify "recommend-node-config" to get configuration recommendations based on an existing cluster or snapshot. Specify "resize-cluster" to get configuration combinations for elastic resize based on an existing cluster.
-describeNodeConfigurationOptions ::
-  -- | 'dncoActionType'
+-- 'maxRecords', 'describeNodeConfigurationOptions_maxRecords' - The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @500@
+--
+-- Constraints: minimum 100, maximum 500.
+--
+-- 'actionType', 'describeNodeConfigurationOptions_actionType' - The action type to evaluate for possible node configurations. Specify
+-- \"restore-cluster\" to get configuration combinations based on an
+-- existing snapshot. Specify \"recommend-node-config\" to get
+-- configuration recommendations based on an existing cluster or snapshot.
+-- Specify \"resize-cluster\" to get configuration combinations for elastic
+-- resize based on an existing cluster.
+newDescribeNodeConfigurationOptions ::
+  -- | 'actionType'
   ActionType ->
   DescribeNodeConfigurationOptions
-describeNodeConfigurationOptions pActionType_ =
+newDescribeNodeConfigurationOptions pActionType_ =
   DescribeNodeConfigurationOptions'
-    { _dncoSnapshotIdentifier =
-        Nothing,
-      _dncoClusterIdentifier = Nothing,
-      _dncoFilters = Nothing,
-      _dncoOwnerAccount = Nothing,
-      _dncoMarker = Nothing,
-      _dncoMaxRecords = Nothing,
-      _dncoActionType = pActionType_
+    { snapshotIdentifier =
+        Prelude.Nothing,
+      clusterIdentifier = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      ownerAccount = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      actionType = pActionType_
     }
 
--- | The identifier of the snapshot to evaluate for possible node configurations.
-dncoSnapshotIdentifier :: Lens' DescribeNodeConfigurationOptions (Maybe Text)
-dncoSnapshotIdentifier = lens _dncoSnapshotIdentifier (\s a -> s {_dncoSnapshotIdentifier = a})
+-- | The identifier of the snapshot to evaluate for possible node
+-- configurations.
+describeNodeConfigurationOptions_snapshotIdentifier :: Lens.Lens' DescribeNodeConfigurationOptions (Prelude.Maybe Prelude.Text)
+describeNodeConfigurationOptions_snapshotIdentifier = Lens.lens (\DescribeNodeConfigurationOptions' {snapshotIdentifier} -> snapshotIdentifier) (\s@DescribeNodeConfigurationOptions' {} a -> s {snapshotIdentifier = a} :: DescribeNodeConfigurationOptions)
 
--- | The identifier of the cluster to evaluate for possible node configurations.
-dncoClusterIdentifier :: Lens' DescribeNodeConfigurationOptions (Maybe Text)
-dncoClusterIdentifier = lens _dncoClusterIdentifier (\s a -> s {_dncoClusterIdentifier = a})
+-- | The identifier of the cluster to evaluate for possible node
+-- configurations.
+describeNodeConfigurationOptions_clusterIdentifier :: Lens.Lens' DescribeNodeConfigurationOptions (Prelude.Maybe Prelude.Text)
+describeNodeConfigurationOptions_clusterIdentifier = Lens.lens (\DescribeNodeConfigurationOptions' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeNodeConfigurationOptions' {} a -> s {clusterIdentifier = a} :: DescribeNodeConfigurationOptions)
 
 -- | A set of name, operator, and value items to filter the results.
-dncoFilters :: Lens' DescribeNodeConfigurationOptions [NodeConfigurationOptionsFilter]
-dncoFilters = lens _dncoFilters (\s a -> s {_dncoFilters = a}) . _Default . _Coerce
+describeNodeConfigurationOptions_filters :: Lens.Lens' DescribeNodeConfigurationOptions (Prelude.Maybe [NodeConfigurationOptionsFilter])
+describeNodeConfigurationOptions_filters = Lens.lens (\DescribeNodeConfigurationOptions' {filters} -> filters) (\s@DescribeNodeConfigurationOptions' {} a -> s {filters = a} :: DescribeNodeConfigurationOptions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you do not own, optional if you own the snapshot.
-dncoOwnerAccount :: Lens' DescribeNodeConfigurationOptions (Maybe Text)
-dncoOwnerAccount = lens _dncoOwnerAccount (\s a -> s {_dncoOwnerAccount = a})
+-- | The AWS customer account used to create or copy the snapshot. Required
+-- if you are restoring a snapshot you do not own, optional if you own the
+-- snapshot.
+describeNodeConfigurationOptions_ownerAccount :: Lens.Lens' DescribeNodeConfigurationOptions (Prelude.Maybe Prelude.Text)
+describeNodeConfigurationOptions_ownerAccount = Lens.lens (\DescribeNodeConfigurationOptions' {ownerAccount} -> ownerAccount) (\s@DescribeNodeConfigurationOptions' {} a -> s {ownerAccount = a} :: DescribeNodeConfigurationOptions)
 
--- | An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeNodeConfigurationOptions' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
-dncoMarker :: Lens' DescribeNodeConfigurationOptions (Maybe Text)
-dncoMarker = lens _dncoMarker (\s a -> s {_dncoMarker = a})
+-- | An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a
+-- DescribeNodeConfigurationOptions request exceed the value specified in
+-- @MaxRecords@, AWS returns a value in the @Marker@ field of the response.
+-- You can retrieve the next set of response records by providing the
+-- returned marker value in the @Marker@ parameter and retrying the
+-- request.
+describeNodeConfigurationOptions_marker :: Lens.Lens' DescribeNodeConfigurationOptions (Prelude.Maybe Prelude.Text)
+describeNodeConfigurationOptions_marker = Lens.lens (\DescribeNodeConfigurationOptions' {marker} -> marker) (\s@DescribeNodeConfigurationOptions' {} a -> s {marker = a} :: DescribeNodeConfigurationOptions)
 
--- | The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @500@  Constraints: minimum 100, maximum 500.
-dncoMaxRecords :: Lens' DescribeNodeConfigurationOptions (Maybe Int)
-dncoMaxRecords = lens _dncoMaxRecords (\s a -> s {_dncoMaxRecords = a})
+-- | The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @500@
+--
+-- Constraints: minimum 100, maximum 500.
+describeNodeConfigurationOptions_maxRecords :: Lens.Lens' DescribeNodeConfigurationOptions (Prelude.Maybe Prelude.Int)
+describeNodeConfigurationOptions_maxRecords = Lens.lens (\DescribeNodeConfigurationOptions' {maxRecords} -> maxRecords) (\s@DescribeNodeConfigurationOptions' {} a -> s {maxRecords = a} :: DescribeNodeConfigurationOptions)
 
--- | The action type to evaluate for possible node configurations. Specify "restore-cluster" to get configuration combinations based on an existing snapshot. Specify "recommend-node-config" to get configuration recommendations based on an existing cluster or snapshot. Specify "resize-cluster" to get configuration combinations for elastic resize based on an existing cluster.
-dncoActionType :: Lens' DescribeNodeConfigurationOptions ActionType
-dncoActionType = lens _dncoActionType (\s a -> s {_dncoActionType = a})
+-- | The action type to evaluate for possible node configurations. Specify
+-- \"restore-cluster\" to get configuration combinations based on an
+-- existing snapshot. Specify \"recommend-node-config\" to get
+-- configuration recommendations based on an existing cluster or snapshot.
+-- Specify \"resize-cluster\" to get configuration combinations for elastic
+-- resize based on an existing cluster.
+describeNodeConfigurationOptions_actionType :: Lens.Lens' DescribeNodeConfigurationOptions ActionType
+describeNodeConfigurationOptions_actionType = Lens.lens (\DescribeNodeConfigurationOptions' {actionType} -> actionType) (\s@DescribeNodeConfigurationOptions' {} a -> s {actionType = a} :: DescribeNodeConfigurationOptions)
 
-instance AWSPager DescribeNodeConfigurationOptions where
+instance
+  Pager.AWSPager
+    DescribeNodeConfigurationOptions
+  where
   page rq rs
-    | stop (rs ^. dncorrsMarker) = Nothing
-    | stop (rs ^. dncorrsNodeConfigurationOptionList) =
-      Nothing
-    | otherwise =
-      Just $ rq & dncoMarker .~ rs ^. dncorrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeNodeConfigurationOptionsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeNodeConfigurationOptionsResponse_nodeConfigurationOptionList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeNodeConfigurationOptions_marker
+          Lens..~ rs
+          Lens.^? describeNodeConfigurationOptionsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeNodeConfigurationOptions where
+instance
+  Prelude.AWSRequest
+    DescribeNodeConfigurationOptions
+  where
   type
     Rs DescribeNodeConfigurationOptions =
       DescribeNodeConfigurationOptionsResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeNodeConfigurationOptionsResult"
       ( \s h x ->
           DescribeNodeConfigurationOptionsResponse'
-            <$> ( x .@? "NodeConfigurationOptionList" .!@ mempty
-                    >>= may (parseXMLList "NodeConfigurationOption")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "NodeConfigurationOptionList"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "NodeConfigurationOption")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeNodeConfigurationOptions
+instance
+  Prelude.Hashable
+    DescribeNodeConfigurationOptions
 
-instance NFData DescribeNodeConfigurationOptions
+instance
+  Prelude.NFData
+    DescribeNodeConfigurationOptions
 
-instance ToHeaders DescribeNodeConfigurationOptions where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeNodeConfigurationOptions
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeNodeConfigurationOptions where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeNodeConfigurationOptions
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeNodeConfigurationOptions where
+instance
+  Prelude.ToQuery
+    DescribeNodeConfigurationOptions
+  where
   toQuery DescribeNodeConfigurationOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeNodeConfigurationOptions" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "SnapshotIdentifier" =: _dncoSnapshotIdentifier,
-        "ClusterIdentifier" =: _dncoClusterIdentifier,
+          Prelude.=: ( "DescribeNodeConfigurationOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "SnapshotIdentifier" Prelude.=: snapshotIdentifier,
+        "ClusterIdentifier" Prelude.=: clusterIdentifier,
         "Filter"
-          =: toQuery
-            ( toQueryList "NodeConfigurationOptionsFilter"
-                <$> _dncoFilters
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "NodeConfigurationOptionsFilter"
+                Prelude.<$> filters
             ),
-        "OwnerAccount" =: _dncoOwnerAccount,
-        "Marker" =: _dncoMarker,
-        "MaxRecords" =: _dncoMaxRecords,
-        "ActionType" =: _dncoActionType
+        "OwnerAccount" Prelude.=: ownerAccount,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords,
+        "ActionType" Prelude.=: actionType
       ]
 
--- | /See:/ 'describeNodeConfigurationOptionsResponse' smart constructor.
+-- | /See:/ 'newDescribeNodeConfigurationOptionsResponse' smart constructor.
 data DescribeNodeConfigurationOptionsResponse = DescribeNodeConfigurationOptionsResponse'
-  { _dncorrsNodeConfigurationOptionList ::
-      !( Maybe
-           [NodeConfigurationOption]
-       ),
-    _dncorrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dncorrsResponseStatus ::
-      !Int
+  { -- | A list of valid node configurations.
+    nodeConfigurationOptionList :: Prelude.Maybe [NodeConfigurationOption],
+    -- | A value that indicates the starting point for the next set of response
+    -- records in a subsequent request. If a value is returned in a response,
+    -- you can retrieve the next set of records by providing this returned
+    -- marker value in the @Marker@ parameter and retrying the command. If the
+    -- @Marker@ field is empty, all response records have been retrieved for
+    -- the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNodeConfigurationOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNodeConfigurationOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dncorrsNodeConfigurationOptionList' - A list of valid node configurations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dncorrsMarker' - A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
+-- 'nodeConfigurationOptionList', 'describeNodeConfigurationOptionsResponse_nodeConfigurationOptionList' - A list of valid node configurations.
 --
--- * 'dncorrsResponseStatus' - -- | The response status code.
-describeNodeConfigurationOptionsResponse ::
-  -- | 'dncorrsResponseStatus'
-  Int ->
+-- 'marker', 'describeNodeConfigurationOptionsResponse_marker' - A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+--
+-- 'httpStatus', 'describeNodeConfigurationOptionsResponse_httpStatus' - The response's http status code.
+newDescribeNodeConfigurationOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeNodeConfigurationOptionsResponse
-describeNodeConfigurationOptionsResponse
-  pResponseStatus_ =
+newDescribeNodeConfigurationOptionsResponse
+  pHttpStatus_ =
     DescribeNodeConfigurationOptionsResponse'
-      { _dncorrsNodeConfigurationOptionList =
-          Nothing,
-        _dncorrsMarker = Nothing,
-        _dncorrsResponseStatus =
-          pResponseStatus_
+      { nodeConfigurationOptionList =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list of valid node configurations.
-dncorrsNodeConfigurationOptionList :: Lens' DescribeNodeConfigurationOptionsResponse [NodeConfigurationOption]
-dncorrsNodeConfigurationOptionList = lens _dncorrsNodeConfigurationOptionList (\s a -> s {_dncorrsNodeConfigurationOptionList = a}) . _Default . _Coerce
+describeNodeConfigurationOptionsResponse_nodeConfigurationOptionList :: Lens.Lens' DescribeNodeConfigurationOptionsResponse (Prelude.Maybe [NodeConfigurationOption])
+describeNodeConfigurationOptionsResponse_nodeConfigurationOptionList = Lens.lens (\DescribeNodeConfigurationOptionsResponse' {nodeConfigurationOptionList} -> nodeConfigurationOptionList) (\s@DescribeNodeConfigurationOptionsResponse' {} a -> s {nodeConfigurationOptionList = a} :: DescribeNodeConfigurationOptionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
-dncorrsMarker :: Lens' DescribeNodeConfigurationOptionsResponse (Maybe Text)
-dncorrsMarker = lens _dncorrsMarker (\s a -> s {_dncorrsMarker = a})
+-- | A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+describeNodeConfigurationOptionsResponse_marker :: Lens.Lens' DescribeNodeConfigurationOptionsResponse (Prelude.Maybe Prelude.Text)
+describeNodeConfigurationOptionsResponse_marker = Lens.lens (\DescribeNodeConfigurationOptionsResponse' {marker} -> marker) (\s@DescribeNodeConfigurationOptionsResponse' {} a -> s {marker = a} :: DescribeNodeConfigurationOptionsResponse)
 
--- | -- | The response status code.
-dncorrsResponseStatus :: Lens' DescribeNodeConfigurationOptionsResponse Int
-dncorrsResponseStatus = lens _dncorrsResponseStatus (\s a -> s {_dncorrsResponseStatus = a})
+-- | The response's http status code.
+describeNodeConfigurationOptionsResponse_httpStatus :: Lens.Lens' DescribeNodeConfigurationOptionsResponse Prelude.Int
+describeNodeConfigurationOptionsResponse_httpStatus = Lens.lens (\DescribeNodeConfigurationOptionsResponse' {httpStatus} -> httpStatus) (\s@DescribeNodeConfigurationOptionsResponse' {} a -> s {httpStatus = a} :: DescribeNodeConfigurationOptionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeNodeConfigurationOptionsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,168 +24,188 @@
 -- Modifies a scheduled action.
 module Network.AWS.Redshift.ModifyScheduledAction
   ( -- * Creating a Request
-    modifyScheduledAction,
-    ModifyScheduledAction,
+    ModifyScheduledAction (..),
+    newModifyScheduledAction,
 
     -- * Request Lenses
-    msaTargetAction,
-    msaEnable,
-    msaIAMRole,
-    msaScheduledActionDescription,
-    msaStartTime,
-    msaEndTime,
-    msaSchedule,
-    msaScheduledActionName,
+    modifyScheduledAction_targetAction,
+    modifyScheduledAction_enable,
+    modifyScheduledAction_iamRole,
+    modifyScheduledAction_scheduledActionDescription,
+    modifyScheduledAction_startTime,
+    modifyScheduledAction_endTime,
+    modifyScheduledAction_schedule,
+    modifyScheduledAction_scheduledActionName,
 
     -- * Destructuring the Response
-    scheduledAction,
-    ScheduledAction,
+    ScheduledAction (..),
+    newScheduledAction,
 
     -- * Response Lenses
-    saTargetAction,
-    saNextInvocations,
-    saIAMRole,
-    saScheduledActionDescription,
-    saStartTime,
-    saEndTime,
-    saState,
-    saScheduledActionName,
-    saSchedule,
+    scheduledAction_targetAction,
+    scheduledAction_nextInvocations,
+    scheduledAction_iamRole,
+    scheduledAction_scheduledActionDescription,
+    scheduledAction_startTime,
+    scheduledAction_endTime,
+    scheduledAction_state,
+    scheduledAction_scheduledActionName,
+    scheduledAction_schedule,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.ScheduledAction
+import Network.AWS.Redshift.Types.ScheduledActionState
+import Network.AWS.Redshift.Types.ScheduledActionType
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyScheduledAction' smart constructor.
+-- | /See:/ 'newModifyScheduledAction' smart constructor.
 data ModifyScheduledAction = ModifyScheduledAction'
-  { _msaTargetAction ::
-      !( Maybe
-           ScheduledActionType
-       ),
-    _msaEnable :: !(Maybe Bool),
-    _msaIAMRole ::
-      !(Maybe Text),
-    _msaScheduledActionDescription ::
-      !(Maybe Text),
-    _msaStartTime ::
-      !(Maybe ISO8601),
-    _msaEndTime ::
-      !(Maybe ISO8601),
-    _msaSchedule ::
-      !(Maybe Text),
-    _msaScheduledActionName ::
-      !Text
+  { -- | A modified JSON format of the scheduled action. For more information
+    -- about this parameter, see ScheduledAction.
+    targetAction :: Prelude.Maybe ScheduledActionType,
+    -- | A modified enable flag of the scheduled action. If true, the scheduled
+    -- action is active. If false, the scheduled action is disabled.
+    enable :: Prelude.Maybe Prelude.Bool,
+    -- | A different IAM role to assume to run the target action. For more
+    -- information about this parameter, see ScheduledAction.
+    iamRole :: Prelude.Maybe Prelude.Text,
+    -- | A modified description of the scheduled action.
+    scheduledActionDescription :: Prelude.Maybe Prelude.Text,
+    -- | A modified start time of the scheduled action. For more information
+    -- about this parameter, see ScheduledAction.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | A modified end time of the scheduled action. For more information about
+    -- this parameter, see ScheduledAction.
+    endTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | A modified schedule in either @at( )@ or @cron( )@ format. For more
+    -- information about this parameter, see ScheduledAction.
+    schedule :: Prelude.Maybe Prelude.Text,
+    -- | The name of the scheduled action to modify.
+    scheduledActionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyScheduledAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyScheduledAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msaTargetAction' - A modified JSON format of the scheduled action. For more information about this parameter, see 'ScheduledAction' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msaEnable' - A modified enable flag of the scheduled action. If true, the scheduled action is active. If false, the scheduled action is disabled.
+-- 'targetAction', 'modifyScheduledAction_targetAction' - A modified JSON format of the scheduled action. For more information
+-- about this parameter, see ScheduledAction.
 --
--- * 'msaIAMRole' - A different IAM role to assume to run the target action. For more information about this parameter, see 'ScheduledAction' .
+-- 'enable', 'modifyScheduledAction_enable' - A modified enable flag of the scheduled action. If true, the scheduled
+-- action is active. If false, the scheduled action is disabled.
 --
--- * 'msaScheduledActionDescription' - A modified description of the scheduled action.
+-- 'iamRole', 'modifyScheduledAction_iamRole' - A different IAM role to assume to run the target action. For more
+-- information about this parameter, see ScheduledAction.
 --
--- * 'msaStartTime' - A modified start time of the scheduled action. For more information about this parameter, see 'ScheduledAction' .
+-- 'scheduledActionDescription', 'modifyScheduledAction_scheduledActionDescription' - A modified description of the scheduled action.
 --
--- * 'msaEndTime' - A modified end time of the scheduled action. For more information about this parameter, see 'ScheduledAction' .
+-- 'startTime', 'modifyScheduledAction_startTime' - A modified start time of the scheduled action. For more information
+-- about this parameter, see ScheduledAction.
 --
--- * 'msaSchedule' - A modified schedule in either @at( )@ or @cron( )@ format. For more information about this parameter, see 'ScheduledAction' .
+-- 'endTime', 'modifyScheduledAction_endTime' - A modified end time of the scheduled action. For more information about
+-- this parameter, see ScheduledAction.
 --
--- * 'msaScheduledActionName' - The name of the scheduled action to modify.
-modifyScheduledAction ::
-  -- | 'msaScheduledActionName'
-  Text ->
+-- 'schedule', 'modifyScheduledAction_schedule' - A modified schedule in either @at( )@ or @cron( )@ format. For more
+-- information about this parameter, see ScheduledAction.
+--
+-- 'scheduledActionName', 'modifyScheduledAction_scheduledActionName' - The name of the scheduled action to modify.
+newModifyScheduledAction ::
+  -- | 'scheduledActionName'
+  Prelude.Text ->
   ModifyScheduledAction
-modifyScheduledAction pScheduledActionName_ =
+newModifyScheduledAction pScheduledActionName_ =
   ModifyScheduledAction'
-    { _msaTargetAction = Nothing,
-      _msaEnable = Nothing,
-      _msaIAMRole = Nothing,
-      _msaScheduledActionDescription = Nothing,
-      _msaStartTime = Nothing,
-      _msaEndTime = Nothing,
-      _msaSchedule = Nothing,
-      _msaScheduledActionName = pScheduledActionName_
+    { targetAction =
+        Prelude.Nothing,
+      enable = Prelude.Nothing,
+      iamRole = Prelude.Nothing,
+      scheduledActionDescription = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      scheduledActionName = pScheduledActionName_
     }
 
--- | A modified JSON format of the scheduled action. For more information about this parameter, see 'ScheduledAction' .
-msaTargetAction :: Lens' ModifyScheduledAction (Maybe ScheduledActionType)
-msaTargetAction = lens _msaTargetAction (\s a -> s {_msaTargetAction = a})
+-- | A modified JSON format of the scheduled action. For more information
+-- about this parameter, see ScheduledAction.
+modifyScheduledAction_targetAction :: Lens.Lens' ModifyScheduledAction (Prelude.Maybe ScheduledActionType)
+modifyScheduledAction_targetAction = Lens.lens (\ModifyScheduledAction' {targetAction} -> targetAction) (\s@ModifyScheduledAction' {} a -> s {targetAction = a} :: ModifyScheduledAction)
 
--- | A modified enable flag of the scheduled action. If true, the scheduled action is active. If false, the scheduled action is disabled.
-msaEnable :: Lens' ModifyScheduledAction (Maybe Bool)
-msaEnable = lens _msaEnable (\s a -> s {_msaEnable = a})
+-- | A modified enable flag of the scheduled action. If true, the scheduled
+-- action is active. If false, the scheduled action is disabled.
+modifyScheduledAction_enable :: Lens.Lens' ModifyScheduledAction (Prelude.Maybe Prelude.Bool)
+modifyScheduledAction_enable = Lens.lens (\ModifyScheduledAction' {enable} -> enable) (\s@ModifyScheduledAction' {} a -> s {enable = a} :: ModifyScheduledAction)
 
--- | A different IAM role to assume to run the target action. For more information about this parameter, see 'ScheduledAction' .
-msaIAMRole :: Lens' ModifyScheduledAction (Maybe Text)
-msaIAMRole = lens _msaIAMRole (\s a -> s {_msaIAMRole = a})
+-- | A different IAM role to assume to run the target action. For more
+-- information about this parameter, see ScheduledAction.
+modifyScheduledAction_iamRole :: Lens.Lens' ModifyScheduledAction (Prelude.Maybe Prelude.Text)
+modifyScheduledAction_iamRole = Lens.lens (\ModifyScheduledAction' {iamRole} -> iamRole) (\s@ModifyScheduledAction' {} a -> s {iamRole = a} :: ModifyScheduledAction)
 
 -- | A modified description of the scheduled action.
-msaScheduledActionDescription :: Lens' ModifyScheduledAction (Maybe Text)
-msaScheduledActionDescription = lens _msaScheduledActionDescription (\s a -> s {_msaScheduledActionDescription = a})
+modifyScheduledAction_scheduledActionDescription :: Lens.Lens' ModifyScheduledAction (Prelude.Maybe Prelude.Text)
+modifyScheduledAction_scheduledActionDescription = Lens.lens (\ModifyScheduledAction' {scheduledActionDescription} -> scheduledActionDescription) (\s@ModifyScheduledAction' {} a -> s {scheduledActionDescription = a} :: ModifyScheduledAction)
 
--- | A modified start time of the scheduled action. For more information about this parameter, see 'ScheduledAction' .
-msaStartTime :: Lens' ModifyScheduledAction (Maybe UTCTime)
-msaStartTime = lens _msaStartTime (\s a -> s {_msaStartTime = a}) . mapping _Time
+-- | A modified start time of the scheduled action. For more information
+-- about this parameter, see ScheduledAction.
+modifyScheduledAction_startTime :: Lens.Lens' ModifyScheduledAction (Prelude.Maybe Prelude.UTCTime)
+modifyScheduledAction_startTime = Lens.lens (\ModifyScheduledAction' {startTime} -> startTime) (\s@ModifyScheduledAction' {} a -> s {startTime = a} :: ModifyScheduledAction) Prelude.. Lens.mapping Prelude._Time
 
--- | A modified end time of the scheduled action. For more information about this parameter, see 'ScheduledAction' .
-msaEndTime :: Lens' ModifyScheduledAction (Maybe UTCTime)
-msaEndTime = lens _msaEndTime (\s a -> s {_msaEndTime = a}) . mapping _Time
+-- | A modified end time of the scheduled action. For more information about
+-- this parameter, see ScheduledAction.
+modifyScheduledAction_endTime :: Lens.Lens' ModifyScheduledAction (Prelude.Maybe Prelude.UTCTime)
+modifyScheduledAction_endTime = Lens.lens (\ModifyScheduledAction' {endTime} -> endTime) (\s@ModifyScheduledAction' {} a -> s {endTime = a} :: ModifyScheduledAction) Prelude.. Lens.mapping Prelude._Time
 
--- | A modified schedule in either @at( )@ or @cron( )@ format. For more information about this parameter, see 'ScheduledAction' .
-msaSchedule :: Lens' ModifyScheduledAction (Maybe Text)
-msaSchedule = lens _msaSchedule (\s a -> s {_msaSchedule = a})
+-- | A modified schedule in either @at( )@ or @cron( )@ format. For more
+-- information about this parameter, see ScheduledAction.
+modifyScheduledAction_schedule :: Lens.Lens' ModifyScheduledAction (Prelude.Maybe Prelude.Text)
+modifyScheduledAction_schedule = Lens.lens (\ModifyScheduledAction' {schedule} -> schedule) (\s@ModifyScheduledAction' {} a -> s {schedule = a} :: ModifyScheduledAction)
 
 -- | The name of the scheduled action to modify.
-msaScheduledActionName :: Lens' ModifyScheduledAction Text
-msaScheduledActionName = lens _msaScheduledActionName (\s a -> s {_msaScheduledActionName = a})
+modifyScheduledAction_scheduledActionName :: Lens.Lens' ModifyScheduledAction Prelude.Text
+modifyScheduledAction_scheduledActionName = Lens.lens (\ModifyScheduledAction' {scheduledActionName} -> scheduledActionName) (\s@ModifyScheduledAction' {} a -> s {scheduledActionName = a} :: ModifyScheduledAction)
 
-instance AWSRequest ModifyScheduledAction where
+instance Prelude.AWSRequest ModifyScheduledAction where
   type Rs ModifyScheduledAction = ScheduledAction
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyScheduledActionResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable ModifyScheduledAction
+instance Prelude.Hashable ModifyScheduledAction
 
-instance NFData ModifyScheduledAction
+instance Prelude.NFData ModifyScheduledAction
 
-instance ToHeaders ModifyScheduledAction where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyScheduledAction where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyScheduledAction where
-  toPath = const "/"
+instance Prelude.ToPath ModifyScheduledAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyScheduledAction where
+instance Prelude.ToQuery ModifyScheduledAction where
   toQuery ModifyScheduledAction' {..} =
-    mconcat
-      [ "Action" =: ("ModifyScheduledAction" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "TargetAction" =: _msaTargetAction,
-        "Enable" =: _msaEnable,
-        "IamRole" =: _msaIAMRole,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyScheduledAction" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "TargetAction" Prelude.=: targetAction,
+        "Enable" Prelude.=: enable,
+        "IamRole" Prelude.=: iamRole,
         "ScheduledActionDescription"
-          =: _msaScheduledActionDescription,
-        "StartTime" =: _msaStartTime,
-        "EndTime" =: _msaEndTime,
-        "Schedule" =: _msaSchedule,
-        "ScheduledActionName" =: _msaScheduledActionName
+          Prelude.=: scheduledActionDescription,
+        "StartTime" Prelude.=: startTime,
+        "EndTime" Prelude.=: endTime,
+        "Schedule" Prelude.=: schedule,
+        "ScheduledActionName" Prelude.=: scheduledActionName
       ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.LoggingStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
 -- | Describes the status of logging for a cluster.
 --
---
---
--- /See:/ 'loggingStatus' smart constructor.
+-- /See:/ 'newLoggingStatus' smart constructor.
 data LoggingStatus = LoggingStatus'
-  { _lsLastSuccessfulDeliveryTime ::
-      !(Maybe ISO8601),
-    _lsBucketName :: !(Maybe Text),
-    _lsLoggingEnabled :: !(Maybe Bool),
-    _lsLastFailureTime :: !(Maybe ISO8601),
-    _lsS3KeyPrefix :: !(Maybe Text),
-    _lsLastFailureMessage :: !(Maybe Text)
+  { -- | The last time that logs were delivered.
+    lastSuccessfulDeliveryTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the S3 bucket where the log files are stored.
+    bucketName :: Prelude.Maybe Prelude.Text,
+    -- | @true@ if logging is on, @false@ if logging is off.
+    loggingEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The last time when logs failed to be delivered.
+    lastFailureTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The prefix applied to the log file names.
+    s3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The message indicating that logs failed to be delivered.
+    lastFailureMessage :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoggingStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoggingStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsLastSuccessfulDeliveryTime' - The last time that logs were delivered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsBucketName' - The name of the S3 bucket where the log files are stored.
+-- 'lastSuccessfulDeliveryTime', 'loggingStatus_lastSuccessfulDeliveryTime' - The last time that logs were delivered.
 --
--- * 'lsLoggingEnabled' - @true@ if logging is on, @false@ if logging is off.
+-- 'bucketName', 'loggingStatus_bucketName' - The name of the S3 bucket where the log files are stored.
 --
--- * 'lsLastFailureTime' - The last time when logs failed to be delivered.
+-- 'loggingEnabled', 'loggingStatus_loggingEnabled' - @true@ if logging is on, @false@ if logging is off.
 --
--- * 'lsS3KeyPrefix' - The prefix applied to the log file names.
+-- 'lastFailureTime', 'loggingStatus_lastFailureTime' - The last time when logs failed to be delivered.
 --
--- * 'lsLastFailureMessage' - The message indicating that logs failed to be delivered.
-loggingStatus ::
+-- 's3KeyPrefix', 'loggingStatus_s3KeyPrefix' - The prefix applied to the log file names.
+--
+-- 'lastFailureMessage', 'loggingStatus_lastFailureMessage' - The message indicating that logs failed to be delivered.
+newLoggingStatus ::
   LoggingStatus
-loggingStatus =
+newLoggingStatus =
   LoggingStatus'
-    { _lsLastSuccessfulDeliveryTime =
-        Nothing,
-      _lsBucketName = Nothing,
-      _lsLoggingEnabled = Nothing,
-      _lsLastFailureTime = Nothing,
-      _lsS3KeyPrefix = Nothing,
-      _lsLastFailureMessage = Nothing
+    { lastSuccessfulDeliveryTime =
+        Prelude.Nothing,
+      bucketName = Prelude.Nothing,
+      loggingEnabled = Prelude.Nothing,
+      lastFailureTime = Prelude.Nothing,
+      s3KeyPrefix = Prelude.Nothing,
+      lastFailureMessage = Prelude.Nothing
     }
 
 -- | The last time that logs were delivered.
-lsLastSuccessfulDeliveryTime :: Lens' LoggingStatus (Maybe UTCTime)
-lsLastSuccessfulDeliveryTime = lens _lsLastSuccessfulDeliveryTime (\s a -> s {_lsLastSuccessfulDeliveryTime = a}) . mapping _Time
+loggingStatus_lastSuccessfulDeliveryTime :: Lens.Lens' LoggingStatus (Prelude.Maybe Prelude.UTCTime)
+loggingStatus_lastSuccessfulDeliveryTime = Lens.lens (\LoggingStatus' {lastSuccessfulDeliveryTime} -> lastSuccessfulDeliveryTime) (\s@LoggingStatus' {} a -> s {lastSuccessfulDeliveryTime = a} :: LoggingStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the S3 bucket where the log files are stored.
-lsBucketName :: Lens' LoggingStatus (Maybe Text)
-lsBucketName = lens _lsBucketName (\s a -> s {_lsBucketName = a})
+loggingStatus_bucketName :: Lens.Lens' LoggingStatus (Prelude.Maybe Prelude.Text)
+loggingStatus_bucketName = Lens.lens (\LoggingStatus' {bucketName} -> bucketName) (\s@LoggingStatus' {} a -> s {bucketName = a} :: LoggingStatus)
 
 -- | @true@ if logging is on, @false@ if logging is off.
-lsLoggingEnabled :: Lens' LoggingStatus (Maybe Bool)
-lsLoggingEnabled = lens _lsLoggingEnabled (\s a -> s {_lsLoggingEnabled = a})
+loggingStatus_loggingEnabled :: Lens.Lens' LoggingStatus (Prelude.Maybe Prelude.Bool)
+loggingStatus_loggingEnabled = Lens.lens (\LoggingStatus' {loggingEnabled} -> loggingEnabled) (\s@LoggingStatus' {} a -> s {loggingEnabled = a} :: LoggingStatus)
 
 -- | The last time when logs failed to be delivered.
-lsLastFailureTime :: Lens' LoggingStatus (Maybe UTCTime)
-lsLastFailureTime = lens _lsLastFailureTime (\s a -> s {_lsLastFailureTime = a}) . mapping _Time
+loggingStatus_lastFailureTime :: Lens.Lens' LoggingStatus (Prelude.Maybe Prelude.UTCTime)
+loggingStatus_lastFailureTime = Lens.lens (\LoggingStatus' {lastFailureTime} -> lastFailureTime) (\s@LoggingStatus' {} a -> s {lastFailureTime = a} :: LoggingStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The prefix applied to the log file names.
-lsS3KeyPrefix :: Lens' LoggingStatus (Maybe Text)
-lsS3KeyPrefix = lens _lsS3KeyPrefix (\s a -> s {_lsS3KeyPrefix = a})
+loggingStatus_s3KeyPrefix :: Lens.Lens' LoggingStatus (Prelude.Maybe Prelude.Text)
+loggingStatus_s3KeyPrefix = Lens.lens (\LoggingStatus' {s3KeyPrefix} -> s3KeyPrefix) (\s@LoggingStatus' {} a -> s {s3KeyPrefix = a} :: LoggingStatus)
 
 -- | The message indicating that logs failed to be delivered.
-lsLastFailureMessage :: Lens' LoggingStatus (Maybe Text)
-lsLastFailureMessage = lens _lsLastFailureMessage (\s a -> s {_lsLastFailureMessage = a})
+loggingStatus_lastFailureMessage :: Lens.Lens' LoggingStatus (Prelude.Maybe Prelude.Text)
+loggingStatus_lastFailureMessage = Lens.lens (\LoggingStatus' {lastFailureMessage} -> lastFailureMessage) (\s@LoggingStatus' {} a -> s {lastFailureMessage = a} :: LoggingStatus)
 
-instance FromXML LoggingStatus where
+instance Prelude.FromXML LoggingStatus where
   parseXML x =
     LoggingStatus'
-      <$> (x .@? "LastSuccessfulDeliveryTime")
-      <*> (x .@? "BucketName")
-      <*> (x .@? "LoggingEnabled")
-      <*> (x .@? "LastFailureTime")
-      <*> (x .@? "S3KeyPrefix")
-      <*> (x .@? "LastFailureMessage")
+      Prelude.<$> (x Prelude..@? "LastSuccessfulDeliveryTime")
+      Prelude.<*> (x Prelude..@? "BucketName")
+      Prelude.<*> (x Prelude..@? "LoggingEnabled")
+      Prelude.<*> (x Prelude..@? "LastFailureTime")
+      Prelude.<*> (x Prelude..@? "S3KeyPrefix")
+      Prelude.<*> (x Prelude..@? "LastFailureMessage")
 
-instance Hashable LoggingStatus
+instance Prelude.Hashable LoggingStatus
 
-instance NFData LoggingStatus
+instance Prelude.NFData LoggingStatus

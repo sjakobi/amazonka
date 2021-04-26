@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.Redshift.Types.ScheduledActionState
   ( ScheduledActionState
       ( ..,
-        Active,
-        Disabled
+        ScheduledActionStateACTIVE,
+        ScheduledActionStateDISABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data ScheduledActionState
-  = ScheduledActionState'
-      ( CI
-          Text
-      )
+newtype ScheduledActionState = ScheduledActionState'
+  { fromScheduledActionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ScheduledActionState
-pattern Active = ScheduledActionState' "ACTIVE"
+pattern ScheduledActionStateACTIVE :: ScheduledActionState
+pattern ScheduledActionStateACTIVE = ScheduledActionState' "ACTIVE"
 
-pattern Disabled :: ScheduledActionState
-pattern Disabled = ScheduledActionState' "DISABLED"
+pattern ScheduledActionStateDISABLED :: ScheduledActionState
+pattern ScheduledActionStateDISABLED = ScheduledActionState' "DISABLED"
 
 {-# COMPLETE
-  Active,
-  Disabled,
+  ScheduledActionStateACTIVE,
+  ScheduledActionStateDISABLED,
   ScheduledActionState'
   #-}
 
-instance FromText ScheduledActionState where
-  parser = (ScheduledActionState' . mk) <$> takeText
+instance Prelude.FromText ScheduledActionState where
+  parser = ScheduledActionState' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduledActionState where
-  toText (ScheduledActionState' ci) = original ci
+instance Prelude.ToText ScheduledActionState where
+  toText (ScheduledActionState' x) = x
 
-instance Hashable ScheduledActionState
+instance Prelude.Hashable ScheduledActionState
 
-instance NFData ScheduledActionState
+instance Prelude.NFData ScheduledActionState
 
-instance ToByteString ScheduledActionState
+instance Prelude.ToByteString ScheduledActionState
 
-instance ToQuery ScheduledActionState
+instance Prelude.ToQuery ScheduledActionState
 
-instance ToHeader ScheduledActionState
+instance Prelude.ToHeader ScheduledActionState
 
-instance FromXML ScheduledActionState where
-  parseXML = parseXMLText "ScheduledActionState"
+instance Prelude.FromXML ScheduledActionState where
+  parseXML = Prelude.parseXMLText "ScheduledActionState"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,45 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.SupportedOperation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
 -- | Describes the operations that are allowed on a maintenance track.
 --
---
---
--- /See:/ 'supportedOperation' smart constructor.
-newtype SupportedOperation = SupportedOperation'
-  { _soOperationName ::
-      Maybe Text
+-- /See:/ 'newSupportedOperation' smart constructor.
+data SupportedOperation = SupportedOperation'
+  { -- | A list of the supported operations.
+    operationName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SupportedOperation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SupportedOperation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'soOperationName' - A list of the supported operations.
-supportedOperation ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'operationName', 'supportedOperation_operationName' - A list of the supported operations.
+newSupportedOperation ::
   SupportedOperation
-supportedOperation =
-  SupportedOperation' {_soOperationName = Nothing}
+newSupportedOperation =
+  SupportedOperation'
+    { operationName =
+        Prelude.Nothing
+    }
 
 -- | A list of the supported operations.
-soOperationName :: Lens' SupportedOperation (Maybe Text)
-soOperationName = lens _soOperationName (\s a -> s {_soOperationName = a})
+supportedOperation_operationName :: Lens.Lens' SupportedOperation (Prelude.Maybe Prelude.Text)
+supportedOperation_operationName = Lens.lens (\SupportedOperation' {operationName} -> operationName) (\s@SupportedOperation' {} a -> s {operationName = a} :: SupportedOperation)
 
-instance FromXML SupportedOperation where
+instance Prelude.FromXML SupportedOperation where
   parseXML x =
-    SupportedOperation' <$> (x .@? "OperationName")
+    SupportedOperation'
+      Prelude.<$> (x Prelude..@? "OperationName")
 
-instance Hashable SupportedOperation
+instance Prelude.Hashable SupportedOperation
 
-instance NFData SupportedOperation
+instance Prelude.NFData SupportedOperation

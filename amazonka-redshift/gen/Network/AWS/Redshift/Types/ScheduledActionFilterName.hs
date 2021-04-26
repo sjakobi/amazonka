@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.Redshift.Types.ScheduledActionFilterName
   ( ScheduledActionFilterName
       ( ..,
-        ClusterIdentifier,
-        IAMRole
+        ScheduledActionFilterNameClusterIdentifier,
+        ScheduledActionFilterNameIamRole
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data ScheduledActionFilterName
-  = ScheduledActionFilterName'
-      ( CI
-          Text
-      )
+newtype ScheduledActionFilterName = ScheduledActionFilterName'
+  { fromScheduledActionFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClusterIdentifier :: ScheduledActionFilterName
-pattern ClusterIdentifier = ScheduledActionFilterName' "cluster-identifier"
+pattern ScheduledActionFilterNameClusterIdentifier :: ScheduledActionFilterName
+pattern ScheduledActionFilterNameClusterIdentifier = ScheduledActionFilterName' "cluster-identifier"
 
-pattern IAMRole :: ScheduledActionFilterName
-pattern IAMRole = ScheduledActionFilterName' "iam-role"
+pattern ScheduledActionFilterNameIamRole :: ScheduledActionFilterName
+pattern ScheduledActionFilterNameIamRole = ScheduledActionFilterName' "iam-role"
 
 {-# COMPLETE
-  ClusterIdentifier,
-  IAMRole,
+  ScheduledActionFilterNameClusterIdentifier,
+  ScheduledActionFilterNameIamRole,
   ScheduledActionFilterName'
   #-}
 
-instance FromText ScheduledActionFilterName where
-  parser = (ScheduledActionFilterName' . mk) <$> takeText
+instance Prelude.FromText ScheduledActionFilterName where
+  parser = ScheduledActionFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduledActionFilterName where
-  toText (ScheduledActionFilterName' ci) = original ci
+instance Prelude.ToText ScheduledActionFilterName where
+  toText (ScheduledActionFilterName' x) = x
 
-instance Hashable ScheduledActionFilterName
+instance Prelude.Hashable ScheduledActionFilterName
 
-instance NFData ScheduledActionFilterName
+instance Prelude.NFData ScheduledActionFilterName
 
-instance ToByteString ScheduledActionFilterName
+instance Prelude.ToByteString ScheduledActionFilterName
 
-instance ToQuery ScheduledActionFilterName
+instance Prelude.ToQuery ScheduledActionFilterName
 
-instance ToHeader ScheduledActionFilterName
+instance Prelude.ToHeader ScheduledActionFilterName

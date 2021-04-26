@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Redshift.Types.ActionType
   ( ActionType
       ( ..,
-        ATRecommendNodeConfig,
-        ATResizeCluster,
-        ATRestoreCluster
+        ActionTypeRecommendNodeConfig,
+        ActionTypeResizeCluster,
+        ActionTypeRestoreCluster
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data ActionType = ActionType' (CI Text)
+newtype ActionType = ActionType'
+  { fromActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATRecommendNodeConfig :: ActionType
-pattern ATRecommendNodeConfig = ActionType' "recommend-node-config"
+pattern ActionTypeRecommendNodeConfig :: ActionType
+pattern ActionTypeRecommendNodeConfig = ActionType' "recommend-node-config"
 
-pattern ATResizeCluster :: ActionType
-pattern ATResizeCluster = ActionType' "resize-cluster"
+pattern ActionTypeResizeCluster :: ActionType
+pattern ActionTypeResizeCluster = ActionType' "resize-cluster"
 
-pattern ATRestoreCluster :: ActionType
-pattern ATRestoreCluster = ActionType' "restore-cluster"
+pattern ActionTypeRestoreCluster :: ActionType
+pattern ActionTypeRestoreCluster = ActionType' "restore-cluster"
 
 {-# COMPLETE
-  ATRecommendNodeConfig,
-  ATResizeCluster,
-  ATRestoreCluster,
+  ActionTypeRecommendNodeConfig,
+  ActionTypeResizeCluster,
+  ActionTypeRestoreCluster,
   ActionType'
   #-}
 
-instance FromText ActionType where
-  parser = (ActionType' . mk) <$> takeText
+instance Prelude.FromText ActionType where
+  parser = ActionType' Prelude.<$> Prelude.takeText
 
-instance ToText ActionType where
-  toText (ActionType' ci) = original ci
+instance Prelude.ToText ActionType where
+  toText (ActionType' x) = x
 
-instance Hashable ActionType
+instance Prelude.Hashable ActionType
 
-instance NFData ActionType
+instance Prelude.NFData ActionType
 
-instance ToByteString ActionType
+instance Prelude.ToByteString ActionType
 
-instance ToQuery ActionType
+instance Prelude.ToQuery ActionType
 
-instance ToHeader ActionType
+instance Prelude.ToHeader ActionType

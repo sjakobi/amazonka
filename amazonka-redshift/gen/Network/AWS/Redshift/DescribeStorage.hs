@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,116 +24,120 @@
 -- Returns account level backups storage size and provisional storage.
 module Network.AWS.Redshift.DescribeStorage
   ( -- * Creating a Request
-    describeStorage,
-    DescribeStorage,
+    DescribeStorage (..),
+    newDescribeStorage,
 
     -- * Destructuring the Response
-    describeStorageResponse,
-    DescribeStorageResponse,
+    DescribeStorageResponse (..),
+    newDescribeStorageResponse,
 
     -- * Response Lenses
-    dsrrsTotalProvisionedStorageInMegaBytes,
-    dsrrsTotalBackupSizeInMegaBytes,
-    dsrrsResponseStatus,
+    describeStorageResponse_totalProvisionedStorageInMegaBytes,
+    describeStorageResponse_totalBackupSizeInMegaBytes,
+    describeStorageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeStorage' smart constructor.
+-- | /See:/ 'newDescribeStorage' smart constructor.
 data DescribeStorage = DescribeStorage'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStorage' with the minimum fields required to make a request.
-describeStorage ::
+-- |
+-- Create a value of 'DescribeStorage' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeStorage ::
   DescribeStorage
-describeStorage = DescribeStorage'
+newDescribeStorage = DescribeStorage'
 
-instance AWSRequest DescribeStorage where
+instance Prelude.AWSRequest DescribeStorage where
   type Rs DescribeStorage = DescribeStorageResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeStorageResult"
       ( \s h x ->
           DescribeStorageResponse'
-            <$> (x .@? "TotalProvisionedStorageInMegaBytes")
-            <*> (x .@? "TotalBackupSizeInMegaBytes")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "TotalProvisionedStorageInMegaBytes")
+            Prelude.<*> (x Prelude..@? "TotalBackupSizeInMegaBytes")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeStorage
+instance Prelude.Hashable DescribeStorage
 
-instance NFData DescribeStorage
+instance Prelude.NFData DescribeStorage
 
-instance ToHeaders DescribeStorage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeStorage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeStorage where
-  toPath = const "/"
+instance Prelude.ToPath DescribeStorage where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeStorage where
+instance Prelude.ToQuery DescribeStorage where
   toQuery =
-    const
-      ( mconcat
-          [ "Action" =: ("DescribeStorage" :: ByteString),
-            "Version" =: ("2012-12-01" :: ByteString)
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Action"
+              Prelude.=: ("DescribeStorage" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2012-12-01" :: Prelude.ByteString)
           ]
       )
 
--- | /See:/ 'describeStorageResponse' smart constructor.
+-- | /See:/ 'newDescribeStorageResponse' smart constructor.
 data DescribeStorageResponse = DescribeStorageResponse'
-  { _dsrrsTotalProvisionedStorageInMegaBytes ::
-      !(Maybe Double),
-    _dsrrsTotalBackupSizeInMegaBytes ::
-      !(Maybe Double),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | The total amount of storage currently provisioned.
+    totalProvisionedStorageInMegaBytes :: Prelude.Maybe Prelude.Double,
+    -- | The total amount of storage currently used for snapshots.
+    totalBackupSizeInMegaBytes :: Prelude.Maybe Prelude.Double,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStorageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStorageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsTotalProvisionedStorageInMegaBytes' - The total amount of storage currently provisioned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsTotalBackupSizeInMegaBytes' - The total amount of storage currently used for snapshots.
+-- 'totalProvisionedStorageInMegaBytes', 'describeStorageResponse_totalProvisionedStorageInMegaBytes' - The total amount of storage currently provisioned.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-describeStorageResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'totalBackupSizeInMegaBytes', 'describeStorageResponse_totalBackupSizeInMegaBytes' - The total amount of storage currently used for snapshots.
+--
+-- 'httpStatus', 'describeStorageResponse_httpStatus' - The response's http status code.
+newDescribeStorageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeStorageResponse
-describeStorageResponse pResponseStatus_ =
+newDescribeStorageResponse pHttpStatus_ =
   DescribeStorageResponse'
-    { _dsrrsTotalProvisionedStorageInMegaBytes =
-        Nothing,
-      _dsrrsTotalBackupSizeInMegaBytes = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { totalProvisionedStorageInMegaBytes =
+        Prelude.Nothing,
+      totalBackupSizeInMegaBytes = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The total amount of storage currently provisioned.
-dsrrsTotalProvisionedStorageInMegaBytes :: Lens' DescribeStorageResponse (Maybe Double)
-dsrrsTotalProvisionedStorageInMegaBytes = lens _dsrrsTotalProvisionedStorageInMegaBytes (\s a -> s {_dsrrsTotalProvisionedStorageInMegaBytes = a})
+describeStorageResponse_totalProvisionedStorageInMegaBytes :: Lens.Lens' DescribeStorageResponse (Prelude.Maybe Prelude.Double)
+describeStorageResponse_totalProvisionedStorageInMegaBytes = Lens.lens (\DescribeStorageResponse' {totalProvisionedStorageInMegaBytes} -> totalProvisionedStorageInMegaBytes) (\s@DescribeStorageResponse' {} a -> s {totalProvisionedStorageInMegaBytes = a} :: DescribeStorageResponse)
 
 -- | The total amount of storage currently used for snapshots.
-dsrrsTotalBackupSizeInMegaBytes :: Lens' DescribeStorageResponse (Maybe Double)
-dsrrsTotalBackupSizeInMegaBytes = lens _dsrrsTotalBackupSizeInMegaBytes (\s a -> s {_dsrrsTotalBackupSizeInMegaBytes = a})
+describeStorageResponse_totalBackupSizeInMegaBytes :: Lens.Lens' DescribeStorageResponse (Prelude.Maybe Prelude.Double)
+describeStorageResponse_totalBackupSizeInMegaBytes = Lens.lens (\DescribeStorageResponse' {totalBackupSizeInMegaBytes} -> totalBackupSizeInMegaBytes) (\s@DescribeStorageResponse' {} a -> s {totalBackupSizeInMegaBytes = a} :: DescribeStorageResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DescribeStorageResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+describeStorageResponse_httpStatus :: Lens.Lens' DescribeStorageResponse Prelude.Int
+describeStorageResponse_httpStatus = Lens.lens (\DescribeStorageResponse' {httpStatus} -> httpStatus) (\s@DescribeStorageResponse' {} a -> s {httpStatus = a} :: DescribeStorageResponse)
 
-instance NFData DescribeStorageResponse
+instance Prelude.NFData DescribeStorageResponse

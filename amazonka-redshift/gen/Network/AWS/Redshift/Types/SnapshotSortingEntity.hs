@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.SnapshotSortingEntity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 import Network.AWS.Redshift.Types.SnapshotAttributeToSortBy
 import Network.AWS.Redshift.Types.SortByOrder
 
 -- | Describes a sorting entity
 --
---
---
--- /See:/ 'snapshotSortingEntity' smart constructor.
+-- /See:/ 'newSnapshotSortingEntity' smart constructor.
 data SnapshotSortingEntity = SnapshotSortingEntity'
-  { _sseSortOrder ::
-      !(Maybe SortByOrder),
-    _sseAttribute ::
-      !SnapshotAttributeToSortBy
+  { -- | The order for listing the attributes.
+    sortOrder :: Prelude.Maybe SortByOrder,
+    -- | The category for sorting the snapshots.
+    attribute :: SnapshotAttributeToSortBy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SnapshotSortingEntity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SnapshotSortingEntity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sseSortOrder' - The order for listing the attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sseAttribute' - The category for sorting the snapshots.
-snapshotSortingEntity ::
-  -- | 'sseAttribute'
+-- 'sortOrder', 'snapshotSortingEntity_sortOrder' - The order for listing the attributes.
+--
+-- 'attribute', 'snapshotSortingEntity_attribute' - The category for sorting the snapshots.
+newSnapshotSortingEntity ::
+  -- | 'attribute'
   SnapshotAttributeToSortBy ->
   SnapshotSortingEntity
-snapshotSortingEntity pAttribute_ =
+newSnapshotSortingEntity pAttribute_ =
   SnapshotSortingEntity'
-    { _sseSortOrder = Nothing,
-      _sseAttribute = pAttribute_
+    { sortOrder = Prelude.Nothing,
+      attribute = pAttribute_
     }
 
 -- | The order for listing the attributes.
-sseSortOrder :: Lens' SnapshotSortingEntity (Maybe SortByOrder)
-sseSortOrder = lens _sseSortOrder (\s a -> s {_sseSortOrder = a})
+snapshotSortingEntity_sortOrder :: Lens.Lens' SnapshotSortingEntity (Prelude.Maybe SortByOrder)
+snapshotSortingEntity_sortOrder = Lens.lens (\SnapshotSortingEntity' {sortOrder} -> sortOrder) (\s@SnapshotSortingEntity' {} a -> s {sortOrder = a} :: SnapshotSortingEntity)
 
 -- | The category for sorting the snapshots.
-sseAttribute :: Lens' SnapshotSortingEntity SnapshotAttributeToSortBy
-sseAttribute = lens _sseAttribute (\s a -> s {_sseAttribute = a})
+snapshotSortingEntity_attribute :: Lens.Lens' SnapshotSortingEntity SnapshotAttributeToSortBy
+snapshotSortingEntity_attribute = Lens.lens (\SnapshotSortingEntity' {attribute} -> attribute) (\s@SnapshotSortingEntity' {} a -> s {attribute = a} :: SnapshotSortingEntity)
 
-instance Hashable SnapshotSortingEntity
+instance Prelude.Hashable SnapshotSortingEntity
 
-instance NFData SnapshotSortingEntity
+instance Prelude.NFData SnapshotSortingEntity
 
-instance ToQuery SnapshotSortingEntity where
+instance Prelude.ToQuery SnapshotSortingEntity where
   toQuery SnapshotSortingEntity' {..} =
-    mconcat
-      [ "SortOrder" =: _sseSortOrder,
-        "Attribute" =: _sseAttribute
+    Prelude.mconcat
+      [ "SortOrder" Prelude.=: sortOrder,
+        "Attribute" Prelude.=: attribute
       ]

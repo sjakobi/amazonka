@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,205 +19,293 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ResizeProgressMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
 -- | Describes the result of a cluster resize operation.
 --
---
---
--- /See:/ 'resizeProgressMessage' smart constructor.
+-- /See:/ 'newResizeProgressMessage' smart constructor.
 data ResizeProgressMessage = ResizeProgressMessage'
-  { _rpmStatus ::
-      !(Maybe Text),
-    _rpmEstimatedTimeToCompletionInSeconds ::
-      !(Maybe Integer),
-    _rpmImportTablesNotStarted ::
-      !(Maybe [Text]),
-    _rpmTargetNodeType ::
-      !(Maybe Text),
-    _rpmMessage ::
-      !(Maybe Text),
-    _rpmTargetClusterType ::
-      !(Maybe Text),
-    _rpmAvgResizeRateInMegaBytesPerSecond ::
-      !(Maybe Double),
-    _rpmTargetEncryptionType ::
-      !(Maybe Text),
-    _rpmElapsedTimeInSeconds ::
-      !(Maybe Integer),
-    _rpmTargetNumberOfNodes ::
-      !(Maybe Int),
-    _rpmTotalResizeDataInMegaBytes ::
-      !(Maybe Integer),
-    _rpmProgressInMegaBytes ::
-      !(Maybe Integer),
-    _rpmDataTransferProgressPercent ::
-      !(Maybe Double),
-    _rpmImportTablesCompleted ::
-      !(Maybe [Text]),
-    _rpmImportTablesInProgress ::
-      !(Maybe [Text]),
-    _rpmResizeType ::
-      !(Maybe Text)
+  { -- | The status of the resize operation.
+    --
+    -- Valid Values: @NONE@ | @IN_PROGRESS@ | @FAILED@ | @SUCCEEDED@ |
+    -- @CANCELLING@
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The estimated time remaining, in seconds, until the resize operation is
+    -- complete. This value is calculated based on the average resize rate and
+    -- the estimated amount of data remaining to be processed. Once the resize
+    -- operation is complete, this value will be 0.
+    estimatedTimeToCompletionInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The names of tables that have not been yet imported.
+    --
+    -- Valid Values: List of table names
+    importTablesNotStarted :: Prelude.Maybe [Prelude.Text],
+    -- | The node type that the cluster will have after the resize operation is
+    -- complete.
+    targetNodeType :: Prelude.Maybe Prelude.Text,
+    -- | An optional string to provide additional details about the resize
+    -- action.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The cluster type after the resize operation is complete.
+    --
+    -- Valid Values: @multi-node@ | @single-node@
+    targetClusterType :: Prelude.Maybe Prelude.Text,
+    -- | The average rate of the resize operation over the last few minutes,
+    -- measured in megabytes per second. After the resize operation completes,
+    -- this value shows the average rate of the entire resize operation.
+    avgResizeRateInMegaBytesPerSecond :: Prelude.Maybe Prelude.Double,
+    -- | The type of encryption for the cluster after the resize is complete.
+    --
+    -- Possible values are @KMS@ and @None@.
+    targetEncryptionType :: Prelude.Maybe Prelude.Text,
+    -- | The amount of seconds that have elapsed since the resize operation
+    -- began. After the resize operation completes, this value shows the total
+    -- actual time, in seconds, for the resize operation.
+    elapsedTimeInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The number of nodes that the cluster will have after the resize
+    -- operation is complete.
+    targetNumberOfNodes :: Prelude.Maybe Prelude.Int,
+    -- | The estimated total amount of data, in megabytes, on the cluster before
+    -- the resize operation began.
+    totalResizeDataInMegaBytes :: Prelude.Maybe Prelude.Integer,
+    -- | While the resize operation is in progress, this value shows the current
+    -- amount of data, in megabytes, that has been processed so far. When the
+    -- resize operation is complete, this value shows the total amount of data,
+    -- in megabytes, on the cluster, which may be more or less than
+    -- TotalResizeDataInMegaBytes (the estimated total amount of data before
+    -- resize).
+    progressInMegaBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The percent of data transferred from source cluster to target cluster.
+    dataTransferProgressPercent :: Prelude.Maybe Prelude.Double,
+    -- | The names of tables that have been completely imported .
+    --
+    -- Valid Values: List of table names.
+    importTablesCompleted :: Prelude.Maybe [Prelude.Text],
+    -- | The names of tables that are being currently imported.
+    --
+    -- Valid Values: List of table names.
+    importTablesInProgress :: Prelude.Maybe [Prelude.Text],
+    -- | An enum with possible values of @ClassicResize@ and @ElasticResize@.
+    -- These values describe the type of resize operation being performed.
+    resizeType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResizeProgressMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResizeProgressMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpmStatus' - The status of the resize operation. Valid Values: @NONE@ | @IN_PROGRESS@ | @FAILED@ | @SUCCEEDED@ | @CANCELLING@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpmEstimatedTimeToCompletionInSeconds' - The estimated time remaining, in seconds, until the resize operation is complete. This value is calculated based on the average resize rate and the estimated amount of data remaining to be processed. Once the resize operation is complete, this value will be 0.
+-- 'status', 'resizeProgressMessage_status' - The status of the resize operation.
 --
--- * 'rpmImportTablesNotStarted' - The names of tables that have not been yet imported. Valid Values: List of table names
+-- Valid Values: @NONE@ | @IN_PROGRESS@ | @FAILED@ | @SUCCEEDED@ |
+-- @CANCELLING@
 --
--- * 'rpmTargetNodeType' - The node type that the cluster will have after the resize operation is complete.
+-- 'estimatedTimeToCompletionInSeconds', 'resizeProgressMessage_estimatedTimeToCompletionInSeconds' - The estimated time remaining, in seconds, until the resize operation is
+-- complete. This value is calculated based on the average resize rate and
+-- the estimated amount of data remaining to be processed. Once the resize
+-- operation is complete, this value will be 0.
 --
--- * 'rpmMessage' - An optional string to provide additional details about the resize action.
+-- 'importTablesNotStarted', 'resizeProgressMessage_importTablesNotStarted' - The names of tables that have not been yet imported.
 --
--- * 'rpmTargetClusterType' - The cluster type after the resize operation is complete. Valid Values: @multi-node@ | @single-node@
+-- Valid Values: List of table names
 --
--- * 'rpmAvgResizeRateInMegaBytesPerSecond' - The average rate of the resize operation over the last few minutes, measured in megabytes per second. After the resize operation completes, this value shows the average rate of the entire resize operation.
+-- 'targetNodeType', 'resizeProgressMessage_targetNodeType' - The node type that the cluster will have after the resize operation is
+-- complete.
 --
--- * 'rpmTargetEncryptionType' - The type of encryption for the cluster after the resize is complete. Possible values are @KMS@ and @None@ .
+-- 'message', 'resizeProgressMessage_message' - An optional string to provide additional details about the resize
+-- action.
 --
--- * 'rpmElapsedTimeInSeconds' - The amount of seconds that have elapsed since the resize operation began. After the resize operation completes, this value shows the total actual time, in seconds, for the resize operation.
+-- 'targetClusterType', 'resizeProgressMessage_targetClusterType' - The cluster type after the resize operation is complete.
 --
--- * 'rpmTargetNumberOfNodes' - The number of nodes that the cluster will have after the resize operation is complete.
+-- Valid Values: @multi-node@ | @single-node@
 --
--- * 'rpmTotalResizeDataInMegaBytes' - The estimated total amount of data, in megabytes, on the cluster before the resize operation began.
+-- 'avgResizeRateInMegaBytesPerSecond', 'resizeProgressMessage_avgResizeRateInMegaBytesPerSecond' - The average rate of the resize operation over the last few minutes,
+-- measured in megabytes per second. After the resize operation completes,
+-- this value shows the average rate of the entire resize operation.
 --
--- * 'rpmProgressInMegaBytes' - While the resize operation is in progress, this value shows the current amount of data, in megabytes, that has been processed so far. When the resize operation is complete, this value shows the total amount of data, in megabytes, on the cluster, which may be more or less than TotalResizeDataInMegaBytes (the estimated total amount of data before resize).
+-- 'targetEncryptionType', 'resizeProgressMessage_targetEncryptionType' - The type of encryption for the cluster after the resize is complete.
 --
--- * 'rpmDataTransferProgressPercent' - The percent of data transferred from source cluster to target cluster.
+-- Possible values are @KMS@ and @None@.
 --
--- * 'rpmImportTablesCompleted' - The names of tables that have been completely imported . Valid Values: List of table names.
+-- 'elapsedTimeInSeconds', 'resizeProgressMessage_elapsedTimeInSeconds' - The amount of seconds that have elapsed since the resize operation
+-- began. After the resize operation completes, this value shows the total
+-- actual time, in seconds, for the resize operation.
 --
--- * 'rpmImportTablesInProgress' - The names of tables that are being currently imported. Valid Values: List of table names.
+-- 'targetNumberOfNodes', 'resizeProgressMessage_targetNumberOfNodes' - The number of nodes that the cluster will have after the resize
+-- operation is complete.
 --
--- * 'rpmResizeType' - An enum with possible values of @ClassicResize@ and @ElasticResize@ . These values describe the type of resize operation being performed.
-resizeProgressMessage ::
+-- 'totalResizeDataInMegaBytes', 'resizeProgressMessage_totalResizeDataInMegaBytes' - The estimated total amount of data, in megabytes, on the cluster before
+-- the resize operation began.
+--
+-- 'progressInMegaBytes', 'resizeProgressMessage_progressInMegaBytes' - While the resize operation is in progress, this value shows the current
+-- amount of data, in megabytes, that has been processed so far. When the
+-- resize operation is complete, this value shows the total amount of data,
+-- in megabytes, on the cluster, which may be more or less than
+-- TotalResizeDataInMegaBytes (the estimated total amount of data before
+-- resize).
+--
+-- 'dataTransferProgressPercent', 'resizeProgressMessage_dataTransferProgressPercent' - The percent of data transferred from source cluster to target cluster.
+--
+-- 'importTablesCompleted', 'resizeProgressMessage_importTablesCompleted' - The names of tables that have been completely imported .
+--
+-- Valid Values: List of table names.
+--
+-- 'importTablesInProgress', 'resizeProgressMessage_importTablesInProgress' - The names of tables that are being currently imported.
+--
+-- Valid Values: List of table names.
+--
+-- 'resizeType', 'resizeProgressMessage_resizeType' - An enum with possible values of @ClassicResize@ and @ElasticResize@.
+-- These values describe the type of resize operation being performed.
+newResizeProgressMessage ::
   ResizeProgressMessage
-resizeProgressMessage =
+newResizeProgressMessage =
   ResizeProgressMessage'
-    { _rpmStatus = Nothing,
-      _rpmEstimatedTimeToCompletionInSeconds = Nothing,
-      _rpmImportTablesNotStarted = Nothing,
-      _rpmTargetNodeType = Nothing,
-      _rpmMessage = Nothing,
-      _rpmTargetClusterType = Nothing,
-      _rpmAvgResizeRateInMegaBytesPerSecond = Nothing,
-      _rpmTargetEncryptionType = Nothing,
-      _rpmElapsedTimeInSeconds = Nothing,
-      _rpmTargetNumberOfNodes = Nothing,
-      _rpmTotalResizeDataInMegaBytes = Nothing,
-      _rpmProgressInMegaBytes = Nothing,
-      _rpmDataTransferProgressPercent = Nothing,
-      _rpmImportTablesCompleted = Nothing,
-      _rpmImportTablesInProgress = Nothing,
-      _rpmResizeType = Nothing
+    { status = Prelude.Nothing,
+      estimatedTimeToCompletionInSeconds = Prelude.Nothing,
+      importTablesNotStarted = Prelude.Nothing,
+      targetNodeType = Prelude.Nothing,
+      message = Prelude.Nothing,
+      targetClusterType = Prelude.Nothing,
+      avgResizeRateInMegaBytesPerSecond = Prelude.Nothing,
+      targetEncryptionType = Prelude.Nothing,
+      elapsedTimeInSeconds = Prelude.Nothing,
+      targetNumberOfNodes = Prelude.Nothing,
+      totalResizeDataInMegaBytes = Prelude.Nothing,
+      progressInMegaBytes = Prelude.Nothing,
+      dataTransferProgressPercent = Prelude.Nothing,
+      importTablesCompleted = Prelude.Nothing,
+      importTablesInProgress = Prelude.Nothing,
+      resizeType = Prelude.Nothing
     }
 
--- | The status of the resize operation. Valid Values: @NONE@ | @IN_PROGRESS@ | @FAILED@ | @SUCCEEDED@ | @CANCELLING@
-rpmStatus :: Lens' ResizeProgressMessage (Maybe Text)
-rpmStatus = lens _rpmStatus (\s a -> s {_rpmStatus = a})
+-- | The status of the resize operation.
+--
+-- Valid Values: @NONE@ | @IN_PROGRESS@ | @FAILED@ | @SUCCEEDED@ |
+-- @CANCELLING@
+resizeProgressMessage_status :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Text)
+resizeProgressMessage_status = Lens.lens (\ResizeProgressMessage' {status} -> status) (\s@ResizeProgressMessage' {} a -> s {status = a} :: ResizeProgressMessage)
 
--- | The estimated time remaining, in seconds, until the resize operation is complete. This value is calculated based on the average resize rate and the estimated amount of data remaining to be processed. Once the resize operation is complete, this value will be 0.
-rpmEstimatedTimeToCompletionInSeconds :: Lens' ResizeProgressMessage (Maybe Integer)
-rpmEstimatedTimeToCompletionInSeconds = lens _rpmEstimatedTimeToCompletionInSeconds (\s a -> s {_rpmEstimatedTimeToCompletionInSeconds = a})
+-- | The estimated time remaining, in seconds, until the resize operation is
+-- complete. This value is calculated based on the average resize rate and
+-- the estimated amount of data remaining to be processed. Once the resize
+-- operation is complete, this value will be 0.
+resizeProgressMessage_estimatedTimeToCompletionInSeconds :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Integer)
+resizeProgressMessage_estimatedTimeToCompletionInSeconds = Lens.lens (\ResizeProgressMessage' {estimatedTimeToCompletionInSeconds} -> estimatedTimeToCompletionInSeconds) (\s@ResizeProgressMessage' {} a -> s {estimatedTimeToCompletionInSeconds = a} :: ResizeProgressMessage)
 
--- | The names of tables that have not been yet imported. Valid Values: List of table names
-rpmImportTablesNotStarted :: Lens' ResizeProgressMessage [Text]
-rpmImportTablesNotStarted = lens _rpmImportTablesNotStarted (\s a -> s {_rpmImportTablesNotStarted = a}) . _Default . _Coerce
+-- | The names of tables that have not been yet imported.
+--
+-- Valid Values: List of table names
+resizeProgressMessage_importTablesNotStarted :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe [Prelude.Text])
+resizeProgressMessage_importTablesNotStarted = Lens.lens (\ResizeProgressMessage' {importTablesNotStarted} -> importTablesNotStarted) (\s@ResizeProgressMessage' {} a -> s {importTablesNotStarted = a} :: ResizeProgressMessage) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The node type that the cluster will have after the resize operation is complete.
-rpmTargetNodeType :: Lens' ResizeProgressMessage (Maybe Text)
-rpmTargetNodeType = lens _rpmTargetNodeType (\s a -> s {_rpmTargetNodeType = a})
+-- | The node type that the cluster will have after the resize operation is
+-- complete.
+resizeProgressMessage_targetNodeType :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Text)
+resizeProgressMessage_targetNodeType = Lens.lens (\ResizeProgressMessage' {targetNodeType} -> targetNodeType) (\s@ResizeProgressMessage' {} a -> s {targetNodeType = a} :: ResizeProgressMessage)
 
--- | An optional string to provide additional details about the resize action.
-rpmMessage :: Lens' ResizeProgressMessage (Maybe Text)
-rpmMessage = lens _rpmMessage (\s a -> s {_rpmMessage = a})
+-- | An optional string to provide additional details about the resize
+-- action.
+resizeProgressMessage_message :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Text)
+resizeProgressMessage_message = Lens.lens (\ResizeProgressMessage' {message} -> message) (\s@ResizeProgressMessage' {} a -> s {message = a} :: ResizeProgressMessage)
 
--- | The cluster type after the resize operation is complete. Valid Values: @multi-node@ | @single-node@
-rpmTargetClusterType :: Lens' ResizeProgressMessage (Maybe Text)
-rpmTargetClusterType = lens _rpmTargetClusterType (\s a -> s {_rpmTargetClusterType = a})
+-- | The cluster type after the resize operation is complete.
+--
+-- Valid Values: @multi-node@ | @single-node@
+resizeProgressMessage_targetClusterType :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Text)
+resizeProgressMessage_targetClusterType = Lens.lens (\ResizeProgressMessage' {targetClusterType} -> targetClusterType) (\s@ResizeProgressMessage' {} a -> s {targetClusterType = a} :: ResizeProgressMessage)
 
--- | The average rate of the resize operation over the last few minutes, measured in megabytes per second. After the resize operation completes, this value shows the average rate of the entire resize operation.
-rpmAvgResizeRateInMegaBytesPerSecond :: Lens' ResizeProgressMessage (Maybe Double)
-rpmAvgResizeRateInMegaBytesPerSecond = lens _rpmAvgResizeRateInMegaBytesPerSecond (\s a -> s {_rpmAvgResizeRateInMegaBytesPerSecond = a})
+-- | The average rate of the resize operation over the last few minutes,
+-- measured in megabytes per second. After the resize operation completes,
+-- this value shows the average rate of the entire resize operation.
+resizeProgressMessage_avgResizeRateInMegaBytesPerSecond :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Double)
+resizeProgressMessage_avgResizeRateInMegaBytesPerSecond = Lens.lens (\ResizeProgressMessage' {avgResizeRateInMegaBytesPerSecond} -> avgResizeRateInMegaBytesPerSecond) (\s@ResizeProgressMessage' {} a -> s {avgResizeRateInMegaBytesPerSecond = a} :: ResizeProgressMessage)
 
--- | The type of encryption for the cluster after the resize is complete. Possible values are @KMS@ and @None@ .
-rpmTargetEncryptionType :: Lens' ResizeProgressMessage (Maybe Text)
-rpmTargetEncryptionType = lens _rpmTargetEncryptionType (\s a -> s {_rpmTargetEncryptionType = a})
+-- | The type of encryption for the cluster after the resize is complete.
+--
+-- Possible values are @KMS@ and @None@.
+resizeProgressMessage_targetEncryptionType :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Text)
+resizeProgressMessage_targetEncryptionType = Lens.lens (\ResizeProgressMessage' {targetEncryptionType} -> targetEncryptionType) (\s@ResizeProgressMessage' {} a -> s {targetEncryptionType = a} :: ResizeProgressMessage)
 
--- | The amount of seconds that have elapsed since the resize operation began. After the resize operation completes, this value shows the total actual time, in seconds, for the resize operation.
-rpmElapsedTimeInSeconds :: Lens' ResizeProgressMessage (Maybe Integer)
-rpmElapsedTimeInSeconds = lens _rpmElapsedTimeInSeconds (\s a -> s {_rpmElapsedTimeInSeconds = a})
+-- | The amount of seconds that have elapsed since the resize operation
+-- began. After the resize operation completes, this value shows the total
+-- actual time, in seconds, for the resize operation.
+resizeProgressMessage_elapsedTimeInSeconds :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Integer)
+resizeProgressMessage_elapsedTimeInSeconds = Lens.lens (\ResizeProgressMessage' {elapsedTimeInSeconds} -> elapsedTimeInSeconds) (\s@ResizeProgressMessage' {} a -> s {elapsedTimeInSeconds = a} :: ResizeProgressMessage)
 
--- | The number of nodes that the cluster will have after the resize operation is complete.
-rpmTargetNumberOfNodes :: Lens' ResizeProgressMessage (Maybe Int)
-rpmTargetNumberOfNodes = lens _rpmTargetNumberOfNodes (\s a -> s {_rpmTargetNumberOfNodes = a})
+-- | The number of nodes that the cluster will have after the resize
+-- operation is complete.
+resizeProgressMessage_targetNumberOfNodes :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Int)
+resizeProgressMessage_targetNumberOfNodes = Lens.lens (\ResizeProgressMessage' {targetNumberOfNodes} -> targetNumberOfNodes) (\s@ResizeProgressMessage' {} a -> s {targetNumberOfNodes = a} :: ResizeProgressMessage)
 
--- | The estimated total amount of data, in megabytes, on the cluster before the resize operation began.
-rpmTotalResizeDataInMegaBytes :: Lens' ResizeProgressMessage (Maybe Integer)
-rpmTotalResizeDataInMegaBytes = lens _rpmTotalResizeDataInMegaBytes (\s a -> s {_rpmTotalResizeDataInMegaBytes = a})
+-- | The estimated total amount of data, in megabytes, on the cluster before
+-- the resize operation began.
+resizeProgressMessage_totalResizeDataInMegaBytes :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Integer)
+resizeProgressMessage_totalResizeDataInMegaBytes = Lens.lens (\ResizeProgressMessage' {totalResizeDataInMegaBytes} -> totalResizeDataInMegaBytes) (\s@ResizeProgressMessage' {} a -> s {totalResizeDataInMegaBytes = a} :: ResizeProgressMessage)
 
--- | While the resize operation is in progress, this value shows the current amount of data, in megabytes, that has been processed so far. When the resize operation is complete, this value shows the total amount of data, in megabytes, on the cluster, which may be more or less than TotalResizeDataInMegaBytes (the estimated total amount of data before resize).
-rpmProgressInMegaBytes :: Lens' ResizeProgressMessage (Maybe Integer)
-rpmProgressInMegaBytes = lens _rpmProgressInMegaBytes (\s a -> s {_rpmProgressInMegaBytes = a})
+-- | While the resize operation is in progress, this value shows the current
+-- amount of data, in megabytes, that has been processed so far. When the
+-- resize operation is complete, this value shows the total amount of data,
+-- in megabytes, on the cluster, which may be more or less than
+-- TotalResizeDataInMegaBytes (the estimated total amount of data before
+-- resize).
+resizeProgressMessage_progressInMegaBytes :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Integer)
+resizeProgressMessage_progressInMegaBytes = Lens.lens (\ResizeProgressMessage' {progressInMegaBytes} -> progressInMegaBytes) (\s@ResizeProgressMessage' {} a -> s {progressInMegaBytes = a} :: ResizeProgressMessage)
 
 -- | The percent of data transferred from source cluster to target cluster.
-rpmDataTransferProgressPercent :: Lens' ResizeProgressMessage (Maybe Double)
-rpmDataTransferProgressPercent = lens _rpmDataTransferProgressPercent (\s a -> s {_rpmDataTransferProgressPercent = a})
+resizeProgressMessage_dataTransferProgressPercent :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Double)
+resizeProgressMessage_dataTransferProgressPercent = Lens.lens (\ResizeProgressMessage' {dataTransferProgressPercent} -> dataTransferProgressPercent) (\s@ResizeProgressMessage' {} a -> s {dataTransferProgressPercent = a} :: ResizeProgressMessage)
 
--- | The names of tables that have been completely imported . Valid Values: List of table names.
-rpmImportTablesCompleted :: Lens' ResizeProgressMessage [Text]
-rpmImportTablesCompleted = lens _rpmImportTablesCompleted (\s a -> s {_rpmImportTablesCompleted = a}) . _Default . _Coerce
+-- | The names of tables that have been completely imported .
+--
+-- Valid Values: List of table names.
+resizeProgressMessage_importTablesCompleted :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe [Prelude.Text])
+resizeProgressMessage_importTablesCompleted = Lens.lens (\ResizeProgressMessage' {importTablesCompleted} -> importTablesCompleted) (\s@ResizeProgressMessage' {} a -> s {importTablesCompleted = a} :: ResizeProgressMessage) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The names of tables that are being currently imported. Valid Values: List of table names.
-rpmImportTablesInProgress :: Lens' ResizeProgressMessage [Text]
-rpmImportTablesInProgress = lens _rpmImportTablesInProgress (\s a -> s {_rpmImportTablesInProgress = a}) . _Default . _Coerce
+-- | The names of tables that are being currently imported.
+--
+-- Valid Values: List of table names.
+resizeProgressMessage_importTablesInProgress :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe [Prelude.Text])
+resizeProgressMessage_importTablesInProgress = Lens.lens (\ResizeProgressMessage' {importTablesInProgress} -> importTablesInProgress) (\s@ResizeProgressMessage' {} a -> s {importTablesInProgress = a} :: ResizeProgressMessage) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An enum with possible values of @ClassicResize@ and @ElasticResize@ . These values describe the type of resize operation being performed.
-rpmResizeType :: Lens' ResizeProgressMessage (Maybe Text)
-rpmResizeType = lens _rpmResizeType (\s a -> s {_rpmResizeType = a})
+-- | An enum with possible values of @ClassicResize@ and @ElasticResize@.
+-- These values describe the type of resize operation being performed.
+resizeProgressMessage_resizeType :: Lens.Lens' ResizeProgressMessage (Prelude.Maybe Prelude.Text)
+resizeProgressMessage_resizeType = Lens.lens (\ResizeProgressMessage' {resizeType} -> resizeType) (\s@ResizeProgressMessage' {} a -> s {resizeType = a} :: ResizeProgressMessage)
 
-instance FromXML ResizeProgressMessage where
+instance Prelude.FromXML ResizeProgressMessage where
   parseXML x =
     ResizeProgressMessage'
-      <$> (x .@? "Status")
-      <*> (x .@? "EstimatedTimeToCompletionInSeconds")
-      <*> ( x .@? "ImportTablesNotStarted" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "TargetNodeType")
-      <*> (x .@? "Message")
-      <*> (x .@? "TargetClusterType")
-      <*> (x .@? "AvgResizeRateInMegaBytesPerSecond")
-      <*> (x .@? "TargetEncryptionType")
-      <*> (x .@? "ElapsedTimeInSeconds")
-      <*> (x .@? "TargetNumberOfNodes")
-      <*> (x .@? "TotalResizeDataInMegaBytes")
-      <*> (x .@? "ProgressInMegaBytes")
-      <*> (x .@? "DataTransferProgressPercent")
-      <*> ( x .@? "ImportTablesCompleted" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "ImportTablesInProgress" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "ResizeType")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "EstimatedTimeToCompletionInSeconds")
+      Prelude.<*> ( x Prelude..@? "ImportTablesNotStarted"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "TargetNodeType")
+      Prelude.<*> (x Prelude..@? "Message")
+      Prelude.<*> (x Prelude..@? "TargetClusterType")
+      Prelude.<*> (x Prelude..@? "AvgResizeRateInMegaBytesPerSecond")
+      Prelude.<*> (x Prelude..@? "TargetEncryptionType")
+      Prelude.<*> (x Prelude..@? "ElapsedTimeInSeconds")
+      Prelude.<*> (x Prelude..@? "TargetNumberOfNodes")
+      Prelude.<*> (x Prelude..@? "TotalResizeDataInMegaBytes")
+      Prelude.<*> (x Prelude..@? "ProgressInMegaBytes")
+      Prelude.<*> (x Prelude..@? "DataTransferProgressPercent")
+      Prelude.<*> ( x Prelude..@? "ImportTablesCompleted"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "ImportTablesInProgress"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "ResizeType")
 
-instance Hashable ResizeProgressMessage
+instance Prelude.Hashable ResizeProgressMessage
 
-instance NFData ResizeProgressMessage
+instance Prelude.NFData ResizeProgressMessage

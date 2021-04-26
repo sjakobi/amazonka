@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,194 +24,202 @@
 -- Modifies the maintenance settings of a cluster.
 module Network.AWS.Redshift.ModifyClusterMaintenance
   ( -- * Creating a Request
-    modifyClusterMaintenance,
-    ModifyClusterMaintenance,
+    ModifyClusterMaintenance (..),
+    newModifyClusterMaintenance,
 
     -- * Request Lenses
-    mcmDeferMaintenanceIdentifier,
-    mcmDeferMaintenanceDuration,
-    mcmDeferMaintenanceStartTime,
-    mcmDeferMaintenanceEndTime,
-    mcmDeferMaintenance,
-    mcmClusterIdentifier,
+    modifyClusterMaintenance_deferMaintenanceIdentifier,
+    modifyClusterMaintenance_deferMaintenanceDuration,
+    modifyClusterMaintenance_deferMaintenanceStartTime,
+    modifyClusterMaintenance_deferMaintenanceEndTime,
+    modifyClusterMaintenance_deferMaintenance,
+    modifyClusterMaintenance_clusterIdentifier,
 
     -- * Destructuring the Response
-    modifyClusterMaintenanceResponse,
-    ModifyClusterMaintenanceResponse,
+    ModifyClusterMaintenanceResponse (..),
+    newModifyClusterMaintenanceResponse,
 
     -- * Response Lenses
-    mcmrrsCluster,
-    mcmrrsResponseStatus,
+    modifyClusterMaintenanceResponse_cluster,
+    modifyClusterMaintenanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.Cluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyClusterMaintenance' smart constructor.
+-- | /See:/ 'newModifyClusterMaintenance' smart constructor.
 data ModifyClusterMaintenance = ModifyClusterMaintenance'
-  { _mcmDeferMaintenanceIdentifier ::
-      !(Maybe Text),
-    _mcmDeferMaintenanceDuration ::
-      !(Maybe Int),
-    _mcmDeferMaintenanceStartTime ::
-      !(Maybe ISO8601),
-    _mcmDeferMaintenanceEndTime ::
-      !(Maybe ISO8601),
-    _mcmDeferMaintenance ::
-      !(Maybe Bool),
-    _mcmClusterIdentifier ::
-      !Text
+  { -- | A unique identifier for the deferred maintenance window.
+    deferMaintenanceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | An integer indicating the duration of the maintenance window in days. If
+    -- you specify a duration, you can\'t specify an end time. The duration
+    -- must be 45 days or less.
+    deferMaintenanceDuration :: Prelude.Maybe Prelude.Int,
+    -- | A timestamp indicating the start time for the deferred maintenance
+    -- window.
+    deferMaintenanceStartTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | A timestamp indicating end time for the deferred maintenance window. If
+    -- you specify an end time, you can\'t specify a duration.
+    deferMaintenanceEndTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | A boolean indicating whether to enable the deferred maintenance window.
+    deferMaintenance :: Prelude.Maybe Prelude.Bool,
+    -- | A unique identifier for the cluster.
+    clusterIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyClusterMaintenance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyClusterMaintenance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcmDeferMaintenanceIdentifier' - A unique identifier for the deferred maintenance window.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mcmDeferMaintenanceDuration' - An integer indicating the duration of the maintenance window in days. If you specify a duration, you can't specify an end time. The duration must be 45 days or less.
+-- 'deferMaintenanceIdentifier', 'modifyClusterMaintenance_deferMaintenanceIdentifier' - A unique identifier for the deferred maintenance window.
 --
--- * 'mcmDeferMaintenanceStartTime' - A timestamp indicating the start time for the deferred maintenance window.
+-- 'deferMaintenanceDuration', 'modifyClusterMaintenance_deferMaintenanceDuration' - An integer indicating the duration of the maintenance window in days. If
+-- you specify a duration, you can\'t specify an end time. The duration
+-- must be 45 days or less.
 --
--- * 'mcmDeferMaintenanceEndTime' - A timestamp indicating end time for the deferred maintenance window. If you specify an end time, you can't specify a duration.
+-- 'deferMaintenanceStartTime', 'modifyClusterMaintenance_deferMaintenanceStartTime' - A timestamp indicating the start time for the deferred maintenance
+-- window.
 --
--- * 'mcmDeferMaintenance' - A boolean indicating whether to enable the deferred maintenance window.
+-- 'deferMaintenanceEndTime', 'modifyClusterMaintenance_deferMaintenanceEndTime' - A timestamp indicating end time for the deferred maintenance window. If
+-- you specify an end time, you can\'t specify a duration.
 --
--- * 'mcmClusterIdentifier' - A unique identifier for the cluster.
-modifyClusterMaintenance ::
-  -- | 'mcmClusterIdentifier'
-  Text ->
+-- 'deferMaintenance', 'modifyClusterMaintenance_deferMaintenance' - A boolean indicating whether to enable the deferred maintenance window.
+--
+-- 'clusterIdentifier', 'modifyClusterMaintenance_clusterIdentifier' - A unique identifier for the cluster.
+newModifyClusterMaintenance ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
   ModifyClusterMaintenance
-modifyClusterMaintenance pClusterIdentifier_ =
+newModifyClusterMaintenance pClusterIdentifier_ =
   ModifyClusterMaintenance'
-    { _mcmDeferMaintenanceIdentifier =
-        Nothing,
-      _mcmDeferMaintenanceDuration = Nothing,
-      _mcmDeferMaintenanceStartTime = Nothing,
-      _mcmDeferMaintenanceEndTime = Nothing,
-      _mcmDeferMaintenance = Nothing,
-      _mcmClusterIdentifier = pClusterIdentifier_
+    { deferMaintenanceIdentifier =
+        Prelude.Nothing,
+      deferMaintenanceDuration = Prelude.Nothing,
+      deferMaintenanceStartTime = Prelude.Nothing,
+      deferMaintenanceEndTime = Prelude.Nothing,
+      deferMaintenance = Prelude.Nothing,
+      clusterIdentifier = pClusterIdentifier_
     }
 
 -- | A unique identifier for the deferred maintenance window.
-mcmDeferMaintenanceIdentifier :: Lens' ModifyClusterMaintenance (Maybe Text)
-mcmDeferMaintenanceIdentifier = lens _mcmDeferMaintenanceIdentifier (\s a -> s {_mcmDeferMaintenanceIdentifier = a})
+modifyClusterMaintenance_deferMaintenanceIdentifier :: Lens.Lens' ModifyClusterMaintenance (Prelude.Maybe Prelude.Text)
+modifyClusterMaintenance_deferMaintenanceIdentifier = Lens.lens (\ModifyClusterMaintenance' {deferMaintenanceIdentifier} -> deferMaintenanceIdentifier) (\s@ModifyClusterMaintenance' {} a -> s {deferMaintenanceIdentifier = a} :: ModifyClusterMaintenance)
 
--- | An integer indicating the duration of the maintenance window in days. If you specify a duration, you can't specify an end time. The duration must be 45 days or less.
-mcmDeferMaintenanceDuration :: Lens' ModifyClusterMaintenance (Maybe Int)
-mcmDeferMaintenanceDuration = lens _mcmDeferMaintenanceDuration (\s a -> s {_mcmDeferMaintenanceDuration = a})
+-- | An integer indicating the duration of the maintenance window in days. If
+-- you specify a duration, you can\'t specify an end time. The duration
+-- must be 45 days or less.
+modifyClusterMaintenance_deferMaintenanceDuration :: Lens.Lens' ModifyClusterMaintenance (Prelude.Maybe Prelude.Int)
+modifyClusterMaintenance_deferMaintenanceDuration = Lens.lens (\ModifyClusterMaintenance' {deferMaintenanceDuration} -> deferMaintenanceDuration) (\s@ModifyClusterMaintenance' {} a -> s {deferMaintenanceDuration = a} :: ModifyClusterMaintenance)
 
--- | A timestamp indicating the start time for the deferred maintenance window.
-mcmDeferMaintenanceStartTime :: Lens' ModifyClusterMaintenance (Maybe UTCTime)
-mcmDeferMaintenanceStartTime = lens _mcmDeferMaintenanceStartTime (\s a -> s {_mcmDeferMaintenanceStartTime = a}) . mapping _Time
+-- | A timestamp indicating the start time for the deferred maintenance
+-- window.
+modifyClusterMaintenance_deferMaintenanceStartTime :: Lens.Lens' ModifyClusterMaintenance (Prelude.Maybe Prelude.UTCTime)
+modifyClusterMaintenance_deferMaintenanceStartTime = Lens.lens (\ModifyClusterMaintenance' {deferMaintenanceStartTime} -> deferMaintenanceStartTime) (\s@ModifyClusterMaintenance' {} a -> s {deferMaintenanceStartTime = a} :: ModifyClusterMaintenance) Prelude.. Lens.mapping Prelude._Time
 
--- | A timestamp indicating end time for the deferred maintenance window. If you specify an end time, you can't specify a duration.
-mcmDeferMaintenanceEndTime :: Lens' ModifyClusterMaintenance (Maybe UTCTime)
-mcmDeferMaintenanceEndTime = lens _mcmDeferMaintenanceEndTime (\s a -> s {_mcmDeferMaintenanceEndTime = a}) . mapping _Time
+-- | A timestamp indicating end time for the deferred maintenance window. If
+-- you specify an end time, you can\'t specify a duration.
+modifyClusterMaintenance_deferMaintenanceEndTime :: Lens.Lens' ModifyClusterMaintenance (Prelude.Maybe Prelude.UTCTime)
+modifyClusterMaintenance_deferMaintenanceEndTime = Lens.lens (\ModifyClusterMaintenance' {deferMaintenanceEndTime} -> deferMaintenanceEndTime) (\s@ModifyClusterMaintenance' {} a -> s {deferMaintenanceEndTime = a} :: ModifyClusterMaintenance) Prelude.. Lens.mapping Prelude._Time
 
 -- | A boolean indicating whether to enable the deferred maintenance window.
-mcmDeferMaintenance :: Lens' ModifyClusterMaintenance (Maybe Bool)
-mcmDeferMaintenance = lens _mcmDeferMaintenance (\s a -> s {_mcmDeferMaintenance = a})
+modifyClusterMaintenance_deferMaintenance :: Lens.Lens' ModifyClusterMaintenance (Prelude.Maybe Prelude.Bool)
+modifyClusterMaintenance_deferMaintenance = Lens.lens (\ModifyClusterMaintenance' {deferMaintenance} -> deferMaintenance) (\s@ModifyClusterMaintenance' {} a -> s {deferMaintenance = a} :: ModifyClusterMaintenance)
 
 -- | A unique identifier for the cluster.
-mcmClusterIdentifier :: Lens' ModifyClusterMaintenance Text
-mcmClusterIdentifier = lens _mcmClusterIdentifier (\s a -> s {_mcmClusterIdentifier = a})
+modifyClusterMaintenance_clusterIdentifier :: Lens.Lens' ModifyClusterMaintenance Prelude.Text
+modifyClusterMaintenance_clusterIdentifier = Lens.lens (\ModifyClusterMaintenance' {clusterIdentifier} -> clusterIdentifier) (\s@ModifyClusterMaintenance' {} a -> s {clusterIdentifier = a} :: ModifyClusterMaintenance)
 
-instance AWSRequest ModifyClusterMaintenance where
+instance Prelude.AWSRequest ModifyClusterMaintenance where
   type
     Rs ModifyClusterMaintenance =
       ModifyClusterMaintenanceResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyClusterMaintenanceResult"
       ( \s h x ->
           ModifyClusterMaintenanceResponse'
-            <$> (x .@? "Cluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Cluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyClusterMaintenance
+instance Prelude.Hashable ModifyClusterMaintenance
 
-instance NFData ModifyClusterMaintenance
+instance Prelude.NFData ModifyClusterMaintenance
 
-instance ToHeaders ModifyClusterMaintenance where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyClusterMaintenance where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyClusterMaintenance where
-  toPath = const "/"
+instance Prelude.ToPath ModifyClusterMaintenance where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyClusterMaintenance where
+instance Prelude.ToQuery ModifyClusterMaintenance where
   toQuery ModifyClusterMaintenance' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyClusterMaintenance" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
+          Prelude.=: ("ModifyClusterMaintenance" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
         "DeferMaintenanceIdentifier"
-          =: _mcmDeferMaintenanceIdentifier,
+          Prelude.=: deferMaintenanceIdentifier,
         "DeferMaintenanceDuration"
-          =: _mcmDeferMaintenanceDuration,
+          Prelude.=: deferMaintenanceDuration,
         "DeferMaintenanceStartTime"
-          =: _mcmDeferMaintenanceStartTime,
+          Prelude.=: deferMaintenanceStartTime,
         "DeferMaintenanceEndTime"
-          =: _mcmDeferMaintenanceEndTime,
-        "DeferMaintenance" =: _mcmDeferMaintenance,
-        "ClusterIdentifier" =: _mcmClusterIdentifier
+          Prelude.=: deferMaintenanceEndTime,
+        "DeferMaintenance" Prelude.=: deferMaintenance,
+        "ClusterIdentifier" Prelude.=: clusterIdentifier
       ]
 
--- | /See:/ 'modifyClusterMaintenanceResponse' smart constructor.
+-- | /See:/ 'newModifyClusterMaintenanceResponse' smart constructor.
 data ModifyClusterMaintenanceResponse = ModifyClusterMaintenanceResponse'
-  { _mcmrrsCluster ::
-      !( Maybe
-           Cluster
-       ),
-    _mcmrrsResponseStatus ::
-      !Int
+  { cluster :: Prelude.Maybe Cluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyClusterMaintenanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyClusterMaintenanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcmrrsCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mcmrrsResponseStatus' - -- | The response status code.
-modifyClusterMaintenanceResponse ::
-  -- | 'mcmrrsResponseStatus'
-  Int ->
+-- 'cluster', 'modifyClusterMaintenanceResponse_cluster' - Undocumented member.
+--
+-- 'httpStatus', 'modifyClusterMaintenanceResponse_httpStatus' - The response's http status code.
+newModifyClusterMaintenanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyClusterMaintenanceResponse
-modifyClusterMaintenanceResponse pResponseStatus_ =
+newModifyClusterMaintenanceResponse pHttpStatus_ =
   ModifyClusterMaintenanceResponse'
-    { _mcmrrsCluster =
-        Nothing,
-      _mcmrrsResponseStatus = pResponseStatus_
+    { cluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-mcmrrsCluster :: Lens' ModifyClusterMaintenanceResponse (Maybe Cluster)
-mcmrrsCluster = lens _mcmrrsCluster (\s a -> s {_mcmrrsCluster = a})
+modifyClusterMaintenanceResponse_cluster :: Lens.Lens' ModifyClusterMaintenanceResponse (Prelude.Maybe Cluster)
+modifyClusterMaintenanceResponse_cluster = Lens.lens (\ModifyClusterMaintenanceResponse' {cluster} -> cluster) (\s@ModifyClusterMaintenanceResponse' {} a -> s {cluster = a} :: ModifyClusterMaintenanceResponse)
 
--- | -- | The response status code.
-mcmrrsResponseStatus :: Lens' ModifyClusterMaintenanceResponse Int
-mcmrrsResponseStatus = lens _mcmrrsResponseStatus (\s a -> s {_mcmrrsResponseStatus = a})
+-- | The response's http status code.
+modifyClusterMaintenanceResponse_httpStatus :: Lens.Lens' ModifyClusterMaintenanceResponse Prelude.Int
+modifyClusterMaintenanceResponse_httpStatus = Lens.lens (\ModifyClusterMaintenanceResponse' {httpStatus} -> httpStatus) (\s@ModifyClusterMaintenanceResponse' {} a -> s {httpStatus = a} :: ModifyClusterMaintenanceResponse)
 
-instance NFData ModifyClusterMaintenanceResponse
+instance
+  Prelude.NFData
+    ModifyClusterMaintenanceResponse

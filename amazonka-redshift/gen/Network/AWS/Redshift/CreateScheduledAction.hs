@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,217 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a scheduled action. A scheduled action contains a schedule and an Amazon Redshift API action. For example, you can create a schedule of when to run the @ResizeCluster@ API operation.
+-- Creates a scheduled action. A scheduled action contains a schedule and
+-- an Amazon Redshift API action. For example, you can create a schedule of
+-- when to run the @ResizeCluster@ API operation.
 module Network.AWS.Redshift.CreateScheduledAction
   ( -- * Creating a Request
-    createScheduledAction,
-    CreateScheduledAction,
+    CreateScheduledAction (..),
+    newCreateScheduledAction,
 
     -- * Request Lenses
-    csaEnable,
-    csaScheduledActionDescription,
-    csaStartTime,
-    csaEndTime,
-    csaScheduledActionName,
-    csaTargetAction,
-    csaSchedule,
-    csaIAMRole,
+    createScheduledAction_enable,
+    createScheduledAction_scheduledActionDescription,
+    createScheduledAction_startTime,
+    createScheduledAction_endTime,
+    createScheduledAction_scheduledActionName,
+    createScheduledAction_targetAction,
+    createScheduledAction_schedule,
+    createScheduledAction_iamRole,
 
     -- * Destructuring the Response
-    scheduledAction,
-    ScheduledAction,
+    ScheduledAction (..),
+    newScheduledAction,
 
     -- * Response Lenses
-    saTargetAction,
-    saNextInvocations,
-    saIAMRole,
-    saScheduledActionDescription,
-    saStartTime,
-    saEndTime,
-    saState,
-    saScheduledActionName,
-    saSchedule,
+    scheduledAction_targetAction,
+    scheduledAction_nextInvocations,
+    scheduledAction_iamRole,
+    scheduledAction_scheduledActionDescription,
+    scheduledAction_startTime,
+    scheduledAction_endTime,
+    scheduledAction_state,
+    scheduledAction_scheduledActionName,
+    scheduledAction_schedule,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.ScheduledAction
+import Network.AWS.Redshift.Types.ScheduledActionState
+import Network.AWS.Redshift.Types.ScheduledActionType
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createScheduledAction' smart constructor.
+-- | /See:/ 'newCreateScheduledAction' smart constructor.
 data CreateScheduledAction = CreateScheduledAction'
-  { _csaEnable ::
-      !(Maybe Bool),
-    _csaScheduledActionDescription ::
-      !(Maybe Text),
-    _csaStartTime ::
-      !(Maybe ISO8601),
-    _csaEndTime ::
-      !(Maybe ISO8601),
-    _csaScheduledActionName ::
-      !Text,
-    _csaTargetAction ::
-      !ScheduledActionType,
-    _csaSchedule :: !Text,
-    _csaIAMRole :: !Text
+  { -- | If true, the schedule is enabled. If false, the scheduled action does
+    -- not trigger. For more information about @state@ of the scheduled action,
+    -- see ScheduledAction.
+    enable :: Prelude.Maybe Prelude.Bool,
+    -- | The description of the scheduled action.
+    scheduledActionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The start time in UTC of the scheduled action. Before this time, the
+    -- scheduled action does not trigger. For more information about this
+    -- parameter, see ScheduledAction.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The end time in UTC of the scheduled action. After this time, the
+    -- scheduled action does not trigger. For more information about this
+    -- parameter, see ScheduledAction.
+    endTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the scheduled action. The name must be unique within an
+    -- account. For more information about this parameter, see ScheduledAction.
+    scheduledActionName :: Prelude.Text,
+    -- | A JSON format string of the Amazon Redshift API operation with input
+    -- parameters. For more information about this parameter, see
+    -- ScheduledAction.
+    targetAction :: ScheduledActionType,
+    -- | The schedule in @at( )@ or @cron( )@ format. For more information about
+    -- this parameter, see ScheduledAction.
+    schedule :: Prelude.Text,
+    -- | The IAM role to assume to run the target action. For more information
+    -- about this parameter, see ScheduledAction.
+    iamRole :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateScheduledAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateScheduledAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csaEnable' - If true, the schedule is enabled. If false, the scheduled action does not trigger. For more information about @state@ of the scheduled action, see 'ScheduledAction' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csaScheduledActionDescription' - The description of the scheduled action.
+-- 'enable', 'createScheduledAction_enable' - If true, the schedule is enabled. If false, the scheduled action does
+-- not trigger. For more information about @state@ of the scheduled action,
+-- see ScheduledAction.
 --
--- * 'csaStartTime' - The start time in UTC of the scheduled action. Before this time, the scheduled action does not trigger. For more information about this parameter, see 'ScheduledAction' .
+-- 'scheduledActionDescription', 'createScheduledAction_scheduledActionDescription' - The description of the scheduled action.
 --
--- * 'csaEndTime' - The end time in UTC of the scheduled action. After this time, the scheduled action does not trigger. For more information about this parameter, see 'ScheduledAction' .
+-- 'startTime', 'createScheduledAction_startTime' - The start time in UTC of the scheduled action. Before this time, the
+-- scheduled action does not trigger. For more information about this
+-- parameter, see ScheduledAction.
 --
--- * 'csaScheduledActionName' - The name of the scheduled action. The name must be unique within an account. For more information about this parameter, see 'ScheduledAction' .
+-- 'endTime', 'createScheduledAction_endTime' - The end time in UTC of the scheduled action. After this time, the
+-- scheduled action does not trigger. For more information about this
+-- parameter, see ScheduledAction.
 --
--- * 'csaTargetAction' - A JSON format string of the Amazon Redshift API operation with input parameters. For more information about this parameter, see 'ScheduledAction' .
+-- 'scheduledActionName', 'createScheduledAction_scheduledActionName' - The name of the scheduled action. The name must be unique within an
+-- account. For more information about this parameter, see ScheduledAction.
 --
--- * 'csaSchedule' - The schedule in @at( )@ or @cron( )@ format. For more information about this parameter, see 'ScheduledAction' .
+-- 'targetAction', 'createScheduledAction_targetAction' - A JSON format string of the Amazon Redshift API operation with input
+-- parameters. For more information about this parameter, see
+-- ScheduledAction.
 --
--- * 'csaIAMRole' - The IAM role to assume to run the target action. For more information about this parameter, see 'ScheduledAction' .
-createScheduledAction ::
-  -- | 'csaScheduledActionName'
-  Text ->
-  -- | 'csaTargetAction'
+-- 'schedule', 'createScheduledAction_schedule' - The schedule in @at( )@ or @cron( )@ format. For more information about
+-- this parameter, see ScheduledAction.
+--
+-- 'iamRole', 'createScheduledAction_iamRole' - The IAM role to assume to run the target action. For more information
+-- about this parameter, see ScheduledAction.
+newCreateScheduledAction ::
+  -- | 'scheduledActionName'
+  Prelude.Text ->
+  -- | 'targetAction'
   ScheduledActionType ->
-  -- | 'csaSchedule'
-  Text ->
-  -- | 'csaIAMRole'
-  Text ->
+  -- | 'schedule'
+  Prelude.Text ->
+  -- | 'iamRole'
+  Prelude.Text ->
   CreateScheduledAction
-createScheduledAction
+newCreateScheduledAction
   pScheduledActionName_
   pTargetAction_
   pSchedule_
-  pIAMRole_ =
+  pIamRole_ =
     CreateScheduledAction'
-      { _csaEnable = Nothing,
-        _csaScheduledActionDescription = Nothing,
-        _csaStartTime = Nothing,
-        _csaEndTime = Nothing,
-        _csaScheduledActionName = pScheduledActionName_,
-        _csaTargetAction = pTargetAction_,
-        _csaSchedule = pSchedule_,
-        _csaIAMRole = pIAMRole_
+      { enable = Prelude.Nothing,
+        scheduledActionDescription = Prelude.Nothing,
+        startTime = Prelude.Nothing,
+        endTime = Prelude.Nothing,
+        scheduledActionName = pScheduledActionName_,
+        targetAction = pTargetAction_,
+        schedule = pSchedule_,
+        iamRole = pIamRole_
       }
 
--- | If true, the schedule is enabled. If false, the scheduled action does not trigger. For more information about @state@ of the scheduled action, see 'ScheduledAction' .
-csaEnable :: Lens' CreateScheduledAction (Maybe Bool)
-csaEnable = lens _csaEnable (\s a -> s {_csaEnable = a})
+-- | If true, the schedule is enabled. If false, the scheduled action does
+-- not trigger. For more information about @state@ of the scheduled action,
+-- see ScheduledAction.
+createScheduledAction_enable :: Lens.Lens' CreateScheduledAction (Prelude.Maybe Prelude.Bool)
+createScheduledAction_enable = Lens.lens (\CreateScheduledAction' {enable} -> enable) (\s@CreateScheduledAction' {} a -> s {enable = a} :: CreateScheduledAction)
 
 -- | The description of the scheduled action.
-csaScheduledActionDescription :: Lens' CreateScheduledAction (Maybe Text)
-csaScheduledActionDescription = lens _csaScheduledActionDescription (\s a -> s {_csaScheduledActionDescription = a})
+createScheduledAction_scheduledActionDescription :: Lens.Lens' CreateScheduledAction (Prelude.Maybe Prelude.Text)
+createScheduledAction_scheduledActionDescription = Lens.lens (\CreateScheduledAction' {scheduledActionDescription} -> scheduledActionDescription) (\s@CreateScheduledAction' {} a -> s {scheduledActionDescription = a} :: CreateScheduledAction)
 
--- | The start time in UTC of the scheduled action. Before this time, the scheduled action does not trigger. For more information about this parameter, see 'ScheduledAction' .
-csaStartTime :: Lens' CreateScheduledAction (Maybe UTCTime)
-csaStartTime = lens _csaStartTime (\s a -> s {_csaStartTime = a}) . mapping _Time
+-- | The start time in UTC of the scheduled action. Before this time, the
+-- scheduled action does not trigger. For more information about this
+-- parameter, see ScheduledAction.
+createScheduledAction_startTime :: Lens.Lens' CreateScheduledAction (Prelude.Maybe Prelude.UTCTime)
+createScheduledAction_startTime = Lens.lens (\CreateScheduledAction' {startTime} -> startTime) (\s@CreateScheduledAction' {} a -> s {startTime = a} :: CreateScheduledAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The end time in UTC of the scheduled action. After this time, the scheduled action does not trigger. For more information about this parameter, see 'ScheduledAction' .
-csaEndTime :: Lens' CreateScheduledAction (Maybe UTCTime)
-csaEndTime = lens _csaEndTime (\s a -> s {_csaEndTime = a}) . mapping _Time
+-- | The end time in UTC of the scheduled action. After this time, the
+-- scheduled action does not trigger. For more information about this
+-- parameter, see ScheduledAction.
+createScheduledAction_endTime :: Lens.Lens' CreateScheduledAction (Prelude.Maybe Prelude.UTCTime)
+createScheduledAction_endTime = Lens.lens (\CreateScheduledAction' {endTime} -> endTime) (\s@CreateScheduledAction' {} a -> s {endTime = a} :: CreateScheduledAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The name of the scheduled action. The name must be unique within an account. For more information about this parameter, see 'ScheduledAction' .
-csaScheduledActionName :: Lens' CreateScheduledAction Text
-csaScheduledActionName = lens _csaScheduledActionName (\s a -> s {_csaScheduledActionName = a})
+-- | The name of the scheduled action. The name must be unique within an
+-- account. For more information about this parameter, see ScheduledAction.
+createScheduledAction_scheduledActionName :: Lens.Lens' CreateScheduledAction Prelude.Text
+createScheduledAction_scheduledActionName = Lens.lens (\CreateScheduledAction' {scheduledActionName} -> scheduledActionName) (\s@CreateScheduledAction' {} a -> s {scheduledActionName = a} :: CreateScheduledAction)
 
--- | A JSON format string of the Amazon Redshift API operation with input parameters. For more information about this parameter, see 'ScheduledAction' .
-csaTargetAction :: Lens' CreateScheduledAction ScheduledActionType
-csaTargetAction = lens _csaTargetAction (\s a -> s {_csaTargetAction = a})
+-- | A JSON format string of the Amazon Redshift API operation with input
+-- parameters. For more information about this parameter, see
+-- ScheduledAction.
+createScheduledAction_targetAction :: Lens.Lens' CreateScheduledAction ScheduledActionType
+createScheduledAction_targetAction = Lens.lens (\CreateScheduledAction' {targetAction} -> targetAction) (\s@CreateScheduledAction' {} a -> s {targetAction = a} :: CreateScheduledAction)
 
--- | The schedule in @at( )@ or @cron( )@ format. For more information about this parameter, see 'ScheduledAction' .
-csaSchedule :: Lens' CreateScheduledAction Text
-csaSchedule = lens _csaSchedule (\s a -> s {_csaSchedule = a})
+-- | The schedule in @at( )@ or @cron( )@ format. For more information about
+-- this parameter, see ScheduledAction.
+createScheduledAction_schedule :: Lens.Lens' CreateScheduledAction Prelude.Text
+createScheduledAction_schedule = Lens.lens (\CreateScheduledAction' {schedule} -> schedule) (\s@CreateScheduledAction' {} a -> s {schedule = a} :: CreateScheduledAction)
 
--- | The IAM role to assume to run the target action. For more information about this parameter, see 'ScheduledAction' .
-csaIAMRole :: Lens' CreateScheduledAction Text
-csaIAMRole = lens _csaIAMRole (\s a -> s {_csaIAMRole = a})
+-- | The IAM role to assume to run the target action. For more information
+-- about this parameter, see ScheduledAction.
+createScheduledAction_iamRole :: Lens.Lens' CreateScheduledAction Prelude.Text
+createScheduledAction_iamRole = Lens.lens (\CreateScheduledAction' {iamRole} -> iamRole) (\s@CreateScheduledAction' {} a -> s {iamRole = a} :: CreateScheduledAction)
 
-instance AWSRequest CreateScheduledAction where
+instance Prelude.AWSRequest CreateScheduledAction where
   type Rs CreateScheduledAction = ScheduledAction
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateScheduledActionResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable CreateScheduledAction
+instance Prelude.Hashable CreateScheduledAction
 
-instance NFData CreateScheduledAction
+instance Prelude.NFData CreateScheduledAction
 
-instance ToHeaders CreateScheduledAction where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateScheduledAction where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateScheduledAction where
-  toPath = const "/"
+instance Prelude.ToPath CreateScheduledAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateScheduledAction where
+instance Prelude.ToQuery CreateScheduledAction where
   toQuery CreateScheduledAction' {..} =
-    mconcat
-      [ "Action" =: ("CreateScheduledAction" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "Enable" =: _csaEnable,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateScheduledAction" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "Enable" Prelude.=: enable,
         "ScheduledActionDescription"
-          =: _csaScheduledActionDescription,
-        "StartTime" =: _csaStartTime,
-        "EndTime" =: _csaEndTime,
-        "ScheduledActionName" =: _csaScheduledActionName,
-        "TargetAction" =: _csaTargetAction,
-        "Schedule" =: _csaSchedule,
-        "IamRole" =: _csaIAMRole
+          Prelude.=: scheduledActionDescription,
+        "StartTime" Prelude.=: startTime,
+        "EndTime" Prelude.=: endTime,
+        "ScheduledActionName" Prelude.=: scheduledActionName,
+        "TargetAction" Prelude.=: targetAction,
+        "Schedule" Prelude.=: schedule,
+        "IamRole" Prelude.=: iamRole
       ]

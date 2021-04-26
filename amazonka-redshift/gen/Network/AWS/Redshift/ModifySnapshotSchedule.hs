@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,114 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies a snapshot schedule. Any schedule associated with a cluster is modified asynchronously.
+-- Modifies a snapshot schedule. Any schedule associated with a cluster is
+-- modified asynchronously.
 module Network.AWS.Redshift.ModifySnapshotSchedule
   ( -- * Creating a Request
-    modifySnapshotSchedule,
-    ModifySnapshotSchedule,
+    ModifySnapshotSchedule (..),
+    newModifySnapshotSchedule,
 
     -- * Request Lenses
-    mssScheduleIdentifier,
-    mssScheduleDefinitions,
+    modifySnapshotSchedule_scheduleIdentifier,
+    modifySnapshotSchedule_scheduleDefinitions,
 
     -- * Destructuring the Response
-    snapshotSchedule,
-    SnapshotSchedule,
+    SnapshotSchedule (..),
+    newSnapshotSchedule,
 
     -- * Response Lenses
-    ssNextInvocations,
-    ssAssociatedClusters,
-    ssScheduleIdentifier,
-    ssScheduleDescription,
-    ssScheduleDefinitions,
-    ssAssociatedClusterCount,
-    ssTags,
+    snapshotSchedule_nextInvocations,
+    snapshotSchedule_associatedClusters,
+    snapshotSchedule_scheduleIdentifier,
+    snapshotSchedule_scheduleDescription,
+    snapshotSchedule_scheduleDefinitions,
+    snapshotSchedule_associatedClusterCount,
+    snapshotSchedule_tags,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.ClusterAssociatedToSchedule
+import Network.AWS.Redshift.Types.SnapshotSchedule
+import Network.AWS.Redshift.Types.Tag
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifySnapshotSchedule' smart constructor.
+-- | /See:/ 'newModifySnapshotSchedule' smart constructor.
 data ModifySnapshotSchedule = ModifySnapshotSchedule'
-  { _mssScheduleIdentifier ::
-      !Text,
-    _mssScheduleDefinitions ::
-      ![Text]
+  { -- | A unique alphanumeric identifier of the schedule to modify.
+    scheduleIdentifier :: Prelude.Text,
+    -- | An updated list of schedule definitions. A schedule definition is made
+    -- up of schedule expressions, for example, \"cron(30 12 *)\" or \"rate(12
+    -- hours)\".
+    scheduleDefinitions :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifySnapshotSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifySnapshotSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mssScheduleIdentifier' - A unique alphanumeric identifier of the schedule to modify.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mssScheduleDefinitions' - An updated list of schedule definitions. A schedule definition is made up of schedule expressions, for example, "cron(30 12 *)" or "rate(12 hours)".
-modifySnapshotSchedule ::
-  -- | 'mssScheduleIdentifier'
-  Text ->
+-- 'scheduleIdentifier', 'modifySnapshotSchedule_scheduleIdentifier' - A unique alphanumeric identifier of the schedule to modify.
+--
+-- 'scheduleDefinitions', 'modifySnapshotSchedule_scheduleDefinitions' - An updated list of schedule definitions. A schedule definition is made
+-- up of schedule expressions, for example, \"cron(30 12 *)\" or \"rate(12
+-- hours)\".
+newModifySnapshotSchedule ::
+  -- | 'scheduleIdentifier'
+  Prelude.Text ->
   ModifySnapshotSchedule
-modifySnapshotSchedule pScheduleIdentifier_ =
+newModifySnapshotSchedule pScheduleIdentifier_ =
   ModifySnapshotSchedule'
-    { _mssScheduleIdentifier =
+    { scheduleIdentifier =
         pScheduleIdentifier_,
-      _mssScheduleDefinitions = mempty
+      scheduleDefinitions = Prelude.mempty
     }
 
 -- | A unique alphanumeric identifier of the schedule to modify.
-mssScheduleIdentifier :: Lens' ModifySnapshotSchedule Text
-mssScheduleIdentifier = lens _mssScheduleIdentifier (\s a -> s {_mssScheduleIdentifier = a})
+modifySnapshotSchedule_scheduleIdentifier :: Lens.Lens' ModifySnapshotSchedule Prelude.Text
+modifySnapshotSchedule_scheduleIdentifier = Lens.lens (\ModifySnapshotSchedule' {scheduleIdentifier} -> scheduleIdentifier) (\s@ModifySnapshotSchedule' {} a -> s {scheduleIdentifier = a} :: ModifySnapshotSchedule)
 
--- | An updated list of schedule definitions. A schedule definition is made up of schedule expressions, for example, "cron(30 12 *)" or "rate(12 hours)".
-mssScheduleDefinitions :: Lens' ModifySnapshotSchedule [Text]
-mssScheduleDefinitions = lens _mssScheduleDefinitions (\s a -> s {_mssScheduleDefinitions = a}) . _Coerce
+-- | An updated list of schedule definitions. A schedule definition is made
+-- up of schedule expressions, for example, \"cron(30 12 *)\" or \"rate(12
+-- hours)\".
+modifySnapshotSchedule_scheduleDefinitions :: Lens.Lens' ModifySnapshotSchedule [Prelude.Text]
+modifySnapshotSchedule_scheduleDefinitions = Lens.lens (\ModifySnapshotSchedule' {scheduleDefinitions} -> scheduleDefinitions) (\s@ModifySnapshotSchedule' {} a -> s {scheduleDefinitions = a} :: ModifySnapshotSchedule) Prelude.. Prelude._Coerce
 
-instance AWSRequest ModifySnapshotSchedule where
+instance Prelude.AWSRequest ModifySnapshotSchedule where
   type Rs ModifySnapshotSchedule = SnapshotSchedule
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifySnapshotScheduleResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable ModifySnapshotSchedule
+instance Prelude.Hashable ModifySnapshotSchedule
 
-instance NFData ModifySnapshotSchedule
+instance Prelude.NFData ModifySnapshotSchedule
 
-instance ToHeaders ModifySnapshotSchedule where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifySnapshotSchedule where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifySnapshotSchedule where
-  toPath = const "/"
+instance Prelude.ToPath ModifySnapshotSchedule where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifySnapshotSchedule where
+instance Prelude.ToQuery ModifySnapshotSchedule where
   toQuery ModifySnapshotSchedule' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifySnapshotSchedule" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "ScheduleIdentifier" =: _mssScheduleIdentifier,
+          Prelude.=: ("ModifySnapshotSchedule" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "ScheduleIdentifier" Prelude.=: scheduleIdentifier,
         "ScheduleDefinitions"
-          =: toQueryList
+          Prelude.=: Prelude.toQueryList
             "ScheduleDefinition"
-            _mssScheduleDefinitions
+            scheduleDefinitions
       ]

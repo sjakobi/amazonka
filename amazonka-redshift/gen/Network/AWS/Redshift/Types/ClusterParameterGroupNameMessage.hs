@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Redshift.Types.ClusterParameterGroupNameMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
 -- |
 --
---
---
--- /See:/ 'clusterParameterGroupNameMessage' smart constructor.
+-- /See:/ 'newClusterParameterGroupNameMessage' smart constructor.
 data ClusterParameterGroupNameMessage = ClusterParameterGroupNameMessage'
-  { _cpgnmParameterGroupStatus ::
-      !( Maybe
-           Text
-       ),
-    _cpgnmParameterGroupName ::
-      !( Maybe
-           Text
-       )
+  { -- | The status of the parameter group. For example, if you made a change to
+    -- a parameter group name-value pair, then the change could be pending a
+    -- reboot of an associated cluster.
+    parameterGroupStatus :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cluster parameter group.
+    parameterGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterParameterGroupNameMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterParameterGroupNameMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgnmParameterGroupStatus' - The status of the parameter group. For example, if you made a change to a parameter group name-value pair, then the change could be pending a reboot of an associated cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpgnmParameterGroupName' - The name of the cluster parameter group.
-clusterParameterGroupNameMessage ::
+-- 'parameterGroupStatus', 'clusterParameterGroupNameMessage_parameterGroupStatus' - The status of the parameter group. For example, if you made a change to
+-- a parameter group name-value pair, then the change could be pending a
+-- reboot of an associated cluster.
+--
+-- 'parameterGroupName', 'clusterParameterGroupNameMessage_parameterGroupName' - The name of the cluster parameter group.
+newClusterParameterGroupNameMessage ::
   ClusterParameterGroupNameMessage
-clusterParameterGroupNameMessage =
+newClusterParameterGroupNameMessage =
   ClusterParameterGroupNameMessage'
-    { _cpgnmParameterGroupStatus =
-        Nothing,
-      _cpgnmParameterGroupName = Nothing
+    { parameterGroupStatus =
+        Prelude.Nothing,
+      parameterGroupName = Prelude.Nothing
     }
 
--- | The status of the parameter group. For example, if you made a change to a parameter group name-value pair, then the change could be pending a reboot of an associated cluster.
-cpgnmParameterGroupStatus :: Lens' ClusterParameterGroupNameMessage (Maybe Text)
-cpgnmParameterGroupStatus = lens _cpgnmParameterGroupStatus (\s a -> s {_cpgnmParameterGroupStatus = a})
+-- | The status of the parameter group. For example, if you made a change to
+-- a parameter group name-value pair, then the change could be pending a
+-- reboot of an associated cluster.
+clusterParameterGroupNameMessage_parameterGroupStatus :: Lens.Lens' ClusterParameterGroupNameMessage (Prelude.Maybe Prelude.Text)
+clusterParameterGroupNameMessage_parameterGroupStatus = Lens.lens (\ClusterParameterGroupNameMessage' {parameterGroupStatus} -> parameterGroupStatus) (\s@ClusterParameterGroupNameMessage' {} a -> s {parameterGroupStatus = a} :: ClusterParameterGroupNameMessage)
 
 -- | The name of the cluster parameter group.
-cpgnmParameterGroupName :: Lens' ClusterParameterGroupNameMessage (Maybe Text)
-cpgnmParameterGroupName = lens _cpgnmParameterGroupName (\s a -> s {_cpgnmParameterGroupName = a})
+clusterParameterGroupNameMessage_parameterGroupName :: Lens.Lens' ClusterParameterGroupNameMessage (Prelude.Maybe Prelude.Text)
+clusterParameterGroupNameMessage_parameterGroupName = Lens.lens (\ClusterParameterGroupNameMessage' {parameterGroupName} -> parameterGroupName) (\s@ClusterParameterGroupNameMessage' {} a -> s {parameterGroupName = a} :: ClusterParameterGroupNameMessage)
 
-instance FromXML ClusterParameterGroupNameMessage where
+instance
+  Prelude.FromXML
+    ClusterParameterGroupNameMessage
+  where
   parseXML x =
     ClusterParameterGroupNameMessage'
-      <$> (x .@? "ParameterGroupStatus")
-      <*> (x .@? "ParameterGroupName")
+      Prelude.<$> (x Prelude..@? "ParameterGroupStatus")
+      Prelude.<*> (x Prelude..@? "ParameterGroupName")
 
-instance Hashable ClusterParameterGroupNameMessage
+instance
+  Prelude.Hashable
+    ClusterParameterGroupNameMessage
 
-instance NFData ClusterParameterGroupNameMessage
+instance
+  Prelude.NFData
+    ClusterParameterGroupNameMessage

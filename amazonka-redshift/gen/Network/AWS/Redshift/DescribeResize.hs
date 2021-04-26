@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,100 +21,121 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the last resize operation for the specified cluster. If no resize operation has ever been initiated for the specified cluster, a @HTTP 404@ error is returned. If a resize operation was initiated and completed, the status of the resize remains as @SUCCEEDED@ until the next resize.
+-- Returns information about the last resize operation for the specified
+-- cluster. If no resize operation has ever been initiated for the
+-- specified cluster, a @HTTP 404@ error is returned. If a resize operation
+-- was initiated and completed, the status of the resize remains as
+-- @SUCCEEDED@ until the next resize.
 --
---
--- A resize operation can be requested using 'ModifyCluster' and specifying a different number or type of nodes for the cluster.
+-- A resize operation can be requested using ModifyCluster and specifying a
+-- different number or type of nodes for the cluster.
 module Network.AWS.Redshift.DescribeResize
   ( -- * Creating a Request
-    describeResize,
-    DescribeResize,
+    DescribeResize (..),
+    newDescribeResize,
 
     -- * Request Lenses
-    drClusterIdentifier,
+    describeResize_clusterIdentifier,
 
     -- * Destructuring the Response
-    resizeProgressMessage,
-    ResizeProgressMessage,
+    ResizeProgressMessage (..),
+    newResizeProgressMessage,
 
     -- * Response Lenses
-    rpmStatus,
-    rpmEstimatedTimeToCompletionInSeconds,
-    rpmImportTablesNotStarted,
-    rpmTargetNodeType,
-    rpmMessage,
-    rpmTargetClusterType,
-    rpmAvgResizeRateInMegaBytesPerSecond,
-    rpmTargetEncryptionType,
-    rpmElapsedTimeInSeconds,
-    rpmTargetNumberOfNodes,
-    rpmTotalResizeDataInMegaBytes,
-    rpmProgressInMegaBytes,
-    rpmDataTransferProgressPercent,
-    rpmImportTablesCompleted,
-    rpmImportTablesInProgress,
-    rpmResizeType,
+    resizeProgressMessage_status,
+    resizeProgressMessage_estimatedTimeToCompletionInSeconds,
+    resizeProgressMessage_importTablesNotStarted,
+    resizeProgressMessage_targetNodeType,
+    resizeProgressMessage_message,
+    resizeProgressMessage_targetClusterType,
+    resizeProgressMessage_avgResizeRateInMegaBytesPerSecond,
+    resizeProgressMessage_targetEncryptionType,
+    resizeProgressMessage_elapsedTimeInSeconds,
+    resizeProgressMessage_targetNumberOfNodes,
+    resizeProgressMessage_totalResizeDataInMegaBytes,
+    resizeProgressMessage_progressInMegaBytes,
+    resizeProgressMessage_dataTransferProgressPercent,
+    resizeProgressMessage_importTablesCompleted,
+    resizeProgressMessage_importTablesInProgress,
+    resizeProgressMessage_resizeType,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.ResizeProgressMessage
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeResize' smart constructor.
-newtype DescribeResize = DescribeResize'
-  { _drClusterIdentifier ::
-      Text
+-- /See:/ 'newDescribeResize' smart constructor.
+data DescribeResize = DescribeResize'
+  { -- | The unique identifier of a cluster whose resize progress you are
+    -- requesting. This parameter is case-sensitive.
+    --
+    -- By default, resize operations for all clusters defined for an AWS
+    -- account are returned.
+    clusterIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeResize' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeResize' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drClusterIdentifier' - The unique identifier of a cluster whose resize progress you are requesting. This parameter is case-sensitive. By default, resize operations for all clusters defined for an AWS account are returned.
-describeResize ::
-  -- | 'drClusterIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clusterIdentifier', 'describeResize_clusterIdentifier' - The unique identifier of a cluster whose resize progress you are
+-- requesting. This parameter is case-sensitive.
+--
+-- By default, resize operations for all clusters defined for an AWS
+-- account are returned.
+newDescribeResize ::
+  -- | 'clusterIdentifier'
+  Prelude.Text ->
   DescribeResize
-describeResize pClusterIdentifier_ =
+newDescribeResize pClusterIdentifier_ =
   DescribeResize'
-    { _drClusterIdentifier =
+    { clusterIdentifier =
         pClusterIdentifier_
     }
 
--- | The unique identifier of a cluster whose resize progress you are requesting. This parameter is case-sensitive. By default, resize operations for all clusters defined for an AWS account are returned.
-drClusterIdentifier :: Lens' DescribeResize Text
-drClusterIdentifier = lens _drClusterIdentifier (\s a -> s {_drClusterIdentifier = a})
+-- | The unique identifier of a cluster whose resize progress you are
+-- requesting. This parameter is case-sensitive.
+--
+-- By default, resize operations for all clusters defined for an AWS
+-- account are returned.
+describeResize_clusterIdentifier :: Lens.Lens' DescribeResize Prelude.Text
+describeResize_clusterIdentifier = Lens.lens (\DescribeResize' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeResize' {} a -> s {clusterIdentifier = a} :: DescribeResize)
 
-instance AWSRequest DescribeResize where
+instance Prelude.AWSRequest DescribeResize where
   type Rs DescribeResize = ResizeProgressMessage
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeResizeResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable DescribeResize
+instance Prelude.Hashable DescribeResize
 
-instance NFData DescribeResize
+instance Prelude.NFData DescribeResize
 
-instance ToHeaders DescribeResize where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeResize where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeResize where
-  toPath = const "/"
+instance Prelude.ToPath DescribeResize where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeResize where
+instance Prelude.ToQuery DescribeResize where
   toQuery DescribeResize' {..} =
-    mconcat
-      [ "Action" =: ("DescribeResize" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "ClusterIdentifier" =: _drClusterIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeResize" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Prelude.=: clusterIdentifier
       ]

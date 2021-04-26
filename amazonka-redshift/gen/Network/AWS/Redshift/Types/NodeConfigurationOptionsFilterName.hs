@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Redshift.Types.NodeConfigurationOptionsFilterName
   ( NodeConfigurationOptionsFilterName
       ( ..,
-        EstimatedDiskUtilizationPercent,
-        Mode,
-        NodeType,
-        NumberOfNodes
+        NodeConfigurationOptionsFilterNameEstimatedDiskUtilizationPercent,
+        NodeConfigurationOptionsFilterNameMode,
+        NodeConfigurationOptionsFilterNameNodeType,
+        NodeConfigurationOptionsFilterNameNumberOfNodes
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data NodeConfigurationOptionsFilterName
-  = NodeConfigurationOptionsFilterName'
-      ( CI
-          Text
-      )
+newtype NodeConfigurationOptionsFilterName = NodeConfigurationOptionsFilterName'
+  { fromNodeConfigurationOptionsFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EstimatedDiskUtilizationPercent :: NodeConfigurationOptionsFilterName
-pattern EstimatedDiskUtilizationPercent = NodeConfigurationOptionsFilterName' "EstimatedDiskUtilizationPercent"
+pattern NodeConfigurationOptionsFilterNameEstimatedDiskUtilizationPercent :: NodeConfigurationOptionsFilterName
+pattern NodeConfigurationOptionsFilterNameEstimatedDiskUtilizationPercent = NodeConfigurationOptionsFilterName' "EstimatedDiskUtilizationPercent"
 
-pattern Mode :: NodeConfigurationOptionsFilterName
-pattern Mode = NodeConfigurationOptionsFilterName' "Mode"
+pattern NodeConfigurationOptionsFilterNameMode :: NodeConfigurationOptionsFilterName
+pattern NodeConfigurationOptionsFilterNameMode = NodeConfigurationOptionsFilterName' "Mode"
 
-pattern NodeType :: NodeConfigurationOptionsFilterName
-pattern NodeType = NodeConfigurationOptionsFilterName' "NodeType"
+pattern NodeConfigurationOptionsFilterNameNodeType :: NodeConfigurationOptionsFilterName
+pattern NodeConfigurationOptionsFilterNameNodeType = NodeConfigurationOptionsFilterName' "NodeType"
 
-pattern NumberOfNodes :: NodeConfigurationOptionsFilterName
-pattern NumberOfNodes = NodeConfigurationOptionsFilterName' "NumberOfNodes"
+pattern NodeConfigurationOptionsFilterNameNumberOfNodes :: NodeConfigurationOptionsFilterName
+pattern NodeConfigurationOptionsFilterNameNumberOfNodes = NodeConfigurationOptionsFilterName' "NumberOfNodes"
 
 {-# COMPLETE
-  EstimatedDiskUtilizationPercent,
-  Mode,
-  NodeType,
-  NumberOfNodes,
+  NodeConfigurationOptionsFilterNameEstimatedDiskUtilizationPercent,
+  NodeConfigurationOptionsFilterNameMode,
+  NodeConfigurationOptionsFilterNameNodeType,
+  NodeConfigurationOptionsFilterNameNumberOfNodes,
   NodeConfigurationOptionsFilterName'
   #-}
 
-instance FromText NodeConfigurationOptionsFilterName where
-  parser = (NodeConfigurationOptionsFilterName' . mk) <$> takeText
+instance Prelude.FromText NodeConfigurationOptionsFilterName where
+  parser = NodeConfigurationOptionsFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText NodeConfigurationOptionsFilterName where
-  toText (NodeConfigurationOptionsFilterName' ci) = original ci
+instance Prelude.ToText NodeConfigurationOptionsFilterName where
+  toText (NodeConfigurationOptionsFilterName' x) = x
 
-instance Hashable NodeConfigurationOptionsFilterName
+instance Prelude.Hashable NodeConfigurationOptionsFilterName
 
-instance NFData NodeConfigurationOptionsFilterName
+instance Prelude.NFData NodeConfigurationOptionsFilterName
 
-instance ToByteString NodeConfigurationOptionsFilterName
+instance Prelude.ToByteString NodeConfigurationOptionsFilterName
 
-instance ToQuery NodeConfigurationOptionsFilterName
+instance Prelude.ToQuery NodeConfigurationOptionsFilterName
 
-instance ToHeader NodeConfigurationOptionsFilterName
+instance Prelude.ToHeader NodeConfigurationOptionsFilterName

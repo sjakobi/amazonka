@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.Redshift.Types.UsageLimitPeriod
   ( UsageLimitPeriod
       ( ..,
-        Daily,
-        Monthly,
-        Weekly
+        UsageLimitPeriodDaily,
+        UsageLimitPeriodMonthly,
+        UsageLimitPeriodWeekly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Internal
 
-data UsageLimitPeriod = UsageLimitPeriod' (CI Text)
+newtype UsageLimitPeriod = UsageLimitPeriod'
+  { fromUsageLimitPeriod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Daily :: UsageLimitPeriod
-pattern Daily = UsageLimitPeriod' "daily"
+pattern UsageLimitPeriodDaily :: UsageLimitPeriod
+pattern UsageLimitPeriodDaily = UsageLimitPeriod' "daily"
 
-pattern Monthly :: UsageLimitPeriod
-pattern Monthly = UsageLimitPeriod' "monthly"
+pattern UsageLimitPeriodMonthly :: UsageLimitPeriod
+pattern UsageLimitPeriodMonthly = UsageLimitPeriod' "monthly"
 
-pattern Weekly :: UsageLimitPeriod
-pattern Weekly = UsageLimitPeriod' "weekly"
+pattern UsageLimitPeriodWeekly :: UsageLimitPeriod
+pattern UsageLimitPeriodWeekly = UsageLimitPeriod' "weekly"
 
 {-# COMPLETE
-  Daily,
-  Monthly,
-  Weekly,
+  UsageLimitPeriodDaily,
+  UsageLimitPeriodMonthly,
+  UsageLimitPeriodWeekly,
   UsageLimitPeriod'
   #-}
 
-instance FromText UsageLimitPeriod where
-  parser = (UsageLimitPeriod' . mk) <$> takeText
+instance Prelude.FromText UsageLimitPeriod where
+  parser = UsageLimitPeriod' Prelude.<$> Prelude.takeText
 
-instance ToText UsageLimitPeriod where
-  toText (UsageLimitPeriod' ci) = original ci
+instance Prelude.ToText UsageLimitPeriod where
+  toText (UsageLimitPeriod' x) = x
 
-instance Hashable UsageLimitPeriod
+instance Prelude.Hashable UsageLimitPeriod
 
-instance NFData UsageLimitPeriod
+instance Prelude.NFData UsageLimitPeriod
 
-instance ToByteString UsageLimitPeriod
+instance Prelude.ToByteString UsageLimitPeriod
 
-instance ToQuery UsageLimitPeriod
+instance Prelude.ToQuery UsageLimitPeriod
 
-instance ToHeader UsageLimitPeriod
+instance Prelude.ToHeader UsageLimitPeriod
 
-instance FromXML UsageLimitPeriod where
-  parseXML = parseXMLText "UsageLimitPeriod"
+instance Prelude.FromXML UsageLimitPeriod where
+  parseXML = Prelude.parseXMLText "UsageLimitPeriod"

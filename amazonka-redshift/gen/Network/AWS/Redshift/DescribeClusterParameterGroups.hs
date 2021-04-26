@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,238 +21,369 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of Amazon Redshift parameter groups, including parameter groups you created and the default parameter group. For each parameter group, the response includes the parameter group name, description, and parameter group family name. You can optionally specify a name to retrieve the description of a specific parameter group.
+-- Returns a list of Amazon Redshift parameter groups, including parameter
+-- groups you created and the default parameter group. For each parameter
+-- group, the response includes the parameter group name, description, and
+-- parameter group family name. You can optionally specify a name to
+-- retrieve the description of a specific parameter group.
 --
+-- For more information about parameters and parameter groups, go to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html Amazon Redshift Parameter Groups>
+-- in the /Amazon Redshift Cluster Management Guide/.
 --
--- For more information about parameters and parameter groups, go to <https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html Amazon Redshift Parameter Groups> in the /Amazon Redshift Cluster Management Guide/ .
+-- If you specify both tag keys and tag values in the same request, Amazon
+-- Redshift returns all parameter groups that match any combination of the
+-- specified keys and values. For example, if you have @owner@ and
+-- @environment@ for tag keys, and @admin@ and @test@ for tag values, all
+-- parameter groups that have any combination of those values are returned.
 --
--- If you specify both tag keys and tag values in the same request, Amazon Redshift returns all parameter groups that match any combination of the specified keys and values. For example, if you have @owner@ and @environment@ for tag keys, and @admin@ and @test@ for tag values, all parameter groups that have any combination of those values are returned.
---
--- If both tag keys and values are omitted from the request, parameter groups are returned regardless of whether they have tag keys or values associated with them.
---
+-- If both tag keys and values are omitted from the request, parameter
+-- groups are returned regardless of whether they have tag keys or values
+-- associated with them.
 --
 -- This operation returns paginated results.
 module Network.AWS.Redshift.DescribeClusterParameterGroups
   ( -- * Creating a Request
-    describeClusterParameterGroups,
-    DescribeClusterParameterGroups,
+    DescribeClusterParameterGroups (..),
+    newDescribeClusterParameterGroups,
 
     -- * Request Lenses
-    dcpgsTagKeys,
-    dcpgsParameterGroupName,
-    dcpgsTagValues,
-    dcpgsMarker,
-    dcpgsMaxRecords,
+    describeClusterParameterGroups_tagKeys,
+    describeClusterParameterGroups_parameterGroupName,
+    describeClusterParameterGroups_tagValues,
+    describeClusterParameterGroups_marker,
+    describeClusterParameterGroups_maxRecords,
 
     -- * Destructuring the Response
-    describeClusterParameterGroupsResponse,
-    DescribeClusterParameterGroupsResponse,
+    DescribeClusterParameterGroupsResponse (..),
+    newDescribeClusterParameterGroupsResponse,
 
     -- * Response Lenses
-    dcpgrrsParameterGroups,
-    dcpgrrsMarker,
-    dcpgrrsResponseStatus,
+    describeClusterParameterGroupsResponse_parameterGroups,
+    describeClusterParameterGroupsResponse_marker,
+    describeClusterParameterGroupsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Redshift.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Redshift.Types.ClusterParameterGroup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeClusterParameterGroups' smart constructor.
+-- /See:/ 'newDescribeClusterParameterGroups' smart constructor.
 data DescribeClusterParameterGroups = DescribeClusterParameterGroups'
-  { _dcpgsTagKeys ::
-      !( Maybe
-           [Text]
-       ),
-    _dcpgsParameterGroupName ::
-      !( Maybe
-           Text
-       ),
-    _dcpgsTagValues ::
-      !( Maybe
-           [Text]
-       ),
-    _dcpgsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dcpgsMaxRecords ::
-      !( Maybe
-           Int
-       )
+  { -- | A tag key or keys for which you want to return all matching cluster
+    -- parameter groups that are associated with the specified key or keys. For
+    -- example, suppose that you have parameter groups that are tagged with
+    -- keys called @owner@ and @environment@. If you specify both of these tag
+    -- keys in the request, Amazon Redshift returns a response with the
+    -- parameter groups that have either or both of these tag keys associated
+    -- with them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | The name of a specific parameter group for which to return details. By
+    -- default, details about all parameter groups and the default parameter
+    -- group are returned.
+    parameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A tag value or values for which you want to return all matching cluster
+    -- parameter groups that are associated with the specified tag value or
+    -- values. For example, suppose that you have parameter groups that are
+    -- tagged with values called @admin@ and @test@. If you specify both of
+    -- these tag values in the request, Amazon Redshift returns a response with
+    -- the parameter groups that have either or both of these tag values
+    -- associated with them.
+    tagValues :: Prelude.Maybe [Prelude.Text],
+    -- | An optional parameter that specifies the starting point to return a set
+    -- of response records. When the results of a
+    -- DescribeClusterParameterGroups request exceed the value specified in
+    -- @MaxRecords@, AWS returns a value in the @Marker@ field of the response.
+    -- You can retrieve the next set of response records by providing the
+    -- returned marker value in the @Marker@ parameter and retrying the
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of response records to return in each call. If the
+    -- number of remaining response records exceeds the specified @MaxRecords@
+    -- value, a value is returned in a @marker@ field of the response. You can
+    -- retrieve the next set of records by retrying the command with the
+    -- returned marker value.
+    --
+    -- Default: @100@
+    --
+    -- Constraints: minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeClusterParameterGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeClusterParameterGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpgsTagKeys' - A tag key or keys for which you want to return all matching cluster parameter groups that are associated with the specified key or keys. For example, suppose that you have parameter groups that are tagged with keys called @owner@ and @environment@ . If you specify both of these tag keys in the request, Amazon Redshift returns a response with the parameter groups that have either or both of these tag keys associated with them.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpgsParameterGroupName' - The name of a specific parameter group for which to return details. By default, details about all parameter groups and the default parameter group are returned.
+-- 'tagKeys', 'describeClusterParameterGroups_tagKeys' - A tag key or keys for which you want to return all matching cluster
+-- parameter groups that are associated with the specified key or keys. For
+-- example, suppose that you have parameter groups that are tagged with
+-- keys called @owner@ and @environment@. If you specify both of these tag
+-- keys in the request, Amazon Redshift returns a response with the
+-- parameter groups that have either or both of these tag keys associated
+-- with them.
 --
--- * 'dcpgsTagValues' - A tag value or values for which you want to return all matching cluster parameter groups that are associated with the specified tag value or values. For example, suppose that you have parameter groups that are tagged with values called @admin@ and @test@ . If you specify both of these tag values in the request, Amazon Redshift returns a response with the parameter groups that have either or both of these tag values associated with them.
+-- 'parameterGroupName', 'describeClusterParameterGroups_parameterGroupName' - The name of a specific parameter group for which to return details. By
+-- default, details about all parameter groups and the default parameter
+-- group are returned.
 --
--- * 'dcpgsMarker' - An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeClusterParameterGroups' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
+-- 'tagValues', 'describeClusterParameterGroups_tagValues' - A tag value or values for which you want to return all matching cluster
+-- parameter groups that are associated with the specified tag value or
+-- values. For example, suppose that you have parameter groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the parameter groups that have either or both of these tag values
+-- associated with them.
 --
--- * 'dcpgsMaxRecords' - The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @100@  Constraints: minimum 20, maximum 100.
-describeClusterParameterGroups ::
+-- 'marker', 'describeClusterParameterGroups_marker' - An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a
+-- DescribeClusterParameterGroups request exceed the value specified in
+-- @MaxRecords@, AWS returns a value in the @Marker@ field of the response.
+-- You can retrieve the next set of response records by providing the
+-- returned marker value in the @Marker@ parameter and retrying the
+-- request.
+--
+-- 'maxRecords', 'describeClusterParameterGroups_maxRecords' - The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @100@
+--
+-- Constraints: minimum 20, maximum 100.
+newDescribeClusterParameterGroups ::
   DescribeClusterParameterGroups
-describeClusterParameterGroups =
+newDescribeClusterParameterGroups =
   DescribeClusterParameterGroups'
-    { _dcpgsTagKeys =
-        Nothing,
-      _dcpgsParameterGroupName = Nothing,
-      _dcpgsTagValues = Nothing,
-      _dcpgsMarker = Nothing,
-      _dcpgsMaxRecords = Nothing
+    { tagKeys =
+        Prelude.Nothing,
+      parameterGroupName = Prelude.Nothing,
+      tagValues = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | A tag key or keys for which you want to return all matching cluster parameter groups that are associated with the specified key or keys. For example, suppose that you have parameter groups that are tagged with keys called @owner@ and @environment@ . If you specify both of these tag keys in the request, Amazon Redshift returns a response with the parameter groups that have either or both of these tag keys associated with them.
-dcpgsTagKeys :: Lens' DescribeClusterParameterGroups [Text]
-dcpgsTagKeys = lens _dcpgsTagKeys (\s a -> s {_dcpgsTagKeys = a}) . _Default . _Coerce
+-- | A tag key or keys for which you want to return all matching cluster
+-- parameter groups that are associated with the specified key or keys. For
+-- example, suppose that you have parameter groups that are tagged with
+-- keys called @owner@ and @environment@. If you specify both of these tag
+-- keys in the request, Amazon Redshift returns a response with the
+-- parameter groups that have either or both of these tag keys associated
+-- with them.
+describeClusterParameterGroups_tagKeys :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe [Prelude.Text])
+describeClusterParameterGroups_tagKeys = Lens.lens (\DescribeClusterParameterGroups' {tagKeys} -> tagKeys) (\s@DescribeClusterParameterGroups' {} a -> s {tagKeys = a} :: DescribeClusterParameterGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of a specific parameter group for which to return details. By default, details about all parameter groups and the default parameter group are returned.
-dcpgsParameterGroupName :: Lens' DescribeClusterParameterGroups (Maybe Text)
-dcpgsParameterGroupName = lens _dcpgsParameterGroupName (\s a -> s {_dcpgsParameterGroupName = a})
+-- | The name of a specific parameter group for which to return details. By
+-- default, details about all parameter groups and the default parameter
+-- group are returned.
+describeClusterParameterGroups_parameterGroupName :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe Prelude.Text)
+describeClusterParameterGroups_parameterGroupName = Lens.lens (\DescribeClusterParameterGroups' {parameterGroupName} -> parameterGroupName) (\s@DescribeClusterParameterGroups' {} a -> s {parameterGroupName = a} :: DescribeClusterParameterGroups)
 
--- | A tag value or values for which you want to return all matching cluster parameter groups that are associated with the specified tag value or values. For example, suppose that you have parameter groups that are tagged with values called @admin@ and @test@ . If you specify both of these tag values in the request, Amazon Redshift returns a response with the parameter groups that have either or both of these tag values associated with them.
-dcpgsTagValues :: Lens' DescribeClusterParameterGroups [Text]
-dcpgsTagValues = lens _dcpgsTagValues (\s a -> s {_dcpgsTagValues = a}) . _Default . _Coerce
+-- | A tag value or values for which you want to return all matching cluster
+-- parameter groups that are associated with the specified tag value or
+-- values. For example, suppose that you have parameter groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the parameter groups that have either or both of these tag values
+-- associated with them.
+describeClusterParameterGroups_tagValues :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe [Prelude.Text])
+describeClusterParameterGroups_tagValues = Lens.lens (\DescribeClusterParameterGroups' {tagValues} -> tagValues) (\s@DescribeClusterParameterGroups' {} a -> s {tagValues = a} :: DescribeClusterParameterGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional parameter that specifies the starting point to return a set of response records. When the results of a 'DescribeClusterParameterGroups' request exceed the value specified in @MaxRecords@ , AWS returns a value in the @Marker@ field of the response. You can retrieve the next set of response records by providing the returned marker value in the @Marker@ parameter and retrying the request.
-dcpgsMarker :: Lens' DescribeClusterParameterGroups (Maybe Text)
-dcpgsMarker = lens _dcpgsMarker (\s a -> s {_dcpgsMarker = a})
+-- | An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a
+-- DescribeClusterParameterGroups request exceed the value specified in
+-- @MaxRecords@, AWS returns a value in the @Marker@ field of the response.
+-- You can retrieve the next set of response records by providing the
+-- returned marker value in the @Marker@ parameter and retrying the
+-- request.
+describeClusterParameterGroups_marker :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe Prelude.Text)
+describeClusterParameterGroups_marker = Lens.lens (\DescribeClusterParameterGroups' {marker} -> marker) (\s@DescribeClusterParameterGroups' {} a -> s {marker = a} :: DescribeClusterParameterGroups)
 
--- | The maximum number of response records to return in each call. If the number of remaining response records exceeds the specified @MaxRecords@ value, a value is returned in a @marker@ field of the response. You can retrieve the next set of records by retrying the command with the returned marker value.  Default: @100@  Constraints: minimum 20, maximum 100.
-dcpgsMaxRecords :: Lens' DescribeClusterParameterGroups (Maybe Int)
-dcpgsMaxRecords = lens _dcpgsMaxRecords (\s a -> s {_dcpgsMaxRecords = a})
+-- | The maximum number of response records to return in each call. If the
+-- number of remaining response records exceeds the specified @MaxRecords@
+-- value, a value is returned in a @marker@ field of the response. You can
+-- retrieve the next set of records by retrying the command with the
+-- returned marker value.
+--
+-- Default: @100@
+--
+-- Constraints: minimum 20, maximum 100.
+describeClusterParameterGroups_maxRecords :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe Prelude.Int)
+describeClusterParameterGroups_maxRecords = Lens.lens (\DescribeClusterParameterGroups' {maxRecords} -> maxRecords) (\s@DescribeClusterParameterGroups' {} a -> s {maxRecords = a} :: DescribeClusterParameterGroups)
 
-instance AWSPager DescribeClusterParameterGroups where
+instance
+  Pager.AWSPager
+    DescribeClusterParameterGroups
+  where
   page rq rs
-    | stop (rs ^. dcpgrrsMarker) = Nothing
-    | stop (rs ^. dcpgrrsParameterGroups) = Nothing
-    | otherwise =
-      Just $ rq & dcpgsMarker .~ rs ^. dcpgrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeClusterParameterGroupsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeClusterParameterGroupsResponse_parameterGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeClusterParameterGroups_marker
+          Lens..~ rs
+          Lens.^? describeClusterParameterGroupsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeClusterParameterGroups where
+instance
+  Prelude.AWSRequest
+    DescribeClusterParameterGroups
+  where
   type
     Rs DescribeClusterParameterGroups =
       DescribeClusterParameterGroupsResponse
-  request = postQuery redshift
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeClusterParameterGroupsResult"
       ( \s h x ->
           DescribeClusterParameterGroupsResponse'
-            <$> ( x .@? "ParameterGroups" .!@ mempty
-                    >>= may (parseXMLList "ClusterParameterGroup")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "ParameterGroups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "ClusterParameterGroup")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeClusterParameterGroups
-
-instance NFData DescribeClusterParameterGroups
-
-instance ToHeaders DescribeClusterParameterGroups where
-  toHeaders = const mempty
-
-instance ToPath DescribeClusterParameterGroups where
-  toPath = const "/"
-
-instance ToQuery DescribeClusterParameterGroups where
-  toQuery DescribeClusterParameterGroups' {..} =
-    mconcat
-      [ "Action"
-          =: ("DescribeClusterParameterGroups" :: ByteString),
-        "Version" =: ("2012-12-01" :: ByteString),
-        "TagKeys"
-          =: toQuery (toQueryList "TagKey" <$> _dcpgsTagKeys),
-        "ParameterGroupName" =: _dcpgsParameterGroupName,
-        "TagValues"
-          =: toQuery (toQueryList "TagValue" <$> _dcpgsTagValues),
-        "Marker" =: _dcpgsMarker,
-        "MaxRecords" =: _dcpgsMaxRecords
-      ]
-
--- | Contains the output from the 'DescribeClusterParameterGroups' action.
---
---
---
--- /See:/ 'describeClusterParameterGroupsResponse' smart constructor.
-data DescribeClusterParameterGroupsResponse = DescribeClusterParameterGroupsResponse'
-  { _dcpgrrsParameterGroups ::
-      !( Maybe
-           [ClusterParameterGroup]
-       ),
-    _dcpgrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dcpgrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeClusterParameterGroupsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dcpgrrsParameterGroups' - A list of 'ClusterParameterGroup' instances. Each instance describes one cluster parameter group.
---
--- * 'dcpgrrsMarker' - A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
---
--- * 'dcpgrrsResponseStatus' - -- | The response status code.
-describeClusterParameterGroupsResponse ::
-  -- | 'dcpgrrsResponseStatus'
-  Int ->
-  DescribeClusterParameterGroupsResponse
-describeClusterParameterGroupsResponse
-  pResponseStatus_ =
-    DescribeClusterParameterGroupsResponse'
-      { _dcpgrrsParameterGroups =
-          Nothing,
-        _dcpgrrsMarker = Nothing,
-        _dcpgrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | A list of 'ClusterParameterGroup' instances. Each instance describes one cluster parameter group.
-dcpgrrsParameterGroups :: Lens' DescribeClusterParameterGroupsResponse [ClusterParameterGroup]
-dcpgrrsParameterGroups = lens _dcpgrrsParameterGroups (\s a -> s {_dcpgrrsParameterGroups = a}) . _Default . _Coerce
-
--- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
-dcpgrrsMarker :: Lens' DescribeClusterParameterGroupsResponse (Maybe Text)
-dcpgrrsMarker = lens _dcpgrrsMarker (\s a -> s {_dcpgrrsMarker = a})
-
--- | -- | The response status code.
-dcpgrrsResponseStatus :: Lens' DescribeClusterParameterGroupsResponse Int
-dcpgrrsResponseStatus = lens _dcpgrrsResponseStatus (\s a -> s {_dcpgrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DescribeClusterParameterGroups
 
 instance
-  NFData
+  Prelude.NFData
+    DescribeClusterParameterGroups
+
+instance
+  Prelude.ToHeaders
+    DescribeClusterParameterGroups
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DescribeClusterParameterGroups
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeClusterParameterGroups
+  where
+  toQuery DescribeClusterParameterGroups' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "DescribeClusterParameterGroups" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2012-12-01" :: Prelude.ByteString),
+        "TagKeys"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "ParameterGroupName" Prelude.=: parameterGroupName,
+        "TagValues"
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "TagValue"
+                Prelude.<$> tagValues
+            ),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
+      ]
+
+-- | Contains the output from the DescribeClusterParameterGroups action.
+--
+-- /See:/ 'newDescribeClusterParameterGroupsResponse' smart constructor.
+data DescribeClusterParameterGroupsResponse = DescribeClusterParameterGroupsResponse'
+  { -- | A list of ClusterParameterGroup instances. Each instance describes one
+    -- cluster parameter group.
+    parameterGroups :: Prelude.Maybe [ClusterParameterGroup],
+    -- | A value that indicates the starting point for the next set of response
+    -- records in a subsequent request. If a value is returned in a response,
+    -- you can retrieve the next set of records by providing this returned
+    -- marker value in the @Marker@ parameter and retrying the command. If the
+    -- @Marker@ field is empty, all response records have been retrieved for
+    -- the request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeClusterParameterGroupsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'parameterGroups', 'describeClusterParameterGroupsResponse_parameterGroups' - A list of ClusterParameterGroup instances. Each instance describes one
+-- cluster parameter group.
+--
+-- 'marker', 'describeClusterParameterGroupsResponse_marker' - A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+--
+-- 'httpStatus', 'describeClusterParameterGroupsResponse_httpStatus' - The response's http status code.
+newDescribeClusterParameterGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeClusterParameterGroupsResponse
+newDescribeClusterParameterGroupsResponse
+  pHttpStatus_ =
+    DescribeClusterParameterGroupsResponse'
+      { parameterGroups =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | A list of ClusterParameterGroup instances. Each instance describes one
+-- cluster parameter group.
+describeClusterParameterGroupsResponse_parameterGroups :: Lens.Lens' DescribeClusterParameterGroupsResponse (Prelude.Maybe [ClusterParameterGroup])
+describeClusterParameterGroupsResponse_parameterGroups = Lens.lens (\DescribeClusterParameterGroupsResponse' {parameterGroups} -> parameterGroups) (\s@DescribeClusterParameterGroupsResponse' {} a -> s {parameterGroups = a} :: DescribeClusterParameterGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | A value that indicates the starting point for the next set of response
+-- records in a subsequent request. If a value is returned in a response,
+-- you can retrieve the next set of records by providing this returned
+-- marker value in the @Marker@ parameter and retrying the command. If the
+-- @Marker@ field is empty, all response records have been retrieved for
+-- the request.
+describeClusterParameterGroupsResponse_marker :: Lens.Lens' DescribeClusterParameterGroupsResponse (Prelude.Maybe Prelude.Text)
+describeClusterParameterGroupsResponse_marker = Lens.lens (\DescribeClusterParameterGroupsResponse' {marker} -> marker) (\s@DescribeClusterParameterGroupsResponse' {} a -> s {marker = a} :: DescribeClusterParameterGroupsResponse)
+
+-- | The response's http status code.
+describeClusterParameterGroupsResponse_httpStatus :: Lens.Lens' DescribeClusterParameterGroupsResponse Prelude.Int
+describeClusterParameterGroupsResponse_httpStatus = Lens.lens (\DescribeClusterParameterGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeClusterParameterGroupsResponse' {} a -> s {httpStatus = a} :: DescribeClusterParameterGroupsResponse)
+
+instance
+  Prelude.NFData
     DescribeClusterParameterGroupsResponse
