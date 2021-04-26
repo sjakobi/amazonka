@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Route53Domains.Types.ContactType
   ( ContactType
       ( ..,
-        Association,
-        Company,
-        Person,
-        PublicBody,
-        Reseller
+        ContactTypeASSOCIATION,
+        ContactTypeCOMPANY,
+        ContactTypePERSON,
+        ContactTypePUBLICBODY,
+        ContactTypeRESELLER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContactType = ContactType' (CI Text)
+newtype ContactType = ContactType'
+  { fromContactType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Association :: ContactType
-pattern Association = ContactType' "ASSOCIATION"
+pattern ContactTypeASSOCIATION :: ContactType
+pattern ContactTypeASSOCIATION = ContactType' "ASSOCIATION"
 
-pattern Company :: ContactType
-pattern Company = ContactType' "COMPANY"
+pattern ContactTypeCOMPANY :: ContactType
+pattern ContactTypeCOMPANY = ContactType' "COMPANY"
 
-pattern Person :: ContactType
-pattern Person = ContactType' "PERSON"
+pattern ContactTypePERSON :: ContactType
+pattern ContactTypePERSON = ContactType' "PERSON"
 
-pattern PublicBody :: ContactType
-pattern PublicBody = ContactType' "PUBLIC_BODY"
+pattern ContactTypePUBLICBODY :: ContactType
+pattern ContactTypePUBLICBODY = ContactType' "PUBLIC_BODY"
 
-pattern Reseller :: ContactType
-pattern Reseller = ContactType' "RESELLER"
+pattern ContactTypeRESELLER :: ContactType
+pattern ContactTypeRESELLER = ContactType' "RESELLER"
 
 {-# COMPLETE
-  Association,
-  Company,
-  Person,
-  PublicBody,
-  Reseller,
+  ContactTypeASSOCIATION,
+  ContactTypeCOMPANY,
+  ContactTypePERSON,
+  ContactTypePUBLICBODY,
+  ContactTypeRESELLER,
   ContactType'
   #-}
 
-instance FromText ContactType where
-  parser = (ContactType' . mk) <$> takeText
+instance Prelude.FromText ContactType where
+  parser = ContactType' Prelude.<$> Prelude.takeText
 
-instance ToText ContactType where
-  toText (ContactType' ci) = original ci
+instance Prelude.ToText ContactType where
+  toText (ContactType' x) = x
 
-instance Hashable ContactType
+instance Prelude.Hashable ContactType
 
-instance NFData ContactType
+instance Prelude.NFData ContactType
 
-instance ToByteString ContactType
+instance Prelude.ToByteString ContactType
 
-instance ToQuery ContactType
+instance Prelude.ToQuery ContactType
 
-instance ToHeader ContactType
+instance Prelude.ToHeader ContactType
 
-instance ToJSON ContactType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContactType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContactType where
-  parseJSON = parseJSONText "ContactType"
+instance Prelude.FromJSON ContactType where
+  parseJSON = Prelude.parseJSONText "ContactType"

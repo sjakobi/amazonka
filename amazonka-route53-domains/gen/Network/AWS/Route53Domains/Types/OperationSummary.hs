@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53Domains.Types.OperationSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53Domains.Types.OperationStatus
 import Network.AWS.Route53Domains.Types.OperationType
 
 -- | OperationSummary includes the following elements.
 --
---
---
--- /See:/ 'operationSummary' smart constructor.
+-- /See:/ 'newOperationSummary' smart constructor.
 data OperationSummary = OperationSummary'
-  { _osOperationId ::
-      !Text,
-    _osStatus :: !OperationStatus,
-    _osType :: !OperationType,
-    _osSubmittedDate :: !POSIX
+  { -- | Identifier returned to track the requested action.
+    operationId :: Prelude.Text,
+    -- | The current status of the requested operation in the system.
+    status :: OperationStatus,
+    -- | Type of the action requested.
+    type' :: OperationType,
+    -- | The date when the request was submitted.
+    submittedDate :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OperationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OperationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osOperationId' - Identifier returned to track the requested action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osStatus' - The current status of the requested operation in the system.
+-- 'operationId', 'operationSummary_operationId' - Identifier returned to track the requested action.
 --
--- * 'osType' - Type of the action requested.
+-- 'status', 'operationSummary_status' - The current status of the requested operation in the system.
 --
--- * 'osSubmittedDate' - The date when the request was submitted.
-operationSummary ::
-  -- | 'osOperationId'
-  Text ->
-  -- | 'osStatus'
+-- 'type'', 'operationSummary_type' - Type of the action requested.
+--
+-- 'submittedDate', 'operationSummary_submittedDate' - The date when the request was submitted.
+newOperationSummary ::
+  -- | 'operationId'
+  Prelude.Text ->
+  -- | 'status'
   OperationStatus ->
-  -- | 'osType'
+  -- | 'type''
   OperationType ->
-  -- | 'osSubmittedDate'
-  UTCTime ->
+  -- | 'submittedDate'
+  Prelude.UTCTime ->
   OperationSummary
-operationSummary
+newOperationSummary
   pOperationId_
   pStatus_
   pType_
   pSubmittedDate_ =
     OperationSummary'
-      { _osOperationId = pOperationId_,
-        _osStatus = pStatus_,
-        _osType = pType_,
-        _osSubmittedDate = _Time # pSubmittedDate_
+      { operationId = pOperationId_,
+        status = pStatus_,
+        type' = pType_,
+        submittedDate = Prelude._Time Lens.# pSubmittedDate_
       }
 
 -- | Identifier returned to track the requested action.
-osOperationId :: Lens' OperationSummary Text
-osOperationId = lens _osOperationId (\s a -> s {_osOperationId = a})
+operationSummary_operationId :: Lens.Lens' OperationSummary Prelude.Text
+operationSummary_operationId = Lens.lens (\OperationSummary' {operationId} -> operationId) (\s@OperationSummary' {} a -> s {operationId = a} :: OperationSummary)
 
 -- | The current status of the requested operation in the system.
-osStatus :: Lens' OperationSummary OperationStatus
-osStatus = lens _osStatus (\s a -> s {_osStatus = a})
+operationSummary_status :: Lens.Lens' OperationSummary OperationStatus
+operationSummary_status = Lens.lens (\OperationSummary' {status} -> status) (\s@OperationSummary' {} a -> s {status = a} :: OperationSummary)
 
 -- | Type of the action requested.
-osType :: Lens' OperationSummary OperationType
-osType = lens _osType (\s a -> s {_osType = a})
+operationSummary_type :: Lens.Lens' OperationSummary OperationType
+operationSummary_type = Lens.lens (\OperationSummary' {type'} -> type') (\s@OperationSummary' {} a -> s {type' = a} :: OperationSummary)
 
 -- | The date when the request was submitted.
-osSubmittedDate :: Lens' OperationSummary UTCTime
-osSubmittedDate = lens _osSubmittedDate (\s a -> s {_osSubmittedDate = a}) . _Time
+operationSummary_submittedDate :: Lens.Lens' OperationSummary Prelude.UTCTime
+operationSummary_submittedDate = Lens.lens (\OperationSummary' {submittedDate} -> submittedDate) (\s@OperationSummary' {} a -> s {submittedDate = a} :: OperationSummary) Prelude.. Prelude._Time
 
-instance FromJSON OperationSummary where
+instance Prelude.FromJSON OperationSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OperationSummary"
       ( \x ->
           OperationSummary'
-            <$> (x .: "OperationId")
-            <*> (x .: "Status")
-            <*> (x .: "Type")
-            <*> (x .: "SubmittedDate")
+            Prelude.<$> (x Prelude..: "OperationId")
+            Prelude.<*> (x Prelude..: "Status")
+            Prelude.<*> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "SubmittedDate")
       )
 
-instance Hashable OperationSummary
+instance Prelude.Hashable OperationSummary
 
-instance NFData OperationSummary
+instance Prelude.NFData OperationSummary

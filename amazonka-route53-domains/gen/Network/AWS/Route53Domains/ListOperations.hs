@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,240 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about all of the operations that return an operation ID and that have ever been performed on domains that were registered by the current account.
---
---
+-- Returns information about all of the operations that return an operation
+-- ID and that have ever been performed on domains that were registered by
+-- the current account.
 --
 -- This operation returns paginated results.
 module Network.AWS.Route53Domains.ListOperations
   ( -- * Creating a Request
-    listOperations,
-    ListOperations,
+    ListOperations (..),
+    newListOperations,
 
     -- * Request Lenses
-    loSubmittedSince,
-    loMaxItems,
-    loMarker,
+    listOperations_submittedSince,
+    listOperations_maxItems,
+    listOperations_marker,
 
     -- * Destructuring the Response
-    listOperationsResponse,
-    ListOperationsResponse,
+    ListOperationsResponse (..),
+    newListOperationsResponse,
 
     -- * Response Lenses
-    lorrsNextPageMarker,
-    lorrsResponseStatus,
-    lorrsOperations,
+    listOperationsResponse_nextPageMarker,
+    listOperationsResponse_httpStatus,
+    listOperationsResponse_operations,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53Domains.Types
+import Network.AWS.Route53Domains.Types.OperationSummary
 
 -- | The ListOperations request includes the following elements.
 --
---
---
--- /See:/ 'listOperations' smart constructor.
+-- /See:/ 'newListOperations' smart constructor.
 data ListOperations = ListOperations'
-  { _loSubmittedSince ::
-      !(Maybe POSIX),
-    _loMaxItems :: !(Maybe Int),
-    _loMarker :: !(Maybe Text)
+  { -- | An optional parameter that lets you get information about all the
+    -- operations that you submitted after a specified date and time. Specify
+    -- the date and time in Unix time format and Coordinated Universal time
+    -- (UTC).
+    submittedSince :: Prelude.Maybe Prelude.POSIX,
+    -- | Number of domains to be returned.
+    --
+    -- Default: 20
+    maxItems :: Prelude.Maybe Prelude.Int,
+    -- | For an initial request for a list of operations, omit this element. If
+    -- the number of operations that are not yet complete is greater than the
+    -- value that you specified for @MaxItems@, you can use @Marker@ to return
+    -- additional operations. Get the value of @NextPageMarker@ from the
+    -- previous response, and submit another request that includes the value of
+    -- @NextPageMarker@ in the @Marker@ element.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOperations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOperations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loSubmittedSince' - An optional parameter that lets you get information about all the operations that you submitted after a specified date and time. Specify the date and time in Unix time format and Coordinated Universal time (UTC).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loMaxItems' - Number of domains to be returned. Default: 20
+-- 'submittedSince', 'listOperations_submittedSince' - An optional parameter that lets you get information about all the
+-- operations that you submitted after a specified date and time. Specify
+-- the date and time in Unix time format and Coordinated Universal time
+-- (UTC).
 --
--- * 'loMarker' - For an initial request for a list of operations, omit this element. If the number of operations that are not yet complete is greater than the value that you specified for @MaxItems@ , you can use @Marker@ to return additional operations. Get the value of @NextPageMarker@ from the previous response, and submit another request that includes the value of @NextPageMarker@ in the @Marker@ element.
-listOperations ::
+-- 'maxItems', 'listOperations_maxItems' - Number of domains to be returned.
+--
+-- Default: 20
+--
+-- 'marker', 'listOperations_marker' - For an initial request for a list of operations, omit this element. If
+-- the number of operations that are not yet complete is greater than the
+-- value that you specified for @MaxItems@, you can use @Marker@ to return
+-- additional operations. Get the value of @NextPageMarker@ from the
+-- previous response, and submit another request that includes the value of
+-- @NextPageMarker@ in the @Marker@ element.
+newListOperations ::
   ListOperations
-listOperations =
+newListOperations =
   ListOperations'
-    { _loSubmittedSince = Nothing,
-      _loMaxItems = Nothing,
-      _loMarker = Nothing
+    { submittedSince = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | An optional parameter that lets you get information about all the operations that you submitted after a specified date and time. Specify the date and time in Unix time format and Coordinated Universal time (UTC).
-loSubmittedSince :: Lens' ListOperations (Maybe UTCTime)
-loSubmittedSince = lens _loSubmittedSince (\s a -> s {_loSubmittedSince = a}) . mapping _Time
+-- | An optional parameter that lets you get information about all the
+-- operations that you submitted after a specified date and time. Specify
+-- the date and time in Unix time format and Coordinated Universal time
+-- (UTC).
+listOperations_submittedSince :: Lens.Lens' ListOperations (Prelude.Maybe Prelude.UTCTime)
+listOperations_submittedSince = Lens.lens (\ListOperations' {submittedSince} -> submittedSince) (\s@ListOperations' {} a -> s {submittedSince = a} :: ListOperations) Prelude.. Lens.mapping Prelude._Time
 
--- | Number of domains to be returned. Default: 20
-loMaxItems :: Lens' ListOperations (Maybe Int)
-loMaxItems = lens _loMaxItems (\s a -> s {_loMaxItems = a})
+-- | Number of domains to be returned.
+--
+-- Default: 20
+listOperations_maxItems :: Lens.Lens' ListOperations (Prelude.Maybe Prelude.Int)
+listOperations_maxItems = Lens.lens (\ListOperations' {maxItems} -> maxItems) (\s@ListOperations' {} a -> s {maxItems = a} :: ListOperations)
 
--- | For an initial request for a list of operations, omit this element. If the number of operations that are not yet complete is greater than the value that you specified for @MaxItems@ , you can use @Marker@ to return additional operations. Get the value of @NextPageMarker@ from the previous response, and submit another request that includes the value of @NextPageMarker@ in the @Marker@ element.
-loMarker :: Lens' ListOperations (Maybe Text)
-loMarker = lens _loMarker (\s a -> s {_loMarker = a})
+-- | For an initial request for a list of operations, omit this element. If
+-- the number of operations that are not yet complete is greater than the
+-- value that you specified for @MaxItems@, you can use @Marker@ to return
+-- additional operations. Get the value of @NextPageMarker@ from the
+-- previous response, and submit another request that includes the value of
+-- @NextPageMarker@ in the @Marker@ element.
+listOperations_marker :: Lens.Lens' ListOperations (Prelude.Maybe Prelude.Text)
+listOperations_marker = Lens.lens (\ListOperations' {marker} -> marker) (\s@ListOperations' {} a -> s {marker = a} :: ListOperations)
 
-instance AWSPager ListOperations where
+instance Pager.AWSPager ListOperations where
   page rq rs
-    | stop (rs ^. lorrsNextPageMarker) = Nothing
-    | stop (rs ^. lorrsOperations) = Nothing
-    | otherwise =
-      Just $ rq & loMarker .~ rs ^. lorrsNextPageMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listOperationsResponse_nextPageMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listOperationsResponse_operations) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOperations_marker
+          Lens..~ rs
+          Lens.^? listOperationsResponse_nextPageMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListOperations where
+instance Prelude.AWSRequest ListOperations where
   type Rs ListOperations = ListOperationsResponse
-  request = postJSON route53Domains
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOperationsResponse'
-            <$> (x .?> "NextPageMarker")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "Operations" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextPageMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "Operations"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListOperations
+instance Prelude.Hashable ListOperations
 
-instance NFData ListOperations
+instance Prelude.NFData ListOperations
 
-instance ToHeaders ListOperations where
+instance Prelude.ToHeaders ListOperations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53Domains_v20140515.ListOperations" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53Domains_v20140515.ListOperations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListOperations where
+instance Prelude.ToJSON ListOperations where
   toJSON ListOperations' {..} =
-    object
-      ( catMaybes
-          [ ("SubmittedSince" .=) <$> _loSubmittedSince,
-            ("MaxItems" .=) <$> _loMaxItems,
-            ("Marker" .=) <$> _loMarker
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SubmittedSince" Prelude..=)
+              Prelude.<$> submittedSince,
+            ("MaxItems" Prelude..=) Prelude.<$> maxItems,
+            ("Marker" Prelude..=) Prelude.<$> marker
           ]
       )
 
-instance ToPath ListOperations where
-  toPath = const "/"
+instance Prelude.ToPath ListOperations where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListOperations where
-  toQuery = const mempty
+instance Prelude.ToQuery ListOperations where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The ListOperations response includes the following elements.
 --
---
---
--- /See:/ 'listOperationsResponse' smart constructor.
+-- /See:/ 'newListOperationsResponse' smart constructor.
 data ListOperationsResponse = ListOperationsResponse'
-  { _lorrsNextPageMarker ::
-      !(Maybe Text),
-    _lorrsResponseStatus ::
-      !Int,
-    _lorrsOperations ::
-      ![OperationSummary]
+  { -- | If there are more operations than you specified for @MaxItems@ in the
+    -- request, submit another request and include the value of
+    -- @NextPageMarker@ in the value of @Marker@.
+    nextPageMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Lists summaries of the operations.
+    operations :: [OperationSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOperationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOperationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lorrsNextPageMarker' - If there are more operations than you specified for @MaxItems@ in the request, submit another request and include the value of @NextPageMarker@ in the value of @Marker@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lorrsResponseStatus' - -- | The response status code.
+-- 'nextPageMarker', 'listOperationsResponse_nextPageMarker' - If there are more operations than you specified for @MaxItems@ in the
+-- request, submit another request and include the value of
+-- @NextPageMarker@ in the value of @Marker@.
 --
--- * 'lorrsOperations' - Lists summaries of the operations.
-listOperationsResponse ::
-  -- | 'lorrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listOperationsResponse_httpStatus' - The response's http status code.
+--
+-- 'operations', 'listOperationsResponse_operations' - Lists summaries of the operations.
+newListOperationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOperationsResponse
-listOperationsResponse pResponseStatus_ =
+newListOperationsResponse pHttpStatus_ =
   ListOperationsResponse'
-    { _lorrsNextPageMarker =
-        Nothing,
-      _lorrsResponseStatus = pResponseStatus_,
-      _lorrsOperations = mempty
+    { nextPageMarker =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      operations = Prelude.mempty
     }
 
--- | If there are more operations than you specified for @MaxItems@ in the request, submit another request and include the value of @NextPageMarker@ in the value of @Marker@ .
-lorrsNextPageMarker :: Lens' ListOperationsResponse (Maybe Text)
-lorrsNextPageMarker = lens _lorrsNextPageMarker (\s a -> s {_lorrsNextPageMarker = a})
+-- | If there are more operations than you specified for @MaxItems@ in the
+-- request, submit another request and include the value of
+-- @NextPageMarker@ in the value of @Marker@.
+listOperationsResponse_nextPageMarker :: Lens.Lens' ListOperationsResponse (Prelude.Maybe Prelude.Text)
+listOperationsResponse_nextPageMarker = Lens.lens (\ListOperationsResponse' {nextPageMarker} -> nextPageMarker) (\s@ListOperationsResponse' {} a -> s {nextPageMarker = a} :: ListOperationsResponse)
 
--- | -- | The response status code.
-lorrsResponseStatus :: Lens' ListOperationsResponse Int
-lorrsResponseStatus = lens _lorrsResponseStatus (\s a -> s {_lorrsResponseStatus = a})
+-- | The response's http status code.
+listOperationsResponse_httpStatus :: Lens.Lens' ListOperationsResponse Prelude.Int
+listOperationsResponse_httpStatus = Lens.lens (\ListOperationsResponse' {httpStatus} -> httpStatus) (\s@ListOperationsResponse' {} a -> s {httpStatus = a} :: ListOperationsResponse)
 
 -- | Lists summaries of the operations.
-lorrsOperations :: Lens' ListOperationsResponse [OperationSummary]
-lorrsOperations = lens _lorrsOperations (\s a -> s {_lorrsOperations = a}) . _Coerce
+listOperationsResponse_operations :: Lens.Lens' ListOperationsResponse [OperationSummary]
+listOperationsResponse_operations = Lens.lens (\ListOperationsResponse' {operations} -> operations) (\s@ListOperationsResponse' {} a -> s {operations = a} :: ListOperationsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListOperationsResponse
+instance Prelude.NFData ListOperationsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.Route53Domains.Types.OperationStatus
   ( OperationStatus
       ( ..,
-        Error',
-        Failed,
-        InProgress,
-        Submitted,
-        Successful
+        OperationStatusERROR,
+        OperationStatusFAILED,
+        OperationStatusINPROGRESS,
+        OperationStatusSUBMITTED,
+        OperationStatusSUCCESSFUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationStatus = OperationStatus' (CI Text)
+newtype OperationStatus = OperationStatus'
+  { fromOperationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Error' :: OperationStatus
-pattern Error' = OperationStatus' "ERROR"
+pattern OperationStatusERROR :: OperationStatus
+pattern OperationStatusERROR = OperationStatus' "ERROR"
 
-pattern Failed :: OperationStatus
-pattern Failed = OperationStatus' "FAILED"
+pattern OperationStatusFAILED :: OperationStatus
+pattern OperationStatusFAILED = OperationStatus' "FAILED"
 
-pattern InProgress :: OperationStatus
-pattern InProgress = OperationStatus' "IN_PROGRESS"
+pattern OperationStatusINPROGRESS :: OperationStatus
+pattern OperationStatusINPROGRESS = OperationStatus' "IN_PROGRESS"
 
-pattern Submitted :: OperationStatus
-pattern Submitted = OperationStatus' "SUBMITTED"
+pattern OperationStatusSUBMITTED :: OperationStatus
+pattern OperationStatusSUBMITTED = OperationStatus' "SUBMITTED"
 
-pattern Successful :: OperationStatus
-pattern Successful = OperationStatus' "SUCCESSFUL"
+pattern OperationStatusSUCCESSFUL :: OperationStatus
+pattern OperationStatusSUCCESSFUL = OperationStatus' "SUCCESSFUL"
 
 {-# COMPLETE
-  Error',
-  Failed,
-  InProgress,
-  Submitted,
-  Successful,
+  OperationStatusERROR,
+  OperationStatusFAILED,
+  OperationStatusINPROGRESS,
+  OperationStatusSUBMITTED,
+  OperationStatusSUCCESSFUL,
   OperationStatus'
   #-}
 
-instance FromText OperationStatus where
-  parser = (OperationStatus' . mk) <$> takeText
+instance Prelude.FromText OperationStatus where
+  parser = OperationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OperationStatus where
-  toText (OperationStatus' ci) = original ci
+instance Prelude.ToText OperationStatus where
+  toText (OperationStatus' x) = x
 
-instance Hashable OperationStatus
+instance Prelude.Hashable OperationStatus
 
-instance NFData OperationStatus
+instance Prelude.NFData OperationStatus
 
-instance ToByteString OperationStatus
+instance Prelude.ToByteString OperationStatus
 
-instance ToQuery OperationStatus
+instance Prelude.ToQuery OperationStatus
 
-instance ToHeader OperationStatus
+instance Prelude.ToHeader OperationStatus
 
-instance FromJSON OperationStatus where
-  parseJSON = parseJSONText "OperationStatus"
+instance Prelude.FromJSON OperationStatus where
+  parseJSON = Prelude.parseJSONText "OperationStatus"

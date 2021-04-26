@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,191 +19,193 @@
 module Network.AWS.Route53Domains.Types.ExtraParamName
   ( ExtraParamName
       ( ..,
-        AuIdNumber,
-        AuIdType,
-        BirthCity,
-        BirthCountry,
-        BirthDateInYyyyMmDd,
-        BirthDepartment,
-        BrandNumber,
-        CaBusinessEntityType,
-        CaLegalRepresentative,
-        CaLegalRepresentativeCapacity,
-        CaLegalType,
-        DocumentNumber,
-        DunsNumber,
-        EsIdentification,
-        EsIdentificationType,
-        EsLegalForm,
-        FiBusinessNumber,
-        FiIdNumber,
-        FiNationality,
-        FiOrganizationType,
-        ItNationality,
-        ItPin,
-        ItRegistrantEntityType,
-        RuPassportData,
-        SeIdNumber,
-        SgIdNumber,
-        UkCompanyNumber,
-        UkContactType,
-        VatNumber
+        ExtraParamNameAUIDNUMBER,
+        ExtraParamNameAUIDTYPE,
+        ExtraParamNameBIRTHCITY,
+        ExtraParamNameBIRTHCOUNTRY,
+        ExtraParamNameBIRTHDATEINYYYYMMDD,
+        ExtraParamNameBIRTHDEPARTMENT,
+        ExtraParamNameBRANDNUMBER,
+        ExtraParamNameCABUSINESSENTITYTYPE,
+        ExtraParamNameCALEGALREPRESENTATIVE,
+        ExtraParamNameCALEGALREPRESENTATIVECAPACITY,
+        ExtraParamNameCALEGALTYPE,
+        ExtraParamNameDOCUMENTNUMBER,
+        ExtraParamNameDUNSNUMBER,
+        ExtraParamNameESIDENTIFICATION,
+        ExtraParamNameESIDENTIFICATIONTYPE,
+        ExtraParamNameESLEGALFORM,
+        ExtraParamNameFIBUSINESSNUMBER,
+        ExtraParamNameFIIDNUMBER,
+        ExtraParamNameFINATIONALITY,
+        ExtraParamNameFIORGANIZATIONTYPE,
+        ExtraParamNameITNATIONALITY,
+        ExtraParamNameITPIN,
+        ExtraParamNameITREGISTRANTENTITYTYPE,
+        ExtraParamNameRUPASSPORTDATA,
+        ExtraParamNameSEIDNUMBER,
+        ExtraParamNameSGIDNUMBER,
+        ExtraParamNameUKCOMPANYNUMBER,
+        ExtraParamNameUKCONTACTTYPE,
+        ExtraParamNameVATNUMBER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExtraParamName = ExtraParamName' (CI Text)
+newtype ExtraParamName = ExtraParamName'
+  { fromExtraParamName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AuIdNumber :: ExtraParamName
-pattern AuIdNumber = ExtraParamName' "AU_ID_NUMBER"
+pattern ExtraParamNameAUIDNUMBER :: ExtraParamName
+pattern ExtraParamNameAUIDNUMBER = ExtraParamName' "AU_ID_NUMBER"
 
-pattern AuIdType :: ExtraParamName
-pattern AuIdType = ExtraParamName' "AU_ID_TYPE"
+pattern ExtraParamNameAUIDTYPE :: ExtraParamName
+pattern ExtraParamNameAUIDTYPE = ExtraParamName' "AU_ID_TYPE"
 
-pattern BirthCity :: ExtraParamName
-pattern BirthCity = ExtraParamName' "BIRTH_CITY"
+pattern ExtraParamNameBIRTHCITY :: ExtraParamName
+pattern ExtraParamNameBIRTHCITY = ExtraParamName' "BIRTH_CITY"
 
-pattern BirthCountry :: ExtraParamName
-pattern BirthCountry = ExtraParamName' "BIRTH_COUNTRY"
+pattern ExtraParamNameBIRTHCOUNTRY :: ExtraParamName
+pattern ExtraParamNameBIRTHCOUNTRY = ExtraParamName' "BIRTH_COUNTRY"
 
-pattern BirthDateInYyyyMmDd :: ExtraParamName
-pattern BirthDateInYyyyMmDd = ExtraParamName' "BIRTH_DATE_IN_YYYY_MM_DD"
+pattern ExtraParamNameBIRTHDATEINYYYYMMDD :: ExtraParamName
+pattern ExtraParamNameBIRTHDATEINYYYYMMDD = ExtraParamName' "BIRTH_DATE_IN_YYYY_MM_DD"
 
-pattern BirthDepartment :: ExtraParamName
-pattern BirthDepartment = ExtraParamName' "BIRTH_DEPARTMENT"
+pattern ExtraParamNameBIRTHDEPARTMENT :: ExtraParamName
+pattern ExtraParamNameBIRTHDEPARTMENT = ExtraParamName' "BIRTH_DEPARTMENT"
 
-pattern BrandNumber :: ExtraParamName
-pattern BrandNumber = ExtraParamName' "BRAND_NUMBER"
+pattern ExtraParamNameBRANDNUMBER :: ExtraParamName
+pattern ExtraParamNameBRANDNUMBER = ExtraParamName' "BRAND_NUMBER"
 
-pattern CaBusinessEntityType :: ExtraParamName
-pattern CaBusinessEntityType = ExtraParamName' "CA_BUSINESS_ENTITY_TYPE"
+pattern ExtraParamNameCABUSINESSENTITYTYPE :: ExtraParamName
+pattern ExtraParamNameCABUSINESSENTITYTYPE = ExtraParamName' "CA_BUSINESS_ENTITY_TYPE"
 
-pattern CaLegalRepresentative :: ExtraParamName
-pattern CaLegalRepresentative = ExtraParamName' "CA_LEGAL_REPRESENTATIVE"
+pattern ExtraParamNameCALEGALREPRESENTATIVE :: ExtraParamName
+pattern ExtraParamNameCALEGALREPRESENTATIVE = ExtraParamName' "CA_LEGAL_REPRESENTATIVE"
 
-pattern CaLegalRepresentativeCapacity :: ExtraParamName
-pattern CaLegalRepresentativeCapacity = ExtraParamName' "CA_LEGAL_REPRESENTATIVE_CAPACITY"
+pattern ExtraParamNameCALEGALREPRESENTATIVECAPACITY :: ExtraParamName
+pattern ExtraParamNameCALEGALREPRESENTATIVECAPACITY = ExtraParamName' "CA_LEGAL_REPRESENTATIVE_CAPACITY"
 
-pattern CaLegalType :: ExtraParamName
-pattern CaLegalType = ExtraParamName' "CA_LEGAL_TYPE"
+pattern ExtraParamNameCALEGALTYPE :: ExtraParamName
+pattern ExtraParamNameCALEGALTYPE = ExtraParamName' "CA_LEGAL_TYPE"
 
-pattern DocumentNumber :: ExtraParamName
-pattern DocumentNumber = ExtraParamName' "DOCUMENT_NUMBER"
+pattern ExtraParamNameDOCUMENTNUMBER :: ExtraParamName
+pattern ExtraParamNameDOCUMENTNUMBER = ExtraParamName' "DOCUMENT_NUMBER"
 
-pattern DunsNumber :: ExtraParamName
-pattern DunsNumber = ExtraParamName' "DUNS_NUMBER"
+pattern ExtraParamNameDUNSNUMBER :: ExtraParamName
+pattern ExtraParamNameDUNSNUMBER = ExtraParamName' "DUNS_NUMBER"
 
-pattern EsIdentification :: ExtraParamName
-pattern EsIdentification = ExtraParamName' "ES_IDENTIFICATION"
+pattern ExtraParamNameESIDENTIFICATION :: ExtraParamName
+pattern ExtraParamNameESIDENTIFICATION = ExtraParamName' "ES_IDENTIFICATION"
 
-pattern EsIdentificationType :: ExtraParamName
-pattern EsIdentificationType = ExtraParamName' "ES_IDENTIFICATION_TYPE"
+pattern ExtraParamNameESIDENTIFICATIONTYPE :: ExtraParamName
+pattern ExtraParamNameESIDENTIFICATIONTYPE = ExtraParamName' "ES_IDENTIFICATION_TYPE"
 
-pattern EsLegalForm :: ExtraParamName
-pattern EsLegalForm = ExtraParamName' "ES_LEGAL_FORM"
+pattern ExtraParamNameESLEGALFORM :: ExtraParamName
+pattern ExtraParamNameESLEGALFORM = ExtraParamName' "ES_LEGAL_FORM"
 
-pattern FiBusinessNumber :: ExtraParamName
-pattern FiBusinessNumber = ExtraParamName' "FI_BUSINESS_NUMBER"
+pattern ExtraParamNameFIBUSINESSNUMBER :: ExtraParamName
+pattern ExtraParamNameFIBUSINESSNUMBER = ExtraParamName' "FI_BUSINESS_NUMBER"
 
-pattern FiIdNumber :: ExtraParamName
-pattern FiIdNumber = ExtraParamName' "FI_ID_NUMBER"
+pattern ExtraParamNameFIIDNUMBER :: ExtraParamName
+pattern ExtraParamNameFIIDNUMBER = ExtraParamName' "FI_ID_NUMBER"
 
-pattern FiNationality :: ExtraParamName
-pattern FiNationality = ExtraParamName' "FI_NATIONALITY"
+pattern ExtraParamNameFINATIONALITY :: ExtraParamName
+pattern ExtraParamNameFINATIONALITY = ExtraParamName' "FI_NATIONALITY"
 
-pattern FiOrganizationType :: ExtraParamName
-pattern FiOrganizationType = ExtraParamName' "FI_ORGANIZATION_TYPE"
+pattern ExtraParamNameFIORGANIZATIONTYPE :: ExtraParamName
+pattern ExtraParamNameFIORGANIZATIONTYPE = ExtraParamName' "FI_ORGANIZATION_TYPE"
 
-pattern ItNationality :: ExtraParamName
-pattern ItNationality = ExtraParamName' "IT_NATIONALITY"
+pattern ExtraParamNameITNATIONALITY :: ExtraParamName
+pattern ExtraParamNameITNATIONALITY = ExtraParamName' "IT_NATIONALITY"
 
-pattern ItPin :: ExtraParamName
-pattern ItPin = ExtraParamName' "IT_PIN"
+pattern ExtraParamNameITPIN :: ExtraParamName
+pattern ExtraParamNameITPIN = ExtraParamName' "IT_PIN"
 
-pattern ItRegistrantEntityType :: ExtraParamName
-pattern ItRegistrantEntityType = ExtraParamName' "IT_REGISTRANT_ENTITY_TYPE"
+pattern ExtraParamNameITREGISTRANTENTITYTYPE :: ExtraParamName
+pattern ExtraParamNameITREGISTRANTENTITYTYPE = ExtraParamName' "IT_REGISTRANT_ENTITY_TYPE"
 
-pattern RuPassportData :: ExtraParamName
-pattern RuPassportData = ExtraParamName' "RU_PASSPORT_DATA"
+pattern ExtraParamNameRUPASSPORTDATA :: ExtraParamName
+pattern ExtraParamNameRUPASSPORTDATA = ExtraParamName' "RU_PASSPORT_DATA"
 
-pattern SeIdNumber :: ExtraParamName
-pattern SeIdNumber = ExtraParamName' "SE_ID_NUMBER"
+pattern ExtraParamNameSEIDNUMBER :: ExtraParamName
+pattern ExtraParamNameSEIDNUMBER = ExtraParamName' "SE_ID_NUMBER"
 
-pattern SgIdNumber :: ExtraParamName
-pattern SgIdNumber = ExtraParamName' "SG_ID_NUMBER"
+pattern ExtraParamNameSGIDNUMBER :: ExtraParamName
+pattern ExtraParamNameSGIDNUMBER = ExtraParamName' "SG_ID_NUMBER"
 
-pattern UkCompanyNumber :: ExtraParamName
-pattern UkCompanyNumber = ExtraParamName' "UK_COMPANY_NUMBER"
+pattern ExtraParamNameUKCOMPANYNUMBER :: ExtraParamName
+pattern ExtraParamNameUKCOMPANYNUMBER = ExtraParamName' "UK_COMPANY_NUMBER"
 
-pattern UkContactType :: ExtraParamName
-pattern UkContactType = ExtraParamName' "UK_CONTACT_TYPE"
+pattern ExtraParamNameUKCONTACTTYPE :: ExtraParamName
+pattern ExtraParamNameUKCONTACTTYPE = ExtraParamName' "UK_CONTACT_TYPE"
 
-pattern VatNumber :: ExtraParamName
-pattern VatNumber = ExtraParamName' "VAT_NUMBER"
+pattern ExtraParamNameVATNUMBER :: ExtraParamName
+pattern ExtraParamNameVATNUMBER = ExtraParamName' "VAT_NUMBER"
 
 {-# COMPLETE
-  AuIdNumber,
-  AuIdType,
-  BirthCity,
-  BirthCountry,
-  BirthDateInYyyyMmDd,
-  BirthDepartment,
-  BrandNumber,
-  CaBusinessEntityType,
-  CaLegalRepresentative,
-  CaLegalRepresentativeCapacity,
-  CaLegalType,
-  DocumentNumber,
-  DunsNumber,
-  EsIdentification,
-  EsIdentificationType,
-  EsLegalForm,
-  FiBusinessNumber,
-  FiIdNumber,
-  FiNationality,
-  FiOrganizationType,
-  ItNationality,
-  ItPin,
-  ItRegistrantEntityType,
-  RuPassportData,
-  SeIdNumber,
-  SgIdNumber,
-  UkCompanyNumber,
-  UkContactType,
-  VatNumber,
+  ExtraParamNameAUIDNUMBER,
+  ExtraParamNameAUIDTYPE,
+  ExtraParamNameBIRTHCITY,
+  ExtraParamNameBIRTHCOUNTRY,
+  ExtraParamNameBIRTHDATEINYYYYMMDD,
+  ExtraParamNameBIRTHDEPARTMENT,
+  ExtraParamNameBRANDNUMBER,
+  ExtraParamNameCABUSINESSENTITYTYPE,
+  ExtraParamNameCALEGALREPRESENTATIVE,
+  ExtraParamNameCALEGALREPRESENTATIVECAPACITY,
+  ExtraParamNameCALEGALTYPE,
+  ExtraParamNameDOCUMENTNUMBER,
+  ExtraParamNameDUNSNUMBER,
+  ExtraParamNameESIDENTIFICATION,
+  ExtraParamNameESIDENTIFICATIONTYPE,
+  ExtraParamNameESLEGALFORM,
+  ExtraParamNameFIBUSINESSNUMBER,
+  ExtraParamNameFIIDNUMBER,
+  ExtraParamNameFINATIONALITY,
+  ExtraParamNameFIORGANIZATIONTYPE,
+  ExtraParamNameITNATIONALITY,
+  ExtraParamNameITPIN,
+  ExtraParamNameITREGISTRANTENTITYTYPE,
+  ExtraParamNameRUPASSPORTDATA,
+  ExtraParamNameSEIDNUMBER,
+  ExtraParamNameSGIDNUMBER,
+  ExtraParamNameUKCOMPANYNUMBER,
+  ExtraParamNameUKCONTACTTYPE,
+  ExtraParamNameVATNUMBER,
   ExtraParamName'
   #-}
 
-instance FromText ExtraParamName where
-  parser = (ExtraParamName' . mk) <$> takeText
+instance Prelude.FromText ExtraParamName where
+  parser = ExtraParamName' Prelude.<$> Prelude.takeText
 
-instance ToText ExtraParamName where
-  toText (ExtraParamName' ci) = original ci
+instance Prelude.ToText ExtraParamName where
+  toText (ExtraParamName' x) = x
 
-instance Hashable ExtraParamName
+instance Prelude.Hashable ExtraParamName
 
-instance NFData ExtraParamName
+instance Prelude.NFData ExtraParamName
 
-instance ToByteString ExtraParamName
+instance Prelude.ToByteString ExtraParamName
 
-instance ToQuery ExtraParamName
+instance Prelude.ToQuery ExtraParamName
 
-instance ToHeader ExtraParamName
+instance Prelude.ToHeader ExtraParamName
 
-instance ToJSON ExtraParamName where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExtraParamName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExtraParamName where
-  parseJSON = parseJSONText "ExtraParamName"
+instance Prelude.FromJSON ExtraParamName where
+  parseJSON = Prelude.parseJSONText "ExtraParamName"

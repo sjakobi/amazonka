@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,262 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The GetDomainSuggestions operation returns a list of suggested domain names.
+-- The GetDomainSuggestions operation returns a list of suggested domain
+-- names.
 module Network.AWS.Route53Domains.GetDomainSuggestions
   ( -- * Creating a Request
-    getDomainSuggestions,
-    GetDomainSuggestions,
+    GetDomainSuggestions (..),
+    newGetDomainSuggestions,
 
     -- * Request Lenses
-    gdsDomainName,
-    gdsSuggestionCount,
-    gdsOnlyAvailable,
+    getDomainSuggestions_domainName,
+    getDomainSuggestions_suggestionCount,
+    getDomainSuggestions_onlyAvailable,
 
     -- * Destructuring the Response
-    getDomainSuggestionsResponse,
-    GetDomainSuggestionsResponse,
+    GetDomainSuggestionsResponse (..),
+    newGetDomainSuggestionsResponse,
 
     -- * Response Lenses
-    gdsrrsSuggestionsList,
-    gdsrrsResponseStatus,
+    getDomainSuggestionsResponse_suggestionsList,
+    getDomainSuggestionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53Domains.Types
+import Network.AWS.Route53Domains.Types.DomainSuggestion
 
--- | /See:/ 'getDomainSuggestions' smart constructor.
+-- | /See:/ 'newGetDomainSuggestions' smart constructor.
 data GetDomainSuggestions = GetDomainSuggestions'
-  { _gdsDomainName ::
-      !Text,
-    _gdsSuggestionCount :: !Int,
-    _gdsOnlyAvailable :: !Bool
+  { -- | A domain name that you want to use as the basis for a list of possible
+    -- domain names. The top-level domain (TLD), such as .com, must be a TLD
+    -- that Route 53 supports. For a list of supported TLDs, see
+    -- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>
+    -- in the /Amazon Route 53 Developer Guide/.
+    --
+    -- The domain name can contain only the following characters:
+    --
+    -- -   Letters a through z. Domain names are not case sensitive.
+    --
+    -- -   Numbers 0 through 9.
+    --
+    -- -   Hyphen (-). You can\'t specify a hyphen at the beginning or end of a
+    --     label.
+    --
+    -- -   Period (.) to separate the labels in the name, such as the @.@ in
+    --     @example.com@.
+    --
+    -- Internationalized domain names are not supported for some top-level
+    -- domains. To determine whether the TLD that you want to use supports
+    -- internationalized domain names, see
+    -- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>.
+    domainName :: Prelude.Text,
+    -- | The number of suggested domain names that you want Route 53 to return.
+    -- Specify a value between 1 and 50.
+    suggestionCount :: Prelude.Int,
+    -- | If @OnlyAvailable@ is @true@, Route 53 returns only domain names that
+    -- are available. If @OnlyAvailable@ is @false@, Route 53 returns domain
+    -- names without checking whether they\'re available to be registered. To
+    -- determine whether the domain is available, you can call
+    -- @checkDomainAvailability@ for each suggestion.
+    onlyAvailable :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDomainSuggestions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDomainSuggestions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsDomainName' - A domain name that you want to use as the basis for a list of possible domain names. The top-level domain (TLD), such as .com, must be a TLD that Route 53 supports. For a list of supported TLDs, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53> in the /Amazon Route 53 Developer Guide/ . The domain name can contain only the following characters:     * Letters a through z. Domain names are not case sensitive.     * Numbers 0 through 9.     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.      * Period (.) to separate the labels in the name, such as the @.@ in @example.com@ . Internationalized domain names are not supported for some top-level domains. To determine whether the TLD that you want to use supports internationalized domain names, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdsSuggestionCount' - The number of suggested domain names that you want Route 53 to return. Specify a value between 1 and 50.
+-- 'domainName', 'getDomainSuggestions_domainName' - A domain name that you want to use as the basis for a list of possible
+-- domain names. The top-level domain (TLD), such as .com, must be a TLD
+-- that Route 53 supports. For a list of supported TLDs, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>
+-- in the /Amazon Route 53 Developer Guide/.
 --
--- * 'gdsOnlyAvailable' - If @OnlyAvailable@ is @true@ , Route 53 returns only domain names that are available. If @OnlyAvailable@ is @false@ , Route 53 returns domain names without checking whether they're available to be registered. To determine whether the domain is available, you can call @checkDomainAvailability@ for each suggestion.
-getDomainSuggestions ::
-  -- | 'gdsDomainName'
-  Text ->
-  -- | 'gdsSuggestionCount'
-  Int ->
-  -- | 'gdsOnlyAvailable'
-  Bool ->
+-- The domain name can contain only the following characters:
+--
+-- -   Letters a through z. Domain names are not case sensitive.
+--
+-- -   Numbers 0 through 9.
+--
+-- -   Hyphen (-). You can\'t specify a hyphen at the beginning or end of a
+--     label.
+--
+-- -   Period (.) to separate the labels in the name, such as the @.@ in
+--     @example.com@.
+--
+-- Internationalized domain names are not supported for some top-level
+-- domains. To determine whether the TLD that you want to use supports
+-- internationalized domain names, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>.
+--
+-- 'suggestionCount', 'getDomainSuggestions_suggestionCount' - The number of suggested domain names that you want Route 53 to return.
+-- Specify a value between 1 and 50.
+--
+-- 'onlyAvailable', 'getDomainSuggestions_onlyAvailable' - If @OnlyAvailable@ is @true@, Route 53 returns only domain names that
+-- are available. If @OnlyAvailable@ is @false@, Route 53 returns domain
+-- names without checking whether they\'re available to be registered. To
+-- determine whether the domain is available, you can call
+-- @checkDomainAvailability@ for each suggestion.
+newGetDomainSuggestions ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'suggestionCount'
+  Prelude.Int ->
+  -- | 'onlyAvailable'
+  Prelude.Bool ->
   GetDomainSuggestions
-getDomainSuggestions
+newGetDomainSuggestions
   pDomainName_
   pSuggestionCount_
   pOnlyAvailable_ =
     GetDomainSuggestions'
-      { _gdsDomainName =
-          pDomainName_,
-        _gdsSuggestionCount = pSuggestionCount_,
-        _gdsOnlyAvailable = pOnlyAvailable_
+      { domainName = pDomainName_,
+        suggestionCount = pSuggestionCount_,
+        onlyAvailable = pOnlyAvailable_
       }
 
--- | A domain name that you want to use as the basis for a list of possible domain names. The top-level domain (TLD), such as .com, must be a TLD that Route 53 supports. For a list of supported TLDs, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53> in the /Amazon Route 53 Developer Guide/ . The domain name can contain only the following characters:     * Letters a through z. Domain names are not case sensitive.     * Numbers 0 through 9.     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.      * Period (.) to separate the labels in the name, such as the @.@ in @example.com@ . Internationalized domain names are not supported for some top-level domains. To determine whether the TLD that you want to use supports internationalized domain names, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53> .
-gdsDomainName :: Lens' GetDomainSuggestions Text
-gdsDomainName = lens _gdsDomainName (\s a -> s {_gdsDomainName = a})
+-- | A domain name that you want to use as the basis for a list of possible
+-- domain names. The top-level domain (TLD), such as .com, must be a TLD
+-- that Route 53 supports. For a list of supported TLDs, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>
+-- in the /Amazon Route 53 Developer Guide/.
+--
+-- The domain name can contain only the following characters:
+--
+-- -   Letters a through z. Domain names are not case sensitive.
+--
+-- -   Numbers 0 through 9.
+--
+-- -   Hyphen (-). You can\'t specify a hyphen at the beginning or end of a
+--     label.
+--
+-- -   Period (.) to separate the labels in the name, such as the @.@ in
+--     @example.com@.
+--
+-- Internationalized domain names are not supported for some top-level
+-- domains. To determine whether the TLD that you want to use supports
+-- internationalized domain names, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>.
+getDomainSuggestions_domainName :: Lens.Lens' GetDomainSuggestions Prelude.Text
+getDomainSuggestions_domainName = Lens.lens (\GetDomainSuggestions' {domainName} -> domainName) (\s@GetDomainSuggestions' {} a -> s {domainName = a} :: GetDomainSuggestions)
 
--- | The number of suggested domain names that you want Route 53 to return. Specify a value between 1 and 50.
-gdsSuggestionCount :: Lens' GetDomainSuggestions Int
-gdsSuggestionCount = lens _gdsSuggestionCount (\s a -> s {_gdsSuggestionCount = a})
+-- | The number of suggested domain names that you want Route 53 to return.
+-- Specify a value between 1 and 50.
+getDomainSuggestions_suggestionCount :: Lens.Lens' GetDomainSuggestions Prelude.Int
+getDomainSuggestions_suggestionCount = Lens.lens (\GetDomainSuggestions' {suggestionCount} -> suggestionCount) (\s@GetDomainSuggestions' {} a -> s {suggestionCount = a} :: GetDomainSuggestions)
 
--- | If @OnlyAvailable@ is @true@ , Route 53 returns only domain names that are available. If @OnlyAvailable@ is @false@ , Route 53 returns domain names without checking whether they're available to be registered. To determine whether the domain is available, you can call @checkDomainAvailability@ for each suggestion.
-gdsOnlyAvailable :: Lens' GetDomainSuggestions Bool
-gdsOnlyAvailable = lens _gdsOnlyAvailable (\s a -> s {_gdsOnlyAvailable = a})
+-- | If @OnlyAvailable@ is @true@, Route 53 returns only domain names that
+-- are available. If @OnlyAvailable@ is @false@, Route 53 returns domain
+-- names without checking whether they\'re available to be registered. To
+-- determine whether the domain is available, you can call
+-- @checkDomainAvailability@ for each suggestion.
+getDomainSuggestions_onlyAvailable :: Lens.Lens' GetDomainSuggestions Prelude.Bool
+getDomainSuggestions_onlyAvailable = Lens.lens (\GetDomainSuggestions' {onlyAvailable} -> onlyAvailable) (\s@GetDomainSuggestions' {} a -> s {onlyAvailable = a} :: GetDomainSuggestions)
 
-instance AWSRequest GetDomainSuggestions where
+instance Prelude.AWSRequest GetDomainSuggestions where
   type
     Rs GetDomainSuggestions =
       GetDomainSuggestionsResponse
-  request = postJSON route53Domains
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDomainSuggestionsResponse'
-            <$> (x .?> "SuggestionsList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SuggestionsList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDomainSuggestions
+instance Prelude.Hashable GetDomainSuggestions
 
-instance NFData GetDomainSuggestions
+instance Prelude.NFData GetDomainSuggestions
 
-instance ToHeaders GetDomainSuggestions where
+instance Prelude.ToHeaders GetDomainSuggestions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53Domains_v20140515.GetDomainSuggestions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53Domains_v20140515.GetDomainSuggestions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDomainSuggestions where
+instance Prelude.ToJSON GetDomainSuggestions where
   toJSON GetDomainSuggestions' {..} =
-    object
-      ( catMaybes
-          [ Just ("DomainName" .= _gdsDomainName),
-            Just ("SuggestionCount" .= _gdsSuggestionCount),
-            Just ("OnlyAvailable" .= _gdsOnlyAvailable)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DomainName" Prelude..= domainName),
+            Prelude.Just
+              ("SuggestionCount" Prelude..= suggestionCount),
+            Prelude.Just
+              ("OnlyAvailable" Prelude..= onlyAvailable)
           ]
       )
 
-instance ToPath GetDomainSuggestions where
-  toPath = const "/"
+instance Prelude.ToPath GetDomainSuggestions where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDomainSuggestions where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDomainSuggestions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDomainSuggestionsResponse' smart constructor.
+-- | /See:/ 'newGetDomainSuggestionsResponse' smart constructor.
 data GetDomainSuggestionsResponse = GetDomainSuggestionsResponse'
-  { _gdsrrsSuggestionsList ::
-      !( Maybe
-           [DomainSuggestion]
-       ),
-    _gdsrrsResponseStatus ::
-      !Int
+  { -- | A list of possible domain names. If you specified @true@ for
+    -- @OnlyAvailable@ in the request, the list contains only domains that are
+    -- available for registration.
+    suggestionsList :: Prelude.Maybe [DomainSuggestion],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDomainSuggestionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDomainSuggestionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsrrsSuggestionsList' - A list of possible domain names. If you specified @true@ for @OnlyAvailable@ in the request, the list contains only domains that are available for registration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdsrrsResponseStatus' - -- | The response status code.
-getDomainSuggestionsResponse ::
-  -- | 'gdsrrsResponseStatus'
-  Int ->
+-- 'suggestionsList', 'getDomainSuggestionsResponse_suggestionsList' - A list of possible domain names. If you specified @true@ for
+-- @OnlyAvailable@ in the request, the list contains only domains that are
+-- available for registration.
+--
+-- 'httpStatus', 'getDomainSuggestionsResponse_httpStatus' - The response's http status code.
+newGetDomainSuggestionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDomainSuggestionsResponse
-getDomainSuggestionsResponse pResponseStatus_ =
+newGetDomainSuggestionsResponse pHttpStatus_ =
   GetDomainSuggestionsResponse'
-    { _gdsrrsSuggestionsList =
-        Nothing,
-      _gdsrrsResponseStatus = pResponseStatus_
+    { suggestionsList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of possible domain names. If you specified @true@ for @OnlyAvailable@ in the request, the list contains only domains that are available for registration.
-gdsrrsSuggestionsList :: Lens' GetDomainSuggestionsResponse [DomainSuggestion]
-gdsrrsSuggestionsList = lens _gdsrrsSuggestionsList (\s a -> s {_gdsrrsSuggestionsList = a}) . _Default . _Coerce
+-- | A list of possible domain names. If you specified @true@ for
+-- @OnlyAvailable@ in the request, the list contains only domains that are
+-- available for registration.
+getDomainSuggestionsResponse_suggestionsList :: Lens.Lens' GetDomainSuggestionsResponse (Prelude.Maybe [DomainSuggestion])
+getDomainSuggestionsResponse_suggestionsList = Lens.lens (\GetDomainSuggestionsResponse' {suggestionsList} -> suggestionsList) (\s@GetDomainSuggestionsResponse' {} a -> s {suggestionsList = a} :: GetDomainSuggestionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gdsrrsResponseStatus :: Lens' GetDomainSuggestionsResponse Int
-gdsrrsResponseStatus = lens _gdsrrsResponseStatus (\s a -> s {_gdsrrsResponseStatus = a})
+-- | The response's http status code.
+getDomainSuggestionsResponse_httpStatus :: Lens.Lens' GetDomainSuggestionsResponse Prelude.Int
+getDomainSuggestionsResponse_httpStatus = Lens.lens (\GetDomainSuggestionsResponse' {httpStatus} -> httpStatus) (\s@GetDomainSuggestionsResponse' {} a -> s {httpStatus = a} :: GetDomainSuggestionsResponse)
 
-instance NFData GetDomainSuggestionsResponse
+instance Prelude.NFData GetDomainSuggestionsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.Route53Domains.Types.DomainAvailability
   ( DomainAvailability
       ( ..,
-        DAAvailable,
-        DAAvailablePreorder,
-        DAAvailableReserved,
-        DADontKnow,
-        DAReserved,
-        DAUnavailable,
-        DAUnavailablePremium,
-        DAUnavailableRestricted
+        DomainAvailabilityAVAILABLE,
+        DomainAvailabilityAVAILABLEPREORDER,
+        DomainAvailabilityAVAILABLERESERVED,
+        DomainAvailabilityDONTKNOW,
+        DomainAvailabilityRESERVED,
+        DomainAvailabilityUNAVAILABLE,
+        DomainAvailabilityUNAVAILABLEPREMIUM,
+        DomainAvailabilityUNAVAILABLERESTRICTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainAvailability
-  = DomainAvailability'
-      ( CI
-          Text
-      )
+newtype DomainAvailability = DomainAvailability'
+  { fromDomainAvailability ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DAAvailable :: DomainAvailability
-pattern DAAvailable = DomainAvailability' "AVAILABLE"
+pattern DomainAvailabilityAVAILABLE :: DomainAvailability
+pattern DomainAvailabilityAVAILABLE = DomainAvailability' "AVAILABLE"
 
-pattern DAAvailablePreorder :: DomainAvailability
-pattern DAAvailablePreorder = DomainAvailability' "AVAILABLE_PREORDER"
+pattern DomainAvailabilityAVAILABLEPREORDER :: DomainAvailability
+pattern DomainAvailabilityAVAILABLEPREORDER = DomainAvailability' "AVAILABLE_PREORDER"
 
-pattern DAAvailableReserved :: DomainAvailability
-pattern DAAvailableReserved = DomainAvailability' "AVAILABLE_RESERVED"
+pattern DomainAvailabilityAVAILABLERESERVED :: DomainAvailability
+pattern DomainAvailabilityAVAILABLERESERVED = DomainAvailability' "AVAILABLE_RESERVED"
 
-pattern DADontKnow :: DomainAvailability
-pattern DADontKnow = DomainAvailability' "DONT_KNOW"
+pattern DomainAvailabilityDONTKNOW :: DomainAvailability
+pattern DomainAvailabilityDONTKNOW = DomainAvailability' "DONT_KNOW"
 
-pattern DAReserved :: DomainAvailability
-pattern DAReserved = DomainAvailability' "RESERVED"
+pattern DomainAvailabilityRESERVED :: DomainAvailability
+pattern DomainAvailabilityRESERVED = DomainAvailability' "RESERVED"
 
-pattern DAUnavailable :: DomainAvailability
-pattern DAUnavailable = DomainAvailability' "UNAVAILABLE"
+pattern DomainAvailabilityUNAVAILABLE :: DomainAvailability
+pattern DomainAvailabilityUNAVAILABLE = DomainAvailability' "UNAVAILABLE"
 
-pattern DAUnavailablePremium :: DomainAvailability
-pattern DAUnavailablePremium = DomainAvailability' "UNAVAILABLE_PREMIUM"
+pattern DomainAvailabilityUNAVAILABLEPREMIUM :: DomainAvailability
+pattern DomainAvailabilityUNAVAILABLEPREMIUM = DomainAvailability' "UNAVAILABLE_PREMIUM"
 
-pattern DAUnavailableRestricted :: DomainAvailability
-pattern DAUnavailableRestricted = DomainAvailability' "UNAVAILABLE_RESTRICTED"
+pattern DomainAvailabilityUNAVAILABLERESTRICTED :: DomainAvailability
+pattern DomainAvailabilityUNAVAILABLERESTRICTED = DomainAvailability' "UNAVAILABLE_RESTRICTED"
 
 {-# COMPLETE
-  DAAvailable,
-  DAAvailablePreorder,
-  DAAvailableReserved,
-  DADontKnow,
-  DAReserved,
-  DAUnavailable,
-  DAUnavailablePremium,
-  DAUnavailableRestricted,
+  DomainAvailabilityAVAILABLE,
+  DomainAvailabilityAVAILABLEPREORDER,
+  DomainAvailabilityAVAILABLERESERVED,
+  DomainAvailabilityDONTKNOW,
+  DomainAvailabilityRESERVED,
+  DomainAvailabilityUNAVAILABLE,
+  DomainAvailabilityUNAVAILABLEPREMIUM,
+  DomainAvailabilityUNAVAILABLERESTRICTED,
   DomainAvailability'
   #-}
 
-instance FromText DomainAvailability where
-  parser = (DomainAvailability' . mk) <$> takeText
+instance Prelude.FromText DomainAvailability where
+  parser = DomainAvailability' Prelude.<$> Prelude.takeText
 
-instance ToText DomainAvailability where
-  toText (DomainAvailability' ci) = original ci
+instance Prelude.ToText DomainAvailability where
+  toText (DomainAvailability' x) = x
 
-instance Hashable DomainAvailability
+instance Prelude.Hashable DomainAvailability
 
-instance NFData DomainAvailability
+instance Prelude.NFData DomainAvailability
 
-instance ToByteString DomainAvailability
+instance Prelude.ToByteString DomainAvailability
 
-instance ToQuery DomainAvailability
+instance Prelude.ToQuery DomainAvailability
 
-instance ToHeader DomainAvailability
+instance Prelude.ToHeader DomainAvailability
 
-instance FromJSON DomainAvailability where
-  parseJSON = parseJSONText "DomainAvailability"
+instance Prelude.FromJSON DomainAvailability where
+  parseJSON = Prelude.parseJSONText "DomainAvailability"

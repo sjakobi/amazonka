@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For operations that require confirmation that the email address for the registrant contact is valid, such as registering a new domain, this operation returns information about whether the registrant contact has responded.
+-- For operations that require confirmation that the email address for the
+-- registrant contact is valid, such as registering a new domain, this
+-- operation returns information about whether the registrant contact has
+-- responded.
 --
---
--- If you want us to resend the email, use the @ResendContactReachabilityEmail@ operation.
+-- If you want us to resend the email, use the
+-- @ResendContactReachabilityEmail@ operation.
 module Network.AWS.Route53Domains.GetContactReachabilityStatus
   ( -- * Creating a Request
-    getContactReachabilityStatus,
-    GetContactReachabilityStatus,
+    GetContactReachabilityStatus (..),
+    newGetContactReachabilityStatus,
 
     -- * Request Lenses
-    gcrsDomainName,
+    getContactReachabilityStatus_domainName,
 
     -- * Destructuring the Response
-    getContactReachabilityStatusResponse,
-    GetContactReachabilityStatusResponse,
+    GetContactReachabilityStatusResponse (..),
+    newGetContactReachabilityStatusResponse,
 
     -- * Response Lenses
-    gcrsrrsStatus,
-    gcrsrrsDomainName,
-    gcrsrrsResponseStatus,
+    getContactReachabilityStatusResponse_status,
+    getContactReachabilityStatusResponse_domainName,
+    getContactReachabilityStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53Domains.Types
+import Network.AWS.Route53Domains.Types.ReachabilityStatus
 
--- | /See:/ 'getContactReachabilityStatus' smart constructor.
-newtype GetContactReachabilityStatus = GetContactReachabilityStatus'
-  { _gcrsDomainName ::
-      Maybe Text
+-- | /See:/ 'newGetContactReachabilityStatus' smart constructor.
+data GetContactReachabilityStatus = GetContactReachabilityStatus'
+  { -- | The name of the domain for which you want to know whether the registrant
+    -- contact has confirmed that the email address is valid.
+    domainName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContactReachabilityStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContactReachabilityStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrsDomainName' - The name of the domain for which you want to know whether the registrant contact has confirmed that the email address is valid.
-getContactReachabilityStatus ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'getContactReachabilityStatus_domainName' - The name of the domain for which you want to know whether the registrant
+-- contact has confirmed that the email address is valid.
+newGetContactReachabilityStatus ::
   GetContactReachabilityStatus
-getContactReachabilityStatus =
+newGetContactReachabilityStatus =
   GetContactReachabilityStatus'
-    { _gcrsDomainName =
-        Nothing
+    { domainName =
+        Prelude.Nothing
     }
 
--- | The name of the domain for which you want to know whether the registrant contact has confirmed that the email address is valid.
-gcrsDomainName :: Lens' GetContactReachabilityStatus (Maybe Text)
-gcrsDomainName = lens _gcrsDomainName (\s a -> s {_gcrsDomainName = a})
+-- | The name of the domain for which you want to know whether the registrant
+-- contact has confirmed that the email address is valid.
+getContactReachabilityStatus_domainName :: Lens.Lens' GetContactReachabilityStatus (Prelude.Maybe Prelude.Text)
+getContactReachabilityStatus_domainName = Lens.lens (\GetContactReachabilityStatus' {domainName} -> domainName) (\s@GetContactReachabilityStatus' {} a -> s {domainName = a} :: GetContactReachabilityStatus)
 
-instance AWSRequest GetContactReachabilityStatus where
+instance
+  Prelude.AWSRequest
+    GetContactReachabilityStatus
+  where
   type
     Rs GetContactReachabilityStatus =
       GetContactReachabilityStatusResponse
-  request = postJSON route53Domains
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContactReachabilityStatusResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "domainName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "domainName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContactReachabilityStatus
+instance
+  Prelude.Hashable
+    GetContactReachabilityStatus
 
-instance NFData GetContactReachabilityStatus
+instance Prelude.NFData GetContactReachabilityStatus
 
-instance ToHeaders GetContactReachabilityStatus where
+instance
+  Prelude.ToHeaders
+    GetContactReachabilityStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53Domains_v20140515.GetContactReachabilityStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53Domains_v20140515.GetContactReachabilityStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContactReachabilityStatus where
+instance Prelude.ToJSON GetContactReachabilityStatus where
   toJSON GetContactReachabilityStatus' {..} =
-    object
-      (catMaybes [("domainName" .=) <$> _gcrsDomainName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("domainName" Prelude..=) Prelude.<$> domainName]
+      )
 
-instance ToPath GetContactReachabilityStatus where
-  toPath = const "/"
+instance Prelude.ToPath GetContactReachabilityStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContactReachabilityStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContactReachabilityStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContactReachabilityStatusResponse' smart constructor.
+-- | /See:/ 'newGetContactReachabilityStatusResponse' smart constructor.
 data GetContactReachabilityStatusResponse = GetContactReachabilityStatusResponse'
-  { _gcrsrrsStatus ::
-      !( Maybe
-           ReachabilityStatus
-       ),
-    _gcrsrrsDomainName ::
-      !( Maybe
-           Text
-       ),
-    _gcrsrrsResponseStatus ::
-      !Int
+  { -- | Whether the registrant contact has responded. Values include the
+    -- following:
+    --
+    -- [PENDING]
+    --     We sent the confirmation email and haven\'t received a response yet.
+    --
+    -- [DONE]
+    --     We sent the email and got confirmation from the registrant contact.
+    --
+    -- [EXPIRED]
+    --     The time limit expired before the registrant contact responded.
+    status :: Prelude.Maybe ReachabilityStatus,
+    -- | The domain name for which you requested the reachability status.
+    domainName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContactReachabilityStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContactReachabilityStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrsrrsStatus' - Whether the registrant contact has responded. Values include the following:     * PENDING    * We sent the confirmation email and haven't received a response yet.     * DONE    * We sent the email and got confirmation from the registrant contact.     * EXPIRED    * The time limit expired before the registrant contact responded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrsrrsDomainName' - The domain name for which you requested the reachability status.
+-- 'status', 'getContactReachabilityStatusResponse_status' - Whether the registrant contact has responded. Values include the
+-- following:
 --
--- * 'gcrsrrsResponseStatus' - -- | The response status code.
-getContactReachabilityStatusResponse ::
-  -- | 'gcrsrrsResponseStatus'
-  Int ->
+-- [PENDING]
+--     We sent the confirmation email and haven\'t received a response yet.
+--
+-- [DONE]
+--     We sent the email and got confirmation from the registrant contact.
+--
+-- [EXPIRED]
+--     The time limit expired before the registrant contact responded.
+--
+-- 'domainName', 'getContactReachabilityStatusResponse_domainName' - The domain name for which you requested the reachability status.
+--
+-- 'httpStatus', 'getContactReachabilityStatusResponse_httpStatus' - The response's http status code.
+newGetContactReachabilityStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContactReachabilityStatusResponse
-getContactReachabilityStatusResponse pResponseStatus_ =
+newGetContactReachabilityStatusResponse pHttpStatus_ =
   GetContactReachabilityStatusResponse'
-    { _gcrsrrsStatus =
-        Nothing,
-      _gcrsrrsDomainName = Nothing,
-      _gcrsrrsResponseStatus =
-        pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      domainName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Whether the registrant contact has responded. Values include the following:     * PENDING    * We sent the confirmation email and haven't received a response yet.     * DONE    * We sent the email and got confirmation from the registrant contact.     * EXPIRED    * The time limit expired before the registrant contact responded.
-gcrsrrsStatus :: Lens' GetContactReachabilityStatusResponse (Maybe ReachabilityStatus)
-gcrsrrsStatus = lens _gcrsrrsStatus (\s a -> s {_gcrsrrsStatus = a})
+-- | Whether the registrant contact has responded. Values include the
+-- following:
+--
+-- [PENDING]
+--     We sent the confirmation email and haven\'t received a response yet.
+--
+-- [DONE]
+--     We sent the email and got confirmation from the registrant contact.
+--
+-- [EXPIRED]
+--     The time limit expired before the registrant contact responded.
+getContactReachabilityStatusResponse_status :: Lens.Lens' GetContactReachabilityStatusResponse (Prelude.Maybe ReachabilityStatus)
+getContactReachabilityStatusResponse_status = Lens.lens (\GetContactReachabilityStatusResponse' {status} -> status) (\s@GetContactReachabilityStatusResponse' {} a -> s {status = a} :: GetContactReachabilityStatusResponse)
 
 -- | The domain name for which you requested the reachability status.
-gcrsrrsDomainName :: Lens' GetContactReachabilityStatusResponse (Maybe Text)
-gcrsrrsDomainName = lens _gcrsrrsDomainName (\s a -> s {_gcrsrrsDomainName = a})
+getContactReachabilityStatusResponse_domainName :: Lens.Lens' GetContactReachabilityStatusResponse (Prelude.Maybe Prelude.Text)
+getContactReachabilityStatusResponse_domainName = Lens.lens (\GetContactReachabilityStatusResponse' {domainName} -> domainName) (\s@GetContactReachabilityStatusResponse' {} a -> s {domainName = a} :: GetContactReachabilityStatusResponse)
 
--- | -- | The response status code.
-gcrsrrsResponseStatus :: Lens' GetContactReachabilityStatusResponse Int
-gcrsrrsResponseStatus = lens _gcrsrrsResponseStatus (\s a -> s {_gcrsrrsResponseStatus = a})
+-- | The response's http status code.
+getContactReachabilityStatusResponse_httpStatus :: Lens.Lens' GetContactReachabilityStatusResponse Prelude.Int
+getContactReachabilityStatusResponse_httpStatus = Lens.lens (\GetContactReachabilityStatusResponse' {httpStatus} -> httpStatus) (\s@GetContactReachabilityStatusResponse' {} a -> s {httpStatus = a} :: GetContactReachabilityStatusResponse)
 
-instance NFData GetContactReachabilityStatusResponse
+instance
+  Prelude.NFData
+    GetContactReachabilityStatusResponse

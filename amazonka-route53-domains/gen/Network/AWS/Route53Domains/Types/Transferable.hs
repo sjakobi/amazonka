@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,75 @@
 module Network.AWS.Route53Domains.Types.Transferable
   ( Transferable
       ( ..,
-        DontKnow,
-        Transferable,
-        Untransferable
+        TransferableDONTKNOW,
+        TransferableTRANSFERABLE,
+        TransferableUNTRANSFERABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Whether the domain name can be transferred to Route 53.
 --
+-- You can transfer only domains that have a value of @TRANSFERABLE@ for
+-- @Transferable@.
 --
 -- Valid values:
 --
---     * TRANSFERABLE    * The domain name can be transferred to Route 53.
+-- [TRANSFERABLE]
+--     The domain name can be transferred to Route 53.
 --
---     * UNTRANSFERRABLE    * The domain name can't be transferred to Route 53.
+-- [UNTRANSFERRABLE]
+--     The domain name can\'t be transferred to Route 53.
 --
---     * DONT_KNOW    * Reserved for future use.
-data Transferable = Transferable' (CI Text)
+-- [DONT_KNOW]
+--     Reserved for future use.
+newtype Transferable = Transferable'
+  { fromTransferable ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DontKnow :: Transferable
-pattern DontKnow = Transferable' "DONT_KNOW"
+pattern TransferableDONTKNOW :: Transferable
+pattern TransferableDONTKNOW = Transferable' "DONT_KNOW"
 
-pattern Transferable :: Transferable
-pattern Transferable = Transferable' "TRANSFERABLE"
+pattern TransferableTRANSFERABLE :: Transferable
+pattern TransferableTRANSFERABLE = Transferable' "TRANSFERABLE"
 
-pattern Untransferable :: Transferable
-pattern Untransferable = Transferable' "UNTRANSFERABLE"
+pattern TransferableUNTRANSFERABLE :: Transferable
+pattern TransferableUNTRANSFERABLE = Transferable' "UNTRANSFERABLE"
 
 {-# COMPLETE
-  DontKnow,
-  Transferable,
-  Untransferable,
+  TransferableDONTKNOW,
+  TransferableTRANSFERABLE,
+  TransferableUNTRANSFERABLE,
   Transferable'
   #-}
 
-instance FromText Transferable where
-  parser = (Transferable' . mk) <$> takeText
+instance Prelude.FromText Transferable where
+  parser = Transferable' Prelude.<$> Prelude.takeText
 
-instance ToText Transferable where
-  toText (Transferable' ci) = original ci
+instance Prelude.ToText Transferable where
+  toText (Transferable' x) = x
 
-instance Hashable Transferable
+instance Prelude.Hashable Transferable
 
-instance NFData Transferable
+instance Prelude.NFData Transferable
 
-instance ToByteString Transferable
+instance Prelude.ToByteString Transferable
 
-instance ToQuery Transferable
+instance Prelude.ToQuery Transferable
 
-instance ToHeader Transferable
+instance Prelude.ToHeader Transferable
 
-instance FromJSON Transferable where
-  parseJSON = parseJSONText "Transferable"
+instance Prelude.FromJSON Transferable where
+  parseJSON = Prelude.parseJSONText "Transferable"

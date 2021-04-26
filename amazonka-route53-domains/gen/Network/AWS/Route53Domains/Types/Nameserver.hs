@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53Domains.Types.Nameserver where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Nameserver includes the following elements.
 --
---
---
--- /See:/ 'nameserver' smart constructor.
+-- /See:/ 'newNameserver' smart constructor.
 data Nameserver = Nameserver'
-  { _nGlueIPs ::
-      !(Maybe [Text]),
-    _nName :: !Text
+  { -- | Glue IP address of a name server entry. Glue IP addresses are required
+    -- only when the name of the name server is a subdomain of the domain. For
+    -- example, if your domain is example.com and the name server for the
+    -- domain is ns.example.com, you need to specify the IP address for
+    -- ns.example.com.
+    --
+    -- Constraints: The list can contain only one IPv4 and one IPv6 address.
+    glueIps :: Prelude.Maybe [Prelude.Text],
+    -- | The fully qualified host name of the name server.
+    --
+    -- Constraint: Maximum 255 characters
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Nameserver' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Nameserver' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nGlueIPs' - Glue IP address of a name server entry. Glue IP addresses are required only when the name of the name server is a subdomain of the domain. For example, if your domain is example.com and the name server for the domain is ns.example.com, you need to specify the IP address for ns.example.com. Constraints: The list can contain only one IPv4 and one IPv6 address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nName' - The fully qualified host name of the name server. Constraint: Maximum 255 characters
-nameserver ::
-  -- | 'nName'
-  Text ->
+-- 'glueIps', 'nameserver_glueIps' - Glue IP address of a name server entry. Glue IP addresses are required
+-- only when the name of the name server is a subdomain of the domain. For
+-- example, if your domain is example.com and the name server for the
+-- domain is ns.example.com, you need to specify the IP address for
+-- ns.example.com.
+--
+-- Constraints: The list can contain only one IPv4 and one IPv6 address.
+--
+-- 'name', 'nameserver_name' - The fully qualified host name of the name server.
+--
+-- Constraint: Maximum 255 characters
+newNameserver ::
+  -- | 'name'
+  Prelude.Text ->
   Nameserver
-nameserver pName_ =
-  Nameserver' {_nGlueIPs = Nothing, _nName = pName_}
+newNameserver pName_ =
+  Nameserver'
+    { glueIps = Prelude.Nothing,
+      name = pName_
+    }
 
--- | Glue IP address of a name server entry. Glue IP addresses are required only when the name of the name server is a subdomain of the domain. For example, if your domain is example.com and the name server for the domain is ns.example.com, you need to specify the IP address for ns.example.com. Constraints: The list can contain only one IPv4 and one IPv6 address.
-nGlueIPs :: Lens' Nameserver [Text]
-nGlueIPs = lens _nGlueIPs (\s a -> s {_nGlueIPs = a}) . _Default . _Coerce
+-- | Glue IP address of a name server entry. Glue IP addresses are required
+-- only when the name of the name server is a subdomain of the domain. For
+-- example, if your domain is example.com and the name server for the
+-- domain is ns.example.com, you need to specify the IP address for
+-- ns.example.com.
+--
+-- Constraints: The list can contain only one IPv4 and one IPv6 address.
+nameserver_glueIps :: Lens.Lens' Nameserver (Prelude.Maybe [Prelude.Text])
+nameserver_glueIps = Lens.lens (\Nameserver' {glueIps} -> glueIps) (\s@Nameserver' {} a -> s {glueIps = a} :: Nameserver) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The fully qualified host name of the name server. Constraint: Maximum 255 characters
-nName :: Lens' Nameserver Text
-nName = lens _nName (\s a -> s {_nName = a})
+-- | The fully qualified host name of the name server.
+--
+-- Constraint: Maximum 255 characters
+nameserver_name :: Lens.Lens' Nameserver Prelude.Text
+nameserver_name = Lens.lens (\Nameserver' {name} -> name) (\s@Nameserver' {} a -> s {name = a} :: Nameserver)
 
-instance FromJSON Nameserver where
+instance Prelude.FromJSON Nameserver where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Nameserver"
       ( \x ->
           Nameserver'
-            <$> (x .:? "GlueIps" .!= mempty) <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "GlueIps" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable Nameserver
+instance Prelude.Hashable Nameserver
 
-instance NFData Nameserver
+instance Prelude.NFData Nameserver
 
-instance ToJSON Nameserver where
+instance Prelude.ToJSON Nameserver where
   toJSON Nameserver' {..} =
-    object
-      ( catMaybes
-          [ ("GlueIps" .=) <$> _nGlueIPs,
-            Just ("Name" .= _nName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GlueIps" Prelude..=) Prelude.<$> glueIps,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

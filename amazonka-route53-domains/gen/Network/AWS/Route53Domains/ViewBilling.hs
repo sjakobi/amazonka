@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,267 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all the domain-related billing records for the current AWS account for a specified period
---
---
+-- Returns all the domain-related billing records for the current AWS
+-- account for a specified period
 --
 -- This operation returns paginated results.
 module Network.AWS.Route53Domains.ViewBilling
   ( -- * Creating a Request
-    viewBilling,
-    ViewBilling,
+    ViewBilling (..),
+    newViewBilling,
 
     -- * Request Lenses
-    vbEnd,
-    vbStart,
-    vbMaxItems,
-    vbMarker,
+    viewBilling_end,
+    viewBilling_start,
+    viewBilling_maxItems,
+    viewBilling_marker,
 
     -- * Destructuring the Response
-    viewBillingResponse,
-    ViewBillingResponse,
+    ViewBillingResponse (..),
+    newViewBillingResponse,
 
     -- * Response Lenses
-    vbrrsBillingRecords,
-    vbrrsNextPageMarker,
-    vbrrsResponseStatus,
+    viewBillingResponse_billingRecords,
+    viewBillingResponse_nextPageMarker,
+    viewBillingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53Domains.Types
+import Network.AWS.Route53Domains.Types.BillingRecord
 
 -- | The ViewBilling request includes the following elements.
 --
---
---
--- /See:/ 'viewBilling' smart constructor.
+-- /See:/ 'newViewBilling' smart constructor.
 data ViewBilling = ViewBilling'
-  { _vbEnd ::
-      !(Maybe POSIX),
-    _vbStart :: !(Maybe POSIX),
-    _vbMaxItems :: !(Maybe Int),
-    _vbMarker :: !(Maybe Text)
+  { -- | The end date and time for the time period for which you want a list of
+    -- billing records. Specify the date and time in Unix time format and
+    -- Coordinated Universal time (UTC).
+    end :: Prelude.Maybe Prelude.POSIX,
+    -- | The beginning date and time for the time period for which you want a
+    -- list of billing records. Specify the date and time in Unix time format
+    -- and Coordinated Universal time (UTC).
+    start :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of billing records to be returned.
+    --
+    -- Default: 20
+    maxItems :: Prelude.Maybe Prelude.Int,
+    -- | For an initial request for a list of billing records, omit this element.
+    -- If the number of billing records that are associated with the current
+    -- AWS account during the specified period is greater than the value that
+    -- you specified for @MaxItems@, you can use @Marker@ to return additional
+    -- billing records. Get the value of @NextPageMarker@ from the previous
+    -- response, and submit another request that includes the value of
+    -- @NextPageMarker@ in the @Marker@ element.
+    --
+    -- Constraints: The marker must match the value of @NextPageMarker@ that
+    -- was returned in the previous response.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ViewBilling' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ViewBilling' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vbEnd' - The end date and time for the time period for which you want a list of billing records. Specify the date and time in Unix time format and Coordinated Universal time (UTC).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vbStart' - The beginning date and time for the time period for which you want a list of billing records. Specify the date and time in Unix time format and Coordinated Universal time (UTC).
+-- 'end', 'viewBilling_end' - The end date and time for the time period for which you want a list of
+-- billing records. Specify the date and time in Unix time format and
+-- Coordinated Universal time (UTC).
 --
--- * 'vbMaxItems' - The number of billing records to be returned. Default: 20
+-- 'start', 'viewBilling_start' - The beginning date and time for the time period for which you want a
+-- list of billing records. Specify the date and time in Unix time format
+-- and Coordinated Universal time (UTC).
 --
--- * 'vbMarker' - For an initial request for a list of billing records, omit this element. If the number of billing records that are associated with the current AWS account during the specified period is greater than the value that you specified for @MaxItems@ , you can use @Marker@ to return additional billing records. Get the value of @NextPageMarker@ from the previous response, and submit another request that includes the value of @NextPageMarker@ in the @Marker@ element.  Constraints: The marker must match the value of @NextPageMarker@ that was returned in the previous response.
-viewBilling ::
+-- 'maxItems', 'viewBilling_maxItems' - The number of billing records to be returned.
+--
+-- Default: 20
+--
+-- 'marker', 'viewBilling_marker' - For an initial request for a list of billing records, omit this element.
+-- If the number of billing records that are associated with the current
+-- AWS account during the specified period is greater than the value that
+-- you specified for @MaxItems@, you can use @Marker@ to return additional
+-- billing records. Get the value of @NextPageMarker@ from the previous
+-- response, and submit another request that includes the value of
+-- @NextPageMarker@ in the @Marker@ element.
+--
+-- Constraints: The marker must match the value of @NextPageMarker@ that
+-- was returned in the previous response.
+newViewBilling ::
   ViewBilling
-viewBilling =
+newViewBilling =
   ViewBilling'
-    { _vbEnd = Nothing,
-      _vbStart = Nothing,
-      _vbMaxItems = Nothing,
-      _vbMarker = Nothing
+    { end = Prelude.Nothing,
+      start = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The end date and time for the time period for which you want a list of billing records. Specify the date and time in Unix time format and Coordinated Universal time (UTC).
-vbEnd :: Lens' ViewBilling (Maybe UTCTime)
-vbEnd = lens _vbEnd (\s a -> s {_vbEnd = a}) . mapping _Time
+-- | The end date and time for the time period for which you want a list of
+-- billing records. Specify the date and time in Unix time format and
+-- Coordinated Universal time (UTC).
+viewBilling_end :: Lens.Lens' ViewBilling (Prelude.Maybe Prelude.UTCTime)
+viewBilling_end = Lens.lens (\ViewBilling' {end} -> end) (\s@ViewBilling' {} a -> s {end = a} :: ViewBilling) Prelude.. Lens.mapping Prelude._Time
 
--- | The beginning date and time for the time period for which you want a list of billing records. Specify the date and time in Unix time format and Coordinated Universal time (UTC).
-vbStart :: Lens' ViewBilling (Maybe UTCTime)
-vbStart = lens _vbStart (\s a -> s {_vbStart = a}) . mapping _Time
+-- | The beginning date and time for the time period for which you want a
+-- list of billing records. Specify the date and time in Unix time format
+-- and Coordinated Universal time (UTC).
+viewBilling_start :: Lens.Lens' ViewBilling (Prelude.Maybe Prelude.UTCTime)
+viewBilling_start = Lens.lens (\ViewBilling' {start} -> start) (\s@ViewBilling' {} a -> s {start = a} :: ViewBilling) Prelude.. Lens.mapping Prelude._Time
 
--- | The number of billing records to be returned. Default: 20
-vbMaxItems :: Lens' ViewBilling (Maybe Int)
-vbMaxItems = lens _vbMaxItems (\s a -> s {_vbMaxItems = a})
+-- | The number of billing records to be returned.
+--
+-- Default: 20
+viewBilling_maxItems :: Lens.Lens' ViewBilling (Prelude.Maybe Prelude.Int)
+viewBilling_maxItems = Lens.lens (\ViewBilling' {maxItems} -> maxItems) (\s@ViewBilling' {} a -> s {maxItems = a} :: ViewBilling)
 
--- | For an initial request for a list of billing records, omit this element. If the number of billing records that are associated with the current AWS account during the specified period is greater than the value that you specified for @MaxItems@ , you can use @Marker@ to return additional billing records. Get the value of @NextPageMarker@ from the previous response, and submit another request that includes the value of @NextPageMarker@ in the @Marker@ element.  Constraints: The marker must match the value of @NextPageMarker@ that was returned in the previous response.
-vbMarker :: Lens' ViewBilling (Maybe Text)
-vbMarker = lens _vbMarker (\s a -> s {_vbMarker = a})
+-- | For an initial request for a list of billing records, omit this element.
+-- If the number of billing records that are associated with the current
+-- AWS account during the specified period is greater than the value that
+-- you specified for @MaxItems@, you can use @Marker@ to return additional
+-- billing records. Get the value of @NextPageMarker@ from the previous
+-- response, and submit another request that includes the value of
+-- @NextPageMarker@ in the @Marker@ element.
+--
+-- Constraints: The marker must match the value of @NextPageMarker@ that
+-- was returned in the previous response.
+viewBilling_marker :: Lens.Lens' ViewBilling (Prelude.Maybe Prelude.Text)
+viewBilling_marker = Lens.lens (\ViewBilling' {marker} -> marker) (\s@ViewBilling' {} a -> s {marker = a} :: ViewBilling)
 
-instance AWSPager ViewBilling where
+instance Pager.AWSPager ViewBilling where
   page rq rs
-    | stop (rs ^. vbrrsNextPageMarker) = Nothing
-    | stop (rs ^. vbrrsBillingRecords) = Nothing
-    | otherwise =
-      Just $ rq & vbMarker .~ rs ^. vbrrsNextPageMarker
+    | Pager.stop
+        ( rs
+            Lens.^? viewBillingResponse_nextPageMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? viewBillingResponse_billingRecords
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& viewBilling_marker
+          Lens..~ rs
+          Lens.^? viewBillingResponse_nextPageMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ViewBilling where
+instance Prelude.AWSRequest ViewBilling where
   type Rs ViewBilling = ViewBillingResponse
-  request = postJSON route53Domains
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ViewBillingResponse'
-            <$> (x .?> "BillingRecords" .!@ mempty)
-            <*> (x .?> "NextPageMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "BillingRecords"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextPageMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ViewBilling
+instance Prelude.Hashable ViewBilling
 
-instance NFData ViewBilling
+instance Prelude.NFData ViewBilling
 
-instance ToHeaders ViewBilling where
+instance Prelude.ToHeaders ViewBilling where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53Domains_v20140515.ViewBilling" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53Domains_v20140515.ViewBilling" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ViewBilling where
+instance Prelude.ToJSON ViewBilling where
   toJSON ViewBilling' {..} =
-    object
-      ( catMaybes
-          [ ("End" .=) <$> _vbEnd,
-            ("Start" .=) <$> _vbStart,
-            ("MaxItems" .=) <$> _vbMaxItems,
-            ("Marker" .=) <$> _vbMarker
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("End" Prelude..=) Prelude.<$> end,
+            ("Start" Prelude..=) Prelude.<$> start,
+            ("MaxItems" Prelude..=) Prelude.<$> maxItems,
+            ("Marker" Prelude..=) Prelude.<$> marker
           ]
       )
 
-instance ToPath ViewBilling where
-  toPath = const "/"
+instance Prelude.ToPath ViewBilling where
+  toPath = Prelude.const "/"
 
-instance ToQuery ViewBilling where
-  toQuery = const mempty
+instance Prelude.ToQuery ViewBilling where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The ViewBilling response includes the following elements.
 --
---
---
--- /See:/ 'viewBillingResponse' smart constructor.
+-- /See:/ 'newViewBillingResponse' smart constructor.
 data ViewBillingResponse = ViewBillingResponse'
-  { _vbrrsBillingRecords ::
-      !(Maybe [BillingRecord]),
-    _vbrrsNextPageMarker ::
-      !(Maybe Text),
-    _vbrrsResponseStatus :: !Int
+  { -- | A summary of billing records.
+    billingRecords :: Prelude.Maybe [BillingRecord],
+    -- | If there are more billing records than you specified for @MaxItems@ in
+    -- the request, submit another request and include the value of
+    -- @NextPageMarker@ in the value of @Marker@.
+    nextPageMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ViewBillingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ViewBillingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vbrrsBillingRecords' - A summary of billing records.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vbrrsNextPageMarker' - If there are more billing records than you specified for @MaxItems@ in the request, submit another request and include the value of @NextPageMarker@ in the value of @Marker@ .
+-- 'billingRecords', 'viewBillingResponse_billingRecords' - A summary of billing records.
 --
--- * 'vbrrsResponseStatus' - -- | The response status code.
-viewBillingResponse ::
-  -- | 'vbrrsResponseStatus'
-  Int ->
+-- 'nextPageMarker', 'viewBillingResponse_nextPageMarker' - If there are more billing records than you specified for @MaxItems@ in
+-- the request, submit another request and include the value of
+-- @NextPageMarker@ in the value of @Marker@.
+--
+-- 'httpStatus', 'viewBillingResponse_httpStatus' - The response's http status code.
+newViewBillingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ViewBillingResponse
-viewBillingResponse pResponseStatus_ =
+newViewBillingResponse pHttpStatus_ =
   ViewBillingResponse'
-    { _vbrrsBillingRecords =
-        Nothing,
-      _vbrrsNextPageMarker = Nothing,
-      _vbrrsResponseStatus = pResponseStatus_
+    { billingRecords =
+        Prelude.Nothing,
+      nextPageMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A summary of billing records.
-vbrrsBillingRecords :: Lens' ViewBillingResponse [BillingRecord]
-vbrrsBillingRecords = lens _vbrrsBillingRecords (\s a -> s {_vbrrsBillingRecords = a}) . _Default . _Coerce
+viewBillingResponse_billingRecords :: Lens.Lens' ViewBillingResponse (Prelude.Maybe [BillingRecord])
+viewBillingResponse_billingRecords = Lens.lens (\ViewBillingResponse' {billingRecords} -> billingRecords) (\s@ViewBillingResponse' {} a -> s {billingRecords = a} :: ViewBillingResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are more billing records than you specified for @MaxItems@ in the request, submit another request and include the value of @NextPageMarker@ in the value of @Marker@ .
-vbrrsNextPageMarker :: Lens' ViewBillingResponse (Maybe Text)
-vbrrsNextPageMarker = lens _vbrrsNextPageMarker (\s a -> s {_vbrrsNextPageMarker = a})
+-- | If there are more billing records than you specified for @MaxItems@ in
+-- the request, submit another request and include the value of
+-- @NextPageMarker@ in the value of @Marker@.
+viewBillingResponse_nextPageMarker :: Lens.Lens' ViewBillingResponse (Prelude.Maybe Prelude.Text)
+viewBillingResponse_nextPageMarker = Lens.lens (\ViewBillingResponse' {nextPageMarker} -> nextPageMarker) (\s@ViewBillingResponse' {} a -> s {nextPageMarker = a} :: ViewBillingResponse)
 
--- | -- | The response status code.
-vbrrsResponseStatus :: Lens' ViewBillingResponse Int
-vbrrsResponseStatus = lens _vbrrsResponseStatus (\s a -> s {_vbrrsResponseStatus = a})
+-- | The response's http status code.
+viewBillingResponse_httpStatus :: Lens.Lens' ViewBillingResponse Prelude.Int
+viewBillingResponse_httpStatus = Lens.lens (\ViewBillingResponse' {httpStatus} -> httpStatus) (\s@ViewBillingResponse' {} a -> s {httpStatus = a} :: ViewBillingResponse)
 
-instance NFData ViewBillingResponse
+instance Prelude.NFData ViewBillingResponse

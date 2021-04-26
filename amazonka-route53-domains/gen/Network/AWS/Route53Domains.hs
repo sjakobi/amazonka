@@ -14,7 +14,7 @@
 -- Pending
 module Network.AWS.Route53Domains
   ( -- * Service Configuration
-    route53Domains,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -43,89 +43,173 @@ module Network.AWS.Route53Domains
     -- * Operations
     -- $operations
 
-    -- ** TransferDomainToAnotherAWSAccount
-    module Network.AWS.Route53Domains.TransferDomainToAnotherAWSAccount,
+    -- ** TransferDomainToAnotherAwsAccount
+    TransferDomainToAnotherAwsAccount (TransferDomainToAnotherAwsAccount'),
+    newTransferDomainToAnotherAwsAccount,
+    TransferDomainToAnotherAwsAccountResponse (TransferDomainToAnotherAwsAccountResponse'),
+    newTransferDomainToAnotherAwsAccountResponse,
 
     -- ** UpdateDomainContactPrivacy
-    module Network.AWS.Route53Domains.UpdateDomainContactPrivacy,
+    UpdateDomainContactPrivacy (UpdateDomainContactPrivacy'),
+    newUpdateDomainContactPrivacy,
+    UpdateDomainContactPrivacyResponse (UpdateDomainContactPrivacyResponse'),
+    newUpdateDomainContactPrivacyResponse,
 
     -- ** CheckDomainAvailability
-    module Network.AWS.Route53Domains.CheckDomainAvailability,
+    CheckDomainAvailability (CheckDomainAvailability'),
+    newCheckDomainAvailability,
+    CheckDomainAvailabilityResponse (CheckDomainAvailabilityResponse'),
+    newCheckDomainAvailabilityResponse,
 
     -- ** CheckDomainTransferability
-    module Network.AWS.Route53Domains.CheckDomainTransferability,
+    CheckDomainTransferability (CheckDomainTransferability'),
+    newCheckDomainTransferability,
+    CheckDomainTransferabilityResponse (CheckDomainTransferabilityResponse'),
+    newCheckDomainTransferabilityResponse,
 
     -- ** ListOperations (Paginated)
-    module Network.AWS.Route53Domains.ListOperations,
+    ListOperations (ListOperations'),
+    newListOperations,
+    ListOperationsResponse (ListOperationsResponse'),
+    newListOperationsResponse,
 
     -- ** DisableDomainTransferLock
-    module Network.AWS.Route53Domains.DisableDomainTransferLock,
+    DisableDomainTransferLock (DisableDomainTransferLock'),
+    newDisableDomainTransferLock,
+    DisableDomainTransferLockResponse (DisableDomainTransferLockResponse'),
+    newDisableDomainTransferLockResponse,
 
     -- ** RegisterDomain
-    module Network.AWS.Route53Domains.RegisterDomain,
+    RegisterDomain (RegisterDomain'),
+    newRegisterDomain,
+    RegisterDomainResponse (RegisterDomainResponse'),
+    newRegisterDomainResponse,
 
     -- ** GetDomainSuggestions
-    module Network.AWS.Route53Domains.GetDomainSuggestions,
+    GetDomainSuggestions (GetDomainSuggestions'),
+    newGetDomainSuggestions,
+    GetDomainSuggestionsResponse (GetDomainSuggestionsResponse'),
+    newGetDomainSuggestionsResponse,
 
     -- ** ListDomains (Paginated)
-    module Network.AWS.Route53Domains.ListDomains,
+    ListDomains (ListDomains'),
+    newListDomains,
+    ListDomainsResponse (ListDomainsResponse'),
+    newListDomainsResponse,
 
-    -- ** CancelDomainTransferToAnotherAWSAccount
-    module Network.AWS.Route53Domains.CancelDomainTransferToAnotherAWSAccount,
+    -- ** CancelDomainTransferToAnotherAwsAccount
+    CancelDomainTransferToAnotherAwsAccount (CancelDomainTransferToAnotherAwsAccount'),
+    newCancelDomainTransferToAnotherAwsAccount,
+    CancelDomainTransferToAnotherAwsAccountResponse (CancelDomainTransferToAnotherAwsAccountResponse'),
+    newCancelDomainTransferToAnotherAwsAccountResponse,
 
     -- ** EnableDomainTransferLock
-    module Network.AWS.Route53Domains.EnableDomainTransferLock,
+    EnableDomainTransferLock (EnableDomainTransferLock'),
+    newEnableDomainTransferLock,
+    EnableDomainTransferLockResponse (EnableDomainTransferLockResponse'),
+    newEnableDomainTransferLockResponse,
 
     -- ** ViewBilling (Paginated)
-    module Network.AWS.Route53Domains.ViewBilling,
+    ViewBilling (ViewBilling'),
+    newViewBilling,
+    ViewBillingResponse (ViewBillingResponse'),
+    newViewBillingResponse,
 
     -- ** DeleteTagsForDomain
-    module Network.AWS.Route53Domains.DeleteTagsForDomain,
+    DeleteTagsForDomain (DeleteTagsForDomain'),
+    newDeleteTagsForDomain,
+    DeleteTagsForDomainResponse (DeleteTagsForDomainResponse'),
+    newDeleteTagsForDomainResponse,
 
     -- ** UpdateTagsForDomain
-    module Network.AWS.Route53Domains.UpdateTagsForDomain,
+    UpdateTagsForDomain (UpdateTagsForDomain'),
+    newUpdateTagsForDomain,
+    UpdateTagsForDomainResponse (UpdateTagsForDomainResponse'),
+    newUpdateTagsForDomainResponse,
 
     -- ** ListTagsForDomain
-    module Network.AWS.Route53Domains.ListTagsForDomain,
+    ListTagsForDomain (ListTagsForDomain'),
+    newListTagsForDomain,
+    ListTagsForDomainResponse (ListTagsForDomainResponse'),
+    newListTagsForDomainResponse,
 
     -- ** ResendContactReachabilityEmail
-    module Network.AWS.Route53Domains.ResendContactReachabilityEmail,
+    ResendContactReachabilityEmail (ResendContactReachabilityEmail'),
+    newResendContactReachabilityEmail,
+    ResendContactReachabilityEmailResponse (ResendContactReachabilityEmailResponse'),
+    newResendContactReachabilityEmailResponse,
 
     -- ** DisableDomainAutoRenew
-    module Network.AWS.Route53Domains.DisableDomainAutoRenew,
+    DisableDomainAutoRenew (DisableDomainAutoRenew'),
+    newDisableDomainAutoRenew,
+    DisableDomainAutoRenewResponse (DisableDomainAutoRenewResponse'),
+    newDisableDomainAutoRenewResponse,
 
     -- ** UpdateDomainNameservers
-    module Network.AWS.Route53Domains.UpdateDomainNameservers,
+    UpdateDomainNameservers (UpdateDomainNameservers'),
+    newUpdateDomainNameservers,
+    UpdateDomainNameserversResponse (UpdateDomainNameserversResponse'),
+    newUpdateDomainNameserversResponse,
 
     -- ** EnableDomainAutoRenew
-    module Network.AWS.Route53Domains.EnableDomainAutoRenew,
+    EnableDomainAutoRenew (EnableDomainAutoRenew'),
+    newEnableDomainAutoRenew,
+    EnableDomainAutoRenewResponse (EnableDomainAutoRenewResponse'),
+    newEnableDomainAutoRenewResponse,
 
     -- ** GetContactReachabilityStatus
-    module Network.AWS.Route53Domains.GetContactReachabilityStatus,
+    GetContactReachabilityStatus (GetContactReachabilityStatus'),
+    newGetContactReachabilityStatus,
+    GetContactReachabilityStatusResponse (GetContactReachabilityStatusResponse'),
+    newGetContactReachabilityStatusResponse,
 
-    -- ** RejectDomainTransferFromAnotherAWSAccount
-    module Network.AWS.Route53Domains.RejectDomainTransferFromAnotherAWSAccount,
+    -- ** RejectDomainTransferFromAnotherAwsAccount
+    RejectDomainTransferFromAnotherAwsAccount (RejectDomainTransferFromAnotherAwsAccount'),
+    newRejectDomainTransferFromAnotherAwsAccount,
+    RejectDomainTransferFromAnotherAwsAccountResponse (RejectDomainTransferFromAnotherAwsAccountResponse'),
+    newRejectDomainTransferFromAnotherAwsAccountResponse,
 
-    -- ** AcceptDomainTransferFromAnotherAWSAccount
-    module Network.AWS.Route53Domains.AcceptDomainTransferFromAnotherAWSAccount,
+    -- ** AcceptDomainTransferFromAnotherAwsAccount
+    AcceptDomainTransferFromAnotherAwsAccount (AcceptDomainTransferFromAnotherAwsAccount'),
+    newAcceptDomainTransferFromAnotherAwsAccount,
+    AcceptDomainTransferFromAnotherAwsAccountResponse (AcceptDomainTransferFromAnotherAwsAccountResponse'),
+    newAcceptDomainTransferFromAnotherAwsAccountResponse,
 
     -- ** GetOperationDetail
-    module Network.AWS.Route53Domains.GetOperationDetail,
+    GetOperationDetail (GetOperationDetail'),
+    newGetOperationDetail,
+    GetOperationDetailResponse (GetOperationDetailResponse'),
+    newGetOperationDetailResponse,
 
     -- ** GetDomainDetail
-    module Network.AWS.Route53Domains.GetDomainDetail,
+    GetDomainDetail (GetDomainDetail'),
+    newGetDomainDetail,
+    GetDomainDetailResponse (GetDomainDetailResponse'),
+    newGetDomainDetailResponse,
 
     -- ** UpdateDomainContact
-    module Network.AWS.Route53Domains.UpdateDomainContact,
+    UpdateDomainContact (UpdateDomainContact'),
+    newUpdateDomainContact,
+    UpdateDomainContactResponse (UpdateDomainContactResponse'),
+    newUpdateDomainContactResponse,
 
     -- ** TransferDomain
-    module Network.AWS.Route53Domains.TransferDomain,
+    TransferDomain (TransferDomain'),
+    newTransferDomain,
+    TransferDomainResponse (TransferDomainResponse'),
+    newTransferDomainResponse,
 
     -- ** RenewDomain
-    module Network.AWS.Route53Domains.RenewDomain,
+    RenewDomain (RenewDomain'),
+    newRenewDomain,
+    RenewDomainResponse (RenewDomainResponse'),
+    newRenewDomainResponse,
 
     -- ** RetrieveDomainAuthCode
-    module Network.AWS.Route53Domains.RetrieveDomainAuthCode,
+    RetrieveDomainAuthCode (RetrieveDomainAuthCode'),
+    newRetrieveDomainAuthCode,
+    RetrieveDomainAuthCodeResponse (RetrieveDomainAuthCodeResponse'),
+    newRetrieveDomainAuthCodeResponse,
 
     -- * Types
 
@@ -154,81 +238,45 @@ module Network.AWS.Route53Domains
     Transferable (..),
 
     -- ** BillingRecord
-    BillingRecord,
-    billingRecord,
-    brInvoiceId,
-    brOperation,
-    brDomainName,
-    brBillDate,
-    brPrice,
+    BillingRecord (BillingRecord'),
+    newBillingRecord,
 
     -- ** ContactDetail
-    ContactDetail,
-    contactDetail,
-    cdPhoneNumber,
-    cdOrganizationName,
-    cdAddressLine1,
-    cdExtraParams,
-    cdZipCode,
-    cdContactType,
-    cdCity,
-    cdState,
-    cdFax,
-    cdEmail,
-    cdCountryCode,
-    cdFirstName,
-    cdLastName,
-    cdAddressLine2,
+    ContactDetail (ContactDetail'),
+    newContactDetail,
 
     -- ** DomainSuggestion
-    DomainSuggestion,
-    domainSuggestion,
-    dsAvailability,
-    dsDomainName,
+    DomainSuggestion (DomainSuggestion'),
+    newDomainSuggestion,
 
     -- ** DomainSummary
-    DomainSummary,
-    domainSummary,
-    dExpiry,
-    dAutoRenew,
-    dTransferLock,
-    dDomainName,
+    DomainSummary (DomainSummary'),
+    newDomainSummary,
 
     -- ** DomainTransferability
-    DomainTransferability,
-    domainTransferability,
-    dtTransferable,
+    DomainTransferability (DomainTransferability'),
+    newDomainTransferability,
 
     -- ** ExtraParam
-    ExtraParam,
-    extraParam,
-    epName,
-    epValue,
+    ExtraParam (ExtraParam'),
+    newExtraParam,
 
     -- ** Nameserver
-    Nameserver,
-    nameserver,
-    nGlueIPs,
-    nName,
+    Nameserver (Nameserver'),
+    newNameserver,
 
     -- ** OperationSummary
-    OperationSummary,
-    operationSummary,
-    osOperationId,
-    osStatus,
-    osType,
-    osSubmittedDate,
+    OperationSummary (OperationSummary'),
+    newOperationSummary,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
-import Network.AWS.Route53Domains.AcceptDomainTransferFromAnotherAWSAccount
-import Network.AWS.Route53Domains.CancelDomainTransferToAnotherAWSAccount
+import Network.AWS.Route53Domains.AcceptDomainTransferFromAnotherAwsAccount
+import Network.AWS.Route53Domains.CancelDomainTransferToAnotherAwsAccount
 import Network.AWS.Route53Domains.CheckDomainAvailability
 import Network.AWS.Route53Domains.CheckDomainTransferability
 import Network.AWS.Route53Domains.DeleteTagsForDomain
@@ -240,16 +288,17 @@ import Network.AWS.Route53Domains.GetContactReachabilityStatus
 import Network.AWS.Route53Domains.GetDomainDetail
 import Network.AWS.Route53Domains.GetDomainSuggestions
 import Network.AWS.Route53Domains.GetOperationDetail
+import Network.AWS.Route53Domains.Lens
 import Network.AWS.Route53Domains.ListDomains
 import Network.AWS.Route53Domains.ListOperations
 import Network.AWS.Route53Domains.ListTagsForDomain
 import Network.AWS.Route53Domains.RegisterDomain
-import Network.AWS.Route53Domains.RejectDomainTransferFromAnotherAWSAccount
+import Network.AWS.Route53Domains.RejectDomainTransferFromAnotherAwsAccount
 import Network.AWS.Route53Domains.RenewDomain
 import Network.AWS.Route53Domains.ResendContactReachabilityEmail
 import Network.AWS.Route53Domains.RetrieveDomainAuthCode
 import Network.AWS.Route53Domains.TransferDomain
-import Network.AWS.Route53Domains.TransferDomainToAnotherAWSAccount
+import Network.AWS.Route53Domains.TransferDomainToAnotherAwsAccount
 import Network.AWS.Route53Domains.Types
 import Network.AWS.Route53Domains.UpdateDomainContact
 import Network.AWS.Route53Domains.UpdateDomainContactPrivacy

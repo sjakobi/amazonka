@@ -27,187 +27,187 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestTransferDomainToAnotherAWSAccount $
---             transferDomainToAnotherAWSAccount
+--         [ requestTransferDomainToAnotherAwsAccount $
+--             newTransferDomainToAnotherAwsAccount
 --
 --         , requestUpdateDomainContactPrivacy $
---             updateDomainContactPrivacy
+--             newUpdateDomainContactPrivacy
 --
 --         , requestCheckDomainAvailability $
---             checkDomainAvailability
+--             newCheckDomainAvailability
 --
 --         , requestCheckDomainTransferability $
---             checkDomainTransferability
+--             newCheckDomainTransferability
 --
 --         , requestListOperations $
---             listOperations
+--             newListOperations
 --
 --         , requestDisableDomainTransferLock $
---             disableDomainTransferLock
+--             newDisableDomainTransferLock
 --
 --         , requestRegisterDomain $
---             registerDomain
+--             newRegisterDomain
 --
 --         , requestGetDomainSuggestions $
---             getDomainSuggestions
+--             newGetDomainSuggestions
 --
 --         , requestListDomains $
---             listDomains
+--             newListDomains
 --
---         , requestCancelDomainTransferToAnotherAWSAccount $
---             cancelDomainTransferToAnotherAWSAccount
+--         , requestCancelDomainTransferToAnotherAwsAccount $
+--             newCancelDomainTransferToAnotherAwsAccount
 --
 --         , requestEnableDomainTransferLock $
---             enableDomainTransferLock
+--             newEnableDomainTransferLock
 --
 --         , requestViewBilling $
---             viewBilling
+--             newViewBilling
 --
 --         , requestDeleteTagsForDomain $
---             deleteTagsForDomain
+--             newDeleteTagsForDomain
 --
 --         , requestUpdateTagsForDomain $
---             updateTagsForDomain
+--             newUpdateTagsForDomain
 --
 --         , requestListTagsForDomain $
---             listTagsForDomain
+--             newListTagsForDomain
 --
 --         , requestResendContactReachabilityEmail $
---             resendContactReachabilityEmail
+--             newResendContactReachabilityEmail
 --
 --         , requestDisableDomainAutoRenew $
---             disableDomainAutoRenew
+--             newDisableDomainAutoRenew
 --
 --         , requestUpdateDomainNameservers $
---             updateDomainNameservers
+--             newUpdateDomainNameservers
 --
 --         , requestEnableDomainAutoRenew $
---             enableDomainAutoRenew
+--             newEnableDomainAutoRenew
 --
 --         , requestGetContactReachabilityStatus $
---             getContactReachabilityStatus
+--             newGetContactReachabilityStatus
 --
---         , requestRejectDomainTransferFromAnotherAWSAccount $
---             rejectDomainTransferFromAnotherAWSAccount
+--         , requestRejectDomainTransferFromAnotherAwsAccount $
+--             newRejectDomainTransferFromAnotherAwsAccount
 --
---         , requestAcceptDomainTransferFromAnotherAWSAccount $
---             acceptDomainTransferFromAnotherAWSAccount
+--         , requestAcceptDomainTransferFromAnotherAwsAccount $
+--             newAcceptDomainTransferFromAnotherAwsAccount
 --
 --         , requestGetOperationDetail $
---             getOperationDetail
+--             newGetOperationDetail
 --
 --         , requestGetDomainDetail $
---             getDomainDetail
+--             newGetDomainDetail
 --
 --         , requestUpdateDomainContact $
---             updateDomainContact
+--             newUpdateDomainContact
 --
 --         , requestTransferDomain $
---             transferDomain
+--             newTransferDomain
 --
 --         , requestRenewDomain $
---             renewDomain
+--             newRenewDomain
 --
 --         , requestRetrieveDomainAuthCode $
---             retrieveDomainAuthCode
+--             newRetrieveDomainAuthCode
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseTransferDomainToAnotherAWSAccount $
---             transferDomainToAnotherAWSAccountResponse
+--         [ responseTransferDomainToAnotherAwsAccount $
+--             newTransferDomainToAnotherAwsAccountResponse
 --
 --         , responseUpdateDomainContactPrivacy $
---             updateDomainContactPrivacyResponse
+--             newUpdateDomainContactPrivacyResponse
 --
 --         , responseCheckDomainAvailability $
---             checkDomainAvailabilityResponse
+--             newCheckDomainAvailabilityResponse
 --
 --         , responseCheckDomainTransferability $
---             checkDomainTransferabilityResponse
+--             newCheckDomainTransferabilityResponse
 --
 --         , responseListOperations $
---             listOperationsResponse
+--             newListOperationsResponse
 --
 --         , responseDisableDomainTransferLock $
---             disableDomainTransferLockResponse
+--             newDisableDomainTransferLockResponse
 --
 --         , responseRegisterDomain $
---             registerDomainResponse
+--             newRegisterDomainResponse
 --
 --         , responseGetDomainSuggestions $
---             getDomainSuggestionsResponse
+--             newGetDomainSuggestionsResponse
 --
 --         , responseListDomains $
---             listDomainsResponse
+--             newListDomainsResponse
 --
---         , responseCancelDomainTransferToAnotherAWSAccount $
---             cancelDomainTransferToAnotherAWSAccountResponse
+--         , responseCancelDomainTransferToAnotherAwsAccount $
+--             newCancelDomainTransferToAnotherAwsAccountResponse
 --
 --         , responseEnableDomainTransferLock $
---             enableDomainTransferLockResponse
+--             newEnableDomainTransferLockResponse
 --
 --         , responseViewBilling $
---             viewBillingResponse
+--             newViewBillingResponse
 --
 --         , responseDeleteTagsForDomain $
---             deleteTagsForDomainResponse
+--             newDeleteTagsForDomainResponse
 --
 --         , responseUpdateTagsForDomain $
---             updateTagsForDomainResponse
+--             newUpdateTagsForDomainResponse
 --
 --         , responseListTagsForDomain $
---             listTagsForDomainResponse
+--             newListTagsForDomainResponse
 --
 --         , responseResendContactReachabilityEmail $
---             resendContactReachabilityEmailResponse
+--             newResendContactReachabilityEmailResponse
 --
 --         , responseDisableDomainAutoRenew $
---             disableDomainAutoRenewResponse
+--             newDisableDomainAutoRenewResponse
 --
 --         , responseUpdateDomainNameservers $
---             updateDomainNameserversResponse
+--             newUpdateDomainNameserversResponse
 --
 --         , responseEnableDomainAutoRenew $
---             enableDomainAutoRenewResponse
+--             newEnableDomainAutoRenewResponse
 --
 --         , responseGetContactReachabilityStatus $
---             getContactReachabilityStatusResponse
+--             newGetContactReachabilityStatusResponse
 --
---         , responseRejectDomainTransferFromAnotherAWSAccount $
---             rejectDomainTransferFromAnotherAWSAccountResponse
+--         , responseRejectDomainTransferFromAnotherAwsAccount $
+--             newRejectDomainTransferFromAnotherAwsAccountResponse
 --
---         , responseAcceptDomainTransferFromAnotherAWSAccount $
---             acceptDomainTransferFromAnotherAWSAccountResponse
+--         , responseAcceptDomainTransferFromAnotherAwsAccount $
+--             newAcceptDomainTransferFromAnotherAwsAccountResponse
 --
 --         , responseGetOperationDetail $
---             getOperationDetailResponse
+--             newGetOperationDetailResponse
 --
 --         , responseGetDomainDetail $
---             getDomainDetailResponse
+--             newGetDomainDetailResponse
 --
 --         , responseUpdateDomainContact $
---             updateDomainContactResponse
+--             newUpdateDomainContactResponse
 --
 --         , responseTransferDomain $
---             transferDomainResponse
+--             newTransferDomainResponse
 --
 --         , responseRenewDomain $
---             renewDomainResponse
+--             newRenewDomainResponse
 --
 --         , responseRetrieveDomainAuthCode $
---             retrieveDomainAuthCodeResponse
+--             newRetrieveDomainAuthCodeResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestTransferDomainToAnotherAWSAccount :: TransferDomainToAnotherAWSAccount -> TestTree
-requestTransferDomainToAnotherAWSAccount =
+requestTransferDomainToAnotherAwsAccount :: TransferDomainToAnotherAwsAccount -> TestTree
+requestTransferDomainToAnotherAwsAccount =
   req
-    "TransferDomainToAnotherAWSAccount"
-    "fixture/TransferDomainToAnotherAWSAccount.yaml"
+    "TransferDomainToAnotherAwsAccount"
+    "fixture/TransferDomainToAnotherAwsAccount.yaml"
 
 requestUpdateDomainContactPrivacy :: UpdateDomainContactPrivacy -> TestTree
 requestUpdateDomainContactPrivacy =
@@ -257,11 +257,11 @@ requestListDomains =
     "ListDomains"
     "fixture/ListDomains.yaml"
 
-requestCancelDomainTransferToAnotherAWSAccount :: CancelDomainTransferToAnotherAWSAccount -> TestTree
-requestCancelDomainTransferToAnotherAWSAccount =
+requestCancelDomainTransferToAnotherAwsAccount :: CancelDomainTransferToAnotherAwsAccount -> TestTree
+requestCancelDomainTransferToAnotherAwsAccount =
   req
-    "CancelDomainTransferToAnotherAWSAccount"
-    "fixture/CancelDomainTransferToAnotherAWSAccount.yaml"
+    "CancelDomainTransferToAnotherAwsAccount"
+    "fixture/CancelDomainTransferToAnotherAwsAccount.yaml"
 
 requestEnableDomainTransferLock :: EnableDomainTransferLock -> TestTree
 requestEnableDomainTransferLock =
@@ -323,17 +323,17 @@ requestGetContactReachabilityStatus =
     "GetContactReachabilityStatus"
     "fixture/GetContactReachabilityStatus.yaml"
 
-requestRejectDomainTransferFromAnotherAWSAccount :: RejectDomainTransferFromAnotherAWSAccount -> TestTree
-requestRejectDomainTransferFromAnotherAWSAccount =
+requestRejectDomainTransferFromAnotherAwsAccount :: RejectDomainTransferFromAnotherAwsAccount -> TestTree
+requestRejectDomainTransferFromAnotherAwsAccount =
   req
-    "RejectDomainTransferFromAnotherAWSAccount"
-    "fixture/RejectDomainTransferFromAnotherAWSAccount.yaml"
+    "RejectDomainTransferFromAnotherAwsAccount"
+    "fixture/RejectDomainTransferFromAnotherAwsAccount.yaml"
 
-requestAcceptDomainTransferFromAnotherAWSAccount :: AcceptDomainTransferFromAnotherAWSAccount -> TestTree
-requestAcceptDomainTransferFromAnotherAWSAccount =
+requestAcceptDomainTransferFromAnotherAwsAccount :: AcceptDomainTransferFromAnotherAwsAccount -> TestTree
+requestAcceptDomainTransferFromAnotherAwsAccount =
   req
-    "AcceptDomainTransferFromAnotherAWSAccount"
-    "fixture/AcceptDomainTransferFromAnotherAWSAccount.yaml"
+    "AcceptDomainTransferFromAnotherAwsAccount"
+    "fixture/AcceptDomainTransferFromAnotherAwsAccount.yaml"
 
 requestGetOperationDetail :: GetOperationDetail -> TestTree
 requestGetOperationDetail =
@@ -373,20 +373,20 @@ requestRetrieveDomainAuthCode =
 
 -- Responses
 
-responseTransferDomainToAnotherAWSAccount :: TransferDomainToAnotherAWSAccountResponse -> TestTree
-responseTransferDomainToAnotherAWSAccount =
+responseTransferDomainToAnotherAwsAccount :: TransferDomainToAnotherAwsAccountResponse -> TestTree
+responseTransferDomainToAnotherAwsAccount =
   res
-    "TransferDomainToAnotherAWSAccountResponse"
-    "fixture/TransferDomainToAnotherAWSAccountResponse.proto"
-    route53Domains
-    (Proxy :: Proxy TransferDomainToAnotherAWSAccount)
+    "TransferDomainToAnotherAwsAccountResponse"
+    "fixture/TransferDomainToAnotherAwsAccountResponse.proto"
+    defaultService
+    (Proxy :: Proxy TransferDomainToAnotherAwsAccount)
 
 responseUpdateDomainContactPrivacy :: UpdateDomainContactPrivacyResponse -> TestTree
 responseUpdateDomainContactPrivacy =
   res
     "UpdateDomainContactPrivacyResponse"
     "fixture/UpdateDomainContactPrivacyResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy UpdateDomainContactPrivacy)
 
 responseCheckDomainAvailability :: CheckDomainAvailabilityResponse -> TestTree
@@ -394,7 +394,7 @@ responseCheckDomainAvailability =
   res
     "CheckDomainAvailabilityResponse"
     "fixture/CheckDomainAvailabilityResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy CheckDomainAvailability)
 
 responseCheckDomainTransferability :: CheckDomainTransferabilityResponse -> TestTree
@@ -402,7 +402,7 @@ responseCheckDomainTransferability =
   res
     "CheckDomainTransferabilityResponse"
     "fixture/CheckDomainTransferabilityResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy CheckDomainTransferability)
 
 responseListOperations :: ListOperationsResponse -> TestTree
@@ -410,7 +410,7 @@ responseListOperations =
   res
     "ListOperationsResponse"
     "fixture/ListOperationsResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy ListOperations)
 
 responseDisableDomainTransferLock :: DisableDomainTransferLockResponse -> TestTree
@@ -418,7 +418,7 @@ responseDisableDomainTransferLock =
   res
     "DisableDomainTransferLockResponse"
     "fixture/DisableDomainTransferLockResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy DisableDomainTransferLock)
 
 responseRegisterDomain :: RegisterDomainResponse -> TestTree
@@ -426,7 +426,7 @@ responseRegisterDomain =
   res
     "RegisterDomainResponse"
     "fixture/RegisterDomainResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy RegisterDomain)
 
 responseGetDomainSuggestions :: GetDomainSuggestionsResponse -> TestTree
@@ -434,7 +434,7 @@ responseGetDomainSuggestions =
   res
     "GetDomainSuggestionsResponse"
     "fixture/GetDomainSuggestionsResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy GetDomainSuggestions)
 
 responseListDomains :: ListDomainsResponse -> TestTree
@@ -442,23 +442,23 @@ responseListDomains =
   res
     "ListDomainsResponse"
     "fixture/ListDomainsResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy ListDomains)
 
-responseCancelDomainTransferToAnotherAWSAccount :: CancelDomainTransferToAnotherAWSAccountResponse -> TestTree
-responseCancelDomainTransferToAnotherAWSAccount =
+responseCancelDomainTransferToAnotherAwsAccount :: CancelDomainTransferToAnotherAwsAccountResponse -> TestTree
+responseCancelDomainTransferToAnotherAwsAccount =
   res
-    "CancelDomainTransferToAnotherAWSAccountResponse"
-    "fixture/CancelDomainTransferToAnotherAWSAccountResponse.proto"
-    route53Domains
-    (Proxy :: Proxy CancelDomainTransferToAnotherAWSAccount)
+    "CancelDomainTransferToAnotherAwsAccountResponse"
+    "fixture/CancelDomainTransferToAnotherAwsAccountResponse.proto"
+    defaultService
+    (Proxy :: Proxy CancelDomainTransferToAnotherAwsAccount)
 
 responseEnableDomainTransferLock :: EnableDomainTransferLockResponse -> TestTree
 responseEnableDomainTransferLock =
   res
     "EnableDomainTransferLockResponse"
     "fixture/EnableDomainTransferLockResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy EnableDomainTransferLock)
 
 responseViewBilling :: ViewBillingResponse -> TestTree
@@ -466,7 +466,7 @@ responseViewBilling =
   res
     "ViewBillingResponse"
     "fixture/ViewBillingResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy ViewBilling)
 
 responseDeleteTagsForDomain :: DeleteTagsForDomainResponse -> TestTree
@@ -474,7 +474,7 @@ responseDeleteTagsForDomain =
   res
     "DeleteTagsForDomainResponse"
     "fixture/DeleteTagsForDomainResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy DeleteTagsForDomain)
 
 responseUpdateTagsForDomain :: UpdateTagsForDomainResponse -> TestTree
@@ -482,7 +482,7 @@ responseUpdateTagsForDomain =
   res
     "UpdateTagsForDomainResponse"
     "fixture/UpdateTagsForDomainResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy UpdateTagsForDomain)
 
 responseListTagsForDomain :: ListTagsForDomainResponse -> TestTree
@@ -490,7 +490,7 @@ responseListTagsForDomain =
   res
     "ListTagsForDomainResponse"
     "fixture/ListTagsForDomainResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy ListTagsForDomain)
 
 responseResendContactReachabilityEmail :: ResendContactReachabilityEmailResponse -> TestTree
@@ -498,7 +498,7 @@ responseResendContactReachabilityEmail =
   res
     "ResendContactReachabilityEmailResponse"
     "fixture/ResendContactReachabilityEmailResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy ResendContactReachabilityEmail)
 
 responseDisableDomainAutoRenew :: DisableDomainAutoRenewResponse -> TestTree
@@ -506,7 +506,7 @@ responseDisableDomainAutoRenew =
   res
     "DisableDomainAutoRenewResponse"
     "fixture/DisableDomainAutoRenewResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy DisableDomainAutoRenew)
 
 responseUpdateDomainNameservers :: UpdateDomainNameserversResponse -> TestTree
@@ -514,7 +514,7 @@ responseUpdateDomainNameservers =
   res
     "UpdateDomainNameserversResponse"
     "fixture/UpdateDomainNameserversResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy UpdateDomainNameservers)
 
 responseEnableDomainAutoRenew :: EnableDomainAutoRenewResponse -> TestTree
@@ -522,7 +522,7 @@ responseEnableDomainAutoRenew =
   res
     "EnableDomainAutoRenewResponse"
     "fixture/EnableDomainAutoRenewResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy EnableDomainAutoRenew)
 
 responseGetContactReachabilityStatus :: GetContactReachabilityStatusResponse -> TestTree
@@ -530,31 +530,31 @@ responseGetContactReachabilityStatus =
   res
     "GetContactReachabilityStatusResponse"
     "fixture/GetContactReachabilityStatusResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy GetContactReachabilityStatus)
 
-responseRejectDomainTransferFromAnotherAWSAccount :: RejectDomainTransferFromAnotherAWSAccountResponse -> TestTree
-responseRejectDomainTransferFromAnotherAWSAccount =
+responseRejectDomainTransferFromAnotherAwsAccount :: RejectDomainTransferFromAnotherAwsAccountResponse -> TestTree
+responseRejectDomainTransferFromAnotherAwsAccount =
   res
-    "RejectDomainTransferFromAnotherAWSAccountResponse"
-    "fixture/RejectDomainTransferFromAnotherAWSAccountResponse.proto"
-    route53Domains
-    (Proxy :: Proxy RejectDomainTransferFromAnotherAWSAccount)
+    "RejectDomainTransferFromAnotherAwsAccountResponse"
+    "fixture/RejectDomainTransferFromAnotherAwsAccountResponse.proto"
+    defaultService
+    (Proxy :: Proxy RejectDomainTransferFromAnotherAwsAccount)
 
-responseAcceptDomainTransferFromAnotherAWSAccount :: AcceptDomainTransferFromAnotherAWSAccountResponse -> TestTree
-responseAcceptDomainTransferFromAnotherAWSAccount =
+responseAcceptDomainTransferFromAnotherAwsAccount :: AcceptDomainTransferFromAnotherAwsAccountResponse -> TestTree
+responseAcceptDomainTransferFromAnotherAwsAccount =
   res
-    "AcceptDomainTransferFromAnotherAWSAccountResponse"
-    "fixture/AcceptDomainTransferFromAnotherAWSAccountResponse.proto"
-    route53Domains
-    (Proxy :: Proxy AcceptDomainTransferFromAnotherAWSAccount)
+    "AcceptDomainTransferFromAnotherAwsAccountResponse"
+    "fixture/AcceptDomainTransferFromAnotherAwsAccountResponse.proto"
+    defaultService
+    (Proxy :: Proxy AcceptDomainTransferFromAnotherAwsAccount)
 
 responseGetOperationDetail :: GetOperationDetailResponse -> TestTree
 responseGetOperationDetail =
   res
     "GetOperationDetailResponse"
     "fixture/GetOperationDetailResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy GetOperationDetail)
 
 responseGetDomainDetail :: GetDomainDetailResponse -> TestTree
@@ -562,7 +562,7 @@ responseGetDomainDetail =
   res
     "GetDomainDetailResponse"
     "fixture/GetDomainDetailResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy GetDomainDetail)
 
 responseUpdateDomainContact :: UpdateDomainContactResponse -> TestTree
@@ -570,7 +570,7 @@ responseUpdateDomainContact =
   res
     "UpdateDomainContactResponse"
     "fixture/UpdateDomainContactResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy UpdateDomainContact)
 
 responseTransferDomain :: TransferDomainResponse -> TestTree
@@ -578,7 +578,7 @@ responseTransferDomain =
   res
     "TransferDomainResponse"
     "fixture/TransferDomainResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy TransferDomain)
 
 responseRenewDomain :: RenewDomainResponse -> TestTree
@@ -586,7 +586,7 @@ responseRenewDomain =
   res
     "RenewDomainResponse"
     "fixture/RenewDomainResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy RenewDomain)
 
 responseRetrieveDomainAuthCode :: RetrieveDomainAuthCodeResponse -> TestTree
@@ -594,5 +594,5 @@ responseRetrieveDomainAuthCode =
   res
     "RetrieveDomainAuthCodeResponse"
     "fixture/RetrieveDomainAuthCodeResponse.proto"
-    route53Domains
+    defaultService
     (Proxy :: Proxy RetrieveDomainAuthCode)

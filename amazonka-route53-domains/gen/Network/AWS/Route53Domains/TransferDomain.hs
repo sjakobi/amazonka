@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,297 +21,470 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Transfers a domain from another registrar to Amazon Route 53. When the transfer is complete, the domain is registered either with Amazon Registrar (for .com, .net, and .org domains) or with our registrar associate, Gandi (for all other TLDs).
+-- Transfers a domain from another registrar to Amazon Route 53. When the
+-- transfer is complete, the domain is registered either with Amazon
+-- Registrar (for .com, .net, and .org domains) or with our registrar
+-- associate, Gandi (for all other TLDs).
 --
+-- For more information about transferring domains, see the following
+-- topics:
 --
--- For more information about transferring domains, see the following topics:
+-- -   For transfer requirements, a detailed procedure, and information
+--     about viewing the status of a domain that you\'re transferring to
+--     Route 53, see
+--     <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html Transferring Registration for a Domain to Amazon Route 53>
+--     in the /Amazon Route 53 Developer Guide/.
 --
---     * For transfer requirements, a detailed procedure, and information about viewing the status of a domain that you're transferring to Route 53, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html Transferring Registration for a Domain to Amazon Route 53> in the /Amazon Route 53 Developer Guide/ .
+-- -   For information about how to transfer a domain from one AWS account
+--     to another, see
+--     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>.
 --
---     * For information about how to transfer a domain from one AWS account to another, see <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount> .
+-- -   For information about how to transfer a domain to another domain
+--     registrar, see
+--     <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-from-route-53.html Transferring a Domain from Amazon Route 53 to Another Registrar>
+--     in the /Amazon Route 53 Developer Guide/.
 --
---     * For information about how to transfer a domain to another domain registrar, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-from-route-53.html Transferring a Domain from Amazon Route 53 to Another Registrar> in the /Amazon Route 53 Developer Guide/ .
+-- If the registrar for your domain is also the DNS service provider for
+-- the domain, we highly recommend that you transfer your DNS service to
+-- Route 53 or to another DNS service provider before you transfer your
+-- registration. Some registrars provide free DNS service when you purchase
+-- a domain registration. When you transfer the registration, the previous
+-- registrar will not renew your domain registration and could end your DNS
+-- service at any time.
 --
+-- If the registrar for your domain is also the DNS service provider for
+-- the domain and you don\'t transfer DNS service to another provider, your
+-- website, email, and the web applications associated with the domain
+-- might become unavailable.
 --
---
--- If the registrar for your domain is also the DNS service provider for the domain, we highly recommend that you transfer your DNS service to Route 53 or to another DNS service provider before you transfer your registration. Some registrars provide free DNS service when you purchase a domain registration. When you transfer the registration, the previous registrar will not renew your domain registration and could end your DNS service at any time.
---
--- /Important:/ If the registrar for your domain is also the DNS service provider for the domain and you don't transfer DNS service to another provider, your website, email, and the web applications associated with the domain might become unavailable.
---
--- If the transfer is successful, this method returns an operation ID that you can use to track the progress and completion of the action. If the transfer doesn't complete successfully, the domain registrant will be notified by email.
+-- If the transfer is successful, this method returns an operation ID that
+-- you can use to track the progress and completion of the action. If the
+-- transfer doesn\'t complete successfully, the domain registrant will be
+-- notified by email.
 module Network.AWS.Route53Domains.TransferDomain
   ( -- * Creating a Request
-    transferDomain,
-    TransferDomain,
+    TransferDomain (..),
+    newTransferDomain,
 
     -- * Request Lenses
-    tdAutoRenew,
-    tdNameservers,
-    tdAuthCode,
-    tdIdNLangCode,
-    tdPrivacyProtectTechContact,
-    tdPrivacyProtectRegistrantContact,
-    tdPrivacyProtectAdminContact,
-    tdDomainName,
-    tdDurationInYears,
-    tdAdminContact,
-    tdRegistrantContact,
-    tdTechContact,
+    transferDomain_autoRenew,
+    transferDomain_nameservers,
+    transferDomain_authCode,
+    transferDomain_idnLangCode,
+    transferDomain_privacyProtectTechContact,
+    transferDomain_privacyProtectRegistrantContact,
+    transferDomain_privacyProtectAdminContact,
+    transferDomain_domainName,
+    transferDomain_durationInYears,
+    transferDomain_adminContact,
+    transferDomain_registrantContact,
+    transferDomain_techContact,
 
     -- * Destructuring the Response
-    transferDomainResponse,
-    TransferDomainResponse,
+    TransferDomainResponse (..),
+    newTransferDomainResponse,
 
     -- * Response Lenses
-    tdrrsResponseStatus,
-    tdrrsOperationId,
+    transferDomainResponse_httpStatus,
+    transferDomainResponse_operationId,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53Domains.Types
 
 -- | The TransferDomain request includes the following elements.
 --
---
---
--- /See:/ 'transferDomain' smart constructor.
+-- /See:/ 'newTransferDomain' smart constructor.
 data TransferDomain = TransferDomain'
-  { _tdAutoRenew ::
-      !(Maybe Bool),
-    _tdNameservers :: !(Maybe [Nameserver]),
-    _tdAuthCode :: !(Maybe (Sensitive Text)),
-    _tdIdNLangCode :: !(Maybe Text),
-    _tdPrivacyProtectTechContact ::
-      !(Maybe Bool),
-    _tdPrivacyProtectRegistrantContact ::
-      !(Maybe Bool),
-    _tdPrivacyProtectAdminContact ::
-      !(Maybe Bool),
-    _tdDomainName :: !Text,
-    _tdDurationInYears :: !Nat,
-    _tdAdminContact ::
-      !(Sensitive ContactDetail),
-    _tdRegistrantContact ::
-      !(Sensitive ContactDetail),
-    _tdTechContact ::
-      !(Sensitive ContactDetail)
+  { -- | Indicates whether the domain will be automatically renewed (true) or not
+    -- (false). Autorenewal only takes effect after the account is charged.
+    --
+    -- Default: true
+    autoRenew :: Prelude.Maybe Prelude.Bool,
+    -- | Contains details for the host and glue IP addresses.
+    nameservers :: Prelude.Maybe [Nameserver],
+    -- | The authorization code for the domain. You get this value from the
+    -- current registrar.
+    authCode :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | Reserved for future use.
+    idnLangCode :: Prelude.Maybe Prelude.Text,
+    -- | Whether you want to conceal contact information from WHOIS queries. If
+    -- you specify @true@, WHOIS (\"who is\") queries return contact
+    -- information either for Amazon Registrar (for .com, .net, and .org
+    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
+    -- you specify @false@, WHOIS queries return the information that you
+    -- entered for the technical contact.
+    --
+    -- Default: @true@
+    privacyProtectTechContact :: Prelude.Maybe Prelude.Bool,
+    -- | Whether you want to conceal contact information from WHOIS queries. If
+    -- you specify @true@, WHOIS (\"who is\") queries return contact
+    -- information either for Amazon Registrar (for .com, .net, and .org
+    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
+    -- you specify @false@, WHOIS queries return the information that you
+    -- entered for the registrant contact (domain owner).
+    --
+    -- Default: @true@
+    privacyProtectRegistrantContact :: Prelude.Maybe Prelude.Bool,
+    -- | Whether you want to conceal contact information from WHOIS queries. If
+    -- you specify @true@, WHOIS (\"who is\") queries return contact
+    -- information either for Amazon Registrar (for .com, .net, and .org
+    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
+    -- you specify @false@, WHOIS queries return the information that you
+    -- entered for the admin contact.
+    --
+    -- Default: @true@
+    privacyProtectAdminContact :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the domain that you want to transfer to Route 53. The
+    -- top-level domain (TLD), such as .com, must be a TLD that Route 53
+    -- supports. For a list of supported TLDs, see
+    -- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>
+    -- in the /Amazon Route 53 Developer Guide/.
+    --
+    -- The domain name can contain only the following characters:
+    --
+    -- -   Letters a through z. Domain names are not case sensitive.
+    --
+    -- -   Numbers 0 through 9.
+    --
+    -- -   Hyphen (-). You can\'t specify a hyphen at the beginning or end of a
+    --     label.
+    --
+    -- -   Period (.) to separate the labels in the name, such as the @.@ in
+    --     @example.com@.
+    domainName :: Prelude.Text,
+    -- | The number of years that you want to register the domain for. Domains
+    -- are registered for a minimum of one year. The maximum period depends on
+    -- the top-level domain.
+    --
+    -- Default: 1
+    durationInYears :: Prelude.Nat,
+    -- | Provides detailed contact information.
+    adminContact :: Prelude.Sensitive ContactDetail,
+    -- | Provides detailed contact information.
+    registrantContact :: Prelude.Sensitive ContactDetail,
+    -- | Provides detailed contact information.
+    techContact :: Prelude.Sensitive ContactDetail
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransferDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransferDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdAutoRenew' - Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes effect after the account is charged. Default: true
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdNameservers' - Contains details for the host and glue IP addresses.
+-- 'autoRenew', 'transferDomain_autoRenew' - Indicates whether the domain will be automatically renewed (true) or not
+-- (false). Autorenewal only takes effect after the account is charged.
 --
--- * 'tdAuthCode' - The authorization code for the domain. You get this value from the current registrar.
+-- Default: true
 --
--- * 'tdIdNLangCode' - Reserved for future use.
+-- 'nameservers', 'transferDomain_nameservers' - Contains details for the host and glue IP addresses.
 --
--- * 'tdPrivacyProtectTechContact' - Whether you want to conceal contact information from WHOIS queries. If you specify @true@ , WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or for our registrar associate, Gandi (for all other TLDs). If you specify @false@ , WHOIS queries return the information that you entered for the technical contact. Default: @true@
+-- 'authCode', 'transferDomain_authCode' - The authorization code for the domain. You get this value from the
+-- current registrar.
 --
--- * 'tdPrivacyProtectRegistrantContact' - Whether you want to conceal contact information from WHOIS queries. If you specify @true@ , WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or for our registrar associate, Gandi (for all other TLDs). If you specify @false@ , WHOIS queries return the information that you entered for the registrant contact (domain owner). Default: @true@
+-- 'idnLangCode', 'transferDomain_idnLangCode' - Reserved for future use.
 --
--- * 'tdPrivacyProtectAdminContact' - Whether you want to conceal contact information from WHOIS queries. If you specify @true@ , WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or for our registrar associate, Gandi (for all other TLDs). If you specify @false@ , WHOIS queries return the information that you entered for the admin contact. Default: @true@
+-- 'privacyProtectTechContact', 'transferDomain_privacyProtectTechContact' - Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the technical contact.
 --
--- * 'tdDomainName' - The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com, must be a TLD that Route 53 supports. For a list of supported TLDs, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53> in the /Amazon Route 53 Developer Guide/ . The domain name can contain only the following characters:     * Letters a through z. Domain names are not case sensitive.     * Numbers 0 through 9.     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.      * Period (.) to separate the labels in the name, such as the @.@ in @example.com@ .
+-- Default: @true@
 --
--- * 'tdDurationInYears' - The number of years that you want to register the domain for. Domains are registered for a minimum of one year. The maximum period depends on the top-level domain. Default: 1
+-- 'privacyProtectRegistrantContact', 'transferDomain_privacyProtectRegistrantContact' - Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the registrant contact (domain owner).
 --
--- * 'tdAdminContact' - Provides detailed contact information.
+-- Default: @true@
 --
--- * 'tdRegistrantContact' - Provides detailed contact information.
+-- 'privacyProtectAdminContact', 'transferDomain_privacyProtectAdminContact' - Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the admin contact.
 --
--- * 'tdTechContact' - Provides detailed contact information.
-transferDomain ::
-  -- | 'tdDomainName'
-  Text ->
-  -- | 'tdDurationInYears'
-  Natural ->
-  -- | 'tdAdminContact'
+-- Default: @true@
+--
+-- 'domainName', 'transferDomain_domainName' - The name of the domain that you want to transfer to Route 53. The
+-- top-level domain (TLD), such as .com, must be a TLD that Route 53
+-- supports. For a list of supported TLDs, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>
+-- in the /Amazon Route 53 Developer Guide/.
+--
+-- The domain name can contain only the following characters:
+--
+-- -   Letters a through z. Domain names are not case sensitive.
+--
+-- -   Numbers 0 through 9.
+--
+-- -   Hyphen (-). You can\'t specify a hyphen at the beginning or end of a
+--     label.
+--
+-- -   Period (.) to separate the labels in the name, such as the @.@ in
+--     @example.com@.
+--
+-- 'durationInYears', 'transferDomain_durationInYears' - The number of years that you want to register the domain for. Domains
+-- are registered for a minimum of one year. The maximum period depends on
+-- the top-level domain.
+--
+-- Default: 1
+--
+-- 'adminContact', 'transferDomain_adminContact' - Provides detailed contact information.
+--
+-- 'registrantContact', 'transferDomain_registrantContact' - Provides detailed contact information.
+--
+-- 'techContact', 'transferDomain_techContact' - Provides detailed contact information.
+newTransferDomain ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'durationInYears'
+  Prelude.Natural ->
+  -- | 'adminContact'
   ContactDetail ->
-  -- | 'tdRegistrantContact'
+  -- | 'registrantContact'
   ContactDetail ->
-  -- | 'tdTechContact'
+  -- | 'techContact'
   ContactDetail ->
   TransferDomain
-transferDomain
+newTransferDomain
   pDomainName_
   pDurationInYears_
   pAdminContact_
   pRegistrantContact_
   pTechContact_ =
     TransferDomain'
-      { _tdAutoRenew = Nothing,
-        _tdNameservers = Nothing,
-        _tdAuthCode = Nothing,
-        _tdIdNLangCode = Nothing,
-        _tdPrivacyProtectTechContact = Nothing,
-        _tdPrivacyProtectRegistrantContact = Nothing,
-        _tdPrivacyProtectAdminContact = Nothing,
-        _tdDomainName = pDomainName_,
-        _tdDurationInYears = _Nat # pDurationInYears_,
-        _tdAdminContact = _Sensitive # pAdminContact_,
-        _tdRegistrantContact =
-          _Sensitive # pRegistrantContact_,
-        _tdTechContact = _Sensitive # pTechContact_
+      { autoRenew = Prelude.Nothing,
+        nameservers = Prelude.Nothing,
+        authCode = Prelude.Nothing,
+        idnLangCode = Prelude.Nothing,
+        privacyProtectTechContact = Prelude.Nothing,
+        privacyProtectRegistrantContact = Prelude.Nothing,
+        privacyProtectAdminContact = Prelude.Nothing,
+        domainName = pDomainName_,
+        durationInYears =
+          Prelude._Nat Lens.# pDurationInYears_,
+        adminContact =
+          Prelude._Sensitive Lens.# pAdminContact_,
+        registrantContact =
+          Prelude._Sensitive Lens.# pRegistrantContact_,
+        techContact =
+          Prelude._Sensitive Lens.# pTechContact_
       }
 
--- | Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes effect after the account is charged. Default: true
-tdAutoRenew :: Lens' TransferDomain (Maybe Bool)
-tdAutoRenew = lens _tdAutoRenew (\s a -> s {_tdAutoRenew = a})
+-- | Indicates whether the domain will be automatically renewed (true) or not
+-- (false). Autorenewal only takes effect after the account is charged.
+--
+-- Default: true
+transferDomain_autoRenew :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
+transferDomain_autoRenew = Lens.lens (\TransferDomain' {autoRenew} -> autoRenew) (\s@TransferDomain' {} a -> s {autoRenew = a} :: TransferDomain)
 
 -- | Contains details for the host and glue IP addresses.
-tdNameservers :: Lens' TransferDomain [Nameserver]
-tdNameservers = lens _tdNameservers (\s a -> s {_tdNameservers = a}) . _Default . _Coerce
+transferDomain_nameservers :: Lens.Lens' TransferDomain (Prelude.Maybe [Nameserver])
+transferDomain_nameservers = Lens.lens (\TransferDomain' {nameservers} -> nameservers) (\s@TransferDomain' {} a -> s {nameservers = a} :: TransferDomain) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The authorization code for the domain. You get this value from the current registrar.
-tdAuthCode :: Lens' TransferDomain (Maybe Text)
-tdAuthCode = lens _tdAuthCode (\s a -> s {_tdAuthCode = a}) . mapping _Sensitive
+-- | The authorization code for the domain. You get this value from the
+-- current registrar.
+transferDomain_authCode :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Text)
+transferDomain_authCode = Lens.lens (\TransferDomain' {authCode} -> authCode) (\s@TransferDomain' {} a -> s {authCode = a} :: TransferDomain) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | Reserved for future use.
-tdIdNLangCode :: Lens' TransferDomain (Maybe Text)
-tdIdNLangCode = lens _tdIdNLangCode (\s a -> s {_tdIdNLangCode = a})
+transferDomain_idnLangCode :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Text)
+transferDomain_idnLangCode = Lens.lens (\TransferDomain' {idnLangCode} -> idnLangCode) (\s@TransferDomain' {} a -> s {idnLangCode = a} :: TransferDomain)
 
--- | Whether you want to conceal contact information from WHOIS queries. If you specify @true@ , WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or for our registrar associate, Gandi (for all other TLDs). If you specify @false@ , WHOIS queries return the information that you entered for the technical contact. Default: @true@
-tdPrivacyProtectTechContact :: Lens' TransferDomain (Maybe Bool)
-tdPrivacyProtectTechContact = lens _tdPrivacyProtectTechContact (\s a -> s {_tdPrivacyProtectTechContact = a})
+-- | Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the technical contact.
+--
+-- Default: @true@
+transferDomain_privacyProtectTechContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
+transferDomain_privacyProtectTechContact = Lens.lens (\TransferDomain' {privacyProtectTechContact} -> privacyProtectTechContact) (\s@TransferDomain' {} a -> s {privacyProtectTechContact = a} :: TransferDomain)
 
--- | Whether you want to conceal contact information from WHOIS queries. If you specify @true@ , WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or for our registrar associate, Gandi (for all other TLDs). If you specify @false@ , WHOIS queries return the information that you entered for the registrant contact (domain owner). Default: @true@
-tdPrivacyProtectRegistrantContact :: Lens' TransferDomain (Maybe Bool)
-tdPrivacyProtectRegistrantContact = lens _tdPrivacyProtectRegistrantContact (\s a -> s {_tdPrivacyProtectRegistrantContact = a})
+-- | Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the registrant contact (domain owner).
+--
+-- Default: @true@
+transferDomain_privacyProtectRegistrantContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
+transferDomain_privacyProtectRegistrantContact = Lens.lens (\TransferDomain' {privacyProtectRegistrantContact} -> privacyProtectRegistrantContact) (\s@TransferDomain' {} a -> s {privacyProtectRegistrantContact = a} :: TransferDomain)
 
--- | Whether you want to conceal contact information from WHOIS queries. If you specify @true@ , WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or for our registrar associate, Gandi (for all other TLDs). If you specify @false@ , WHOIS queries return the information that you entered for the admin contact. Default: @true@
-tdPrivacyProtectAdminContact :: Lens' TransferDomain (Maybe Bool)
-tdPrivacyProtectAdminContact = lens _tdPrivacyProtectAdminContact (\s a -> s {_tdPrivacyProtectAdminContact = a})
+-- | Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the admin contact.
+--
+-- Default: @true@
+transferDomain_privacyProtectAdminContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
+transferDomain_privacyProtectAdminContact = Lens.lens (\TransferDomain' {privacyProtectAdminContact} -> privacyProtectAdminContact) (\s@TransferDomain' {} a -> s {privacyProtectAdminContact = a} :: TransferDomain)
 
--- | The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com, must be a TLD that Route 53 supports. For a list of supported TLDs, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53> in the /Amazon Route 53 Developer Guide/ . The domain name can contain only the following characters:     * Letters a through z. Domain names are not case sensitive.     * Numbers 0 through 9.     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.      * Period (.) to separate the labels in the name, such as the @.@ in @example.com@ .
-tdDomainName :: Lens' TransferDomain Text
-tdDomainName = lens _tdDomainName (\s a -> s {_tdDomainName = a})
+-- | The name of the domain that you want to transfer to Route 53. The
+-- top-level domain (TLD), such as .com, must be a TLD that Route 53
+-- supports. For a list of supported TLDs, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html Domains that You Can Register with Amazon Route 53>
+-- in the /Amazon Route 53 Developer Guide/.
+--
+-- The domain name can contain only the following characters:
+--
+-- -   Letters a through z. Domain names are not case sensitive.
+--
+-- -   Numbers 0 through 9.
+--
+-- -   Hyphen (-). You can\'t specify a hyphen at the beginning or end of a
+--     label.
+--
+-- -   Period (.) to separate the labels in the name, such as the @.@ in
+--     @example.com@.
+transferDomain_domainName :: Lens.Lens' TransferDomain Prelude.Text
+transferDomain_domainName = Lens.lens (\TransferDomain' {domainName} -> domainName) (\s@TransferDomain' {} a -> s {domainName = a} :: TransferDomain)
 
--- | The number of years that you want to register the domain for. Domains are registered for a minimum of one year. The maximum period depends on the top-level domain. Default: 1
-tdDurationInYears :: Lens' TransferDomain Natural
-tdDurationInYears = lens _tdDurationInYears (\s a -> s {_tdDurationInYears = a}) . _Nat
+-- | The number of years that you want to register the domain for. Domains
+-- are registered for a minimum of one year. The maximum period depends on
+-- the top-level domain.
+--
+-- Default: 1
+transferDomain_durationInYears :: Lens.Lens' TransferDomain Prelude.Natural
+transferDomain_durationInYears = Lens.lens (\TransferDomain' {durationInYears} -> durationInYears) (\s@TransferDomain' {} a -> s {durationInYears = a} :: TransferDomain) Prelude.. Prelude._Nat
 
 -- | Provides detailed contact information.
-tdAdminContact :: Lens' TransferDomain ContactDetail
-tdAdminContact = lens _tdAdminContact (\s a -> s {_tdAdminContact = a}) . _Sensitive
+transferDomain_adminContact :: Lens.Lens' TransferDomain ContactDetail
+transferDomain_adminContact = Lens.lens (\TransferDomain' {adminContact} -> adminContact) (\s@TransferDomain' {} a -> s {adminContact = a} :: TransferDomain) Prelude.. Prelude._Sensitive
 
 -- | Provides detailed contact information.
-tdRegistrantContact :: Lens' TransferDomain ContactDetail
-tdRegistrantContact = lens _tdRegistrantContact (\s a -> s {_tdRegistrantContact = a}) . _Sensitive
+transferDomain_registrantContact :: Lens.Lens' TransferDomain ContactDetail
+transferDomain_registrantContact = Lens.lens (\TransferDomain' {registrantContact} -> registrantContact) (\s@TransferDomain' {} a -> s {registrantContact = a} :: TransferDomain) Prelude.. Prelude._Sensitive
 
 -- | Provides detailed contact information.
-tdTechContact :: Lens' TransferDomain ContactDetail
-tdTechContact = lens _tdTechContact (\s a -> s {_tdTechContact = a}) . _Sensitive
+transferDomain_techContact :: Lens.Lens' TransferDomain ContactDetail
+transferDomain_techContact = Lens.lens (\TransferDomain' {techContact} -> techContact) (\s@TransferDomain' {} a -> s {techContact = a} :: TransferDomain) Prelude.. Prelude._Sensitive
 
-instance AWSRequest TransferDomain where
+instance Prelude.AWSRequest TransferDomain where
   type Rs TransferDomain = TransferDomainResponse
-  request = postJSON route53Domains
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TransferDomainResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "OperationId")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "OperationId")
       )
 
-instance Hashable TransferDomain
+instance Prelude.Hashable TransferDomain
 
-instance NFData TransferDomain
+instance Prelude.NFData TransferDomain
 
-instance ToHeaders TransferDomain where
+instance Prelude.ToHeaders TransferDomain where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Route53Domains_v20140515.TransferDomain" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Route53Domains_v20140515.TransferDomain" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TransferDomain where
+instance Prelude.ToJSON TransferDomain where
   toJSON TransferDomain' {..} =
-    object
-      ( catMaybes
-          [ ("AutoRenew" .=) <$> _tdAutoRenew,
-            ("Nameservers" .=) <$> _tdNameservers,
-            ("AuthCode" .=) <$> _tdAuthCode,
-            ("IdnLangCode" .=) <$> _tdIdNLangCode,
-            ("PrivacyProtectTechContact" .=)
-              <$> _tdPrivacyProtectTechContact,
-            ("PrivacyProtectRegistrantContact" .=)
-              <$> _tdPrivacyProtectRegistrantContact,
-            ("PrivacyProtectAdminContact" .=)
-              <$> _tdPrivacyProtectAdminContact,
-            Just ("DomainName" .= _tdDomainName),
-            Just ("DurationInYears" .= _tdDurationInYears),
-            Just ("AdminContact" .= _tdAdminContact),
-            Just ("RegistrantContact" .= _tdRegistrantContact),
-            Just ("TechContact" .= _tdTechContact)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AutoRenew" Prelude..=) Prelude.<$> autoRenew,
+            ("Nameservers" Prelude..=) Prelude.<$> nameservers,
+            ("AuthCode" Prelude..=) Prelude.<$> authCode,
+            ("IdnLangCode" Prelude..=) Prelude.<$> idnLangCode,
+            ("PrivacyProtectTechContact" Prelude..=)
+              Prelude.<$> privacyProtectTechContact,
+            ("PrivacyProtectRegistrantContact" Prelude..=)
+              Prelude.<$> privacyProtectRegistrantContact,
+            ("PrivacyProtectAdminContact" Prelude..=)
+              Prelude.<$> privacyProtectAdminContact,
+            Prelude.Just ("DomainName" Prelude..= domainName),
+            Prelude.Just
+              ("DurationInYears" Prelude..= durationInYears),
+            Prelude.Just
+              ("AdminContact" Prelude..= adminContact),
+            Prelude.Just
+              ("RegistrantContact" Prelude..= registrantContact),
+            Prelude.Just ("TechContact" Prelude..= techContact)
           ]
       )
 
-instance ToPath TransferDomain where
-  toPath = const "/"
+instance Prelude.ToPath TransferDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery TransferDomain where
-  toQuery = const mempty
+instance Prelude.ToQuery TransferDomain where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The TransferDomain response includes the following element.
 --
---
---
--- /See:/ 'transferDomainResponse' smart constructor.
+-- /See:/ 'newTransferDomainResponse' smart constructor.
 data TransferDomainResponse = TransferDomainResponse'
-  { _tdrrsResponseStatus ::
-      !Int,
-    _tdrrsOperationId ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Identifier for tracking the progress of the request. To query the
+    -- operation status, use
+    -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html GetOperationDetail>.
+    operationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransferDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransferDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdrrsOperationId' - Identifier for tracking the progress of the request. To query the operation status, use <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html GetOperationDetail> .
-transferDomainResponse ::
-  -- | 'tdrrsResponseStatus'
-  Int ->
-  -- | 'tdrrsOperationId'
-  Text ->
+-- 'httpStatus', 'transferDomainResponse_httpStatus' - The response's http status code.
+--
+-- 'operationId', 'transferDomainResponse_operationId' - Identifier for tracking the progress of the request. To query the
+-- operation status, use
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html GetOperationDetail>.
+newTransferDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'operationId'
+  Prelude.Text ->
   TransferDomainResponse
-transferDomainResponse pResponseStatus_ pOperationId_ =
+newTransferDomainResponse pHttpStatus_ pOperationId_ =
   TransferDomainResponse'
-    { _tdrrsResponseStatus =
-        pResponseStatus_,
-      _tdrrsOperationId = pOperationId_
+    { httpStatus = pHttpStatus_,
+      operationId = pOperationId_
     }
 
--- | -- | The response status code.
-tdrrsResponseStatus :: Lens' TransferDomainResponse Int
-tdrrsResponseStatus = lens _tdrrsResponseStatus (\s a -> s {_tdrrsResponseStatus = a})
+-- | The response's http status code.
+transferDomainResponse_httpStatus :: Lens.Lens' TransferDomainResponse Prelude.Int
+transferDomainResponse_httpStatus = Lens.lens (\TransferDomainResponse' {httpStatus} -> httpStatus) (\s@TransferDomainResponse' {} a -> s {httpStatus = a} :: TransferDomainResponse)
 
--- | Identifier for tracking the progress of the request. To query the operation status, use <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html GetOperationDetail> .
-tdrrsOperationId :: Lens' TransferDomainResponse Text
-tdrrsOperationId = lens _tdrrsOperationId (\s a -> s {_tdrrsOperationId = a})
+-- | Identifier for tracking the progress of the request. To query the
+-- operation status, use
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html GetOperationDetail>.
+transferDomainResponse_operationId :: Lens.Lens' TransferDomainResponse Prelude.Text
+transferDomainResponse_operationId = Lens.lens (\TransferDomainResponse' {operationId} -> operationId) (\s@TransferDomainResponse' {} a -> s {operationId = a} :: TransferDomainResponse)
 
-instance NFData TransferDomainResponse
+instance Prelude.NFData TransferDomainResponse

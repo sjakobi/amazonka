@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Route53Domains.Types.ReachabilityStatus
   ( ReachabilityStatus
       ( ..,
-        Done,
-        Expired,
-        Pending
+        ReachabilityStatusDONE,
+        ReachabilityStatusEXPIRED,
+        ReachabilityStatusPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReachabilityStatus
-  = ReachabilityStatus'
-      ( CI
-          Text
-      )
+newtype ReachabilityStatus = ReachabilityStatus'
+  { fromReachabilityStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Done :: ReachabilityStatus
-pattern Done = ReachabilityStatus' "DONE"
+pattern ReachabilityStatusDONE :: ReachabilityStatus
+pattern ReachabilityStatusDONE = ReachabilityStatus' "DONE"
 
-pattern Expired :: ReachabilityStatus
-pattern Expired = ReachabilityStatus' "EXPIRED"
+pattern ReachabilityStatusEXPIRED :: ReachabilityStatus
+pattern ReachabilityStatusEXPIRED = ReachabilityStatus' "EXPIRED"
 
-pattern Pending :: ReachabilityStatus
-pattern Pending = ReachabilityStatus' "PENDING"
+pattern ReachabilityStatusPENDING :: ReachabilityStatus
+pattern ReachabilityStatusPENDING = ReachabilityStatus' "PENDING"
 
 {-# COMPLETE
-  Done,
-  Expired,
-  Pending,
+  ReachabilityStatusDONE,
+  ReachabilityStatusEXPIRED,
+  ReachabilityStatusPENDING,
   ReachabilityStatus'
   #-}
 
-instance FromText ReachabilityStatus where
-  parser = (ReachabilityStatus' . mk) <$> takeText
+instance Prelude.FromText ReachabilityStatus where
+  parser = ReachabilityStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReachabilityStatus where
-  toText (ReachabilityStatus' ci) = original ci
+instance Prelude.ToText ReachabilityStatus where
+  toText (ReachabilityStatus' x) = x
 
-instance Hashable ReachabilityStatus
+instance Prelude.Hashable ReachabilityStatus
 
-instance NFData ReachabilityStatus
+instance Prelude.NFData ReachabilityStatus
 
-instance ToByteString ReachabilityStatus
+instance Prelude.ToByteString ReachabilityStatus
 
-instance ToQuery ReachabilityStatus
+instance Prelude.ToQuery ReachabilityStatus
 
-instance ToHeader ReachabilityStatus
+instance Prelude.ToHeader ReachabilityStatus
 
-instance FromJSON ReachabilityStatus where
-  parseJSON = parseJSONText "ReachabilityStatus"
+instance Prelude.FromJSON ReachabilityStatus where
+  parseJSON = Prelude.parseJSONText "ReachabilityStatus"

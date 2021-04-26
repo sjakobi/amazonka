@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53Domains.Types.DomainSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary information about one domain.
 --
---
---
--- /See:/ 'domainSummary' smart constructor.
+-- /See:/ 'newDomainSummary' smart constructor.
 data DomainSummary = DomainSummary'
-  { _dExpiry ::
-      !(Maybe POSIX),
-    _dAutoRenew :: !(Maybe Bool),
-    _dTransferLock :: !(Maybe Bool),
-    _dDomainName :: !Text
+  { -- | Expiration date of the domain in Unix time format and Coordinated
+    -- Universal Time (UTC).
+    expiry :: Prelude.Maybe Prelude.POSIX,
+    -- | Indicates whether the domain is automatically renewed upon expiration.
+    autoRenew :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether a domain is locked from unauthorized transfer to
+    -- another party.
+    transferLock :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the domain that the summary information applies to.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dExpiry' - Expiration date of the domain in Unix time format and Coordinated Universal Time (UTC).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dAutoRenew' - Indicates whether the domain is automatically renewed upon expiration.
+-- 'expiry', 'domainSummary_expiry' - Expiration date of the domain in Unix time format and Coordinated
+-- Universal Time (UTC).
 --
--- * 'dTransferLock' - Indicates whether a domain is locked from unauthorized transfer to another party.
+-- 'autoRenew', 'domainSummary_autoRenew' - Indicates whether the domain is automatically renewed upon expiration.
 --
--- * 'dDomainName' - The name of the domain that the summary information applies to.
-domainSummary ::
-  -- | 'dDomainName'
-  Text ->
+-- 'transferLock', 'domainSummary_transferLock' - Indicates whether a domain is locked from unauthorized transfer to
+-- another party.
+--
+-- 'domainName', 'domainSummary_domainName' - The name of the domain that the summary information applies to.
+newDomainSummary ::
+  -- | 'domainName'
+  Prelude.Text ->
   DomainSummary
-domainSummary pDomainName_ =
+newDomainSummary pDomainName_ =
   DomainSummary'
-    { _dExpiry = Nothing,
-      _dAutoRenew = Nothing,
-      _dTransferLock = Nothing,
-      _dDomainName = pDomainName_
+    { expiry = Prelude.Nothing,
+      autoRenew = Prelude.Nothing,
+      transferLock = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Expiration date of the domain in Unix time format and Coordinated Universal Time (UTC).
-dExpiry :: Lens' DomainSummary (Maybe UTCTime)
-dExpiry = lens _dExpiry (\s a -> s {_dExpiry = a}) . mapping _Time
+-- | Expiration date of the domain in Unix time format and Coordinated
+-- Universal Time (UTC).
+domainSummary_expiry :: Lens.Lens' DomainSummary (Prelude.Maybe Prelude.UTCTime)
+domainSummary_expiry = Lens.lens (\DomainSummary' {expiry} -> expiry) (\s@DomainSummary' {} a -> s {expiry = a} :: DomainSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Indicates whether the domain is automatically renewed upon expiration.
-dAutoRenew :: Lens' DomainSummary (Maybe Bool)
-dAutoRenew = lens _dAutoRenew (\s a -> s {_dAutoRenew = a})
+domainSummary_autoRenew :: Lens.Lens' DomainSummary (Prelude.Maybe Prelude.Bool)
+domainSummary_autoRenew = Lens.lens (\DomainSummary' {autoRenew} -> autoRenew) (\s@DomainSummary' {} a -> s {autoRenew = a} :: DomainSummary)
 
--- | Indicates whether a domain is locked from unauthorized transfer to another party.
-dTransferLock :: Lens' DomainSummary (Maybe Bool)
-dTransferLock = lens _dTransferLock (\s a -> s {_dTransferLock = a})
+-- | Indicates whether a domain is locked from unauthorized transfer to
+-- another party.
+domainSummary_transferLock :: Lens.Lens' DomainSummary (Prelude.Maybe Prelude.Bool)
+domainSummary_transferLock = Lens.lens (\DomainSummary' {transferLock} -> transferLock) (\s@DomainSummary' {} a -> s {transferLock = a} :: DomainSummary)
 
 -- | The name of the domain that the summary information applies to.
-dDomainName :: Lens' DomainSummary Text
-dDomainName = lens _dDomainName (\s a -> s {_dDomainName = a})
+domainSummary_domainName :: Lens.Lens' DomainSummary Prelude.Text
+domainSummary_domainName = Lens.lens (\DomainSummary' {domainName} -> domainName) (\s@DomainSummary' {} a -> s {domainName = a} :: DomainSummary)
 
-instance FromJSON DomainSummary where
+instance Prelude.FromJSON DomainSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainSummary"
       ( \x ->
           DomainSummary'
-            <$> (x .:? "Expiry")
-            <*> (x .:? "AutoRenew")
-            <*> (x .:? "TransferLock")
-            <*> (x .: "DomainName")
+            Prelude.<$> (x Prelude..:? "Expiry")
+            Prelude.<*> (x Prelude..:? "AutoRenew")
+            Prelude.<*> (x Prelude..:? "TransferLock")
+            Prelude.<*> (x Prelude..: "DomainName")
       )
 
-instance Hashable DomainSummary
+instance Prelude.Hashable DomainSummary
 
-instance NFData DomainSummary
+instance Prelude.NFData DomainSummary

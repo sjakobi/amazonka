@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,133 +19,135 @@
 module Network.AWS.Route53Domains.Types.OperationType
   ( OperationType
       ( ..,
-        AddDNSsec,
-        ChangeDomainOwner,
-        ChangePrivacyProtection,
-        DeleteDomain,
-        DisableAutorenew,
-        DomainLock,
-        EnableAutorenew,
-        ExpireDomain,
-        InternalTransferInDomain,
-        InternalTransferOutDomain,
-        PushDomain,
-        RegisterDomain,
-        RemoveDNSsec,
-        RenewDomain,
-        TransferInDomain,
-        TransferOutDomain,
-        UpdateDomainContact,
-        UpdateNameserver
+        OperationTypeADDDNSSEC,
+        OperationTypeCHANGEDOMAINOWNER,
+        OperationTypeCHANGEPRIVACYPROTECTION,
+        OperationTypeDELETEDOMAIN,
+        OperationTypeDISABLEAUTORENEW,
+        OperationTypeDOMAINLOCK,
+        OperationTypeENABLEAUTORENEW,
+        OperationTypeEXPIREDOMAIN,
+        OperationTypeINTERNALTRANSFERINDOMAIN,
+        OperationTypeINTERNALTRANSFEROUTDOMAIN,
+        OperationTypePUSHDOMAIN,
+        OperationTypeREGISTERDOMAIN,
+        OperationTypeREMOVEDNSSEC,
+        OperationTypeRENEWDOMAIN,
+        OperationTypeTRANSFERINDOMAIN,
+        OperationTypeTRANSFEROUTDOMAIN,
+        OperationTypeUPDATEDOMAINCONTACT,
+        OperationTypeUPDATENAMESERVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationType = OperationType' (CI Text)
+newtype OperationType = OperationType'
+  { fromOperationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AddDNSsec :: OperationType
-pattern AddDNSsec = OperationType' "ADD_DNSSEC"
+pattern OperationTypeADDDNSSEC :: OperationType
+pattern OperationTypeADDDNSSEC = OperationType' "ADD_DNSSEC"
 
-pattern ChangeDomainOwner :: OperationType
-pattern ChangeDomainOwner = OperationType' "CHANGE_DOMAIN_OWNER"
+pattern OperationTypeCHANGEDOMAINOWNER :: OperationType
+pattern OperationTypeCHANGEDOMAINOWNER = OperationType' "CHANGE_DOMAIN_OWNER"
 
-pattern ChangePrivacyProtection :: OperationType
-pattern ChangePrivacyProtection = OperationType' "CHANGE_PRIVACY_PROTECTION"
+pattern OperationTypeCHANGEPRIVACYPROTECTION :: OperationType
+pattern OperationTypeCHANGEPRIVACYPROTECTION = OperationType' "CHANGE_PRIVACY_PROTECTION"
 
-pattern DeleteDomain :: OperationType
-pattern DeleteDomain = OperationType' "DELETE_DOMAIN"
+pattern OperationTypeDELETEDOMAIN :: OperationType
+pattern OperationTypeDELETEDOMAIN = OperationType' "DELETE_DOMAIN"
 
-pattern DisableAutorenew :: OperationType
-pattern DisableAutorenew = OperationType' "DISABLE_AUTORENEW"
+pattern OperationTypeDISABLEAUTORENEW :: OperationType
+pattern OperationTypeDISABLEAUTORENEW = OperationType' "DISABLE_AUTORENEW"
 
-pattern DomainLock :: OperationType
-pattern DomainLock = OperationType' "DOMAIN_LOCK"
+pattern OperationTypeDOMAINLOCK :: OperationType
+pattern OperationTypeDOMAINLOCK = OperationType' "DOMAIN_LOCK"
 
-pattern EnableAutorenew :: OperationType
-pattern EnableAutorenew = OperationType' "ENABLE_AUTORENEW"
+pattern OperationTypeENABLEAUTORENEW :: OperationType
+pattern OperationTypeENABLEAUTORENEW = OperationType' "ENABLE_AUTORENEW"
 
-pattern ExpireDomain :: OperationType
-pattern ExpireDomain = OperationType' "EXPIRE_DOMAIN"
+pattern OperationTypeEXPIREDOMAIN :: OperationType
+pattern OperationTypeEXPIREDOMAIN = OperationType' "EXPIRE_DOMAIN"
 
-pattern InternalTransferInDomain :: OperationType
-pattern InternalTransferInDomain = OperationType' "INTERNAL_TRANSFER_IN_DOMAIN"
+pattern OperationTypeINTERNALTRANSFERINDOMAIN :: OperationType
+pattern OperationTypeINTERNALTRANSFERINDOMAIN = OperationType' "INTERNAL_TRANSFER_IN_DOMAIN"
 
-pattern InternalTransferOutDomain :: OperationType
-pattern InternalTransferOutDomain = OperationType' "INTERNAL_TRANSFER_OUT_DOMAIN"
+pattern OperationTypeINTERNALTRANSFEROUTDOMAIN :: OperationType
+pattern OperationTypeINTERNALTRANSFEROUTDOMAIN = OperationType' "INTERNAL_TRANSFER_OUT_DOMAIN"
 
-pattern PushDomain :: OperationType
-pattern PushDomain = OperationType' "PUSH_DOMAIN"
+pattern OperationTypePUSHDOMAIN :: OperationType
+pattern OperationTypePUSHDOMAIN = OperationType' "PUSH_DOMAIN"
 
-pattern RegisterDomain :: OperationType
-pattern RegisterDomain = OperationType' "REGISTER_DOMAIN"
+pattern OperationTypeREGISTERDOMAIN :: OperationType
+pattern OperationTypeREGISTERDOMAIN = OperationType' "REGISTER_DOMAIN"
 
-pattern RemoveDNSsec :: OperationType
-pattern RemoveDNSsec = OperationType' "REMOVE_DNSSEC"
+pattern OperationTypeREMOVEDNSSEC :: OperationType
+pattern OperationTypeREMOVEDNSSEC = OperationType' "REMOVE_DNSSEC"
 
-pattern RenewDomain :: OperationType
-pattern RenewDomain = OperationType' "RENEW_DOMAIN"
+pattern OperationTypeRENEWDOMAIN :: OperationType
+pattern OperationTypeRENEWDOMAIN = OperationType' "RENEW_DOMAIN"
 
-pattern TransferInDomain :: OperationType
-pattern TransferInDomain = OperationType' "TRANSFER_IN_DOMAIN"
+pattern OperationTypeTRANSFERINDOMAIN :: OperationType
+pattern OperationTypeTRANSFERINDOMAIN = OperationType' "TRANSFER_IN_DOMAIN"
 
-pattern TransferOutDomain :: OperationType
-pattern TransferOutDomain = OperationType' "TRANSFER_OUT_DOMAIN"
+pattern OperationTypeTRANSFEROUTDOMAIN :: OperationType
+pattern OperationTypeTRANSFEROUTDOMAIN = OperationType' "TRANSFER_OUT_DOMAIN"
 
-pattern UpdateDomainContact :: OperationType
-pattern UpdateDomainContact = OperationType' "UPDATE_DOMAIN_CONTACT"
+pattern OperationTypeUPDATEDOMAINCONTACT :: OperationType
+pattern OperationTypeUPDATEDOMAINCONTACT = OperationType' "UPDATE_DOMAIN_CONTACT"
 
-pattern UpdateNameserver :: OperationType
-pattern UpdateNameserver = OperationType' "UPDATE_NAMESERVER"
+pattern OperationTypeUPDATENAMESERVER :: OperationType
+pattern OperationTypeUPDATENAMESERVER = OperationType' "UPDATE_NAMESERVER"
 
 {-# COMPLETE
-  AddDNSsec,
-  ChangeDomainOwner,
-  ChangePrivacyProtection,
-  DeleteDomain,
-  DisableAutorenew,
-  DomainLock,
-  EnableAutorenew,
-  ExpireDomain,
-  InternalTransferInDomain,
-  InternalTransferOutDomain,
-  PushDomain,
-  RegisterDomain,
-  RemoveDNSsec,
-  RenewDomain,
-  TransferInDomain,
-  TransferOutDomain,
-  UpdateDomainContact,
-  UpdateNameserver,
+  OperationTypeADDDNSSEC,
+  OperationTypeCHANGEDOMAINOWNER,
+  OperationTypeCHANGEPRIVACYPROTECTION,
+  OperationTypeDELETEDOMAIN,
+  OperationTypeDISABLEAUTORENEW,
+  OperationTypeDOMAINLOCK,
+  OperationTypeENABLEAUTORENEW,
+  OperationTypeEXPIREDOMAIN,
+  OperationTypeINTERNALTRANSFERINDOMAIN,
+  OperationTypeINTERNALTRANSFEROUTDOMAIN,
+  OperationTypePUSHDOMAIN,
+  OperationTypeREGISTERDOMAIN,
+  OperationTypeREMOVEDNSSEC,
+  OperationTypeRENEWDOMAIN,
+  OperationTypeTRANSFERINDOMAIN,
+  OperationTypeTRANSFEROUTDOMAIN,
+  OperationTypeUPDATEDOMAINCONTACT,
+  OperationTypeUPDATENAMESERVER,
   OperationType'
   #-}
 
-instance FromText OperationType where
-  parser = (OperationType' . mk) <$> takeText
+instance Prelude.FromText OperationType where
+  parser = OperationType' Prelude.<$> Prelude.takeText
 
-instance ToText OperationType where
-  toText (OperationType' ci) = original ci
+instance Prelude.ToText OperationType where
+  toText (OperationType' x) = x
 
-instance Hashable OperationType
+instance Prelude.Hashable OperationType
 
-instance NFData OperationType
+instance Prelude.NFData OperationType
 
-instance ToByteString OperationType
+instance Prelude.ToByteString OperationType
 
-instance ToQuery OperationType
+instance Prelude.ToQuery OperationType
 
-instance ToHeader OperationType
+instance Prelude.ToHeader OperationType
 
-instance FromJSON OperationType where
-  parseJSON = parseJSONText "OperationType"
+instance Prelude.FromJSON OperationType where
+  parseJSON = Prelude.parseJSONText "OperationType"
