@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,159 +24,198 @@
 -- Gets status information for an AWS Cloud9 development environment.
 module Network.AWS.Cloud9.DescribeEnvironmentStatus
   ( -- * Creating a Request
-    describeEnvironmentStatus,
-    DescribeEnvironmentStatus,
+    DescribeEnvironmentStatus (..),
+    newDescribeEnvironmentStatus,
 
     -- * Request Lenses
-    desEnvironmentId,
+    describeEnvironmentStatus_environmentId,
 
     -- * Destructuring the Response
-    describeEnvironmentStatusResponse,
-    DescribeEnvironmentStatusResponse,
+    DescribeEnvironmentStatusResponse (..),
+    newDescribeEnvironmentStatusResponse,
 
     -- * Response Lenses
-    desrrsStatus,
-    desrrsMessage,
-    desrrsResponseStatus,
+    describeEnvironmentStatusResponse_status,
+    describeEnvironmentStatusResponse_message,
+    describeEnvironmentStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.Cloud9.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Cloud9.Types.EnvironmentStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEnvironmentStatus' smart constructor.
-newtype DescribeEnvironmentStatus = DescribeEnvironmentStatus'
-  { _desEnvironmentId ::
-      Text
+-- | /See:/ 'newDescribeEnvironmentStatus' smart constructor.
+data DescribeEnvironmentStatus = DescribeEnvironmentStatus'
+  { -- | The ID of the environment to get status information about.
+    environmentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEnvironmentStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEnvironmentStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desEnvironmentId' - The ID of the environment to get status information about.
-describeEnvironmentStatus ::
-  -- | 'desEnvironmentId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'environmentId', 'describeEnvironmentStatus_environmentId' - The ID of the environment to get status information about.
+newDescribeEnvironmentStatus ::
+  -- | 'environmentId'
+  Prelude.Text ->
   DescribeEnvironmentStatus
-describeEnvironmentStatus pEnvironmentId_ =
+newDescribeEnvironmentStatus pEnvironmentId_ =
   DescribeEnvironmentStatus'
-    { _desEnvironmentId =
+    { environmentId =
         pEnvironmentId_
     }
 
 -- | The ID of the environment to get status information about.
-desEnvironmentId :: Lens' DescribeEnvironmentStatus Text
-desEnvironmentId = lens _desEnvironmentId (\s a -> s {_desEnvironmentId = a})
+describeEnvironmentStatus_environmentId :: Lens.Lens' DescribeEnvironmentStatus Prelude.Text
+describeEnvironmentStatus_environmentId = Lens.lens (\DescribeEnvironmentStatus' {environmentId} -> environmentId) (\s@DescribeEnvironmentStatus' {} a -> s {environmentId = a} :: DescribeEnvironmentStatus)
 
-instance AWSRequest DescribeEnvironmentStatus where
+instance Prelude.AWSRequest DescribeEnvironmentStatus where
   type
     Rs DescribeEnvironmentStatus =
       DescribeEnvironmentStatusResponse
-  request = postJSON cloud9
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEnvironmentStatusResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "message")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "message")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEnvironmentStatus
+instance Prelude.Hashable DescribeEnvironmentStatus
 
-instance NFData DescribeEnvironmentStatus
+instance Prelude.NFData DescribeEnvironmentStatus
 
-instance ToHeaders DescribeEnvironmentStatus where
+instance Prelude.ToHeaders DescribeEnvironmentStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCloud9WorkspaceManagementService.DescribeEnvironmentStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCloud9WorkspaceManagementService.DescribeEnvironmentStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEnvironmentStatus where
+instance Prelude.ToJSON DescribeEnvironmentStatus where
   toJSON DescribeEnvironmentStatus' {..} =
-    object
-      ( catMaybes
-          [Just ("environmentId" .= _desEnvironmentId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("environmentId" Prelude..= environmentId)
+          ]
       )
 
-instance ToPath DescribeEnvironmentStatus where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEnvironmentStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEnvironmentStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEnvironmentStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEnvironmentStatusResponse' smart constructor.
+-- | /See:/ 'newDescribeEnvironmentStatusResponse' smart constructor.
 data DescribeEnvironmentStatusResponse = DescribeEnvironmentStatusResponse'
-  { _desrrsStatus ::
-      !( Maybe
-           EnvironmentStatus
-       ),
-    _desrrsMessage ::
-      !( Maybe
-           Text
-       ),
-    _desrrsResponseStatus ::
-      !Int
+  { -- | The status of the environment. Available values include:
+    --
+    -- -   @connecting@: The environment is connecting.
+    --
+    -- -   @creating@: The environment is being created.
+    --
+    -- -   @deleting@: The environment is being deleted.
+    --
+    -- -   @error@: The environment is in an error state.
+    --
+    -- -   @ready@: The environment is ready.
+    --
+    -- -   @stopped@: The environment is stopped.
+    --
+    -- -   @stopping@: The environment is stopping.
+    status :: Prelude.Maybe EnvironmentStatus,
+    -- | Any informational message about the status of the environment.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEnvironmentStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEnvironmentStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrrsStatus' - The status of the environment. Available values include:     * @connecting@ : The environment is connecting.     * @creating@ : The environment is being created.     * @deleting@ : The environment is being deleted.     * @error@ : The environment is in an error state.     * @ready@ : The environment is ready.     * @stopped@ : The environment is stopped.     * @stopping@ : The environment is stopping.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrrsMessage' - Any informational message about the status of the environment.
+-- 'status', 'describeEnvironmentStatusResponse_status' - The status of the environment. Available values include:
 --
--- * 'desrrsResponseStatus' - -- | The response status code.
-describeEnvironmentStatusResponse ::
-  -- | 'desrrsResponseStatus'
-  Int ->
+-- -   @connecting@: The environment is connecting.
+--
+-- -   @creating@: The environment is being created.
+--
+-- -   @deleting@: The environment is being deleted.
+--
+-- -   @error@: The environment is in an error state.
+--
+-- -   @ready@: The environment is ready.
+--
+-- -   @stopped@: The environment is stopped.
+--
+-- -   @stopping@: The environment is stopping.
+--
+-- 'message', 'describeEnvironmentStatusResponse_message' - Any informational message about the status of the environment.
+--
+-- 'httpStatus', 'describeEnvironmentStatusResponse_httpStatus' - The response's http status code.
+newDescribeEnvironmentStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEnvironmentStatusResponse
-describeEnvironmentStatusResponse pResponseStatus_ =
+newDescribeEnvironmentStatusResponse pHttpStatus_ =
   DescribeEnvironmentStatusResponse'
-    { _desrrsStatus =
-        Nothing,
-      _desrrsMessage = Nothing,
-      _desrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      message = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The status of the environment. Available values include:     * @connecting@ : The environment is connecting.     * @creating@ : The environment is being created.     * @deleting@ : The environment is being deleted.     * @error@ : The environment is in an error state.     * @ready@ : The environment is ready.     * @stopped@ : The environment is stopped.     * @stopping@ : The environment is stopping.
-desrrsStatus :: Lens' DescribeEnvironmentStatusResponse (Maybe EnvironmentStatus)
-desrrsStatus = lens _desrrsStatus (\s a -> s {_desrrsStatus = a})
+-- | The status of the environment. Available values include:
+--
+-- -   @connecting@: The environment is connecting.
+--
+-- -   @creating@: The environment is being created.
+--
+-- -   @deleting@: The environment is being deleted.
+--
+-- -   @error@: The environment is in an error state.
+--
+-- -   @ready@: The environment is ready.
+--
+-- -   @stopped@: The environment is stopped.
+--
+-- -   @stopping@: The environment is stopping.
+describeEnvironmentStatusResponse_status :: Lens.Lens' DescribeEnvironmentStatusResponse (Prelude.Maybe EnvironmentStatus)
+describeEnvironmentStatusResponse_status = Lens.lens (\DescribeEnvironmentStatusResponse' {status} -> status) (\s@DescribeEnvironmentStatusResponse' {} a -> s {status = a} :: DescribeEnvironmentStatusResponse)
 
 -- | Any informational message about the status of the environment.
-desrrsMessage :: Lens' DescribeEnvironmentStatusResponse (Maybe Text)
-desrrsMessage = lens _desrrsMessage (\s a -> s {_desrrsMessage = a})
+describeEnvironmentStatusResponse_message :: Lens.Lens' DescribeEnvironmentStatusResponse (Prelude.Maybe Prelude.Text)
+describeEnvironmentStatusResponse_message = Lens.lens (\DescribeEnvironmentStatusResponse' {message} -> message) (\s@DescribeEnvironmentStatusResponse' {} a -> s {message = a} :: DescribeEnvironmentStatusResponse)
 
--- | -- | The response status code.
-desrrsResponseStatus :: Lens' DescribeEnvironmentStatusResponse Int
-desrrsResponseStatus = lens _desrrsResponseStatus (\s a -> s {_desrrsResponseStatus = a})
+-- | The response's http status code.
+describeEnvironmentStatusResponse_httpStatus :: Lens.Lens' DescribeEnvironmentStatusResponse Prelude.Int
+describeEnvironmentStatusResponse_httpStatus = Lens.lens (\DescribeEnvironmentStatusResponse' {httpStatus} -> httpStatus) (\s@DescribeEnvironmentStatusResponse' {} a -> s {httpStatus = a} :: DescribeEnvironmentStatusResponse)
 
-instance NFData DescribeEnvironmentStatusResponse
+instance
+  Prelude.NFData
+    DescribeEnvironmentStatusResponse

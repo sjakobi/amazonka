@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,176 +24,201 @@
 -- Adds an environment member to an AWS Cloud9 development environment.
 module Network.AWS.Cloud9.CreateEnvironmentMembership
   ( -- * Creating a Request
-    createEnvironmentMembership,
-    CreateEnvironmentMembership,
+    CreateEnvironmentMembership (..),
+    newCreateEnvironmentMembership,
 
     -- * Request Lenses
-    cemEnvironmentId,
-    cemUserARN,
-    cemPermissions,
+    createEnvironmentMembership_environmentId,
+    createEnvironmentMembership_userArn,
+    createEnvironmentMembership_permissions,
 
     -- * Destructuring the Response
-    createEnvironmentMembershipResponse,
-    CreateEnvironmentMembershipResponse,
+    CreateEnvironmentMembershipResponse (..),
+    newCreateEnvironmentMembershipResponse,
 
     -- * Response Lenses
-    cemrrsMembership,
-    cemrrsResponseStatus,
+    createEnvironmentMembershipResponse_membership,
+    createEnvironmentMembershipResponse_httpStatus,
   )
 where
 
 import Network.AWS.Cloud9.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Cloud9.Types.EnvironmentMember
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createEnvironmentMembership' smart constructor.
+-- | /See:/ 'newCreateEnvironmentMembership' smart constructor.
 data CreateEnvironmentMembership = CreateEnvironmentMembership'
-  { _cemEnvironmentId ::
-      !Text,
-    _cemUserARN ::
-      !Text,
-    _cemPermissions ::
-      !MemberPermissions
+  { -- | The ID of the environment that contains the environment member you want
+    -- to add.
+    environmentId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the environment member you want to
+    -- add.
+    userArn :: Prelude.Text,
+    -- | The type of environment member permissions you want to associate with
+    -- this environment member. Available values include:
+    --
+    -- -   @read-only@: Has read-only access to the environment.
+    --
+    -- -   @read-write@: Has read-write access to the environment.
+    permissions :: MemberPermissions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEnvironmentMembership' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEnvironmentMembership' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cemEnvironmentId' - The ID of the environment that contains the environment member you want to add.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cemUserARN' - The Amazon Resource Name (ARN) of the environment member you want to add.
+-- 'environmentId', 'createEnvironmentMembership_environmentId' - The ID of the environment that contains the environment member you want
+-- to add.
 --
--- * 'cemPermissions' - The type of environment member permissions you want to associate with this environment member. Available values include:     * @read-only@ : Has read-only access to the environment.     * @read-write@ : Has read-write access to the environment.
-createEnvironmentMembership ::
-  -- | 'cemEnvironmentId'
-  Text ->
-  -- | 'cemUserARN'
-  Text ->
-  -- | 'cemPermissions'
+-- 'userArn', 'createEnvironmentMembership_userArn' - The Amazon Resource Name (ARN) of the environment member you want to
+-- add.
+--
+-- 'permissions', 'createEnvironmentMembership_permissions' - The type of environment member permissions you want to associate with
+-- this environment member. Available values include:
+--
+-- -   @read-only@: Has read-only access to the environment.
+--
+-- -   @read-write@: Has read-write access to the environment.
+newCreateEnvironmentMembership ::
+  -- | 'environmentId'
+  Prelude.Text ->
+  -- | 'userArn'
+  Prelude.Text ->
+  -- | 'permissions'
   MemberPermissions ->
   CreateEnvironmentMembership
-createEnvironmentMembership
+newCreateEnvironmentMembership
   pEnvironmentId_
-  pUserARN_
+  pUserArn_
   pPermissions_ =
     CreateEnvironmentMembership'
-      { _cemEnvironmentId =
+      { environmentId =
           pEnvironmentId_,
-        _cemUserARN = pUserARN_,
-        _cemPermissions = pPermissions_
+        userArn = pUserArn_,
+        permissions = pPermissions_
       }
 
--- | The ID of the environment that contains the environment member you want to add.
-cemEnvironmentId :: Lens' CreateEnvironmentMembership Text
-cemEnvironmentId = lens _cemEnvironmentId (\s a -> s {_cemEnvironmentId = a})
+-- | The ID of the environment that contains the environment member you want
+-- to add.
+createEnvironmentMembership_environmentId :: Lens.Lens' CreateEnvironmentMembership Prelude.Text
+createEnvironmentMembership_environmentId = Lens.lens (\CreateEnvironmentMembership' {environmentId} -> environmentId) (\s@CreateEnvironmentMembership' {} a -> s {environmentId = a} :: CreateEnvironmentMembership)
 
--- | The Amazon Resource Name (ARN) of the environment member you want to add.
-cemUserARN :: Lens' CreateEnvironmentMembership Text
-cemUserARN = lens _cemUserARN (\s a -> s {_cemUserARN = a})
+-- | The Amazon Resource Name (ARN) of the environment member you want to
+-- add.
+createEnvironmentMembership_userArn :: Lens.Lens' CreateEnvironmentMembership Prelude.Text
+createEnvironmentMembership_userArn = Lens.lens (\CreateEnvironmentMembership' {userArn} -> userArn) (\s@CreateEnvironmentMembership' {} a -> s {userArn = a} :: CreateEnvironmentMembership)
 
--- | The type of environment member permissions you want to associate with this environment member. Available values include:     * @read-only@ : Has read-only access to the environment.     * @read-write@ : Has read-write access to the environment.
-cemPermissions :: Lens' CreateEnvironmentMembership MemberPermissions
-cemPermissions = lens _cemPermissions (\s a -> s {_cemPermissions = a})
+-- | The type of environment member permissions you want to associate with
+-- this environment member. Available values include:
+--
+-- -   @read-only@: Has read-only access to the environment.
+--
+-- -   @read-write@: Has read-write access to the environment.
+createEnvironmentMembership_permissions :: Lens.Lens' CreateEnvironmentMembership MemberPermissions
+createEnvironmentMembership_permissions = Lens.lens (\CreateEnvironmentMembership' {permissions} -> permissions) (\s@CreateEnvironmentMembership' {} a -> s {permissions = a} :: CreateEnvironmentMembership)
 
-instance AWSRequest CreateEnvironmentMembership where
+instance
+  Prelude.AWSRequest
+    CreateEnvironmentMembership
+  where
   type
     Rs CreateEnvironmentMembership =
       CreateEnvironmentMembershipResponse
-  request = postJSON cloud9
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateEnvironmentMembershipResponse'
-            <$> (x .?> "membership") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "membership")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateEnvironmentMembership
+instance Prelude.Hashable CreateEnvironmentMembership
 
-instance NFData CreateEnvironmentMembership
+instance Prelude.NFData CreateEnvironmentMembership
 
-instance ToHeaders CreateEnvironmentMembership where
+instance
+  Prelude.ToHeaders
+    CreateEnvironmentMembership
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCloud9WorkspaceManagementService.CreateEnvironmentMembership" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCloud9WorkspaceManagementService.CreateEnvironmentMembership" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateEnvironmentMembership where
+instance Prelude.ToJSON CreateEnvironmentMembership where
   toJSON CreateEnvironmentMembership' {..} =
-    object
-      ( catMaybes
-          [ Just ("environmentId" .= _cemEnvironmentId),
-            Just ("userArn" .= _cemUserARN),
-            Just ("permissions" .= _cemPermissions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("environmentId" Prelude..= environmentId),
+            Prelude.Just ("userArn" Prelude..= userArn),
+            Prelude.Just ("permissions" Prelude..= permissions)
           ]
       )
 
-instance ToPath CreateEnvironmentMembership where
-  toPath = const "/"
+instance Prelude.ToPath CreateEnvironmentMembership where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateEnvironmentMembership where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateEnvironmentMembership where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createEnvironmentMembershipResponse' smart constructor.
+-- | /See:/ 'newCreateEnvironmentMembershipResponse' smart constructor.
 data CreateEnvironmentMembershipResponse = CreateEnvironmentMembershipResponse'
-  { _cemrrsMembership ::
-      !( Maybe
-           EnvironmentMember
-       ),
-    _cemrrsResponseStatus ::
-      !Int
+  { -- | Information about the environment member that was added.
+    membership :: Prelude.Maybe EnvironmentMember,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEnvironmentMembershipResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEnvironmentMembershipResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cemrrsMembership' - Information about the environment member that was added.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cemrrsResponseStatus' - -- | The response status code.
-createEnvironmentMembershipResponse ::
-  -- | 'cemrrsResponseStatus'
-  Int ->
+-- 'membership', 'createEnvironmentMembershipResponse_membership' - Information about the environment member that was added.
+--
+-- 'httpStatus', 'createEnvironmentMembershipResponse_httpStatus' - The response's http status code.
+newCreateEnvironmentMembershipResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateEnvironmentMembershipResponse
-createEnvironmentMembershipResponse pResponseStatus_ =
+newCreateEnvironmentMembershipResponse pHttpStatus_ =
   CreateEnvironmentMembershipResponse'
-    { _cemrrsMembership =
-        Nothing,
-      _cemrrsResponseStatus =
-        pResponseStatus_
+    { membership =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the environment member that was added.
-cemrrsMembership :: Lens' CreateEnvironmentMembershipResponse (Maybe EnvironmentMember)
-cemrrsMembership = lens _cemrrsMembership (\s a -> s {_cemrrsMembership = a})
+createEnvironmentMembershipResponse_membership :: Lens.Lens' CreateEnvironmentMembershipResponse (Prelude.Maybe EnvironmentMember)
+createEnvironmentMembershipResponse_membership = Lens.lens (\CreateEnvironmentMembershipResponse' {membership} -> membership) (\s@CreateEnvironmentMembershipResponse' {} a -> s {membership = a} :: CreateEnvironmentMembershipResponse)
 
--- | -- | The response status code.
-cemrrsResponseStatus :: Lens' CreateEnvironmentMembershipResponse Int
-cemrrsResponseStatus = lens _cemrrsResponseStatus (\s a -> s {_cemrrsResponseStatus = a})
+-- | The response's http status code.
+createEnvironmentMembershipResponse_httpStatus :: Lens.Lens' CreateEnvironmentMembershipResponse Prelude.Int
+createEnvironmentMembershipResponse_httpStatus = Lens.lens (\CreateEnvironmentMembershipResponse' {httpStatus} -> httpStatus) (\s@CreateEnvironmentMembershipResponse' {} a -> s {httpStatus = a} :: CreateEnvironmentMembershipResponse)
 
-instance NFData CreateEnvironmentMembershipResponse
+instance
+  Prelude.NFData
+    CreateEnvironmentMembershipResponse

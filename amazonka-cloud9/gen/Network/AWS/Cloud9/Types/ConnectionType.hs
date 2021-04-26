@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Cloud9.Types.ConnectionType
   ( ConnectionType
       ( ..,
-        ConnectSSH,
-        ConnectSsm
+        ConnectionTypeCONNECTSSH,
+        ConnectionTypeCONNECTSSM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionType = ConnectionType' (CI Text)
+newtype ConnectionType = ConnectionType'
+  { fromConnectionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConnectSSH :: ConnectionType
-pattern ConnectSSH = ConnectionType' "CONNECT_SSH"
+pattern ConnectionTypeCONNECTSSH :: ConnectionType
+pattern ConnectionTypeCONNECTSSH = ConnectionType' "CONNECT_SSH"
 
-pattern ConnectSsm :: ConnectionType
-pattern ConnectSsm = ConnectionType' "CONNECT_SSM"
+pattern ConnectionTypeCONNECTSSM :: ConnectionType
+pattern ConnectionTypeCONNECTSSM = ConnectionType' "CONNECT_SSM"
 
 {-# COMPLETE
-  ConnectSSH,
-  ConnectSsm,
+  ConnectionTypeCONNECTSSH,
+  ConnectionTypeCONNECTSSM,
   ConnectionType'
   #-}
 
-instance FromText ConnectionType where
-  parser = (ConnectionType' . mk) <$> takeText
+instance Prelude.FromText ConnectionType where
+  parser = ConnectionType' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionType where
-  toText (ConnectionType' ci) = original ci
+instance Prelude.ToText ConnectionType where
+  toText (ConnectionType' x) = x
 
-instance Hashable ConnectionType
+instance Prelude.Hashable ConnectionType
 
-instance NFData ConnectionType
+instance Prelude.NFData ConnectionType
 
-instance ToByteString ConnectionType
+instance Prelude.ToByteString ConnectionType
 
-instance ToQuery ConnectionType
+instance Prelude.ToQuery ConnectionType
 
-instance ToHeader ConnectionType
+instance Prelude.ToHeader ConnectionType
 
-instance ToJSON ConnectionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConnectionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConnectionType where
-  parseJSON = parseJSONText "ConnectionType"
+instance Prelude.FromJSON ConnectionType where
+  parseJSON = Prelude.parseJSONText "ConnectionType"

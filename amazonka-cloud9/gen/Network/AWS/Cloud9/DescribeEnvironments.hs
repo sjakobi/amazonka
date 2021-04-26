@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,145 +24,145 @@
 -- Gets information about AWS Cloud9 development environments.
 module Network.AWS.Cloud9.DescribeEnvironments
   ( -- * Creating a Request
-    describeEnvironments,
-    DescribeEnvironments,
+    DescribeEnvironments (..),
+    newDescribeEnvironments,
 
     -- * Request Lenses
-    deEnvironmentIds,
+    describeEnvironments_environmentIds,
 
     -- * Destructuring the Response
-    describeEnvironmentsResponse,
-    DescribeEnvironmentsResponse,
+    DescribeEnvironmentsResponse (..),
+    newDescribeEnvironmentsResponse,
 
     -- * Response Lenses
-    drsEnvironments,
-    drsResponseStatus,
+    describeEnvironmentsResponse_environments,
+    describeEnvironmentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Cloud9.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Cloud9.Types.Environment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEnvironments' smart constructor.
-newtype DescribeEnvironments = DescribeEnvironments'
-  { _deEnvironmentIds ::
-      List1 Text
+-- | /See:/ 'newDescribeEnvironments' smart constructor.
+data DescribeEnvironments = DescribeEnvironments'
+  { -- | The IDs of individual environments to get information about.
+    environmentIds :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEnvironments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEnvironments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deEnvironmentIds' - The IDs of individual environments to get information about.
-describeEnvironments ::
-  -- | 'deEnvironmentIds'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'environmentIds', 'describeEnvironments_environmentIds' - The IDs of individual environments to get information about.
+newDescribeEnvironments ::
+  -- | 'environmentIds'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeEnvironments
-describeEnvironments pEnvironmentIds_ =
+newDescribeEnvironments pEnvironmentIds_ =
   DescribeEnvironments'
-    { _deEnvironmentIds =
-        _List1 # pEnvironmentIds_
+    { environmentIds =
+        Prelude._List1 Lens.# pEnvironmentIds_
     }
 
 -- | The IDs of individual environments to get information about.
-deEnvironmentIds :: Lens' DescribeEnvironments (NonEmpty Text)
-deEnvironmentIds = lens _deEnvironmentIds (\s a -> s {_deEnvironmentIds = a}) . _List1
+describeEnvironments_environmentIds :: Lens.Lens' DescribeEnvironments (Prelude.NonEmpty Prelude.Text)
+describeEnvironments_environmentIds = Lens.lens (\DescribeEnvironments' {environmentIds} -> environmentIds) (\s@DescribeEnvironments' {} a -> s {environmentIds = a} :: DescribeEnvironments) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeEnvironments where
+instance Prelude.AWSRequest DescribeEnvironments where
   type
     Rs DescribeEnvironments =
       DescribeEnvironmentsResponse
-  request = postJSON cloud9
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEnvironmentsResponse'
-            <$> (x .?> "environments" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "environments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEnvironments
+instance Prelude.Hashable DescribeEnvironments
 
-instance NFData DescribeEnvironments
+instance Prelude.NFData DescribeEnvironments
 
-instance ToHeaders DescribeEnvironments where
+instance Prelude.ToHeaders DescribeEnvironments where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCloud9WorkspaceManagementService.DescribeEnvironments" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCloud9WorkspaceManagementService.DescribeEnvironments" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEnvironments where
+instance Prelude.ToJSON DescribeEnvironments where
   toJSON DescribeEnvironments' {..} =
-    object
-      ( catMaybes
-          [Just ("environmentIds" .= _deEnvironmentIds)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("environmentIds" Prelude..= environmentIds)
+          ]
       )
 
-instance ToPath DescribeEnvironments where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEnvironments where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEnvironments where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEnvironments where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEnvironmentsResponse' smart constructor.
+-- | /See:/ 'newDescribeEnvironmentsResponse' smart constructor.
 data DescribeEnvironmentsResponse = DescribeEnvironmentsResponse'
-  { _drsEnvironments ::
-      !( Maybe
-           [Environment]
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | Information about the environments that are returned.
+    environments :: Prelude.Maybe [Environment],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEnvironmentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEnvironmentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsEnvironments' - Information about the environments that are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeEnvironmentsResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'environments', 'describeEnvironmentsResponse_environments' - Information about the environments that are returned.
+--
+-- 'httpStatus', 'describeEnvironmentsResponse_httpStatus' - The response's http status code.
+newDescribeEnvironmentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEnvironmentsResponse
-describeEnvironmentsResponse pResponseStatus_ =
+newDescribeEnvironmentsResponse pHttpStatus_ =
   DescribeEnvironmentsResponse'
-    { _drsEnvironments =
-        Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { environments =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the environments that are returned.
-drsEnvironments :: Lens' DescribeEnvironmentsResponse [Environment]
-drsEnvironments = lens _drsEnvironments (\s a -> s {_drsEnvironments = a}) . _Default . _Coerce
+describeEnvironmentsResponse_environments :: Lens.Lens' DescribeEnvironmentsResponse (Prelude.Maybe [Environment])
+describeEnvironmentsResponse_environments = Lens.lens (\DescribeEnvironmentsResponse' {environments} -> environments) (\s@DescribeEnvironmentsResponse' {} a -> s {environments = a} :: DescribeEnvironmentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeEnvironmentsResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeEnvironmentsResponse_httpStatus :: Lens.Lens' DescribeEnvironmentsResponse Prelude.Int
+describeEnvironmentsResponse_httpStatus = Lens.lens (\DescribeEnvironmentsResponse' {httpStatus} -> httpStatus) (\s@DescribeEnvironmentsResponse' {} a -> s {httpStatus = a} :: DescribeEnvironmentsResponse)
 
-instance NFData DescribeEnvironmentsResponse
+instance Prelude.NFData DescribeEnvironmentsResponse

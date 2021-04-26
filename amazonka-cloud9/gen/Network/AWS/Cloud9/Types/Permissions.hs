@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Cloud9.Types.Permissions
   ( Permissions
       ( ..,
-        POwner,
-        PReadOnly,
-        PReadWrite
+        PermissionsOwner,
+        PermissionsReadOnly,
+        PermissionsReadWrite
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Permissions = Permissions' (CI Text)
+newtype Permissions = Permissions'
+  { fromPermissions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern POwner :: Permissions
-pattern POwner = Permissions' "owner"
+pattern PermissionsOwner :: Permissions
+pattern PermissionsOwner = Permissions' "owner"
 
-pattern PReadOnly :: Permissions
-pattern PReadOnly = Permissions' "read-only"
+pattern PermissionsReadOnly :: Permissions
+pattern PermissionsReadOnly = Permissions' "read-only"
 
-pattern PReadWrite :: Permissions
-pattern PReadWrite = Permissions' "read-write"
+pattern PermissionsReadWrite :: Permissions
+pattern PermissionsReadWrite = Permissions' "read-write"
 
 {-# COMPLETE
-  POwner,
-  PReadOnly,
-  PReadWrite,
+  PermissionsOwner,
+  PermissionsReadOnly,
+  PermissionsReadWrite,
   Permissions'
   #-}
 
-instance FromText Permissions where
-  parser = (Permissions' . mk) <$> takeText
+instance Prelude.FromText Permissions where
+  parser = Permissions' Prelude.<$> Prelude.takeText
 
-instance ToText Permissions where
-  toText (Permissions' ci) = original ci
+instance Prelude.ToText Permissions where
+  toText (Permissions' x) = x
 
-instance Hashable Permissions
+instance Prelude.Hashable Permissions
 
-instance NFData Permissions
+instance Prelude.NFData Permissions
 
-instance ToByteString Permissions
+instance Prelude.ToByteString Permissions
 
-instance ToQuery Permissions
+instance Prelude.ToQuery Permissions
 
-instance ToHeader Permissions
+instance Prelude.ToHeader Permissions
 
-instance ToJSON Permissions where
-  toJSON = toJSONText
+instance Prelude.ToJSON Permissions where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Permissions where
-  parseJSON = parseJSONText "Permissions"
+instance Prelude.FromJSON Permissions where
+  parseJSON = Prelude.parseJSONText "Permissions"

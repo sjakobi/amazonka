@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,205 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the settings of an existing environment member for an AWS Cloud9 development environment.
+-- Changes the settings of an existing environment member for an AWS Cloud9
+-- development environment.
 module Network.AWS.Cloud9.UpdateEnvironmentMembership
   ( -- * Creating a Request
-    updateEnvironmentMembership,
-    UpdateEnvironmentMembership,
+    UpdateEnvironmentMembership (..),
+    newUpdateEnvironmentMembership,
 
     -- * Request Lenses
-    uemEnvironmentId,
-    uemUserARN,
-    uemPermissions,
+    updateEnvironmentMembership_environmentId,
+    updateEnvironmentMembership_userArn,
+    updateEnvironmentMembership_permissions,
 
     -- * Destructuring the Response
-    updateEnvironmentMembershipResponse,
-    UpdateEnvironmentMembershipResponse,
+    UpdateEnvironmentMembershipResponse (..),
+    newUpdateEnvironmentMembershipResponse,
 
     -- * Response Lenses
-    uemrrsMembership,
-    uemrrsResponseStatus,
+    updateEnvironmentMembershipResponse_membership,
+    updateEnvironmentMembershipResponse_httpStatus,
   )
 where
 
 import Network.AWS.Cloud9.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Cloud9.Types.EnvironmentMember
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateEnvironmentMembership' smart constructor.
+-- | /See:/ 'newUpdateEnvironmentMembership' smart constructor.
 data UpdateEnvironmentMembership = UpdateEnvironmentMembership'
-  { _uemEnvironmentId ::
-      !Text,
-    _uemUserARN ::
-      !Text,
-    _uemPermissions ::
-      !MemberPermissions
+  { -- | The ID of the environment for the environment member whose settings you
+    -- want to change.
+    environmentId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the environment member whose settings
+    -- you want to change.
+    userArn :: Prelude.Text,
+    -- | The replacement type of environment member permissions you want to
+    -- associate with this environment member. Available values include:
+    --
+    -- -   @read-only@: Has read-only access to the environment.
+    --
+    -- -   @read-write@: Has read-write access to the environment.
+    permissions :: MemberPermissions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEnvironmentMembership' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEnvironmentMembership' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uemEnvironmentId' - The ID of the environment for the environment member whose settings you want to change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uemUserARN' - The Amazon Resource Name (ARN) of the environment member whose settings you want to change.
+-- 'environmentId', 'updateEnvironmentMembership_environmentId' - The ID of the environment for the environment member whose settings you
+-- want to change.
 --
--- * 'uemPermissions' - The replacement type of environment member permissions you want to associate with this environment member. Available values include:     * @read-only@ : Has read-only access to the environment.     * @read-write@ : Has read-write access to the environment.
-updateEnvironmentMembership ::
-  -- | 'uemEnvironmentId'
-  Text ->
-  -- | 'uemUserARN'
-  Text ->
-  -- | 'uemPermissions'
+-- 'userArn', 'updateEnvironmentMembership_userArn' - The Amazon Resource Name (ARN) of the environment member whose settings
+-- you want to change.
+--
+-- 'permissions', 'updateEnvironmentMembership_permissions' - The replacement type of environment member permissions you want to
+-- associate with this environment member. Available values include:
+--
+-- -   @read-only@: Has read-only access to the environment.
+--
+-- -   @read-write@: Has read-write access to the environment.
+newUpdateEnvironmentMembership ::
+  -- | 'environmentId'
+  Prelude.Text ->
+  -- | 'userArn'
+  Prelude.Text ->
+  -- | 'permissions'
   MemberPermissions ->
   UpdateEnvironmentMembership
-updateEnvironmentMembership
+newUpdateEnvironmentMembership
   pEnvironmentId_
-  pUserARN_
+  pUserArn_
   pPermissions_ =
     UpdateEnvironmentMembership'
-      { _uemEnvironmentId =
+      { environmentId =
           pEnvironmentId_,
-        _uemUserARN = pUserARN_,
-        _uemPermissions = pPermissions_
+        userArn = pUserArn_,
+        permissions = pPermissions_
       }
 
--- | The ID of the environment for the environment member whose settings you want to change.
-uemEnvironmentId :: Lens' UpdateEnvironmentMembership Text
-uemEnvironmentId = lens _uemEnvironmentId (\s a -> s {_uemEnvironmentId = a})
+-- | The ID of the environment for the environment member whose settings you
+-- want to change.
+updateEnvironmentMembership_environmentId :: Lens.Lens' UpdateEnvironmentMembership Prelude.Text
+updateEnvironmentMembership_environmentId = Lens.lens (\UpdateEnvironmentMembership' {environmentId} -> environmentId) (\s@UpdateEnvironmentMembership' {} a -> s {environmentId = a} :: UpdateEnvironmentMembership)
 
--- | The Amazon Resource Name (ARN) of the environment member whose settings you want to change.
-uemUserARN :: Lens' UpdateEnvironmentMembership Text
-uemUserARN = lens _uemUserARN (\s a -> s {_uemUserARN = a})
+-- | The Amazon Resource Name (ARN) of the environment member whose settings
+-- you want to change.
+updateEnvironmentMembership_userArn :: Lens.Lens' UpdateEnvironmentMembership Prelude.Text
+updateEnvironmentMembership_userArn = Lens.lens (\UpdateEnvironmentMembership' {userArn} -> userArn) (\s@UpdateEnvironmentMembership' {} a -> s {userArn = a} :: UpdateEnvironmentMembership)
 
--- | The replacement type of environment member permissions you want to associate with this environment member. Available values include:     * @read-only@ : Has read-only access to the environment.     * @read-write@ : Has read-write access to the environment.
-uemPermissions :: Lens' UpdateEnvironmentMembership MemberPermissions
-uemPermissions = lens _uemPermissions (\s a -> s {_uemPermissions = a})
+-- | The replacement type of environment member permissions you want to
+-- associate with this environment member. Available values include:
+--
+-- -   @read-only@: Has read-only access to the environment.
+--
+-- -   @read-write@: Has read-write access to the environment.
+updateEnvironmentMembership_permissions :: Lens.Lens' UpdateEnvironmentMembership MemberPermissions
+updateEnvironmentMembership_permissions = Lens.lens (\UpdateEnvironmentMembership' {permissions} -> permissions) (\s@UpdateEnvironmentMembership' {} a -> s {permissions = a} :: UpdateEnvironmentMembership)
 
-instance AWSRequest UpdateEnvironmentMembership where
+instance
+  Prelude.AWSRequest
+    UpdateEnvironmentMembership
+  where
   type
     Rs UpdateEnvironmentMembership =
       UpdateEnvironmentMembershipResponse
-  request = postJSON cloud9
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateEnvironmentMembershipResponse'
-            <$> (x .?> "membership") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "membership")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateEnvironmentMembership
+instance Prelude.Hashable UpdateEnvironmentMembership
 
-instance NFData UpdateEnvironmentMembership
+instance Prelude.NFData UpdateEnvironmentMembership
 
-instance ToHeaders UpdateEnvironmentMembership where
+instance
+  Prelude.ToHeaders
+    UpdateEnvironmentMembership
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCloud9WorkspaceManagementService.UpdateEnvironmentMembership" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCloud9WorkspaceManagementService.UpdateEnvironmentMembership" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateEnvironmentMembership where
+instance Prelude.ToJSON UpdateEnvironmentMembership where
   toJSON UpdateEnvironmentMembership' {..} =
-    object
-      ( catMaybes
-          [ Just ("environmentId" .= _uemEnvironmentId),
-            Just ("userArn" .= _uemUserARN),
-            Just ("permissions" .= _uemPermissions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("environmentId" Prelude..= environmentId),
+            Prelude.Just ("userArn" Prelude..= userArn),
+            Prelude.Just ("permissions" Prelude..= permissions)
           ]
       )
 
-instance ToPath UpdateEnvironmentMembership where
-  toPath = const "/"
+instance Prelude.ToPath UpdateEnvironmentMembership where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateEnvironmentMembership where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateEnvironmentMembership where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateEnvironmentMembershipResponse' smart constructor.
+-- | /See:/ 'newUpdateEnvironmentMembershipResponse' smart constructor.
 data UpdateEnvironmentMembershipResponse = UpdateEnvironmentMembershipResponse'
-  { _uemrrsMembership ::
-      !( Maybe
-           EnvironmentMember
-       ),
-    _uemrrsResponseStatus ::
-      !Int
+  { -- | Information about the environment member whose settings were changed.
+    membership :: Prelude.Maybe EnvironmentMember,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEnvironmentMembershipResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEnvironmentMembershipResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uemrrsMembership' - Information about the environment member whose settings were changed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uemrrsResponseStatus' - -- | The response status code.
-updateEnvironmentMembershipResponse ::
-  -- | 'uemrrsResponseStatus'
-  Int ->
+-- 'membership', 'updateEnvironmentMembershipResponse_membership' - Information about the environment member whose settings were changed.
+--
+-- 'httpStatus', 'updateEnvironmentMembershipResponse_httpStatus' - The response's http status code.
+newUpdateEnvironmentMembershipResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateEnvironmentMembershipResponse
-updateEnvironmentMembershipResponse pResponseStatus_ =
+newUpdateEnvironmentMembershipResponse pHttpStatus_ =
   UpdateEnvironmentMembershipResponse'
-    { _uemrrsMembership =
-        Nothing,
-      _uemrrsResponseStatus =
-        pResponseStatus_
+    { membership =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the environment member whose settings were changed.
-uemrrsMembership :: Lens' UpdateEnvironmentMembershipResponse (Maybe EnvironmentMember)
-uemrrsMembership = lens _uemrrsMembership (\s a -> s {_uemrrsMembership = a})
+updateEnvironmentMembershipResponse_membership :: Lens.Lens' UpdateEnvironmentMembershipResponse (Prelude.Maybe EnvironmentMember)
+updateEnvironmentMembershipResponse_membership = Lens.lens (\UpdateEnvironmentMembershipResponse' {membership} -> membership) (\s@UpdateEnvironmentMembershipResponse' {} a -> s {membership = a} :: UpdateEnvironmentMembershipResponse)
 
--- | -- | The response status code.
-uemrrsResponseStatus :: Lens' UpdateEnvironmentMembershipResponse Int
-uemrrsResponseStatus = lens _uemrrsResponseStatus (\s a -> s {_uemrrsResponseStatus = a})
+-- | The response's http status code.
+updateEnvironmentMembershipResponse_httpStatus :: Lens.Lens' UpdateEnvironmentMembershipResponse Prelude.Int
+updateEnvironmentMembershipResponse_httpStatus = Lens.lens (\UpdateEnvironmentMembershipResponse' {httpStatus} -> httpStatus) (\s@UpdateEnvironmentMembershipResponse' {} a -> s {httpStatus = a} :: UpdateEnvironmentMembershipResponse)
 
-instance NFData UpdateEnvironmentMembershipResponse
+instance
+  Prelude.NFData
+    UpdateEnvironmentMembershipResponse

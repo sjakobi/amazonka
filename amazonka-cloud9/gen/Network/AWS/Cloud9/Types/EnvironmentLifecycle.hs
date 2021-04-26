@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,101 @@
 module Network.AWS.Cloud9.Types.EnvironmentLifecycle where
 
 import Network.AWS.Cloud9.Types.EnvironmentLifecycleStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the current creation or deletion lifecycle state of an AWS Cloud9 development environment.
+-- | Information about the current creation or deletion lifecycle state of an
+-- AWS Cloud9 development environment.
 --
---
---
--- /See:/ 'environmentLifecycle' smart constructor.
+-- /See:/ 'newEnvironmentLifecycle' smart constructor.
 data EnvironmentLifecycle = EnvironmentLifecycle'
-  { _elStatus ::
-      !( Maybe
-           EnvironmentLifecycleStatus
-       ),
-    _elReason :: !(Maybe Text),
-    _elFailureResource ::
-      !(Maybe Text)
+  { -- | The current creation or deletion lifecycle state of the environment.
+    --
+    -- -   @CREATING@: The environment is in the process of being created.
+    --
+    -- -   @CREATED@: The environment was successfully created.
+    --
+    -- -   @CREATE_FAILED@: The environment failed to be created.
+    --
+    -- -   @DELETING@: The environment is in the process of being deleted.
+    --
+    -- -   @DELETE_FAILED@: The environment failed to delete.
+    status :: Prelude.Maybe EnvironmentLifecycleStatus,
+    -- | Any informational message about the lifecycle state of the environment.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | If the environment failed to delete, the Amazon Resource Name (ARN) of
+    -- the related AWS resource.
+    failureResource :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnvironmentLifecycle' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnvironmentLifecycle' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'elStatus' - The current creation or deletion lifecycle state of the environment.     * @CREATING@ : The environment is in the process of being created.     * @CREATED@ : The environment was successfully created.     * @CREATE_FAILED@ : The environment failed to be created.     * @DELETING@ : The environment is in the process of being deleted.     * @DELETE_FAILED@ : The environment failed to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'elReason' - Any informational message about the lifecycle state of the environment.
+-- 'status', 'environmentLifecycle_status' - The current creation or deletion lifecycle state of the environment.
 --
--- * 'elFailureResource' - If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
-environmentLifecycle ::
+-- -   @CREATING@: The environment is in the process of being created.
+--
+-- -   @CREATED@: The environment was successfully created.
+--
+-- -   @CREATE_FAILED@: The environment failed to be created.
+--
+-- -   @DELETING@: The environment is in the process of being deleted.
+--
+-- -   @DELETE_FAILED@: The environment failed to delete.
+--
+-- 'reason', 'environmentLifecycle_reason' - Any informational message about the lifecycle state of the environment.
+--
+-- 'failureResource', 'environmentLifecycle_failureResource' - If the environment failed to delete, the Amazon Resource Name (ARN) of
+-- the related AWS resource.
+newEnvironmentLifecycle ::
   EnvironmentLifecycle
-environmentLifecycle =
+newEnvironmentLifecycle =
   EnvironmentLifecycle'
-    { _elStatus = Nothing,
-      _elReason = Nothing,
-      _elFailureResource = Nothing
+    { status = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      failureResource = Prelude.Nothing
     }
 
--- | The current creation or deletion lifecycle state of the environment.     * @CREATING@ : The environment is in the process of being created.     * @CREATED@ : The environment was successfully created.     * @CREATE_FAILED@ : The environment failed to be created.     * @DELETING@ : The environment is in the process of being deleted.     * @DELETE_FAILED@ : The environment failed to delete.
-elStatus :: Lens' EnvironmentLifecycle (Maybe EnvironmentLifecycleStatus)
-elStatus = lens _elStatus (\s a -> s {_elStatus = a})
+-- | The current creation or deletion lifecycle state of the environment.
+--
+-- -   @CREATING@: The environment is in the process of being created.
+--
+-- -   @CREATED@: The environment was successfully created.
+--
+-- -   @CREATE_FAILED@: The environment failed to be created.
+--
+-- -   @DELETING@: The environment is in the process of being deleted.
+--
+-- -   @DELETE_FAILED@: The environment failed to delete.
+environmentLifecycle_status :: Lens.Lens' EnvironmentLifecycle (Prelude.Maybe EnvironmentLifecycleStatus)
+environmentLifecycle_status = Lens.lens (\EnvironmentLifecycle' {status} -> status) (\s@EnvironmentLifecycle' {} a -> s {status = a} :: EnvironmentLifecycle)
 
 -- | Any informational message about the lifecycle state of the environment.
-elReason :: Lens' EnvironmentLifecycle (Maybe Text)
-elReason = lens _elReason (\s a -> s {_elReason = a})
+environmentLifecycle_reason :: Lens.Lens' EnvironmentLifecycle (Prelude.Maybe Prelude.Text)
+environmentLifecycle_reason = Lens.lens (\EnvironmentLifecycle' {reason} -> reason) (\s@EnvironmentLifecycle' {} a -> s {reason = a} :: EnvironmentLifecycle)
 
--- | If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
-elFailureResource :: Lens' EnvironmentLifecycle (Maybe Text)
-elFailureResource = lens _elFailureResource (\s a -> s {_elFailureResource = a})
+-- | If the environment failed to delete, the Amazon Resource Name (ARN) of
+-- the related AWS resource.
+environmentLifecycle_failureResource :: Lens.Lens' EnvironmentLifecycle (Prelude.Maybe Prelude.Text)
+environmentLifecycle_failureResource = Lens.lens (\EnvironmentLifecycle' {failureResource} -> failureResource) (\s@EnvironmentLifecycle' {} a -> s {failureResource = a} :: EnvironmentLifecycle)
 
-instance FromJSON EnvironmentLifecycle where
+instance Prelude.FromJSON EnvironmentLifecycle where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EnvironmentLifecycle"
       ( \x ->
           EnvironmentLifecycle'
-            <$> (x .:? "status")
-            <*> (x .:? "reason")
-            <*> (x .:? "failureResource")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "reason")
+            Prelude.<*> (x Prelude..:? "failureResource")
       )
 
-instance Hashable EnvironmentLifecycle
+instance Prelude.Hashable EnvironmentLifecycle
 
-instance NFData EnvironmentLifecycle
+instance Prelude.NFData EnvironmentLifecycle

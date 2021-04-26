@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Cloud9.Types
   ( -- * Service Configuration
-    cloud9,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -43,37 +46,19 @@ module Network.AWS.Cloud9.Types
 
     -- * Environment
     Environment (..),
-    environment,
-    eLifecycle,
-    eConnectionType,
-    eId,
-    eArn,
-    eName,
-    eOwnerARN,
-    eDescription,
-    eType,
+    newEnvironment,
 
     -- * EnvironmentLifecycle
     EnvironmentLifecycle (..),
-    environmentLifecycle,
-    elStatus,
-    elReason,
-    elFailureResource,
+    newEnvironmentLifecycle,
 
     -- * EnvironmentMember
     EnvironmentMember (..),
-    environmentMember,
-    emUserARN,
-    emPermissions,
-    emEnvironmentId,
-    emUserId,
-    emLastAccess,
+    newEnvironmentMember,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
   )
 where
 
@@ -87,103 +72,131 @@ import Network.AWS.Cloud9.Types.EnvironmentType
 import Network.AWS.Cloud9.Types.MemberPermissions
 import Network.AWS.Cloud9.Types.Permissions
 import Network.AWS.Cloud9.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-09-23@ of the Amazon Cloud9 SDK configuration.
-cloud9 :: Service
-cloud9 =
-  Service
-    { _svcAbbrev = "Cloud9",
-      _svcSigner = v4,
-      _svcPrefix = "cloud9",
-      _svcVersion = "2017-09-23",
-      _svcEndpoint = defaultEndpoint cloud9,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Cloud9",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Cloud9",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "cloud9",
+      Prelude._svcVersion = "2017-09-23",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "Cloud9",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The target resource cannot be found.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError cloud9 "NotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
 
 -- | The target request is invalid.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError cloud9 "BadRequestException"
+  Prelude._MatchServiceError
+    defaultService
+    "BadRequestException"
 
 -- | A concurrent access issue occurred.
-_ConcurrentAccessException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConcurrentAccessException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentAccessException =
-  _MatchServiceError
-    cloud9
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentAccessException"
 
 -- | An internal server error occurred.
-_InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServerErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerErrorException =
-  _MatchServiceError
-    cloud9
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerErrorException"
 
 -- | An access permissions issue occurred.
-_ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
+_ForbiddenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ForbiddenException =
-  _MatchServiceError cloud9 "ForbiddenException"
+  Prelude._MatchServiceError
+    defaultService
+    "ForbiddenException"
 
 -- | A service limit was exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError cloud9 "LimitExceededException"
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
 
 -- | A conflict occurred.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError cloud9 "ConflictException"
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
 
 -- | Too many service requests were made over the given time period.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    cloud9
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"

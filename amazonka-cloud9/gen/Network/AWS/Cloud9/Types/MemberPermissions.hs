@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Cloud9.Types.MemberPermissions
   ( MemberPermissions
       ( ..,
-        ReadOnly,
-        ReadWrite
+        MemberPermissionsReadOnly,
+        MemberPermissionsReadWrite
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MemberPermissions = MemberPermissions' (CI Text)
+newtype MemberPermissions = MemberPermissions'
+  { fromMemberPermissions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ReadOnly :: MemberPermissions
-pattern ReadOnly = MemberPermissions' "read-only"
+pattern MemberPermissionsReadOnly :: MemberPermissions
+pattern MemberPermissionsReadOnly = MemberPermissions' "read-only"
 
-pattern ReadWrite :: MemberPermissions
-pattern ReadWrite = MemberPermissions' "read-write"
+pattern MemberPermissionsReadWrite :: MemberPermissions
+pattern MemberPermissionsReadWrite = MemberPermissions' "read-write"
 
 {-# COMPLETE
-  ReadOnly,
-  ReadWrite,
+  MemberPermissionsReadOnly,
+  MemberPermissionsReadWrite,
   MemberPermissions'
   #-}
 
-instance FromText MemberPermissions where
-  parser = (MemberPermissions' . mk) <$> takeText
+instance Prelude.FromText MemberPermissions where
+  parser = MemberPermissions' Prelude.<$> Prelude.takeText
 
-instance ToText MemberPermissions where
-  toText (MemberPermissions' ci) = original ci
+instance Prelude.ToText MemberPermissions where
+  toText (MemberPermissions' x) = x
 
-instance Hashable MemberPermissions
+instance Prelude.Hashable MemberPermissions
 
-instance NFData MemberPermissions
+instance Prelude.NFData MemberPermissions
 
-instance ToByteString MemberPermissions
+instance Prelude.ToByteString MemberPermissions
 
-instance ToQuery MemberPermissions
+instance Prelude.ToQuery MemberPermissions
 
-instance ToHeader MemberPermissions
+instance Prelude.ToHeader MemberPermissions
 
-instance ToJSON MemberPermissions where
-  toJSON = toJSONText
+instance Prelude.ToJSON MemberPermissions where
+  toJSON = Prelude.toJSONText

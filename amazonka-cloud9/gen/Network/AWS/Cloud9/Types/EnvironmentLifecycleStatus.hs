@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Cloud9.Types.EnvironmentLifecycleStatus
   ( EnvironmentLifecycleStatus
       ( ..,
-        CreateFailed,
-        Created,
-        Creating,
-        DeleteFailed,
-        Deleting
+        EnvironmentLifecycleStatusCREATED,
+        EnvironmentLifecycleStatusCREATEFAILED,
+        EnvironmentLifecycleStatusCREATING,
+        EnvironmentLifecycleStatusDELETEFAILED,
+        EnvironmentLifecycleStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentLifecycleStatus
-  = EnvironmentLifecycleStatus'
-      ( CI
-          Text
-      )
+newtype EnvironmentLifecycleStatus = EnvironmentLifecycleStatus'
+  { fromEnvironmentLifecycleStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateFailed :: EnvironmentLifecycleStatus
-pattern CreateFailed = EnvironmentLifecycleStatus' "CREATE_FAILED"
+pattern EnvironmentLifecycleStatusCREATED :: EnvironmentLifecycleStatus
+pattern EnvironmentLifecycleStatusCREATED = EnvironmentLifecycleStatus' "CREATED"
 
-pattern Created :: EnvironmentLifecycleStatus
-pattern Created = EnvironmentLifecycleStatus' "CREATED"
+pattern EnvironmentLifecycleStatusCREATEFAILED :: EnvironmentLifecycleStatus
+pattern EnvironmentLifecycleStatusCREATEFAILED = EnvironmentLifecycleStatus' "CREATE_FAILED"
 
-pattern Creating :: EnvironmentLifecycleStatus
-pattern Creating = EnvironmentLifecycleStatus' "CREATING"
+pattern EnvironmentLifecycleStatusCREATING :: EnvironmentLifecycleStatus
+pattern EnvironmentLifecycleStatusCREATING = EnvironmentLifecycleStatus' "CREATING"
 
-pattern DeleteFailed :: EnvironmentLifecycleStatus
-pattern DeleteFailed = EnvironmentLifecycleStatus' "DELETE_FAILED"
+pattern EnvironmentLifecycleStatusDELETEFAILED :: EnvironmentLifecycleStatus
+pattern EnvironmentLifecycleStatusDELETEFAILED = EnvironmentLifecycleStatus' "DELETE_FAILED"
 
-pattern Deleting :: EnvironmentLifecycleStatus
-pattern Deleting = EnvironmentLifecycleStatus' "DELETING"
+pattern EnvironmentLifecycleStatusDELETING :: EnvironmentLifecycleStatus
+pattern EnvironmentLifecycleStatusDELETING = EnvironmentLifecycleStatus' "DELETING"
 
 {-# COMPLETE
-  CreateFailed,
-  Created,
-  Creating,
-  DeleteFailed,
-  Deleting,
+  EnvironmentLifecycleStatusCREATED,
+  EnvironmentLifecycleStatusCREATEFAILED,
+  EnvironmentLifecycleStatusCREATING,
+  EnvironmentLifecycleStatusDELETEFAILED,
+  EnvironmentLifecycleStatusDELETING,
   EnvironmentLifecycleStatus'
   #-}
 
-instance FromText EnvironmentLifecycleStatus where
-  parser = (EnvironmentLifecycleStatus' . mk) <$> takeText
+instance Prelude.FromText EnvironmentLifecycleStatus where
+  parser = EnvironmentLifecycleStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentLifecycleStatus where
-  toText (EnvironmentLifecycleStatus' ci) = original ci
+instance Prelude.ToText EnvironmentLifecycleStatus where
+  toText (EnvironmentLifecycleStatus' x) = x
 
-instance Hashable EnvironmentLifecycleStatus
+instance Prelude.Hashable EnvironmentLifecycleStatus
 
-instance NFData EnvironmentLifecycleStatus
+instance Prelude.NFData EnvironmentLifecycleStatus
 
-instance ToByteString EnvironmentLifecycleStatus
+instance Prelude.ToByteString EnvironmentLifecycleStatus
 
-instance ToQuery EnvironmentLifecycleStatus
+instance Prelude.ToQuery EnvironmentLifecycleStatus
 
-instance ToHeader EnvironmentLifecycleStatus
+instance Prelude.ToHeader EnvironmentLifecycleStatus
 
-instance FromJSON EnvironmentLifecycleStatus where
-  parseJSON = parseJSONText "EnvironmentLifecycleStatus"
+instance Prelude.FromJSON EnvironmentLifecycleStatus where
+  parseJSON = Prelude.parseJSONText "EnvironmentLifecycleStatus"

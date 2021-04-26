@@ -11,42 +11,54 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Cloud9__
+-- AWS Cloud9
 --
--- AWS Cloud9 is a collection of tools that you can use to code, build, run, test, debug, and release software in the cloud.
+-- AWS Cloud9 is a collection of tools that you can use to code, build,
+-- run, test, debug, and release software in the cloud.
 --
--- For more information about AWS Cloud9, see the <https://docs.aws.amazon.com/cloud9/latest/user-guide AWS Cloud9 User Guide> .
+-- For more information about AWS Cloud9, see the
+-- <https://docs.aws.amazon.com/cloud9/latest/user-guide AWS Cloud9 User Guide>.
 --
 -- AWS Cloud9 supports these operations:
 --
---     * @CreateEnvironmentEC2@ : Creates an AWS Cloud9 development environment, launches an Amazon EC2 instance, and then connects from the instance to the environment.
+-- -   @CreateEnvironmentEC2@: Creates an AWS Cloud9 development
+--     environment, launches an Amazon EC2 instance, and then connects from
+--     the instance to the environment.
 --
---     * @CreateEnvironmentMembership@ : Adds an environment member to an environment.
+-- -   @CreateEnvironmentMembership@: Adds an environment member to an
+--     environment.
 --
---     * @DeleteEnvironment@ : Deletes an environment. If an Amazon EC2 instance is connected to the environment, also terminates the instance.
+-- -   @DeleteEnvironment@: Deletes an environment. If an Amazon EC2
+--     instance is connected to the environment, also terminates the
+--     instance.
 --
---     * @DeleteEnvironmentMembership@ : Deletes an environment member from an environment.
+-- -   @DeleteEnvironmentMembership@: Deletes an environment member from an
+--     environment.
 --
---     * @DescribeEnvironmentMemberships@ : Gets information about environment members for an environment.
+-- -   @DescribeEnvironmentMemberships@: Gets information about environment
+--     members for an environment.
 --
---     * @DescribeEnvironments@ : Gets information about environments.
+-- -   @DescribeEnvironments@: Gets information about environments.
 --
---     * @DescribeEnvironmentStatus@ : Gets status information for an environment.
+-- -   @DescribeEnvironmentStatus@: Gets status information for an
+--     environment.
 --
---     * @ListEnvironments@ : Gets a list of environment identifiers.
+-- -   @ListEnvironments@: Gets a list of environment identifiers.
 --
---     * @ListTagsForResource@ : Gets the tags for an environment.
+-- -   @ListTagsForResource@: Gets the tags for an environment.
 --
---     * @TagResource@ : Adds tags to an environment.
+-- -   @TagResource@: Adds tags to an environment.
 --
---     * @UntagResource@ : Removes tags from an environment.
+-- -   @UntagResource@: Removes tags from an environment.
 --
---     * @UpdateEnvironment@ : Changes the settings of an existing environment.
+-- -   @UpdateEnvironment@: Changes the settings of an existing
+--     environment.
 --
---     * @UpdateEnvironmentMembership@ : Changes the settings of an existing environment member for an environment.
+-- -   @UpdateEnvironmentMembership@: Changes the settings of an existing
+--     environment member for an environment.
 module Network.AWS.Cloud9
   ( -- * Service Configuration
-    cloud9,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -82,43 +94,82 @@ module Network.AWS.Cloud9
     -- $operations
 
     -- ** ListEnvironments (Paginated)
-    module Network.AWS.Cloud9.ListEnvironments,
+    ListEnvironments (ListEnvironments'),
+    newListEnvironments,
+    ListEnvironmentsResponse (ListEnvironmentsResponse'),
+    newListEnvironmentsResponse,
 
     -- ** CreateEnvironmentMembership
-    module Network.AWS.Cloud9.CreateEnvironmentMembership,
+    CreateEnvironmentMembership (CreateEnvironmentMembership'),
+    newCreateEnvironmentMembership,
+    CreateEnvironmentMembershipResponse (CreateEnvironmentMembershipResponse'),
+    newCreateEnvironmentMembershipResponse,
 
     -- ** UntagResource
-    module Network.AWS.Cloud9.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** TagResource
-    module Network.AWS.Cloud9.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DescribeEnvironmentStatus
-    module Network.AWS.Cloud9.DescribeEnvironmentStatus,
+    DescribeEnvironmentStatus (DescribeEnvironmentStatus'),
+    newDescribeEnvironmentStatus,
+    DescribeEnvironmentStatusResponse (DescribeEnvironmentStatusResponse'),
+    newDescribeEnvironmentStatusResponse,
 
     -- ** UpdateEnvironment
-    module Network.AWS.Cloud9.UpdateEnvironment,
+    UpdateEnvironment (UpdateEnvironment'),
+    newUpdateEnvironment,
+    UpdateEnvironmentResponse (UpdateEnvironmentResponse'),
+    newUpdateEnvironmentResponse,
 
     -- ** DeleteEnvironment
-    module Network.AWS.Cloud9.DeleteEnvironment,
+    DeleteEnvironment (DeleteEnvironment'),
+    newDeleteEnvironment,
+    DeleteEnvironmentResponse (DeleteEnvironmentResponse'),
+    newDeleteEnvironmentResponse,
 
     -- ** DescribeEnvironmentMemberships (Paginated)
-    module Network.AWS.Cloud9.DescribeEnvironmentMemberships,
+    DescribeEnvironmentMemberships (DescribeEnvironmentMemberships'),
+    newDescribeEnvironmentMemberships,
+    DescribeEnvironmentMembershipsResponse (DescribeEnvironmentMembershipsResponse'),
+    newDescribeEnvironmentMembershipsResponse,
 
     -- ** UpdateEnvironmentMembership
-    module Network.AWS.Cloud9.UpdateEnvironmentMembership,
+    UpdateEnvironmentMembership (UpdateEnvironmentMembership'),
+    newUpdateEnvironmentMembership,
+    UpdateEnvironmentMembershipResponse (UpdateEnvironmentMembershipResponse'),
+    newUpdateEnvironmentMembershipResponse,
 
     -- ** DeleteEnvironmentMembership
-    module Network.AWS.Cloud9.DeleteEnvironmentMembership,
+    DeleteEnvironmentMembership (DeleteEnvironmentMembership'),
+    newDeleteEnvironmentMembership,
+    DeleteEnvironmentMembershipResponse (DeleteEnvironmentMembershipResponse'),
+    newDeleteEnvironmentMembershipResponse,
 
     -- ** DescribeEnvironments
-    module Network.AWS.Cloud9.DescribeEnvironments,
+    DescribeEnvironments (DescribeEnvironments'),
+    newDescribeEnvironments,
+    DescribeEnvironmentsResponse (DescribeEnvironmentsResponse'),
+    newDescribeEnvironmentsResponse,
 
     -- ** CreateEnvironmentEC
-    module Network.AWS.Cloud9.CreateEnvironmentEC,
+    CreateEnvironmentEC (CreateEnvironmentEC'),
+    newCreateEnvironmentEC,
+    CreateEnvironmentECResponse (CreateEnvironmentECResponse'),
+    newCreateEnvironmentECResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.Cloud9.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
@@ -141,38 +192,20 @@ module Network.AWS.Cloud9
     Permissions (..),
 
     -- ** Environment
-    Environment,
-    environment,
-    eLifecycle,
-    eConnectionType,
-    eId,
-    eArn,
-    eName,
-    eOwnerARN,
-    eDescription,
-    eType,
+    Environment (Environment'),
+    newEnvironment,
 
     -- ** EnvironmentLifecycle
-    EnvironmentLifecycle,
-    environmentLifecycle,
-    elStatus,
-    elReason,
-    elFailureResource,
+    EnvironmentLifecycle (EnvironmentLifecycle'),
+    newEnvironmentLifecycle,
 
     -- ** EnvironmentMember
-    EnvironmentMember,
-    environmentMember,
-    emUserARN,
-    emPermissions,
-    emEnvironmentId,
-    emUserId,
-    emLastAccess,
+    EnvironmentMember (EnvironmentMember'),
+    newEnvironmentMember,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -183,6 +216,7 @@ import Network.AWS.Cloud9.DeleteEnvironmentMembership
 import Network.AWS.Cloud9.DescribeEnvironmentMemberships
 import Network.AWS.Cloud9.DescribeEnvironmentStatus
 import Network.AWS.Cloud9.DescribeEnvironments
+import Network.AWS.Cloud9.Lens
 import Network.AWS.Cloud9.ListEnvironments
 import Network.AWS.Cloud9.ListTagsForResource
 import Network.AWS.Cloud9.TagResource

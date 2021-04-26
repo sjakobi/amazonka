@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Cloud9.Types.EnvironmentType
   ( EnvironmentType
       ( ..,
-        EC2,
-        SSH
+        EnvironmentTypeEC2,
+        EnvironmentTypeSsh
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentType = EnvironmentType' (CI Text)
+newtype EnvironmentType = EnvironmentType'
+  { fromEnvironmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EC2 :: EnvironmentType
-pattern EC2 = EnvironmentType' "ec2"
+pattern EnvironmentTypeEC2 :: EnvironmentType
+pattern EnvironmentTypeEC2 = EnvironmentType' "ec2"
 
-pattern SSH :: EnvironmentType
-pattern SSH = EnvironmentType' "ssh"
+pattern EnvironmentTypeSsh :: EnvironmentType
+pattern EnvironmentTypeSsh = EnvironmentType' "ssh"
 
 {-# COMPLETE
-  EC2,
-  SSH,
+  EnvironmentTypeEC2,
+  EnvironmentTypeSsh,
   EnvironmentType'
   #-}
 
-instance FromText EnvironmentType where
-  parser = (EnvironmentType' . mk) <$> takeText
+instance Prelude.FromText EnvironmentType where
+  parser = EnvironmentType' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentType where
-  toText (EnvironmentType' ci) = original ci
+instance Prelude.ToText EnvironmentType where
+  toText (EnvironmentType' x) = x
 
-instance Hashable EnvironmentType
+instance Prelude.Hashable EnvironmentType
 
-instance NFData EnvironmentType
+instance Prelude.NFData EnvironmentType
 
-instance ToByteString EnvironmentType
+instance Prelude.ToByteString EnvironmentType
 
-instance ToQuery EnvironmentType
+instance Prelude.ToQuery EnvironmentType
 
-instance ToHeader EnvironmentType
+instance Prelude.ToHeader EnvironmentType
 
-instance FromJSON EnvironmentType where
-  parseJSON = parseJSONText "EnvironmentType"
+instance Prelude.FromJSON EnvironmentType where
+  parseJSON = Prelude.parseJSONText "EnvironmentType"

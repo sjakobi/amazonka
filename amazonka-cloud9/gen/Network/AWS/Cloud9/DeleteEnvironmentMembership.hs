@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an environment member from an AWS Cloud9 development environment.
+-- Deletes an environment member from an AWS Cloud9 development
+-- environment.
 module Network.AWS.Cloud9.DeleteEnvironmentMembership
   ( -- * Creating a Request
-    deleteEnvironmentMembership,
-    DeleteEnvironmentMembership,
+    DeleteEnvironmentMembership (..),
+    newDeleteEnvironmentMembership,
 
     -- * Request Lenses
-    dEnvironmentId,
-    dUserARN,
+    deleteEnvironmentMembership_environmentId,
+    deleteEnvironmentMembership_userArn,
 
     -- * Destructuring the Response
-    deleteEnvironmentMembershipResponse,
-    DeleteEnvironmentMembershipResponse,
+    DeleteEnvironmentMembershipResponse (..),
+    newDeleteEnvironmentMembershipResponse,
 
     -- * Response Lenses
-    demrrsResponseStatus,
+    deleteEnvironmentMembershipResponse_httpStatus,
   )
 where
 
 import Network.AWS.Cloud9.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteEnvironmentMembership' smart constructor.
+-- | /See:/ 'newDeleteEnvironmentMembership' smart constructor.
 data DeleteEnvironmentMembership = DeleteEnvironmentMembership'
-  { _dEnvironmentId ::
-      !Text,
-    _dUserARN ::
-      !Text
+  { -- | The ID of the environment to delete the environment member from.
+    environmentId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the environment member to delete from
+    -- the environment.
+    userArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEnvironmentMembership' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEnvironmentMembership' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dEnvironmentId' - The ID of the environment to delete the environment member from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dUserARN' - The Amazon Resource Name (ARN) of the environment member to delete from the environment.
-deleteEnvironmentMembership ::
-  -- | 'dEnvironmentId'
-  Text ->
-  -- | 'dUserARN'
-  Text ->
+-- 'environmentId', 'deleteEnvironmentMembership_environmentId' - The ID of the environment to delete the environment member from.
+--
+-- 'userArn', 'deleteEnvironmentMembership_userArn' - The Amazon Resource Name (ARN) of the environment member to delete from
+-- the environment.
+newDeleteEnvironmentMembership ::
+  -- | 'environmentId'
+  Prelude.Text ->
+  -- | 'userArn'
+  Prelude.Text ->
   DeleteEnvironmentMembership
-deleteEnvironmentMembership pEnvironmentId_ pUserARN_ =
-  DeleteEnvironmentMembership'
-    { _dEnvironmentId =
-        pEnvironmentId_,
-      _dUserARN = pUserARN_
-    }
+newDeleteEnvironmentMembership
+  pEnvironmentId_
+  pUserArn_ =
+    DeleteEnvironmentMembership'
+      { environmentId =
+          pEnvironmentId_,
+        userArn = pUserArn_
+      }
 
 -- | The ID of the environment to delete the environment member from.
-dEnvironmentId :: Lens' DeleteEnvironmentMembership Text
-dEnvironmentId = lens _dEnvironmentId (\s a -> s {_dEnvironmentId = a})
+deleteEnvironmentMembership_environmentId :: Lens.Lens' DeleteEnvironmentMembership Prelude.Text
+deleteEnvironmentMembership_environmentId = Lens.lens (\DeleteEnvironmentMembership' {environmentId} -> environmentId) (\s@DeleteEnvironmentMembership' {} a -> s {environmentId = a} :: DeleteEnvironmentMembership)
 
--- | The Amazon Resource Name (ARN) of the environment member to delete from the environment.
-dUserARN :: Lens' DeleteEnvironmentMembership Text
-dUserARN = lens _dUserARN (\s a -> s {_dUserARN = a})
+-- | The Amazon Resource Name (ARN) of the environment member to delete from
+-- the environment.
+deleteEnvironmentMembership_userArn :: Lens.Lens' DeleteEnvironmentMembership Prelude.Text
+deleteEnvironmentMembership_userArn = Lens.lens (\DeleteEnvironmentMembership' {userArn} -> userArn) (\s@DeleteEnvironmentMembership' {} a -> s {userArn = a} :: DeleteEnvironmentMembership)
 
-instance AWSRequest DeleteEnvironmentMembership where
+instance
+  Prelude.AWSRequest
+    DeleteEnvironmentMembership
+  where
   type
     Rs DeleteEnvironmentMembership =
       DeleteEnvironmentMembershipResponse
-  request = postJSON cloud9
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteEnvironmentMembershipResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteEnvironmentMembership
+instance Prelude.Hashable DeleteEnvironmentMembership
 
-instance NFData DeleteEnvironmentMembership
+instance Prelude.NFData DeleteEnvironmentMembership
 
-instance ToHeaders DeleteEnvironmentMembership where
+instance
+  Prelude.ToHeaders
+    DeleteEnvironmentMembership
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCloud9WorkspaceManagementService.DeleteEnvironmentMembership" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCloud9WorkspaceManagementService.DeleteEnvironmentMembership" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteEnvironmentMembership where
+instance Prelude.ToJSON DeleteEnvironmentMembership where
   toJSON DeleteEnvironmentMembership' {..} =
-    object
-      ( catMaybes
-          [ Just ("environmentId" .= _dEnvironmentId),
-            Just ("userArn" .= _dUserARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("environmentId" Prelude..= environmentId),
+            Prelude.Just ("userArn" Prelude..= userArn)
           ]
       )
 
-instance ToPath DeleteEnvironmentMembership where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEnvironmentMembership where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEnvironmentMembership where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEnvironmentMembership where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteEnvironmentMembershipResponse' smart constructor.
-newtype DeleteEnvironmentMembershipResponse = DeleteEnvironmentMembershipResponse'
-  { _demrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteEnvironmentMembershipResponse' smart constructor.
+data DeleteEnvironmentMembershipResponse = DeleteEnvironmentMembershipResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEnvironmentMembershipResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEnvironmentMembershipResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'demrrsResponseStatus' - -- | The response status code.
-deleteEnvironmentMembershipResponse ::
-  -- | 'demrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteEnvironmentMembershipResponse_httpStatus' - The response's http status code.
+newDeleteEnvironmentMembershipResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteEnvironmentMembershipResponse
-deleteEnvironmentMembershipResponse pResponseStatus_ =
+newDeleteEnvironmentMembershipResponse pHttpStatus_ =
   DeleteEnvironmentMembershipResponse'
-    { _demrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-demrrsResponseStatus :: Lens' DeleteEnvironmentMembershipResponse Int
-demrrsResponseStatus = lens _demrrsResponseStatus (\s a -> s {_demrrsResponseStatus = a})
+-- | The response's http status code.
+deleteEnvironmentMembershipResponse_httpStatus :: Lens.Lens' DeleteEnvironmentMembershipResponse Prelude.Int
+deleteEnvironmentMembershipResponse_httpStatus = Lens.lens (\DeleteEnvironmentMembershipResponse' {httpStatus} -> httpStatus) (\s@DeleteEnvironmentMembershipResponse' {} a -> s {httpStatus = a} :: DeleteEnvironmentMembershipResponse)
 
-instance NFData DeleteEnvironmentMembershipResponse
+instance
+  Prelude.NFData
+    DeleteEnvironmentMembershipResponse

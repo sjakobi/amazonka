@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,210 @@
 --
 -- Gets a list of AWS Cloud9 development environment identifiers.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Cloud9.ListEnvironments
   ( -- * Creating a Request
-    listEnvironments,
-    ListEnvironments,
+    ListEnvironments (..),
+    newListEnvironments,
 
     -- * Request Lenses
-    leNextToken,
-    leMaxResults,
+    listEnvironments_nextToken,
+    listEnvironments_maxResults,
 
     -- * Destructuring the Response
-    listEnvironmentsResponse,
-    ListEnvironmentsResponse,
+    ListEnvironmentsResponse (..),
+    newListEnvironmentsResponse,
 
     -- * Response Lenses
-    lerrsNextToken,
-    lerrsEnvironmentIds,
-    lerrsResponseStatus,
+    listEnvironmentsResponse_nextToken,
+    listEnvironmentsResponse_environmentIds,
+    listEnvironmentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Cloud9.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listEnvironments' smart constructor.
+-- | /See:/ 'newListEnvironments' smart constructor.
 data ListEnvironments = ListEnvironments'
-  { _leNextToken ::
-      !(Maybe Text),
-    _leMaxResults :: !(Maybe Nat)
+  { -- | During a previous call, if there are more than 25 items in the list,
+    -- only the first 25 items are returned, along with a unique string called
+    -- a /next token/. To get the next batch of items in the list, call this
+    -- operation again, adding the next token to the call. To get all of the
+    -- items in the list, keep calling this operation with each subsequent next
+    -- token that is returned, until no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of environments to get identifiers for.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEnvironments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEnvironments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'leNextToken' - During a previous call, if there are more than 25 items in the list, only the first 25 items are returned, along with a unique string called a /next token/ . To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'leMaxResults' - The maximum number of environments to get identifiers for.
-listEnvironments ::
+-- 'nextToken', 'listEnvironments_nextToken' - During a previous call, if there are more than 25 items in the list,
+-- only the first 25 items are returned, along with a unique string called
+-- a /next token/. To get the next batch of items in the list, call this
+-- operation again, adding the next token to the call. To get all of the
+-- items in the list, keep calling this operation with each subsequent next
+-- token that is returned, until no more next tokens are returned.
+--
+-- 'maxResults', 'listEnvironments_maxResults' - The maximum number of environments to get identifiers for.
+newListEnvironments ::
   ListEnvironments
-listEnvironments =
+newListEnvironments =
   ListEnvironments'
-    { _leNextToken = Nothing,
-      _leMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | During a previous call, if there are more than 25 items in the list, only the first 25 items are returned, along with a unique string called a /next token/ . To get the next batch of items in the list, call this operation again, adding the next token to the call. To get all of the items in the list, keep calling this operation with each subsequent next token that is returned, until no more next tokens are returned.
-leNextToken :: Lens' ListEnvironments (Maybe Text)
-leNextToken = lens _leNextToken (\s a -> s {_leNextToken = a})
+-- | During a previous call, if there are more than 25 items in the list,
+-- only the first 25 items are returned, along with a unique string called
+-- a /next token/. To get the next batch of items in the list, call this
+-- operation again, adding the next token to the call. To get all of the
+-- items in the list, keep calling this operation with each subsequent next
+-- token that is returned, until no more next tokens are returned.
+listEnvironments_nextToken :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Text)
+listEnvironments_nextToken = Lens.lens (\ListEnvironments' {nextToken} -> nextToken) (\s@ListEnvironments' {} a -> s {nextToken = a} :: ListEnvironments)
 
 -- | The maximum number of environments to get identifiers for.
-leMaxResults :: Lens' ListEnvironments (Maybe Natural)
-leMaxResults = lens _leMaxResults (\s a -> s {_leMaxResults = a}) . mapping _Nat
+listEnvironments_maxResults :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Natural)
+listEnvironments_maxResults = Lens.lens (\ListEnvironments' {maxResults} -> maxResults) (\s@ListEnvironments' {} a -> s {maxResults = a} :: ListEnvironments) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListEnvironments where
+instance Pager.AWSPager ListEnvironments where
   page rq rs
-    | stop (rs ^. lerrsNextToken) = Nothing
-    | stop (rs ^. lerrsEnvironmentIds) = Nothing
-    | otherwise =
-      Just $ rq & leNextToken .~ rs ^. lerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listEnvironmentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listEnvironmentsResponse_environmentIds
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listEnvironments_nextToken
+          Lens..~ rs
+          Lens.^? listEnvironmentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListEnvironments where
+instance Prelude.AWSRequest ListEnvironments where
   type Rs ListEnvironments = ListEnvironmentsResponse
-  request = postJSON cloud9
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListEnvironmentsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "environmentIds" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "environmentIds"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListEnvironments
+instance Prelude.Hashable ListEnvironments
 
-instance NFData ListEnvironments
+instance Prelude.NFData ListEnvironments
 
-instance ToHeaders ListEnvironments where
+instance Prelude.ToHeaders ListEnvironments where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSCloud9WorkspaceManagementService.ListEnvironments" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSCloud9WorkspaceManagementService.ListEnvironments" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListEnvironments where
+instance Prelude.ToJSON ListEnvironments where
   toJSON ListEnvironments' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _leNextToken,
-            ("maxResults" .=) <$> _leMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListEnvironments where
-  toPath = const "/"
+instance Prelude.ToPath ListEnvironments where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListEnvironments where
-  toQuery = const mempty
+instance Prelude.ToQuery ListEnvironments where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listEnvironmentsResponse' smart constructor.
+-- | /See:/ 'newListEnvironmentsResponse' smart constructor.
 data ListEnvironmentsResponse = ListEnvironmentsResponse'
-  { _lerrsNextToken ::
-      !(Maybe Text),
-    _lerrsEnvironmentIds ::
-      !(Maybe [Text]),
-    _lerrsResponseStatus ::
-      !Int
+  { -- | If there are more than 25 items in the list, only the first 25 items are
+    -- returned, along with a unique string called a /next token/. To get the
+    -- next batch of items in the list, call this operation again, adding the
+    -- next token to the call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of environment identifiers.
+    environmentIds :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEnvironmentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEnvironmentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lerrsNextToken' - If there are more than 25 items in the list, only the first 25 items are returned, along with a unique string called a /next token/ . To get the next batch of items in the list, call this operation again, adding the next token to the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lerrsEnvironmentIds' - The list of environment identifiers.
+-- 'nextToken', 'listEnvironmentsResponse_nextToken' - If there are more than 25 items in the list, only the first 25 items are
+-- returned, along with a unique string called a /next token/. To get the
+-- next batch of items in the list, call this operation again, adding the
+-- next token to the call.
 --
--- * 'lerrsResponseStatus' - -- | The response status code.
-listEnvironmentsResponse ::
-  -- | 'lerrsResponseStatus'
-  Int ->
+-- 'environmentIds', 'listEnvironmentsResponse_environmentIds' - The list of environment identifiers.
+--
+-- 'httpStatus', 'listEnvironmentsResponse_httpStatus' - The response's http status code.
+newListEnvironmentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListEnvironmentsResponse
-listEnvironmentsResponse pResponseStatus_ =
+newListEnvironmentsResponse pHttpStatus_ =
   ListEnvironmentsResponse'
-    { _lerrsNextToken =
-        Nothing,
-      _lerrsEnvironmentIds = Nothing,
-      _lerrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      environmentIds = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are more than 25 items in the list, only the first 25 items are returned, along with a unique string called a /next token/ . To get the next batch of items in the list, call this operation again, adding the next token to the call.
-lerrsNextToken :: Lens' ListEnvironmentsResponse (Maybe Text)
-lerrsNextToken = lens _lerrsNextToken (\s a -> s {_lerrsNextToken = a})
+-- | If there are more than 25 items in the list, only the first 25 items are
+-- returned, along with a unique string called a /next token/. To get the
+-- next batch of items in the list, call this operation again, adding the
+-- next token to the call.
+listEnvironmentsResponse_nextToken :: Lens.Lens' ListEnvironmentsResponse (Prelude.Maybe Prelude.Text)
+listEnvironmentsResponse_nextToken = Lens.lens (\ListEnvironmentsResponse' {nextToken} -> nextToken) (\s@ListEnvironmentsResponse' {} a -> s {nextToken = a} :: ListEnvironmentsResponse)
 
 -- | The list of environment identifiers.
-lerrsEnvironmentIds :: Lens' ListEnvironmentsResponse [Text]
-lerrsEnvironmentIds = lens _lerrsEnvironmentIds (\s a -> s {_lerrsEnvironmentIds = a}) . _Default . _Coerce
+listEnvironmentsResponse_environmentIds :: Lens.Lens' ListEnvironmentsResponse (Prelude.Maybe [Prelude.Text])
+listEnvironmentsResponse_environmentIds = Lens.lens (\ListEnvironmentsResponse' {environmentIds} -> environmentIds) (\s@ListEnvironmentsResponse' {} a -> s {environmentIds = a} :: ListEnvironmentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lerrsResponseStatus :: Lens' ListEnvironmentsResponse Int
-lerrsResponseStatus = lens _lerrsResponseStatus (\s a -> s {_lerrsResponseStatus = a})
+-- | The response's http status code.
+listEnvironmentsResponse_httpStatus :: Lens.Lens' ListEnvironmentsResponse Prelude.Int
+listEnvironmentsResponse_httpStatus = Lens.lens (\ListEnvironmentsResponse' {httpStatus} -> httpStatus) (\s@ListEnvironmentsResponse' {} a -> s {httpStatus = a} :: ListEnvironmentsResponse)
 
-instance NFData ListEnvironmentsResponse
+instance Prelude.NFData ListEnvironmentsResponse
