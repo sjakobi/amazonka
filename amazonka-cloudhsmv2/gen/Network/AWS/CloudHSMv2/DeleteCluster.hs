@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified AWS CloudHSM cluster. Before you can delete a cluster, you must delete all HSMs in the cluster. To see if the cluster contains any HSMs, use 'DescribeClusters' . To delete an HSM, use 'DeleteHsm' .
+-- Deletes the specified AWS CloudHSM cluster. Before you can delete a
+-- cluster, you must delete all HSMs in the cluster. To see if the cluster
+-- contains any HSMs, use DescribeClusters. To delete an HSM, use
+-- DeleteHsm.
 module Network.AWS.CloudHSMv2.DeleteCluster
   ( -- * Creating a Request
-    deleteCluster,
-    DeleteCluster,
+    DeleteCluster (..),
+    newDeleteCluster,
 
     -- * Request Lenses
-    dcClusterId,
+    deleteCluster_clusterId,
 
     -- * Destructuring the Response
-    deleteClusterResponse,
-    DeleteClusterResponse,
+    DeleteClusterResponse (..),
+    newDeleteClusterResponse,
 
     -- * Response Lenses
-    delrsCluster,
-    delrsResponseStatus,
+    deleteClusterResponse_cluster,
+    deleteClusterResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudHSMv2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudHSMv2.Types.Cluster
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCluster' smart constructor.
-newtype DeleteCluster = DeleteCluster'
-  { _dcClusterId ::
-      Text
+-- | /See:/ 'newDeleteCluster' smart constructor.
+data DeleteCluster = DeleteCluster'
+  { -- | The identifier (ID) of the cluster that you are deleting. To find the
+    -- cluster ID, use DescribeClusters.
+    clusterId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcClusterId' - The identifier (ID) of the cluster that you are deleting. To find the cluster ID, use 'DescribeClusters' .
-deleteCluster ::
-  -- | 'dcClusterId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clusterId', 'deleteCluster_clusterId' - The identifier (ID) of the cluster that you are deleting. To find the
+-- cluster ID, use DescribeClusters.
+newDeleteCluster ::
+  -- | 'clusterId'
+  Prelude.Text ->
   DeleteCluster
-deleteCluster pClusterId_ =
-  DeleteCluster' {_dcClusterId = pClusterId_}
+newDeleteCluster pClusterId_ =
+  DeleteCluster' {clusterId = pClusterId_}
 
--- | The identifier (ID) of the cluster that you are deleting. To find the cluster ID, use 'DescribeClusters' .
-dcClusterId :: Lens' DeleteCluster Text
-dcClusterId = lens _dcClusterId (\s a -> s {_dcClusterId = a})
+-- | The identifier (ID) of the cluster that you are deleting. To find the
+-- cluster ID, use DescribeClusters.
+deleteCluster_clusterId :: Lens.Lens' DeleteCluster Prelude.Text
+deleteCluster_clusterId = Lens.lens (\DeleteCluster' {clusterId} -> clusterId) (\s@DeleteCluster' {} a -> s {clusterId = a} :: DeleteCluster)
 
-instance AWSRequest DeleteCluster where
+instance Prelude.AWSRequest DeleteCluster where
   type Rs DeleteCluster = DeleteClusterResponse
-  request = postJSON cloudHSMv2
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteClusterResponse'
-            <$> (x .?> "Cluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Cluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCluster
+instance Prelude.Hashable DeleteCluster
 
-instance NFData DeleteCluster
+instance Prelude.NFData DeleteCluster
 
-instance ToHeaders DeleteCluster where
+instance Prelude.ToHeaders DeleteCluster where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("BaldrApiService.DeleteCluster" :: ByteString),
+              Prelude.=# ( "BaldrApiService.DeleteCluster" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteCluster where
+instance Prelude.ToJSON DeleteCluster where
   toJSON DeleteCluster' {..} =
-    object
-      (catMaybes [Just ("ClusterId" .= _dcClusterId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ClusterId" Prelude..= clusterId)]
+      )
 
-instance ToPath DeleteCluster where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCluster where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCluster where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteClusterResponse' smart constructor.
+-- | /See:/ 'newDeleteClusterResponse' smart constructor.
 data DeleteClusterResponse = DeleteClusterResponse'
-  { _delrsCluster ::
-      !(Maybe Cluster),
-    _delrsResponseStatus ::
-      !Int
+  { -- | Information about the cluster that was deleted.
+    cluster :: Prelude.Maybe Cluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsCluster' - Information about the cluster that was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteClusterResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'cluster', 'deleteClusterResponse_cluster' - Information about the cluster that was deleted.
+--
+-- 'httpStatus', 'deleteClusterResponse_httpStatus' - The response's http status code.
+newDeleteClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteClusterResponse
-deleteClusterResponse pResponseStatus_ =
+newDeleteClusterResponse pHttpStatus_ =
   DeleteClusterResponse'
-    { _delrsCluster = Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { cluster = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the cluster that was deleted.
-delrsCluster :: Lens' DeleteClusterResponse (Maybe Cluster)
-delrsCluster = lens _delrsCluster (\s a -> s {_delrsCluster = a})
+deleteClusterResponse_cluster :: Lens.Lens' DeleteClusterResponse (Prelude.Maybe Cluster)
+deleteClusterResponse_cluster = Lens.lens (\DeleteClusterResponse' {cluster} -> cluster) (\s@DeleteClusterResponse' {} a -> s {cluster = a} :: DeleteClusterResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteClusterResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteClusterResponse_httpStatus :: Lens.Lens' DeleteClusterResponse Prelude.Int
+deleteClusterResponse_httpStatus = Lens.lens (\DeleteClusterResponse' {httpStatus} -> httpStatus) (\s@DeleteClusterResponse' {} a -> s {httpStatus = a} :: DeleteClusterResponse)
 
-instance NFData DeleteClusterResponse
+instance Prelude.NFData DeleteClusterResponse

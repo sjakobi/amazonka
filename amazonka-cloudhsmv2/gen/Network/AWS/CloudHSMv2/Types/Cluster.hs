@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,173 +23,203 @@ import Network.AWS.CloudHSMv2.Types.BackupPolicy
 import Network.AWS.CloudHSMv2.Types.BackupRetentionPolicy
 import Network.AWS.CloudHSMv2.Types.Certificates
 import Network.AWS.CloudHSMv2.Types.ClusterState
-import Network.AWS.CloudHSMv2.Types.HSM
+import Network.AWS.CloudHSMv2.Types.Hsm
 import Network.AWS.CloudHSMv2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an AWS CloudHSM cluster.
 --
---
---
--- /See:/ 'cluster' smart constructor.
+-- /See:/ 'newCluster' smart constructor.
 data Cluster = Cluster'
-  { _cClusterId :: !(Maybe Text),
-    _cStateMessage :: !(Maybe Text),
-    _cBackupPolicy :: !(Maybe BackupPolicy),
-    _cCreateTimestamp :: !(Maybe POSIX),
-    _cSubnetMapping :: !(Maybe (Map Text Text)),
-    _cState :: !(Maybe ClusterState),
-    _cPreCoPassword :: !(Maybe Text),
-    _cSecurityGroup :: !(Maybe Text),
-    _cHSMType :: !(Maybe Text),
-    _cSourceBackupId :: !(Maybe Text),
-    _cCertificates :: !(Maybe Certificates),
-    _cTagList :: !(Maybe [Tag]),
-    _cVPCId :: !(Maybe Text),
-    _cHSMs :: !(Maybe [HSM]),
-    _cBackupRetentionPolicy ::
-      !(Maybe BackupRetentionPolicy)
+  { -- | The cluster\'s identifier (ID).
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | A description of the cluster\'s state.
+    stateMessage :: Prelude.Maybe Prelude.Text,
+    -- | The cluster\'s backup policy.
+    backupPolicy :: Prelude.Maybe BackupPolicy,
+    -- | The date and time when the cluster was created.
+    createTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | A map from availability zone to the cluster’s subnet in that
+    -- availability zone.
+    subnetMapping :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The cluster\'s state.
+    state :: Prelude.Maybe ClusterState,
+    -- | The default password for the cluster\'s Pre-Crypto Officer (PRECO) user.
+    preCoPassword :: Prelude.Maybe Prelude.Text,
+    -- | The identifier (ID) of the cluster\'s security group.
+    securityGroup :: Prelude.Maybe Prelude.Text,
+    -- | The type of HSM that the cluster contains.
+    hsmType :: Prelude.Maybe Prelude.Text,
+    -- | The identifier (ID) of the backup used to create the cluster. This value
+    -- exists only when the cluster was created from a backup.
+    sourceBackupId :: Prelude.Maybe Prelude.Text,
+    -- | Contains one or more certificates or a certificate signing request
+    -- (CSR).
+    certificates :: Prelude.Maybe Certificates,
+    -- | The list of tags for the cluster.
+    tagList :: Prelude.Maybe [Tag],
+    -- | The identifier (ID) of the virtual private cloud (VPC) that contains the
+    -- cluster.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | Contains information about the HSMs in the cluster.
+    hsms :: Prelude.Maybe [Hsm],
+    -- | A policy that defines how the service retains backups.
+    backupRetentionPolicy :: Prelude.Maybe BackupRetentionPolicy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Cluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Cluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cClusterId' - The cluster's identifier (ID).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cStateMessage' - A description of the cluster's state.
+-- 'clusterId', 'cluster_clusterId' - The cluster\'s identifier (ID).
 --
--- * 'cBackupPolicy' - The cluster's backup policy.
+-- 'stateMessage', 'cluster_stateMessage' - A description of the cluster\'s state.
 --
--- * 'cCreateTimestamp' - The date and time when the cluster was created.
+-- 'backupPolicy', 'cluster_backupPolicy' - The cluster\'s backup policy.
 --
--- * 'cSubnetMapping' - A map from availability zone to the cluster’s subnet in that availability zone.
+-- 'createTimestamp', 'cluster_createTimestamp' - The date and time when the cluster was created.
 --
--- * 'cState' - The cluster's state.
+-- 'subnetMapping', 'cluster_subnetMapping' - A map from availability zone to the cluster’s subnet in that
+-- availability zone.
 --
--- * 'cPreCoPassword' - The default password for the cluster's Pre-Crypto Officer (PRECO) user.
+-- 'state', 'cluster_state' - The cluster\'s state.
 --
--- * 'cSecurityGroup' - The identifier (ID) of the cluster's security group.
+-- 'preCoPassword', 'cluster_preCoPassword' - The default password for the cluster\'s Pre-Crypto Officer (PRECO) user.
 --
--- * 'cHSMType' - The type of HSM that the cluster contains.
+-- 'securityGroup', 'cluster_securityGroup' - The identifier (ID) of the cluster\'s security group.
 --
--- * 'cSourceBackupId' - The identifier (ID) of the backup used to create the cluster. This value exists only when the cluster was created from a backup.
+-- 'hsmType', 'cluster_hsmType' - The type of HSM that the cluster contains.
 --
--- * 'cCertificates' - Contains one or more certificates or a certificate signing request (CSR).
+-- 'sourceBackupId', 'cluster_sourceBackupId' - The identifier (ID) of the backup used to create the cluster. This value
+-- exists only when the cluster was created from a backup.
 --
--- * 'cTagList' - The list of tags for the cluster.
+-- 'certificates', 'cluster_certificates' - Contains one or more certificates or a certificate signing request
+-- (CSR).
 --
--- * 'cVPCId' - The identifier (ID) of the virtual private cloud (VPC) that contains the cluster.
+-- 'tagList', 'cluster_tagList' - The list of tags for the cluster.
 --
--- * 'cHSMs' - Contains information about the HSMs in the cluster.
+-- 'vpcId', 'cluster_vpcId' - The identifier (ID) of the virtual private cloud (VPC) that contains the
+-- cluster.
 --
--- * 'cBackupRetentionPolicy' - A policy that defines how the service retains backups.
-cluster ::
+-- 'hsms', 'cluster_hsms' - Contains information about the HSMs in the cluster.
+--
+-- 'backupRetentionPolicy', 'cluster_backupRetentionPolicy' - A policy that defines how the service retains backups.
+newCluster ::
   Cluster
-cluster =
+newCluster =
   Cluster'
-    { _cClusterId = Nothing,
-      _cStateMessage = Nothing,
-      _cBackupPolicy = Nothing,
-      _cCreateTimestamp = Nothing,
-      _cSubnetMapping = Nothing,
-      _cState = Nothing,
-      _cPreCoPassword = Nothing,
-      _cSecurityGroup = Nothing,
-      _cHSMType = Nothing,
-      _cSourceBackupId = Nothing,
-      _cCertificates = Nothing,
-      _cTagList = Nothing,
-      _cVPCId = Nothing,
-      _cHSMs = Nothing,
-      _cBackupRetentionPolicy = Nothing
+    { clusterId = Prelude.Nothing,
+      stateMessage = Prelude.Nothing,
+      backupPolicy = Prelude.Nothing,
+      createTimestamp = Prelude.Nothing,
+      subnetMapping = Prelude.Nothing,
+      state = Prelude.Nothing,
+      preCoPassword = Prelude.Nothing,
+      securityGroup = Prelude.Nothing,
+      hsmType = Prelude.Nothing,
+      sourceBackupId = Prelude.Nothing,
+      certificates = Prelude.Nothing,
+      tagList = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      hsms = Prelude.Nothing,
+      backupRetentionPolicy = Prelude.Nothing
     }
 
--- | The cluster's identifier (ID).
-cClusterId :: Lens' Cluster (Maybe Text)
-cClusterId = lens _cClusterId (\s a -> s {_cClusterId = a})
+-- | The cluster\'s identifier (ID).
+cluster_clusterId :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_clusterId = Lens.lens (\Cluster' {clusterId} -> clusterId) (\s@Cluster' {} a -> s {clusterId = a} :: Cluster)
 
--- | A description of the cluster's state.
-cStateMessage :: Lens' Cluster (Maybe Text)
-cStateMessage = lens _cStateMessage (\s a -> s {_cStateMessage = a})
+-- | A description of the cluster\'s state.
+cluster_stateMessage :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_stateMessage = Lens.lens (\Cluster' {stateMessage} -> stateMessage) (\s@Cluster' {} a -> s {stateMessage = a} :: Cluster)
 
--- | The cluster's backup policy.
-cBackupPolicy :: Lens' Cluster (Maybe BackupPolicy)
-cBackupPolicy = lens _cBackupPolicy (\s a -> s {_cBackupPolicy = a})
+-- | The cluster\'s backup policy.
+cluster_backupPolicy :: Lens.Lens' Cluster (Prelude.Maybe BackupPolicy)
+cluster_backupPolicy = Lens.lens (\Cluster' {backupPolicy} -> backupPolicy) (\s@Cluster' {} a -> s {backupPolicy = a} :: Cluster)
 
 -- | The date and time when the cluster was created.
-cCreateTimestamp :: Lens' Cluster (Maybe UTCTime)
-cCreateTimestamp = lens _cCreateTimestamp (\s a -> s {_cCreateTimestamp = a}) . mapping _Time
+cluster_createTimestamp :: Lens.Lens' Cluster (Prelude.Maybe Prelude.UTCTime)
+cluster_createTimestamp = Lens.lens (\Cluster' {createTimestamp} -> createTimestamp) (\s@Cluster' {} a -> s {createTimestamp = a} :: Cluster) Prelude.. Lens.mapping Prelude._Time
 
--- | A map from availability zone to the cluster’s subnet in that availability zone.
-cSubnetMapping :: Lens' Cluster (HashMap Text Text)
-cSubnetMapping = lens _cSubnetMapping (\s a -> s {_cSubnetMapping = a}) . _Default . _Map
+-- | A map from availability zone to the cluster’s subnet in that
+-- availability zone.
+cluster_subnetMapping :: Lens.Lens' Cluster (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+cluster_subnetMapping = Lens.lens (\Cluster' {subnetMapping} -> subnetMapping) (\s@Cluster' {} a -> s {subnetMapping = a} :: Cluster) Prelude.. Lens.mapping Prelude._Map
 
--- | The cluster's state.
-cState :: Lens' Cluster (Maybe ClusterState)
-cState = lens _cState (\s a -> s {_cState = a})
+-- | The cluster\'s state.
+cluster_state :: Lens.Lens' Cluster (Prelude.Maybe ClusterState)
+cluster_state = Lens.lens (\Cluster' {state} -> state) (\s@Cluster' {} a -> s {state = a} :: Cluster)
 
--- | The default password for the cluster's Pre-Crypto Officer (PRECO) user.
-cPreCoPassword :: Lens' Cluster (Maybe Text)
-cPreCoPassword = lens _cPreCoPassword (\s a -> s {_cPreCoPassword = a})
+-- | The default password for the cluster\'s Pre-Crypto Officer (PRECO) user.
+cluster_preCoPassword :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_preCoPassword = Lens.lens (\Cluster' {preCoPassword} -> preCoPassword) (\s@Cluster' {} a -> s {preCoPassword = a} :: Cluster)
 
--- | The identifier (ID) of the cluster's security group.
-cSecurityGroup :: Lens' Cluster (Maybe Text)
-cSecurityGroup = lens _cSecurityGroup (\s a -> s {_cSecurityGroup = a})
+-- | The identifier (ID) of the cluster\'s security group.
+cluster_securityGroup :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_securityGroup = Lens.lens (\Cluster' {securityGroup} -> securityGroup) (\s@Cluster' {} a -> s {securityGroup = a} :: Cluster)
 
 -- | The type of HSM that the cluster contains.
-cHSMType :: Lens' Cluster (Maybe Text)
-cHSMType = lens _cHSMType (\s a -> s {_cHSMType = a})
+cluster_hsmType :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_hsmType = Lens.lens (\Cluster' {hsmType} -> hsmType) (\s@Cluster' {} a -> s {hsmType = a} :: Cluster)
 
--- | The identifier (ID) of the backup used to create the cluster. This value exists only when the cluster was created from a backup.
-cSourceBackupId :: Lens' Cluster (Maybe Text)
-cSourceBackupId = lens _cSourceBackupId (\s a -> s {_cSourceBackupId = a})
+-- | The identifier (ID) of the backup used to create the cluster. This value
+-- exists only when the cluster was created from a backup.
+cluster_sourceBackupId :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_sourceBackupId = Lens.lens (\Cluster' {sourceBackupId} -> sourceBackupId) (\s@Cluster' {} a -> s {sourceBackupId = a} :: Cluster)
 
--- | Contains one or more certificates or a certificate signing request (CSR).
-cCertificates :: Lens' Cluster (Maybe Certificates)
-cCertificates = lens _cCertificates (\s a -> s {_cCertificates = a})
+-- | Contains one or more certificates or a certificate signing request
+-- (CSR).
+cluster_certificates :: Lens.Lens' Cluster (Prelude.Maybe Certificates)
+cluster_certificates = Lens.lens (\Cluster' {certificates} -> certificates) (\s@Cluster' {} a -> s {certificates = a} :: Cluster)
 
 -- | The list of tags for the cluster.
-cTagList :: Lens' Cluster [Tag]
-cTagList = lens _cTagList (\s a -> s {_cTagList = a}) . _Default . _Coerce
+cluster_tagList :: Lens.Lens' Cluster (Prelude.Maybe [Tag])
+cluster_tagList = Lens.lens (\Cluster' {tagList} -> tagList) (\s@Cluster' {} a -> s {tagList = a} :: Cluster) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The identifier (ID) of the virtual private cloud (VPC) that contains the cluster.
-cVPCId :: Lens' Cluster (Maybe Text)
-cVPCId = lens _cVPCId (\s a -> s {_cVPCId = a})
+-- | The identifier (ID) of the virtual private cloud (VPC) that contains the
+-- cluster.
+cluster_vpcId :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_vpcId = Lens.lens (\Cluster' {vpcId} -> vpcId) (\s@Cluster' {} a -> s {vpcId = a} :: Cluster)
 
 -- | Contains information about the HSMs in the cluster.
-cHSMs :: Lens' Cluster [HSM]
-cHSMs = lens _cHSMs (\s a -> s {_cHSMs = a}) . _Default . _Coerce
+cluster_hsms :: Lens.Lens' Cluster (Prelude.Maybe [Hsm])
+cluster_hsms = Lens.lens (\Cluster' {hsms} -> hsms) (\s@Cluster' {} a -> s {hsms = a} :: Cluster) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A policy that defines how the service retains backups.
-cBackupRetentionPolicy :: Lens' Cluster (Maybe BackupRetentionPolicy)
-cBackupRetentionPolicy = lens _cBackupRetentionPolicy (\s a -> s {_cBackupRetentionPolicy = a})
+cluster_backupRetentionPolicy :: Lens.Lens' Cluster (Prelude.Maybe BackupRetentionPolicy)
+cluster_backupRetentionPolicy = Lens.lens (\Cluster' {backupRetentionPolicy} -> backupRetentionPolicy) (\s@Cluster' {} a -> s {backupRetentionPolicy = a} :: Cluster)
 
-instance FromJSON Cluster where
+instance Prelude.FromJSON Cluster where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Cluster"
       ( \x ->
           Cluster'
-            <$> (x .:? "ClusterId")
-            <*> (x .:? "StateMessage")
-            <*> (x .:? "BackupPolicy")
-            <*> (x .:? "CreateTimestamp")
-            <*> (x .:? "SubnetMapping" .!= mempty)
-            <*> (x .:? "State")
-            <*> (x .:? "PreCoPassword")
-            <*> (x .:? "SecurityGroup")
-            <*> (x .:? "HsmType")
-            <*> (x .:? "SourceBackupId")
-            <*> (x .:? "Certificates")
-            <*> (x .:? "TagList" .!= mempty)
-            <*> (x .:? "VpcId")
-            <*> (x .:? "Hsms" .!= mempty)
-            <*> (x .:? "BackupRetentionPolicy")
+            Prelude.<$> (x Prelude..:? "ClusterId")
+            Prelude.<*> (x Prelude..:? "StateMessage")
+            Prelude.<*> (x Prelude..:? "BackupPolicy")
+            Prelude.<*> (x Prelude..:? "CreateTimestamp")
+            Prelude.<*> ( x Prelude..:? "SubnetMapping"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "PreCoPassword")
+            Prelude.<*> (x Prelude..:? "SecurityGroup")
+            Prelude.<*> (x Prelude..:? "HsmType")
+            Prelude.<*> (x Prelude..:? "SourceBackupId")
+            Prelude.<*> (x Prelude..:? "Certificates")
+            Prelude.<*> (x Prelude..:? "TagList" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "VpcId")
+            Prelude.<*> (x Prelude..:? "Hsms" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "BackupRetentionPolicy")
       )
 
-instance Hashable Cluster
+instance Prelude.Hashable Cluster
 
-instance NFData Cluster
+instance Prelude.NFData Cluster

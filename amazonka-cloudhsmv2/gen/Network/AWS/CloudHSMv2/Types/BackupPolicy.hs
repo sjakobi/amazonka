@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.CloudHSMv2.Types.BackupPolicy
   ( BackupPolicy
       ( ..,
-        Default
+        BackupPolicyDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackupPolicy = BackupPolicy' (CI Text)
+newtype BackupPolicy = BackupPolicy'
+  { fromBackupPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Default :: BackupPolicy
-pattern Default = BackupPolicy' "DEFAULT"
+pattern BackupPolicyDEFAULT :: BackupPolicy
+pattern BackupPolicyDEFAULT = BackupPolicy' "DEFAULT"
 
 {-# COMPLETE
-  Default,
+  BackupPolicyDEFAULT,
   BackupPolicy'
   #-}
 
-instance FromText BackupPolicy where
-  parser = (BackupPolicy' . mk) <$> takeText
+instance Prelude.FromText BackupPolicy where
+  parser = BackupPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText BackupPolicy where
-  toText (BackupPolicy' ci) = original ci
+instance Prelude.ToText BackupPolicy where
+  toText (BackupPolicy' x) = x
 
-instance Hashable BackupPolicy
+instance Prelude.Hashable BackupPolicy
 
-instance NFData BackupPolicy
+instance Prelude.NFData BackupPolicy
 
-instance ToByteString BackupPolicy
+instance Prelude.ToByteString BackupPolicy
 
-instance ToQuery BackupPolicy
+instance Prelude.ToQuery BackupPolicy
 
-instance ToHeader BackupPolicy
+instance Prelude.ToHeader BackupPolicy
 
-instance FromJSON BackupPolicy where
-  parseJSON = parseJSONText "BackupPolicy"
+instance Prelude.FromJSON BackupPolicy where
+  parseJSON = Prelude.parseJSONText "BackupPolicy"

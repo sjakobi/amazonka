@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudHSMv2.Types.Certificates where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains one or more certificates or a certificate signing request (CSR).
+-- | Contains one or more certificates or a certificate signing request
+-- (CSR).
 --
---
---
--- /See:/ 'certificates' smart constructor.
+-- /See:/ 'newCertificates' smart constructor.
 data Certificates = Certificates'
-  { _cAWSHardwareCertificate ::
-      !(Maybe Text),
-    _cHSMCertificate :: !(Maybe Text),
-    _cClusterCSR :: !(Maybe Text),
-    _cClusterCertificate :: !(Maybe Text),
-    _cManufacturerHardwareCertificate ::
-      !(Maybe Text)
+  { -- | The HSM hardware certificate issued (signed) by AWS CloudHSM.
+    awsHardwareCertificate :: Prelude.Maybe Prelude.Text,
+    -- | The HSM certificate issued (signed) by the HSM hardware.
+    hsmCertificate :: Prelude.Maybe Prelude.Text,
+    -- | The cluster\'s certificate signing request (CSR). The CSR exists only
+    -- when the cluster\'s state is @UNINITIALIZED@.
+    clusterCsr :: Prelude.Maybe Prelude.Text,
+    -- | The cluster certificate issued (signed) by the issuing certificate
+    -- authority (CA) of the cluster\'s owner.
+    clusterCertificate :: Prelude.Maybe Prelude.Text,
+    -- | The HSM hardware certificate issued (signed) by the hardware
+    -- manufacturer.
+    manufacturerHardwareCertificate :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Certificates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Certificates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cAWSHardwareCertificate' - The HSM hardware certificate issued (signed) by AWS CloudHSM.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cHSMCertificate' - The HSM certificate issued (signed) by the HSM hardware.
+-- 'awsHardwareCertificate', 'certificates_awsHardwareCertificate' - The HSM hardware certificate issued (signed) by AWS CloudHSM.
 --
--- * 'cClusterCSR' - The cluster's certificate signing request (CSR). The CSR exists only when the cluster's state is @UNINITIALIZED@ .
+-- 'hsmCertificate', 'certificates_hsmCertificate' - The HSM certificate issued (signed) by the HSM hardware.
 --
--- * 'cClusterCertificate' - The cluster certificate issued (signed) by the issuing certificate authority (CA) of the cluster's owner.
+-- 'clusterCsr', 'certificates_clusterCsr' - The cluster\'s certificate signing request (CSR). The CSR exists only
+-- when the cluster\'s state is @UNINITIALIZED@.
 --
--- * 'cManufacturerHardwareCertificate' - The HSM hardware certificate issued (signed) by the hardware manufacturer.
-certificates ::
+-- 'clusterCertificate', 'certificates_clusterCertificate' - The cluster certificate issued (signed) by the issuing certificate
+-- authority (CA) of the cluster\'s owner.
+--
+-- 'manufacturerHardwareCertificate', 'certificates_manufacturerHardwareCertificate' - The HSM hardware certificate issued (signed) by the hardware
+-- manufacturer.
+newCertificates ::
   Certificates
-certificates =
+newCertificates =
   Certificates'
-    { _cAWSHardwareCertificate = Nothing,
-      _cHSMCertificate = Nothing,
-      _cClusterCSR = Nothing,
-      _cClusterCertificate = Nothing,
-      _cManufacturerHardwareCertificate = Nothing
+    { awsHardwareCertificate =
+        Prelude.Nothing,
+      hsmCertificate = Prelude.Nothing,
+      clusterCsr = Prelude.Nothing,
+      clusterCertificate = Prelude.Nothing,
+      manufacturerHardwareCertificate = Prelude.Nothing
     }
 
 -- | The HSM hardware certificate issued (signed) by AWS CloudHSM.
-cAWSHardwareCertificate :: Lens' Certificates (Maybe Text)
-cAWSHardwareCertificate = lens _cAWSHardwareCertificate (\s a -> s {_cAWSHardwareCertificate = a})
+certificates_awsHardwareCertificate :: Lens.Lens' Certificates (Prelude.Maybe Prelude.Text)
+certificates_awsHardwareCertificate = Lens.lens (\Certificates' {awsHardwareCertificate} -> awsHardwareCertificate) (\s@Certificates' {} a -> s {awsHardwareCertificate = a} :: Certificates)
 
 -- | The HSM certificate issued (signed) by the HSM hardware.
-cHSMCertificate :: Lens' Certificates (Maybe Text)
-cHSMCertificate = lens _cHSMCertificate (\s a -> s {_cHSMCertificate = a})
+certificates_hsmCertificate :: Lens.Lens' Certificates (Prelude.Maybe Prelude.Text)
+certificates_hsmCertificate = Lens.lens (\Certificates' {hsmCertificate} -> hsmCertificate) (\s@Certificates' {} a -> s {hsmCertificate = a} :: Certificates)
 
--- | The cluster's certificate signing request (CSR). The CSR exists only when the cluster's state is @UNINITIALIZED@ .
-cClusterCSR :: Lens' Certificates (Maybe Text)
-cClusterCSR = lens _cClusterCSR (\s a -> s {_cClusterCSR = a})
+-- | The cluster\'s certificate signing request (CSR). The CSR exists only
+-- when the cluster\'s state is @UNINITIALIZED@.
+certificates_clusterCsr :: Lens.Lens' Certificates (Prelude.Maybe Prelude.Text)
+certificates_clusterCsr = Lens.lens (\Certificates' {clusterCsr} -> clusterCsr) (\s@Certificates' {} a -> s {clusterCsr = a} :: Certificates)
 
--- | The cluster certificate issued (signed) by the issuing certificate authority (CA) of the cluster's owner.
-cClusterCertificate :: Lens' Certificates (Maybe Text)
-cClusterCertificate = lens _cClusterCertificate (\s a -> s {_cClusterCertificate = a})
+-- | The cluster certificate issued (signed) by the issuing certificate
+-- authority (CA) of the cluster\'s owner.
+certificates_clusterCertificate :: Lens.Lens' Certificates (Prelude.Maybe Prelude.Text)
+certificates_clusterCertificate = Lens.lens (\Certificates' {clusterCertificate} -> clusterCertificate) (\s@Certificates' {} a -> s {clusterCertificate = a} :: Certificates)
 
--- | The HSM hardware certificate issued (signed) by the hardware manufacturer.
-cManufacturerHardwareCertificate :: Lens' Certificates (Maybe Text)
-cManufacturerHardwareCertificate = lens _cManufacturerHardwareCertificate (\s a -> s {_cManufacturerHardwareCertificate = a})
+-- | The HSM hardware certificate issued (signed) by the hardware
+-- manufacturer.
+certificates_manufacturerHardwareCertificate :: Lens.Lens' Certificates (Prelude.Maybe Prelude.Text)
+certificates_manufacturerHardwareCertificate = Lens.lens (\Certificates' {manufacturerHardwareCertificate} -> manufacturerHardwareCertificate) (\s@Certificates' {} a -> s {manufacturerHardwareCertificate = a} :: Certificates)
 
-instance FromJSON Certificates where
+instance Prelude.FromJSON Certificates where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Certificates"
       ( \x ->
           Certificates'
-            <$> (x .:? "AwsHardwareCertificate")
-            <*> (x .:? "HsmCertificate")
-            <*> (x .:? "ClusterCsr")
-            <*> (x .:? "ClusterCertificate")
-            <*> (x .:? "ManufacturerHardwareCertificate")
+            Prelude.<$> (x Prelude..:? "AwsHardwareCertificate")
+            Prelude.<*> (x Prelude..:? "HsmCertificate")
+            Prelude.<*> (x Prelude..:? "ClusterCsr")
+            Prelude.<*> (x Prelude..:? "ClusterCertificate")
+            Prelude.<*> (x Prelude..:? "ManufacturerHardwareCertificate")
       )
 
-instance Hashable Certificates
+instance Prelude.Hashable Certificates
 
-instance NFData Certificates
+instance Prelude.NFData Certificates

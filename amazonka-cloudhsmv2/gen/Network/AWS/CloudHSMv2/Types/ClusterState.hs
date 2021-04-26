@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.CloudHSMv2.Types.ClusterState
   ( ClusterState
       ( ..,
-        Active,
-        CreateInProgress,
-        Degraded,
-        DeleteInProgress,
-        Deleted,
-        InitializeInProgress,
-        Initialized,
-        Uninitialized,
-        UpdateInProgress
+        ClusterStateACTIVE,
+        ClusterStateCREATEINPROGRESS,
+        ClusterStateDEGRADED,
+        ClusterStateDELETED,
+        ClusterStateDELETEINPROGRESS,
+        ClusterStateINITIALIZED,
+        ClusterStateINITIALIZEINPROGRESS,
+        ClusterStateUNINITIALIZED,
+        ClusterStateUPDATEINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ClusterState = ClusterState' (CI Text)
+newtype ClusterState = ClusterState'
+  { fromClusterState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ClusterState
-pattern Active = ClusterState' "ACTIVE"
+pattern ClusterStateACTIVE :: ClusterState
+pattern ClusterStateACTIVE = ClusterState' "ACTIVE"
 
-pattern CreateInProgress :: ClusterState
-pattern CreateInProgress = ClusterState' "CREATE_IN_PROGRESS"
+pattern ClusterStateCREATEINPROGRESS :: ClusterState
+pattern ClusterStateCREATEINPROGRESS = ClusterState' "CREATE_IN_PROGRESS"
 
-pattern Degraded :: ClusterState
-pattern Degraded = ClusterState' "DEGRADED"
+pattern ClusterStateDEGRADED :: ClusterState
+pattern ClusterStateDEGRADED = ClusterState' "DEGRADED"
 
-pattern DeleteInProgress :: ClusterState
-pattern DeleteInProgress = ClusterState' "DELETE_IN_PROGRESS"
+pattern ClusterStateDELETED :: ClusterState
+pattern ClusterStateDELETED = ClusterState' "DELETED"
 
-pattern Deleted :: ClusterState
-pattern Deleted = ClusterState' "DELETED"
+pattern ClusterStateDELETEINPROGRESS :: ClusterState
+pattern ClusterStateDELETEINPROGRESS = ClusterState' "DELETE_IN_PROGRESS"
 
-pattern InitializeInProgress :: ClusterState
-pattern InitializeInProgress = ClusterState' "INITIALIZE_IN_PROGRESS"
+pattern ClusterStateINITIALIZED :: ClusterState
+pattern ClusterStateINITIALIZED = ClusterState' "INITIALIZED"
 
-pattern Initialized :: ClusterState
-pattern Initialized = ClusterState' "INITIALIZED"
+pattern ClusterStateINITIALIZEINPROGRESS :: ClusterState
+pattern ClusterStateINITIALIZEINPROGRESS = ClusterState' "INITIALIZE_IN_PROGRESS"
 
-pattern Uninitialized :: ClusterState
-pattern Uninitialized = ClusterState' "UNINITIALIZED"
+pattern ClusterStateUNINITIALIZED :: ClusterState
+pattern ClusterStateUNINITIALIZED = ClusterState' "UNINITIALIZED"
 
-pattern UpdateInProgress :: ClusterState
-pattern UpdateInProgress = ClusterState' "UPDATE_IN_PROGRESS"
+pattern ClusterStateUPDATEINPROGRESS :: ClusterState
+pattern ClusterStateUPDATEINPROGRESS = ClusterState' "UPDATE_IN_PROGRESS"
 
 {-# COMPLETE
-  Active,
-  CreateInProgress,
-  Degraded,
-  DeleteInProgress,
-  Deleted,
-  InitializeInProgress,
-  Initialized,
-  Uninitialized,
-  UpdateInProgress,
+  ClusterStateACTIVE,
+  ClusterStateCREATEINPROGRESS,
+  ClusterStateDEGRADED,
+  ClusterStateDELETED,
+  ClusterStateDELETEINPROGRESS,
+  ClusterStateINITIALIZED,
+  ClusterStateINITIALIZEINPROGRESS,
+  ClusterStateUNINITIALIZED,
+  ClusterStateUPDATEINPROGRESS,
   ClusterState'
   #-}
 
-instance FromText ClusterState where
-  parser = (ClusterState' . mk) <$> takeText
+instance Prelude.FromText ClusterState where
+  parser = ClusterState' Prelude.<$> Prelude.takeText
 
-instance ToText ClusterState where
-  toText (ClusterState' ci) = original ci
+instance Prelude.ToText ClusterState where
+  toText (ClusterState' x) = x
 
-instance Hashable ClusterState
+instance Prelude.Hashable ClusterState
 
-instance NFData ClusterState
+instance Prelude.NFData ClusterState
 
-instance ToByteString ClusterState
+instance Prelude.ToByteString ClusterState
 
-instance ToQuery ClusterState
+instance Prelude.ToQuery ClusterState
 
-instance ToHeader ClusterState
+instance Prelude.ToHeader ClusterState
 
-instance FromJSON ClusterState where
-  parseJSON = parseJSONText "ClusterState"
+instance Prelude.FromJSON ClusterState where
+  parseJSON = Prelude.parseJSONText "ClusterState"

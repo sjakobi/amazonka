@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.CloudHSMv2.Types.BackupRetentionType
   ( BackupRetentionType
       ( ..,
-        Days
+        BackupRetentionTypeDAYS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackupRetentionType
-  = BackupRetentionType'
-      ( CI
-          Text
-      )
+newtype BackupRetentionType = BackupRetentionType'
+  { fromBackupRetentionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Days :: BackupRetentionType
-pattern Days = BackupRetentionType' "DAYS"
+pattern BackupRetentionTypeDAYS :: BackupRetentionType
+pattern BackupRetentionTypeDAYS = BackupRetentionType' "DAYS"
 
 {-# COMPLETE
-  Days,
+  BackupRetentionTypeDAYS,
   BackupRetentionType'
   #-}
 
-instance FromText BackupRetentionType where
-  parser = (BackupRetentionType' . mk) <$> takeText
+instance Prelude.FromText BackupRetentionType where
+  parser = BackupRetentionType' Prelude.<$> Prelude.takeText
 
-instance ToText BackupRetentionType where
-  toText (BackupRetentionType' ci) = original ci
+instance Prelude.ToText BackupRetentionType where
+  toText (BackupRetentionType' x) = x
 
-instance Hashable BackupRetentionType
+instance Prelude.Hashable BackupRetentionType
 
-instance NFData BackupRetentionType
+instance Prelude.NFData BackupRetentionType
 
-instance ToByteString BackupRetentionType
+instance Prelude.ToByteString BackupRetentionType
 
-instance ToQuery BackupRetentionType
+instance Prelude.ToQuery BackupRetentionType
 
-instance ToHeader BackupRetentionType
+instance Prelude.ToHeader BackupRetentionType
 
-instance ToJSON BackupRetentionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON BackupRetentionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BackupRetentionType where
-  parseJSON = parseJSONText "BackupRetentionType"
+instance Prelude.FromJSON BackupRetentionType where
+  parseJSON = Prelude.parseJSONText "BackupRetentionType"

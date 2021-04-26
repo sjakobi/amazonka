@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,147 +24,157 @@
 -- Modifies AWS CloudHSM cluster.
 module Network.AWS.CloudHSMv2.ModifyCluster
   ( -- * Creating a Request
-    modifyCluster,
-    ModifyCluster,
+    ModifyCluster (..),
+    newModifyCluster,
 
     -- * Request Lenses
-    mcBackupRetentionPolicy,
-    mcClusterId,
+    modifyCluster_backupRetentionPolicy,
+    modifyCluster_clusterId,
 
     -- * Destructuring the Response
-    modifyClusterResponse,
-    ModifyClusterResponse,
+    ModifyClusterResponse (..),
+    newModifyClusterResponse,
 
     -- * Response Lenses
-    mcrrsCluster,
-    mcrrsResponseStatus,
+    modifyClusterResponse_cluster,
+    modifyClusterResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudHSMv2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudHSMv2.Types.Cluster
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyCluster' smart constructor.
+-- | /See:/ 'newModifyCluster' smart constructor.
 data ModifyCluster = ModifyCluster'
-  { _mcBackupRetentionPolicy ::
-      !BackupRetentionPolicy,
-    _mcClusterId :: !Text
+  { -- | A policy that defines how the service retains backups.
+    backupRetentionPolicy :: BackupRetentionPolicy,
+    -- | The identifier (ID) of the cluster that you want to modify. To find the
+    -- cluster ID, use DescribeClusters.
+    clusterId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcBackupRetentionPolicy' - A policy that defines how the service retains backups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mcClusterId' - The identifier (ID) of the cluster that you want to modify. To find the cluster ID, use 'DescribeClusters' .
-modifyCluster ::
-  -- | 'mcBackupRetentionPolicy'
+-- 'backupRetentionPolicy', 'modifyCluster_backupRetentionPolicy' - A policy that defines how the service retains backups.
+--
+-- 'clusterId', 'modifyCluster_clusterId' - The identifier (ID) of the cluster that you want to modify. To find the
+-- cluster ID, use DescribeClusters.
+newModifyCluster ::
+  -- | 'backupRetentionPolicy'
   BackupRetentionPolicy ->
-  -- | 'mcClusterId'
-  Text ->
+  -- | 'clusterId'
+  Prelude.Text ->
   ModifyCluster
-modifyCluster pBackupRetentionPolicy_ pClusterId_ =
+newModifyCluster pBackupRetentionPolicy_ pClusterId_ =
   ModifyCluster'
-    { _mcBackupRetentionPolicy =
+    { backupRetentionPolicy =
         pBackupRetentionPolicy_,
-      _mcClusterId = pClusterId_
+      clusterId = pClusterId_
     }
 
 -- | A policy that defines how the service retains backups.
-mcBackupRetentionPolicy :: Lens' ModifyCluster BackupRetentionPolicy
-mcBackupRetentionPolicy = lens _mcBackupRetentionPolicy (\s a -> s {_mcBackupRetentionPolicy = a})
+modifyCluster_backupRetentionPolicy :: Lens.Lens' ModifyCluster BackupRetentionPolicy
+modifyCluster_backupRetentionPolicy = Lens.lens (\ModifyCluster' {backupRetentionPolicy} -> backupRetentionPolicy) (\s@ModifyCluster' {} a -> s {backupRetentionPolicy = a} :: ModifyCluster)
 
--- | The identifier (ID) of the cluster that you want to modify. To find the cluster ID, use 'DescribeClusters' .
-mcClusterId :: Lens' ModifyCluster Text
-mcClusterId = lens _mcClusterId (\s a -> s {_mcClusterId = a})
+-- | The identifier (ID) of the cluster that you want to modify. To find the
+-- cluster ID, use DescribeClusters.
+modifyCluster_clusterId :: Lens.Lens' ModifyCluster Prelude.Text
+modifyCluster_clusterId = Lens.lens (\ModifyCluster' {clusterId} -> clusterId) (\s@ModifyCluster' {} a -> s {clusterId = a} :: ModifyCluster)
 
-instance AWSRequest ModifyCluster where
+instance Prelude.AWSRequest ModifyCluster where
   type Rs ModifyCluster = ModifyClusterResponse
-  request = postJSON cloudHSMv2
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ModifyClusterResponse'
-            <$> (x .?> "Cluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Cluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyCluster
+instance Prelude.Hashable ModifyCluster
 
-instance NFData ModifyCluster
+instance Prelude.NFData ModifyCluster
 
-instance ToHeaders ModifyCluster where
+instance Prelude.ToHeaders ModifyCluster where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("BaldrApiService.ModifyCluster" :: ByteString),
+              Prelude.=# ( "BaldrApiService.ModifyCluster" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyCluster where
+instance Prelude.ToJSON ModifyCluster where
   toJSON ModifyCluster' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "BackupRetentionPolicy"
-                  .= _mcBackupRetentionPolicy
+                  Prelude..= backupRetentionPolicy
               ),
-            Just ("ClusterId" .= _mcClusterId)
+            Prelude.Just ("ClusterId" Prelude..= clusterId)
           ]
       )
 
-instance ToPath ModifyCluster where
-  toPath = const "/"
+instance Prelude.ToPath ModifyCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyCluster where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifyCluster where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifyClusterResponse' smart constructor.
+-- | /See:/ 'newModifyClusterResponse' smart constructor.
 data ModifyClusterResponse = ModifyClusterResponse'
-  { _mcrrsCluster ::
-      !(Maybe Cluster),
-    _mcrrsResponseStatus ::
-      !Int
+  { cluster :: Prelude.Maybe Cluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcrrsCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mcrrsResponseStatus' - -- | The response status code.
-modifyClusterResponse ::
-  -- | 'mcrrsResponseStatus'
-  Int ->
+-- 'cluster', 'modifyClusterResponse_cluster' - Undocumented member.
+--
+-- 'httpStatus', 'modifyClusterResponse_httpStatus' - The response's http status code.
+newModifyClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyClusterResponse
-modifyClusterResponse pResponseStatus_ =
+newModifyClusterResponse pHttpStatus_ =
   ModifyClusterResponse'
-    { _mcrrsCluster = Nothing,
-      _mcrrsResponseStatus = pResponseStatus_
+    { cluster = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-mcrrsCluster :: Lens' ModifyClusterResponse (Maybe Cluster)
-mcrrsCluster = lens _mcrrsCluster (\s a -> s {_mcrrsCluster = a})
+modifyClusterResponse_cluster :: Lens.Lens' ModifyClusterResponse (Prelude.Maybe Cluster)
+modifyClusterResponse_cluster = Lens.lens (\ModifyClusterResponse' {cluster} -> cluster) (\s@ModifyClusterResponse' {} a -> s {cluster = a} :: ModifyClusterResponse)
 
--- | -- | The response status code.
-mcrrsResponseStatus :: Lens' ModifyClusterResponse Int
-mcrrsResponseStatus = lens _mcrrsResponseStatus (\s a -> s {_mcrrsResponseStatus = a})
+-- | The response's http status code.
+modifyClusterResponse_httpStatus :: Lens.Lens' ModifyClusterResponse Prelude.Int
+modifyClusterResponse_httpStatus = Lens.lens (\ModifyClusterResponse' {httpStatus} -> httpStatus) (\s@ModifyClusterResponse' {} a -> s {httpStatus = a} :: ModifyClusterResponse)
 
-instance NFData ModifyClusterResponse
+instance Prelude.NFData ModifyClusterResponse

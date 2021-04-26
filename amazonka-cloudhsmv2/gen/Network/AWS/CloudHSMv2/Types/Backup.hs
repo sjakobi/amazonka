@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,136 +21,172 @@ module Network.AWS.CloudHSMv2.Types.Backup where
 
 import Network.AWS.CloudHSMv2.Types.BackupState
 import Network.AWS.CloudHSMv2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about a backup of an AWS CloudHSM cluster. All backup objects contain the @BackupId@ , @BackupState@ , @ClusterId@ , and @CreateTimestamp@ parameters. Backups that were copied into a destination region additionally contain the @CopyTimestamp@ , @SourceBackup@ , @SourceCluster@ , and @SourceRegion@ parameters. A backup that is pending deletion will include the @DeleteTimestamp@ parameter.
+-- | Contains information about a backup of an AWS CloudHSM cluster. All
+-- backup objects contain the @BackupId@, @BackupState@, @ClusterId@, and
+-- @CreateTimestamp@ parameters. Backups that were copied into a
+-- destination region additionally contain the @CopyTimestamp@,
+-- @SourceBackup@, @SourceCluster@, and @SourceRegion@ parameters. A backup
+-- that is pending deletion will include the @DeleteTimestamp@ parameter.
 --
---
---
--- /See:/ 'backup' smart constructor.
+-- /See:/ 'newBackup' smart constructor.
 data Backup = Backup'
-  { _bClusterId :: !(Maybe Text),
-    _bBackupState :: !(Maybe BackupState),
-    _bSourceBackup :: !(Maybe Text),
-    _bCopyTimestamp :: !(Maybe POSIX),
-    _bCreateTimestamp :: !(Maybe POSIX),
-    _bNeverExpires :: !(Maybe Bool),
-    _bSourceCluster :: !(Maybe Text),
-    _bDeleteTimestamp :: !(Maybe POSIX),
-    _bTagList :: !(Maybe [Tag]),
-    _bSourceRegion :: !(Maybe Text),
-    _bBackupId :: !Text
+  { -- | The identifier (ID) of the cluster that was backed up.
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the backup.
+    backupState :: Prelude.Maybe BackupState,
+    -- | The identifier (ID) of the source backup from which the new backup was
+    -- copied.
+    sourceBackup :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the backup was copied from a source backup.
+    copyTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time when the backup was created.
+    createTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies whether the service should exempt a backup from the retention
+    -- policy for the cluster. @True@ exempts a backup from the retention
+    -- policy. @False@ means the service applies the backup retention policy
+    -- defined at the cluster.
+    neverExpires :: Prelude.Maybe Prelude.Bool,
+    -- | The identifier (ID) of the cluster containing the source backup from
+    -- which the new backup was copied.
+    sourceCluster :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the backup will be permanently deleted.
+    deleteTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The list of tags for the backup.
+    tagList :: Prelude.Maybe [Tag],
+    -- | The AWS Region that contains the source backup from which the new backup
+    -- was copied.
+    sourceRegion :: Prelude.Maybe Prelude.Text,
+    -- | The identifier (ID) of the backup.
+    backupId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Backup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Backup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bClusterId' - The identifier (ID) of the cluster that was backed up.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bBackupState' - The state of the backup.
+-- 'clusterId', 'backup_clusterId' - The identifier (ID) of the cluster that was backed up.
 --
--- * 'bSourceBackup' - The identifier (ID) of the source backup from which the new backup was copied.
+-- 'backupState', 'backup_backupState' - The state of the backup.
 --
--- * 'bCopyTimestamp' - The date and time when the backup was copied from a source backup.
+-- 'sourceBackup', 'backup_sourceBackup' - The identifier (ID) of the source backup from which the new backup was
+-- copied.
 --
--- * 'bCreateTimestamp' - The date and time when the backup was created.
+-- 'copyTimestamp', 'backup_copyTimestamp' - The date and time when the backup was copied from a source backup.
 --
--- * 'bNeverExpires' - Specifies whether the service should exempt a backup from the retention policy for the cluster. @True@ exempts a backup from the retention policy. @False@ means the service applies the backup retention policy defined at the cluster.
+-- 'createTimestamp', 'backup_createTimestamp' - The date and time when the backup was created.
 --
--- * 'bSourceCluster' - The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
+-- 'neverExpires', 'backup_neverExpires' - Specifies whether the service should exempt a backup from the retention
+-- policy for the cluster. @True@ exempts a backup from the retention
+-- policy. @False@ means the service applies the backup retention policy
+-- defined at the cluster.
 --
--- * 'bDeleteTimestamp' - The date and time when the backup will be permanently deleted.
+-- 'sourceCluster', 'backup_sourceCluster' - The identifier (ID) of the cluster containing the source backup from
+-- which the new backup was copied.
 --
--- * 'bTagList' - The list of tags for the backup.
+-- 'deleteTimestamp', 'backup_deleteTimestamp' - The date and time when the backup will be permanently deleted.
 --
--- * 'bSourceRegion' - The AWS Region that contains the source backup from which the new backup was copied.
+-- 'tagList', 'backup_tagList' - The list of tags for the backup.
 --
--- * 'bBackupId' - The identifier (ID) of the backup.
-backup ::
-  -- | 'bBackupId'
-  Text ->
+-- 'sourceRegion', 'backup_sourceRegion' - The AWS Region that contains the source backup from which the new backup
+-- was copied.
+--
+-- 'backupId', 'backup_backupId' - The identifier (ID) of the backup.
+newBackup ::
+  -- | 'backupId'
+  Prelude.Text ->
   Backup
-backup pBackupId_ =
+newBackup pBackupId_ =
   Backup'
-    { _bClusterId = Nothing,
-      _bBackupState = Nothing,
-      _bSourceBackup = Nothing,
-      _bCopyTimestamp = Nothing,
-      _bCreateTimestamp = Nothing,
-      _bNeverExpires = Nothing,
-      _bSourceCluster = Nothing,
-      _bDeleteTimestamp = Nothing,
-      _bTagList = Nothing,
-      _bSourceRegion = Nothing,
-      _bBackupId = pBackupId_
+    { clusterId = Prelude.Nothing,
+      backupState = Prelude.Nothing,
+      sourceBackup = Prelude.Nothing,
+      copyTimestamp = Prelude.Nothing,
+      createTimestamp = Prelude.Nothing,
+      neverExpires = Prelude.Nothing,
+      sourceCluster = Prelude.Nothing,
+      deleteTimestamp = Prelude.Nothing,
+      tagList = Prelude.Nothing,
+      sourceRegion = Prelude.Nothing,
+      backupId = pBackupId_
     }
 
 -- | The identifier (ID) of the cluster that was backed up.
-bClusterId :: Lens' Backup (Maybe Text)
-bClusterId = lens _bClusterId (\s a -> s {_bClusterId = a})
+backup_clusterId :: Lens.Lens' Backup (Prelude.Maybe Prelude.Text)
+backup_clusterId = Lens.lens (\Backup' {clusterId} -> clusterId) (\s@Backup' {} a -> s {clusterId = a} :: Backup)
 
 -- | The state of the backup.
-bBackupState :: Lens' Backup (Maybe BackupState)
-bBackupState = lens _bBackupState (\s a -> s {_bBackupState = a})
+backup_backupState :: Lens.Lens' Backup (Prelude.Maybe BackupState)
+backup_backupState = Lens.lens (\Backup' {backupState} -> backupState) (\s@Backup' {} a -> s {backupState = a} :: Backup)
 
--- | The identifier (ID) of the source backup from which the new backup was copied.
-bSourceBackup :: Lens' Backup (Maybe Text)
-bSourceBackup = lens _bSourceBackup (\s a -> s {_bSourceBackup = a})
+-- | The identifier (ID) of the source backup from which the new backup was
+-- copied.
+backup_sourceBackup :: Lens.Lens' Backup (Prelude.Maybe Prelude.Text)
+backup_sourceBackup = Lens.lens (\Backup' {sourceBackup} -> sourceBackup) (\s@Backup' {} a -> s {sourceBackup = a} :: Backup)
 
 -- | The date and time when the backup was copied from a source backup.
-bCopyTimestamp :: Lens' Backup (Maybe UTCTime)
-bCopyTimestamp = lens _bCopyTimestamp (\s a -> s {_bCopyTimestamp = a}) . mapping _Time
+backup_copyTimestamp :: Lens.Lens' Backup (Prelude.Maybe Prelude.UTCTime)
+backup_copyTimestamp = Lens.lens (\Backup' {copyTimestamp} -> copyTimestamp) (\s@Backup' {} a -> s {copyTimestamp = a} :: Backup) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date and time when the backup was created.
-bCreateTimestamp :: Lens' Backup (Maybe UTCTime)
-bCreateTimestamp = lens _bCreateTimestamp (\s a -> s {_bCreateTimestamp = a}) . mapping _Time
+backup_createTimestamp :: Lens.Lens' Backup (Prelude.Maybe Prelude.UTCTime)
+backup_createTimestamp = Lens.lens (\Backup' {createTimestamp} -> createTimestamp) (\s@Backup' {} a -> s {createTimestamp = a} :: Backup) Prelude.. Lens.mapping Prelude._Time
 
--- | Specifies whether the service should exempt a backup from the retention policy for the cluster. @True@ exempts a backup from the retention policy. @False@ means the service applies the backup retention policy defined at the cluster.
-bNeverExpires :: Lens' Backup (Maybe Bool)
-bNeverExpires = lens _bNeverExpires (\s a -> s {_bNeverExpires = a})
+-- | Specifies whether the service should exempt a backup from the retention
+-- policy for the cluster. @True@ exempts a backup from the retention
+-- policy. @False@ means the service applies the backup retention policy
+-- defined at the cluster.
+backup_neverExpires :: Lens.Lens' Backup (Prelude.Maybe Prelude.Bool)
+backup_neverExpires = Lens.lens (\Backup' {neverExpires} -> neverExpires) (\s@Backup' {} a -> s {neverExpires = a} :: Backup)
 
--- | The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
-bSourceCluster :: Lens' Backup (Maybe Text)
-bSourceCluster = lens _bSourceCluster (\s a -> s {_bSourceCluster = a})
+-- | The identifier (ID) of the cluster containing the source backup from
+-- which the new backup was copied.
+backup_sourceCluster :: Lens.Lens' Backup (Prelude.Maybe Prelude.Text)
+backup_sourceCluster = Lens.lens (\Backup' {sourceCluster} -> sourceCluster) (\s@Backup' {} a -> s {sourceCluster = a} :: Backup)
 
 -- | The date and time when the backup will be permanently deleted.
-bDeleteTimestamp :: Lens' Backup (Maybe UTCTime)
-bDeleteTimestamp = lens _bDeleteTimestamp (\s a -> s {_bDeleteTimestamp = a}) . mapping _Time
+backup_deleteTimestamp :: Lens.Lens' Backup (Prelude.Maybe Prelude.UTCTime)
+backup_deleteTimestamp = Lens.lens (\Backup' {deleteTimestamp} -> deleteTimestamp) (\s@Backup' {} a -> s {deleteTimestamp = a} :: Backup) Prelude.. Lens.mapping Prelude._Time
 
 -- | The list of tags for the backup.
-bTagList :: Lens' Backup [Tag]
-bTagList = lens _bTagList (\s a -> s {_bTagList = a}) . _Default . _Coerce
+backup_tagList :: Lens.Lens' Backup (Prelude.Maybe [Tag])
+backup_tagList = Lens.lens (\Backup' {tagList} -> tagList) (\s@Backup' {} a -> s {tagList = a} :: Backup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The AWS Region that contains the source backup from which the new backup was copied.
-bSourceRegion :: Lens' Backup (Maybe Text)
-bSourceRegion = lens _bSourceRegion (\s a -> s {_bSourceRegion = a})
+-- | The AWS Region that contains the source backup from which the new backup
+-- was copied.
+backup_sourceRegion :: Lens.Lens' Backup (Prelude.Maybe Prelude.Text)
+backup_sourceRegion = Lens.lens (\Backup' {sourceRegion} -> sourceRegion) (\s@Backup' {} a -> s {sourceRegion = a} :: Backup)
 
 -- | The identifier (ID) of the backup.
-bBackupId :: Lens' Backup Text
-bBackupId = lens _bBackupId (\s a -> s {_bBackupId = a})
+backup_backupId :: Lens.Lens' Backup Prelude.Text
+backup_backupId = Lens.lens (\Backup' {backupId} -> backupId) (\s@Backup' {} a -> s {backupId = a} :: Backup)
 
-instance FromJSON Backup where
+instance Prelude.FromJSON Backup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Backup"
       ( \x ->
           Backup'
-            <$> (x .:? "ClusterId")
-            <*> (x .:? "BackupState")
-            <*> (x .:? "SourceBackup")
-            <*> (x .:? "CopyTimestamp")
-            <*> (x .:? "CreateTimestamp")
-            <*> (x .:? "NeverExpires")
-            <*> (x .:? "SourceCluster")
-            <*> (x .:? "DeleteTimestamp")
-            <*> (x .:? "TagList" .!= mempty)
-            <*> (x .:? "SourceRegion")
-            <*> (x .: "BackupId")
+            Prelude.<$> (x Prelude..:? "ClusterId")
+            Prelude.<*> (x Prelude..:? "BackupState")
+            Prelude.<*> (x Prelude..:? "SourceBackup")
+            Prelude.<*> (x Prelude..:? "CopyTimestamp")
+            Prelude.<*> (x Prelude..:? "CreateTimestamp")
+            Prelude.<*> (x Prelude..:? "NeverExpires")
+            Prelude.<*> (x Prelude..:? "SourceCluster")
+            Prelude.<*> (x Prelude..:? "DeleteTimestamp")
+            Prelude.<*> (x Prelude..:? "TagList" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "SourceRegion")
+            Prelude.<*> (x Prelude..: "BackupId")
       )
 
-instance Hashable Backup
+instance Prelude.Hashable Backup
 
-instance NFData Backup
+instance Prelude.NFData Backup

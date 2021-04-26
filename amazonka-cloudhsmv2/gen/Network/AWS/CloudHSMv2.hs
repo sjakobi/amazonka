@@ -11,31 +11,33 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For more information about AWS CloudHSM, see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> and the <https://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> .
+-- For more information about AWS CloudHSM, see
+-- <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> and the
+-- <https://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide>.
 module Network.AWS.CloudHSMv2
   ( -- * Service Configuration
-    cloudHSMv2,
+    defaultService,
 
     -- * Errors
     -- $errors
 
-    -- ** CloudHSMInternalFailureException
-    _CloudHSMInternalFailureException,
+    -- ** CloudHsmInternalFailureException
+    _CloudHsmInternalFailureException,
 
-    -- ** CloudHSMResourceNotFoundException
-    _CloudHSMResourceNotFoundException,
+    -- ** CloudHsmResourceNotFoundException
+    _CloudHsmResourceNotFoundException,
 
-    -- ** CloudHSMAccessDeniedException
-    _CloudHSMAccessDeniedException,
+    -- ** CloudHsmAccessDeniedException
+    _CloudHsmAccessDeniedException,
 
-    -- ** CloudHSMInvalidRequestException
-    _CloudHSMInvalidRequestException,
+    -- ** CloudHsmInvalidRequestException
+    _CloudHsmInvalidRequestException,
 
-    -- ** CloudHSMServiceException
-    _CloudHSMServiceException,
+    -- ** CloudHsmServiceException
+    _CloudHsmServiceException,
 
-    -- ** CloudHSMTagException
-    _CloudHSMTagException,
+    -- ** CloudHsmTagException
+    _CloudHsmTagException,
 
     -- * Waiters
     -- $waiters
@@ -43,50 +45,95 @@ module Network.AWS.CloudHSMv2
     -- * Operations
     -- $operations
 
-    -- ** DeleteHSM
-    module Network.AWS.CloudHSMv2.DeleteHSM,
+    -- ** DeleteHsm
+    DeleteHsm (DeleteHsm'),
+    newDeleteHsm,
+    DeleteHsmResponse (DeleteHsmResponse'),
+    newDeleteHsmResponse,
 
     -- ** DeleteBackup
-    module Network.AWS.CloudHSMv2.DeleteBackup,
+    DeleteBackup (DeleteBackup'),
+    newDeleteBackup,
+    DeleteBackupResponse (DeleteBackupResponse'),
+    newDeleteBackupResponse,
 
     -- ** DescribeClusters (Paginated)
-    module Network.AWS.CloudHSMv2.DescribeClusters,
+    DescribeClusters (DescribeClusters'),
+    newDescribeClusters,
+    DescribeClustersResponse (DescribeClustersResponse'),
+    newDescribeClustersResponse,
 
     -- ** RestoreBackup
-    module Network.AWS.CloudHSMv2.RestoreBackup,
+    RestoreBackup (RestoreBackup'),
+    newRestoreBackup,
+    RestoreBackupResponse (RestoreBackupResponse'),
+    newRestoreBackupResponse,
 
     -- ** CreateCluster
-    module Network.AWS.CloudHSMv2.CreateCluster,
+    CreateCluster (CreateCluster'),
+    newCreateCluster,
+    CreateClusterResponse (CreateClusterResponse'),
+    newCreateClusterResponse,
 
     -- ** UntagResource
-    module Network.AWS.CloudHSMv2.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** CopyBackupToRegion
-    module Network.AWS.CloudHSMv2.CopyBackupToRegion,
+    CopyBackupToRegion (CopyBackupToRegion'),
+    newCopyBackupToRegion,
+    CopyBackupToRegionResponse (CopyBackupToRegionResponse'),
+    newCopyBackupToRegionResponse,
 
     -- ** TagResource
-    module Network.AWS.CloudHSMv2.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** ModifyCluster
-    module Network.AWS.CloudHSMv2.ModifyCluster,
+    ModifyCluster (ModifyCluster'),
+    newModifyCluster,
+    ModifyClusterResponse (ModifyClusterResponse'),
+    newModifyClusterResponse,
 
     -- ** ModifyBackupAttributes
-    module Network.AWS.CloudHSMv2.ModifyBackupAttributes,
+    ModifyBackupAttributes (ModifyBackupAttributes'),
+    newModifyBackupAttributes,
+    ModifyBackupAttributesResponse (ModifyBackupAttributesResponse'),
+    newModifyBackupAttributesResponse,
 
     -- ** DeleteCluster
-    module Network.AWS.CloudHSMv2.DeleteCluster,
+    DeleteCluster (DeleteCluster'),
+    newDeleteCluster,
+    DeleteClusterResponse (DeleteClusterResponse'),
+    newDeleteClusterResponse,
 
     -- ** ListTags (Paginated)
-    module Network.AWS.CloudHSMv2.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** DescribeBackups (Paginated)
-    module Network.AWS.CloudHSMv2.DescribeBackups,
+    DescribeBackups (DescribeBackups'),
+    newDescribeBackups,
+    DescribeBackupsResponse (DescribeBackupsResponse'),
+    newDescribeBackupsResponse,
 
-    -- ** CreateHSM
-    module Network.AWS.CloudHSMv2.CreateHSM,
+    -- ** CreateHsm
+    CreateHsm (CreateHsm'),
+    newCreateHsm,
+    CreateHsmResponse (CreateHsmResponse'),
+    newCreateHsmResponse,
 
     -- ** InitializeCluster
-    module Network.AWS.CloudHSMv2.InitializeCluster,
+    InitializeCluster (InitializeCluster'),
+    newInitializeCluster,
+    InitializeClusterResponse (InitializeClusterResponse'),
+    newInitializeClusterResponse,
 
     -- * Types
 
@@ -102,95 +149,49 @@ module Network.AWS.CloudHSMv2
     -- ** ClusterState
     ClusterState (..),
 
-    -- ** HSMState
-    HSMState (..),
+    -- ** HsmState
+    HsmState (..),
 
     -- ** Backup
-    Backup,
-    backup,
-    bClusterId,
-    bBackupState,
-    bSourceBackup,
-    bCopyTimestamp,
-    bCreateTimestamp,
-    bNeverExpires,
-    bSourceCluster,
-    bDeleteTimestamp,
-    bTagList,
-    bSourceRegion,
-    bBackupId,
+    Backup (Backup'),
+    newBackup,
 
     -- ** BackupRetentionPolicy
-    BackupRetentionPolicy,
-    backupRetentionPolicy,
-    brpValue,
-    brpType,
+    BackupRetentionPolicy (BackupRetentionPolicy'),
+    newBackupRetentionPolicy,
 
     -- ** Certificates
-    Certificates,
-    certificates,
-    cAWSHardwareCertificate,
-    cHSMCertificate,
-    cClusterCSR,
-    cClusterCertificate,
-    cManufacturerHardwareCertificate,
+    Certificates (Certificates'),
+    newCertificates,
 
     -- ** Cluster
-    Cluster,
-    cluster,
-    cClusterId,
-    cStateMessage,
-    cBackupPolicy,
-    cCreateTimestamp,
-    cSubnetMapping,
-    cState,
-    cPreCoPassword,
-    cSecurityGroup,
-    cHSMType,
-    cSourceBackupId,
-    cCertificates,
-    cTagList,
-    cVPCId,
-    cHSMs,
-    cBackupRetentionPolicy,
+    Cluster (Cluster'),
+    newCluster,
 
     -- ** DestinationBackup
-    DestinationBackup,
-    destinationBackup,
-    dbSourceBackup,
-    dbCreateTimestamp,
-    dbSourceCluster,
-    dbSourceRegion,
+    DestinationBackup (DestinationBackup'),
+    newDestinationBackup,
 
-    -- ** HSM
-    HSM,
-    hsm,
-    hsmClusterId,
-    hsmStateMessage,
-    hsmEniIP,
-    hsmEniId,
-    hsmState,
-    hsmAvailabilityZone,
-    hsmSubnetId,
-    hsmHSMId,
+    -- ** Hsm
+    Hsm (Hsm'),
+    newHsm,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
 import Network.AWS.CloudHSMv2.CopyBackupToRegion
 import Network.AWS.CloudHSMv2.CreateCluster
-import Network.AWS.CloudHSMv2.CreateHSM
+import Network.AWS.CloudHSMv2.CreateHsm
 import Network.AWS.CloudHSMv2.DeleteBackup
 import Network.AWS.CloudHSMv2.DeleteCluster
-import Network.AWS.CloudHSMv2.DeleteHSM
+import Network.AWS.CloudHSMv2.DeleteHsm
 import Network.AWS.CloudHSMv2.DescribeBackups
 import Network.AWS.CloudHSMv2.DescribeClusters
 import Network.AWS.CloudHSMv2.InitializeCluster
+import Network.AWS.CloudHSMv2.Lens
 import Network.AWS.CloudHSMv2.ListTags
 import Network.AWS.CloudHSMv2.ModifyBackupAttributes
 import Network.AWS.CloudHSMv2.ModifyCluster

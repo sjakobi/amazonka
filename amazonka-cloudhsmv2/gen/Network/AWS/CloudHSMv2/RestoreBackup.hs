@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restores a specified AWS CloudHSM backup that is in the @PENDING_DELETION@ state. For mor information on deleting a backup, see 'DeleteBackup' .
+-- Restores a specified AWS CloudHSM backup that is in the
+-- @PENDING_DELETION@ state. For mor information on deleting a backup, see
+-- DeleteBackup.
 module Network.AWS.CloudHSMv2.RestoreBackup
   ( -- * Creating a Request
-    restoreBackup,
-    RestoreBackup,
+    RestoreBackup (..),
+    newRestoreBackup,
 
     -- * Request Lenses
-    rbBackupId,
+    restoreBackup_backupId,
 
     -- * Destructuring the Response
-    restoreBackupResponse,
-    RestoreBackupResponse,
+    RestoreBackupResponse (..),
+    newRestoreBackupResponse,
 
     -- * Response Lenses
-    rbrrsBackup,
-    rbrrsResponseStatus,
+    restoreBackupResponse_backup,
+    restoreBackupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudHSMv2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudHSMv2.Types.Backup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'restoreBackup' smart constructor.
-newtype RestoreBackup = RestoreBackup'
-  { _rbBackupId ::
-      Text
+-- | /See:/ 'newRestoreBackup' smart constructor.
+data RestoreBackup = RestoreBackup'
+  { -- | The ID of the backup to be restored. To find the ID of a backup, use the
+    -- DescribeBackups operation.
+    backupId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreBackup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreBackup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbBackupId' - The ID of the backup to be restored. To find the ID of a backup, use the 'DescribeBackups' operation.
-restoreBackup ::
-  -- | 'rbBackupId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'backupId', 'restoreBackup_backupId' - The ID of the backup to be restored. To find the ID of a backup, use the
+-- DescribeBackups operation.
+newRestoreBackup ::
+  -- | 'backupId'
+  Prelude.Text ->
   RestoreBackup
-restoreBackup pBackupId_ =
-  RestoreBackup' {_rbBackupId = pBackupId_}
+newRestoreBackup pBackupId_ =
+  RestoreBackup' {backupId = pBackupId_}
 
--- | The ID of the backup to be restored. To find the ID of a backup, use the 'DescribeBackups' operation.
-rbBackupId :: Lens' RestoreBackup Text
-rbBackupId = lens _rbBackupId (\s a -> s {_rbBackupId = a})
+-- | The ID of the backup to be restored. To find the ID of a backup, use the
+-- DescribeBackups operation.
+restoreBackup_backupId :: Lens.Lens' RestoreBackup Prelude.Text
+restoreBackup_backupId = Lens.lens (\RestoreBackup' {backupId} -> backupId) (\s@RestoreBackup' {} a -> s {backupId = a} :: RestoreBackup)
 
-instance AWSRequest RestoreBackup where
+instance Prelude.AWSRequest RestoreBackup where
   type Rs RestoreBackup = RestoreBackupResponse
-  request = postJSON cloudHSMv2
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RestoreBackupResponse'
-            <$> (x .?> "Backup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Backup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RestoreBackup
+instance Prelude.Hashable RestoreBackup
 
-instance NFData RestoreBackup
+instance Prelude.NFData RestoreBackup
 
-instance ToHeaders RestoreBackup where
+instance Prelude.ToHeaders RestoreBackup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("BaldrApiService.RestoreBackup" :: ByteString),
+              Prelude.=# ( "BaldrApiService.RestoreBackup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RestoreBackup where
+instance Prelude.ToJSON RestoreBackup where
   toJSON RestoreBackup' {..} =
-    object
-      (catMaybes [Just ("BackupId" .= _rbBackupId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("BackupId" Prelude..= backupId)]
+      )
 
-instance ToPath RestoreBackup where
-  toPath = const "/"
+instance Prelude.ToPath RestoreBackup where
+  toPath = Prelude.const "/"
 
-instance ToQuery RestoreBackup where
-  toQuery = const mempty
+instance Prelude.ToQuery RestoreBackup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'restoreBackupResponse' smart constructor.
+-- | /See:/ 'newRestoreBackupResponse' smart constructor.
 data RestoreBackupResponse = RestoreBackupResponse'
-  { _rbrrsBackup ::
-      !(Maybe Backup),
-    _rbrrsResponseStatus ::
-      !Int
+  { -- | Information on the @Backup@ object created.
+    backup :: Prelude.Maybe Backup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreBackupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreBackupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbrrsBackup' - Information on the @Backup@ object created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rbrrsResponseStatus' - -- | The response status code.
-restoreBackupResponse ::
-  -- | 'rbrrsResponseStatus'
-  Int ->
+-- 'backup', 'restoreBackupResponse_backup' - Information on the @Backup@ object created.
+--
+-- 'httpStatus', 'restoreBackupResponse_httpStatus' - The response's http status code.
+newRestoreBackupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RestoreBackupResponse
-restoreBackupResponse pResponseStatus_ =
+newRestoreBackupResponse pHttpStatus_ =
   RestoreBackupResponse'
-    { _rbrrsBackup = Nothing,
-      _rbrrsResponseStatus = pResponseStatus_
+    { backup = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information on the @Backup@ object created.
-rbrrsBackup :: Lens' RestoreBackupResponse (Maybe Backup)
-rbrrsBackup = lens _rbrrsBackup (\s a -> s {_rbrrsBackup = a})
+restoreBackupResponse_backup :: Lens.Lens' RestoreBackupResponse (Prelude.Maybe Backup)
+restoreBackupResponse_backup = Lens.lens (\RestoreBackupResponse' {backup} -> backup) (\s@RestoreBackupResponse' {} a -> s {backup = a} :: RestoreBackupResponse)
 
--- | -- | The response status code.
-rbrrsResponseStatus :: Lens' RestoreBackupResponse Int
-rbrrsResponseStatus = lens _rbrrsResponseStatus (\s a -> s {_rbrrsResponseStatus = a})
+-- | The response's http status code.
+restoreBackupResponse_httpStatus :: Lens.Lens' RestoreBackupResponse Prelude.Int
+restoreBackupResponse_httpStatus = Lens.lens (\RestoreBackupResponse' {httpStatus} -> httpStatus) (\s@RestoreBackupResponse' {} a -> s {httpStatus = a} :: RestoreBackupResponse)
 
-instance NFData RestoreBackupResponse
+instance Prelude.NFData RestoreBackupResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tag or tags from the specified AWS CloudHSM cluster.
+-- Removes the specified tag or tags from the specified AWS CloudHSM
+-- cluster.
 module Network.AWS.CloudHSMv2.UntagResource
   ( -- * Creating a Request
-    untagResource,
-    UntagResource,
+    UntagResource (..),
+    newUntagResource,
 
     -- * Request Lenses
-    urResourceId,
-    urTagKeyList,
+    untagResource_resourceId,
+    untagResource_tagKeyList,
 
     -- * Destructuring the Response
-    untagResourceResponse,
-    UntagResourceResponse,
+    UntagResourceResponse (..),
+    newUntagResourceResponse,
 
     -- * Response Lenses
-    urrrsResponseStatus,
+    untagResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudHSMv2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagResource' smart constructor.
+-- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { _urResourceId ::
-      !Text,
-    _urTagKeyList :: !(List1 Text)
+  { -- | The cluster identifier (ID) for the cluster whose tags you are removing.
+    -- To find the cluster ID, use DescribeClusters.
+    resourceId :: Prelude.Text,
+    -- | A list of one or more tag keys for the tags that you are removing.
+    -- Specify only the tag keys, not the tag values.
+    tagKeyList :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urResourceId' - The cluster identifier (ID) for the cluster whose tags you are removing. To find the cluster ID, use 'DescribeClusters' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urTagKeyList' - A list of one or more tag keys for the tags that you are removing. Specify only the tag keys, not the tag values.
-untagResource ::
-  -- | 'urResourceId'
-  Text ->
-  -- | 'urTagKeyList'
-  NonEmpty Text ->
+-- 'resourceId', 'untagResource_resourceId' - The cluster identifier (ID) for the cluster whose tags you are removing.
+-- To find the cluster ID, use DescribeClusters.
+--
+-- 'tagKeyList', 'untagResource_tagKeyList' - A list of one or more tag keys for the tags that you are removing.
+-- Specify only the tag keys, not the tag values.
+newUntagResource ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'tagKeyList'
+  Prelude.NonEmpty Prelude.Text ->
   UntagResource
-untagResource pResourceId_ pTagKeyList_ =
+newUntagResource pResourceId_ pTagKeyList_ =
   UntagResource'
-    { _urResourceId = pResourceId_,
-      _urTagKeyList = _List1 # pTagKeyList_
+    { resourceId = pResourceId_,
+      tagKeyList = Prelude._List1 Lens.# pTagKeyList_
     }
 
--- | The cluster identifier (ID) for the cluster whose tags you are removing. To find the cluster ID, use 'DescribeClusters' .
-urResourceId :: Lens' UntagResource Text
-urResourceId = lens _urResourceId (\s a -> s {_urResourceId = a})
+-- | The cluster identifier (ID) for the cluster whose tags you are removing.
+-- To find the cluster ID, use DescribeClusters.
+untagResource_resourceId :: Lens.Lens' UntagResource Prelude.Text
+untagResource_resourceId = Lens.lens (\UntagResource' {resourceId} -> resourceId) (\s@UntagResource' {} a -> s {resourceId = a} :: UntagResource)
 
--- | A list of one or more tag keys for the tags that you are removing. Specify only the tag keys, not the tag values.
-urTagKeyList :: Lens' UntagResource (NonEmpty Text)
-urTagKeyList = lens _urTagKeyList (\s a -> s {_urTagKeyList = a}) . _List1
+-- | A list of one or more tag keys for the tags that you are removing.
+-- Specify only the tag keys, not the tag values.
+untagResource_tagKeyList :: Lens.Lens' UntagResource (Prelude.NonEmpty Prelude.Text)
+untagResource_tagKeyList = Lens.lens (\UntagResource' {tagKeyList} -> tagKeyList) (\s@UntagResource' {} a -> s {tagKeyList = a} :: UntagResource) Prelude.. Prelude._List1
 
-instance AWSRequest UntagResource where
+instance Prelude.AWSRequest UntagResource where
   type Rs UntagResource = UntagResourceResponse
-  request = postJSON cloudHSMv2
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UntagResourceResponse' <$> (pure (fromEnum s))
+          UntagResourceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UntagResource
+instance Prelude.Hashable UntagResource
 
-instance NFData UntagResource
+instance Prelude.NFData UntagResource
 
-instance ToHeaders UntagResource where
+instance Prelude.ToHeaders UntagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("BaldrApiService.UntagResource" :: ByteString),
+              Prelude.=# ( "BaldrApiService.UntagResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UntagResource where
+instance Prelude.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _urResourceId),
-            Just ("TagKeyList" .= _urTagKeyList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("TagKeyList" Prelude..= tagKeyList)
           ]
       )
 
-instance ToPath UntagResource where
-  toPath = const "/"
+instance Prelude.ToPath UntagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery UntagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'untagResourceResponse' smart constructor.
-newtype UntagResourceResponse = UntagResourceResponse'
-  { _urrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUntagResourceResponse' smart constructor.
+data UntagResourceResponse = UntagResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrsResponseStatus' - -- | The response status code.
-untagResourceResponse ::
-  -- | 'urrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'untagResourceResponse_httpStatus' - The response's http status code.
+newUntagResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UntagResourceResponse
-untagResourceResponse pResponseStatus_ =
-  UntagResourceResponse'
-    { _urrrsResponseStatus =
-        pResponseStatus_
-    }
+newUntagResourceResponse pHttpStatus_ =
+  UntagResourceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-urrrsResponseStatus :: Lens' UntagResourceResponse Int
-urrrsResponseStatus = lens _urrrsResponseStatus (\s a -> s {_urrrsResponseStatus = a})
+-- | The response's http status code.
+untagResourceResponse_httpStatus :: Lens.Lens' UntagResourceResponse Prelude.Int
+untagResourceResponse_httpStatus = Lens.lens (\UntagResourceResponse' {httpStatus} -> httpStatus) (\s@UntagResourceResponse' {} a -> s {httpStatus = a} :: UntagResourceResponse)
 
-instance NFData UntagResourceResponse
+instance Prelude.NFData UntagResourceResponse

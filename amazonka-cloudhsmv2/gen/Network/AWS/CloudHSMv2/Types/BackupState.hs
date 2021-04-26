@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CloudHSMv2.Types.BackupState
   ( BackupState
       ( ..,
-        BSCreateInProgress,
-        BSDeleted,
-        BSPendingDeletion,
-        BSReady
+        BackupStateCREATEINPROGRESS,
+        BackupStateDELETED,
+        BackupStatePENDINGDELETION,
+        BackupStateREADY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackupState = BackupState' (CI Text)
+newtype BackupState = BackupState'
+  { fromBackupState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSCreateInProgress :: BackupState
-pattern BSCreateInProgress = BackupState' "CREATE_IN_PROGRESS"
+pattern BackupStateCREATEINPROGRESS :: BackupState
+pattern BackupStateCREATEINPROGRESS = BackupState' "CREATE_IN_PROGRESS"
 
-pattern BSDeleted :: BackupState
-pattern BSDeleted = BackupState' "DELETED"
+pattern BackupStateDELETED :: BackupState
+pattern BackupStateDELETED = BackupState' "DELETED"
 
-pattern BSPendingDeletion :: BackupState
-pattern BSPendingDeletion = BackupState' "PENDING_DELETION"
+pattern BackupStatePENDINGDELETION :: BackupState
+pattern BackupStatePENDINGDELETION = BackupState' "PENDING_DELETION"
 
-pattern BSReady :: BackupState
-pattern BSReady = BackupState' "READY"
+pattern BackupStateREADY :: BackupState
+pattern BackupStateREADY = BackupState' "READY"
 
 {-# COMPLETE
-  BSCreateInProgress,
-  BSDeleted,
-  BSPendingDeletion,
-  BSReady,
+  BackupStateCREATEINPROGRESS,
+  BackupStateDELETED,
+  BackupStatePENDINGDELETION,
+  BackupStateREADY,
   BackupState'
   #-}
 
-instance FromText BackupState where
-  parser = (BackupState' . mk) <$> takeText
+instance Prelude.FromText BackupState where
+  parser = BackupState' Prelude.<$> Prelude.takeText
 
-instance ToText BackupState where
-  toText (BackupState' ci) = original ci
+instance Prelude.ToText BackupState where
+  toText (BackupState' x) = x
 
-instance Hashable BackupState
+instance Prelude.Hashable BackupState
 
-instance NFData BackupState
+instance Prelude.NFData BackupState
 
-instance ToByteString BackupState
+instance Prelude.ToByteString BackupState
 
-instance ToQuery BackupState
+instance Prelude.ToQuery BackupState
 
-instance ToHeader BackupState
+instance Prelude.ToHeader BackupState
 
-instance FromJSON BackupState where
-  parseJSON = parseJSONText "BackupState"
+instance Prelude.FromJSON BackupState where
+  parseJSON = Prelude.parseJSONText "BackupState"
