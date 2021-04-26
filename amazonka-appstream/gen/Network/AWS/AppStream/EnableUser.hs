@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables a user in the user pool. After being enabled, users can sign in to AppStream 2.0 and open applications from the stacks to which they are assigned.
+-- Enables a user in the user pool. After being enabled, users can sign in
+-- to AppStream 2.0 and open applications from the stacks to which they are
+-- assigned.
 module Network.AWS.AppStream.EnableUser
   ( -- * Creating a Request
-    enableUser,
-    EnableUser,
+    EnableUser (..),
+    newEnableUser,
 
     -- * Request Lenses
-    euUserName,
-    euAuthenticationType,
+    enableUser_userName,
+    enableUser_authenticationType,
 
     -- * Destructuring the Response
-    enableUserResponse,
-    EnableUserResponse,
+    EnableUserResponse (..),
+    newEnableUserResponse,
 
     -- * Response Lenses
-    eurrsResponseStatus,
+    enableUserResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableUser' smart constructor.
+-- | /See:/ 'newEnableUser' smart constructor.
 data EnableUser = EnableUser'
-  { _euUserName ::
-      !(Sensitive Text),
-    _euAuthenticationType :: !AuthenticationType
+  { -- | The email address of the user.
+    --
+    -- Users\' email addresses are case-sensitive. During login, if they
+    -- specify an email address that doesn\'t use the same capitalization as
+    -- the email address specified when their user pool account was created, a
+    -- \"user does not exist\" error message displays.
+    userName :: Prelude.Sensitive Prelude.Text,
+    -- | The authentication type for the user. You must specify USERPOOL.
+    authenticationType :: AuthenticationType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'euUserName' - The email address of the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'euAuthenticationType' - The authentication type for the user. You must specify USERPOOL.
-enableUser ::
-  -- | 'euUserName'
-  Text ->
-  -- | 'euAuthenticationType'
+-- 'userName', 'enableUser_userName' - The email address of the user.
+--
+-- Users\' email addresses are case-sensitive. During login, if they
+-- specify an email address that doesn\'t use the same capitalization as
+-- the email address specified when their user pool account was created, a
+-- \"user does not exist\" error message displays.
+--
+-- 'authenticationType', 'enableUser_authenticationType' - The authentication type for the user. You must specify USERPOOL.
+newEnableUser ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'authenticationType'
   AuthenticationType ->
   EnableUser
-enableUser pUserName_ pAuthenticationType_ =
+newEnableUser pUserName_ pAuthenticationType_ =
   EnableUser'
-    { _euUserName = _Sensitive # pUserName_,
-      _euAuthenticationType = pAuthenticationType_
+    { userName =
+        Prelude._Sensitive Lens.# pUserName_,
+      authenticationType = pAuthenticationType_
     }
 
 -- | The email address of the user.
-euUserName :: Lens' EnableUser Text
-euUserName = lens _euUserName (\s a -> s {_euUserName = a}) . _Sensitive
+--
+-- Users\' email addresses are case-sensitive. During login, if they
+-- specify an email address that doesn\'t use the same capitalization as
+-- the email address specified when their user pool account was created, a
+-- \"user does not exist\" error message displays.
+enableUser_userName :: Lens.Lens' EnableUser Prelude.Text
+enableUser_userName = Lens.lens (\EnableUser' {userName} -> userName) (\s@EnableUser' {} a -> s {userName = a} :: EnableUser) Prelude.. Prelude._Sensitive
 
 -- | The authentication type for the user. You must specify USERPOOL.
-euAuthenticationType :: Lens' EnableUser AuthenticationType
-euAuthenticationType = lens _euAuthenticationType (\s a -> s {_euAuthenticationType = a})
+enableUser_authenticationType :: Lens.Lens' EnableUser AuthenticationType
+enableUser_authenticationType = Lens.lens (\EnableUser' {authenticationType} -> authenticationType) (\s@EnableUser' {} a -> s {authenticationType = a} :: EnableUser)
 
-instance AWSRequest EnableUser where
+instance Prelude.AWSRequest EnableUser where
   type Rs EnableUser = EnableUserResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          EnableUserResponse' <$> (pure (fromEnum s))
+          EnableUserResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableUser
+instance Prelude.Hashable EnableUser
 
-instance NFData EnableUser
+instance Prelude.NFData EnableUser
 
-instance ToHeaders EnableUser where
+instance Prelude.ToHeaders EnableUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("PhotonAdminProxyService.EnableUser" :: ByteString),
+              Prelude.=# ( "PhotonAdminProxyService.EnableUser" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableUser where
+instance Prelude.ToJSON EnableUser where
   toJSON EnableUser' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserName" .= _euUserName),
-            Just
-              ("AuthenticationType" .= _euAuthenticationType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserName" Prelude..= userName),
+            Prelude.Just
+              ( "AuthenticationType"
+                  Prelude..= authenticationType
+              )
           ]
       )
 
-instance ToPath EnableUser where
-  toPath = const "/"
+instance Prelude.ToPath EnableUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableUser where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableUserResponse' smart constructor.
-newtype EnableUserResponse = EnableUserResponse'
-  { _eurrsResponseStatus ::
-      Int
+-- | /See:/ 'newEnableUserResponse' smart constructor.
+data EnableUserResponse = EnableUserResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eurrsResponseStatus' - -- | The response status code.
-enableUserResponse ::
-  -- | 'eurrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'enableUserResponse_httpStatus' - The response's http status code.
+newEnableUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableUserResponse
-enableUserResponse pResponseStatus_ =
-  EnableUserResponse'
-    { _eurrsResponseStatus =
-        pResponseStatus_
-    }
+newEnableUserResponse pHttpStatus_ =
+  EnableUserResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-eurrsResponseStatus :: Lens' EnableUserResponse Int
-eurrsResponseStatus = lens _eurrsResponseStatus (\s a -> s {_eurrsResponseStatus = a})
+-- | The response's http status code.
+enableUserResponse_httpStatus :: Lens.Lens' EnableUserResponse Prelude.Int
+enableUserResponse_httpStatus = Lens.lens (\EnableUserResponse' {httpStatus} -> httpStatus) (\s@EnableUserResponse' {} a -> s {httpStatus = a} :: EnableUserResponse)
 
-instance NFData EnableUserResponse
+instance Prelude.NFData EnableUserResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.AppStream.Types.UsageReportExecutionErrorCode
   ( UsageReportExecutionErrorCode
       ( ..,
-        UREECAccessDenied,
-        UREECInternalServiceError,
-        UREECResourceNotFound
+        UsageReportExecutionErrorCodeACCESSDENIED,
+        UsageReportExecutionErrorCodeINTERNALSERVICEERROR,
+        UsageReportExecutionErrorCodeRESOURCENOTFOUND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UsageReportExecutionErrorCode
-  = UsageReportExecutionErrorCode'
-      ( CI
-          Text
-      )
+newtype UsageReportExecutionErrorCode = UsageReportExecutionErrorCode'
+  { fromUsageReportExecutionErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UREECAccessDenied :: UsageReportExecutionErrorCode
-pattern UREECAccessDenied = UsageReportExecutionErrorCode' "ACCESS_DENIED"
+pattern UsageReportExecutionErrorCodeACCESSDENIED :: UsageReportExecutionErrorCode
+pattern UsageReportExecutionErrorCodeACCESSDENIED = UsageReportExecutionErrorCode' "ACCESS_DENIED"
 
-pattern UREECInternalServiceError :: UsageReportExecutionErrorCode
-pattern UREECInternalServiceError = UsageReportExecutionErrorCode' "INTERNAL_SERVICE_ERROR"
+pattern UsageReportExecutionErrorCodeINTERNALSERVICEERROR :: UsageReportExecutionErrorCode
+pattern UsageReportExecutionErrorCodeINTERNALSERVICEERROR = UsageReportExecutionErrorCode' "INTERNAL_SERVICE_ERROR"
 
-pattern UREECResourceNotFound :: UsageReportExecutionErrorCode
-pattern UREECResourceNotFound = UsageReportExecutionErrorCode' "RESOURCE_NOT_FOUND"
+pattern UsageReportExecutionErrorCodeRESOURCENOTFOUND :: UsageReportExecutionErrorCode
+pattern UsageReportExecutionErrorCodeRESOURCENOTFOUND = UsageReportExecutionErrorCode' "RESOURCE_NOT_FOUND"
 
 {-# COMPLETE
-  UREECAccessDenied,
-  UREECInternalServiceError,
-  UREECResourceNotFound,
+  UsageReportExecutionErrorCodeACCESSDENIED,
+  UsageReportExecutionErrorCodeINTERNALSERVICEERROR,
+  UsageReportExecutionErrorCodeRESOURCENOTFOUND,
   UsageReportExecutionErrorCode'
   #-}
 
-instance FromText UsageReportExecutionErrorCode where
-  parser = (UsageReportExecutionErrorCode' . mk) <$> takeText
+instance Prelude.FromText UsageReportExecutionErrorCode where
+  parser = UsageReportExecutionErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText UsageReportExecutionErrorCode where
-  toText (UsageReportExecutionErrorCode' ci) = original ci
+instance Prelude.ToText UsageReportExecutionErrorCode where
+  toText (UsageReportExecutionErrorCode' x) = x
 
-instance Hashable UsageReportExecutionErrorCode
+instance Prelude.Hashable UsageReportExecutionErrorCode
 
-instance NFData UsageReportExecutionErrorCode
+instance Prelude.NFData UsageReportExecutionErrorCode
 
-instance ToByteString UsageReportExecutionErrorCode
+instance Prelude.ToByteString UsageReportExecutionErrorCode
 
-instance ToQuery UsageReportExecutionErrorCode
+instance Prelude.ToQuery UsageReportExecutionErrorCode
 
-instance ToHeader UsageReportExecutionErrorCode
+instance Prelude.ToHeader UsageReportExecutionErrorCode
 
-instance FromJSON UsageReportExecutionErrorCode where
-  parseJSON = parseJSONText "UsageReportExecutionErrorCode"
+instance Prelude.FromJSON UsageReportExecutionErrorCode where
+  parseJSON = Prelude.parseJSONText "UsageReportExecutionErrorCode"

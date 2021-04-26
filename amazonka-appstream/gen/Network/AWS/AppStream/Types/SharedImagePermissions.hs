@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,68 @@
 module Network.AWS.AppStream.Types.SharedImagePermissions where
 
 import Network.AWS.AppStream.Types.ImagePermissions
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the permissions that are available to the specified AWS account for a shared image.
+-- | Describes the permissions that are available to the specified AWS
+-- account for a shared image.
 --
---
---
--- /See:/ 'sharedImagePermissions' smart constructor.
+-- /See:/ 'newSharedImagePermissions' smart constructor.
 data SharedImagePermissions = SharedImagePermissions'
-  { _sipSharedAccountId ::
-      !Text,
-    _sipImagePermissions ::
-      !ImagePermissions
+  { -- | The 12-digit identifier of the AWS account with which the image is
+    -- shared.
+    sharedAccountId :: Prelude.Text,
+    -- | Describes the permissions for a shared image.
+    imagePermissions :: ImagePermissions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SharedImagePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SharedImagePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sipSharedAccountId' - The 12-digit identifier of the AWS account with which the image is shared.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sipImagePermissions' - Describes the permissions for a shared image.
-sharedImagePermissions ::
-  -- | 'sipSharedAccountId'
-  Text ->
-  -- | 'sipImagePermissions'
+-- 'sharedAccountId', 'sharedImagePermissions_sharedAccountId' - The 12-digit identifier of the AWS account with which the image is
+-- shared.
+--
+-- 'imagePermissions', 'sharedImagePermissions_imagePermissions' - Describes the permissions for a shared image.
+newSharedImagePermissions ::
+  -- | 'sharedAccountId'
+  Prelude.Text ->
+  -- | 'imagePermissions'
   ImagePermissions ->
   SharedImagePermissions
-sharedImagePermissions
+newSharedImagePermissions
   pSharedAccountId_
   pImagePermissions_ =
     SharedImagePermissions'
-      { _sipSharedAccountId =
+      { sharedAccountId =
           pSharedAccountId_,
-        _sipImagePermissions = pImagePermissions_
+        imagePermissions = pImagePermissions_
       }
 
--- | The 12-digit identifier of the AWS account with which the image is shared.
-sipSharedAccountId :: Lens' SharedImagePermissions Text
-sipSharedAccountId = lens _sipSharedAccountId (\s a -> s {_sipSharedAccountId = a})
+-- | The 12-digit identifier of the AWS account with which the image is
+-- shared.
+sharedImagePermissions_sharedAccountId :: Lens.Lens' SharedImagePermissions Prelude.Text
+sharedImagePermissions_sharedAccountId = Lens.lens (\SharedImagePermissions' {sharedAccountId} -> sharedAccountId) (\s@SharedImagePermissions' {} a -> s {sharedAccountId = a} :: SharedImagePermissions)
 
 -- | Describes the permissions for a shared image.
-sipImagePermissions :: Lens' SharedImagePermissions ImagePermissions
-sipImagePermissions = lens _sipImagePermissions (\s a -> s {_sipImagePermissions = a})
+sharedImagePermissions_imagePermissions :: Lens.Lens' SharedImagePermissions ImagePermissions
+sharedImagePermissions_imagePermissions = Lens.lens (\SharedImagePermissions' {imagePermissions} -> imagePermissions) (\s@SharedImagePermissions' {} a -> s {imagePermissions = a} :: SharedImagePermissions)
 
-instance FromJSON SharedImagePermissions where
+instance Prelude.FromJSON SharedImagePermissions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SharedImagePermissions"
       ( \x ->
           SharedImagePermissions'
-            <$> (x .: "sharedAccountId")
-            <*> (x .: "imagePermissions")
+            Prelude.<$> (x Prelude..: "sharedAccountId")
+            Prelude.<*> (x Prelude..: "imagePermissions")
       )
 
-instance Hashable SharedImagePermissions
+instance Prelude.Hashable SharedImagePermissions
 
-instance NFData SharedImagePermissions
+instance Prelude.NFData SharedImagePermissions

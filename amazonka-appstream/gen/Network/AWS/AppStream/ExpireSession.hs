@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,121 @@
 -- Immediately stops the specified streaming session.
 module Network.AWS.AppStream.ExpireSession
   ( -- * Creating a Request
-    expireSession,
-    ExpireSession,
+    ExpireSession (..),
+    newExpireSession,
 
     -- * Request Lenses
-    esSessionId,
+    expireSession_sessionId,
 
     -- * Destructuring the Response
-    expireSessionResponse,
-    ExpireSessionResponse,
+    ExpireSessionResponse (..),
+    newExpireSessionResponse,
 
     -- * Response Lenses
-    esrrsResponseStatus,
+    expireSessionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'expireSession' smart constructor.
-newtype ExpireSession = ExpireSession'
-  { _esSessionId ::
-      Text
+-- | /See:/ 'newExpireSession' smart constructor.
+data ExpireSession = ExpireSession'
+  { -- | The identifier of the streaming session.
+    sessionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExpireSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExpireSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esSessionId' - The identifier of the streaming session.
-expireSession ::
-  -- | 'esSessionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sessionId', 'expireSession_sessionId' - The identifier of the streaming session.
+newExpireSession ::
+  -- | 'sessionId'
+  Prelude.Text ->
   ExpireSession
-expireSession pSessionId_ =
-  ExpireSession' {_esSessionId = pSessionId_}
+newExpireSession pSessionId_ =
+  ExpireSession' {sessionId = pSessionId_}
 
 -- | The identifier of the streaming session.
-esSessionId :: Lens' ExpireSession Text
-esSessionId = lens _esSessionId (\s a -> s {_esSessionId = a})
+expireSession_sessionId :: Lens.Lens' ExpireSession Prelude.Text
+expireSession_sessionId = Lens.lens (\ExpireSession' {sessionId} -> sessionId) (\s@ExpireSession' {} a -> s {sessionId = a} :: ExpireSession)
 
-instance AWSRequest ExpireSession where
+instance Prelude.AWSRequest ExpireSession where
   type Rs ExpireSession = ExpireSessionResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ExpireSessionResponse' <$> (pure (fromEnum s))
+          ExpireSessionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ExpireSession
+instance Prelude.Hashable ExpireSession
 
-instance NFData ExpireSession
+instance Prelude.NFData ExpireSession
 
-instance ToHeaders ExpireSession where
+instance Prelude.ToHeaders ExpireSession where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.ExpireSession" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.ExpireSession" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ExpireSession where
+instance Prelude.ToJSON ExpireSession where
   toJSON ExpireSession' {..} =
-    object
-      (catMaybes [Just ("SessionId" .= _esSessionId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SessionId" Prelude..= sessionId)]
+      )
 
-instance ToPath ExpireSession where
-  toPath = const "/"
+instance Prelude.ToPath ExpireSession where
+  toPath = Prelude.const "/"
 
-instance ToQuery ExpireSession where
-  toQuery = const mempty
+instance Prelude.ToQuery ExpireSession where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'expireSessionResponse' smart constructor.
-newtype ExpireSessionResponse = ExpireSessionResponse'
-  { _esrrsResponseStatus ::
-      Int
+-- | /See:/ 'newExpireSessionResponse' smart constructor.
+data ExpireSessionResponse = ExpireSessionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExpireSessionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExpireSessionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esrrsResponseStatus' - -- | The response status code.
-expireSessionResponse ::
-  -- | 'esrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'expireSessionResponse_httpStatus' - The response's http status code.
+newExpireSessionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ExpireSessionResponse
-expireSessionResponse pResponseStatus_ =
-  ExpireSessionResponse'
-    { _esrrsResponseStatus =
-        pResponseStatus_
-    }
+newExpireSessionResponse pHttpStatus_ =
+  ExpireSessionResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-esrrsResponseStatus :: Lens' ExpireSessionResponse Int
-esrrsResponseStatus = lens _esrrsResponseStatus (\s a -> s {_esrrsResponseStatus = a})
+-- | The response's http status code.
+expireSessionResponse_httpStatus :: Lens.Lens' ExpireSessionResponse Prelude.Int
+expireSessionResponse_httpStatus = Lens.lens (\ExpireSessionResponse' {httpStatus} -> httpStatus) (\s@ExpireSessionResponse' {} a -> s {httpStatus = a} :: ExpireSessionResponse)
 
-instance NFData ExpireSessionResponse
+instance Prelude.NFData ExpireSessionResponse

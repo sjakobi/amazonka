@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,164 +24,210 @@
 -- Creates a new user in the user pool.
 module Network.AWS.AppStream.CreateUser
   ( -- * Creating a Request
-    createUser,
-    CreateUser,
+    CreateUser (..),
+    newCreateUser,
 
     -- * Request Lenses
-    cuMessageAction,
-    cuFirstName,
-    cuLastName,
-    cuUserName,
-    cuAuthenticationType,
+    createUser_messageAction,
+    createUser_firstName,
+    createUser_lastName,
+    createUser_userName,
+    createUser_authenticationType,
 
     -- * Destructuring the Response
-    createUserResponse,
-    CreateUserResponse,
+    CreateUserResponse (..),
+    newCreateUserResponse,
 
     -- * Response Lenses
-    currsResponseStatus,
+    createUserResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createUser' smart constructor.
+-- | /See:/ 'newCreateUser' smart constructor.
 data CreateUser = CreateUser'
-  { _cuMessageAction ::
-      !(Maybe MessageAction),
-    _cuFirstName :: !(Maybe (Sensitive Text)),
-    _cuLastName :: !(Maybe (Sensitive Text)),
-    _cuUserName :: !(Sensitive Text),
-    _cuAuthenticationType :: !AuthenticationType
+  { -- | The action to take for the welcome email that is sent to a user after
+    -- the user is created in the user pool. If you specify SUPPRESS, no email
+    -- is sent. If you specify RESEND, do not specify the first name or last
+    -- name of the user. If the value is null, the email is sent.
+    --
+    -- The temporary password in the welcome email is valid for only 7 days. If
+    -- users don’t set their passwords within 7 days, you must send them a new
+    -- welcome email.
+    messageAction :: Prelude.Maybe MessageAction,
+    -- | The first name, or given name, of the user.
+    firstName :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The last name, or surname, of the user.
+    lastName :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The email address of the user.
+    --
+    -- Users\' email addresses are case-sensitive. During login, if they
+    -- specify an email address that doesn\'t use the same capitalization as
+    -- the email address specified when their user pool account was created, a
+    -- \"user does not exist\" error message displays.
+    userName :: Prelude.Sensitive Prelude.Text,
+    -- | The authentication type for the user. You must specify USERPOOL.
+    authenticationType :: AuthenticationType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuMessageAction' - The action to take for the welcome email that is sent to a user after the user is created in the user pool. If you specify SUPPRESS, no email is sent. If you specify RESEND, do not specify the first name or last name of the user. If the value is null, the email is sent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuFirstName' - The first name, or given name, of the user.
+-- 'messageAction', 'createUser_messageAction' - The action to take for the welcome email that is sent to a user after
+-- the user is created in the user pool. If you specify SUPPRESS, no email
+-- is sent. If you specify RESEND, do not specify the first name or last
+-- name of the user. If the value is null, the email is sent.
 --
--- * 'cuLastName' - The last name, or surname, of the user.
+-- The temporary password in the welcome email is valid for only 7 days. If
+-- users don’t set their passwords within 7 days, you must send them a new
+-- welcome email.
 --
--- * 'cuUserName' - The email address of the user.
+-- 'firstName', 'createUser_firstName' - The first name, or given name, of the user.
 --
--- * 'cuAuthenticationType' - The authentication type for the user. You must specify USERPOOL.
-createUser ::
-  -- | 'cuUserName'
-  Text ->
-  -- | 'cuAuthenticationType'
+-- 'lastName', 'createUser_lastName' - The last name, or surname, of the user.
+--
+-- 'userName', 'createUser_userName' - The email address of the user.
+--
+-- Users\' email addresses are case-sensitive. During login, if they
+-- specify an email address that doesn\'t use the same capitalization as
+-- the email address specified when their user pool account was created, a
+-- \"user does not exist\" error message displays.
+--
+-- 'authenticationType', 'createUser_authenticationType' - The authentication type for the user. You must specify USERPOOL.
+newCreateUser ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'authenticationType'
   AuthenticationType ->
   CreateUser
-createUser pUserName_ pAuthenticationType_ =
+newCreateUser pUserName_ pAuthenticationType_ =
   CreateUser'
-    { _cuMessageAction = Nothing,
-      _cuFirstName = Nothing,
-      _cuLastName = Nothing,
-      _cuUserName = _Sensitive # pUserName_,
-      _cuAuthenticationType = pAuthenticationType_
+    { messageAction = Prelude.Nothing,
+      firstName = Prelude.Nothing,
+      lastName = Prelude.Nothing,
+      userName = Prelude._Sensitive Lens.# pUserName_,
+      authenticationType = pAuthenticationType_
     }
 
--- | The action to take for the welcome email that is sent to a user after the user is created in the user pool. If you specify SUPPRESS, no email is sent. If you specify RESEND, do not specify the first name or last name of the user. If the value is null, the email is sent.
-cuMessageAction :: Lens' CreateUser (Maybe MessageAction)
-cuMessageAction = lens _cuMessageAction (\s a -> s {_cuMessageAction = a})
+-- | The action to take for the welcome email that is sent to a user after
+-- the user is created in the user pool. If you specify SUPPRESS, no email
+-- is sent. If you specify RESEND, do not specify the first name or last
+-- name of the user. If the value is null, the email is sent.
+--
+-- The temporary password in the welcome email is valid for only 7 days. If
+-- users don’t set their passwords within 7 days, you must send them a new
+-- welcome email.
+createUser_messageAction :: Lens.Lens' CreateUser (Prelude.Maybe MessageAction)
+createUser_messageAction = Lens.lens (\CreateUser' {messageAction} -> messageAction) (\s@CreateUser' {} a -> s {messageAction = a} :: CreateUser)
 
 -- | The first name, or given name, of the user.
-cuFirstName :: Lens' CreateUser (Maybe Text)
-cuFirstName = lens _cuFirstName (\s a -> s {_cuFirstName = a}) . mapping _Sensitive
+createUser_firstName :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_firstName = Lens.lens (\CreateUser' {firstName} -> firstName) (\s@CreateUser' {} a -> s {firstName = a} :: CreateUser) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The last name, or surname, of the user.
-cuLastName :: Lens' CreateUser (Maybe Text)
-cuLastName = lens _cuLastName (\s a -> s {_cuLastName = a}) . mapping _Sensitive
+createUser_lastName :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_lastName = Lens.lens (\CreateUser' {lastName} -> lastName) (\s@CreateUser' {} a -> s {lastName = a} :: CreateUser) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The email address of the user.
-cuUserName :: Lens' CreateUser Text
-cuUserName = lens _cuUserName (\s a -> s {_cuUserName = a}) . _Sensitive
+--
+-- Users\' email addresses are case-sensitive. During login, if they
+-- specify an email address that doesn\'t use the same capitalization as
+-- the email address specified when their user pool account was created, a
+-- \"user does not exist\" error message displays.
+createUser_userName :: Lens.Lens' CreateUser Prelude.Text
+createUser_userName = Lens.lens (\CreateUser' {userName} -> userName) (\s@CreateUser' {} a -> s {userName = a} :: CreateUser) Prelude.. Prelude._Sensitive
 
 -- | The authentication type for the user. You must specify USERPOOL.
-cuAuthenticationType :: Lens' CreateUser AuthenticationType
-cuAuthenticationType = lens _cuAuthenticationType (\s a -> s {_cuAuthenticationType = a})
+createUser_authenticationType :: Lens.Lens' CreateUser AuthenticationType
+createUser_authenticationType = Lens.lens (\CreateUser' {authenticationType} -> authenticationType) (\s@CreateUser' {} a -> s {authenticationType = a} :: CreateUser)
 
-instance AWSRequest CreateUser where
+instance Prelude.AWSRequest CreateUser where
   type Rs CreateUser = CreateUserResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateUserResponse' <$> (pure (fromEnum s))
+          CreateUserResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUser
+instance Prelude.Hashable CreateUser
 
-instance NFData CreateUser
+instance Prelude.NFData CreateUser
 
-instance ToHeaders CreateUser where
+instance Prelude.ToHeaders CreateUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("PhotonAdminProxyService.CreateUser" :: ByteString),
+              Prelude.=# ( "PhotonAdminProxyService.CreateUser" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUser where
+instance Prelude.ToJSON CreateUser where
   toJSON CreateUser' {..} =
-    object
-      ( catMaybes
-          [ ("MessageAction" .=) <$> _cuMessageAction,
-            ("FirstName" .=) <$> _cuFirstName,
-            ("LastName" .=) <$> _cuLastName,
-            Just ("UserName" .= _cuUserName),
-            Just
-              ("AuthenticationType" .= _cuAuthenticationType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MessageAction" Prelude..=)
+              Prelude.<$> messageAction,
+            ("FirstName" Prelude..=) Prelude.<$> firstName,
+            ("LastName" Prelude..=) Prelude.<$> lastName,
+            Prelude.Just ("UserName" Prelude..= userName),
+            Prelude.Just
+              ( "AuthenticationType"
+                  Prelude..= authenticationType
+              )
           ]
       )
 
-instance ToPath CreateUser where
-  toPath = const "/"
+instance Prelude.ToPath CreateUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateUser where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createUserResponse' smart constructor.
-newtype CreateUserResponse = CreateUserResponse'
-  { _currsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateUserResponse' smart constructor.
+data CreateUserResponse = CreateUserResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'currsResponseStatus' - -- | The response status code.
-createUserResponse ::
-  -- | 'currsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createUserResponse_httpStatus' - The response's http status code.
+newCreateUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUserResponse
-createUserResponse pResponseStatus_ =
-  CreateUserResponse'
-    { _currsResponseStatus =
-        pResponseStatus_
-    }
+newCreateUserResponse pHttpStatus_ =
+  CreateUserResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-currsResponseStatus :: Lens' CreateUserResponse Int
-currsResponseStatus = lens _currsResponseStatus (\s a -> s {_currsResponseStatus = a})
+-- | The response's http status code.
+createUserResponse_httpStatus :: Lens.Lens' CreateUserResponse Prelude.Int
+createUserResponse_httpStatus = Lens.lens (\CreateUserResponse' {httpStatus} -> httpStatus) (\s@CreateUserResponse' {} a -> s {httpStatus = a} :: CreateUserResponse)
 
-instance NFData CreateUserResponse
+instance Prelude.NFData CreateUserResponse

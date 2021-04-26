@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.DomainJoinInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the configuration information required to join fleets and image builders to Microsoft Active Directory domains.
+-- | Describes the configuration information required to join fleets and
+-- image builders to Microsoft Active Directory domains.
 --
---
---
--- /See:/ 'domainJoinInfo' smart constructor.
+-- /See:/ 'newDomainJoinInfo' smart constructor.
 data DomainJoinInfo = DomainJoinInfo'
-  { _djiOrganizationalUnitDistinguishedName ::
-      !(Maybe Text),
-    _djiDirectoryName :: !(Maybe Text)
+  { -- | The distinguished name of the organizational unit for computer accounts.
+    organizationalUnitDistinguishedName :: Prelude.Maybe Prelude.Text,
+    -- | The fully qualified name of the directory (for example,
+    -- corp.example.com).
+    directoryName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainJoinInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainJoinInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djiOrganizationalUnitDistinguishedName' - The distinguished name of the organizational unit for computer accounts.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djiDirectoryName' - The fully qualified name of the directory (for example, corp.example.com).
-domainJoinInfo ::
+-- 'organizationalUnitDistinguishedName', 'domainJoinInfo_organizationalUnitDistinguishedName' - The distinguished name of the organizational unit for computer accounts.
+--
+-- 'directoryName', 'domainJoinInfo_directoryName' - The fully qualified name of the directory (for example,
+-- corp.example.com).
+newDomainJoinInfo ::
   DomainJoinInfo
-domainJoinInfo =
+newDomainJoinInfo =
   DomainJoinInfo'
-    { _djiOrganizationalUnitDistinguishedName =
-        Nothing,
-      _djiDirectoryName = Nothing
+    { organizationalUnitDistinguishedName =
+        Prelude.Nothing,
+      directoryName = Prelude.Nothing
     }
 
 -- | The distinguished name of the organizational unit for computer accounts.
-djiOrganizationalUnitDistinguishedName :: Lens' DomainJoinInfo (Maybe Text)
-djiOrganizationalUnitDistinguishedName = lens _djiOrganizationalUnitDistinguishedName (\s a -> s {_djiOrganizationalUnitDistinguishedName = a})
+domainJoinInfo_organizationalUnitDistinguishedName :: Lens.Lens' DomainJoinInfo (Prelude.Maybe Prelude.Text)
+domainJoinInfo_organizationalUnitDistinguishedName = Lens.lens (\DomainJoinInfo' {organizationalUnitDistinguishedName} -> organizationalUnitDistinguishedName) (\s@DomainJoinInfo' {} a -> s {organizationalUnitDistinguishedName = a} :: DomainJoinInfo)
 
--- | The fully qualified name of the directory (for example, corp.example.com).
-djiDirectoryName :: Lens' DomainJoinInfo (Maybe Text)
-djiDirectoryName = lens _djiDirectoryName (\s a -> s {_djiDirectoryName = a})
+-- | The fully qualified name of the directory (for example,
+-- corp.example.com).
+domainJoinInfo_directoryName :: Lens.Lens' DomainJoinInfo (Prelude.Maybe Prelude.Text)
+domainJoinInfo_directoryName = Lens.lens (\DomainJoinInfo' {directoryName} -> directoryName) (\s@DomainJoinInfo' {} a -> s {directoryName = a} :: DomainJoinInfo)
 
-instance FromJSON DomainJoinInfo where
+instance Prelude.FromJSON DomainJoinInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainJoinInfo"
       ( \x ->
           DomainJoinInfo'
-            <$> (x .:? "OrganizationalUnitDistinguishedName")
-            <*> (x .:? "DirectoryName")
+            Prelude.<$> (x Prelude..:? "OrganizationalUnitDistinguishedName")
+            Prelude.<*> (x Prelude..:? "DirectoryName")
       )
 
-instance Hashable DomainJoinInfo
+instance Prelude.Hashable DomainJoinInfo
 
-instance NFData DomainJoinInfo
+instance Prelude.NFData DomainJoinInfo
 
-instance ToJSON DomainJoinInfo where
+instance Prelude.ToJSON DomainJoinInfo where
   toJSON DomainJoinInfo' {..} =
-    object
-      ( catMaybes
-          [ ("OrganizationalUnitDistinguishedName" .=)
-              <$> _djiOrganizationalUnitDistinguishedName,
-            ("DirectoryName" .=) <$> _djiDirectoryName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OrganizationalUnitDistinguishedName" Prelude..=)
+              Prelude.<$> organizationalUnitDistinguishedName,
+            ("DirectoryName" Prelude..=)
+              Prelude.<$> directoryName
           ]
       )

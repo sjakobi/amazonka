@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,138 +24,168 @@
 -- Creates a usage report subscription. Usage reports are generated daily.
 module Network.AWS.AppStream.CreateUsageReportSubscription
   ( -- * Creating a Request
-    createUsageReportSubscription,
-    CreateUsageReportSubscription,
+    CreateUsageReportSubscription (..),
+    newCreateUsageReportSubscription,
 
     -- * Destructuring the Response
-    createUsageReportSubscriptionResponse,
-    CreateUsageReportSubscriptionResponse,
+    CreateUsageReportSubscriptionResponse (..),
+    newCreateUsageReportSubscriptionResponse,
 
     -- * Response Lenses
-    cursrrsS3BucketName,
-    cursrrsSchedule,
-    cursrrsResponseStatus,
+    createUsageReportSubscriptionResponse_s3BucketName,
+    createUsageReportSubscriptionResponse_schedule,
+    createUsageReportSubscriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.UsageReportSchedule
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createUsageReportSubscription' smart constructor.
+-- | /See:/ 'newCreateUsageReportSubscription' smart constructor.
 data CreateUsageReportSubscription = CreateUsageReportSubscription'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUsageReportSubscription' with the minimum fields required to make a request.
-createUsageReportSubscription ::
+-- |
+-- Create a value of 'CreateUsageReportSubscription' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCreateUsageReportSubscription ::
   CreateUsageReportSubscription
-createUsageReportSubscription =
+newCreateUsageReportSubscription =
   CreateUsageReportSubscription'
 
-instance AWSRequest CreateUsageReportSubscription where
+instance
+  Prelude.AWSRequest
+    CreateUsageReportSubscription
+  where
   type
     Rs CreateUsageReportSubscription =
       CreateUsageReportSubscriptionResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateUsageReportSubscriptionResponse'
-            <$> (x .?> "S3BucketName")
-            <*> (x .?> "Schedule")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "S3BucketName")
+            Prelude.<*> (x Prelude..?> "Schedule")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUsageReportSubscription
+instance
+  Prelude.Hashable
+    CreateUsageReportSubscription
 
-instance NFData CreateUsageReportSubscription
+instance Prelude.NFData CreateUsageReportSubscription
 
-instance ToHeaders CreateUsageReportSubscription where
+instance
+  Prelude.ToHeaders
+    CreateUsageReportSubscription
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.CreateUsageReportSubscription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.CreateUsageReportSubscription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUsageReportSubscription where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON CreateUsageReportSubscription where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath CreateUsageReportSubscription where
-  toPath = const "/"
+instance Prelude.ToPath CreateUsageReportSubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateUsageReportSubscription where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreateUsageReportSubscription
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createUsageReportSubscriptionResponse' smart constructor.
+-- | /See:/ 'newCreateUsageReportSubscriptionResponse' smart constructor.
 data CreateUsageReportSubscriptionResponse = CreateUsageReportSubscriptionResponse'
-  { _cursrrsS3BucketName ::
-      !( Maybe
-           Text
-       ),
-    _cursrrsSchedule ::
-      !( Maybe
-           UsageReportSchedule
-       ),
-    _cursrrsResponseStatus ::
-      !Int
+  { -- | The Amazon S3 bucket where generated reports are stored.
+    --
+    -- If you enabled on-instance session scripts and Amazon S3 logging for
+    -- your session script configuration, AppStream 2.0 created an S3 bucket to
+    -- store the script output. The bucket is unique to your account and
+    -- Region. When you enable usage reporting in this case, AppStream 2.0 uses
+    -- the same bucket to store your usage reports. If you haven\'t already
+    -- enabled on-instance session scripts, when you enable usage reports,
+    -- AppStream 2.0 creates a new S3 bucket.
+    s3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | The schedule for generating usage reports.
+    schedule :: Prelude.Maybe UsageReportSchedule,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUsageReportSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUsageReportSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cursrrsS3BucketName' - The Amazon S3 bucket where generated reports are stored. If you enabled on-instance session scripts and Amazon S3 logging for your session script configuration, AppStream 2.0 created an S3 bucket to store the script output. The bucket is unique to your account and Region. When you enable usage reporting in this case, AppStream 2.0 uses the same bucket to store your usage reports. If you haven't already enabled on-instance session scripts, when you enable usage reports, AppStream 2.0 creates a new S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cursrrsSchedule' - The schedule for generating usage reports.
+-- 's3BucketName', 'createUsageReportSubscriptionResponse_s3BucketName' - The Amazon S3 bucket where generated reports are stored.
 --
--- * 'cursrrsResponseStatus' - -- | The response status code.
-createUsageReportSubscriptionResponse ::
-  -- | 'cursrrsResponseStatus'
-  Int ->
+-- If you enabled on-instance session scripts and Amazon S3 logging for
+-- your session script configuration, AppStream 2.0 created an S3 bucket to
+-- store the script output. The bucket is unique to your account and
+-- Region. When you enable usage reporting in this case, AppStream 2.0 uses
+-- the same bucket to store your usage reports. If you haven\'t already
+-- enabled on-instance session scripts, when you enable usage reports,
+-- AppStream 2.0 creates a new S3 bucket.
+--
+-- 'schedule', 'createUsageReportSubscriptionResponse_schedule' - The schedule for generating usage reports.
+--
+-- 'httpStatus', 'createUsageReportSubscriptionResponse_httpStatus' - The response's http status code.
+newCreateUsageReportSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUsageReportSubscriptionResponse
-createUsageReportSubscriptionResponse
-  pResponseStatus_ =
-    CreateUsageReportSubscriptionResponse'
-      { _cursrrsS3BucketName =
-          Nothing,
-        _cursrrsSchedule = Nothing,
-        _cursrrsResponseStatus =
-          pResponseStatus_
-      }
+newCreateUsageReportSubscriptionResponse pHttpStatus_ =
+  CreateUsageReportSubscriptionResponse'
+    { s3BucketName =
+        Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The Amazon S3 bucket where generated reports are stored. If you enabled on-instance session scripts and Amazon S3 logging for your session script configuration, AppStream 2.0 created an S3 bucket to store the script output. The bucket is unique to your account and Region. When you enable usage reporting in this case, AppStream 2.0 uses the same bucket to store your usage reports. If you haven't already enabled on-instance session scripts, when you enable usage reports, AppStream 2.0 creates a new S3 bucket.
-cursrrsS3BucketName :: Lens' CreateUsageReportSubscriptionResponse (Maybe Text)
-cursrrsS3BucketName = lens _cursrrsS3BucketName (\s a -> s {_cursrrsS3BucketName = a})
+-- | The Amazon S3 bucket where generated reports are stored.
+--
+-- If you enabled on-instance session scripts and Amazon S3 logging for
+-- your session script configuration, AppStream 2.0 created an S3 bucket to
+-- store the script output. The bucket is unique to your account and
+-- Region. When you enable usage reporting in this case, AppStream 2.0 uses
+-- the same bucket to store your usage reports. If you haven\'t already
+-- enabled on-instance session scripts, when you enable usage reports,
+-- AppStream 2.0 creates a new S3 bucket.
+createUsageReportSubscriptionResponse_s3BucketName :: Lens.Lens' CreateUsageReportSubscriptionResponse (Prelude.Maybe Prelude.Text)
+createUsageReportSubscriptionResponse_s3BucketName = Lens.lens (\CreateUsageReportSubscriptionResponse' {s3BucketName} -> s3BucketName) (\s@CreateUsageReportSubscriptionResponse' {} a -> s {s3BucketName = a} :: CreateUsageReportSubscriptionResponse)
 
 -- | The schedule for generating usage reports.
-cursrrsSchedule :: Lens' CreateUsageReportSubscriptionResponse (Maybe UsageReportSchedule)
-cursrrsSchedule = lens _cursrrsSchedule (\s a -> s {_cursrrsSchedule = a})
+createUsageReportSubscriptionResponse_schedule :: Lens.Lens' CreateUsageReportSubscriptionResponse (Prelude.Maybe UsageReportSchedule)
+createUsageReportSubscriptionResponse_schedule = Lens.lens (\CreateUsageReportSubscriptionResponse' {schedule} -> schedule) (\s@CreateUsageReportSubscriptionResponse' {} a -> s {schedule = a} :: CreateUsageReportSubscriptionResponse)
 
--- | -- | The response status code.
-cursrrsResponseStatus :: Lens' CreateUsageReportSubscriptionResponse Int
-cursrrsResponseStatus = lens _cursrrsResponseStatus (\s a -> s {_cursrrsResponseStatus = a})
+-- | The response's http status code.
+createUsageReportSubscriptionResponse_httpStatus :: Lens.Lens' CreateUsageReportSubscriptionResponse Prelude.Int
+createUsageReportSubscriptionResponse_httpStatus = Lens.lens (\CreateUsageReportSubscriptionResponse' {httpStatus} -> httpStatus) (\s@CreateUsageReportSubscriptionResponse' {} a -> s {httpStatus = a} :: CreateUsageReportSubscriptionResponse)
 
-instance NFData CreateUsageReportSubscriptionResponse
+instance
+  Prelude.NFData
+    CreateUsageReportSubscriptionResponse

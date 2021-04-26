@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.ImagePermissions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the permissions for an image.
 --
---
---
--- /See:/ 'imagePermissions' smart constructor.
+-- /See:/ 'newImagePermissions' smart constructor.
 data ImagePermissions = ImagePermissions'
-  { _ipAllowImageBuilder ::
-      !(Maybe Bool),
-    _ipAllowFleet :: !(Maybe Bool)
+  { -- | Indicates whether the image can be used for an image builder.
+    allowImageBuilder :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether the image can be used for a fleet.
+    allowFleet :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImagePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImagePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ipAllowImageBuilder' - Indicates whether the image can be used for an image builder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ipAllowFleet' - Indicates whether the image can be used for a fleet.
-imagePermissions ::
+-- 'allowImageBuilder', 'imagePermissions_allowImageBuilder' - Indicates whether the image can be used for an image builder.
+--
+-- 'allowFleet', 'imagePermissions_allowFleet' - Indicates whether the image can be used for a fleet.
+newImagePermissions ::
   ImagePermissions
-imagePermissions =
+newImagePermissions =
   ImagePermissions'
-    { _ipAllowImageBuilder = Nothing,
-      _ipAllowFleet = Nothing
+    { allowImageBuilder =
+        Prelude.Nothing,
+      allowFleet = Prelude.Nothing
     }
 
 -- | Indicates whether the image can be used for an image builder.
-ipAllowImageBuilder :: Lens' ImagePermissions (Maybe Bool)
-ipAllowImageBuilder = lens _ipAllowImageBuilder (\s a -> s {_ipAllowImageBuilder = a})
+imagePermissions_allowImageBuilder :: Lens.Lens' ImagePermissions (Prelude.Maybe Prelude.Bool)
+imagePermissions_allowImageBuilder = Lens.lens (\ImagePermissions' {allowImageBuilder} -> allowImageBuilder) (\s@ImagePermissions' {} a -> s {allowImageBuilder = a} :: ImagePermissions)
 
 -- | Indicates whether the image can be used for a fleet.
-ipAllowFleet :: Lens' ImagePermissions (Maybe Bool)
-ipAllowFleet = lens _ipAllowFleet (\s a -> s {_ipAllowFleet = a})
+imagePermissions_allowFleet :: Lens.Lens' ImagePermissions (Prelude.Maybe Prelude.Bool)
+imagePermissions_allowFleet = Lens.lens (\ImagePermissions' {allowFleet} -> allowFleet) (\s@ImagePermissions' {} a -> s {allowFleet = a} :: ImagePermissions)
 
-instance FromJSON ImagePermissions where
+instance Prelude.FromJSON ImagePermissions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImagePermissions"
       ( \x ->
           ImagePermissions'
-            <$> (x .:? "allowImageBuilder") <*> (x .:? "allowFleet")
+            Prelude.<$> (x Prelude..:? "allowImageBuilder")
+            Prelude.<*> (x Prelude..:? "allowFleet")
       )
 
-instance Hashable ImagePermissions
+instance Prelude.Hashable ImagePermissions
 
-instance NFData ImagePermissions
+instance Prelude.NFData ImagePermissions
 
-instance ToJSON ImagePermissions where
+instance Prelude.ToJSON ImagePermissions where
   toJSON ImagePermissions' {..} =
-    object
-      ( catMaybes
-          [ ("allowImageBuilder" .=) <$> _ipAllowImageBuilder,
-            ("allowFleet" .=) <$> _ipAllowFleet
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("allowImageBuilder" Prelude..=)
+              Prelude.<$> allowImageBuilder,
+            ("allowFleet" Prelude..=) Prelude.<$> allowFleet
           ]
       )

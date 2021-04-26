@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,139 +24,138 @@
 -- Deletes the specified image builder and releases the capacity.
 module Network.AWS.AppStream.DeleteImageBuilder
   ( -- * Creating a Request
-    deleteImageBuilder,
-    DeleteImageBuilder,
+    DeleteImageBuilder (..),
+    newDeleteImageBuilder,
 
     -- * Request Lenses
-    dibName,
+    deleteImageBuilder_name,
 
     -- * Destructuring the Response
-    deleteImageBuilderResponse,
-    DeleteImageBuilderResponse,
+    DeleteImageBuilderResponse (..),
+    newDeleteImageBuilderResponse,
 
     -- * Response Lenses
-    dibrrsImageBuilder,
-    dibrrsResponseStatus,
+    deleteImageBuilderResponse_imageBuilder,
+    deleteImageBuilderResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.ImageBuilder
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteImageBuilder' smart constructor.
-newtype DeleteImageBuilder = DeleteImageBuilder'
-  { _dibName ::
-      Text
+-- | /See:/ 'newDeleteImageBuilder' smart constructor.
+data DeleteImageBuilder = DeleteImageBuilder'
+  { -- | The name of the image builder.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteImageBuilder' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteImageBuilder' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dibName' - The name of the image builder.
-deleteImageBuilder ::
-  -- | 'dibName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deleteImageBuilder_name' - The name of the image builder.
+newDeleteImageBuilder ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteImageBuilder
-deleteImageBuilder pName_ =
-  DeleteImageBuilder' {_dibName = pName_}
+newDeleteImageBuilder pName_ =
+  DeleteImageBuilder' {name = pName_}
 
 -- | The name of the image builder.
-dibName :: Lens' DeleteImageBuilder Text
-dibName = lens _dibName (\s a -> s {_dibName = a})
+deleteImageBuilder_name :: Lens.Lens' DeleteImageBuilder Prelude.Text
+deleteImageBuilder_name = Lens.lens (\DeleteImageBuilder' {name} -> name) (\s@DeleteImageBuilder' {} a -> s {name = a} :: DeleteImageBuilder)
 
-instance AWSRequest DeleteImageBuilder where
+instance Prelude.AWSRequest DeleteImageBuilder where
   type
     Rs DeleteImageBuilder =
       DeleteImageBuilderResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteImageBuilderResponse'
-            <$> (x .?> "ImageBuilder") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ImageBuilder")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteImageBuilder
+instance Prelude.Hashable DeleteImageBuilder
 
-instance NFData DeleteImageBuilder
+instance Prelude.NFData DeleteImageBuilder
 
-instance ToHeaders DeleteImageBuilder where
+instance Prelude.ToHeaders DeleteImageBuilder where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.DeleteImageBuilder" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.DeleteImageBuilder" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteImageBuilder where
+instance Prelude.ToJSON DeleteImageBuilder where
   toJSON DeleteImageBuilder' {..} =
-    object (catMaybes [Just ("Name" .= _dibName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteImageBuilder where
-  toPath = const "/"
+instance Prelude.ToPath DeleteImageBuilder where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteImageBuilder where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteImageBuilder where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteImageBuilderResponse' smart constructor.
+-- | /See:/ 'newDeleteImageBuilderResponse' smart constructor.
 data DeleteImageBuilderResponse = DeleteImageBuilderResponse'
-  { _dibrrsImageBuilder ::
-      !( Maybe
-           ImageBuilder
-       ),
-    _dibrrsResponseStatus ::
-      !Int
+  { -- | Information about the image builder.
+    imageBuilder :: Prelude.Maybe ImageBuilder,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteImageBuilderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteImageBuilderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dibrrsImageBuilder' - Information about the image builder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dibrrsResponseStatus' - -- | The response status code.
-deleteImageBuilderResponse ::
-  -- | 'dibrrsResponseStatus'
-  Int ->
+-- 'imageBuilder', 'deleteImageBuilderResponse_imageBuilder' - Information about the image builder.
+--
+-- 'httpStatus', 'deleteImageBuilderResponse_httpStatus' - The response's http status code.
+newDeleteImageBuilderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteImageBuilderResponse
-deleteImageBuilderResponse pResponseStatus_ =
+newDeleteImageBuilderResponse pHttpStatus_ =
   DeleteImageBuilderResponse'
-    { _dibrrsImageBuilder =
-        Nothing,
-      _dibrrsResponseStatus = pResponseStatus_
+    { imageBuilder =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the image builder.
-dibrrsImageBuilder :: Lens' DeleteImageBuilderResponse (Maybe ImageBuilder)
-dibrrsImageBuilder = lens _dibrrsImageBuilder (\s a -> s {_dibrrsImageBuilder = a})
+deleteImageBuilderResponse_imageBuilder :: Lens.Lens' DeleteImageBuilderResponse (Prelude.Maybe ImageBuilder)
+deleteImageBuilderResponse_imageBuilder = Lens.lens (\DeleteImageBuilderResponse' {imageBuilder} -> imageBuilder) (\s@DeleteImageBuilderResponse' {} a -> s {imageBuilder = a} :: DeleteImageBuilderResponse)
 
--- | -- | The response status code.
-dibrrsResponseStatus :: Lens' DeleteImageBuilderResponse Int
-dibrrsResponseStatus = lens _dibrrsResponseStatus (\s a -> s {_dibrrsResponseStatus = a})
+-- | The response's http status code.
+deleteImageBuilderResponse_httpStatus :: Lens.Lens' DeleteImageBuilderResponse Prelude.Int
+deleteImageBuilderResponse_httpStatus = Lens.lens (\DeleteImageBuilderResponse' {httpStatus} -> httpStatus) (\s@DeleteImageBuilderResponse' {} a -> s {httpStatus = a} :: DeleteImageBuilderResponse)
 
-instance NFData DeleteImageBuilderResponse
+instance Prelude.NFData DeleteImageBuilderResponse

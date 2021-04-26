@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,231 +21,323 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a stack to start streaming applications to users. A stack consists of an associated fleet, user access policies, and storage configurations.
+-- Creates a stack to start streaming applications to users. A stack
+-- consists of an associated fleet, user access policies, and storage
+-- configurations.
 module Network.AWS.AppStream.CreateStack
   ( -- * Creating a Request
-    createStack,
-    CreateStack,
+    CreateStack (..),
+    newCreateStack,
 
     -- * Request Lenses
-    csAccessEndpoints,
-    csUserSettings,
-    csRedirectURL,
-    csApplicationSettings,
-    csTags,
-    csStorageConnectors,
-    csDescription,
-    csEmbedHostDomains,
-    csDisplayName,
-    csFeedbackURL,
-    csName,
+    createStack_accessEndpoints,
+    createStack_userSettings,
+    createStack_redirectURL,
+    createStack_applicationSettings,
+    createStack_tags,
+    createStack_storageConnectors,
+    createStack_description,
+    createStack_embedHostDomains,
+    createStack_displayName,
+    createStack_feedbackURL,
+    createStack_name,
 
     -- * Destructuring the Response
-    createStackResponse,
-    CreateStackResponse,
+    CreateStackResponse (..),
+    newCreateStackResponse,
 
     -- * Response Lenses
-    csrrsStack,
-    csrrsResponseStatus,
+    createStackResponse_stack,
+    createStackResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.Stack
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createStack' smart constructor.
+-- | /See:/ 'newCreateStack' smart constructor.
 data CreateStack = CreateStack'
-  { _csAccessEndpoints ::
-      !(Maybe (List1 AccessEndpoint)),
-    _csUserSettings :: !(Maybe (List1 UserSetting)),
-    _csRedirectURL :: !(Maybe Text),
-    _csApplicationSettings ::
-      !(Maybe ApplicationSettings),
-    _csTags :: !(Maybe (Map Text Text)),
-    _csStorageConnectors ::
-      !(Maybe [StorageConnector]),
-    _csDescription :: !(Maybe Text),
-    _csEmbedHostDomains :: !(Maybe (List1 Text)),
-    _csDisplayName :: !(Maybe Text),
-    _csFeedbackURL :: !(Maybe Text),
-    _csName :: !Text
+  { -- | The list of interface VPC endpoint (interface endpoint) objects. Users
+    -- of the stack can connect to AppStream 2.0 only through the specified
+    -- endpoints.
+    accessEndpoints :: Prelude.Maybe (Prelude.List1 AccessEndpoint),
+    -- | The actions that are enabled or disabled for users during their
+    -- streaming sessions. By default, these actions are enabled.
+    userSettings :: Prelude.Maybe (Prelude.List1 UserSetting),
+    -- | The URL that users are redirected to after their streaming session ends.
+    redirectURL :: Prelude.Maybe Prelude.Text,
+    -- | The persistent application settings for users of a stack. When these
+    -- settings are enabled, changes that users make to applications and
+    -- Windows settings are automatically saved after each session and applied
+    -- to the next session.
+    applicationSettings :: Prelude.Maybe ApplicationSettings,
+    -- | The tags to associate with the stack. A tag is a key-value pair, and the
+    -- value is optional. For example, Environment=Test. If you do not specify
+    -- a value, Environment=.
+    --
+    -- If you do not specify a value, the value is set to an empty string.
+    --
+    -- Generally allowed characters are: letters, numbers, and spaces
+    -- representable in UTF-8, and the following special characters:
+    --
+    -- _ . : \/ = + \\ - \@
+    --
+    -- For more information about tags, see
+    -- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+    -- in the /Amazon AppStream 2.0 Administration Guide/.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The storage connectors to enable.
+    storageConnectors :: Prelude.Maybe [StorageConnector],
+    -- | The description to display.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The domains where AppStream 2.0 streaming sessions can be embedded in an
+    -- iframe. You must approve the domains that you want to host embedded
+    -- AppStream 2.0 streaming sessions.
+    embedHostDomains :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The stack name to display.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The URL that users are redirected to after they click the Send Feedback
+    -- link. If no URL is specified, no Send Feedback link is displayed.
+    feedbackURL :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stack.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csAccessEndpoints' - The list of interface VPC endpoint (interface endpoint) objects. Users of the stack can connect to AppStream 2.0 only through the specified endpoints.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csUserSettings' - The actions that are enabled or disabled for users during their streaming sessions. By default, these actions are enabled.
+-- 'accessEndpoints', 'createStack_accessEndpoints' - The list of interface VPC endpoint (interface endpoint) objects. Users
+-- of the stack can connect to AppStream 2.0 only through the specified
+-- endpoints.
 --
--- * 'csRedirectURL' - The URL that users are redirected to after their streaming session ends.
+-- 'userSettings', 'createStack_userSettings' - The actions that are enabled or disabled for users during their
+-- streaming sessions. By default, these actions are enabled.
 --
--- * 'csApplicationSettings' - The persistent application settings for users of a stack. When these settings are enabled, changes that users make to applications and Windows settings are automatically saved after each session and applied to the next session.
+-- 'redirectURL', 'createStack_redirectURL' - The URL that users are redirected to after their streaming session ends.
 --
--- * 'csTags' - The tags to associate with the stack. A tag is a key-value pair, and the value is optional. For example, Environment=Test. If you do not specify a value, Environment=.  If you do not specify a value, the value is set to an empty string. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following special characters:  _ . : / = + \ - @ For more information about tags, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources> in the /Amazon AppStream 2.0 Administration Guide/ .
+-- 'applicationSettings', 'createStack_applicationSettings' - The persistent application settings for users of a stack. When these
+-- settings are enabled, changes that users make to applications and
+-- Windows settings are automatically saved after each session and applied
+-- to the next session.
 --
--- * 'csStorageConnectors' - The storage connectors to enable.
+-- 'tags', 'createStack_tags' - The tags to associate with the stack. A tag is a key-value pair, and the
+-- value is optional. For example, Environment=Test. If you do not specify
+-- a value, Environment=.
 --
--- * 'csDescription' - The description to display.
+-- If you do not specify a value, the value is set to an empty string.
 --
--- * 'csEmbedHostDomains' - The domains where AppStream 2.0 streaming sessions can be embedded in an iframe. You must approve the domains that you want to host embedded AppStream 2.0 streaming sessions.
+-- Generally allowed characters are: letters, numbers, and spaces
+-- representable in UTF-8, and the following special characters:
 --
--- * 'csDisplayName' - The stack name to display.
+-- _ . : \/ = + \\ - \@
 --
--- * 'csFeedbackURL' - The URL that users are redirected to after they click the Send Feedback link. If no URL is specified, no Send Feedback link is displayed.
+-- For more information about tags, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
 --
--- * 'csName' - The name of the stack.
-createStack ::
-  -- | 'csName'
-  Text ->
+-- 'storageConnectors', 'createStack_storageConnectors' - The storage connectors to enable.
+--
+-- 'description', 'createStack_description' - The description to display.
+--
+-- 'embedHostDomains', 'createStack_embedHostDomains' - The domains where AppStream 2.0 streaming sessions can be embedded in an
+-- iframe. You must approve the domains that you want to host embedded
+-- AppStream 2.0 streaming sessions.
+--
+-- 'displayName', 'createStack_displayName' - The stack name to display.
+--
+-- 'feedbackURL', 'createStack_feedbackURL' - The URL that users are redirected to after they click the Send Feedback
+-- link. If no URL is specified, no Send Feedback link is displayed.
+--
+-- 'name', 'createStack_name' - The name of the stack.
+newCreateStack ::
+  -- | 'name'
+  Prelude.Text ->
   CreateStack
-createStack pName_ =
+newCreateStack pName_ =
   CreateStack'
-    { _csAccessEndpoints = Nothing,
-      _csUserSettings = Nothing,
-      _csRedirectURL = Nothing,
-      _csApplicationSettings = Nothing,
-      _csTags = Nothing,
-      _csStorageConnectors = Nothing,
-      _csDescription = Nothing,
-      _csEmbedHostDomains = Nothing,
-      _csDisplayName = Nothing,
-      _csFeedbackURL = Nothing,
-      _csName = pName_
+    { accessEndpoints = Prelude.Nothing,
+      userSettings = Prelude.Nothing,
+      redirectURL = Prelude.Nothing,
+      applicationSettings = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      storageConnectors = Prelude.Nothing,
+      description = Prelude.Nothing,
+      embedHostDomains = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      feedbackURL = Prelude.Nothing,
+      name = pName_
     }
 
--- | The list of interface VPC endpoint (interface endpoint) objects. Users of the stack can connect to AppStream 2.0 only through the specified endpoints.
-csAccessEndpoints :: Lens' CreateStack (Maybe (NonEmpty AccessEndpoint))
-csAccessEndpoints = lens _csAccessEndpoints (\s a -> s {_csAccessEndpoints = a}) . mapping _List1
+-- | The list of interface VPC endpoint (interface endpoint) objects. Users
+-- of the stack can connect to AppStream 2.0 only through the specified
+-- endpoints.
+createStack_accessEndpoints :: Lens.Lens' CreateStack (Prelude.Maybe (Prelude.NonEmpty AccessEndpoint))
+createStack_accessEndpoints = Lens.lens (\CreateStack' {accessEndpoints} -> accessEndpoints) (\s@CreateStack' {} a -> s {accessEndpoints = a} :: CreateStack) Prelude.. Lens.mapping Prelude._List1
 
--- | The actions that are enabled or disabled for users during their streaming sessions. By default, these actions are enabled.
-csUserSettings :: Lens' CreateStack (Maybe (NonEmpty UserSetting))
-csUserSettings = lens _csUserSettings (\s a -> s {_csUserSettings = a}) . mapping _List1
+-- | The actions that are enabled or disabled for users during their
+-- streaming sessions. By default, these actions are enabled.
+createStack_userSettings :: Lens.Lens' CreateStack (Prelude.Maybe (Prelude.NonEmpty UserSetting))
+createStack_userSettings = Lens.lens (\CreateStack' {userSettings} -> userSettings) (\s@CreateStack' {} a -> s {userSettings = a} :: CreateStack) Prelude.. Lens.mapping Prelude._List1
 
 -- | The URL that users are redirected to after their streaming session ends.
-csRedirectURL :: Lens' CreateStack (Maybe Text)
-csRedirectURL = lens _csRedirectURL (\s a -> s {_csRedirectURL = a})
+createStack_redirectURL :: Lens.Lens' CreateStack (Prelude.Maybe Prelude.Text)
+createStack_redirectURL = Lens.lens (\CreateStack' {redirectURL} -> redirectURL) (\s@CreateStack' {} a -> s {redirectURL = a} :: CreateStack)
 
--- | The persistent application settings for users of a stack. When these settings are enabled, changes that users make to applications and Windows settings are automatically saved after each session and applied to the next session.
-csApplicationSettings :: Lens' CreateStack (Maybe ApplicationSettings)
-csApplicationSettings = lens _csApplicationSettings (\s a -> s {_csApplicationSettings = a})
+-- | The persistent application settings for users of a stack. When these
+-- settings are enabled, changes that users make to applications and
+-- Windows settings are automatically saved after each session and applied
+-- to the next session.
+createStack_applicationSettings :: Lens.Lens' CreateStack (Prelude.Maybe ApplicationSettings)
+createStack_applicationSettings = Lens.lens (\CreateStack' {applicationSettings} -> applicationSettings) (\s@CreateStack' {} a -> s {applicationSettings = a} :: CreateStack)
 
--- | The tags to associate with the stack. A tag is a key-value pair, and the value is optional. For example, Environment=Test. If you do not specify a value, Environment=.  If you do not specify a value, the value is set to an empty string. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following special characters:  _ . : / = + \ - @ For more information about tags, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources> in the /Amazon AppStream 2.0 Administration Guide/ .
-csTags :: Lens' CreateStack (HashMap Text Text)
-csTags = lens _csTags (\s a -> s {_csTags = a}) . _Default . _Map
+-- | The tags to associate with the stack. A tag is a key-value pair, and the
+-- value is optional. For example, Environment=Test. If you do not specify
+-- a value, Environment=.
+--
+-- If you do not specify a value, the value is set to an empty string.
+--
+-- Generally allowed characters are: letters, numbers, and spaces
+-- representable in UTF-8, and the following special characters:
+--
+-- _ . : \/ = + \\ - \@
+--
+-- For more information about tags, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
+createStack_tags :: Lens.Lens' CreateStack (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createStack_tags = Lens.lens (\CreateStack' {tags} -> tags) (\s@CreateStack' {} a -> s {tags = a} :: CreateStack) Prelude.. Lens.mapping Prelude._Map
 
 -- | The storage connectors to enable.
-csStorageConnectors :: Lens' CreateStack [StorageConnector]
-csStorageConnectors = lens _csStorageConnectors (\s a -> s {_csStorageConnectors = a}) . _Default . _Coerce
+createStack_storageConnectors :: Lens.Lens' CreateStack (Prelude.Maybe [StorageConnector])
+createStack_storageConnectors = Lens.lens (\CreateStack' {storageConnectors} -> storageConnectors) (\s@CreateStack' {} a -> s {storageConnectors = a} :: CreateStack) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description to display.
-csDescription :: Lens' CreateStack (Maybe Text)
-csDescription = lens _csDescription (\s a -> s {_csDescription = a})
+createStack_description :: Lens.Lens' CreateStack (Prelude.Maybe Prelude.Text)
+createStack_description = Lens.lens (\CreateStack' {description} -> description) (\s@CreateStack' {} a -> s {description = a} :: CreateStack)
 
--- | The domains where AppStream 2.0 streaming sessions can be embedded in an iframe. You must approve the domains that you want to host embedded AppStream 2.0 streaming sessions.
-csEmbedHostDomains :: Lens' CreateStack (Maybe (NonEmpty Text))
-csEmbedHostDomains = lens _csEmbedHostDomains (\s a -> s {_csEmbedHostDomains = a}) . mapping _List1
+-- | The domains where AppStream 2.0 streaming sessions can be embedded in an
+-- iframe. You must approve the domains that you want to host embedded
+-- AppStream 2.0 streaming sessions.
+createStack_embedHostDomains :: Lens.Lens' CreateStack (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+createStack_embedHostDomains = Lens.lens (\CreateStack' {embedHostDomains} -> embedHostDomains) (\s@CreateStack' {} a -> s {embedHostDomains = a} :: CreateStack) Prelude.. Lens.mapping Prelude._List1
 
 -- | The stack name to display.
-csDisplayName :: Lens' CreateStack (Maybe Text)
-csDisplayName = lens _csDisplayName (\s a -> s {_csDisplayName = a})
+createStack_displayName :: Lens.Lens' CreateStack (Prelude.Maybe Prelude.Text)
+createStack_displayName = Lens.lens (\CreateStack' {displayName} -> displayName) (\s@CreateStack' {} a -> s {displayName = a} :: CreateStack)
 
--- | The URL that users are redirected to after they click the Send Feedback link. If no URL is specified, no Send Feedback link is displayed.
-csFeedbackURL :: Lens' CreateStack (Maybe Text)
-csFeedbackURL = lens _csFeedbackURL (\s a -> s {_csFeedbackURL = a})
+-- | The URL that users are redirected to after they click the Send Feedback
+-- link. If no URL is specified, no Send Feedback link is displayed.
+createStack_feedbackURL :: Lens.Lens' CreateStack (Prelude.Maybe Prelude.Text)
+createStack_feedbackURL = Lens.lens (\CreateStack' {feedbackURL} -> feedbackURL) (\s@CreateStack' {} a -> s {feedbackURL = a} :: CreateStack)
 
 -- | The name of the stack.
-csName :: Lens' CreateStack Text
-csName = lens _csName (\s a -> s {_csName = a})
+createStack_name :: Lens.Lens' CreateStack Prelude.Text
+createStack_name = Lens.lens (\CreateStack' {name} -> name) (\s@CreateStack' {} a -> s {name = a} :: CreateStack)
 
-instance AWSRequest CreateStack where
+instance Prelude.AWSRequest CreateStack where
   type Rs CreateStack = CreateStackResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateStackResponse'
-            <$> (x .?> "Stack") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Stack")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateStack
+instance Prelude.Hashable CreateStack
 
-instance NFData CreateStack
+instance Prelude.NFData CreateStack
 
-instance ToHeaders CreateStack where
+instance Prelude.ToHeaders CreateStack where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.CreateStack" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.CreateStack" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateStack where
+instance Prelude.ToJSON CreateStack where
   toJSON CreateStack' {..} =
-    object
-      ( catMaybes
-          [ ("AccessEndpoints" .=) <$> _csAccessEndpoints,
-            ("UserSettings" .=) <$> _csUserSettings,
-            ("RedirectURL" .=) <$> _csRedirectURL,
-            ("ApplicationSettings" .=)
-              <$> _csApplicationSettings,
-            ("Tags" .=) <$> _csTags,
-            ("StorageConnectors" .=) <$> _csStorageConnectors,
-            ("Description" .=) <$> _csDescription,
-            ("EmbedHostDomains" .=) <$> _csEmbedHostDomains,
-            ("DisplayName" .=) <$> _csDisplayName,
-            ("FeedbackURL" .=) <$> _csFeedbackURL,
-            Just ("Name" .= _csName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccessEndpoints" Prelude..=)
+              Prelude.<$> accessEndpoints,
+            ("UserSettings" Prelude..=) Prelude.<$> userSettings,
+            ("RedirectURL" Prelude..=) Prelude.<$> redirectURL,
+            ("ApplicationSettings" Prelude..=)
+              Prelude.<$> applicationSettings,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("StorageConnectors" Prelude..=)
+              Prelude.<$> storageConnectors,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("EmbedHostDomains" Prelude..=)
+              Prelude.<$> embedHostDomains,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            ("FeedbackURL" Prelude..=) Prelude.<$> feedbackURL,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateStack where
-  toPath = const "/"
+instance Prelude.ToPath CreateStack where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateStack where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateStack where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createStackResponse' smart constructor.
+-- | /See:/ 'newCreateStackResponse' smart constructor.
 data CreateStackResponse = CreateStackResponse'
-  { _csrrsStack ::
-      !(Maybe Stack),
-    _csrrsResponseStatus :: !Int
+  { -- | Information about the stack.
+    stack :: Prelude.Maybe Stack,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStackResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStackResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrsStack' - Information about the stack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrrsResponseStatus' - -- | The response status code.
-createStackResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
+-- 'stack', 'createStackResponse_stack' - Information about the stack.
+--
+-- 'httpStatus', 'createStackResponse_httpStatus' - The response's http status code.
+newCreateStackResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateStackResponse
-createStackResponse pResponseStatus_ =
+newCreateStackResponse pHttpStatus_ =
   CreateStackResponse'
-    { _csrrsStack = Nothing,
-      _csrrsResponseStatus = pResponseStatus_
+    { stack = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the stack.
-csrrsStack :: Lens' CreateStackResponse (Maybe Stack)
-csrrsStack = lens _csrrsStack (\s a -> s {_csrrsStack = a})
+createStackResponse_stack :: Lens.Lens' CreateStackResponse (Prelude.Maybe Stack)
+createStackResponse_stack = Lens.lens (\CreateStackResponse' {stack} -> stack) (\s@CreateStackResponse' {} a -> s {stack = a} :: CreateStackResponse)
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CreateStackResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The response's http status code.
+createStackResponse_httpStatus :: Lens.Lens' CreateStackResponse Prelude.Int
+createStackResponse_httpStatus = Lens.lens (\CreateStackResponse' {httpStatus} -> httpStatus) (\s@CreateStackResponse' {} a -> s {httpStatus = a} :: CreateStackResponse)
 
-instance NFData CreateStackResponse
+instance Prelude.NFData CreateStackResponse

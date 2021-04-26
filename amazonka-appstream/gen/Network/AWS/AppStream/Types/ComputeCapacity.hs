@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,50 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.ComputeCapacity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the capacity for a fleet.
 --
---
---
--- /See:/ 'computeCapacity' smart constructor.
-newtype ComputeCapacity = ComputeCapacity'
-  { _ccDesiredInstances ::
-      Int
+-- /See:/ 'newComputeCapacity' smart constructor.
+data ComputeCapacity = ComputeCapacity'
+  { -- | The desired number of streaming instances.
+    desiredInstances :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComputeCapacity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComputeCapacity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccDesiredInstances' - The desired number of streaming instances.
-computeCapacity ::
-  -- | 'ccDesiredInstances'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'desiredInstances', 'computeCapacity_desiredInstances' - The desired number of streaming instances.
+newComputeCapacity ::
+  -- | 'desiredInstances'
+  Prelude.Int ->
   ComputeCapacity
-computeCapacity pDesiredInstances_ =
+newComputeCapacity pDesiredInstances_ =
   ComputeCapacity'
-    { _ccDesiredInstances =
+    { desiredInstances =
         pDesiredInstances_
     }
 
 -- | The desired number of streaming instances.
-ccDesiredInstances :: Lens' ComputeCapacity Int
-ccDesiredInstances = lens _ccDesiredInstances (\s a -> s {_ccDesiredInstances = a})
+computeCapacity_desiredInstances :: Lens.Lens' ComputeCapacity Prelude.Int
+computeCapacity_desiredInstances = Lens.lens (\ComputeCapacity' {desiredInstances} -> desiredInstances) (\s@ComputeCapacity' {} a -> s {desiredInstances = a} :: ComputeCapacity)
 
-instance Hashable ComputeCapacity
+instance Prelude.Hashable ComputeCapacity
 
-instance NFData ComputeCapacity
+instance Prelude.NFData ComputeCapacity
 
-instance ToJSON ComputeCapacity where
+instance Prelude.ToJSON ComputeCapacity where
   toJSON ComputeCapacity' {..} =
-    object
-      ( catMaybes
-          [Just ("DesiredInstances" .= _ccDesiredInstances)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DesiredInstances" Prelude..= desiredInstances)
+          ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,240 +24,292 @@
 -- Updates the specified fields for the specified stack.
 module Network.AWS.AppStream.UpdateStack
   ( -- * Creating a Request
-    updateStack,
-    UpdateStack,
+    UpdateStack (..),
+    newUpdateStack,
 
     -- * Request Lenses
-    usAccessEndpoints,
-    usUserSettings,
-    usRedirectURL,
-    usApplicationSettings,
-    usStorageConnectors,
-    usDescription,
-    usEmbedHostDomains,
-    usDeleteStorageConnectors,
-    usDisplayName,
-    usAttributesToDelete,
-    usFeedbackURL,
-    usName,
+    updateStack_accessEndpoints,
+    updateStack_userSettings,
+    updateStack_redirectURL,
+    updateStack_applicationSettings,
+    updateStack_storageConnectors,
+    updateStack_description,
+    updateStack_embedHostDomains,
+    updateStack_deleteStorageConnectors,
+    updateStack_displayName,
+    updateStack_attributesToDelete,
+    updateStack_feedbackURL,
+    updateStack_name,
 
     -- * Destructuring the Response
-    updateStackResponse,
-    UpdateStackResponse,
+    UpdateStackResponse (..),
+    newUpdateStackResponse,
 
     -- * Response Lenses
-    usrrsStack,
-    usrrsResponseStatus,
+    updateStackResponse_stack,
+    updateStackResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.Stack
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateStack' smart constructor.
+-- | /See:/ 'newUpdateStack' smart constructor.
 data UpdateStack = UpdateStack'
-  { _usAccessEndpoints ::
-      !(Maybe (List1 AccessEndpoint)),
-    _usUserSettings :: !(Maybe (List1 UserSetting)),
-    _usRedirectURL :: !(Maybe Text),
-    _usApplicationSettings ::
-      !(Maybe ApplicationSettings),
-    _usStorageConnectors ::
-      !(Maybe [StorageConnector]),
-    _usDescription :: !(Maybe Text),
-    _usEmbedHostDomains :: !(Maybe (List1 Text)),
-    _usDeleteStorageConnectors :: !(Maybe Bool),
-    _usDisplayName :: !(Maybe Text),
-    _usAttributesToDelete ::
-      !(Maybe [StackAttribute]),
-    _usFeedbackURL :: !(Maybe Text),
-    _usName :: !Text
+  { -- | The list of interface VPC endpoint (interface endpoint) objects. Users
+    -- of the stack can connect to AppStream 2.0 only through the specified
+    -- endpoints.
+    accessEndpoints :: Prelude.Maybe (Prelude.List1 AccessEndpoint),
+    -- | The actions that are enabled or disabled for users during their
+    -- streaming sessions. By default, these actions are enabled.
+    userSettings :: Prelude.Maybe (Prelude.List1 UserSetting),
+    -- | The URL that users are redirected to after their streaming session ends.
+    redirectURL :: Prelude.Maybe Prelude.Text,
+    -- | The persistent application settings for users of a stack. When these
+    -- settings are enabled, changes that users make to applications and
+    -- Windows settings are automatically saved after each session and applied
+    -- to the next session.
+    applicationSettings :: Prelude.Maybe ApplicationSettings,
+    -- | The storage connectors to enable.
+    storageConnectors :: Prelude.Maybe [StorageConnector],
+    -- | The description to display.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The domains where AppStream 2.0 streaming sessions can be embedded in an
+    -- iframe. You must approve the domains that you want to host embedded
+    -- AppStream 2.0 streaming sessions.
+    embedHostDomains :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Deletes the storage connectors currently enabled for the stack.
+    deleteStorageConnectors :: Prelude.Maybe Prelude.Bool,
+    -- | The stack name to display.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The stack attributes to delete.
+    attributesToDelete :: Prelude.Maybe [StackAttribute],
+    -- | The URL that users are redirected to after they choose the Send Feedback
+    -- link. If no URL is specified, no Send Feedback link is displayed.
+    feedbackURL :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stack.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usAccessEndpoints' - The list of interface VPC endpoint (interface endpoint) objects. Users of the stack can connect to AppStream 2.0 only through the specified endpoints.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usUserSettings' - The actions that are enabled or disabled for users during their streaming sessions. By default, these actions are enabled.
+-- 'accessEndpoints', 'updateStack_accessEndpoints' - The list of interface VPC endpoint (interface endpoint) objects. Users
+-- of the stack can connect to AppStream 2.0 only through the specified
+-- endpoints.
 --
--- * 'usRedirectURL' - The URL that users are redirected to after their streaming session ends.
+-- 'userSettings', 'updateStack_userSettings' - The actions that are enabled or disabled for users during their
+-- streaming sessions. By default, these actions are enabled.
 --
--- * 'usApplicationSettings' - The persistent application settings for users of a stack. When these settings are enabled, changes that users make to applications and Windows settings are automatically saved after each session and applied to the next session.
+-- 'redirectURL', 'updateStack_redirectURL' - The URL that users are redirected to after their streaming session ends.
 --
--- * 'usStorageConnectors' - The storage connectors to enable.
+-- 'applicationSettings', 'updateStack_applicationSettings' - The persistent application settings for users of a stack. When these
+-- settings are enabled, changes that users make to applications and
+-- Windows settings are automatically saved after each session and applied
+-- to the next session.
 --
--- * 'usDescription' - The description to display.
+-- 'storageConnectors', 'updateStack_storageConnectors' - The storage connectors to enable.
 --
--- * 'usEmbedHostDomains' - The domains where AppStream 2.0 streaming sessions can be embedded in an iframe. You must approve the domains that you want to host embedded AppStream 2.0 streaming sessions.
+-- 'description', 'updateStack_description' - The description to display.
 --
--- * 'usDeleteStorageConnectors' - Deletes the storage connectors currently enabled for the stack.
+-- 'embedHostDomains', 'updateStack_embedHostDomains' - The domains where AppStream 2.0 streaming sessions can be embedded in an
+-- iframe. You must approve the domains that you want to host embedded
+-- AppStream 2.0 streaming sessions.
 --
--- * 'usDisplayName' - The stack name to display.
+-- 'deleteStorageConnectors', 'updateStack_deleteStorageConnectors' - Deletes the storage connectors currently enabled for the stack.
 --
--- * 'usAttributesToDelete' - The stack attributes to delete.
+-- 'displayName', 'updateStack_displayName' - The stack name to display.
 --
--- * 'usFeedbackURL' - The URL that users are redirected to after they choose the Send Feedback link. If no URL is specified, no Send Feedback link is displayed.
+-- 'attributesToDelete', 'updateStack_attributesToDelete' - The stack attributes to delete.
 --
--- * 'usName' - The name of the stack.
-updateStack ::
-  -- | 'usName'
-  Text ->
+-- 'feedbackURL', 'updateStack_feedbackURL' - The URL that users are redirected to after they choose the Send Feedback
+-- link. If no URL is specified, no Send Feedback link is displayed.
+--
+-- 'name', 'updateStack_name' - The name of the stack.
+newUpdateStack ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateStack
-updateStack pName_ =
+newUpdateStack pName_ =
   UpdateStack'
-    { _usAccessEndpoints = Nothing,
-      _usUserSettings = Nothing,
-      _usRedirectURL = Nothing,
-      _usApplicationSettings = Nothing,
-      _usStorageConnectors = Nothing,
-      _usDescription = Nothing,
-      _usEmbedHostDomains = Nothing,
-      _usDeleteStorageConnectors = Nothing,
-      _usDisplayName = Nothing,
-      _usAttributesToDelete = Nothing,
-      _usFeedbackURL = Nothing,
-      _usName = pName_
+    { accessEndpoints = Prelude.Nothing,
+      userSettings = Prelude.Nothing,
+      redirectURL = Prelude.Nothing,
+      applicationSettings = Prelude.Nothing,
+      storageConnectors = Prelude.Nothing,
+      description = Prelude.Nothing,
+      embedHostDomains = Prelude.Nothing,
+      deleteStorageConnectors = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      attributesToDelete = Prelude.Nothing,
+      feedbackURL = Prelude.Nothing,
+      name = pName_
     }
 
--- | The list of interface VPC endpoint (interface endpoint) objects. Users of the stack can connect to AppStream 2.0 only through the specified endpoints.
-usAccessEndpoints :: Lens' UpdateStack (Maybe (NonEmpty AccessEndpoint))
-usAccessEndpoints = lens _usAccessEndpoints (\s a -> s {_usAccessEndpoints = a}) . mapping _List1
+-- | The list of interface VPC endpoint (interface endpoint) objects. Users
+-- of the stack can connect to AppStream 2.0 only through the specified
+-- endpoints.
+updateStack_accessEndpoints :: Lens.Lens' UpdateStack (Prelude.Maybe (Prelude.NonEmpty AccessEndpoint))
+updateStack_accessEndpoints = Lens.lens (\UpdateStack' {accessEndpoints} -> accessEndpoints) (\s@UpdateStack' {} a -> s {accessEndpoints = a} :: UpdateStack) Prelude.. Lens.mapping Prelude._List1
 
--- | The actions that are enabled or disabled for users during their streaming sessions. By default, these actions are enabled.
-usUserSettings :: Lens' UpdateStack (Maybe (NonEmpty UserSetting))
-usUserSettings = lens _usUserSettings (\s a -> s {_usUserSettings = a}) . mapping _List1
+-- | The actions that are enabled or disabled for users during their
+-- streaming sessions. By default, these actions are enabled.
+updateStack_userSettings :: Lens.Lens' UpdateStack (Prelude.Maybe (Prelude.NonEmpty UserSetting))
+updateStack_userSettings = Lens.lens (\UpdateStack' {userSettings} -> userSettings) (\s@UpdateStack' {} a -> s {userSettings = a} :: UpdateStack) Prelude.. Lens.mapping Prelude._List1
 
 -- | The URL that users are redirected to after their streaming session ends.
-usRedirectURL :: Lens' UpdateStack (Maybe Text)
-usRedirectURL = lens _usRedirectURL (\s a -> s {_usRedirectURL = a})
+updateStack_redirectURL :: Lens.Lens' UpdateStack (Prelude.Maybe Prelude.Text)
+updateStack_redirectURL = Lens.lens (\UpdateStack' {redirectURL} -> redirectURL) (\s@UpdateStack' {} a -> s {redirectURL = a} :: UpdateStack)
 
--- | The persistent application settings for users of a stack. When these settings are enabled, changes that users make to applications and Windows settings are automatically saved after each session and applied to the next session.
-usApplicationSettings :: Lens' UpdateStack (Maybe ApplicationSettings)
-usApplicationSettings = lens _usApplicationSettings (\s a -> s {_usApplicationSettings = a})
+-- | The persistent application settings for users of a stack. When these
+-- settings are enabled, changes that users make to applications and
+-- Windows settings are automatically saved after each session and applied
+-- to the next session.
+updateStack_applicationSettings :: Lens.Lens' UpdateStack (Prelude.Maybe ApplicationSettings)
+updateStack_applicationSettings = Lens.lens (\UpdateStack' {applicationSettings} -> applicationSettings) (\s@UpdateStack' {} a -> s {applicationSettings = a} :: UpdateStack)
 
 -- | The storage connectors to enable.
-usStorageConnectors :: Lens' UpdateStack [StorageConnector]
-usStorageConnectors = lens _usStorageConnectors (\s a -> s {_usStorageConnectors = a}) . _Default . _Coerce
+updateStack_storageConnectors :: Lens.Lens' UpdateStack (Prelude.Maybe [StorageConnector])
+updateStack_storageConnectors = Lens.lens (\UpdateStack' {storageConnectors} -> storageConnectors) (\s@UpdateStack' {} a -> s {storageConnectors = a} :: UpdateStack) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description to display.
-usDescription :: Lens' UpdateStack (Maybe Text)
-usDescription = lens _usDescription (\s a -> s {_usDescription = a})
+updateStack_description :: Lens.Lens' UpdateStack (Prelude.Maybe Prelude.Text)
+updateStack_description = Lens.lens (\UpdateStack' {description} -> description) (\s@UpdateStack' {} a -> s {description = a} :: UpdateStack)
 
--- | The domains where AppStream 2.0 streaming sessions can be embedded in an iframe. You must approve the domains that you want to host embedded AppStream 2.0 streaming sessions.
-usEmbedHostDomains :: Lens' UpdateStack (Maybe (NonEmpty Text))
-usEmbedHostDomains = lens _usEmbedHostDomains (\s a -> s {_usEmbedHostDomains = a}) . mapping _List1
+-- | The domains where AppStream 2.0 streaming sessions can be embedded in an
+-- iframe. You must approve the domains that you want to host embedded
+-- AppStream 2.0 streaming sessions.
+updateStack_embedHostDomains :: Lens.Lens' UpdateStack (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+updateStack_embedHostDomains = Lens.lens (\UpdateStack' {embedHostDomains} -> embedHostDomains) (\s@UpdateStack' {} a -> s {embedHostDomains = a} :: UpdateStack) Prelude.. Lens.mapping Prelude._List1
 
 -- | Deletes the storage connectors currently enabled for the stack.
-usDeleteStorageConnectors :: Lens' UpdateStack (Maybe Bool)
-usDeleteStorageConnectors = lens _usDeleteStorageConnectors (\s a -> s {_usDeleteStorageConnectors = a})
+updateStack_deleteStorageConnectors :: Lens.Lens' UpdateStack (Prelude.Maybe Prelude.Bool)
+updateStack_deleteStorageConnectors = Lens.lens (\UpdateStack' {deleteStorageConnectors} -> deleteStorageConnectors) (\s@UpdateStack' {} a -> s {deleteStorageConnectors = a} :: UpdateStack)
 
 -- | The stack name to display.
-usDisplayName :: Lens' UpdateStack (Maybe Text)
-usDisplayName = lens _usDisplayName (\s a -> s {_usDisplayName = a})
+updateStack_displayName :: Lens.Lens' UpdateStack (Prelude.Maybe Prelude.Text)
+updateStack_displayName = Lens.lens (\UpdateStack' {displayName} -> displayName) (\s@UpdateStack' {} a -> s {displayName = a} :: UpdateStack)
 
 -- | The stack attributes to delete.
-usAttributesToDelete :: Lens' UpdateStack [StackAttribute]
-usAttributesToDelete = lens _usAttributesToDelete (\s a -> s {_usAttributesToDelete = a}) . _Default . _Coerce
+updateStack_attributesToDelete :: Lens.Lens' UpdateStack (Prelude.Maybe [StackAttribute])
+updateStack_attributesToDelete = Lens.lens (\UpdateStack' {attributesToDelete} -> attributesToDelete) (\s@UpdateStack' {} a -> s {attributesToDelete = a} :: UpdateStack) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The URL that users are redirected to after they choose the Send Feedback link. If no URL is specified, no Send Feedback link is displayed.
-usFeedbackURL :: Lens' UpdateStack (Maybe Text)
-usFeedbackURL = lens _usFeedbackURL (\s a -> s {_usFeedbackURL = a})
+-- | The URL that users are redirected to after they choose the Send Feedback
+-- link. If no URL is specified, no Send Feedback link is displayed.
+updateStack_feedbackURL :: Lens.Lens' UpdateStack (Prelude.Maybe Prelude.Text)
+updateStack_feedbackURL = Lens.lens (\UpdateStack' {feedbackURL} -> feedbackURL) (\s@UpdateStack' {} a -> s {feedbackURL = a} :: UpdateStack)
 
 -- | The name of the stack.
-usName :: Lens' UpdateStack Text
-usName = lens _usName (\s a -> s {_usName = a})
+updateStack_name :: Lens.Lens' UpdateStack Prelude.Text
+updateStack_name = Lens.lens (\UpdateStack' {name} -> name) (\s@UpdateStack' {} a -> s {name = a} :: UpdateStack)
 
-instance AWSRequest UpdateStack where
+instance Prelude.AWSRequest UpdateStack where
   type Rs UpdateStack = UpdateStackResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateStackResponse'
-            <$> (x .?> "Stack") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Stack")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateStack
+instance Prelude.Hashable UpdateStack
 
-instance NFData UpdateStack
+instance Prelude.NFData UpdateStack
 
-instance ToHeaders UpdateStack where
+instance Prelude.ToHeaders UpdateStack where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.UpdateStack" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.UpdateStack" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateStack where
+instance Prelude.ToJSON UpdateStack where
   toJSON UpdateStack' {..} =
-    object
-      ( catMaybes
-          [ ("AccessEndpoints" .=) <$> _usAccessEndpoints,
-            ("UserSettings" .=) <$> _usUserSettings,
-            ("RedirectURL" .=) <$> _usRedirectURL,
-            ("ApplicationSettings" .=)
-              <$> _usApplicationSettings,
-            ("StorageConnectors" .=) <$> _usStorageConnectors,
-            ("Description" .=) <$> _usDescription,
-            ("EmbedHostDomains" .=) <$> _usEmbedHostDomains,
-            ("DeleteStorageConnectors" .=)
-              <$> _usDeleteStorageConnectors,
-            ("DisplayName" .=) <$> _usDisplayName,
-            ("AttributesToDelete" .=) <$> _usAttributesToDelete,
-            ("FeedbackURL" .=) <$> _usFeedbackURL,
-            Just ("Name" .= _usName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccessEndpoints" Prelude..=)
+              Prelude.<$> accessEndpoints,
+            ("UserSettings" Prelude..=) Prelude.<$> userSettings,
+            ("RedirectURL" Prelude..=) Prelude.<$> redirectURL,
+            ("ApplicationSettings" Prelude..=)
+              Prelude.<$> applicationSettings,
+            ("StorageConnectors" Prelude..=)
+              Prelude.<$> storageConnectors,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("EmbedHostDomains" Prelude..=)
+              Prelude.<$> embedHostDomains,
+            ("DeleteStorageConnectors" Prelude..=)
+              Prelude.<$> deleteStorageConnectors,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            ("AttributesToDelete" Prelude..=)
+              Prelude.<$> attributesToDelete,
+            ("FeedbackURL" Prelude..=) Prelude.<$> feedbackURL,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath UpdateStack where
-  toPath = const "/"
+instance Prelude.ToPath UpdateStack where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateStack where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateStack where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateStackResponse' smart constructor.
+-- | /See:/ 'newUpdateStackResponse' smart constructor.
 data UpdateStackResponse = UpdateStackResponse'
-  { _usrrsStack ::
-      !(Maybe Stack),
-    _usrrsResponseStatus :: !Int
+  { -- | Information about the stack.
+    stack :: Prelude.Maybe Stack,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStackResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStackResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrrsStack' - Information about the stack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usrrsResponseStatus' - -- | The response status code.
-updateStackResponse ::
-  -- | 'usrrsResponseStatus'
-  Int ->
+-- 'stack', 'updateStackResponse_stack' - Information about the stack.
+--
+-- 'httpStatus', 'updateStackResponse_httpStatus' - The response's http status code.
+newUpdateStackResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateStackResponse
-updateStackResponse pResponseStatus_ =
+newUpdateStackResponse pHttpStatus_ =
   UpdateStackResponse'
-    { _usrrsStack = Nothing,
-      _usrrsResponseStatus = pResponseStatus_
+    { stack = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the stack.
-usrrsStack :: Lens' UpdateStackResponse (Maybe Stack)
-usrrsStack = lens _usrrsStack (\s a -> s {_usrrsStack = a})
+updateStackResponse_stack :: Lens.Lens' UpdateStackResponse (Prelude.Maybe Stack)
+updateStackResponse_stack = Lens.lens (\UpdateStackResponse' {stack} -> stack) (\s@UpdateStackResponse' {} a -> s {stack = a} :: UpdateStackResponse)
 
--- | -- | The response status code.
-usrrsResponseStatus :: Lens' UpdateStackResponse Int
-usrrsResponseStatus = lens _usrrsResponseStatus (\s a -> s {_usrrsResponseStatus = a})
+-- | The response's http status code.
+updateStackResponse_httpStatus :: Lens.Lens' UpdateStackResponse Prelude.Int
+updateStackResponse_httpStatus = Lens.lens (\UpdateStackResponse' {httpStatus} -> httpStatus) (\s@UpdateStackResponse' {} a -> s {httpStatus = a} :: UpdateStackResponse)
 
-instance NFData UpdateStackResponse
+instance Prelude.NFData UpdateStackResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.AppStream.Types.VisibilityType
   ( VisibilityType
       ( ..,
-        Private,
-        Public,
-        Shared
+        VisibilityTypePRIVATE,
+        VisibilityTypePUBLIC,
+        VisibilityTypeSHARED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VisibilityType = VisibilityType' (CI Text)
+newtype VisibilityType = VisibilityType'
+  { fromVisibilityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Private :: VisibilityType
-pattern Private = VisibilityType' "PRIVATE"
+pattern VisibilityTypePRIVATE :: VisibilityType
+pattern VisibilityTypePRIVATE = VisibilityType' "PRIVATE"
 
-pattern Public :: VisibilityType
-pattern Public = VisibilityType' "PUBLIC"
+pattern VisibilityTypePUBLIC :: VisibilityType
+pattern VisibilityTypePUBLIC = VisibilityType' "PUBLIC"
 
-pattern Shared :: VisibilityType
-pattern Shared = VisibilityType' "SHARED"
+pattern VisibilityTypeSHARED :: VisibilityType
+pattern VisibilityTypeSHARED = VisibilityType' "SHARED"
 
 {-# COMPLETE
-  Private,
-  Public,
-  Shared,
+  VisibilityTypePRIVATE,
+  VisibilityTypePUBLIC,
+  VisibilityTypeSHARED,
   VisibilityType'
   #-}
 
-instance FromText VisibilityType where
-  parser = (VisibilityType' . mk) <$> takeText
+instance Prelude.FromText VisibilityType where
+  parser = VisibilityType' Prelude.<$> Prelude.takeText
 
-instance ToText VisibilityType where
-  toText (VisibilityType' ci) = original ci
+instance Prelude.ToText VisibilityType where
+  toText (VisibilityType' x) = x
 
-instance Hashable VisibilityType
+instance Prelude.Hashable VisibilityType
 
-instance NFData VisibilityType
+instance Prelude.NFData VisibilityType
 
-instance ToByteString VisibilityType
+instance Prelude.ToByteString VisibilityType
 
-instance ToQuery VisibilityType
+instance Prelude.ToQuery VisibilityType
 
-instance ToHeader VisibilityType
+instance Prelude.ToHeader VisibilityType
 
-instance ToJSON VisibilityType where
-  toJSON = toJSONText
+instance Prelude.ToJSON VisibilityType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VisibilityType where
-  parseJSON = parseJSONText "VisibilityType"
+instance Prelude.FromJSON VisibilityType where
+  parseJSON = Prelude.parseJSONText "VisibilityType"

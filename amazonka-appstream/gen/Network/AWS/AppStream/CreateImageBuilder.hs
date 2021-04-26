@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,273 +21,572 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an image builder. An image builder is a virtual machine that is used to create an image.
+-- Creates an image builder. An image builder is a virtual machine that is
+-- used to create an image.
 --
---
--- The initial state of the builder is @PENDING@ . When it is ready, the state is @RUNNING@ .
+-- The initial state of the builder is @PENDING@. When it is ready, the
+-- state is @RUNNING@.
 module Network.AWS.AppStream.CreateImageBuilder
   ( -- * Creating a Request
-    createImageBuilder,
-    CreateImageBuilder,
+    CreateImageBuilder (..),
+    newCreateImageBuilder,
 
     -- * Request Lenses
-    cibVPCConfig,
-    cibIAMRoleARN,
-    cibAccessEndpoints,
-    cibDomainJoinInfo,
-    cibImageName,
-    cibTags,
-    cibAppstreamAgentVersion,
-    cibDescription,
-    cibDisplayName,
-    cibEnableDefaultInternetAccess,
-    cibImageARN,
-    cibName,
-    cibInstanceType,
+    createImageBuilder_vpcConfig,
+    createImageBuilder_iamRoleArn,
+    createImageBuilder_accessEndpoints,
+    createImageBuilder_domainJoinInfo,
+    createImageBuilder_imageName,
+    createImageBuilder_tags,
+    createImageBuilder_appstreamAgentVersion,
+    createImageBuilder_description,
+    createImageBuilder_displayName,
+    createImageBuilder_enableDefaultInternetAccess,
+    createImageBuilder_imageArn,
+    createImageBuilder_name,
+    createImageBuilder_instanceType,
 
     -- * Destructuring the Response
-    createImageBuilderResponse,
-    CreateImageBuilderResponse,
+    CreateImageBuilderResponse (..),
+    newCreateImageBuilderResponse,
 
     -- * Response Lenses
-    cibrrsImageBuilder,
-    cibrrsResponseStatus,
+    createImageBuilderResponse_imageBuilder,
+    createImageBuilderResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.ImageBuilder
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createImageBuilder' smart constructor.
+-- | /See:/ 'newCreateImageBuilder' smart constructor.
 data CreateImageBuilder = CreateImageBuilder'
-  { _cibVPCConfig ::
-      !(Maybe VPCConfig),
-    _cibIAMRoleARN :: !(Maybe Text),
-    _cibAccessEndpoints ::
-      !(Maybe (List1 AccessEndpoint)),
-    _cibDomainJoinInfo ::
-      !(Maybe DomainJoinInfo),
-    _cibImageName :: !(Maybe Text),
-    _cibTags ::
-      !(Maybe (Map Text Text)),
-    _cibAppstreamAgentVersion ::
-      !(Maybe Text),
-    _cibDescription :: !(Maybe Text),
-    _cibDisplayName :: !(Maybe Text),
-    _cibEnableDefaultInternetAccess ::
-      !(Maybe Bool),
-    _cibImageARN :: !(Maybe Text),
-    _cibName :: !Text,
-    _cibInstanceType :: !Text
+  { -- | The VPC configuration for the image builder. You can specify only one
+    -- subnet.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The Amazon Resource Name (ARN) of the IAM role to apply to the image
+    -- builder. To assume a role, the image builder calls the AWS Security
+    -- Token Service (STS) @AssumeRole@ API operation and passes the ARN of the
+    -- role to use. The operation creates a new session with temporary
+    -- credentials. AppStream 2.0 retrieves the temporary credentials and
+    -- creates the __appstream_machine_role__ credential profile on the
+    -- instance.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+    -- in the /Amazon AppStream 2.0 Administration Guide/.
+    iamRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The list of interface VPC endpoint (interface endpoint) objects.
+    -- Administrators can connect to the image builder only through the
+    -- specified endpoints.
+    accessEndpoints :: Prelude.Maybe (Prelude.List1 AccessEndpoint),
+    -- | The name of the directory and organizational unit (OU) to use to join
+    -- the image builder to a Microsoft Active Directory domain.
+    domainJoinInfo :: Prelude.Maybe DomainJoinInfo,
+    -- | The name of the image used to create the image builder.
+    imageName :: Prelude.Maybe Prelude.Text,
+    -- | The tags to associate with the image builder. A tag is a key-value pair,
+    -- and the value is optional. For example, Environment=Test. If you do not
+    -- specify a value, Environment=.
+    --
+    -- Generally allowed characters are: letters, numbers, and spaces
+    -- representable in UTF-8, and the following special characters:
+    --
+    -- _ . : \/ = + \\ - \@
+    --
+    -- If you do not specify a value, the value is set to an empty string.
+    --
+    -- For more information about tags, see
+    -- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+    -- in the /Amazon AppStream 2.0 Administration Guide/.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The version of the AppStream 2.0 agent to use for this image builder. To
+    -- use the latest version of the AppStream 2.0 agent, specify [LATEST].
+    appstreamAgentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The description to display.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The image builder name to display.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | Enables or disables default internet access for the image builder.
+    enableDefaultInternetAccess :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the public, private, or shared image to use.
+    imageArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique name for the image builder.
+    name :: Prelude.Text,
+    -- | The instance type to use when launching the image builder. The following
+    -- instance types are available:
+    --
+    -- -   stream.standard.small
+    --
+    -- -   stream.standard.medium
+    --
+    -- -   stream.standard.large
+    --
+    -- -   stream.compute.large
+    --
+    -- -   stream.compute.xlarge
+    --
+    -- -   stream.compute.2xlarge
+    --
+    -- -   stream.compute.4xlarge
+    --
+    -- -   stream.compute.8xlarge
+    --
+    -- -   stream.memory.large
+    --
+    -- -   stream.memory.xlarge
+    --
+    -- -   stream.memory.2xlarge
+    --
+    -- -   stream.memory.4xlarge
+    --
+    -- -   stream.memory.8xlarge
+    --
+    -- -   stream.memory.z1d.large
+    --
+    -- -   stream.memory.z1d.xlarge
+    --
+    -- -   stream.memory.z1d.2xlarge
+    --
+    -- -   stream.memory.z1d.3xlarge
+    --
+    -- -   stream.memory.z1d.6xlarge
+    --
+    -- -   stream.memory.z1d.12xlarge
+    --
+    -- -   stream.graphics-design.large
+    --
+    -- -   stream.graphics-design.xlarge
+    --
+    -- -   stream.graphics-design.2xlarge
+    --
+    -- -   stream.graphics-design.4xlarge
+    --
+    -- -   stream.graphics-desktop.2xlarge
+    --
+    -- -   stream.graphics.g4dn.xlarge
+    --
+    -- -   stream.graphics.g4dn.2xlarge
+    --
+    -- -   stream.graphics.g4dn.4xlarge
+    --
+    -- -   stream.graphics.g4dn.8xlarge
+    --
+    -- -   stream.graphics.g4dn.12xlarge
+    --
+    -- -   stream.graphics.g4dn.16xlarge
+    --
+    -- -   stream.graphics-pro.4xlarge
+    --
+    -- -   stream.graphics-pro.8xlarge
+    --
+    -- -   stream.graphics-pro.16xlarge
+    instanceType :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateImageBuilder' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateImageBuilder' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cibVPCConfig' - The VPC configuration for the image builder. You can specify only one subnet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cibIAMRoleARN' - The Amazon Resource Name (ARN) of the IAM role to apply to the image builder. To assume a role, the image builder calls the AWS Security Token Service (STS) @AssumeRole@ API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the __appstream_machine_role__ credential profile on the instance. For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances> in the /Amazon AppStream 2.0 Administration Guide/ .
+-- 'vpcConfig', 'createImageBuilder_vpcConfig' - The VPC configuration for the image builder. You can specify only one
+-- subnet.
 --
--- * 'cibAccessEndpoints' - The list of interface VPC endpoint (interface endpoint) objects. Administrators can connect to the image builder only through the specified endpoints.
+-- 'iamRoleArn', 'createImageBuilder_iamRoleArn' - The Amazon Resource Name (ARN) of the IAM role to apply to the image
+-- builder. To assume a role, the image builder calls the AWS Security
+-- Token Service (STS) @AssumeRole@ API operation and passes the ARN of the
+-- role to use. The operation creates a new session with temporary
+-- credentials. AppStream 2.0 retrieves the temporary credentials and
+-- creates the __appstream_machine_role__ credential profile on the
+-- instance.
 --
--- * 'cibDomainJoinInfo' - The name of the directory and organizational unit (OU) to use to join the image builder to a Microsoft Active Directory domain.
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
 --
--- * 'cibImageName' - The name of the image used to create the image builder.
+-- 'accessEndpoints', 'createImageBuilder_accessEndpoints' - The list of interface VPC endpoint (interface endpoint) objects.
+-- Administrators can connect to the image builder only through the
+-- specified endpoints.
 --
--- * 'cibTags' - The tags to associate with the image builder. A tag is a key-value pair, and the value is optional. For example, Environment=Test. If you do not specify a value, Environment=.  Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following special characters:  _ . : / = + \ - @ If you do not specify a value, the value is set to an empty string. For more information about tags, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources> in the /Amazon AppStream 2.0 Administration Guide/ .
+-- 'domainJoinInfo', 'createImageBuilder_domainJoinInfo' - The name of the directory and organizational unit (OU) to use to join
+-- the image builder to a Microsoft Active Directory domain.
 --
--- * 'cibAppstreamAgentVersion' - The version of the AppStream 2.0 agent to use for this image builder. To use the latest version of the AppStream 2.0 agent, specify [LATEST].
+-- 'imageName', 'createImageBuilder_imageName' - The name of the image used to create the image builder.
 --
--- * 'cibDescription' - The description to display.
+-- 'tags', 'createImageBuilder_tags' - The tags to associate with the image builder. A tag is a key-value pair,
+-- and the value is optional. For example, Environment=Test. If you do not
+-- specify a value, Environment=.
 --
--- * 'cibDisplayName' - The image builder name to display.
+-- Generally allowed characters are: letters, numbers, and spaces
+-- representable in UTF-8, and the following special characters:
 --
--- * 'cibEnableDefaultInternetAccess' - Enables or disables default internet access for the image builder.
+-- _ . : \/ = + \\ - \@
 --
--- * 'cibImageARN' - The ARN of the public, private, or shared image to use.
+-- If you do not specify a value, the value is set to an empty string.
 --
--- * 'cibName' - A unique name for the image builder.
+-- For more information about tags, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
 --
--- * 'cibInstanceType' - The instance type to use when launching the image builder. The following instance types are available:     * stream.standard.small     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.memory.z1d.large     * stream.memory.z1d.xlarge     * stream.memory.z1d.2xlarge     * stream.memory.z1d.3xlarge     * stream.memory.z1d.6xlarge     * stream.memory.z1d.12xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics.g4dn.xlarge     * stream.graphics.g4dn.2xlarge     * stream.graphics.g4dn.4xlarge     * stream.graphics.g4dn.8xlarge     * stream.graphics.g4dn.12xlarge     * stream.graphics.g4dn.16xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
-createImageBuilder ::
-  -- | 'cibName'
-  Text ->
-  -- | 'cibInstanceType'
-  Text ->
+-- 'appstreamAgentVersion', 'createImageBuilder_appstreamAgentVersion' - The version of the AppStream 2.0 agent to use for this image builder. To
+-- use the latest version of the AppStream 2.0 agent, specify [LATEST].
+--
+-- 'description', 'createImageBuilder_description' - The description to display.
+--
+-- 'displayName', 'createImageBuilder_displayName' - The image builder name to display.
+--
+-- 'enableDefaultInternetAccess', 'createImageBuilder_enableDefaultInternetAccess' - Enables or disables default internet access for the image builder.
+--
+-- 'imageArn', 'createImageBuilder_imageArn' - The ARN of the public, private, or shared image to use.
+--
+-- 'name', 'createImageBuilder_name' - A unique name for the image builder.
+--
+-- 'instanceType', 'createImageBuilder_instanceType' - The instance type to use when launching the image builder. The following
+-- instance types are available:
+--
+-- -   stream.standard.small
+--
+-- -   stream.standard.medium
+--
+-- -   stream.standard.large
+--
+-- -   stream.compute.large
+--
+-- -   stream.compute.xlarge
+--
+-- -   stream.compute.2xlarge
+--
+-- -   stream.compute.4xlarge
+--
+-- -   stream.compute.8xlarge
+--
+-- -   stream.memory.large
+--
+-- -   stream.memory.xlarge
+--
+-- -   stream.memory.2xlarge
+--
+-- -   stream.memory.4xlarge
+--
+-- -   stream.memory.8xlarge
+--
+-- -   stream.memory.z1d.large
+--
+-- -   stream.memory.z1d.xlarge
+--
+-- -   stream.memory.z1d.2xlarge
+--
+-- -   stream.memory.z1d.3xlarge
+--
+-- -   stream.memory.z1d.6xlarge
+--
+-- -   stream.memory.z1d.12xlarge
+--
+-- -   stream.graphics-design.large
+--
+-- -   stream.graphics-design.xlarge
+--
+-- -   stream.graphics-design.2xlarge
+--
+-- -   stream.graphics-design.4xlarge
+--
+-- -   stream.graphics-desktop.2xlarge
+--
+-- -   stream.graphics.g4dn.xlarge
+--
+-- -   stream.graphics.g4dn.2xlarge
+--
+-- -   stream.graphics.g4dn.4xlarge
+--
+-- -   stream.graphics.g4dn.8xlarge
+--
+-- -   stream.graphics.g4dn.12xlarge
+--
+-- -   stream.graphics.g4dn.16xlarge
+--
+-- -   stream.graphics-pro.4xlarge
+--
+-- -   stream.graphics-pro.8xlarge
+--
+-- -   stream.graphics-pro.16xlarge
+newCreateImageBuilder ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'instanceType'
+  Prelude.Text ->
   CreateImageBuilder
-createImageBuilder pName_ pInstanceType_ =
+newCreateImageBuilder pName_ pInstanceType_ =
   CreateImageBuilder'
-    { _cibVPCConfig = Nothing,
-      _cibIAMRoleARN = Nothing,
-      _cibAccessEndpoints = Nothing,
-      _cibDomainJoinInfo = Nothing,
-      _cibImageName = Nothing,
-      _cibTags = Nothing,
-      _cibAppstreamAgentVersion = Nothing,
-      _cibDescription = Nothing,
-      _cibDisplayName = Nothing,
-      _cibEnableDefaultInternetAccess = Nothing,
-      _cibImageARN = Nothing,
-      _cibName = pName_,
-      _cibInstanceType = pInstanceType_
+    { vpcConfig = Prelude.Nothing,
+      iamRoleArn = Prelude.Nothing,
+      accessEndpoints = Prelude.Nothing,
+      domainJoinInfo = Prelude.Nothing,
+      imageName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      appstreamAgentVersion = Prelude.Nothing,
+      description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      enableDefaultInternetAccess = Prelude.Nothing,
+      imageArn = Prelude.Nothing,
+      name = pName_,
+      instanceType = pInstanceType_
     }
 
--- | The VPC configuration for the image builder. You can specify only one subnet.
-cibVPCConfig :: Lens' CreateImageBuilder (Maybe VPCConfig)
-cibVPCConfig = lens _cibVPCConfig (\s a -> s {_cibVPCConfig = a})
+-- | The VPC configuration for the image builder. You can specify only one
+-- subnet.
+createImageBuilder_vpcConfig :: Lens.Lens' CreateImageBuilder (Prelude.Maybe VpcConfig)
+createImageBuilder_vpcConfig = Lens.lens (\CreateImageBuilder' {vpcConfig} -> vpcConfig) (\s@CreateImageBuilder' {} a -> s {vpcConfig = a} :: CreateImageBuilder)
 
--- | The Amazon Resource Name (ARN) of the IAM role to apply to the image builder. To assume a role, the image builder calls the AWS Security Token Service (STS) @AssumeRole@ API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the __appstream_machine_role__ credential profile on the instance. For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances> in the /Amazon AppStream 2.0 Administration Guide/ .
-cibIAMRoleARN :: Lens' CreateImageBuilder (Maybe Text)
-cibIAMRoleARN = lens _cibIAMRoleARN (\s a -> s {_cibIAMRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role to apply to the image
+-- builder. To assume a role, the image builder calls the AWS Security
+-- Token Service (STS) @AssumeRole@ API operation and passes the ARN of the
+-- role to use. The operation creates a new session with temporary
+-- credentials. AppStream 2.0 retrieves the temporary credentials and
+-- creates the __appstream_machine_role__ credential profile on the
+-- instance.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
+createImageBuilder_iamRoleArn :: Lens.Lens' CreateImageBuilder (Prelude.Maybe Prelude.Text)
+createImageBuilder_iamRoleArn = Lens.lens (\CreateImageBuilder' {iamRoleArn} -> iamRoleArn) (\s@CreateImageBuilder' {} a -> s {iamRoleArn = a} :: CreateImageBuilder)
 
--- | The list of interface VPC endpoint (interface endpoint) objects. Administrators can connect to the image builder only through the specified endpoints.
-cibAccessEndpoints :: Lens' CreateImageBuilder (Maybe (NonEmpty AccessEndpoint))
-cibAccessEndpoints = lens _cibAccessEndpoints (\s a -> s {_cibAccessEndpoints = a}) . mapping _List1
+-- | The list of interface VPC endpoint (interface endpoint) objects.
+-- Administrators can connect to the image builder only through the
+-- specified endpoints.
+createImageBuilder_accessEndpoints :: Lens.Lens' CreateImageBuilder (Prelude.Maybe (Prelude.NonEmpty AccessEndpoint))
+createImageBuilder_accessEndpoints = Lens.lens (\CreateImageBuilder' {accessEndpoints} -> accessEndpoints) (\s@CreateImageBuilder' {} a -> s {accessEndpoints = a} :: CreateImageBuilder) Prelude.. Lens.mapping Prelude._List1
 
--- | The name of the directory and organizational unit (OU) to use to join the image builder to a Microsoft Active Directory domain.
-cibDomainJoinInfo :: Lens' CreateImageBuilder (Maybe DomainJoinInfo)
-cibDomainJoinInfo = lens _cibDomainJoinInfo (\s a -> s {_cibDomainJoinInfo = a})
+-- | The name of the directory and organizational unit (OU) to use to join
+-- the image builder to a Microsoft Active Directory domain.
+createImageBuilder_domainJoinInfo :: Lens.Lens' CreateImageBuilder (Prelude.Maybe DomainJoinInfo)
+createImageBuilder_domainJoinInfo = Lens.lens (\CreateImageBuilder' {domainJoinInfo} -> domainJoinInfo) (\s@CreateImageBuilder' {} a -> s {domainJoinInfo = a} :: CreateImageBuilder)
 
 -- | The name of the image used to create the image builder.
-cibImageName :: Lens' CreateImageBuilder (Maybe Text)
-cibImageName = lens _cibImageName (\s a -> s {_cibImageName = a})
+createImageBuilder_imageName :: Lens.Lens' CreateImageBuilder (Prelude.Maybe Prelude.Text)
+createImageBuilder_imageName = Lens.lens (\CreateImageBuilder' {imageName} -> imageName) (\s@CreateImageBuilder' {} a -> s {imageName = a} :: CreateImageBuilder)
 
--- | The tags to associate with the image builder. A tag is a key-value pair, and the value is optional. For example, Environment=Test. If you do not specify a value, Environment=.  Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following special characters:  _ . : / = + \ - @ If you do not specify a value, the value is set to an empty string. For more information about tags, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources> in the /Amazon AppStream 2.0 Administration Guide/ .
-cibTags :: Lens' CreateImageBuilder (HashMap Text Text)
-cibTags = lens _cibTags (\s a -> s {_cibTags = a}) . _Default . _Map
+-- | The tags to associate with the image builder. A tag is a key-value pair,
+-- and the value is optional. For example, Environment=Test. If you do not
+-- specify a value, Environment=.
+--
+-- Generally allowed characters are: letters, numbers, and spaces
+-- representable in UTF-8, and the following special characters:
+--
+-- _ . : \/ = + \\ - \@
+--
+-- If you do not specify a value, the value is set to an empty string.
+--
+-- For more information about tags, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
+createImageBuilder_tags :: Lens.Lens' CreateImageBuilder (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createImageBuilder_tags = Lens.lens (\CreateImageBuilder' {tags} -> tags) (\s@CreateImageBuilder' {} a -> s {tags = a} :: CreateImageBuilder) Prelude.. Lens.mapping Prelude._Map
 
--- | The version of the AppStream 2.0 agent to use for this image builder. To use the latest version of the AppStream 2.0 agent, specify [LATEST].
-cibAppstreamAgentVersion :: Lens' CreateImageBuilder (Maybe Text)
-cibAppstreamAgentVersion = lens _cibAppstreamAgentVersion (\s a -> s {_cibAppstreamAgentVersion = a})
+-- | The version of the AppStream 2.0 agent to use for this image builder. To
+-- use the latest version of the AppStream 2.0 agent, specify [LATEST].
+createImageBuilder_appstreamAgentVersion :: Lens.Lens' CreateImageBuilder (Prelude.Maybe Prelude.Text)
+createImageBuilder_appstreamAgentVersion = Lens.lens (\CreateImageBuilder' {appstreamAgentVersion} -> appstreamAgentVersion) (\s@CreateImageBuilder' {} a -> s {appstreamAgentVersion = a} :: CreateImageBuilder)
 
 -- | The description to display.
-cibDescription :: Lens' CreateImageBuilder (Maybe Text)
-cibDescription = lens _cibDescription (\s a -> s {_cibDescription = a})
+createImageBuilder_description :: Lens.Lens' CreateImageBuilder (Prelude.Maybe Prelude.Text)
+createImageBuilder_description = Lens.lens (\CreateImageBuilder' {description} -> description) (\s@CreateImageBuilder' {} a -> s {description = a} :: CreateImageBuilder)
 
 -- | The image builder name to display.
-cibDisplayName :: Lens' CreateImageBuilder (Maybe Text)
-cibDisplayName = lens _cibDisplayName (\s a -> s {_cibDisplayName = a})
+createImageBuilder_displayName :: Lens.Lens' CreateImageBuilder (Prelude.Maybe Prelude.Text)
+createImageBuilder_displayName = Lens.lens (\CreateImageBuilder' {displayName} -> displayName) (\s@CreateImageBuilder' {} a -> s {displayName = a} :: CreateImageBuilder)
 
 -- | Enables or disables default internet access for the image builder.
-cibEnableDefaultInternetAccess :: Lens' CreateImageBuilder (Maybe Bool)
-cibEnableDefaultInternetAccess = lens _cibEnableDefaultInternetAccess (\s a -> s {_cibEnableDefaultInternetAccess = a})
+createImageBuilder_enableDefaultInternetAccess :: Lens.Lens' CreateImageBuilder (Prelude.Maybe Prelude.Bool)
+createImageBuilder_enableDefaultInternetAccess = Lens.lens (\CreateImageBuilder' {enableDefaultInternetAccess} -> enableDefaultInternetAccess) (\s@CreateImageBuilder' {} a -> s {enableDefaultInternetAccess = a} :: CreateImageBuilder)
 
 -- | The ARN of the public, private, or shared image to use.
-cibImageARN :: Lens' CreateImageBuilder (Maybe Text)
-cibImageARN = lens _cibImageARN (\s a -> s {_cibImageARN = a})
+createImageBuilder_imageArn :: Lens.Lens' CreateImageBuilder (Prelude.Maybe Prelude.Text)
+createImageBuilder_imageArn = Lens.lens (\CreateImageBuilder' {imageArn} -> imageArn) (\s@CreateImageBuilder' {} a -> s {imageArn = a} :: CreateImageBuilder)
 
 -- | A unique name for the image builder.
-cibName :: Lens' CreateImageBuilder Text
-cibName = lens _cibName (\s a -> s {_cibName = a})
+createImageBuilder_name :: Lens.Lens' CreateImageBuilder Prelude.Text
+createImageBuilder_name = Lens.lens (\CreateImageBuilder' {name} -> name) (\s@CreateImageBuilder' {} a -> s {name = a} :: CreateImageBuilder)
 
--- | The instance type to use when launching the image builder. The following instance types are available:     * stream.standard.small     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.memory.z1d.large     * stream.memory.z1d.xlarge     * stream.memory.z1d.2xlarge     * stream.memory.z1d.3xlarge     * stream.memory.z1d.6xlarge     * stream.memory.z1d.12xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics.g4dn.xlarge     * stream.graphics.g4dn.2xlarge     * stream.graphics.g4dn.4xlarge     * stream.graphics.g4dn.8xlarge     * stream.graphics.g4dn.12xlarge     * stream.graphics.g4dn.16xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
-cibInstanceType :: Lens' CreateImageBuilder Text
-cibInstanceType = lens _cibInstanceType (\s a -> s {_cibInstanceType = a})
+-- | The instance type to use when launching the image builder. The following
+-- instance types are available:
+--
+-- -   stream.standard.small
+--
+-- -   stream.standard.medium
+--
+-- -   stream.standard.large
+--
+-- -   stream.compute.large
+--
+-- -   stream.compute.xlarge
+--
+-- -   stream.compute.2xlarge
+--
+-- -   stream.compute.4xlarge
+--
+-- -   stream.compute.8xlarge
+--
+-- -   stream.memory.large
+--
+-- -   stream.memory.xlarge
+--
+-- -   stream.memory.2xlarge
+--
+-- -   stream.memory.4xlarge
+--
+-- -   stream.memory.8xlarge
+--
+-- -   stream.memory.z1d.large
+--
+-- -   stream.memory.z1d.xlarge
+--
+-- -   stream.memory.z1d.2xlarge
+--
+-- -   stream.memory.z1d.3xlarge
+--
+-- -   stream.memory.z1d.6xlarge
+--
+-- -   stream.memory.z1d.12xlarge
+--
+-- -   stream.graphics-design.large
+--
+-- -   stream.graphics-design.xlarge
+--
+-- -   stream.graphics-design.2xlarge
+--
+-- -   stream.graphics-design.4xlarge
+--
+-- -   stream.graphics-desktop.2xlarge
+--
+-- -   stream.graphics.g4dn.xlarge
+--
+-- -   stream.graphics.g4dn.2xlarge
+--
+-- -   stream.graphics.g4dn.4xlarge
+--
+-- -   stream.graphics.g4dn.8xlarge
+--
+-- -   stream.graphics.g4dn.12xlarge
+--
+-- -   stream.graphics.g4dn.16xlarge
+--
+-- -   stream.graphics-pro.4xlarge
+--
+-- -   stream.graphics-pro.8xlarge
+--
+-- -   stream.graphics-pro.16xlarge
+createImageBuilder_instanceType :: Lens.Lens' CreateImageBuilder Prelude.Text
+createImageBuilder_instanceType = Lens.lens (\CreateImageBuilder' {instanceType} -> instanceType) (\s@CreateImageBuilder' {} a -> s {instanceType = a} :: CreateImageBuilder)
 
-instance AWSRequest CreateImageBuilder where
+instance Prelude.AWSRequest CreateImageBuilder where
   type
     Rs CreateImageBuilder =
       CreateImageBuilderResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateImageBuilderResponse'
-            <$> (x .?> "ImageBuilder") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ImageBuilder")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateImageBuilder
+instance Prelude.Hashable CreateImageBuilder
 
-instance NFData CreateImageBuilder
+instance Prelude.NFData CreateImageBuilder
 
-instance ToHeaders CreateImageBuilder where
+instance Prelude.ToHeaders CreateImageBuilder where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.CreateImageBuilder" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.CreateImageBuilder" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateImageBuilder where
+instance Prelude.ToJSON CreateImageBuilder where
   toJSON CreateImageBuilder' {..} =
-    object
-      ( catMaybes
-          [ ("VpcConfig" .=) <$> _cibVPCConfig,
-            ("IamRoleArn" .=) <$> _cibIAMRoleARN,
-            ("AccessEndpoints" .=) <$> _cibAccessEndpoints,
-            ("DomainJoinInfo" .=) <$> _cibDomainJoinInfo,
-            ("ImageName" .=) <$> _cibImageName,
-            ("Tags" .=) <$> _cibTags,
-            ("AppstreamAgentVersion" .=)
-              <$> _cibAppstreamAgentVersion,
-            ("Description" .=) <$> _cibDescription,
-            ("DisplayName" .=) <$> _cibDisplayName,
-            ("EnableDefaultInternetAccess" .=)
-              <$> _cibEnableDefaultInternetAccess,
-            ("ImageArn" .=) <$> _cibImageARN,
-            Just ("Name" .= _cibName),
-            Just ("InstanceType" .= _cibInstanceType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("IamRoleArn" Prelude..=) Prelude.<$> iamRoleArn,
+            ("AccessEndpoints" Prelude..=)
+              Prelude.<$> accessEndpoints,
+            ("DomainJoinInfo" Prelude..=)
+              Prelude.<$> domainJoinInfo,
+            ("ImageName" Prelude..=) Prelude.<$> imageName,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("AppstreamAgentVersion" Prelude..=)
+              Prelude.<$> appstreamAgentVersion,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            ("EnableDefaultInternetAccess" Prelude..=)
+              Prelude.<$> enableDefaultInternetAccess,
+            ("ImageArn" Prelude..=) Prelude.<$> imageArn,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("InstanceType" Prelude..= instanceType)
           ]
       )
 
-instance ToPath CreateImageBuilder where
-  toPath = const "/"
+instance Prelude.ToPath CreateImageBuilder where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateImageBuilder where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateImageBuilder where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createImageBuilderResponse' smart constructor.
+-- | /See:/ 'newCreateImageBuilderResponse' smart constructor.
 data CreateImageBuilderResponse = CreateImageBuilderResponse'
-  { _cibrrsImageBuilder ::
-      !( Maybe
-           ImageBuilder
-       ),
-    _cibrrsResponseStatus ::
-      !Int
+  { -- | Information about the image builder.
+    imageBuilder :: Prelude.Maybe ImageBuilder,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateImageBuilderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateImageBuilderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cibrrsImageBuilder' - Information about the image builder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cibrrsResponseStatus' - -- | The response status code.
-createImageBuilderResponse ::
-  -- | 'cibrrsResponseStatus'
-  Int ->
+-- 'imageBuilder', 'createImageBuilderResponse_imageBuilder' - Information about the image builder.
+--
+-- 'httpStatus', 'createImageBuilderResponse_httpStatus' - The response's http status code.
+newCreateImageBuilderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateImageBuilderResponse
-createImageBuilderResponse pResponseStatus_ =
+newCreateImageBuilderResponse pHttpStatus_ =
   CreateImageBuilderResponse'
-    { _cibrrsImageBuilder =
-        Nothing,
-      _cibrrsResponseStatus = pResponseStatus_
+    { imageBuilder =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the image builder.
-cibrrsImageBuilder :: Lens' CreateImageBuilderResponse (Maybe ImageBuilder)
-cibrrsImageBuilder = lens _cibrrsImageBuilder (\s a -> s {_cibrrsImageBuilder = a})
+createImageBuilderResponse_imageBuilder :: Lens.Lens' CreateImageBuilderResponse (Prelude.Maybe ImageBuilder)
+createImageBuilderResponse_imageBuilder = Lens.lens (\CreateImageBuilderResponse' {imageBuilder} -> imageBuilder) (\s@CreateImageBuilderResponse' {} a -> s {imageBuilder = a} :: CreateImageBuilderResponse)
 
--- | -- | The response status code.
-cibrrsResponseStatus :: Lens' CreateImageBuilderResponse Int
-cibrrsResponseStatus = lens _cibrrsResponseStatus (\s a -> s {_cibrrsResponseStatus = a})
+-- | The response's http status code.
+createImageBuilderResponse_httpStatus :: Lens.Lens' CreateImageBuilderResponse Prelude.Int
+createImageBuilderResponse_httpStatus = Lens.lens (\CreateImageBuilderResponse' {httpStatus} -> httpStatus) (\s@CreateImageBuilderResponse' {} a -> s {httpStatus = a} :: CreateImageBuilderResponse)
 
-instance NFData CreateImageBuilderResponse
+instance Prelude.NFData CreateImageBuilderResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,80 @@
 module Network.AWS.AppStream.Types.Action
   ( Action
       ( ..,
-        ClipboardCopyFromLocalDevice,
-        ClipboardCopyToLocalDevice,
-        DomainPasswordSignin,
-        DomainSmartCardSignin,
-        FileDownload,
-        FileUpload,
-        PrintingToLocalDevice
+        ActionCLIPBOARDCOPYFROMLOCALDEVICE,
+        ActionCLIPBOARDCOPYTOLOCALDEVICE,
+        ActionDOMAINPASSWORDSIGNIN,
+        ActionDOMAINSMARTCARDSIGNIN,
+        ActionFILEDOWNLOAD,
+        ActionFILEUPLOAD,
+        ActionPRINTINGTOLOCALDEVICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Action = Action' (CI Text)
+newtype Action = Action' {fromAction :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClipboardCopyFromLocalDevice :: Action
-pattern ClipboardCopyFromLocalDevice = Action' "CLIPBOARD_COPY_FROM_LOCAL_DEVICE"
+pattern ActionCLIPBOARDCOPYFROMLOCALDEVICE :: Action
+pattern ActionCLIPBOARDCOPYFROMLOCALDEVICE = Action' "CLIPBOARD_COPY_FROM_LOCAL_DEVICE"
 
-pattern ClipboardCopyToLocalDevice :: Action
-pattern ClipboardCopyToLocalDevice = Action' "CLIPBOARD_COPY_TO_LOCAL_DEVICE"
+pattern ActionCLIPBOARDCOPYTOLOCALDEVICE :: Action
+pattern ActionCLIPBOARDCOPYTOLOCALDEVICE = Action' "CLIPBOARD_COPY_TO_LOCAL_DEVICE"
 
-pattern DomainPasswordSignin :: Action
-pattern DomainPasswordSignin = Action' "DOMAIN_PASSWORD_SIGNIN"
+pattern ActionDOMAINPASSWORDSIGNIN :: Action
+pattern ActionDOMAINPASSWORDSIGNIN = Action' "DOMAIN_PASSWORD_SIGNIN"
 
-pattern DomainSmartCardSignin :: Action
-pattern DomainSmartCardSignin = Action' "DOMAIN_SMART_CARD_SIGNIN"
+pattern ActionDOMAINSMARTCARDSIGNIN :: Action
+pattern ActionDOMAINSMARTCARDSIGNIN = Action' "DOMAIN_SMART_CARD_SIGNIN"
 
-pattern FileDownload :: Action
-pattern FileDownload = Action' "FILE_DOWNLOAD"
+pattern ActionFILEDOWNLOAD :: Action
+pattern ActionFILEDOWNLOAD = Action' "FILE_DOWNLOAD"
 
-pattern FileUpload :: Action
-pattern FileUpload = Action' "FILE_UPLOAD"
+pattern ActionFILEUPLOAD :: Action
+pattern ActionFILEUPLOAD = Action' "FILE_UPLOAD"
 
-pattern PrintingToLocalDevice :: Action
-pattern PrintingToLocalDevice = Action' "PRINTING_TO_LOCAL_DEVICE"
+pattern ActionPRINTINGTOLOCALDEVICE :: Action
+pattern ActionPRINTINGTOLOCALDEVICE = Action' "PRINTING_TO_LOCAL_DEVICE"
 
 {-# COMPLETE
-  ClipboardCopyFromLocalDevice,
-  ClipboardCopyToLocalDevice,
-  DomainPasswordSignin,
-  DomainSmartCardSignin,
-  FileDownload,
-  FileUpload,
-  PrintingToLocalDevice,
+  ActionCLIPBOARDCOPYFROMLOCALDEVICE,
+  ActionCLIPBOARDCOPYTOLOCALDEVICE,
+  ActionDOMAINPASSWORDSIGNIN,
+  ActionDOMAINSMARTCARDSIGNIN,
+  ActionFILEDOWNLOAD,
+  ActionFILEUPLOAD,
+  ActionPRINTINGTOLOCALDEVICE,
   Action'
   #-}
 
-instance FromText Action where
-  parser = (Action' . mk) <$> takeText
+instance Prelude.FromText Action where
+  parser = Action' Prelude.<$> Prelude.takeText
 
-instance ToText Action where
-  toText (Action' ci) = original ci
+instance Prelude.ToText Action where
+  toText (Action' x) = x
 
-instance Hashable Action
+instance Prelude.Hashable Action
 
-instance NFData Action
+instance Prelude.NFData Action
 
-instance ToByteString Action
+instance Prelude.ToByteString Action
 
-instance ToQuery Action
+instance Prelude.ToQuery Action
 
-instance ToHeader Action
+instance Prelude.ToHeader Action
 
-instance ToJSON Action where
-  toJSON = toJSONText
+instance Prelude.ToJSON Action where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Action where
-  parseJSON = parseJSONText "Action"
+instance Prelude.FromJSON Action where
+  parseJSON = Prelude.parseJSONText "Action"

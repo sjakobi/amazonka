@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types
   ( -- * Service Configuration
-    appStream,
+    defaultService,
 
     -- * Errors
     _ResourceNotAvailableException,
@@ -101,272 +104,123 @@ module Network.AWS.AppStream.Types
 
     -- * AccessEndpoint
     AccessEndpoint (..),
-    accessEndpoint,
-    aeVPCeId,
-    aeEndpointType,
+    newAccessEndpoint,
 
     -- * Application
     Application (..),
-    application,
-    aIconURL,
-    aLaunchPath,
-    aEnabled,
-    aMetadata,
-    aLaunchParameters,
-    aName,
-    aDisplayName,
+    newApplication,
 
     -- * ApplicationSettings
     ApplicationSettings (..),
-    applicationSettings,
-    asSettingsGroup,
-    asEnabled,
+    newApplicationSettings,
 
     -- * ApplicationSettingsResponse
     ApplicationSettingsResponse (..),
-    applicationSettingsResponse,
-    asrEnabled,
-    asrSettingsGroup,
-    asrS3BucketName,
+    newApplicationSettingsResponse,
 
     -- * ComputeCapacity
     ComputeCapacity (..),
-    computeCapacity,
-    ccDesiredInstances,
+    newComputeCapacity,
 
     -- * ComputeCapacityStatus
     ComputeCapacityStatus (..),
-    computeCapacityStatus,
-    ccsRunning,
-    ccsAvailable,
-    ccsInUse,
-    ccsDesired,
+    newComputeCapacityStatus,
 
     -- * DirectoryConfig
     DirectoryConfig (..),
-    directoryConfig,
-    dcServiceAccountCredentials,
-    dcCreatedTime,
-    dcOrganizationalUnitDistinguishedNames,
-    dcDirectoryName,
+    newDirectoryConfig,
 
     -- * DomainJoinInfo
     DomainJoinInfo (..),
-    domainJoinInfo,
-    djiOrganizationalUnitDistinguishedName,
-    djiDirectoryName,
+    newDomainJoinInfo,
 
     -- * Fleet
     Fleet (..),
-    fleet,
-    fMaxUserDurationInSeconds,
-    fDisconnectTimeoutInSeconds,
-    fVPCConfig,
-    fIAMRoleARN,
-    fDomainJoinInfo,
-    fFleetType,
-    fIdleDisconnectTimeoutInSeconds,
-    fImageName,
-    fCreatedTime,
-    fStreamView,
-    fDescription,
-    fDisplayName,
-    fEnableDefaultInternetAccess,
-    fFleetErrors,
-    fImageARN,
-    fARN,
-    fName,
-    fInstanceType,
-    fComputeCapacityStatus,
-    fState,
+    newFleet,
 
     -- * FleetError
     FleetError (..),
-    fleetError,
-    feErrorMessage,
-    feErrorCode,
+    newFleetError,
 
     -- * Image
     Image (..),
-    image,
-    iImagePermissions,
-    iPlatform,
-    iImageBuilderName,
-    iARN,
-    iStateChangeReason,
-    iCreatedTime,
-    iState,
-    iBaseImageARN,
-    iApplications,
-    iVisibility,
-    iAppstreamAgentVersion,
-    iDescription,
-    iImageBuilderSupported,
-    iDisplayName,
-    iPublicBaseImageReleasedDate,
-    iName,
+    newImage,
 
     -- * ImageBuilder
     ImageBuilder (..),
-    imageBuilder,
-    ibPlatform,
-    ibVPCConfig,
-    ibIAMRoleARN,
-    ibAccessEndpoints,
-    ibDomainJoinInfo,
-    ibInstanceType,
-    ibARN,
-    ibStateChangeReason,
-    ibCreatedTime,
-    ibNetworkAccessConfiguration,
-    ibState,
-    ibAppstreamAgentVersion,
-    ibDescription,
-    ibDisplayName,
-    ibEnableDefaultInternetAccess,
-    ibImageBuilderErrors,
-    ibImageARN,
-    ibName,
+    newImageBuilder,
 
     -- * ImageBuilderStateChangeReason
     ImageBuilderStateChangeReason (..),
-    imageBuilderStateChangeReason,
-    ibscrMessage,
-    ibscrCode,
+    newImageBuilderStateChangeReason,
 
     -- * ImagePermissions
     ImagePermissions (..),
-    imagePermissions,
-    ipAllowImageBuilder,
-    ipAllowFleet,
+    newImagePermissions,
 
     -- * ImageStateChangeReason
     ImageStateChangeReason (..),
-    imageStateChangeReason,
-    iscrMessage,
-    iscrCode,
+    newImageStateChangeReason,
 
     -- * LastReportGenerationExecutionError
     LastReportGenerationExecutionError (..),
-    lastReportGenerationExecutionError,
-    lrgeeErrorMessage,
-    lrgeeErrorCode,
+    newLastReportGenerationExecutionError,
 
     -- * NetworkAccessConfiguration
     NetworkAccessConfiguration (..),
-    networkAccessConfiguration,
-    nacEniId,
-    nacEniPrivateIPAddress,
+    newNetworkAccessConfiguration,
 
     -- * ResourceError
     ResourceError (..),
-    resourceError,
-    reErrorTimestamp,
-    reErrorMessage,
-    reErrorCode,
+    newResourceError,
 
     -- * ServiceAccountCredentials
     ServiceAccountCredentials (..),
-    serviceAccountCredentials,
-    sacAccountName,
-    sacAccountPassword,
+    newServiceAccountCredentials,
 
     -- * Session
     Session (..),
-    session,
-    sConnectionState,
-    sStartTime,
-    sNetworkAccessConfiguration,
-    sAuthenticationType,
-    sMaxExpirationTime,
-    sId,
-    sUserId,
-    sStackName,
-    sFleetName,
-    sState,
+    newSession,
 
     -- * SharedImagePermissions
     SharedImagePermissions (..),
-    sharedImagePermissions,
-    sipSharedAccountId,
-    sipImagePermissions,
+    newSharedImagePermissions,
 
     -- * Stack
     Stack (..),
-    stack,
-    sAccessEndpoints,
-    sUserSettings,
-    sRedirectURL,
-    sARN,
-    sCreatedTime,
-    sApplicationSettings,
-    sStorageConnectors,
-    sDescription,
-    sEmbedHostDomains,
-    sDisplayName,
-    sStackErrors,
-    sFeedbackURL,
-    sName,
+    newStack,
 
     -- * StackError
     StackError (..),
-    stackError,
-    seErrorMessage,
-    seErrorCode,
+    newStackError,
 
     -- * StorageConnector
     StorageConnector (..),
-    storageConnector,
-    scDomains,
-    scResourceIdentifier,
-    scConnectorType,
+    newStorageConnector,
 
     -- * UsageReportSubscription
     UsageReportSubscription (..),
-    usageReportSubscription,
-    ursSubscriptionErrors,
-    ursLastGeneratedReportDate,
-    ursS3BucketName,
-    ursSchedule,
+    newUsageReportSubscription,
 
     -- * User
     User (..),
-    user,
-    uStatus,
-    uARN,
-    uEnabled,
-    uCreatedTime,
-    uUserName,
-    uFirstName,
-    uLastName,
-    uAuthenticationType,
+    newUser,
 
     -- * UserSetting
     UserSetting (..),
-    userSetting,
-    usAction,
-    usPermission,
+    newUserSetting,
 
     -- * UserStackAssociation
     UserStackAssociation (..),
-    userStackAssociation,
-    usaSendEmailNotification,
-    usaStackName,
-    usaUserName,
-    usaAuthenticationType,
+    newUserStackAssociation,
 
     -- * UserStackAssociationError
     UserStackAssociationError (..),
-    userStackAssociationError,
-    usaeUserStackAssociation,
-    usaeErrorMessage,
-    usaeErrorCode,
+    newUserStackAssociationError,
 
-    -- * VPCConfig
-    VPCConfig (..),
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcSubnetIds,
+    -- * VpcConfig
+    VpcConfig (..),
+    newVpcConfig,
   )
 where
 
@@ -422,141 +276,166 @@ import Network.AWS.AppStream.Types.UserSetting
 import Network.AWS.AppStream.Types.UserStackAssociation
 import Network.AWS.AppStream.Types.UserStackAssociationError
 import Network.AWS.AppStream.Types.UserStackAssociationErrorCode
-import Network.AWS.AppStream.Types.VPCConfig
 import Network.AWS.AppStream.Types.VisibilityType
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import Network.AWS.AppStream.Types.VpcConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-12-01@ of the Amazon AppStream SDK configuration.
-appStream :: Service
-appStream =
-  Service
-    { _svcAbbrev = "AppStream",
-      _svcSigner = v4,
-      _svcPrefix = "appstream2",
-      _svcVersion = "2016-12-01",
-      _svcEndpoint = defaultEndpoint appStream,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "AppStream",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "AppStream",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "appstream2",
+      Prelude._svcVersion = "2016-12-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "AppStream",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The specified resource exists and is not in use, but isn't available.
-_ResourceNotAvailableException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified resource exists and is not in use, but isn\'t available.
+_ResourceNotAvailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotAvailableException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotAvailableException"
 
 -- | The image does not support storage connectors.
-_IncompatibleImageException :: AsError a => Getting (First ServiceError) a ServiceError
+_IncompatibleImageException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IncompatibleImageException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "IncompatibleImageException"
 
--- | Indicates an incorrect combination of parameters, or a missing parameter.
-_InvalidParameterCombinationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates an incorrect combination of parameters, or a missing
+-- parameter.
+_InvalidParameterCombinationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterCombinationException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterCombinationException"
 
 -- | The specified resource already exists.
-_ResourceAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyExistsException"
 
--- | The resource cannot be created because your AWS account is suspended. For assistance, contact AWS Support.
-_InvalidAccountStatusException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource cannot be created because your AWS account is suspended.
+-- For assistance, contact AWS Support.
+_InvalidAccountStatusException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidAccountStatusException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "InvalidAccountStatusException"
 
 -- | The attempted operation is not permitted.
-_OperationNotPermittedException :: AsError a => Getting (First ServiceError) a ServiceError
+_OperationNotPermittedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationNotPermittedException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "OperationNotPermittedException"
 
 -- | An API error occurred. Wait a few minutes and try again.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
 
 -- | The specified role is invalid.
-_InvalidRoleException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRoleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRoleException =
-  _MatchServiceError appStream "InvalidRoleException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidRoleException"
 
 -- | The specified resource is in use.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
 
 -- | The requested limit exceeds the permitted limit for an account.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
 -- | The specified resource was not found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
--- | AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are being throttled by Amazon EC2. Try again later.
-_RequestLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | AppStream 2.0 can’t process the request right now because the Describe
+-- calls from your AWS account are being throttled by Amazon EC2. Try again
+-- later.
+_RequestLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RequestLimitExceededException =
-  _MatchServiceError
-    appStream
+  Prelude._MatchServiceError
+    defaultService
     "RequestLimitExceededException"

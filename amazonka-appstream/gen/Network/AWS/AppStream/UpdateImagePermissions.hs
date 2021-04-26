@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,162 +24,165 @@
 -- Adds or updates permissions for the specified private image.
 module Network.AWS.AppStream.UpdateImagePermissions
   ( -- * Creating a Request
-    updateImagePermissions,
-    UpdateImagePermissions,
+    UpdateImagePermissions (..),
+    newUpdateImagePermissions,
 
     -- * Request Lenses
-    uipName,
-    uipSharedAccountId,
-    uipImagePermissions,
+    updateImagePermissions_name,
+    updateImagePermissions_sharedAccountId,
+    updateImagePermissions_imagePermissions,
 
     -- * Destructuring the Response
-    updateImagePermissionsResponse,
-    UpdateImagePermissionsResponse,
+    UpdateImagePermissionsResponse (..),
+    newUpdateImagePermissionsResponse,
 
     -- * Response Lenses
-    uiprrsResponseStatus,
+    updateImagePermissionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateImagePermissions' smart constructor.
+-- | /See:/ 'newUpdateImagePermissions' smart constructor.
 data UpdateImagePermissions = UpdateImagePermissions'
-  { _uipName ::
-      !Text,
-    _uipSharedAccountId ::
-      !Text,
-    _uipImagePermissions ::
-      !ImagePermissions
+  { -- | The name of the private image.
+    name :: Prelude.Text,
+    -- | The 12-digit identifier of the AWS account for which you want add or
+    -- update image permissions.
+    sharedAccountId :: Prelude.Text,
+    -- | The permissions for the image.
+    imagePermissions :: ImagePermissions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateImagePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateImagePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uipName' - The name of the private image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uipSharedAccountId' - The 12-digit identifier of the AWS account for which you want add or update image permissions.
+-- 'name', 'updateImagePermissions_name' - The name of the private image.
 --
--- * 'uipImagePermissions' - The permissions for the image.
-updateImagePermissions ::
-  -- | 'uipName'
-  Text ->
-  -- | 'uipSharedAccountId'
-  Text ->
-  -- | 'uipImagePermissions'
+-- 'sharedAccountId', 'updateImagePermissions_sharedAccountId' - The 12-digit identifier of the AWS account for which you want add or
+-- update image permissions.
+--
+-- 'imagePermissions', 'updateImagePermissions_imagePermissions' - The permissions for the image.
+newUpdateImagePermissions ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'sharedAccountId'
+  Prelude.Text ->
+  -- | 'imagePermissions'
   ImagePermissions ->
   UpdateImagePermissions
-updateImagePermissions
+newUpdateImagePermissions
   pName_
   pSharedAccountId_
   pImagePermissions_ =
     UpdateImagePermissions'
-      { _uipName = pName_,
-        _uipSharedAccountId = pSharedAccountId_,
-        _uipImagePermissions = pImagePermissions_
+      { name = pName_,
+        sharedAccountId = pSharedAccountId_,
+        imagePermissions = pImagePermissions_
       }
 
 -- | The name of the private image.
-uipName :: Lens' UpdateImagePermissions Text
-uipName = lens _uipName (\s a -> s {_uipName = a})
+updateImagePermissions_name :: Lens.Lens' UpdateImagePermissions Prelude.Text
+updateImagePermissions_name = Lens.lens (\UpdateImagePermissions' {name} -> name) (\s@UpdateImagePermissions' {} a -> s {name = a} :: UpdateImagePermissions)
 
--- | The 12-digit identifier of the AWS account for which you want add or update image permissions.
-uipSharedAccountId :: Lens' UpdateImagePermissions Text
-uipSharedAccountId = lens _uipSharedAccountId (\s a -> s {_uipSharedAccountId = a})
+-- | The 12-digit identifier of the AWS account for which you want add or
+-- update image permissions.
+updateImagePermissions_sharedAccountId :: Lens.Lens' UpdateImagePermissions Prelude.Text
+updateImagePermissions_sharedAccountId = Lens.lens (\UpdateImagePermissions' {sharedAccountId} -> sharedAccountId) (\s@UpdateImagePermissions' {} a -> s {sharedAccountId = a} :: UpdateImagePermissions)
 
 -- | The permissions for the image.
-uipImagePermissions :: Lens' UpdateImagePermissions ImagePermissions
-uipImagePermissions = lens _uipImagePermissions (\s a -> s {_uipImagePermissions = a})
+updateImagePermissions_imagePermissions :: Lens.Lens' UpdateImagePermissions ImagePermissions
+updateImagePermissions_imagePermissions = Lens.lens (\UpdateImagePermissions' {imagePermissions} -> imagePermissions) (\s@UpdateImagePermissions' {} a -> s {imagePermissions = a} :: UpdateImagePermissions)
 
-instance AWSRequest UpdateImagePermissions where
+instance Prelude.AWSRequest UpdateImagePermissions where
   type
     Rs UpdateImagePermissions =
       UpdateImagePermissionsResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateImagePermissionsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateImagePermissions
+instance Prelude.Hashable UpdateImagePermissions
 
-instance NFData UpdateImagePermissions
+instance Prelude.NFData UpdateImagePermissions
 
-instance ToHeaders UpdateImagePermissions where
+instance Prelude.ToHeaders UpdateImagePermissions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.UpdateImagePermissions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.UpdateImagePermissions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateImagePermissions where
+instance Prelude.ToJSON UpdateImagePermissions where
   toJSON UpdateImagePermissions' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _uipName),
-            Just ("SharedAccountId" .= _uipSharedAccountId),
-            Just ("ImagePermissions" .= _uipImagePermissions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("SharedAccountId" Prelude..= sharedAccountId),
+            Prelude.Just
+              ("ImagePermissions" Prelude..= imagePermissions)
           ]
       )
 
-instance ToPath UpdateImagePermissions where
-  toPath = const "/"
+instance Prelude.ToPath UpdateImagePermissions where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateImagePermissions where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateImagePermissions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateImagePermissionsResponse' smart constructor.
-newtype UpdateImagePermissionsResponse = UpdateImagePermissionsResponse'
-  { _uiprrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateImagePermissionsResponse' smart constructor.
+data UpdateImagePermissionsResponse = UpdateImagePermissionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateImagePermissionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateImagePermissionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uiprrsResponseStatus' - -- | The response status code.
-updateImagePermissionsResponse ::
-  -- | 'uiprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateImagePermissionsResponse_httpStatus' - The response's http status code.
+newUpdateImagePermissionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateImagePermissionsResponse
-updateImagePermissionsResponse pResponseStatus_ =
+newUpdateImagePermissionsResponse pHttpStatus_ =
   UpdateImagePermissionsResponse'
-    { _uiprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uiprrsResponseStatus :: Lens' UpdateImagePermissionsResponse Int
-uiprrsResponseStatus = lens _uiprrsResponseStatus (\s a -> s {_uiprrsResponseStatus = a})
+-- | The response's http status code.
+updateImagePermissionsResponse_httpStatus :: Lens.Lens' UpdateImagePermissionsResponse Prelude.Int
+updateImagePermissionsResponse_httpStatus = Lens.lens (\UpdateImagePermissionsResponse' {httpStatus} -> httpStatus) (\s@UpdateImagePermissionsResponse' {} a -> s {httpStatus = a} :: UpdateImagePermissionsResponse)
 
-instance NFData UpdateImagePermissionsResponse
+instance
+  Prelude.NFData
+    UpdateImagePermissionsResponse

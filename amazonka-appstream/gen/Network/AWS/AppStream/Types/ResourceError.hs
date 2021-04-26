@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,67 @@
 module Network.AWS.AppStream.Types.ResourceError where
 
 import Network.AWS.AppStream.Types.FleetErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a resource error.
 --
---
---
--- /See:/ 'resourceError' smart constructor.
+-- /See:/ 'newResourceError' smart constructor.
 data ResourceError = ResourceError'
-  { _reErrorTimestamp ::
-      !(Maybe POSIX),
-    _reErrorMessage :: !(Maybe Text),
-    _reErrorCode :: !(Maybe FleetErrorCode)
+  { -- | The time the error occurred.
+    errorTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The error message.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    errorCode :: Prelude.Maybe FleetErrorCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'reErrorTimestamp' - The time the error occurred.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'reErrorMessage' - The error message.
+-- 'errorTimestamp', 'resourceError_errorTimestamp' - The time the error occurred.
 --
--- * 'reErrorCode' - The error code.
-resourceError ::
+-- 'errorMessage', 'resourceError_errorMessage' - The error message.
+--
+-- 'errorCode', 'resourceError_errorCode' - The error code.
+newResourceError ::
   ResourceError
-resourceError =
+newResourceError =
   ResourceError'
-    { _reErrorTimestamp = Nothing,
-      _reErrorMessage = Nothing,
-      _reErrorCode = Nothing
+    { errorTimestamp = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The time the error occurred.
-reErrorTimestamp :: Lens' ResourceError (Maybe UTCTime)
-reErrorTimestamp = lens _reErrorTimestamp (\s a -> s {_reErrorTimestamp = a}) . mapping _Time
+resourceError_errorTimestamp :: Lens.Lens' ResourceError (Prelude.Maybe Prelude.UTCTime)
+resourceError_errorTimestamp = Lens.lens (\ResourceError' {errorTimestamp} -> errorTimestamp) (\s@ResourceError' {} a -> s {errorTimestamp = a} :: ResourceError) Prelude.. Lens.mapping Prelude._Time
 
 -- | The error message.
-reErrorMessage :: Lens' ResourceError (Maybe Text)
-reErrorMessage = lens _reErrorMessage (\s a -> s {_reErrorMessage = a})
+resourceError_errorMessage :: Lens.Lens' ResourceError (Prelude.Maybe Prelude.Text)
+resourceError_errorMessage = Lens.lens (\ResourceError' {errorMessage} -> errorMessage) (\s@ResourceError' {} a -> s {errorMessage = a} :: ResourceError)
 
 -- | The error code.
-reErrorCode :: Lens' ResourceError (Maybe FleetErrorCode)
-reErrorCode = lens _reErrorCode (\s a -> s {_reErrorCode = a})
+resourceError_errorCode :: Lens.Lens' ResourceError (Prelude.Maybe FleetErrorCode)
+resourceError_errorCode = Lens.lens (\ResourceError' {errorCode} -> errorCode) (\s@ResourceError' {} a -> s {errorCode = a} :: ResourceError)
 
-instance FromJSON ResourceError where
+instance Prelude.FromJSON ResourceError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceError"
       ( \x ->
           ResourceError'
-            <$> (x .:? "ErrorTimestamp")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "ErrorTimestamp")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable ResourceError
+instance Prelude.Hashable ResourceError
 
-instance NFData ResourceError
+instance Prelude.NFData ResourceError

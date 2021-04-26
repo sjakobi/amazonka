@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified Directory Config object from AppStream 2.0. This object includes the information required to join streaming instances to an Active Directory domain.
+-- Deletes the specified Directory Config object from AppStream 2.0. This
+-- object includes the information required to join streaming instances to
+-- an Active Directory domain.
 module Network.AWS.AppStream.DeleteDirectoryConfig
   ( -- * Creating a Request
-    deleteDirectoryConfig,
-    DeleteDirectoryConfig,
+    DeleteDirectoryConfig (..),
+    newDeleteDirectoryConfig,
 
     -- * Request Lenses
-    ddcDirectoryName,
+    deleteDirectoryConfig_directoryName,
 
     -- * Destructuring the Response
-    deleteDirectoryConfigResponse,
-    DeleteDirectoryConfigResponse,
+    DeleteDirectoryConfigResponse (..),
+    newDeleteDirectoryConfigResponse,
 
     -- * Response Lenses
-    ddcrrsResponseStatus,
+    deleteDirectoryConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDirectoryConfig' smart constructor.
-newtype DeleteDirectoryConfig = DeleteDirectoryConfig'
-  { _ddcDirectoryName ::
-      Text
+-- | /See:/ 'newDeleteDirectoryConfig' smart constructor.
+data DeleteDirectoryConfig = DeleteDirectoryConfig'
+  { -- | The name of the directory configuration.
+    directoryName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDirectoryConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDirectoryConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcDirectoryName' - The name of the directory configuration.
-deleteDirectoryConfig ::
-  -- | 'ddcDirectoryName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'directoryName', 'deleteDirectoryConfig_directoryName' - The name of the directory configuration.
+newDeleteDirectoryConfig ::
+  -- | 'directoryName'
+  Prelude.Text ->
   DeleteDirectoryConfig
-deleteDirectoryConfig pDirectoryName_ =
+newDeleteDirectoryConfig pDirectoryName_ =
   DeleteDirectoryConfig'
-    { _ddcDirectoryName =
+    { directoryName =
         pDirectoryName_
     }
 
 -- | The name of the directory configuration.
-ddcDirectoryName :: Lens' DeleteDirectoryConfig Text
-ddcDirectoryName = lens _ddcDirectoryName (\s a -> s {_ddcDirectoryName = a})
+deleteDirectoryConfig_directoryName :: Lens.Lens' DeleteDirectoryConfig Prelude.Text
+deleteDirectoryConfig_directoryName = Lens.lens (\DeleteDirectoryConfig' {directoryName} -> directoryName) (\s@DeleteDirectoryConfig' {} a -> s {directoryName = a} :: DeleteDirectoryConfig)
 
-instance AWSRequest DeleteDirectoryConfig where
+instance Prelude.AWSRequest DeleteDirectoryConfig where
   type
     Rs DeleteDirectoryConfig =
       DeleteDirectoryConfigResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteDirectoryConfigResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDirectoryConfig
+instance Prelude.Hashable DeleteDirectoryConfig
 
-instance NFData DeleteDirectoryConfig
+instance Prelude.NFData DeleteDirectoryConfig
 
-instance ToHeaders DeleteDirectoryConfig where
+instance Prelude.ToHeaders DeleteDirectoryConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.DeleteDirectoryConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.DeleteDirectoryConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDirectoryConfig where
+instance Prelude.ToJSON DeleteDirectoryConfig where
   toJSON DeleteDirectoryConfig' {..} =
-    object
-      ( catMaybes
-          [Just ("DirectoryName" .= _ddcDirectoryName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DirectoryName" Prelude..= directoryName)
+          ]
       )
 
-instance ToPath DeleteDirectoryConfig where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDirectoryConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDirectoryConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDirectoryConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDirectoryConfigResponse' smart constructor.
-newtype DeleteDirectoryConfigResponse = DeleteDirectoryConfigResponse'
-  { _ddcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteDirectoryConfigResponse' smart constructor.
+data DeleteDirectoryConfigResponse = DeleteDirectoryConfigResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDirectoryConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDirectoryConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcrrsResponseStatus' - -- | The response status code.
-deleteDirectoryConfigResponse ::
-  -- | 'ddcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDirectoryConfigResponse_httpStatus' - The response's http status code.
+newDeleteDirectoryConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDirectoryConfigResponse
-deleteDirectoryConfigResponse pResponseStatus_ =
+newDeleteDirectoryConfigResponse pHttpStatus_ =
   DeleteDirectoryConfigResponse'
-    { _ddcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ddcrrsResponseStatus :: Lens' DeleteDirectoryConfigResponse Int
-ddcrrsResponseStatus = lens _ddcrrsResponseStatus (\s a -> s {_ddcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDirectoryConfigResponse_httpStatus :: Lens.Lens' DeleteDirectoryConfigResponse Prelude.Int
+deleteDirectoryConfigResponse_httpStatus = Lens.lens (\DeleteDirectoryConfigResponse' {httpStatus} -> httpStatus) (\s@DeleteDirectoryConfigResponse' {} a -> s {httpStatus = a} :: DeleteDirectoryConfigResponse)
 
-instance NFData DeleteDirectoryConfigResponse
+instance Prelude.NFData DeleteDirectoryConfigResponse

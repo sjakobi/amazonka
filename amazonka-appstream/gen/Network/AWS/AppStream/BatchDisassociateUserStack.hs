@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,149 +24,150 @@
 -- Disassociates the specified users from the specified stacks.
 module Network.AWS.AppStream.BatchDisassociateUserStack
   ( -- * Creating a Request
-    batchDisassociateUserStack,
-    BatchDisassociateUserStack,
+    BatchDisassociateUserStack (..),
+    newBatchDisassociateUserStack,
 
     -- * Request Lenses
-    bdusUserStackAssociations,
+    batchDisassociateUserStack_userStackAssociations,
 
     -- * Destructuring the Response
-    batchDisassociateUserStackResponse,
-    BatchDisassociateUserStackResponse,
+    BatchDisassociateUserStackResponse (..),
+    newBatchDisassociateUserStackResponse,
 
     -- * Response Lenses
-    bdusrrsErrors,
-    bdusrrsResponseStatus,
+    batchDisassociateUserStackResponse_errors,
+    batchDisassociateUserStackResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.UserStackAssociationError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchDisassociateUserStack' smart constructor.
-newtype BatchDisassociateUserStack = BatchDisassociateUserStack'
-  { _bdusUserStackAssociations ::
-      List1
-        UserStackAssociation
+-- | /See:/ 'newBatchDisassociateUserStack' smart constructor.
+data BatchDisassociateUserStack = BatchDisassociateUserStack'
+  { -- | The list of UserStackAssociation objects.
+    userStackAssociations :: Prelude.List1 UserStackAssociation
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDisassociateUserStack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDisassociateUserStack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdusUserStackAssociations' - The list of UserStackAssociation objects.
-batchDisassociateUserStack ::
-  -- | 'bdusUserStackAssociations'
-  NonEmpty UserStackAssociation ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userStackAssociations', 'batchDisassociateUserStack_userStackAssociations' - The list of UserStackAssociation objects.
+newBatchDisassociateUserStack ::
+  -- | 'userStackAssociations'
+  Prelude.NonEmpty UserStackAssociation ->
   BatchDisassociateUserStack
-batchDisassociateUserStack pUserStackAssociations_ =
+newBatchDisassociateUserStack pUserStackAssociations_ =
   BatchDisassociateUserStack'
-    { _bdusUserStackAssociations =
-        _List1 # pUserStackAssociations_
+    { userStackAssociations =
+        Prelude._List1 Lens.# pUserStackAssociations_
     }
 
 -- | The list of UserStackAssociation objects.
-bdusUserStackAssociations :: Lens' BatchDisassociateUserStack (NonEmpty UserStackAssociation)
-bdusUserStackAssociations = lens _bdusUserStackAssociations (\s a -> s {_bdusUserStackAssociations = a}) . _List1
+batchDisassociateUserStack_userStackAssociations :: Lens.Lens' BatchDisassociateUserStack (Prelude.NonEmpty UserStackAssociation)
+batchDisassociateUserStack_userStackAssociations = Lens.lens (\BatchDisassociateUserStack' {userStackAssociations} -> userStackAssociations) (\s@BatchDisassociateUserStack' {} a -> s {userStackAssociations = a} :: BatchDisassociateUserStack) Prelude.. Prelude._List1
 
-instance AWSRequest BatchDisassociateUserStack where
+instance
+  Prelude.AWSRequest
+    BatchDisassociateUserStack
+  where
   type
     Rs BatchDisassociateUserStack =
       BatchDisassociateUserStackResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchDisassociateUserStackResponse'
-            <$> (x .?> "errors" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "errors" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchDisassociateUserStack
+instance Prelude.Hashable BatchDisassociateUserStack
 
-instance NFData BatchDisassociateUserStack
+instance Prelude.NFData BatchDisassociateUserStack
 
-instance ToHeaders BatchDisassociateUserStack where
+instance Prelude.ToHeaders BatchDisassociateUserStack where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.BatchDisassociateUserStack" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.BatchDisassociateUserStack" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchDisassociateUserStack where
+instance Prelude.ToJSON BatchDisassociateUserStack where
   toJSON BatchDisassociateUserStack' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "UserStackAssociations"
-                  .= _bdusUserStackAssociations
+                  Prelude..= userStackAssociations
               )
           ]
       )
 
-instance ToPath BatchDisassociateUserStack where
-  toPath = const "/"
+instance Prelude.ToPath BatchDisassociateUserStack where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchDisassociateUserStack where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchDisassociateUserStack where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchDisassociateUserStackResponse' smart constructor.
+-- | /See:/ 'newBatchDisassociateUserStackResponse' smart constructor.
 data BatchDisassociateUserStackResponse = BatchDisassociateUserStackResponse'
-  { _bdusrrsErrors ::
-      !( Maybe
-           [UserStackAssociationError]
-       ),
-    _bdusrrsResponseStatus ::
-      !Int
+  { -- | The list of UserStackAssociationError objects.
+    errors :: Prelude.Maybe [UserStackAssociationError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDisassociateUserStackResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDisassociateUserStackResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdusrrsErrors' - The list of UserStackAssociationError objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdusrrsResponseStatus' - -- | The response status code.
-batchDisassociateUserStackResponse ::
-  -- | 'bdusrrsResponseStatus'
-  Int ->
+-- 'errors', 'batchDisassociateUserStackResponse_errors' - The list of UserStackAssociationError objects.
+--
+-- 'httpStatus', 'batchDisassociateUserStackResponse_httpStatus' - The response's http status code.
+newBatchDisassociateUserStackResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchDisassociateUserStackResponse
-batchDisassociateUserStackResponse pResponseStatus_ =
+newBatchDisassociateUserStackResponse pHttpStatus_ =
   BatchDisassociateUserStackResponse'
-    { _bdusrrsErrors =
-        Nothing,
-      _bdusrrsResponseStatus =
-        pResponseStatus_
+    { errors =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of UserStackAssociationError objects.
-bdusrrsErrors :: Lens' BatchDisassociateUserStackResponse [UserStackAssociationError]
-bdusrrsErrors = lens _bdusrrsErrors (\s a -> s {_bdusrrsErrors = a}) . _Default . _Coerce
+batchDisassociateUserStackResponse_errors :: Lens.Lens' BatchDisassociateUserStackResponse (Prelude.Maybe [UserStackAssociationError])
+batchDisassociateUserStackResponse_errors = Lens.lens (\BatchDisassociateUserStackResponse' {errors} -> errors) (\s@BatchDisassociateUserStackResponse' {} a -> s {errors = a} :: BatchDisassociateUserStackResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bdusrrsResponseStatus :: Lens' BatchDisassociateUserStackResponse Int
-bdusrrsResponseStatus = lens _bdusrrsResponseStatus (\s a -> s {_bdusrrsResponseStatus = a})
+-- | The response's http status code.
+batchDisassociateUserStackResponse_httpStatus :: Lens.Lens' BatchDisassociateUserStackResponse Prelude.Int
+batchDisassociateUserStackResponse_httpStatus = Lens.lens (\BatchDisassociateUserStackResponse' {httpStatus} -> httpStatus) (\s@BatchDisassociateUserStackResponse' {} a -> s {httpStatus = a} :: BatchDisassociateUserStackResponse)
 
-instance NFData BatchDisassociateUserStackResponse
+instance
+  Prelude.NFData
+    BatchDisassociateUserStackResponse

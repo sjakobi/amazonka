@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.AppStream.Types.AuthenticationType
   ( AuthenticationType
       ( ..,
-        API,
-        Saml,
-        Userpool
+        AuthenticationTypeAPI,
+        AuthenticationTypeSAML,
+        AuthenticationTypeUSERPOOL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthenticationType
-  = AuthenticationType'
-      ( CI
-          Text
-      )
+newtype AuthenticationType = AuthenticationType'
+  { fromAuthenticationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern API :: AuthenticationType
-pattern API = AuthenticationType' "API"
+pattern AuthenticationTypeAPI :: AuthenticationType
+pattern AuthenticationTypeAPI = AuthenticationType' "API"
 
-pattern Saml :: AuthenticationType
-pattern Saml = AuthenticationType' "SAML"
+pattern AuthenticationTypeSAML :: AuthenticationType
+pattern AuthenticationTypeSAML = AuthenticationType' "SAML"
 
-pattern Userpool :: AuthenticationType
-pattern Userpool = AuthenticationType' "USERPOOL"
+pattern AuthenticationTypeUSERPOOL :: AuthenticationType
+pattern AuthenticationTypeUSERPOOL = AuthenticationType' "USERPOOL"
 
 {-# COMPLETE
-  API,
-  Saml,
-  Userpool,
+  AuthenticationTypeAPI,
+  AuthenticationTypeSAML,
+  AuthenticationTypeUSERPOOL,
   AuthenticationType'
   #-}
 
-instance FromText AuthenticationType where
-  parser = (AuthenticationType' . mk) <$> takeText
+instance Prelude.FromText AuthenticationType where
+  parser = AuthenticationType' Prelude.<$> Prelude.takeText
 
-instance ToText AuthenticationType where
-  toText (AuthenticationType' ci) = original ci
+instance Prelude.ToText AuthenticationType where
+  toText (AuthenticationType' x) = x
 
-instance Hashable AuthenticationType
+instance Prelude.Hashable AuthenticationType
 
-instance NFData AuthenticationType
+instance Prelude.NFData AuthenticationType
 
-instance ToByteString AuthenticationType
+instance Prelude.ToByteString AuthenticationType
 
-instance ToQuery AuthenticationType
+instance Prelude.ToQuery AuthenticationType
 
-instance ToHeader AuthenticationType
+instance Prelude.ToHeader AuthenticationType
 
-instance ToJSON AuthenticationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthenticationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthenticationType where
-  parseJSON = parseJSONText "AuthenticationType"
+instance Prelude.FromJSON AuthenticationType where
+  parseJSON = Prelude.parseJSONText "AuthenticationType"

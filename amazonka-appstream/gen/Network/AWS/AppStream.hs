@@ -11,18 +11,29 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon AppStream 2.0__
+-- Amazon AppStream 2.0
 --
--- This is the /Amazon AppStream 2.0 API Reference/ . This documentation provides descriptions and syntax for each of the actions and data types in AppStream 2.0. AppStream 2.0 is a fully managed, secure application streaming service that lets you stream desktop applications to users without rewriting applications. AppStream 2.0 manages the AWS resources that are required to host and run your applications, scales automatically, and provides access to your users on demand.
+-- This is the /Amazon AppStream 2.0 API Reference/. This documentation
+-- provides descriptions and syntax for each of the actions and data types
+-- in AppStream 2.0. AppStream 2.0 is a fully managed, secure application
+-- streaming service that lets you stream desktop applications to users
+-- without rewriting applications. AppStream 2.0 manages the AWS resources
+-- that are required to host and run your applications, scales
+-- automatically, and provides access to your users on demand.
+--
+-- You can call the AppStream 2.0 API operations by using an interface VPC
+-- endpoint (interface endpoint). For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/access-api-cli-through-interface-vpc-endpoint.html Access AppStream 2.0 API Operations and CLI Commands Through an Interface VPC Endpoint>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
 --
 -- To learn more about AppStream 2.0, see the following resources:
 --
---     * <http://aws.amazon.com/appstream2 Amazon AppStream 2.0 product page>
+-- -   <http://aws.amazon.com/appstream2 Amazon AppStream 2.0 product page>
 --
---     * <http://aws.amazon.com/documentation/appstream2 Amazon AppStream 2.0 documentation>
+-- -   <http://aws.amazon.com/documentation/appstream2 Amazon AppStream 2.0 documentation>
 module Network.AWS.AppStream
   ( -- * Service Configuration
-    appStream,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -67,154 +78,295 @@ module Network.AWS.AppStream
     -- $waiters
 
     -- ** FleetStopped
-    fleetStopped,
+    newFleetStopped,
 
     -- ** FleetStarted
-    fleetStarted,
+    newFleetStarted,
 
     -- * Operations
     -- $operations
 
     -- ** DeleteImageBuilder
-    module Network.AWS.AppStream.DeleteImageBuilder,
+    DeleteImageBuilder (DeleteImageBuilder'),
+    newDeleteImageBuilder,
+    DeleteImageBuilderResponse (DeleteImageBuilderResponse'),
+    newDeleteImageBuilderResponse,
 
     -- ** ListAssociatedFleets (Paginated)
-    module Network.AWS.AppStream.ListAssociatedFleets,
+    ListAssociatedFleets (ListAssociatedFleets'),
+    newListAssociatedFleets,
+    ListAssociatedFleetsResponse (ListAssociatedFleetsResponse'),
+    newListAssociatedFleetsResponse,
 
     -- ** BatchAssociateUserStack
-    module Network.AWS.AppStream.BatchAssociateUserStack,
+    BatchAssociateUserStack (BatchAssociateUserStack'),
+    newBatchAssociateUserStack,
+    BatchAssociateUserStackResponse (BatchAssociateUserStackResponse'),
+    newBatchAssociateUserStackResponse,
 
     -- ** ListAssociatedStacks (Paginated)
-    module Network.AWS.AppStream.ListAssociatedStacks,
+    ListAssociatedStacks (ListAssociatedStacks'),
+    newListAssociatedStacks,
+    ListAssociatedStacksResponse (ListAssociatedStacksResponse'),
+    newListAssociatedStacksResponse,
 
     -- ** DeleteUsageReportSubscription
-    module Network.AWS.AppStream.DeleteUsageReportSubscription,
+    DeleteUsageReportSubscription (DeleteUsageReportSubscription'),
+    newDeleteUsageReportSubscription,
+    DeleteUsageReportSubscriptionResponse (DeleteUsageReportSubscriptionResponse'),
+    newDeleteUsageReportSubscriptionResponse,
 
     -- ** StopImageBuilder
-    module Network.AWS.AppStream.StopImageBuilder,
+    StopImageBuilder (StopImageBuilder'),
+    newStopImageBuilder,
+    StopImageBuilderResponse (StopImageBuilderResponse'),
+    newStopImageBuilderResponse,
 
     -- ** StartFleet
-    module Network.AWS.AppStream.StartFleet,
+    StartFleet (StartFleet'),
+    newStartFleet,
+    StartFleetResponse (StartFleetResponse'),
+    newStartFleetResponse,
 
     -- ** StartImageBuilder
-    module Network.AWS.AppStream.StartImageBuilder,
+    StartImageBuilder (StartImageBuilder'),
+    newStartImageBuilder,
+    StartImageBuilderResponse (StartImageBuilderResponse'),
+    newStartImageBuilderResponse,
 
     -- ** StopFleet
-    module Network.AWS.AppStream.StopFleet,
+    StopFleet (StopFleet'),
+    newStopFleet,
+    StopFleetResponse (StopFleetResponse'),
+    newStopFleetResponse,
 
     -- ** UntagResource
-    module Network.AWS.AppStream.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** EnableUser
-    module Network.AWS.AppStream.EnableUser,
+    EnableUser (EnableUser'),
+    newEnableUser,
+    EnableUserResponse (EnableUserResponse'),
+    newEnableUserResponse,
 
     -- ** DescribeSessions (Paginated)
-    module Network.AWS.AppStream.DescribeSessions,
+    DescribeSessions (DescribeSessions'),
+    newDescribeSessions,
+    DescribeSessionsResponse (DescribeSessionsResponse'),
+    newDescribeSessionsResponse,
 
     -- ** DescribeFleets (Paginated)
-    module Network.AWS.AppStream.DescribeFleets,
+    DescribeFleets (DescribeFleets'),
+    newDescribeFleets,
+    DescribeFleetsResponse (DescribeFleetsResponse'),
+    newDescribeFleetsResponse,
 
     -- ** DescribeStacks (Paginated)
-    module Network.AWS.AppStream.DescribeStacks,
+    DescribeStacks (DescribeStacks'),
+    newDescribeStacks,
+    DescribeStacksResponse (DescribeStacksResponse'),
+    newDescribeStacksResponse,
 
     -- ** TagResource
-    module Network.AWS.AppStream.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** CreateUser
-    module Network.AWS.AppStream.CreateUser,
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
 
     -- ** UpdateDirectoryConfig
-    module Network.AWS.AppStream.UpdateDirectoryConfig,
+    UpdateDirectoryConfig (UpdateDirectoryConfig'),
+    newUpdateDirectoryConfig,
+    UpdateDirectoryConfigResponse (UpdateDirectoryConfigResponse'),
+    newUpdateDirectoryConfigResponse,
 
     -- ** CreateStack
-    module Network.AWS.AppStream.CreateStack,
+    CreateStack (CreateStack'),
+    newCreateStack,
+    CreateStackResponse (CreateStackResponse'),
+    newCreateStackResponse,
 
     -- ** DeleteDirectoryConfig
-    module Network.AWS.AppStream.DeleteDirectoryConfig,
+    DeleteDirectoryConfig (DeleteDirectoryConfig'),
+    newDeleteDirectoryConfig,
+    DeleteDirectoryConfigResponse (DeleteDirectoryConfigResponse'),
+    newDeleteDirectoryConfigResponse,
 
     -- ** CopyImage
-    module Network.AWS.AppStream.CopyImage,
+    CopyImage (CopyImage'),
+    newCopyImage,
+    CopyImageResponse (CopyImageResponse'),
+    newCopyImageResponse,
 
     -- ** CreateFleet
-    module Network.AWS.AppStream.CreateFleet,
+    CreateFleet (CreateFleet'),
+    newCreateFleet,
+    CreateFleetResponse (CreateFleetResponse'),
+    newCreateFleetResponse,
 
     -- ** CreateImageBuilder
-    module Network.AWS.AppStream.CreateImageBuilder,
+    CreateImageBuilder (CreateImageBuilder'),
+    newCreateImageBuilder,
+    CreateImageBuilderResponse (CreateImageBuilderResponse'),
+    newCreateImageBuilderResponse,
 
     -- ** AssociateFleet
-    module Network.AWS.AppStream.AssociateFleet,
+    AssociateFleet (AssociateFleet'),
+    newAssociateFleet,
+    AssociateFleetResponse (AssociateFleetResponse'),
+    newAssociateFleetResponse,
 
     -- ** CreateDirectoryConfig
-    module Network.AWS.AppStream.CreateDirectoryConfig,
+    CreateDirectoryConfig (CreateDirectoryConfig'),
+    newCreateDirectoryConfig,
+    CreateDirectoryConfigResponse (CreateDirectoryConfigResponse'),
+    newCreateDirectoryConfigResponse,
 
     -- ** UpdateFleet
-    module Network.AWS.AppStream.UpdateFleet,
+    UpdateFleet (UpdateFleet'),
+    newUpdateFleet,
+    UpdateFleetResponse (UpdateFleetResponse'),
+    newUpdateFleetResponse,
 
     -- ** DeleteStack
-    module Network.AWS.AppStream.DeleteStack,
+    DeleteStack (DeleteStack'),
+    newDeleteStack,
+    DeleteStackResponse (DeleteStackResponse'),
+    newDeleteStackResponse,
 
     -- ** DeleteFleet
-    module Network.AWS.AppStream.DeleteFleet,
+    DeleteFleet (DeleteFleet'),
+    newDeleteFleet,
+    DeleteFleetResponse (DeleteFleetResponse'),
+    newDeleteFleetResponse,
 
     -- ** DescribeUsers (Paginated)
-    module Network.AWS.AppStream.DescribeUsers,
+    DescribeUsers (DescribeUsers'),
+    newDescribeUsers,
+    DescribeUsersResponse (DescribeUsersResponse'),
+    newDescribeUsersResponse,
 
     -- ** UpdateStack
-    module Network.AWS.AppStream.UpdateStack,
+    UpdateStack (UpdateStack'),
+    newUpdateStack,
+    UpdateStackResponse (UpdateStackResponse'),
+    newUpdateStackResponse,
 
     -- ** CreateUsageReportSubscription
-    module Network.AWS.AppStream.CreateUsageReportSubscription,
+    CreateUsageReportSubscription (CreateUsageReportSubscription'),
+    newCreateUsageReportSubscription,
+    CreateUsageReportSubscriptionResponse (CreateUsageReportSubscriptionResponse'),
+    newCreateUsageReportSubscriptionResponse,
 
     -- ** DisassociateFleet
-    module Network.AWS.AppStream.DisassociateFleet,
+    DisassociateFleet (DisassociateFleet'),
+    newDisassociateFleet,
+    DisassociateFleetResponse (DisassociateFleetResponse'),
+    newDisassociateFleetResponse,
 
     -- ** DescribeImages (Paginated)
-    module Network.AWS.AppStream.DescribeImages,
+    DescribeImages (DescribeImages'),
+    newDescribeImages,
+    DescribeImagesResponse (DescribeImagesResponse'),
+    newDescribeImagesResponse,
 
     -- ** BatchDisassociateUserStack
-    module Network.AWS.AppStream.BatchDisassociateUserStack,
+    BatchDisassociateUserStack (BatchDisassociateUserStack'),
+    newBatchDisassociateUserStack,
+    BatchDisassociateUserStackResponse (BatchDisassociateUserStackResponse'),
+    newBatchDisassociateUserStackResponse,
 
     -- ** DescribeUsageReportSubscriptions
-    module Network.AWS.AppStream.DescribeUsageReportSubscriptions,
+    DescribeUsageReportSubscriptions (DescribeUsageReportSubscriptions'),
+    newDescribeUsageReportSubscriptions,
+    DescribeUsageReportSubscriptionsResponse (DescribeUsageReportSubscriptionsResponse'),
+    newDescribeUsageReportSubscriptionsResponse,
 
     -- ** DeleteImage
-    module Network.AWS.AppStream.DeleteImage,
+    DeleteImage (DeleteImage'),
+    newDeleteImage,
+    DeleteImageResponse (DeleteImageResponse'),
+    newDeleteImageResponse,
 
     -- ** DeleteImagePermissions
-    module Network.AWS.AppStream.DeleteImagePermissions,
+    DeleteImagePermissions (DeleteImagePermissions'),
+    newDeleteImagePermissions,
+    DeleteImagePermissionsResponse (DeleteImagePermissionsResponse'),
+    newDeleteImagePermissionsResponse,
 
     -- ** UpdateImagePermissions
-    module Network.AWS.AppStream.UpdateImagePermissions,
+    UpdateImagePermissions (UpdateImagePermissions'),
+    newUpdateImagePermissions,
+    UpdateImagePermissionsResponse (UpdateImagePermissionsResponse'),
+    newUpdateImagePermissionsResponse,
 
     -- ** CreateStreamingURL
-    module Network.AWS.AppStream.CreateStreamingURL,
+    CreateStreamingURL (CreateStreamingURL'),
+    newCreateStreamingURL,
+    CreateStreamingURLResponse (CreateStreamingURLResponse'),
+    newCreateStreamingURLResponse,
 
     -- ** DeleteUser
-    module Network.AWS.AppStream.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** DescribeUserStackAssociations (Paginated)
-    module Network.AWS.AppStream.DescribeUserStackAssociations,
+    DescribeUserStackAssociations (DescribeUserStackAssociations'),
+    newDescribeUserStackAssociations,
+    DescribeUserStackAssociationsResponse (DescribeUserStackAssociationsResponse'),
+    newDescribeUserStackAssociationsResponse,
 
     -- ** DescribeImageBuilders (Paginated)
-    module Network.AWS.AppStream.DescribeImageBuilders,
+    DescribeImageBuilders (DescribeImageBuilders'),
+    newDescribeImageBuilders,
+    DescribeImageBuildersResponse (DescribeImageBuildersResponse'),
+    newDescribeImageBuildersResponse,
 
     -- ** DescribeDirectoryConfigs (Paginated)
-    module Network.AWS.AppStream.DescribeDirectoryConfigs,
+    DescribeDirectoryConfigs (DescribeDirectoryConfigs'),
+    newDescribeDirectoryConfigs,
+    DescribeDirectoryConfigsResponse (DescribeDirectoryConfigsResponse'),
+    newDescribeDirectoryConfigsResponse,
 
     -- ** DisableUser
-    module Network.AWS.AppStream.DisableUser,
+    DisableUser (DisableUser'),
+    newDisableUser,
+    DisableUserResponse (DisableUserResponse'),
+    newDisableUserResponse,
 
     -- ** ExpireSession
-    module Network.AWS.AppStream.ExpireSession,
+    ExpireSession (ExpireSession'),
+    newExpireSession,
+    ExpireSessionResponse (ExpireSessionResponse'),
+    newExpireSessionResponse,
 
     -- ** CreateImageBuilderStreamingURL
-    module Network.AWS.AppStream.CreateImageBuilderStreamingURL,
+    CreateImageBuilderStreamingURL (CreateImageBuilderStreamingURL'),
+    newCreateImageBuilderStreamingURL,
+    CreateImageBuilderStreamingURLResponse (CreateImageBuilderStreamingURLResponse'),
+    newCreateImageBuilderStreamingURLResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.AppStream.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DescribeImagePermissions
-    module Network.AWS.AppStream.DescribeImagePermissions,
+    DescribeImagePermissions (DescribeImagePermissions'),
+    newDescribeImagePermissions,
+    DescribeImagePermissionsResponse (DescribeImagePermissionsResponse'),
+    newDescribeImagePermissionsResponse,
 
     -- * Types
 
@@ -291,273 +443,124 @@ module Network.AWS.AppStream
     VisibilityType (..),
 
     -- ** AccessEndpoint
-    AccessEndpoint,
-    accessEndpoint,
-    aeVPCeId,
-    aeEndpointType,
+    AccessEndpoint (AccessEndpoint'),
+    newAccessEndpoint,
 
     -- ** Application
-    Application,
-    application,
-    aIconURL,
-    aLaunchPath,
-    aEnabled,
-    aMetadata,
-    aLaunchParameters,
-    aName,
-    aDisplayName,
+    Application (Application'),
+    newApplication,
 
     -- ** ApplicationSettings
-    ApplicationSettings,
-    applicationSettings,
-    asSettingsGroup,
-    asEnabled,
+    ApplicationSettings (ApplicationSettings'),
+    newApplicationSettings,
 
     -- ** ApplicationSettingsResponse
-    ApplicationSettingsResponse,
-    applicationSettingsResponse,
-    asrEnabled,
-    asrSettingsGroup,
-    asrS3BucketName,
+    ApplicationSettingsResponse (ApplicationSettingsResponse'),
+    newApplicationSettingsResponse,
 
     -- ** ComputeCapacity
-    ComputeCapacity,
-    computeCapacity,
-    ccDesiredInstances,
+    ComputeCapacity (ComputeCapacity'),
+    newComputeCapacity,
 
     -- ** ComputeCapacityStatus
-    ComputeCapacityStatus,
-    computeCapacityStatus,
-    ccsRunning,
-    ccsAvailable,
-    ccsInUse,
-    ccsDesired,
+    ComputeCapacityStatus (ComputeCapacityStatus'),
+    newComputeCapacityStatus,
 
     -- ** DirectoryConfig
-    DirectoryConfig,
-    directoryConfig,
-    dcServiceAccountCredentials,
-    dcCreatedTime,
-    dcOrganizationalUnitDistinguishedNames,
-    dcDirectoryName,
+    DirectoryConfig (DirectoryConfig'),
+    newDirectoryConfig,
 
     -- ** DomainJoinInfo
-    DomainJoinInfo,
-    domainJoinInfo,
-    djiOrganizationalUnitDistinguishedName,
-    djiDirectoryName,
+    DomainJoinInfo (DomainJoinInfo'),
+    newDomainJoinInfo,
 
     -- ** Fleet
-    Fleet,
-    fleet,
-    fMaxUserDurationInSeconds,
-    fDisconnectTimeoutInSeconds,
-    fVPCConfig,
-    fIAMRoleARN,
-    fDomainJoinInfo,
-    fFleetType,
-    fIdleDisconnectTimeoutInSeconds,
-    fImageName,
-    fCreatedTime,
-    fStreamView,
-    fDescription,
-    fDisplayName,
-    fEnableDefaultInternetAccess,
-    fFleetErrors,
-    fImageARN,
-    fARN,
-    fName,
-    fInstanceType,
-    fComputeCapacityStatus,
-    fState,
+    Fleet (Fleet'),
+    newFleet,
 
     -- ** FleetError
-    FleetError,
-    fleetError,
-    feErrorMessage,
-    feErrorCode,
+    FleetError (FleetError'),
+    newFleetError,
 
     -- ** Image
-    Image,
-    image,
-    iImagePermissions,
-    iPlatform,
-    iImageBuilderName,
-    iARN,
-    iStateChangeReason,
-    iCreatedTime,
-    iState,
-    iBaseImageARN,
-    iApplications,
-    iVisibility,
-    iAppstreamAgentVersion,
-    iDescription,
-    iImageBuilderSupported,
-    iDisplayName,
-    iPublicBaseImageReleasedDate,
-    iName,
+    Image (Image'),
+    newImage,
 
     -- ** ImageBuilder
-    ImageBuilder,
-    imageBuilder,
-    ibPlatform,
-    ibVPCConfig,
-    ibIAMRoleARN,
-    ibAccessEndpoints,
-    ibDomainJoinInfo,
-    ibInstanceType,
-    ibARN,
-    ibStateChangeReason,
-    ibCreatedTime,
-    ibNetworkAccessConfiguration,
-    ibState,
-    ibAppstreamAgentVersion,
-    ibDescription,
-    ibDisplayName,
-    ibEnableDefaultInternetAccess,
-    ibImageBuilderErrors,
-    ibImageARN,
-    ibName,
+    ImageBuilder (ImageBuilder'),
+    newImageBuilder,
 
     -- ** ImageBuilderStateChangeReason
-    ImageBuilderStateChangeReason,
-    imageBuilderStateChangeReason,
-    ibscrMessage,
-    ibscrCode,
+    ImageBuilderStateChangeReason (ImageBuilderStateChangeReason'),
+    newImageBuilderStateChangeReason,
 
     -- ** ImagePermissions
-    ImagePermissions,
-    imagePermissions,
-    ipAllowImageBuilder,
-    ipAllowFleet,
+    ImagePermissions (ImagePermissions'),
+    newImagePermissions,
 
     -- ** ImageStateChangeReason
-    ImageStateChangeReason,
-    imageStateChangeReason,
-    iscrMessage,
-    iscrCode,
+    ImageStateChangeReason (ImageStateChangeReason'),
+    newImageStateChangeReason,
 
     -- ** LastReportGenerationExecutionError
-    LastReportGenerationExecutionError,
-    lastReportGenerationExecutionError,
-    lrgeeErrorMessage,
-    lrgeeErrorCode,
+    LastReportGenerationExecutionError (LastReportGenerationExecutionError'),
+    newLastReportGenerationExecutionError,
 
     -- ** NetworkAccessConfiguration
-    NetworkAccessConfiguration,
-    networkAccessConfiguration,
-    nacEniId,
-    nacEniPrivateIPAddress,
+    NetworkAccessConfiguration (NetworkAccessConfiguration'),
+    newNetworkAccessConfiguration,
 
     -- ** ResourceError
-    ResourceError,
-    resourceError,
-    reErrorTimestamp,
-    reErrorMessage,
-    reErrorCode,
+    ResourceError (ResourceError'),
+    newResourceError,
 
     -- ** ServiceAccountCredentials
-    ServiceAccountCredentials,
-    serviceAccountCredentials,
-    sacAccountName,
-    sacAccountPassword,
+    ServiceAccountCredentials (ServiceAccountCredentials'),
+    newServiceAccountCredentials,
 
     -- ** Session
-    Session,
-    session,
-    sConnectionState,
-    sStartTime,
-    sNetworkAccessConfiguration,
-    sAuthenticationType,
-    sMaxExpirationTime,
-    sId,
-    sUserId,
-    sStackName,
-    sFleetName,
-    sState,
+    Session (Session'),
+    newSession,
 
     -- ** SharedImagePermissions
-    SharedImagePermissions,
-    sharedImagePermissions,
-    sipSharedAccountId,
-    sipImagePermissions,
+    SharedImagePermissions (SharedImagePermissions'),
+    newSharedImagePermissions,
 
     -- ** Stack
-    Stack,
-    stack,
-    sAccessEndpoints,
-    sUserSettings,
-    sRedirectURL,
-    sARN,
-    sCreatedTime,
-    sApplicationSettings,
-    sStorageConnectors,
-    sDescription,
-    sEmbedHostDomains,
-    sDisplayName,
-    sStackErrors,
-    sFeedbackURL,
-    sName,
+    Stack (Stack'),
+    newStack,
 
     -- ** StackError
-    StackError,
-    stackError,
-    seErrorMessage,
-    seErrorCode,
+    StackError (StackError'),
+    newStackError,
 
     -- ** StorageConnector
-    StorageConnector,
-    storageConnector,
-    scDomains,
-    scResourceIdentifier,
-    scConnectorType,
+    StorageConnector (StorageConnector'),
+    newStorageConnector,
 
     -- ** UsageReportSubscription
-    UsageReportSubscription,
-    usageReportSubscription,
-    ursSubscriptionErrors,
-    ursLastGeneratedReportDate,
-    ursS3BucketName,
-    ursSchedule,
+    UsageReportSubscription (UsageReportSubscription'),
+    newUsageReportSubscription,
 
     -- ** User
-    User,
-    user,
-    uStatus,
-    uARN,
-    uEnabled,
-    uCreatedTime,
-    uUserName,
-    uFirstName,
-    uLastName,
-    uAuthenticationType,
+    User (User'),
+    newUser,
 
     -- ** UserSetting
-    UserSetting,
-    userSetting,
-    usAction,
-    usPermission,
+    UserSetting (UserSetting'),
+    newUserSetting,
 
     -- ** UserStackAssociation
-    UserStackAssociation,
-    userStackAssociation,
-    usaSendEmailNotification,
-    usaStackName,
-    usaUserName,
-    usaAuthenticationType,
+    UserStackAssociation (UserStackAssociation'),
+    newUserStackAssociation,
 
     -- ** UserStackAssociationError
-    UserStackAssociationError,
-    userStackAssociationError,
-    usaeUserStackAssociation,
-    usaeErrorMessage,
-    usaeErrorCode,
+    UserStackAssociationError (UserStackAssociationError'),
+    newUserStackAssociationError,
 
-    -- ** VPCConfig
-    VPCConfig,
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcSubnetIds,
+    -- ** VpcConfig
+    VpcConfig (VpcConfig'),
+    newVpcConfig,
   )
 where
 
@@ -595,6 +598,7 @@ import Network.AWS.AppStream.DisableUser
 import Network.AWS.AppStream.DisassociateFleet
 import Network.AWS.AppStream.EnableUser
 import Network.AWS.AppStream.ExpireSession
+import Network.AWS.AppStream.Lens
 import Network.AWS.AppStream.ListAssociatedFleets
 import Network.AWS.AppStream.ListAssociatedStacks
 import Network.AWS.AppStream.ListTagsForResource

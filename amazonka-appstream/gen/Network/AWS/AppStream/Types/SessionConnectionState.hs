@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.AppStream.Types.SessionConnectionState
   ( SessionConnectionState
       ( ..,
-        Connected,
-        NotConnected
+        SessionConnectionStateCONNECTED,
+        SessionConnectionStateNOTCONNECTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SessionConnectionState
-  = SessionConnectionState'
-      ( CI
-          Text
-      )
+newtype SessionConnectionState = SessionConnectionState'
+  { fromSessionConnectionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Connected :: SessionConnectionState
-pattern Connected = SessionConnectionState' "CONNECTED"
+pattern SessionConnectionStateCONNECTED :: SessionConnectionState
+pattern SessionConnectionStateCONNECTED = SessionConnectionState' "CONNECTED"
 
-pattern NotConnected :: SessionConnectionState
-pattern NotConnected = SessionConnectionState' "NOT_CONNECTED"
+pattern SessionConnectionStateNOTCONNECTED :: SessionConnectionState
+pattern SessionConnectionStateNOTCONNECTED = SessionConnectionState' "NOT_CONNECTED"
 
 {-# COMPLETE
-  Connected,
-  NotConnected,
+  SessionConnectionStateCONNECTED,
+  SessionConnectionStateNOTCONNECTED,
   SessionConnectionState'
   #-}
 
-instance FromText SessionConnectionState where
-  parser = (SessionConnectionState' . mk) <$> takeText
+instance Prelude.FromText SessionConnectionState where
+  parser = SessionConnectionState' Prelude.<$> Prelude.takeText
 
-instance ToText SessionConnectionState where
-  toText (SessionConnectionState' ci) = original ci
+instance Prelude.ToText SessionConnectionState where
+  toText (SessionConnectionState' x) = x
 
-instance Hashable SessionConnectionState
+instance Prelude.Hashable SessionConnectionState
 
-instance NFData SessionConnectionState
+instance Prelude.NFData SessionConnectionState
 
-instance ToByteString SessionConnectionState
+instance Prelude.ToByteString SessionConnectionState
 
-instance ToQuery SessionConnectionState
+instance Prelude.ToQuery SessionConnectionState
 
-instance ToHeader SessionConnectionState
+instance Prelude.ToHeader SessionConnectionState
 
-instance FromJSON SessionConnectionState where
-  parseJSON = parseJSONText "SessionConnectionState"
+instance Prelude.FromJSON SessionConnectionState where
+  parseJSON = Prelude.parseJSONText "SessionConnectionState"

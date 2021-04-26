@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +21,71 @@ module Network.AWS.AppStream.Types.UserSetting where
 
 import Network.AWS.AppStream.Types.Action
 import Network.AWS.AppStream.Types.Permission
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an action and whether the action is enabled or disabled for users during their streaming sessions.
+-- | Describes an action and whether the action is enabled or disabled for
+-- users during their streaming sessions.
 --
---
---
--- /See:/ 'userSetting' smart constructor.
+-- /See:/ 'newUserSetting' smart constructor.
 data UserSetting = UserSetting'
-  { _usAction :: !Action,
-    _usPermission :: !Permission
+  { -- | The action that is enabled or disabled.
+    action :: Action,
+    -- | Indicates whether the action is enabled or disabled.
+    permission :: Permission
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserSetting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserSetting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usAction' - The action that is enabled or disabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usPermission' - Indicates whether the action is enabled or disabled.
-userSetting ::
-  -- | 'usAction'
+-- 'action', 'userSetting_action' - The action that is enabled or disabled.
+--
+-- 'permission', 'userSetting_permission' - Indicates whether the action is enabled or disabled.
+newUserSetting ::
+  -- | 'action'
   Action ->
-  -- | 'usPermission'
+  -- | 'permission'
   Permission ->
   UserSetting
-userSetting pAction_ pPermission_ =
+newUserSetting pAction_ pPermission_ =
   UserSetting'
-    { _usAction = pAction_,
-      _usPermission = pPermission_
+    { action = pAction_,
+      permission = pPermission_
     }
 
 -- | The action that is enabled or disabled.
-usAction :: Lens' UserSetting Action
-usAction = lens _usAction (\s a -> s {_usAction = a})
+userSetting_action :: Lens.Lens' UserSetting Action
+userSetting_action = Lens.lens (\UserSetting' {action} -> action) (\s@UserSetting' {} a -> s {action = a} :: UserSetting)
 
 -- | Indicates whether the action is enabled or disabled.
-usPermission :: Lens' UserSetting Permission
-usPermission = lens _usPermission (\s a -> s {_usPermission = a})
+userSetting_permission :: Lens.Lens' UserSetting Permission
+userSetting_permission = Lens.lens (\UserSetting' {permission} -> permission) (\s@UserSetting' {} a -> s {permission = a} :: UserSetting)
 
-instance FromJSON UserSetting where
+instance Prelude.FromJSON UserSetting where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserSetting"
       ( \x ->
           UserSetting'
-            <$> (x .: "Action") <*> (x .: "Permission")
+            Prelude.<$> (x Prelude..: "Action")
+            Prelude.<*> (x Prelude..: "Permission")
       )
 
-instance Hashable UserSetting
+instance Prelude.Hashable UserSetting
 
-instance NFData UserSetting
+instance Prelude.NFData UserSetting
 
-instance ToJSON UserSetting where
+instance Prelude.ToJSON UserSetting where
   toJSON UserSetting' {..} =
-    object
-      ( catMaybes
-          [ Just ("Action" .= _usAction),
-            Just ("Permission" .= _usPermission)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Action" Prelude..= action),
+            Prelude.Just ("Permission" Prelude..= permission)
           ]
       )

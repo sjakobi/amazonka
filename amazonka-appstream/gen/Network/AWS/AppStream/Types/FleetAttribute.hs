@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.AppStream.Types.FleetAttribute
   ( FleetAttribute
       ( ..,
-        FADomainJoinInfo,
-        FAIAMRoleARN,
-        FAVPCConfiguration,
-        FAVPCConfigurationSecurityGroupIds
+        FleetAttributeDOMAINJOININFO,
+        FleetAttributeIAMROLEARN,
+        FleetAttributeVPCCONFIGURATION,
+        FleetAttributeVPCCONFIGURATIONSECURITYGROUPIDS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The fleet attribute.
-data FleetAttribute = FleetAttribute' (CI Text)
+newtype FleetAttribute = FleetAttribute'
+  { fromFleetAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FADomainJoinInfo :: FleetAttribute
-pattern FADomainJoinInfo = FleetAttribute' "DOMAIN_JOIN_INFO"
+pattern FleetAttributeDOMAINJOININFO :: FleetAttribute
+pattern FleetAttributeDOMAINJOININFO = FleetAttribute' "DOMAIN_JOIN_INFO"
 
-pattern FAIAMRoleARN :: FleetAttribute
-pattern FAIAMRoleARN = FleetAttribute' "IAM_ROLE_ARN"
+pattern FleetAttributeIAMROLEARN :: FleetAttribute
+pattern FleetAttributeIAMROLEARN = FleetAttribute' "IAM_ROLE_ARN"
 
-pattern FAVPCConfiguration :: FleetAttribute
-pattern FAVPCConfiguration = FleetAttribute' "VPC_CONFIGURATION"
+pattern FleetAttributeVPCCONFIGURATION :: FleetAttribute
+pattern FleetAttributeVPCCONFIGURATION = FleetAttribute' "VPC_CONFIGURATION"
 
-pattern FAVPCConfigurationSecurityGroupIds :: FleetAttribute
-pattern FAVPCConfigurationSecurityGroupIds = FleetAttribute' "VPC_CONFIGURATION_SECURITY_GROUP_IDS"
+pattern FleetAttributeVPCCONFIGURATIONSECURITYGROUPIDS :: FleetAttribute
+pattern FleetAttributeVPCCONFIGURATIONSECURITYGROUPIDS = FleetAttribute' "VPC_CONFIGURATION_SECURITY_GROUP_IDS"
 
 {-# COMPLETE
-  FADomainJoinInfo,
-  FAIAMRoleARN,
-  FAVPCConfiguration,
-  FAVPCConfigurationSecurityGroupIds,
+  FleetAttributeDOMAINJOININFO,
+  FleetAttributeIAMROLEARN,
+  FleetAttributeVPCCONFIGURATION,
+  FleetAttributeVPCCONFIGURATIONSECURITYGROUPIDS,
   FleetAttribute'
   #-}
 
-instance FromText FleetAttribute where
-  parser = (FleetAttribute' . mk) <$> takeText
+instance Prelude.FromText FleetAttribute where
+  parser = FleetAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText FleetAttribute where
-  toText (FleetAttribute' ci) = original ci
+instance Prelude.ToText FleetAttribute where
+  toText (FleetAttribute' x) = x
 
-instance Hashable FleetAttribute
+instance Prelude.Hashable FleetAttribute
 
-instance NFData FleetAttribute
+instance Prelude.NFData FleetAttribute
 
-instance ToByteString FleetAttribute
+instance Prelude.ToByteString FleetAttribute
 
-instance ToQuery FleetAttribute
+instance Prelude.ToQuery FleetAttribute
 
-instance ToHeader FleetAttribute
+instance Prelude.ToHeader FleetAttribute
 
-instance ToJSON FleetAttribute where
-  toJSON = toJSONText
+instance Prelude.ToJSON FleetAttribute where
+  toJSON = Prelude.toJSONText

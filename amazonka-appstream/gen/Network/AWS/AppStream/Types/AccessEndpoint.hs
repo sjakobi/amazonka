@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,75 @@
 module Network.AWS.AppStream.Types.AccessEndpoint where
 
 import Network.AWS.AppStream.Types.AccessEndpointType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an interface VPC endpoint (interface endpoint) that lets you create a private connection between the virtual private cloud (VPC) that you specify and AppStream 2.0. When you specify an interface endpoint for a stack, users of the stack can connect to AppStream 2.0 only through that endpoint. When you specify an interface endpoint for an image builder, administrators can connect to the image builder only through that endpoint.
+-- | Describes an interface VPC endpoint (interface endpoint) that lets you
+-- create a private connection between the virtual private cloud (VPC) that
+-- you specify and AppStream 2.0. When you specify an interface endpoint
+-- for a stack, users of the stack can connect to AppStream 2.0 only
+-- through that endpoint. When you specify an interface endpoint for an
+-- image builder, administrators can connect to the image builder only
+-- through that endpoint.
 --
---
---
--- /See:/ 'accessEndpoint' smart constructor.
+-- /See:/ 'newAccessEndpoint' smart constructor.
 data AccessEndpoint = AccessEndpoint'
-  { _aeVPCeId ::
-      !(Maybe Text),
-    _aeEndpointType :: !AccessEndpointType
+  { -- | The identifier (ID) of the VPC in which the interface endpoint is used.
+    vpceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of interface endpoint.
+    endpointType :: AccessEndpointType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aeVPCeId' - The identifier (ID) of the VPC in which the interface endpoint is used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aeEndpointType' - The type of interface endpoint.
-accessEndpoint ::
-  -- | 'aeEndpointType'
+-- 'vpceId', 'accessEndpoint_vpceId' - The identifier (ID) of the VPC in which the interface endpoint is used.
+--
+-- 'endpointType', 'accessEndpoint_endpointType' - The type of interface endpoint.
+newAccessEndpoint ::
+  -- | 'endpointType'
   AccessEndpointType ->
   AccessEndpoint
-accessEndpoint pEndpointType_ =
+newAccessEndpoint pEndpointType_ =
   AccessEndpoint'
-    { _aeVPCeId = Nothing,
-      _aeEndpointType = pEndpointType_
+    { vpceId = Prelude.Nothing,
+      endpointType = pEndpointType_
     }
 
 -- | The identifier (ID) of the VPC in which the interface endpoint is used.
-aeVPCeId :: Lens' AccessEndpoint (Maybe Text)
-aeVPCeId = lens _aeVPCeId (\s a -> s {_aeVPCeId = a})
+accessEndpoint_vpceId :: Lens.Lens' AccessEndpoint (Prelude.Maybe Prelude.Text)
+accessEndpoint_vpceId = Lens.lens (\AccessEndpoint' {vpceId} -> vpceId) (\s@AccessEndpoint' {} a -> s {vpceId = a} :: AccessEndpoint)
 
 -- | The type of interface endpoint.
-aeEndpointType :: Lens' AccessEndpoint AccessEndpointType
-aeEndpointType = lens _aeEndpointType (\s a -> s {_aeEndpointType = a})
+accessEndpoint_endpointType :: Lens.Lens' AccessEndpoint AccessEndpointType
+accessEndpoint_endpointType = Lens.lens (\AccessEndpoint' {endpointType} -> endpointType) (\s@AccessEndpoint' {} a -> s {endpointType = a} :: AccessEndpoint)
 
-instance FromJSON AccessEndpoint where
+instance Prelude.FromJSON AccessEndpoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccessEndpoint"
       ( \x ->
           AccessEndpoint'
-            <$> (x .:? "VpceId") <*> (x .: "EndpointType")
+            Prelude.<$> (x Prelude..:? "VpceId")
+            Prelude.<*> (x Prelude..: "EndpointType")
       )
 
-instance Hashable AccessEndpoint
+instance Prelude.Hashable AccessEndpoint
 
-instance NFData AccessEndpoint
+instance Prelude.NFData AccessEndpoint
 
-instance ToJSON AccessEndpoint where
+instance Prelude.ToJSON AccessEndpoint where
   toJSON AccessEndpoint' {..} =
-    object
-      ( catMaybes
-          [ ("VpceId" .=) <$> _aeVPCeId,
-            Just ("EndpointType" .= _aeEndpointType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpceId" Prelude..=) Prelude.<$> vpceId,
+            Prelude.Just
+              ("EndpointType" Prelude..= endpointType)
           ]
       )

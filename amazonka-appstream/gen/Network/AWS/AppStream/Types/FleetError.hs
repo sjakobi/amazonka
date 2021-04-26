@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,57 @@
 module Network.AWS.AppStream.Types.FleetError where
 
 import Network.AWS.AppStream.Types.FleetErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a fleet error.
 --
---
---
--- /See:/ 'fleetError' smart constructor.
+-- /See:/ 'newFleetError' smart constructor.
 data FleetError = FleetError'
-  { _feErrorMessage ::
-      !(Maybe Text),
-    _feErrorCode :: !(Maybe FleetErrorCode)
+  { -- | The error message.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    errorCode :: Prelude.Maybe FleetErrorCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FleetError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FleetError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'feErrorMessage' - The error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'feErrorCode' - The error code.
-fleetError ::
+-- 'errorMessage', 'fleetError_errorMessage' - The error message.
+--
+-- 'errorCode', 'fleetError_errorCode' - The error code.
+newFleetError ::
   FleetError
-fleetError =
+newFleetError =
   FleetError'
-    { _feErrorMessage = Nothing,
-      _feErrorCode = Nothing
+    { errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The error message.
-feErrorMessage :: Lens' FleetError (Maybe Text)
-feErrorMessage = lens _feErrorMessage (\s a -> s {_feErrorMessage = a})
+fleetError_errorMessage :: Lens.Lens' FleetError (Prelude.Maybe Prelude.Text)
+fleetError_errorMessage = Lens.lens (\FleetError' {errorMessage} -> errorMessage) (\s@FleetError' {} a -> s {errorMessage = a} :: FleetError)
 
 -- | The error code.
-feErrorCode :: Lens' FleetError (Maybe FleetErrorCode)
-feErrorCode = lens _feErrorCode (\s a -> s {_feErrorCode = a})
+fleetError_errorCode :: Lens.Lens' FleetError (Prelude.Maybe FleetErrorCode)
+fleetError_errorCode = Lens.lens (\FleetError' {errorCode} -> errorCode) (\s@FleetError' {} a -> s {errorCode = a} :: FleetError)
 
-instance FromJSON FleetError where
+instance Prelude.FromJSON FleetError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FleetError"
       ( \x ->
           FleetError'
-            <$> (x .:? "ErrorMessage") <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable FleetError
+instance Prelude.Hashable FleetError
 
-instance NFData FleetError
+instance Prelude.NFData FleetError

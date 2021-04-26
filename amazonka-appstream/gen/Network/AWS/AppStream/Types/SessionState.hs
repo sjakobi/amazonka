@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.AppStream.Types.SessionState
   ( SessionState
       ( ..,
-        SSActive,
-        SSExpired,
-        SSPending
+        SessionStateACTIVE,
+        SessionStateEXPIRED,
+        SessionStatePENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Possible values for the state of a streaming session.
-data SessionState = SessionState' (CI Text)
+newtype SessionState = SessionState'
+  { fromSessionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSActive :: SessionState
-pattern SSActive = SessionState' "ACTIVE"
+pattern SessionStateACTIVE :: SessionState
+pattern SessionStateACTIVE = SessionState' "ACTIVE"
 
-pattern SSExpired :: SessionState
-pattern SSExpired = SessionState' "EXPIRED"
+pattern SessionStateEXPIRED :: SessionState
+pattern SessionStateEXPIRED = SessionState' "EXPIRED"
 
-pattern SSPending :: SessionState
-pattern SSPending = SessionState' "PENDING"
+pattern SessionStatePENDING :: SessionState
+pattern SessionStatePENDING = SessionState' "PENDING"
 
 {-# COMPLETE
-  SSActive,
-  SSExpired,
-  SSPending,
+  SessionStateACTIVE,
+  SessionStateEXPIRED,
+  SessionStatePENDING,
   SessionState'
   #-}
 
-instance FromText SessionState where
-  parser = (SessionState' . mk) <$> takeText
+instance Prelude.FromText SessionState where
+  parser = SessionState' Prelude.<$> Prelude.takeText
 
-instance ToText SessionState where
-  toText (SessionState' ci) = original ci
+instance Prelude.ToText SessionState where
+  toText (SessionState' x) = x
 
-instance Hashable SessionState
+instance Prelude.Hashable SessionState
 
-instance NFData SessionState
+instance Prelude.NFData SessionState
 
-instance ToByteString SessionState
+instance Prelude.ToByteString SessionState
 
-instance ToQuery SessionState
+instance Prelude.ToQuery SessionState
 
-instance ToHeader SessionState
+instance Prelude.ToHeader SessionState
 
-instance FromJSON SessionState where
-  parseJSON = parseJSONText "SessionState"
+instance Prelude.FromJSON SessionState where
+  parseJSON = Prelude.parseJSONText "SessionState"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.AppStream.Types.MessageAction
   ( MessageAction
       ( ..,
-        Resend,
-        Suppress
+        MessageActionRESEND,
+        MessageActionSUPPRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageAction = MessageAction' (CI Text)
+newtype MessageAction = MessageAction'
+  { fromMessageAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Resend :: MessageAction
-pattern Resend = MessageAction' "RESEND"
+pattern MessageActionRESEND :: MessageAction
+pattern MessageActionRESEND = MessageAction' "RESEND"
 
-pattern Suppress :: MessageAction
-pattern Suppress = MessageAction' "SUPPRESS"
+pattern MessageActionSUPPRESS :: MessageAction
+pattern MessageActionSUPPRESS = MessageAction' "SUPPRESS"
 
 {-# COMPLETE
-  Resend,
-  Suppress,
+  MessageActionRESEND,
+  MessageActionSUPPRESS,
   MessageAction'
   #-}
 
-instance FromText MessageAction where
-  parser = (MessageAction' . mk) <$> takeText
+instance Prelude.FromText MessageAction where
+  parser = MessageAction' Prelude.<$> Prelude.takeText
 
-instance ToText MessageAction where
-  toText (MessageAction' ci) = original ci
+instance Prelude.ToText MessageAction where
+  toText (MessageAction' x) = x
 
-instance Hashable MessageAction
+instance Prelude.Hashable MessageAction
 
-instance NFData MessageAction
+instance Prelude.NFData MessageAction
 
-instance ToByteString MessageAction
+instance Prelude.ToByteString MessageAction
 
-instance ToQuery MessageAction
+instance Prelude.ToQuery MessageAction
 
-instance ToHeader MessageAction
+instance Prelude.ToHeader MessageAction
 
-instance ToJSON MessageAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON MessageAction where
+  toJSON = Prelude.toJSONText

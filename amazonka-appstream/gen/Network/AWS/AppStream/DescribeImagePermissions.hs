@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,208 +21,218 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list that describes the permissions for shared AWS account IDs on a private image that you own.
+-- Retrieves a list that describes the permissions for shared AWS account
+-- IDs on a private image that you own.
 module Network.AWS.AppStream.DescribeImagePermissions
   ( -- * Creating a Request
-    describeImagePermissions,
-    DescribeImagePermissions,
+    DescribeImagePermissions (..),
+    newDescribeImagePermissions,
 
     -- * Request Lenses
-    dipsNextToken,
-    dipsMaxResults,
-    dipsSharedAWSAccountIds,
-    dipsName,
+    describeImagePermissions_nextToken,
+    describeImagePermissions_maxResults,
+    describeImagePermissions_sharedAwsAccountIds,
+    describeImagePermissions_name,
 
     -- * Destructuring the Response
-    describeImagePermissionsResponse,
-    DescribeImagePermissionsResponse,
+    DescribeImagePermissionsResponse (..),
+    newDescribeImagePermissionsResponse,
 
     -- * Response Lenses
-    diprirsSharedImagePermissionsList,
-    diprirsNextToken,
-    diprirsName,
-    diprirsResponseStatus,
+    describeImagePermissionsResponse_sharedImagePermissionsList,
+    describeImagePermissionsResponse_nextToken,
+    describeImagePermissionsResponse_name,
+    describeImagePermissionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.SharedImagePermissions
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeImagePermissions' smart constructor.
+-- | /See:/ 'newDescribeImagePermissions' smart constructor.
 data DescribeImagePermissions = DescribeImagePermissions'
-  { _dipsNextToken ::
-      !(Maybe Text),
-    _dipsMaxResults ::
-      !(Maybe Nat),
-    _dipsSharedAWSAccountIds ::
-      !(Maybe (List1 Text)),
-    _dipsName :: !Text
+  { -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of each page of results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The 12-digit identifier of one or more AWS accounts with which the image
+    -- is shared.
+    sharedAwsAccountIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The name of the private image for which to describe permissions. The
+    -- image must be one that you own.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImagePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImagePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dipsNextToken' - The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dipsMaxResults' - The maximum size of each page of results.
+-- 'nextToken', 'describeImagePermissions_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
 --
--- * 'dipsSharedAWSAccountIds' - The 12-digit identifier of one or more AWS accounts with which the image is shared.
+-- 'maxResults', 'describeImagePermissions_maxResults' - The maximum size of each page of results.
 --
--- * 'dipsName' - The name of the private image for which to describe permissions. The image must be one that you own.
-describeImagePermissions ::
-  -- | 'dipsName'
-  Text ->
+-- 'sharedAwsAccountIds', 'describeImagePermissions_sharedAwsAccountIds' - The 12-digit identifier of one or more AWS accounts with which the image
+-- is shared.
+--
+-- 'name', 'describeImagePermissions_name' - The name of the private image for which to describe permissions. The
+-- image must be one that you own.
+newDescribeImagePermissions ::
+  -- | 'name'
+  Prelude.Text ->
   DescribeImagePermissions
-describeImagePermissions pName_ =
+newDescribeImagePermissions pName_ =
   DescribeImagePermissions'
-    { _dipsNextToken = Nothing,
-      _dipsMaxResults = Nothing,
-      _dipsSharedAWSAccountIds = Nothing,
-      _dipsName = pName_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sharedAwsAccountIds = Prelude.Nothing,
+      name = pName_
     }
 
--- | The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.
-dipsNextToken :: Lens' DescribeImagePermissions (Maybe Text)
-dipsNextToken = lens _dipsNextToken (\s a -> s {_dipsNextToken = a})
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+describeImagePermissions_nextToken :: Lens.Lens' DescribeImagePermissions (Prelude.Maybe Prelude.Text)
+describeImagePermissions_nextToken = Lens.lens (\DescribeImagePermissions' {nextToken} -> nextToken) (\s@DescribeImagePermissions' {} a -> s {nextToken = a} :: DescribeImagePermissions)
 
 -- | The maximum size of each page of results.
-dipsMaxResults :: Lens' DescribeImagePermissions (Maybe Natural)
-dipsMaxResults = lens _dipsMaxResults (\s a -> s {_dipsMaxResults = a}) . mapping _Nat
+describeImagePermissions_maxResults :: Lens.Lens' DescribeImagePermissions (Prelude.Maybe Prelude.Natural)
+describeImagePermissions_maxResults = Lens.lens (\DescribeImagePermissions' {maxResults} -> maxResults) (\s@DescribeImagePermissions' {} a -> s {maxResults = a} :: DescribeImagePermissions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The 12-digit identifier of one or more AWS accounts with which the image is shared.
-dipsSharedAWSAccountIds :: Lens' DescribeImagePermissions (Maybe (NonEmpty Text))
-dipsSharedAWSAccountIds = lens _dipsSharedAWSAccountIds (\s a -> s {_dipsSharedAWSAccountIds = a}) . mapping _List1
+-- | The 12-digit identifier of one or more AWS accounts with which the image
+-- is shared.
+describeImagePermissions_sharedAwsAccountIds :: Lens.Lens' DescribeImagePermissions (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeImagePermissions_sharedAwsAccountIds = Lens.lens (\DescribeImagePermissions' {sharedAwsAccountIds} -> sharedAwsAccountIds) (\s@DescribeImagePermissions' {} a -> s {sharedAwsAccountIds = a} :: DescribeImagePermissions) Prelude.. Lens.mapping Prelude._List1
 
--- | The name of the private image for which to describe permissions. The image must be one that you own.
-dipsName :: Lens' DescribeImagePermissions Text
-dipsName = lens _dipsName (\s a -> s {_dipsName = a})
+-- | The name of the private image for which to describe permissions. The
+-- image must be one that you own.
+describeImagePermissions_name :: Lens.Lens' DescribeImagePermissions Prelude.Text
+describeImagePermissions_name = Lens.lens (\DescribeImagePermissions' {name} -> name) (\s@DescribeImagePermissions' {} a -> s {name = a} :: DescribeImagePermissions)
 
-instance AWSRequest DescribeImagePermissions where
+instance Prelude.AWSRequest DescribeImagePermissions where
   type
     Rs DescribeImagePermissions =
       DescribeImagePermissionsResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeImagePermissionsResponse'
-            <$> (x .?> "SharedImagePermissionsList" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SharedImagePermissionsList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeImagePermissions
+instance Prelude.Hashable DescribeImagePermissions
 
-instance NFData DescribeImagePermissions
+instance Prelude.NFData DescribeImagePermissions
 
-instance ToHeaders DescribeImagePermissions where
+instance Prelude.ToHeaders DescribeImagePermissions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.DescribeImagePermissions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.DescribeImagePermissions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeImagePermissions where
+instance Prelude.ToJSON DescribeImagePermissions where
   toJSON DescribeImagePermissions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dipsNextToken,
-            ("MaxResults" .=) <$> _dipsMaxResults,
-            ("SharedAwsAccountIds" .=)
-              <$> _dipsSharedAWSAccountIds,
-            Just ("Name" .= _dipsName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SharedAwsAccountIds" Prelude..=)
+              Prelude.<$> sharedAwsAccountIds,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath DescribeImagePermissions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeImagePermissions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeImagePermissions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeImagePermissions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeImagePermissionsResponse' smart constructor.
+-- | /See:/ 'newDescribeImagePermissionsResponse' smart constructor.
 data DescribeImagePermissionsResponse = DescribeImagePermissionsResponse'
-  { _diprirsSharedImagePermissionsList ::
-      !( Maybe
-           [SharedImagePermissions]
-       ),
-    _diprirsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _diprirsName ::
-      !( Maybe
-           Text
-       ),
-    _diprirsResponseStatus ::
-      !Int
+  { -- | The permissions for a private image that you own.
+    sharedImagePermissionsList :: Prelude.Maybe [SharedImagePermissions],
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If there are no more pages, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the private image.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImagePermissionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImagePermissionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diprirsSharedImagePermissionsList' - The permissions for a private image that you own.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diprirsNextToken' - The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
+-- 'sharedImagePermissionsList', 'describeImagePermissionsResponse_sharedImagePermissionsList' - The permissions for a private image that you own.
 --
--- * 'diprirsName' - The name of the private image.
+-- 'nextToken', 'describeImagePermissionsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
 --
--- * 'diprirsResponseStatus' - -- | The response status code.
-describeImagePermissionsResponse ::
-  -- | 'diprirsResponseStatus'
-  Int ->
+-- 'name', 'describeImagePermissionsResponse_name' - The name of the private image.
+--
+-- 'httpStatus', 'describeImagePermissionsResponse_httpStatus' - The response's http status code.
+newDescribeImagePermissionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeImagePermissionsResponse
-describeImagePermissionsResponse pResponseStatus_ =
+newDescribeImagePermissionsResponse pHttpStatus_ =
   DescribeImagePermissionsResponse'
-    { _diprirsSharedImagePermissionsList =
-        Nothing,
-      _diprirsNextToken = Nothing,
-      _diprirsName = Nothing,
-      _diprirsResponseStatus = pResponseStatus_
+    { sharedImagePermissionsList =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The permissions for a private image that you own.
-diprirsSharedImagePermissionsList :: Lens' DescribeImagePermissionsResponse [SharedImagePermissions]
-diprirsSharedImagePermissionsList = lens _diprirsSharedImagePermissionsList (\s a -> s {_diprirsSharedImagePermissionsList = a}) . _Default . _Coerce
+describeImagePermissionsResponse_sharedImagePermissionsList :: Lens.Lens' DescribeImagePermissionsResponse (Prelude.Maybe [SharedImagePermissions])
+describeImagePermissionsResponse_sharedImagePermissionsList = Lens.lens (\DescribeImagePermissionsResponse' {sharedImagePermissionsList} -> sharedImagePermissionsList) (\s@DescribeImagePermissionsResponse' {} a -> s {sharedImagePermissionsList = a} :: DescribeImagePermissionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
-diprirsNextToken :: Lens' DescribeImagePermissionsResponse (Maybe Text)
-diprirsNextToken = lens _diprirsNextToken (\s a -> s {_diprirsNextToken = a})
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
+describeImagePermissionsResponse_nextToken :: Lens.Lens' DescribeImagePermissionsResponse (Prelude.Maybe Prelude.Text)
+describeImagePermissionsResponse_nextToken = Lens.lens (\DescribeImagePermissionsResponse' {nextToken} -> nextToken) (\s@DescribeImagePermissionsResponse' {} a -> s {nextToken = a} :: DescribeImagePermissionsResponse)
 
 -- | The name of the private image.
-diprirsName :: Lens' DescribeImagePermissionsResponse (Maybe Text)
-diprirsName = lens _diprirsName (\s a -> s {_diprirsName = a})
+describeImagePermissionsResponse_name :: Lens.Lens' DescribeImagePermissionsResponse (Prelude.Maybe Prelude.Text)
+describeImagePermissionsResponse_name = Lens.lens (\DescribeImagePermissionsResponse' {name} -> name) (\s@DescribeImagePermissionsResponse' {} a -> s {name = a} :: DescribeImagePermissionsResponse)
 
--- | -- | The response status code.
-diprirsResponseStatus :: Lens' DescribeImagePermissionsResponse Int
-diprirsResponseStatus = lens _diprirsResponseStatus (\s a -> s {_diprirsResponseStatus = a})
+-- | The response's http status code.
+describeImagePermissionsResponse_httpStatus :: Lens.Lens' DescribeImagePermissionsResponse Prelude.Int
+describeImagePermissionsResponse_httpStatus = Lens.lens (\DescribeImagePermissionsResponse' {httpStatus} -> httpStatus) (\s@DescribeImagePermissionsResponse' {} a -> s {httpStatus = a} :: DescribeImagePermissionsResponse)
 
-instance NFData DescribeImagePermissionsResponse
+instance
+  Prelude.NFData
+    DescribeImagePermissionsResponse

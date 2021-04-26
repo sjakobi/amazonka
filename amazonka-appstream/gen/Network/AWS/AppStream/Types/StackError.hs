@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,57 @@
 module Network.AWS.AppStream.Types.StackError where
 
 import Network.AWS.AppStream.Types.StackErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a stack error.
 --
---
---
--- /See:/ 'stackError' smart constructor.
+-- /See:/ 'newStackError' smart constructor.
 data StackError = StackError'
-  { _seErrorMessage ::
-      !(Maybe Text),
-    _seErrorCode :: !(Maybe StackErrorCode)
+  { -- | The error message.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    errorCode :: Prelude.Maybe StackErrorCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StackError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StackError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seErrorMessage' - The error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seErrorCode' - The error code.
-stackError ::
+-- 'errorMessage', 'stackError_errorMessage' - The error message.
+--
+-- 'errorCode', 'stackError_errorCode' - The error code.
+newStackError ::
   StackError
-stackError =
+newStackError =
   StackError'
-    { _seErrorMessage = Nothing,
-      _seErrorCode = Nothing
+    { errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The error message.
-seErrorMessage :: Lens' StackError (Maybe Text)
-seErrorMessage = lens _seErrorMessage (\s a -> s {_seErrorMessage = a})
+stackError_errorMessage :: Lens.Lens' StackError (Prelude.Maybe Prelude.Text)
+stackError_errorMessage = Lens.lens (\StackError' {errorMessage} -> errorMessage) (\s@StackError' {} a -> s {errorMessage = a} :: StackError)
 
 -- | The error code.
-seErrorCode :: Lens' StackError (Maybe StackErrorCode)
-seErrorCode = lens _seErrorCode (\s a -> s {_seErrorCode = a})
+stackError_errorCode :: Lens.Lens' StackError (Prelude.Maybe StackErrorCode)
+stackError_errorCode = Lens.lens (\StackError' {errorCode} -> errorCode) (\s@StackError' {} a -> s {errorCode = a} :: StackError)
 
-instance FromJSON StackError where
+instance Prelude.FromJSON StackError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StackError"
       ( \x ->
           StackError'
-            <$> (x .:? "ErrorMessage") <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable StackError
+instance Prelude.Hashable StackError
 
-instance NFData StackError
+instance Prelude.NFData StackError

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.NetworkAccessConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the network details of the fleet or image builder instance.
 --
---
---
--- /See:/ 'networkAccessConfiguration' smart constructor.
+-- /See:/ 'newNetworkAccessConfiguration' smart constructor.
 data NetworkAccessConfiguration = NetworkAccessConfiguration'
-  { _nacEniId ::
-      !(Maybe Text),
-    _nacEniPrivateIPAddress ::
-      !(Maybe Text)
+  { -- | The resource identifier of the elastic network interface that is
+    -- attached to instances in your VPC. All network interfaces have the
+    -- eni-xxxxxxxx resource identifier.
+    eniId :: Prelude.Maybe Prelude.Text,
+    -- | The private IP address of the elastic network interface that is attached
+    -- to instances in your VPC.
+    eniPrivateIpAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkAccessConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkAccessConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nacEniId' - The resource identifier of the elastic network interface that is attached to instances in your VPC. All network interfaces have the eni-xxxxxxxx resource identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nacEniPrivateIPAddress' - The private IP address of the elastic network interface that is attached to instances in your VPC.
-networkAccessConfiguration ::
+-- 'eniId', 'networkAccessConfiguration_eniId' - The resource identifier of the elastic network interface that is
+-- attached to instances in your VPC. All network interfaces have the
+-- eni-xxxxxxxx resource identifier.
+--
+-- 'eniPrivateIpAddress', 'networkAccessConfiguration_eniPrivateIpAddress' - The private IP address of the elastic network interface that is attached
+-- to instances in your VPC.
+newNetworkAccessConfiguration ::
   NetworkAccessConfiguration
-networkAccessConfiguration =
+newNetworkAccessConfiguration =
   NetworkAccessConfiguration'
-    { _nacEniId = Nothing,
-      _nacEniPrivateIPAddress = Nothing
+    { eniId =
+        Prelude.Nothing,
+      eniPrivateIpAddress = Prelude.Nothing
     }
 
--- | The resource identifier of the elastic network interface that is attached to instances in your VPC. All network interfaces have the eni-xxxxxxxx resource identifier.
-nacEniId :: Lens' NetworkAccessConfiguration (Maybe Text)
-nacEniId = lens _nacEniId (\s a -> s {_nacEniId = a})
+-- | The resource identifier of the elastic network interface that is
+-- attached to instances in your VPC. All network interfaces have the
+-- eni-xxxxxxxx resource identifier.
+networkAccessConfiguration_eniId :: Lens.Lens' NetworkAccessConfiguration (Prelude.Maybe Prelude.Text)
+networkAccessConfiguration_eniId = Lens.lens (\NetworkAccessConfiguration' {eniId} -> eniId) (\s@NetworkAccessConfiguration' {} a -> s {eniId = a} :: NetworkAccessConfiguration)
 
--- | The private IP address of the elastic network interface that is attached to instances in your VPC.
-nacEniPrivateIPAddress :: Lens' NetworkAccessConfiguration (Maybe Text)
-nacEniPrivateIPAddress = lens _nacEniPrivateIPAddress (\s a -> s {_nacEniPrivateIPAddress = a})
+-- | The private IP address of the elastic network interface that is attached
+-- to instances in your VPC.
+networkAccessConfiguration_eniPrivateIpAddress :: Lens.Lens' NetworkAccessConfiguration (Prelude.Maybe Prelude.Text)
+networkAccessConfiguration_eniPrivateIpAddress = Lens.lens (\NetworkAccessConfiguration' {eniPrivateIpAddress} -> eniPrivateIpAddress) (\s@NetworkAccessConfiguration' {} a -> s {eniPrivateIpAddress = a} :: NetworkAccessConfiguration)
 
-instance FromJSON NetworkAccessConfiguration where
+instance Prelude.FromJSON NetworkAccessConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NetworkAccessConfiguration"
       ( \x ->
           NetworkAccessConfiguration'
-            <$> (x .:? "EniId") <*> (x .:? "EniPrivateIpAddress")
+            Prelude.<$> (x Prelude..:? "EniId")
+            Prelude.<*> (x Prelude..:? "EniPrivateIpAddress")
       )
 
-instance Hashable NetworkAccessConfiguration
+instance Prelude.Hashable NetworkAccessConfiguration
 
-instance NFData NetworkAccessConfiguration
+instance Prelude.NFData NetworkAccessConfiguration

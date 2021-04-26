@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,178 +24,193 @@
 -- Retrieves a list that describes one or more usage report subscriptions.
 module Network.AWS.AppStream.DescribeUsageReportSubscriptions
   ( -- * Creating a Request
-    describeUsageReportSubscriptions,
-    DescribeUsageReportSubscriptions,
+    DescribeUsageReportSubscriptions (..),
+    newDescribeUsageReportSubscriptions,
 
     -- * Request Lenses
-    dursNextToken,
-    dursMaxResults,
+    describeUsageReportSubscriptions_nextToken,
+    describeUsageReportSubscriptions_maxResults,
 
     -- * Destructuring the Response
-    describeUsageReportSubscriptionsResponse,
-    DescribeUsageReportSubscriptionsResponse,
+    DescribeUsageReportSubscriptionsResponse (..),
+    newDescribeUsageReportSubscriptionsResponse,
 
     -- * Response Lenses
-    dursrrsNextToken,
-    dursrrsUsageReportSubscriptions,
-    dursrrsResponseStatus,
+    describeUsageReportSubscriptionsResponse_nextToken,
+    describeUsageReportSubscriptionsResponse_usageReportSubscriptions,
+    describeUsageReportSubscriptionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.UsageReportSubscription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUsageReportSubscriptions' smart constructor.
+-- | /See:/ 'newDescribeUsageReportSubscriptions' smart constructor.
 data DescribeUsageReportSubscriptions = DescribeUsageReportSubscriptions'
-  { _dursNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dursMaxResults ::
-      !( Maybe
-           Int
-       )
+  { -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of each page of results.
+    maxResults :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUsageReportSubscriptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUsageReportSubscriptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dursNextToken' - The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dursMaxResults' - The maximum size of each page of results.
-describeUsageReportSubscriptions ::
+-- 'nextToken', 'describeUsageReportSubscriptions_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+--
+-- 'maxResults', 'describeUsageReportSubscriptions_maxResults' - The maximum size of each page of results.
+newDescribeUsageReportSubscriptions ::
   DescribeUsageReportSubscriptions
-describeUsageReportSubscriptions =
+newDescribeUsageReportSubscriptions =
   DescribeUsageReportSubscriptions'
-    { _dursNextToken =
-        Nothing,
-      _dursMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.
-dursNextToken :: Lens' DescribeUsageReportSubscriptions (Maybe Text)
-dursNextToken = lens _dursNextToken (\s a -> s {_dursNextToken = a})
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+describeUsageReportSubscriptions_nextToken :: Lens.Lens' DescribeUsageReportSubscriptions (Prelude.Maybe Prelude.Text)
+describeUsageReportSubscriptions_nextToken = Lens.lens (\DescribeUsageReportSubscriptions' {nextToken} -> nextToken) (\s@DescribeUsageReportSubscriptions' {} a -> s {nextToken = a} :: DescribeUsageReportSubscriptions)
 
 -- | The maximum size of each page of results.
-dursMaxResults :: Lens' DescribeUsageReportSubscriptions (Maybe Int)
-dursMaxResults = lens _dursMaxResults (\s a -> s {_dursMaxResults = a})
+describeUsageReportSubscriptions_maxResults :: Lens.Lens' DescribeUsageReportSubscriptions (Prelude.Maybe Prelude.Int)
+describeUsageReportSubscriptions_maxResults = Lens.lens (\DescribeUsageReportSubscriptions' {maxResults} -> maxResults) (\s@DescribeUsageReportSubscriptions' {} a -> s {maxResults = a} :: DescribeUsageReportSubscriptions)
 
-instance AWSRequest DescribeUsageReportSubscriptions where
+instance
+  Prelude.AWSRequest
+    DescribeUsageReportSubscriptions
+  where
   type
     Rs DescribeUsageReportSubscriptions =
       DescribeUsageReportSubscriptionsResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeUsageReportSubscriptionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "UsageReportSubscriptions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "UsageReportSubscriptions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable DescribeUsageReportSubscriptions
-
-instance NFData DescribeUsageReportSubscriptions
-
-instance ToHeaders DescribeUsageReportSubscriptions where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.DescribeUsageReportSubscriptions" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON DescribeUsageReportSubscriptions where
-  toJSON DescribeUsageReportSubscriptions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dursNextToken,
-            ("MaxResults" .=) <$> _dursMaxResults
-          ]
-      )
-
-instance ToPath DescribeUsageReportSubscriptions where
-  toPath = const "/"
-
-instance ToQuery DescribeUsageReportSubscriptions where
-  toQuery = const mempty
-
--- | /See:/ 'describeUsageReportSubscriptionsResponse' smart constructor.
-data DescribeUsageReportSubscriptionsResponse = DescribeUsageReportSubscriptionsResponse'
-  { _dursrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dursrrsUsageReportSubscriptions ::
-      !( Maybe
-           [UsageReportSubscription]
-       ),
-    _dursrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeUsageReportSubscriptionsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dursrrsNextToken' - The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
---
--- * 'dursrrsUsageReportSubscriptions' - Information about the usage report subscription.
---
--- * 'dursrrsResponseStatus' - -- | The response status code.
-describeUsageReportSubscriptionsResponse ::
-  -- | 'dursrrsResponseStatus'
-  Int ->
-  DescribeUsageReportSubscriptionsResponse
-describeUsageReportSubscriptionsResponse
-  pResponseStatus_ =
-    DescribeUsageReportSubscriptionsResponse'
-      { _dursrrsNextToken =
-          Nothing,
-        _dursrrsUsageReportSubscriptions =
-          Nothing,
-        _dursrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
-dursrrsNextToken :: Lens' DescribeUsageReportSubscriptionsResponse (Maybe Text)
-dursrrsNextToken = lens _dursrrsNextToken (\s a -> s {_dursrrsNextToken = a})
-
--- | Information about the usage report subscription.
-dursrrsUsageReportSubscriptions :: Lens' DescribeUsageReportSubscriptionsResponse [UsageReportSubscription]
-dursrrsUsageReportSubscriptions = lens _dursrrsUsageReportSubscriptions (\s a -> s {_dursrrsUsageReportSubscriptions = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-dursrrsResponseStatus :: Lens' DescribeUsageReportSubscriptionsResponse Int
-dursrrsResponseStatus = lens _dursrrsResponseStatus (\s a -> s {_dursrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    DescribeUsageReportSubscriptions
+
+instance
+  Prelude.NFData
+    DescribeUsageReportSubscriptions
+
+instance
+  Prelude.ToHeaders
+    DescribeUsageReportSubscriptions
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "PhotonAdminProxyService.DescribeUsageReportSubscriptions" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    DescribeUsageReportSubscriptions
+  where
+  toJSON DescribeUsageReportSubscriptions' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    DescribeUsageReportSubscriptions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeUsageReportSubscriptions
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeUsageReportSubscriptionsResponse' smart constructor.
+data DescribeUsageReportSubscriptionsResponse = DescribeUsageReportSubscriptionsResponse'
+  { -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If there are no more pages, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the usage report subscription.
+    usageReportSubscriptions :: Prelude.Maybe [UsageReportSubscription],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeUsageReportSubscriptionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeUsageReportSubscriptionsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
+--
+-- 'usageReportSubscriptions', 'describeUsageReportSubscriptionsResponse_usageReportSubscriptions' - Information about the usage report subscription.
+--
+-- 'httpStatus', 'describeUsageReportSubscriptionsResponse_httpStatus' - The response's http status code.
+newDescribeUsageReportSubscriptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeUsageReportSubscriptionsResponse
+newDescribeUsageReportSubscriptionsResponse
+  pHttpStatus_ =
+    DescribeUsageReportSubscriptionsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        usageReportSubscriptions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
+describeUsageReportSubscriptionsResponse_nextToken :: Lens.Lens' DescribeUsageReportSubscriptionsResponse (Prelude.Maybe Prelude.Text)
+describeUsageReportSubscriptionsResponse_nextToken = Lens.lens (\DescribeUsageReportSubscriptionsResponse' {nextToken} -> nextToken) (\s@DescribeUsageReportSubscriptionsResponse' {} a -> s {nextToken = a} :: DescribeUsageReportSubscriptionsResponse)
+
+-- | Information about the usage report subscription.
+describeUsageReportSubscriptionsResponse_usageReportSubscriptions :: Lens.Lens' DescribeUsageReportSubscriptionsResponse (Prelude.Maybe [UsageReportSubscription])
+describeUsageReportSubscriptionsResponse_usageReportSubscriptions = Lens.lens (\DescribeUsageReportSubscriptionsResponse' {usageReportSubscriptions} -> usageReportSubscriptions) (\s@DescribeUsageReportSubscriptionsResponse' {} a -> s {usageReportSubscriptions = a} :: DescribeUsageReportSubscriptionsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeUsageReportSubscriptionsResponse_httpStatus :: Lens.Lens' DescribeUsageReportSubscriptionsResponse Prelude.Int
+describeUsageReportSubscriptionsResponse_httpStatus = Lens.lens (\DescribeUsageReportSubscriptionsResponse' {httpStatus} -> httpStatus) (\s@DescribeUsageReportSubscriptionsResponse' {} a -> s {httpStatus = a} :: DescribeUsageReportSubscriptionsResponse)
+
+instance
+  Prelude.NFData
     DescribeUsageReportSubscriptionsResponse

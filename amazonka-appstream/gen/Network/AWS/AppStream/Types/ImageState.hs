@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.AppStream.Types.ImageState
   ( ImageState
       ( ..,
-        ISAvailable,
-        ISCopying,
-        ISCreating,
-        ISDeleting,
-        ISFailed,
-        ISImporting,
-        ISPending
+        ImageStateAVAILABLE,
+        ImageStateCOPYING,
+        ImageStateCREATING,
+        ImageStateDELETING,
+        ImageStateFAILED,
+        ImageStateIMPORTING,
+        ImageStatePENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageState = ImageState' (CI Text)
+newtype ImageState = ImageState'
+  { fromImageState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISAvailable :: ImageState
-pattern ISAvailable = ImageState' "AVAILABLE"
+pattern ImageStateAVAILABLE :: ImageState
+pattern ImageStateAVAILABLE = ImageState' "AVAILABLE"
 
-pattern ISCopying :: ImageState
-pattern ISCopying = ImageState' "COPYING"
+pattern ImageStateCOPYING :: ImageState
+pattern ImageStateCOPYING = ImageState' "COPYING"
 
-pattern ISCreating :: ImageState
-pattern ISCreating = ImageState' "CREATING"
+pattern ImageStateCREATING :: ImageState
+pattern ImageStateCREATING = ImageState' "CREATING"
 
-pattern ISDeleting :: ImageState
-pattern ISDeleting = ImageState' "DELETING"
+pattern ImageStateDELETING :: ImageState
+pattern ImageStateDELETING = ImageState' "DELETING"
 
-pattern ISFailed :: ImageState
-pattern ISFailed = ImageState' "FAILED"
+pattern ImageStateFAILED :: ImageState
+pattern ImageStateFAILED = ImageState' "FAILED"
 
-pattern ISImporting :: ImageState
-pattern ISImporting = ImageState' "IMPORTING"
+pattern ImageStateIMPORTING :: ImageState
+pattern ImageStateIMPORTING = ImageState' "IMPORTING"
 
-pattern ISPending :: ImageState
-pattern ISPending = ImageState' "PENDING"
+pattern ImageStatePENDING :: ImageState
+pattern ImageStatePENDING = ImageState' "PENDING"
 
 {-# COMPLETE
-  ISAvailable,
-  ISCopying,
-  ISCreating,
-  ISDeleting,
-  ISFailed,
-  ISImporting,
-  ISPending,
+  ImageStateAVAILABLE,
+  ImageStateCOPYING,
+  ImageStateCREATING,
+  ImageStateDELETING,
+  ImageStateFAILED,
+  ImageStateIMPORTING,
+  ImageStatePENDING,
   ImageState'
   #-}
 
-instance FromText ImageState where
-  parser = (ImageState' . mk) <$> takeText
+instance Prelude.FromText ImageState where
+  parser = ImageState' Prelude.<$> Prelude.takeText
 
-instance ToText ImageState where
-  toText (ImageState' ci) = original ci
+instance Prelude.ToText ImageState where
+  toText (ImageState' x) = x
 
-instance Hashable ImageState
+instance Prelude.Hashable ImageState
 
-instance NFData ImageState
+instance Prelude.NFData ImageState
 
-instance ToByteString ImageState
+instance Prelude.ToByteString ImageState
 
-instance ToQuery ImageState
+instance Prelude.ToQuery ImageState
 
-instance ToHeader ImageState
+instance Prelude.ToHeader ImageState
 
-instance FromJSON ImageState where
-  parseJSON = parseJSONText "ImageState"
+instance Prelude.FromJSON ImageState where
+  parseJSON = Prelude.parseJSONText "ImageState"

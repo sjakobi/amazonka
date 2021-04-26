@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.AppStream.Types.StreamView
   ( StreamView
       ( ..,
-        App,
-        Desktop
+        StreamViewAPP,
+        StreamViewDESKTOP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StreamView = StreamView' (CI Text)
+newtype StreamView = StreamView'
+  { fromStreamView ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern App :: StreamView
-pattern App = StreamView' "APP"
+pattern StreamViewAPP :: StreamView
+pattern StreamViewAPP = StreamView' "APP"
 
-pattern Desktop :: StreamView
-pattern Desktop = StreamView' "DESKTOP"
+pattern StreamViewDESKTOP :: StreamView
+pattern StreamViewDESKTOP = StreamView' "DESKTOP"
 
 {-# COMPLETE
-  App,
-  Desktop,
+  StreamViewAPP,
+  StreamViewDESKTOP,
   StreamView'
   #-}
 
-instance FromText StreamView where
-  parser = (StreamView' . mk) <$> takeText
+instance Prelude.FromText StreamView where
+  parser = StreamView' Prelude.<$> Prelude.takeText
 
-instance ToText StreamView where
-  toText (StreamView' ci) = original ci
+instance Prelude.ToText StreamView where
+  toText (StreamView' x) = x
 
-instance Hashable StreamView
+instance Prelude.Hashable StreamView
 
-instance NFData StreamView
+instance Prelude.NFData StreamView
 
-instance ToByteString StreamView
+instance Prelude.ToByteString StreamView
 
-instance ToQuery StreamView
+instance Prelude.ToQuery StreamView
 
-instance ToHeader StreamView
+instance Prelude.ToHeader StreamView
 
-instance ToJSON StreamView where
-  toJSON = toJSONText
+instance Prelude.ToJSON StreamView where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StreamView where
-  parseJSON = parseJSONText "StreamView"
+instance Prelude.FromJSON StreamView where
+  parseJSON = Prelude.parseJSONText "StreamView"

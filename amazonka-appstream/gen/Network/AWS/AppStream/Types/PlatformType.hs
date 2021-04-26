@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.AppStream.Types.PlatformType
   ( PlatformType
       ( ..,
-        Windows,
-        WindowsServer2016,
-        WindowsServer2019
+        PlatformTypeWINDOWS,
+        PlatformTypeWINDOWSSERVER2016,
+        PlatformTypeWINDOWSSERVER2019
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlatformType = PlatformType' (CI Text)
+newtype PlatformType = PlatformType'
+  { fromPlatformType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Windows :: PlatformType
-pattern Windows = PlatformType' "WINDOWS"
+pattern PlatformTypeWINDOWS :: PlatformType
+pattern PlatformTypeWINDOWS = PlatformType' "WINDOWS"
 
-pattern WindowsServer2016 :: PlatformType
-pattern WindowsServer2016 = PlatformType' "WINDOWS_SERVER_2016"
+pattern PlatformTypeWINDOWSSERVER2016 :: PlatformType
+pattern PlatformTypeWINDOWSSERVER2016 = PlatformType' "WINDOWS_SERVER_2016"
 
-pattern WindowsServer2019 :: PlatformType
-pattern WindowsServer2019 = PlatformType' "WINDOWS_SERVER_2019"
+pattern PlatformTypeWINDOWSSERVER2019 :: PlatformType
+pattern PlatformTypeWINDOWSSERVER2019 = PlatformType' "WINDOWS_SERVER_2019"
 
 {-# COMPLETE
-  Windows,
-  WindowsServer2016,
-  WindowsServer2019,
+  PlatformTypeWINDOWS,
+  PlatformTypeWINDOWSSERVER2016,
+  PlatformTypeWINDOWSSERVER2019,
   PlatformType'
   #-}
 
-instance FromText PlatformType where
-  parser = (PlatformType' . mk) <$> takeText
+instance Prelude.FromText PlatformType where
+  parser = PlatformType' Prelude.<$> Prelude.takeText
 
-instance ToText PlatformType where
-  toText (PlatformType' ci) = original ci
+instance Prelude.ToText PlatformType where
+  toText (PlatformType' x) = x
 
-instance Hashable PlatformType
+instance Prelude.Hashable PlatformType
 
-instance NFData PlatformType
+instance Prelude.NFData PlatformType
 
-instance ToByteString PlatformType
+instance Prelude.ToByteString PlatformType
 
-instance ToQuery PlatformType
+instance Prelude.ToQuery PlatformType
 
-instance ToHeader PlatformType
+instance Prelude.ToHeader PlatformType
 
-instance FromJSON PlatformType where
-  parseJSON = parseJSONText "PlatformType"
+instance Prelude.FromJSON PlatformType where
+  parseJSON = Prelude.parseJSONText "PlatformType"

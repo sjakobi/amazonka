@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.ApplicationSettingsResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the persistent application settings for users of a stack.
 --
---
---
--- /See:/ 'applicationSettingsResponse' smart constructor.
+-- /See:/ 'newApplicationSettingsResponse' smart constructor.
 data ApplicationSettingsResponse = ApplicationSettingsResponse'
-  { _asrEnabled ::
-      !(Maybe Bool),
-    _asrSettingsGroup ::
-      !(Maybe Text),
-    _asrS3BucketName ::
-      !(Maybe Text)
+  { -- | Specifies whether persistent application settings are enabled for users
+    -- during their streaming sessions.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The path prefix for the S3 bucket where users’ persistent application
+    -- settings are stored.
+    settingsGroup :: Prelude.Maybe Prelude.Text,
+    -- | The S3 bucket where users’ persistent application settings are stored.
+    -- When persistent application settings are enabled for the first time for
+    -- an account in an AWS Region, an S3 bucket is created. The bucket is
+    -- unique to the AWS account and the Region.
+    s3BucketName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asrEnabled' - Specifies whether persistent application settings are enabled for users during their streaming sessions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asrSettingsGroup' - The path prefix for the S3 bucket where users’ persistent application settings are stored.
+-- 'enabled', 'applicationSettingsResponse_enabled' - Specifies whether persistent application settings are enabled for users
+-- during their streaming sessions.
 --
--- * 'asrS3BucketName' - The S3 bucket where users’ persistent application settings are stored. When persistent application settings are enabled for the first time for an account in an AWS Region, an S3 bucket is created. The bucket is unique to the AWS account and the Region.
-applicationSettingsResponse ::
+-- 'settingsGroup', 'applicationSettingsResponse_settingsGroup' - The path prefix for the S3 bucket where users’ persistent application
+-- settings are stored.
+--
+-- 's3BucketName', 'applicationSettingsResponse_s3BucketName' - The S3 bucket where users’ persistent application settings are stored.
+-- When persistent application settings are enabled for the first time for
+-- an account in an AWS Region, an S3 bucket is created. The bucket is
+-- unique to the AWS account and the Region.
+newApplicationSettingsResponse ::
   ApplicationSettingsResponse
-applicationSettingsResponse =
+newApplicationSettingsResponse =
   ApplicationSettingsResponse'
-    { _asrEnabled = Nothing,
-      _asrSettingsGroup = Nothing,
-      _asrS3BucketName = Nothing
+    { enabled =
+        Prelude.Nothing,
+      settingsGroup = Prelude.Nothing,
+      s3BucketName = Prelude.Nothing
     }
 
--- | Specifies whether persistent application settings are enabled for users during their streaming sessions.
-asrEnabled :: Lens' ApplicationSettingsResponse (Maybe Bool)
-asrEnabled = lens _asrEnabled (\s a -> s {_asrEnabled = a})
+-- | Specifies whether persistent application settings are enabled for users
+-- during their streaming sessions.
+applicationSettingsResponse_enabled :: Lens.Lens' ApplicationSettingsResponse (Prelude.Maybe Prelude.Bool)
+applicationSettingsResponse_enabled = Lens.lens (\ApplicationSettingsResponse' {enabled} -> enabled) (\s@ApplicationSettingsResponse' {} a -> s {enabled = a} :: ApplicationSettingsResponse)
 
--- | The path prefix for the S3 bucket where users’ persistent application settings are stored.
-asrSettingsGroup :: Lens' ApplicationSettingsResponse (Maybe Text)
-asrSettingsGroup = lens _asrSettingsGroup (\s a -> s {_asrSettingsGroup = a})
+-- | The path prefix for the S3 bucket where users’ persistent application
+-- settings are stored.
+applicationSettingsResponse_settingsGroup :: Lens.Lens' ApplicationSettingsResponse (Prelude.Maybe Prelude.Text)
+applicationSettingsResponse_settingsGroup = Lens.lens (\ApplicationSettingsResponse' {settingsGroup} -> settingsGroup) (\s@ApplicationSettingsResponse' {} a -> s {settingsGroup = a} :: ApplicationSettingsResponse)
 
--- | The S3 bucket where users’ persistent application settings are stored. When persistent application settings are enabled for the first time for an account in an AWS Region, an S3 bucket is created. The bucket is unique to the AWS account and the Region.
-asrS3BucketName :: Lens' ApplicationSettingsResponse (Maybe Text)
-asrS3BucketName = lens _asrS3BucketName (\s a -> s {_asrS3BucketName = a})
+-- | The S3 bucket where users’ persistent application settings are stored.
+-- When persistent application settings are enabled for the first time for
+-- an account in an AWS Region, an S3 bucket is created. The bucket is
+-- unique to the AWS account and the Region.
+applicationSettingsResponse_s3BucketName :: Lens.Lens' ApplicationSettingsResponse (Prelude.Maybe Prelude.Text)
+applicationSettingsResponse_s3BucketName = Lens.lens (\ApplicationSettingsResponse' {s3BucketName} -> s3BucketName) (\s@ApplicationSettingsResponse' {} a -> s {s3BucketName = a} :: ApplicationSettingsResponse)
 
-instance FromJSON ApplicationSettingsResponse where
+instance Prelude.FromJSON ApplicationSettingsResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApplicationSettingsResponse"
       ( \x ->
           ApplicationSettingsResponse'
-            <$> (x .:? "Enabled")
-            <*> (x .:? "SettingsGroup")
-            <*> (x .:? "S3BucketName")
+            Prelude.<$> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "SettingsGroup")
+            Prelude.<*> (x Prelude..:? "S3BucketName")
       )
 
-instance Hashable ApplicationSettingsResponse
+instance Prelude.Hashable ApplicationSettingsResponse
 
-instance NFData ApplicationSettingsResponse
+instance Prelude.NFData ApplicationSettingsResponse

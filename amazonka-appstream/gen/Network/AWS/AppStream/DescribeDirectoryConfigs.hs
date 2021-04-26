@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,225 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list that describes one or more specified Directory Config objects for AppStream 2.0, if the names for these objects are provided. Otherwise, all Directory Config objects in the account are described. These objects include the configuration information required to join fleets and image builders to Microsoft Active Directory domains.
+-- Retrieves a list that describes one or more specified Directory Config
+-- objects for AppStream 2.0, if the names for these objects are provided.
+-- Otherwise, all Directory Config objects in the account are described.
+-- These objects include the configuration information required to join
+-- fleets and image builders to Microsoft Active Directory domains.
 --
---
--- Although the response syntax in this topic includes the account password, this password is not returned in the actual response.
---
+-- Although the response syntax in this topic includes the account
+-- password, this password is not returned in the actual response.
 --
 -- This operation returns paginated results.
 module Network.AWS.AppStream.DescribeDirectoryConfigs
   ( -- * Creating a Request
-    describeDirectoryConfigs,
-    DescribeDirectoryConfigs,
+    DescribeDirectoryConfigs (..),
+    newDescribeDirectoryConfigs,
 
     -- * Request Lenses
-    ddcNextToken,
-    ddcMaxResults,
-    ddcDirectoryNames,
+    describeDirectoryConfigs_nextToken,
+    describeDirectoryConfigs_maxResults,
+    describeDirectoryConfigs_directoryNames,
 
     -- * Destructuring the Response
-    describeDirectoryConfigsResponse,
-    DescribeDirectoryConfigsResponse,
+    DescribeDirectoryConfigsResponse (..),
+    newDescribeDirectoryConfigsResponse,
 
     -- * Response Lenses
-    drsNextToken,
-    drsDirectoryConfigs,
-    drsResponseStatus,
+    describeDirectoryConfigsResponse_nextToken,
+    describeDirectoryConfigsResponse_directoryConfigs,
+    describeDirectoryConfigsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.DirectoryConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeDirectoryConfigs' smart constructor.
+-- | /See:/ 'newDescribeDirectoryConfigs' smart constructor.
 data DescribeDirectoryConfigs = DescribeDirectoryConfigs'
-  { _ddcNextToken ::
-      !(Maybe Text),
-    _ddcMaxResults ::
-      !(Maybe Int),
-    _ddcDirectoryNames ::
-      !(Maybe [Text])
+  { -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of each page of results.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The directory names.
+    directoryNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDirectoryConfigs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDirectoryConfigs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcNextToken' - The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddcMaxResults' - The maximum size of each page of results.
+-- 'nextToken', 'describeDirectoryConfigs_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
 --
--- * 'ddcDirectoryNames' - The directory names.
-describeDirectoryConfigs ::
+-- 'maxResults', 'describeDirectoryConfigs_maxResults' - The maximum size of each page of results.
+--
+-- 'directoryNames', 'describeDirectoryConfigs_directoryNames' - The directory names.
+newDescribeDirectoryConfigs ::
   DescribeDirectoryConfigs
-describeDirectoryConfigs =
+newDescribeDirectoryConfigs =
   DescribeDirectoryConfigs'
-    { _ddcNextToken = Nothing,
-      _ddcMaxResults = Nothing,
-      _ddcDirectoryNames = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      directoryNames = Prelude.Nothing
     }
 
--- | The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.
-ddcNextToken :: Lens' DescribeDirectoryConfigs (Maybe Text)
-ddcNextToken = lens _ddcNextToken (\s a -> s {_ddcNextToken = a})
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+describeDirectoryConfigs_nextToken :: Lens.Lens' DescribeDirectoryConfigs (Prelude.Maybe Prelude.Text)
+describeDirectoryConfigs_nextToken = Lens.lens (\DescribeDirectoryConfigs' {nextToken} -> nextToken) (\s@DescribeDirectoryConfigs' {} a -> s {nextToken = a} :: DescribeDirectoryConfigs)
 
 -- | The maximum size of each page of results.
-ddcMaxResults :: Lens' DescribeDirectoryConfigs (Maybe Int)
-ddcMaxResults = lens _ddcMaxResults (\s a -> s {_ddcMaxResults = a})
+describeDirectoryConfigs_maxResults :: Lens.Lens' DescribeDirectoryConfigs (Prelude.Maybe Prelude.Int)
+describeDirectoryConfigs_maxResults = Lens.lens (\DescribeDirectoryConfigs' {maxResults} -> maxResults) (\s@DescribeDirectoryConfigs' {} a -> s {maxResults = a} :: DescribeDirectoryConfigs)
 
 -- | The directory names.
-ddcDirectoryNames :: Lens' DescribeDirectoryConfigs [Text]
-ddcDirectoryNames = lens _ddcDirectoryNames (\s a -> s {_ddcDirectoryNames = a}) . _Default . _Coerce
+describeDirectoryConfigs_directoryNames :: Lens.Lens' DescribeDirectoryConfigs (Prelude.Maybe [Prelude.Text])
+describeDirectoryConfigs_directoryNames = Lens.lens (\DescribeDirectoryConfigs' {directoryNames} -> directoryNames) (\s@DescribeDirectoryConfigs' {} a -> s {directoryNames = a} :: DescribeDirectoryConfigs) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeDirectoryConfigs where
+instance Pager.AWSPager DescribeDirectoryConfigs where
   page rq rs
-    | stop (rs ^. drsNextToken) = Nothing
-    | stop (rs ^. drsDirectoryConfigs) = Nothing
-    | otherwise =
-      Just $ rq & ddcNextToken .~ rs ^. drsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeDirectoryConfigsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeDirectoryConfigsResponse_directoryConfigs
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeDirectoryConfigs_nextToken
+          Lens..~ rs
+          Lens.^? describeDirectoryConfigsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeDirectoryConfigs where
+instance Prelude.AWSRequest DescribeDirectoryConfigs where
   type
     Rs DescribeDirectoryConfigs =
       DescribeDirectoryConfigsResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDirectoryConfigsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DirectoryConfigs" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "DirectoryConfigs"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDirectoryConfigs
+instance Prelude.Hashable DescribeDirectoryConfigs
 
-instance NFData DescribeDirectoryConfigs
+instance Prelude.NFData DescribeDirectoryConfigs
 
-instance ToHeaders DescribeDirectoryConfigs where
+instance Prelude.ToHeaders DescribeDirectoryConfigs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.DescribeDirectoryConfigs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.DescribeDirectoryConfigs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDirectoryConfigs where
+instance Prelude.ToJSON DescribeDirectoryConfigs where
   toJSON DescribeDirectoryConfigs' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ddcNextToken,
-            ("MaxResults" .=) <$> _ddcMaxResults,
-            ("DirectoryNames" .=) <$> _ddcDirectoryNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("DirectoryNames" Prelude..=)
+              Prelude.<$> directoryNames
           ]
       )
 
-instance ToPath DescribeDirectoryConfigs where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDirectoryConfigs where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDirectoryConfigs where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeDirectoryConfigs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDirectoryConfigsResponse' smart constructor.
+-- | /See:/ 'newDescribeDirectoryConfigsResponse' smart constructor.
 data DescribeDirectoryConfigsResponse = DescribeDirectoryConfigsResponse'
-  { _drsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _drsDirectoryConfigs ::
-      !( Maybe
-           [DirectoryConfig]
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If there are no more pages, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the directory configurations. Note that although the
+    -- response syntax in this topic includes the account password, this
+    -- password is not returned in the actual response.
+    directoryConfigs :: Prelude.Maybe [DirectoryConfig],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDirectoryConfigsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDirectoryConfigsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsNextToken' - The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsDirectoryConfigs' - Information about the directory configurations. Note that although the response syntax in this topic includes the account password, this password is not returned in the actual response.
+-- 'nextToken', 'describeDirectoryConfigsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeDirectoryConfigsResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'directoryConfigs', 'describeDirectoryConfigsResponse_directoryConfigs' - Information about the directory configurations. Note that although the
+-- response syntax in this topic includes the account password, this
+-- password is not returned in the actual response.
+--
+-- 'httpStatus', 'describeDirectoryConfigsResponse_httpStatus' - The response's http status code.
+newDescribeDirectoryConfigsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDirectoryConfigsResponse
-describeDirectoryConfigsResponse pResponseStatus_ =
+newDescribeDirectoryConfigsResponse pHttpStatus_ =
   DescribeDirectoryConfigsResponse'
-    { _drsNextToken =
-        Nothing,
-      _drsDirectoryConfigs = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      directoryConfigs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
-drsNextToken :: Lens' DescribeDirectoryConfigsResponse (Maybe Text)
-drsNextToken = lens _drsNextToken (\s a -> s {_drsNextToken = a})
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
+describeDirectoryConfigsResponse_nextToken :: Lens.Lens' DescribeDirectoryConfigsResponse (Prelude.Maybe Prelude.Text)
+describeDirectoryConfigsResponse_nextToken = Lens.lens (\DescribeDirectoryConfigsResponse' {nextToken} -> nextToken) (\s@DescribeDirectoryConfigsResponse' {} a -> s {nextToken = a} :: DescribeDirectoryConfigsResponse)
 
--- | Information about the directory configurations. Note that although the response syntax in this topic includes the account password, this password is not returned in the actual response.
-drsDirectoryConfigs :: Lens' DescribeDirectoryConfigsResponse [DirectoryConfig]
-drsDirectoryConfigs = lens _drsDirectoryConfigs (\s a -> s {_drsDirectoryConfigs = a}) . _Default . _Coerce
+-- | Information about the directory configurations. Note that although the
+-- response syntax in this topic includes the account password, this
+-- password is not returned in the actual response.
+describeDirectoryConfigsResponse_directoryConfigs :: Lens.Lens' DescribeDirectoryConfigsResponse (Prelude.Maybe [DirectoryConfig])
+describeDirectoryConfigsResponse_directoryConfigs = Lens.lens (\DescribeDirectoryConfigsResponse' {directoryConfigs} -> directoryConfigs) (\s@DescribeDirectoryConfigsResponse' {} a -> s {directoryConfigs = a} :: DescribeDirectoryConfigsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeDirectoryConfigsResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeDirectoryConfigsResponse_httpStatus :: Lens.Lens' DescribeDirectoryConfigsResponse Prelude.Int
+describeDirectoryConfigsResponse_httpStatus = Lens.lens (\DescribeDirectoryConfigsResponse' {httpStatus} -> httpStatus) (\s@DescribeDirectoryConfigsResponse' {} a -> s {httpStatus = a} :: DescribeDirectoryConfigsResponse)
 
-instance NFData DescribeDirectoryConfigsResponse
+instance
+  Prelude.NFData
+    DescribeDirectoryConfigsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.Application where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an application in the application catalog.
 --
---
---
--- /See:/ 'application' smart constructor.
+-- /See:/ 'newApplication' smart constructor.
 data Application = Application'
-  { _aIconURL ::
-      !(Maybe Text),
-    _aLaunchPath :: !(Maybe Text),
-    _aEnabled :: !(Maybe Bool),
-    _aMetadata :: !(Maybe (Map Text Text)),
-    _aLaunchParameters :: !(Maybe Text),
-    _aName :: !(Maybe Text),
-    _aDisplayName :: !(Maybe Text)
+  { -- | The URL for the application icon. This URL might be time-limited.
+    iconURL :: Prelude.Maybe Prelude.Text,
+    -- | The path to the application executable in the instance.
+    launchPath :: Prelude.Maybe Prelude.Text,
+    -- | If there is a problem, the application can be disabled after image
+    -- creation.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | Additional attributes that describe the application.
+    metadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The arguments that are passed to the application at launch.
+    launchParameters :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The application name to display.
+    displayName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Application' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Application' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aIconURL' - The URL for the application icon. This URL might be time-limited.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aLaunchPath' - The path to the application executable in the instance.
+-- 'iconURL', 'application_iconURL' - The URL for the application icon. This URL might be time-limited.
 --
--- * 'aEnabled' - If there is a problem, the application can be disabled after image creation.
+-- 'launchPath', 'application_launchPath' - The path to the application executable in the instance.
 --
--- * 'aMetadata' - Additional attributes that describe the application.
+-- 'enabled', 'application_enabled' - If there is a problem, the application can be disabled after image
+-- creation.
 --
--- * 'aLaunchParameters' - The arguments that are passed to the application at launch.
+-- 'metadata', 'application_metadata' - Additional attributes that describe the application.
 --
--- * 'aName' - The name of the application.
+-- 'launchParameters', 'application_launchParameters' - The arguments that are passed to the application at launch.
 --
--- * 'aDisplayName' - The application name to display.
-application ::
+-- 'name', 'application_name' - The name of the application.
+--
+-- 'displayName', 'application_displayName' - The application name to display.
+newApplication ::
   Application
-application =
+newApplication =
   Application'
-    { _aIconURL = Nothing,
-      _aLaunchPath = Nothing,
-      _aEnabled = Nothing,
-      _aMetadata = Nothing,
-      _aLaunchParameters = Nothing,
-      _aName = Nothing,
-      _aDisplayName = Nothing
+    { iconURL = Prelude.Nothing,
+      launchPath = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      launchParameters = Prelude.Nothing,
+      name = Prelude.Nothing,
+      displayName = Prelude.Nothing
     }
 
 -- | The URL for the application icon. This URL might be time-limited.
-aIconURL :: Lens' Application (Maybe Text)
-aIconURL = lens _aIconURL (\s a -> s {_aIconURL = a})
+application_iconURL :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
+application_iconURL = Lens.lens (\Application' {iconURL} -> iconURL) (\s@Application' {} a -> s {iconURL = a} :: Application)
 
 -- | The path to the application executable in the instance.
-aLaunchPath :: Lens' Application (Maybe Text)
-aLaunchPath = lens _aLaunchPath (\s a -> s {_aLaunchPath = a})
+application_launchPath :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
+application_launchPath = Lens.lens (\Application' {launchPath} -> launchPath) (\s@Application' {} a -> s {launchPath = a} :: Application)
 
--- | If there is a problem, the application can be disabled after image creation.
-aEnabled :: Lens' Application (Maybe Bool)
-aEnabled = lens _aEnabled (\s a -> s {_aEnabled = a})
+-- | If there is a problem, the application can be disabled after image
+-- creation.
+application_enabled :: Lens.Lens' Application (Prelude.Maybe Prelude.Bool)
+application_enabled = Lens.lens (\Application' {enabled} -> enabled) (\s@Application' {} a -> s {enabled = a} :: Application)
 
 -- | Additional attributes that describe the application.
-aMetadata :: Lens' Application (HashMap Text Text)
-aMetadata = lens _aMetadata (\s a -> s {_aMetadata = a}) . _Default . _Map
+application_metadata :: Lens.Lens' Application (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+application_metadata = Lens.lens (\Application' {metadata} -> metadata) (\s@Application' {} a -> s {metadata = a} :: Application) Prelude.. Lens.mapping Prelude._Map
 
 -- | The arguments that are passed to the application at launch.
-aLaunchParameters :: Lens' Application (Maybe Text)
-aLaunchParameters = lens _aLaunchParameters (\s a -> s {_aLaunchParameters = a})
+application_launchParameters :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
+application_launchParameters = Lens.lens (\Application' {launchParameters} -> launchParameters) (\s@Application' {} a -> s {launchParameters = a} :: Application)
 
 -- | The name of the application.
-aName :: Lens' Application (Maybe Text)
-aName = lens _aName (\s a -> s {_aName = a})
+application_name :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
+application_name = Lens.lens (\Application' {name} -> name) (\s@Application' {} a -> s {name = a} :: Application)
 
 -- | The application name to display.
-aDisplayName :: Lens' Application (Maybe Text)
-aDisplayName = lens _aDisplayName (\s a -> s {_aDisplayName = a})
+application_displayName :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
+application_displayName = Lens.lens (\Application' {displayName} -> displayName) (\s@Application' {} a -> s {displayName = a} :: Application)
 
-instance FromJSON Application where
+instance Prelude.FromJSON Application where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Application"
       ( \x ->
           Application'
-            <$> (x .:? "IconURL")
-            <*> (x .:? "LaunchPath")
-            <*> (x .:? "Enabled")
-            <*> (x .:? "Metadata" .!= mempty)
-            <*> (x .:? "LaunchParameters")
-            <*> (x .:? "Name")
-            <*> (x .:? "DisplayName")
+            Prelude.<$> (x Prelude..:? "IconURL")
+            Prelude.<*> (x Prelude..:? "LaunchPath")
+            Prelude.<*> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "Metadata" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "LaunchParameters")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "DisplayName")
       )
 
-instance Hashable Application
+instance Prelude.Hashable Application
 
-instance NFData Application
+instance Prelude.NFData Application

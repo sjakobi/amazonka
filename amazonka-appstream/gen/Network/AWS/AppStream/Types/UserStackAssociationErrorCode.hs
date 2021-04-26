@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.AppStream.Types.UserStackAssociationErrorCode
   ( UserStackAssociationErrorCode
       ( ..,
-        USAECDirectoryNotFound,
-        USAECInternalError,
-        USAECStackNotFound,
-        USAECUserNameNotFound
+        UserStackAssociationErrorCodeDIRECTORYNOTFOUND,
+        UserStackAssociationErrorCodeINTERNALERROR,
+        UserStackAssociationErrorCodeSTACKNOTFOUND,
+        UserStackAssociationErrorCodeUSERNAMENOTFOUND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserStackAssociationErrorCode
-  = UserStackAssociationErrorCode'
-      ( CI
-          Text
-      )
+newtype UserStackAssociationErrorCode = UserStackAssociationErrorCode'
+  { fromUserStackAssociationErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern USAECDirectoryNotFound :: UserStackAssociationErrorCode
-pattern USAECDirectoryNotFound = UserStackAssociationErrorCode' "DIRECTORY_NOT_FOUND"
+pattern UserStackAssociationErrorCodeDIRECTORYNOTFOUND :: UserStackAssociationErrorCode
+pattern UserStackAssociationErrorCodeDIRECTORYNOTFOUND = UserStackAssociationErrorCode' "DIRECTORY_NOT_FOUND"
 
-pattern USAECInternalError :: UserStackAssociationErrorCode
-pattern USAECInternalError = UserStackAssociationErrorCode' "INTERNAL_ERROR"
+pattern UserStackAssociationErrorCodeINTERNALERROR :: UserStackAssociationErrorCode
+pattern UserStackAssociationErrorCodeINTERNALERROR = UserStackAssociationErrorCode' "INTERNAL_ERROR"
 
-pattern USAECStackNotFound :: UserStackAssociationErrorCode
-pattern USAECStackNotFound = UserStackAssociationErrorCode' "STACK_NOT_FOUND"
+pattern UserStackAssociationErrorCodeSTACKNOTFOUND :: UserStackAssociationErrorCode
+pattern UserStackAssociationErrorCodeSTACKNOTFOUND = UserStackAssociationErrorCode' "STACK_NOT_FOUND"
 
-pattern USAECUserNameNotFound :: UserStackAssociationErrorCode
-pattern USAECUserNameNotFound = UserStackAssociationErrorCode' "USER_NAME_NOT_FOUND"
+pattern UserStackAssociationErrorCodeUSERNAMENOTFOUND :: UserStackAssociationErrorCode
+pattern UserStackAssociationErrorCodeUSERNAMENOTFOUND = UserStackAssociationErrorCode' "USER_NAME_NOT_FOUND"
 
 {-# COMPLETE
-  USAECDirectoryNotFound,
-  USAECInternalError,
-  USAECStackNotFound,
-  USAECUserNameNotFound,
+  UserStackAssociationErrorCodeDIRECTORYNOTFOUND,
+  UserStackAssociationErrorCodeINTERNALERROR,
+  UserStackAssociationErrorCodeSTACKNOTFOUND,
+  UserStackAssociationErrorCodeUSERNAMENOTFOUND,
   UserStackAssociationErrorCode'
   #-}
 
-instance FromText UserStackAssociationErrorCode where
-  parser = (UserStackAssociationErrorCode' . mk) <$> takeText
+instance Prelude.FromText UserStackAssociationErrorCode where
+  parser = UserStackAssociationErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText UserStackAssociationErrorCode where
-  toText (UserStackAssociationErrorCode' ci) = original ci
+instance Prelude.ToText UserStackAssociationErrorCode where
+  toText (UserStackAssociationErrorCode' x) = x
 
-instance Hashable UserStackAssociationErrorCode
+instance Prelude.Hashable UserStackAssociationErrorCode
 
-instance NFData UserStackAssociationErrorCode
+instance Prelude.NFData UserStackAssociationErrorCode
 
-instance ToByteString UserStackAssociationErrorCode
+instance Prelude.ToByteString UserStackAssociationErrorCode
 
-instance ToQuery UserStackAssociationErrorCode
+instance Prelude.ToQuery UserStackAssociationErrorCode
 
-instance ToHeader UserStackAssociationErrorCode
+instance Prelude.ToHeader UserStackAssociationErrorCode
 
-instance FromJSON UserStackAssociationErrorCode where
-  parseJSON = parseJSONText "UserStackAssociationErrorCode"
+instance Prelude.FromJSON UserStackAssociationErrorCode where
+  parseJSON = Prelude.parseJSONText "UserStackAssociationErrorCode"

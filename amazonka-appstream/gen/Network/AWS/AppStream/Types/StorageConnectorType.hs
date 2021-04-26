@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.AppStream.Types.StorageConnectorType
   ( StorageConnectorType
       ( ..,
-        GoogleDrive,
-        Homefolders,
-        OneDrive
+        StorageConnectorTypeGOOGLEDRIVE,
+        StorageConnectorTypeHOMEFOLDERS,
+        StorageConnectorTypeONEDRIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The type of storage connector.
-data StorageConnectorType
-  = StorageConnectorType'
-      ( CI
-          Text
-      )
+newtype StorageConnectorType = StorageConnectorType'
+  { fromStorageConnectorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GoogleDrive :: StorageConnectorType
-pattern GoogleDrive = StorageConnectorType' "GOOGLE_DRIVE"
+pattern StorageConnectorTypeGOOGLEDRIVE :: StorageConnectorType
+pattern StorageConnectorTypeGOOGLEDRIVE = StorageConnectorType' "GOOGLE_DRIVE"
 
-pattern Homefolders :: StorageConnectorType
-pattern Homefolders = StorageConnectorType' "HOMEFOLDERS"
+pattern StorageConnectorTypeHOMEFOLDERS :: StorageConnectorType
+pattern StorageConnectorTypeHOMEFOLDERS = StorageConnectorType' "HOMEFOLDERS"
 
-pattern OneDrive :: StorageConnectorType
-pattern OneDrive = StorageConnectorType' "ONE_DRIVE"
+pattern StorageConnectorTypeONEDRIVE :: StorageConnectorType
+pattern StorageConnectorTypeONEDRIVE = StorageConnectorType' "ONE_DRIVE"
 
 {-# COMPLETE
-  GoogleDrive,
-  Homefolders,
-  OneDrive,
+  StorageConnectorTypeGOOGLEDRIVE,
+  StorageConnectorTypeHOMEFOLDERS,
+  StorageConnectorTypeONEDRIVE,
   StorageConnectorType'
   #-}
 
-instance FromText StorageConnectorType where
-  parser = (StorageConnectorType' . mk) <$> takeText
+instance Prelude.FromText StorageConnectorType where
+  parser = StorageConnectorType' Prelude.<$> Prelude.takeText
 
-instance ToText StorageConnectorType where
-  toText (StorageConnectorType' ci) = original ci
+instance Prelude.ToText StorageConnectorType where
+  toText (StorageConnectorType' x) = x
 
-instance Hashable StorageConnectorType
+instance Prelude.Hashable StorageConnectorType
 
-instance NFData StorageConnectorType
+instance Prelude.NFData StorageConnectorType
 
-instance ToByteString StorageConnectorType
+instance Prelude.ToByteString StorageConnectorType
 
-instance ToQuery StorageConnectorType
+instance Prelude.ToQuery StorageConnectorType
 
-instance ToHeader StorageConnectorType
+instance Prelude.ToHeader StorageConnectorType
 
-instance ToJSON StorageConnectorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StorageConnectorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StorageConnectorType where
-  parseJSON = parseJSONText "StorageConnectorType"
+instance Prelude.FromJSON StorageConnectorType where
+  parseJSON = Prelude.parseJSONText "StorageConnectorType"

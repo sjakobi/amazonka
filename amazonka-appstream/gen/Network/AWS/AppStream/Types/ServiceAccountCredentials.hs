@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.ServiceAccountCredentials where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the credentials for the service account used by the fleet or image builder to connect to the directory.
+-- | Describes the credentials for the service account used by the fleet or
+-- image builder to connect to the directory.
 --
---
---
--- /See:/ 'serviceAccountCredentials' smart constructor.
+-- /See:/ 'newServiceAccountCredentials' smart constructor.
 data ServiceAccountCredentials = ServiceAccountCredentials'
-  { _sacAccountName ::
-      !(Sensitive Text),
-    _sacAccountPassword ::
-      !(Sensitive Text)
+  { -- | The user name of the account. This account must have the following
+    -- privileges: create computer objects, join computers to the domain, and
+    -- change\/reset the password on descendant computer objects for the
+    -- organizational units specified.
+    accountName :: Prelude.Sensitive Prelude.Text,
+    -- | The password for the account.
+    accountPassword :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceAccountCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceAccountCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sacAccountName' - The user name of the account. This account must have the following privileges: create computer objects, join computers to the domain, and change/reset the password on descendant computer objects for the organizational units specified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sacAccountPassword' - The password for the account.
-serviceAccountCredentials ::
-  -- | 'sacAccountName'
-  Text ->
-  -- | 'sacAccountPassword'
-  Text ->
+-- 'accountName', 'serviceAccountCredentials_accountName' - The user name of the account. This account must have the following
+-- privileges: create computer objects, join computers to the domain, and
+-- change\/reset the password on descendant computer objects for the
+-- organizational units specified.
+--
+-- 'accountPassword', 'serviceAccountCredentials_accountPassword' - The password for the account.
+newServiceAccountCredentials ::
+  -- | 'accountName'
+  Prelude.Text ->
+  -- | 'accountPassword'
+  Prelude.Text ->
   ServiceAccountCredentials
-serviceAccountCredentials
+newServiceAccountCredentials
   pAccountName_
   pAccountPassword_ =
     ServiceAccountCredentials'
-      { _sacAccountName =
-          _Sensitive # pAccountName_,
-        _sacAccountPassword =
-          _Sensitive # pAccountPassword_
+      { accountName =
+          Prelude._Sensitive Lens.# pAccountName_,
+        accountPassword =
+          Prelude._Sensitive Lens.# pAccountPassword_
       }
 
--- | The user name of the account. This account must have the following privileges: create computer objects, join computers to the domain, and change/reset the password on descendant computer objects for the organizational units specified.
-sacAccountName :: Lens' ServiceAccountCredentials Text
-sacAccountName = lens _sacAccountName (\s a -> s {_sacAccountName = a}) . _Sensitive
+-- | The user name of the account. This account must have the following
+-- privileges: create computer objects, join computers to the domain, and
+-- change\/reset the password on descendant computer objects for the
+-- organizational units specified.
+serviceAccountCredentials_accountName :: Lens.Lens' ServiceAccountCredentials Prelude.Text
+serviceAccountCredentials_accountName = Lens.lens (\ServiceAccountCredentials' {accountName} -> accountName) (\s@ServiceAccountCredentials' {} a -> s {accountName = a} :: ServiceAccountCredentials) Prelude.. Prelude._Sensitive
 
 -- | The password for the account.
-sacAccountPassword :: Lens' ServiceAccountCredentials Text
-sacAccountPassword = lens _sacAccountPassword (\s a -> s {_sacAccountPassword = a}) . _Sensitive
+serviceAccountCredentials_accountPassword :: Lens.Lens' ServiceAccountCredentials Prelude.Text
+serviceAccountCredentials_accountPassword = Lens.lens (\ServiceAccountCredentials' {accountPassword} -> accountPassword) (\s@ServiceAccountCredentials' {} a -> s {accountPassword = a} :: ServiceAccountCredentials) Prelude.. Prelude._Sensitive
 
-instance FromJSON ServiceAccountCredentials where
+instance Prelude.FromJSON ServiceAccountCredentials where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceAccountCredentials"
       ( \x ->
           ServiceAccountCredentials'
-            <$> (x .: "AccountName") <*> (x .: "AccountPassword")
+            Prelude.<$> (x Prelude..: "AccountName")
+            Prelude.<*> (x Prelude..: "AccountPassword")
       )
 
-instance Hashable ServiceAccountCredentials
+instance Prelude.Hashable ServiceAccountCredentials
 
-instance NFData ServiceAccountCredentials
+instance Prelude.NFData ServiceAccountCredentials
 
-instance ToJSON ServiceAccountCredentials where
+instance Prelude.ToJSON ServiceAccountCredentials where
   toJSON ServiceAccountCredentials' {..} =
-    object
-      ( catMaybes
-          [ Just ("AccountName" .= _sacAccountName),
-            Just ("AccountPassword" .= _sacAccountPassword)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AccountName" Prelude..= accountName),
+            Prelude.Just
+              ("AccountPassword" Prelude..= accountPassword)
           ]
       )

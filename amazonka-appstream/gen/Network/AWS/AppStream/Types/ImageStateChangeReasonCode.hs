@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.AppStream.Types.ImageStateChangeReasonCode
   ( ImageStateChangeReasonCode
       ( ..,
-        ImageBuilderNotAvailable,
-        ImageCopyFailure,
-        InternalError
+        ImageStateChangeReasonCodeIMAGEBUILDERNOTAVAILABLE,
+        ImageStateChangeReasonCodeIMAGECOPYFAILURE,
+        ImageStateChangeReasonCodeINTERNALERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageStateChangeReasonCode
-  = ImageStateChangeReasonCode'
-      ( CI
-          Text
-      )
+newtype ImageStateChangeReasonCode = ImageStateChangeReasonCode'
+  { fromImageStateChangeReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ImageBuilderNotAvailable :: ImageStateChangeReasonCode
-pattern ImageBuilderNotAvailable = ImageStateChangeReasonCode' "IMAGE_BUILDER_NOT_AVAILABLE"
+pattern ImageStateChangeReasonCodeIMAGEBUILDERNOTAVAILABLE :: ImageStateChangeReasonCode
+pattern ImageStateChangeReasonCodeIMAGEBUILDERNOTAVAILABLE = ImageStateChangeReasonCode' "IMAGE_BUILDER_NOT_AVAILABLE"
 
-pattern ImageCopyFailure :: ImageStateChangeReasonCode
-pattern ImageCopyFailure = ImageStateChangeReasonCode' "IMAGE_COPY_FAILURE"
+pattern ImageStateChangeReasonCodeIMAGECOPYFAILURE :: ImageStateChangeReasonCode
+pattern ImageStateChangeReasonCodeIMAGECOPYFAILURE = ImageStateChangeReasonCode' "IMAGE_COPY_FAILURE"
 
-pattern InternalError :: ImageStateChangeReasonCode
-pattern InternalError = ImageStateChangeReasonCode' "INTERNAL_ERROR"
+pattern ImageStateChangeReasonCodeINTERNALERROR :: ImageStateChangeReasonCode
+pattern ImageStateChangeReasonCodeINTERNALERROR = ImageStateChangeReasonCode' "INTERNAL_ERROR"
 
 {-# COMPLETE
-  ImageBuilderNotAvailable,
-  ImageCopyFailure,
-  InternalError,
+  ImageStateChangeReasonCodeIMAGEBUILDERNOTAVAILABLE,
+  ImageStateChangeReasonCodeIMAGECOPYFAILURE,
+  ImageStateChangeReasonCodeINTERNALERROR,
   ImageStateChangeReasonCode'
   #-}
 
-instance FromText ImageStateChangeReasonCode where
-  parser = (ImageStateChangeReasonCode' . mk) <$> takeText
+instance Prelude.FromText ImageStateChangeReasonCode where
+  parser = ImageStateChangeReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText ImageStateChangeReasonCode where
-  toText (ImageStateChangeReasonCode' ci) = original ci
+instance Prelude.ToText ImageStateChangeReasonCode where
+  toText (ImageStateChangeReasonCode' x) = x
 
-instance Hashable ImageStateChangeReasonCode
+instance Prelude.Hashable ImageStateChangeReasonCode
 
-instance NFData ImageStateChangeReasonCode
+instance Prelude.NFData ImageStateChangeReasonCode
 
-instance ToByteString ImageStateChangeReasonCode
+instance Prelude.ToByteString ImageStateChangeReasonCode
 
-instance ToQuery ImageStateChangeReasonCode
+instance Prelude.ToQuery ImageStateChangeReasonCode
 
-instance ToHeader ImageStateChangeReasonCode
+instance Prelude.ToHeader ImageStateChangeReasonCode
 
-instance FromJSON ImageStateChangeReasonCode where
-  parseJSON = parseJSONText "ImageStateChangeReasonCode"
+instance Prelude.FromJSON ImageStateChangeReasonCode where
+  parseJSON = Prelude.parseJSONText "ImageStateChangeReasonCode"

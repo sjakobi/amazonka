@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppStream.Types.ComputeCapacityStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the capacity status for a fleet.
 --
---
---
--- /See:/ 'computeCapacityStatus' smart constructor.
+-- /See:/ 'newComputeCapacityStatus' smart constructor.
 data ComputeCapacityStatus = ComputeCapacityStatus'
-  { _ccsRunning ::
-      !(Maybe Int),
-    _ccsAvailable ::
-      !(Maybe Int),
-    _ccsInUse :: !(Maybe Int),
-    _ccsDesired :: !Int
+  { -- | The total number of simultaneous streaming instances that are running.
+    running :: Prelude.Maybe Prelude.Int,
+    -- | The number of currently available instances that can be used to stream
+    -- sessions.
+    available :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances in use for streaming.
+    inUse :: Prelude.Maybe Prelude.Int,
+    -- | The desired number of streaming instances.
+    desired :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComputeCapacityStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComputeCapacityStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccsRunning' - The total number of simultaneous streaming instances that are running.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccsAvailable' - The number of currently available instances that can be used to stream sessions.
+-- 'running', 'computeCapacityStatus_running' - The total number of simultaneous streaming instances that are running.
 --
--- * 'ccsInUse' - The number of instances in use for streaming.
+-- 'available', 'computeCapacityStatus_available' - The number of currently available instances that can be used to stream
+-- sessions.
 --
--- * 'ccsDesired' - The desired number of streaming instances.
-computeCapacityStatus ::
-  -- | 'ccsDesired'
-  Int ->
+-- 'inUse', 'computeCapacityStatus_inUse' - The number of instances in use for streaming.
+--
+-- 'desired', 'computeCapacityStatus_desired' - The desired number of streaming instances.
+newComputeCapacityStatus ::
+  -- | 'desired'
+  Prelude.Int ->
   ComputeCapacityStatus
-computeCapacityStatus pDesired_ =
+newComputeCapacityStatus pDesired_ =
   ComputeCapacityStatus'
-    { _ccsRunning = Nothing,
-      _ccsAvailable = Nothing,
-      _ccsInUse = Nothing,
-      _ccsDesired = pDesired_
+    { running = Prelude.Nothing,
+      available = Prelude.Nothing,
+      inUse = Prelude.Nothing,
+      desired = pDesired_
     }
 
 -- | The total number of simultaneous streaming instances that are running.
-ccsRunning :: Lens' ComputeCapacityStatus (Maybe Int)
-ccsRunning = lens _ccsRunning (\s a -> s {_ccsRunning = a})
+computeCapacityStatus_running :: Lens.Lens' ComputeCapacityStatus (Prelude.Maybe Prelude.Int)
+computeCapacityStatus_running = Lens.lens (\ComputeCapacityStatus' {running} -> running) (\s@ComputeCapacityStatus' {} a -> s {running = a} :: ComputeCapacityStatus)
 
--- | The number of currently available instances that can be used to stream sessions.
-ccsAvailable :: Lens' ComputeCapacityStatus (Maybe Int)
-ccsAvailable = lens _ccsAvailable (\s a -> s {_ccsAvailable = a})
+-- | The number of currently available instances that can be used to stream
+-- sessions.
+computeCapacityStatus_available :: Lens.Lens' ComputeCapacityStatus (Prelude.Maybe Prelude.Int)
+computeCapacityStatus_available = Lens.lens (\ComputeCapacityStatus' {available} -> available) (\s@ComputeCapacityStatus' {} a -> s {available = a} :: ComputeCapacityStatus)
 
 -- | The number of instances in use for streaming.
-ccsInUse :: Lens' ComputeCapacityStatus (Maybe Int)
-ccsInUse = lens _ccsInUse (\s a -> s {_ccsInUse = a})
+computeCapacityStatus_inUse :: Lens.Lens' ComputeCapacityStatus (Prelude.Maybe Prelude.Int)
+computeCapacityStatus_inUse = Lens.lens (\ComputeCapacityStatus' {inUse} -> inUse) (\s@ComputeCapacityStatus' {} a -> s {inUse = a} :: ComputeCapacityStatus)
 
 -- | The desired number of streaming instances.
-ccsDesired :: Lens' ComputeCapacityStatus Int
-ccsDesired = lens _ccsDesired (\s a -> s {_ccsDesired = a})
+computeCapacityStatus_desired :: Lens.Lens' ComputeCapacityStatus Prelude.Int
+computeCapacityStatus_desired = Lens.lens (\ComputeCapacityStatus' {desired} -> desired) (\s@ComputeCapacityStatus' {} a -> s {desired = a} :: ComputeCapacityStatus)
 
-instance FromJSON ComputeCapacityStatus where
+instance Prelude.FromJSON ComputeCapacityStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComputeCapacityStatus"
       ( \x ->
           ComputeCapacityStatus'
-            <$> (x .:? "Running")
-            <*> (x .:? "Available")
-            <*> (x .:? "InUse")
-            <*> (x .: "Desired")
+            Prelude.<$> (x Prelude..:? "Running")
+            Prelude.<*> (x Prelude..:? "Available")
+            Prelude.<*> (x Prelude..:? "InUse")
+            Prelude.<*> (x Prelude..: "Desired")
       )
 
-instance Hashable ComputeCapacityStatus
+instance Prelude.Hashable ComputeCapacityStatus
 
-instance NFData ComputeCapacityStatus
+instance Prelude.NFData ComputeCapacityStatus

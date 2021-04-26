@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,297 +21,756 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a fleet. A fleet consists of streaming instances that run a specified image.
+-- Creates a fleet. A fleet consists of streaming instances that run a
+-- specified image.
 module Network.AWS.AppStream.CreateFleet
   ( -- * Creating a Request
-    createFleet,
-    CreateFleet,
+    CreateFleet (..),
+    newCreateFleet,
 
     -- * Request Lenses
-    cfMaxUserDurationInSeconds,
-    cfDisconnectTimeoutInSeconds,
-    cfVPCConfig,
-    cfIAMRoleARN,
-    cfDomainJoinInfo,
-    cfFleetType,
-    cfIdleDisconnectTimeoutInSeconds,
-    cfImageName,
-    cfTags,
-    cfStreamView,
-    cfDescription,
-    cfDisplayName,
-    cfEnableDefaultInternetAccess,
-    cfImageARN,
-    cfName,
-    cfInstanceType,
-    cfComputeCapacity,
+    createFleet_maxUserDurationInSeconds,
+    createFleet_disconnectTimeoutInSeconds,
+    createFleet_vpcConfig,
+    createFleet_iamRoleArn,
+    createFleet_domainJoinInfo,
+    createFleet_fleetType,
+    createFleet_idleDisconnectTimeoutInSeconds,
+    createFleet_imageName,
+    createFleet_tags,
+    createFleet_streamView,
+    createFleet_description,
+    createFleet_displayName,
+    createFleet_enableDefaultInternetAccess,
+    createFleet_imageArn,
+    createFleet_name,
+    createFleet_instanceType,
+    createFleet_computeCapacity,
 
     -- * Destructuring the Response
-    createFleetResponse,
-    CreateFleetResponse,
+    CreateFleetResponse (..),
+    newCreateFleetResponse,
 
     -- * Response Lenses
-    cfrrsFleet,
-    cfrrsResponseStatus,
+    createFleetResponse_fleet,
+    createFleetResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.Fleet
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createFleet' smart constructor.
+-- | /See:/ 'newCreateFleet' smart constructor.
 data CreateFleet = CreateFleet'
-  { _cfMaxUserDurationInSeconds ::
-      !(Maybe Int),
-    _cfDisconnectTimeoutInSeconds :: !(Maybe Int),
-    _cfVPCConfig :: !(Maybe VPCConfig),
-    _cfIAMRoleARN :: !(Maybe Text),
-    _cfDomainJoinInfo :: !(Maybe DomainJoinInfo),
-    _cfFleetType :: !(Maybe FleetType),
-    _cfIdleDisconnectTimeoutInSeconds ::
-      !(Maybe Int),
-    _cfImageName :: !(Maybe Text),
-    _cfTags :: !(Maybe (Map Text Text)),
-    _cfStreamView :: !(Maybe StreamView),
-    _cfDescription :: !(Maybe Text),
-    _cfDisplayName :: !(Maybe Text),
-    _cfEnableDefaultInternetAccess :: !(Maybe Bool),
-    _cfImageARN :: !(Maybe Text),
-    _cfName :: !Text,
-    _cfInstanceType :: !Text,
-    _cfComputeCapacity :: !ComputeCapacity
+  { -- | The maximum amount of time that a streaming session can remain active,
+    -- in seconds. If users are still connected to a streaming instance five
+    -- minutes before this limit is reached, they are prompted to save any open
+    -- documents before being disconnected. After this time elapses, the
+    -- instance is terminated and replaced by a new instance.
+    --
+    -- Specify a value between 600 and 360000.
+    maxUserDurationInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The amount of time that a streaming session remains active after users
+    -- disconnect. If users try to reconnect to the streaming session after a
+    -- disconnection or network interruption within this time interval, they
+    -- are connected to their previous session. Otherwise, they are connected
+    -- to a new session with a new streaming instance.
+    --
+    -- Specify a value between 60 and 360000.
+    disconnectTimeoutInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The VPC configuration for the fleet.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+    -- assume a role, a fleet instance calls the AWS Security Token Service
+    -- (STS) @AssumeRole@ API operation and passes the ARN of the role to use.
+    -- The operation creates a new session with temporary credentials.
+    -- AppStream 2.0 retrieves the temporary credentials and creates the
+    -- __appstream_machine_role__ credential profile on the instance.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+    -- in the /Amazon AppStream 2.0 Administration Guide/.
+    iamRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the directory and organizational unit (OU) to use to join
+    -- the fleet to a Microsoft Active Directory domain.
+    domainJoinInfo :: Prelude.Maybe DomainJoinInfo,
+    -- | The fleet type.
+    --
+    -- [ALWAYS_ON]
+    --     Provides users with instant-on access to their apps. You are charged
+    --     for all running instances in your fleet, even if no users are
+    --     streaming apps.
+    --
+    -- [ON_DEMAND]
+    --     Provide users with access to applications after they connect, which
+    --     takes one to two minutes. You are charged for instance streaming
+    --     when users are connected and a small hourly fee for instances that
+    --     are not streaming apps.
+    fleetType :: Prelude.Maybe FleetType,
+    -- | The amount of time that users can be idle (inactive) before they are
+    -- disconnected from their streaming session and the
+    -- @DisconnectTimeoutInSeconds@ time interval begins. Users are notified
+    -- before they are disconnected due to inactivity. If they try to reconnect
+    -- to the streaming session before the time interval specified in
+    -- @DisconnectTimeoutInSeconds@ elapses, they are connected to their
+    -- previous session. Users are considered idle when they stop providing
+    -- keyboard or mouse input during their streaming session. File uploads and
+    -- downloads, audio in, audio out, and pixels changing do not qualify as
+    -- user activity. If users continue to be idle after the time interval in
+    -- @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.
+    --
+    -- To prevent users from being disconnected due to inactivity, specify a
+    -- value of 0. Otherwise, specify a value between 60 and 3600. The default
+    -- value is 0.
+    --
+    -- If you enable this feature, we recommend that you specify a value that
+    -- corresponds exactly to a whole number of minutes (for example, 60, 120,
+    -- and 180). If you don\'t do this, the value is rounded to the nearest
+    -- minute. For example, if you specify a value of 70, users are
+    -- disconnected after 1 minute of inactivity. If you specify a value that
+    -- is at the midpoint between two different minutes, the value is rounded
+    -- up. For example, if you specify a value of 90, users are disconnected
+    -- after 2 minutes of inactivity.
+    idleDisconnectTimeoutInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The name of the image used to create the fleet.
+    imageName :: Prelude.Maybe Prelude.Text,
+    -- | The tags to associate with the fleet. A tag is a key-value pair, and the
+    -- value is optional. For example, Environment=Test. If you do not specify
+    -- a value, Environment=.
+    --
+    -- If you do not specify a value, the value is set to an empty string.
+    --
+    -- Generally allowed characters are: letters, numbers, and spaces
+    -- representable in UTF-8, and the following special characters:
+    --
+    -- _ . : \/ = + \\ - \@
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+    -- in the /Amazon AppStream 2.0 Administration Guide/.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The AppStream 2.0 view that is displayed to your users when they stream
+    -- from the fleet. When @APP@ is specified, only the windows of
+    -- applications opened by users display. When @DESKTOP@ is specified, the
+    -- standard desktop that is provided by the operating system displays.
+    --
+    -- The default value is @APP@.
+    streamView :: Prelude.Maybe StreamView,
+    -- | The description to display.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The fleet name to display.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | Enables or disables default internet access for the fleet.
+    enableDefaultInternetAccess :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the public, private, or shared image to use.
+    imageArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique name for the fleet.
+    name :: Prelude.Text,
+    -- | The instance type to use when launching fleet instances. The following
+    -- instance types are available:
+    --
+    -- -   stream.standard.small
+    --
+    -- -   stream.standard.medium
+    --
+    -- -   stream.standard.large
+    --
+    -- -   stream.compute.large
+    --
+    -- -   stream.compute.xlarge
+    --
+    -- -   stream.compute.2xlarge
+    --
+    -- -   stream.compute.4xlarge
+    --
+    -- -   stream.compute.8xlarge
+    --
+    -- -   stream.memory.large
+    --
+    -- -   stream.memory.xlarge
+    --
+    -- -   stream.memory.2xlarge
+    --
+    -- -   stream.memory.4xlarge
+    --
+    -- -   stream.memory.8xlarge
+    --
+    -- -   stream.memory.z1d.large
+    --
+    -- -   stream.memory.z1d.xlarge
+    --
+    -- -   stream.memory.z1d.2xlarge
+    --
+    -- -   stream.memory.z1d.3xlarge
+    --
+    -- -   stream.memory.z1d.6xlarge
+    --
+    -- -   stream.memory.z1d.12xlarge
+    --
+    -- -   stream.graphics-design.large
+    --
+    -- -   stream.graphics-design.xlarge
+    --
+    -- -   stream.graphics-design.2xlarge
+    --
+    -- -   stream.graphics-design.4xlarge
+    --
+    -- -   stream.graphics-desktop.2xlarge
+    --
+    -- -   stream.graphics.g4dn.xlarge
+    --
+    -- -   stream.graphics.g4dn.2xlarge
+    --
+    -- -   stream.graphics.g4dn.4xlarge
+    --
+    -- -   stream.graphics.g4dn.8xlarge
+    --
+    -- -   stream.graphics.g4dn.12xlarge
+    --
+    -- -   stream.graphics.g4dn.16xlarge
+    --
+    -- -   stream.graphics-pro.4xlarge
+    --
+    -- -   stream.graphics-pro.8xlarge
+    --
+    -- -   stream.graphics-pro.16xlarge
+    instanceType :: Prelude.Text,
+    -- | The desired capacity for the fleet.
+    computeCapacity :: ComputeCapacity
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfMaxUserDurationInSeconds' - The maximum amount of time that a streaming session can remain active, in seconds. If users are still connected to a streaming instance five minutes before this limit is reached, they are prompted to save any open documents before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance. Specify a value between 600 and 360000.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfDisconnectTimeoutInSeconds' - The amount of time that a streaming session remains active after users disconnect. If users try to reconnect to the streaming session after a disconnection or network interruption within this time interval, they are connected to their previous session. Otherwise, they are connected to a new session with a new streaming instance.  Specify a value between 60 and 360000.
+-- 'maxUserDurationInSeconds', 'createFleet_maxUserDurationInSeconds' - The maximum amount of time that a streaming session can remain active,
+-- in seconds. If users are still connected to a streaming instance five
+-- minutes before this limit is reached, they are prompted to save any open
+-- documents before being disconnected. After this time elapses, the
+-- instance is terminated and replaced by a new instance.
 --
--- * 'cfVPCConfig' - The VPC configuration for the fleet.
+-- Specify a value between 600 and 360000.
 --
--- * 'cfIAMRoleARN' - The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls the AWS Security Token Service (STS) @AssumeRole@ API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the __appstream_machine_role__ credential profile on the instance. For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances> in the /Amazon AppStream 2.0 Administration Guide/ .
+-- 'disconnectTimeoutInSeconds', 'createFleet_disconnectTimeoutInSeconds' - The amount of time that a streaming session remains active after users
+-- disconnect. If users try to reconnect to the streaming session after a
+-- disconnection or network interruption within this time interval, they
+-- are connected to their previous session. Otherwise, they are connected
+-- to a new session with a new streaming instance.
 --
--- * 'cfDomainJoinInfo' - The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory domain.
+-- Specify a value between 60 and 360000.
 --
--- * 'cfFleetType' - The fleet type.     * ALWAYS_ON    * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet, even if no users are streaming apps.     * ON_DEMAND    * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
+-- 'vpcConfig', 'createFleet_vpcConfig' - The VPC configuration for the fleet.
 --
--- * 'cfIdleDisconnectTimeoutInSeconds' - The amount of time that users can be idle (inactive) before they are disconnected from their streaming session and the @DisconnectTimeoutInSeconds@ time interval begins. Users are notified before they are disconnected due to inactivity. If they try to reconnect to the streaming session before the time interval specified in @DisconnectTimeoutInSeconds@ elapses, they are connected to their previous session. Users are considered idle when they stop providing keyboard or mouse input during their streaming session. File uploads and downloads, audio in, audio out, and pixels changing do not qualify as user activity. If users continue to be idle after the time interval in @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected. To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value between 60 and 3600. The default value is 0.
+-- 'iamRoleArn', 'createFleet_iamRoleArn' - The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+-- assume a role, a fleet instance calls the AWS Security Token Service
+-- (STS) @AssumeRole@ API operation and passes the ARN of the role to use.
+-- The operation creates a new session with temporary credentials.
+-- AppStream 2.0 retrieves the temporary credentials and creates the
+-- __appstream_machine_role__ credential profile on the instance.
 --
--- * 'cfImageName' - The name of the image used to create the fleet.
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
 --
--- * 'cfTags' - The tags to associate with the fleet. A tag is a key-value pair, and the value is optional. For example, Environment=Test. If you do not specify a value, Environment=.  If you do not specify a value, the value is set to an empty string. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following special characters:  _ . : / = + \ - @ For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources> in the /Amazon AppStream 2.0 Administration Guide/ .
+-- 'domainJoinInfo', 'createFleet_domainJoinInfo' - The name of the directory and organizational unit (OU) to use to join
+-- the fleet to a Microsoft Active Directory domain.
 --
--- * 'cfStreamView' - The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When @APP@ is specified, only the windows of applications opened by users display. When @DESKTOP@ is specified, the standard desktop that is provided by the operating system displays. The default value is @APP@ .
+-- 'fleetType', 'createFleet_fleetType' - The fleet type.
 --
--- * 'cfDescription' - The description to display.
+-- [ALWAYS_ON]
+--     Provides users with instant-on access to their apps. You are charged
+--     for all running instances in your fleet, even if no users are
+--     streaming apps.
 --
--- * 'cfDisplayName' - The fleet name to display.
+-- [ON_DEMAND]
+--     Provide users with access to applications after they connect, which
+--     takes one to two minutes. You are charged for instance streaming
+--     when users are connected and a small hourly fee for instances that
+--     are not streaming apps.
 --
--- * 'cfEnableDefaultInternetAccess' - Enables or disables default internet access for the fleet.
+-- 'idleDisconnectTimeoutInSeconds', 'createFleet_idleDisconnectTimeoutInSeconds' - The amount of time that users can be idle (inactive) before they are
+-- disconnected from their streaming session and the
+-- @DisconnectTimeoutInSeconds@ time interval begins. Users are notified
+-- before they are disconnected due to inactivity. If they try to reconnect
+-- to the streaming session before the time interval specified in
+-- @DisconnectTimeoutInSeconds@ elapses, they are connected to their
+-- previous session. Users are considered idle when they stop providing
+-- keyboard or mouse input during their streaming session. File uploads and
+-- downloads, audio in, audio out, and pixels changing do not qualify as
+-- user activity. If users continue to be idle after the time interval in
+-- @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.
 --
--- * 'cfImageARN' - The ARN of the public, private, or shared image to use.
+-- To prevent users from being disconnected due to inactivity, specify a
+-- value of 0. Otherwise, specify a value between 60 and 3600. The default
+-- value is 0.
 --
--- * 'cfName' - A unique name for the fleet.
+-- If you enable this feature, we recommend that you specify a value that
+-- corresponds exactly to a whole number of minutes (for example, 60, 120,
+-- and 180). If you don\'t do this, the value is rounded to the nearest
+-- minute. For example, if you specify a value of 70, users are
+-- disconnected after 1 minute of inactivity. If you specify a value that
+-- is at the midpoint between two different minutes, the value is rounded
+-- up. For example, if you specify a value of 90, users are disconnected
+-- after 2 minutes of inactivity.
 --
--- * 'cfInstanceType' - The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.small     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.memory.z1d.large     * stream.memory.z1d.xlarge     * stream.memory.z1d.2xlarge     * stream.memory.z1d.3xlarge     * stream.memory.z1d.6xlarge     * stream.memory.z1d.12xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics.g4dn.xlarge     * stream.graphics.g4dn.2xlarge     * stream.graphics.g4dn.4xlarge     * stream.graphics.g4dn.8xlarge     * stream.graphics.g4dn.12xlarge     * stream.graphics.g4dn.16xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
+-- 'imageName', 'createFleet_imageName' - The name of the image used to create the fleet.
 --
--- * 'cfComputeCapacity' - The desired capacity for the fleet.
-createFleet ::
-  -- | 'cfName'
-  Text ->
-  -- | 'cfInstanceType'
-  Text ->
-  -- | 'cfComputeCapacity'
+-- 'tags', 'createFleet_tags' - The tags to associate with the fleet. A tag is a key-value pair, and the
+-- value is optional. For example, Environment=Test. If you do not specify
+-- a value, Environment=.
+--
+-- If you do not specify a value, the value is set to an empty string.
+--
+-- Generally allowed characters are: letters, numbers, and spaces
+-- representable in UTF-8, and the following special characters:
+--
+-- _ . : \/ = + \\ - \@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
+--
+-- 'streamView', 'createFleet_streamView' - The AppStream 2.0 view that is displayed to your users when they stream
+-- from the fleet. When @APP@ is specified, only the windows of
+-- applications opened by users display. When @DESKTOP@ is specified, the
+-- standard desktop that is provided by the operating system displays.
+--
+-- The default value is @APP@.
+--
+-- 'description', 'createFleet_description' - The description to display.
+--
+-- 'displayName', 'createFleet_displayName' - The fleet name to display.
+--
+-- 'enableDefaultInternetAccess', 'createFleet_enableDefaultInternetAccess' - Enables or disables default internet access for the fleet.
+--
+-- 'imageArn', 'createFleet_imageArn' - The ARN of the public, private, or shared image to use.
+--
+-- 'name', 'createFleet_name' - A unique name for the fleet.
+--
+-- 'instanceType', 'createFleet_instanceType' - The instance type to use when launching fleet instances. The following
+-- instance types are available:
+--
+-- -   stream.standard.small
+--
+-- -   stream.standard.medium
+--
+-- -   stream.standard.large
+--
+-- -   stream.compute.large
+--
+-- -   stream.compute.xlarge
+--
+-- -   stream.compute.2xlarge
+--
+-- -   stream.compute.4xlarge
+--
+-- -   stream.compute.8xlarge
+--
+-- -   stream.memory.large
+--
+-- -   stream.memory.xlarge
+--
+-- -   stream.memory.2xlarge
+--
+-- -   stream.memory.4xlarge
+--
+-- -   stream.memory.8xlarge
+--
+-- -   stream.memory.z1d.large
+--
+-- -   stream.memory.z1d.xlarge
+--
+-- -   stream.memory.z1d.2xlarge
+--
+-- -   stream.memory.z1d.3xlarge
+--
+-- -   stream.memory.z1d.6xlarge
+--
+-- -   stream.memory.z1d.12xlarge
+--
+-- -   stream.graphics-design.large
+--
+-- -   stream.graphics-design.xlarge
+--
+-- -   stream.graphics-design.2xlarge
+--
+-- -   stream.graphics-design.4xlarge
+--
+-- -   stream.graphics-desktop.2xlarge
+--
+-- -   stream.graphics.g4dn.xlarge
+--
+-- -   stream.graphics.g4dn.2xlarge
+--
+-- -   stream.graphics.g4dn.4xlarge
+--
+-- -   stream.graphics.g4dn.8xlarge
+--
+-- -   stream.graphics.g4dn.12xlarge
+--
+-- -   stream.graphics.g4dn.16xlarge
+--
+-- -   stream.graphics-pro.4xlarge
+--
+-- -   stream.graphics-pro.8xlarge
+--
+-- -   stream.graphics-pro.16xlarge
+--
+-- 'computeCapacity', 'createFleet_computeCapacity' - The desired capacity for the fleet.
+newCreateFleet ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'instanceType'
+  Prelude.Text ->
+  -- | 'computeCapacity'
   ComputeCapacity ->
   CreateFleet
-createFleet pName_ pInstanceType_ pComputeCapacity_ =
-  CreateFleet'
-    { _cfMaxUserDurationInSeconds = Nothing,
-      _cfDisconnectTimeoutInSeconds = Nothing,
-      _cfVPCConfig = Nothing,
-      _cfIAMRoleARN = Nothing,
-      _cfDomainJoinInfo = Nothing,
-      _cfFleetType = Nothing,
-      _cfIdleDisconnectTimeoutInSeconds = Nothing,
-      _cfImageName = Nothing,
-      _cfTags = Nothing,
-      _cfStreamView = Nothing,
-      _cfDescription = Nothing,
-      _cfDisplayName = Nothing,
-      _cfEnableDefaultInternetAccess = Nothing,
-      _cfImageARN = Nothing,
-      _cfName = pName_,
-      _cfInstanceType = pInstanceType_,
-      _cfComputeCapacity = pComputeCapacity_
-    }
+newCreateFleet
+  pName_
+  pInstanceType_
+  pComputeCapacity_ =
+    CreateFleet'
+      { maxUserDurationInSeconds =
+          Prelude.Nothing,
+        disconnectTimeoutInSeconds = Prelude.Nothing,
+        vpcConfig = Prelude.Nothing,
+        iamRoleArn = Prelude.Nothing,
+        domainJoinInfo = Prelude.Nothing,
+        fleetType = Prelude.Nothing,
+        idleDisconnectTimeoutInSeconds = Prelude.Nothing,
+        imageName = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        streamView = Prelude.Nothing,
+        description = Prelude.Nothing,
+        displayName = Prelude.Nothing,
+        enableDefaultInternetAccess = Prelude.Nothing,
+        imageArn = Prelude.Nothing,
+        name = pName_,
+        instanceType = pInstanceType_,
+        computeCapacity = pComputeCapacity_
+      }
 
--- | The maximum amount of time that a streaming session can remain active, in seconds. If users are still connected to a streaming instance five minutes before this limit is reached, they are prompted to save any open documents before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance. Specify a value between 600 and 360000.
-cfMaxUserDurationInSeconds :: Lens' CreateFleet (Maybe Int)
-cfMaxUserDurationInSeconds = lens _cfMaxUserDurationInSeconds (\s a -> s {_cfMaxUserDurationInSeconds = a})
+-- | The maximum amount of time that a streaming session can remain active,
+-- in seconds. If users are still connected to a streaming instance five
+-- minutes before this limit is reached, they are prompted to save any open
+-- documents before being disconnected. After this time elapses, the
+-- instance is terminated and replaced by a new instance.
+--
+-- Specify a value between 600 and 360000.
+createFleet_maxUserDurationInSeconds :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Int)
+createFleet_maxUserDurationInSeconds = Lens.lens (\CreateFleet' {maxUserDurationInSeconds} -> maxUserDurationInSeconds) (\s@CreateFleet' {} a -> s {maxUserDurationInSeconds = a} :: CreateFleet)
 
--- | The amount of time that a streaming session remains active after users disconnect. If users try to reconnect to the streaming session after a disconnection or network interruption within this time interval, they are connected to their previous session. Otherwise, they are connected to a new session with a new streaming instance.  Specify a value between 60 and 360000.
-cfDisconnectTimeoutInSeconds :: Lens' CreateFleet (Maybe Int)
-cfDisconnectTimeoutInSeconds = lens _cfDisconnectTimeoutInSeconds (\s a -> s {_cfDisconnectTimeoutInSeconds = a})
+-- | The amount of time that a streaming session remains active after users
+-- disconnect. If users try to reconnect to the streaming session after a
+-- disconnection or network interruption within this time interval, they
+-- are connected to their previous session. Otherwise, they are connected
+-- to a new session with a new streaming instance.
+--
+-- Specify a value between 60 and 360000.
+createFleet_disconnectTimeoutInSeconds :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Int)
+createFleet_disconnectTimeoutInSeconds = Lens.lens (\CreateFleet' {disconnectTimeoutInSeconds} -> disconnectTimeoutInSeconds) (\s@CreateFleet' {} a -> s {disconnectTimeoutInSeconds = a} :: CreateFleet)
 
 -- | The VPC configuration for the fleet.
-cfVPCConfig :: Lens' CreateFleet (Maybe VPCConfig)
-cfVPCConfig = lens _cfVPCConfig (\s a -> s {_cfVPCConfig = a})
+createFleet_vpcConfig :: Lens.Lens' CreateFleet (Prelude.Maybe VpcConfig)
+createFleet_vpcConfig = Lens.lens (\CreateFleet' {vpcConfig} -> vpcConfig) (\s@CreateFleet' {} a -> s {vpcConfig = a} :: CreateFleet)
 
--- | The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls the AWS Security Token Service (STS) @AssumeRole@ API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the __appstream_machine_role__ credential profile on the instance. For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances> in the /Amazon AppStream 2.0 Administration Guide/ .
-cfIAMRoleARN :: Lens' CreateFleet (Maybe Text)
-cfIAMRoleARN = lens _cfIAMRoleARN (\s a -> s {_cfIAMRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+-- assume a role, a fleet instance calls the AWS Security Token Service
+-- (STS) @AssumeRole@ API operation and passes the ARN of the role to use.
+-- The operation creates a new session with temporary credentials.
+-- AppStream 2.0 retrieves the temporary credentials and creates the
+-- __appstream_machine_role__ credential profile on the instance.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
+createFleet_iamRoleArn :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Text)
+createFleet_iamRoleArn = Lens.lens (\CreateFleet' {iamRoleArn} -> iamRoleArn) (\s@CreateFleet' {} a -> s {iamRoleArn = a} :: CreateFleet)
 
--- | The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory domain.
-cfDomainJoinInfo :: Lens' CreateFleet (Maybe DomainJoinInfo)
-cfDomainJoinInfo = lens _cfDomainJoinInfo (\s a -> s {_cfDomainJoinInfo = a})
+-- | The name of the directory and organizational unit (OU) to use to join
+-- the fleet to a Microsoft Active Directory domain.
+createFleet_domainJoinInfo :: Lens.Lens' CreateFleet (Prelude.Maybe DomainJoinInfo)
+createFleet_domainJoinInfo = Lens.lens (\CreateFleet' {domainJoinInfo} -> domainJoinInfo) (\s@CreateFleet' {} a -> s {domainJoinInfo = a} :: CreateFleet)
 
--- | The fleet type.     * ALWAYS_ON    * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet, even if no users are streaming apps.     * ON_DEMAND    * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
-cfFleetType :: Lens' CreateFleet (Maybe FleetType)
-cfFleetType = lens _cfFleetType (\s a -> s {_cfFleetType = a})
+-- | The fleet type.
+--
+-- [ALWAYS_ON]
+--     Provides users with instant-on access to their apps. You are charged
+--     for all running instances in your fleet, even if no users are
+--     streaming apps.
+--
+-- [ON_DEMAND]
+--     Provide users with access to applications after they connect, which
+--     takes one to two minutes. You are charged for instance streaming
+--     when users are connected and a small hourly fee for instances that
+--     are not streaming apps.
+createFleet_fleetType :: Lens.Lens' CreateFleet (Prelude.Maybe FleetType)
+createFleet_fleetType = Lens.lens (\CreateFleet' {fleetType} -> fleetType) (\s@CreateFleet' {} a -> s {fleetType = a} :: CreateFleet)
 
--- | The amount of time that users can be idle (inactive) before they are disconnected from their streaming session and the @DisconnectTimeoutInSeconds@ time interval begins. Users are notified before they are disconnected due to inactivity. If they try to reconnect to the streaming session before the time interval specified in @DisconnectTimeoutInSeconds@ elapses, they are connected to their previous session. Users are considered idle when they stop providing keyboard or mouse input during their streaming session. File uploads and downloads, audio in, audio out, and pixels changing do not qualify as user activity. If users continue to be idle after the time interval in @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected. To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value between 60 and 3600. The default value is 0.
-cfIdleDisconnectTimeoutInSeconds :: Lens' CreateFleet (Maybe Int)
-cfIdleDisconnectTimeoutInSeconds = lens _cfIdleDisconnectTimeoutInSeconds (\s a -> s {_cfIdleDisconnectTimeoutInSeconds = a})
+-- | The amount of time that users can be idle (inactive) before they are
+-- disconnected from their streaming session and the
+-- @DisconnectTimeoutInSeconds@ time interval begins. Users are notified
+-- before they are disconnected due to inactivity. If they try to reconnect
+-- to the streaming session before the time interval specified in
+-- @DisconnectTimeoutInSeconds@ elapses, they are connected to their
+-- previous session. Users are considered idle when they stop providing
+-- keyboard or mouse input during their streaming session. File uploads and
+-- downloads, audio in, audio out, and pixels changing do not qualify as
+-- user activity. If users continue to be idle after the time interval in
+-- @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.
+--
+-- To prevent users from being disconnected due to inactivity, specify a
+-- value of 0. Otherwise, specify a value between 60 and 3600. The default
+-- value is 0.
+--
+-- If you enable this feature, we recommend that you specify a value that
+-- corresponds exactly to a whole number of minutes (for example, 60, 120,
+-- and 180). If you don\'t do this, the value is rounded to the nearest
+-- minute. For example, if you specify a value of 70, users are
+-- disconnected after 1 minute of inactivity. If you specify a value that
+-- is at the midpoint between two different minutes, the value is rounded
+-- up. For example, if you specify a value of 90, users are disconnected
+-- after 2 minutes of inactivity.
+createFleet_idleDisconnectTimeoutInSeconds :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Int)
+createFleet_idleDisconnectTimeoutInSeconds = Lens.lens (\CreateFleet' {idleDisconnectTimeoutInSeconds} -> idleDisconnectTimeoutInSeconds) (\s@CreateFleet' {} a -> s {idleDisconnectTimeoutInSeconds = a} :: CreateFleet)
 
 -- | The name of the image used to create the fleet.
-cfImageName :: Lens' CreateFleet (Maybe Text)
-cfImageName = lens _cfImageName (\s a -> s {_cfImageName = a})
+createFleet_imageName :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Text)
+createFleet_imageName = Lens.lens (\CreateFleet' {imageName} -> imageName) (\s@CreateFleet' {} a -> s {imageName = a} :: CreateFleet)
 
--- | The tags to associate with the fleet. A tag is a key-value pair, and the value is optional. For example, Environment=Test. If you do not specify a value, Environment=.  If you do not specify a value, the value is set to an empty string. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following special characters:  _ . : / = + \ - @ For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources> in the /Amazon AppStream 2.0 Administration Guide/ .
-cfTags :: Lens' CreateFleet (HashMap Text Text)
-cfTags = lens _cfTags (\s a -> s {_cfTags = a}) . _Default . _Map
+-- | The tags to associate with the fleet. A tag is a key-value pair, and the
+-- value is optional. For example, Environment=Test. If you do not specify
+-- a value, Environment=.
+--
+-- If you do not specify a value, the value is set to an empty string.
+--
+-- Generally allowed characters are: letters, numbers, and spaces
+-- representable in UTF-8, and the following special characters:
+--
+-- _ . : \/ = + \\ - \@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html Tagging Your Resources>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
+createFleet_tags :: Lens.Lens' CreateFleet (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createFleet_tags = Lens.lens (\CreateFleet' {tags} -> tags) (\s@CreateFleet' {} a -> s {tags = a} :: CreateFleet) Prelude.. Lens.mapping Prelude._Map
 
--- | The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When @APP@ is specified, only the windows of applications opened by users display. When @DESKTOP@ is specified, the standard desktop that is provided by the operating system displays. The default value is @APP@ .
-cfStreamView :: Lens' CreateFleet (Maybe StreamView)
-cfStreamView = lens _cfStreamView (\s a -> s {_cfStreamView = a})
+-- | The AppStream 2.0 view that is displayed to your users when they stream
+-- from the fleet. When @APP@ is specified, only the windows of
+-- applications opened by users display. When @DESKTOP@ is specified, the
+-- standard desktop that is provided by the operating system displays.
+--
+-- The default value is @APP@.
+createFleet_streamView :: Lens.Lens' CreateFleet (Prelude.Maybe StreamView)
+createFleet_streamView = Lens.lens (\CreateFleet' {streamView} -> streamView) (\s@CreateFleet' {} a -> s {streamView = a} :: CreateFleet)
 
 -- | The description to display.
-cfDescription :: Lens' CreateFleet (Maybe Text)
-cfDescription = lens _cfDescription (\s a -> s {_cfDescription = a})
+createFleet_description :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Text)
+createFleet_description = Lens.lens (\CreateFleet' {description} -> description) (\s@CreateFleet' {} a -> s {description = a} :: CreateFleet)
 
 -- | The fleet name to display.
-cfDisplayName :: Lens' CreateFleet (Maybe Text)
-cfDisplayName = lens _cfDisplayName (\s a -> s {_cfDisplayName = a})
+createFleet_displayName :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Text)
+createFleet_displayName = Lens.lens (\CreateFleet' {displayName} -> displayName) (\s@CreateFleet' {} a -> s {displayName = a} :: CreateFleet)
 
 -- | Enables or disables default internet access for the fleet.
-cfEnableDefaultInternetAccess :: Lens' CreateFleet (Maybe Bool)
-cfEnableDefaultInternetAccess = lens _cfEnableDefaultInternetAccess (\s a -> s {_cfEnableDefaultInternetAccess = a})
+createFleet_enableDefaultInternetAccess :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Bool)
+createFleet_enableDefaultInternetAccess = Lens.lens (\CreateFleet' {enableDefaultInternetAccess} -> enableDefaultInternetAccess) (\s@CreateFleet' {} a -> s {enableDefaultInternetAccess = a} :: CreateFleet)
 
 -- | The ARN of the public, private, or shared image to use.
-cfImageARN :: Lens' CreateFleet (Maybe Text)
-cfImageARN = lens _cfImageARN (\s a -> s {_cfImageARN = a})
+createFleet_imageArn :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Text)
+createFleet_imageArn = Lens.lens (\CreateFleet' {imageArn} -> imageArn) (\s@CreateFleet' {} a -> s {imageArn = a} :: CreateFleet)
 
 -- | A unique name for the fleet.
-cfName :: Lens' CreateFleet Text
-cfName = lens _cfName (\s a -> s {_cfName = a})
+createFleet_name :: Lens.Lens' CreateFleet Prelude.Text
+createFleet_name = Lens.lens (\CreateFleet' {name} -> name) (\s@CreateFleet' {} a -> s {name = a} :: CreateFleet)
 
--- | The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.small     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.memory.z1d.large     * stream.memory.z1d.xlarge     * stream.memory.z1d.2xlarge     * stream.memory.z1d.3xlarge     * stream.memory.z1d.6xlarge     * stream.memory.z1d.12xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics.g4dn.xlarge     * stream.graphics.g4dn.2xlarge     * stream.graphics.g4dn.4xlarge     * stream.graphics.g4dn.8xlarge     * stream.graphics.g4dn.12xlarge     * stream.graphics.g4dn.16xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
-cfInstanceType :: Lens' CreateFleet Text
-cfInstanceType = lens _cfInstanceType (\s a -> s {_cfInstanceType = a})
+-- | The instance type to use when launching fleet instances. The following
+-- instance types are available:
+--
+-- -   stream.standard.small
+--
+-- -   stream.standard.medium
+--
+-- -   stream.standard.large
+--
+-- -   stream.compute.large
+--
+-- -   stream.compute.xlarge
+--
+-- -   stream.compute.2xlarge
+--
+-- -   stream.compute.4xlarge
+--
+-- -   stream.compute.8xlarge
+--
+-- -   stream.memory.large
+--
+-- -   stream.memory.xlarge
+--
+-- -   stream.memory.2xlarge
+--
+-- -   stream.memory.4xlarge
+--
+-- -   stream.memory.8xlarge
+--
+-- -   stream.memory.z1d.large
+--
+-- -   stream.memory.z1d.xlarge
+--
+-- -   stream.memory.z1d.2xlarge
+--
+-- -   stream.memory.z1d.3xlarge
+--
+-- -   stream.memory.z1d.6xlarge
+--
+-- -   stream.memory.z1d.12xlarge
+--
+-- -   stream.graphics-design.large
+--
+-- -   stream.graphics-design.xlarge
+--
+-- -   stream.graphics-design.2xlarge
+--
+-- -   stream.graphics-design.4xlarge
+--
+-- -   stream.graphics-desktop.2xlarge
+--
+-- -   stream.graphics.g4dn.xlarge
+--
+-- -   stream.graphics.g4dn.2xlarge
+--
+-- -   stream.graphics.g4dn.4xlarge
+--
+-- -   stream.graphics.g4dn.8xlarge
+--
+-- -   stream.graphics.g4dn.12xlarge
+--
+-- -   stream.graphics.g4dn.16xlarge
+--
+-- -   stream.graphics-pro.4xlarge
+--
+-- -   stream.graphics-pro.8xlarge
+--
+-- -   stream.graphics-pro.16xlarge
+createFleet_instanceType :: Lens.Lens' CreateFleet Prelude.Text
+createFleet_instanceType = Lens.lens (\CreateFleet' {instanceType} -> instanceType) (\s@CreateFleet' {} a -> s {instanceType = a} :: CreateFleet)
 
 -- | The desired capacity for the fleet.
-cfComputeCapacity :: Lens' CreateFleet ComputeCapacity
-cfComputeCapacity = lens _cfComputeCapacity (\s a -> s {_cfComputeCapacity = a})
+createFleet_computeCapacity :: Lens.Lens' CreateFleet ComputeCapacity
+createFleet_computeCapacity = Lens.lens (\CreateFleet' {computeCapacity} -> computeCapacity) (\s@CreateFleet' {} a -> s {computeCapacity = a} :: CreateFleet)
 
-instance AWSRequest CreateFleet where
+instance Prelude.AWSRequest CreateFleet where
   type Rs CreateFleet = CreateFleetResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateFleetResponse'
-            <$> (x .?> "Fleet") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Fleet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFleet
+instance Prelude.Hashable CreateFleet
 
-instance NFData CreateFleet
+instance Prelude.NFData CreateFleet
 
-instance ToHeaders CreateFleet where
+instance Prelude.ToHeaders CreateFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.CreateFleet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.CreateFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateFleet where
+instance Prelude.ToJSON CreateFleet where
   toJSON CreateFleet' {..} =
-    object
-      ( catMaybes
-          [ ("MaxUserDurationInSeconds" .=)
-              <$> _cfMaxUserDurationInSeconds,
-            ("DisconnectTimeoutInSeconds" .=)
-              <$> _cfDisconnectTimeoutInSeconds,
-            ("VpcConfig" .=) <$> _cfVPCConfig,
-            ("IamRoleArn" .=) <$> _cfIAMRoleARN,
-            ("DomainJoinInfo" .=) <$> _cfDomainJoinInfo,
-            ("FleetType" .=) <$> _cfFleetType,
-            ("IdleDisconnectTimeoutInSeconds" .=)
-              <$> _cfIdleDisconnectTimeoutInSeconds,
-            ("ImageName" .=) <$> _cfImageName,
-            ("Tags" .=) <$> _cfTags,
-            ("StreamView" .=) <$> _cfStreamView,
-            ("Description" .=) <$> _cfDescription,
-            ("DisplayName" .=) <$> _cfDisplayName,
-            ("EnableDefaultInternetAccess" .=)
-              <$> _cfEnableDefaultInternetAccess,
-            ("ImageArn" .=) <$> _cfImageARN,
-            Just ("Name" .= _cfName),
-            Just ("InstanceType" .= _cfInstanceType),
-            Just ("ComputeCapacity" .= _cfComputeCapacity)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxUserDurationInSeconds" Prelude..=)
+              Prelude.<$> maxUserDurationInSeconds,
+            ("DisconnectTimeoutInSeconds" Prelude..=)
+              Prelude.<$> disconnectTimeoutInSeconds,
+            ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("IamRoleArn" Prelude..=) Prelude.<$> iamRoleArn,
+            ("DomainJoinInfo" Prelude..=)
+              Prelude.<$> domainJoinInfo,
+            ("FleetType" Prelude..=) Prelude.<$> fleetType,
+            ("IdleDisconnectTimeoutInSeconds" Prelude..=)
+              Prelude.<$> idleDisconnectTimeoutInSeconds,
+            ("ImageName" Prelude..=) Prelude.<$> imageName,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("StreamView" Prelude..=) Prelude.<$> streamView,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            ("EnableDefaultInternetAccess" Prelude..=)
+              Prelude.<$> enableDefaultInternetAccess,
+            ("ImageArn" Prelude..=) Prelude.<$> imageArn,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("InstanceType" Prelude..= instanceType),
+            Prelude.Just
+              ("ComputeCapacity" Prelude..= computeCapacity)
           ]
       )
 
-instance ToPath CreateFleet where
-  toPath = const "/"
+instance Prelude.ToPath CreateFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createFleetResponse' smart constructor.
+-- | /See:/ 'newCreateFleetResponse' smart constructor.
 data CreateFleetResponse = CreateFleetResponse'
-  { _cfrrsFleet ::
-      !(Maybe Fleet),
-    _cfrrsResponseStatus :: !Int
+  { -- | Information about the fleet.
+    fleet :: Prelude.Maybe Fleet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFleetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFleetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfrrsFleet' - Information about the fleet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfrrsResponseStatus' - -- | The response status code.
-createFleetResponse ::
-  -- | 'cfrrsResponseStatus'
-  Int ->
+-- 'fleet', 'createFleetResponse_fleet' - Information about the fleet.
+--
+-- 'httpStatus', 'createFleetResponse_httpStatus' - The response's http status code.
+newCreateFleetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateFleetResponse
-createFleetResponse pResponseStatus_ =
+newCreateFleetResponse pHttpStatus_ =
   CreateFleetResponse'
-    { _cfrrsFleet = Nothing,
-      _cfrrsResponseStatus = pResponseStatus_
+    { fleet = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the fleet.
-cfrrsFleet :: Lens' CreateFleetResponse (Maybe Fleet)
-cfrrsFleet = lens _cfrrsFleet (\s a -> s {_cfrrsFleet = a})
+createFleetResponse_fleet :: Lens.Lens' CreateFleetResponse (Prelude.Maybe Fleet)
+createFleetResponse_fleet = Lens.lens (\CreateFleetResponse' {fleet} -> fleet) (\s@CreateFleetResponse' {} a -> s {fleet = a} :: CreateFleetResponse)
 
--- | -- | The response status code.
-cfrrsResponseStatus :: Lens' CreateFleetResponse Int
-cfrrsResponseStatus = lens _cfrrsResponseStatus (\s a -> s {_cfrrsResponseStatus = a})
+-- | The response's http status code.
+createFleetResponse_httpStatus :: Lens.Lens' CreateFleetResponse Prelude.Int
+createFleetResponse_httpStatus = Lens.lens (\CreateFleetResponse' {httpStatus} -> httpStatus) (\s@CreateFleetResponse' {} a -> s {httpStatus = a} :: CreateFleetResponse)
 
-instance NFData CreateFleetResponse
+instance Prelude.NFData CreateFleetResponse

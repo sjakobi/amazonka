@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,293 +23,680 @@
 --
 -- Updates the specified fleet.
 --
---
--- If the fleet is in the @STOPPED@ state, you can update any attribute except the fleet name. If the fleet is in the @RUNNING@ state, you can update the @DisplayName@ , @ComputeCapacity@ , @ImageARN@ , @ImageName@ , @IdleDisconnectTimeoutInSeconds@ , and @DisconnectTimeoutInSeconds@ attributes. If the fleet is in the @STARTING@ or @STOPPING@ state, you can't update it.
+-- If the fleet is in the @STOPPED@ state, you can update any attribute
+-- except the fleet name. If the fleet is in the @RUNNING@ state, you can
+-- update the @DisplayName@, @ComputeCapacity@, @ImageARN@, @ImageName@,
+-- @IdleDisconnectTimeoutInSeconds@, and @DisconnectTimeoutInSeconds@
+-- attributes. If the fleet is in the @STARTING@ or @STOPPING@ state, you
+-- can\'t update it.
 module Network.AWS.AppStream.UpdateFleet
   ( -- * Creating a Request
-    updateFleet,
-    UpdateFleet,
+    UpdateFleet (..),
+    newUpdateFleet,
 
     -- * Request Lenses
-    ufMaxUserDurationInSeconds,
-    ufDisconnectTimeoutInSeconds,
-    ufVPCConfig,
-    ufIAMRoleARN,
-    ufDomainJoinInfo,
-    ufInstanceType,
-    ufComputeCapacity,
-    ufDeleteVPCConfig,
-    ufIdleDisconnectTimeoutInSeconds,
-    ufImageName,
-    ufName,
-    ufStreamView,
-    ufDescription,
-    ufDisplayName,
-    ufEnableDefaultInternetAccess,
-    ufAttributesToDelete,
-    ufImageARN,
+    updateFleet_maxUserDurationInSeconds,
+    updateFleet_disconnectTimeoutInSeconds,
+    updateFleet_vpcConfig,
+    updateFleet_iamRoleArn,
+    updateFleet_domainJoinInfo,
+    updateFleet_instanceType,
+    updateFleet_computeCapacity,
+    updateFleet_deleteVpcConfig,
+    updateFleet_idleDisconnectTimeoutInSeconds,
+    updateFleet_imageName,
+    updateFleet_name,
+    updateFleet_streamView,
+    updateFleet_description,
+    updateFleet_displayName,
+    updateFleet_enableDefaultInternetAccess,
+    updateFleet_attributesToDelete,
+    updateFleet_imageArn,
 
     -- * Destructuring the Response
-    updateFleetResponse,
-    UpdateFleetResponse,
+    UpdateFleetResponse (..),
+    newUpdateFleetResponse,
 
     -- * Response Lenses
-    ufrrsFleet,
-    ufrrsResponseStatus,
+    updateFleetResponse_fleet,
+    updateFleetResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.Fleet
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFleet' smart constructor.
+-- | /See:/ 'newUpdateFleet' smart constructor.
 data UpdateFleet = UpdateFleet'
-  { _ufMaxUserDurationInSeconds ::
-      !(Maybe Int),
-    _ufDisconnectTimeoutInSeconds :: !(Maybe Int),
-    _ufVPCConfig :: !(Maybe VPCConfig),
-    _ufIAMRoleARN :: !(Maybe Text),
-    _ufDomainJoinInfo :: !(Maybe DomainJoinInfo),
-    _ufInstanceType :: !(Maybe Text),
-    _ufComputeCapacity :: !(Maybe ComputeCapacity),
-    _ufDeleteVPCConfig :: !(Maybe Bool),
-    _ufIdleDisconnectTimeoutInSeconds ::
-      !(Maybe Int),
-    _ufImageName :: !(Maybe Text),
-    _ufName :: !(Maybe Text),
-    _ufStreamView :: !(Maybe StreamView),
-    _ufDescription :: !(Maybe Text),
-    _ufDisplayName :: !(Maybe Text),
-    _ufEnableDefaultInternetAccess :: !(Maybe Bool),
-    _ufAttributesToDelete ::
-      !(Maybe [FleetAttribute]),
-    _ufImageARN :: !(Maybe Text)
+  { -- | The maximum amount of time that a streaming session can remain active,
+    -- in seconds. If users are still connected to a streaming instance five
+    -- minutes before this limit is reached, they are prompted to save any open
+    -- documents before being disconnected. After this time elapses, the
+    -- instance is terminated and replaced by a new instance.
+    --
+    -- Specify a value between 600 and 360000.
+    maxUserDurationInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The amount of time that a streaming session remains active after users
+    -- disconnect. If users try to reconnect to the streaming session after a
+    -- disconnection or network interruption within this time interval, they
+    -- are connected to their previous session. Otherwise, they are connected
+    -- to a new session with a new streaming instance.
+    --
+    -- Specify a value between 60 and 360000.
+    disconnectTimeoutInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The VPC configuration for the fleet.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+    -- assume a role, a fleet instance calls the AWS Security Token Service
+    -- (STS) @AssumeRole@ API operation and passes the ARN of the role to use.
+    -- The operation creates a new session with temporary credentials.
+    -- AppStream 2.0 retrieves the temporary credentials and creates the
+    -- __appstream_machine_role__ credential profile on the instance.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+    -- in the /Amazon AppStream 2.0 Administration Guide/.
+    iamRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the directory and organizational unit (OU) to use to join
+    -- the fleet to a Microsoft Active Directory domain.
+    domainJoinInfo :: Prelude.Maybe DomainJoinInfo,
+    -- | The instance type to use when launching fleet instances. The following
+    -- instance types are available:
+    --
+    -- -   stream.standard.small
+    --
+    -- -   stream.standard.medium
+    --
+    -- -   stream.standard.large
+    --
+    -- -   stream.compute.large
+    --
+    -- -   stream.compute.xlarge
+    --
+    -- -   stream.compute.2xlarge
+    --
+    -- -   stream.compute.4xlarge
+    --
+    -- -   stream.compute.8xlarge
+    --
+    -- -   stream.memory.large
+    --
+    -- -   stream.memory.xlarge
+    --
+    -- -   stream.memory.2xlarge
+    --
+    -- -   stream.memory.4xlarge
+    --
+    -- -   stream.memory.8xlarge
+    --
+    -- -   stream.memory.z1d.large
+    --
+    -- -   stream.memory.z1d.xlarge
+    --
+    -- -   stream.memory.z1d.2xlarge
+    --
+    -- -   stream.memory.z1d.3xlarge
+    --
+    -- -   stream.memory.z1d.6xlarge
+    --
+    -- -   stream.memory.z1d.12xlarge
+    --
+    -- -   stream.graphics-design.large
+    --
+    -- -   stream.graphics-design.xlarge
+    --
+    -- -   stream.graphics-design.2xlarge
+    --
+    -- -   stream.graphics-design.4xlarge
+    --
+    -- -   stream.graphics-desktop.2xlarge
+    --
+    -- -   stream.graphics.g4dn.xlarge
+    --
+    -- -   stream.graphics.g4dn.2xlarge
+    --
+    -- -   stream.graphics.g4dn.4xlarge
+    --
+    -- -   stream.graphics.g4dn.8xlarge
+    --
+    -- -   stream.graphics.g4dn.12xlarge
+    --
+    -- -   stream.graphics.g4dn.16xlarge
+    --
+    -- -   stream.graphics-pro.4xlarge
+    --
+    -- -   stream.graphics-pro.8xlarge
+    --
+    -- -   stream.graphics-pro.16xlarge
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | The desired capacity for the fleet.
+    computeCapacity :: Prelude.Maybe ComputeCapacity,
+    -- | Deletes the VPC association for the specified fleet.
+    deleteVpcConfig :: Prelude.Maybe Prelude.Bool,
+    -- | The amount of time that users can be idle (inactive) before they are
+    -- disconnected from their streaming session and the
+    -- @DisconnectTimeoutInSeconds@ time interval begins. Users are notified
+    -- before they are disconnected due to inactivity. If users try to
+    -- reconnect to the streaming session before the time interval specified in
+    -- @DisconnectTimeoutInSeconds@ elapses, they are connected to their
+    -- previous session. Users are considered idle when they stop providing
+    -- keyboard or mouse input during their streaming session. File uploads and
+    -- downloads, audio in, audio out, and pixels changing do not qualify as
+    -- user activity. If users continue to be idle after the time interval in
+    -- @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.
+    --
+    -- To prevent users from being disconnected due to inactivity, specify a
+    -- value of 0. Otherwise, specify a value between 60 and 3600. The default
+    -- value is 0.
+    --
+    -- If you enable this feature, we recommend that you specify a value that
+    -- corresponds exactly to a whole number of minutes (for example, 60, 120,
+    -- and 180). If you don\'t do this, the value is rounded to the nearest
+    -- minute. For example, if you specify a value of 70, users are
+    -- disconnected after 1 minute of inactivity. If you specify a value that
+    -- is at the midpoint between two different minutes, the value is rounded
+    -- up. For example, if you specify a value of 90, users are disconnected
+    -- after 2 minutes of inactivity.
+    idleDisconnectTimeoutInSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The name of the image used to create the fleet.
+    imageName :: Prelude.Maybe Prelude.Text,
+    -- | A unique name for the fleet.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The AppStream 2.0 view that is displayed to your users when they stream
+    -- from the fleet. When @APP@ is specified, only the windows of
+    -- applications opened by users display. When @DESKTOP@ is specified, the
+    -- standard desktop that is provided by the operating system displays.
+    --
+    -- The default value is @APP@.
+    streamView :: Prelude.Maybe StreamView,
+    -- | The description to display.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The fleet name to display.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | Enables or disables default internet access for the fleet.
+    enableDefaultInternetAccess :: Prelude.Maybe Prelude.Bool,
+    -- | The fleet attributes to delete.
+    attributesToDelete :: Prelude.Maybe [FleetAttribute],
+    -- | The ARN of the public, private, or shared image to use.
+    imageArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufMaxUserDurationInSeconds' - The maximum amount of time that a streaming session can remain active, in seconds. If users are still connected to a streaming instance five minutes before this limit is reached, they are prompted to save any open documents before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance. Specify a value between 600 and 360000.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufDisconnectTimeoutInSeconds' - The amount of time that a streaming session remains active after users disconnect. If users try to reconnect to the streaming session after a disconnection or network interruption within this time interval, they are connected to their previous session. Otherwise, they are connected to a new session with a new streaming instance.  Specify a value between 60 and 360000.
+-- 'maxUserDurationInSeconds', 'updateFleet_maxUserDurationInSeconds' - The maximum amount of time that a streaming session can remain active,
+-- in seconds. If users are still connected to a streaming instance five
+-- minutes before this limit is reached, they are prompted to save any open
+-- documents before being disconnected. After this time elapses, the
+-- instance is terminated and replaced by a new instance.
 --
--- * 'ufVPCConfig' - The VPC configuration for the fleet.
+-- Specify a value between 600 and 360000.
 --
--- * 'ufIAMRoleARN' - The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls the AWS Security Token Service (STS) @AssumeRole@ API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the __appstream_machine_role__ credential profile on the instance. For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances> in the /Amazon AppStream 2.0 Administration Guide/ .
+-- 'disconnectTimeoutInSeconds', 'updateFleet_disconnectTimeoutInSeconds' - The amount of time that a streaming session remains active after users
+-- disconnect. If users try to reconnect to the streaming session after a
+-- disconnection or network interruption within this time interval, they
+-- are connected to their previous session. Otherwise, they are connected
+-- to a new session with a new streaming instance.
 --
--- * 'ufDomainJoinInfo' - The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory domain.
+-- Specify a value between 60 and 360000.
 --
--- * 'ufInstanceType' - The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.small     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.memory.z1d.large     * stream.memory.z1d.xlarge     * stream.memory.z1d.2xlarge     * stream.memory.z1d.3xlarge     * stream.memory.z1d.6xlarge     * stream.memory.z1d.12xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics.g4dn.xlarge     * stream.graphics.g4dn.2xlarge     * stream.graphics.g4dn.4xlarge     * stream.graphics.g4dn.8xlarge     * stream.graphics.g4dn.12xlarge     * stream.graphics.g4dn.16xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
+-- 'vpcConfig', 'updateFleet_vpcConfig' - The VPC configuration for the fleet.
 --
--- * 'ufComputeCapacity' - The desired capacity for the fleet.
+-- 'iamRoleArn', 'updateFleet_iamRoleArn' - The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+-- assume a role, a fleet instance calls the AWS Security Token Service
+-- (STS) @AssumeRole@ API operation and passes the ARN of the role to use.
+-- The operation creates a new session with temporary credentials.
+-- AppStream 2.0 retrieves the temporary credentials and creates the
+-- __appstream_machine_role__ credential profile on the instance.
 --
--- * 'ufDeleteVPCConfig' - Deletes the VPC association for the specified fleet.
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
 --
--- * 'ufIdleDisconnectTimeoutInSeconds' - The amount of time that users can be idle (inactive) before they are disconnected from their streaming session and the @DisconnectTimeoutInSeconds@ time interval begins. Users are notified before they are disconnected due to inactivity. If users try to reconnect to the streaming session before the time interval specified in @DisconnectTimeoutInSeconds@ elapses, they are connected to their previous session. Users are considered idle when they stop providing keyboard or mouse input during their streaming session. File uploads and downloads, audio in, audio out, and pixels changing do not qualify as user activity. If users continue to be idle after the time interval in @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.  To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value between 60 and 3600. The default value is 0.
+-- 'domainJoinInfo', 'updateFleet_domainJoinInfo' - The name of the directory and organizational unit (OU) to use to join
+-- the fleet to a Microsoft Active Directory domain.
 --
--- * 'ufImageName' - The name of the image used to create the fleet.
+-- 'instanceType', 'updateFleet_instanceType' - The instance type to use when launching fleet instances. The following
+-- instance types are available:
 --
--- * 'ufName' - A unique name for the fleet.
+-- -   stream.standard.small
 --
--- * 'ufStreamView' - The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When @APP@ is specified, only the windows of applications opened by users display. When @DESKTOP@ is specified, the standard desktop that is provided by the operating system displays. The default value is @APP@ .
+-- -   stream.standard.medium
 --
--- * 'ufDescription' - The description to display.
+-- -   stream.standard.large
 --
--- * 'ufDisplayName' - The fleet name to display.
+-- -   stream.compute.large
 --
--- * 'ufEnableDefaultInternetAccess' - Enables or disables default internet access for the fleet.
+-- -   stream.compute.xlarge
 --
--- * 'ufAttributesToDelete' - The fleet attributes to delete.
+-- -   stream.compute.2xlarge
 --
--- * 'ufImageARN' - The ARN of the public, private, or shared image to use.
-updateFleet ::
+-- -   stream.compute.4xlarge
+--
+-- -   stream.compute.8xlarge
+--
+-- -   stream.memory.large
+--
+-- -   stream.memory.xlarge
+--
+-- -   stream.memory.2xlarge
+--
+-- -   stream.memory.4xlarge
+--
+-- -   stream.memory.8xlarge
+--
+-- -   stream.memory.z1d.large
+--
+-- -   stream.memory.z1d.xlarge
+--
+-- -   stream.memory.z1d.2xlarge
+--
+-- -   stream.memory.z1d.3xlarge
+--
+-- -   stream.memory.z1d.6xlarge
+--
+-- -   stream.memory.z1d.12xlarge
+--
+-- -   stream.graphics-design.large
+--
+-- -   stream.graphics-design.xlarge
+--
+-- -   stream.graphics-design.2xlarge
+--
+-- -   stream.graphics-design.4xlarge
+--
+-- -   stream.graphics-desktop.2xlarge
+--
+-- -   stream.graphics.g4dn.xlarge
+--
+-- -   stream.graphics.g4dn.2xlarge
+--
+-- -   stream.graphics.g4dn.4xlarge
+--
+-- -   stream.graphics.g4dn.8xlarge
+--
+-- -   stream.graphics.g4dn.12xlarge
+--
+-- -   stream.graphics.g4dn.16xlarge
+--
+-- -   stream.graphics-pro.4xlarge
+--
+-- -   stream.graphics-pro.8xlarge
+--
+-- -   stream.graphics-pro.16xlarge
+--
+-- 'computeCapacity', 'updateFleet_computeCapacity' - The desired capacity for the fleet.
+--
+-- 'deleteVpcConfig', 'updateFleet_deleteVpcConfig' - Deletes the VPC association for the specified fleet.
+--
+-- 'idleDisconnectTimeoutInSeconds', 'updateFleet_idleDisconnectTimeoutInSeconds' - The amount of time that users can be idle (inactive) before they are
+-- disconnected from their streaming session and the
+-- @DisconnectTimeoutInSeconds@ time interval begins. Users are notified
+-- before they are disconnected due to inactivity. If users try to
+-- reconnect to the streaming session before the time interval specified in
+-- @DisconnectTimeoutInSeconds@ elapses, they are connected to their
+-- previous session. Users are considered idle when they stop providing
+-- keyboard or mouse input during their streaming session. File uploads and
+-- downloads, audio in, audio out, and pixels changing do not qualify as
+-- user activity. If users continue to be idle after the time interval in
+-- @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.
+--
+-- To prevent users from being disconnected due to inactivity, specify a
+-- value of 0. Otherwise, specify a value between 60 and 3600. The default
+-- value is 0.
+--
+-- If you enable this feature, we recommend that you specify a value that
+-- corresponds exactly to a whole number of minutes (for example, 60, 120,
+-- and 180). If you don\'t do this, the value is rounded to the nearest
+-- minute. For example, if you specify a value of 70, users are
+-- disconnected after 1 minute of inactivity. If you specify a value that
+-- is at the midpoint between two different minutes, the value is rounded
+-- up. For example, if you specify a value of 90, users are disconnected
+-- after 2 minutes of inactivity.
+--
+-- 'imageName', 'updateFleet_imageName' - The name of the image used to create the fleet.
+--
+-- 'name', 'updateFleet_name' - A unique name for the fleet.
+--
+-- 'streamView', 'updateFleet_streamView' - The AppStream 2.0 view that is displayed to your users when they stream
+-- from the fleet. When @APP@ is specified, only the windows of
+-- applications opened by users display. When @DESKTOP@ is specified, the
+-- standard desktop that is provided by the operating system displays.
+--
+-- The default value is @APP@.
+--
+-- 'description', 'updateFleet_description' - The description to display.
+--
+-- 'displayName', 'updateFleet_displayName' - The fleet name to display.
+--
+-- 'enableDefaultInternetAccess', 'updateFleet_enableDefaultInternetAccess' - Enables or disables default internet access for the fleet.
+--
+-- 'attributesToDelete', 'updateFleet_attributesToDelete' - The fleet attributes to delete.
+--
+-- 'imageArn', 'updateFleet_imageArn' - The ARN of the public, private, or shared image to use.
+newUpdateFleet ::
   UpdateFleet
-updateFleet =
+newUpdateFleet =
   UpdateFleet'
-    { _ufMaxUserDurationInSeconds = Nothing,
-      _ufDisconnectTimeoutInSeconds = Nothing,
-      _ufVPCConfig = Nothing,
-      _ufIAMRoleARN = Nothing,
-      _ufDomainJoinInfo = Nothing,
-      _ufInstanceType = Nothing,
-      _ufComputeCapacity = Nothing,
-      _ufDeleteVPCConfig = Nothing,
-      _ufIdleDisconnectTimeoutInSeconds = Nothing,
-      _ufImageName = Nothing,
-      _ufName = Nothing,
-      _ufStreamView = Nothing,
-      _ufDescription = Nothing,
-      _ufDisplayName = Nothing,
-      _ufEnableDefaultInternetAccess = Nothing,
-      _ufAttributesToDelete = Nothing,
-      _ufImageARN = Nothing
+    { maxUserDurationInSeconds =
+        Prelude.Nothing,
+      disconnectTimeoutInSeconds = Prelude.Nothing,
+      vpcConfig = Prelude.Nothing,
+      iamRoleArn = Prelude.Nothing,
+      domainJoinInfo = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      computeCapacity = Prelude.Nothing,
+      deleteVpcConfig = Prelude.Nothing,
+      idleDisconnectTimeoutInSeconds = Prelude.Nothing,
+      imageName = Prelude.Nothing,
+      name = Prelude.Nothing,
+      streamView = Prelude.Nothing,
+      description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      enableDefaultInternetAccess = Prelude.Nothing,
+      attributesToDelete = Prelude.Nothing,
+      imageArn = Prelude.Nothing
     }
 
--- | The maximum amount of time that a streaming session can remain active, in seconds. If users are still connected to a streaming instance five minutes before this limit is reached, they are prompted to save any open documents before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance. Specify a value between 600 and 360000.
-ufMaxUserDurationInSeconds :: Lens' UpdateFleet (Maybe Int)
-ufMaxUserDurationInSeconds = lens _ufMaxUserDurationInSeconds (\s a -> s {_ufMaxUserDurationInSeconds = a})
+-- | The maximum amount of time that a streaming session can remain active,
+-- in seconds. If users are still connected to a streaming instance five
+-- minutes before this limit is reached, they are prompted to save any open
+-- documents before being disconnected. After this time elapses, the
+-- instance is terminated and replaced by a new instance.
+--
+-- Specify a value between 600 and 360000.
+updateFleet_maxUserDurationInSeconds :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Int)
+updateFleet_maxUserDurationInSeconds = Lens.lens (\UpdateFleet' {maxUserDurationInSeconds} -> maxUserDurationInSeconds) (\s@UpdateFleet' {} a -> s {maxUserDurationInSeconds = a} :: UpdateFleet)
 
--- | The amount of time that a streaming session remains active after users disconnect. If users try to reconnect to the streaming session after a disconnection or network interruption within this time interval, they are connected to their previous session. Otherwise, they are connected to a new session with a new streaming instance.  Specify a value between 60 and 360000.
-ufDisconnectTimeoutInSeconds :: Lens' UpdateFleet (Maybe Int)
-ufDisconnectTimeoutInSeconds = lens _ufDisconnectTimeoutInSeconds (\s a -> s {_ufDisconnectTimeoutInSeconds = a})
+-- | The amount of time that a streaming session remains active after users
+-- disconnect. If users try to reconnect to the streaming session after a
+-- disconnection or network interruption within this time interval, they
+-- are connected to their previous session. Otherwise, they are connected
+-- to a new session with a new streaming instance.
+--
+-- Specify a value between 60 and 360000.
+updateFleet_disconnectTimeoutInSeconds :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Int)
+updateFleet_disconnectTimeoutInSeconds = Lens.lens (\UpdateFleet' {disconnectTimeoutInSeconds} -> disconnectTimeoutInSeconds) (\s@UpdateFleet' {} a -> s {disconnectTimeoutInSeconds = a} :: UpdateFleet)
 
 -- | The VPC configuration for the fleet.
-ufVPCConfig :: Lens' UpdateFleet (Maybe VPCConfig)
-ufVPCConfig = lens _ufVPCConfig (\s a -> s {_ufVPCConfig = a})
+updateFleet_vpcConfig :: Lens.Lens' UpdateFleet (Prelude.Maybe VpcConfig)
+updateFleet_vpcConfig = Lens.lens (\UpdateFleet' {vpcConfig} -> vpcConfig) (\s@UpdateFleet' {} a -> s {vpcConfig = a} :: UpdateFleet)
 
--- | The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls the AWS Security Token Service (STS) @AssumeRole@ API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the __appstream_machine_role__ credential profile on the instance. For more information, see <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances> in the /Amazon AppStream 2.0 Administration Guide/ .
-ufIAMRoleARN :: Lens' UpdateFleet (Maybe Text)
-ufIAMRoleARN = lens _ufIAMRoleARN (\s a -> s {_ufIAMRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+-- assume a role, a fleet instance calls the AWS Security Token Service
+-- (STS) @AssumeRole@ API operation and passes the ARN of the role to use.
+-- The operation creates a new session with temporary credentials.
+-- AppStream 2.0 retrieves the temporary credentials and creates the
+-- __appstream_machine_role__ credential profile on the instance.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances>
+-- in the /Amazon AppStream 2.0 Administration Guide/.
+updateFleet_iamRoleArn :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Text)
+updateFleet_iamRoleArn = Lens.lens (\UpdateFleet' {iamRoleArn} -> iamRoleArn) (\s@UpdateFleet' {} a -> s {iamRoleArn = a} :: UpdateFleet)
 
--- | The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory domain.
-ufDomainJoinInfo :: Lens' UpdateFleet (Maybe DomainJoinInfo)
-ufDomainJoinInfo = lens _ufDomainJoinInfo (\s a -> s {_ufDomainJoinInfo = a})
+-- | The name of the directory and organizational unit (OU) to use to join
+-- the fleet to a Microsoft Active Directory domain.
+updateFleet_domainJoinInfo :: Lens.Lens' UpdateFleet (Prelude.Maybe DomainJoinInfo)
+updateFleet_domainJoinInfo = Lens.lens (\UpdateFleet' {domainJoinInfo} -> domainJoinInfo) (\s@UpdateFleet' {} a -> s {domainJoinInfo = a} :: UpdateFleet)
 
--- | The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.small     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.memory.z1d.large     * stream.memory.z1d.xlarge     * stream.memory.z1d.2xlarge     * stream.memory.z1d.3xlarge     * stream.memory.z1d.6xlarge     * stream.memory.z1d.12xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics.g4dn.xlarge     * stream.graphics.g4dn.2xlarge     * stream.graphics.g4dn.4xlarge     * stream.graphics.g4dn.8xlarge     * stream.graphics.g4dn.12xlarge     * stream.graphics.g4dn.16xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
-ufInstanceType :: Lens' UpdateFleet (Maybe Text)
-ufInstanceType = lens _ufInstanceType (\s a -> s {_ufInstanceType = a})
+-- | The instance type to use when launching fleet instances. The following
+-- instance types are available:
+--
+-- -   stream.standard.small
+--
+-- -   stream.standard.medium
+--
+-- -   stream.standard.large
+--
+-- -   stream.compute.large
+--
+-- -   stream.compute.xlarge
+--
+-- -   stream.compute.2xlarge
+--
+-- -   stream.compute.4xlarge
+--
+-- -   stream.compute.8xlarge
+--
+-- -   stream.memory.large
+--
+-- -   stream.memory.xlarge
+--
+-- -   stream.memory.2xlarge
+--
+-- -   stream.memory.4xlarge
+--
+-- -   stream.memory.8xlarge
+--
+-- -   stream.memory.z1d.large
+--
+-- -   stream.memory.z1d.xlarge
+--
+-- -   stream.memory.z1d.2xlarge
+--
+-- -   stream.memory.z1d.3xlarge
+--
+-- -   stream.memory.z1d.6xlarge
+--
+-- -   stream.memory.z1d.12xlarge
+--
+-- -   stream.graphics-design.large
+--
+-- -   stream.graphics-design.xlarge
+--
+-- -   stream.graphics-design.2xlarge
+--
+-- -   stream.graphics-design.4xlarge
+--
+-- -   stream.graphics-desktop.2xlarge
+--
+-- -   stream.graphics.g4dn.xlarge
+--
+-- -   stream.graphics.g4dn.2xlarge
+--
+-- -   stream.graphics.g4dn.4xlarge
+--
+-- -   stream.graphics.g4dn.8xlarge
+--
+-- -   stream.graphics.g4dn.12xlarge
+--
+-- -   stream.graphics.g4dn.16xlarge
+--
+-- -   stream.graphics-pro.4xlarge
+--
+-- -   stream.graphics-pro.8xlarge
+--
+-- -   stream.graphics-pro.16xlarge
+updateFleet_instanceType :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Text)
+updateFleet_instanceType = Lens.lens (\UpdateFleet' {instanceType} -> instanceType) (\s@UpdateFleet' {} a -> s {instanceType = a} :: UpdateFleet)
 
 -- | The desired capacity for the fleet.
-ufComputeCapacity :: Lens' UpdateFleet (Maybe ComputeCapacity)
-ufComputeCapacity = lens _ufComputeCapacity (\s a -> s {_ufComputeCapacity = a})
+updateFleet_computeCapacity :: Lens.Lens' UpdateFleet (Prelude.Maybe ComputeCapacity)
+updateFleet_computeCapacity = Lens.lens (\UpdateFleet' {computeCapacity} -> computeCapacity) (\s@UpdateFleet' {} a -> s {computeCapacity = a} :: UpdateFleet)
 
 -- | Deletes the VPC association for the specified fleet.
-ufDeleteVPCConfig :: Lens' UpdateFleet (Maybe Bool)
-ufDeleteVPCConfig = lens _ufDeleteVPCConfig (\s a -> s {_ufDeleteVPCConfig = a})
+updateFleet_deleteVpcConfig :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Bool)
+updateFleet_deleteVpcConfig = Lens.lens (\UpdateFleet' {deleteVpcConfig} -> deleteVpcConfig) (\s@UpdateFleet' {} a -> s {deleteVpcConfig = a} :: UpdateFleet)
 
--- | The amount of time that users can be idle (inactive) before they are disconnected from their streaming session and the @DisconnectTimeoutInSeconds@ time interval begins. Users are notified before they are disconnected due to inactivity. If users try to reconnect to the streaming session before the time interval specified in @DisconnectTimeoutInSeconds@ elapses, they are connected to their previous session. Users are considered idle when they stop providing keyboard or mouse input during their streaming session. File uploads and downloads, audio in, audio out, and pixels changing do not qualify as user activity. If users continue to be idle after the time interval in @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.  To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value between 60 and 3600. The default value is 0.
-ufIdleDisconnectTimeoutInSeconds :: Lens' UpdateFleet (Maybe Int)
-ufIdleDisconnectTimeoutInSeconds = lens _ufIdleDisconnectTimeoutInSeconds (\s a -> s {_ufIdleDisconnectTimeoutInSeconds = a})
+-- | The amount of time that users can be idle (inactive) before they are
+-- disconnected from their streaming session and the
+-- @DisconnectTimeoutInSeconds@ time interval begins. Users are notified
+-- before they are disconnected due to inactivity. If users try to
+-- reconnect to the streaming session before the time interval specified in
+-- @DisconnectTimeoutInSeconds@ elapses, they are connected to their
+-- previous session. Users are considered idle when they stop providing
+-- keyboard or mouse input during their streaming session. File uploads and
+-- downloads, audio in, audio out, and pixels changing do not qualify as
+-- user activity. If users continue to be idle after the time interval in
+-- @IdleDisconnectTimeoutInSeconds@ elapses, they are disconnected.
+--
+-- To prevent users from being disconnected due to inactivity, specify a
+-- value of 0. Otherwise, specify a value between 60 and 3600. The default
+-- value is 0.
+--
+-- If you enable this feature, we recommend that you specify a value that
+-- corresponds exactly to a whole number of minutes (for example, 60, 120,
+-- and 180). If you don\'t do this, the value is rounded to the nearest
+-- minute. For example, if you specify a value of 70, users are
+-- disconnected after 1 minute of inactivity. If you specify a value that
+-- is at the midpoint between two different minutes, the value is rounded
+-- up. For example, if you specify a value of 90, users are disconnected
+-- after 2 minutes of inactivity.
+updateFleet_idleDisconnectTimeoutInSeconds :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Int)
+updateFleet_idleDisconnectTimeoutInSeconds = Lens.lens (\UpdateFleet' {idleDisconnectTimeoutInSeconds} -> idleDisconnectTimeoutInSeconds) (\s@UpdateFleet' {} a -> s {idleDisconnectTimeoutInSeconds = a} :: UpdateFleet)
 
 -- | The name of the image used to create the fleet.
-ufImageName :: Lens' UpdateFleet (Maybe Text)
-ufImageName = lens _ufImageName (\s a -> s {_ufImageName = a})
+updateFleet_imageName :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Text)
+updateFleet_imageName = Lens.lens (\UpdateFleet' {imageName} -> imageName) (\s@UpdateFleet' {} a -> s {imageName = a} :: UpdateFleet)
 
 -- | A unique name for the fleet.
-ufName :: Lens' UpdateFleet (Maybe Text)
-ufName = lens _ufName (\s a -> s {_ufName = a})
+updateFleet_name :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Text)
+updateFleet_name = Lens.lens (\UpdateFleet' {name} -> name) (\s@UpdateFleet' {} a -> s {name = a} :: UpdateFleet)
 
--- | The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When @APP@ is specified, only the windows of applications opened by users display. When @DESKTOP@ is specified, the standard desktop that is provided by the operating system displays. The default value is @APP@ .
-ufStreamView :: Lens' UpdateFleet (Maybe StreamView)
-ufStreamView = lens _ufStreamView (\s a -> s {_ufStreamView = a})
+-- | The AppStream 2.0 view that is displayed to your users when they stream
+-- from the fleet. When @APP@ is specified, only the windows of
+-- applications opened by users display. When @DESKTOP@ is specified, the
+-- standard desktop that is provided by the operating system displays.
+--
+-- The default value is @APP@.
+updateFleet_streamView :: Lens.Lens' UpdateFleet (Prelude.Maybe StreamView)
+updateFleet_streamView = Lens.lens (\UpdateFleet' {streamView} -> streamView) (\s@UpdateFleet' {} a -> s {streamView = a} :: UpdateFleet)
 
 -- | The description to display.
-ufDescription :: Lens' UpdateFleet (Maybe Text)
-ufDescription = lens _ufDescription (\s a -> s {_ufDescription = a})
+updateFleet_description :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Text)
+updateFleet_description = Lens.lens (\UpdateFleet' {description} -> description) (\s@UpdateFleet' {} a -> s {description = a} :: UpdateFleet)
 
 -- | The fleet name to display.
-ufDisplayName :: Lens' UpdateFleet (Maybe Text)
-ufDisplayName = lens _ufDisplayName (\s a -> s {_ufDisplayName = a})
+updateFleet_displayName :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Text)
+updateFleet_displayName = Lens.lens (\UpdateFleet' {displayName} -> displayName) (\s@UpdateFleet' {} a -> s {displayName = a} :: UpdateFleet)
 
 -- | Enables or disables default internet access for the fleet.
-ufEnableDefaultInternetAccess :: Lens' UpdateFleet (Maybe Bool)
-ufEnableDefaultInternetAccess = lens _ufEnableDefaultInternetAccess (\s a -> s {_ufEnableDefaultInternetAccess = a})
+updateFleet_enableDefaultInternetAccess :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Bool)
+updateFleet_enableDefaultInternetAccess = Lens.lens (\UpdateFleet' {enableDefaultInternetAccess} -> enableDefaultInternetAccess) (\s@UpdateFleet' {} a -> s {enableDefaultInternetAccess = a} :: UpdateFleet)
 
 -- | The fleet attributes to delete.
-ufAttributesToDelete :: Lens' UpdateFleet [FleetAttribute]
-ufAttributesToDelete = lens _ufAttributesToDelete (\s a -> s {_ufAttributesToDelete = a}) . _Default . _Coerce
+updateFleet_attributesToDelete :: Lens.Lens' UpdateFleet (Prelude.Maybe [FleetAttribute])
+updateFleet_attributesToDelete = Lens.lens (\UpdateFleet' {attributesToDelete} -> attributesToDelete) (\s@UpdateFleet' {} a -> s {attributesToDelete = a} :: UpdateFleet) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the public, private, or shared image to use.
-ufImageARN :: Lens' UpdateFleet (Maybe Text)
-ufImageARN = lens _ufImageARN (\s a -> s {_ufImageARN = a})
+updateFleet_imageArn :: Lens.Lens' UpdateFleet (Prelude.Maybe Prelude.Text)
+updateFleet_imageArn = Lens.lens (\UpdateFleet' {imageArn} -> imageArn) (\s@UpdateFleet' {} a -> s {imageArn = a} :: UpdateFleet)
 
-instance AWSRequest UpdateFleet where
+instance Prelude.AWSRequest UpdateFleet where
   type Rs UpdateFleet = UpdateFleetResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateFleetResponse'
-            <$> (x .?> "Fleet") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Fleet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateFleet
+instance Prelude.Hashable UpdateFleet
 
-instance NFData UpdateFleet
+instance Prelude.NFData UpdateFleet
 
-instance ToHeaders UpdateFleet where
+instance Prelude.ToHeaders UpdateFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.UpdateFleet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.UpdateFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateFleet where
+instance Prelude.ToJSON UpdateFleet where
   toJSON UpdateFleet' {..} =
-    object
-      ( catMaybes
-          [ ("MaxUserDurationInSeconds" .=)
-              <$> _ufMaxUserDurationInSeconds,
-            ("DisconnectTimeoutInSeconds" .=)
-              <$> _ufDisconnectTimeoutInSeconds,
-            ("VpcConfig" .=) <$> _ufVPCConfig,
-            ("IamRoleArn" .=) <$> _ufIAMRoleARN,
-            ("DomainJoinInfo" .=) <$> _ufDomainJoinInfo,
-            ("InstanceType" .=) <$> _ufInstanceType,
-            ("ComputeCapacity" .=) <$> _ufComputeCapacity,
-            ("DeleteVpcConfig" .=) <$> _ufDeleteVPCConfig,
-            ("IdleDisconnectTimeoutInSeconds" .=)
-              <$> _ufIdleDisconnectTimeoutInSeconds,
-            ("ImageName" .=) <$> _ufImageName,
-            ("Name" .=) <$> _ufName,
-            ("StreamView" .=) <$> _ufStreamView,
-            ("Description" .=) <$> _ufDescription,
-            ("DisplayName" .=) <$> _ufDisplayName,
-            ("EnableDefaultInternetAccess" .=)
-              <$> _ufEnableDefaultInternetAccess,
-            ("AttributesToDelete" .=) <$> _ufAttributesToDelete,
-            ("ImageArn" .=) <$> _ufImageARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxUserDurationInSeconds" Prelude..=)
+              Prelude.<$> maxUserDurationInSeconds,
+            ("DisconnectTimeoutInSeconds" Prelude..=)
+              Prelude.<$> disconnectTimeoutInSeconds,
+            ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("IamRoleArn" Prelude..=) Prelude.<$> iamRoleArn,
+            ("DomainJoinInfo" Prelude..=)
+              Prelude.<$> domainJoinInfo,
+            ("InstanceType" Prelude..=) Prelude.<$> instanceType,
+            ("ComputeCapacity" Prelude..=)
+              Prelude.<$> computeCapacity,
+            ("DeleteVpcConfig" Prelude..=)
+              Prelude.<$> deleteVpcConfig,
+            ("IdleDisconnectTimeoutInSeconds" Prelude..=)
+              Prelude.<$> idleDisconnectTimeoutInSeconds,
+            ("ImageName" Prelude..=) Prelude.<$> imageName,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("StreamView" Prelude..=) Prelude.<$> streamView,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            ("EnableDefaultInternetAccess" Prelude..=)
+              Prelude.<$> enableDefaultInternetAccess,
+            ("AttributesToDelete" Prelude..=)
+              Prelude.<$> attributesToDelete,
+            ("ImageArn" Prelude..=) Prelude.<$> imageArn
           ]
       )
 
-instance ToPath UpdateFleet where
-  toPath = const "/"
+instance Prelude.ToPath UpdateFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateFleetResponse' smart constructor.
+-- | /See:/ 'newUpdateFleetResponse' smart constructor.
 data UpdateFleetResponse = UpdateFleetResponse'
-  { _ufrrsFleet ::
-      !(Maybe Fleet),
-    _ufrrsResponseStatus :: !Int
+  { -- | Information about the fleet.
+    fleet :: Prelude.Maybe Fleet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFleetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFleetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufrrsFleet' - Information about the fleet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufrrsResponseStatus' - -- | The response status code.
-updateFleetResponse ::
-  -- | 'ufrrsResponseStatus'
-  Int ->
+-- 'fleet', 'updateFleetResponse_fleet' - Information about the fleet.
+--
+-- 'httpStatus', 'updateFleetResponse_httpStatus' - The response's http status code.
+newUpdateFleetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateFleetResponse
-updateFleetResponse pResponseStatus_ =
+newUpdateFleetResponse pHttpStatus_ =
   UpdateFleetResponse'
-    { _ufrrsFleet = Nothing,
-      _ufrrsResponseStatus = pResponseStatus_
+    { fleet = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the fleet.
-ufrrsFleet :: Lens' UpdateFleetResponse (Maybe Fleet)
-ufrrsFleet = lens _ufrrsFleet (\s a -> s {_ufrrsFleet = a})
+updateFleetResponse_fleet :: Lens.Lens' UpdateFleetResponse (Prelude.Maybe Fleet)
+updateFleetResponse_fleet = Lens.lens (\UpdateFleetResponse' {fleet} -> fleet) (\s@UpdateFleetResponse' {} a -> s {fleet = a} :: UpdateFleetResponse)
 
--- | -- | The response status code.
-ufrrsResponseStatus :: Lens' UpdateFleetResponse Int
-ufrrsResponseStatus = lens _ufrrsResponseStatus (\s a -> s {_ufrrsResponseStatus = a})
+-- | The response's http status code.
+updateFleetResponse_httpStatus :: Lens.Lens' UpdateFleetResponse Prelude.Int
+updateFleetResponse_httpStatus = Lens.lens (\UpdateFleetResponse' {httpStatus} -> httpStatus) (\s@UpdateFleetResponse' {} a -> s {httpStatus = a} :: UpdateFleetResponse)
 
-instance NFData UpdateFleetResponse
+instance Prelude.NFData UpdateFleetResponse

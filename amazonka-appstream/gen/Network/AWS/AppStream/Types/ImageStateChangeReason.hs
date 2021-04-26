@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,57 @@
 module Network.AWS.AppStream.Types.ImageStateChangeReason where
 
 import Network.AWS.AppStream.Types.ImageStateChangeReasonCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the reason why the last image state change occurred.
 --
---
---
--- /See:/ 'imageStateChangeReason' smart constructor.
+-- /See:/ 'newImageStateChangeReason' smart constructor.
 data ImageStateChangeReason = ImageStateChangeReason'
-  { _iscrMessage ::
-      !(Maybe Text),
-    _iscrCode ::
-      !( Maybe
-           ImageStateChangeReasonCode
-       )
+  { -- | The state change reason message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The state change reason code.
+    code :: Prelude.Maybe ImageStateChangeReasonCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageStateChangeReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageStateChangeReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iscrMessage' - The state change reason message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iscrCode' - The state change reason code.
-imageStateChangeReason ::
+-- 'message', 'imageStateChangeReason_message' - The state change reason message.
+--
+-- 'code', 'imageStateChangeReason_code' - The state change reason code.
+newImageStateChangeReason ::
   ImageStateChangeReason
-imageStateChangeReason =
+newImageStateChangeReason =
   ImageStateChangeReason'
-    { _iscrMessage = Nothing,
-      _iscrCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The state change reason message.
-iscrMessage :: Lens' ImageStateChangeReason (Maybe Text)
-iscrMessage = lens _iscrMessage (\s a -> s {_iscrMessage = a})
+imageStateChangeReason_message :: Lens.Lens' ImageStateChangeReason (Prelude.Maybe Prelude.Text)
+imageStateChangeReason_message = Lens.lens (\ImageStateChangeReason' {message} -> message) (\s@ImageStateChangeReason' {} a -> s {message = a} :: ImageStateChangeReason)
 
 -- | The state change reason code.
-iscrCode :: Lens' ImageStateChangeReason (Maybe ImageStateChangeReasonCode)
-iscrCode = lens _iscrCode (\s a -> s {_iscrCode = a})
+imageStateChangeReason_code :: Lens.Lens' ImageStateChangeReason (Prelude.Maybe ImageStateChangeReasonCode)
+imageStateChangeReason_code = Lens.lens (\ImageStateChangeReason' {code} -> code) (\s@ImageStateChangeReason' {} a -> s {code = a} :: ImageStateChangeReason)
 
-instance FromJSON ImageStateChangeReason where
+instance Prelude.FromJSON ImageStateChangeReason where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImageStateChangeReason"
       ( \x ->
           ImageStateChangeReason'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable ImageStateChangeReason
+instance Prelude.Hashable ImageStateChangeReason
 
-instance NFData ImageStateChangeReason
+instance Prelude.NFData ImageStateChangeReason

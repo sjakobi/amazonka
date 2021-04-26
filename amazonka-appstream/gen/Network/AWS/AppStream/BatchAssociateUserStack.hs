@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates the specified users with the specified stacks. Users in a user pool cannot be assigned to stacks with fleets that are joined to an Active Directory domain.
+-- Associates the specified users with the specified stacks. Users in a
+-- user pool cannot be assigned to stacks with fleets that are joined to an
+-- Active Directory domain.
 module Network.AWS.AppStream.BatchAssociateUserStack
   ( -- * Creating a Request
-    batchAssociateUserStack,
-    BatchAssociateUserStack,
+    BatchAssociateUserStack (..),
+    newBatchAssociateUserStack,
 
     -- * Request Lenses
-    bausUserStackAssociations,
+    batchAssociateUserStack_userStackAssociations,
 
     -- * Destructuring the Response
-    batchAssociateUserStackResponse,
-    BatchAssociateUserStackResponse,
+    BatchAssociateUserStackResponse (..),
+    newBatchAssociateUserStackResponse,
 
     -- * Response Lenses
-    bausrrsErrors,
-    bausrrsResponseStatus,
+    batchAssociateUserStackResponse_errors,
+    batchAssociateUserStackResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppStream.Types.UserStackAssociationError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchAssociateUserStack' smart constructor.
-newtype BatchAssociateUserStack = BatchAssociateUserStack'
-  { _bausUserStackAssociations ::
-      List1
-        UserStackAssociation
+-- | /See:/ 'newBatchAssociateUserStack' smart constructor.
+data BatchAssociateUserStack = BatchAssociateUserStack'
+  { -- | The list of UserStackAssociation objects.
+    userStackAssociations :: Prelude.List1 UserStackAssociation
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchAssociateUserStack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchAssociateUserStack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bausUserStackAssociations' - The list of UserStackAssociation objects.
-batchAssociateUserStack ::
-  -- | 'bausUserStackAssociations'
-  NonEmpty UserStackAssociation ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userStackAssociations', 'batchAssociateUserStack_userStackAssociations' - The list of UserStackAssociation objects.
+newBatchAssociateUserStack ::
+  -- | 'userStackAssociations'
+  Prelude.NonEmpty UserStackAssociation ->
   BatchAssociateUserStack
-batchAssociateUserStack pUserStackAssociations_ =
+newBatchAssociateUserStack pUserStackAssociations_ =
   BatchAssociateUserStack'
-    { _bausUserStackAssociations =
-        _List1 # pUserStackAssociations_
+    { userStackAssociations =
+        Prelude._List1 Lens.# pUserStackAssociations_
     }
 
 -- | The list of UserStackAssociation objects.
-bausUserStackAssociations :: Lens' BatchAssociateUserStack (NonEmpty UserStackAssociation)
-bausUserStackAssociations = lens _bausUserStackAssociations (\s a -> s {_bausUserStackAssociations = a}) . _List1
+batchAssociateUserStack_userStackAssociations :: Lens.Lens' BatchAssociateUserStack (Prelude.NonEmpty UserStackAssociation)
+batchAssociateUserStack_userStackAssociations = Lens.lens (\BatchAssociateUserStack' {userStackAssociations} -> userStackAssociations) (\s@BatchAssociateUserStack' {} a -> s {userStackAssociations = a} :: BatchAssociateUserStack) Prelude.. Prelude._List1
 
-instance AWSRequest BatchAssociateUserStack where
+instance Prelude.AWSRequest BatchAssociateUserStack where
   type
     Rs BatchAssociateUserStack =
       BatchAssociateUserStackResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchAssociateUserStackResponse'
-            <$> (x .?> "errors" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "errors" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchAssociateUserStack
+instance Prelude.Hashable BatchAssociateUserStack
 
-instance NFData BatchAssociateUserStack
+instance Prelude.NFData BatchAssociateUserStack
 
-instance ToHeaders BatchAssociateUserStack where
+instance Prelude.ToHeaders BatchAssociateUserStack where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "PhotonAdminProxyService.BatchAssociateUserStack" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "PhotonAdminProxyService.BatchAssociateUserStack" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchAssociateUserStack where
+instance Prelude.ToJSON BatchAssociateUserStack where
   toJSON BatchAssociateUserStack' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "UserStackAssociations"
-                  .= _bausUserStackAssociations
+                  Prelude..= userStackAssociations
               )
           ]
       )
 
-instance ToPath BatchAssociateUserStack where
-  toPath = const "/"
+instance Prelude.ToPath BatchAssociateUserStack where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchAssociateUserStack where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchAssociateUserStack where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchAssociateUserStackResponse' smart constructor.
+-- | /See:/ 'newBatchAssociateUserStackResponse' smart constructor.
 data BatchAssociateUserStackResponse = BatchAssociateUserStackResponse'
-  { _bausrrsErrors ::
-      !( Maybe
-           [UserStackAssociationError]
-       ),
-    _bausrrsResponseStatus ::
-      !Int
+  { -- | The list of UserStackAssociationError objects.
+    errors :: Prelude.Maybe [UserStackAssociationError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchAssociateUserStackResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchAssociateUserStackResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bausrrsErrors' - The list of UserStackAssociationError objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bausrrsResponseStatus' - -- | The response status code.
-batchAssociateUserStackResponse ::
-  -- | 'bausrrsResponseStatus'
-  Int ->
+-- 'errors', 'batchAssociateUserStackResponse_errors' - The list of UserStackAssociationError objects.
+--
+-- 'httpStatus', 'batchAssociateUserStackResponse_httpStatus' - The response's http status code.
+newBatchAssociateUserStackResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchAssociateUserStackResponse
-batchAssociateUserStackResponse pResponseStatus_ =
+newBatchAssociateUserStackResponse pHttpStatus_ =
   BatchAssociateUserStackResponse'
-    { _bausrrsErrors =
-        Nothing,
-      _bausrrsResponseStatus = pResponseStatus_
+    { errors =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of UserStackAssociationError objects.
-bausrrsErrors :: Lens' BatchAssociateUserStackResponse [UserStackAssociationError]
-bausrrsErrors = lens _bausrrsErrors (\s a -> s {_bausrrsErrors = a}) . _Default . _Coerce
+batchAssociateUserStackResponse_errors :: Lens.Lens' BatchAssociateUserStackResponse (Prelude.Maybe [UserStackAssociationError])
+batchAssociateUserStackResponse_errors = Lens.lens (\BatchAssociateUserStackResponse' {errors} -> errors) (\s@BatchAssociateUserStackResponse' {} a -> s {errors = a} :: BatchAssociateUserStackResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bausrrsResponseStatus :: Lens' BatchAssociateUserStackResponse Int
-bausrrsResponseStatus = lens _bausrrsResponseStatus (\s a -> s {_bausrrsResponseStatus = a})
+-- | The response's http status code.
+batchAssociateUserStackResponse_httpStatus :: Lens.Lens' BatchAssociateUserStackResponse Prelude.Int
+batchAssociateUserStackResponse_httpStatus = Lens.lens (\BatchAssociateUserStackResponse' {httpStatus} -> httpStatus) (\s@BatchAssociateUserStackResponse' {} a -> s {httpStatus = a} :: BatchAssociateUserStackResponse)
 
-instance NFData BatchAssociateUserStackResponse
+instance
+  Prelude.NFData
+    BatchAssociateUserStackResponse

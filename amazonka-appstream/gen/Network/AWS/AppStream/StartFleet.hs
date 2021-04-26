@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,111 +24,120 @@
 -- Starts the specified fleet.
 module Network.AWS.AppStream.StartFleet
   ( -- * Creating a Request
-    startFleet,
-    StartFleet,
+    StartFleet (..),
+    newStartFleet,
 
     -- * Request Lenses
-    sfName,
+    startFleet_name,
 
     -- * Destructuring the Response
-    startFleetResponse,
-    StartFleetResponse,
+    StartFleetResponse (..),
+    newStartFleetResponse,
 
     -- * Response Lenses
-    starsResponseStatus,
+    startFleetResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppStream.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startFleet' smart constructor.
-newtype StartFleet = StartFleet' {_sfName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newStartFleet' smart constructor.
+data StartFleet = StartFleet'
+  { -- | The name of the fleet.
+    name :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfName' - The name of the fleet.
-startFleet ::
-  -- | 'sfName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'startFleet_name' - The name of the fleet.
+newStartFleet ::
+  -- | 'name'
+  Prelude.Text ->
   StartFleet
-startFleet pName_ = StartFleet' {_sfName = pName_}
+newStartFleet pName_ = StartFleet' {name = pName_}
 
 -- | The name of the fleet.
-sfName :: Lens' StartFleet Text
-sfName = lens _sfName (\s a -> s {_sfName = a})
+startFleet_name :: Lens.Lens' StartFleet Prelude.Text
+startFleet_name = Lens.lens (\StartFleet' {name} -> name) (\s@StartFleet' {} a -> s {name = a} :: StartFleet)
 
-instance AWSRequest StartFleet where
+instance Prelude.AWSRequest StartFleet where
   type Rs StartFleet = StartFleetResponse
-  request = postJSON appStream
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StartFleetResponse' <$> (pure (fromEnum s))
+          StartFleetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartFleet
+instance Prelude.Hashable StartFleet
 
-instance NFData StartFleet
+instance Prelude.NFData StartFleet
 
-instance ToHeaders StartFleet where
+instance Prelude.ToHeaders StartFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("PhotonAdminProxyService.StartFleet" :: ByteString),
+              Prelude.=# ( "PhotonAdminProxyService.StartFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartFleet where
+instance Prelude.ToJSON StartFleet where
   toJSON StartFleet' {..} =
-    object (catMaybes [Just ("Name" .= _sfName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath StartFleet where
-  toPath = const "/"
+instance Prelude.ToPath StartFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery StartFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startFleetResponse' smart constructor.
-newtype StartFleetResponse = StartFleetResponse'
-  { _starsResponseStatus ::
-      Int
+-- | /See:/ 'newStartFleetResponse' smart constructor.
+data StartFleetResponse = StartFleetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartFleetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartFleetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'starsResponseStatus' - -- | The response status code.
-startFleetResponse ::
-  -- | 'starsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startFleetResponse_httpStatus' - The response's http status code.
+newStartFleetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartFleetResponse
-startFleetResponse pResponseStatus_ =
-  StartFleetResponse'
-    { _starsResponseStatus =
-        pResponseStatus_
-    }
+newStartFleetResponse pHttpStatus_ =
+  StartFleetResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-starsResponseStatus :: Lens' StartFleetResponse Int
-starsResponseStatus = lens _starsResponseStatus (\s a -> s {_starsResponseStatus = a})
+-- | The response's http status code.
+startFleetResponse_httpStatus :: Lens.Lens' StartFleetResponse Prelude.Int
+startFleetResponse_httpStatus = Lens.lens (\StartFleetResponse' {httpStatus} -> httpStatus) (\s@StartFleetResponse' {} a -> s {httpStatus = a} :: StartFleetResponse)
 
-instance NFData StartFleetResponse
+instance Prelude.NFData StartFleetResponse

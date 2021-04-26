@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,98 +19,100 @@
 module Network.AWS.AppStream.Types.StackAttribute
   ( StackAttribute
       ( ..,
-        AccessEndpoints,
-        EmbedHostDomains,
-        FeedbackURL,
-        IAMRoleARN,
-        RedirectURL,
-        StorageConnectorGoogleDrive,
-        StorageConnectorHomefolders,
-        StorageConnectorOneDrive,
-        StorageConnectors,
-        ThemeName,
-        UserSettings
+        StackAttributeACCESSENDPOINTS,
+        StackAttributeEMBEDHOSTDOMAINS,
+        StackAttributeFEEDBACKURL,
+        StackAttributeIAMROLEARN,
+        StackAttributeREDIRECTURL,
+        StackAttributeSTORAGECONNECTORGOOGLEDRIVE,
+        StackAttributeSTORAGECONNECTORHOMEFOLDERS,
+        StackAttributeSTORAGECONNECTORONEDRIVE,
+        StackAttributeSTORAGECONNECTORS,
+        StackAttributeTHEMENAME,
+        StackAttributeUSERSETTINGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StackAttribute = StackAttribute' (CI Text)
+newtype StackAttribute = StackAttribute'
+  { fromStackAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessEndpoints :: StackAttribute
-pattern AccessEndpoints = StackAttribute' "ACCESS_ENDPOINTS"
+pattern StackAttributeACCESSENDPOINTS :: StackAttribute
+pattern StackAttributeACCESSENDPOINTS = StackAttribute' "ACCESS_ENDPOINTS"
 
-pattern EmbedHostDomains :: StackAttribute
-pattern EmbedHostDomains = StackAttribute' "EMBED_HOST_DOMAINS"
+pattern StackAttributeEMBEDHOSTDOMAINS :: StackAttribute
+pattern StackAttributeEMBEDHOSTDOMAINS = StackAttribute' "EMBED_HOST_DOMAINS"
 
-pattern FeedbackURL :: StackAttribute
-pattern FeedbackURL = StackAttribute' "FEEDBACK_URL"
+pattern StackAttributeFEEDBACKURL :: StackAttribute
+pattern StackAttributeFEEDBACKURL = StackAttribute' "FEEDBACK_URL"
 
-pattern IAMRoleARN :: StackAttribute
-pattern IAMRoleARN = StackAttribute' "IAM_ROLE_ARN"
+pattern StackAttributeIAMROLEARN :: StackAttribute
+pattern StackAttributeIAMROLEARN = StackAttribute' "IAM_ROLE_ARN"
 
-pattern RedirectURL :: StackAttribute
-pattern RedirectURL = StackAttribute' "REDIRECT_URL"
+pattern StackAttributeREDIRECTURL :: StackAttribute
+pattern StackAttributeREDIRECTURL = StackAttribute' "REDIRECT_URL"
 
-pattern StorageConnectorGoogleDrive :: StackAttribute
-pattern StorageConnectorGoogleDrive = StackAttribute' "STORAGE_CONNECTOR_GOOGLE_DRIVE"
+pattern StackAttributeSTORAGECONNECTORGOOGLEDRIVE :: StackAttribute
+pattern StackAttributeSTORAGECONNECTORGOOGLEDRIVE = StackAttribute' "STORAGE_CONNECTOR_GOOGLE_DRIVE"
 
-pattern StorageConnectorHomefolders :: StackAttribute
-pattern StorageConnectorHomefolders = StackAttribute' "STORAGE_CONNECTOR_HOMEFOLDERS"
+pattern StackAttributeSTORAGECONNECTORHOMEFOLDERS :: StackAttribute
+pattern StackAttributeSTORAGECONNECTORHOMEFOLDERS = StackAttribute' "STORAGE_CONNECTOR_HOMEFOLDERS"
 
-pattern StorageConnectorOneDrive :: StackAttribute
-pattern StorageConnectorOneDrive = StackAttribute' "STORAGE_CONNECTOR_ONE_DRIVE"
+pattern StackAttributeSTORAGECONNECTORONEDRIVE :: StackAttribute
+pattern StackAttributeSTORAGECONNECTORONEDRIVE = StackAttribute' "STORAGE_CONNECTOR_ONE_DRIVE"
 
-pattern StorageConnectors :: StackAttribute
-pattern StorageConnectors = StackAttribute' "STORAGE_CONNECTORS"
+pattern StackAttributeSTORAGECONNECTORS :: StackAttribute
+pattern StackAttributeSTORAGECONNECTORS = StackAttribute' "STORAGE_CONNECTORS"
 
-pattern ThemeName :: StackAttribute
-pattern ThemeName = StackAttribute' "THEME_NAME"
+pattern StackAttributeTHEMENAME :: StackAttribute
+pattern StackAttributeTHEMENAME = StackAttribute' "THEME_NAME"
 
-pattern UserSettings :: StackAttribute
-pattern UserSettings = StackAttribute' "USER_SETTINGS"
+pattern StackAttributeUSERSETTINGS :: StackAttribute
+pattern StackAttributeUSERSETTINGS = StackAttribute' "USER_SETTINGS"
 
 {-# COMPLETE
-  AccessEndpoints,
-  EmbedHostDomains,
-  FeedbackURL,
-  IAMRoleARN,
-  RedirectURL,
-  StorageConnectorGoogleDrive,
-  StorageConnectorHomefolders,
-  StorageConnectorOneDrive,
-  StorageConnectors,
-  ThemeName,
-  UserSettings,
+  StackAttributeACCESSENDPOINTS,
+  StackAttributeEMBEDHOSTDOMAINS,
+  StackAttributeFEEDBACKURL,
+  StackAttributeIAMROLEARN,
+  StackAttributeREDIRECTURL,
+  StackAttributeSTORAGECONNECTORGOOGLEDRIVE,
+  StackAttributeSTORAGECONNECTORHOMEFOLDERS,
+  StackAttributeSTORAGECONNECTORONEDRIVE,
+  StackAttributeSTORAGECONNECTORS,
+  StackAttributeTHEMENAME,
+  StackAttributeUSERSETTINGS,
   StackAttribute'
   #-}
 
-instance FromText StackAttribute where
-  parser = (StackAttribute' . mk) <$> takeText
+instance Prelude.FromText StackAttribute where
+  parser = StackAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText StackAttribute where
-  toText (StackAttribute' ci) = original ci
+instance Prelude.ToText StackAttribute where
+  toText (StackAttribute' x) = x
 
-instance Hashable StackAttribute
+instance Prelude.Hashable StackAttribute
 
-instance NFData StackAttribute
+instance Prelude.NFData StackAttribute
 
-instance ToByteString StackAttribute
+instance Prelude.ToByteString StackAttribute
 
-instance ToQuery StackAttribute
+instance Prelude.ToQuery StackAttribute
 
-instance ToHeader StackAttribute
+instance Prelude.ToHeader StackAttribute
 
-instance ToJSON StackAttribute where
-  toJSON = toJSONText
+instance Prelude.ToJSON StackAttribute where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,77 +20,81 @@
 module Network.AWS.AppStream.Types.StorageConnector where
 
 import Network.AWS.AppStream.Types.StorageConnectorType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a connector that enables persistent storage for users.
 --
---
---
--- /See:/ 'storageConnector' smart constructor.
+-- /See:/ 'newStorageConnector' smart constructor.
 data StorageConnector = StorageConnector'
-  { _scDomains ::
-      !(Maybe [Text]),
-    _scResourceIdentifier ::
-      !(Maybe Text),
-    _scConnectorType ::
-      !StorageConnectorType
+  { -- | The names of the domains for the account.
+    domains :: Prelude.Maybe [Prelude.Text],
+    -- | The ARN of the storage connector.
+    resourceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The type of storage connector.
+    connectorType :: StorageConnectorType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StorageConnector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StorageConnector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scDomains' - The names of the domains for the account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scResourceIdentifier' - The ARN of the storage connector.
+-- 'domains', 'storageConnector_domains' - The names of the domains for the account.
 --
--- * 'scConnectorType' - The type of storage connector.
-storageConnector ::
-  -- | 'scConnectorType'
+-- 'resourceIdentifier', 'storageConnector_resourceIdentifier' - The ARN of the storage connector.
+--
+-- 'connectorType', 'storageConnector_connectorType' - The type of storage connector.
+newStorageConnector ::
+  -- | 'connectorType'
   StorageConnectorType ->
   StorageConnector
-storageConnector pConnectorType_ =
+newStorageConnector pConnectorType_ =
   StorageConnector'
-    { _scDomains = Nothing,
-      _scResourceIdentifier = Nothing,
-      _scConnectorType = pConnectorType_
+    { domains = Prelude.Nothing,
+      resourceIdentifier = Prelude.Nothing,
+      connectorType = pConnectorType_
     }
 
 -- | The names of the domains for the account.
-scDomains :: Lens' StorageConnector [Text]
-scDomains = lens _scDomains (\s a -> s {_scDomains = a}) . _Default . _Coerce
+storageConnector_domains :: Lens.Lens' StorageConnector (Prelude.Maybe [Prelude.Text])
+storageConnector_domains = Lens.lens (\StorageConnector' {domains} -> domains) (\s@StorageConnector' {} a -> s {domains = a} :: StorageConnector) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the storage connector.
-scResourceIdentifier :: Lens' StorageConnector (Maybe Text)
-scResourceIdentifier = lens _scResourceIdentifier (\s a -> s {_scResourceIdentifier = a})
+storageConnector_resourceIdentifier :: Lens.Lens' StorageConnector (Prelude.Maybe Prelude.Text)
+storageConnector_resourceIdentifier = Lens.lens (\StorageConnector' {resourceIdentifier} -> resourceIdentifier) (\s@StorageConnector' {} a -> s {resourceIdentifier = a} :: StorageConnector)
 
 -- | The type of storage connector.
-scConnectorType :: Lens' StorageConnector StorageConnectorType
-scConnectorType = lens _scConnectorType (\s a -> s {_scConnectorType = a})
+storageConnector_connectorType :: Lens.Lens' StorageConnector StorageConnectorType
+storageConnector_connectorType = Lens.lens (\StorageConnector' {connectorType} -> connectorType) (\s@StorageConnector' {} a -> s {connectorType = a} :: StorageConnector)
 
-instance FromJSON StorageConnector where
+instance Prelude.FromJSON StorageConnector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StorageConnector"
       ( \x ->
           StorageConnector'
-            <$> (x .:? "Domains" .!= mempty)
-            <*> (x .:? "ResourceIdentifier")
-            <*> (x .: "ConnectorType")
+            Prelude.<$> (x Prelude..:? "Domains" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ResourceIdentifier")
+            Prelude.<*> (x Prelude..: "ConnectorType")
       )
 
-instance Hashable StorageConnector
+instance Prelude.Hashable StorageConnector
 
-instance NFData StorageConnector
+instance Prelude.NFData StorageConnector
 
-instance ToJSON StorageConnector where
+instance Prelude.ToJSON StorageConnector where
   toJSON StorageConnector' {..} =
-    object
-      ( catMaybes
-          [ ("Domains" .=) <$> _scDomains,
-            ("ResourceIdentifier" .=) <$> _scResourceIdentifier,
-            Just ("ConnectorType" .= _scConnectorType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Domains" Prelude..=) Prelude.<$> domains,
+            ("ResourceIdentifier" Prelude..=)
+              Prelude.<$> resourceIdentifier,
+            Prelude.Just
+              ("ConnectorType" Prelude..= connectorType)
           ]
       )
