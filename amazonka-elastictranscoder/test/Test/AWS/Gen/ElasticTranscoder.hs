@@ -28,103 +28,103 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestListJobsByPipeline $
---             listJobsByPipeline
+--             newListJobsByPipeline
 --
 --         , requestUpdatePipelineStatus $
---             updatePipelineStatus
+--             newUpdatePipelineStatus
 --
 --         , requestListPresets $
---             listPresets
+--             newListPresets
 --
 --         , requestDeletePreset $
---             deletePreset
+--             newDeletePreset
 --
 --         , requestCancelJob $
---             cancelJob
+--             newCancelJob
 --
 --         , requestCreatePreset $
---             createPreset
+--             newCreatePreset
 --
 --         , requestCreatePipeline $
---             createPipeline
+--             newCreatePipeline
 --
 --         , requestUpdatePipeline $
---             updatePipeline
+--             newUpdatePipeline
 --
 --         , requestDeletePipeline $
---             deletePipeline
+--             newDeletePipeline
 --
 --         , requestReadPreset $
---             readPreset
+--             newReadPreset
 --
 --         , requestListJobsByStatus $
---             listJobsByStatus
+--             newListJobsByStatus
 --
 --         , requestCreateJob $
---             createJob
+--             newCreateJob
 --
 --         , requestListPipelines $
---             listPipelines
+--             newListPipelines
 --
 --         , requestReadPipeline $
---             readPipeline
+--             newReadPipeline
 --
 --         , requestUpdatePipelineNotifications $
---             updatePipelineNotifications
+--             newUpdatePipelineNotifications
 --
 --         , requestReadJob $
---             readJob
+--             newReadJob
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseListJobsByPipeline $
---             listJobsByPipelineResponse
+--             newListJobsByPipelineResponse
 --
 --         , responseUpdatePipelineStatus $
---             updatePipelineStatusResponse
+--             newUpdatePipelineStatusResponse
 --
 --         , responseListPresets $
---             listPresetsResponse
+--             newListPresetsResponse
 --
 --         , responseDeletePreset $
---             deletePresetResponse
+--             newDeletePresetResponse
 --
 --         , responseCancelJob $
---             cancelJobResponse
+--             newCancelJobResponse
 --
 --         , responseCreatePreset $
---             createPresetResponse
+--             newCreatePresetResponse
 --
 --         , responseCreatePipeline $
---             createPipelineResponse
+--             newCreatePipelineResponse
 --
 --         , responseUpdatePipeline $
---             updatePipelineResponse
+--             newUpdatePipelineResponse
 --
 --         , responseDeletePipeline $
---             deletePipelineResponse
+--             newDeletePipelineResponse
 --
 --         , responseReadPreset $
---             readPresetResponse
+--             newReadPresetResponse
 --
 --         , responseListJobsByStatus $
---             listJobsByStatusResponse
+--             newListJobsByStatusResponse
 --
 --         , responseCreateJob $
---             createJobResponse
+--             newCreateJobResponse
 --
 --         , responseListPipelines $
---             listPipelinesResponse
+--             newListPipelinesResponse
 --
 --         , responseReadPipeline $
---             readPipelineResponse
+--             newReadPipelineResponse
 --
 --         , responseUpdatePipelineNotifications $
---             updatePipelineNotificationsResponse
+--             newUpdatePipelineNotificationsResponse
 --
 --         , responseReadJob $
---             readJobResponse
+--             newReadJobResponse
 --
 --           ]
 --     ]
@@ -234,7 +234,7 @@ responseListJobsByPipeline =
   res
     "ListJobsByPipelineResponse"
     "fixture/ListJobsByPipelineResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy ListJobsByPipeline)
 
 responseUpdatePipelineStatus :: UpdatePipelineStatusResponse -> TestTree
@@ -242,7 +242,7 @@ responseUpdatePipelineStatus =
   res
     "UpdatePipelineStatusResponse"
     "fixture/UpdatePipelineStatusResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy UpdatePipelineStatus)
 
 responseListPresets :: ListPresetsResponse -> TestTree
@@ -250,7 +250,7 @@ responseListPresets =
   res
     "ListPresetsResponse"
     "fixture/ListPresetsResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy ListPresets)
 
 responseDeletePreset :: DeletePresetResponse -> TestTree
@@ -258,7 +258,7 @@ responseDeletePreset =
   res
     "DeletePresetResponse"
     "fixture/DeletePresetResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy DeletePreset)
 
 responseCancelJob :: CancelJobResponse -> TestTree
@@ -266,7 +266,7 @@ responseCancelJob =
   res
     "CancelJobResponse"
     "fixture/CancelJobResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy CancelJob)
 
 responseCreatePreset :: CreatePresetResponse -> TestTree
@@ -274,7 +274,7 @@ responseCreatePreset =
   res
     "CreatePresetResponse"
     "fixture/CreatePresetResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy CreatePreset)
 
 responseCreatePipeline :: CreatePipelineResponse -> TestTree
@@ -282,7 +282,7 @@ responseCreatePipeline =
   res
     "CreatePipelineResponse"
     "fixture/CreatePipelineResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy CreatePipeline)
 
 responseUpdatePipeline :: UpdatePipelineResponse -> TestTree
@@ -290,7 +290,7 @@ responseUpdatePipeline =
   res
     "UpdatePipelineResponse"
     "fixture/UpdatePipelineResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy UpdatePipeline)
 
 responseDeletePipeline :: DeletePipelineResponse -> TestTree
@@ -298,7 +298,7 @@ responseDeletePipeline =
   res
     "DeletePipelineResponse"
     "fixture/DeletePipelineResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy DeletePipeline)
 
 responseReadPreset :: ReadPresetResponse -> TestTree
@@ -306,7 +306,7 @@ responseReadPreset =
   res
     "ReadPresetResponse"
     "fixture/ReadPresetResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy ReadPreset)
 
 responseListJobsByStatus :: ListJobsByStatusResponse -> TestTree
@@ -314,7 +314,7 @@ responseListJobsByStatus =
   res
     "ListJobsByStatusResponse"
     "fixture/ListJobsByStatusResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy ListJobsByStatus)
 
 responseCreateJob :: CreateJobResponse -> TestTree
@@ -322,7 +322,7 @@ responseCreateJob =
   res
     "CreateJobResponse"
     "fixture/CreateJobResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy CreateJob)
 
 responseListPipelines :: ListPipelinesResponse -> TestTree
@@ -330,7 +330,7 @@ responseListPipelines =
   res
     "ListPipelinesResponse"
     "fixture/ListPipelinesResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy ListPipelines)
 
 responseReadPipeline :: ReadPipelineResponse -> TestTree
@@ -338,7 +338,7 @@ responseReadPipeline =
   res
     "ReadPipelineResponse"
     "fixture/ReadPipelineResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy ReadPipeline)
 
 responseUpdatePipelineNotifications :: UpdatePipelineNotificationsResponse -> TestTree
@@ -346,7 +346,7 @@ responseUpdatePipelineNotifications =
   res
     "UpdatePipelineNotificationsResponse"
     "fixture/UpdatePipelineNotificationsResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy UpdatePipelineNotifications)
 
 responseReadJob :: ReadJobResponse -> TestTree
@@ -354,5 +354,5 @@ responseReadJob =
   res
     "ReadJobResponse"
     "fixture/ReadJobResponse.proto"
-    elasticTranscoder
+    defaultService
     (Proxy :: Proxy ReadJob)

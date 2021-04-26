@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,114 @@
 module Network.AWS.ElasticTranscoder.Types.JobAlbumArt where
 
 import Network.AWS.ElasticTranscoder.Types.Artwork
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The .jpg or .png file associated with an audio file.
 --
---
---
--- /See:/ 'jobAlbumArt' smart constructor.
+-- /See:/ 'newJobAlbumArt' smart constructor.
 data JobAlbumArt = JobAlbumArt'
-  { _jaaArtwork ::
-      !(Maybe [Artwork]),
-    _jaaMergePolicy :: !(Maybe Text)
+  { -- | The file to be used as album art. There can be multiple artworks
+    -- associated with an audio file, to a maximum of 20. Valid formats are
+    -- @.jpg@ and @.png@
+    artwork :: Prelude.Maybe [Artwork],
+    -- | A policy that determines how Elastic Transcoder handles the existence of
+    -- multiple album artwork files.
+    --
+    -- -   @Replace:@ The specified album art replaces any existing album art.
+    --
+    -- -   @Prepend:@ The specified album art is placed in front of any
+    --     existing album art.
+    --
+    -- -   @Append:@ The specified album art is placed after any existing album
+    --     art.
+    --
+    -- -   @Fallback:@ If the original input file contains artwork, Elastic
+    --     Transcoder uses that artwork for the output. If the original input
+    --     does not contain artwork, Elastic Transcoder uses the specified
+    --     album art file.
+    mergePolicy :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobAlbumArt' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobAlbumArt' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jaaArtwork' - The file to be used as album art. There can be multiple artworks associated with an audio file, to a maximum of 20. Valid formats are @.jpg@ and @.png@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jaaMergePolicy' - A policy that determines how Elastic Transcoder handles the existence of multiple album artwork files.     * @Replace:@ The specified album art replaces any existing album art.     * @Prepend:@ The specified album art is placed in front of any existing album art.     * @Append:@ The specified album art is placed after any existing album art.     * @Fallback:@ If the original input file contains artwork, Elastic Transcoder uses that artwork for the output. If the original input does not contain artwork, Elastic Transcoder uses the specified album art file.
-jobAlbumArt ::
+-- 'artwork', 'jobAlbumArt_artwork' - The file to be used as album art. There can be multiple artworks
+-- associated with an audio file, to a maximum of 20. Valid formats are
+-- @.jpg@ and @.png@
+--
+-- 'mergePolicy', 'jobAlbumArt_mergePolicy' - A policy that determines how Elastic Transcoder handles the existence of
+-- multiple album artwork files.
+--
+-- -   @Replace:@ The specified album art replaces any existing album art.
+--
+-- -   @Prepend:@ The specified album art is placed in front of any
+--     existing album art.
+--
+-- -   @Append:@ The specified album art is placed after any existing album
+--     art.
+--
+-- -   @Fallback:@ If the original input file contains artwork, Elastic
+--     Transcoder uses that artwork for the output. If the original input
+--     does not contain artwork, Elastic Transcoder uses the specified
+--     album art file.
+newJobAlbumArt ::
   JobAlbumArt
-jobAlbumArt =
+newJobAlbumArt =
   JobAlbumArt'
-    { _jaaArtwork = Nothing,
-      _jaaMergePolicy = Nothing
+    { artwork = Prelude.Nothing,
+      mergePolicy = Prelude.Nothing
     }
 
--- | The file to be used as album art. There can be multiple artworks associated with an audio file, to a maximum of 20. Valid formats are @.jpg@ and @.png@
-jaaArtwork :: Lens' JobAlbumArt [Artwork]
-jaaArtwork = lens _jaaArtwork (\s a -> s {_jaaArtwork = a}) . _Default . _Coerce
+-- | The file to be used as album art. There can be multiple artworks
+-- associated with an audio file, to a maximum of 20. Valid formats are
+-- @.jpg@ and @.png@
+jobAlbumArt_artwork :: Lens.Lens' JobAlbumArt (Prelude.Maybe [Artwork])
+jobAlbumArt_artwork = Lens.lens (\JobAlbumArt' {artwork} -> artwork) (\s@JobAlbumArt' {} a -> s {artwork = a} :: JobAlbumArt) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A policy that determines how Elastic Transcoder handles the existence of multiple album artwork files.     * @Replace:@ The specified album art replaces any existing album art.     * @Prepend:@ The specified album art is placed in front of any existing album art.     * @Append:@ The specified album art is placed after any existing album art.     * @Fallback:@ If the original input file contains artwork, Elastic Transcoder uses that artwork for the output. If the original input does not contain artwork, Elastic Transcoder uses the specified album art file.
-jaaMergePolicy :: Lens' JobAlbumArt (Maybe Text)
-jaaMergePolicy = lens _jaaMergePolicy (\s a -> s {_jaaMergePolicy = a})
+-- | A policy that determines how Elastic Transcoder handles the existence of
+-- multiple album artwork files.
+--
+-- -   @Replace:@ The specified album art replaces any existing album art.
+--
+-- -   @Prepend:@ The specified album art is placed in front of any
+--     existing album art.
+--
+-- -   @Append:@ The specified album art is placed after any existing album
+--     art.
+--
+-- -   @Fallback:@ If the original input file contains artwork, Elastic
+--     Transcoder uses that artwork for the output. If the original input
+--     does not contain artwork, Elastic Transcoder uses the specified
+--     album art file.
+jobAlbumArt_mergePolicy :: Lens.Lens' JobAlbumArt (Prelude.Maybe Prelude.Text)
+jobAlbumArt_mergePolicy = Lens.lens (\JobAlbumArt' {mergePolicy} -> mergePolicy) (\s@JobAlbumArt' {} a -> s {mergePolicy = a} :: JobAlbumArt)
 
-instance FromJSON JobAlbumArt where
+instance Prelude.FromJSON JobAlbumArt where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobAlbumArt"
       ( \x ->
           JobAlbumArt'
-            <$> (x .:? "Artwork" .!= mempty)
-            <*> (x .:? "MergePolicy")
+            Prelude.<$> (x Prelude..:? "Artwork" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "MergePolicy")
       )
 
-instance Hashable JobAlbumArt
+instance Prelude.Hashable JobAlbumArt
 
-instance NFData JobAlbumArt
+instance Prelude.NFData JobAlbumArt
 
-instance ToJSON JobAlbumArt where
+instance Prelude.ToJSON JobAlbumArt where
   toJSON JobAlbumArt' {..} =
-    object
-      ( catMaybes
-          [ ("Artwork" .=) <$> _jaaArtwork,
-            ("MergePolicy" .=) <$> _jaaMergePolicy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Artwork" Prelude..=) Prelude.<$> artwork,
+            ("MergePolicy" Prelude..=) Prelude.<$> mergePolicy
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,94 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticTranscoder.Types.DetectedProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The detected properties of the input file. Elastic Transcoder identifies these values from the input file.
+-- | The detected properties of the input file. Elastic Transcoder identifies
+-- these values from the input file.
 --
---
---
--- /See:/ 'detectedProperties' smart constructor.
+-- /See:/ 'newDetectedProperties' smart constructor.
 data DetectedProperties = DetectedProperties'
-  { _dpHeight ::
-      !(Maybe Int),
-    _dpWidth :: !(Maybe Int),
-    _dpFileSize :: !(Maybe Integer),
-    _dpFrameRate :: !(Maybe Text),
-    _dpDurationMillis ::
-      !(Maybe Integer)
+  { -- | The detected height of the input file, in pixels.
+    height :: Prelude.Maybe Prelude.Int,
+    -- | The detected width of the input file, in pixels.
+    width :: Prelude.Maybe Prelude.Int,
+    -- | The detected file size of the input file, in bytes.
+    fileSize :: Prelude.Maybe Prelude.Integer,
+    -- | The detected frame rate of the input file, in frames per second.
+    frameRate :: Prelude.Maybe Prelude.Text,
+    -- | The detected duration of the input file, in milliseconds.
+    durationMillis :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectedProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectedProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpHeight' - The detected height of the input file, in pixels.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpWidth' - The detected width of the input file, in pixels.
+-- 'height', 'detectedProperties_height' - The detected height of the input file, in pixels.
 --
--- * 'dpFileSize' - The detected file size of the input file, in bytes.
+-- 'width', 'detectedProperties_width' - The detected width of the input file, in pixels.
 --
--- * 'dpFrameRate' - The detected frame rate of the input file, in frames per second.
+-- 'fileSize', 'detectedProperties_fileSize' - The detected file size of the input file, in bytes.
 --
--- * 'dpDurationMillis' - The detected duration of the input file, in milliseconds.
-detectedProperties ::
+-- 'frameRate', 'detectedProperties_frameRate' - The detected frame rate of the input file, in frames per second.
+--
+-- 'durationMillis', 'detectedProperties_durationMillis' - The detected duration of the input file, in milliseconds.
+newDetectedProperties ::
   DetectedProperties
-detectedProperties =
+newDetectedProperties =
   DetectedProperties'
-    { _dpHeight = Nothing,
-      _dpWidth = Nothing,
-      _dpFileSize = Nothing,
-      _dpFrameRate = Nothing,
-      _dpDurationMillis = Nothing
+    { height = Prelude.Nothing,
+      width = Prelude.Nothing,
+      fileSize = Prelude.Nothing,
+      frameRate = Prelude.Nothing,
+      durationMillis = Prelude.Nothing
     }
 
 -- | The detected height of the input file, in pixels.
-dpHeight :: Lens' DetectedProperties (Maybe Int)
-dpHeight = lens _dpHeight (\s a -> s {_dpHeight = a})
+detectedProperties_height :: Lens.Lens' DetectedProperties (Prelude.Maybe Prelude.Int)
+detectedProperties_height = Lens.lens (\DetectedProperties' {height} -> height) (\s@DetectedProperties' {} a -> s {height = a} :: DetectedProperties)
 
 -- | The detected width of the input file, in pixels.
-dpWidth :: Lens' DetectedProperties (Maybe Int)
-dpWidth = lens _dpWidth (\s a -> s {_dpWidth = a})
+detectedProperties_width :: Lens.Lens' DetectedProperties (Prelude.Maybe Prelude.Int)
+detectedProperties_width = Lens.lens (\DetectedProperties' {width} -> width) (\s@DetectedProperties' {} a -> s {width = a} :: DetectedProperties)
 
 -- | The detected file size of the input file, in bytes.
-dpFileSize :: Lens' DetectedProperties (Maybe Integer)
-dpFileSize = lens _dpFileSize (\s a -> s {_dpFileSize = a})
+detectedProperties_fileSize :: Lens.Lens' DetectedProperties (Prelude.Maybe Prelude.Integer)
+detectedProperties_fileSize = Lens.lens (\DetectedProperties' {fileSize} -> fileSize) (\s@DetectedProperties' {} a -> s {fileSize = a} :: DetectedProperties)
 
 -- | The detected frame rate of the input file, in frames per second.
-dpFrameRate :: Lens' DetectedProperties (Maybe Text)
-dpFrameRate = lens _dpFrameRate (\s a -> s {_dpFrameRate = a})
+detectedProperties_frameRate :: Lens.Lens' DetectedProperties (Prelude.Maybe Prelude.Text)
+detectedProperties_frameRate = Lens.lens (\DetectedProperties' {frameRate} -> frameRate) (\s@DetectedProperties' {} a -> s {frameRate = a} :: DetectedProperties)
 
 -- | The detected duration of the input file, in milliseconds.
-dpDurationMillis :: Lens' DetectedProperties (Maybe Integer)
-dpDurationMillis = lens _dpDurationMillis (\s a -> s {_dpDurationMillis = a})
+detectedProperties_durationMillis :: Lens.Lens' DetectedProperties (Prelude.Maybe Prelude.Integer)
+detectedProperties_durationMillis = Lens.lens (\DetectedProperties' {durationMillis} -> durationMillis) (\s@DetectedProperties' {} a -> s {durationMillis = a} :: DetectedProperties)
 
-instance FromJSON DetectedProperties where
+instance Prelude.FromJSON DetectedProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DetectedProperties"
       ( \x ->
           DetectedProperties'
-            <$> (x .:? "Height")
-            <*> (x .:? "Width")
-            <*> (x .:? "FileSize")
-            <*> (x .:? "FrameRate")
-            <*> (x .:? "DurationMillis")
+            Prelude.<$> (x Prelude..:? "Height")
+            Prelude.<*> (x Prelude..:? "Width")
+            Prelude.<*> (x Prelude..:? "FileSize")
+            Prelude.<*> (x Prelude..:? "FrameRate")
+            Prelude.<*> (x Prelude..:? "DurationMillis")
       )
 
-instance Hashable DetectedProperties
+instance Prelude.Hashable DetectedProperties
 
-instance NFData DetectedProperties
+instance Prelude.NFData DetectedProperties
 
-instance ToJSON DetectedProperties where
+instance Prelude.ToJSON DetectedProperties where
   toJSON DetectedProperties' {..} =
-    object
-      ( catMaybes
-          [ ("Height" .=) <$> _dpHeight,
-            ("Width" .=) <$> _dpWidth,
-            ("FileSize" .=) <$> _dpFileSize,
-            ("FrameRate" .=) <$> _dpFrameRate,
-            ("DurationMillis" .=) <$> _dpDurationMillis
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Height" Prelude..=) Prelude.<$> height,
+            ("Width" Prelude..=) Prelude.<$> width,
+            ("FileSize" Prelude..=) Prelude.<$> fileSize,
+            ("FrameRate" Prelude..=) Prelude.<$> frameRate,
+            ("DurationMillis" Prelude..=)
+              Prelude.<$> durationMillis
           ]
       )

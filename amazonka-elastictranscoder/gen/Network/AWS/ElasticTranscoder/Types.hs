@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticTranscoder.Types
   ( -- * Service Configuration
-    elasticTranscoder,
+    defaultService,
 
     -- * Errors
     _IncompatibleVersionException,
@@ -24,320 +27,127 @@ module Network.AWS.ElasticTranscoder.Types
 
     -- * Artwork
     Artwork (..),
-    artwork,
-    aInputKey,
-    aAlbumArtFormat,
-    aSizingPolicy,
-    aEncryption,
-    aPaddingPolicy,
-    aMaxHeight,
-    aMaxWidth,
+    newArtwork,
 
     -- * AudioCodecOptions
     AudioCodecOptions (..),
-    audioCodecOptions,
-    acoBitDepth,
-    acoSigned,
-    acoBitOrder,
-    acoProfile,
+    newAudioCodecOptions,
 
     -- * AudioParameters
     AudioParameters (..),
-    audioParameters,
-    apCodecOptions,
-    apCodec,
-    apChannels,
-    apSampleRate,
-    apAudioPackingMode,
-    apBitRate,
+    newAudioParameters,
 
     -- * CaptionFormat
     CaptionFormat (..),
-    captionFormat,
-    cfFormat,
-    cfEncryption,
-    cfPattern,
+    newCaptionFormat,
 
     -- * CaptionSource
     CaptionSource (..),
-    captionSource,
-    csKey,
-    csTimeOffset,
-    csEncryption,
-    csLabel,
-    csLanguage,
+    newCaptionSource,
 
     -- * Captions
     Captions (..),
-    captions,
-    cCaptionSources,
-    cCaptionFormats,
-    cMergePolicy,
+    newCaptions,
 
     -- * Clip
     Clip (..),
-    clip,
-    cTimeSpan,
+    newClip,
 
     -- * CreateJobOutput
     CreateJobOutput (..),
-    createJobOutput,
-    cjoKey,
-    cjoThumbnailPattern,
-    cjoThumbnailEncryption,
-    cjoWatermarks,
-    cjoPresetId,
-    cjoAlbumArt,
-    cjoEncryption,
-    cjoRotate,
-    cjoComposition,
-    cjoSegmentDuration,
-    cjoCaptions,
+    newCreateJobOutput,
 
     -- * CreateJobPlaylist
     CreateJobPlaylist (..),
-    createJobPlaylist,
-    cjpPlayReadyDrm,
-    cjpOutputKeys,
-    cjpFormat,
-    cjpHlsContentProtection,
-    cjpName,
+    newCreateJobPlaylist,
 
     -- * DetectedProperties
     DetectedProperties (..),
-    detectedProperties,
-    dpHeight,
-    dpWidth,
-    dpFileSize,
-    dpFrameRate,
-    dpDurationMillis,
+    newDetectedProperties,
 
     -- * Encryption
     Encryption (..),
-    encryption,
-    eKey,
-    eMode,
-    eKeyMD5,
-    eInitializationVector,
+    newEncryption,
 
     -- * HlsContentProtection
     HlsContentProtection (..),
-    hlsContentProtection,
-    hcpKey,
-    hcpLicenseAcquisitionURL,
-    hcpKeyMD5,
-    hcpMethod,
-    hcpInitializationVector,
-    hcpKeyStoragePolicy,
+    newHlsContentProtection,
 
     -- * InputCaptions
     InputCaptions (..),
-    inputCaptions,
-    icCaptionSources,
-    icMergePolicy,
+    newInputCaptions,
 
     -- * Job'
     Job' (..),
-    job',
-    jPipelineId,
-    jStatus,
-    jOutputs,
-    jInput,
-    jOutputKeyPrefix,
-    jARN,
-    jId,
-    jOutput,
-    jUserMetadata,
-    jTiming,
-    jInputs,
-    jPlaylists,
+    newJob',
 
     -- * JobAlbumArt
     JobAlbumArt (..),
-    jobAlbumArt,
-    jaaArtwork,
-    jaaMergePolicy,
+    newJobAlbumArt,
 
     -- * JobInput
     JobInput (..),
-    jobInput,
-    jiContainer,
-    jiKey,
-    jiTimeSpan,
-    jiInputCaptions,
-    jiEncryption,
-    jiDetectedProperties,
-    jiFrameRate,
-    jiAspectRatio,
-    jiResolution,
-    jiInterlaced,
+    newJobInput,
 
     -- * JobOutput
     JobOutput (..),
-    jobOutput,
-    joHeight,
-    joKey,
-    joStatus,
-    joThumbnailPattern,
-    joDuration,
-    joWidth,
-    joThumbnailEncryption,
-    joWatermarks,
-    joFileSize,
-    joPresetId,
-    joAlbumArt,
-    joId,
-    joStatusDetail,
-    joEncryption,
-    joFrameRate,
-    joAppliedColorSpaceConversion,
-    joRotate,
-    joDurationMillis,
-    joComposition,
-    joSegmentDuration,
-    joCaptions,
+    newJobOutput,
 
     -- * JobWatermark
     JobWatermark (..),
-    jobWatermark,
-    jwInputKey,
-    jwEncryption,
-    jwPresetWatermarkId,
+    newJobWatermark,
 
     -- * Notifications
     Notifications (..),
-    notifications,
-    nWarning,
-    nError,
-    nProgressing,
-    nCompleted,
+    newNotifications,
 
     -- * Permission
     Permission (..),
-    permission,
-    pAccess,
-    pGranteeType,
-    pGrantee,
+    newPermission,
 
     -- * Pipeline
     Pipeline (..),
-    pipeline,
-    pipStatus,
-    pipOutputBucket,
-    pipARN,
-    pipId,
-    pipName,
-    pipRole,
-    pipNotifications,
-    pipThumbnailConfig,
-    pipContentConfig,
-    pipInputBucket,
-    pipAWSKMSKeyARN,
+    newPipeline,
 
     -- * PipelineOutputConfig
     PipelineOutputConfig (..),
-    pipelineOutputConfig,
-    pocPermissions,
-    pocStorageClass,
-    pocBucket,
+    newPipelineOutputConfig,
 
     -- * PlayReadyDrm
     PlayReadyDrm (..),
-    playReadyDrm,
-    prdKey,
-    prdLicenseAcquisitionURL,
-    prdKeyMD5,
-    prdFormat,
-    prdInitializationVector,
-    prdKeyId,
+    newPlayReadyDrm,
 
     -- * Playlist
     Playlist (..),
-    playlist,
-    plaStatus,
-    plaPlayReadyDrm,
-    plaOutputKeys,
-    plaFormat,
-    plaHlsContentProtection,
-    plaStatusDetail,
-    plaName,
+    newPlaylist,
 
     -- * Preset
     Preset (..),
-    preset,
-    pContainer,
-    pARN,
-    pId,
-    pThumbnails,
-    pName,
-    pVideo,
-    pAudio,
-    pDescription,
-    pType,
+    newPreset,
 
     -- * PresetWatermark
     PresetWatermark (..),
-    presetWatermark,
-    pwHorizontalAlign,
-    pwHorizontalOffset,
-    pwSizingPolicy,
-    pwId,
-    pwVerticalOffset,
-    pwVerticalAlign,
-    pwOpacity,
-    pwTarget,
-    pwMaxHeight,
-    pwMaxWidth,
+    newPresetWatermark,
 
     -- * Thumbnails
     Thumbnails (..),
-    thumbnails,
-    tFormat,
-    tSizingPolicy,
-    tInterval,
-    tAspectRatio,
-    tPaddingPolicy,
-    tResolution,
-    tMaxHeight,
-    tMaxWidth,
+    newThumbnails,
 
     -- * TimeSpan
     TimeSpan (..),
-    timeSpan,
-    tsDuration,
-    tsStartTime,
+    newTimeSpan,
 
     -- * Timing
     Timing (..),
-    timing,
-    tSubmitTimeMillis,
-    tStartTimeMillis,
-    tFinishTimeMillis,
+    newTiming,
 
     -- * VideoParameters
     VideoParameters (..),
-    videoParameters,
-    vpKeyframesMaxDist,
-    vpCodecOptions,
-    vpFixedGOP,
-    vpCodec,
-    vpWatermarks,
-    vpMaxFrameRate,
-    vpDisplayAspectRatio,
-    vpSizingPolicy,
-    vpFrameRate,
-    vpAspectRatio,
-    vpPaddingPolicy,
-    vpResolution,
-    vpMaxHeight,
-    vpBitRate,
-    vpMaxWidth,
+    newVideoParameters,
 
     -- * Warning
     Warning (..),
-    warning,
-    wMessage,
-    wCode,
+    newWarning,
   )
 where
 
@@ -372,112 +182,137 @@ import Network.AWS.ElasticTranscoder.Types.TimeSpan
 import Network.AWS.ElasticTranscoder.Types.Timing
 import Network.AWS.ElasticTranscoder.Types.VideoParameters
 import Network.AWS.ElasticTranscoder.Types.Warning
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2012-09-25@ of the Amazon Elastic Transcoder SDK configuration.
-elasticTranscoder :: Service
-elasticTranscoder =
-  Service
-    { _svcAbbrev = "ElasticTranscoder",
-      _svcSigner = v4,
-      _svcPrefix = "elastictranscoder",
-      _svcVersion = "2012-09-25",
-      _svcEndpoint = defaultEndpoint elasticTranscoder,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "ElasticTranscoder",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "ElasticTranscoder",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "elastictranscoder",
+      Prelude._svcVersion = "2012-09-25",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "ElasticTranscoder",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | Prism for IncompatibleVersionException' errors.
-_IncompatibleVersionException :: AsError a => Getting (First ServiceError) a ServiceError
+_IncompatibleVersionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IncompatibleVersionException =
-  _MatchServiceError
-    elasticTranscoder
+  Prelude._MatchServiceError
+    defaultService
     "IncompatibleVersionException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Elastic Transcoder encountered an unexpected exception while trying to fulfill the request.
-_InternalServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Elastic Transcoder encountered an unexpected exception while trying to
+-- fulfill the request.
+_InternalServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceException =
-  _MatchServiceError
-    elasticTranscoder
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceException"
 
 -- | General authentication failure. The request was not signed correctly.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError
-    elasticTranscoder
+  Prelude._MatchServiceError
+    defaultService
     "AccessDeniedException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
 -- | One or more required parameter values were not provided in the request.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError
-    elasticTranscoder
+  Prelude._MatchServiceError
+    defaultService
     "ValidationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The resource you are attempting to change is in use. For example, you are attempting to delete a pipeline that is currently in use.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource you are attempting to change is in use. For example, you
+-- are attempting to delete a pipeline that is currently in use.
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    elasticTranscoder
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | Too many operations for a given AWS account. For example, the number of pipelines exceeds the maximum allowed.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Too many operations for a given AWS account. For example, the number of
+-- pipelines exceeds the maximum allowed.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    elasticTranscoder
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
--- | The requested resource does not exist or is not available. For example, the pipeline to which you're trying to add a job doesn't exist or is still being created.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested resource does not exist or is not available. For example,
+-- the pipeline to which you\'re trying to add a job doesn\'t exist or is
+-- still being created.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    elasticTranscoder
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404

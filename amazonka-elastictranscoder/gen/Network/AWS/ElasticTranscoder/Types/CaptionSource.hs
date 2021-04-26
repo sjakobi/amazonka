@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,93 +20,154 @@
 module Network.AWS.ElasticTranscoder.Types.CaptionSource where
 
 import Network.AWS.ElasticTranscoder.Types.Encryption
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A source file for the input sidecar captions used during the transcoding process.
+-- | A source file for the input sidecar captions used during the transcoding
+-- process.
 --
---
---
--- /See:/ 'captionSource' smart constructor.
+-- /See:/ 'newCaptionSource' smart constructor.
 data CaptionSource = CaptionSource'
-  { _csKey ::
-      !(Maybe Text),
-    _csTimeOffset :: !(Maybe Text),
-    _csEncryption :: !(Maybe Encryption),
-    _csLabel :: !(Maybe Text),
-    _csLanguage :: !(Maybe Text)
+  { -- | The name of the sidecar caption file that you want Elastic Transcoder to
+    -- include in the output file.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | For clip generation or captions that do not start at the same time as
+    -- the associated video file, the @TimeOffset@ tells Elastic Transcoder how
+    -- much of the video to encode before including captions.
+    --
+    -- Specify the TimeOffset in the form [+-]SS.sss or [+-]HH:mm:SS.ss.
+    timeOffset :: Prelude.Maybe Prelude.Text,
+    -- | The encryption settings, if any, that Elastic Transcoder needs to
+    -- decyrpt your caption sources, or that you want Elastic Transcoder to
+    -- apply to your caption sources.
+    encryption :: Prelude.Maybe Encryption,
+    -- | The label of the caption shown in the player when choosing a language.
+    -- We recommend that you put the caption language name here, in the
+    -- language of the captions.
+    label :: Prelude.Maybe Prelude.Text,
+    -- | A string that specifies the language of the caption. If you specified
+    -- multiple inputs with captions, the caption language must match in order
+    -- to be included in the output. Specify this as one of:
+    --
+    -- -   2-character ISO 639-1 code
+    --
+    -- -   3-character ISO 639-2 code
+    --
+    -- For more information on ISO language codes and language names, see the
+    -- List of ISO 639-1 codes.
+    language :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CaptionSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CaptionSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csKey' - The name of the sidecar caption file that you want Elastic Transcoder to include in the output file.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csTimeOffset' - For clip generation or captions that do not start at the same time as the associated video file, the @TimeOffset@ tells Elastic Transcoder how much of the video to encode before including captions. Specify the TimeOffset in the form [+-]SS.sss or [+-]HH:mm:SS.ss.
+-- 'key', 'captionSource_key' - The name of the sidecar caption file that you want Elastic Transcoder to
+-- include in the output file.
 --
--- * 'csEncryption' - The encryption settings, if any, that Elastic Transcoder needs to decyrpt your caption sources, or that you want Elastic Transcoder to apply to your caption sources.
+-- 'timeOffset', 'captionSource_timeOffset' - For clip generation or captions that do not start at the same time as
+-- the associated video file, the @TimeOffset@ tells Elastic Transcoder how
+-- much of the video to encode before including captions.
 --
--- * 'csLabel' - The label of the caption shown in the player when choosing a language. We recommend that you put the caption language name here, in the language of the captions.
+-- Specify the TimeOffset in the form [+-]SS.sss or [+-]HH:mm:SS.ss.
 --
--- * 'csLanguage' - A string that specifies the language of the caption. If you specified multiple inputs with captions, the caption language must match in order to be included in the output. Specify this as one of:     * 2-character ISO 639-1 code     * 3-character ISO 639-2 code For more information on ISO language codes and language names, see the List of ISO 639-1 codes.
-captionSource ::
+-- 'encryption', 'captionSource_encryption' - The encryption settings, if any, that Elastic Transcoder needs to
+-- decyrpt your caption sources, or that you want Elastic Transcoder to
+-- apply to your caption sources.
+--
+-- 'label', 'captionSource_label' - The label of the caption shown in the player when choosing a language.
+-- We recommend that you put the caption language name here, in the
+-- language of the captions.
+--
+-- 'language', 'captionSource_language' - A string that specifies the language of the caption. If you specified
+-- multiple inputs with captions, the caption language must match in order
+-- to be included in the output. Specify this as one of:
+--
+-- -   2-character ISO 639-1 code
+--
+-- -   3-character ISO 639-2 code
+--
+-- For more information on ISO language codes and language names, see the
+-- List of ISO 639-1 codes.
+newCaptionSource ::
   CaptionSource
-captionSource =
+newCaptionSource =
   CaptionSource'
-    { _csKey = Nothing,
-      _csTimeOffset = Nothing,
-      _csEncryption = Nothing,
-      _csLabel = Nothing,
-      _csLanguage = Nothing
+    { key = Prelude.Nothing,
+      timeOffset = Prelude.Nothing,
+      encryption = Prelude.Nothing,
+      label = Prelude.Nothing,
+      language = Prelude.Nothing
     }
 
--- | The name of the sidecar caption file that you want Elastic Transcoder to include in the output file.
-csKey :: Lens' CaptionSource (Maybe Text)
-csKey = lens _csKey (\s a -> s {_csKey = a})
+-- | The name of the sidecar caption file that you want Elastic Transcoder to
+-- include in the output file.
+captionSource_key :: Lens.Lens' CaptionSource (Prelude.Maybe Prelude.Text)
+captionSource_key = Lens.lens (\CaptionSource' {key} -> key) (\s@CaptionSource' {} a -> s {key = a} :: CaptionSource)
 
--- | For clip generation or captions that do not start at the same time as the associated video file, the @TimeOffset@ tells Elastic Transcoder how much of the video to encode before including captions. Specify the TimeOffset in the form [+-]SS.sss or [+-]HH:mm:SS.ss.
-csTimeOffset :: Lens' CaptionSource (Maybe Text)
-csTimeOffset = lens _csTimeOffset (\s a -> s {_csTimeOffset = a})
+-- | For clip generation or captions that do not start at the same time as
+-- the associated video file, the @TimeOffset@ tells Elastic Transcoder how
+-- much of the video to encode before including captions.
+--
+-- Specify the TimeOffset in the form [+-]SS.sss or [+-]HH:mm:SS.ss.
+captionSource_timeOffset :: Lens.Lens' CaptionSource (Prelude.Maybe Prelude.Text)
+captionSource_timeOffset = Lens.lens (\CaptionSource' {timeOffset} -> timeOffset) (\s@CaptionSource' {} a -> s {timeOffset = a} :: CaptionSource)
 
--- | The encryption settings, if any, that Elastic Transcoder needs to decyrpt your caption sources, or that you want Elastic Transcoder to apply to your caption sources.
-csEncryption :: Lens' CaptionSource (Maybe Encryption)
-csEncryption = lens _csEncryption (\s a -> s {_csEncryption = a})
+-- | The encryption settings, if any, that Elastic Transcoder needs to
+-- decyrpt your caption sources, or that you want Elastic Transcoder to
+-- apply to your caption sources.
+captionSource_encryption :: Lens.Lens' CaptionSource (Prelude.Maybe Encryption)
+captionSource_encryption = Lens.lens (\CaptionSource' {encryption} -> encryption) (\s@CaptionSource' {} a -> s {encryption = a} :: CaptionSource)
 
--- | The label of the caption shown in the player when choosing a language. We recommend that you put the caption language name here, in the language of the captions.
-csLabel :: Lens' CaptionSource (Maybe Text)
-csLabel = lens _csLabel (\s a -> s {_csLabel = a})
+-- | The label of the caption shown in the player when choosing a language.
+-- We recommend that you put the caption language name here, in the
+-- language of the captions.
+captionSource_label :: Lens.Lens' CaptionSource (Prelude.Maybe Prelude.Text)
+captionSource_label = Lens.lens (\CaptionSource' {label} -> label) (\s@CaptionSource' {} a -> s {label = a} :: CaptionSource)
 
--- | A string that specifies the language of the caption. If you specified multiple inputs with captions, the caption language must match in order to be included in the output. Specify this as one of:     * 2-character ISO 639-1 code     * 3-character ISO 639-2 code For more information on ISO language codes and language names, see the List of ISO 639-1 codes.
-csLanguage :: Lens' CaptionSource (Maybe Text)
-csLanguage = lens _csLanguage (\s a -> s {_csLanguage = a})
+-- | A string that specifies the language of the caption. If you specified
+-- multiple inputs with captions, the caption language must match in order
+-- to be included in the output. Specify this as one of:
+--
+-- -   2-character ISO 639-1 code
+--
+-- -   3-character ISO 639-2 code
+--
+-- For more information on ISO language codes and language names, see the
+-- List of ISO 639-1 codes.
+captionSource_language :: Lens.Lens' CaptionSource (Prelude.Maybe Prelude.Text)
+captionSource_language = Lens.lens (\CaptionSource' {language} -> language) (\s@CaptionSource' {} a -> s {language = a} :: CaptionSource)
 
-instance FromJSON CaptionSource where
+instance Prelude.FromJSON CaptionSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CaptionSource"
       ( \x ->
           CaptionSource'
-            <$> (x .:? "Key")
-            <*> (x .:? "TimeOffset")
-            <*> (x .:? "Encryption")
-            <*> (x .:? "Label")
-            <*> (x .:? "Language")
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "TimeOffset")
+            Prelude.<*> (x Prelude..:? "Encryption")
+            Prelude.<*> (x Prelude..:? "Label")
+            Prelude.<*> (x Prelude..:? "Language")
       )
 
-instance Hashable CaptionSource
+instance Prelude.Hashable CaptionSource
 
-instance NFData CaptionSource
+instance Prelude.NFData CaptionSource
 
-instance ToJSON CaptionSource where
+instance Prelude.ToJSON CaptionSource where
   toJSON CaptionSource' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _csKey,
-            ("TimeOffset" .=) <$> _csTimeOffset,
-            ("Encryption" .=) <$> _csEncryption,
-            ("Label" .=) <$> _csLabel,
-            ("Language" .=) <$> _csLanguage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("TimeOffset" Prelude..=) Prelude.<$> timeOffset,
+            ("Encryption" Prelude..=) Prelude.<$> encryption,
+            ("Label" Prelude..=) Prelude.<$> label,
+            ("Language" Prelude..=) Prelude.<$> language
           ]
       )

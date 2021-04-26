@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,110 +24,127 @@
 -- The ReadPreset operation gets detailed information about a preset.
 module Network.AWS.ElasticTranscoder.ReadPreset
   ( -- * Creating a Request
-    readPreset,
-    ReadPreset,
+    ReadPreset (..),
+    newReadPreset,
 
     -- * Request Lenses
-    rpId,
+    readPreset_id,
 
     -- * Destructuring the Response
-    readPresetResponse,
-    ReadPresetResponse,
+    ReadPresetResponse (..),
+    newReadPresetResponse,
 
     -- * Response Lenses
-    rprrsPreset,
-    rprrsResponseStatus,
+    readPresetResponse_preset,
+    readPresetResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticTranscoder.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticTranscoder.Types.Preset
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The @ReadPresetRequest@ structure.
 --
---
---
--- /See:/ 'readPreset' smart constructor.
-newtype ReadPreset = ReadPreset' {_rpId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newReadPreset' smart constructor.
+data ReadPreset = ReadPreset'
+  { -- | The identifier of the preset for which you want to get detailed
+    -- information.
+    id :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReadPreset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReadPreset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpId' - The identifier of the preset for which you want to get detailed information.
-readPreset ::
-  -- | 'rpId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'readPreset_id' - The identifier of the preset for which you want to get detailed
+-- information.
+newReadPreset ::
+  -- | 'id'
+  Prelude.Text ->
   ReadPreset
-readPreset pId_ = ReadPreset' {_rpId = pId_}
+newReadPreset pId_ = ReadPreset' {id = pId_}
 
--- | The identifier of the preset for which you want to get detailed information.
-rpId :: Lens' ReadPreset Text
-rpId = lens _rpId (\s a -> s {_rpId = a})
+-- | The identifier of the preset for which you want to get detailed
+-- information.
+readPreset_id :: Lens.Lens' ReadPreset Prelude.Text
+readPreset_id = Lens.lens (\ReadPreset' {id} -> id) (\s@ReadPreset' {} a -> s {id = a} :: ReadPreset)
 
-instance AWSRequest ReadPreset where
+instance Prelude.AWSRequest ReadPreset where
   type Rs ReadPreset = ReadPresetResponse
-  request = get elasticTranscoder
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ReadPresetResponse'
-            <$> (x .?> "Preset") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Preset")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ReadPreset
+instance Prelude.Hashable ReadPreset
 
-instance NFData ReadPreset
+instance Prelude.NFData ReadPreset
 
-instance ToHeaders ReadPreset where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ReadPreset where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ReadPreset where
+instance Prelude.ToPath ReadPreset where
   toPath ReadPreset' {..} =
-    mconcat ["/2012-09-25/presets/", toBS _rpId]
+    Prelude.mconcat
+      ["/2012-09-25/presets/", Prelude.toBS id]
 
-instance ToQuery ReadPreset where
-  toQuery = const mempty
+instance Prelude.ToQuery ReadPreset where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The @ReadPresetResponse@ structure.
 --
---
---
--- /See:/ 'readPresetResponse' smart constructor.
+-- /See:/ 'newReadPresetResponse' smart constructor.
 data ReadPresetResponse = ReadPresetResponse'
-  { _rprrsPreset ::
-      !(Maybe Preset),
-    _rprrsResponseStatus :: !Int
+  { -- | A section of the response body that provides information about the
+    -- preset.
+    preset :: Prelude.Maybe Preset,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReadPresetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReadPresetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rprrsPreset' - A section of the response body that provides information about the preset.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rprrsResponseStatus' - -- | The response status code.
-readPresetResponse ::
-  -- | 'rprrsResponseStatus'
-  Int ->
+-- 'preset', 'readPresetResponse_preset' - A section of the response body that provides information about the
+-- preset.
+--
+-- 'httpStatus', 'readPresetResponse_httpStatus' - The response's http status code.
+newReadPresetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ReadPresetResponse
-readPresetResponse pResponseStatus_ =
+newReadPresetResponse pHttpStatus_ =
   ReadPresetResponse'
-    { _rprrsPreset = Nothing,
-      _rprrsResponseStatus = pResponseStatus_
+    { preset = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A section of the response body that provides information about the preset.
-rprrsPreset :: Lens' ReadPresetResponse (Maybe Preset)
-rprrsPreset = lens _rprrsPreset (\s a -> s {_rprrsPreset = a})
+-- | A section of the response body that provides information about the
+-- preset.
+readPresetResponse_preset :: Lens.Lens' ReadPresetResponse (Prelude.Maybe Preset)
+readPresetResponse_preset = Lens.lens (\ReadPresetResponse' {preset} -> preset) (\s@ReadPresetResponse' {} a -> s {preset = a} :: ReadPresetResponse)
 
--- | -- | The response status code.
-rprrsResponseStatus :: Lens' ReadPresetResponse Int
-rprrsResponseStatus = lens _rprrsResponseStatus (\s a -> s {_rprrsResponseStatus = a})
+-- | The response's http status code.
+readPresetResponse_httpStatus :: Lens.Lens' ReadPresetResponse Prelude.Int
+readPresetResponse_httpStatus = Lens.lens (\ReadPresetResponse' {httpStatus} -> httpStatus) (\s@ReadPresetResponse' {} a -> s {httpStatus = a} :: ReadPresetResponse)
 
-instance NFData ReadPresetResponse
+instance Prelude.NFData ReadPresetResponse

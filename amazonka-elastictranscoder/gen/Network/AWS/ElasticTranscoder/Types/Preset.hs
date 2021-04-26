@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,116 +22,153 @@ module Network.AWS.ElasticTranscoder.Types.Preset where
 import Network.AWS.ElasticTranscoder.Types.AudioParameters
 import Network.AWS.ElasticTranscoder.Types.Thumbnails
 import Network.AWS.ElasticTranscoder.Types.VideoParameters
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Presets are templates that contain most of the settings for transcoding media files from one format to another. Elastic Transcoder includes some default presets for common formats, for example, several iPod and iPhone versions. You can also create your own presets for formats that aren't included among the default presets. You specify which preset you want to use when you create a job.
+-- | Presets are templates that contain most of the settings for transcoding
+-- media files from one format to another. Elastic Transcoder includes some
+-- default presets for common formats, for example, several iPod and iPhone
+-- versions. You can also create your own presets for formats that aren\'t
+-- included among the default presets. You specify which preset you want to
+-- use when you create a job.
 --
---
---
--- /See:/ 'preset' smart constructor.
+-- /See:/ 'newPreset' smart constructor.
 data Preset = Preset'
-  { _pContainer :: !(Maybe Text),
-    _pARN :: !(Maybe Text),
-    _pId :: !(Maybe Text),
-    _pThumbnails :: !(Maybe Thumbnails),
-    _pName :: !(Maybe Text),
-    _pVideo :: !(Maybe VideoParameters),
-    _pAudio :: !(Maybe AudioParameters),
-    _pDescription :: !(Maybe Text),
-    _pType :: !(Maybe Text)
+  { -- | The container type for the output file. Valid values include @flac@,
+    -- @flv@, @fmp4@, @gif@, @mp3@, @mp4@, @mpg@, @mxf@, @oga@, @ogg@, @ts@,
+    -- and @webm@.
+    container :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the preset.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Identifier for the new preset. You use this value to get settings for
+    -- the preset or to delete it.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | A section of the response body that provides information about the
+    -- thumbnail preset values, if any.
+    thumbnails :: Prelude.Maybe Thumbnails,
+    -- | The name of the preset.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A section of the response body that provides information about the video
+    -- preset values.
+    video :: Prelude.Maybe VideoParameters,
+    -- | A section of the response body that provides information about the audio
+    -- preset values.
+    audio :: Prelude.Maybe AudioParameters,
+    -- | A description of the preset.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Whether the preset is a default preset provided by Elastic Transcoder
+    -- (@System@) or a preset that you have defined (@Custom@).
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Preset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Preset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pContainer' - The container type for the output file. Valid values include @flac@ , @flv@ , @fmp4@ , @gif@ , @mp3@ , @mp4@ , @mpg@ , @mxf@ , @oga@ , @ogg@ , @ts@ , and @webm@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pARN' - The Amazon Resource Name (ARN) for the preset.
+-- 'container', 'preset_container' - The container type for the output file. Valid values include @flac@,
+-- @flv@, @fmp4@, @gif@, @mp3@, @mp4@, @mpg@, @mxf@, @oga@, @ogg@, @ts@,
+-- and @webm@.
 --
--- * 'pId' - Identifier for the new preset. You use this value to get settings for the preset or to delete it.
+-- 'arn', 'preset_arn' - The Amazon Resource Name (ARN) for the preset.
 --
--- * 'pThumbnails' - A section of the response body that provides information about the thumbnail preset values, if any.
+-- 'id', 'preset_id' - Identifier for the new preset. You use this value to get settings for
+-- the preset or to delete it.
 --
--- * 'pName' - The name of the preset.
+-- 'thumbnails', 'preset_thumbnails' - A section of the response body that provides information about the
+-- thumbnail preset values, if any.
 --
--- * 'pVideo' - A section of the response body that provides information about the video preset values.
+-- 'name', 'preset_name' - The name of the preset.
 --
--- * 'pAudio' - A section of the response body that provides information about the audio preset values.
+-- 'video', 'preset_video' - A section of the response body that provides information about the video
+-- preset values.
 --
--- * 'pDescription' - A description of the preset.
+-- 'audio', 'preset_audio' - A section of the response body that provides information about the audio
+-- preset values.
 --
--- * 'pType' - Whether the preset is a default preset provided by Elastic Transcoder (@System@ ) or a preset that you have defined (@Custom@ ).
-preset ::
+-- 'description', 'preset_description' - A description of the preset.
+--
+-- 'type'', 'preset_type' - Whether the preset is a default preset provided by Elastic Transcoder
+-- (@System@) or a preset that you have defined (@Custom@).
+newPreset ::
   Preset
-preset =
+newPreset =
   Preset'
-    { _pContainer = Nothing,
-      _pARN = Nothing,
-      _pId = Nothing,
-      _pThumbnails = Nothing,
-      _pName = Nothing,
-      _pVideo = Nothing,
-      _pAudio = Nothing,
-      _pDescription = Nothing,
-      _pType = Nothing
+    { container = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      thumbnails = Prelude.Nothing,
+      name = Prelude.Nothing,
+      video = Prelude.Nothing,
+      audio = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The container type for the output file. Valid values include @flac@ , @flv@ , @fmp4@ , @gif@ , @mp3@ , @mp4@ , @mpg@ , @mxf@ , @oga@ , @ogg@ , @ts@ , and @webm@ .
-pContainer :: Lens' Preset (Maybe Text)
-pContainer = lens _pContainer (\s a -> s {_pContainer = a})
+-- | The container type for the output file. Valid values include @flac@,
+-- @flv@, @fmp4@, @gif@, @mp3@, @mp4@, @mpg@, @mxf@, @oga@, @ogg@, @ts@,
+-- and @webm@.
+preset_container :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_container = Lens.lens (\Preset' {container} -> container) (\s@Preset' {} a -> s {container = a} :: Preset)
 
 -- | The Amazon Resource Name (ARN) for the preset.
-pARN :: Lens' Preset (Maybe Text)
-pARN = lens _pARN (\s a -> s {_pARN = a})
+preset_arn :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_arn = Lens.lens (\Preset' {arn} -> arn) (\s@Preset' {} a -> s {arn = a} :: Preset)
 
--- | Identifier for the new preset. You use this value to get settings for the preset or to delete it.
-pId :: Lens' Preset (Maybe Text)
-pId = lens _pId (\s a -> s {_pId = a})
+-- | Identifier for the new preset. You use this value to get settings for
+-- the preset or to delete it.
+preset_id :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_id = Lens.lens (\Preset' {id} -> id) (\s@Preset' {} a -> s {id = a} :: Preset)
 
--- | A section of the response body that provides information about the thumbnail preset values, if any.
-pThumbnails :: Lens' Preset (Maybe Thumbnails)
-pThumbnails = lens _pThumbnails (\s a -> s {_pThumbnails = a})
+-- | A section of the response body that provides information about the
+-- thumbnail preset values, if any.
+preset_thumbnails :: Lens.Lens' Preset (Prelude.Maybe Thumbnails)
+preset_thumbnails = Lens.lens (\Preset' {thumbnails} -> thumbnails) (\s@Preset' {} a -> s {thumbnails = a} :: Preset)
 
 -- | The name of the preset.
-pName :: Lens' Preset (Maybe Text)
-pName = lens _pName (\s a -> s {_pName = a})
+preset_name :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_name = Lens.lens (\Preset' {name} -> name) (\s@Preset' {} a -> s {name = a} :: Preset)
 
--- | A section of the response body that provides information about the video preset values.
-pVideo :: Lens' Preset (Maybe VideoParameters)
-pVideo = lens _pVideo (\s a -> s {_pVideo = a})
+-- | A section of the response body that provides information about the video
+-- preset values.
+preset_video :: Lens.Lens' Preset (Prelude.Maybe VideoParameters)
+preset_video = Lens.lens (\Preset' {video} -> video) (\s@Preset' {} a -> s {video = a} :: Preset)
 
--- | A section of the response body that provides information about the audio preset values.
-pAudio :: Lens' Preset (Maybe AudioParameters)
-pAudio = lens _pAudio (\s a -> s {_pAudio = a})
+-- | A section of the response body that provides information about the audio
+-- preset values.
+preset_audio :: Lens.Lens' Preset (Prelude.Maybe AudioParameters)
+preset_audio = Lens.lens (\Preset' {audio} -> audio) (\s@Preset' {} a -> s {audio = a} :: Preset)
 
 -- | A description of the preset.
-pDescription :: Lens' Preset (Maybe Text)
-pDescription = lens _pDescription (\s a -> s {_pDescription = a})
+preset_description :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_description = Lens.lens (\Preset' {description} -> description) (\s@Preset' {} a -> s {description = a} :: Preset)
 
--- | Whether the preset is a default preset provided by Elastic Transcoder (@System@ ) or a preset that you have defined (@Custom@ ).
-pType :: Lens' Preset (Maybe Text)
-pType = lens _pType (\s a -> s {_pType = a})
+-- | Whether the preset is a default preset provided by Elastic Transcoder
+-- (@System@) or a preset that you have defined (@Custom@).
+preset_type :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_type = Lens.lens (\Preset' {type'} -> type') (\s@Preset' {} a -> s {type' = a} :: Preset)
 
-instance FromJSON Preset where
+instance Prelude.FromJSON Preset where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Preset"
       ( \x ->
           Preset'
-            <$> (x .:? "Container")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Thumbnails")
-            <*> (x .:? "Name")
-            <*> (x .:? "Video")
-            <*> (x .:? "Audio")
-            <*> (x .:? "Description")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Container")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Thumbnails")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Video")
+            Prelude.<*> (x Prelude..:? "Audio")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable Preset
+instance Prelude.Hashable Preset
 
-instance NFData Preset
+instance Prelude.NFData Preset

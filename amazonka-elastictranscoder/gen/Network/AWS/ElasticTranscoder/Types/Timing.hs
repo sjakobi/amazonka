@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticTranscoder.Types.Timing where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details about the timing of a job.
 --
---
---
--- /See:/ 'timing' smart constructor.
+-- /See:/ 'newTiming' smart constructor.
 data Timing = Timing'
-  { _tSubmitTimeMillis ::
-      !(Maybe Integer),
-    _tStartTimeMillis :: !(Maybe Integer),
-    _tFinishTimeMillis :: !(Maybe Integer)
+  { -- | The time the job was submitted to Elastic Transcoder, in epoch
+    -- milliseconds.
+    submitTimeMillis :: Prelude.Maybe Prelude.Integer,
+    -- | The time the job began transcoding, in epoch milliseconds.
+    startTimeMillis :: Prelude.Maybe Prelude.Integer,
+    -- | The time the job finished transcoding, in epoch milliseconds.
+    finishTimeMillis :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Timing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Timing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tSubmitTimeMillis' - The time the job was submitted to Elastic Transcoder, in epoch milliseconds.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tStartTimeMillis' - The time the job began transcoding, in epoch milliseconds.
+-- 'submitTimeMillis', 'timing_submitTimeMillis' - The time the job was submitted to Elastic Transcoder, in epoch
+-- milliseconds.
 --
--- * 'tFinishTimeMillis' - The time the job finished transcoding, in epoch milliseconds.
-timing ::
+-- 'startTimeMillis', 'timing_startTimeMillis' - The time the job began transcoding, in epoch milliseconds.
+--
+-- 'finishTimeMillis', 'timing_finishTimeMillis' - The time the job finished transcoding, in epoch milliseconds.
+newTiming ::
   Timing
-timing =
+newTiming =
   Timing'
-    { _tSubmitTimeMillis = Nothing,
-      _tStartTimeMillis = Nothing,
-      _tFinishTimeMillis = Nothing
+    { submitTimeMillis = Prelude.Nothing,
+      startTimeMillis = Prelude.Nothing,
+      finishTimeMillis = Prelude.Nothing
     }
 
--- | The time the job was submitted to Elastic Transcoder, in epoch milliseconds.
-tSubmitTimeMillis :: Lens' Timing (Maybe Integer)
-tSubmitTimeMillis = lens _tSubmitTimeMillis (\s a -> s {_tSubmitTimeMillis = a})
+-- | The time the job was submitted to Elastic Transcoder, in epoch
+-- milliseconds.
+timing_submitTimeMillis :: Lens.Lens' Timing (Prelude.Maybe Prelude.Integer)
+timing_submitTimeMillis = Lens.lens (\Timing' {submitTimeMillis} -> submitTimeMillis) (\s@Timing' {} a -> s {submitTimeMillis = a} :: Timing)
 
 -- | The time the job began transcoding, in epoch milliseconds.
-tStartTimeMillis :: Lens' Timing (Maybe Integer)
-tStartTimeMillis = lens _tStartTimeMillis (\s a -> s {_tStartTimeMillis = a})
+timing_startTimeMillis :: Lens.Lens' Timing (Prelude.Maybe Prelude.Integer)
+timing_startTimeMillis = Lens.lens (\Timing' {startTimeMillis} -> startTimeMillis) (\s@Timing' {} a -> s {startTimeMillis = a} :: Timing)
 
 -- | The time the job finished transcoding, in epoch milliseconds.
-tFinishTimeMillis :: Lens' Timing (Maybe Integer)
-tFinishTimeMillis = lens _tFinishTimeMillis (\s a -> s {_tFinishTimeMillis = a})
+timing_finishTimeMillis :: Lens.Lens' Timing (Prelude.Maybe Prelude.Integer)
+timing_finishTimeMillis = Lens.lens (\Timing' {finishTimeMillis} -> finishTimeMillis) (\s@Timing' {} a -> s {finishTimeMillis = a} :: Timing)
 
-instance FromJSON Timing where
+instance Prelude.FromJSON Timing where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Timing"
       ( \x ->
           Timing'
-            <$> (x .:? "SubmitTimeMillis")
-            <*> (x .:? "StartTimeMillis")
-            <*> (x .:? "FinishTimeMillis")
+            Prelude.<$> (x Prelude..:? "SubmitTimeMillis")
+            Prelude.<*> (x Prelude..:? "StartTimeMillis")
+            Prelude.<*> (x Prelude..:? "FinishTimeMillis")
       )
 
-instance Hashable Timing
+instance Prelude.Hashable Timing
 
-instance NFData Timing
+instance Prelude.NFData Timing

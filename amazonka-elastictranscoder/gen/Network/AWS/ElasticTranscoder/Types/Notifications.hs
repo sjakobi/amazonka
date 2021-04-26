@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticTranscoder.Types.Notifications where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Amazon Simple Notification Service (Amazon SNS) topic or topics to notify in order to report job status.
+-- | The Amazon Simple Notification Service (Amazon SNS) topic or topics to
+-- notify in order to report job status.
 --
+-- To receive notifications, you must also subscribe to the new topic in
+-- the Amazon SNS console.
 --
--- /Important:/ To receive notifications, you must also subscribe to the new topic in the Amazon SNS console.
---
---
--- /See:/ 'notifications' smart constructor.
+-- /See:/ 'newNotifications' smart constructor.
 data Notifications = Notifications'
-  { _nWarning ::
-      !(Maybe Text),
-    _nError :: !(Maybe Text),
-    _nProgressing :: !(Maybe Text),
-    _nCompleted :: !(Maybe Text)
+  { -- | The Amazon SNS topic that you want to notify when Elastic Transcoder
+    -- encounters a warning condition.
+    warning :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon SNS topic that you want to notify when Elastic Transcoder
+    -- encounters an error condition.
+    error :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Simple Notification Service (Amazon SNS) topic that you want
+    -- to notify when Elastic Transcoder has started to process the job.
+    progressing :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon SNS topic that you want to notify when Elastic Transcoder has
+    -- finished processing the job.
+    completed :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Notifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Notifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nWarning' - The Amazon SNS topic that you want to notify when Elastic Transcoder encounters a warning condition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nError' - The Amazon SNS topic that you want to notify when Elastic Transcoder encounters an error condition.
+-- 'warning', 'notifications_warning' - The Amazon SNS topic that you want to notify when Elastic Transcoder
+-- encounters a warning condition.
 --
--- * 'nProgressing' - The Amazon Simple Notification Service (Amazon SNS) topic that you want to notify when Elastic Transcoder has started to process the job.
+-- 'error', 'notifications_error' - The Amazon SNS topic that you want to notify when Elastic Transcoder
+-- encounters an error condition.
 --
--- * 'nCompleted' - The Amazon SNS topic that you want to notify when Elastic Transcoder has finished processing the job.
-notifications ::
+-- 'progressing', 'notifications_progressing' - The Amazon Simple Notification Service (Amazon SNS) topic that you want
+-- to notify when Elastic Transcoder has started to process the job.
+--
+-- 'completed', 'notifications_completed' - The Amazon SNS topic that you want to notify when Elastic Transcoder has
+-- finished processing the job.
+newNotifications ::
   Notifications
-notifications =
+newNotifications =
   Notifications'
-    { _nWarning = Nothing,
-      _nError = Nothing,
-      _nProgressing = Nothing,
-      _nCompleted = Nothing
+    { warning = Prelude.Nothing,
+      error = Prelude.Nothing,
+      progressing = Prelude.Nothing,
+      completed = Prelude.Nothing
     }
 
--- | The Amazon SNS topic that you want to notify when Elastic Transcoder encounters a warning condition.
-nWarning :: Lens' Notifications (Maybe Text)
-nWarning = lens _nWarning (\s a -> s {_nWarning = a})
+-- | The Amazon SNS topic that you want to notify when Elastic Transcoder
+-- encounters a warning condition.
+notifications_warning :: Lens.Lens' Notifications (Prelude.Maybe Prelude.Text)
+notifications_warning = Lens.lens (\Notifications' {warning} -> warning) (\s@Notifications' {} a -> s {warning = a} :: Notifications)
 
--- | The Amazon SNS topic that you want to notify when Elastic Transcoder encounters an error condition.
-nError :: Lens' Notifications (Maybe Text)
-nError = lens _nError (\s a -> s {_nError = a})
+-- | The Amazon SNS topic that you want to notify when Elastic Transcoder
+-- encounters an error condition.
+notifications_error :: Lens.Lens' Notifications (Prelude.Maybe Prelude.Text)
+notifications_error = Lens.lens (\Notifications' {error} -> error) (\s@Notifications' {} a -> s {error = a} :: Notifications)
 
--- | The Amazon Simple Notification Service (Amazon SNS) topic that you want to notify when Elastic Transcoder has started to process the job.
-nProgressing :: Lens' Notifications (Maybe Text)
-nProgressing = lens _nProgressing (\s a -> s {_nProgressing = a})
+-- | The Amazon Simple Notification Service (Amazon SNS) topic that you want
+-- to notify when Elastic Transcoder has started to process the job.
+notifications_progressing :: Lens.Lens' Notifications (Prelude.Maybe Prelude.Text)
+notifications_progressing = Lens.lens (\Notifications' {progressing} -> progressing) (\s@Notifications' {} a -> s {progressing = a} :: Notifications)
 
--- | The Amazon SNS topic that you want to notify when Elastic Transcoder has finished processing the job.
-nCompleted :: Lens' Notifications (Maybe Text)
-nCompleted = lens _nCompleted (\s a -> s {_nCompleted = a})
+-- | The Amazon SNS topic that you want to notify when Elastic Transcoder has
+-- finished processing the job.
+notifications_completed :: Lens.Lens' Notifications (Prelude.Maybe Prelude.Text)
+notifications_completed = Lens.lens (\Notifications' {completed} -> completed) (\s@Notifications' {} a -> s {completed = a} :: Notifications)
 
-instance FromJSON Notifications where
+instance Prelude.FromJSON Notifications where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Notifications"
       ( \x ->
           Notifications'
-            <$> (x .:? "Warning")
-            <*> (x .:? "Error")
-            <*> (x .:? "Progressing")
-            <*> (x .:? "Completed")
+            Prelude.<$> (x Prelude..:? "Warning")
+            Prelude.<*> (x Prelude..:? "Error")
+            Prelude.<*> (x Prelude..:? "Progressing")
+            Prelude.<*> (x Prelude..:? "Completed")
       )
 
-instance Hashable Notifications
+instance Prelude.Hashable Notifications
 
-instance NFData Notifications
+instance Prelude.NFData Notifications
 
-instance ToJSON Notifications where
+instance Prelude.ToJSON Notifications where
   toJSON Notifications' {..} =
-    object
-      ( catMaybes
-          [ ("Warning" .=) <$> _nWarning,
-            ("Error" .=) <$> _nError,
-            ("Progressing" .=) <$> _nProgressing,
-            ("Completed" .=) <$> _nCompleted
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Warning" Prelude..=) Prelude.<$> warning,
+            ("Error" Prelude..=) Prelude.<$> error,
+            ("Progressing" Prelude..=) Prelude.<$> progressing,
+            ("Completed" Prelude..=) Prelude.<$> completed
           ]
       )

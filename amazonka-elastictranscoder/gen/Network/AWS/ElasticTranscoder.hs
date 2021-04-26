@@ -11,12 +11,12 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Elastic Transcoder Service__
+-- AWS Elastic Transcoder Service
 --
 -- The AWS Elastic Transcoder Service.
 module Network.AWS.ElasticTranscoder
   ( -- * Service Configuration
-    elasticTranscoder,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -46,377 +46,232 @@ module Network.AWS.ElasticTranscoder
     -- $waiters
 
     -- ** JobComplete
-    jobComplete,
+    newJobComplete,
 
     -- * Operations
     -- $operations
 
     -- ** ListJobsByPipeline (Paginated)
-    module Network.AWS.ElasticTranscoder.ListJobsByPipeline,
+    ListJobsByPipeline (ListJobsByPipeline'),
+    newListJobsByPipeline,
+    ListJobsByPipelineResponse (ListJobsByPipelineResponse'),
+    newListJobsByPipelineResponse,
 
     -- ** UpdatePipelineStatus
-    module Network.AWS.ElasticTranscoder.UpdatePipelineStatus,
+    UpdatePipelineStatus (UpdatePipelineStatus'),
+    newUpdatePipelineStatus,
+    UpdatePipelineStatusResponse (UpdatePipelineStatusResponse'),
+    newUpdatePipelineStatusResponse,
 
     -- ** ListPresets (Paginated)
-    module Network.AWS.ElasticTranscoder.ListPresets,
+    ListPresets (ListPresets'),
+    newListPresets,
+    ListPresetsResponse (ListPresetsResponse'),
+    newListPresetsResponse,
 
     -- ** DeletePreset
-    module Network.AWS.ElasticTranscoder.DeletePreset,
+    DeletePreset (DeletePreset'),
+    newDeletePreset,
+    DeletePresetResponse (DeletePresetResponse'),
+    newDeletePresetResponse,
 
     -- ** CancelJob
-    module Network.AWS.ElasticTranscoder.CancelJob,
+    CancelJob (CancelJob'),
+    newCancelJob,
+    CancelJobResponse (CancelJobResponse'),
+    newCancelJobResponse,
 
     -- ** CreatePreset
-    module Network.AWS.ElasticTranscoder.CreatePreset,
+    CreatePreset (CreatePreset'),
+    newCreatePreset,
+    CreatePresetResponse (CreatePresetResponse'),
+    newCreatePresetResponse,
 
     -- ** CreatePipeline
-    module Network.AWS.ElasticTranscoder.CreatePipeline,
+    CreatePipeline (CreatePipeline'),
+    newCreatePipeline,
+    CreatePipelineResponse (CreatePipelineResponse'),
+    newCreatePipelineResponse,
 
     -- ** UpdatePipeline
-    module Network.AWS.ElasticTranscoder.UpdatePipeline,
+    UpdatePipeline (UpdatePipeline'),
+    newUpdatePipeline,
+    UpdatePipelineResponse (UpdatePipelineResponse'),
+    newUpdatePipelineResponse,
 
     -- ** DeletePipeline
-    module Network.AWS.ElasticTranscoder.DeletePipeline,
+    DeletePipeline (DeletePipeline'),
+    newDeletePipeline,
+    DeletePipelineResponse (DeletePipelineResponse'),
+    newDeletePipelineResponse,
 
     -- ** ReadPreset
-    module Network.AWS.ElasticTranscoder.ReadPreset,
+    ReadPreset (ReadPreset'),
+    newReadPreset,
+    ReadPresetResponse (ReadPresetResponse'),
+    newReadPresetResponse,
 
     -- ** ListJobsByStatus (Paginated)
-    module Network.AWS.ElasticTranscoder.ListJobsByStatus,
+    ListJobsByStatus (ListJobsByStatus'),
+    newListJobsByStatus,
+    ListJobsByStatusResponse (ListJobsByStatusResponse'),
+    newListJobsByStatusResponse,
 
     -- ** CreateJob
-    module Network.AWS.ElasticTranscoder.CreateJob,
+    CreateJob (CreateJob'),
+    newCreateJob,
+    CreateJobResponse (CreateJobResponse'),
+    newCreateJobResponse,
 
     -- ** ListPipelines (Paginated)
-    module Network.AWS.ElasticTranscoder.ListPipelines,
+    ListPipelines (ListPipelines'),
+    newListPipelines,
+    ListPipelinesResponse (ListPipelinesResponse'),
+    newListPipelinesResponse,
 
     -- ** ReadPipeline
-    module Network.AWS.ElasticTranscoder.ReadPipeline,
+    ReadPipeline (ReadPipeline'),
+    newReadPipeline,
+    ReadPipelineResponse (ReadPipelineResponse'),
+    newReadPipelineResponse,
 
     -- ** UpdatePipelineNotifications
-    module Network.AWS.ElasticTranscoder.UpdatePipelineNotifications,
+    UpdatePipelineNotifications (UpdatePipelineNotifications'),
+    newUpdatePipelineNotifications,
+    UpdatePipelineNotificationsResponse (UpdatePipelineNotificationsResponse'),
+    newUpdatePipelineNotificationsResponse,
 
     -- ** ReadJob
-    module Network.AWS.ElasticTranscoder.ReadJob,
+    ReadJob (ReadJob'),
+    newReadJob,
+    ReadJobResponse (ReadJobResponse'),
+    newReadJobResponse,
 
     -- * Types
 
     -- ** Artwork
-    Artwork,
-    artwork,
-    aInputKey,
-    aAlbumArtFormat,
-    aSizingPolicy,
-    aEncryption,
-    aPaddingPolicy,
-    aMaxHeight,
-    aMaxWidth,
+    Artwork (Artwork'),
+    newArtwork,
 
     -- ** AudioCodecOptions
-    AudioCodecOptions,
-    audioCodecOptions,
-    acoBitDepth,
-    acoSigned,
-    acoBitOrder,
-    acoProfile,
+    AudioCodecOptions (AudioCodecOptions'),
+    newAudioCodecOptions,
 
     -- ** AudioParameters
-    AudioParameters,
-    audioParameters,
-    apCodecOptions,
-    apCodec,
-    apChannels,
-    apSampleRate,
-    apAudioPackingMode,
-    apBitRate,
+    AudioParameters (AudioParameters'),
+    newAudioParameters,
 
     -- ** CaptionFormat
-    CaptionFormat,
-    captionFormat,
-    cfFormat,
-    cfEncryption,
-    cfPattern,
+    CaptionFormat (CaptionFormat'),
+    newCaptionFormat,
 
     -- ** CaptionSource
-    CaptionSource,
-    captionSource,
-    csKey,
-    csTimeOffset,
-    csEncryption,
-    csLabel,
-    csLanguage,
+    CaptionSource (CaptionSource'),
+    newCaptionSource,
 
     -- ** Captions
-    Captions,
-    captions,
-    cCaptionSources,
-    cCaptionFormats,
-    cMergePolicy,
+    Captions (Captions'),
+    newCaptions,
 
     -- ** Clip
-    Clip,
-    clip,
-    cTimeSpan,
+    Clip (Clip'),
+    newClip,
 
     -- ** CreateJobOutput
-    CreateJobOutput,
-    createJobOutput,
-    cjoKey,
-    cjoThumbnailPattern,
-    cjoThumbnailEncryption,
-    cjoWatermarks,
-    cjoPresetId,
-    cjoAlbumArt,
-    cjoEncryption,
-    cjoRotate,
-    cjoComposition,
-    cjoSegmentDuration,
-    cjoCaptions,
+    CreateJobOutput (CreateJobOutput'),
+    newCreateJobOutput,
 
     -- ** CreateJobPlaylist
-    CreateJobPlaylist,
-    createJobPlaylist,
-    cjpPlayReadyDrm,
-    cjpOutputKeys,
-    cjpFormat,
-    cjpHlsContentProtection,
-    cjpName,
+    CreateJobPlaylist (CreateJobPlaylist'),
+    newCreateJobPlaylist,
 
     -- ** DetectedProperties
-    DetectedProperties,
-    detectedProperties,
-    dpHeight,
-    dpWidth,
-    dpFileSize,
-    dpFrameRate,
-    dpDurationMillis,
+    DetectedProperties (DetectedProperties'),
+    newDetectedProperties,
 
     -- ** Encryption
-    Encryption,
-    encryption,
-    eKey,
-    eMode,
-    eKeyMD5,
-    eInitializationVector,
+    Encryption (Encryption'),
+    newEncryption,
 
     -- ** HlsContentProtection
-    HlsContentProtection,
-    hlsContentProtection,
-    hcpKey,
-    hcpLicenseAcquisitionURL,
-    hcpKeyMD5,
-    hcpMethod,
-    hcpInitializationVector,
-    hcpKeyStoragePolicy,
+    HlsContentProtection (HlsContentProtection'),
+    newHlsContentProtection,
 
     -- ** InputCaptions
-    InputCaptions,
-    inputCaptions,
-    icCaptionSources,
-    icMergePolicy,
+    InputCaptions (InputCaptions'),
+    newInputCaptions,
 
     -- ** Job'
-    Job',
-    job',
-    jPipelineId,
-    jStatus,
-    jOutputs,
-    jInput,
-    jOutputKeyPrefix,
-    jARN,
-    jId,
-    jOutput,
-    jUserMetadata,
-    jTiming,
-    jInputs,
-    jPlaylists,
+    Job' (Job''),
+    newJob',
 
     -- ** JobAlbumArt
-    JobAlbumArt,
-    jobAlbumArt,
-    jaaArtwork,
-    jaaMergePolicy,
+    JobAlbumArt (JobAlbumArt'),
+    newJobAlbumArt,
 
     -- ** JobInput
-    JobInput,
-    jobInput,
-    jiContainer,
-    jiKey,
-    jiTimeSpan,
-    jiInputCaptions,
-    jiEncryption,
-    jiDetectedProperties,
-    jiFrameRate,
-    jiAspectRatio,
-    jiResolution,
-    jiInterlaced,
+    JobInput (JobInput'),
+    newJobInput,
 
     -- ** JobOutput
-    JobOutput,
-    jobOutput,
-    joHeight,
-    joKey,
-    joStatus,
-    joThumbnailPattern,
-    joDuration,
-    joWidth,
-    joThumbnailEncryption,
-    joWatermarks,
-    joFileSize,
-    joPresetId,
-    joAlbumArt,
-    joId,
-    joStatusDetail,
-    joEncryption,
-    joFrameRate,
-    joAppliedColorSpaceConversion,
-    joRotate,
-    joDurationMillis,
-    joComposition,
-    joSegmentDuration,
-    joCaptions,
+    JobOutput (JobOutput'),
+    newJobOutput,
 
     -- ** JobWatermark
-    JobWatermark,
-    jobWatermark,
-    jwInputKey,
-    jwEncryption,
-    jwPresetWatermarkId,
+    JobWatermark (JobWatermark'),
+    newJobWatermark,
 
     -- ** Notifications
-    Notifications,
-    notifications,
-    nWarning,
-    nError,
-    nProgressing,
-    nCompleted,
+    Notifications (Notifications'),
+    newNotifications,
 
     -- ** Permission
-    Permission,
-    permission,
-    pAccess,
-    pGranteeType,
-    pGrantee,
+    Permission (Permission'),
+    newPermission,
 
     -- ** Pipeline
-    Pipeline,
-    pipeline,
-    pipStatus,
-    pipOutputBucket,
-    pipARN,
-    pipId,
-    pipName,
-    pipRole,
-    pipNotifications,
-    pipThumbnailConfig,
-    pipContentConfig,
-    pipInputBucket,
-    pipAWSKMSKeyARN,
+    Pipeline (Pipeline'),
+    newPipeline,
 
     -- ** PipelineOutputConfig
-    PipelineOutputConfig,
-    pipelineOutputConfig,
-    pocPermissions,
-    pocStorageClass,
-    pocBucket,
+    PipelineOutputConfig (PipelineOutputConfig'),
+    newPipelineOutputConfig,
 
     -- ** PlayReadyDrm
-    PlayReadyDrm,
-    playReadyDrm,
-    prdKey,
-    prdLicenseAcquisitionURL,
-    prdKeyMD5,
-    prdFormat,
-    prdInitializationVector,
-    prdKeyId,
+    PlayReadyDrm (PlayReadyDrm'),
+    newPlayReadyDrm,
 
     -- ** Playlist
-    Playlist,
-    playlist,
-    plaStatus,
-    plaPlayReadyDrm,
-    plaOutputKeys,
-    plaFormat,
-    plaHlsContentProtection,
-    plaStatusDetail,
-    plaName,
+    Playlist (Playlist'),
+    newPlaylist,
 
     -- ** Preset
-    Preset,
-    preset,
-    pContainer,
-    pARN,
-    pId,
-    pThumbnails,
-    pName,
-    pVideo,
-    pAudio,
-    pDescription,
-    pType,
+    Preset (Preset'),
+    newPreset,
 
     -- ** PresetWatermark
-    PresetWatermark,
-    presetWatermark,
-    pwHorizontalAlign,
-    pwHorizontalOffset,
-    pwSizingPolicy,
-    pwId,
-    pwVerticalOffset,
-    pwVerticalAlign,
-    pwOpacity,
-    pwTarget,
-    pwMaxHeight,
-    pwMaxWidth,
+    PresetWatermark (PresetWatermark'),
+    newPresetWatermark,
 
     -- ** Thumbnails
-    Thumbnails,
-    thumbnails,
-    tFormat,
-    tSizingPolicy,
-    tInterval,
-    tAspectRatio,
-    tPaddingPolicy,
-    tResolution,
-    tMaxHeight,
-    tMaxWidth,
+    Thumbnails (Thumbnails'),
+    newThumbnails,
 
     -- ** TimeSpan
-    TimeSpan,
-    timeSpan,
-    tsDuration,
-    tsStartTime,
+    TimeSpan (TimeSpan'),
+    newTimeSpan,
 
     -- ** Timing
-    Timing,
-    timing,
-    tSubmitTimeMillis,
-    tStartTimeMillis,
-    tFinishTimeMillis,
+    Timing (Timing'),
+    newTiming,
 
     -- ** VideoParameters
-    VideoParameters,
-    videoParameters,
-    vpKeyframesMaxDist,
-    vpCodecOptions,
-    vpFixedGOP,
-    vpCodec,
-    vpWatermarks,
-    vpMaxFrameRate,
-    vpDisplayAspectRatio,
-    vpSizingPolicy,
-    vpFrameRate,
-    vpAspectRatio,
-    vpPaddingPolicy,
-    vpResolution,
-    vpMaxHeight,
-    vpBitRate,
-    vpMaxWidth,
+    VideoParameters (VideoParameters'),
+    newVideoParameters,
 
     -- ** Warning
-    Warning,
-    warning,
-    wMessage,
-    wCode,
+    Warning (Warning'),
+    newWarning,
   )
 where
 
@@ -426,6 +281,7 @@ import Network.AWS.ElasticTranscoder.CreatePipeline
 import Network.AWS.ElasticTranscoder.CreatePreset
 import Network.AWS.ElasticTranscoder.DeletePipeline
 import Network.AWS.ElasticTranscoder.DeletePreset
+import Network.AWS.ElasticTranscoder.Lens
 import Network.AWS.ElasticTranscoder.ListJobsByPipeline
 import Network.AWS.ElasticTranscoder.ListJobsByStatus
 import Network.AWS.ElasticTranscoder.ListPipelines

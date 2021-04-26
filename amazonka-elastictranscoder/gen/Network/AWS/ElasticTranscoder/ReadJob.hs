@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,113 +24,126 @@
 -- The ReadJob operation returns detailed information about a job.
 module Network.AWS.ElasticTranscoder.ReadJob
   ( -- * Creating a Request
-    readJob,
-    ReadJob,
+    ReadJob (..),
+    newReadJob,
 
     -- * Request Lenses
-    rjId,
+    readJob_id,
 
     -- * Destructuring the Response
-    readJobResponse,
-    ReadJobResponse,
+    ReadJobResponse (..),
+    newReadJobResponse,
 
     -- * Response Lenses
-    rjrrsResponseStatus,
-    rjrrsJob,
+    readJobResponse_httpStatus,
+    readJobResponse_job,
   )
 where
 
 import Network.AWS.ElasticTranscoder.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticTranscoder.Types.Job'
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The @ReadJobRequest@ structure.
 --
---
---
--- /See:/ 'readJob' smart constructor.
-newtype ReadJob = ReadJob' {_rjId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newReadJob' smart constructor.
+data ReadJob = ReadJob'
+  { -- | The identifier of the job for which you want to get detailed
+    -- information.
+    id :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReadJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReadJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rjId' - The identifier of the job for which you want to get detailed information.
-readJob ::
-  -- | 'rjId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'readJob_id' - The identifier of the job for which you want to get detailed
+-- information.
+newReadJob ::
+  -- | 'id'
+  Prelude.Text ->
   ReadJob
-readJob pId_ = ReadJob' {_rjId = pId_}
+newReadJob pId_ = ReadJob' {id = pId_}
 
--- | The identifier of the job for which you want to get detailed information.
-rjId :: Lens' ReadJob Text
-rjId = lens _rjId (\s a -> s {_rjId = a})
+-- | The identifier of the job for which you want to get detailed
+-- information.
+readJob_id :: Lens.Lens' ReadJob Prelude.Text
+readJob_id = Lens.lens (\ReadJob' {id} -> id) (\s@ReadJob' {} a -> s {id = a} :: ReadJob)
 
-instance AWSRequest ReadJob where
+instance Prelude.AWSRequest ReadJob where
   type Rs ReadJob = ReadJobResponse
-  request = get elasticTranscoder
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ReadJobResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Job")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Job")
       )
 
-instance Hashable ReadJob
+instance Prelude.Hashable ReadJob
 
-instance NFData ReadJob
+instance Prelude.NFData ReadJob
 
-instance ToHeaders ReadJob where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ReadJob where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ReadJob where
+instance Prelude.ToPath ReadJob where
   toPath ReadJob' {..} =
-    mconcat ["/2012-09-25/jobs/", toBS _rjId]
+    Prelude.mconcat
+      ["/2012-09-25/jobs/", Prelude.toBS id]
 
-instance ToQuery ReadJob where
-  toQuery = const mempty
+instance Prelude.ToQuery ReadJob where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The @ReadJobResponse@ structure.
 --
---
---
--- /See:/ 'readJobResponse' smart constructor.
+-- /See:/ 'newReadJobResponse' smart constructor.
 data ReadJobResponse = ReadJobResponse'
-  { _rjrrsResponseStatus ::
-      !Int,
-    _rjrrsJob :: !Job'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A section of the response body that provides information about the job.
+    job :: Job'
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReadJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReadJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rjrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rjrrsJob' - A section of the response body that provides information about the job.
-readJobResponse ::
-  -- | 'rjrrsResponseStatus'
-  Int ->
-  -- | 'rjrrsJob'
+-- 'httpStatus', 'readJobResponse_httpStatus' - The response's http status code.
+--
+-- 'job', 'readJobResponse_job' - A section of the response body that provides information about the job.
+newReadJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'job'
   Job' ->
   ReadJobResponse
-readJobResponse pResponseStatus_ pJob_ =
+newReadJobResponse pHttpStatus_ pJob_ =
   ReadJobResponse'
-    { _rjrrsResponseStatus =
-        pResponseStatus_,
-      _rjrrsJob = pJob_
+    { httpStatus = pHttpStatus_,
+      job = pJob_
     }
 
--- | -- | The response status code.
-rjrrsResponseStatus :: Lens' ReadJobResponse Int
-rjrrsResponseStatus = lens _rjrrsResponseStatus (\s a -> s {_rjrrsResponseStatus = a})
+-- | The response's http status code.
+readJobResponse_httpStatus :: Lens.Lens' ReadJobResponse Prelude.Int
+readJobResponse_httpStatus = Lens.lens (\ReadJobResponse' {httpStatus} -> httpStatus) (\s@ReadJobResponse' {} a -> s {httpStatus = a} :: ReadJobResponse)
 
 -- | A section of the response body that provides information about the job.
-rjrrsJob :: Lens' ReadJobResponse Job'
-rjrrsJob = lens _rjrrsJob (\s a -> s {_rjrrsJob = a})
+readJobResponse_job :: Lens.Lens' ReadJobResponse Job'
+readJobResponse_job = Lens.lens (\ReadJobResponse' {job} -> job) (\s@ReadJobResponse' {} a -> s {job = a} :: ReadJobResponse)
 
-instance NFData ReadJobResponse
+instance Prelude.NFData ReadJobResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +21,146 @@ module Network.AWS.ElasticTranscoder.Types.Captions where
 
 import Network.AWS.ElasticTranscoder.Types.CaptionFormat
 import Network.AWS.ElasticTranscoder.Types.CaptionSource
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The captions to be created, if any.
 --
---
---
--- /See:/ 'captions' smart constructor.
+-- /See:/ 'newCaptions' smart constructor.
 data Captions = Captions'
-  { _cCaptionSources ::
-      !(Maybe [CaptionSource]),
-    _cCaptionFormats :: !(Maybe [CaptionFormat]),
-    _cMergePolicy :: !(Maybe Text)
+  { -- | Source files for the input sidecar captions used during the transcoding
+    -- process. To omit all sidecar captions, leave @CaptionSources@ blank.
+    captionSources :: Prelude.Maybe [CaptionSource],
+    -- | The array of file formats for the output captions. If you leave this
+    -- value blank, Elastic Transcoder returns an error.
+    captionFormats :: Prelude.Maybe [CaptionFormat],
+    -- | A policy that determines how Elastic Transcoder handles the existence of
+    -- multiple captions.
+    --
+    -- -   __MergeOverride:__ Elastic Transcoder transcodes both embedded and
+    --     sidecar captions into outputs. If captions for a language are
+    --     embedded in the input file and also appear in a sidecar file,
+    --     Elastic Transcoder uses the sidecar captions and ignores the
+    --     embedded captions for that language.
+    --
+    -- -   __MergeRetain:__ Elastic Transcoder transcodes both embedded and
+    --     sidecar captions into outputs. If captions for a language are
+    --     embedded in the input file and also appear in a sidecar file,
+    --     Elastic Transcoder uses the embedded captions and ignores the
+    --     sidecar captions for that language. If @CaptionSources@ is empty,
+    --     Elastic Transcoder omits all sidecar captions from the output files.
+    --
+    -- -   __Override:__ Elastic Transcoder transcodes only the sidecar
+    --     captions that you specify in @CaptionSources@.
+    --
+    -- @MergePolicy@ cannot be null.
+    mergePolicy :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Captions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Captions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cCaptionSources' - Source files for the input sidecar captions used during the transcoding process. To omit all sidecar captions, leave @CaptionSources@ blank.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cCaptionFormats' - The array of file formats for the output captions. If you leave this value blank, Elastic Transcoder returns an error.
+-- 'captionSources', 'captions_captionSources' - Source files for the input sidecar captions used during the transcoding
+-- process. To omit all sidecar captions, leave @CaptionSources@ blank.
 --
--- * 'cMergePolicy' - A policy that determines how Elastic Transcoder handles the existence of multiple captions.     * __MergeOverride:__ Elastic Transcoder transcodes both embedded and sidecar captions into outputs. If captions for a language are embedded in the input file and also appear in a sidecar file, Elastic Transcoder uses the sidecar captions and ignores the embedded captions for that language.     * __MergeRetain:__ Elastic Transcoder transcodes both embedded and sidecar captions into outputs. If captions for a language are embedded in the input file and also appear in a sidecar file, Elastic Transcoder uses the embedded captions and ignores the sidecar captions for that language. If @CaptionSources@ is empty, Elastic Transcoder omits all sidecar captions from the output files.     * __Override:__ Elastic Transcoder transcodes only the sidecar captions that you specify in @CaptionSources@ . @MergePolicy@ cannot be null.
-captions ::
+-- 'captionFormats', 'captions_captionFormats' - The array of file formats for the output captions. If you leave this
+-- value blank, Elastic Transcoder returns an error.
+--
+-- 'mergePolicy', 'captions_mergePolicy' - A policy that determines how Elastic Transcoder handles the existence of
+-- multiple captions.
+--
+-- -   __MergeOverride:__ Elastic Transcoder transcodes both embedded and
+--     sidecar captions into outputs. If captions for a language are
+--     embedded in the input file and also appear in a sidecar file,
+--     Elastic Transcoder uses the sidecar captions and ignores the
+--     embedded captions for that language.
+--
+-- -   __MergeRetain:__ Elastic Transcoder transcodes both embedded and
+--     sidecar captions into outputs. If captions for a language are
+--     embedded in the input file and also appear in a sidecar file,
+--     Elastic Transcoder uses the embedded captions and ignores the
+--     sidecar captions for that language. If @CaptionSources@ is empty,
+--     Elastic Transcoder omits all sidecar captions from the output files.
+--
+-- -   __Override:__ Elastic Transcoder transcodes only the sidecar
+--     captions that you specify in @CaptionSources@.
+--
+-- @MergePolicy@ cannot be null.
+newCaptions ::
   Captions
-captions =
+newCaptions =
   Captions'
-    { _cCaptionSources = Nothing,
-      _cCaptionFormats = Nothing,
-      _cMergePolicy = Nothing
+    { captionSources = Prelude.Nothing,
+      captionFormats = Prelude.Nothing,
+      mergePolicy = Prelude.Nothing
     }
 
--- | Source files for the input sidecar captions used during the transcoding process. To omit all sidecar captions, leave @CaptionSources@ blank.
-cCaptionSources :: Lens' Captions [CaptionSource]
-cCaptionSources = lens _cCaptionSources (\s a -> s {_cCaptionSources = a}) . _Default . _Coerce
+-- | Source files for the input sidecar captions used during the transcoding
+-- process. To omit all sidecar captions, leave @CaptionSources@ blank.
+captions_captionSources :: Lens.Lens' Captions (Prelude.Maybe [CaptionSource])
+captions_captionSources = Lens.lens (\Captions' {captionSources} -> captionSources) (\s@Captions' {} a -> s {captionSources = a} :: Captions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The array of file formats for the output captions. If you leave this value blank, Elastic Transcoder returns an error.
-cCaptionFormats :: Lens' Captions [CaptionFormat]
-cCaptionFormats = lens _cCaptionFormats (\s a -> s {_cCaptionFormats = a}) . _Default . _Coerce
+-- | The array of file formats for the output captions. If you leave this
+-- value blank, Elastic Transcoder returns an error.
+captions_captionFormats :: Lens.Lens' Captions (Prelude.Maybe [CaptionFormat])
+captions_captionFormats = Lens.lens (\Captions' {captionFormats} -> captionFormats) (\s@Captions' {} a -> s {captionFormats = a} :: Captions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A policy that determines how Elastic Transcoder handles the existence of multiple captions.     * __MergeOverride:__ Elastic Transcoder transcodes both embedded and sidecar captions into outputs. If captions for a language are embedded in the input file and also appear in a sidecar file, Elastic Transcoder uses the sidecar captions and ignores the embedded captions for that language.     * __MergeRetain:__ Elastic Transcoder transcodes both embedded and sidecar captions into outputs. If captions for a language are embedded in the input file and also appear in a sidecar file, Elastic Transcoder uses the embedded captions and ignores the sidecar captions for that language. If @CaptionSources@ is empty, Elastic Transcoder omits all sidecar captions from the output files.     * __Override:__ Elastic Transcoder transcodes only the sidecar captions that you specify in @CaptionSources@ . @MergePolicy@ cannot be null.
-cMergePolicy :: Lens' Captions (Maybe Text)
-cMergePolicy = lens _cMergePolicy (\s a -> s {_cMergePolicy = a})
+-- | A policy that determines how Elastic Transcoder handles the existence of
+-- multiple captions.
+--
+-- -   __MergeOverride:__ Elastic Transcoder transcodes both embedded and
+--     sidecar captions into outputs. If captions for a language are
+--     embedded in the input file and also appear in a sidecar file,
+--     Elastic Transcoder uses the sidecar captions and ignores the
+--     embedded captions for that language.
+--
+-- -   __MergeRetain:__ Elastic Transcoder transcodes both embedded and
+--     sidecar captions into outputs. If captions for a language are
+--     embedded in the input file and also appear in a sidecar file,
+--     Elastic Transcoder uses the embedded captions and ignores the
+--     sidecar captions for that language. If @CaptionSources@ is empty,
+--     Elastic Transcoder omits all sidecar captions from the output files.
+--
+-- -   __Override:__ Elastic Transcoder transcodes only the sidecar
+--     captions that you specify in @CaptionSources@.
+--
+-- @MergePolicy@ cannot be null.
+captions_mergePolicy :: Lens.Lens' Captions (Prelude.Maybe Prelude.Text)
+captions_mergePolicy = Lens.lens (\Captions' {mergePolicy} -> mergePolicy) (\s@Captions' {} a -> s {mergePolicy = a} :: Captions)
 
-instance FromJSON Captions where
+instance Prelude.FromJSON Captions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Captions"
       ( \x ->
           Captions'
-            <$> (x .:? "CaptionSources" .!= mempty)
-            <*> (x .:? "CaptionFormats" .!= mempty)
-            <*> (x .:? "MergePolicy")
+            Prelude.<$> ( x Prelude..:? "CaptionSources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "CaptionFormats"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "MergePolicy")
       )
 
-instance Hashable Captions
+instance Prelude.Hashable Captions
 
-instance NFData Captions
+instance Prelude.NFData Captions
 
-instance ToJSON Captions where
+instance Prelude.ToJSON Captions where
   toJSON Captions' {..} =
-    object
-      ( catMaybes
-          [ ("CaptionSources" .=) <$> _cCaptionSources,
-            ("CaptionFormats" .=) <$> _cCaptionFormats,
-            ("MergePolicy" .=) <$> _cMergePolicy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CaptionSources" Prelude..=)
+              Prelude.<$> captionSources,
+            ("CaptionFormats" Prelude..=)
+              Prelude.<$> captionFormats,
+            ("MergePolicy" Prelude..=) Prelude.<$> mergePolicy
           ]
       )

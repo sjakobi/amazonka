@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticTranscoder.Types.Warning where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Elastic Transcoder returns a warning if the resources used by your pipeline are not in the same region as the pipeline.
+-- | Elastic Transcoder returns a warning if the resources used by your
+-- pipeline are not in the same region as the pipeline.
 --
+-- Using resources in the same region, such as your Amazon S3 buckets,
+-- Amazon SNS notification topics, and AWS KMS key, reduces processing time
+-- and prevents cross-regional charges.
 --
--- Using resources in the same region, such as your Amazon S3 buckets, Amazon SNS notification topics, and AWS KMS key, reduces processing time and prevents cross-regional charges.
---
---
--- /See:/ 'warning' smart constructor.
+-- /See:/ 'newWarning' smart constructor.
 data Warning = Warning'
-  { _wMessage :: !(Maybe Text),
-    _wCode :: !(Maybe Text)
+  { -- | The message explaining what resources are in a different region from the
+    -- pipeline.
+    --
+    -- AWS KMS keys must be in the same region as the pipeline.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The code of the cross-regional warning.
+    code :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Warning' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Warning' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wMessage' - The message explaining what resources are in a different region from the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wCode' - The code of the cross-regional warning.
-warning ::
+-- 'message', 'warning_message' - The message explaining what resources are in a different region from the
+-- pipeline.
+--
+-- AWS KMS keys must be in the same region as the pipeline.
+--
+-- 'code', 'warning_code' - The code of the cross-regional warning.
+newWarning ::
   Warning
-warning =
-  Warning' {_wMessage = Nothing, _wCode = Nothing}
+newWarning =
+  Warning'
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
+    }
 
--- | The message explaining what resources are in a different region from the pipeline.
-wMessage :: Lens' Warning (Maybe Text)
-wMessage = lens _wMessage (\s a -> s {_wMessage = a})
+-- | The message explaining what resources are in a different region from the
+-- pipeline.
+--
+-- AWS KMS keys must be in the same region as the pipeline.
+warning_message :: Lens.Lens' Warning (Prelude.Maybe Prelude.Text)
+warning_message = Lens.lens (\Warning' {message} -> message) (\s@Warning' {} a -> s {message = a} :: Warning)
 
 -- | The code of the cross-regional warning.
-wCode :: Lens' Warning (Maybe Text)
-wCode = lens _wCode (\s a -> s {_wCode = a})
+warning_code :: Lens.Lens' Warning (Prelude.Maybe Prelude.Text)
+warning_code = Lens.lens (\Warning' {code} -> code) (\s@Warning' {} a -> s {code = a} :: Warning)
 
-instance FromJSON Warning where
+instance Prelude.FromJSON Warning where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Warning"
       ( \x ->
-          Warning' <$> (x .:? "Message") <*> (x .:? "Code")
+          Warning'
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable Warning
+instance Prelude.Hashable Warning
 
-instance NFData Warning
+instance Prelude.NFData Warning

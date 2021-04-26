@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,147 +19,556 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticTranscoder.Types.PresetWatermark where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings for the size, location, and opacity of graphics that you want Elastic Transcoder to overlay over videos that are transcoded using this preset. You can specify settings for up to four watermarks. Watermarks appear in the specified size and location, and with the specified opacity for the duration of the transcoded video.
+-- | Settings for the size, location, and opacity of graphics that you want
+-- Elastic Transcoder to overlay over videos that are transcoded using this
+-- preset. You can specify settings for up to four watermarks. Watermarks
+-- appear in the specified size and location, and with the specified
+-- opacity for the duration of the transcoded video.
 --
+-- Watermarks can be in .png or .jpg format. If you want to display a
+-- watermark that is not rectangular, use the .png format, which supports
+-- transparency.
 --
--- Watermarks can be in .png or .jpg format. If you want to display a watermark that is not rectangular, use the .png format, which supports transparency.
+-- When you create a job that uses this preset, you specify the .png or
+-- .jpg graphics that you want Elastic Transcoder to include in the
+-- transcoded videos. You can specify fewer graphics in the job than you
+-- specify watermark settings in the preset, which allows you to use the
+-- same preset for up to four watermarks that have different dimensions.
 --
--- When you create a job that uses this preset, you specify the .png or .jpg graphics that you want Elastic Transcoder to include in the transcoded videos. You can specify fewer graphics in the job than you specify watermark settings in the preset, which allows you to use the same preset for up to four watermarks that have different dimensions.
---
---
--- /See:/ 'presetWatermark' smart constructor.
+-- /See:/ 'newPresetWatermark' smart constructor.
 data PresetWatermark = PresetWatermark'
-  { _pwHorizontalAlign ::
-      !(Maybe Text),
-    _pwHorizontalOffset :: !(Maybe Text),
-    _pwSizingPolicy :: !(Maybe Text),
-    _pwId :: !(Maybe Text),
-    _pwVerticalOffset :: !(Maybe Text),
-    _pwVerticalAlign :: !(Maybe Text),
-    _pwOpacity :: !(Maybe Text),
-    _pwTarget :: !(Maybe Text),
-    _pwMaxHeight :: !(Maybe Text),
-    _pwMaxWidth :: !(Maybe Text)
+  { -- | The horizontal position of the watermark unless you specify a non-zero
+    -- value for @HorizontalOffset@:
+    --
+    -- -   __Left__: The left edge of the watermark is aligned with the left
+    --     border of the video.
+    --
+    -- -   __Right__: The right edge of the watermark is aligned with the right
+    --     border of the video.
+    --
+    -- -   __Center__: The watermark is centered between the left and right
+    --     borders.
+    horizontalAlign :: Prelude.Maybe Prelude.Text,
+    -- | The amount by which you want the horizontal position of the watermark to
+    -- be offset from the position specified by HorizontalAlign:
+    --
+    -- -   number of pixels (px): The minimum value is 0 pixels, and the
+    --     maximum value is the value of MaxWidth.
+    --
+    -- -   integer percentage (%): The range of valid values is 0 to 100.
+    --
+    -- For example, if you specify Left for @HorizontalAlign@ and 5px for
+    -- @HorizontalOffset@, the left side of the watermark appears 5 pixels from
+    -- the left border of the output video.
+    --
+    -- @HorizontalOffset@ is only valid when the value of @HorizontalAlign@ is
+    -- @Left@ or @Right@. If you specify an offset that causes the watermark to
+    -- extend beyond the left or right border and Elastic Transcoder has not
+    -- added black bars, the watermark is cropped. If Elastic Transcoder has
+    -- added black bars, the watermark extends into the black bars. If the
+    -- watermark extends beyond the black bars, it is cropped.
+    --
+    -- Use the value of @Target@ to specify whether you want to include the
+    -- black bars that are added by Elastic Transcoder, if any, in the offset
+    -- calculation.
+    horizontalOffset :: Prelude.Maybe Prelude.Text,
+    -- | A value that controls scaling of the watermark:
+    --
+    -- -   __Fit__: Elastic Transcoder scales the watermark so it matches the
+    --     value that you specified in either @MaxWidth@ or @MaxHeight@ without
+    --     exceeding the other value.
+    --
+    -- -   __Stretch__: Elastic Transcoder stretches the watermark to match the
+    --     values that you specified for @MaxWidth@ and @MaxHeight@. If the
+    --     relative proportions of the watermark and the values of @MaxWidth@
+    --     and @MaxHeight@ are different, the watermark will be distorted.
+    --
+    -- -   __ShrinkToFit__: Elastic Transcoder scales the watermark down so
+    --     that its dimensions match the values that you specified for at least
+    --     one of @MaxWidth@ and @MaxHeight@ without exceeding either value. If
+    --     you specify this option, Elastic Transcoder does not scale the
+    --     watermark up.
+    sizingPolicy :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the settings for one watermark. The value of
+    -- @Id@ can be up to 40 characters long.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | @VerticalOffset@
+    --
+    -- The amount by which you want the vertical position of the watermark to
+    -- be offset from the position specified by VerticalAlign:
+    --
+    -- -   number of pixels (px): The minimum value is 0 pixels, and the
+    --     maximum value is the value of @MaxHeight@.
+    --
+    -- -   integer percentage (%): The range of valid values is 0 to 100.
+    --
+    -- For example, if you specify @Top@ for @VerticalAlign@ and @5px@ for
+    -- @VerticalOffset@, the top of the watermark appears 5 pixels from the top
+    -- border of the output video.
+    --
+    -- @VerticalOffset@ is only valid when the value of VerticalAlign is Top or
+    -- Bottom.
+    --
+    -- If you specify an offset that causes the watermark to extend beyond the
+    -- top or bottom border and Elastic Transcoder has not added black bars,
+    -- the watermark is cropped. If Elastic Transcoder has added black bars,
+    -- the watermark extends into the black bars. If the watermark extends
+    -- beyond the black bars, it is cropped.
+    --
+    -- Use the value of @Target@ to specify whether you want Elastic Transcoder
+    -- to include the black bars that are added by Elastic Transcoder, if any,
+    -- in the offset calculation.
+    verticalOffset :: Prelude.Maybe Prelude.Text,
+    -- | The vertical position of the watermark unless you specify a non-zero
+    -- value for @VerticalOffset@:
+    --
+    -- -   __Top__: The top edge of the watermark is aligned with the top
+    --     border of the video.
+    --
+    -- -   __Bottom__: The bottom edge of the watermark is aligned with the
+    --     bottom border of the video.
+    --
+    -- -   __Center__: The watermark is centered between the top and bottom
+    --     borders.
+    verticalAlign :: Prelude.Maybe Prelude.Text,
+    -- | A percentage that indicates how much you want a watermark to obscure the
+    -- video in the location where it appears. Valid values are 0 (the
+    -- watermark is invisible) to 100 (the watermark completely obscures the
+    -- video in the specified location). The datatype of @Opacity@ is float.
+    --
+    -- Elastic Transcoder supports transparent .png graphics. If you use a
+    -- transparent .png, the transparent portion of the video appears as if you
+    -- had specified a value of 0 for @Opacity@. The .jpg file format doesn\'t
+    -- support transparency.
+    opacity :: Prelude.Maybe Prelude.Text,
+    -- | A value that determines how Elastic Transcoder interprets values that
+    -- you specified for @HorizontalOffset@, @VerticalOffset@, @MaxWidth@, and
+    -- @MaxHeight@:
+    --
+    -- -   __Content__: @HorizontalOffset@ and @VerticalOffset@ values are
+    --     calculated based on the borders of the video excluding black bars
+    --     added by Elastic Transcoder, if any. In addition, @MaxWidth@ and
+    --     @MaxHeight@, if specified as a percentage, are calculated based on
+    --     the borders of the video excluding black bars added by Elastic
+    --     Transcoder, if any.
+    --
+    -- -   __Frame__: @HorizontalOffset@ and @VerticalOffset@ values are
+    --     calculated based on the borders of the video including black bars
+    --     added by Elastic Transcoder, if any. In addition, @MaxWidth@ and
+    --     @MaxHeight@, if specified as a percentage, are calculated based on
+    --     the borders of the video including black bars added by Elastic
+    --     Transcoder, if any.
+    target :: Prelude.Maybe Prelude.Text,
+    -- | The maximum height of the watermark in one of the following formats:
+    --
+    -- -   number of pixels (px): The minimum value is 16 pixels, and the
+    --     maximum value is the value of @MaxHeight@.
+    --
+    -- -   integer percentage (%): The range of valid values is 0 to 100. Use
+    --     the value of @Target@ to specify whether you want Elastic Transcoder
+    --     to include the black bars that are added by Elastic Transcoder, if
+    --     any, in the calculation.
+    --
+    -- If you specify the value in pixels, it must be less than or equal to the
+    -- value of @MaxHeight@.
+    maxHeight :: Prelude.Maybe Prelude.Text,
+    -- | The maximum width of the watermark in one of the following formats:
+    --
+    -- -   number of pixels (px): The minimum value is 16 pixels, and the
+    --     maximum value is the value of @MaxWidth@.
+    --
+    -- -   integer percentage (%): The range of valid values is 0 to 100. Use
+    --     the value of @Target@ to specify whether you want Elastic Transcoder
+    --     to include the black bars that are added by Elastic Transcoder, if
+    --     any, in the calculation.
+    --
+    --     If you specify the value in pixels, it must be less than or equal to
+    --     the value of @MaxWidth@.
+    maxWidth :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PresetWatermark' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PresetWatermark' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pwHorizontalAlign' - The horizontal position of the watermark unless you specify a non-zero value for @HorizontalOffset@ :      * __Left__ : The left edge of the watermark is aligned with the left border of the video.     * __Right__ : The right edge of the watermark is aligned with the right border of the video.     * __Center__ : The watermark is centered between the left and right borders.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pwHorizontalOffset' - The amount by which you want the horizontal position of the watermark to be offset from the position specified by HorizontalAlign:      * number of pixels (px): The minimum value is 0 pixels, and the maximum value is the value of MaxWidth.     * integer percentage (%): The range of valid values is 0 to 100. For example, if you specify Left for @HorizontalAlign@ and 5px for @HorizontalOffset@ , the left side of the watermark appears 5 pixels from the left border of the output video. @HorizontalOffset@ is only valid when the value of @HorizontalAlign@ is @Left@ or @Right@ . If you specify an offset that causes the watermark to extend beyond the left or right border and Elastic Transcoder has not added black bars, the watermark is cropped. If Elastic Transcoder has added black bars, the watermark extends into the black bars. If the watermark extends beyond the black bars, it is cropped. Use the value of @Target@ to specify whether you want to include the black bars that are added by Elastic Transcoder, if any, in the offset calculation.
+-- 'horizontalAlign', 'presetWatermark_horizontalAlign' - The horizontal position of the watermark unless you specify a non-zero
+-- value for @HorizontalOffset@:
 --
--- * 'pwSizingPolicy' - A value that controls scaling of the watermark:      * __Fit__ : Elastic Transcoder scales the watermark so it matches the value that you specified in either @MaxWidth@ or @MaxHeight@ without exceeding the other value.     * __Stretch__ : Elastic Transcoder stretches the watermark to match the values that you specified for @MaxWidth@ and @MaxHeight@ . If the relative proportions of the watermark and the values of @MaxWidth@ and @MaxHeight@ are different, the watermark will be distorted.     * __ShrinkToFit__ : Elastic Transcoder scales the watermark down so that its dimensions match the values that you specified for at least one of @MaxWidth@ and @MaxHeight@ without exceeding either value. If you specify this option, Elastic Transcoder does not scale the watermark up.
+-- -   __Left__: The left edge of the watermark is aligned with the left
+--     border of the video.
 --
--- * 'pwId' - A unique identifier for the settings for one watermark. The value of @Id@ can be up to 40 characters long.
+-- -   __Right__: The right edge of the watermark is aligned with the right
+--     border of the video.
 --
--- * 'pwVerticalOffset' - @VerticalOffset@  The amount by which you want the vertical position of the watermark to be offset from the position specified by VerticalAlign:     * number of pixels (px): The minimum value is 0 pixels, and the maximum value is the value of @MaxHeight@ .     * integer percentage (%): The range of valid values is 0 to 100. For example, if you specify @Top@ for @VerticalAlign@ and @5px@ for @VerticalOffset@ , the top of the watermark appears 5 pixels from the top border of the output video. @VerticalOffset@ is only valid when the value of VerticalAlign is Top or Bottom. If you specify an offset that causes the watermark to extend beyond the top or bottom border and Elastic Transcoder has not added black bars, the watermark is cropped. If Elastic Transcoder has added black bars, the watermark extends into the black bars. If the watermark extends beyond the black bars, it is cropped. Use the value of @Target@ to specify whether you want Elastic Transcoder to include the black bars that are added by Elastic Transcoder, if any, in the offset calculation.
+-- -   __Center__: The watermark is centered between the left and right
+--     borders.
 --
--- * 'pwVerticalAlign' - The vertical position of the watermark unless you specify a non-zero value for @VerticalOffset@ :      * __Top__ : The top edge of the watermark is aligned with the top border of the video.     * __Bottom__ : The bottom edge of the watermark is aligned with the bottom border of the video.     * __Center__ : The watermark is centered between the top and bottom borders.
+-- 'horizontalOffset', 'presetWatermark_horizontalOffset' - The amount by which you want the horizontal position of the watermark to
+-- be offset from the position specified by HorizontalAlign:
 --
--- * 'pwOpacity' - A percentage that indicates how much you want a watermark to obscure the video in the location where it appears. Valid values are 0 (the watermark is invisible) to 100 (the watermark completely obscures the video in the specified location). The datatype of @Opacity@ is float. Elastic Transcoder supports transparent .png graphics. If you use a transparent .png, the transparent portion of the video appears as if you had specified a value of 0 for @Opacity@ . The .jpg file format doesn't support transparency.
+-- -   number of pixels (px): The minimum value is 0 pixels, and the
+--     maximum value is the value of MaxWidth.
 --
--- * 'pwTarget' - A value that determines how Elastic Transcoder interprets values that you specified for @HorizontalOffset@ , @VerticalOffset@ , @MaxWidth@ , and @MaxHeight@ :     * __Content__ : @HorizontalOffset@ and @VerticalOffset@ values are calculated based on the borders of the video excluding black bars added by Elastic Transcoder, if any. In addition, @MaxWidth@ and @MaxHeight@ , if specified as a percentage, are calculated based on the borders of the video excluding black bars added by Elastic Transcoder, if any.     * __Frame__ : @HorizontalOffset@ and @VerticalOffset@ values are calculated based on the borders of the video including black bars added by Elastic Transcoder, if any. In addition, @MaxWidth@ and @MaxHeight@ , if specified as a percentage, are calculated based on the borders of the video including black bars added by Elastic Transcoder, if any.
+-- -   integer percentage (%): The range of valid values is 0 to 100.
 --
--- * 'pwMaxHeight' - The maximum height of the watermark in one of the following formats:      * number of pixels (px): The minimum value is 16 pixels, and the maximum value is the value of @MaxHeight@ .     * integer percentage (%): The range of valid values is 0 to 100. Use the value of @Target@ to specify whether you want Elastic Transcoder to include the black bars that are added by Elastic Transcoder, if any, in the calculation. If you specify the value in pixels, it must be less than or equal to the value of @MaxHeight@ .
+-- For example, if you specify Left for @HorizontalAlign@ and 5px for
+-- @HorizontalOffset@, the left side of the watermark appears 5 pixels from
+-- the left border of the output video.
 --
--- * 'pwMaxWidth' - The maximum width of the watermark in one of the following formats:      * number of pixels (px): The minimum value is 16 pixels, and the maximum value is the value of @MaxWidth@ .     * integer percentage (%): The range of valid values is 0 to 100. Use the value of @Target@ to specify whether you want Elastic Transcoder to include the black bars that are added by Elastic Transcoder, if any, in the calculation. If you specify the value in pixels, it must be less than or equal to the value of @MaxWidth@ .
-presetWatermark ::
+-- @HorizontalOffset@ is only valid when the value of @HorizontalAlign@ is
+-- @Left@ or @Right@. If you specify an offset that causes the watermark to
+-- extend beyond the left or right border and Elastic Transcoder has not
+-- added black bars, the watermark is cropped. If Elastic Transcoder has
+-- added black bars, the watermark extends into the black bars. If the
+-- watermark extends beyond the black bars, it is cropped.
+--
+-- Use the value of @Target@ to specify whether you want to include the
+-- black bars that are added by Elastic Transcoder, if any, in the offset
+-- calculation.
+--
+-- 'sizingPolicy', 'presetWatermark_sizingPolicy' - A value that controls scaling of the watermark:
+--
+-- -   __Fit__: Elastic Transcoder scales the watermark so it matches the
+--     value that you specified in either @MaxWidth@ or @MaxHeight@ without
+--     exceeding the other value.
+--
+-- -   __Stretch__: Elastic Transcoder stretches the watermark to match the
+--     values that you specified for @MaxWidth@ and @MaxHeight@. If the
+--     relative proportions of the watermark and the values of @MaxWidth@
+--     and @MaxHeight@ are different, the watermark will be distorted.
+--
+-- -   __ShrinkToFit__: Elastic Transcoder scales the watermark down so
+--     that its dimensions match the values that you specified for at least
+--     one of @MaxWidth@ and @MaxHeight@ without exceeding either value. If
+--     you specify this option, Elastic Transcoder does not scale the
+--     watermark up.
+--
+-- 'id', 'presetWatermark_id' - A unique identifier for the settings for one watermark. The value of
+-- @Id@ can be up to 40 characters long.
+--
+-- 'verticalOffset', 'presetWatermark_verticalOffset' - @VerticalOffset@
+--
+-- The amount by which you want the vertical position of the watermark to
+-- be offset from the position specified by VerticalAlign:
+--
+-- -   number of pixels (px): The minimum value is 0 pixels, and the
+--     maximum value is the value of @MaxHeight@.
+--
+-- -   integer percentage (%): The range of valid values is 0 to 100.
+--
+-- For example, if you specify @Top@ for @VerticalAlign@ and @5px@ for
+-- @VerticalOffset@, the top of the watermark appears 5 pixels from the top
+-- border of the output video.
+--
+-- @VerticalOffset@ is only valid when the value of VerticalAlign is Top or
+-- Bottom.
+--
+-- If you specify an offset that causes the watermark to extend beyond the
+-- top or bottom border and Elastic Transcoder has not added black bars,
+-- the watermark is cropped. If Elastic Transcoder has added black bars,
+-- the watermark extends into the black bars. If the watermark extends
+-- beyond the black bars, it is cropped.
+--
+-- Use the value of @Target@ to specify whether you want Elastic Transcoder
+-- to include the black bars that are added by Elastic Transcoder, if any,
+-- in the offset calculation.
+--
+-- 'verticalAlign', 'presetWatermark_verticalAlign' - The vertical position of the watermark unless you specify a non-zero
+-- value for @VerticalOffset@:
+--
+-- -   __Top__: The top edge of the watermark is aligned with the top
+--     border of the video.
+--
+-- -   __Bottom__: The bottom edge of the watermark is aligned with the
+--     bottom border of the video.
+--
+-- -   __Center__: The watermark is centered between the top and bottom
+--     borders.
+--
+-- 'opacity', 'presetWatermark_opacity' - A percentage that indicates how much you want a watermark to obscure the
+-- video in the location where it appears. Valid values are 0 (the
+-- watermark is invisible) to 100 (the watermark completely obscures the
+-- video in the specified location). The datatype of @Opacity@ is float.
+--
+-- Elastic Transcoder supports transparent .png graphics. If you use a
+-- transparent .png, the transparent portion of the video appears as if you
+-- had specified a value of 0 for @Opacity@. The .jpg file format doesn\'t
+-- support transparency.
+--
+-- 'target', 'presetWatermark_target' - A value that determines how Elastic Transcoder interprets values that
+-- you specified for @HorizontalOffset@, @VerticalOffset@, @MaxWidth@, and
+-- @MaxHeight@:
+--
+-- -   __Content__: @HorizontalOffset@ and @VerticalOffset@ values are
+--     calculated based on the borders of the video excluding black bars
+--     added by Elastic Transcoder, if any. In addition, @MaxWidth@ and
+--     @MaxHeight@, if specified as a percentage, are calculated based on
+--     the borders of the video excluding black bars added by Elastic
+--     Transcoder, if any.
+--
+-- -   __Frame__: @HorizontalOffset@ and @VerticalOffset@ values are
+--     calculated based on the borders of the video including black bars
+--     added by Elastic Transcoder, if any. In addition, @MaxWidth@ and
+--     @MaxHeight@, if specified as a percentage, are calculated based on
+--     the borders of the video including black bars added by Elastic
+--     Transcoder, if any.
+--
+-- 'maxHeight', 'presetWatermark_maxHeight' - The maximum height of the watermark in one of the following formats:
+--
+-- -   number of pixels (px): The minimum value is 16 pixels, and the
+--     maximum value is the value of @MaxHeight@.
+--
+-- -   integer percentage (%): The range of valid values is 0 to 100. Use
+--     the value of @Target@ to specify whether you want Elastic Transcoder
+--     to include the black bars that are added by Elastic Transcoder, if
+--     any, in the calculation.
+--
+-- If you specify the value in pixels, it must be less than or equal to the
+-- value of @MaxHeight@.
+--
+-- 'maxWidth', 'presetWatermark_maxWidth' - The maximum width of the watermark in one of the following formats:
+--
+-- -   number of pixels (px): The minimum value is 16 pixels, and the
+--     maximum value is the value of @MaxWidth@.
+--
+-- -   integer percentage (%): The range of valid values is 0 to 100. Use
+--     the value of @Target@ to specify whether you want Elastic Transcoder
+--     to include the black bars that are added by Elastic Transcoder, if
+--     any, in the calculation.
+--
+--     If you specify the value in pixels, it must be less than or equal to
+--     the value of @MaxWidth@.
+newPresetWatermark ::
   PresetWatermark
-presetWatermark =
+newPresetWatermark =
   PresetWatermark'
-    { _pwHorizontalAlign = Nothing,
-      _pwHorizontalOffset = Nothing,
-      _pwSizingPolicy = Nothing,
-      _pwId = Nothing,
-      _pwVerticalOffset = Nothing,
-      _pwVerticalAlign = Nothing,
-      _pwOpacity = Nothing,
-      _pwTarget = Nothing,
-      _pwMaxHeight = Nothing,
-      _pwMaxWidth = Nothing
+    { horizontalAlign = Prelude.Nothing,
+      horizontalOffset = Prelude.Nothing,
+      sizingPolicy = Prelude.Nothing,
+      id = Prelude.Nothing,
+      verticalOffset = Prelude.Nothing,
+      verticalAlign = Prelude.Nothing,
+      opacity = Prelude.Nothing,
+      target = Prelude.Nothing,
+      maxHeight = Prelude.Nothing,
+      maxWidth = Prelude.Nothing
     }
 
--- | The horizontal position of the watermark unless you specify a non-zero value for @HorizontalOffset@ :      * __Left__ : The left edge of the watermark is aligned with the left border of the video.     * __Right__ : The right edge of the watermark is aligned with the right border of the video.     * __Center__ : The watermark is centered between the left and right borders.
-pwHorizontalAlign :: Lens' PresetWatermark (Maybe Text)
-pwHorizontalAlign = lens _pwHorizontalAlign (\s a -> s {_pwHorizontalAlign = a})
+-- | The horizontal position of the watermark unless you specify a non-zero
+-- value for @HorizontalOffset@:
+--
+-- -   __Left__: The left edge of the watermark is aligned with the left
+--     border of the video.
+--
+-- -   __Right__: The right edge of the watermark is aligned with the right
+--     border of the video.
+--
+-- -   __Center__: The watermark is centered between the left and right
+--     borders.
+presetWatermark_horizontalAlign :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_horizontalAlign = Lens.lens (\PresetWatermark' {horizontalAlign} -> horizontalAlign) (\s@PresetWatermark' {} a -> s {horizontalAlign = a} :: PresetWatermark)
 
--- | The amount by which you want the horizontal position of the watermark to be offset from the position specified by HorizontalAlign:      * number of pixels (px): The minimum value is 0 pixels, and the maximum value is the value of MaxWidth.     * integer percentage (%): The range of valid values is 0 to 100. For example, if you specify Left for @HorizontalAlign@ and 5px for @HorizontalOffset@ , the left side of the watermark appears 5 pixels from the left border of the output video. @HorizontalOffset@ is only valid when the value of @HorizontalAlign@ is @Left@ or @Right@ . If you specify an offset that causes the watermark to extend beyond the left or right border and Elastic Transcoder has not added black bars, the watermark is cropped. If Elastic Transcoder has added black bars, the watermark extends into the black bars. If the watermark extends beyond the black bars, it is cropped. Use the value of @Target@ to specify whether you want to include the black bars that are added by Elastic Transcoder, if any, in the offset calculation.
-pwHorizontalOffset :: Lens' PresetWatermark (Maybe Text)
-pwHorizontalOffset = lens _pwHorizontalOffset (\s a -> s {_pwHorizontalOffset = a})
+-- | The amount by which you want the horizontal position of the watermark to
+-- be offset from the position specified by HorizontalAlign:
+--
+-- -   number of pixels (px): The minimum value is 0 pixels, and the
+--     maximum value is the value of MaxWidth.
+--
+-- -   integer percentage (%): The range of valid values is 0 to 100.
+--
+-- For example, if you specify Left for @HorizontalAlign@ and 5px for
+-- @HorizontalOffset@, the left side of the watermark appears 5 pixels from
+-- the left border of the output video.
+--
+-- @HorizontalOffset@ is only valid when the value of @HorizontalAlign@ is
+-- @Left@ or @Right@. If you specify an offset that causes the watermark to
+-- extend beyond the left or right border and Elastic Transcoder has not
+-- added black bars, the watermark is cropped. If Elastic Transcoder has
+-- added black bars, the watermark extends into the black bars. If the
+-- watermark extends beyond the black bars, it is cropped.
+--
+-- Use the value of @Target@ to specify whether you want to include the
+-- black bars that are added by Elastic Transcoder, if any, in the offset
+-- calculation.
+presetWatermark_horizontalOffset :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_horizontalOffset = Lens.lens (\PresetWatermark' {horizontalOffset} -> horizontalOffset) (\s@PresetWatermark' {} a -> s {horizontalOffset = a} :: PresetWatermark)
 
--- | A value that controls scaling of the watermark:      * __Fit__ : Elastic Transcoder scales the watermark so it matches the value that you specified in either @MaxWidth@ or @MaxHeight@ without exceeding the other value.     * __Stretch__ : Elastic Transcoder stretches the watermark to match the values that you specified for @MaxWidth@ and @MaxHeight@ . If the relative proportions of the watermark and the values of @MaxWidth@ and @MaxHeight@ are different, the watermark will be distorted.     * __ShrinkToFit__ : Elastic Transcoder scales the watermark down so that its dimensions match the values that you specified for at least one of @MaxWidth@ and @MaxHeight@ without exceeding either value. If you specify this option, Elastic Transcoder does not scale the watermark up.
-pwSizingPolicy :: Lens' PresetWatermark (Maybe Text)
-pwSizingPolicy = lens _pwSizingPolicy (\s a -> s {_pwSizingPolicy = a})
+-- | A value that controls scaling of the watermark:
+--
+-- -   __Fit__: Elastic Transcoder scales the watermark so it matches the
+--     value that you specified in either @MaxWidth@ or @MaxHeight@ without
+--     exceeding the other value.
+--
+-- -   __Stretch__: Elastic Transcoder stretches the watermark to match the
+--     values that you specified for @MaxWidth@ and @MaxHeight@. If the
+--     relative proportions of the watermark and the values of @MaxWidth@
+--     and @MaxHeight@ are different, the watermark will be distorted.
+--
+-- -   __ShrinkToFit__: Elastic Transcoder scales the watermark down so
+--     that its dimensions match the values that you specified for at least
+--     one of @MaxWidth@ and @MaxHeight@ without exceeding either value. If
+--     you specify this option, Elastic Transcoder does not scale the
+--     watermark up.
+presetWatermark_sizingPolicy :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_sizingPolicy = Lens.lens (\PresetWatermark' {sizingPolicy} -> sizingPolicy) (\s@PresetWatermark' {} a -> s {sizingPolicy = a} :: PresetWatermark)
 
--- | A unique identifier for the settings for one watermark. The value of @Id@ can be up to 40 characters long.
-pwId :: Lens' PresetWatermark (Maybe Text)
-pwId = lens _pwId (\s a -> s {_pwId = a})
+-- | A unique identifier for the settings for one watermark. The value of
+-- @Id@ can be up to 40 characters long.
+presetWatermark_id :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_id = Lens.lens (\PresetWatermark' {id} -> id) (\s@PresetWatermark' {} a -> s {id = a} :: PresetWatermark)
 
--- | @VerticalOffset@  The amount by which you want the vertical position of the watermark to be offset from the position specified by VerticalAlign:     * number of pixels (px): The minimum value is 0 pixels, and the maximum value is the value of @MaxHeight@ .     * integer percentage (%): The range of valid values is 0 to 100. For example, if you specify @Top@ for @VerticalAlign@ and @5px@ for @VerticalOffset@ , the top of the watermark appears 5 pixels from the top border of the output video. @VerticalOffset@ is only valid when the value of VerticalAlign is Top or Bottom. If you specify an offset that causes the watermark to extend beyond the top or bottom border and Elastic Transcoder has not added black bars, the watermark is cropped. If Elastic Transcoder has added black bars, the watermark extends into the black bars. If the watermark extends beyond the black bars, it is cropped. Use the value of @Target@ to specify whether you want Elastic Transcoder to include the black bars that are added by Elastic Transcoder, if any, in the offset calculation.
-pwVerticalOffset :: Lens' PresetWatermark (Maybe Text)
-pwVerticalOffset = lens _pwVerticalOffset (\s a -> s {_pwVerticalOffset = a})
+-- | @VerticalOffset@
+--
+-- The amount by which you want the vertical position of the watermark to
+-- be offset from the position specified by VerticalAlign:
+--
+-- -   number of pixels (px): The minimum value is 0 pixels, and the
+--     maximum value is the value of @MaxHeight@.
+--
+-- -   integer percentage (%): The range of valid values is 0 to 100.
+--
+-- For example, if you specify @Top@ for @VerticalAlign@ and @5px@ for
+-- @VerticalOffset@, the top of the watermark appears 5 pixels from the top
+-- border of the output video.
+--
+-- @VerticalOffset@ is only valid when the value of VerticalAlign is Top or
+-- Bottom.
+--
+-- If you specify an offset that causes the watermark to extend beyond the
+-- top or bottom border and Elastic Transcoder has not added black bars,
+-- the watermark is cropped. If Elastic Transcoder has added black bars,
+-- the watermark extends into the black bars. If the watermark extends
+-- beyond the black bars, it is cropped.
+--
+-- Use the value of @Target@ to specify whether you want Elastic Transcoder
+-- to include the black bars that are added by Elastic Transcoder, if any,
+-- in the offset calculation.
+presetWatermark_verticalOffset :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_verticalOffset = Lens.lens (\PresetWatermark' {verticalOffset} -> verticalOffset) (\s@PresetWatermark' {} a -> s {verticalOffset = a} :: PresetWatermark)
 
--- | The vertical position of the watermark unless you specify a non-zero value for @VerticalOffset@ :      * __Top__ : The top edge of the watermark is aligned with the top border of the video.     * __Bottom__ : The bottom edge of the watermark is aligned with the bottom border of the video.     * __Center__ : The watermark is centered between the top and bottom borders.
-pwVerticalAlign :: Lens' PresetWatermark (Maybe Text)
-pwVerticalAlign = lens _pwVerticalAlign (\s a -> s {_pwVerticalAlign = a})
+-- | The vertical position of the watermark unless you specify a non-zero
+-- value for @VerticalOffset@:
+--
+-- -   __Top__: The top edge of the watermark is aligned with the top
+--     border of the video.
+--
+-- -   __Bottom__: The bottom edge of the watermark is aligned with the
+--     bottom border of the video.
+--
+-- -   __Center__: The watermark is centered between the top and bottom
+--     borders.
+presetWatermark_verticalAlign :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_verticalAlign = Lens.lens (\PresetWatermark' {verticalAlign} -> verticalAlign) (\s@PresetWatermark' {} a -> s {verticalAlign = a} :: PresetWatermark)
 
--- | A percentage that indicates how much you want a watermark to obscure the video in the location where it appears. Valid values are 0 (the watermark is invisible) to 100 (the watermark completely obscures the video in the specified location). The datatype of @Opacity@ is float. Elastic Transcoder supports transparent .png graphics. If you use a transparent .png, the transparent portion of the video appears as if you had specified a value of 0 for @Opacity@ . The .jpg file format doesn't support transparency.
-pwOpacity :: Lens' PresetWatermark (Maybe Text)
-pwOpacity = lens _pwOpacity (\s a -> s {_pwOpacity = a})
+-- | A percentage that indicates how much you want a watermark to obscure the
+-- video in the location where it appears. Valid values are 0 (the
+-- watermark is invisible) to 100 (the watermark completely obscures the
+-- video in the specified location). The datatype of @Opacity@ is float.
+--
+-- Elastic Transcoder supports transparent .png graphics. If you use a
+-- transparent .png, the transparent portion of the video appears as if you
+-- had specified a value of 0 for @Opacity@. The .jpg file format doesn\'t
+-- support transparency.
+presetWatermark_opacity :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_opacity = Lens.lens (\PresetWatermark' {opacity} -> opacity) (\s@PresetWatermark' {} a -> s {opacity = a} :: PresetWatermark)
 
--- | A value that determines how Elastic Transcoder interprets values that you specified for @HorizontalOffset@ , @VerticalOffset@ , @MaxWidth@ , and @MaxHeight@ :     * __Content__ : @HorizontalOffset@ and @VerticalOffset@ values are calculated based on the borders of the video excluding black bars added by Elastic Transcoder, if any. In addition, @MaxWidth@ and @MaxHeight@ , if specified as a percentage, are calculated based on the borders of the video excluding black bars added by Elastic Transcoder, if any.     * __Frame__ : @HorizontalOffset@ and @VerticalOffset@ values are calculated based on the borders of the video including black bars added by Elastic Transcoder, if any. In addition, @MaxWidth@ and @MaxHeight@ , if specified as a percentage, are calculated based on the borders of the video including black bars added by Elastic Transcoder, if any.
-pwTarget :: Lens' PresetWatermark (Maybe Text)
-pwTarget = lens _pwTarget (\s a -> s {_pwTarget = a})
+-- | A value that determines how Elastic Transcoder interprets values that
+-- you specified for @HorizontalOffset@, @VerticalOffset@, @MaxWidth@, and
+-- @MaxHeight@:
+--
+-- -   __Content__: @HorizontalOffset@ and @VerticalOffset@ values are
+--     calculated based on the borders of the video excluding black bars
+--     added by Elastic Transcoder, if any. In addition, @MaxWidth@ and
+--     @MaxHeight@, if specified as a percentage, are calculated based on
+--     the borders of the video excluding black bars added by Elastic
+--     Transcoder, if any.
+--
+-- -   __Frame__: @HorizontalOffset@ and @VerticalOffset@ values are
+--     calculated based on the borders of the video including black bars
+--     added by Elastic Transcoder, if any. In addition, @MaxWidth@ and
+--     @MaxHeight@, if specified as a percentage, are calculated based on
+--     the borders of the video including black bars added by Elastic
+--     Transcoder, if any.
+presetWatermark_target :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_target = Lens.lens (\PresetWatermark' {target} -> target) (\s@PresetWatermark' {} a -> s {target = a} :: PresetWatermark)
 
--- | The maximum height of the watermark in one of the following formats:      * number of pixels (px): The minimum value is 16 pixels, and the maximum value is the value of @MaxHeight@ .     * integer percentage (%): The range of valid values is 0 to 100. Use the value of @Target@ to specify whether you want Elastic Transcoder to include the black bars that are added by Elastic Transcoder, if any, in the calculation. If you specify the value in pixels, it must be less than or equal to the value of @MaxHeight@ .
-pwMaxHeight :: Lens' PresetWatermark (Maybe Text)
-pwMaxHeight = lens _pwMaxHeight (\s a -> s {_pwMaxHeight = a})
+-- | The maximum height of the watermark in one of the following formats:
+--
+-- -   number of pixels (px): The minimum value is 16 pixels, and the
+--     maximum value is the value of @MaxHeight@.
+--
+-- -   integer percentage (%): The range of valid values is 0 to 100. Use
+--     the value of @Target@ to specify whether you want Elastic Transcoder
+--     to include the black bars that are added by Elastic Transcoder, if
+--     any, in the calculation.
+--
+-- If you specify the value in pixels, it must be less than or equal to the
+-- value of @MaxHeight@.
+presetWatermark_maxHeight :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_maxHeight = Lens.lens (\PresetWatermark' {maxHeight} -> maxHeight) (\s@PresetWatermark' {} a -> s {maxHeight = a} :: PresetWatermark)
 
--- | The maximum width of the watermark in one of the following formats:      * number of pixels (px): The minimum value is 16 pixels, and the maximum value is the value of @MaxWidth@ .     * integer percentage (%): The range of valid values is 0 to 100. Use the value of @Target@ to specify whether you want Elastic Transcoder to include the black bars that are added by Elastic Transcoder, if any, in the calculation. If you specify the value in pixels, it must be less than or equal to the value of @MaxWidth@ .
-pwMaxWidth :: Lens' PresetWatermark (Maybe Text)
-pwMaxWidth = lens _pwMaxWidth (\s a -> s {_pwMaxWidth = a})
+-- | The maximum width of the watermark in one of the following formats:
+--
+-- -   number of pixels (px): The minimum value is 16 pixels, and the
+--     maximum value is the value of @MaxWidth@.
+--
+-- -   integer percentage (%): The range of valid values is 0 to 100. Use
+--     the value of @Target@ to specify whether you want Elastic Transcoder
+--     to include the black bars that are added by Elastic Transcoder, if
+--     any, in the calculation.
+--
+--     If you specify the value in pixels, it must be less than or equal to
+--     the value of @MaxWidth@.
+presetWatermark_maxWidth :: Lens.Lens' PresetWatermark (Prelude.Maybe Prelude.Text)
+presetWatermark_maxWidth = Lens.lens (\PresetWatermark' {maxWidth} -> maxWidth) (\s@PresetWatermark' {} a -> s {maxWidth = a} :: PresetWatermark)
 
-instance FromJSON PresetWatermark where
+instance Prelude.FromJSON PresetWatermark where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PresetWatermark"
       ( \x ->
           PresetWatermark'
-            <$> (x .:? "HorizontalAlign")
-            <*> (x .:? "HorizontalOffset")
-            <*> (x .:? "SizingPolicy")
-            <*> (x .:? "Id")
-            <*> (x .:? "VerticalOffset")
-            <*> (x .:? "VerticalAlign")
-            <*> (x .:? "Opacity")
-            <*> (x .:? "Target")
-            <*> (x .:? "MaxHeight")
-            <*> (x .:? "MaxWidth")
+            Prelude.<$> (x Prelude..:? "HorizontalAlign")
+            Prelude.<*> (x Prelude..:? "HorizontalOffset")
+            Prelude.<*> (x Prelude..:? "SizingPolicy")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "VerticalOffset")
+            Prelude.<*> (x Prelude..:? "VerticalAlign")
+            Prelude.<*> (x Prelude..:? "Opacity")
+            Prelude.<*> (x Prelude..:? "Target")
+            Prelude.<*> (x Prelude..:? "MaxHeight")
+            Prelude.<*> (x Prelude..:? "MaxWidth")
       )
 
-instance Hashable PresetWatermark
+instance Prelude.Hashable PresetWatermark
 
-instance NFData PresetWatermark
+instance Prelude.NFData PresetWatermark
 
-instance ToJSON PresetWatermark where
+instance Prelude.ToJSON PresetWatermark where
   toJSON PresetWatermark' {..} =
-    object
-      ( catMaybes
-          [ ("HorizontalAlign" .=) <$> _pwHorizontalAlign,
-            ("HorizontalOffset" .=) <$> _pwHorizontalOffset,
-            ("SizingPolicy" .=) <$> _pwSizingPolicy,
-            ("Id" .=) <$> _pwId,
-            ("VerticalOffset" .=) <$> _pwVerticalOffset,
-            ("VerticalAlign" .=) <$> _pwVerticalAlign,
-            ("Opacity" .=) <$> _pwOpacity,
-            ("Target" .=) <$> _pwTarget,
-            ("MaxHeight" .=) <$> _pwMaxHeight,
-            ("MaxWidth" .=) <$> _pwMaxWidth
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("HorizontalAlign" Prelude..=)
+              Prelude.<$> horizontalAlign,
+            ("HorizontalOffset" Prelude..=)
+              Prelude.<$> horizontalOffset,
+            ("SizingPolicy" Prelude..=) Prelude.<$> sizingPolicy,
+            ("Id" Prelude..=) Prelude.<$> id,
+            ("VerticalOffset" Prelude..=)
+              Prelude.<$> verticalOffset,
+            ("VerticalAlign" Prelude..=)
+              Prelude.<$> verticalAlign,
+            ("Opacity" Prelude..=) Prelude.<$> opacity,
+            ("Target" Prelude..=) Prelude.<$> target,
+            ("MaxHeight" Prelude..=) Prelude.<$> maxHeight,
+            ("MaxWidth" Prelude..=) Prelude.<$> maxWidth
           ]
       )

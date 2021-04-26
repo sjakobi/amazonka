@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,40 +20,49 @@
 module Network.AWS.ElasticTranscoder.Types.Clip where
 
 import Network.AWS.ElasticTranscoder.Types.TimeSpan
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings for one clip in a composition. All jobs in a playlist must have the same clip settings.
+-- | Settings for one clip in a composition. All jobs in a playlist must have
+-- the same clip settings.
 --
---
---
--- /See:/ 'clip' smart constructor.
-newtype Clip = Clip' {_cTimeSpan :: Maybe TimeSpan}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newClip' smart constructor.
+data Clip = Clip'
+  { -- | Settings that determine when a clip begins and how long it lasts.
+    timeSpan :: Prelude.Maybe TimeSpan
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Clip' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Clip' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cTimeSpan' - Settings that determine when a clip begins and how long it lasts.
-clip ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'timeSpan', 'clip_timeSpan' - Settings that determine when a clip begins and how long it lasts.
+newClip ::
   Clip
-clip = Clip' {_cTimeSpan = Nothing}
+newClip = Clip' {timeSpan = Prelude.Nothing}
 
 -- | Settings that determine when a clip begins and how long it lasts.
-cTimeSpan :: Lens' Clip (Maybe TimeSpan)
-cTimeSpan = lens _cTimeSpan (\s a -> s {_cTimeSpan = a})
+clip_timeSpan :: Lens.Lens' Clip (Prelude.Maybe TimeSpan)
+clip_timeSpan = Lens.lens (\Clip' {timeSpan} -> timeSpan) (\s@Clip' {} a -> s {timeSpan = a} :: Clip)
 
-instance FromJSON Clip where
+instance Prelude.FromJSON Clip where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Clip"
-      (\x -> Clip' <$> (x .:? "TimeSpan"))
+      (\x -> Clip' Prelude.<$> (x Prelude..:? "TimeSpan"))
 
-instance Hashable Clip
+instance Prelude.Hashable Clip
 
-instance NFData Clip
+instance Prelude.NFData Clip
 
-instance ToJSON Clip where
+instance Prelude.ToJSON Clip where
   toJSON Clip' {..} =
-    object (catMaybes [("TimeSpan" .=) <$> _cTimeSpan])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("TimeSpan" Prelude..=) Prelude.<$> timeSpan]
+      )

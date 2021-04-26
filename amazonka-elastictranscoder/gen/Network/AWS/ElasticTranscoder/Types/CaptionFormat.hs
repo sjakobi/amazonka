@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,207 @@
 module Network.AWS.ElasticTranscoder.Types.CaptionFormat where
 
 import Network.AWS.ElasticTranscoder.Types.Encryption
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The file format of the output captions. If you leave this value blank, Elastic Transcoder returns an error.
+-- | The file format of the output captions. If you leave this value blank,
+-- Elastic Transcoder returns an error.
 --
---
---
--- /See:/ 'captionFormat' smart constructor.
+-- /See:/ 'newCaptionFormat' smart constructor.
 data CaptionFormat = CaptionFormat'
-  { _cfFormat ::
-      !(Maybe Text),
-    _cfEncryption :: !(Maybe Encryption),
-    _cfPattern :: !(Maybe Text)
+  { -- | The format you specify determines whether Elastic Transcoder generates
+    -- an embedded or sidecar caption for this output.
+    --
+    -- -   __Valid Embedded Caption Formats:__
+    --
+    --     -   __for FLAC__: None
+    --
+    --     -   __For MP3__: None
+    --
+    --     -   __For MP4__: mov-text
+    --
+    --     -   __For MPEG-TS__: None
+    --
+    --     -   __For ogg__: None
+    --
+    --     -   __For webm__: None
+    --
+    -- -   __Valid Sidecar Caption Formats:__ Elastic Transcoder supports dfxp
+    --     (first div element only), scc, srt, and webvtt. If you want ttml or
+    --     smpte-tt compatible captions, specify dfxp as your output format.
+    --
+    --     -   __For FMP4__: dfxp
+    --
+    --     -   __Non-FMP4 outputs__: All sidecar types
+    --
+    --     @fmp4@ captions have an extension of @.ismt@
+    format :: Prelude.Maybe Prelude.Text,
+    -- | The encryption settings, if any, that you want Elastic Transcoder to
+    -- apply to your caption formats.
+    encryption :: Prelude.Maybe Encryption,
+    -- | The prefix for caption filenames, in the form
+    -- /description/-@{language}@, where:
+    --
+    -- -   /description/ is a description of the video.
+    --
+    -- -   @{language}@ is a literal value that Elastic Transcoder replaces
+    --     with the two- or three-letter code for the language of the caption
+    --     in the output file names.
+    --
+    -- If you don\'t include @{language}@ in the file name pattern, Elastic
+    -- Transcoder automatically appends \"@{language}@\" to the value that you
+    -- specify for the description. In addition, Elastic Transcoder
+    -- automatically appends the count to the end of the segment files.
+    --
+    -- For example, suppose you\'re transcoding into srt format. When you enter
+    -- \"Sydney-{language}-sunrise\", and the language of the captions is
+    -- English (en), the name of the first caption file is be
+    -- Sydney-en-sunrise00000.srt.
+    pattern' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CaptionFormat' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CaptionFormat' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfFormat' - The format you specify determines whether Elastic Transcoder generates an embedded or sidecar caption for this output.     * __Valid Embedded Caption Formats:__      * __for FLAC__ : None     * __For MP3__ : None     * __For MP4__ : mov-text     * __For MPEG-TS__ : None     * __For ogg__ : None     * __For webm__ : None     * __Valid Sidecar Caption Formats:__ Elastic Transcoder supports dfxp (first div element only), scc, srt, and webvtt. If you want ttml or smpte-tt compatible captions, specify dfxp as your output format.     * __For FMP4__ : dfxp     * __Non-FMP4 outputs__ : All sidecar types @fmp4@ captions have an extension of @.ismt@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfEncryption' - The encryption settings, if any, that you want Elastic Transcoder to apply to your caption formats.
+-- 'format', 'captionFormat_format' - The format you specify determines whether Elastic Transcoder generates
+-- an embedded or sidecar caption for this output.
 --
--- * 'cfPattern' - The prefix for caption filenames, in the form /description/ -@{language}@ , where:     * /description/ is a description of the video.     * @{language}@ is a literal value that Elastic Transcoder replaces with the two- or three-letter code for the language of the caption in the output file names. If you don't include @{language}@ in the file name pattern, Elastic Transcoder automatically appends "@{language}@ " to the value that you specify for the description. In addition, Elastic Transcoder automatically appends the count to the end of the segment files. For example, suppose you're transcoding into srt format. When you enter "Sydney-{language}-sunrise", and the language of the captions is English (en), the name of the first caption file is be Sydney-en-sunrise00000.srt.
-captionFormat ::
+-- -   __Valid Embedded Caption Formats:__
+--
+--     -   __for FLAC__: None
+--
+--     -   __For MP3__: None
+--
+--     -   __For MP4__: mov-text
+--
+--     -   __For MPEG-TS__: None
+--
+--     -   __For ogg__: None
+--
+--     -   __For webm__: None
+--
+-- -   __Valid Sidecar Caption Formats:__ Elastic Transcoder supports dfxp
+--     (first div element only), scc, srt, and webvtt. If you want ttml or
+--     smpte-tt compatible captions, specify dfxp as your output format.
+--
+--     -   __For FMP4__: dfxp
+--
+--     -   __Non-FMP4 outputs__: All sidecar types
+--
+--     @fmp4@ captions have an extension of @.ismt@
+--
+-- 'encryption', 'captionFormat_encryption' - The encryption settings, if any, that you want Elastic Transcoder to
+-- apply to your caption formats.
+--
+-- 'pattern'', 'captionFormat_pattern' - The prefix for caption filenames, in the form
+-- /description/-@{language}@, where:
+--
+-- -   /description/ is a description of the video.
+--
+-- -   @{language}@ is a literal value that Elastic Transcoder replaces
+--     with the two- or three-letter code for the language of the caption
+--     in the output file names.
+--
+-- If you don\'t include @{language}@ in the file name pattern, Elastic
+-- Transcoder automatically appends \"@{language}@\" to the value that you
+-- specify for the description. In addition, Elastic Transcoder
+-- automatically appends the count to the end of the segment files.
+--
+-- For example, suppose you\'re transcoding into srt format. When you enter
+-- \"Sydney-{language}-sunrise\", and the language of the captions is
+-- English (en), the name of the first caption file is be
+-- Sydney-en-sunrise00000.srt.
+newCaptionFormat ::
   CaptionFormat
-captionFormat =
+newCaptionFormat =
   CaptionFormat'
-    { _cfFormat = Nothing,
-      _cfEncryption = Nothing,
-      _cfPattern = Nothing
+    { format = Prelude.Nothing,
+      encryption = Prelude.Nothing,
+      pattern' = Prelude.Nothing
     }
 
--- | The format you specify determines whether Elastic Transcoder generates an embedded or sidecar caption for this output.     * __Valid Embedded Caption Formats:__      * __for FLAC__ : None     * __For MP3__ : None     * __For MP4__ : mov-text     * __For MPEG-TS__ : None     * __For ogg__ : None     * __For webm__ : None     * __Valid Sidecar Caption Formats:__ Elastic Transcoder supports dfxp (first div element only), scc, srt, and webvtt. If you want ttml or smpte-tt compatible captions, specify dfxp as your output format.     * __For FMP4__ : dfxp     * __Non-FMP4 outputs__ : All sidecar types @fmp4@ captions have an extension of @.ismt@
-cfFormat :: Lens' CaptionFormat (Maybe Text)
-cfFormat = lens _cfFormat (\s a -> s {_cfFormat = a})
+-- | The format you specify determines whether Elastic Transcoder generates
+-- an embedded or sidecar caption for this output.
+--
+-- -   __Valid Embedded Caption Formats:__
+--
+--     -   __for FLAC__: None
+--
+--     -   __For MP3__: None
+--
+--     -   __For MP4__: mov-text
+--
+--     -   __For MPEG-TS__: None
+--
+--     -   __For ogg__: None
+--
+--     -   __For webm__: None
+--
+-- -   __Valid Sidecar Caption Formats:__ Elastic Transcoder supports dfxp
+--     (first div element only), scc, srt, and webvtt. If you want ttml or
+--     smpte-tt compatible captions, specify dfxp as your output format.
+--
+--     -   __For FMP4__: dfxp
+--
+--     -   __Non-FMP4 outputs__: All sidecar types
+--
+--     @fmp4@ captions have an extension of @.ismt@
+captionFormat_format :: Lens.Lens' CaptionFormat (Prelude.Maybe Prelude.Text)
+captionFormat_format = Lens.lens (\CaptionFormat' {format} -> format) (\s@CaptionFormat' {} a -> s {format = a} :: CaptionFormat)
 
--- | The encryption settings, if any, that you want Elastic Transcoder to apply to your caption formats.
-cfEncryption :: Lens' CaptionFormat (Maybe Encryption)
-cfEncryption = lens _cfEncryption (\s a -> s {_cfEncryption = a})
+-- | The encryption settings, if any, that you want Elastic Transcoder to
+-- apply to your caption formats.
+captionFormat_encryption :: Lens.Lens' CaptionFormat (Prelude.Maybe Encryption)
+captionFormat_encryption = Lens.lens (\CaptionFormat' {encryption} -> encryption) (\s@CaptionFormat' {} a -> s {encryption = a} :: CaptionFormat)
 
--- | The prefix for caption filenames, in the form /description/ -@{language}@ , where:     * /description/ is a description of the video.     * @{language}@ is a literal value that Elastic Transcoder replaces with the two- or three-letter code for the language of the caption in the output file names. If you don't include @{language}@ in the file name pattern, Elastic Transcoder automatically appends "@{language}@ " to the value that you specify for the description. In addition, Elastic Transcoder automatically appends the count to the end of the segment files. For example, suppose you're transcoding into srt format. When you enter "Sydney-{language}-sunrise", and the language of the captions is English (en), the name of the first caption file is be Sydney-en-sunrise00000.srt.
-cfPattern :: Lens' CaptionFormat (Maybe Text)
-cfPattern = lens _cfPattern (\s a -> s {_cfPattern = a})
+-- | The prefix for caption filenames, in the form
+-- /description/-@{language}@, where:
+--
+-- -   /description/ is a description of the video.
+--
+-- -   @{language}@ is a literal value that Elastic Transcoder replaces
+--     with the two- or three-letter code for the language of the caption
+--     in the output file names.
+--
+-- If you don\'t include @{language}@ in the file name pattern, Elastic
+-- Transcoder automatically appends \"@{language}@\" to the value that you
+-- specify for the description. In addition, Elastic Transcoder
+-- automatically appends the count to the end of the segment files.
+--
+-- For example, suppose you\'re transcoding into srt format. When you enter
+-- \"Sydney-{language}-sunrise\", and the language of the captions is
+-- English (en), the name of the first caption file is be
+-- Sydney-en-sunrise00000.srt.
+captionFormat_pattern :: Lens.Lens' CaptionFormat (Prelude.Maybe Prelude.Text)
+captionFormat_pattern = Lens.lens (\CaptionFormat' {pattern'} -> pattern') (\s@CaptionFormat' {} a -> s {pattern' = a} :: CaptionFormat)
 
-instance FromJSON CaptionFormat where
+instance Prelude.FromJSON CaptionFormat where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CaptionFormat"
       ( \x ->
           CaptionFormat'
-            <$> (x .:? "Format")
-            <*> (x .:? "Encryption")
-            <*> (x .:? "Pattern")
+            Prelude.<$> (x Prelude..:? "Format")
+            Prelude.<*> (x Prelude..:? "Encryption")
+            Prelude.<*> (x Prelude..:? "Pattern")
       )
 
-instance Hashable CaptionFormat
+instance Prelude.Hashable CaptionFormat
 
-instance NFData CaptionFormat
+instance Prelude.NFData CaptionFormat
 
-instance ToJSON CaptionFormat where
+instance Prelude.ToJSON CaptionFormat where
   toJSON CaptionFormat' {..} =
-    object
-      ( catMaybes
-          [ ("Format" .=) <$> _cfFormat,
-            ("Encryption" .=) <$> _cfEncryption,
-            ("Pattern" .=) <$> _cfPattern
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Format" Prelude..=) Prelude.<$> format,
+            ("Encryption" Prelude..=) Prelude.<$> encryption,
+            ("Pattern" Prelude..=) Prelude.<$> pattern'
           ]
       )
