@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the permission policy for an application. For the list of actions supported for this operation, see
---
---  <https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions Application
---  Permissions>
---  .
+-- Sets the permission policy for an application. For the list of actions
+-- supported for this operation, see
+-- <https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions Application Permissions>
+-- .
 module Network.AWS.ServerlessApplicationRepository.PutApplicationPolicy
   ( -- * Creating a Request
-    putApplicationPolicy,
-    PutApplicationPolicy,
+    PutApplicationPolicy (..),
+    newPutApplicationPolicy,
 
     -- * Request Lenses
-    papApplicationId,
-    papStatements,
+    putApplicationPolicy_applicationId,
+    putApplicationPolicy_statements,
 
     -- * Destructuring the Response
-    putApplicationPolicyResponse,
-    PutApplicationPolicyResponse,
+    PutApplicationPolicyResponse (..),
+    newPutApplicationPolicyResponse,
 
     -- * Response Lenses
-    paprrsStatements,
-    paprrsResponseStatus,
+    putApplicationPolicyResponse_statements,
+    putApplicationPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServerlessApplicationRepository.Types
+import Network.AWS.ServerlessApplicationRepository.Types.ApplicationPolicyStatement
 
--- | /See:/ 'putApplicationPolicy' smart constructor.
+-- | /See:/ 'newPutApplicationPolicy' smart constructor.
 data PutApplicationPolicy = PutApplicationPolicy'
-  { _papApplicationId ::
-      !Text,
-    _papStatements ::
-      ![ApplicationPolicyStatement]
+  { -- | The Amazon Resource Name (ARN) of the application.
+    applicationId :: Prelude.Text,
+    -- | An array of policy statements applied to the application.
+    statements :: [ApplicationPolicyStatement]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutApplicationPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutApplicationPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'papApplicationId' - The Amazon Resource Name (ARN) of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'papStatements' - An array of policy statements applied to the application.
-putApplicationPolicy ::
-  -- | 'papApplicationId'
-  Text ->
+-- 'applicationId', 'putApplicationPolicy_applicationId' - The Amazon Resource Name (ARN) of the application.
+--
+-- 'statements', 'putApplicationPolicy_statements' - An array of policy statements applied to the application.
+newPutApplicationPolicy ::
+  -- | 'applicationId'
+  Prelude.Text ->
   PutApplicationPolicy
-putApplicationPolicy pApplicationId_ =
+newPutApplicationPolicy pApplicationId_ =
   PutApplicationPolicy'
-    { _papApplicationId =
+    { applicationId =
         pApplicationId_,
-      _papStatements = mempty
+      statements = Prelude.mempty
     }
 
 -- | The Amazon Resource Name (ARN) of the application.
-papApplicationId :: Lens' PutApplicationPolicy Text
-papApplicationId = lens _papApplicationId (\s a -> s {_papApplicationId = a})
+putApplicationPolicy_applicationId :: Lens.Lens' PutApplicationPolicy Prelude.Text
+putApplicationPolicy_applicationId = Lens.lens (\PutApplicationPolicy' {applicationId} -> applicationId) (\s@PutApplicationPolicy' {} a -> s {applicationId = a} :: PutApplicationPolicy)
 
 -- | An array of policy statements applied to the application.
-papStatements :: Lens' PutApplicationPolicy [ApplicationPolicyStatement]
-papStatements = lens _papStatements (\s a -> s {_papStatements = a}) . _Coerce
+putApplicationPolicy_statements :: Lens.Lens' PutApplicationPolicy [ApplicationPolicyStatement]
+putApplicationPolicy_statements = Lens.lens (\PutApplicationPolicy' {statements} -> statements) (\s@PutApplicationPolicy' {} a -> s {statements = a} :: PutApplicationPolicy) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutApplicationPolicy where
+instance Prelude.AWSRequest PutApplicationPolicy where
   type
     Rs PutApplicationPolicy =
       PutApplicationPolicyResponse
-  request = putJSON serverlessApplicationRepository
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutApplicationPolicyResponse'
-            <$> (x .?> "statements" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "statements"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutApplicationPolicy
+instance Prelude.Hashable PutApplicationPolicy
 
-instance NFData PutApplicationPolicy
+instance Prelude.NFData PutApplicationPolicy
 
-instance ToHeaders PutApplicationPolicy where
+instance Prelude.ToHeaders PutApplicationPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutApplicationPolicy where
+instance Prelude.ToJSON PutApplicationPolicy where
   toJSON PutApplicationPolicy' {..} =
-    object
-      (catMaybes [Just ("statements" .= _papStatements)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("statements" Prelude..= statements)]
+      )
 
-instance ToPath PutApplicationPolicy where
+instance Prelude.ToPath PutApplicationPolicy where
   toPath PutApplicationPolicy' {..} =
-    mconcat
-      ["/applications/", toBS _papApplicationId, "/policy"]
+    Prelude.mconcat
+      [ "/applications/",
+        Prelude.toBS applicationId,
+        "/policy"
+      ]
 
-instance ToQuery PutApplicationPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery PutApplicationPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putApplicationPolicyResponse' smart constructor.
+-- | /See:/ 'newPutApplicationPolicyResponse' smart constructor.
 data PutApplicationPolicyResponse = PutApplicationPolicyResponse'
-  { _paprrsStatements ::
-      !( Maybe
-           [ApplicationPolicyStatement]
-       ),
-    _paprrsResponseStatus ::
-      !Int
+  { -- | An array of policy statements applied to the application.
+    statements :: Prelude.Maybe [ApplicationPolicyStatement],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutApplicationPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutApplicationPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paprrsStatements' - An array of policy statements applied to the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paprrsResponseStatus' - -- | The response status code.
-putApplicationPolicyResponse ::
-  -- | 'paprrsResponseStatus'
-  Int ->
+-- 'statements', 'putApplicationPolicyResponse_statements' - An array of policy statements applied to the application.
+--
+-- 'httpStatus', 'putApplicationPolicyResponse_httpStatus' - The response's http status code.
+newPutApplicationPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutApplicationPolicyResponse
-putApplicationPolicyResponse pResponseStatus_ =
+newPutApplicationPolicyResponse pHttpStatus_ =
   PutApplicationPolicyResponse'
-    { _paprrsStatements =
-        Nothing,
-      _paprrsResponseStatus = pResponseStatus_
+    { statements =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array of policy statements applied to the application.
-paprrsStatements :: Lens' PutApplicationPolicyResponse [ApplicationPolicyStatement]
-paprrsStatements = lens _paprrsStatements (\s a -> s {_paprrsStatements = a}) . _Default . _Coerce
+putApplicationPolicyResponse_statements :: Lens.Lens' PutApplicationPolicyResponse (Prelude.Maybe [ApplicationPolicyStatement])
+putApplicationPolicyResponse_statements = Lens.lens (\PutApplicationPolicyResponse' {statements} -> statements) (\s@PutApplicationPolicyResponse' {} a -> s {statements = a} :: PutApplicationPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-paprrsResponseStatus :: Lens' PutApplicationPolicyResponse Int
-paprrsResponseStatus = lens _paprrsResponseStatus (\s a -> s {_paprrsResponseStatus = a})
+-- | The response's http status code.
+putApplicationPolicyResponse_httpStatus :: Lens.Lens' PutApplicationPolicyResponse Prelude.Int
+putApplicationPolicyResponse_httpStatus = Lens.lens (\PutApplicationPolicyResponse' {httpStatus} -> httpStatus) (\s@PutApplicationPolicyResponse' {} a -> s {httpStatus = a} :: PutApplicationPolicyResponse)
 
-instance NFData PutApplicationPolicyResponse
+instance Prelude.NFData PutApplicationPolicyResponse

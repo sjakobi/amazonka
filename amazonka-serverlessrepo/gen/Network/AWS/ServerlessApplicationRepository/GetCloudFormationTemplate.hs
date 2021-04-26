@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,234 +24,254 @@
 -- Gets the specified AWS CloudFormation template.
 module Network.AWS.ServerlessApplicationRepository.GetCloudFormationTemplate
   ( -- * Creating a Request
-    getCloudFormationTemplate,
-    GetCloudFormationTemplate,
+    GetCloudFormationTemplate (..),
+    newGetCloudFormationTemplate,
 
     -- * Request Lenses
-    gcftApplicationId,
-    gcftTemplateId,
+    getCloudFormationTemplate_applicationId,
+    getCloudFormationTemplate_templateId,
 
     -- * Destructuring the Response
-    getCloudFormationTemplateResponse,
-    GetCloudFormationTemplateResponse,
+    GetCloudFormationTemplateResponse (..),
+    newGetCloudFormationTemplateResponse,
 
     -- * Response Lenses
-    gcftrrsApplicationId,
-    gcftrrsStatus,
-    gcftrrsCreationTime,
-    gcftrrsExpirationTime,
-    gcftrrsTemplateURL,
-    gcftrrsSemanticVersion,
-    gcftrrsTemplateId,
-    gcftrrsResponseStatus,
+    getCloudFormationTemplateResponse_applicationId,
+    getCloudFormationTemplateResponse_status,
+    getCloudFormationTemplateResponse_creationTime,
+    getCloudFormationTemplateResponse_expirationTime,
+    getCloudFormationTemplateResponse_templateUrl,
+    getCloudFormationTemplateResponse_semanticVersion,
+    getCloudFormationTemplateResponse_templateId,
+    getCloudFormationTemplateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServerlessApplicationRepository.Types
+import Network.AWS.ServerlessApplicationRepository.Types.Status
 
--- | /See:/ 'getCloudFormationTemplate' smart constructor.
+-- | /See:/ 'newGetCloudFormationTemplate' smart constructor.
 data GetCloudFormationTemplate = GetCloudFormationTemplate'
-  { _gcftApplicationId ::
-      !Text,
-    _gcftTemplateId ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) of the application.
+    applicationId :: Prelude.Text,
+    -- | The UUID returned by CreateCloudFormationTemplate.
+    --
+    -- Pattern:
+    -- [0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+    templateId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCloudFormationTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCloudFormationTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcftApplicationId' - The Amazon Resource Name (ARN) of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcftTemplateId' - The UUID returned by CreateCloudFormationTemplate. Pattern: [0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}
-getCloudFormationTemplate ::
-  -- | 'gcftApplicationId'
-  Text ->
-  -- | 'gcftTemplateId'
-  Text ->
+-- 'applicationId', 'getCloudFormationTemplate_applicationId' - The Amazon Resource Name (ARN) of the application.
+--
+-- 'templateId', 'getCloudFormationTemplate_templateId' - The UUID returned by CreateCloudFormationTemplate.
+--
+-- Pattern:
+-- [0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+newGetCloudFormationTemplate ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'templateId'
+  Prelude.Text ->
   GetCloudFormationTemplate
-getCloudFormationTemplate
+newGetCloudFormationTemplate
   pApplicationId_
   pTemplateId_ =
     GetCloudFormationTemplate'
-      { _gcftApplicationId =
+      { applicationId =
           pApplicationId_,
-        _gcftTemplateId = pTemplateId_
+        templateId = pTemplateId_
       }
 
 -- | The Amazon Resource Name (ARN) of the application.
-gcftApplicationId :: Lens' GetCloudFormationTemplate Text
-gcftApplicationId = lens _gcftApplicationId (\s a -> s {_gcftApplicationId = a})
+getCloudFormationTemplate_applicationId :: Lens.Lens' GetCloudFormationTemplate Prelude.Text
+getCloudFormationTemplate_applicationId = Lens.lens (\GetCloudFormationTemplate' {applicationId} -> applicationId) (\s@GetCloudFormationTemplate' {} a -> s {applicationId = a} :: GetCloudFormationTemplate)
 
--- | The UUID returned by CreateCloudFormationTemplate. Pattern: [0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}
-gcftTemplateId :: Lens' GetCloudFormationTemplate Text
-gcftTemplateId = lens _gcftTemplateId (\s a -> s {_gcftTemplateId = a})
+-- | The UUID returned by CreateCloudFormationTemplate.
+--
+-- Pattern:
+-- [0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+getCloudFormationTemplate_templateId :: Lens.Lens' GetCloudFormationTemplate Prelude.Text
+getCloudFormationTemplate_templateId = Lens.lens (\GetCloudFormationTemplate' {templateId} -> templateId) (\s@GetCloudFormationTemplate' {} a -> s {templateId = a} :: GetCloudFormationTemplate)
 
-instance AWSRequest GetCloudFormationTemplate where
+instance Prelude.AWSRequest GetCloudFormationTemplate where
   type
     Rs GetCloudFormationTemplate =
       GetCloudFormationTemplateResponse
-  request = get serverlessApplicationRepository
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCloudFormationTemplateResponse'
-            <$> (x .?> "applicationId")
-            <*> (x .?> "status")
-            <*> (x .?> "creationTime")
-            <*> (x .?> "expirationTime")
-            <*> (x .?> "templateUrl")
-            <*> (x .?> "semanticVersion")
-            <*> (x .?> "templateId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "applicationId")
+            Prelude.<*> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "creationTime")
+            Prelude.<*> (x Prelude..?> "expirationTime")
+            Prelude.<*> (x Prelude..?> "templateUrl")
+            Prelude.<*> (x Prelude..?> "semanticVersion")
+            Prelude.<*> (x Prelude..?> "templateId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCloudFormationTemplate
+instance Prelude.Hashable GetCloudFormationTemplate
 
-instance NFData GetCloudFormationTemplate
+instance Prelude.NFData GetCloudFormationTemplate
 
-instance ToHeaders GetCloudFormationTemplate where
+instance Prelude.ToHeaders GetCloudFormationTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetCloudFormationTemplate where
+instance Prelude.ToPath GetCloudFormationTemplate where
   toPath GetCloudFormationTemplate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/applications/",
-        toBS _gcftApplicationId,
+        Prelude.toBS applicationId,
         "/templates/",
-        toBS _gcftTemplateId
+        Prelude.toBS templateId
       ]
 
-instance ToQuery GetCloudFormationTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCloudFormationTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCloudFormationTemplateResponse' smart constructor.
+-- | /See:/ 'newGetCloudFormationTemplateResponse' smart constructor.
 data GetCloudFormationTemplateResponse = GetCloudFormationTemplateResponse'
-  { _gcftrrsApplicationId ::
-      !( Maybe
-           Text
-       ),
-    _gcftrrsStatus ::
-      !( Maybe
-           Status
-       ),
-    _gcftrrsCreationTime ::
-      !( Maybe
-           Text
-       ),
-    _gcftrrsExpirationTime ::
-      !( Maybe
-           Text
-       ),
-    _gcftrrsTemplateURL ::
-      !( Maybe
-           Text
-       ),
-    _gcftrrsSemanticVersion ::
-      !( Maybe
-           Text
-       ),
-    _gcftrrsTemplateId ::
-      !( Maybe
-           Text
-       ),
-    _gcftrrsResponseStatus ::
-      !Int
+  { -- | The application Amazon Resource Name (ARN).
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | Status of the template creation workflow.
+    --
+    -- Possible values: PREPARING | ACTIVE | EXPIRED
+    status :: Prelude.Maybe Status,
+    -- | The date and time this resource was created.
+    creationTime :: Prelude.Maybe Prelude.Text,
+    -- | The date and time this template expires. Templates expire 1 hour after
+    -- creation.
+    expirationTime :: Prelude.Maybe Prelude.Text,
+    -- | A link to the template that can be used to deploy the application using
+    -- AWS CloudFormation.
+    templateUrl :: Prelude.Maybe Prelude.Text,
+    -- | The semantic version of the application:
+    --
+    -- <https://semver.org/>
+    semanticVersion :: Prelude.Maybe Prelude.Text,
+    -- | The UUID returned by CreateCloudFormationTemplate.
+    --
+    -- Pattern:
+    -- [0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+    templateId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCloudFormationTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCloudFormationTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcftrrsApplicationId' - The application Amazon Resource Name (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcftrrsStatus' - Status of the template creation workflow. Possible values: PREPARING | ACTIVE | EXPIRED
+-- 'applicationId', 'getCloudFormationTemplateResponse_applicationId' - The application Amazon Resource Name (ARN).
 --
--- * 'gcftrrsCreationTime' - The date and time this resource was created.
+-- 'status', 'getCloudFormationTemplateResponse_status' - Status of the template creation workflow.
 --
--- * 'gcftrrsExpirationTime' - The date and time this template expires. Templates  expire 1 hour after creation.
+-- Possible values: PREPARING | ACTIVE | EXPIRED
 --
--- * 'gcftrrsTemplateURL' - A link to the template that can be used to deploy the application using  AWS CloudFormation.
+-- 'creationTime', 'getCloudFormationTemplateResponse_creationTime' - The date and time this resource was created.
 --
--- * 'gcftrrsSemanticVersion' - The semantic version of the application: <https://semver.org/ https://semver.org/>
+-- 'expirationTime', 'getCloudFormationTemplateResponse_expirationTime' - The date and time this template expires. Templates expire 1 hour after
+-- creation.
 --
--- * 'gcftrrsTemplateId' - The UUID returned by CreateCloudFormationTemplate. Pattern: [0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}
+-- 'templateUrl', 'getCloudFormationTemplateResponse_templateUrl' - A link to the template that can be used to deploy the application using
+-- AWS CloudFormation.
 --
--- * 'gcftrrsResponseStatus' - -- | The response status code.
-getCloudFormationTemplateResponse ::
-  -- | 'gcftrrsResponseStatus'
-  Int ->
+-- 'semanticVersion', 'getCloudFormationTemplateResponse_semanticVersion' - The semantic version of the application:
+--
+-- <https://semver.org/>
+--
+-- 'templateId', 'getCloudFormationTemplateResponse_templateId' - The UUID returned by CreateCloudFormationTemplate.
+--
+-- Pattern:
+-- [0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+--
+-- 'httpStatus', 'getCloudFormationTemplateResponse_httpStatus' - The response's http status code.
+newGetCloudFormationTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCloudFormationTemplateResponse
-getCloudFormationTemplateResponse pResponseStatus_ =
+newGetCloudFormationTemplateResponse pHttpStatus_ =
   GetCloudFormationTemplateResponse'
-    { _gcftrrsApplicationId =
-        Nothing,
-      _gcftrrsStatus = Nothing,
-      _gcftrrsCreationTime = Nothing,
-      _gcftrrsExpirationTime = Nothing,
-      _gcftrrsTemplateURL = Nothing,
-      _gcftrrsSemanticVersion = Nothing,
-      _gcftrrsTemplateId = Nothing,
-      _gcftrrsResponseStatus =
-        pResponseStatus_
+    { applicationId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      expirationTime = Prelude.Nothing,
+      templateUrl = Prelude.Nothing,
+      semanticVersion = Prelude.Nothing,
+      templateId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The application Amazon Resource Name (ARN).
-gcftrrsApplicationId :: Lens' GetCloudFormationTemplateResponse (Maybe Text)
-gcftrrsApplicationId = lens _gcftrrsApplicationId (\s a -> s {_gcftrrsApplicationId = a})
+getCloudFormationTemplateResponse_applicationId :: Lens.Lens' GetCloudFormationTemplateResponse (Prelude.Maybe Prelude.Text)
+getCloudFormationTemplateResponse_applicationId = Lens.lens (\GetCloudFormationTemplateResponse' {applicationId} -> applicationId) (\s@GetCloudFormationTemplateResponse' {} a -> s {applicationId = a} :: GetCloudFormationTemplateResponse)
 
--- | Status of the template creation workflow. Possible values: PREPARING | ACTIVE | EXPIRED
-gcftrrsStatus :: Lens' GetCloudFormationTemplateResponse (Maybe Status)
-gcftrrsStatus = lens _gcftrrsStatus (\s a -> s {_gcftrrsStatus = a})
+-- | Status of the template creation workflow.
+--
+-- Possible values: PREPARING | ACTIVE | EXPIRED
+getCloudFormationTemplateResponse_status :: Lens.Lens' GetCloudFormationTemplateResponse (Prelude.Maybe Status)
+getCloudFormationTemplateResponse_status = Lens.lens (\GetCloudFormationTemplateResponse' {status} -> status) (\s@GetCloudFormationTemplateResponse' {} a -> s {status = a} :: GetCloudFormationTemplateResponse)
 
 -- | The date and time this resource was created.
-gcftrrsCreationTime :: Lens' GetCloudFormationTemplateResponse (Maybe Text)
-gcftrrsCreationTime = lens _gcftrrsCreationTime (\s a -> s {_gcftrrsCreationTime = a})
+getCloudFormationTemplateResponse_creationTime :: Lens.Lens' GetCloudFormationTemplateResponse (Prelude.Maybe Prelude.Text)
+getCloudFormationTemplateResponse_creationTime = Lens.lens (\GetCloudFormationTemplateResponse' {creationTime} -> creationTime) (\s@GetCloudFormationTemplateResponse' {} a -> s {creationTime = a} :: GetCloudFormationTemplateResponse)
 
--- | The date and time this template expires. Templates  expire 1 hour after creation.
-gcftrrsExpirationTime :: Lens' GetCloudFormationTemplateResponse (Maybe Text)
-gcftrrsExpirationTime = lens _gcftrrsExpirationTime (\s a -> s {_gcftrrsExpirationTime = a})
+-- | The date and time this template expires. Templates expire 1 hour after
+-- creation.
+getCloudFormationTemplateResponse_expirationTime :: Lens.Lens' GetCloudFormationTemplateResponse (Prelude.Maybe Prelude.Text)
+getCloudFormationTemplateResponse_expirationTime = Lens.lens (\GetCloudFormationTemplateResponse' {expirationTime} -> expirationTime) (\s@GetCloudFormationTemplateResponse' {} a -> s {expirationTime = a} :: GetCloudFormationTemplateResponse)
 
--- | A link to the template that can be used to deploy the application using  AWS CloudFormation.
-gcftrrsTemplateURL :: Lens' GetCloudFormationTemplateResponse (Maybe Text)
-gcftrrsTemplateURL = lens _gcftrrsTemplateURL (\s a -> s {_gcftrrsTemplateURL = a})
+-- | A link to the template that can be used to deploy the application using
+-- AWS CloudFormation.
+getCloudFormationTemplateResponse_templateUrl :: Lens.Lens' GetCloudFormationTemplateResponse (Prelude.Maybe Prelude.Text)
+getCloudFormationTemplateResponse_templateUrl = Lens.lens (\GetCloudFormationTemplateResponse' {templateUrl} -> templateUrl) (\s@GetCloudFormationTemplateResponse' {} a -> s {templateUrl = a} :: GetCloudFormationTemplateResponse)
 
--- | The semantic version of the application: <https://semver.org/ https://semver.org/>
-gcftrrsSemanticVersion :: Lens' GetCloudFormationTemplateResponse (Maybe Text)
-gcftrrsSemanticVersion = lens _gcftrrsSemanticVersion (\s a -> s {_gcftrrsSemanticVersion = a})
+-- | The semantic version of the application:
+--
+-- <https://semver.org/>
+getCloudFormationTemplateResponse_semanticVersion :: Lens.Lens' GetCloudFormationTemplateResponse (Prelude.Maybe Prelude.Text)
+getCloudFormationTemplateResponse_semanticVersion = Lens.lens (\GetCloudFormationTemplateResponse' {semanticVersion} -> semanticVersion) (\s@GetCloudFormationTemplateResponse' {} a -> s {semanticVersion = a} :: GetCloudFormationTemplateResponse)
 
--- | The UUID returned by CreateCloudFormationTemplate. Pattern: [0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}
-gcftrrsTemplateId :: Lens' GetCloudFormationTemplateResponse (Maybe Text)
-gcftrrsTemplateId = lens _gcftrrsTemplateId (\s a -> s {_gcftrrsTemplateId = a})
+-- | The UUID returned by CreateCloudFormationTemplate.
+--
+-- Pattern:
+-- [0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+getCloudFormationTemplateResponse_templateId :: Lens.Lens' GetCloudFormationTemplateResponse (Prelude.Maybe Prelude.Text)
+getCloudFormationTemplateResponse_templateId = Lens.lens (\GetCloudFormationTemplateResponse' {templateId} -> templateId) (\s@GetCloudFormationTemplateResponse' {} a -> s {templateId = a} :: GetCloudFormationTemplateResponse)
 
--- | -- | The response status code.
-gcftrrsResponseStatus :: Lens' GetCloudFormationTemplateResponse Int
-gcftrrsResponseStatus = lens _gcftrrsResponseStatus (\s a -> s {_gcftrrsResponseStatus = a})
+-- | The response's http status code.
+getCloudFormationTemplateResponse_httpStatus :: Lens.Lens' GetCloudFormationTemplateResponse Prelude.Int
+getCloudFormationTemplateResponse_httpStatus = Lens.lens (\GetCloudFormationTemplateResponse' {httpStatus} -> httpStatus) (\s@GetCloudFormationTemplateResponse' {} a -> s {httpStatus = a} :: GetCloudFormationTemplateResponse)
 
-instance NFData GetCloudFormationTemplateResponse
+instance
+  Prelude.NFData
+    GetCloudFormationTemplateResponse

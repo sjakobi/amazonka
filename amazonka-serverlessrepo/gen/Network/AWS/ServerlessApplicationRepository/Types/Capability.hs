@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.ServerlessApplicationRepository.Types.Capability
   ( Capability
       ( ..,
-        CapabilityAutoExpand,
-        CapabilityIAM,
-        CapabilityNamedIAM,
-        CapabilityResourcePolicy
+        CapabilityCAPABILITYAUTOEXPAND,
+        CapabilityCAPABILITYIAM,
+        CapabilityCAPABILITYNAMEDIAM,
+        CapabilityCAPABILITYRESOURCEPOLICY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Values that must be specified in order to deploy some applications.
-data Capability = Capability' (CI Text)
+newtype Capability = Capability'
+  { fromCapability ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CapabilityAutoExpand :: Capability
-pattern CapabilityAutoExpand = Capability' "CAPABILITY_AUTO_EXPAND"
+pattern CapabilityCAPABILITYAUTOEXPAND :: Capability
+pattern CapabilityCAPABILITYAUTOEXPAND = Capability' "CAPABILITY_AUTO_EXPAND"
 
-pattern CapabilityIAM :: Capability
-pattern CapabilityIAM = Capability' "CAPABILITY_IAM"
+pattern CapabilityCAPABILITYIAM :: Capability
+pattern CapabilityCAPABILITYIAM = Capability' "CAPABILITY_IAM"
 
-pattern CapabilityNamedIAM :: Capability
-pattern CapabilityNamedIAM = Capability' "CAPABILITY_NAMED_IAM"
+pattern CapabilityCAPABILITYNAMEDIAM :: Capability
+pattern CapabilityCAPABILITYNAMEDIAM = Capability' "CAPABILITY_NAMED_IAM"
 
-pattern CapabilityResourcePolicy :: Capability
-pattern CapabilityResourcePolicy = Capability' "CAPABILITY_RESOURCE_POLICY"
+pattern CapabilityCAPABILITYRESOURCEPOLICY :: Capability
+pattern CapabilityCAPABILITYRESOURCEPOLICY = Capability' "CAPABILITY_RESOURCE_POLICY"
 
 {-# COMPLETE
-  CapabilityAutoExpand,
-  CapabilityIAM,
-  CapabilityNamedIAM,
-  CapabilityResourcePolicy,
+  CapabilityCAPABILITYAUTOEXPAND,
+  CapabilityCAPABILITYIAM,
+  CapabilityCAPABILITYNAMEDIAM,
+  CapabilityCAPABILITYRESOURCEPOLICY,
   Capability'
   #-}
 
-instance FromText Capability where
-  parser = (Capability' . mk) <$> takeText
+instance Prelude.FromText Capability where
+  parser = Capability' Prelude.<$> Prelude.takeText
 
-instance ToText Capability where
-  toText (Capability' ci) = original ci
+instance Prelude.ToText Capability where
+  toText (Capability' x) = x
 
-instance Hashable Capability
+instance Prelude.Hashable Capability
 
-instance NFData Capability
+instance Prelude.NFData Capability
 
-instance ToByteString Capability
+instance Prelude.ToByteString Capability
 
-instance ToQuery Capability
+instance Prelude.ToQuery Capability
 
-instance ToHeader Capability
+instance Prelude.ToHeader Capability
 
-instance FromJSON Capability where
-  parseJSON = parseJSONText "Capability"
+instance Prelude.FromJSON Capability where
+  parseJSON = Prelude.parseJSONText "Capability"

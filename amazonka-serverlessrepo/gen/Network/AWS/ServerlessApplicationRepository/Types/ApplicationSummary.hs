@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,120 +19,174 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types.ApplicationSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary of details about the application.
 --
---
---
--- /See:/ 'applicationSummary' smart constructor.
+-- /See:/ 'newApplicationSummary' smart constructor.
 data ApplicationSummary = ApplicationSummary'
-  { _asCreationTime ::
-      !(Maybe Text),
-    _asSpdxLicenseId :: !(Maybe Text),
-    _asLabels :: !(Maybe [Text]),
-    _asHomePageURL :: !(Maybe Text),
-    _asDescription :: !Text,
-    _asAuthor :: !Text,
-    _asApplicationId :: !Text,
-    _asName :: !Text
+  { -- | The date and time this resource was created.
+    creationTime :: Prelude.Maybe Prelude.Text,
+    -- | A valid identifier from <https://spdx.org/licenses/>.
+    spdxLicenseId :: Prelude.Maybe Prelude.Text,
+    -- | Labels to improve discovery of apps in search results.
+    --
+    -- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+    --
+    -- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+    labels :: Prelude.Maybe [Prelude.Text],
+    -- | A URL with more information about the application, for example the
+    -- location of your GitHub repository for the application.
+    homePageUrl :: Prelude.Maybe Prelude.Text,
+    -- | The description of the application.
+    --
+    -- Minimum length=1. Maximum length=256
+    description :: Prelude.Text,
+    -- | The name of the author publishing the app.
+    --
+    -- Minimum length=1. Maximum length=127.
+    --
+    -- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+    author :: Prelude.Text,
+    -- | The application Amazon Resource Name (ARN).
+    applicationId :: Prelude.Text,
+    -- | The name of the application.
+    --
+    -- Minimum length=1. Maximum length=140
+    --
+    -- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asCreationTime' - The date and time this resource was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asSpdxLicenseId' - A valid identifier from <https://spdx.org/licenses/ https://spdx.org/licenses/> .
+-- 'creationTime', 'applicationSummary_creationTime' - The date and time this resource was created.
 --
--- * 'asLabels' - Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
+-- 'spdxLicenseId', 'applicationSummary_spdxLicenseId' - A valid identifier from <https://spdx.org/licenses/>.
 --
--- * 'asHomePageURL' - A URL with more information about the application, for example the location of your GitHub repository for the application.
+-- 'labels', 'applicationSummary_labels' - Labels to improve discovery of apps in search results.
 --
--- * 'asDescription' - The description of the application. Minimum length=1. Maximum length=256
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
 --
--- * 'asAuthor' - The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
 --
--- * 'asApplicationId' - The application Amazon Resource Name (ARN).
+-- 'homePageUrl', 'applicationSummary_homePageUrl' - A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
 --
--- * 'asName' - The name of the application. Minimum length=1. Maximum length=140 Pattern: "[a-zA-Z0-9\\-]+";
-applicationSummary ::
-  -- | 'asDescription'
-  Text ->
-  -- | 'asAuthor'
-  Text ->
-  -- | 'asApplicationId'
-  Text ->
-  -- | 'asName'
-  Text ->
+-- 'description', 'applicationSummary_description' - The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+--
+-- 'author', 'applicationSummary_author' - The name of the author publishing the app.
+--
+-- Minimum length=1. Maximum length=127.
+--
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+--
+-- 'applicationId', 'applicationSummary_applicationId' - The application Amazon Resource Name (ARN).
+--
+-- 'name', 'applicationSummary_name' - The name of the application.
+--
+-- Minimum length=1. Maximum length=140
+--
+-- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+newApplicationSummary ::
+  -- | 'description'
+  Prelude.Text ->
+  -- | 'author'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   ApplicationSummary
-applicationSummary
+newApplicationSummary
   pDescription_
   pAuthor_
   pApplicationId_
   pName_ =
     ApplicationSummary'
-      { _asCreationTime = Nothing,
-        _asSpdxLicenseId = Nothing,
-        _asLabels = Nothing,
-        _asHomePageURL = Nothing,
-        _asDescription = pDescription_,
-        _asAuthor = pAuthor_,
-        _asApplicationId = pApplicationId_,
-        _asName = pName_
+      { creationTime = Prelude.Nothing,
+        spdxLicenseId = Prelude.Nothing,
+        labels = Prelude.Nothing,
+        homePageUrl = Prelude.Nothing,
+        description = pDescription_,
+        author = pAuthor_,
+        applicationId = pApplicationId_,
+        name = pName_
       }
 
 -- | The date and time this resource was created.
-asCreationTime :: Lens' ApplicationSummary (Maybe Text)
-asCreationTime = lens _asCreationTime (\s a -> s {_asCreationTime = a})
+applicationSummary_creationTime :: Lens.Lens' ApplicationSummary (Prelude.Maybe Prelude.Text)
+applicationSummary_creationTime = Lens.lens (\ApplicationSummary' {creationTime} -> creationTime) (\s@ApplicationSummary' {} a -> s {creationTime = a} :: ApplicationSummary)
 
--- | A valid identifier from <https://spdx.org/licenses/ https://spdx.org/licenses/> .
-asSpdxLicenseId :: Lens' ApplicationSummary (Maybe Text)
-asSpdxLicenseId = lens _asSpdxLicenseId (\s a -> s {_asSpdxLicenseId = a})
+-- | A valid identifier from <https://spdx.org/licenses/>.
+applicationSummary_spdxLicenseId :: Lens.Lens' ApplicationSummary (Prelude.Maybe Prelude.Text)
+applicationSummary_spdxLicenseId = Lens.lens (\ApplicationSummary' {spdxLicenseId} -> spdxLicenseId) (\s@ApplicationSummary' {} a -> s {spdxLicenseId = a} :: ApplicationSummary)
 
--- | Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
-asLabels :: Lens' ApplicationSummary [Text]
-asLabels = lens _asLabels (\s a -> s {_asLabels = a}) . _Default . _Coerce
+-- | Labels to improve discovery of apps in search results.
+--
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+--
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+applicationSummary_labels :: Lens.Lens' ApplicationSummary (Prelude.Maybe [Prelude.Text])
+applicationSummary_labels = Lens.lens (\ApplicationSummary' {labels} -> labels) (\s@ApplicationSummary' {} a -> s {labels = a} :: ApplicationSummary) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A URL with more information about the application, for example the location of your GitHub repository for the application.
-asHomePageURL :: Lens' ApplicationSummary (Maybe Text)
-asHomePageURL = lens _asHomePageURL (\s a -> s {_asHomePageURL = a})
+-- | A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
+applicationSummary_homePageUrl :: Lens.Lens' ApplicationSummary (Prelude.Maybe Prelude.Text)
+applicationSummary_homePageUrl = Lens.lens (\ApplicationSummary' {homePageUrl} -> homePageUrl) (\s@ApplicationSummary' {} a -> s {homePageUrl = a} :: ApplicationSummary)
 
--- | The description of the application. Minimum length=1. Maximum length=256
-asDescription :: Lens' ApplicationSummary Text
-asDescription = lens _asDescription (\s a -> s {_asDescription = a})
+-- | The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+applicationSummary_description :: Lens.Lens' ApplicationSummary Prelude.Text
+applicationSummary_description = Lens.lens (\ApplicationSummary' {description} -> description) (\s@ApplicationSummary' {} a -> s {description = a} :: ApplicationSummary)
 
--- | The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
-asAuthor :: Lens' ApplicationSummary Text
-asAuthor = lens _asAuthor (\s a -> s {_asAuthor = a})
+-- | The name of the author publishing the app.
+--
+-- Minimum length=1. Maximum length=127.
+--
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+applicationSummary_author :: Lens.Lens' ApplicationSummary Prelude.Text
+applicationSummary_author = Lens.lens (\ApplicationSummary' {author} -> author) (\s@ApplicationSummary' {} a -> s {author = a} :: ApplicationSummary)
 
 -- | The application Amazon Resource Name (ARN).
-asApplicationId :: Lens' ApplicationSummary Text
-asApplicationId = lens _asApplicationId (\s a -> s {_asApplicationId = a})
+applicationSummary_applicationId :: Lens.Lens' ApplicationSummary Prelude.Text
+applicationSummary_applicationId = Lens.lens (\ApplicationSummary' {applicationId} -> applicationId) (\s@ApplicationSummary' {} a -> s {applicationId = a} :: ApplicationSummary)
 
--- | The name of the application. Minimum length=1. Maximum length=140 Pattern: "[a-zA-Z0-9\\-]+";
-asName :: Lens' ApplicationSummary Text
-asName = lens _asName (\s a -> s {_asName = a})
+-- | The name of the application.
+--
+-- Minimum length=1. Maximum length=140
+--
+-- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+applicationSummary_name :: Lens.Lens' ApplicationSummary Prelude.Text
+applicationSummary_name = Lens.lens (\ApplicationSummary' {name} -> name) (\s@ApplicationSummary' {} a -> s {name = a} :: ApplicationSummary)
 
-instance FromJSON ApplicationSummary where
+instance Prelude.FromJSON ApplicationSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApplicationSummary"
       ( \x ->
           ApplicationSummary'
-            <$> (x .:? "creationTime")
-            <*> (x .:? "spdxLicenseId")
-            <*> (x .:? "labels" .!= mempty)
-            <*> (x .:? "homePageUrl")
-            <*> (x .: "description")
-            <*> (x .: "author")
-            <*> (x .: "applicationId")
-            <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "spdxLicenseId")
+            Prelude.<*> (x Prelude..:? "labels" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "homePageUrl")
+            Prelude.<*> (x Prelude..: "description")
+            Prelude.<*> (x Prelude..: "author")
+            Prelude.<*> (x Prelude..: "applicationId")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable ApplicationSummary
+instance Prelude.Hashable ApplicationSummary
 
-instance NFData ApplicationSummary
+instance Prelude.NFData ApplicationSummary

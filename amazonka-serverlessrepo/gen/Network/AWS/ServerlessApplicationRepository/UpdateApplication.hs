@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,323 +24,460 @@
 -- Updates the specified application.
 module Network.AWS.ServerlessApplicationRepository.UpdateApplication
   ( -- * Creating a Request
-    updateApplication,
-    UpdateApplication,
+    UpdateApplication (..),
+    newUpdateApplication,
 
     -- * Request Lenses
-    uLabels,
-    uAuthor,
-    uReadmeBody,
-    uHomePageURL,
-    uReadmeURL,
-    uDescription,
-    uApplicationId,
+    updateApplication_labels,
+    updateApplication_author,
+    updateApplication_readmeBody,
+    updateApplication_homePageUrl,
+    updateApplication_readmeUrl,
+    updateApplication_description,
+    updateApplication_applicationId,
 
     -- * Destructuring the Response
-    updateApplicationResponse,
-    UpdateApplicationResponse,
+    UpdateApplicationResponse (..),
+    newUpdateApplicationResponse,
 
     -- * Response Lenses
-    uarrsApplicationId,
-    uarrsCreationTime,
-    uarrsSpdxLicenseId,
-    uarrsLicenseURL,
-    uarrsVerifiedAuthorURL,
-    uarrsLabels,
-    uarrsAuthor,
-    uarrsVersion,
-    uarrsHomePageURL,
-    uarrsName,
-    uarrsIsVerifiedAuthor,
-    uarrsReadmeURL,
-    uarrsDescription,
-    uarrsResponseStatus,
+    updateApplicationResponse_applicationId,
+    updateApplicationResponse_creationTime,
+    updateApplicationResponse_spdxLicenseId,
+    updateApplicationResponse_licenseUrl,
+    updateApplicationResponse_verifiedAuthorUrl,
+    updateApplicationResponse_labels,
+    updateApplicationResponse_author,
+    updateApplicationResponse_version,
+    updateApplicationResponse_homePageUrl,
+    updateApplicationResponse_name,
+    updateApplicationResponse_isVerifiedAuthor,
+    updateApplicationResponse_readmeUrl,
+    updateApplicationResponse_description,
+    updateApplicationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServerlessApplicationRepository.Types
+import Network.AWS.ServerlessApplicationRepository.Types.Version
 
--- | /See:/ 'updateApplication' smart constructor.
+-- | /See:/ 'newUpdateApplication' smart constructor.
 data UpdateApplication = UpdateApplication'
-  { _uLabels ::
-      !(Maybe [Text]),
-    _uAuthor :: !(Maybe Text),
-    _uReadmeBody :: !(Maybe Text),
-    _uHomePageURL :: !(Maybe Text),
-    _uReadmeURL :: !(Maybe Text),
-    _uDescription :: !(Maybe Text),
-    _uApplicationId :: !Text
+  { -- | Labels to improve discovery of apps in search results.
+    --
+    -- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+    --
+    -- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+    labels :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the author publishing the app.
+    --
+    -- Minimum length=1. Maximum length=127.
+    --
+    -- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+    author :: Prelude.Maybe Prelude.Text,
+    -- | A text readme file in Markdown language that contains a more detailed
+    -- description of the application and how it works.
+    --
+    -- Maximum size 5 MB
+    readmeBody :: Prelude.Maybe Prelude.Text,
+    -- | A URL with more information about the application, for example the
+    -- location of your GitHub repository for the application.
+    homePageUrl :: Prelude.Maybe Prelude.Text,
+    -- | A link to the readme file in Markdown language that contains a more
+    -- detailed description of the application and how it works.
+    --
+    -- Maximum size 5 MB
+    readmeUrl :: Prelude.Maybe Prelude.Text,
+    -- | The description of the application.
+    --
+    -- Minimum length=1. Maximum length=256
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the application.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uLabels' - Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uAuthor' - The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
+-- 'labels', 'updateApplication_labels' - Labels to improve discovery of apps in search results.
 --
--- * 'uReadmeBody' - A text readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
 --
--- * 'uHomePageURL' - A URL with more information about the application, for example the location of your GitHub repository for the application.
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
 --
--- * 'uReadmeURL' - A link to the readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
+-- 'author', 'updateApplication_author' - The name of the author publishing the app.
 --
--- * 'uDescription' - The description of the application. Minimum length=1. Maximum length=256
+-- Minimum length=1. Maximum length=127.
 --
--- * 'uApplicationId' - The Amazon Resource Name (ARN) of the application.
-updateApplication ::
-  -- | 'uApplicationId'
-  Text ->
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+--
+-- 'readmeBody', 'updateApplication_readmeBody' - A text readme file in Markdown language that contains a more detailed
+-- description of the application and how it works.
+--
+-- Maximum size 5 MB
+--
+-- 'homePageUrl', 'updateApplication_homePageUrl' - A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
+--
+-- 'readmeUrl', 'updateApplication_readmeUrl' - A link to the readme file in Markdown language that contains a more
+-- detailed description of the application and how it works.
+--
+-- Maximum size 5 MB
+--
+-- 'description', 'updateApplication_description' - The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+--
+-- 'applicationId', 'updateApplication_applicationId' - The Amazon Resource Name (ARN) of the application.
+newUpdateApplication ::
+  -- | 'applicationId'
+  Prelude.Text ->
   UpdateApplication
-updateApplication pApplicationId_ =
+newUpdateApplication pApplicationId_ =
   UpdateApplication'
-    { _uLabels = Nothing,
-      _uAuthor = Nothing,
-      _uReadmeBody = Nothing,
-      _uHomePageURL = Nothing,
-      _uReadmeURL = Nothing,
-      _uDescription = Nothing,
-      _uApplicationId = pApplicationId_
+    { labels = Prelude.Nothing,
+      author = Prelude.Nothing,
+      readmeBody = Prelude.Nothing,
+      homePageUrl = Prelude.Nothing,
+      readmeUrl = Prelude.Nothing,
+      description = Prelude.Nothing,
+      applicationId = pApplicationId_
     }
 
--- | Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
-uLabels :: Lens' UpdateApplication [Text]
-uLabels = lens _uLabels (\s a -> s {_uLabels = a}) . _Default . _Coerce
+-- | Labels to improve discovery of apps in search results.
+--
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+--
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+updateApplication_labels :: Lens.Lens' UpdateApplication (Prelude.Maybe [Prelude.Text])
+updateApplication_labels = Lens.lens (\UpdateApplication' {labels} -> labels) (\s@UpdateApplication' {} a -> s {labels = a} :: UpdateApplication) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
-uAuthor :: Lens' UpdateApplication (Maybe Text)
-uAuthor = lens _uAuthor (\s a -> s {_uAuthor = a})
+-- | The name of the author publishing the app.
+--
+-- Minimum length=1. Maximum length=127.
+--
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+updateApplication_author :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_author = Lens.lens (\UpdateApplication' {author} -> author) (\s@UpdateApplication' {} a -> s {author = a} :: UpdateApplication)
 
--- | A text readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
-uReadmeBody :: Lens' UpdateApplication (Maybe Text)
-uReadmeBody = lens _uReadmeBody (\s a -> s {_uReadmeBody = a})
+-- | A text readme file in Markdown language that contains a more detailed
+-- description of the application and how it works.
+--
+-- Maximum size 5 MB
+updateApplication_readmeBody :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_readmeBody = Lens.lens (\UpdateApplication' {readmeBody} -> readmeBody) (\s@UpdateApplication' {} a -> s {readmeBody = a} :: UpdateApplication)
 
--- | A URL with more information about the application, for example the location of your GitHub repository for the application.
-uHomePageURL :: Lens' UpdateApplication (Maybe Text)
-uHomePageURL = lens _uHomePageURL (\s a -> s {_uHomePageURL = a})
+-- | A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
+updateApplication_homePageUrl :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_homePageUrl = Lens.lens (\UpdateApplication' {homePageUrl} -> homePageUrl) (\s@UpdateApplication' {} a -> s {homePageUrl = a} :: UpdateApplication)
 
--- | A link to the readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
-uReadmeURL :: Lens' UpdateApplication (Maybe Text)
-uReadmeURL = lens _uReadmeURL (\s a -> s {_uReadmeURL = a})
+-- | A link to the readme file in Markdown language that contains a more
+-- detailed description of the application and how it works.
+--
+-- Maximum size 5 MB
+updateApplication_readmeUrl :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_readmeUrl = Lens.lens (\UpdateApplication' {readmeUrl} -> readmeUrl) (\s@UpdateApplication' {} a -> s {readmeUrl = a} :: UpdateApplication)
 
--- | The description of the application. Minimum length=1. Maximum length=256
-uDescription :: Lens' UpdateApplication (Maybe Text)
-uDescription = lens _uDescription (\s a -> s {_uDescription = a})
+-- | The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+updateApplication_description :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_description = Lens.lens (\UpdateApplication' {description} -> description) (\s@UpdateApplication' {} a -> s {description = a} :: UpdateApplication)
 
 -- | The Amazon Resource Name (ARN) of the application.
-uApplicationId :: Lens' UpdateApplication Text
-uApplicationId = lens _uApplicationId (\s a -> s {_uApplicationId = a})
+updateApplication_applicationId :: Lens.Lens' UpdateApplication Prelude.Text
+updateApplication_applicationId = Lens.lens (\UpdateApplication' {applicationId} -> applicationId) (\s@UpdateApplication' {} a -> s {applicationId = a} :: UpdateApplication)
 
-instance AWSRequest UpdateApplication where
+instance Prelude.AWSRequest UpdateApplication where
   type Rs UpdateApplication = UpdateApplicationResponse
-  request = patchJSON serverlessApplicationRepository
+  request = Request.patchJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateApplicationResponse'
-            <$> (x .?> "applicationId")
-            <*> (x .?> "creationTime")
-            <*> (x .?> "spdxLicenseId")
-            <*> (x .?> "licenseUrl")
-            <*> (x .?> "verifiedAuthorUrl")
-            <*> (x .?> "labels" .!@ mempty)
-            <*> (x .?> "author")
-            <*> (x .?> "version")
-            <*> (x .?> "homePageUrl")
-            <*> (x .?> "name")
-            <*> (x .?> "isVerifiedAuthor")
-            <*> (x .?> "readmeUrl")
-            <*> (x .?> "description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "applicationId")
+            Prelude.<*> (x Prelude..?> "creationTime")
+            Prelude.<*> (x Prelude..?> "spdxLicenseId")
+            Prelude.<*> (x Prelude..?> "licenseUrl")
+            Prelude.<*> (x Prelude..?> "verifiedAuthorUrl")
+            Prelude.<*> (x Prelude..?> "labels" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "author")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "homePageUrl")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "isVerifiedAuthor")
+            Prelude.<*> (x Prelude..?> "readmeUrl")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateApplication
+instance Prelude.Hashable UpdateApplication
 
-instance NFData UpdateApplication
+instance Prelude.NFData UpdateApplication
 
-instance ToHeaders UpdateApplication where
+instance Prelude.ToHeaders UpdateApplication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateApplication where
+instance Prelude.ToJSON UpdateApplication where
   toJSON UpdateApplication' {..} =
-    object
-      ( catMaybes
-          [ ("labels" .=) <$> _uLabels,
-            ("author" .=) <$> _uAuthor,
-            ("readmeBody" .=) <$> _uReadmeBody,
-            ("homePageUrl" .=) <$> _uHomePageURL,
-            ("readmeUrl" .=) <$> _uReadmeURL,
-            ("description" .=) <$> _uDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("labels" Prelude..=) Prelude.<$> labels,
+            ("author" Prelude..=) Prelude.<$> author,
+            ("readmeBody" Prelude..=) Prelude.<$> readmeBody,
+            ("homePageUrl" Prelude..=) Prelude.<$> homePageUrl,
+            ("readmeUrl" Prelude..=) Prelude.<$> readmeUrl,
+            ("description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateApplication where
+instance Prelude.ToPath UpdateApplication where
   toPath UpdateApplication' {..} =
-    mconcat ["/applications/", toBS _uApplicationId]
+    Prelude.mconcat
+      ["/applications/", Prelude.toBS applicationId]
 
-instance ToQuery UpdateApplication where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateApplication where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateApplicationResponse' smart constructor.
+-- | /See:/ 'newUpdateApplicationResponse' smart constructor.
 data UpdateApplicationResponse = UpdateApplicationResponse'
-  { _uarrsApplicationId ::
-      !(Maybe Text),
-    _uarrsCreationTime ::
-      !(Maybe Text),
-    _uarrsSpdxLicenseId ::
-      !(Maybe Text),
-    _uarrsLicenseURL ::
-      !(Maybe Text),
-    _uarrsVerifiedAuthorURL ::
-      !(Maybe Text),
-    _uarrsLabels ::
-      !(Maybe [Text]),
-    _uarrsAuthor ::
-      !(Maybe Text),
-    _uarrsVersion ::
-      !(Maybe Version),
-    _uarrsHomePageURL ::
-      !(Maybe Text),
-    _uarrsName ::
-      !(Maybe Text),
-    _uarrsIsVerifiedAuthor ::
-      !(Maybe Bool),
-    _uarrsReadmeURL ::
-      !(Maybe Text),
-    _uarrsDescription ::
-      !(Maybe Text),
-    _uarrsResponseStatus ::
-      !Int
+  { -- | The application Amazon Resource Name (ARN).
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time this resource was created.
+    creationTime :: Prelude.Maybe Prelude.Text,
+    -- | A valid identifier from https:\/\/spdx.org\/licenses\/.
+    spdxLicenseId :: Prelude.Maybe Prelude.Text,
+    -- | A link to a license file of the app that matches the spdxLicenseID value
+    -- of your application.
+    --
+    -- Maximum size 5 MB
+    licenseUrl :: Prelude.Maybe Prelude.Text,
+    -- | The URL to the public profile of a verified author. This URL is
+    -- submitted by the author.
+    verifiedAuthorUrl :: Prelude.Maybe Prelude.Text,
+    -- | Labels to improve discovery of apps in search results.
+    --
+    -- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+    --
+    -- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+    labels :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the author publishing the app.
+    --
+    -- Minimum length=1. Maximum length=127.
+    --
+    -- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+    author :: Prelude.Maybe Prelude.Text,
+    -- | Version information about the application.
+    version :: Prelude.Maybe Version,
+    -- | A URL with more information about the application, for example the
+    -- location of your GitHub repository for the application.
+    homePageUrl :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application.
+    --
+    -- Minimum length=1. Maximum length=140
+    --
+    -- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Whether the author of this application has been verified. This means
+    -- means that AWS has made a good faith review, as a reasonable and prudent
+    -- service provider, of the information provided by the requester and has
+    -- confirmed that the requester\'s identity is as claimed.
+    isVerifiedAuthor :: Prelude.Maybe Prelude.Bool,
+    -- | A link to the readme file in Markdown language that contains a more
+    -- detailed description of the application and how it works.
+    --
+    -- Maximum size 5 MB
+    readmeUrl :: Prelude.Maybe Prelude.Text,
+    -- | The description of the application.
+    --
+    -- Minimum length=1. Maximum length=256
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarrsApplicationId' - The application Amazon Resource Name (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uarrsCreationTime' - The date and time this resource was created.
+-- 'applicationId', 'updateApplicationResponse_applicationId' - The application Amazon Resource Name (ARN).
 --
--- * 'uarrsSpdxLicenseId' - A valid identifier from https://spdx.org/licenses/.
+-- 'creationTime', 'updateApplicationResponse_creationTime' - The date and time this resource was created.
 --
--- * 'uarrsLicenseURL' - A link to a license file of the app that matches the spdxLicenseID value of your application. Maximum size 5 MB
+-- 'spdxLicenseId', 'updateApplicationResponse_spdxLicenseId' - A valid identifier from https:\/\/spdx.org\/licenses\/.
 --
--- * 'uarrsVerifiedAuthorURL' - The URL to the public profile of a verified author. This URL is submitted by the author.
+-- 'licenseUrl', 'updateApplicationResponse_licenseUrl' - A link to a license file of the app that matches the spdxLicenseID value
+-- of your application.
 --
--- * 'uarrsLabels' - Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
+-- Maximum size 5 MB
 --
--- * 'uarrsAuthor' - The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
+-- 'verifiedAuthorUrl', 'updateApplicationResponse_verifiedAuthorUrl' - The URL to the public profile of a verified author. This URL is
+-- submitted by the author.
 --
--- * 'uarrsVersion' - Version information about the application.
+-- 'labels', 'updateApplicationResponse_labels' - Labels to improve discovery of apps in search results.
 --
--- * 'uarrsHomePageURL' - A URL with more information about the application, for example the location of your GitHub repository for the application.
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
 --
--- * 'uarrsName' - The name of the application. Minimum length=1. Maximum length=140 Pattern: "[a-zA-Z0-9\\-]+";
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
 --
--- * 'uarrsIsVerifiedAuthor' - Whether the author of this application has been verified. This means means that AWS has made a good faith review, as a reasonable and prudent service provider, of the information provided by the requester and has confirmed that the requester's identity is as claimed.
+-- 'author', 'updateApplicationResponse_author' - The name of the author publishing the app.
 --
--- * 'uarrsReadmeURL' - A link to the readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
+-- Minimum length=1. Maximum length=127.
 --
--- * 'uarrsDescription' - The description of the application. Minimum length=1. Maximum length=256
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
 --
--- * 'uarrsResponseStatus' - -- | The response status code.
-updateApplicationResponse ::
-  -- | 'uarrsResponseStatus'
-  Int ->
+-- 'version', 'updateApplicationResponse_version' - Version information about the application.
+--
+-- 'homePageUrl', 'updateApplicationResponse_homePageUrl' - A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
+--
+-- 'name', 'updateApplicationResponse_name' - The name of the application.
+--
+-- Minimum length=1. Maximum length=140
+--
+-- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+--
+-- 'isVerifiedAuthor', 'updateApplicationResponse_isVerifiedAuthor' - Whether the author of this application has been verified. This means
+-- means that AWS has made a good faith review, as a reasonable and prudent
+-- service provider, of the information provided by the requester and has
+-- confirmed that the requester\'s identity is as claimed.
+--
+-- 'readmeUrl', 'updateApplicationResponse_readmeUrl' - A link to the readme file in Markdown language that contains a more
+-- detailed description of the application and how it works.
+--
+-- Maximum size 5 MB
+--
+-- 'description', 'updateApplicationResponse_description' - The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+--
+-- 'httpStatus', 'updateApplicationResponse_httpStatus' - The response's http status code.
+newUpdateApplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateApplicationResponse
-updateApplicationResponse pResponseStatus_ =
+newUpdateApplicationResponse pHttpStatus_ =
   UpdateApplicationResponse'
-    { _uarrsApplicationId =
-        Nothing,
-      _uarrsCreationTime = Nothing,
-      _uarrsSpdxLicenseId = Nothing,
-      _uarrsLicenseURL = Nothing,
-      _uarrsVerifiedAuthorURL = Nothing,
-      _uarrsLabels = Nothing,
-      _uarrsAuthor = Nothing,
-      _uarrsVersion = Nothing,
-      _uarrsHomePageURL = Nothing,
-      _uarrsName = Nothing,
-      _uarrsIsVerifiedAuthor = Nothing,
-      _uarrsReadmeURL = Nothing,
-      _uarrsDescription = Nothing,
-      _uarrsResponseStatus = pResponseStatus_
+    { applicationId =
+        Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      spdxLicenseId = Prelude.Nothing,
+      licenseUrl = Prelude.Nothing,
+      verifiedAuthorUrl = Prelude.Nothing,
+      labels = Prelude.Nothing,
+      author = Prelude.Nothing,
+      version = Prelude.Nothing,
+      homePageUrl = Prelude.Nothing,
+      name = Prelude.Nothing,
+      isVerifiedAuthor = Prelude.Nothing,
+      readmeUrl = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The application Amazon Resource Name (ARN).
-uarrsApplicationId :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsApplicationId = lens _uarrsApplicationId (\s a -> s {_uarrsApplicationId = a})
+updateApplicationResponse_applicationId :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_applicationId = Lens.lens (\UpdateApplicationResponse' {applicationId} -> applicationId) (\s@UpdateApplicationResponse' {} a -> s {applicationId = a} :: UpdateApplicationResponse)
 
 -- | The date and time this resource was created.
-uarrsCreationTime :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsCreationTime = lens _uarrsCreationTime (\s a -> s {_uarrsCreationTime = a})
+updateApplicationResponse_creationTime :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_creationTime = Lens.lens (\UpdateApplicationResponse' {creationTime} -> creationTime) (\s@UpdateApplicationResponse' {} a -> s {creationTime = a} :: UpdateApplicationResponse)
 
--- | A valid identifier from https://spdx.org/licenses/.
-uarrsSpdxLicenseId :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsSpdxLicenseId = lens _uarrsSpdxLicenseId (\s a -> s {_uarrsSpdxLicenseId = a})
+-- | A valid identifier from https:\/\/spdx.org\/licenses\/.
+updateApplicationResponse_spdxLicenseId :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_spdxLicenseId = Lens.lens (\UpdateApplicationResponse' {spdxLicenseId} -> spdxLicenseId) (\s@UpdateApplicationResponse' {} a -> s {spdxLicenseId = a} :: UpdateApplicationResponse)
 
--- | A link to a license file of the app that matches the spdxLicenseID value of your application. Maximum size 5 MB
-uarrsLicenseURL :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsLicenseURL = lens _uarrsLicenseURL (\s a -> s {_uarrsLicenseURL = a})
+-- | A link to a license file of the app that matches the spdxLicenseID value
+-- of your application.
+--
+-- Maximum size 5 MB
+updateApplicationResponse_licenseUrl :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_licenseUrl = Lens.lens (\UpdateApplicationResponse' {licenseUrl} -> licenseUrl) (\s@UpdateApplicationResponse' {} a -> s {licenseUrl = a} :: UpdateApplicationResponse)
 
--- | The URL to the public profile of a verified author. This URL is submitted by the author.
-uarrsVerifiedAuthorURL :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsVerifiedAuthorURL = lens _uarrsVerifiedAuthorURL (\s a -> s {_uarrsVerifiedAuthorURL = a})
+-- | The URL to the public profile of a verified author. This URL is
+-- submitted by the author.
+updateApplicationResponse_verifiedAuthorUrl :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_verifiedAuthorUrl = Lens.lens (\UpdateApplicationResponse' {verifiedAuthorUrl} -> verifiedAuthorUrl) (\s@UpdateApplicationResponse' {} a -> s {verifiedAuthorUrl = a} :: UpdateApplicationResponse)
 
--- | Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
-uarrsLabels :: Lens' UpdateApplicationResponse [Text]
-uarrsLabels = lens _uarrsLabels (\s a -> s {_uarrsLabels = a}) . _Default . _Coerce
+-- | Labels to improve discovery of apps in search results.
+--
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+--
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+updateApplicationResponse_labels :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe [Prelude.Text])
+updateApplicationResponse_labels = Lens.lens (\UpdateApplicationResponse' {labels} -> labels) (\s@UpdateApplicationResponse' {} a -> s {labels = a} :: UpdateApplicationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
-uarrsAuthor :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsAuthor = lens _uarrsAuthor (\s a -> s {_uarrsAuthor = a})
+-- | The name of the author publishing the app.
+--
+-- Minimum length=1. Maximum length=127.
+--
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+updateApplicationResponse_author :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_author = Lens.lens (\UpdateApplicationResponse' {author} -> author) (\s@UpdateApplicationResponse' {} a -> s {author = a} :: UpdateApplicationResponse)
 
 -- | Version information about the application.
-uarrsVersion :: Lens' UpdateApplicationResponse (Maybe Version)
-uarrsVersion = lens _uarrsVersion (\s a -> s {_uarrsVersion = a})
+updateApplicationResponse_version :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Version)
+updateApplicationResponse_version = Lens.lens (\UpdateApplicationResponse' {version} -> version) (\s@UpdateApplicationResponse' {} a -> s {version = a} :: UpdateApplicationResponse)
 
--- | A URL with more information about the application, for example the location of your GitHub repository for the application.
-uarrsHomePageURL :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsHomePageURL = lens _uarrsHomePageURL (\s a -> s {_uarrsHomePageURL = a})
+-- | A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
+updateApplicationResponse_homePageUrl :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_homePageUrl = Lens.lens (\UpdateApplicationResponse' {homePageUrl} -> homePageUrl) (\s@UpdateApplicationResponse' {} a -> s {homePageUrl = a} :: UpdateApplicationResponse)
 
--- | The name of the application. Minimum length=1. Maximum length=140 Pattern: "[a-zA-Z0-9\\-]+";
-uarrsName :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsName = lens _uarrsName (\s a -> s {_uarrsName = a})
+-- | The name of the application.
+--
+-- Minimum length=1. Maximum length=140
+--
+-- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+updateApplicationResponse_name :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_name = Lens.lens (\UpdateApplicationResponse' {name} -> name) (\s@UpdateApplicationResponse' {} a -> s {name = a} :: UpdateApplicationResponse)
 
--- | Whether the author of this application has been verified. This means means that AWS has made a good faith review, as a reasonable and prudent service provider, of the information provided by the requester and has confirmed that the requester's identity is as claimed.
-uarrsIsVerifiedAuthor :: Lens' UpdateApplicationResponse (Maybe Bool)
-uarrsIsVerifiedAuthor = lens _uarrsIsVerifiedAuthor (\s a -> s {_uarrsIsVerifiedAuthor = a})
+-- | Whether the author of this application has been verified. This means
+-- means that AWS has made a good faith review, as a reasonable and prudent
+-- service provider, of the information provided by the requester and has
+-- confirmed that the requester\'s identity is as claimed.
+updateApplicationResponse_isVerifiedAuthor :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Bool)
+updateApplicationResponse_isVerifiedAuthor = Lens.lens (\UpdateApplicationResponse' {isVerifiedAuthor} -> isVerifiedAuthor) (\s@UpdateApplicationResponse' {} a -> s {isVerifiedAuthor = a} :: UpdateApplicationResponse)
 
--- | A link to the readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
-uarrsReadmeURL :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsReadmeURL = lens _uarrsReadmeURL (\s a -> s {_uarrsReadmeURL = a})
+-- | A link to the readme file in Markdown language that contains a more
+-- detailed description of the application and how it works.
+--
+-- Maximum size 5 MB
+updateApplicationResponse_readmeUrl :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_readmeUrl = Lens.lens (\UpdateApplicationResponse' {readmeUrl} -> readmeUrl) (\s@UpdateApplicationResponse' {} a -> s {readmeUrl = a} :: UpdateApplicationResponse)
 
--- | The description of the application. Minimum length=1. Maximum length=256
-uarrsDescription :: Lens' UpdateApplicationResponse (Maybe Text)
-uarrsDescription = lens _uarrsDescription (\s a -> s {_uarrsDescription = a})
+-- | The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+updateApplicationResponse_description :: Lens.Lens' UpdateApplicationResponse (Prelude.Maybe Prelude.Text)
+updateApplicationResponse_description = Lens.lens (\UpdateApplicationResponse' {description} -> description) (\s@UpdateApplicationResponse' {} a -> s {description = a} :: UpdateApplicationResponse)
 
--- | -- | The response status code.
-uarrsResponseStatus :: Lens' UpdateApplicationResponse Int
-uarrsResponseStatus = lens _uarrsResponseStatus (\s a -> s {_uarrsResponseStatus = a})
+-- | The response's http status code.
+updateApplicationResponse_httpStatus :: Lens.Lens' UpdateApplicationResponse Prelude.Int
+updateApplicationResponse_httpStatus = Lens.lens (\UpdateApplicationResponse' {httpStatus} -> httpStatus) (\s@UpdateApplicationResponse' {} a -> s {httpStatus = a} :: UpdateApplicationResponse)
 
-instance NFData UpdateApplicationResponse
+instance Prelude.NFData UpdateApplicationResponse

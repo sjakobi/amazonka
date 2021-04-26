@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,134 +19,280 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types.Version where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServerlessApplicationRepository.Types.Capability
 import Network.AWS.ServerlessApplicationRepository.Types.ParameterDefinition
 
 -- | Application version details.
 --
---
---
--- /See:/ 'version' smart constructor.
+-- /See:/ 'newVersion' smart constructor.
 data Version = Version'
-  { _vSourceCodeArchiveURL ::
-      !(Maybe Text),
-    _vSourceCodeURL :: !(Maybe Text),
-    _vTemplateURL :: !Text,
-    _vParameterDefinitions :: ![ParameterDefinition],
-    _vResourcesSupported :: !Bool,
-    _vCreationTime :: !Text,
-    _vRequiredCapabilities :: ![Capability],
-    _vApplicationId :: !Text,
-    _vSemanticVersion :: !Text
+  { -- | A link to the S3 object that contains the ZIP archive of the source code
+    -- for this version of your application.
+    --
+    -- Maximum size 50 MB
+    sourceCodeArchiveUrl :: Prelude.Maybe Prelude.Text,
+    -- | A link to a public repository for the source code of your application,
+    -- for example the URL of a specific GitHub commit.
+    sourceCodeUrl :: Prelude.Maybe Prelude.Text,
+    -- | A link to the packaged AWS SAM template of your application.
+    templateUrl :: Prelude.Text,
+    -- | An array of parameter types supported by the application.
+    parameterDefinitions :: [ParameterDefinition],
+    -- | Whether all of the AWS resources contained in this application are
+    -- supported in the region in which it is being retrieved.
+    resourcesSupported :: Prelude.Bool,
+    -- | The date and time this resource was created.
+    creationTime :: Prelude.Text,
+    -- | A list of values that you must specify before you can deploy certain
+    -- applications. Some applications might include resources that can affect
+    -- permissions in your AWS account, for example, by creating new AWS
+    -- Identity and Access Management (IAM) users. For those applications, you
+    -- must explicitly acknowledge their capabilities by specifying this
+    -- parameter.
+    --
+    -- The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,
+    -- CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND.
+    --
+    -- The following resources require you to specify CAPABILITY_IAM or
+    -- CAPABILITY_NAMED_IAM:
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group>,
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile>,
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM::Policy>,
+    -- and
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role>.
+    -- If the application contains IAM resources, you can specify either
+    -- CAPABILITY_IAM or CAPABILITY_NAMED_IAM. If the application contains IAM
+    -- resources with custom names, you must specify CAPABILITY_NAMED_IAM.
+    --
+    -- The following resources require you to specify
+    -- CAPABILITY_RESOURCE_POLICY:
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html AWS::Lambda::Permission>,
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM:Policy>,
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html AWS::ApplicationAutoScaling::ScalingPolicy>,
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html AWS::S3::BucketPolicy>,
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html AWS::SQS::QueuePolicy>,
+    -- and
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html AWS::SNS::TopicPolicy>.
+    --
+    -- Applications that contain one or more nested applications require you to
+    -- specify CAPABILITY_AUTO_EXPAND.
+    --
+    -- If your application template contains any of the above resources, we
+    -- recommend that you review all permissions associated with the
+    -- application before deploying. If you don\'t specify this parameter for
+    -- an application that requires capabilities, the call will fail.
+    requiredCapabilities :: [Capability],
+    -- | The application Amazon Resource Name (ARN).
+    applicationId :: Prelude.Text,
+    -- | The semantic version of the application:
+    --
+    -- <https://semver.org/>
+    semanticVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Version' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Version' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vSourceCodeArchiveURL' - A link to the S3 object that contains the ZIP archive of the source code for this version of your application. Maximum size 50 MB
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vSourceCodeURL' - A link to a public repository for the source code of your application, for example the URL of a specific GitHub commit.
+-- 'sourceCodeArchiveUrl', 'version_sourceCodeArchiveUrl' - A link to the S3 object that contains the ZIP archive of the source code
+-- for this version of your application.
 --
--- * 'vTemplateURL' - A link to the packaged AWS SAM template of your application.
+-- Maximum size 50 MB
 --
--- * 'vParameterDefinitions' - An array of parameter types supported by the application.
+-- 'sourceCodeUrl', 'version_sourceCodeUrl' - A link to a public repository for the source code of your application,
+-- for example the URL of a specific GitHub commit.
 --
--- * 'vResourcesSupported' - Whether all of the AWS resources contained in this application are supported in the region  in which it is being retrieved.
+-- 'templateUrl', 'version_templateUrl' - A link to the packaged AWS SAM template of your application.
 --
--- * 'vCreationTime' - The date and time this resource was created.
+-- 'parameterDefinitions', 'version_parameterDefinitions' - An array of parameter types supported by the application.
 --
--- * 'vRequiredCapabilities' - A list of values that you must specify before you can deploy certain applications.  Some applications might include resources that can affect permissions in your AWS  account, for example, by creating new AWS Identity and Access Management (IAM) users.  For those applications, you must explicitly acknowledge their capabilities by  specifying this parameter. The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,  CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND. The following resources require you to specify CAPABILITY_IAM or  CAPABILITY_NAMED_IAM:  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM::Policy> , and  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role> .  If the application contains IAM resources, you can specify either CAPABILITY_IAM  or CAPABILITY_NAMED_IAM. If the application contains IAM resources  with custom names, you must specify CAPABILITY_NAMED_IAM. The following resources require you to specify CAPABILITY_RESOURCE_POLICY:  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html AWS::Lambda::Permission> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM:Policy> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html AWS::ApplicationAutoScaling::ScalingPolicy> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html AWS::S3::BucketPolicy> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html AWS::SQS::QueuePolicy> , and  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html AWS::SNS::TopicPolicy> . Applications that contain one or more nested applications require you to specify  CAPABILITY_AUTO_EXPAND. If your application template contains any of the above resources, we recommend that you review  all permissions associated with the application before deploying. If you don't specify  this parameter for an application that requires capabilities, the call will fail.
+-- 'resourcesSupported', 'version_resourcesSupported' - Whether all of the AWS resources contained in this application are
+-- supported in the region in which it is being retrieved.
 --
--- * 'vApplicationId' - The application Amazon Resource Name (ARN).
+-- 'creationTime', 'version_creationTime' - The date and time this resource was created.
 --
--- * 'vSemanticVersion' - The semantic version of the application: <https://semver.org/ https://semver.org/>
-version ::
-  -- | 'vTemplateURL'
-  Text ->
-  -- | 'vResourcesSupported'
-  Bool ->
-  -- | 'vCreationTime'
-  Text ->
-  -- | 'vApplicationId'
-  Text ->
-  -- | 'vSemanticVersion'
-  Text ->
+-- 'requiredCapabilities', 'version_requiredCapabilities' - A list of values that you must specify before you can deploy certain
+-- applications. Some applications might include resources that can affect
+-- permissions in your AWS account, for example, by creating new AWS
+-- Identity and Access Management (IAM) users. For those applications, you
+-- must explicitly acknowledge their capabilities by specifying this
+-- parameter.
+--
+-- The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,
+-- CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND.
+--
+-- The following resources require you to specify CAPABILITY_IAM or
+-- CAPABILITY_NAMED_IAM:
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM::Policy>,
+-- and
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role>.
+-- If the application contains IAM resources, you can specify either
+-- CAPABILITY_IAM or CAPABILITY_NAMED_IAM. If the application contains IAM
+-- resources with custom names, you must specify CAPABILITY_NAMED_IAM.
+--
+-- The following resources require you to specify
+-- CAPABILITY_RESOURCE_POLICY:
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html AWS::Lambda::Permission>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM:Policy>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html AWS::ApplicationAutoScaling::ScalingPolicy>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html AWS::S3::BucketPolicy>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html AWS::SQS::QueuePolicy>,
+-- and
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html AWS::SNS::TopicPolicy>.
+--
+-- Applications that contain one or more nested applications require you to
+-- specify CAPABILITY_AUTO_EXPAND.
+--
+-- If your application template contains any of the above resources, we
+-- recommend that you review all permissions associated with the
+-- application before deploying. If you don\'t specify this parameter for
+-- an application that requires capabilities, the call will fail.
+--
+-- 'applicationId', 'version_applicationId' - The application Amazon Resource Name (ARN).
+--
+-- 'semanticVersion', 'version_semanticVersion' - The semantic version of the application:
+--
+-- <https://semver.org/>
+newVersion ::
+  -- | 'templateUrl'
+  Prelude.Text ->
+  -- | 'resourcesSupported'
+  Prelude.Bool ->
+  -- | 'creationTime'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'semanticVersion'
+  Prelude.Text ->
   Version
-version
-  pTemplateURL_
+newVersion
+  pTemplateUrl_
   pResourcesSupported_
   pCreationTime_
   pApplicationId_
   pSemanticVersion_ =
     Version'
-      { _vSourceCodeArchiveURL = Nothing,
-        _vSourceCodeURL = Nothing,
-        _vTemplateURL = pTemplateURL_,
-        _vParameterDefinitions = mempty,
-        _vResourcesSupported = pResourcesSupported_,
-        _vCreationTime = pCreationTime_,
-        _vRequiredCapabilities = mempty,
-        _vApplicationId = pApplicationId_,
-        _vSemanticVersion = pSemanticVersion_
+      { sourceCodeArchiveUrl = Prelude.Nothing,
+        sourceCodeUrl = Prelude.Nothing,
+        templateUrl = pTemplateUrl_,
+        parameterDefinitions = Prelude.mempty,
+        resourcesSupported = pResourcesSupported_,
+        creationTime = pCreationTime_,
+        requiredCapabilities = Prelude.mempty,
+        applicationId = pApplicationId_,
+        semanticVersion = pSemanticVersion_
       }
 
--- | A link to the S3 object that contains the ZIP archive of the source code for this version of your application. Maximum size 50 MB
-vSourceCodeArchiveURL :: Lens' Version (Maybe Text)
-vSourceCodeArchiveURL = lens _vSourceCodeArchiveURL (\s a -> s {_vSourceCodeArchiveURL = a})
+-- | A link to the S3 object that contains the ZIP archive of the source code
+-- for this version of your application.
+--
+-- Maximum size 50 MB
+version_sourceCodeArchiveUrl :: Lens.Lens' Version (Prelude.Maybe Prelude.Text)
+version_sourceCodeArchiveUrl = Lens.lens (\Version' {sourceCodeArchiveUrl} -> sourceCodeArchiveUrl) (\s@Version' {} a -> s {sourceCodeArchiveUrl = a} :: Version)
 
--- | A link to a public repository for the source code of your application, for example the URL of a specific GitHub commit.
-vSourceCodeURL :: Lens' Version (Maybe Text)
-vSourceCodeURL = lens _vSourceCodeURL (\s a -> s {_vSourceCodeURL = a})
+-- | A link to a public repository for the source code of your application,
+-- for example the URL of a specific GitHub commit.
+version_sourceCodeUrl :: Lens.Lens' Version (Prelude.Maybe Prelude.Text)
+version_sourceCodeUrl = Lens.lens (\Version' {sourceCodeUrl} -> sourceCodeUrl) (\s@Version' {} a -> s {sourceCodeUrl = a} :: Version)
 
 -- | A link to the packaged AWS SAM template of your application.
-vTemplateURL :: Lens' Version Text
-vTemplateURL = lens _vTemplateURL (\s a -> s {_vTemplateURL = a})
+version_templateUrl :: Lens.Lens' Version Prelude.Text
+version_templateUrl = Lens.lens (\Version' {templateUrl} -> templateUrl) (\s@Version' {} a -> s {templateUrl = a} :: Version)
 
 -- | An array of parameter types supported by the application.
-vParameterDefinitions :: Lens' Version [ParameterDefinition]
-vParameterDefinitions = lens _vParameterDefinitions (\s a -> s {_vParameterDefinitions = a}) . _Coerce
+version_parameterDefinitions :: Lens.Lens' Version [ParameterDefinition]
+version_parameterDefinitions = Lens.lens (\Version' {parameterDefinitions} -> parameterDefinitions) (\s@Version' {} a -> s {parameterDefinitions = a} :: Version) Prelude.. Prelude._Coerce
 
--- | Whether all of the AWS resources contained in this application are supported in the region  in which it is being retrieved.
-vResourcesSupported :: Lens' Version Bool
-vResourcesSupported = lens _vResourcesSupported (\s a -> s {_vResourcesSupported = a})
+-- | Whether all of the AWS resources contained in this application are
+-- supported in the region in which it is being retrieved.
+version_resourcesSupported :: Lens.Lens' Version Prelude.Bool
+version_resourcesSupported = Lens.lens (\Version' {resourcesSupported} -> resourcesSupported) (\s@Version' {} a -> s {resourcesSupported = a} :: Version)
 
 -- | The date and time this resource was created.
-vCreationTime :: Lens' Version Text
-vCreationTime = lens _vCreationTime (\s a -> s {_vCreationTime = a})
+version_creationTime :: Lens.Lens' Version Prelude.Text
+version_creationTime = Lens.lens (\Version' {creationTime} -> creationTime) (\s@Version' {} a -> s {creationTime = a} :: Version)
 
--- | A list of values that you must specify before you can deploy certain applications.  Some applications might include resources that can affect permissions in your AWS  account, for example, by creating new AWS Identity and Access Management (IAM) users.  For those applications, you must explicitly acknowledge their capabilities by  specifying this parameter. The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,  CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND. The following resources require you to specify CAPABILITY_IAM or  CAPABILITY_NAMED_IAM:  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM::Policy> , and  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role> .  If the application contains IAM resources, you can specify either CAPABILITY_IAM  or CAPABILITY_NAMED_IAM. If the application contains IAM resources  with custom names, you must specify CAPABILITY_NAMED_IAM. The following resources require you to specify CAPABILITY_RESOURCE_POLICY:  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html AWS::Lambda::Permission> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM:Policy> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html AWS::ApplicationAutoScaling::ScalingPolicy> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html AWS::S3::BucketPolicy> ,  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html AWS::SQS::QueuePolicy> , and  <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html AWS::SNS::TopicPolicy> . Applications that contain one or more nested applications require you to specify  CAPABILITY_AUTO_EXPAND. If your application template contains any of the above resources, we recommend that you review  all permissions associated with the application before deploying. If you don't specify  this parameter for an application that requires capabilities, the call will fail.
-vRequiredCapabilities :: Lens' Version [Capability]
-vRequiredCapabilities = lens _vRequiredCapabilities (\s a -> s {_vRequiredCapabilities = a}) . _Coerce
+-- | A list of values that you must specify before you can deploy certain
+-- applications. Some applications might include resources that can affect
+-- permissions in your AWS account, for example, by creating new AWS
+-- Identity and Access Management (IAM) users. For those applications, you
+-- must explicitly acknowledge their capabilities by specifying this
+-- parameter.
+--
+-- The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,
+-- CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND.
+--
+-- The following resources require you to specify CAPABILITY_IAM or
+-- CAPABILITY_NAMED_IAM:
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM::Policy>,
+-- and
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role>.
+-- If the application contains IAM resources, you can specify either
+-- CAPABILITY_IAM or CAPABILITY_NAMED_IAM. If the application contains IAM
+-- resources with custom names, you must specify CAPABILITY_NAMED_IAM.
+--
+-- The following resources require you to specify
+-- CAPABILITY_RESOURCE_POLICY:
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html AWS::Lambda::Permission>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html AWS::IAM:Policy>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html AWS::ApplicationAutoScaling::ScalingPolicy>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html AWS::S3::BucketPolicy>,
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html AWS::SQS::QueuePolicy>,
+-- and
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html AWS::SNS::TopicPolicy>.
+--
+-- Applications that contain one or more nested applications require you to
+-- specify CAPABILITY_AUTO_EXPAND.
+--
+-- If your application template contains any of the above resources, we
+-- recommend that you review all permissions associated with the
+-- application before deploying. If you don\'t specify this parameter for
+-- an application that requires capabilities, the call will fail.
+version_requiredCapabilities :: Lens.Lens' Version [Capability]
+version_requiredCapabilities = Lens.lens (\Version' {requiredCapabilities} -> requiredCapabilities) (\s@Version' {} a -> s {requiredCapabilities = a} :: Version) Prelude.. Prelude._Coerce
 
 -- | The application Amazon Resource Name (ARN).
-vApplicationId :: Lens' Version Text
-vApplicationId = lens _vApplicationId (\s a -> s {_vApplicationId = a})
+version_applicationId :: Lens.Lens' Version Prelude.Text
+version_applicationId = Lens.lens (\Version' {applicationId} -> applicationId) (\s@Version' {} a -> s {applicationId = a} :: Version)
 
--- | The semantic version of the application: <https://semver.org/ https://semver.org/>
-vSemanticVersion :: Lens' Version Text
-vSemanticVersion = lens _vSemanticVersion (\s a -> s {_vSemanticVersion = a})
+-- | The semantic version of the application:
+--
+-- <https://semver.org/>
+version_semanticVersion :: Lens.Lens' Version Prelude.Text
+version_semanticVersion = Lens.lens (\Version' {semanticVersion} -> semanticVersion) (\s@Version' {} a -> s {semanticVersion = a} :: Version)
 
-instance FromJSON Version where
+instance Prelude.FromJSON Version where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Version"
       ( \x ->
           Version'
-            <$> (x .:? "sourceCodeArchiveUrl")
-            <*> (x .:? "sourceCodeUrl")
-            <*> (x .: "templateUrl")
-            <*> (x .:? "parameterDefinitions" .!= mempty)
-            <*> (x .: "resourcesSupported")
-            <*> (x .: "creationTime")
-            <*> (x .:? "requiredCapabilities" .!= mempty)
-            <*> (x .: "applicationId")
-            <*> (x .: "semanticVersion")
+            Prelude.<$> (x Prelude..:? "sourceCodeArchiveUrl")
+            Prelude.<*> (x Prelude..:? "sourceCodeUrl")
+            Prelude.<*> (x Prelude..: "templateUrl")
+            Prelude.<*> ( x Prelude..:? "parameterDefinitions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "resourcesSupported")
+            Prelude.<*> (x Prelude..: "creationTime")
+            Prelude.<*> ( x Prelude..:? "requiredCapabilities"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "applicationId")
+            Prelude.<*> (x Prelude..: "semanticVersion")
       )
 
-instance Hashable Version
+instance Prelude.Hashable Version
 
-instance NFData Version
+instance Prelude.NFData Version

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This property corresponds to the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/Tag Tag> / Data Type.
+-- | This property corresponds to the /AWS CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag Tag>/
+-- Data Type.
 --
---
---
--- /See:/ 'tag' smart constructor.
-data Tag = Tag' {_tagValue :: !Text, _tagKey :: !Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTag' smart constructor.
+data Tag = Tag'
+  { -- | This property corresponds to the content of the same name for the /AWS
+    -- CloudFormation
+    -- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag Tag>/
+    -- Data Type.
+    value :: Prelude.Text,
+    -- | This property corresponds to the content of the same name for the /AWS
+    -- CloudFormation
+    -- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag Tag>/
+    -- Data Type.
+    key :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagValue' - This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/Tag   Tag> /   Data Type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagKey' - This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/Tag Tag> / Data Type.
-tag ::
-  -- | 'tagValue'
-  Text ->
-  -- | 'tagKey'
-  Text ->
+-- 'value', 'tag_value' - This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag Tag>/
+-- Data Type.
+--
+-- 'key', 'tag_key' - This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag Tag>/
+-- Data Type.
+newTag ::
+  -- | 'value'
+  Prelude.Text ->
+  -- | 'key'
+  Prelude.Text ->
   Tag
-tag pValue_ pKey_ =
-  Tag' {_tagValue = pValue_, _tagKey = pKey_}
+newTag pValue_ pKey_ =
+  Tag' {value = pValue_, key = pKey_}
 
--- | This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/Tag   Tag> /   Data Type.
-tagValue :: Lens' Tag Text
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+-- | This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag Tag>/
+-- Data Type.
+tag_value :: Lens.Lens' Tag Prelude.Text
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
--- | This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/Tag Tag> / Data Type.
-tagKey :: Lens' Tag Text
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+-- | This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag Tag>/
+-- Data Type.
+tag_key :: Lens.Lens' Tag Prelude.Text
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToJSON Tag where
+instance Prelude.ToJSON Tag where
   toJSON Tag' {..} =
-    object
-      ( catMaybes
-          [ Just ("value" .= _tagValue),
-            Just ("key" .= _tagKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("value" Prelude..= value),
+            Prelude.Just ("key" Prelude..= key)
           ]
       )

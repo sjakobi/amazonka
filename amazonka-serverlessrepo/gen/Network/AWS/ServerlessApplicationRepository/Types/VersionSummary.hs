@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types.VersionSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An application version summary.
 --
---
---
--- /See:/ 'versionSummary' smart constructor.
+-- /See:/ 'newVersionSummary' smart constructor.
 data VersionSummary = VersionSummary'
-  { _vsSourceCodeURL ::
-      !(Maybe Text),
-    _vsCreationTime :: !Text,
-    _vsApplicationId :: !Text,
-    _vsSemanticVersion :: !Text
+  { -- | A link to a public repository for the source code of your application,
+    -- for example the URL of a specific GitHub commit.
+    sourceCodeUrl :: Prelude.Maybe Prelude.Text,
+    -- | The date and time this resource was created.
+    creationTime :: Prelude.Text,
+    -- | The application Amazon Resource Name (ARN).
+    applicationId :: Prelude.Text,
+    -- | The semantic version of the application:
+    --
+    -- <https://semver.org/>
+    semanticVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VersionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VersionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vsSourceCodeURL' - A link to a public repository for the source code of your application, for example the URL of a specific GitHub commit.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vsCreationTime' - The date and time this resource was created.
+-- 'sourceCodeUrl', 'versionSummary_sourceCodeUrl' - A link to a public repository for the source code of your application,
+-- for example the URL of a specific GitHub commit.
 --
--- * 'vsApplicationId' - The application Amazon Resource Name (ARN).
+-- 'creationTime', 'versionSummary_creationTime' - The date and time this resource was created.
 --
--- * 'vsSemanticVersion' - The semantic version of the application: <https://semver.org/ https://semver.org/>
-versionSummary ::
-  -- | 'vsCreationTime'
-  Text ->
-  -- | 'vsApplicationId'
-  Text ->
-  -- | 'vsSemanticVersion'
-  Text ->
+-- 'applicationId', 'versionSummary_applicationId' - The application Amazon Resource Name (ARN).
+--
+-- 'semanticVersion', 'versionSummary_semanticVersion' - The semantic version of the application:
+--
+-- <https://semver.org/>
+newVersionSummary ::
+  -- | 'creationTime'
+  Prelude.Text ->
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'semanticVersion'
+  Prelude.Text ->
   VersionSummary
-versionSummary
+newVersionSummary
   pCreationTime_
   pApplicationId_
   pSemanticVersion_ =
     VersionSummary'
-      { _vsSourceCodeURL = Nothing,
-        _vsCreationTime = pCreationTime_,
-        _vsApplicationId = pApplicationId_,
-        _vsSemanticVersion = pSemanticVersion_
+      { sourceCodeUrl = Prelude.Nothing,
+        creationTime = pCreationTime_,
+        applicationId = pApplicationId_,
+        semanticVersion = pSemanticVersion_
       }
 
--- | A link to a public repository for the source code of your application, for example the URL of a specific GitHub commit.
-vsSourceCodeURL :: Lens' VersionSummary (Maybe Text)
-vsSourceCodeURL = lens _vsSourceCodeURL (\s a -> s {_vsSourceCodeURL = a})
+-- | A link to a public repository for the source code of your application,
+-- for example the URL of a specific GitHub commit.
+versionSummary_sourceCodeUrl :: Lens.Lens' VersionSummary (Prelude.Maybe Prelude.Text)
+versionSummary_sourceCodeUrl = Lens.lens (\VersionSummary' {sourceCodeUrl} -> sourceCodeUrl) (\s@VersionSummary' {} a -> s {sourceCodeUrl = a} :: VersionSummary)
 
 -- | The date and time this resource was created.
-vsCreationTime :: Lens' VersionSummary Text
-vsCreationTime = lens _vsCreationTime (\s a -> s {_vsCreationTime = a})
+versionSummary_creationTime :: Lens.Lens' VersionSummary Prelude.Text
+versionSummary_creationTime = Lens.lens (\VersionSummary' {creationTime} -> creationTime) (\s@VersionSummary' {} a -> s {creationTime = a} :: VersionSummary)
 
 -- | The application Amazon Resource Name (ARN).
-vsApplicationId :: Lens' VersionSummary Text
-vsApplicationId = lens _vsApplicationId (\s a -> s {_vsApplicationId = a})
+versionSummary_applicationId :: Lens.Lens' VersionSummary Prelude.Text
+versionSummary_applicationId = Lens.lens (\VersionSummary' {applicationId} -> applicationId) (\s@VersionSummary' {} a -> s {applicationId = a} :: VersionSummary)
 
--- | The semantic version of the application: <https://semver.org/ https://semver.org/>
-vsSemanticVersion :: Lens' VersionSummary Text
-vsSemanticVersion = lens _vsSemanticVersion (\s a -> s {_vsSemanticVersion = a})
+-- | The semantic version of the application:
+--
+-- <https://semver.org/>
+versionSummary_semanticVersion :: Lens.Lens' VersionSummary Prelude.Text
+versionSummary_semanticVersion = Lens.lens (\VersionSummary' {semanticVersion} -> semanticVersion) (\s@VersionSummary' {} a -> s {semanticVersion = a} :: VersionSummary)
 
-instance FromJSON VersionSummary where
+instance Prelude.FromJSON VersionSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VersionSummary"
       ( \x ->
           VersionSummary'
-            <$> (x .:? "sourceCodeUrl")
-            <*> (x .: "creationTime")
-            <*> (x .: "applicationId")
-            <*> (x .: "semanticVersion")
+            Prelude.<$> (x Prelude..:? "sourceCodeUrl")
+            Prelude.<*> (x Prelude..: "creationTime")
+            Prelude.<*> (x Prelude..: "applicationId")
+            Prelude.<*> (x Prelude..: "semanticVersion")
       )
 
-instance Hashable VersionSummary
+instance Prelude.Hashable VersionSummary
 
-instance NFData VersionSummary
+instance Prelude.NFData VersionSummary

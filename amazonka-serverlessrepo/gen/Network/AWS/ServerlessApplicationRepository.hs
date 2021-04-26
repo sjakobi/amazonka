@@ -11,35 +11,42 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The AWS Serverless Application Repository makes it easy for developers and enterprises to quickly find
+-- The AWS Serverless Application Repository makes it easy for developers
+-- and enterprises to quickly find and deploy serverless applications in
+-- the AWS Cloud. For more information about serverless applications, see
+-- Serverless Computing and Applications on the AWS website.
 --
---  and deploy serverless applications in the AWS Cloud. For more information about serverless applications,
---  see Serverless Computing and Applications on the AWS website.
+-- The AWS Serverless Application Repository is deeply integrated with the
+-- AWS Lambda console, so that developers of all levels can get started
+-- with serverless computing without needing to learn anything new. You can
+-- use category keywords to browse for applications such as web and mobile
+-- backends, data processing applications, or chatbots. You can also search
+-- for applications by name, publisher, or event source. To use an
+-- application, you simply choose it, configure any required fields, and
+-- deploy it with a few clicks.
 --
--- The AWS Serverless Application Repository is deeply integrated with the AWS Lambda console, so that developers of
---  all levels can get started with serverless computing without needing to learn anything new. You can use category
---  keywords to browse for applications such as web and mobile backends, data processing applications, or chatbots.
---  You can also search for applications by name, publisher, or event source. To use an application, you simply choose it,
---  configure any required fields, and deploy it with a few clicks.
+-- You can also easily publish applications, sharing them publicly with the
+-- community at large, or privately within your team or across your
+-- organization. To publish a serverless application (or app), you can use
+-- the AWS Management Console, AWS Command Line Interface (AWS CLI), or AWS
+-- SDKs to upload the code. Along with the code, you upload a simple
+-- manifest file, also known as the AWS Serverless Application Model (AWS
+-- SAM) template. For more information about AWS SAM, see AWS Serverless
+-- Application Model (AWS SAM) on the AWS Labs GitHub repository.
 --
--- You can also easily publish applications, sharing them publicly with the community at large, or privately
---  within your team or across your organization. To publish a serverless application (or app), you can use the
---  AWS Management Console, AWS Command Line Interface (AWS CLI), or AWS SDKs to upload the code. Along with the
---  code, you upload a simple manifest file, also known as the AWS Serverless Application Model (AWS SAM) template.
---  For more information about AWS SAM, see AWS Serverless Application Model (AWS SAM) on the AWS Labs
---  GitHub repository.
+-- The AWS Serverless Application Repository Developer Guide contains more
+-- information about the two developer experiences available:
 --
--- The AWS Serverless Application Repository Developer Guide contains more information about the two developer
---  experiences available:
+-- -   Consuming Applications – Browse for applications and view
+--     information about them, including source code and readme files. Also
+--     install, configure, and deploy applications of your choosing.
 --
---     * Consuming Applications – Browse for applications and view information about them, including
---  source code and readme files. Also install, configure, and deploy applications of your choosing.
---
--- Publishing Applications – Configure and upload applications to make them available to other
---  developers, and publish new versions of applications.
+--     Publishing Applications – Configure and upload applications to make
+--     them available to other developers, and publish new versions of
+--     applications.
 module Network.AWS.ServerlessApplicationRepository
   ( -- * Service Configuration
-    serverlessApplicationRepository,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -69,46 +76,88 @@ module Network.AWS.ServerlessApplicationRepository
     -- $operations
 
     -- ** GetApplicationPolicy
-    module Network.AWS.ServerlessApplicationRepository.GetApplicationPolicy,
+    GetApplicationPolicy (GetApplicationPolicy'),
+    newGetApplicationPolicy,
+    GetApplicationPolicyResponse (GetApplicationPolicyResponse'),
+    newGetApplicationPolicyResponse,
 
     -- ** GetCloudFormationTemplate
-    module Network.AWS.ServerlessApplicationRepository.GetCloudFormationTemplate,
+    GetCloudFormationTemplate (GetCloudFormationTemplate'),
+    newGetCloudFormationTemplate,
+    GetCloudFormationTemplateResponse (GetCloudFormationTemplateResponse'),
+    newGetCloudFormationTemplateResponse,
 
     -- ** UnshareApplication
-    module Network.AWS.ServerlessApplicationRepository.UnshareApplication,
+    UnshareApplication (UnshareApplication'),
+    newUnshareApplication,
+    UnshareApplicationResponse (UnshareApplicationResponse'),
+    newUnshareApplicationResponse,
 
     -- ** CreateApplicationVersion
-    module Network.AWS.ServerlessApplicationRepository.CreateApplicationVersion,
+    CreateApplicationVersion (CreateApplicationVersion'),
+    newCreateApplicationVersion,
+    CreateApplicationVersionResponse (CreateApplicationVersionResponse'),
+    newCreateApplicationVersionResponse,
 
     -- ** CreateApplication
-    module Network.AWS.ServerlessApplicationRepository.CreateApplication,
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    CreateApplicationResponse (CreateApplicationResponse'),
+    newCreateApplicationResponse,
 
     -- ** CreateCloudFormationChangeSet
-    module Network.AWS.ServerlessApplicationRepository.CreateCloudFormationChangeSet,
+    CreateCloudFormationChangeSet (CreateCloudFormationChangeSet'),
+    newCreateCloudFormationChangeSet,
+    CreateCloudFormationChangeSetResponse (CreateCloudFormationChangeSetResponse'),
+    newCreateCloudFormationChangeSetResponse,
 
     -- ** GetApplication
-    module Network.AWS.ServerlessApplicationRepository.GetApplication,
+    GetApplication (GetApplication'),
+    newGetApplication,
+    GetApplicationResponse (GetApplicationResponse'),
+    newGetApplicationResponse,
 
     -- ** ListApplicationDependencies (Paginated)
-    module Network.AWS.ServerlessApplicationRepository.ListApplicationDependencies,
+    ListApplicationDependencies (ListApplicationDependencies'),
+    newListApplicationDependencies,
+    ListApplicationDependenciesResponse (ListApplicationDependenciesResponse'),
+    newListApplicationDependenciesResponse,
 
     -- ** ListApplicationVersions (Paginated)
-    module Network.AWS.ServerlessApplicationRepository.ListApplicationVersions,
+    ListApplicationVersions (ListApplicationVersions'),
+    newListApplicationVersions,
+    ListApplicationVersionsResponse (ListApplicationVersionsResponse'),
+    newListApplicationVersionsResponse,
 
     -- ** CreateCloudFormationTemplate
-    module Network.AWS.ServerlessApplicationRepository.CreateCloudFormationTemplate,
+    CreateCloudFormationTemplate (CreateCloudFormationTemplate'),
+    newCreateCloudFormationTemplate,
+    CreateCloudFormationTemplateResponse (CreateCloudFormationTemplateResponse'),
+    newCreateCloudFormationTemplateResponse,
 
     -- ** PutApplicationPolicy
-    module Network.AWS.ServerlessApplicationRepository.PutApplicationPolicy,
+    PutApplicationPolicy (PutApplicationPolicy'),
+    newPutApplicationPolicy,
+    PutApplicationPolicyResponse (PutApplicationPolicyResponse'),
+    newPutApplicationPolicyResponse,
 
     -- ** DeleteApplication
-    module Network.AWS.ServerlessApplicationRepository.DeleteApplication,
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
 
     -- ** ListApplications (Paginated)
-    module Network.AWS.ServerlessApplicationRepository.ListApplications,
+    ListApplications (ListApplications'),
+    newListApplications,
+    ListApplicationsResponse (ListApplicationsResponse'),
+    newListApplicationsResponse,
 
     -- ** UpdateApplication
-    module Network.AWS.ServerlessApplicationRepository.UpdateApplication,
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    UpdateApplicationResponse (UpdateApplicationResponse'),
+    newUpdateApplicationResponse,
 
     -- * Types
 
@@ -119,92 +168,44 @@ module Network.AWS.ServerlessApplicationRepository
     Status (..),
 
     -- ** ApplicationDependencySummary
-    ApplicationDependencySummary,
-    applicationDependencySummary,
-    adsApplicationId,
-    adsSemanticVersion,
+    ApplicationDependencySummary (ApplicationDependencySummary'),
+    newApplicationDependencySummary,
 
     -- ** ApplicationPolicyStatement
-    ApplicationPolicyStatement,
-    applicationPolicyStatement,
-    apsStatementId,
-    apsPrincipalOrgIds,
-    apsPrincipals,
-    apsActions,
+    ApplicationPolicyStatement (ApplicationPolicyStatement'),
+    newApplicationPolicyStatement,
 
     -- ** ApplicationSummary
-    ApplicationSummary,
-    applicationSummary,
-    asCreationTime,
-    asSpdxLicenseId,
-    asLabels,
-    asHomePageURL,
-    asDescription,
-    asAuthor,
-    asApplicationId,
-    asName,
+    ApplicationSummary (ApplicationSummary'),
+    newApplicationSummary,
 
     -- ** ParameterDefinition
-    ParameterDefinition,
-    parameterDefinition,
-    pdMaxValue,
-    pdMinLength,
-    pdAllowedValues,
-    pdMinValue,
-    pdDescription,
-    pdConstraintDescription,
-    pdType,
-    pdNoEcho,
-    pdMaxLength,
-    pdAllowedPattern,
-    pdDefaultValue,
-    pdReferencedByResources,
-    pdName,
+    ParameterDefinition (ParameterDefinition'),
+    newParameterDefinition,
 
     -- ** ParameterValue
-    ParameterValue,
-    parameterValue,
-    pvValue,
-    pvName,
+    ParameterValue (ParameterValue'),
+    newParameterValue,
 
     -- ** RollbackConfiguration
-    RollbackConfiguration,
-    rollbackConfiguration,
-    rcMonitoringTimeInMinutes,
-    rcRollbackTriggers,
+    RollbackConfiguration (RollbackConfiguration'),
+    newRollbackConfiguration,
 
     -- ** RollbackTrigger
-    RollbackTrigger,
-    rollbackTrigger,
-    rtType,
-    rtARN,
+    RollbackTrigger (RollbackTrigger'),
+    newRollbackTrigger,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
 
     -- ** Version
-    Version,
-    version,
-    vSourceCodeArchiveURL,
-    vSourceCodeURL,
-    vTemplateURL,
-    vParameterDefinitions,
-    vResourcesSupported,
-    vCreationTime,
-    vRequiredCapabilities,
-    vApplicationId,
-    vSemanticVersion,
+    Version (Version'),
+    newVersion,
 
     -- ** VersionSummary
-    VersionSummary,
-    versionSummary,
-    vsSourceCodeURL,
-    vsCreationTime,
-    vsApplicationId,
-    vsSemanticVersion,
+    VersionSummary (VersionSummary'),
+    newVersionSummary,
   )
 where
 
@@ -216,6 +217,7 @@ import Network.AWS.ServerlessApplicationRepository.DeleteApplication
 import Network.AWS.ServerlessApplicationRepository.GetApplication
 import Network.AWS.ServerlessApplicationRepository.GetApplicationPolicy
 import Network.AWS.ServerlessApplicationRepository.GetCloudFormationTemplate
+import Network.AWS.ServerlessApplicationRepository.Lens
 import Network.AWS.ServerlessApplicationRepository.ListApplicationDependencies
 import Network.AWS.ServerlessApplicationRepository.ListApplicationVersions
 import Network.AWS.ServerlessApplicationRepository.ListApplications

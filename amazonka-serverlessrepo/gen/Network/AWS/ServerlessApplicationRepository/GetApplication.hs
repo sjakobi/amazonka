@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,266 +24,348 @@
 -- Gets the specified application.
 module Network.AWS.ServerlessApplicationRepository.GetApplication
   ( -- * Creating a Request
-    getApplication,
-    GetApplication,
+    GetApplication (..),
+    newGetApplication,
 
     -- * Request Lenses
-    gaSemanticVersion,
-    gaApplicationId,
+    getApplication_semanticVersion,
+    getApplication_applicationId,
 
     -- * Destructuring the Response
-    getApplicationResponse,
-    GetApplicationResponse,
+    GetApplicationResponse (..),
+    newGetApplicationResponse,
 
     -- * Response Lenses
-    garrsApplicationId,
-    garrsCreationTime,
-    garrsSpdxLicenseId,
-    garrsLicenseURL,
-    garrsVerifiedAuthorURL,
-    garrsLabels,
-    garrsAuthor,
-    garrsVersion,
-    garrsHomePageURL,
-    garrsName,
-    garrsIsVerifiedAuthor,
-    garrsReadmeURL,
-    garrsDescription,
-    garrsResponseStatus,
+    getApplicationResponse_applicationId,
+    getApplicationResponse_creationTime,
+    getApplicationResponse_spdxLicenseId,
+    getApplicationResponse_licenseUrl,
+    getApplicationResponse_verifiedAuthorUrl,
+    getApplicationResponse_labels,
+    getApplicationResponse_author,
+    getApplicationResponse_version,
+    getApplicationResponse_homePageUrl,
+    getApplicationResponse_name,
+    getApplicationResponse_isVerifiedAuthor,
+    getApplicationResponse_readmeUrl,
+    getApplicationResponse_description,
+    getApplicationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServerlessApplicationRepository.Types
+import Network.AWS.ServerlessApplicationRepository.Types.Version
 
--- | /See:/ 'getApplication' smart constructor.
+-- | /See:/ 'newGetApplication' smart constructor.
 data GetApplication = GetApplication'
-  { _gaSemanticVersion ::
-      !(Maybe Text),
-    _gaApplicationId :: !Text
+  { -- | The semantic version of the application to get.
+    semanticVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the application.
+    applicationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaSemanticVersion' - The semantic version of the application to get.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaApplicationId' - The Amazon Resource Name (ARN) of the application.
-getApplication ::
-  -- | 'gaApplicationId'
-  Text ->
+-- 'semanticVersion', 'getApplication_semanticVersion' - The semantic version of the application to get.
+--
+-- 'applicationId', 'getApplication_applicationId' - The Amazon Resource Name (ARN) of the application.
+newGetApplication ::
+  -- | 'applicationId'
+  Prelude.Text ->
   GetApplication
-getApplication pApplicationId_ =
+newGetApplication pApplicationId_ =
   GetApplication'
-    { _gaSemanticVersion = Nothing,
-      _gaApplicationId = pApplicationId_
+    { semanticVersion = Prelude.Nothing,
+      applicationId = pApplicationId_
     }
 
 -- | The semantic version of the application to get.
-gaSemanticVersion :: Lens' GetApplication (Maybe Text)
-gaSemanticVersion = lens _gaSemanticVersion (\s a -> s {_gaSemanticVersion = a})
+getApplication_semanticVersion :: Lens.Lens' GetApplication (Prelude.Maybe Prelude.Text)
+getApplication_semanticVersion = Lens.lens (\GetApplication' {semanticVersion} -> semanticVersion) (\s@GetApplication' {} a -> s {semanticVersion = a} :: GetApplication)
 
 -- | The Amazon Resource Name (ARN) of the application.
-gaApplicationId :: Lens' GetApplication Text
-gaApplicationId = lens _gaApplicationId (\s a -> s {_gaApplicationId = a})
+getApplication_applicationId :: Lens.Lens' GetApplication Prelude.Text
+getApplication_applicationId = Lens.lens (\GetApplication' {applicationId} -> applicationId) (\s@GetApplication' {} a -> s {applicationId = a} :: GetApplication)
 
-instance AWSRequest GetApplication where
+instance Prelude.AWSRequest GetApplication where
   type Rs GetApplication = GetApplicationResponse
-  request = get serverlessApplicationRepository
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetApplicationResponse'
-            <$> (x .?> "applicationId")
-            <*> (x .?> "creationTime")
-            <*> (x .?> "spdxLicenseId")
-            <*> (x .?> "licenseUrl")
-            <*> (x .?> "verifiedAuthorUrl")
-            <*> (x .?> "labels" .!@ mempty)
-            <*> (x .?> "author")
-            <*> (x .?> "version")
-            <*> (x .?> "homePageUrl")
-            <*> (x .?> "name")
-            <*> (x .?> "isVerifiedAuthor")
-            <*> (x .?> "readmeUrl")
-            <*> (x .?> "description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "applicationId")
+            Prelude.<*> (x Prelude..?> "creationTime")
+            Prelude.<*> (x Prelude..?> "spdxLicenseId")
+            Prelude.<*> (x Prelude..?> "licenseUrl")
+            Prelude.<*> (x Prelude..?> "verifiedAuthorUrl")
+            Prelude.<*> (x Prelude..?> "labels" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "author")
+            Prelude.<*> (x Prelude..?> "version")
+            Prelude.<*> (x Prelude..?> "homePageUrl")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "isVerifiedAuthor")
+            Prelude.<*> (x Prelude..?> "readmeUrl")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetApplication
+instance Prelude.Hashable GetApplication
 
-instance NFData GetApplication
+instance Prelude.NFData GetApplication
 
-instance ToHeaders GetApplication where
+instance Prelude.ToHeaders GetApplication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetApplication where
+instance Prelude.ToPath GetApplication where
   toPath GetApplication' {..} =
-    mconcat ["/applications/", toBS _gaApplicationId]
+    Prelude.mconcat
+      ["/applications/", Prelude.toBS applicationId]
 
-instance ToQuery GetApplication where
+instance Prelude.ToQuery GetApplication where
   toQuery GetApplication' {..} =
-    mconcat ["semanticVersion" =: _gaSemanticVersion]
+    Prelude.mconcat
+      ["semanticVersion" Prelude.=: semanticVersion]
 
--- | /See:/ 'getApplicationResponse' smart constructor.
+-- | /See:/ 'newGetApplicationResponse' smart constructor.
 data GetApplicationResponse = GetApplicationResponse'
-  { _garrsApplicationId ::
-      !(Maybe Text),
-    _garrsCreationTime ::
-      !(Maybe Text),
-    _garrsSpdxLicenseId ::
-      !(Maybe Text),
-    _garrsLicenseURL ::
-      !(Maybe Text),
-    _garrsVerifiedAuthorURL ::
-      !(Maybe Text),
-    _garrsLabels ::
-      !(Maybe [Text]),
-    _garrsAuthor ::
-      !(Maybe Text),
-    _garrsVersion ::
-      !(Maybe Version),
-    _garrsHomePageURL ::
-      !(Maybe Text),
-    _garrsName ::
-      !(Maybe Text),
-    _garrsIsVerifiedAuthor ::
-      !(Maybe Bool),
-    _garrsReadmeURL ::
-      !(Maybe Text),
-    _garrsDescription ::
-      !(Maybe Text),
-    _garrsResponseStatus ::
-      !Int
+  { -- | The application Amazon Resource Name (ARN).
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time this resource was created.
+    creationTime :: Prelude.Maybe Prelude.Text,
+    -- | A valid identifier from https:\/\/spdx.org\/licenses\/.
+    spdxLicenseId :: Prelude.Maybe Prelude.Text,
+    -- | A link to a license file of the app that matches the spdxLicenseID value
+    -- of your application.
+    --
+    -- Maximum size 5 MB
+    licenseUrl :: Prelude.Maybe Prelude.Text,
+    -- | The URL to the public profile of a verified author. This URL is
+    -- submitted by the author.
+    verifiedAuthorUrl :: Prelude.Maybe Prelude.Text,
+    -- | Labels to improve discovery of apps in search results.
+    --
+    -- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+    --
+    -- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+    labels :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the author publishing the app.
+    --
+    -- Minimum length=1. Maximum length=127.
+    --
+    -- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+    author :: Prelude.Maybe Prelude.Text,
+    -- | Version information about the application.
+    version :: Prelude.Maybe Version,
+    -- | A URL with more information about the application, for example the
+    -- location of your GitHub repository for the application.
+    homePageUrl :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application.
+    --
+    -- Minimum length=1. Maximum length=140
+    --
+    -- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Whether the author of this application has been verified. This means
+    -- means that AWS has made a good faith review, as a reasonable and prudent
+    -- service provider, of the information provided by the requester and has
+    -- confirmed that the requester\'s identity is as claimed.
+    isVerifiedAuthor :: Prelude.Maybe Prelude.Bool,
+    -- | A link to the readme file in Markdown language that contains a more
+    -- detailed description of the application and how it works.
+    --
+    -- Maximum size 5 MB
+    readmeUrl :: Prelude.Maybe Prelude.Text,
+    -- | The description of the application.
+    --
+    -- Minimum length=1. Maximum length=256
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetApplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetApplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garrsApplicationId' - The application Amazon Resource Name (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garrsCreationTime' - The date and time this resource was created.
+-- 'applicationId', 'getApplicationResponse_applicationId' - The application Amazon Resource Name (ARN).
 --
--- * 'garrsSpdxLicenseId' - A valid identifier from https://spdx.org/licenses/.
+-- 'creationTime', 'getApplicationResponse_creationTime' - The date and time this resource was created.
 --
--- * 'garrsLicenseURL' - A link to a license file of the app that matches the spdxLicenseID value of your application. Maximum size 5 MB
+-- 'spdxLicenseId', 'getApplicationResponse_spdxLicenseId' - A valid identifier from https:\/\/spdx.org\/licenses\/.
 --
--- * 'garrsVerifiedAuthorURL' - The URL to the public profile of a verified author. This URL is submitted by the author.
+-- 'licenseUrl', 'getApplicationResponse_licenseUrl' - A link to a license file of the app that matches the spdxLicenseID value
+-- of your application.
 --
--- * 'garrsLabels' - Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
+-- Maximum size 5 MB
 --
--- * 'garrsAuthor' - The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
+-- 'verifiedAuthorUrl', 'getApplicationResponse_verifiedAuthorUrl' - The URL to the public profile of a verified author. This URL is
+-- submitted by the author.
 --
--- * 'garrsVersion' - Version information about the application.
+-- 'labels', 'getApplicationResponse_labels' - Labels to improve discovery of apps in search results.
 --
--- * 'garrsHomePageURL' - A URL with more information about the application, for example the location of your GitHub repository for the application.
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
 --
--- * 'garrsName' - The name of the application. Minimum length=1. Maximum length=140 Pattern: "[a-zA-Z0-9\\-]+";
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
 --
--- * 'garrsIsVerifiedAuthor' - Whether the author of this application has been verified. This means means that AWS has made a good faith review, as a reasonable and prudent service provider, of the information provided by the requester and has confirmed that the requester's identity is as claimed.
+-- 'author', 'getApplicationResponse_author' - The name of the author publishing the app.
 --
--- * 'garrsReadmeURL' - A link to the readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
+-- Minimum length=1. Maximum length=127.
 --
--- * 'garrsDescription' - The description of the application. Minimum length=1. Maximum length=256
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
 --
--- * 'garrsResponseStatus' - -- | The response status code.
-getApplicationResponse ::
-  -- | 'garrsResponseStatus'
-  Int ->
+-- 'version', 'getApplicationResponse_version' - Version information about the application.
+--
+-- 'homePageUrl', 'getApplicationResponse_homePageUrl' - A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
+--
+-- 'name', 'getApplicationResponse_name' - The name of the application.
+--
+-- Minimum length=1. Maximum length=140
+--
+-- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+--
+-- 'isVerifiedAuthor', 'getApplicationResponse_isVerifiedAuthor' - Whether the author of this application has been verified. This means
+-- means that AWS has made a good faith review, as a reasonable and prudent
+-- service provider, of the information provided by the requester and has
+-- confirmed that the requester\'s identity is as claimed.
+--
+-- 'readmeUrl', 'getApplicationResponse_readmeUrl' - A link to the readme file in Markdown language that contains a more
+-- detailed description of the application and how it works.
+--
+-- Maximum size 5 MB
+--
+-- 'description', 'getApplicationResponse_description' - The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+--
+-- 'httpStatus', 'getApplicationResponse_httpStatus' - The response's http status code.
+newGetApplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetApplicationResponse
-getApplicationResponse pResponseStatus_ =
+newGetApplicationResponse pHttpStatus_ =
   GetApplicationResponse'
-    { _garrsApplicationId =
-        Nothing,
-      _garrsCreationTime = Nothing,
-      _garrsSpdxLicenseId = Nothing,
-      _garrsLicenseURL = Nothing,
-      _garrsVerifiedAuthorURL = Nothing,
-      _garrsLabels = Nothing,
-      _garrsAuthor = Nothing,
-      _garrsVersion = Nothing,
-      _garrsHomePageURL = Nothing,
-      _garrsName = Nothing,
-      _garrsIsVerifiedAuthor = Nothing,
-      _garrsReadmeURL = Nothing,
-      _garrsDescription = Nothing,
-      _garrsResponseStatus = pResponseStatus_
+    { applicationId =
+        Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      spdxLicenseId = Prelude.Nothing,
+      licenseUrl = Prelude.Nothing,
+      verifiedAuthorUrl = Prelude.Nothing,
+      labels = Prelude.Nothing,
+      author = Prelude.Nothing,
+      version = Prelude.Nothing,
+      homePageUrl = Prelude.Nothing,
+      name = Prelude.Nothing,
+      isVerifiedAuthor = Prelude.Nothing,
+      readmeUrl = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The application Amazon Resource Name (ARN).
-garrsApplicationId :: Lens' GetApplicationResponse (Maybe Text)
-garrsApplicationId = lens _garrsApplicationId (\s a -> s {_garrsApplicationId = a})
+getApplicationResponse_applicationId :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_applicationId = Lens.lens (\GetApplicationResponse' {applicationId} -> applicationId) (\s@GetApplicationResponse' {} a -> s {applicationId = a} :: GetApplicationResponse)
 
 -- | The date and time this resource was created.
-garrsCreationTime :: Lens' GetApplicationResponse (Maybe Text)
-garrsCreationTime = lens _garrsCreationTime (\s a -> s {_garrsCreationTime = a})
+getApplicationResponse_creationTime :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_creationTime = Lens.lens (\GetApplicationResponse' {creationTime} -> creationTime) (\s@GetApplicationResponse' {} a -> s {creationTime = a} :: GetApplicationResponse)
 
--- | A valid identifier from https://spdx.org/licenses/.
-garrsSpdxLicenseId :: Lens' GetApplicationResponse (Maybe Text)
-garrsSpdxLicenseId = lens _garrsSpdxLicenseId (\s a -> s {_garrsSpdxLicenseId = a})
+-- | A valid identifier from https:\/\/spdx.org\/licenses\/.
+getApplicationResponse_spdxLicenseId :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_spdxLicenseId = Lens.lens (\GetApplicationResponse' {spdxLicenseId} -> spdxLicenseId) (\s@GetApplicationResponse' {} a -> s {spdxLicenseId = a} :: GetApplicationResponse)
 
--- | A link to a license file of the app that matches the spdxLicenseID value of your application. Maximum size 5 MB
-garrsLicenseURL :: Lens' GetApplicationResponse (Maybe Text)
-garrsLicenseURL = lens _garrsLicenseURL (\s a -> s {_garrsLicenseURL = a})
+-- | A link to a license file of the app that matches the spdxLicenseID value
+-- of your application.
+--
+-- Maximum size 5 MB
+getApplicationResponse_licenseUrl :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_licenseUrl = Lens.lens (\GetApplicationResponse' {licenseUrl} -> licenseUrl) (\s@GetApplicationResponse' {} a -> s {licenseUrl = a} :: GetApplicationResponse)
 
--- | The URL to the public profile of a verified author. This URL is submitted by the author.
-garrsVerifiedAuthorURL :: Lens' GetApplicationResponse (Maybe Text)
-garrsVerifiedAuthorURL = lens _garrsVerifiedAuthorURL (\s a -> s {_garrsVerifiedAuthorURL = a})
+-- | The URL to the public profile of a verified author. This URL is
+-- submitted by the author.
+getApplicationResponse_verifiedAuthorUrl :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_verifiedAuthorUrl = Lens.lens (\GetApplicationResponse' {verifiedAuthorUrl} -> verifiedAuthorUrl) (\s@GetApplicationResponse' {} a -> s {verifiedAuthorUrl = a} :: GetApplicationResponse)
 
--- | Labels to improve discovery of apps in search results. Minimum length=1. Maximum length=127. Maximum number of labels: 10 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";
-garrsLabels :: Lens' GetApplicationResponse [Text]
-garrsLabels = lens _garrsLabels (\s a -> s {_garrsLabels = a}) . _Default . _Coerce
+-- | Labels to improve discovery of apps in search results.
+--
+-- Minimum length=1. Maximum length=127. Maximum number of labels: 10
+--
+-- Pattern: \"^[a-zA-Z0-9+\\\\-_:\\\\\/\@]+$\";
+getApplicationResponse_labels :: Lens.Lens' GetApplicationResponse (Prelude.Maybe [Prelude.Text])
+getApplicationResponse_labels = Lens.lens (\GetApplicationResponse' {labels} -> labels) (\s@GetApplicationResponse' {} a -> s {labels = a} :: GetApplicationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the author publishing the app. Minimum length=1. Maximum length=127. Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
-garrsAuthor :: Lens' GetApplicationResponse (Maybe Text)
-garrsAuthor = lens _garrsAuthor (\s a -> s {_garrsAuthor = a})
+-- | The name of the author publishing the app.
+--
+-- Minimum length=1. Maximum length=127.
+--
+-- Pattern \"^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$\";
+getApplicationResponse_author :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_author = Lens.lens (\GetApplicationResponse' {author} -> author) (\s@GetApplicationResponse' {} a -> s {author = a} :: GetApplicationResponse)
 
 -- | Version information about the application.
-garrsVersion :: Lens' GetApplicationResponse (Maybe Version)
-garrsVersion = lens _garrsVersion (\s a -> s {_garrsVersion = a})
+getApplicationResponse_version :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Version)
+getApplicationResponse_version = Lens.lens (\GetApplicationResponse' {version} -> version) (\s@GetApplicationResponse' {} a -> s {version = a} :: GetApplicationResponse)
 
--- | A URL with more information about the application, for example the location of your GitHub repository for the application.
-garrsHomePageURL :: Lens' GetApplicationResponse (Maybe Text)
-garrsHomePageURL = lens _garrsHomePageURL (\s a -> s {_garrsHomePageURL = a})
+-- | A URL with more information about the application, for example the
+-- location of your GitHub repository for the application.
+getApplicationResponse_homePageUrl :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_homePageUrl = Lens.lens (\GetApplicationResponse' {homePageUrl} -> homePageUrl) (\s@GetApplicationResponse' {} a -> s {homePageUrl = a} :: GetApplicationResponse)
 
--- | The name of the application. Minimum length=1. Maximum length=140 Pattern: "[a-zA-Z0-9\\-]+";
-garrsName :: Lens' GetApplicationResponse (Maybe Text)
-garrsName = lens _garrsName (\s a -> s {_garrsName = a})
+-- | The name of the application.
+--
+-- Minimum length=1. Maximum length=140
+--
+-- Pattern: \"[a-zA-Z0-9\\\\-]+\";
+getApplicationResponse_name :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_name = Lens.lens (\GetApplicationResponse' {name} -> name) (\s@GetApplicationResponse' {} a -> s {name = a} :: GetApplicationResponse)
 
--- | Whether the author of this application has been verified. This means means that AWS has made a good faith review, as a reasonable and prudent service provider, of the information provided by the requester and has confirmed that the requester's identity is as claimed.
-garrsIsVerifiedAuthor :: Lens' GetApplicationResponse (Maybe Bool)
-garrsIsVerifiedAuthor = lens _garrsIsVerifiedAuthor (\s a -> s {_garrsIsVerifiedAuthor = a})
+-- | Whether the author of this application has been verified. This means
+-- means that AWS has made a good faith review, as a reasonable and prudent
+-- service provider, of the information provided by the requester and has
+-- confirmed that the requester\'s identity is as claimed.
+getApplicationResponse_isVerifiedAuthor :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Bool)
+getApplicationResponse_isVerifiedAuthor = Lens.lens (\GetApplicationResponse' {isVerifiedAuthor} -> isVerifiedAuthor) (\s@GetApplicationResponse' {} a -> s {isVerifiedAuthor = a} :: GetApplicationResponse)
 
--- | A link to the readme file in Markdown language that contains a more detailed description of the application and how it works. Maximum size 5 MB
-garrsReadmeURL :: Lens' GetApplicationResponse (Maybe Text)
-garrsReadmeURL = lens _garrsReadmeURL (\s a -> s {_garrsReadmeURL = a})
+-- | A link to the readme file in Markdown language that contains a more
+-- detailed description of the application and how it works.
+--
+-- Maximum size 5 MB
+getApplicationResponse_readmeUrl :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_readmeUrl = Lens.lens (\GetApplicationResponse' {readmeUrl} -> readmeUrl) (\s@GetApplicationResponse' {} a -> s {readmeUrl = a} :: GetApplicationResponse)
 
--- | The description of the application. Minimum length=1. Maximum length=256
-garrsDescription :: Lens' GetApplicationResponse (Maybe Text)
-garrsDescription = lens _garrsDescription (\s a -> s {_garrsDescription = a})
+-- | The description of the application.
+--
+-- Minimum length=1. Maximum length=256
+getApplicationResponse_description :: Lens.Lens' GetApplicationResponse (Prelude.Maybe Prelude.Text)
+getApplicationResponse_description = Lens.lens (\GetApplicationResponse' {description} -> description) (\s@GetApplicationResponse' {} a -> s {description = a} :: GetApplicationResponse)
 
--- | -- | The response status code.
-garrsResponseStatus :: Lens' GetApplicationResponse Int
-garrsResponseStatus = lens _garrsResponseStatus (\s a -> s {_garrsResponseStatus = a})
+-- | The response's http status code.
+getApplicationResponse_httpStatus :: Lens.Lens' GetApplicationResponse Prelude.Int
+getApplicationResponse_httpStatus = Lens.lens (\GetApplicationResponse' {httpStatus} -> httpStatus) (\s@GetApplicationResponse' {} a -> s {httpStatus = a} :: GetApplicationResponse)
 
-instance NFData GetApplicationResponse
+instance Prelude.NFData GetApplicationResponse

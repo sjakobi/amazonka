@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types.ParameterValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Parameter value of the application.
 --
---
---
--- /See:/ 'parameterValue' smart constructor.
+-- /See:/ 'newParameterValue' smart constructor.
 data ParameterValue = ParameterValue'
-  { _pvValue ::
-      !Text,
-    _pvName :: !Text
+  { -- | The input value associated with the parameter.
+    value :: Prelude.Text,
+    -- | The key associated with the parameter. If you don\'t specify a key and
+    -- value for a particular parameter, AWS CloudFormation uses the default
+    -- value that is specified in your template.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pvValue' - The input value associated with the parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pvName' - The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS CloudFormation  uses the default value that is specified in your template.
-parameterValue ::
-  -- | 'pvValue'
-  Text ->
-  -- | 'pvName'
-  Text ->
+-- 'value', 'parameterValue_value' - The input value associated with the parameter.
+--
+-- 'name', 'parameterValue_name' - The key associated with the parameter. If you don\'t specify a key and
+-- value for a particular parameter, AWS CloudFormation uses the default
+-- value that is specified in your template.
+newParameterValue ::
+  -- | 'value'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   ParameterValue
-parameterValue pValue_ pName_ =
-  ParameterValue'
-    { _pvValue = pValue_,
-      _pvName = pName_
-    }
+newParameterValue pValue_ pName_ =
+  ParameterValue' {value = pValue_, name = pName_}
 
 -- | The input value associated with the parameter.
-pvValue :: Lens' ParameterValue Text
-pvValue = lens _pvValue (\s a -> s {_pvValue = a})
+parameterValue_value :: Lens.Lens' ParameterValue Prelude.Text
+parameterValue_value = Lens.lens (\ParameterValue' {value} -> value) (\s@ParameterValue' {} a -> s {value = a} :: ParameterValue)
 
--- | The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS CloudFormation  uses the default value that is specified in your template.
-pvName :: Lens' ParameterValue Text
-pvName = lens _pvName (\s a -> s {_pvName = a})
+-- | The key associated with the parameter. If you don\'t specify a key and
+-- value for a particular parameter, AWS CloudFormation uses the default
+-- value that is specified in your template.
+parameterValue_name :: Lens.Lens' ParameterValue Prelude.Text
+parameterValue_name = Lens.lens (\ParameterValue' {name} -> name) (\s@ParameterValue' {} a -> s {name = a} :: ParameterValue)
 
-instance Hashable ParameterValue
+instance Prelude.Hashable ParameterValue
 
-instance NFData ParameterValue
+instance Prelude.NFData ParameterValue
 
-instance ToJSON ParameterValue where
+instance Prelude.ToJSON ParameterValue where
   toJSON ParameterValue' {..} =
-    object
-      ( catMaybes
-          [ Just ("value" .= _pvValue),
-            Just ("name" .= _pvName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("value" Prelude..= value),
+            Prelude.Just ("name" Prelude..= name)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types.ApplicationDependencySummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A nested application summary.
 --
---
---
--- /See:/ 'applicationDependencySummary' smart constructor.
+-- /See:/ 'newApplicationDependencySummary' smart constructor.
 data ApplicationDependencySummary = ApplicationDependencySummary'
-  { _adsApplicationId ::
-      !Text,
-    _adsSemanticVersion ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) of the nested application.
+    applicationId :: Prelude.Text,
+    -- | The semantic version of the nested application.
+    semanticVersion :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationDependencySummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationDependencySummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adsApplicationId' - The Amazon Resource Name (ARN) of the nested application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adsSemanticVersion' - The semantic version of the nested application.
-applicationDependencySummary ::
-  -- | 'adsApplicationId'
-  Text ->
-  -- | 'adsSemanticVersion'
-  Text ->
+-- 'applicationId', 'applicationDependencySummary_applicationId' - The Amazon Resource Name (ARN) of the nested application.
+--
+-- 'semanticVersion', 'applicationDependencySummary_semanticVersion' - The semantic version of the nested application.
+newApplicationDependencySummary ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'semanticVersion'
+  Prelude.Text ->
   ApplicationDependencySummary
-applicationDependencySummary
+newApplicationDependencySummary
   pApplicationId_
   pSemanticVersion_ =
     ApplicationDependencySummary'
-      { _adsApplicationId =
+      { applicationId =
           pApplicationId_,
-        _adsSemanticVersion = pSemanticVersion_
+        semanticVersion = pSemanticVersion_
       }
 
 -- | The Amazon Resource Name (ARN) of the nested application.
-adsApplicationId :: Lens' ApplicationDependencySummary Text
-adsApplicationId = lens _adsApplicationId (\s a -> s {_adsApplicationId = a})
+applicationDependencySummary_applicationId :: Lens.Lens' ApplicationDependencySummary Prelude.Text
+applicationDependencySummary_applicationId = Lens.lens (\ApplicationDependencySummary' {applicationId} -> applicationId) (\s@ApplicationDependencySummary' {} a -> s {applicationId = a} :: ApplicationDependencySummary)
 
 -- | The semantic version of the nested application.
-adsSemanticVersion :: Lens' ApplicationDependencySummary Text
-adsSemanticVersion = lens _adsSemanticVersion (\s a -> s {_adsSemanticVersion = a})
+applicationDependencySummary_semanticVersion :: Lens.Lens' ApplicationDependencySummary Prelude.Text
+applicationDependencySummary_semanticVersion = Lens.lens (\ApplicationDependencySummary' {semanticVersion} -> semanticVersion) (\s@ApplicationDependencySummary' {} a -> s {semanticVersion = a} :: ApplicationDependencySummary)
 
-instance FromJSON ApplicationDependencySummary where
+instance
+  Prelude.FromJSON
+    ApplicationDependencySummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApplicationDependencySummary"
       ( \x ->
           ApplicationDependencySummary'
-            <$> (x .: "applicationId") <*> (x .: "semanticVersion")
+            Prelude.<$> (x Prelude..: "applicationId")
+            Prelude.<*> (x Prelude..: "semanticVersion")
       )
 
-instance Hashable ApplicationDependencySummary
+instance
+  Prelude.Hashable
+    ApplicationDependencySummary
 
-instance NFData ApplicationDependencySummary
+instance Prelude.NFData ApplicationDependencySummary

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types
   ( -- * Service Configuration
-    serverlessApplicationRepository,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -29,96 +32,48 @@ module Network.AWS.ServerlessApplicationRepository.Types
 
     -- * ApplicationDependencySummary
     ApplicationDependencySummary (..),
-    applicationDependencySummary,
-    adsApplicationId,
-    adsSemanticVersion,
+    newApplicationDependencySummary,
 
     -- * ApplicationPolicyStatement
     ApplicationPolicyStatement (..),
-    applicationPolicyStatement,
-    apsStatementId,
-    apsPrincipalOrgIds,
-    apsPrincipals,
-    apsActions,
+    newApplicationPolicyStatement,
 
     -- * ApplicationSummary
     ApplicationSummary (..),
-    applicationSummary,
-    asCreationTime,
-    asSpdxLicenseId,
-    asLabels,
-    asHomePageURL,
-    asDescription,
-    asAuthor,
-    asApplicationId,
-    asName,
+    newApplicationSummary,
 
     -- * ParameterDefinition
     ParameterDefinition (..),
-    parameterDefinition,
-    pdMaxValue,
-    pdMinLength,
-    pdAllowedValues,
-    pdMinValue,
-    pdDescription,
-    pdConstraintDescription,
-    pdType,
-    pdNoEcho,
-    pdMaxLength,
-    pdAllowedPattern,
-    pdDefaultValue,
-    pdReferencedByResources,
-    pdName,
+    newParameterDefinition,
 
     -- * ParameterValue
     ParameterValue (..),
-    parameterValue,
-    pvValue,
-    pvName,
+    newParameterValue,
 
     -- * RollbackConfiguration
     RollbackConfiguration (..),
-    rollbackConfiguration,
-    rcMonitoringTimeInMinutes,
-    rcRollbackTriggers,
+    newRollbackConfiguration,
 
     -- * RollbackTrigger
     RollbackTrigger (..),
-    rollbackTrigger,
-    rtType,
-    rtARN,
+    newRollbackTrigger,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagValue,
-    tagKey,
+    newTag,
 
     -- * Version
     Version (..),
-    version,
-    vSourceCodeArchiveURL,
-    vSourceCodeURL,
-    vTemplateURL,
-    vParameterDefinitions,
-    vResourcesSupported,
-    vCreationTime,
-    vRequiredCapabilities,
-    vApplicationId,
-    vSemanticVersion,
+    newVersion,
 
     -- * VersionSummary
     VersionSummary (..),
-    versionSummary,
-    vsSourceCodeURL,
-    vsCreationTime,
-    vsApplicationId,
-    vsSemanticVersion,
+    newVersionSummary,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ServerlessApplicationRepository.Types.ApplicationDependencySummary
 import Network.AWS.ServerlessApplicationRepository.Types.ApplicationPolicyStatement
 import Network.AWS.ServerlessApplicationRepository.Types.ApplicationSummary
@@ -131,106 +86,127 @@ import Network.AWS.ServerlessApplicationRepository.Types.Status
 import Network.AWS.ServerlessApplicationRepository.Types.Tag
 import Network.AWS.ServerlessApplicationRepository.Types.Version
 import Network.AWS.ServerlessApplicationRepository.Types.VersionSummary
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-09-08@ of the Amazon ServerlessApplicationRepository SDK configuration.
-serverlessApplicationRepository :: Service
-serverlessApplicationRepository =
-  Service
-    { _svcAbbrev =
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
         "ServerlessApplicationRepository",
-      _svcSigner = v4,
-      _svcPrefix = "serverlessrepo",
-      _svcVersion = "2017-09-08",
-      _svcEndpoint =
-        defaultEndpoint serverlessApplicationRepository,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError =
-        parseJSONError "ServerlessApplicationRepository",
-      _svcRetry = retry
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "serverlessrepo",
+      Prelude._svcVersion = "2017-09-08",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError
+          "ServerlessApplicationRepository",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The resource (for example, an access policy statement) specified in the request doesn't exist.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource (for example, an access policy statement) specified in the
+-- request doesn\'t exist.
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError
-    serverlessApplicationRepository
+  Prelude._MatchServiceError
+    defaultService
     "NotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | One of the parameters in the request is invalid.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError
-    serverlessApplicationRepository
+  Prelude._MatchServiceError
+    defaultService
     "BadRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The AWS Serverless Application Repository service encountered an internal error.
-_InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The AWS Serverless Application Repository service encountered an
+-- internal error.
+_InternalServerErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerErrorException =
-  _MatchServiceError
-    serverlessApplicationRepository
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerErrorException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
 -- | The client is not authenticated.
-_ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
+_ForbiddenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ForbiddenException =
-  _MatchServiceError
-    serverlessApplicationRepository
+  Prelude._MatchServiceError
+    defaultService
     "ForbiddenException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
 -- | The resource already exists.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError
-    serverlessApplicationRepository
+  Prelude._MatchServiceError
+    defaultService
     "ConflictException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | The client is sending more than the allowed number of requests per unit of time.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The client is sending more than the allowed number of requests per unit
+-- of time.
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    serverlessApplicationRepository
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429

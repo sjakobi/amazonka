@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ServerlessApplicationRepository.Types.RollbackTrigger where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This property corresponds to the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/RollbackTrigger RollbackTrigger> / Data Type.
+-- | This property corresponds to the /AWS CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger RollbackTrigger>/
+-- Data Type.
 --
---
---
--- /See:/ 'rollbackTrigger' smart constructor.
+-- /See:/ 'newRollbackTrigger' smart constructor.
 data RollbackTrigger = RollbackTrigger'
-  { _rtType ::
-      !Text,
-    _rtARN :: !Text
+  { -- | This property corresponds to the content of the same name for the /AWS
+    -- CloudFormation
+    -- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger RollbackTrigger>/
+    -- Data Type.
+    type' :: Prelude.Text,
+    -- | This property corresponds to the content of the same name for the /AWS
+    -- CloudFormation
+    -- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger RollbackTrigger>/
+    -- Data Type.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RollbackTrigger' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RollbackTrigger' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtType' - This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/RollbackTrigger RollbackTrigger> / Data Type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtARN' - This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/RollbackTrigger RollbackTrigger> / Data Type.
-rollbackTrigger ::
-  -- | 'rtType'
-  Text ->
-  -- | 'rtARN'
-  Text ->
+-- 'type'', 'rollbackTrigger_type' - This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger RollbackTrigger>/
+-- Data Type.
+--
+-- 'arn', 'rollbackTrigger_arn' - This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger RollbackTrigger>/
+-- Data Type.
+newRollbackTrigger ::
+  -- | 'type''
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
   RollbackTrigger
-rollbackTrigger pType_ pARN_ =
-  RollbackTrigger' {_rtType = pType_, _rtARN = pARN_}
+newRollbackTrigger pType_ pArn_ =
+  RollbackTrigger' {type' = pType_, arn = pArn_}
 
--- | This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/RollbackTrigger RollbackTrigger> / Data Type.
-rtType :: Lens' RollbackTrigger Text
-rtType = lens _rtType (\s a -> s {_rtType = a})
+-- | This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger RollbackTrigger>/
+-- Data Type.
+rollbackTrigger_type :: Lens.Lens' RollbackTrigger Prelude.Text
+rollbackTrigger_type = Lens.lens (\RollbackTrigger' {type'} -> type') (\s@RollbackTrigger' {} a -> s {type' = a} :: RollbackTrigger)
 
--- | This property corresponds to the content of the same name for the /AWS CloudFormation <https:\/\/docs.aws.amazon.com\/goto\/WebAPI\/cloudformation-2010-05-15\/RollbackTrigger RollbackTrigger> / Data Type.
-rtARN :: Lens' RollbackTrigger Text
-rtARN = lens _rtARN (\s a -> s {_rtARN = a})
+-- | This property corresponds to the content of the same name for the /AWS
+-- CloudFormation
+-- <https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger RollbackTrigger>/
+-- Data Type.
+rollbackTrigger_arn :: Lens.Lens' RollbackTrigger Prelude.Text
+rollbackTrigger_arn = Lens.lens (\RollbackTrigger' {arn} -> arn) (\s@RollbackTrigger' {} a -> s {arn = a} :: RollbackTrigger)
 
-instance Hashable RollbackTrigger
+instance Prelude.Hashable RollbackTrigger
 
-instance NFData RollbackTrigger
+instance Prelude.NFData RollbackTrigger
 
-instance ToJSON RollbackTrigger where
+instance Prelude.ToJSON RollbackTrigger where
   toJSON RollbackTrigger' {..} =
-    object
-      ( catMaybes
-          [Just ("type" .= _rtType), Just ("arn" .= _rtARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("type" Prelude..= type'),
+            Prelude.Just ("arn" Prelude..= arn)
+          ]
       )

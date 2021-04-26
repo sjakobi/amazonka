@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,202 +23,217 @@
 --
 -- Retrieves the list of applications nested in the containing application.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.ServerlessApplicationRepository.ListApplicationDependencies
   ( -- * Creating a Request
-    listApplicationDependencies,
-    ListApplicationDependencies,
+    ListApplicationDependencies (..),
+    newListApplicationDependencies,
 
     -- * Request Lenses
-    ladNextToken,
-    ladSemanticVersion,
-    ladMaxItems,
-    ladApplicationId,
+    listApplicationDependencies_nextToken,
+    listApplicationDependencies_semanticVersion,
+    listApplicationDependencies_maxItems,
+    listApplicationDependencies_applicationId,
 
     -- * Destructuring the Response
-    listApplicationDependenciesResponse,
-    ListApplicationDependenciesResponse,
+    ListApplicationDependenciesResponse (..),
+    newListApplicationDependenciesResponse,
 
     -- * Response Lenses
-    ladrrsNextToken,
-    ladrrsDependencies,
-    ladrrsResponseStatus,
+    listApplicationDependenciesResponse_nextToken,
+    listApplicationDependenciesResponse_dependencies,
+    listApplicationDependenciesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.ServerlessApplicationRepository.Types
+import Network.AWS.ServerlessApplicationRepository.Types.ApplicationDependencySummary
 
--- | /See:/ 'listApplicationDependencies' smart constructor.
+-- | /See:/ 'newListApplicationDependencies' smart constructor.
 data ListApplicationDependencies = ListApplicationDependencies'
-  { _ladNextToken ::
-      !(Maybe Text),
-    _ladSemanticVersion ::
-      !(Maybe Text),
-    _ladMaxItems ::
-      !(Maybe Nat),
-    _ladApplicationId ::
-      !Text
+  { -- | A token to specify where to start paginating.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The semantic version of the application to get.
+    semanticVersion :: Prelude.Maybe Prelude.Text,
+    -- | The total number of items to return.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) of the application.
+    applicationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApplicationDependencies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApplicationDependencies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ladNextToken' - A token to specify where to start paginating.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ladSemanticVersion' - The semantic version of the application to get.
+-- 'nextToken', 'listApplicationDependencies_nextToken' - A token to specify where to start paginating.
 --
--- * 'ladMaxItems' - The total number of items to return.
+-- 'semanticVersion', 'listApplicationDependencies_semanticVersion' - The semantic version of the application to get.
 --
--- * 'ladApplicationId' - The Amazon Resource Name (ARN) of the application.
-listApplicationDependencies ::
-  -- | 'ladApplicationId'
-  Text ->
+-- 'maxItems', 'listApplicationDependencies_maxItems' - The total number of items to return.
+--
+-- 'applicationId', 'listApplicationDependencies_applicationId' - The Amazon Resource Name (ARN) of the application.
+newListApplicationDependencies ::
+  -- | 'applicationId'
+  Prelude.Text ->
   ListApplicationDependencies
-listApplicationDependencies pApplicationId_ =
+newListApplicationDependencies pApplicationId_ =
   ListApplicationDependencies'
-    { _ladNextToken =
-        Nothing,
-      _ladSemanticVersion = Nothing,
-      _ladMaxItems = Nothing,
-      _ladApplicationId = pApplicationId_
+    { nextToken =
+        Prelude.Nothing,
+      semanticVersion = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      applicationId = pApplicationId_
     }
 
 -- | A token to specify where to start paginating.
-ladNextToken :: Lens' ListApplicationDependencies (Maybe Text)
-ladNextToken = lens _ladNextToken (\s a -> s {_ladNextToken = a})
+listApplicationDependencies_nextToken :: Lens.Lens' ListApplicationDependencies (Prelude.Maybe Prelude.Text)
+listApplicationDependencies_nextToken = Lens.lens (\ListApplicationDependencies' {nextToken} -> nextToken) (\s@ListApplicationDependencies' {} a -> s {nextToken = a} :: ListApplicationDependencies)
 
 -- | The semantic version of the application to get.
-ladSemanticVersion :: Lens' ListApplicationDependencies (Maybe Text)
-ladSemanticVersion = lens _ladSemanticVersion (\s a -> s {_ladSemanticVersion = a})
+listApplicationDependencies_semanticVersion :: Lens.Lens' ListApplicationDependencies (Prelude.Maybe Prelude.Text)
+listApplicationDependencies_semanticVersion = Lens.lens (\ListApplicationDependencies' {semanticVersion} -> semanticVersion) (\s@ListApplicationDependencies' {} a -> s {semanticVersion = a} :: ListApplicationDependencies)
 
 -- | The total number of items to return.
-ladMaxItems :: Lens' ListApplicationDependencies (Maybe Natural)
-ladMaxItems = lens _ladMaxItems (\s a -> s {_ladMaxItems = a}) . mapping _Nat
+listApplicationDependencies_maxItems :: Lens.Lens' ListApplicationDependencies (Prelude.Maybe Prelude.Natural)
+listApplicationDependencies_maxItems = Lens.lens (\ListApplicationDependencies' {maxItems} -> maxItems) (\s@ListApplicationDependencies' {} a -> s {maxItems = a} :: ListApplicationDependencies) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The Amazon Resource Name (ARN) of the application.
-ladApplicationId :: Lens' ListApplicationDependencies Text
-ladApplicationId = lens _ladApplicationId (\s a -> s {_ladApplicationId = a})
+listApplicationDependencies_applicationId :: Lens.Lens' ListApplicationDependencies Prelude.Text
+listApplicationDependencies_applicationId = Lens.lens (\ListApplicationDependencies' {applicationId} -> applicationId) (\s@ListApplicationDependencies' {} a -> s {applicationId = a} :: ListApplicationDependencies)
 
-instance AWSPager ListApplicationDependencies where
+instance Pager.AWSPager ListApplicationDependencies where
   page rq rs
-    | stop (rs ^. ladrrsNextToken) = Nothing
-    | stop (rs ^. ladrrsDependencies) = Nothing
-    | otherwise =
-      Just $ rq & ladNextToken .~ rs ^. ladrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listApplicationDependenciesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listApplicationDependenciesResponse_dependencies
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listApplicationDependencies_nextToken
+          Lens..~ rs
+          Lens.^? listApplicationDependenciesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListApplicationDependencies where
+instance
+  Prelude.AWSRequest
+    ListApplicationDependencies
+  where
   type
     Rs ListApplicationDependencies =
       ListApplicationDependenciesResponse
-  request = get serverlessApplicationRepository
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListApplicationDependenciesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "dependencies" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "dependencies"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListApplicationDependencies
+instance Prelude.Hashable ListApplicationDependencies
 
-instance NFData ListApplicationDependencies
+instance Prelude.NFData ListApplicationDependencies
 
-instance ToHeaders ListApplicationDependencies where
+instance
+  Prelude.ToHeaders
+    ListApplicationDependencies
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListApplicationDependencies where
+instance Prelude.ToPath ListApplicationDependencies where
   toPath ListApplicationDependencies' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/applications/",
-        toBS _ladApplicationId,
+        Prelude.toBS applicationId,
         "/dependencies"
       ]
 
-instance ToQuery ListApplicationDependencies where
+instance Prelude.ToQuery ListApplicationDependencies where
   toQuery ListApplicationDependencies' {..} =
-    mconcat
-      [ "nextToken" =: _ladNextToken,
-        "semanticVersion" =: _ladSemanticVersion,
-        "maxItems" =: _ladMaxItems
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "semanticVersion" Prelude.=: semanticVersion,
+        "maxItems" Prelude.=: maxItems
       ]
 
--- | /See:/ 'listApplicationDependenciesResponse' smart constructor.
+-- | /See:/ 'newListApplicationDependenciesResponse' smart constructor.
 data ListApplicationDependenciesResponse = ListApplicationDependenciesResponse'
-  { _ladrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ladrrsDependencies ::
-      !( Maybe
-           [ApplicationDependencySummary]
-       ),
-    _ladrrsResponseStatus ::
-      !Int
+  { -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of application summaries nested in the application.
+    dependencies :: Prelude.Maybe [ApplicationDependencySummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApplicationDependenciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApplicationDependenciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ladrrsNextToken' - The token to request the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ladrrsDependencies' - An array of application summaries nested in the application.
+-- 'nextToken', 'listApplicationDependenciesResponse_nextToken' - The token to request the next page of results.
 --
--- * 'ladrrsResponseStatus' - -- | The response status code.
-listApplicationDependenciesResponse ::
-  -- | 'ladrrsResponseStatus'
-  Int ->
+-- 'dependencies', 'listApplicationDependenciesResponse_dependencies' - An array of application summaries nested in the application.
+--
+-- 'httpStatus', 'listApplicationDependenciesResponse_httpStatus' - The response's http status code.
+newListApplicationDependenciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListApplicationDependenciesResponse
-listApplicationDependenciesResponse pResponseStatus_ =
+newListApplicationDependenciesResponse pHttpStatus_ =
   ListApplicationDependenciesResponse'
-    { _ladrrsNextToken =
-        Nothing,
-      _ladrrsDependencies = Nothing,
-      _ladrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      dependencies = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token to request the next page of results.
-ladrrsNextToken :: Lens' ListApplicationDependenciesResponse (Maybe Text)
-ladrrsNextToken = lens _ladrrsNextToken (\s a -> s {_ladrrsNextToken = a})
+listApplicationDependenciesResponse_nextToken :: Lens.Lens' ListApplicationDependenciesResponse (Prelude.Maybe Prelude.Text)
+listApplicationDependenciesResponse_nextToken = Lens.lens (\ListApplicationDependenciesResponse' {nextToken} -> nextToken) (\s@ListApplicationDependenciesResponse' {} a -> s {nextToken = a} :: ListApplicationDependenciesResponse)
 
 -- | An array of application summaries nested in the application.
-ladrrsDependencies :: Lens' ListApplicationDependenciesResponse [ApplicationDependencySummary]
-ladrrsDependencies = lens _ladrrsDependencies (\s a -> s {_ladrrsDependencies = a}) . _Default . _Coerce
+listApplicationDependenciesResponse_dependencies :: Lens.Lens' ListApplicationDependenciesResponse (Prelude.Maybe [ApplicationDependencySummary])
+listApplicationDependenciesResponse_dependencies = Lens.lens (\ListApplicationDependenciesResponse' {dependencies} -> dependencies) (\s@ListApplicationDependenciesResponse' {} a -> s {dependencies = a} :: ListApplicationDependenciesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ladrrsResponseStatus :: Lens' ListApplicationDependenciesResponse Int
-ladrrsResponseStatus = lens _ladrrsResponseStatus (\s a -> s {_ladrrsResponseStatus = a})
+-- | The response's http status code.
+listApplicationDependenciesResponse_httpStatus :: Lens.Lens' ListApplicationDependenciesResponse Prelude.Int
+listApplicationDependenciesResponse_httpStatus = Lens.lens (\ListApplicationDependenciesResponse' {httpStatus} -> httpStatus) (\s@ListApplicationDependenciesResponse' {} a -> s {httpStatus = a} :: ListApplicationDependenciesResponse)
 
-instance NFData ListApplicationDependenciesResponse
+instance
+  Prelude.NFData
+    ListApplicationDependenciesResponse
