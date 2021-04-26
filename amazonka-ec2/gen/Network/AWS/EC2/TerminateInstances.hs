@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Shuts down the specified instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds.
+-- Shuts down the specified instances. This operation is idempotent; if you
+-- terminate an instance more than once, each call succeeds.
 --
+-- If you specify multiple instances and the request fails (for example,
+-- because of a single incorrect instance ID), none of the instances are
+-- terminated.
 --
--- If you specify multiple instances and the request fails (for example, because of a single incorrect instance ID), none of the instances are terminated.
+-- Terminated instances remain visible after termination (for approximately
+-- one hour).
 --
--- Terminated instances remain visible after termination (for approximately one hour).
+-- By default, Amazon EC2 deletes all EBS volumes that were attached when
+-- the instance launched. Volumes attached after instance launch continue
+-- running.
 --
--- By default, Amazon EC2 deletes all EBS volumes that were attached when the instance launched. Volumes attached after instance launch continue running.
+-- You can stop, start, and terminate EBS-backed instances. You can only
+-- terminate instance store-backed instances. What happens to an instance
+-- differs if you stop it or terminate it. For example, when you stop an
+-- instance, the root device and any other devices attached to the instance
+-- persist. When you terminate an instance, any attached EBS volumes with
+-- the @DeleteOnTermination@ block device mapping parameter set to @true@
+-- are automatically deleted. For more information about the differences
+-- between stopping and terminating instances, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html Instance lifecycle>
+-- in the /Amazon EC2 User Guide/.
 --
--- You can stop, start, and terminate EBS-backed instances. You can only terminate instance store-backed instances. What happens to an instance differs if you stop it or terminate it. For example, when you stop an instance, the root device and any other devices attached to the instance persist. When you terminate an instance, any attached EBS volumes with the @DeleteOnTermination@ block device mapping parameter set to @true@ are automatically deleted. For more information about the differences between stopping and terminating instances, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html Instance lifecycle> in the /Amazon EC2 User Guide/ .
---
--- For more information about troubleshooting, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesShuttingDown.html Troubleshooting terminating your instance> in the /Amazon EC2 User Guide/ .
+-- For more information about troubleshooting, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesShuttingDown.html Troubleshooting terminating your instance>
+-- in the /Amazon EC2 User Guide/.
 module Network.AWS.EC2.TerminateInstances
   ( -- * Creating a Request
-    terminateInstances,
-    TerminateInstances,
+    TerminateInstances (..),
+    newTerminateInstances,
 
     -- * Request Lenses
-    tiDryRun,
-    tiInstanceIds,
+    terminateInstances_dryRun,
+    terminateInstances_instanceIds,
 
     -- * Destructuring the Response
-    terminateInstancesResponse,
-    TerminateInstancesResponse,
+    TerminateInstancesResponse (..),
+    newTerminateInstancesResponse,
 
     -- * Response Lenses
-    tirrsTerminatingInstances,
-    tirrsResponseStatus,
+    terminateInstancesResponse_terminatingInstances,
+    terminateInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.InstanceStateChange
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'terminateInstances' smart constructor.
+-- | /See:/ 'newTerminateInstances' smart constructor.
 data TerminateInstances = TerminateInstances'
-  { _tiDryRun ::
-      !(Maybe Bool),
-    _tiInstanceIds :: ![Text]
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the instances.
+    --
+    -- Constraints: Up to 1000 instance IDs. We recommend breaking up this
+    -- request into smaller batches.
+    instanceIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiInstanceIds' - The IDs of the instances. Constraints: Up to 1000 instance IDs. We recommend breaking up this request into smaller batches.
-terminateInstances ::
+-- 'dryRun', 'terminateInstances_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'instanceIds', 'terminateInstances_instanceIds' - The IDs of the instances.
+--
+-- Constraints: Up to 1000 instance IDs. We recommend breaking up this
+-- request into smaller batches.
+newTerminateInstances ::
   TerminateInstances
-terminateInstances =
+newTerminateInstances =
   TerminateInstances'
-    { _tiDryRun = Nothing,
-      _tiInstanceIds = mempty
+    { dryRun = Prelude.Nothing,
+      instanceIds = Prelude.mempty
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-tiDryRun :: Lens' TerminateInstances (Maybe Bool)
-tiDryRun = lens _tiDryRun (\s a -> s {_tiDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+terminateInstances_dryRun :: Lens.Lens' TerminateInstances (Prelude.Maybe Prelude.Bool)
+terminateInstances_dryRun = Lens.lens (\TerminateInstances' {dryRun} -> dryRun) (\s@TerminateInstances' {} a -> s {dryRun = a} :: TerminateInstances)
 
--- | The IDs of the instances. Constraints: Up to 1000 instance IDs. We recommend breaking up this request into smaller batches.
-tiInstanceIds :: Lens' TerminateInstances [Text]
-tiInstanceIds = lens _tiInstanceIds (\s a -> s {_tiInstanceIds = a}) . _Coerce
+-- | The IDs of the instances.
+--
+-- Constraints: Up to 1000 instance IDs. We recommend breaking up this
+-- request into smaller batches.
+terminateInstances_instanceIds :: Lens.Lens' TerminateInstances [Prelude.Text]
+terminateInstances_instanceIds = Lens.lens (\TerminateInstances' {instanceIds} -> instanceIds) (\s@TerminateInstances' {} a -> s {instanceIds = a} :: TerminateInstances) Prelude.. Prelude._Coerce
 
-instance AWSRequest TerminateInstances where
+instance Prelude.AWSRequest TerminateInstances where
   type
     Rs TerminateInstances =
       TerminateInstancesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           TerminateInstancesResponse'
-            <$> ( x .@? "instancesSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "instancesSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TerminateInstances
+instance Prelude.Hashable TerminateInstances
 
-instance NFData TerminateInstances
+instance Prelude.NFData TerminateInstances
 
-instance ToHeaders TerminateInstances where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TerminateInstances where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath TerminateInstances where
-  toPath = const "/"
+instance Prelude.ToPath TerminateInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery TerminateInstances where
+instance Prelude.ToQuery TerminateInstances where
   toQuery TerminateInstances' {..} =
-    mconcat
-      [ "Action" =: ("TerminateInstances" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _tiDryRun,
-        toQueryList "InstanceId" _tiInstanceIds
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("TerminateInstances" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQueryList "InstanceId" instanceIds
       ]
 
--- | /See:/ 'terminateInstancesResponse' smart constructor.
+-- | /See:/ 'newTerminateInstancesResponse' smart constructor.
 data TerminateInstancesResponse = TerminateInstancesResponse'
-  { _tirrsTerminatingInstances ::
-      !( Maybe
-           [InstanceStateChange]
-       ),
-    _tirrsResponseStatus ::
-      !Int
+  { -- | Information about the terminated instances.
+    terminatingInstances :: Prelude.Maybe [InstanceStateChange],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tirrsTerminatingInstances' - Information about the terminated instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tirrsResponseStatus' - -- | The response status code.
-terminateInstancesResponse ::
-  -- | 'tirrsResponseStatus'
-  Int ->
+-- 'terminatingInstances', 'terminateInstancesResponse_terminatingInstances' - Information about the terminated instances.
+--
+-- 'httpStatus', 'terminateInstancesResponse_httpStatus' - The response's http status code.
+newTerminateInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TerminateInstancesResponse
-terminateInstancesResponse pResponseStatus_ =
+newTerminateInstancesResponse pHttpStatus_ =
   TerminateInstancesResponse'
-    { _tirrsTerminatingInstances =
-        Nothing,
-      _tirrsResponseStatus = pResponseStatus_
+    { terminatingInstances =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the terminated instances.
-tirrsTerminatingInstances :: Lens' TerminateInstancesResponse [InstanceStateChange]
-tirrsTerminatingInstances = lens _tirrsTerminatingInstances (\s a -> s {_tirrsTerminatingInstances = a}) . _Default . _Coerce
+terminateInstancesResponse_terminatingInstances :: Lens.Lens' TerminateInstancesResponse (Prelude.Maybe [InstanceStateChange])
+terminateInstancesResponse_terminatingInstances = Lens.lens (\TerminateInstancesResponse' {terminatingInstances} -> terminatingInstances) (\s@TerminateInstancesResponse' {} a -> s {terminatingInstances = a} :: TerminateInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-tirrsResponseStatus :: Lens' TerminateInstancesResponse Int
-tirrsResponseStatus = lens _tirrsResponseStatus (\s a -> s {_tirrsResponseStatus = a})
+-- | The response's http status code.
+terminateInstancesResponse_httpStatus :: Lens.Lens' TerminateInstancesResponse Prelude.Int
+terminateInstancesResponse_httpStatus = Lens.lens (\TerminateInstancesResponse' {httpStatus} -> httpStatus) (\s@TerminateInstancesResponse' {} a -> s {httpStatus = a} :: TerminateInstancesResponse)
 
-instance NFData TerminateInstancesResponse
+instance Prelude.NFData TerminateInstancesResponse

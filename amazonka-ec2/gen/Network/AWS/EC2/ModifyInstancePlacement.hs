@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,216 +21,242 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the placement attributes for a specified instance. You can do the following:
+-- Modifies the placement attributes for a specified instance. You can do
+-- the following:
 --
+-- -   Modify the affinity between an instance and a
+--     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html Dedicated Host>.
+--     When affinity is set to @host@ and the instance is not associated
+--     with a specific Dedicated Host, the next time the instance is
+--     launched, it is automatically associated with the host on which it
+--     lands. If the instance is restarted or rebooted, this relationship
+--     persists.
 --
---     * Modify the affinity between an instance and a <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html Dedicated Host> . When affinity is set to @host@ and the instance is not associated with a specific Dedicated Host, the next time the instance is launched, it is automatically associated with the host on which it lands. If the instance is restarted or rebooted, this relationship persists.
+-- -   Change the Dedicated Host with which an instance is associated.
 --
---     * Change the Dedicated Host with which an instance is associated.
+-- -   Change the instance tenancy of an instance from @host@ to
+--     @dedicated@, or from @dedicated@ to @host@.
 --
---     * Change the instance tenancy of an instance from @host@ to @dedicated@ , or from @dedicated@ to @host@ .
+-- -   Move an instance to or from a
+--     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html placement group>.
 --
---     * Move an instance to or from a <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html placement group> .
+-- At least one attribute for affinity, host ID, tenancy, or placement
+-- group name must be specified in the request. Affinity and tenancy can be
+-- modified in the same request.
 --
---
---
--- At least one attribute for affinity, host ID, tenancy, or placement group name must be specified in the request. Affinity and tenancy can be modified in the same request.
---
--- To modify the host ID, tenancy, placement group, or partition for an instance, the instance must be in the @stopped@ state.
+-- To modify the host ID, tenancy, placement group, or partition for an
+-- instance, the instance must be in the @stopped@ state.
 module Network.AWS.EC2.ModifyInstancePlacement
   ( -- * Creating a Request
-    modifyInstancePlacement,
-    ModifyInstancePlacement,
+    ModifyInstancePlacement (..),
+    newModifyInstancePlacement,
 
     -- * Request Lenses
-    mipGroupName,
-    mipTenancy,
-    mipAffinity,
-    mipPartitionNumber,
-    mipHostResourceGroupARN,
-    mipHostId,
-    mipInstanceId,
+    modifyInstancePlacement_groupName,
+    modifyInstancePlacement_tenancy,
+    modifyInstancePlacement_affinity,
+    modifyInstancePlacement_partitionNumber,
+    modifyInstancePlacement_hostResourceGroupArn,
+    modifyInstancePlacement_hostId,
+    modifyInstancePlacement_instanceId,
 
     -- * Destructuring the Response
-    modifyInstancePlacementResponse,
-    ModifyInstancePlacementResponse,
+    ModifyInstancePlacementResponse (..),
+    newModifyInstancePlacementResponse,
 
     -- * Response Lenses
-    miprrsReturn,
-    miprrsResponseStatus,
+    modifyInstancePlacementResponse_return,
+    modifyInstancePlacementResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyInstancePlacement' smart constructor.
+-- | /See:/ 'newModifyInstancePlacement' smart constructor.
 data ModifyInstancePlacement = ModifyInstancePlacement'
-  { _mipGroupName ::
-      !(Maybe Text),
-    _mipTenancy ::
-      !(Maybe HostTenancy),
-    _mipAffinity ::
-      !(Maybe Affinity),
-    _mipPartitionNumber ::
-      !(Maybe Int),
-    _mipHostResourceGroupARN ::
-      !(Maybe Text),
-    _mipHostId ::
-      !(Maybe Text),
-    _mipInstanceId :: !Text
+  { -- | The name of the placement group in which to place the instance. For
+    -- spread placement groups, the instance must have a tenancy of @default@.
+    -- For cluster and partition placement groups, the instance must have a
+    -- tenancy of @default@ or @dedicated@.
+    --
+    -- To remove an instance from a placement group, specify an empty string
+    -- (\"\").
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The tenancy for the instance.
+    tenancy :: Prelude.Maybe HostTenancy,
+    -- | The affinity setting for the instance.
+    affinity :: Prelude.Maybe Affinity,
+    -- | Reserved for future use.
+    partitionNumber :: Prelude.Maybe Prelude.Int,
+    -- | The ARN of the host resource group in which to place the instance.
+    hostResourceGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Dedicated Host with which to associate the instance.
+    hostId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance that you are modifying.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstancePlacement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstancePlacement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mipGroupName' - The name of the placement group in which to place the instance. For spread placement groups, the instance must have a tenancy of @default@ . For cluster and partition placement groups, the instance must have a tenancy of @default@ or @dedicated@ . To remove an instance from a placement group, specify an empty string ("").
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mipTenancy' - The tenancy for the instance.
+-- 'groupName', 'modifyInstancePlacement_groupName' - The name of the placement group in which to place the instance. For
+-- spread placement groups, the instance must have a tenancy of @default@.
+-- For cluster and partition placement groups, the instance must have a
+-- tenancy of @default@ or @dedicated@.
 --
--- * 'mipAffinity' - The affinity setting for the instance.
+-- To remove an instance from a placement group, specify an empty string
+-- (\"\").
 --
--- * 'mipPartitionNumber' - Reserved for future use.
+-- 'tenancy', 'modifyInstancePlacement_tenancy' - The tenancy for the instance.
 --
--- * 'mipHostResourceGroupARN' - The ARN of the host resource group in which to place the instance.
+-- 'affinity', 'modifyInstancePlacement_affinity' - The affinity setting for the instance.
 --
--- * 'mipHostId' - The ID of the Dedicated Host with which to associate the instance.
+-- 'partitionNumber', 'modifyInstancePlacement_partitionNumber' - Reserved for future use.
 --
--- * 'mipInstanceId' - The ID of the instance that you are modifying.
-modifyInstancePlacement ::
-  -- | 'mipInstanceId'
-  Text ->
+-- 'hostResourceGroupArn', 'modifyInstancePlacement_hostResourceGroupArn' - The ARN of the host resource group in which to place the instance.
+--
+-- 'hostId', 'modifyInstancePlacement_hostId' - The ID of the Dedicated Host with which to associate the instance.
+--
+-- 'instanceId', 'modifyInstancePlacement_instanceId' - The ID of the instance that you are modifying.
+newModifyInstancePlacement ::
+  -- | 'instanceId'
+  Prelude.Text ->
   ModifyInstancePlacement
-modifyInstancePlacement pInstanceId_ =
+newModifyInstancePlacement pInstanceId_ =
   ModifyInstancePlacement'
-    { _mipGroupName = Nothing,
-      _mipTenancy = Nothing,
-      _mipAffinity = Nothing,
-      _mipPartitionNumber = Nothing,
-      _mipHostResourceGroupARN = Nothing,
-      _mipHostId = Nothing,
-      _mipInstanceId = pInstanceId_
+    { groupName =
+        Prelude.Nothing,
+      tenancy = Prelude.Nothing,
+      affinity = Prelude.Nothing,
+      partitionNumber = Prelude.Nothing,
+      hostResourceGroupArn = Prelude.Nothing,
+      hostId = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | The name of the placement group in which to place the instance. For spread placement groups, the instance must have a tenancy of @default@ . For cluster and partition placement groups, the instance must have a tenancy of @default@ or @dedicated@ . To remove an instance from a placement group, specify an empty string ("").
-mipGroupName :: Lens' ModifyInstancePlacement (Maybe Text)
-mipGroupName = lens _mipGroupName (\s a -> s {_mipGroupName = a})
+-- | The name of the placement group in which to place the instance. For
+-- spread placement groups, the instance must have a tenancy of @default@.
+-- For cluster and partition placement groups, the instance must have a
+-- tenancy of @default@ or @dedicated@.
+--
+-- To remove an instance from a placement group, specify an empty string
+-- (\"\").
+modifyInstancePlacement_groupName :: Lens.Lens' ModifyInstancePlacement (Prelude.Maybe Prelude.Text)
+modifyInstancePlacement_groupName = Lens.lens (\ModifyInstancePlacement' {groupName} -> groupName) (\s@ModifyInstancePlacement' {} a -> s {groupName = a} :: ModifyInstancePlacement)
 
 -- | The tenancy for the instance.
-mipTenancy :: Lens' ModifyInstancePlacement (Maybe HostTenancy)
-mipTenancy = lens _mipTenancy (\s a -> s {_mipTenancy = a})
+modifyInstancePlacement_tenancy :: Lens.Lens' ModifyInstancePlacement (Prelude.Maybe HostTenancy)
+modifyInstancePlacement_tenancy = Lens.lens (\ModifyInstancePlacement' {tenancy} -> tenancy) (\s@ModifyInstancePlacement' {} a -> s {tenancy = a} :: ModifyInstancePlacement)
 
 -- | The affinity setting for the instance.
-mipAffinity :: Lens' ModifyInstancePlacement (Maybe Affinity)
-mipAffinity = lens _mipAffinity (\s a -> s {_mipAffinity = a})
+modifyInstancePlacement_affinity :: Lens.Lens' ModifyInstancePlacement (Prelude.Maybe Affinity)
+modifyInstancePlacement_affinity = Lens.lens (\ModifyInstancePlacement' {affinity} -> affinity) (\s@ModifyInstancePlacement' {} a -> s {affinity = a} :: ModifyInstancePlacement)
 
 -- | Reserved for future use.
-mipPartitionNumber :: Lens' ModifyInstancePlacement (Maybe Int)
-mipPartitionNumber = lens _mipPartitionNumber (\s a -> s {_mipPartitionNumber = a})
+modifyInstancePlacement_partitionNumber :: Lens.Lens' ModifyInstancePlacement (Prelude.Maybe Prelude.Int)
+modifyInstancePlacement_partitionNumber = Lens.lens (\ModifyInstancePlacement' {partitionNumber} -> partitionNumber) (\s@ModifyInstancePlacement' {} a -> s {partitionNumber = a} :: ModifyInstancePlacement)
 
 -- | The ARN of the host resource group in which to place the instance.
-mipHostResourceGroupARN :: Lens' ModifyInstancePlacement (Maybe Text)
-mipHostResourceGroupARN = lens _mipHostResourceGroupARN (\s a -> s {_mipHostResourceGroupARN = a})
+modifyInstancePlacement_hostResourceGroupArn :: Lens.Lens' ModifyInstancePlacement (Prelude.Maybe Prelude.Text)
+modifyInstancePlacement_hostResourceGroupArn = Lens.lens (\ModifyInstancePlacement' {hostResourceGroupArn} -> hostResourceGroupArn) (\s@ModifyInstancePlacement' {} a -> s {hostResourceGroupArn = a} :: ModifyInstancePlacement)
 
 -- | The ID of the Dedicated Host with which to associate the instance.
-mipHostId :: Lens' ModifyInstancePlacement (Maybe Text)
-mipHostId = lens _mipHostId (\s a -> s {_mipHostId = a})
+modifyInstancePlacement_hostId :: Lens.Lens' ModifyInstancePlacement (Prelude.Maybe Prelude.Text)
+modifyInstancePlacement_hostId = Lens.lens (\ModifyInstancePlacement' {hostId} -> hostId) (\s@ModifyInstancePlacement' {} a -> s {hostId = a} :: ModifyInstancePlacement)
 
 -- | The ID of the instance that you are modifying.
-mipInstanceId :: Lens' ModifyInstancePlacement Text
-mipInstanceId = lens _mipInstanceId (\s a -> s {_mipInstanceId = a})
+modifyInstancePlacement_instanceId :: Lens.Lens' ModifyInstancePlacement Prelude.Text
+modifyInstancePlacement_instanceId = Lens.lens (\ModifyInstancePlacement' {instanceId} -> instanceId) (\s@ModifyInstancePlacement' {} a -> s {instanceId = a} :: ModifyInstancePlacement)
 
-instance AWSRequest ModifyInstancePlacement where
+instance Prelude.AWSRequest ModifyInstancePlacement where
   type
     Rs ModifyInstancePlacement =
       ModifyInstancePlacementResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyInstancePlacementResponse'
-            <$> (x .@? "return") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "return")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyInstancePlacement
+instance Prelude.Hashable ModifyInstancePlacement
 
-instance NFData ModifyInstancePlacement
+instance Prelude.NFData ModifyInstancePlacement
 
-instance ToHeaders ModifyInstancePlacement where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyInstancePlacement where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyInstancePlacement where
-  toPath = const "/"
+instance Prelude.ToPath ModifyInstancePlacement where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyInstancePlacement where
+instance Prelude.ToQuery ModifyInstancePlacement where
   toQuery ModifyInstancePlacement' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyInstancePlacement" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "GroupName" =: _mipGroupName,
-        "Tenancy" =: _mipTenancy,
-        "Affinity" =: _mipAffinity,
-        "PartitionNumber" =: _mipPartitionNumber,
-        "HostResourceGroupArn" =: _mipHostResourceGroupARN,
-        "HostId" =: _mipHostId,
-        "InstanceId" =: _mipInstanceId
+          Prelude.=: ("ModifyInstancePlacement" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "GroupName" Prelude.=: groupName,
+        "Tenancy" Prelude.=: tenancy,
+        "Affinity" Prelude.=: affinity,
+        "PartitionNumber" Prelude.=: partitionNumber,
+        "HostResourceGroupArn"
+          Prelude.=: hostResourceGroupArn,
+        "HostId" Prelude.=: hostId,
+        "InstanceId" Prelude.=: instanceId
       ]
 
--- | /See:/ 'modifyInstancePlacementResponse' smart constructor.
+-- | /See:/ 'newModifyInstancePlacementResponse' smart constructor.
 data ModifyInstancePlacementResponse = ModifyInstancePlacementResponse'
-  { _miprrsReturn ::
-      !( Maybe
-           Bool
-       ),
-    _miprrsResponseStatus ::
-      !Int
+  { -- | Is @true@ if the request succeeds, and an error otherwise.
+    return' :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstancePlacementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstancePlacementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'miprrsReturn' - Is @true@ if the request succeeds, and an error otherwise.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'miprrsResponseStatus' - -- | The response status code.
-modifyInstancePlacementResponse ::
-  -- | 'miprrsResponseStatus'
-  Int ->
+-- 'return'', 'modifyInstancePlacementResponse_return' - Is @true@ if the request succeeds, and an error otherwise.
+--
+-- 'httpStatus', 'modifyInstancePlacementResponse_httpStatus' - The response's http status code.
+newModifyInstancePlacementResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyInstancePlacementResponse
-modifyInstancePlacementResponse pResponseStatus_ =
+newModifyInstancePlacementResponse pHttpStatus_ =
   ModifyInstancePlacementResponse'
-    { _miprrsReturn =
-        Nothing,
-      _miprrsResponseStatus = pResponseStatus_
+    { return' =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Is @true@ if the request succeeds, and an error otherwise.
-miprrsReturn :: Lens' ModifyInstancePlacementResponse (Maybe Bool)
-miprrsReturn = lens _miprrsReturn (\s a -> s {_miprrsReturn = a})
+modifyInstancePlacementResponse_return :: Lens.Lens' ModifyInstancePlacementResponse (Prelude.Maybe Prelude.Bool)
+modifyInstancePlacementResponse_return = Lens.lens (\ModifyInstancePlacementResponse' {return'} -> return') (\s@ModifyInstancePlacementResponse' {} a -> s {return' = a} :: ModifyInstancePlacementResponse)
 
--- | -- | The response status code.
-miprrsResponseStatus :: Lens' ModifyInstancePlacementResponse Int
-miprrsResponseStatus = lens _miprrsResponseStatus (\s a -> s {_miprrsResponseStatus = a})
+-- | The response's http status code.
+modifyInstancePlacementResponse_httpStatus :: Lens.Lens' ModifyInstancePlacementResponse Prelude.Int
+modifyInstancePlacementResponse_httpStatus = Lens.lens (\ModifyInstancePlacementResponse' {httpStatus} -> httpStatus) (\s@ModifyInstancePlacementResponse' {} a -> s {httpStatus = a} :: ModifyInstancePlacementResponse)
 
-instance NFData ModifyInstancePlacementResponse
+instance
+  Prelude.NFData
+    ModifyInstancePlacementResponse

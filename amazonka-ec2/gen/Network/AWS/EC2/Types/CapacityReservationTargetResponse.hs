@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,61 @@
 module Network.AWS.EC2.Types.CapacityReservationTargetResponse where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a target Capacity Reservation or Capacity Reservation group.
 --
---
---
--- /See:/ 'capacityReservationTargetResponse' smart constructor.
+-- /See:/ 'newCapacityReservationTargetResponse' smart constructor.
 data CapacityReservationTargetResponse = CapacityReservationTargetResponse'
-  { _crtrCapacityReservationResourceGroupARN ::
-      !( Maybe
-           Text
-       ),
-    _crtrCapacityReservationId ::
-      !( Maybe
-           Text
-       )
+  { -- | The ARN of the targeted Capacity Reservation group.
+    capacityReservationResourceGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the targeted Capacity Reservation.
+    capacityReservationId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CapacityReservationTargetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CapacityReservationTargetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crtrCapacityReservationResourceGroupARN' - The ARN of the targeted Capacity Reservation group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crtrCapacityReservationId' - The ID of the targeted Capacity Reservation.
-capacityReservationTargetResponse ::
+-- 'capacityReservationResourceGroupArn', 'capacityReservationTargetResponse_capacityReservationResourceGroupArn' - The ARN of the targeted Capacity Reservation group.
+--
+-- 'capacityReservationId', 'capacityReservationTargetResponse_capacityReservationId' - The ID of the targeted Capacity Reservation.
+newCapacityReservationTargetResponse ::
   CapacityReservationTargetResponse
-capacityReservationTargetResponse =
+newCapacityReservationTargetResponse =
   CapacityReservationTargetResponse'
-    { _crtrCapacityReservationResourceGroupARN =
-        Nothing,
-      _crtrCapacityReservationId = Nothing
+    { capacityReservationResourceGroupArn =
+        Prelude.Nothing,
+      capacityReservationId = Prelude.Nothing
     }
 
 -- | The ARN of the targeted Capacity Reservation group.
-crtrCapacityReservationResourceGroupARN :: Lens' CapacityReservationTargetResponse (Maybe Text)
-crtrCapacityReservationResourceGroupARN = lens _crtrCapacityReservationResourceGroupARN (\s a -> s {_crtrCapacityReservationResourceGroupARN = a})
+capacityReservationTargetResponse_capacityReservationResourceGroupArn :: Lens.Lens' CapacityReservationTargetResponse (Prelude.Maybe Prelude.Text)
+capacityReservationTargetResponse_capacityReservationResourceGroupArn = Lens.lens (\CapacityReservationTargetResponse' {capacityReservationResourceGroupArn} -> capacityReservationResourceGroupArn) (\s@CapacityReservationTargetResponse' {} a -> s {capacityReservationResourceGroupArn = a} :: CapacityReservationTargetResponse)
 
 -- | The ID of the targeted Capacity Reservation.
-crtrCapacityReservationId :: Lens' CapacityReservationTargetResponse (Maybe Text)
-crtrCapacityReservationId = lens _crtrCapacityReservationId (\s a -> s {_crtrCapacityReservationId = a})
+capacityReservationTargetResponse_capacityReservationId :: Lens.Lens' CapacityReservationTargetResponse (Prelude.Maybe Prelude.Text)
+capacityReservationTargetResponse_capacityReservationId = Lens.lens (\CapacityReservationTargetResponse' {capacityReservationId} -> capacityReservationId) (\s@CapacityReservationTargetResponse' {} a -> s {capacityReservationId = a} :: CapacityReservationTargetResponse)
 
-instance FromXML CapacityReservationTargetResponse where
+instance
+  Prelude.FromXML
+    CapacityReservationTargetResponse
+  where
   parseXML x =
     CapacityReservationTargetResponse'
-      <$> (x .@? "capacityReservationResourceGroupArn")
-      <*> (x .@? "capacityReservationId")
+      Prelude.<$> (x Prelude..@? "capacityReservationResourceGroupArn")
+      Prelude.<*> (x Prelude..@? "capacityReservationId")
 
-instance Hashable CapacityReservationTargetResponse
+instance
+  Prelude.Hashable
+    CapacityReservationTargetResponse
 
-instance NFData CapacityReservationTargetResponse
+instance
+  Prelude.NFData
+    CapacityReservationTargetResponse

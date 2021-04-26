@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,197 +21,219 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts analyzing the specified path. If the path is reachable, the operation returns the shortest feasible path.
+-- Starts analyzing the specified path. If the path is reachable, the
+-- operation returns the shortest feasible path.
 module Network.AWS.EC2.StartNetworkInsightsAnalysis
   ( -- * Creating a Request
-    startNetworkInsightsAnalysis,
-    StartNetworkInsightsAnalysis,
+    StartNetworkInsightsAnalysis (..),
+    newStartNetworkInsightsAnalysis,
 
     -- * Request Lenses
-    sniaTagSpecifications,
-    sniaFilterInARNs,
-    sniaDryRun,
-    sniaNetworkInsightsPathId,
-    sniaClientToken,
+    startNetworkInsightsAnalysis_tagSpecifications,
+    startNetworkInsightsAnalysis_filterInArns,
+    startNetworkInsightsAnalysis_dryRun,
+    startNetworkInsightsAnalysis_networkInsightsPathId,
+    startNetworkInsightsAnalysis_clientToken,
 
     -- * Destructuring the Response
-    startNetworkInsightsAnalysisResponse,
-    StartNetworkInsightsAnalysisResponse,
+    StartNetworkInsightsAnalysisResponse (..),
+    newStartNetworkInsightsAnalysisResponse,
 
     -- * Response Lenses
-    sniarrsNetworkInsightsAnalysis,
-    sniarrsResponseStatus,
+    startNetworkInsightsAnalysisResponse_networkInsightsAnalysis,
+    startNetworkInsightsAnalysisResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.NetworkInsightsAnalysis
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startNetworkInsightsAnalysis' smart constructor.
+-- | /See:/ 'newStartNetworkInsightsAnalysis' smart constructor.
 data StartNetworkInsightsAnalysis = StartNetworkInsightsAnalysis'
-  { _sniaTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _sniaFilterInARNs ::
-      !( Maybe
-           [Text]
-       ),
-    _sniaDryRun ::
-      !(Maybe Bool),
-    _sniaNetworkInsightsPathId ::
-      !Text,
-    _sniaClientToken ::
-      !Text
+  { -- | The tags to apply.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | The Amazon Resource Names (ARN) of the resources that the path must
+    -- traverse.
+    filterInArns :: Prelude.Maybe [Prelude.Text],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the path.
+    networkInsightsPathId :: Prelude.Text,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+    clientToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartNetworkInsightsAnalysis' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartNetworkInsightsAnalysis' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sniaTagSpecifications' - The tags to apply.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sniaFilterInARNs' - The Amazon Resource Names (ARN) of the resources that the path must traverse.
+-- 'tagSpecifications', 'startNetworkInsightsAnalysis_tagSpecifications' - The tags to apply.
 --
--- * 'sniaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'filterInArns', 'startNetworkInsightsAnalysis_filterInArns' - The Amazon Resource Names (ARN) of the resources that the path must
+-- traverse.
 --
--- * 'sniaNetworkInsightsPathId' - The ID of the path.
+-- 'dryRun', 'startNetworkInsightsAnalysis_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'sniaClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-startNetworkInsightsAnalysis ::
-  -- | 'sniaNetworkInsightsPathId'
-  Text ->
-  -- | 'sniaClientToken'
-  Text ->
+-- 'networkInsightsPathId', 'startNetworkInsightsAnalysis_networkInsightsPathId' - The ID of the path.
+--
+-- 'clientToken', 'startNetworkInsightsAnalysis_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+newStartNetworkInsightsAnalysis ::
+  -- | 'networkInsightsPathId'
+  Prelude.Text ->
+  -- | 'clientToken'
+  Prelude.Text ->
   StartNetworkInsightsAnalysis
-startNetworkInsightsAnalysis
+newStartNetworkInsightsAnalysis
   pNetworkInsightsPathId_
   pClientToken_ =
     StartNetworkInsightsAnalysis'
-      { _sniaTagSpecifications =
-          Nothing,
-        _sniaFilterInARNs = Nothing,
-        _sniaDryRun = Nothing,
-        _sniaNetworkInsightsPathId =
+      { tagSpecifications =
+          Prelude.Nothing,
+        filterInArns = Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        networkInsightsPathId =
           pNetworkInsightsPathId_,
-        _sniaClientToken = pClientToken_
+        clientToken = pClientToken_
       }
 
 -- | The tags to apply.
-sniaTagSpecifications :: Lens' StartNetworkInsightsAnalysis [TagSpecification]
-sniaTagSpecifications = lens _sniaTagSpecifications (\s a -> s {_sniaTagSpecifications = a}) . _Default . _Coerce
+startNetworkInsightsAnalysis_tagSpecifications :: Lens.Lens' StartNetworkInsightsAnalysis (Prelude.Maybe [TagSpecification])
+startNetworkInsightsAnalysis_tagSpecifications = Lens.lens (\StartNetworkInsightsAnalysis' {tagSpecifications} -> tagSpecifications) (\s@StartNetworkInsightsAnalysis' {} a -> s {tagSpecifications = a} :: StartNetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Names (ARN) of the resources that the path must traverse.
-sniaFilterInARNs :: Lens' StartNetworkInsightsAnalysis [Text]
-sniaFilterInARNs = lens _sniaFilterInARNs (\s a -> s {_sniaFilterInARNs = a}) . _Default . _Coerce
+-- | The Amazon Resource Names (ARN) of the resources that the path must
+-- traverse.
+startNetworkInsightsAnalysis_filterInArns :: Lens.Lens' StartNetworkInsightsAnalysis (Prelude.Maybe [Prelude.Text])
+startNetworkInsightsAnalysis_filterInArns = Lens.lens (\StartNetworkInsightsAnalysis' {filterInArns} -> filterInArns) (\s@StartNetworkInsightsAnalysis' {} a -> s {filterInArns = a} :: StartNetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-sniaDryRun :: Lens' StartNetworkInsightsAnalysis (Maybe Bool)
-sniaDryRun = lens _sniaDryRun (\s a -> s {_sniaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+startNetworkInsightsAnalysis_dryRun :: Lens.Lens' StartNetworkInsightsAnalysis (Prelude.Maybe Prelude.Bool)
+startNetworkInsightsAnalysis_dryRun = Lens.lens (\StartNetworkInsightsAnalysis' {dryRun} -> dryRun) (\s@StartNetworkInsightsAnalysis' {} a -> s {dryRun = a} :: StartNetworkInsightsAnalysis)
 
 -- | The ID of the path.
-sniaNetworkInsightsPathId :: Lens' StartNetworkInsightsAnalysis Text
-sniaNetworkInsightsPathId = lens _sniaNetworkInsightsPathId (\s a -> s {_sniaNetworkInsightsPathId = a})
+startNetworkInsightsAnalysis_networkInsightsPathId :: Lens.Lens' StartNetworkInsightsAnalysis Prelude.Text
+startNetworkInsightsAnalysis_networkInsightsPathId = Lens.lens (\StartNetworkInsightsAnalysis' {networkInsightsPathId} -> networkInsightsPathId) (\s@StartNetworkInsightsAnalysis' {} a -> s {networkInsightsPathId = a} :: StartNetworkInsightsAnalysis)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-sniaClientToken :: Lens' StartNetworkInsightsAnalysis Text
-sniaClientToken = lens _sniaClientToken (\s a -> s {_sniaClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+startNetworkInsightsAnalysis_clientToken :: Lens.Lens' StartNetworkInsightsAnalysis Prelude.Text
+startNetworkInsightsAnalysis_clientToken = Lens.lens (\StartNetworkInsightsAnalysis' {clientToken} -> clientToken) (\s@StartNetworkInsightsAnalysis' {} a -> s {clientToken = a} :: StartNetworkInsightsAnalysis)
 
-instance AWSRequest StartNetworkInsightsAnalysis where
+instance
+  Prelude.AWSRequest
+    StartNetworkInsightsAnalysis
+  where
   type
     Rs StartNetworkInsightsAnalysis =
       StartNetworkInsightsAnalysisResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           StartNetworkInsightsAnalysisResponse'
-            <$> (x .@? "networkInsightsAnalysis")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "networkInsightsAnalysis")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartNetworkInsightsAnalysis
+instance
+  Prelude.Hashable
+    StartNetworkInsightsAnalysis
 
-instance NFData StartNetworkInsightsAnalysis
+instance Prelude.NFData StartNetworkInsightsAnalysis
 
-instance ToHeaders StartNetworkInsightsAnalysis where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    StartNetworkInsightsAnalysis
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StartNetworkInsightsAnalysis where
-  toPath = const "/"
+instance Prelude.ToPath StartNetworkInsightsAnalysis where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartNetworkInsightsAnalysis where
+instance Prelude.ToQuery StartNetworkInsightsAnalysis where
   toQuery StartNetworkInsightsAnalysis' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("StartNetworkInsightsAnalysis" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _sniaTagSpecifications
+          Prelude.=: ( "StartNetworkInsightsAnalysis" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        toQuery
-          (toQueryList "FilterInArn" <$> _sniaFilterInARNs),
-        "DryRun" =: _sniaDryRun,
+        Prelude.toQuery
+          ( Prelude.toQueryList "FilterInArn"
+              Prelude.<$> filterInArns
+          ),
+        "DryRun" Prelude.=: dryRun,
         "NetworkInsightsPathId"
-          =: _sniaNetworkInsightsPathId,
-        "ClientToken" =: _sniaClientToken
+          Prelude.=: networkInsightsPathId,
+        "ClientToken" Prelude.=: clientToken
       ]
 
--- | /See:/ 'startNetworkInsightsAnalysisResponse' smart constructor.
+-- | /See:/ 'newStartNetworkInsightsAnalysisResponse' smart constructor.
 data StartNetworkInsightsAnalysisResponse = StartNetworkInsightsAnalysisResponse'
-  { _sniarrsNetworkInsightsAnalysis ::
-      !( Maybe
-           NetworkInsightsAnalysis
-       ),
-    _sniarrsResponseStatus ::
-      !Int
+  { -- | Information about the network insights analysis.
+    networkInsightsAnalysis :: Prelude.Maybe NetworkInsightsAnalysis,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartNetworkInsightsAnalysisResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartNetworkInsightsAnalysisResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sniarrsNetworkInsightsAnalysis' - Information about the network insights analysis.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sniarrsResponseStatus' - -- | The response status code.
-startNetworkInsightsAnalysisResponse ::
-  -- | 'sniarrsResponseStatus'
-  Int ->
+-- 'networkInsightsAnalysis', 'startNetworkInsightsAnalysisResponse_networkInsightsAnalysis' - Information about the network insights analysis.
+--
+-- 'httpStatus', 'startNetworkInsightsAnalysisResponse_httpStatus' - The response's http status code.
+newStartNetworkInsightsAnalysisResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartNetworkInsightsAnalysisResponse
-startNetworkInsightsAnalysisResponse pResponseStatus_ =
+newStartNetworkInsightsAnalysisResponse pHttpStatus_ =
   StartNetworkInsightsAnalysisResponse'
-    { _sniarrsNetworkInsightsAnalysis =
-        Nothing,
-      _sniarrsResponseStatus =
-        pResponseStatus_
+    { networkInsightsAnalysis =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the network insights analysis.
-sniarrsNetworkInsightsAnalysis :: Lens' StartNetworkInsightsAnalysisResponse (Maybe NetworkInsightsAnalysis)
-sniarrsNetworkInsightsAnalysis = lens _sniarrsNetworkInsightsAnalysis (\s a -> s {_sniarrsNetworkInsightsAnalysis = a})
+startNetworkInsightsAnalysisResponse_networkInsightsAnalysis :: Lens.Lens' StartNetworkInsightsAnalysisResponse (Prelude.Maybe NetworkInsightsAnalysis)
+startNetworkInsightsAnalysisResponse_networkInsightsAnalysis = Lens.lens (\StartNetworkInsightsAnalysisResponse' {networkInsightsAnalysis} -> networkInsightsAnalysis) (\s@StartNetworkInsightsAnalysisResponse' {} a -> s {networkInsightsAnalysis = a} :: StartNetworkInsightsAnalysisResponse)
 
--- | -- | The response status code.
-sniarrsResponseStatus :: Lens' StartNetworkInsightsAnalysisResponse Int
-sniarrsResponseStatus = lens _sniarrsResponseStatus (\s a -> s {_sniarrsResponseStatus = a})
+-- | The response's http status code.
+startNetworkInsightsAnalysisResponse_httpStatus :: Lens.Lens' StartNetworkInsightsAnalysisResponse Prelude.Int
+startNetworkInsightsAnalysisResponse_httpStatus = Lens.lens (\StartNetworkInsightsAnalysisResponse' {httpStatus} -> httpStatus) (\s@StartNetworkInsightsAnalysisResponse' {} a -> s {httpStatus = a} :: StartNetworkInsightsAnalysisResponse)
 
-instance NFData StartNetworkInsightsAnalysisResponse
+instance
+  Prelude.NFData
+    StartNetworkInsightsAnalysisResponse

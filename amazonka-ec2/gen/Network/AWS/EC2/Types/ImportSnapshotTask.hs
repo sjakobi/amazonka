@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,71 +22,76 @@ module Network.AWS.EC2.Types.ImportSnapshotTask where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.SnapshotTaskDetail
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an import snapshot task.
 --
---
---
--- /See:/ 'importSnapshotTask' smart constructor.
+-- /See:/ 'newImportSnapshotTask' smart constructor.
 data ImportSnapshotTask = ImportSnapshotTask'
-  { _istSnapshotTaskDetail ::
-      !(Maybe SnapshotTaskDetail),
-    _istImportTaskId :: !(Maybe Text),
-    _istTags :: !(Maybe [Tag]),
-    _istDescription :: !(Maybe Text)
+  { -- | Describes an import snapshot task.
+    snapshotTaskDetail :: Prelude.Maybe SnapshotTaskDetail,
+    -- | The ID of the import snapshot task.
+    importTaskId :: Prelude.Maybe Prelude.Text,
+    -- | The tags for the import snapshot task.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the import snapshot task.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportSnapshotTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportSnapshotTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'istSnapshotTaskDetail' - Describes an import snapshot task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'istImportTaskId' - The ID of the import snapshot task.
+-- 'snapshotTaskDetail', 'importSnapshotTask_snapshotTaskDetail' - Describes an import snapshot task.
 --
--- * 'istTags' - The tags for the import snapshot task.
+-- 'importTaskId', 'importSnapshotTask_importTaskId' - The ID of the import snapshot task.
 --
--- * 'istDescription' - A description of the import snapshot task.
-importSnapshotTask ::
+-- 'tags', 'importSnapshotTask_tags' - The tags for the import snapshot task.
+--
+-- 'description', 'importSnapshotTask_description' - A description of the import snapshot task.
+newImportSnapshotTask ::
   ImportSnapshotTask
-importSnapshotTask =
+newImportSnapshotTask =
   ImportSnapshotTask'
-    { _istSnapshotTaskDetail =
-        Nothing,
-      _istImportTaskId = Nothing,
-      _istTags = Nothing,
-      _istDescription = Nothing
+    { snapshotTaskDetail =
+        Prelude.Nothing,
+      importTaskId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | Describes an import snapshot task.
-istSnapshotTaskDetail :: Lens' ImportSnapshotTask (Maybe SnapshotTaskDetail)
-istSnapshotTaskDetail = lens _istSnapshotTaskDetail (\s a -> s {_istSnapshotTaskDetail = a})
+importSnapshotTask_snapshotTaskDetail :: Lens.Lens' ImportSnapshotTask (Prelude.Maybe SnapshotTaskDetail)
+importSnapshotTask_snapshotTaskDetail = Lens.lens (\ImportSnapshotTask' {snapshotTaskDetail} -> snapshotTaskDetail) (\s@ImportSnapshotTask' {} a -> s {snapshotTaskDetail = a} :: ImportSnapshotTask)
 
 -- | The ID of the import snapshot task.
-istImportTaskId :: Lens' ImportSnapshotTask (Maybe Text)
-istImportTaskId = lens _istImportTaskId (\s a -> s {_istImportTaskId = a})
+importSnapshotTask_importTaskId :: Lens.Lens' ImportSnapshotTask (Prelude.Maybe Prelude.Text)
+importSnapshotTask_importTaskId = Lens.lens (\ImportSnapshotTask' {importTaskId} -> importTaskId) (\s@ImportSnapshotTask' {} a -> s {importTaskId = a} :: ImportSnapshotTask)
 
 -- | The tags for the import snapshot task.
-istTags :: Lens' ImportSnapshotTask [Tag]
-istTags = lens _istTags (\s a -> s {_istTags = a}) . _Default . _Coerce
+importSnapshotTask_tags :: Lens.Lens' ImportSnapshotTask (Prelude.Maybe [Tag])
+importSnapshotTask_tags = Lens.lens (\ImportSnapshotTask' {tags} -> tags) (\s@ImportSnapshotTask' {} a -> s {tags = a} :: ImportSnapshotTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the import snapshot task.
-istDescription :: Lens' ImportSnapshotTask (Maybe Text)
-istDescription = lens _istDescription (\s a -> s {_istDescription = a})
+importSnapshotTask_description :: Lens.Lens' ImportSnapshotTask (Prelude.Maybe Prelude.Text)
+importSnapshotTask_description = Lens.lens (\ImportSnapshotTask' {description} -> description) (\s@ImportSnapshotTask' {} a -> s {description = a} :: ImportSnapshotTask)
 
-instance FromXML ImportSnapshotTask where
+instance Prelude.FromXML ImportSnapshotTask where
   parseXML x =
     ImportSnapshotTask'
-      <$> (x .@? "snapshotTaskDetail")
-      <*> (x .@? "importTaskId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "description")
+      Prelude.<$> (x Prelude..@? "snapshotTaskDetail")
+      Prelude.<*> (x Prelude..@? "importTaskId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "description")
 
-instance Hashable ImportSnapshotTask
+instance Prelude.Hashable ImportSnapshotTask
 
-instance NFData ImportSnapshotTask
+instance Prelude.NFData ImportSnapshotTask

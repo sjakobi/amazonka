@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.EC2.Types.ServiceState
   ( ServiceState
       ( ..,
-        SSAvailable,
-        SSDeleted,
-        SSDeleting,
-        SSFailed,
-        SSPending
+        ServiceStateAvailable,
+        ServiceStateDeleted,
+        ServiceStateDeleting,
+        ServiceStateFailed,
+        ServiceStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceState = ServiceState' (CI Text)
+newtype ServiceState = ServiceState'
+  { fromServiceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSAvailable :: ServiceState
-pattern SSAvailable = ServiceState' "Available"
+pattern ServiceStateAvailable :: ServiceState
+pattern ServiceStateAvailable = ServiceState' "Available"
 
-pattern SSDeleted :: ServiceState
-pattern SSDeleted = ServiceState' "Deleted"
+pattern ServiceStateDeleted :: ServiceState
+pattern ServiceStateDeleted = ServiceState' "Deleted"
 
-pattern SSDeleting :: ServiceState
-pattern SSDeleting = ServiceState' "Deleting"
+pattern ServiceStateDeleting :: ServiceState
+pattern ServiceStateDeleting = ServiceState' "Deleting"
 
-pattern SSFailed :: ServiceState
-pattern SSFailed = ServiceState' "Failed"
+pattern ServiceStateFailed :: ServiceState
+pattern ServiceStateFailed = ServiceState' "Failed"
 
-pattern SSPending :: ServiceState
-pattern SSPending = ServiceState' "Pending"
+pattern ServiceStatePending :: ServiceState
+pattern ServiceStatePending = ServiceState' "Pending"
 
 {-# COMPLETE
-  SSAvailable,
-  SSDeleted,
-  SSDeleting,
-  SSFailed,
-  SSPending,
+  ServiceStateAvailable,
+  ServiceStateDeleted,
+  ServiceStateDeleting,
+  ServiceStateFailed,
+  ServiceStatePending,
   ServiceState'
   #-}
 
-instance FromText ServiceState where
-  parser = (ServiceState' . mk) <$> takeText
+instance Prelude.FromText ServiceState where
+  parser = ServiceState' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceState where
-  toText (ServiceState' ci) = original ci
+instance Prelude.ToText ServiceState where
+  toText (ServiceState' x) = x
 
-instance Hashable ServiceState
+instance Prelude.Hashable ServiceState
 
-instance NFData ServiceState
+instance Prelude.NFData ServiceState
 
-instance ToByteString ServiceState
+instance Prelude.ToByteString ServiceState
 
-instance ToQuery ServiceState
+instance Prelude.ToQuery ServiceState
 
-instance ToHeader ServiceState
+instance Prelude.ToHeader ServiceState
 
-instance FromXML ServiceState where
-  parseXML = parseXMLText "ServiceState"
+instance Prelude.FromXML ServiceState where
+  parseXML = Prelude.parseXMLText "ServiceState"

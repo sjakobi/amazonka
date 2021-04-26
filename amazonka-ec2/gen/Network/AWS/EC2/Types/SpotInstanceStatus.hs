@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,72 @@
 module Network.AWS.EC2.Types.SpotInstanceStatus where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the status of a Spot Instance request.
 --
---
---
--- /See:/ 'spotInstanceStatus' smart constructor.
+-- /See:/ 'newSpotInstanceStatus' smart constructor.
 data SpotInstanceStatus = SpotInstanceStatus'
-  { _sisMessage ::
-      !(Maybe Text),
-    _sisCode :: !(Maybe Text),
-    _sisUpdateTime ::
-      !(Maybe ISO8601)
+  { -- | The description for the status code.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The status code. For a list of status codes, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html#spot-instance-bid-status-understand Spot status codes>
+    -- in the /Amazon EC2 User Guide for Linux Instances/.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The date and time of the most recent status update, in UTC format (for
+    -- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
+    updateTime :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SpotInstanceStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SpotInstanceStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sisMessage' - The description for the status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sisCode' - The status code. For a list of status codes, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html#spot-instance-bid-status-understand Spot status codes> in the /Amazon EC2 User Guide for Linux Instances/ .
+-- 'message', 'spotInstanceStatus_message' - The description for the status code.
 --
--- * 'sisUpdateTime' - The date and time of the most recent status update, in UTC format (for example, /YYYY/ -/MM/ -/DD/ T/HH/ :/MM/ :/SS/ Z).
-spotInstanceStatus ::
+-- 'code', 'spotInstanceStatus_code' - The status code. For a list of status codes, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html#spot-instance-bid-status-understand Spot status codes>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
+--
+-- 'updateTime', 'spotInstanceStatus_updateTime' - The date and time of the most recent status update, in UTC format (for
+-- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
+newSpotInstanceStatus ::
   SpotInstanceStatus
-spotInstanceStatus =
+newSpotInstanceStatus =
   SpotInstanceStatus'
-    { _sisMessage = Nothing,
-      _sisCode = Nothing,
-      _sisUpdateTime = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing,
+      updateTime = Prelude.Nothing
     }
 
 -- | The description for the status code.
-sisMessage :: Lens' SpotInstanceStatus (Maybe Text)
-sisMessage = lens _sisMessage (\s a -> s {_sisMessage = a})
+spotInstanceStatus_message :: Lens.Lens' SpotInstanceStatus (Prelude.Maybe Prelude.Text)
+spotInstanceStatus_message = Lens.lens (\SpotInstanceStatus' {message} -> message) (\s@SpotInstanceStatus' {} a -> s {message = a} :: SpotInstanceStatus)
 
--- | The status code. For a list of status codes, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html#spot-instance-bid-status-understand Spot status codes> in the /Amazon EC2 User Guide for Linux Instances/ .
-sisCode :: Lens' SpotInstanceStatus (Maybe Text)
-sisCode = lens _sisCode (\s a -> s {_sisCode = a})
+-- | The status code. For a list of status codes, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html#spot-instance-bid-status-understand Spot status codes>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
+spotInstanceStatus_code :: Lens.Lens' SpotInstanceStatus (Prelude.Maybe Prelude.Text)
+spotInstanceStatus_code = Lens.lens (\SpotInstanceStatus' {code} -> code) (\s@SpotInstanceStatus' {} a -> s {code = a} :: SpotInstanceStatus)
 
--- | The date and time of the most recent status update, in UTC format (for example, /YYYY/ -/MM/ -/DD/ T/HH/ :/MM/ :/SS/ Z).
-sisUpdateTime :: Lens' SpotInstanceStatus (Maybe UTCTime)
-sisUpdateTime = lens _sisUpdateTime (\s a -> s {_sisUpdateTime = a}) . mapping _Time
+-- | The date and time of the most recent status update, in UTC format (for
+-- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
+spotInstanceStatus_updateTime :: Lens.Lens' SpotInstanceStatus (Prelude.Maybe Prelude.UTCTime)
+spotInstanceStatus_updateTime = Lens.lens (\SpotInstanceStatus' {updateTime} -> updateTime) (\s@SpotInstanceStatus' {} a -> s {updateTime = a} :: SpotInstanceStatus) Prelude.. Lens.mapping Prelude._Time
 
-instance FromXML SpotInstanceStatus where
+instance Prelude.FromXML SpotInstanceStatus where
   parseXML x =
     SpotInstanceStatus'
-      <$> (x .@? "message")
-      <*> (x .@? "code")
-      <*> (x .@? "updateTime")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
+      Prelude.<*> (x Prelude..@? "updateTime")
 
-instance Hashable SpotInstanceStatus
+instance Prelude.Hashable SpotInstanceStatus
 
-instance NFData SpotInstanceStatus
+instance Prelude.NFData SpotInstanceStatus

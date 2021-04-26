@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,100 +22,107 @@ module Network.AWS.EC2.Types.LaunchTemplateSpotMarketOptions where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceInterruptionBehavior
 import Network.AWS.EC2.Types.SpotInstanceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The options for Spot Instances.
 --
---
---
--- /See:/ 'launchTemplateSpotMarketOptions' smart constructor.
+-- /See:/ 'newLaunchTemplateSpotMarketOptions' smart constructor.
 data LaunchTemplateSpotMarketOptions = LaunchTemplateSpotMarketOptions'
-  { _ltsmoBlockDurationMinutes ::
-      !( Maybe
-           Int
-       ),
-    _ltsmoInstanceInterruptionBehavior ::
-      !( Maybe
-           InstanceInterruptionBehavior
-       ),
-    _ltsmoValidUntil ::
-      !( Maybe
-           ISO8601
-       ),
-    _ltsmoSpotInstanceType ::
-      !( Maybe
-           SpotInstanceType
-       ),
-    _ltsmoMaxPrice ::
-      !( Maybe
-           Text
-       )
+  { -- | The required duration for the Spot Instances (also known as Spot
+    -- blocks), in minutes. This value must be a multiple of 60 (60, 120, 180,
+    -- 240, 300, or 360).
+    blockDurationMinutes :: Prelude.Maybe Prelude.Int,
+    -- | The behavior when a Spot Instance is interrupted.
+    instanceInterruptionBehavior :: Prelude.Maybe InstanceInterruptionBehavior,
+    -- | The end date of the request. For a one-time request, the request remains
+    -- active until all instances launch, the request is canceled, or this date
+    -- is reached. If the request is persistent, it remains active until it is
+    -- canceled or this date and time is reached.
+    validUntil :: Prelude.Maybe Prelude.ISO8601,
+    -- | The Spot Instance request type.
+    spotInstanceType :: Prelude.Maybe SpotInstanceType,
+    -- | The maximum hourly price you\'re willing to pay for the Spot Instances.
+    maxPrice :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateSpotMarketOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateSpotMarketOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltsmoBlockDurationMinutes' - The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltsmoInstanceInterruptionBehavior' - The behavior when a Spot Instance is interrupted.
+-- 'blockDurationMinutes', 'launchTemplateSpotMarketOptions_blockDurationMinutes' - The required duration for the Spot Instances (also known as Spot
+-- blocks), in minutes. This value must be a multiple of 60 (60, 120, 180,
+-- 240, 300, or 360).
 --
--- * 'ltsmoValidUntil' - The end date of the request. For a one-time request, the request remains active until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it remains active until it is canceled or this date and time is reached.
+-- 'instanceInterruptionBehavior', 'launchTemplateSpotMarketOptions_instanceInterruptionBehavior' - The behavior when a Spot Instance is interrupted.
 --
--- * 'ltsmoSpotInstanceType' - The Spot Instance request type.
+-- 'validUntil', 'launchTemplateSpotMarketOptions_validUntil' - The end date of the request. For a one-time request, the request remains
+-- active until all instances launch, the request is canceled, or this date
+-- is reached. If the request is persistent, it remains active until it is
+-- canceled or this date and time is reached.
 --
--- * 'ltsmoMaxPrice' - The maximum hourly price you're willing to pay for the Spot Instances.
-launchTemplateSpotMarketOptions ::
+-- 'spotInstanceType', 'launchTemplateSpotMarketOptions_spotInstanceType' - The Spot Instance request type.
+--
+-- 'maxPrice', 'launchTemplateSpotMarketOptions_maxPrice' - The maximum hourly price you\'re willing to pay for the Spot Instances.
+newLaunchTemplateSpotMarketOptions ::
   LaunchTemplateSpotMarketOptions
-launchTemplateSpotMarketOptions =
+newLaunchTemplateSpotMarketOptions =
   LaunchTemplateSpotMarketOptions'
-    { _ltsmoBlockDurationMinutes =
-        Nothing,
-      _ltsmoInstanceInterruptionBehavior =
-        Nothing,
-      _ltsmoValidUntil = Nothing,
-      _ltsmoSpotInstanceType = Nothing,
-      _ltsmoMaxPrice = Nothing
+    { blockDurationMinutes =
+        Prelude.Nothing,
+      instanceInterruptionBehavior =
+        Prelude.Nothing,
+      validUntil = Prelude.Nothing,
+      spotInstanceType = Prelude.Nothing,
+      maxPrice = Prelude.Nothing
     }
 
--- | The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360).
-ltsmoBlockDurationMinutes :: Lens' LaunchTemplateSpotMarketOptions (Maybe Int)
-ltsmoBlockDurationMinutes = lens _ltsmoBlockDurationMinutes (\s a -> s {_ltsmoBlockDurationMinutes = a})
+-- | The required duration for the Spot Instances (also known as Spot
+-- blocks), in minutes. This value must be a multiple of 60 (60, 120, 180,
+-- 240, 300, or 360).
+launchTemplateSpotMarketOptions_blockDurationMinutes :: Lens.Lens' LaunchTemplateSpotMarketOptions (Prelude.Maybe Prelude.Int)
+launchTemplateSpotMarketOptions_blockDurationMinutes = Lens.lens (\LaunchTemplateSpotMarketOptions' {blockDurationMinutes} -> blockDurationMinutes) (\s@LaunchTemplateSpotMarketOptions' {} a -> s {blockDurationMinutes = a} :: LaunchTemplateSpotMarketOptions)
 
 -- | The behavior when a Spot Instance is interrupted.
-ltsmoInstanceInterruptionBehavior :: Lens' LaunchTemplateSpotMarketOptions (Maybe InstanceInterruptionBehavior)
-ltsmoInstanceInterruptionBehavior = lens _ltsmoInstanceInterruptionBehavior (\s a -> s {_ltsmoInstanceInterruptionBehavior = a})
+launchTemplateSpotMarketOptions_instanceInterruptionBehavior :: Lens.Lens' LaunchTemplateSpotMarketOptions (Prelude.Maybe InstanceInterruptionBehavior)
+launchTemplateSpotMarketOptions_instanceInterruptionBehavior = Lens.lens (\LaunchTemplateSpotMarketOptions' {instanceInterruptionBehavior} -> instanceInterruptionBehavior) (\s@LaunchTemplateSpotMarketOptions' {} a -> s {instanceInterruptionBehavior = a} :: LaunchTemplateSpotMarketOptions)
 
--- | The end date of the request. For a one-time request, the request remains active until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it remains active until it is canceled or this date and time is reached.
-ltsmoValidUntil :: Lens' LaunchTemplateSpotMarketOptions (Maybe UTCTime)
-ltsmoValidUntil = lens _ltsmoValidUntil (\s a -> s {_ltsmoValidUntil = a}) . mapping _Time
+-- | The end date of the request. For a one-time request, the request remains
+-- active until all instances launch, the request is canceled, or this date
+-- is reached. If the request is persistent, it remains active until it is
+-- canceled or this date and time is reached.
+launchTemplateSpotMarketOptions_validUntil :: Lens.Lens' LaunchTemplateSpotMarketOptions (Prelude.Maybe Prelude.UTCTime)
+launchTemplateSpotMarketOptions_validUntil = Lens.lens (\LaunchTemplateSpotMarketOptions' {validUntil} -> validUntil) (\s@LaunchTemplateSpotMarketOptions' {} a -> s {validUntil = a} :: LaunchTemplateSpotMarketOptions) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Spot Instance request type.
-ltsmoSpotInstanceType :: Lens' LaunchTemplateSpotMarketOptions (Maybe SpotInstanceType)
-ltsmoSpotInstanceType = lens _ltsmoSpotInstanceType (\s a -> s {_ltsmoSpotInstanceType = a})
+launchTemplateSpotMarketOptions_spotInstanceType :: Lens.Lens' LaunchTemplateSpotMarketOptions (Prelude.Maybe SpotInstanceType)
+launchTemplateSpotMarketOptions_spotInstanceType = Lens.lens (\LaunchTemplateSpotMarketOptions' {spotInstanceType} -> spotInstanceType) (\s@LaunchTemplateSpotMarketOptions' {} a -> s {spotInstanceType = a} :: LaunchTemplateSpotMarketOptions)
 
--- | The maximum hourly price you're willing to pay for the Spot Instances.
-ltsmoMaxPrice :: Lens' LaunchTemplateSpotMarketOptions (Maybe Text)
-ltsmoMaxPrice = lens _ltsmoMaxPrice (\s a -> s {_ltsmoMaxPrice = a})
+-- | The maximum hourly price you\'re willing to pay for the Spot Instances.
+launchTemplateSpotMarketOptions_maxPrice :: Lens.Lens' LaunchTemplateSpotMarketOptions (Prelude.Maybe Prelude.Text)
+launchTemplateSpotMarketOptions_maxPrice = Lens.lens (\LaunchTemplateSpotMarketOptions' {maxPrice} -> maxPrice) (\s@LaunchTemplateSpotMarketOptions' {} a -> s {maxPrice = a} :: LaunchTemplateSpotMarketOptions)
 
-instance FromXML LaunchTemplateSpotMarketOptions where
+instance
+  Prelude.FromXML
+    LaunchTemplateSpotMarketOptions
+  where
   parseXML x =
     LaunchTemplateSpotMarketOptions'
-      <$> (x .@? "blockDurationMinutes")
-      <*> (x .@? "instanceInterruptionBehavior")
-      <*> (x .@? "validUntil")
-      <*> (x .@? "spotInstanceType")
-      <*> (x .@? "maxPrice")
+      Prelude.<$> (x Prelude..@? "blockDurationMinutes")
+      Prelude.<*> (x Prelude..@? "instanceInterruptionBehavior")
+      Prelude.<*> (x Prelude..@? "validUntil")
+      Prelude.<*> (x Prelude..@? "spotInstanceType")
+      Prelude.<*> (x Prelude..@? "maxPrice")
 
-instance Hashable LaunchTemplateSpotMarketOptions
+instance
+  Prelude.Hashable
+    LaunchTemplateSpotMarketOptions
 
-instance NFData LaunchTemplateSpotMarketOptions
+instance
+  Prelude.NFData
+    LaunchTemplateSpotMarketOptions

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,82 @@ module Network.AWS.EC2.Types.ActiveInstance where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceHealthStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a running instance in a Spot Fleet.
 --
---
---
--- /See:/ 'activeInstance' smart constructor.
+-- /See:/ 'newActiveInstance' smart constructor.
 data ActiveInstance = ActiveInstance'
-  { _aiInstanceId ::
-      !(Maybe Text),
-    _aiInstanceType :: !(Maybe Text),
-    _aiSpotInstanceRequestId :: !(Maybe Text),
-    _aiInstanceHealth ::
-      !(Maybe InstanceHealthStatus)
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The instance type.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Spot Instance request.
+    spotInstanceRequestId :: Prelude.Maybe Prelude.Text,
+    -- | The health status of the instance. If the status of either the instance
+    -- status check or the system status check is @impaired@, the health status
+    -- of the instance is @unhealthy@. Otherwise, the health status is
+    -- @healthy@.
+    instanceHealth :: Prelude.Maybe InstanceHealthStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActiveInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActiveInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aiInstanceType' - The instance type.
+-- 'instanceId', 'activeInstance_instanceId' - The ID of the instance.
 --
--- * 'aiSpotInstanceRequestId' - The ID of the Spot Instance request.
+-- 'instanceType', 'activeInstance_instanceType' - The instance type.
 --
--- * 'aiInstanceHealth' - The health status of the instance. If the status of either the instance status check or the system status check is @impaired@ , the health status of the instance is @unhealthy@ . Otherwise, the health status is @healthy@ .
-activeInstance ::
+-- 'spotInstanceRequestId', 'activeInstance_spotInstanceRequestId' - The ID of the Spot Instance request.
+--
+-- 'instanceHealth', 'activeInstance_instanceHealth' - The health status of the instance. If the status of either the instance
+-- status check or the system status check is @impaired@, the health status
+-- of the instance is @unhealthy@. Otherwise, the health status is
+-- @healthy@.
+newActiveInstance ::
   ActiveInstance
-activeInstance =
+newActiveInstance =
   ActiveInstance'
-    { _aiInstanceId = Nothing,
-      _aiInstanceType = Nothing,
-      _aiSpotInstanceRequestId = Nothing,
-      _aiInstanceHealth = Nothing
+    { instanceId = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      spotInstanceRequestId = Prelude.Nothing,
+      instanceHealth = Prelude.Nothing
     }
 
 -- | The ID of the instance.
-aiInstanceId :: Lens' ActiveInstance (Maybe Text)
-aiInstanceId = lens _aiInstanceId (\s a -> s {_aiInstanceId = a})
+activeInstance_instanceId :: Lens.Lens' ActiveInstance (Prelude.Maybe Prelude.Text)
+activeInstance_instanceId = Lens.lens (\ActiveInstance' {instanceId} -> instanceId) (\s@ActiveInstance' {} a -> s {instanceId = a} :: ActiveInstance)
 
 -- | The instance type.
-aiInstanceType :: Lens' ActiveInstance (Maybe Text)
-aiInstanceType = lens _aiInstanceType (\s a -> s {_aiInstanceType = a})
+activeInstance_instanceType :: Lens.Lens' ActiveInstance (Prelude.Maybe Prelude.Text)
+activeInstance_instanceType = Lens.lens (\ActiveInstance' {instanceType} -> instanceType) (\s@ActiveInstance' {} a -> s {instanceType = a} :: ActiveInstance)
 
 -- | The ID of the Spot Instance request.
-aiSpotInstanceRequestId :: Lens' ActiveInstance (Maybe Text)
-aiSpotInstanceRequestId = lens _aiSpotInstanceRequestId (\s a -> s {_aiSpotInstanceRequestId = a})
+activeInstance_spotInstanceRequestId :: Lens.Lens' ActiveInstance (Prelude.Maybe Prelude.Text)
+activeInstance_spotInstanceRequestId = Lens.lens (\ActiveInstance' {spotInstanceRequestId} -> spotInstanceRequestId) (\s@ActiveInstance' {} a -> s {spotInstanceRequestId = a} :: ActiveInstance)
 
--- | The health status of the instance. If the status of either the instance status check or the system status check is @impaired@ , the health status of the instance is @unhealthy@ . Otherwise, the health status is @healthy@ .
-aiInstanceHealth :: Lens' ActiveInstance (Maybe InstanceHealthStatus)
-aiInstanceHealth = lens _aiInstanceHealth (\s a -> s {_aiInstanceHealth = a})
+-- | The health status of the instance. If the status of either the instance
+-- status check or the system status check is @impaired@, the health status
+-- of the instance is @unhealthy@. Otherwise, the health status is
+-- @healthy@.
+activeInstance_instanceHealth :: Lens.Lens' ActiveInstance (Prelude.Maybe InstanceHealthStatus)
+activeInstance_instanceHealth = Lens.lens (\ActiveInstance' {instanceHealth} -> instanceHealth) (\s@ActiveInstance' {} a -> s {instanceHealth = a} :: ActiveInstance)
 
-instance FromXML ActiveInstance where
+instance Prelude.FromXML ActiveInstance where
   parseXML x =
     ActiveInstance'
-      <$> (x .@? "instanceId")
-      <*> (x .@? "instanceType")
-      <*> (x .@? "spotInstanceRequestId")
-      <*> (x .@? "instanceHealth")
+      Prelude.<$> (x Prelude..@? "instanceId")
+      Prelude.<*> (x Prelude..@? "instanceType")
+      Prelude.<*> (x Prelude..@? "spotInstanceRequestId")
+      Prelude.<*> (x Prelude..@? "instanceHealth")
 
-instance Hashable ActiveInstance
+instance Prelude.Hashable ActiveInstance
 
-instance NFData ActiveInstance
+instance Prelude.NFData ActiveInstance

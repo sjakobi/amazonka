@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,220 +21,269 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of all instance types offered. The results can be filtered by location (Region or Availability Zone). If no location is specified, the instance types offered in the current Region are returned.
---
---
+-- Returns a list of all instance types offered. The results can be
+-- filtered by location (Region or Availability Zone). If no location is
+-- specified, the instance types offered in the current Region are
+-- returned.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeInstanceTypeOfferings
   ( -- * Creating a Request
-    describeInstanceTypeOfferings,
-    DescribeInstanceTypeOfferings,
+    DescribeInstanceTypeOfferings (..),
+    newDescribeInstanceTypeOfferings,
 
     -- * Request Lenses
-    ditoNextToken,
-    ditoDryRun,
-    ditoMaxResults,
-    ditoLocationType,
-    ditoFilters,
+    describeInstanceTypeOfferings_nextToken,
+    describeInstanceTypeOfferings_dryRun,
+    describeInstanceTypeOfferings_maxResults,
+    describeInstanceTypeOfferings_locationType,
+    describeInstanceTypeOfferings_filters,
 
     -- * Destructuring the Response
-    describeInstanceTypeOfferingsResponse,
-    DescribeInstanceTypeOfferingsResponse,
+    DescribeInstanceTypeOfferingsResponse (..),
+    newDescribeInstanceTypeOfferingsResponse,
 
     -- * Response Lenses
-    ditorrsNextToken,
-    ditorrsInstanceTypeOfferings,
-    ditorrsResponseStatus,
+    describeInstanceTypeOfferingsResponse_nextToken,
+    describeInstanceTypeOfferingsResponse_instanceTypeOfferings,
+    describeInstanceTypeOfferingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.InstanceTypeOffering
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeInstanceTypeOfferings' smart constructor.
+-- | /See:/ 'newDescribeInstanceTypeOfferings' smart constructor.
 data DescribeInstanceTypeOfferings = DescribeInstanceTypeOfferings'
-  { _ditoNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ditoDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ditoMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _ditoLocationType ::
-      !( Maybe
-           LocationType
-       ),
-    _ditoFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return for the request in a single
+    -- page. The remaining results can be seen by sending another request with
+    -- the next token value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The location type.
+    locationType :: Prelude.Maybe LocationType,
+    -- | One or more filters. Filter names and values are case-sensitive.
+    --
+    -- -   @location@ - This depends on the location type. For example, if the
+    --     location type is @region@ (default), the location is the Region code
+    --     (for example, @us-east-2@.)
+    --
+    -- -   @instance-type@ - The instance type. For example, @c5.2xlarge@.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceTypeOfferings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceTypeOfferings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ditoNextToken' - The token to retrieve the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ditoDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeInstanceTypeOfferings_nextToken' - The token to retrieve the next page of results.
 --
--- * 'ditoMaxResults' - The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the next token value.
+-- 'dryRun', 'describeInstanceTypeOfferings_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ditoLocationType' - The location type.
+-- 'maxResults', 'describeInstanceTypeOfferings_maxResults' - The maximum number of results to return for the request in a single
+-- page. The remaining results can be seen by sending another request with
+-- the next token value.
 --
--- * 'ditoFilters' - One or more filters. Filter names and values are case-sensitive.     * @location@ - This depends on the location type. For example, if the location type is @region@ (default), the location is the Region code (for example, @us-east-2@ .)     * @instance-type@ - The instance type. For example, @c5.2xlarge@ .
-describeInstanceTypeOfferings ::
+-- 'locationType', 'describeInstanceTypeOfferings_locationType' - The location type.
+--
+-- 'filters', 'describeInstanceTypeOfferings_filters' - One or more filters. Filter names and values are case-sensitive.
+--
+-- -   @location@ - This depends on the location type. For example, if the
+--     location type is @region@ (default), the location is the Region code
+--     (for example, @us-east-2@.)
+--
+-- -   @instance-type@ - The instance type. For example, @c5.2xlarge@.
+newDescribeInstanceTypeOfferings ::
   DescribeInstanceTypeOfferings
-describeInstanceTypeOfferings =
+newDescribeInstanceTypeOfferings =
   DescribeInstanceTypeOfferings'
-    { _ditoNextToken =
-        Nothing,
-      _ditoDryRun = Nothing,
-      _ditoMaxResults = Nothing,
-      _ditoLocationType = Nothing,
-      _ditoFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      locationType = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token to retrieve the next page of results.
-ditoNextToken :: Lens' DescribeInstanceTypeOfferings (Maybe Text)
-ditoNextToken = lens _ditoNextToken (\s a -> s {_ditoNextToken = a})
+describeInstanceTypeOfferings_nextToken :: Lens.Lens' DescribeInstanceTypeOfferings (Prelude.Maybe Prelude.Text)
+describeInstanceTypeOfferings_nextToken = Lens.lens (\DescribeInstanceTypeOfferings' {nextToken} -> nextToken) (\s@DescribeInstanceTypeOfferings' {} a -> s {nextToken = a} :: DescribeInstanceTypeOfferings)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ditoDryRun :: Lens' DescribeInstanceTypeOfferings (Maybe Bool)
-ditoDryRun = lens _ditoDryRun (\s a -> s {_ditoDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeInstanceTypeOfferings_dryRun :: Lens.Lens' DescribeInstanceTypeOfferings (Prelude.Maybe Prelude.Bool)
+describeInstanceTypeOfferings_dryRun = Lens.lens (\DescribeInstanceTypeOfferings' {dryRun} -> dryRun) (\s@DescribeInstanceTypeOfferings' {} a -> s {dryRun = a} :: DescribeInstanceTypeOfferings)
 
--- | The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the next token value.
-ditoMaxResults :: Lens' DescribeInstanceTypeOfferings (Maybe Natural)
-ditoMaxResults = lens _ditoMaxResults (\s a -> s {_ditoMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return for the request in a single
+-- page. The remaining results can be seen by sending another request with
+-- the next token value.
+describeInstanceTypeOfferings_maxResults :: Lens.Lens' DescribeInstanceTypeOfferings (Prelude.Maybe Prelude.Natural)
+describeInstanceTypeOfferings_maxResults = Lens.lens (\DescribeInstanceTypeOfferings' {maxResults} -> maxResults) (\s@DescribeInstanceTypeOfferings' {} a -> s {maxResults = a} :: DescribeInstanceTypeOfferings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The location type.
-ditoLocationType :: Lens' DescribeInstanceTypeOfferings (Maybe LocationType)
-ditoLocationType = lens _ditoLocationType (\s a -> s {_ditoLocationType = a})
+describeInstanceTypeOfferings_locationType :: Lens.Lens' DescribeInstanceTypeOfferings (Prelude.Maybe LocationType)
+describeInstanceTypeOfferings_locationType = Lens.lens (\DescribeInstanceTypeOfferings' {locationType} -> locationType) (\s@DescribeInstanceTypeOfferings' {} a -> s {locationType = a} :: DescribeInstanceTypeOfferings)
 
--- | One or more filters. Filter names and values are case-sensitive.     * @location@ - This depends on the location type. For example, if the location type is @region@ (default), the location is the Region code (for example, @us-east-2@ .)     * @instance-type@ - The instance type. For example, @c5.2xlarge@ .
-ditoFilters :: Lens' DescribeInstanceTypeOfferings [Filter]
-ditoFilters = lens _ditoFilters (\s a -> s {_ditoFilters = a}) . _Default . _Coerce
+-- | One or more filters. Filter names and values are case-sensitive.
+--
+-- -   @location@ - This depends on the location type. For example, if the
+--     location type is @region@ (default), the location is the Region code
+--     (for example, @us-east-2@.)
+--
+-- -   @instance-type@ - The instance type. For example, @c5.2xlarge@.
+describeInstanceTypeOfferings_filters :: Lens.Lens' DescribeInstanceTypeOfferings (Prelude.Maybe [Filter])
+describeInstanceTypeOfferings_filters = Lens.lens (\DescribeInstanceTypeOfferings' {filters} -> filters) (\s@DescribeInstanceTypeOfferings' {} a -> s {filters = a} :: DescribeInstanceTypeOfferings) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeInstanceTypeOfferings where
+instance Pager.AWSPager DescribeInstanceTypeOfferings where
   page rq rs
-    | stop (rs ^. ditorrsNextToken) = Nothing
-    | stop (rs ^. ditorrsInstanceTypeOfferings) = Nothing
-    | otherwise =
-      Just $ rq & ditoNextToken .~ rs ^. ditorrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeInstanceTypeOfferingsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeInstanceTypeOfferingsResponse_instanceTypeOfferings
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeInstanceTypeOfferings_nextToken
+          Lens..~ rs
+          Lens.^? describeInstanceTypeOfferingsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeInstanceTypeOfferings where
+instance
+  Prelude.AWSRequest
+    DescribeInstanceTypeOfferings
+  where
   type
     Rs DescribeInstanceTypeOfferings =
       DescribeInstanceTypeOfferingsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeInstanceTypeOfferingsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "instanceTypeOfferingSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "instanceTypeOfferingSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInstanceTypeOfferings
+instance
+  Prelude.Hashable
+    DescribeInstanceTypeOfferings
 
-instance NFData DescribeInstanceTypeOfferings
+instance Prelude.NFData DescribeInstanceTypeOfferings
 
-instance ToHeaders DescribeInstanceTypeOfferings where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeInstanceTypeOfferings
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeInstanceTypeOfferings where
-  toPath = const "/"
+instance Prelude.ToPath DescribeInstanceTypeOfferings where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeInstanceTypeOfferings where
+instance
+  Prelude.ToQuery
+    DescribeInstanceTypeOfferings
+  where
   toQuery DescribeInstanceTypeOfferings' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeInstanceTypeOfferings" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _ditoNextToken,
-        "DryRun" =: _ditoDryRun,
-        "MaxResults" =: _ditoMaxResults,
-        "LocationType" =: _ditoLocationType,
-        toQuery (toQueryList "Filter" <$> _ditoFilters)
+          Prelude.=: ( "DescribeInstanceTypeOfferings" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        "LocationType" Prelude.=: locationType,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeInstanceTypeOfferingsResponse' smart constructor.
+-- | /See:/ 'newDescribeInstanceTypeOfferingsResponse' smart constructor.
 data DescribeInstanceTypeOfferingsResponse = DescribeInstanceTypeOfferingsResponse'
-  { _ditorrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ditorrsInstanceTypeOfferings ::
-      !( Maybe
-           [InstanceTypeOffering]
-       ),
-    _ditorrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The instance types offered.
+    instanceTypeOfferings :: Prelude.Maybe [InstanceTypeOffering],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceTypeOfferingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceTypeOfferingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ditorrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ditorrsInstanceTypeOfferings' - The instance types offered.
+-- 'nextToken', 'describeInstanceTypeOfferingsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'ditorrsResponseStatus' - -- | The response status code.
-describeInstanceTypeOfferingsResponse ::
-  -- | 'ditorrsResponseStatus'
-  Int ->
+-- 'instanceTypeOfferings', 'describeInstanceTypeOfferingsResponse_instanceTypeOfferings' - The instance types offered.
+--
+-- 'httpStatus', 'describeInstanceTypeOfferingsResponse_httpStatus' - The response's http status code.
+newDescribeInstanceTypeOfferingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInstanceTypeOfferingsResponse
-describeInstanceTypeOfferingsResponse
-  pResponseStatus_ =
-    DescribeInstanceTypeOfferingsResponse'
-      { _ditorrsNextToken =
-          Nothing,
-        _ditorrsInstanceTypeOfferings =
-          Nothing,
-        _ditorrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeInstanceTypeOfferingsResponse pHttpStatus_ =
+  DescribeInstanceTypeOfferingsResponse'
+    { nextToken =
+        Prelude.Nothing,
+      instanceTypeOfferings =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-ditorrsNextToken :: Lens' DescribeInstanceTypeOfferingsResponse (Maybe Text)
-ditorrsNextToken = lens _ditorrsNextToken (\s a -> s {_ditorrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeInstanceTypeOfferingsResponse_nextToken :: Lens.Lens' DescribeInstanceTypeOfferingsResponse (Prelude.Maybe Prelude.Text)
+describeInstanceTypeOfferingsResponse_nextToken = Lens.lens (\DescribeInstanceTypeOfferingsResponse' {nextToken} -> nextToken) (\s@DescribeInstanceTypeOfferingsResponse' {} a -> s {nextToken = a} :: DescribeInstanceTypeOfferingsResponse)
 
 -- | The instance types offered.
-ditorrsInstanceTypeOfferings :: Lens' DescribeInstanceTypeOfferingsResponse [InstanceTypeOffering]
-ditorrsInstanceTypeOfferings = lens _ditorrsInstanceTypeOfferings (\s a -> s {_ditorrsInstanceTypeOfferings = a}) . _Default . _Coerce
+describeInstanceTypeOfferingsResponse_instanceTypeOfferings :: Lens.Lens' DescribeInstanceTypeOfferingsResponse (Prelude.Maybe [InstanceTypeOffering])
+describeInstanceTypeOfferingsResponse_instanceTypeOfferings = Lens.lens (\DescribeInstanceTypeOfferingsResponse' {instanceTypeOfferings} -> instanceTypeOfferings) (\s@DescribeInstanceTypeOfferingsResponse' {} a -> s {instanceTypeOfferings = a} :: DescribeInstanceTypeOfferingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ditorrsResponseStatus :: Lens' DescribeInstanceTypeOfferingsResponse Int
-ditorrsResponseStatus = lens _ditorrsResponseStatus (\s a -> s {_ditorrsResponseStatus = a})
+-- | The response's http status code.
+describeInstanceTypeOfferingsResponse_httpStatus :: Lens.Lens' DescribeInstanceTypeOfferingsResponse Prelude.Int
+describeInstanceTypeOfferingsResponse_httpStatus = Lens.lens (\DescribeInstanceTypeOfferingsResponse' {httpStatus} -> httpStatus) (\s@DescribeInstanceTypeOfferingsResponse' {} a -> s {httpStatus = a} :: DescribeInstanceTypeOfferingsResponse)
 
-instance NFData DescribeInstanceTypeOfferingsResponse
+instance
+  Prelude.NFData
+    DescribeInstanceTypeOfferingsResponse

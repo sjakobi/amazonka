@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,290 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified Elastic IP addresses or all of your Elastic IP addresses.
+-- Describes the specified Elastic IP addresses or all of your Elastic IP
+-- addresses.
 --
---
--- An Elastic IP address is for use in either the EC2-Classic platform or in a VPC. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html Elastic IP Addresses> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- An Elastic IP address is for use in either the EC2-Classic platform or
+-- in a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html Elastic IP Addresses>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Network.AWS.EC2.DescribeAddresses
   ( -- * Creating a Request
-    describeAddresses,
-    DescribeAddresses,
+    DescribeAddresses (..),
+    newDescribeAddresses,
 
     -- * Request Lenses
-    dasDryRun,
-    dasAllocationIds,
-    dasPublicIPs,
-    dasFilters,
+    describeAddresses_dryRun,
+    describeAddresses_allocationIds,
+    describeAddresses_publicIps,
+    describeAddresses_filters,
 
     -- * Destructuring the Response
-    describeAddressesResponse,
-    DescribeAddressesResponse,
+    DescribeAddressesResponse (..),
+    newDescribeAddressesResponse,
 
     -- * Response Lenses
-    darrsAddresses,
-    darrsResponseStatus,
+    describeAddressesResponse_addresses,
+    describeAddressesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.Address
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAddresses' smart constructor.
+-- | /See:/ 'newDescribeAddresses' smart constructor.
 data DescribeAddresses = DescribeAddresses'
-  { _dasDryRun ::
-      !(Maybe Bool),
-    _dasAllocationIds ::
-      !(Maybe [Text]),
-    _dasPublicIPs :: !(Maybe [Text]),
-    _dasFilters :: !(Maybe [Filter])
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | [EC2-VPC] Information about the allocation IDs.
+    allocationIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more Elastic IP addresses.
+    --
+    -- Default: Describes all your Elastic IP addresses.
+    publicIps :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters. Filter names and values are case-sensitive.
+    --
+    -- -   @allocation-id@ - [EC2-VPC] The allocation ID for the address.
+    --
+    -- -   @association-id@ - [EC2-VPC] The association ID for the address.
+    --
+    -- -   @domain@ - Indicates whether the address is for use in EC2-Classic
+    --     (@standard@) or in a VPC (@vpc@).
+    --
+    -- -   @instance-id@ - The ID of the instance the address is associated
+    --     with, if any.
+    --
+    -- -   @network-border-group@ - A unique set of Availability Zones, Local
+    --     Zones, or Wavelength Zones from where AWS advertises IP addresses.
+    --
+    -- -   @network-interface-id@ - [EC2-VPC] The ID of the network interface
+    --     that the address is associated with, if any.
+    --
+    -- -   @network-interface-owner-id@ - The AWS account ID of the owner.
+    --
+    -- -   @private-ip-address@ - [EC2-VPC] The private IP address associated
+    --     with the Elastic IP address.
+    --
+    -- -   @public-ip@ - The Elastic IP address, or the carrier IP address.
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAddresses' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAddresses' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasAllocationIds' - [EC2-VPC] Information about the allocation IDs.
+-- 'dryRun', 'describeAddresses_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dasPublicIPs' - One or more Elastic IP addresses. Default: Describes all your Elastic IP addresses.
+-- 'allocationIds', 'describeAddresses_allocationIds' - [EC2-VPC] Information about the allocation IDs.
 --
--- * 'dasFilters' - One or more filters. Filter names and values are case-sensitive.     * @allocation-id@ - [EC2-VPC] The allocation ID for the address.     * @association-id@ - [EC2-VPC] The association ID for the address.     * @domain@ - Indicates whether the address is for use in EC2-Classic (@standard@ ) or in a VPC (@vpc@ ).     * @instance-id@ - The ID of the instance the address is associated with, if any.     * @network-border-group@ - A unique set of Availability Zones, Local Zones, or Wavelength Zones from where AWS advertises IP addresses.      * @network-interface-id@ - [EC2-VPC] The ID of the network interface that the address is associated with, if any.     * @network-interface-owner-id@ - The AWS account ID of the owner.     * @private-ip-address@ - [EC2-VPC] The private IP address associated with the Elastic IP address.     * @public-ip@ - The Elastic IP address, or the carrier IP address.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
-describeAddresses ::
+-- 'publicIps', 'describeAddresses_publicIps' - One or more Elastic IP addresses.
+--
+-- Default: Describes all your Elastic IP addresses.
+--
+-- 'filters', 'describeAddresses_filters' - One or more filters. Filter names and values are case-sensitive.
+--
+-- -   @allocation-id@ - [EC2-VPC] The allocation ID for the address.
+--
+-- -   @association-id@ - [EC2-VPC] The association ID for the address.
+--
+-- -   @domain@ - Indicates whether the address is for use in EC2-Classic
+--     (@standard@) or in a VPC (@vpc@).
+--
+-- -   @instance-id@ - The ID of the instance the address is associated
+--     with, if any.
+--
+-- -   @network-border-group@ - A unique set of Availability Zones, Local
+--     Zones, or Wavelength Zones from where AWS advertises IP addresses.
+--
+-- -   @network-interface-id@ - [EC2-VPC] The ID of the network interface
+--     that the address is associated with, if any.
+--
+-- -   @network-interface-owner-id@ - The AWS account ID of the owner.
+--
+-- -   @private-ip-address@ - [EC2-VPC] The private IP address associated
+--     with the Elastic IP address.
+--
+-- -   @public-ip@ - The Elastic IP address, or the carrier IP address.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+newDescribeAddresses ::
   DescribeAddresses
-describeAddresses =
+newDescribeAddresses =
   DescribeAddresses'
-    { _dasDryRun = Nothing,
-      _dasAllocationIds = Nothing,
-      _dasPublicIPs = Nothing,
-      _dasFilters = Nothing
+    { dryRun = Prelude.Nothing,
+      allocationIds = Prelude.Nothing,
+      publicIps = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dasDryRun :: Lens' DescribeAddresses (Maybe Bool)
-dasDryRun = lens _dasDryRun (\s a -> s {_dasDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeAddresses_dryRun :: Lens.Lens' DescribeAddresses (Prelude.Maybe Prelude.Bool)
+describeAddresses_dryRun = Lens.lens (\DescribeAddresses' {dryRun} -> dryRun) (\s@DescribeAddresses' {} a -> s {dryRun = a} :: DescribeAddresses)
 
 -- | [EC2-VPC] Information about the allocation IDs.
-dasAllocationIds :: Lens' DescribeAddresses [Text]
-dasAllocationIds = lens _dasAllocationIds (\s a -> s {_dasAllocationIds = a}) . _Default . _Coerce
+describeAddresses_allocationIds :: Lens.Lens' DescribeAddresses (Prelude.Maybe [Prelude.Text])
+describeAddresses_allocationIds = Lens.lens (\DescribeAddresses' {allocationIds} -> allocationIds) (\s@DescribeAddresses' {} a -> s {allocationIds = a} :: DescribeAddresses) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more Elastic IP addresses. Default: Describes all your Elastic IP addresses.
-dasPublicIPs :: Lens' DescribeAddresses [Text]
-dasPublicIPs = lens _dasPublicIPs (\s a -> s {_dasPublicIPs = a}) . _Default . _Coerce
+-- | One or more Elastic IP addresses.
+--
+-- Default: Describes all your Elastic IP addresses.
+describeAddresses_publicIps :: Lens.Lens' DescribeAddresses (Prelude.Maybe [Prelude.Text])
+describeAddresses_publicIps = Lens.lens (\DescribeAddresses' {publicIps} -> publicIps) (\s@DescribeAddresses' {} a -> s {publicIps = a} :: DescribeAddresses) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters. Filter names and values are case-sensitive.     * @allocation-id@ - [EC2-VPC] The allocation ID for the address.     * @association-id@ - [EC2-VPC] The association ID for the address.     * @domain@ - Indicates whether the address is for use in EC2-Classic (@standard@ ) or in a VPC (@vpc@ ).     * @instance-id@ - The ID of the instance the address is associated with, if any.     * @network-border-group@ - A unique set of Availability Zones, Local Zones, or Wavelength Zones from where AWS advertises IP addresses.      * @network-interface-id@ - [EC2-VPC] The ID of the network interface that the address is associated with, if any.     * @network-interface-owner-id@ - The AWS account ID of the owner.     * @private-ip-address@ - [EC2-VPC] The private IP address associated with the Elastic IP address.     * @public-ip@ - The Elastic IP address, or the carrier IP address.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
-dasFilters :: Lens' DescribeAddresses [Filter]
-dasFilters = lens _dasFilters (\s a -> s {_dasFilters = a}) . _Default . _Coerce
+-- | One or more filters. Filter names and values are case-sensitive.
+--
+-- -   @allocation-id@ - [EC2-VPC] The allocation ID for the address.
+--
+-- -   @association-id@ - [EC2-VPC] The association ID for the address.
+--
+-- -   @domain@ - Indicates whether the address is for use in EC2-Classic
+--     (@standard@) or in a VPC (@vpc@).
+--
+-- -   @instance-id@ - The ID of the instance the address is associated
+--     with, if any.
+--
+-- -   @network-border-group@ - A unique set of Availability Zones, Local
+--     Zones, or Wavelength Zones from where AWS advertises IP addresses.
+--
+-- -   @network-interface-id@ - [EC2-VPC] The ID of the network interface
+--     that the address is associated with, if any.
+--
+-- -   @network-interface-owner-id@ - The AWS account ID of the owner.
+--
+-- -   @private-ip-address@ - [EC2-VPC] The private IP address associated
+--     with the Elastic IP address.
+--
+-- -   @public-ip@ - The Elastic IP address, or the carrier IP address.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+describeAddresses_filters :: Lens.Lens' DescribeAddresses (Prelude.Maybe [Filter])
+describeAddresses_filters = Lens.lens (\DescribeAddresses' {filters} -> filters) (\s@DescribeAddresses' {} a -> s {filters = a} :: DescribeAddresses) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeAddresses where
+instance Prelude.AWSRequest DescribeAddresses where
   type Rs DescribeAddresses = DescribeAddressesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeAddressesResponse'
-            <$> ( x .@? "addressesSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "addressesSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAddresses
+instance Prelude.Hashable DescribeAddresses
 
-instance NFData DescribeAddresses
+instance Prelude.NFData DescribeAddresses
 
-instance ToHeaders DescribeAddresses where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAddresses where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAddresses where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAddresses where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAddresses where
+instance Prelude.ToQuery DescribeAddresses where
   toQuery DescribeAddresses' {..} =
-    mconcat
-      [ "Action" =: ("DescribeAddresses" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dasDryRun,
-        toQuery
-          (toQueryList "AllocationId" <$> _dasAllocationIds),
-        toQuery (toQueryList "PublicIp" <$> _dasPublicIPs),
-        toQuery (toQueryList "Filter" <$> _dasFilters)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeAddresses" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQuery
+          ( Prelude.toQueryList "AllocationId"
+              Prelude.<$> allocationIds
+          ),
+        Prelude.toQuery
+          ( Prelude.toQueryList "PublicIp"
+              Prelude.<$> publicIps
+          ),
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeAddressesResponse' smart constructor.
+-- | /See:/ 'newDescribeAddressesResponse' smart constructor.
 data DescribeAddressesResponse = DescribeAddressesResponse'
-  { _darrsAddresses ::
-      !(Maybe [Address]),
-    _darrsResponseStatus ::
-      !Int
+  { -- | Information about the Elastic IP addresses.
+    addresses :: Prelude.Maybe [Address],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAddressesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAddressesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsAddresses' - Information about the Elastic IP addresses.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-describeAddressesResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'addresses', 'describeAddressesResponse_addresses' - Information about the Elastic IP addresses.
+--
+-- 'httpStatus', 'describeAddressesResponse_httpStatus' - The response's http status code.
+newDescribeAddressesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAddressesResponse
-describeAddressesResponse pResponseStatus_ =
+newDescribeAddressesResponse pHttpStatus_ =
   DescribeAddressesResponse'
-    { _darrsAddresses =
-        Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { addresses =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the Elastic IP addresses.
-darrsAddresses :: Lens' DescribeAddressesResponse [Address]
-darrsAddresses = lens _darrsAddresses (\s a -> s {_darrsAddresses = a}) . _Default . _Coerce
+describeAddressesResponse_addresses :: Lens.Lens' DescribeAddressesResponse (Prelude.Maybe [Address])
+describeAddressesResponse_addresses = Lens.lens (\DescribeAddressesResponse' {addresses} -> addresses) (\s@DescribeAddressesResponse' {} a -> s {addresses = a} :: DescribeAddressesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeAddressesResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeAddressesResponse_httpStatus :: Lens.Lens' DescribeAddressesResponse Prelude.Int
+describeAddressesResponse_httpStatus = Lens.lens (\DescribeAddressesResponse' {httpStatus} -> httpStatus) (\s@DescribeAddressesResponse' {} a -> s {httpStatus = a} :: DescribeAddressesResponse)
 
-instance NFData DescribeAddressesResponse
+instance Prelude.NFData DescribeAddressesResponse

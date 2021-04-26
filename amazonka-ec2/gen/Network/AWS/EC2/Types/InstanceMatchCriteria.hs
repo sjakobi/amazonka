@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.InstanceMatchCriteria
   ( InstanceMatchCriteria
       ( ..,
-        IMCOpen,
-        IMCTargeted
+        InstanceMatchCriteriaOpen,
+        InstanceMatchCriteriaTargeted
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceMatchCriteria
-  = InstanceMatchCriteria'
-      ( CI
-          Text
-      )
+newtype InstanceMatchCriteria = InstanceMatchCriteria'
+  { fromInstanceMatchCriteria ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IMCOpen :: InstanceMatchCriteria
-pattern IMCOpen = InstanceMatchCriteria' "open"
+pattern InstanceMatchCriteriaOpen :: InstanceMatchCriteria
+pattern InstanceMatchCriteriaOpen = InstanceMatchCriteria' "open"
 
-pattern IMCTargeted :: InstanceMatchCriteria
-pattern IMCTargeted = InstanceMatchCriteria' "targeted"
+pattern InstanceMatchCriteriaTargeted :: InstanceMatchCriteria
+pattern InstanceMatchCriteriaTargeted = InstanceMatchCriteria' "targeted"
 
 {-# COMPLETE
-  IMCOpen,
-  IMCTargeted,
+  InstanceMatchCriteriaOpen,
+  InstanceMatchCriteriaTargeted,
   InstanceMatchCriteria'
   #-}
 
-instance FromText InstanceMatchCriteria where
-  parser = (InstanceMatchCriteria' . mk) <$> takeText
+instance Prelude.FromText InstanceMatchCriteria where
+  parser = InstanceMatchCriteria' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceMatchCriteria where
-  toText (InstanceMatchCriteria' ci) = original ci
+instance Prelude.ToText InstanceMatchCriteria where
+  toText (InstanceMatchCriteria' x) = x
 
-instance Hashable InstanceMatchCriteria
+instance Prelude.Hashable InstanceMatchCriteria
 
-instance NFData InstanceMatchCriteria
+instance Prelude.NFData InstanceMatchCriteria
 
-instance ToByteString InstanceMatchCriteria
+instance Prelude.ToByteString InstanceMatchCriteria
 
-instance ToQuery InstanceMatchCriteria
+instance Prelude.ToQuery InstanceMatchCriteria
 
-instance ToHeader InstanceMatchCriteria
+instance Prelude.ToHeader InstanceMatchCriteria
 
-instance FromXML InstanceMatchCriteria where
-  parseXML = parseXMLText "InstanceMatchCriteria"
+instance Prelude.FromXML InstanceMatchCriteria where
+  parseXML = Prelude.parseXMLText "InstanceMatchCriteria"

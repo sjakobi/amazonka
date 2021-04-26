@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.RootDeviceType
   ( RootDeviceType
       ( ..,
-        EBS,
-        InstanceStore
+        RootDeviceTypeEbs,
+        RootDeviceTypeInstanceStore
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RootDeviceType = RootDeviceType' (CI Text)
+newtype RootDeviceType = RootDeviceType'
+  { fromRootDeviceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EBS :: RootDeviceType
-pattern EBS = RootDeviceType' "ebs"
+pattern RootDeviceTypeEbs :: RootDeviceType
+pattern RootDeviceTypeEbs = RootDeviceType' "ebs"
 
-pattern InstanceStore :: RootDeviceType
-pattern InstanceStore = RootDeviceType' "instance-store"
+pattern RootDeviceTypeInstanceStore :: RootDeviceType
+pattern RootDeviceTypeInstanceStore = RootDeviceType' "instance-store"
 
 {-# COMPLETE
-  EBS,
-  InstanceStore,
+  RootDeviceTypeEbs,
+  RootDeviceTypeInstanceStore,
   RootDeviceType'
   #-}
 
-instance FromText RootDeviceType where
-  parser = (RootDeviceType' . mk) <$> takeText
+instance Prelude.FromText RootDeviceType where
+  parser = RootDeviceType' Prelude.<$> Prelude.takeText
 
-instance ToText RootDeviceType where
-  toText (RootDeviceType' ci) = original ci
+instance Prelude.ToText RootDeviceType where
+  toText (RootDeviceType' x) = x
 
-instance Hashable RootDeviceType
+instance Prelude.Hashable RootDeviceType
 
-instance NFData RootDeviceType
+instance Prelude.NFData RootDeviceType
 
-instance ToByteString RootDeviceType
+instance Prelude.ToByteString RootDeviceType
 
-instance ToQuery RootDeviceType
+instance Prelude.ToQuery RootDeviceType
 
-instance ToHeader RootDeviceType
+instance Prelude.ToHeader RootDeviceType
 
-instance FromXML RootDeviceType where
-  parseXML = parseXMLText "RootDeviceType"
+instance Prelude.FromXML RootDeviceType where
+  parseXML = Prelude.parseXMLText "RootDeviceType"

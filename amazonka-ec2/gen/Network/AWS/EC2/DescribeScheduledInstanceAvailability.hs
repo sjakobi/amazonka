@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,296 +23,358 @@
 --
 -- Finds available schedules that meet the specified criteria.
 --
+-- You can search for an available schedule no more than 3 months in
+-- advance. You must meet the minimum required duration of 1,200 hours per
+-- year. For example, the minimum daily schedule is 4 hours, the minimum
+-- weekly schedule is 24 hours, and the minimum monthly schedule is 100
+-- hours.
 --
--- You can search for an available schedule no more than 3 months in advance. You must meet the minimum required duration of 1,200 hours per year. For example, the minimum daily schedule is 4 hours, the minimum weekly schedule is 24 hours, and the minimum monthly schedule is 100 hours.
---
--- After you find a schedule that meets your needs, call 'PurchaseScheduledInstances' to purchase Scheduled Instances with that schedule.
---
+-- After you find a schedule that meets your needs, call
+-- PurchaseScheduledInstances to purchase Scheduled Instances with that
+-- schedule.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeScheduledInstanceAvailability
   ( -- * Creating a Request
-    describeScheduledInstanceAvailability,
-    DescribeScheduledInstanceAvailability,
+    DescribeScheduledInstanceAvailability (..),
+    newDescribeScheduledInstanceAvailability,
 
     -- * Request Lenses
-    dsiaMinSlotDurationInHours,
-    dsiaNextToken,
-    dsiaDryRun,
-    dsiaMaxResults,
-    dsiaFilters,
-    dsiaMaxSlotDurationInHours,
-    dsiaFirstSlotStartTimeRange,
-    dsiaRecurrence,
+    describeScheduledInstanceAvailability_minSlotDurationInHours,
+    describeScheduledInstanceAvailability_nextToken,
+    describeScheduledInstanceAvailability_dryRun,
+    describeScheduledInstanceAvailability_maxResults,
+    describeScheduledInstanceAvailability_filters,
+    describeScheduledInstanceAvailability_maxSlotDurationInHours,
+    describeScheduledInstanceAvailability_firstSlotStartTimeRange,
+    describeScheduledInstanceAvailability_recurrence,
 
     -- * Destructuring the Response
-    describeScheduledInstanceAvailabilityResponse,
-    DescribeScheduledInstanceAvailabilityResponse,
+    DescribeScheduledInstanceAvailabilityResponse (..),
+    newDescribeScheduledInstanceAvailabilityResponse,
 
     -- * Response Lenses
-    dsiarrsNextToken,
-    dsiarrsScheduledInstanceAvailabilitySet,
-    dsiarrsResponseStatus,
+    describeScheduledInstanceAvailabilityResponse_nextToken,
+    describeScheduledInstanceAvailabilityResponse_scheduledInstanceAvailabilitySet,
+    describeScheduledInstanceAvailabilityResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ScheduledInstanceAvailability
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DescribeScheduledInstanceAvailability.
 --
---
---
--- /See:/ 'describeScheduledInstanceAvailability' smart constructor.
+-- /See:/ 'newDescribeScheduledInstanceAvailability' smart constructor.
 data DescribeScheduledInstanceAvailability = DescribeScheduledInstanceAvailability'
-  { _dsiaMinSlotDurationInHours ::
-      !( Maybe
-           Int
-       ),
-    _dsiaNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsiaDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dsiaMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dsiaFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _dsiaMaxSlotDurationInHours ::
-      !( Maybe
-           Int
-       ),
-    _dsiaFirstSlotStartTimeRange ::
-      !SlotDateTimeRangeRequest,
-    _dsiaRecurrence ::
-      !ScheduledInstanceRecurrenceRequest
+  { -- | The minimum available duration, in hours. The minimum required duration
+    -- is 1,200 hours per year. For example, the minimum daily schedule is 4
+    -- hours, the minimum weekly schedule is 24 hours, and the minimum monthly
+    -- schedule is 100 hours.
+    minSlotDurationInHours :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return in a single call. This value can
+    -- be between 5 and 300. The default value is 300. To retrieve the
+    -- remaining results, make another call with the returned @NextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The filters.
+    --
+    -- -   @availability-zone@ - The Availability Zone (for example,
+    --     @us-west-2a@).
+    --
+    -- -   @instance-type@ - The instance type (for example, @c4.large@).
+    --
+    -- -   @network-platform@ - The network platform (@EC2-Classic@ or
+    --     @EC2-VPC@).
+    --
+    -- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
+    filters :: Prelude.Maybe [Filter],
+    -- | The maximum available duration, in hours. This value must be greater
+    -- than @MinSlotDurationInHours@ and less than 1,720.
+    maxSlotDurationInHours :: Prelude.Maybe Prelude.Int,
+    -- | The time period for the first schedule to start.
+    firstSlotStartTimeRange :: SlotDateTimeRangeRequest,
+    -- | The schedule recurrence.
+    recurrence :: ScheduledInstanceRecurrenceRequest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledInstanceAvailability' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledInstanceAvailability' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsiaMinSlotDurationInHours' - The minimum available duration, in hours. The minimum required duration is 1,200 hours per year. For example, the minimum daily schedule is 4 hours, the minimum weekly schedule is 24 hours, and the minimum monthly schedule is 100 hours.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsiaNextToken' - The token for the next set of results.
+-- 'minSlotDurationInHours', 'describeScheduledInstanceAvailability_minSlotDurationInHours' - The minimum available duration, in hours. The minimum required duration
+-- is 1,200 hours per year. For example, the minimum daily schedule is 4
+-- hours, the minimum weekly schedule is 24 hours, and the minimum monthly
+-- schedule is 100 hours.
 --
--- * 'dsiaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeScheduledInstanceAvailability_nextToken' - The token for the next set of results.
 --
--- * 'dsiaMaxResults' - The maximum number of results to return in a single call. This value can be between 5 and 300. The default value is 300. To retrieve the remaining results, make another call with the returned @NextToken@ value.
+-- 'dryRun', 'describeScheduledInstanceAvailability_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dsiaFilters' - The filters.     * @availability-zone@ - The Availability Zone (for example, @us-west-2a@ ).     * @instance-type@ - The instance type (for example, @c4.large@ ).     * @network-platform@ - The network platform (@EC2-Classic@ or @EC2-VPC@ ).     * @platform@ - The platform (@Linux/UNIX@ or @Windows@ ).
+-- 'maxResults', 'describeScheduledInstanceAvailability_maxResults' - The maximum number of results to return in a single call. This value can
+-- be between 5 and 300. The default value is 300. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
 --
--- * 'dsiaMaxSlotDurationInHours' - The maximum available duration, in hours. This value must be greater than @MinSlotDurationInHours@ and less than 1,720.
+-- 'filters', 'describeScheduledInstanceAvailability_filters' - The filters.
 --
--- * 'dsiaFirstSlotStartTimeRange' - The time period for the first schedule to start.
+-- -   @availability-zone@ - The Availability Zone (for example,
+--     @us-west-2a@).
 --
--- * 'dsiaRecurrence' - The schedule recurrence.
-describeScheduledInstanceAvailability ::
-  -- | 'dsiaFirstSlotStartTimeRange'
+-- -   @instance-type@ - The instance type (for example, @c4.large@).
+--
+-- -   @network-platform@ - The network platform (@EC2-Classic@ or
+--     @EC2-VPC@).
+--
+-- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
+--
+-- 'maxSlotDurationInHours', 'describeScheduledInstanceAvailability_maxSlotDurationInHours' - The maximum available duration, in hours. This value must be greater
+-- than @MinSlotDurationInHours@ and less than 1,720.
+--
+-- 'firstSlotStartTimeRange', 'describeScheduledInstanceAvailability_firstSlotStartTimeRange' - The time period for the first schedule to start.
+--
+-- 'recurrence', 'describeScheduledInstanceAvailability_recurrence' - The schedule recurrence.
+newDescribeScheduledInstanceAvailability ::
+  -- | 'firstSlotStartTimeRange'
   SlotDateTimeRangeRequest ->
-  -- | 'dsiaRecurrence'
+  -- | 'recurrence'
   ScheduledInstanceRecurrenceRequest ->
   DescribeScheduledInstanceAvailability
-describeScheduledInstanceAvailability
+newDescribeScheduledInstanceAvailability
   pFirstSlotStartTimeRange_
   pRecurrence_ =
     DescribeScheduledInstanceAvailability'
-      { _dsiaMinSlotDurationInHours =
-          Nothing,
-        _dsiaNextToken = Nothing,
-        _dsiaDryRun = Nothing,
-        _dsiaMaxResults = Nothing,
-        _dsiaFilters = Nothing,
-        _dsiaMaxSlotDurationInHours =
-          Nothing,
-        _dsiaFirstSlotStartTimeRange =
+      { minSlotDurationInHours =
+          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        filters = Prelude.Nothing,
+        maxSlotDurationInHours =
+          Prelude.Nothing,
+        firstSlotStartTimeRange =
           pFirstSlotStartTimeRange_,
-        _dsiaRecurrence = pRecurrence_
+        recurrence = pRecurrence_
       }
 
--- | The minimum available duration, in hours. The minimum required duration is 1,200 hours per year. For example, the minimum daily schedule is 4 hours, the minimum weekly schedule is 24 hours, and the minimum monthly schedule is 100 hours.
-dsiaMinSlotDurationInHours :: Lens' DescribeScheduledInstanceAvailability (Maybe Int)
-dsiaMinSlotDurationInHours = lens _dsiaMinSlotDurationInHours (\s a -> s {_dsiaMinSlotDurationInHours = a})
+-- | The minimum available duration, in hours. The minimum required duration
+-- is 1,200 hours per year. For example, the minimum daily schedule is 4
+-- hours, the minimum weekly schedule is 24 hours, and the minimum monthly
+-- schedule is 100 hours.
+describeScheduledInstanceAvailability_minSlotDurationInHours :: Lens.Lens' DescribeScheduledInstanceAvailability (Prelude.Maybe Prelude.Int)
+describeScheduledInstanceAvailability_minSlotDurationInHours = Lens.lens (\DescribeScheduledInstanceAvailability' {minSlotDurationInHours} -> minSlotDurationInHours) (\s@DescribeScheduledInstanceAvailability' {} a -> s {minSlotDurationInHours = a} :: DescribeScheduledInstanceAvailability)
 
 -- | The token for the next set of results.
-dsiaNextToken :: Lens' DescribeScheduledInstanceAvailability (Maybe Text)
-dsiaNextToken = lens _dsiaNextToken (\s a -> s {_dsiaNextToken = a})
+describeScheduledInstanceAvailability_nextToken :: Lens.Lens' DescribeScheduledInstanceAvailability (Prelude.Maybe Prelude.Text)
+describeScheduledInstanceAvailability_nextToken = Lens.lens (\DescribeScheduledInstanceAvailability' {nextToken} -> nextToken) (\s@DescribeScheduledInstanceAvailability' {} a -> s {nextToken = a} :: DescribeScheduledInstanceAvailability)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dsiaDryRun :: Lens' DescribeScheduledInstanceAvailability (Maybe Bool)
-dsiaDryRun = lens _dsiaDryRun (\s a -> s {_dsiaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeScheduledInstanceAvailability_dryRun :: Lens.Lens' DescribeScheduledInstanceAvailability (Prelude.Maybe Prelude.Bool)
+describeScheduledInstanceAvailability_dryRun = Lens.lens (\DescribeScheduledInstanceAvailability' {dryRun} -> dryRun) (\s@DescribeScheduledInstanceAvailability' {} a -> s {dryRun = a} :: DescribeScheduledInstanceAvailability)
 
--- | The maximum number of results to return in a single call. This value can be between 5 and 300. The default value is 300. To retrieve the remaining results, make another call with the returned @NextToken@ value.
-dsiaMaxResults :: Lens' DescribeScheduledInstanceAvailability (Maybe Natural)
-dsiaMaxResults = lens _dsiaMaxResults (\s a -> s {_dsiaMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in a single call. This value can
+-- be between 5 and 300. The default value is 300. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
+describeScheduledInstanceAvailability_maxResults :: Lens.Lens' DescribeScheduledInstanceAvailability (Prelude.Maybe Prelude.Natural)
+describeScheduledInstanceAvailability_maxResults = Lens.lens (\DescribeScheduledInstanceAvailability' {maxResults} -> maxResults) (\s@DescribeScheduledInstanceAvailability' {} a -> s {maxResults = a} :: DescribeScheduledInstanceAvailability) Prelude.. Lens.mapping Prelude._Nat
 
--- | The filters.     * @availability-zone@ - The Availability Zone (for example, @us-west-2a@ ).     * @instance-type@ - The instance type (for example, @c4.large@ ).     * @network-platform@ - The network platform (@EC2-Classic@ or @EC2-VPC@ ).     * @platform@ - The platform (@Linux/UNIX@ or @Windows@ ).
-dsiaFilters :: Lens' DescribeScheduledInstanceAvailability [Filter]
-dsiaFilters = lens _dsiaFilters (\s a -> s {_dsiaFilters = a}) . _Default . _Coerce
+-- | The filters.
+--
+-- -   @availability-zone@ - The Availability Zone (for example,
+--     @us-west-2a@).
+--
+-- -   @instance-type@ - The instance type (for example, @c4.large@).
+--
+-- -   @network-platform@ - The network platform (@EC2-Classic@ or
+--     @EC2-VPC@).
+--
+-- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
+describeScheduledInstanceAvailability_filters :: Lens.Lens' DescribeScheduledInstanceAvailability (Prelude.Maybe [Filter])
+describeScheduledInstanceAvailability_filters = Lens.lens (\DescribeScheduledInstanceAvailability' {filters} -> filters) (\s@DescribeScheduledInstanceAvailability' {} a -> s {filters = a} :: DescribeScheduledInstanceAvailability) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum available duration, in hours. This value must be greater than @MinSlotDurationInHours@ and less than 1,720.
-dsiaMaxSlotDurationInHours :: Lens' DescribeScheduledInstanceAvailability (Maybe Int)
-dsiaMaxSlotDurationInHours = lens _dsiaMaxSlotDurationInHours (\s a -> s {_dsiaMaxSlotDurationInHours = a})
+-- | The maximum available duration, in hours. This value must be greater
+-- than @MinSlotDurationInHours@ and less than 1,720.
+describeScheduledInstanceAvailability_maxSlotDurationInHours :: Lens.Lens' DescribeScheduledInstanceAvailability (Prelude.Maybe Prelude.Int)
+describeScheduledInstanceAvailability_maxSlotDurationInHours = Lens.lens (\DescribeScheduledInstanceAvailability' {maxSlotDurationInHours} -> maxSlotDurationInHours) (\s@DescribeScheduledInstanceAvailability' {} a -> s {maxSlotDurationInHours = a} :: DescribeScheduledInstanceAvailability)
 
 -- | The time period for the first schedule to start.
-dsiaFirstSlotStartTimeRange :: Lens' DescribeScheduledInstanceAvailability SlotDateTimeRangeRequest
-dsiaFirstSlotStartTimeRange = lens _dsiaFirstSlotStartTimeRange (\s a -> s {_dsiaFirstSlotStartTimeRange = a})
+describeScheduledInstanceAvailability_firstSlotStartTimeRange :: Lens.Lens' DescribeScheduledInstanceAvailability SlotDateTimeRangeRequest
+describeScheduledInstanceAvailability_firstSlotStartTimeRange = Lens.lens (\DescribeScheduledInstanceAvailability' {firstSlotStartTimeRange} -> firstSlotStartTimeRange) (\s@DescribeScheduledInstanceAvailability' {} a -> s {firstSlotStartTimeRange = a} :: DescribeScheduledInstanceAvailability)
 
 -- | The schedule recurrence.
-dsiaRecurrence :: Lens' DescribeScheduledInstanceAvailability ScheduledInstanceRecurrenceRequest
-dsiaRecurrence = lens _dsiaRecurrence (\s a -> s {_dsiaRecurrence = a})
+describeScheduledInstanceAvailability_recurrence :: Lens.Lens' DescribeScheduledInstanceAvailability ScheduledInstanceRecurrenceRequest
+describeScheduledInstanceAvailability_recurrence = Lens.lens (\DescribeScheduledInstanceAvailability' {recurrence} -> recurrence) (\s@DescribeScheduledInstanceAvailability' {} a -> s {recurrence = a} :: DescribeScheduledInstanceAvailability)
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeScheduledInstanceAvailability
   where
   page rq rs
-    | stop (rs ^. dsiarrsNextToken) = Nothing
-    | stop
-        (rs ^. dsiarrsScheduledInstanceAvailabilitySet) =
-      Nothing
-    | otherwise =
-      Just $ rq & dsiaNextToken .~ rs ^. dsiarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeScheduledInstanceAvailabilityResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeScheduledInstanceAvailabilityResponse_scheduledInstanceAvailabilitySet
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeScheduledInstanceAvailability_nextToken
+          Lens..~ rs
+            Lens.^? describeScheduledInstanceAvailabilityResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeScheduledInstanceAvailability
   where
   type
     Rs DescribeScheduledInstanceAvailability =
       DescribeScheduledInstanceAvailabilityResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeScheduledInstanceAvailabilityResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "scheduledInstanceAvailabilitySet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "scheduledInstanceAvailabilitySet"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeScheduledInstanceAvailability
 
-instance NFData DescribeScheduledInstanceAvailability
+instance
+  Prelude.NFData
+    DescribeScheduledInstanceAvailability
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeScheduledInstanceAvailability
   where
-  toHeaders = const mempty
-
-instance ToPath DescribeScheduledInstanceAvailability where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DescribeScheduledInstanceAvailability
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DescribeScheduledInstanceAvailability
   where
   toQuery DescribeScheduledInstanceAvailability' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DescribeScheduledInstanceAvailability" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
+          Prelude.=: ( "DescribeScheduledInstanceAvailability" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
         "MinSlotDurationInHours"
-          =: _dsiaMinSlotDurationInHours,
-        "NextToken" =: _dsiaNextToken,
-        "DryRun" =: _dsiaDryRun,
-        "MaxResults" =: _dsiaMaxResults,
-        toQuery (toQueryList "Filter" <$> _dsiaFilters),
+          Prelude.=: minSlotDurationInHours,
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
         "MaxSlotDurationInHours"
-          =: _dsiaMaxSlotDurationInHours,
+          Prelude.=: maxSlotDurationInHours,
         "FirstSlotStartTimeRange"
-          =: _dsiaFirstSlotStartTimeRange,
-        "Recurrence" =: _dsiaRecurrence
+          Prelude.=: firstSlotStartTimeRange,
+        "Recurrence" Prelude.=: recurrence
       ]
 
 -- | Contains the output of DescribeScheduledInstanceAvailability.
 --
---
---
--- /See:/ 'describeScheduledInstanceAvailabilityResponse' smart constructor.
+-- /See:/ 'newDescribeScheduledInstanceAvailabilityResponse' smart constructor.
 data DescribeScheduledInstanceAvailabilityResponse = DescribeScheduledInstanceAvailabilityResponse'
-  { _dsiarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsiarrsScheduledInstanceAvailabilitySet ::
-      !( Maybe
-           [ScheduledInstanceAvailability]
-       ),
-    _dsiarrsResponseStatus ::
-      !Int
+  { -- | The token required to retrieve the next set of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the available Scheduled Instances.
+    scheduledInstanceAvailabilitySet :: Prelude.Maybe [ScheduledInstanceAvailability],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledInstanceAvailabilityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledInstanceAvailabilityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsiarrsNextToken' - The token required to retrieve the next set of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsiarrsScheduledInstanceAvailabilitySet' - Information about the available Scheduled Instances.
+-- 'nextToken', 'describeScheduledInstanceAvailabilityResponse_nextToken' - The token required to retrieve the next set of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dsiarrsResponseStatus' - -- | The response status code.
-describeScheduledInstanceAvailabilityResponse ::
-  -- | 'dsiarrsResponseStatus'
-  Int ->
+-- 'scheduledInstanceAvailabilitySet', 'describeScheduledInstanceAvailabilityResponse_scheduledInstanceAvailabilitySet' - Information about the available Scheduled Instances.
+--
+-- 'httpStatus', 'describeScheduledInstanceAvailabilityResponse_httpStatus' - The response's http status code.
+newDescribeScheduledInstanceAvailabilityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeScheduledInstanceAvailabilityResponse
-describeScheduledInstanceAvailabilityResponse
-  pResponseStatus_ =
+newDescribeScheduledInstanceAvailabilityResponse
+  pHttpStatus_ =
     DescribeScheduledInstanceAvailabilityResponse'
-      { _dsiarrsNextToken =
-          Nothing,
-        _dsiarrsScheduledInstanceAvailabilitySet =
-          Nothing,
-        _dsiarrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        scheduledInstanceAvailabilitySet =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token required to retrieve the next set of results. This value is @null@ when there are no more results to return.
-dsiarrsNextToken :: Lens' DescribeScheduledInstanceAvailabilityResponse (Maybe Text)
-dsiarrsNextToken = lens _dsiarrsNextToken (\s a -> s {_dsiarrsNextToken = a})
+-- | The token required to retrieve the next set of results. This value is
+-- @null@ when there are no more results to return.
+describeScheduledInstanceAvailabilityResponse_nextToken :: Lens.Lens' DescribeScheduledInstanceAvailabilityResponse (Prelude.Maybe Prelude.Text)
+describeScheduledInstanceAvailabilityResponse_nextToken = Lens.lens (\DescribeScheduledInstanceAvailabilityResponse' {nextToken} -> nextToken) (\s@DescribeScheduledInstanceAvailabilityResponse' {} a -> s {nextToken = a} :: DescribeScheduledInstanceAvailabilityResponse)
 
 -- | Information about the available Scheduled Instances.
-dsiarrsScheduledInstanceAvailabilitySet :: Lens' DescribeScheduledInstanceAvailabilityResponse [ScheduledInstanceAvailability]
-dsiarrsScheduledInstanceAvailabilitySet = lens _dsiarrsScheduledInstanceAvailabilitySet (\s a -> s {_dsiarrsScheduledInstanceAvailabilitySet = a}) . _Default . _Coerce
+describeScheduledInstanceAvailabilityResponse_scheduledInstanceAvailabilitySet :: Lens.Lens' DescribeScheduledInstanceAvailabilityResponse (Prelude.Maybe [ScheduledInstanceAvailability])
+describeScheduledInstanceAvailabilityResponse_scheduledInstanceAvailabilitySet = Lens.lens (\DescribeScheduledInstanceAvailabilityResponse' {scheduledInstanceAvailabilitySet} -> scheduledInstanceAvailabilitySet) (\s@DescribeScheduledInstanceAvailabilityResponse' {} a -> s {scheduledInstanceAvailabilitySet = a} :: DescribeScheduledInstanceAvailabilityResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsiarrsResponseStatus :: Lens' DescribeScheduledInstanceAvailabilityResponse Int
-dsiarrsResponseStatus = lens _dsiarrsResponseStatus (\s a -> s {_dsiarrsResponseStatus = a})
+-- | The response's http status code.
+describeScheduledInstanceAvailabilityResponse_httpStatus :: Lens.Lens' DescribeScheduledInstanceAvailabilityResponse Prelude.Int
+describeScheduledInstanceAvailabilityResponse_httpStatus = Lens.lens (\DescribeScheduledInstanceAvailabilityResponse' {httpStatus} -> httpStatus) (\s@DescribeScheduledInstanceAvailabilityResponse' {} a -> s {httpStatus = a} :: DescribeScheduledInstanceAvailabilityResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeScheduledInstanceAvailabilityResponse

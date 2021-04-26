@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,125 +23,138 @@
 --
 -- Resets permission settings for the specified snapshot.
 --
---
--- For more information about modifying snapshot permissions, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html Sharing snapshots> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- For more information about modifying snapshot permissions, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html Sharing snapshots>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Network.AWS.EC2.ResetSnapshotAttribute
   ( -- * Creating a Request
-    resetSnapshotAttribute,
-    ResetSnapshotAttribute,
+    ResetSnapshotAttribute (..),
+    newResetSnapshotAttribute,
 
     -- * Request Lenses
-    rsaDryRun,
-    rsaAttribute,
-    rsaSnapshotId,
+    resetSnapshotAttribute_dryRun,
+    resetSnapshotAttribute_attribute,
+    resetSnapshotAttribute_snapshotId,
 
     -- * Destructuring the Response
-    resetSnapshotAttributeResponse,
-    ResetSnapshotAttributeResponse,
+    ResetSnapshotAttributeResponse (..),
+    newResetSnapshotAttributeResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resetSnapshotAttribute' smart constructor.
+-- | /See:/ 'newResetSnapshotAttribute' smart constructor.
 data ResetSnapshotAttribute = ResetSnapshotAttribute'
-  { _rsaDryRun ::
-      !(Maybe Bool),
-    _rsaAttribute ::
-      !SnapshotAttributeName,
-    _rsaSnapshotId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The attribute to reset. Currently, only the attribute for permission to
+    -- create volumes can be reset.
+    attribute :: SnapshotAttributeName,
+    -- | The ID of the snapshot.
+    snapshotId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetSnapshotAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetSnapshotAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsaAttribute' - The attribute to reset. Currently, only the attribute for permission to create volumes can be reset.
+-- 'dryRun', 'resetSnapshotAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'rsaSnapshotId' - The ID of the snapshot.
-resetSnapshotAttribute ::
-  -- | 'rsaAttribute'
+-- 'attribute', 'resetSnapshotAttribute_attribute' - The attribute to reset. Currently, only the attribute for permission to
+-- create volumes can be reset.
+--
+-- 'snapshotId', 'resetSnapshotAttribute_snapshotId' - The ID of the snapshot.
+newResetSnapshotAttribute ::
+  -- | 'attribute'
   SnapshotAttributeName ->
-  -- | 'rsaSnapshotId'
-  Text ->
+  -- | 'snapshotId'
+  Prelude.Text ->
   ResetSnapshotAttribute
-resetSnapshotAttribute pAttribute_ pSnapshotId_ =
+newResetSnapshotAttribute pAttribute_ pSnapshotId_ =
   ResetSnapshotAttribute'
-    { _rsaDryRun = Nothing,
-      _rsaAttribute = pAttribute_,
-      _rsaSnapshotId = pSnapshotId_
+    { dryRun = Prelude.Nothing,
+      attribute = pAttribute_,
+      snapshotId = pSnapshotId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rsaDryRun :: Lens' ResetSnapshotAttribute (Maybe Bool)
-rsaDryRun = lens _rsaDryRun (\s a -> s {_rsaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+resetSnapshotAttribute_dryRun :: Lens.Lens' ResetSnapshotAttribute (Prelude.Maybe Prelude.Bool)
+resetSnapshotAttribute_dryRun = Lens.lens (\ResetSnapshotAttribute' {dryRun} -> dryRun) (\s@ResetSnapshotAttribute' {} a -> s {dryRun = a} :: ResetSnapshotAttribute)
 
--- | The attribute to reset. Currently, only the attribute for permission to create volumes can be reset.
-rsaAttribute :: Lens' ResetSnapshotAttribute SnapshotAttributeName
-rsaAttribute = lens _rsaAttribute (\s a -> s {_rsaAttribute = a})
+-- | The attribute to reset. Currently, only the attribute for permission to
+-- create volumes can be reset.
+resetSnapshotAttribute_attribute :: Lens.Lens' ResetSnapshotAttribute SnapshotAttributeName
+resetSnapshotAttribute_attribute = Lens.lens (\ResetSnapshotAttribute' {attribute} -> attribute) (\s@ResetSnapshotAttribute' {} a -> s {attribute = a} :: ResetSnapshotAttribute)
 
 -- | The ID of the snapshot.
-rsaSnapshotId :: Lens' ResetSnapshotAttribute Text
-rsaSnapshotId = lens _rsaSnapshotId (\s a -> s {_rsaSnapshotId = a})
+resetSnapshotAttribute_snapshotId :: Lens.Lens' ResetSnapshotAttribute Prelude.Text
+resetSnapshotAttribute_snapshotId = Lens.lens (\ResetSnapshotAttribute' {snapshotId} -> snapshotId) (\s@ResetSnapshotAttribute' {} a -> s {snapshotId = a} :: ResetSnapshotAttribute)
 
-instance AWSRequest ResetSnapshotAttribute where
+instance Prelude.AWSRequest ResetSnapshotAttribute where
   type
     Rs ResetSnapshotAttribute =
       ResetSnapshotAttributeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveNull ResetSnapshotAttributeResponse'
+    Response.receiveNull
+      ResetSnapshotAttributeResponse'
 
-instance Hashable ResetSnapshotAttribute
+instance Prelude.Hashable ResetSnapshotAttribute
 
-instance NFData ResetSnapshotAttribute
+instance Prelude.NFData ResetSnapshotAttribute
 
-instance ToHeaders ResetSnapshotAttribute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ResetSnapshotAttribute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ResetSnapshotAttribute where
-  toPath = const "/"
+instance Prelude.ToPath ResetSnapshotAttribute where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResetSnapshotAttribute where
+instance Prelude.ToQuery ResetSnapshotAttribute where
   toQuery ResetSnapshotAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ResetSnapshotAttribute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _rsaDryRun,
-        "Attribute" =: _rsaAttribute,
-        "SnapshotId" =: _rsaSnapshotId
+          Prelude.=: ("ResetSnapshotAttribute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "Attribute" Prelude.=: attribute,
+        "SnapshotId" Prelude.=: snapshotId
       ]
 
--- | /See:/ 'resetSnapshotAttributeResponse' smart constructor.
+-- | /See:/ 'newResetSnapshotAttributeResponse' smart constructor.
 data ResetSnapshotAttributeResponse = ResetSnapshotAttributeResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetSnapshotAttributeResponse' with the minimum fields required to make a request.
-resetSnapshotAttributeResponse ::
+-- |
+-- Create a value of 'ResetSnapshotAttributeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newResetSnapshotAttributeResponse ::
   ResetSnapshotAttributeResponse
-resetSnapshotAttributeResponse =
+newResetSnapshotAttributeResponse =
   ResetSnapshotAttributeResponse'
 
-instance NFData ResetSnapshotAttributeResponse
+instance
+  Prelude.NFData
+    ResetSnapshotAttributeResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified managed prefix list. You must first remove all references to the prefix list in your resources.
+-- Deletes the specified managed prefix list. You must first remove all
+-- references to the prefix list in your resources.
 module Network.AWS.EC2.DeleteManagedPrefixList
   ( -- * Creating a Request
-    deleteManagedPrefixList,
-    DeleteManagedPrefixList,
+    DeleteManagedPrefixList (..),
+    newDeleteManagedPrefixList,
 
     -- * Request Lenses
-    dmplmDryRun,
-    dmplmPrefixListId,
+    deleteManagedPrefixList_dryRun,
+    deleteManagedPrefixList_prefixListId,
 
     -- * Destructuring the Response
-    deleteManagedPrefixListResponse,
-    DeleteManagedPrefixListResponse,
+    DeleteManagedPrefixListResponse (..),
+    newDeleteManagedPrefixListResponse,
 
     -- * Response Lenses
-    dmplrrsPrefixList,
-    dmplrrsResponseStatus,
+    deleteManagedPrefixListResponse_prefixList,
+    deleteManagedPrefixListResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ManagedPrefixList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteManagedPrefixList' smart constructor.
+-- | /See:/ 'newDeleteManagedPrefixList' smart constructor.
 data DeleteManagedPrefixList = DeleteManagedPrefixList'
-  { _dmplmDryRun ::
-      !(Maybe Bool),
-    _dmplmPrefixListId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the prefix list.
+    prefixListId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteManagedPrefixList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteManagedPrefixList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmplmDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmplmPrefixListId' - The ID of the prefix list.
-deleteManagedPrefixList ::
-  -- | 'dmplmPrefixListId'
-  Text ->
+-- 'dryRun', 'deleteManagedPrefixList_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'prefixListId', 'deleteManagedPrefixList_prefixListId' - The ID of the prefix list.
+newDeleteManagedPrefixList ::
+  -- | 'prefixListId'
+  Prelude.Text ->
   DeleteManagedPrefixList
-deleteManagedPrefixList pPrefixListId_ =
+newDeleteManagedPrefixList pPrefixListId_ =
   DeleteManagedPrefixList'
-    { _dmplmDryRun = Nothing,
-      _dmplmPrefixListId = pPrefixListId_
+    { dryRun = Prelude.Nothing,
+      prefixListId = pPrefixListId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dmplmDryRun :: Lens' DeleteManagedPrefixList (Maybe Bool)
-dmplmDryRun = lens _dmplmDryRun (\s a -> s {_dmplmDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteManagedPrefixList_dryRun :: Lens.Lens' DeleteManagedPrefixList (Prelude.Maybe Prelude.Bool)
+deleteManagedPrefixList_dryRun = Lens.lens (\DeleteManagedPrefixList' {dryRun} -> dryRun) (\s@DeleteManagedPrefixList' {} a -> s {dryRun = a} :: DeleteManagedPrefixList)
 
 -- | The ID of the prefix list.
-dmplmPrefixListId :: Lens' DeleteManagedPrefixList Text
-dmplmPrefixListId = lens _dmplmPrefixListId (\s a -> s {_dmplmPrefixListId = a})
+deleteManagedPrefixList_prefixListId :: Lens.Lens' DeleteManagedPrefixList Prelude.Text
+deleteManagedPrefixList_prefixListId = Lens.lens (\DeleteManagedPrefixList' {prefixListId} -> prefixListId) (\s@DeleteManagedPrefixList' {} a -> s {prefixListId = a} :: DeleteManagedPrefixList)
 
-instance AWSRequest DeleteManagedPrefixList where
+instance Prelude.AWSRequest DeleteManagedPrefixList where
   type
     Rs DeleteManagedPrefixList =
       DeleteManagedPrefixListResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteManagedPrefixListResponse'
-            <$> (x .@? "prefixList") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "prefixList")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteManagedPrefixList
+instance Prelude.Hashable DeleteManagedPrefixList
 
-instance NFData DeleteManagedPrefixList
+instance Prelude.NFData DeleteManagedPrefixList
 
-instance ToHeaders DeleteManagedPrefixList where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteManagedPrefixList where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteManagedPrefixList where
-  toPath = const "/"
+instance Prelude.ToPath DeleteManagedPrefixList where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteManagedPrefixList where
+instance Prelude.ToQuery DeleteManagedPrefixList where
   toQuery DeleteManagedPrefixList' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteManagedPrefixList" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dmplmDryRun,
-        "PrefixListId" =: _dmplmPrefixListId
+          Prelude.=: ("DeleteManagedPrefixList" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "PrefixListId" Prelude.=: prefixListId
       ]
 
--- | /See:/ 'deleteManagedPrefixListResponse' smart constructor.
+-- | /See:/ 'newDeleteManagedPrefixListResponse' smart constructor.
 data DeleteManagedPrefixListResponse = DeleteManagedPrefixListResponse'
-  { _dmplrrsPrefixList ::
-      !( Maybe
-           ManagedPrefixList
-       ),
-    _dmplrrsResponseStatus ::
-      !Int
+  { -- | Information about the prefix list.
+    prefixList :: Prelude.Maybe ManagedPrefixList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteManagedPrefixListResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteManagedPrefixListResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmplrrsPrefixList' - Information about the prefix list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmplrrsResponseStatus' - -- | The response status code.
-deleteManagedPrefixListResponse ::
-  -- | 'dmplrrsResponseStatus'
-  Int ->
+-- 'prefixList', 'deleteManagedPrefixListResponse_prefixList' - Information about the prefix list.
+--
+-- 'httpStatus', 'deleteManagedPrefixListResponse_httpStatus' - The response's http status code.
+newDeleteManagedPrefixListResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteManagedPrefixListResponse
-deleteManagedPrefixListResponse pResponseStatus_ =
+newDeleteManagedPrefixListResponse pHttpStatus_ =
   DeleteManagedPrefixListResponse'
-    { _dmplrrsPrefixList =
-        Nothing,
-      _dmplrrsResponseStatus = pResponseStatus_
+    { prefixList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the prefix list.
-dmplrrsPrefixList :: Lens' DeleteManagedPrefixListResponse (Maybe ManagedPrefixList)
-dmplrrsPrefixList = lens _dmplrrsPrefixList (\s a -> s {_dmplrrsPrefixList = a})
+deleteManagedPrefixListResponse_prefixList :: Lens.Lens' DeleteManagedPrefixListResponse (Prelude.Maybe ManagedPrefixList)
+deleteManagedPrefixListResponse_prefixList = Lens.lens (\DeleteManagedPrefixListResponse' {prefixList} -> prefixList) (\s@DeleteManagedPrefixListResponse' {} a -> s {prefixList = a} :: DeleteManagedPrefixListResponse)
 
--- | -- | The response status code.
-dmplrrsResponseStatus :: Lens' DeleteManagedPrefixListResponse Int
-dmplrrsResponseStatus = lens _dmplrrsResponseStatus (\s a -> s {_dmplrrsResponseStatus = a})
+-- | The response's http status code.
+deleteManagedPrefixListResponse_httpStatus :: Lens.Lens' DeleteManagedPrefixListResponse Prelude.Int
+deleteManagedPrefixListResponse_httpStatus = Lens.lens (\DeleteManagedPrefixListResponse' {httpStatus} -> httpStatus) (\s@DeleteManagedPrefixListResponse' {} a -> s {httpStatus = a} :: DeleteManagedPrefixListResponse)
 
-instance NFData DeleteManagedPrefixListResponse
+instance
+  Prelude.NFData
+    DeleteManagedPrefixListResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.ArchitectureType
   ( ArchitectureType
       ( ..,
-        ARM64,
-        I386,
-        X86_64
+        ArchitectureTypeARM64,
+        ArchitectureTypeI386,
+        ArchitectureTypeX8664
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArchitectureType = ArchitectureType' (CI Text)
+newtype ArchitectureType = ArchitectureType'
+  { fromArchitectureType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ARM64 :: ArchitectureType
-pattern ARM64 = ArchitectureType' "arm64"
+pattern ArchitectureTypeARM64 :: ArchitectureType
+pattern ArchitectureTypeARM64 = ArchitectureType' "arm64"
 
-pattern I386 :: ArchitectureType
-pattern I386 = ArchitectureType' "i386"
+pattern ArchitectureTypeI386 :: ArchitectureType
+pattern ArchitectureTypeI386 = ArchitectureType' "i386"
 
-pattern X86_64 :: ArchitectureType
-pattern X86_64 = ArchitectureType' "x86_64"
+pattern ArchitectureTypeX8664 :: ArchitectureType
+pattern ArchitectureTypeX8664 = ArchitectureType' "x86_64"
 
 {-# COMPLETE
-  ARM64,
-  I386,
-  X86_64,
+  ArchitectureTypeARM64,
+  ArchitectureTypeI386,
+  ArchitectureTypeX8664,
   ArchitectureType'
   #-}
 
-instance FromText ArchitectureType where
-  parser = (ArchitectureType' . mk) <$> takeText
+instance Prelude.FromText ArchitectureType where
+  parser = ArchitectureType' Prelude.<$> Prelude.takeText
 
-instance ToText ArchitectureType where
-  toText (ArchitectureType' ci) = original ci
+instance Prelude.ToText ArchitectureType where
+  toText (ArchitectureType' x) = x
 
-instance Hashable ArchitectureType
+instance Prelude.Hashable ArchitectureType
 
-instance NFData ArchitectureType
+instance Prelude.NFData ArchitectureType
 
-instance ToByteString ArchitectureType
+instance Prelude.ToByteString ArchitectureType
 
-instance ToQuery ArchitectureType
+instance Prelude.ToQuery ArchitectureType
 
-instance ToHeader ArchitectureType
+instance Prelude.ToHeader ArchitectureType
 
-instance FromXML ArchitectureType where
-  parseXML = parseXMLText "ArchitectureType"
+instance Prelude.FromXML ArchitectureType where
+  parseXML = Prelude.parseXMLText "ArchitectureType"

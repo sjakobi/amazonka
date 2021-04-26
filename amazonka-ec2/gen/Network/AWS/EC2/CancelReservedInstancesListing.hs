@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels the specified Reserved Instance listing in the Reserved Instance Marketplace.
+-- Cancels the specified Reserved Instance listing in the Reserved Instance
+-- Marketplace.
 --
---
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html Reserved Instance Marketplace> in the /Amazon EC2 User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html Reserved Instance Marketplace>
+-- in the /Amazon EC2 User Guide/.
 module Network.AWS.EC2.CancelReservedInstancesListing
   ( -- * Creating a Request
-    cancelReservedInstancesListing,
-    CancelReservedInstancesListing,
+    CancelReservedInstancesListing (..),
+    newCancelReservedInstancesListing,
 
     -- * Request Lenses
-    crilReservedInstancesListingId,
+    cancelReservedInstancesListing_reservedInstancesListingId,
 
     -- * Destructuring the Response
-    cancelReservedInstancesListingResponse,
-    CancelReservedInstancesListingResponse,
+    CancelReservedInstancesListingResponse (..),
+    newCancelReservedInstancesListingResponse,
 
     -- * Response Lenses
-    crilrrsReservedInstancesListings,
-    crilrrsResponseStatus,
+    cancelReservedInstancesListingResponse_reservedInstancesListings,
+    cancelReservedInstancesListingResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ReservedInstancesListing
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for CancelReservedInstancesListing.
 --
---
---
--- /See:/ 'cancelReservedInstancesListing' smart constructor.
-newtype CancelReservedInstancesListing = CancelReservedInstancesListing'
-  { _crilReservedInstancesListingId ::
-      Text
+-- /See:/ 'newCancelReservedInstancesListing' smart constructor.
+data CancelReservedInstancesListing = CancelReservedInstancesListing'
+  { -- | The ID of the Reserved Instance listing.
+    reservedInstancesListingId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelReservedInstancesListing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelReservedInstancesListing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crilReservedInstancesListingId' - The ID of the Reserved Instance listing.
-cancelReservedInstancesListing ::
-  -- | 'crilReservedInstancesListingId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'reservedInstancesListingId', 'cancelReservedInstancesListing_reservedInstancesListingId' - The ID of the Reserved Instance listing.
+newCancelReservedInstancesListing ::
+  -- | 'reservedInstancesListingId'
+  Prelude.Text ->
   CancelReservedInstancesListing
-cancelReservedInstancesListing
+newCancelReservedInstancesListing
   pReservedInstancesListingId_ =
     CancelReservedInstancesListing'
-      { _crilReservedInstancesListingId =
+      { reservedInstancesListingId =
           pReservedInstancesListingId_
       }
 
 -- | The ID of the Reserved Instance listing.
-crilReservedInstancesListingId :: Lens' CancelReservedInstancesListing Text
-crilReservedInstancesListingId = lens _crilReservedInstancesListingId (\s a -> s {_crilReservedInstancesListingId = a})
+cancelReservedInstancesListing_reservedInstancesListingId :: Lens.Lens' CancelReservedInstancesListing Prelude.Text
+cancelReservedInstancesListing_reservedInstancesListingId = Lens.lens (\CancelReservedInstancesListing' {reservedInstancesListingId} -> reservedInstancesListingId) (\s@CancelReservedInstancesListing' {} a -> s {reservedInstancesListingId = a} :: CancelReservedInstancesListing)
 
-instance AWSRequest CancelReservedInstancesListing where
+instance
+  Prelude.AWSRequest
+    CancelReservedInstancesListing
+  where
   type
     Rs CancelReservedInstancesListing =
       CancelReservedInstancesListingResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CancelReservedInstancesListingResponse'
-            <$> ( x .@? "reservedInstancesListingsSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "reservedInstancesListingsSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelReservedInstancesListing
+instance
+  Prelude.Hashable
+    CancelReservedInstancesListing
 
-instance NFData CancelReservedInstancesListing
+instance
+  Prelude.NFData
+    CancelReservedInstancesListing
 
-instance ToHeaders CancelReservedInstancesListing where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CancelReservedInstancesListing
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CancelReservedInstancesListing where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    CancelReservedInstancesListing
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelReservedInstancesListing where
+instance
+  Prelude.ToQuery
+    CancelReservedInstancesListing
+  where
   toQuery CancelReservedInstancesListing' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CancelReservedInstancesListing" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
+          Prelude.=: ( "CancelReservedInstancesListing" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
         "ReservedInstancesListingId"
-          =: _crilReservedInstancesListingId
+          Prelude.=: reservedInstancesListingId
       ]
 
 -- | Contains the output of CancelReservedInstancesListing.
 --
---
---
--- /See:/ 'cancelReservedInstancesListingResponse' smart constructor.
+-- /See:/ 'newCancelReservedInstancesListingResponse' smart constructor.
 data CancelReservedInstancesListingResponse = CancelReservedInstancesListingResponse'
-  { _crilrrsReservedInstancesListings ::
-      !( Maybe
-           [ReservedInstancesListing]
-       ),
-    _crilrrsResponseStatus ::
-      !Int
+  { -- | The Reserved Instance listing.
+    reservedInstancesListings :: Prelude.Maybe [ReservedInstancesListing],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelReservedInstancesListingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelReservedInstancesListingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crilrrsReservedInstancesListings' - The Reserved Instance listing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crilrrsResponseStatus' - -- | The response status code.
-cancelReservedInstancesListingResponse ::
-  -- | 'crilrrsResponseStatus'
-  Int ->
+-- 'reservedInstancesListings', 'cancelReservedInstancesListingResponse_reservedInstancesListings' - The Reserved Instance listing.
+--
+-- 'httpStatus', 'cancelReservedInstancesListingResponse_httpStatus' - The response's http status code.
+newCancelReservedInstancesListingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelReservedInstancesListingResponse
-cancelReservedInstancesListingResponse
-  pResponseStatus_ =
+newCancelReservedInstancesListingResponse
+  pHttpStatus_ =
     CancelReservedInstancesListingResponse'
-      { _crilrrsReservedInstancesListings =
-          Nothing,
-        _crilrrsResponseStatus =
-          pResponseStatus_
+      { reservedInstancesListings =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The Reserved Instance listing.
-crilrrsReservedInstancesListings :: Lens' CancelReservedInstancesListingResponse [ReservedInstancesListing]
-crilrrsReservedInstancesListings = lens _crilrrsReservedInstancesListings (\s a -> s {_crilrrsReservedInstancesListings = a}) . _Default . _Coerce
+cancelReservedInstancesListingResponse_reservedInstancesListings :: Lens.Lens' CancelReservedInstancesListingResponse (Prelude.Maybe [ReservedInstancesListing])
+cancelReservedInstancesListingResponse_reservedInstancesListings = Lens.lens (\CancelReservedInstancesListingResponse' {reservedInstancesListings} -> reservedInstancesListings) (\s@CancelReservedInstancesListingResponse' {} a -> s {reservedInstancesListings = a} :: CancelReservedInstancesListingResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-crilrrsResponseStatus :: Lens' CancelReservedInstancesListingResponse Int
-crilrrsResponseStatus = lens _crilrrsResponseStatus (\s a -> s {_crilrrsResponseStatus = a})
+-- | The response's http status code.
+cancelReservedInstancesListingResponse_httpStatus :: Lens.Lens' CancelReservedInstancesListingResponse Prelude.Int
+cancelReservedInstancesListingResponse_httpStatus = Lens.lens (\CancelReservedInstancesListingResponse' {httpStatus} -> httpStatus) (\s@CancelReservedInstancesListingResponse' {} a -> s {httpStatus = a} :: CancelReservedInstancesListingResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CancelReservedInstancesListingResponse

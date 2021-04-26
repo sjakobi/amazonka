@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,132 @@
 module Network.AWS.EC2.Types.ProvisionedBandwidth where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
+-- | Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
 --
---
---
--- /See:/ 'provisionedBandwidth' smart constructor.
+-- /See:/ 'newProvisionedBandwidth' smart constructor.
 data ProvisionedBandwidth = ProvisionedBandwidth'
-  { _pbProvisionTime ::
-      !(Maybe ISO8601),
-    _pbStatus :: !(Maybe Text),
-    _pbRequestTime ::
-      !(Maybe ISO8601),
-    _pbRequested :: !(Maybe Text),
-    _pbProvisioned ::
-      !(Maybe Text)
+  { -- | Reserved. If you need to sustain traffic greater than the
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+    -- contact us through the
+    -- <https://console.aws.amazon.com/support/home? Support Center>.
+    provisionTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Reserved. If you need to sustain traffic greater than the
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+    -- contact us through the
+    -- <https://console.aws.amazon.com/support/home? Support Center>.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | Reserved. If you need to sustain traffic greater than the
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+    -- contact us through the
+    -- <https://console.aws.amazon.com/support/home? Support Center>.
+    requestTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Reserved. If you need to sustain traffic greater than the
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+    -- contact us through the
+    -- <https://console.aws.amazon.com/support/home? Support Center>.
+    requested :: Prelude.Maybe Prelude.Text,
+    -- | Reserved. If you need to sustain traffic greater than the
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+    -- contact us through the
+    -- <https://console.aws.amazon.com/support/home? Support Center>.
+    provisioned :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisionedBandwidth' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisionedBandwidth' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pbProvisionTime' - Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pbStatus' - Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
+-- 'provisionTime', 'provisionedBandwidth_provisionTime' - Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
 --
--- * 'pbRequestTime' - Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
+-- 'status', 'provisionedBandwidth_status' - Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
 --
--- * 'pbRequested' - Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
+-- 'requestTime', 'provisionedBandwidth_requestTime' - Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
 --
--- * 'pbProvisioned' - Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
-provisionedBandwidth ::
+-- 'requested', 'provisionedBandwidth_requested' - Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
+--
+-- 'provisioned', 'provisionedBandwidth_provisioned' - Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
+newProvisionedBandwidth ::
   ProvisionedBandwidth
-provisionedBandwidth =
+newProvisionedBandwidth =
   ProvisionedBandwidth'
-    { _pbProvisionTime = Nothing,
-      _pbStatus = Nothing,
-      _pbRequestTime = Nothing,
-      _pbRequested = Nothing,
-      _pbProvisioned = Nothing
+    { provisionTime =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      requestTime = Prelude.Nothing,
+      requested = Prelude.Nothing,
+      provisioned = Prelude.Nothing
     }
 
--- | Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
-pbProvisionTime :: Lens' ProvisionedBandwidth (Maybe UTCTime)
-pbProvisionTime = lens _pbProvisionTime (\s a -> s {_pbProvisionTime = a}) . mapping _Time
+-- | Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
+provisionedBandwidth_provisionTime :: Lens.Lens' ProvisionedBandwidth (Prelude.Maybe Prelude.UTCTime)
+provisionedBandwidth_provisionTime = Lens.lens (\ProvisionedBandwidth' {provisionTime} -> provisionTime) (\s@ProvisionedBandwidth' {} a -> s {provisionTime = a} :: ProvisionedBandwidth) Prelude.. Lens.mapping Prelude._Time
 
--- | Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
-pbStatus :: Lens' ProvisionedBandwidth (Maybe Text)
-pbStatus = lens _pbStatus (\s a -> s {_pbStatus = a})
+-- | Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
+provisionedBandwidth_status :: Lens.Lens' ProvisionedBandwidth (Prelude.Maybe Prelude.Text)
+provisionedBandwidth_status = Lens.lens (\ProvisionedBandwidth' {status} -> status) (\s@ProvisionedBandwidth' {} a -> s {status = a} :: ProvisionedBandwidth)
 
--- | Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
-pbRequestTime :: Lens' ProvisionedBandwidth (Maybe UTCTime)
-pbRequestTime = lens _pbRequestTime (\s a -> s {_pbRequestTime = a}) . mapping _Time
+-- | Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
+provisionedBandwidth_requestTime :: Lens.Lens' ProvisionedBandwidth (Prelude.Maybe Prelude.UTCTime)
+provisionedBandwidth_requestTime = Lens.lens (\ProvisionedBandwidth' {requestTime} -> requestTime) (\s@ProvisionedBandwidth' {} a -> s {requestTime = a} :: ProvisionedBandwidth) Prelude.. Lens.mapping Prelude._Time
 
--- | Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
-pbRequested :: Lens' ProvisionedBandwidth (Maybe Text)
-pbRequested = lens _pbRequested (\s a -> s {_pbRequested = a})
+-- | Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
+provisionedBandwidth_requested :: Lens.Lens' ProvisionedBandwidth (Prelude.Maybe Prelude.Text)
+provisionedBandwidth_requested = Lens.lens (\ProvisionedBandwidth' {requested} -> requested) (\s@ProvisionedBandwidth' {} a -> s {requested = a} :: ProvisionedBandwidth)
 
--- | Reserved. If you need to sustain traffic greater than the <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits> , contact us through the <https://console.aws.amazon.com/support/home? Support Center> .
-pbProvisioned :: Lens' ProvisionedBandwidth (Maybe Text)
-pbProvisioned = lens _pbProvisioned (\s a -> s {_pbProvisioned = a})
+-- | Reserved. If you need to sustain traffic greater than the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html documented limits>,
+-- contact us through the
+-- <https://console.aws.amazon.com/support/home? Support Center>.
+provisionedBandwidth_provisioned :: Lens.Lens' ProvisionedBandwidth (Prelude.Maybe Prelude.Text)
+provisionedBandwidth_provisioned = Lens.lens (\ProvisionedBandwidth' {provisioned} -> provisioned) (\s@ProvisionedBandwidth' {} a -> s {provisioned = a} :: ProvisionedBandwidth)
 
-instance FromXML ProvisionedBandwidth where
+instance Prelude.FromXML ProvisionedBandwidth where
   parseXML x =
     ProvisionedBandwidth'
-      <$> (x .@? "provisionTime")
-      <*> (x .@? "status")
-      <*> (x .@? "requestTime")
-      <*> (x .@? "requested")
-      <*> (x .@? "provisioned")
+      Prelude.<$> (x Prelude..@? "provisionTime")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "requestTime")
+      Prelude.<*> (x Prelude..@? "requested")
+      Prelude.<*> (x Prelude..@? "provisioned")
 
-instance Hashable ProvisionedBandwidth
+instance Prelude.Hashable ProvisionedBandwidth
 
-instance NFData ProvisionedBandwidth
+instance Prelude.NFData ProvisionedBandwidth

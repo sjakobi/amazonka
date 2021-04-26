@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.EC2.Types.NatGatewayState
   ( NatGatewayState
       ( ..,
-        NGSAvailable,
-        NGSDeleted,
-        NGSDeleting,
-        NGSFailed,
-        NGSPending
+        NatGatewayStateAvailable,
+        NatGatewayStateDeleted,
+        NatGatewayStateDeleting,
+        NatGatewayStateFailed,
+        NatGatewayStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NatGatewayState = NatGatewayState' (CI Text)
+newtype NatGatewayState = NatGatewayState'
+  { fromNatGatewayState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NGSAvailable :: NatGatewayState
-pattern NGSAvailable = NatGatewayState' "available"
+pattern NatGatewayStateAvailable :: NatGatewayState
+pattern NatGatewayStateAvailable = NatGatewayState' "available"
 
-pattern NGSDeleted :: NatGatewayState
-pattern NGSDeleted = NatGatewayState' "deleted"
+pattern NatGatewayStateDeleted :: NatGatewayState
+pattern NatGatewayStateDeleted = NatGatewayState' "deleted"
 
-pattern NGSDeleting :: NatGatewayState
-pattern NGSDeleting = NatGatewayState' "deleting"
+pattern NatGatewayStateDeleting :: NatGatewayState
+pattern NatGatewayStateDeleting = NatGatewayState' "deleting"
 
-pattern NGSFailed :: NatGatewayState
-pattern NGSFailed = NatGatewayState' "failed"
+pattern NatGatewayStateFailed :: NatGatewayState
+pattern NatGatewayStateFailed = NatGatewayState' "failed"
 
-pattern NGSPending :: NatGatewayState
-pattern NGSPending = NatGatewayState' "pending"
+pattern NatGatewayStatePending :: NatGatewayState
+pattern NatGatewayStatePending = NatGatewayState' "pending"
 
 {-# COMPLETE
-  NGSAvailable,
-  NGSDeleted,
-  NGSDeleting,
-  NGSFailed,
-  NGSPending,
+  NatGatewayStateAvailable,
+  NatGatewayStateDeleted,
+  NatGatewayStateDeleting,
+  NatGatewayStateFailed,
+  NatGatewayStatePending,
   NatGatewayState'
   #-}
 
-instance FromText NatGatewayState where
-  parser = (NatGatewayState' . mk) <$> takeText
+instance Prelude.FromText NatGatewayState where
+  parser = NatGatewayState' Prelude.<$> Prelude.takeText
 
-instance ToText NatGatewayState where
-  toText (NatGatewayState' ci) = original ci
+instance Prelude.ToText NatGatewayState where
+  toText (NatGatewayState' x) = x
 
-instance Hashable NatGatewayState
+instance Prelude.Hashable NatGatewayState
 
-instance NFData NatGatewayState
+instance Prelude.NFData NatGatewayState
 
-instance ToByteString NatGatewayState
+instance Prelude.ToByteString NatGatewayState
 
-instance ToQuery NatGatewayState
+instance Prelude.ToQuery NatGatewayState
 
-instance ToHeader NatGatewayState
+instance Prelude.ToHeader NatGatewayState
 
-instance FromXML NatGatewayState where
-  parseXML = parseXMLText "NatGatewayState"
+instance Prelude.FromXML NatGatewayState where
+  parseXML = Prelude.parseXMLText "NatGatewayState"

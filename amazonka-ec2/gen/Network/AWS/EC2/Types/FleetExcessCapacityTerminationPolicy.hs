@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.FleetExcessCapacityTerminationPolicy
   ( FleetExcessCapacityTerminationPolicy
       ( ..,
-        NoTermination,
-        Termination
+        FleetExcessCapacityTerminationPolicyNoTermination,
+        FleetExcessCapacityTerminationPolicyTermination
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetExcessCapacityTerminationPolicy
-  = FleetExcessCapacityTerminationPolicy'
-      ( CI
-          Text
-      )
+newtype FleetExcessCapacityTerminationPolicy = FleetExcessCapacityTerminationPolicy'
+  { fromFleetExcessCapacityTerminationPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NoTermination :: FleetExcessCapacityTerminationPolicy
-pattern NoTermination = FleetExcessCapacityTerminationPolicy' "no-termination"
+pattern FleetExcessCapacityTerminationPolicyNoTermination :: FleetExcessCapacityTerminationPolicy
+pattern FleetExcessCapacityTerminationPolicyNoTermination = FleetExcessCapacityTerminationPolicy' "no-termination"
 
-pattern Termination :: FleetExcessCapacityTerminationPolicy
-pattern Termination = FleetExcessCapacityTerminationPolicy' "termination"
+pattern FleetExcessCapacityTerminationPolicyTermination :: FleetExcessCapacityTerminationPolicy
+pattern FleetExcessCapacityTerminationPolicyTermination = FleetExcessCapacityTerminationPolicy' "termination"
 
 {-# COMPLETE
-  NoTermination,
-  Termination,
+  FleetExcessCapacityTerminationPolicyNoTermination,
+  FleetExcessCapacityTerminationPolicyTermination,
   FleetExcessCapacityTerminationPolicy'
   #-}
 
-instance FromText FleetExcessCapacityTerminationPolicy where
-  parser = (FleetExcessCapacityTerminationPolicy' . mk) <$> takeText
+instance Prelude.FromText FleetExcessCapacityTerminationPolicy where
+  parser = FleetExcessCapacityTerminationPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText FleetExcessCapacityTerminationPolicy where
-  toText (FleetExcessCapacityTerminationPolicy' ci) = original ci
+instance Prelude.ToText FleetExcessCapacityTerminationPolicy where
+  toText (FleetExcessCapacityTerminationPolicy' x) = x
 
-instance Hashable FleetExcessCapacityTerminationPolicy
+instance Prelude.Hashable FleetExcessCapacityTerminationPolicy
 
-instance NFData FleetExcessCapacityTerminationPolicy
+instance Prelude.NFData FleetExcessCapacityTerminationPolicy
 
-instance ToByteString FleetExcessCapacityTerminationPolicy
+instance Prelude.ToByteString FleetExcessCapacityTerminationPolicy
 
-instance ToQuery FleetExcessCapacityTerminationPolicy
+instance Prelude.ToQuery FleetExcessCapacityTerminationPolicy
 
-instance ToHeader FleetExcessCapacityTerminationPolicy
+instance Prelude.ToHeader FleetExcessCapacityTerminationPolicy
 
-instance FromXML FleetExcessCapacityTerminationPolicy where
-  parseXML = parseXMLText "FleetExcessCapacityTerminationPolicy"
+instance Prelude.FromXML FleetExcessCapacityTerminationPolicy where
+  parseXML = Prelude.parseXMLText "FleetExcessCapacityTerminationPolicy"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,233 +21,242 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests a transit gateway peering attachment between the specified transit gateway (requester) and a peer transit gateway (accepter). The transit gateways must be in different Regions. The peer transit gateway can be in your account or a different AWS account.
+-- Requests a transit gateway peering attachment between the specified
+-- transit gateway (requester) and a peer transit gateway (accepter). The
+-- transit gateways must be in different Regions. The peer transit gateway
+-- can be in your account or a different AWS account.
 --
---
--- After you create the peering attachment, the owner of the accepter transit gateway must accept the attachment request.
+-- After you create the peering attachment, the owner of the accepter
+-- transit gateway must accept the attachment request.
 module Network.AWS.EC2.CreateTransitGatewayPeeringAttachment
   ( -- * Creating a Request
-    createTransitGatewayPeeringAttachment,
-    CreateTransitGatewayPeeringAttachment,
+    CreateTransitGatewayPeeringAttachment (..),
+    newCreateTransitGatewayPeeringAttachment,
 
     -- * Request Lenses
-    ctgpaTagSpecifications,
-    ctgpaDryRun,
-    ctgpaTransitGatewayId,
-    ctgpaPeerTransitGatewayId,
-    ctgpaPeerAccountId,
-    ctgpaPeerRegion,
+    createTransitGatewayPeeringAttachment_tagSpecifications,
+    createTransitGatewayPeeringAttachment_dryRun,
+    createTransitGatewayPeeringAttachment_transitGatewayId,
+    createTransitGatewayPeeringAttachment_peerTransitGatewayId,
+    createTransitGatewayPeeringAttachment_peerAccountId,
+    createTransitGatewayPeeringAttachment_peerRegion,
 
     -- * Destructuring the Response
-    createTransitGatewayPeeringAttachmentResponse,
-    CreateTransitGatewayPeeringAttachmentResponse,
+    CreateTransitGatewayPeeringAttachmentResponse (..),
+    newCreateTransitGatewayPeeringAttachmentResponse,
 
     -- * Response Lenses
-    ctgparrsTransitGatewayPeeringAttachment,
-    ctgparrsResponseStatus,
+    createTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment,
+    createTransitGatewayPeeringAttachmentResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayPeeringAttachment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTransitGatewayPeeringAttachment' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayPeeringAttachment' smart constructor.
 data CreateTransitGatewayPeeringAttachment = CreateTransitGatewayPeeringAttachment'
-  { _ctgpaTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _ctgpaDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ctgpaTransitGatewayId ::
-      !Text,
-    _ctgpaPeerTransitGatewayId ::
-      !Text,
-    _ctgpaPeerAccountId ::
-      !Text,
-    _ctgpaPeerRegion ::
-      !Text
+  { -- | The tags to apply to the transit gateway peering attachment.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the transit gateway.
+    transitGatewayId :: Prelude.Text,
+    -- | The ID of the peer transit gateway with which to create the peering
+    -- attachment.
+    peerTransitGatewayId :: Prelude.Text,
+    -- | The AWS account ID of the owner of the peer transit gateway.
+    peerAccountId :: Prelude.Text,
+    -- | The Region where the peer transit gateway is located.
+    peerRegion :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayPeeringAttachment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayPeeringAttachment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgpaTagSpecifications' - The tags to apply to the transit gateway peering attachment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgpaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createTransitGatewayPeeringAttachment_tagSpecifications' - The tags to apply to the transit gateway peering attachment.
 --
--- * 'ctgpaTransitGatewayId' - The ID of the transit gateway.
+-- 'dryRun', 'createTransitGatewayPeeringAttachment_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ctgpaPeerTransitGatewayId' - The ID of the peer transit gateway with which to create the peering attachment.
+-- 'transitGatewayId', 'createTransitGatewayPeeringAttachment_transitGatewayId' - The ID of the transit gateway.
 --
--- * 'ctgpaPeerAccountId' - The AWS account ID of the owner of the peer transit gateway.
+-- 'peerTransitGatewayId', 'createTransitGatewayPeeringAttachment_peerTransitGatewayId' - The ID of the peer transit gateway with which to create the peering
+-- attachment.
 --
--- * 'ctgpaPeerRegion' - The Region where the peer transit gateway is located.
-createTransitGatewayPeeringAttachment ::
-  -- | 'ctgpaTransitGatewayId'
-  Text ->
-  -- | 'ctgpaPeerTransitGatewayId'
-  Text ->
-  -- | 'ctgpaPeerAccountId'
-  Text ->
-  -- | 'ctgpaPeerRegion'
-  Text ->
+-- 'peerAccountId', 'createTransitGatewayPeeringAttachment_peerAccountId' - The AWS account ID of the owner of the peer transit gateway.
+--
+-- 'peerRegion', 'createTransitGatewayPeeringAttachment_peerRegion' - The Region where the peer transit gateway is located.
+newCreateTransitGatewayPeeringAttachment ::
+  -- | 'transitGatewayId'
+  Prelude.Text ->
+  -- | 'peerTransitGatewayId'
+  Prelude.Text ->
+  -- | 'peerAccountId'
+  Prelude.Text ->
+  -- | 'peerRegion'
+  Prelude.Text ->
   CreateTransitGatewayPeeringAttachment
-createTransitGatewayPeeringAttachment
+newCreateTransitGatewayPeeringAttachment
   pTransitGatewayId_
   pPeerTransitGatewayId_
   pPeerAccountId_
   pPeerRegion_ =
     CreateTransitGatewayPeeringAttachment'
-      { _ctgpaTagSpecifications =
-          Nothing,
-        _ctgpaDryRun = Nothing,
-        _ctgpaTransitGatewayId =
+      { tagSpecifications =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        transitGatewayId =
           pTransitGatewayId_,
-        _ctgpaPeerTransitGatewayId =
+        peerTransitGatewayId =
           pPeerTransitGatewayId_,
-        _ctgpaPeerAccountId =
-          pPeerAccountId_,
-        _ctgpaPeerRegion = pPeerRegion_
+        peerAccountId = pPeerAccountId_,
+        peerRegion = pPeerRegion_
       }
 
 -- | The tags to apply to the transit gateway peering attachment.
-ctgpaTagSpecifications :: Lens' CreateTransitGatewayPeeringAttachment [TagSpecification]
-ctgpaTagSpecifications = lens _ctgpaTagSpecifications (\s a -> s {_ctgpaTagSpecifications = a}) . _Default . _Coerce
+createTransitGatewayPeeringAttachment_tagSpecifications :: Lens.Lens' CreateTransitGatewayPeeringAttachment (Prelude.Maybe [TagSpecification])
+createTransitGatewayPeeringAttachment_tagSpecifications = Lens.lens (\CreateTransitGatewayPeeringAttachment' {tagSpecifications} -> tagSpecifications) (\s@CreateTransitGatewayPeeringAttachment' {} a -> s {tagSpecifications = a} :: CreateTransitGatewayPeeringAttachment) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ctgpaDryRun :: Lens' CreateTransitGatewayPeeringAttachment (Maybe Bool)
-ctgpaDryRun = lens _ctgpaDryRun (\s a -> s {_ctgpaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTransitGatewayPeeringAttachment_dryRun :: Lens.Lens' CreateTransitGatewayPeeringAttachment (Prelude.Maybe Prelude.Bool)
+createTransitGatewayPeeringAttachment_dryRun = Lens.lens (\CreateTransitGatewayPeeringAttachment' {dryRun} -> dryRun) (\s@CreateTransitGatewayPeeringAttachment' {} a -> s {dryRun = a} :: CreateTransitGatewayPeeringAttachment)
 
 -- | The ID of the transit gateway.
-ctgpaTransitGatewayId :: Lens' CreateTransitGatewayPeeringAttachment Text
-ctgpaTransitGatewayId = lens _ctgpaTransitGatewayId (\s a -> s {_ctgpaTransitGatewayId = a})
+createTransitGatewayPeeringAttachment_transitGatewayId :: Lens.Lens' CreateTransitGatewayPeeringAttachment Prelude.Text
+createTransitGatewayPeeringAttachment_transitGatewayId = Lens.lens (\CreateTransitGatewayPeeringAttachment' {transitGatewayId} -> transitGatewayId) (\s@CreateTransitGatewayPeeringAttachment' {} a -> s {transitGatewayId = a} :: CreateTransitGatewayPeeringAttachment)
 
--- | The ID of the peer transit gateway with which to create the peering attachment.
-ctgpaPeerTransitGatewayId :: Lens' CreateTransitGatewayPeeringAttachment Text
-ctgpaPeerTransitGatewayId = lens _ctgpaPeerTransitGatewayId (\s a -> s {_ctgpaPeerTransitGatewayId = a})
+-- | The ID of the peer transit gateway with which to create the peering
+-- attachment.
+createTransitGatewayPeeringAttachment_peerTransitGatewayId :: Lens.Lens' CreateTransitGatewayPeeringAttachment Prelude.Text
+createTransitGatewayPeeringAttachment_peerTransitGatewayId = Lens.lens (\CreateTransitGatewayPeeringAttachment' {peerTransitGatewayId} -> peerTransitGatewayId) (\s@CreateTransitGatewayPeeringAttachment' {} a -> s {peerTransitGatewayId = a} :: CreateTransitGatewayPeeringAttachment)
 
 -- | The AWS account ID of the owner of the peer transit gateway.
-ctgpaPeerAccountId :: Lens' CreateTransitGatewayPeeringAttachment Text
-ctgpaPeerAccountId = lens _ctgpaPeerAccountId (\s a -> s {_ctgpaPeerAccountId = a})
+createTransitGatewayPeeringAttachment_peerAccountId :: Lens.Lens' CreateTransitGatewayPeeringAttachment Prelude.Text
+createTransitGatewayPeeringAttachment_peerAccountId = Lens.lens (\CreateTransitGatewayPeeringAttachment' {peerAccountId} -> peerAccountId) (\s@CreateTransitGatewayPeeringAttachment' {} a -> s {peerAccountId = a} :: CreateTransitGatewayPeeringAttachment)
 
 -- | The Region where the peer transit gateway is located.
-ctgpaPeerRegion :: Lens' CreateTransitGatewayPeeringAttachment Text
-ctgpaPeerRegion = lens _ctgpaPeerRegion (\s a -> s {_ctgpaPeerRegion = a})
+createTransitGatewayPeeringAttachment_peerRegion :: Lens.Lens' CreateTransitGatewayPeeringAttachment Prelude.Text
+createTransitGatewayPeeringAttachment_peerRegion = Lens.lens (\CreateTransitGatewayPeeringAttachment' {peerRegion} -> peerRegion) (\s@CreateTransitGatewayPeeringAttachment' {} a -> s {peerRegion = a} :: CreateTransitGatewayPeeringAttachment)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateTransitGatewayPeeringAttachment
   where
   type
     Rs CreateTransitGatewayPeeringAttachment =
       CreateTransitGatewayPeeringAttachmentResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateTransitGatewayPeeringAttachmentResponse'
-            <$> (x .@? "transitGatewayPeeringAttachment")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayPeeringAttachment")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateTransitGatewayPeeringAttachment
 
-instance NFData CreateTransitGatewayPeeringAttachment
+instance
+  Prelude.NFData
+    CreateTransitGatewayPeeringAttachment
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     CreateTransitGatewayPeeringAttachment
   where
-  toHeaders = const mempty
-
-instance ToPath CreateTransitGatewayPeeringAttachment where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    CreateTransitGatewayPeeringAttachment
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     CreateTransitGatewayPeeringAttachment
   where
   toQuery CreateTransitGatewayPeeringAttachment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "CreateTransitGatewayPeeringAttachment" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _ctgpaTagSpecifications
+          Prelude.=: ( "CreateTransitGatewayPeeringAttachment" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _ctgpaDryRun,
-        "TransitGatewayId" =: _ctgpaTransitGatewayId,
-        "PeerTransitGatewayId" =: _ctgpaPeerTransitGatewayId,
-        "PeerAccountId" =: _ctgpaPeerAccountId,
-        "PeerRegion" =: _ctgpaPeerRegion
+        "DryRun" Prelude.=: dryRun,
+        "TransitGatewayId" Prelude.=: transitGatewayId,
+        "PeerTransitGatewayId"
+          Prelude.=: peerTransitGatewayId,
+        "PeerAccountId" Prelude.=: peerAccountId,
+        "PeerRegion" Prelude.=: peerRegion
       ]
 
--- | /See:/ 'createTransitGatewayPeeringAttachmentResponse' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayPeeringAttachmentResponse' smart constructor.
 data CreateTransitGatewayPeeringAttachmentResponse = CreateTransitGatewayPeeringAttachmentResponse'
-  { _ctgparrsTransitGatewayPeeringAttachment ::
-      !( Maybe
-           TransitGatewayPeeringAttachment
-       ),
-    _ctgparrsResponseStatus ::
-      !Int
+  { -- | The transit gateway peering attachment.
+    transitGatewayPeeringAttachment :: Prelude.Maybe TransitGatewayPeeringAttachment,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayPeeringAttachmentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayPeeringAttachmentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgparrsTransitGatewayPeeringAttachment' - The transit gateway peering attachment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgparrsResponseStatus' - -- | The response status code.
-createTransitGatewayPeeringAttachmentResponse ::
-  -- | 'ctgparrsResponseStatus'
-  Int ->
+-- 'transitGatewayPeeringAttachment', 'createTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment' - The transit gateway peering attachment.
+--
+-- 'httpStatus', 'createTransitGatewayPeeringAttachmentResponse_httpStatus' - The response's http status code.
+newCreateTransitGatewayPeeringAttachmentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTransitGatewayPeeringAttachmentResponse
-createTransitGatewayPeeringAttachmentResponse
-  pResponseStatus_ =
+newCreateTransitGatewayPeeringAttachmentResponse
+  pHttpStatus_ =
     CreateTransitGatewayPeeringAttachmentResponse'
-      { _ctgparrsTransitGatewayPeeringAttachment =
-          Nothing,
-        _ctgparrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayPeeringAttachment =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The transit gateway peering attachment.
-ctgparrsTransitGatewayPeeringAttachment :: Lens' CreateTransitGatewayPeeringAttachmentResponse (Maybe TransitGatewayPeeringAttachment)
-ctgparrsTransitGatewayPeeringAttachment = lens _ctgparrsTransitGatewayPeeringAttachment (\s a -> s {_ctgparrsTransitGatewayPeeringAttachment = a})
+createTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment :: Lens.Lens' CreateTransitGatewayPeeringAttachmentResponse (Prelude.Maybe TransitGatewayPeeringAttachment)
+createTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment = Lens.lens (\CreateTransitGatewayPeeringAttachmentResponse' {transitGatewayPeeringAttachment} -> transitGatewayPeeringAttachment) (\s@CreateTransitGatewayPeeringAttachmentResponse' {} a -> s {transitGatewayPeeringAttachment = a} :: CreateTransitGatewayPeeringAttachmentResponse)
 
--- | -- | The response status code.
-ctgparrsResponseStatus :: Lens' CreateTransitGatewayPeeringAttachmentResponse Int
-ctgparrsResponseStatus = lens _ctgparrsResponseStatus (\s a -> s {_ctgparrsResponseStatus = a})
+-- | The response's http status code.
+createTransitGatewayPeeringAttachmentResponse_httpStatus :: Lens.Lens' CreateTransitGatewayPeeringAttachmentResponse Prelude.Int
+createTransitGatewayPeeringAttachmentResponse_httpStatus = Lens.lens (\CreateTransitGatewayPeeringAttachmentResponse' {httpStatus} -> httpStatus) (\s@CreateTransitGatewayPeeringAttachmentResponse' {} a -> s {httpStatus = a} :: CreateTransitGatewayPeeringAttachmentResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateTransitGatewayPeeringAttachmentResponse

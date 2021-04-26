@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +21,84 @@ module Network.AWS.EC2.Types.KeyPairInfo where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a key pair.
 --
---
---
--- /See:/ 'keyPairInfo' smart constructor.
+-- /See:/ 'newKeyPairInfo' smart constructor.
 data KeyPairInfo = KeyPairInfo'
-  { _kpiKeyFingerprint ::
-      !(Maybe Text),
-    _kpiKeyPairId :: !(Maybe Text),
-    _kpiTags :: !(Maybe [Tag]),
-    _kpiKeyName :: !(Maybe Text)
+  { -- | If you used CreateKeyPair to create the key pair, this is the SHA-1
+    -- digest of the DER encoded private key. If you used ImportKeyPair to
+    -- provide AWS the public key, this is the MD5 public key fingerprint as
+    -- specified in section 4 of RFC4716.
+    keyFingerprint :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the key pair.
+    keyPairId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags applied to the key pair.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the key pair.
+    keyName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyPairInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyPairInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kpiKeyFingerprint' - If you used 'CreateKeyPair' to create the key pair, this is the SHA-1 digest of the DER encoded private key. If you used 'ImportKeyPair' to provide AWS the public key, this is the MD5 public key fingerprint as specified in section 4 of RFC4716.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kpiKeyPairId' - The ID of the key pair.
+-- 'keyFingerprint', 'keyPairInfo_keyFingerprint' - If you used CreateKeyPair to create the key pair, this is the SHA-1
+-- digest of the DER encoded private key. If you used ImportKeyPair to
+-- provide AWS the public key, this is the MD5 public key fingerprint as
+-- specified in section 4 of RFC4716.
 --
--- * 'kpiTags' - Any tags applied to the key pair.
+-- 'keyPairId', 'keyPairInfo_keyPairId' - The ID of the key pair.
 --
--- * 'kpiKeyName' - The name of the key pair.
-keyPairInfo ::
+-- 'tags', 'keyPairInfo_tags' - Any tags applied to the key pair.
+--
+-- 'keyName', 'keyPairInfo_keyName' - The name of the key pair.
+newKeyPairInfo ::
   KeyPairInfo
-keyPairInfo =
+newKeyPairInfo =
   KeyPairInfo'
-    { _kpiKeyFingerprint = Nothing,
-      _kpiKeyPairId = Nothing,
-      _kpiTags = Nothing,
-      _kpiKeyName = Nothing
+    { keyFingerprint = Prelude.Nothing,
+      keyPairId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      keyName = Prelude.Nothing
     }
 
--- | If you used 'CreateKeyPair' to create the key pair, this is the SHA-1 digest of the DER encoded private key. If you used 'ImportKeyPair' to provide AWS the public key, this is the MD5 public key fingerprint as specified in section 4 of RFC4716.
-kpiKeyFingerprint :: Lens' KeyPairInfo (Maybe Text)
-kpiKeyFingerprint = lens _kpiKeyFingerprint (\s a -> s {_kpiKeyFingerprint = a})
+-- | If you used CreateKeyPair to create the key pair, this is the SHA-1
+-- digest of the DER encoded private key. If you used ImportKeyPair to
+-- provide AWS the public key, this is the MD5 public key fingerprint as
+-- specified in section 4 of RFC4716.
+keyPairInfo_keyFingerprint :: Lens.Lens' KeyPairInfo (Prelude.Maybe Prelude.Text)
+keyPairInfo_keyFingerprint = Lens.lens (\KeyPairInfo' {keyFingerprint} -> keyFingerprint) (\s@KeyPairInfo' {} a -> s {keyFingerprint = a} :: KeyPairInfo)
 
 -- | The ID of the key pair.
-kpiKeyPairId :: Lens' KeyPairInfo (Maybe Text)
-kpiKeyPairId = lens _kpiKeyPairId (\s a -> s {_kpiKeyPairId = a})
+keyPairInfo_keyPairId :: Lens.Lens' KeyPairInfo (Prelude.Maybe Prelude.Text)
+keyPairInfo_keyPairId = Lens.lens (\KeyPairInfo' {keyPairId} -> keyPairId) (\s@KeyPairInfo' {} a -> s {keyPairId = a} :: KeyPairInfo)
 
 -- | Any tags applied to the key pair.
-kpiTags :: Lens' KeyPairInfo [Tag]
-kpiTags = lens _kpiTags (\s a -> s {_kpiTags = a}) . _Default . _Coerce
+keyPairInfo_tags :: Lens.Lens' KeyPairInfo (Prelude.Maybe [Tag])
+keyPairInfo_tags = Lens.lens (\KeyPairInfo' {tags} -> tags) (\s@KeyPairInfo' {} a -> s {tags = a} :: KeyPairInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the key pair.
-kpiKeyName :: Lens' KeyPairInfo (Maybe Text)
-kpiKeyName = lens _kpiKeyName (\s a -> s {_kpiKeyName = a})
+keyPairInfo_keyName :: Lens.Lens' KeyPairInfo (Prelude.Maybe Prelude.Text)
+keyPairInfo_keyName = Lens.lens (\KeyPairInfo' {keyName} -> keyName) (\s@KeyPairInfo' {} a -> s {keyName = a} :: KeyPairInfo)
 
-instance FromXML KeyPairInfo where
+instance Prelude.FromXML KeyPairInfo where
   parseXML x =
     KeyPairInfo'
-      <$> (x .@? "keyFingerprint")
-      <*> (x .@? "keyPairId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "keyName")
+      Prelude.<$> (x Prelude..@? "keyFingerprint")
+      Prelude.<*> (x Prelude..@? "keyPairId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "keyName")
 
-instance Hashable KeyPairInfo
+instance Prelude.Hashable KeyPairInfo
 
-instance NFData KeyPairInfo
+instance Prelude.NFData KeyPairInfo

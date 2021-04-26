@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,173 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a subnet in your VPC or an internet gateway or virtual private gateway attached to your VPC with a route table in your VPC. This association causes traffic from the subnet or gateway to be routed according to the routes in the route table. The action returns an association ID, which you need in order to disassociate the route table later. A route table can be associated with multiple subnets.
+-- Associates a subnet in your VPC or an internet gateway or virtual
+-- private gateway attached to your VPC with a route table in your VPC.
+-- This association causes traffic from the subnet or gateway to be routed
+-- according to the routes in the route table. The action returns an
+-- association ID, which you need in order to disassociate the route table
+-- later. A route table can be associated with multiple subnets.
 --
---
--- For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables> in the /Amazon Virtual Private Cloud User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 module Network.AWS.EC2.AssociateRouteTable
   ( -- * Creating a Request
-    associateRouteTable,
-    AssociateRouteTable,
+    AssociateRouteTable (..),
+    newAssociateRouteTable,
 
     -- * Request Lenses
-    artDryRun,
-    artSubnetId,
-    artGatewayId,
-    artRouteTableId,
+    associateRouteTable_dryRun,
+    associateRouteTable_subnetId,
+    associateRouteTable_gatewayId,
+    associateRouteTable_routeTableId,
 
     -- * Destructuring the Response
-    associateRouteTableResponse,
-    AssociateRouteTableResponse,
+    AssociateRouteTableResponse (..),
+    newAssociateRouteTableResponse,
 
     -- * Response Lenses
-    artrrsAssociationState,
-    artrrsAssociationId,
-    artrrsResponseStatus,
+    associateRouteTableResponse_associationState,
+    associateRouteTableResponse_associationId,
+    associateRouteTableResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.RouteTableAssociationState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateRouteTable' smart constructor.
+-- | /See:/ 'newAssociateRouteTable' smart constructor.
 data AssociateRouteTable = AssociateRouteTable'
-  { _artDryRun ::
-      !(Maybe Bool),
-    _artSubnetId :: !(Maybe Text),
-    _artGatewayId :: !(Maybe Text),
-    _artRouteTableId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the internet gateway or virtual private gateway.
+    gatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the route table.
+    routeTableId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateRouteTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateRouteTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'artDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'artSubnetId' - The ID of the subnet.
+-- 'dryRun', 'associateRouteTable_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'artGatewayId' - The ID of the internet gateway or virtual private gateway.
+-- 'subnetId', 'associateRouteTable_subnetId' - The ID of the subnet.
 --
--- * 'artRouteTableId' - The ID of the route table.
-associateRouteTable ::
-  -- | 'artRouteTableId'
-  Text ->
+-- 'gatewayId', 'associateRouteTable_gatewayId' - The ID of the internet gateway or virtual private gateway.
+--
+-- 'routeTableId', 'associateRouteTable_routeTableId' - The ID of the route table.
+newAssociateRouteTable ::
+  -- | 'routeTableId'
+  Prelude.Text ->
   AssociateRouteTable
-associateRouteTable pRouteTableId_ =
+newAssociateRouteTable pRouteTableId_ =
   AssociateRouteTable'
-    { _artDryRun = Nothing,
-      _artSubnetId = Nothing,
-      _artGatewayId = Nothing,
-      _artRouteTableId = pRouteTableId_
+    { dryRun = Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      gatewayId = Prelude.Nothing,
+      routeTableId = pRouteTableId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-artDryRun :: Lens' AssociateRouteTable (Maybe Bool)
-artDryRun = lens _artDryRun (\s a -> s {_artDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+associateRouteTable_dryRun :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Bool)
+associateRouteTable_dryRun = Lens.lens (\AssociateRouteTable' {dryRun} -> dryRun) (\s@AssociateRouteTable' {} a -> s {dryRun = a} :: AssociateRouteTable)
 
 -- | The ID of the subnet.
-artSubnetId :: Lens' AssociateRouteTable (Maybe Text)
-artSubnetId = lens _artSubnetId (\s a -> s {_artSubnetId = a})
+associateRouteTable_subnetId :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Text)
+associateRouteTable_subnetId = Lens.lens (\AssociateRouteTable' {subnetId} -> subnetId) (\s@AssociateRouteTable' {} a -> s {subnetId = a} :: AssociateRouteTable)
 
 -- | The ID of the internet gateway or virtual private gateway.
-artGatewayId :: Lens' AssociateRouteTable (Maybe Text)
-artGatewayId = lens _artGatewayId (\s a -> s {_artGatewayId = a})
+associateRouteTable_gatewayId :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Text)
+associateRouteTable_gatewayId = Lens.lens (\AssociateRouteTable' {gatewayId} -> gatewayId) (\s@AssociateRouteTable' {} a -> s {gatewayId = a} :: AssociateRouteTable)
 
 -- | The ID of the route table.
-artRouteTableId :: Lens' AssociateRouteTable Text
-artRouteTableId = lens _artRouteTableId (\s a -> s {_artRouteTableId = a})
+associateRouteTable_routeTableId :: Lens.Lens' AssociateRouteTable Prelude.Text
+associateRouteTable_routeTableId = Lens.lens (\AssociateRouteTable' {routeTableId} -> routeTableId) (\s@AssociateRouteTable' {} a -> s {routeTableId = a} :: AssociateRouteTable)
 
-instance AWSRequest AssociateRouteTable where
+instance Prelude.AWSRequest AssociateRouteTable where
   type
     Rs AssociateRouteTable =
       AssociateRouteTableResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           AssociateRouteTableResponse'
-            <$> (x .@? "associationState")
-            <*> (x .@? "associationId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "associationState")
+            Prelude.<*> (x Prelude..@? "associationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateRouteTable
+instance Prelude.Hashable AssociateRouteTable
 
-instance NFData AssociateRouteTable
+instance Prelude.NFData AssociateRouteTable
 
-instance ToHeaders AssociateRouteTable where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AssociateRouteTable where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AssociateRouteTable where
-  toPath = const "/"
+instance Prelude.ToPath AssociateRouteTable where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateRouteTable where
+instance Prelude.ToQuery AssociateRouteTable where
   toQuery AssociateRouteTable' {..} =
-    mconcat
-      [ "Action" =: ("AssociateRouteTable" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _artDryRun,
-        "SubnetId" =: _artSubnetId,
-        "GatewayId" =: _artGatewayId,
-        "RouteTableId" =: _artRouteTableId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("AssociateRouteTable" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "SubnetId" Prelude.=: subnetId,
+        "GatewayId" Prelude.=: gatewayId,
+        "RouteTableId" Prelude.=: routeTableId
       ]
 
--- | /See:/ 'associateRouteTableResponse' smart constructor.
+-- | /See:/ 'newAssociateRouteTableResponse' smart constructor.
 data AssociateRouteTableResponse = AssociateRouteTableResponse'
-  { _artrrsAssociationState ::
-      !( Maybe
-           RouteTableAssociationState
-       ),
-    _artrrsAssociationId ::
-      !(Maybe Text),
-    _artrrsResponseStatus ::
-      !Int
+  { -- | The state of the association.
+    associationState :: Prelude.Maybe RouteTableAssociationState,
+    -- | The route table association ID. This ID is required for disassociating
+    -- the route table.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateRouteTableResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateRouteTableResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'artrrsAssociationState' - The state of the association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'artrrsAssociationId' - The route table association ID. This ID is required for disassociating the route table.
+-- 'associationState', 'associateRouteTableResponse_associationState' - The state of the association.
 --
--- * 'artrrsResponseStatus' - -- | The response status code.
-associateRouteTableResponse ::
-  -- | 'artrrsResponseStatus'
-  Int ->
+-- 'associationId', 'associateRouteTableResponse_associationId' - The route table association ID. This ID is required for disassociating
+-- the route table.
+--
+-- 'httpStatus', 'associateRouteTableResponse_httpStatus' - The response's http status code.
+newAssociateRouteTableResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateRouteTableResponse
-associateRouteTableResponse pResponseStatus_ =
+newAssociateRouteTableResponse pHttpStatus_ =
   AssociateRouteTableResponse'
-    { _artrrsAssociationState =
-        Nothing,
-      _artrrsAssociationId = Nothing,
-      _artrrsResponseStatus = pResponseStatus_
+    { associationState =
+        Prelude.Nothing,
+      associationId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The state of the association.
-artrrsAssociationState :: Lens' AssociateRouteTableResponse (Maybe RouteTableAssociationState)
-artrrsAssociationState = lens _artrrsAssociationState (\s a -> s {_artrrsAssociationState = a})
+associateRouteTableResponse_associationState :: Lens.Lens' AssociateRouteTableResponse (Prelude.Maybe RouteTableAssociationState)
+associateRouteTableResponse_associationState = Lens.lens (\AssociateRouteTableResponse' {associationState} -> associationState) (\s@AssociateRouteTableResponse' {} a -> s {associationState = a} :: AssociateRouteTableResponse)
 
--- | The route table association ID. This ID is required for disassociating the route table.
-artrrsAssociationId :: Lens' AssociateRouteTableResponse (Maybe Text)
-artrrsAssociationId = lens _artrrsAssociationId (\s a -> s {_artrrsAssociationId = a})
+-- | The route table association ID. This ID is required for disassociating
+-- the route table.
+associateRouteTableResponse_associationId :: Lens.Lens' AssociateRouteTableResponse (Prelude.Maybe Prelude.Text)
+associateRouteTableResponse_associationId = Lens.lens (\AssociateRouteTableResponse' {associationId} -> associationId) (\s@AssociateRouteTableResponse' {} a -> s {associationId = a} :: AssociateRouteTableResponse)
 
--- | -- | The response status code.
-artrrsResponseStatus :: Lens' AssociateRouteTableResponse Int
-artrrsResponseStatus = lens _artrrsResponseStatus (\s a -> s {_artrrsResponseStatus = a})
+-- | The response's http status code.
+associateRouteTableResponse_httpStatus :: Lens.Lens' AssociateRouteTableResponse Prelude.Int
+associateRouteTableResponse_httpStatus = Lens.lens (\AssociateRouteTableResponse' {httpStatus} -> httpStatus) (\s@AssociateRouteTableResponse' {} a -> s {httpStatus = a} :: AssociateRouteTableResponse)
 
-instance NFData AssociateRouteTableResponse
+instance Prelude.NFData AssociateRouteTableResponse

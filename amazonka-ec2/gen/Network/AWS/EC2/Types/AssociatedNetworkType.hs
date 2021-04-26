@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.EC2.Types.AssociatedNetworkType
   ( AssociatedNetworkType
       ( ..,
-        VPC
+        AssociatedNetworkTypeVpc
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociatedNetworkType
-  = AssociatedNetworkType'
-      ( CI
-          Text
-      )
+newtype AssociatedNetworkType = AssociatedNetworkType'
+  { fromAssociatedNetworkType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VPC :: AssociatedNetworkType
-pattern VPC = AssociatedNetworkType' "vpc"
+pattern AssociatedNetworkTypeVpc :: AssociatedNetworkType
+pattern AssociatedNetworkTypeVpc = AssociatedNetworkType' "vpc"
 
 {-# COMPLETE
-  VPC,
+  AssociatedNetworkTypeVpc,
   AssociatedNetworkType'
   #-}
 
-instance FromText AssociatedNetworkType where
-  parser = (AssociatedNetworkType' . mk) <$> takeText
+instance Prelude.FromText AssociatedNetworkType where
+  parser = AssociatedNetworkType' Prelude.<$> Prelude.takeText
 
-instance ToText AssociatedNetworkType where
-  toText (AssociatedNetworkType' ci) = original ci
+instance Prelude.ToText AssociatedNetworkType where
+  toText (AssociatedNetworkType' x) = x
 
-instance Hashable AssociatedNetworkType
+instance Prelude.Hashable AssociatedNetworkType
 
-instance NFData AssociatedNetworkType
+instance Prelude.NFData AssociatedNetworkType
 
-instance ToByteString AssociatedNetworkType
+instance Prelude.ToByteString AssociatedNetworkType
 
-instance ToQuery AssociatedNetworkType
+instance Prelude.ToQuery AssociatedNetworkType
 
-instance ToHeader AssociatedNetworkType
+instance Prelude.ToHeader AssociatedNetworkType
 
-instance FromXML AssociatedNetworkType where
-  parseXML = parseXMLText "AssociatedNetworkType"
+instance Prelude.FromXML AssociatedNetworkType where
+  parseXML = Prelude.parseXMLText "AssociatedNetworkType"

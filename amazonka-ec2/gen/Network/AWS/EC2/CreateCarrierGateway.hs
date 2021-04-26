@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a carrier gateway. For more information about carrier gateways, see <https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#wavelength-carrier-gateway Carrier gateways> in the /AWS Wavelength Developer Guide/ .
+-- Creates a carrier gateway. For more information about carrier gateways,
+-- see
+-- <https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#wavelength-carrier-gateway Carrier gateways>
+-- in the /AWS Wavelength Developer Guide/.
 module Network.AWS.EC2.CreateCarrierGateway
   ( -- * Creating a Request
-    createCarrierGateway,
-    CreateCarrierGateway,
+    CreateCarrierGateway (..),
+    newCreateCarrierGateway,
 
     -- * Request Lenses
-    ccgcTagSpecifications,
-    ccgcDryRun,
-    ccgcClientToken,
-    ccgcVPCId,
+    createCarrierGateway_tagSpecifications,
+    createCarrierGateway_dryRun,
+    createCarrierGateway_clientToken,
+    createCarrierGateway_vpcId,
 
     -- * Destructuring the Response
-    createCarrierGatewayResponse,
-    CreateCarrierGatewayResponse,
+    CreateCarrierGatewayResponse (..),
+    newCreateCarrierGatewayResponse,
 
     -- * Response Lenses
-    ccgrrsCarrierGateway,
-    ccgrrsResponseStatus,
+    createCarrierGatewayResponse_carrierGateway,
+    createCarrierGatewayResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.CarrierGateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createCarrierGateway' smart constructor.
+-- | /See:/ 'newCreateCarrierGateway' smart constructor.
 data CreateCarrierGateway = CreateCarrierGateway'
-  { _ccgcTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _ccgcDryRun :: !(Maybe Bool),
-    _ccgcClientToken ::
-      !(Maybe Text),
-    _ccgcVPCId :: !Text
+  { -- | The tags to associate with the carrier gateway.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VPC to associate with the carrier gateway.
+    vpcId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCarrierGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCarrierGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccgcTagSpecifications' - The tags to associate with the carrier gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccgcDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createCarrierGateway_tagSpecifications' - The tags to associate with the carrier gateway.
 --
--- * 'ccgcClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to Ensure Idempotency> .
+-- 'dryRun', 'createCarrierGateway_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ccgcVPCId' - The ID of the VPC to associate with the carrier gateway.
-createCarrierGateway ::
-  -- | 'ccgcVPCId'
-  Text ->
+-- 'clientToken', 'createCarrierGateway_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+--
+-- 'vpcId', 'createCarrierGateway_vpcId' - The ID of the VPC to associate with the carrier gateway.
+newCreateCarrierGateway ::
+  -- | 'vpcId'
+  Prelude.Text ->
   CreateCarrierGateway
-createCarrierGateway pVPCId_ =
+newCreateCarrierGateway pVpcId_ =
   CreateCarrierGateway'
-    { _ccgcTagSpecifications =
-        Nothing,
-      _ccgcDryRun = Nothing,
-      _ccgcClientToken = Nothing,
-      _ccgcVPCId = pVPCId_
+    { tagSpecifications =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
+      vpcId = pVpcId_
     }
 
 -- | The tags to associate with the carrier gateway.
-ccgcTagSpecifications :: Lens' CreateCarrierGateway [TagSpecification]
-ccgcTagSpecifications = lens _ccgcTagSpecifications (\s a -> s {_ccgcTagSpecifications = a}) . _Default . _Coerce
+createCarrierGateway_tagSpecifications :: Lens.Lens' CreateCarrierGateway (Prelude.Maybe [TagSpecification])
+createCarrierGateway_tagSpecifications = Lens.lens (\CreateCarrierGateway' {tagSpecifications} -> tagSpecifications) (\s@CreateCarrierGateway' {} a -> s {tagSpecifications = a} :: CreateCarrierGateway) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ccgcDryRun :: Lens' CreateCarrierGateway (Maybe Bool)
-ccgcDryRun = lens _ccgcDryRun (\s a -> s {_ccgcDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createCarrierGateway_dryRun :: Lens.Lens' CreateCarrierGateway (Prelude.Maybe Prelude.Bool)
+createCarrierGateway_dryRun = Lens.lens (\CreateCarrierGateway' {dryRun} -> dryRun) (\s@CreateCarrierGateway' {} a -> s {dryRun = a} :: CreateCarrierGateway)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-ccgcClientToken :: Lens' CreateCarrierGateway (Maybe Text)
-ccgcClientToken = lens _ccgcClientToken (\s a -> s {_ccgcClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+createCarrierGateway_clientToken :: Lens.Lens' CreateCarrierGateway (Prelude.Maybe Prelude.Text)
+createCarrierGateway_clientToken = Lens.lens (\CreateCarrierGateway' {clientToken} -> clientToken) (\s@CreateCarrierGateway' {} a -> s {clientToken = a} :: CreateCarrierGateway)
 
 -- | The ID of the VPC to associate with the carrier gateway.
-ccgcVPCId :: Lens' CreateCarrierGateway Text
-ccgcVPCId = lens _ccgcVPCId (\s a -> s {_ccgcVPCId = a})
+createCarrierGateway_vpcId :: Lens.Lens' CreateCarrierGateway Prelude.Text
+createCarrierGateway_vpcId = Lens.lens (\CreateCarrierGateway' {vpcId} -> vpcId) (\s@CreateCarrierGateway' {} a -> s {vpcId = a} :: CreateCarrierGateway)
 
-instance AWSRequest CreateCarrierGateway where
+instance Prelude.AWSRequest CreateCarrierGateway where
   type
     Rs CreateCarrierGateway =
       CreateCarrierGatewayResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateCarrierGatewayResponse'
-            <$> (x .@? "carrierGateway") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "carrierGateway")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateCarrierGateway
+instance Prelude.Hashable CreateCarrierGateway
 
-instance NFData CreateCarrierGateway
+instance Prelude.NFData CreateCarrierGateway
 
-instance ToHeaders CreateCarrierGateway where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateCarrierGateway where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateCarrierGateway where
-  toPath = const "/"
+instance Prelude.ToPath CreateCarrierGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateCarrierGateway where
+instance Prelude.ToQuery CreateCarrierGateway where
   toQuery CreateCarrierGateway' {..} =
-    mconcat
-      [ "Action" =: ("CreateCarrierGateway" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _ccgcTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateCarrierGateway" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _ccgcDryRun,
-        "ClientToken" =: _ccgcClientToken,
-        "VpcId" =: _ccgcVPCId
+        "DryRun" Prelude.=: dryRun,
+        "ClientToken" Prelude.=: clientToken,
+        "VpcId" Prelude.=: vpcId
       ]
 
--- | /See:/ 'createCarrierGatewayResponse' smart constructor.
+-- | /See:/ 'newCreateCarrierGatewayResponse' smart constructor.
 data CreateCarrierGatewayResponse = CreateCarrierGatewayResponse'
-  { _ccgrrsCarrierGateway ::
-      !( Maybe
-           CarrierGateway
-       ),
-    _ccgrrsResponseStatus ::
-      !Int
+  { -- | Information about the carrier gateway.
+    carrierGateway :: Prelude.Maybe CarrierGateway,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCarrierGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCarrierGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccgrrsCarrierGateway' - Information about the carrier gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccgrrsResponseStatus' - -- | The response status code.
-createCarrierGatewayResponse ::
-  -- | 'ccgrrsResponseStatus'
-  Int ->
+-- 'carrierGateway', 'createCarrierGatewayResponse_carrierGateway' - Information about the carrier gateway.
+--
+-- 'httpStatus', 'createCarrierGatewayResponse_httpStatus' - The response's http status code.
+newCreateCarrierGatewayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateCarrierGatewayResponse
-createCarrierGatewayResponse pResponseStatus_ =
+newCreateCarrierGatewayResponse pHttpStatus_ =
   CreateCarrierGatewayResponse'
-    { _ccgrrsCarrierGateway =
-        Nothing,
-      _ccgrrsResponseStatus = pResponseStatus_
+    { carrierGateway =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the carrier gateway.
-ccgrrsCarrierGateway :: Lens' CreateCarrierGatewayResponse (Maybe CarrierGateway)
-ccgrrsCarrierGateway = lens _ccgrrsCarrierGateway (\s a -> s {_ccgrrsCarrierGateway = a})
+createCarrierGatewayResponse_carrierGateway :: Lens.Lens' CreateCarrierGatewayResponse (Prelude.Maybe CarrierGateway)
+createCarrierGatewayResponse_carrierGateway = Lens.lens (\CreateCarrierGatewayResponse' {carrierGateway} -> carrierGateway) (\s@CreateCarrierGatewayResponse' {} a -> s {carrierGateway = a} :: CreateCarrierGatewayResponse)
 
--- | -- | The response status code.
-ccgrrsResponseStatus :: Lens' CreateCarrierGatewayResponse Int
-ccgrrsResponseStatus = lens _ccgrrsResponseStatus (\s a -> s {_ccgrrsResponseStatus = a})
+-- | The response's http status code.
+createCarrierGatewayResponse_httpStatus :: Lens.Lens' CreateCarrierGatewayResponse Prelude.Int
+createCarrierGatewayResponse_httpStatus = Lens.lens (\CreateCarrierGatewayResponse' {httpStatus} -> httpStatus) (\s@CreateCarrierGatewayResponse' {} a -> s {httpStatus = a} :: CreateCarrierGatewayResponse)
 
-instance NFData CreateCarrierGatewayResponse
+instance Prelude.NFData CreateCarrierGatewayResponse

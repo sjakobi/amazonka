@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,68 +22,66 @@ module Network.AWS.EC2.Types.InstanceStatusDetails where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.StatusName
 import Network.AWS.EC2.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the instance status.
 --
---
---
--- /See:/ 'instanceStatusDetails' smart constructor.
+-- /See:/ 'newInstanceStatusDetails' smart constructor.
 data InstanceStatusDetails = InstanceStatusDetails'
-  { _isdStatus ::
-      !(Maybe StatusType),
-    _isdImpairedSince ::
-      !(Maybe ISO8601),
-    _isdName ::
-      !(Maybe StatusName)
+  { -- | The status.
+    status :: Prelude.Maybe StatusType,
+    -- | The time when a status check failed. For an instance that was launched
+    -- and impaired, this is the time when the instance was launched.
+    impairedSince :: Prelude.Maybe Prelude.ISO8601,
+    -- | The type of instance status.
+    name :: Prelude.Maybe StatusName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceStatusDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceStatusDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isdStatus' - The status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isdImpairedSince' - The time when a status check failed. For an instance that was launched and impaired, this is the time when the instance was launched.
+-- 'status', 'instanceStatusDetails_status' - The status.
 --
--- * 'isdName' - The type of instance status.
-instanceStatusDetails ::
+-- 'impairedSince', 'instanceStatusDetails_impairedSince' - The time when a status check failed. For an instance that was launched
+-- and impaired, this is the time when the instance was launched.
+--
+-- 'name', 'instanceStatusDetails_name' - The type of instance status.
+newInstanceStatusDetails ::
   InstanceStatusDetails
-instanceStatusDetails =
+newInstanceStatusDetails =
   InstanceStatusDetails'
-    { _isdStatus = Nothing,
-      _isdImpairedSince = Nothing,
-      _isdName = Nothing
+    { status = Prelude.Nothing,
+      impairedSince = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The status.
-isdStatus :: Lens' InstanceStatusDetails (Maybe StatusType)
-isdStatus = lens _isdStatus (\s a -> s {_isdStatus = a})
+instanceStatusDetails_status :: Lens.Lens' InstanceStatusDetails (Prelude.Maybe StatusType)
+instanceStatusDetails_status = Lens.lens (\InstanceStatusDetails' {status} -> status) (\s@InstanceStatusDetails' {} a -> s {status = a} :: InstanceStatusDetails)
 
--- | The time when a status check failed. For an instance that was launched and impaired, this is the time when the instance was launched.
-isdImpairedSince :: Lens' InstanceStatusDetails (Maybe UTCTime)
-isdImpairedSince = lens _isdImpairedSince (\s a -> s {_isdImpairedSince = a}) . mapping _Time
+-- | The time when a status check failed. For an instance that was launched
+-- and impaired, this is the time when the instance was launched.
+instanceStatusDetails_impairedSince :: Lens.Lens' InstanceStatusDetails (Prelude.Maybe Prelude.UTCTime)
+instanceStatusDetails_impairedSince = Lens.lens (\InstanceStatusDetails' {impairedSince} -> impairedSince) (\s@InstanceStatusDetails' {} a -> s {impairedSince = a} :: InstanceStatusDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of instance status.
-isdName :: Lens' InstanceStatusDetails (Maybe StatusName)
-isdName = lens _isdName (\s a -> s {_isdName = a})
+instanceStatusDetails_name :: Lens.Lens' InstanceStatusDetails (Prelude.Maybe StatusName)
+instanceStatusDetails_name = Lens.lens (\InstanceStatusDetails' {name} -> name) (\s@InstanceStatusDetails' {} a -> s {name = a} :: InstanceStatusDetails)
 
-instance FromXML InstanceStatusDetails where
+instance Prelude.FromXML InstanceStatusDetails where
   parseXML x =
     InstanceStatusDetails'
-      <$> (x .@? "status")
-      <*> (x .@? "impairedSince")
-      <*> (x .@? "name")
+      Prelude.<$> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "impairedSince")
+      Prelude.<*> (x Prelude..@? "name")
 
-instance Hashable InstanceStatusDetails
+instance Prelude.Hashable InstanceStatusDetails
 
-instance NFData InstanceStatusDetails
+instance Prelude.NFData InstanceStatusDetails

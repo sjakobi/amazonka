@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,62 @@ module Network.AWS.EC2.Types.DeleteQueuedReservedInstancesError where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DeleteQueuedReservedInstancesErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the error for a Reserved Instance whose queued purchase could not be deleted.
+-- | Describes the error for a Reserved Instance whose queued purchase could
+-- not be deleted.
 --
---
---
--- /See:/ 'deleteQueuedReservedInstancesError' smart constructor.
+-- /See:/ 'newDeleteQueuedReservedInstancesError' smart constructor.
 data DeleteQueuedReservedInstancesError = DeleteQueuedReservedInstancesError'
-  { _dqrieMessage ::
-      !( Maybe
-           Text
-       ),
-    _dqrieCode ::
-      !( Maybe
-           DeleteQueuedReservedInstancesErrorCode
-       )
+  { -- | The error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    code :: Prelude.Maybe DeleteQueuedReservedInstancesErrorCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteQueuedReservedInstancesError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteQueuedReservedInstancesError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dqrieMessage' - The error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dqrieCode' - The error code.
-deleteQueuedReservedInstancesError ::
+-- 'message', 'deleteQueuedReservedInstancesError_message' - The error message.
+--
+-- 'code', 'deleteQueuedReservedInstancesError_code' - The error code.
+newDeleteQueuedReservedInstancesError ::
   DeleteQueuedReservedInstancesError
-deleteQueuedReservedInstancesError =
+newDeleteQueuedReservedInstancesError =
   DeleteQueuedReservedInstancesError'
-    { _dqrieMessage =
-        Nothing,
-      _dqrieCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The error message.
-dqrieMessage :: Lens' DeleteQueuedReservedInstancesError (Maybe Text)
-dqrieMessage = lens _dqrieMessage (\s a -> s {_dqrieMessage = a})
+deleteQueuedReservedInstancesError_message :: Lens.Lens' DeleteQueuedReservedInstancesError (Prelude.Maybe Prelude.Text)
+deleteQueuedReservedInstancesError_message = Lens.lens (\DeleteQueuedReservedInstancesError' {message} -> message) (\s@DeleteQueuedReservedInstancesError' {} a -> s {message = a} :: DeleteQueuedReservedInstancesError)
 
 -- | The error code.
-dqrieCode :: Lens' DeleteQueuedReservedInstancesError (Maybe DeleteQueuedReservedInstancesErrorCode)
-dqrieCode = lens _dqrieCode (\s a -> s {_dqrieCode = a})
+deleteQueuedReservedInstancesError_code :: Lens.Lens' DeleteQueuedReservedInstancesError (Prelude.Maybe DeleteQueuedReservedInstancesErrorCode)
+deleteQueuedReservedInstancesError_code = Lens.lens (\DeleteQueuedReservedInstancesError' {code} -> code) (\s@DeleteQueuedReservedInstancesError' {} a -> s {code = a} :: DeleteQueuedReservedInstancesError)
 
-instance FromXML DeleteQueuedReservedInstancesError where
+instance
+  Prelude.FromXML
+    DeleteQueuedReservedInstancesError
+  where
   parseXML x =
     DeleteQueuedReservedInstancesError'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
-instance Hashable DeleteQueuedReservedInstancesError
+instance
+  Prelude.Hashable
+    DeleteQueuedReservedInstancesError
 
-instance NFData DeleteQueuedReservedInstancesError
+instance
+  Prelude.NFData
+    DeleteQueuedReservedInstancesError

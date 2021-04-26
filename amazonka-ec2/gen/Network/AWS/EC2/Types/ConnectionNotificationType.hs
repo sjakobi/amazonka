@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.EC2.Types.ConnectionNotificationType
   ( ConnectionNotificationType
       ( ..,
-        Topic
+        ConnectionNotificationTypeTopic
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionNotificationType
-  = ConnectionNotificationType'
-      ( CI
-          Text
-      )
+newtype ConnectionNotificationType = ConnectionNotificationType'
+  { fromConnectionNotificationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Topic :: ConnectionNotificationType
-pattern Topic = ConnectionNotificationType' "Topic"
+pattern ConnectionNotificationTypeTopic :: ConnectionNotificationType
+pattern ConnectionNotificationTypeTopic = ConnectionNotificationType' "Topic"
 
 {-# COMPLETE
-  Topic,
+  ConnectionNotificationTypeTopic,
   ConnectionNotificationType'
   #-}
 
-instance FromText ConnectionNotificationType where
-  parser = (ConnectionNotificationType' . mk) <$> takeText
+instance Prelude.FromText ConnectionNotificationType where
+  parser = ConnectionNotificationType' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionNotificationType where
-  toText (ConnectionNotificationType' ci) = original ci
+instance Prelude.ToText ConnectionNotificationType where
+  toText (ConnectionNotificationType' x) = x
 
-instance Hashable ConnectionNotificationType
+instance Prelude.Hashable ConnectionNotificationType
 
-instance NFData ConnectionNotificationType
+instance Prelude.NFData ConnectionNotificationType
 
-instance ToByteString ConnectionNotificationType
+instance Prelude.ToByteString ConnectionNotificationType
 
-instance ToQuery ConnectionNotificationType
+instance Prelude.ToQuery ConnectionNotificationType
 
-instance ToHeader ConnectionNotificationType
+instance Prelude.ToHeader ConnectionNotificationType
 
-instance FromXML ConnectionNotificationType where
-  parseXML = parseXMLText "ConnectionNotificationType"
+instance Prelude.FromXML ConnectionNotificationType where
+  parseXML = Prelude.parseXMLText "ConnectionNotificationType"

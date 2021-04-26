@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.ImageTypeValues
   ( ImageTypeValues
       ( ..,
-        Kernel,
-        Machine,
-        RAMDisk
+        ImageTypeValuesKernel,
+        ImageTypeValuesMachine,
+        ImageTypeValuesRamdisk
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageTypeValues = ImageTypeValues' (CI Text)
+newtype ImageTypeValues = ImageTypeValues'
+  { fromImageTypeValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Kernel :: ImageTypeValues
-pattern Kernel = ImageTypeValues' "kernel"
+pattern ImageTypeValuesKernel :: ImageTypeValues
+pattern ImageTypeValuesKernel = ImageTypeValues' "kernel"
 
-pattern Machine :: ImageTypeValues
-pattern Machine = ImageTypeValues' "machine"
+pattern ImageTypeValuesMachine :: ImageTypeValues
+pattern ImageTypeValuesMachine = ImageTypeValues' "machine"
 
-pattern RAMDisk :: ImageTypeValues
-pattern RAMDisk = ImageTypeValues' "ramdisk"
+pattern ImageTypeValuesRamdisk :: ImageTypeValues
+pattern ImageTypeValuesRamdisk = ImageTypeValues' "ramdisk"
 
 {-# COMPLETE
-  Kernel,
-  Machine,
-  RAMDisk,
+  ImageTypeValuesKernel,
+  ImageTypeValuesMachine,
+  ImageTypeValuesRamdisk,
   ImageTypeValues'
   #-}
 
-instance FromText ImageTypeValues where
-  parser = (ImageTypeValues' . mk) <$> takeText
+instance Prelude.FromText ImageTypeValues where
+  parser = ImageTypeValues' Prelude.<$> Prelude.takeText
 
-instance ToText ImageTypeValues where
-  toText (ImageTypeValues' ci) = original ci
+instance Prelude.ToText ImageTypeValues where
+  toText (ImageTypeValues' x) = x
 
-instance Hashable ImageTypeValues
+instance Prelude.Hashable ImageTypeValues
 
-instance NFData ImageTypeValues
+instance Prelude.NFData ImageTypeValues
 
-instance ToByteString ImageTypeValues
+instance Prelude.ToByteString ImageTypeValues
 
-instance ToQuery ImageTypeValues
+instance Prelude.ToQuery ImageTypeValues
 
-instance ToHeader ImageTypeValues
+instance Prelude.ToHeader ImageTypeValues
 
-instance FromXML ImageTypeValues where
-  parseXML = parseXMLText "ImageTypeValues"
+instance Prelude.FromXML ImageTypeValues where
+  parseXML = Prelude.parseXMLText "ImageTypeValues"

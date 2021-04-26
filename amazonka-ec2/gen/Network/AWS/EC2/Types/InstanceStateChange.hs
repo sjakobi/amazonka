@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +21,63 @@ module Network.AWS.EC2.Types.InstanceStateChange where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an instance state change.
 --
---
---
--- /See:/ 'instanceStateChange' smart constructor.
+-- /See:/ 'newInstanceStateChange' smart constructor.
 data InstanceStateChange = InstanceStateChange'
-  { _iscInstanceId ::
-      !(Maybe Text),
-    _iscCurrentState ::
-      !(Maybe InstanceState),
-    _iscPreviousState ::
-      !(Maybe InstanceState)
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the instance.
+    currentState :: Prelude.Maybe InstanceState,
+    -- | The previous state of the instance.
+    previousState :: Prelude.Maybe InstanceState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceStateChange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceStateChange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iscInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iscCurrentState' - The current state of the instance.
+-- 'instanceId', 'instanceStateChange_instanceId' - The ID of the instance.
 --
--- * 'iscPreviousState' - The previous state of the instance.
-instanceStateChange ::
+-- 'currentState', 'instanceStateChange_currentState' - The current state of the instance.
+--
+-- 'previousState', 'instanceStateChange_previousState' - The previous state of the instance.
+newInstanceStateChange ::
   InstanceStateChange
-instanceStateChange =
+newInstanceStateChange =
   InstanceStateChange'
-    { _iscInstanceId = Nothing,
-      _iscCurrentState = Nothing,
-      _iscPreviousState = Nothing
+    { instanceId = Prelude.Nothing,
+      currentState = Prelude.Nothing,
+      previousState = Prelude.Nothing
     }
 
 -- | The ID of the instance.
-iscInstanceId :: Lens' InstanceStateChange (Maybe Text)
-iscInstanceId = lens _iscInstanceId (\s a -> s {_iscInstanceId = a})
+instanceStateChange_instanceId :: Lens.Lens' InstanceStateChange (Prelude.Maybe Prelude.Text)
+instanceStateChange_instanceId = Lens.lens (\InstanceStateChange' {instanceId} -> instanceId) (\s@InstanceStateChange' {} a -> s {instanceId = a} :: InstanceStateChange)
 
 -- | The current state of the instance.
-iscCurrentState :: Lens' InstanceStateChange (Maybe InstanceState)
-iscCurrentState = lens _iscCurrentState (\s a -> s {_iscCurrentState = a})
+instanceStateChange_currentState :: Lens.Lens' InstanceStateChange (Prelude.Maybe InstanceState)
+instanceStateChange_currentState = Lens.lens (\InstanceStateChange' {currentState} -> currentState) (\s@InstanceStateChange' {} a -> s {currentState = a} :: InstanceStateChange)
 
 -- | The previous state of the instance.
-iscPreviousState :: Lens' InstanceStateChange (Maybe InstanceState)
-iscPreviousState = lens _iscPreviousState (\s a -> s {_iscPreviousState = a})
+instanceStateChange_previousState :: Lens.Lens' InstanceStateChange (Prelude.Maybe InstanceState)
+instanceStateChange_previousState = Lens.lens (\InstanceStateChange' {previousState} -> previousState) (\s@InstanceStateChange' {} a -> s {previousState = a} :: InstanceStateChange)
 
-instance FromXML InstanceStateChange where
+instance Prelude.FromXML InstanceStateChange where
   parseXML x =
     InstanceStateChange'
-      <$> (x .@? "instanceId")
-      <*> (x .@? "currentState")
-      <*> (x .@? "previousState")
+      Prelude.<$> (x Prelude..@? "instanceId")
+      Prelude.<*> (x Prelude..@? "currentState")
+      Prelude.<*> (x Prelude..@? "previousState")
 
-instance Hashable InstanceStateChange
+instance Prelude.Hashable InstanceStateChange
 
-instance NFData InstanceStateChange
+instance Prelude.NFData InstanceStateChange

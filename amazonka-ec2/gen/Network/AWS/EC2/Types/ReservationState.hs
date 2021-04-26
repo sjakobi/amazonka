@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.EC2.Types.ReservationState
   ( ReservationState
       ( ..,
-        RSActive,
-        RSPaymentFailed,
-        RSPaymentPending,
-        RSRetired
+        ReservationStateActive,
+        ReservationStatePaymentFailed,
+        ReservationStatePaymentPending,
+        ReservationStateRetired
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReservationState = ReservationState' (CI Text)
+newtype ReservationState = ReservationState'
+  { fromReservationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSActive :: ReservationState
-pattern RSActive = ReservationState' "active"
+pattern ReservationStateActive :: ReservationState
+pattern ReservationStateActive = ReservationState' "active"
 
-pattern RSPaymentFailed :: ReservationState
-pattern RSPaymentFailed = ReservationState' "payment-failed"
+pattern ReservationStatePaymentFailed :: ReservationState
+pattern ReservationStatePaymentFailed = ReservationState' "payment-failed"
 
-pattern RSPaymentPending :: ReservationState
-pattern RSPaymentPending = ReservationState' "payment-pending"
+pattern ReservationStatePaymentPending :: ReservationState
+pattern ReservationStatePaymentPending = ReservationState' "payment-pending"
 
-pattern RSRetired :: ReservationState
-pattern RSRetired = ReservationState' "retired"
+pattern ReservationStateRetired :: ReservationState
+pattern ReservationStateRetired = ReservationState' "retired"
 
 {-# COMPLETE
-  RSActive,
-  RSPaymentFailed,
-  RSPaymentPending,
-  RSRetired,
+  ReservationStateActive,
+  ReservationStatePaymentFailed,
+  ReservationStatePaymentPending,
+  ReservationStateRetired,
   ReservationState'
   #-}
 
-instance FromText ReservationState where
-  parser = (ReservationState' . mk) <$> takeText
+instance Prelude.FromText ReservationState where
+  parser = ReservationState' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationState where
-  toText (ReservationState' ci) = original ci
+instance Prelude.ToText ReservationState where
+  toText (ReservationState' x) = x
 
-instance Hashable ReservationState
+instance Prelude.Hashable ReservationState
 
-instance NFData ReservationState
+instance Prelude.NFData ReservationState
 
-instance ToByteString ReservationState
+instance Prelude.ToByteString ReservationState
 
-instance ToQuery ReservationState
+instance Prelude.ToQuery ReservationState
 
-instance ToHeader ReservationState
+instance Prelude.ToHeader ReservationState
 
-instance FromXML ReservationState where
-  parseXML = parseXMLText "ReservationState"
+instance Prelude.FromXML ReservationState where
+  parseXML = Prelude.parseXMLText "ReservationState"

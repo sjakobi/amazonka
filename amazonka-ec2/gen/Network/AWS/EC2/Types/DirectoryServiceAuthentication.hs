@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,50 +20,51 @@
 module Network.AWS.EC2.Types.DirectoryServiceAuthentication where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an Active Directory.
 --
---
---
--- /See:/ 'directoryServiceAuthentication' smart constructor.
-newtype DirectoryServiceAuthentication = DirectoryServiceAuthentication'
-  { _dsaDirectoryId ::
-      Maybe
-        Text
+-- /See:/ 'newDirectoryServiceAuthentication' smart constructor.
+data DirectoryServiceAuthentication = DirectoryServiceAuthentication'
+  { -- | The ID of the Active Directory used for authentication.
+    directoryId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DirectoryServiceAuthentication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DirectoryServiceAuthentication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsaDirectoryId' - The ID of the Active Directory used for authentication.
-directoryServiceAuthentication ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'directoryId', 'directoryServiceAuthentication_directoryId' - The ID of the Active Directory used for authentication.
+newDirectoryServiceAuthentication ::
   DirectoryServiceAuthentication
-directoryServiceAuthentication =
+newDirectoryServiceAuthentication =
   DirectoryServiceAuthentication'
-    { _dsaDirectoryId =
-        Nothing
+    { directoryId =
+        Prelude.Nothing
     }
 
 -- | The ID of the Active Directory used for authentication.
-dsaDirectoryId :: Lens' DirectoryServiceAuthentication (Maybe Text)
-dsaDirectoryId = lens _dsaDirectoryId (\s a -> s {_dsaDirectoryId = a})
+directoryServiceAuthentication_directoryId :: Lens.Lens' DirectoryServiceAuthentication (Prelude.Maybe Prelude.Text)
+directoryServiceAuthentication_directoryId = Lens.lens (\DirectoryServiceAuthentication' {directoryId} -> directoryId) (\s@DirectoryServiceAuthentication' {} a -> s {directoryId = a} :: DirectoryServiceAuthentication)
 
-instance FromXML DirectoryServiceAuthentication where
+instance
+  Prelude.FromXML
+    DirectoryServiceAuthentication
+  where
   parseXML x =
     DirectoryServiceAuthentication'
-      <$> (x .@? "directoryId")
+      Prelude.<$> (x Prelude..@? "directoryId")
 
-instance Hashable DirectoryServiceAuthentication
+instance
+  Prelude.Hashable
+    DirectoryServiceAuthentication
 
-instance NFData DirectoryServiceAuthentication
+instance
+  Prelude.NFData
+    DirectoryServiceAuthentication

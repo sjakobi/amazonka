@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,192 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the specified resource attachment from propagating routes to the specified propagation route table.
+-- Disables the specified resource attachment from propagating routes to
+-- the specified propagation route table.
 module Network.AWS.EC2.DisableTransitGatewayRouteTablePropagation
   ( -- * Creating a Request
-    disableTransitGatewayRouteTablePropagation,
-    DisableTransitGatewayRouteTablePropagation,
+    DisableTransitGatewayRouteTablePropagation (..),
+    newDisableTransitGatewayRouteTablePropagation,
 
     -- * Request Lenses
-    dtgrtpDryRun,
-    dtgrtpTransitGatewayRouteTableId,
-    dtgrtpTransitGatewayAttachmentId,
+    disableTransitGatewayRouteTablePropagation_dryRun,
+    disableTransitGatewayRouteTablePropagation_transitGatewayRouteTableId,
+    disableTransitGatewayRouteTablePropagation_transitGatewayAttachmentId,
 
     -- * Destructuring the Response
-    disableTransitGatewayRouteTablePropagationResponse,
-    DisableTransitGatewayRouteTablePropagationResponse,
+    DisableTransitGatewayRouteTablePropagationResponse (..),
+    newDisableTransitGatewayRouteTablePropagationResponse,
 
     -- * Response Lenses
-    dtgrtprrsPropagation,
-    dtgrtprrsResponseStatus,
+    disableTransitGatewayRouteTablePropagationResponse_propagation,
+    disableTransitGatewayRouteTablePropagationResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayPropagation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableTransitGatewayRouteTablePropagation' smart constructor.
+-- | /See:/ 'newDisableTransitGatewayRouteTablePropagation' smart constructor.
 data DisableTransitGatewayRouteTablePropagation = DisableTransitGatewayRouteTablePropagation'
-  { _dtgrtpDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dtgrtpTransitGatewayRouteTableId ::
-      !Text,
-    _dtgrtpTransitGatewayAttachmentId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the propagation route table.
+    transitGatewayRouteTableId :: Prelude.Text,
+    -- | The ID of the attachment.
+    transitGatewayAttachmentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableTransitGatewayRouteTablePropagation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableTransitGatewayRouteTablePropagation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrtpDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrtpTransitGatewayRouteTableId' - The ID of the propagation route table.
+-- 'dryRun', 'disableTransitGatewayRouteTablePropagation_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dtgrtpTransitGatewayAttachmentId' - The ID of the attachment.
-disableTransitGatewayRouteTablePropagation ::
-  -- | 'dtgrtpTransitGatewayRouteTableId'
-  Text ->
-  -- | 'dtgrtpTransitGatewayAttachmentId'
-  Text ->
+-- 'transitGatewayRouteTableId', 'disableTransitGatewayRouteTablePropagation_transitGatewayRouteTableId' - The ID of the propagation route table.
+--
+-- 'transitGatewayAttachmentId', 'disableTransitGatewayRouteTablePropagation_transitGatewayAttachmentId' - The ID of the attachment.
+newDisableTransitGatewayRouteTablePropagation ::
+  -- | 'transitGatewayRouteTableId'
+  Prelude.Text ->
+  -- | 'transitGatewayAttachmentId'
+  Prelude.Text ->
   DisableTransitGatewayRouteTablePropagation
-disableTransitGatewayRouteTablePropagation
+newDisableTransitGatewayRouteTablePropagation
   pTransitGatewayRouteTableId_
   pTransitGatewayAttachmentId_ =
     DisableTransitGatewayRouteTablePropagation'
-      { _dtgrtpDryRun =
-          Nothing,
-        _dtgrtpTransitGatewayRouteTableId =
+      { dryRun =
+          Prelude.Nothing,
+        transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_,
-        _dtgrtpTransitGatewayAttachmentId =
+        transitGatewayAttachmentId =
           pTransitGatewayAttachmentId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgrtpDryRun :: Lens' DisableTransitGatewayRouteTablePropagation (Maybe Bool)
-dtgrtpDryRun = lens _dtgrtpDryRun (\s a -> s {_dtgrtpDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+disableTransitGatewayRouteTablePropagation_dryRun :: Lens.Lens' DisableTransitGatewayRouteTablePropagation (Prelude.Maybe Prelude.Bool)
+disableTransitGatewayRouteTablePropagation_dryRun = Lens.lens (\DisableTransitGatewayRouteTablePropagation' {dryRun} -> dryRun) (\s@DisableTransitGatewayRouteTablePropagation' {} a -> s {dryRun = a} :: DisableTransitGatewayRouteTablePropagation)
 
 -- | The ID of the propagation route table.
-dtgrtpTransitGatewayRouteTableId :: Lens' DisableTransitGatewayRouteTablePropagation Text
-dtgrtpTransitGatewayRouteTableId = lens _dtgrtpTransitGatewayRouteTableId (\s a -> s {_dtgrtpTransitGatewayRouteTableId = a})
+disableTransitGatewayRouteTablePropagation_transitGatewayRouteTableId :: Lens.Lens' DisableTransitGatewayRouteTablePropagation Prelude.Text
+disableTransitGatewayRouteTablePropagation_transitGatewayRouteTableId = Lens.lens (\DisableTransitGatewayRouteTablePropagation' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@DisableTransitGatewayRouteTablePropagation' {} a -> s {transitGatewayRouteTableId = a} :: DisableTransitGatewayRouteTablePropagation)
 
 -- | The ID of the attachment.
-dtgrtpTransitGatewayAttachmentId :: Lens' DisableTransitGatewayRouteTablePropagation Text
-dtgrtpTransitGatewayAttachmentId = lens _dtgrtpTransitGatewayAttachmentId (\s a -> s {_dtgrtpTransitGatewayAttachmentId = a})
+disableTransitGatewayRouteTablePropagation_transitGatewayAttachmentId :: Lens.Lens' DisableTransitGatewayRouteTablePropagation Prelude.Text
+disableTransitGatewayRouteTablePropagation_transitGatewayAttachmentId = Lens.lens (\DisableTransitGatewayRouteTablePropagation' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@DisableTransitGatewayRouteTablePropagation' {} a -> s {transitGatewayAttachmentId = a} :: DisableTransitGatewayRouteTablePropagation)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DisableTransitGatewayRouteTablePropagation
   where
   type
     Rs DisableTransitGatewayRouteTablePropagation =
       DisableTransitGatewayRouteTablePropagationResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DisableTransitGatewayRouteTablePropagationResponse'
-            <$> (x .@? "propagation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "propagation")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DisableTransitGatewayRouteTablePropagation
 
 instance
-  NFData
+  Prelude.NFData
     DisableTransitGatewayRouteTablePropagation
 
 instance
-  ToHeaders
-    DisableTransitGatewayRouteTablePropagation
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DisableTransitGatewayRouteTablePropagation
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DisableTransitGatewayRouteTablePropagation
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DisableTransitGatewayRouteTablePropagation
   where
   toQuery
     DisableTransitGatewayRouteTablePropagation' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "DisableTransitGatewayRouteTablePropagation" ::
-                   ByteString
-               ),
-          "Version" =: ("2016-11-15" :: ByteString),
-          "DryRun" =: _dtgrtpDryRun,
+            Prelude.=: ( "DisableTransitGatewayRouteTablePropagation" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Prelude.=: dryRun,
           "TransitGatewayRouteTableId"
-            =: _dtgrtpTransitGatewayRouteTableId,
+            Prelude.=: transitGatewayRouteTableId,
           "TransitGatewayAttachmentId"
-            =: _dtgrtpTransitGatewayAttachmentId
+            Prelude.=: transitGatewayAttachmentId
         ]
 
--- | /See:/ 'disableTransitGatewayRouteTablePropagationResponse' smart constructor.
+-- | /See:/ 'newDisableTransitGatewayRouteTablePropagationResponse' smart constructor.
 data DisableTransitGatewayRouteTablePropagationResponse = DisableTransitGatewayRouteTablePropagationResponse'
-  { _dtgrtprrsPropagation ::
-      !( Maybe
-           TransitGatewayPropagation
-       ),
-    _dtgrtprrsResponseStatus ::
-      !Int
+  { -- | Information about route propagation.
+    propagation :: Prelude.Maybe TransitGatewayPropagation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableTransitGatewayRouteTablePropagationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableTransitGatewayRouteTablePropagationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrtprrsPropagation' - Information about route propagation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrtprrsResponseStatus' - -- | The response status code.
-disableTransitGatewayRouteTablePropagationResponse ::
-  -- | 'dtgrtprrsResponseStatus'
-  Int ->
+-- 'propagation', 'disableTransitGatewayRouteTablePropagationResponse_propagation' - Information about route propagation.
+--
+-- 'httpStatus', 'disableTransitGatewayRouteTablePropagationResponse_httpStatus' - The response's http status code.
+newDisableTransitGatewayRouteTablePropagationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisableTransitGatewayRouteTablePropagationResponse
-disableTransitGatewayRouteTablePropagationResponse
-  pResponseStatus_ =
+newDisableTransitGatewayRouteTablePropagationResponse
+  pHttpStatus_ =
     DisableTransitGatewayRouteTablePropagationResponse'
-      { _dtgrtprrsPropagation =
-          Nothing,
-        _dtgrtprrsResponseStatus =
-          pResponseStatus_
+      { propagation =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Information about route propagation.
-dtgrtprrsPropagation :: Lens' DisableTransitGatewayRouteTablePropagationResponse (Maybe TransitGatewayPropagation)
-dtgrtprrsPropagation = lens _dtgrtprrsPropagation (\s a -> s {_dtgrtprrsPropagation = a})
+disableTransitGatewayRouteTablePropagationResponse_propagation :: Lens.Lens' DisableTransitGatewayRouteTablePropagationResponse (Prelude.Maybe TransitGatewayPropagation)
+disableTransitGatewayRouteTablePropagationResponse_propagation = Lens.lens (\DisableTransitGatewayRouteTablePropagationResponse' {propagation} -> propagation) (\s@DisableTransitGatewayRouteTablePropagationResponse' {} a -> s {propagation = a} :: DisableTransitGatewayRouteTablePropagationResponse)
 
--- | -- | The response status code.
-dtgrtprrsResponseStatus :: Lens' DisableTransitGatewayRouteTablePropagationResponse Int
-dtgrtprrsResponseStatus = lens _dtgrtprrsResponseStatus (\s a -> s {_dtgrtprrsResponseStatus = a})
+-- | The response's http status code.
+disableTransitGatewayRouteTablePropagationResponse_httpStatus :: Lens.Lens' DisableTransitGatewayRouteTablePropagationResponse Prelude.Int
+disableTransitGatewayRouteTablePropagationResponse_httpStatus = Lens.lens (\DisableTransitGatewayRouteTablePropagationResponse' {httpStatus} -> httpStatus) (\s@DisableTransitGatewayRouteTablePropagationResponse' {} a -> s {httpStatus = a} :: DisableTransitGatewayRouteTablePropagationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DisableTransitGatewayRouteTablePropagationResponse

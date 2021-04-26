@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,203 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies a launch template. You can specify which version of the launch template to set as the default version. When launching an instance, the default version applies when a launch template version is not specified.
+-- Modifies a launch template. You can specify which version of the launch
+-- template to set as the default version. When launching an instance, the
+-- default version applies when a launch template version is not specified.
 module Network.AWS.EC2.ModifyLaunchTemplate
   ( -- * Creating a Request
-    modifyLaunchTemplate,
-    ModifyLaunchTemplate,
+    ModifyLaunchTemplate (..),
+    newModifyLaunchTemplate,
 
     -- * Request Lenses
-    mltDefaultVersion,
-    mltDryRun,
-    mltLaunchTemplateId,
-    mltLaunchTemplateName,
-    mltClientToken,
+    modifyLaunchTemplate_defaultVersion,
+    modifyLaunchTemplate_dryRun,
+    modifyLaunchTemplate_launchTemplateId,
+    modifyLaunchTemplate_launchTemplateName,
+    modifyLaunchTemplate_clientToken,
 
     -- * Destructuring the Response
-    modifyLaunchTemplateResponse,
-    ModifyLaunchTemplateResponse,
+    ModifyLaunchTemplateResponse (..),
+    newModifyLaunchTemplateResponse,
 
     -- * Response Lenses
-    mltrrsLaunchTemplate,
-    mltrrsResponseStatus,
+    modifyLaunchTemplateResponse_launchTemplate,
+    modifyLaunchTemplateResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.LaunchTemplate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyLaunchTemplate' smart constructor.
+-- | /See:/ 'newModifyLaunchTemplate' smart constructor.
 data ModifyLaunchTemplate = ModifyLaunchTemplate'
-  { _mltDefaultVersion ::
-      !(Maybe Text),
-    _mltDryRun :: !(Maybe Bool),
-    _mltLaunchTemplateId ::
-      !(Maybe Text),
-    _mltLaunchTemplateName ::
-      !(Maybe Text),
-    _mltClientToken ::
-      !(Maybe Text)
+  { -- | The version number of the launch template to set as the default version.
+    defaultVersion :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the launch template. You must specify either the launch
+    -- template ID or launch template name in the request.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template. You must specify either the launch
+    -- template ID or launch template name in the request.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | Unique, case-sensitive identifier you provide to ensure the idempotency
+    -- of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+    --
+    -- Constraint: Maximum 128 ASCII characters.
+    clientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyLaunchTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyLaunchTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mltDefaultVersion' - The version number of the launch template to set as the default version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mltDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'defaultVersion', 'modifyLaunchTemplate_defaultVersion' - The version number of the launch template to set as the default version.
 --
--- * 'mltLaunchTemplateId' - The ID of the launch template. You must specify either the launch template ID or launch template name in the request.
+-- 'dryRun', 'modifyLaunchTemplate_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'mltLaunchTemplateName' - The name of the launch template. You must specify either the launch template ID or launch template name in the request.
+-- 'launchTemplateId', 'modifyLaunchTemplate_launchTemplateId' - The ID of the launch template. You must specify either the launch
+-- template ID or launch template name in the request.
 --
--- * 'mltClientToken' - Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> . Constraint: Maximum 128 ASCII characters.
-modifyLaunchTemplate ::
+-- 'launchTemplateName', 'modifyLaunchTemplate_launchTemplateName' - The name of the launch template. You must specify either the launch
+-- template ID or launch template name in the request.
+--
+-- 'clientToken', 'modifyLaunchTemplate_clientToken' - Unique, case-sensitive identifier you provide to ensure the idempotency
+-- of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+--
+-- Constraint: Maximum 128 ASCII characters.
+newModifyLaunchTemplate ::
   ModifyLaunchTemplate
-modifyLaunchTemplate =
+newModifyLaunchTemplate =
   ModifyLaunchTemplate'
-    { _mltDefaultVersion = Nothing,
-      _mltDryRun = Nothing,
-      _mltLaunchTemplateId = Nothing,
-      _mltLaunchTemplateName = Nothing,
-      _mltClientToken = Nothing
+    { defaultVersion =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      launchTemplateId = Prelude.Nothing,
+      launchTemplateName = Prelude.Nothing,
+      clientToken = Prelude.Nothing
     }
 
 -- | The version number of the launch template to set as the default version.
-mltDefaultVersion :: Lens' ModifyLaunchTemplate (Maybe Text)
-mltDefaultVersion = lens _mltDefaultVersion (\s a -> s {_mltDefaultVersion = a})
+modifyLaunchTemplate_defaultVersion :: Lens.Lens' ModifyLaunchTemplate (Prelude.Maybe Prelude.Text)
+modifyLaunchTemplate_defaultVersion = Lens.lens (\ModifyLaunchTemplate' {defaultVersion} -> defaultVersion) (\s@ModifyLaunchTemplate' {} a -> s {defaultVersion = a} :: ModifyLaunchTemplate)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-mltDryRun :: Lens' ModifyLaunchTemplate (Maybe Bool)
-mltDryRun = lens _mltDryRun (\s a -> s {_mltDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyLaunchTemplate_dryRun :: Lens.Lens' ModifyLaunchTemplate (Prelude.Maybe Prelude.Bool)
+modifyLaunchTemplate_dryRun = Lens.lens (\ModifyLaunchTemplate' {dryRun} -> dryRun) (\s@ModifyLaunchTemplate' {} a -> s {dryRun = a} :: ModifyLaunchTemplate)
 
--- | The ID of the launch template. You must specify either the launch template ID or launch template name in the request.
-mltLaunchTemplateId :: Lens' ModifyLaunchTemplate (Maybe Text)
-mltLaunchTemplateId = lens _mltLaunchTemplateId (\s a -> s {_mltLaunchTemplateId = a})
+-- | The ID of the launch template. You must specify either the launch
+-- template ID or launch template name in the request.
+modifyLaunchTemplate_launchTemplateId :: Lens.Lens' ModifyLaunchTemplate (Prelude.Maybe Prelude.Text)
+modifyLaunchTemplate_launchTemplateId = Lens.lens (\ModifyLaunchTemplate' {launchTemplateId} -> launchTemplateId) (\s@ModifyLaunchTemplate' {} a -> s {launchTemplateId = a} :: ModifyLaunchTemplate)
 
--- | The name of the launch template. You must specify either the launch template ID or launch template name in the request.
-mltLaunchTemplateName :: Lens' ModifyLaunchTemplate (Maybe Text)
-mltLaunchTemplateName = lens _mltLaunchTemplateName (\s a -> s {_mltLaunchTemplateName = a})
+-- | The name of the launch template. You must specify either the launch
+-- template ID or launch template name in the request.
+modifyLaunchTemplate_launchTemplateName :: Lens.Lens' ModifyLaunchTemplate (Prelude.Maybe Prelude.Text)
+modifyLaunchTemplate_launchTemplateName = Lens.lens (\ModifyLaunchTemplate' {launchTemplateName} -> launchTemplateName) (\s@ModifyLaunchTemplate' {} a -> s {launchTemplateName = a} :: ModifyLaunchTemplate)
 
--- | Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> . Constraint: Maximum 128 ASCII characters.
-mltClientToken :: Lens' ModifyLaunchTemplate (Maybe Text)
-mltClientToken = lens _mltClientToken (\s a -> s {_mltClientToken = a})
+-- | Unique, case-sensitive identifier you provide to ensure the idempotency
+-- of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+--
+-- Constraint: Maximum 128 ASCII characters.
+modifyLaunchTemplate_clientToken :: Lens.Lens' ModifyLaunchTemplate (Prelude.Maybe Prelude.Text)
+modifyLaunchTemplate_clientToken = Lens.lens (\ModifyLaunchTemplate' {clientToken} -> clientToken) (\s@ModifyLaunchTemplate' {} a -> s {clientToken = a} :: ModifyLaunchTemplate)
 
-instance AWSRequest ModifyLaunchTemplate where
+instance Prelude.AWSRequest ModifyLaunchTemplate where
   type
     Rs ModifyLaunchTemplate =
       ModifyLaunchTemplateResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyLaunchTemplateResponse'
-            <$> (x .@? "launchTemplate") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "launchTemplate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyLaunchTemplate
+instance Prelude.Hashable ModifyLaunchTemplate
 
-instance NFData ModifyLaunchTemplate
+instance Prelude.NFData ModifyLaunchTemplate
 
-instance ToHeaders ModifyLaunchTemplate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyLaunchTemplate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyLaunchTemplate where
-  toPath = const "/"
+instance Prelude.ToPath ModifyLaunchTemplate where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyLaunchTemplate where
+instance Prelude.ToQuery ModifyLaunchTemplate where
   toQuery ModifyLaunchTemplate' {..} =
-    mconcat
-      [ "Action" =: ("ModifyLaunchTemplate" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "SetDefaultVersion" =: _mltDefaultVersion,
-        "DryRun" =: _mltDryRun,
-        "LaunchTemplateId" =: _mltLaunchTemplateId,
-        "LaunchTemplateName" =: _mltLaunchTemplateName,
-        "ClientToken" =: _mltClientToken
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyLaunchTemplate" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "SetDefaultVersion" Prelude.=: defaultVersion,
+        "DryRun" Prelude.=: dryRun,
+        "LaunchTemplateId" Prelude.=: launchTemplateId,
+        "LaunchTemplateName" Prelude.=: launchTemplateName,
+        "ClientToken" Prelude.=: clientToken
       ]
 
--- | /See:/ 'modifyLaunchTemplateResponse' smart constructor.
+-- | /See:/ 'newModifyLaunchTemplateResponse' smart constructor.
 data ModifyLaunchTemplateResponse = ModifyLaunchTemplateResponse'
-  { _mltrrsLaunchTemplate ::
-      !( Maybe
-           LaunchTemplate
-       ),
-    _mltrrsResponseStatus ::
-      !Int
+  { -- | Information about the launch template.
+    launchTemplate :: Prelude.Maybe LaunchTemplate,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyLaunchTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyLaunchTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mltrrsLaunchTemplate' - Information about the launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mltrrsResponseStatus' - -- | The response status code.
-modifyLaunchTemplateResponse ::
-  -- | 'mltrrsResponseStatus'
-  Int ->
+-- 'launchTemplate', 'modifyLaunchTemplateResponse_launchTemplate' - Information about the launch template.
+--
+-- 'httpStatus', 'modifyLaunchTemplateResponse_httpStatus' - The response's http status code.
+newModifyLaunchTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyLaunchTemplateResponse
-modifyLaunchTemplateResponse pResponseStatus_ =
+newModifyLaunchTemplateResponse pHttpStatus_ =
   ModifyLaunchTemplateResponse'
-    { _mltrrsLaunchTemplate =
-        Nothing,
-      _mltrrsResponseStatus = pResponseStatus_
+    { launchTemplate =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the launch template.
-mltrrsLaunchTemplate :: Lens' ModifyLaunchTemplateResponse (Maybe LaunchTemplate)
-mltrrsLaunchTemplate = lens _mltrrsLaunchTemplate (\s a -> s {_mltrrsLaunchTemplate = a})
+modifyLaunchTemplateResponse_launchTemplate :: Lens.Lens' ModifyLaunchTemplateResponse (Prelude.Maybe LaunchTemplate)
+modifyLaunchTemplateResponse_launchTemplate = Lens.lens (\ModifyLaunchTemplateResponse' {launchTemplate} -> launchTemplate) (\s@ModifyLaunchTemplateResponse' {} a -> s {launchTemplate = a} :: ModifyLaunchTemplateResponse)
 
--- | -- | The response status code.
-mltrrsResponseStatus :: Lens' ModifyLaunchTemplateResponse Int
-mltrrsResponseStatus = lens _mltrrsResponseStatus (\s a -> s {_mltrrsResponseStatus = a})
+-- | The response's http status code.
+modifyLaunchTemplateResponse_httpStatus :: Lens.Lens' ModifyLaunchTemplateResponse Prelude.Int
+modifyLaunchTemplateResponse_httpStatus = Lens.lens (\ModifyLaunchTemplateResponse' {httpStatus} -> httpStatus) (\s@ModifyLaunchTemplateResponse' {} a -> s {httpStatus = a} :: ModifyLaunchTemplateResponse)
 
-instance NFData ModifyLaunchTemplateResponse
+instance Prelude.NFData ModifyLaunchTemplateResponse

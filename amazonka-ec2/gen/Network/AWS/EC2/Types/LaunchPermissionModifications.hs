@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +21,65 @@ module Network.AWS.EC2.Types.LaunchPermissionModifications where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.LaunchPermission
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch permission modification.
 --
---
---
--- /See:/ 'launchPermissionModifications' smart constructor.
+-- /See:/ 'newLaunchPermissionModifications' smart constructor.
 data LaunchPermissionModifications = LaunchPermissionModifications'
-  { _lpmAdd ::
-      !( Maybe
-           [LaunchPermission]
-       ),
-    _lpmRemove ::
-      !( Maybe
-           [LaunchPermission]
-       )
+  { -- | The AWS account ID to add to the list of launch permissions for the AMI.
+    add :: Prelude.Maybe [LaunchPermission],
+    -- | The AWS account ID to remove from the list of launch permissions for the
+    -- AMI.
+    remove :: Prelude.Maybe [LaunchPermission]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchPermissionModifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchPermissionModifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpmAdd' - The AWS account ID to add to the list of launch permissions for the AMI.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpmRemove' - The AWS account ID to remove from the list of launch permissions for the AMI.
-launchPermissionModifications ::
+-- 'add', 'launchPermissionModifications_add' - The AWS account ID to add to the list of launch permissions for the AMI.
+--
+-- 'remove', 'launchPermissionModifications_remove' - The AWS account ID to remove from the list of launch permissions for the
+-- AMI.
+newLaunchPermissionModifications ::
   LaunchPermissionModifications
-launchPermissionModifications =
+newLaunchPermissionModifications =
   LaunchPermissionModifications'
-    { _lpmAdd = Nothing,
-      _lpmRemove = Nothing
+    { add =
+        Prelude.Nothing,
+      remove = Prelude.Nothing
     }
 
 -- | The AWS account ID to add to the list of launch permissions for the AMI.
-lpmAdd :: Lens' LaunchPermissionModifications [LaunchPermission]
-lpmAdd = lens _lpmAdd (\s a -> s {_lpmAdd = a}) . _Default . _Coerce
+launchPermissionModifications_add :: Lens.Lens' LaunchPermissionModifications (Prelude.Maybe [LaunchPermission])
+launchPermissionModifications_add = Lens.lens (\LaunchPermissionModifications' {add} -> add) (\s@LaunchPermissionModifications' {} a -> s {add = a} :: LaunchPermissionModifications) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The AWS account ID to remove from the list of launch permissions for the AMI.
-lpmRemove :: Lens' LaunchPermissionModifications [LaunchPermission]
-lpmRemove = lens _lpmRemove (\s a -> s {_lpmRemove = a}) . _Default . _Coerce
+-- | The AWS account ID to remove from the list of launch permissions for the
+-- AMI.
+launchPermissionModifications_remove :: Lens.Lens' LaunchPermissionModifications (Prelude.Maybe [LaunchPermission])
+launchPermissionModifications_remove = Lens.lens (\LaunchPermissionModifications' {remove} -> remove) (\s@LaunchPermissionModifications' {} a -> s {remove = a} :: LaunchPermissionModifications) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable LaunchPermissionModifications
+instance
+  Prelude.Hashable
+    LaunchPermissionModifications
 
-instance NFData LaunchPermissionModifications
+instance Prelude.NFData LaunchPermissionModifications
 
-instance ToQuery LaunchPermissionModifications where
+instance
+  Prelude.ToQuery
+    LaunchPermissionModifications
+  where
   toQuery LaunchPermissionModifications' {..} =
-    mconcat
-      [ toQuery (toQueryList "Add" <$> _lpmAdd),
-        toQuery (toQueryList "Remove" <$> _lpmRemove)
+    Prelude.mconcat
+      [ Prelude.toQuery
+          (Prelude.toQueryList "Add" Prelude.<$> add),
+        Prelude.toQuery
+          (Prelude.toQueryList "Remove" Prelude.<$> remove)
       ]

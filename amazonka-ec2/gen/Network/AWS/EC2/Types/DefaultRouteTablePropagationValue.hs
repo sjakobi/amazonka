@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.DefaultRouteTablePropagationValue
   ( DefaultRouteTablePropagationValue
       ( ..,
-        DRTPVDisable,
-        DRTPVEnable
+        DefaultRouteTablePropagationValueDisable,
+        DefaultRouteTablePropagationValueEnable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DefaultRouteTablePropagationValue
-  = DefaultRouteTablePropagationValue'
-      ( CI
-          Text
-      )
+newtype DefaultRouteTablePropagationValue = DefaultRouteTablePropagationValue'
+  { fromDefaultRouteTablePropagationValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DRTPVDisable :: DefaultRouteTablePropagationValue
-pattern DRTPVDisable = DefaultRouteTablePropagationValue' "disable"
+pattern DefaultRouteTablePropagationValueDisable :: DefaultRouteTablePropagationValue
+pattern DefaultRouteTablePropagationValueDisable = DefaultRouteTablePropagationValue' "disable"
 
-pattern DRTPVEnable :: DefaultRouteTablePropagationValue
-pattern DRTPVEnable = DefaultRouteTablePropagationValue' "enable"
+pattern DefaultRouteTablePropagationValueEnable :: DefaultRouteTablePropagationValue
+pattern DefaultRouteTablePropagationValueEnable = DefaultRouteTablePropagationValue' "enable"
 
 {-# COMPLETE
-  DRTPVDisable,
-  DRTPVEnable,
+  DefaultRouteTablePropagationValueDisable,
+  DefaultRouteTablePropagationValueEnable,
   DefaultRouteTablePropagationValue'
   #-}
 
-instance FromText DefaultRouteTablePropagationValue where
-  parser = (DefaultRouteTablePropagationValue' . mk) <$> takeText
+instance Prelude.FromText DefaultRouteTablePropagationValue where
+  parser = DefaultRouteTablePropagationValue' Prelude.<$> Prelude.takeText
 
-instance ToText DefaultRouteTablePropagationValue where
-  toText (DefaultRouteTablePropagationValue' ci) = original ci
+instance Prelude.ToText DefaultRouteTablePropagationValue where
+  toText (DefaultRouteTablePropagationValue' x) = x
 
-instance Hashable DefaultRouteTablePropagationValue
+instance Prelude.Hashable DefaultRouteTablePropagationValue
 
-instance NFData DefaultRouteTablePropagationValue
+instance Prelude.NFData DefaultRouteTablePropagationValue
 
-instance ToByteString DefaultRouteTablePropagationValue
+instance Prelude.ToByteString DefaultRouteTablePropagationValue
 
-instance ToQuery DefaultRouteTablePropagationValue
+instance Prelude.ToQuery DefaultRouteTablePropagationValue
 
-instance ToHeader DefaultRouteTablePropagationValue
+instance Prelude.ToHeader DefaultRouteTablePropagationValue
 
-instance FromXML DefaultRouteTablePropagationValue where
-  parseXML = parseXMLText "DefaultRouteTablePropagationValue"
+instance Prelude.FromXML DefaultRouteTablePropagationValue where
+  parseXML = Prelude.parseXMLText "DefaultRouteTablePropagationValue"

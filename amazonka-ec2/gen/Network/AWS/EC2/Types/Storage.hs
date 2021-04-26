@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,36 +21,43 @@ module Network.AWS.EC2.Types.Storage where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.S3Storage
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the storage location for an instance store-backed AMI.
 --
---
---
--- /See:/ 'storage' smart constructor.
-newtype Storage = Storage' {_sS3 :: Maybe S3Storage}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newStorage' smart constructor.
+data Storage = Storage'
+  { -- | An Amazon S3 storage location.
+    s3 :: Prelude.Maybe S3Storage
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Storage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Storage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sS3' - An Amazon S3 storage location.
-storage ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3', 'storage_s3' - An Amazon S3 storage location.
+newStorage ::
   Storage
-storage = Storage' {_sS3 = Nothing}
+newStorage = Storage' {s3 = Prelude.Nothing}
 
 -- | An Amazon S3 storage location.
-sS3 :: Lens' Storage (Maybe S3Storage)
-sS3 = lens _sS3 (\s a -> s {_sS3 = a})
+storage_s3 :: Lens.Lens' Storage (Prelude.Maybe S3Storage)
+storage_s3 = Lens.lens (\Storage' {s3} -> s3) (\s@Storage' {} a -> s {s3 = a} :: Storage)
 
-instance FromXML Storage where
-  parseXML x = Storage' <$> (x .@? "S3")
+instance Prelude.FromXML Storage where
+  parseXML x =
+    Storage' Prelude.<$> (x Prelude..@? "S3")
 
-instance Hashable Storage
+instance Prelude.Hashable Storage
 
-instance NFData Storage
+instance Prelude.NFData Storage
 
-instance ToQuery Storage where
-  toQuery Storage' {..} = mconcat ["S3" =: _sS3]
+instance Prelude.ToQuery Storage where
+  toQuery Storage' {..} =
+    Prelude.mconcat ["S3" Prelude.=: s3]

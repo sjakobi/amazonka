@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.AutoAcceptSharedAssociationsValue
   ( AutoAcceptSharedAssociationsValue
       ( ..,
-        ADisable,
-        AEnable
+        AutoAcceptSharedAssociationsValueDisable,
+        AutoAcceptSharedAssociationsValueEnable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoAcceptSharedAssociationsValue
-  = AutoAcceptSharedAssociationsValue'
-      ( CI
-          Text
-      )
+newtype AutoAcceptSharedAssociationsValue = AutoAcceptSharedAssociationsValue'
+  { fromAutoAcceptSharedAssociationsValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ADisable :: AutoAcceptSharedAssociationsValue
-pattern ADisable = AutoAcceptSharedAssociationsValue' "disable"
+pattern AutoAcceptSharedAssociationsValueDisable :: AutoAcceptSharedAssociationsValue
+pattern AutoAcceptSharedAssociationsValueDisable = AutoAcceptSharedAssociationsValue' "disable"
 
-pattern AEnable :: AutoAcceptSharedAssociationsValue
-pattern AEnable = AutoAcceptSharedAssociationsValue' "enable"
+pattern AutoAcceptSharedAssociationsValueEnable :: AutoAcceptSharedAssociationsValue
+pattern AutoAcceptSharedAssociationsValueEnable = AutoAcceptSharedAssociationsValue' "enable"
 
 {-# COMPLETE
-  ADisable,
-  AEnable,
+  AutoAcceptSharedAssociationsValueDisable,
+  AutoAcceptSharedAssociationsValueEnable,
   AutoAcceptSharedAssociationsValue'
   #-}
 
-instance FromText AutoAcceptSharedAssociationsValue where
-  parser = (AutoAcceptSharedAssociationsValue' . mk) <$> takeText
+instance Prelude.FromText AutoAcceptSharedAssociationsValue where
+  parser = AutoAcceptSharedAssociationsValue' Prelude.<$> Prelude.takeText
 
-instance ToText AutoAcceptSharedAssociationsValue where
-  toText (AutoAcceptSharedAssociationsValue' ci) = original ci
+instance Prelude.ToText AutoAcceptSharedAssociationsValue where
+  toText (AutoAcceptSharedAssociationsValue' x) = x
 
-instance Hashable AutoAcceptSharedAssociationsValue
+instance Prelude.Hashable AutoAcceptSharedAssociationsValue
 
-instance NFData AutoAcceptSharedAssociationsValue
+instance Prelude.NFData AutoAcceptSharedAssociationsValue
 
-instance ToByteString AutoAcceptSharedAssociationsValue
+instance Prelude.ToByteString AutoAcceptSharedAssociationsValue
 
-instance ToQuery AutoAcceptSharedAssociationsValue
+instance Prelude.ToQuery AutoAcceptSharedAssociationsValue
 
-instance ToHeader AutoAcceptSharedAssociationsValue
+instance Prelude.ToHeader AutoAcceptSharedAssociationsValue
 
-instance FromXML AutoAcceptSharedAssociationsValue where
-  parseXML = parseXMLText "AutoAcceptSharedAssociationsValue"
+instance Prelude.FromXML AutoAcceptSharedAssociationsValue where
+  parseXML = Prelude.parseXMLText "AutoAcceptSharedAssociationsValue"

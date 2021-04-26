@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.EC2.Types.MarketType
   ( MarketType
       ( ..,
-        Spot
+        MarketTypeSpot
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MarketType = MarketType' (CI Text)
+newtype MarketType = MarketType'
+  { fromMarketType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Spot :: MarketType
-pattern Spot = MarketType' "spot"
+pattern MarketTypeSpot :: MarketType
+pattern MarketTypeSpot = MarketType' "spot"
 
 {-# COMPLETE
-  Spot,
+  MarketTypeSpot,
   MarketType'
   #-}
 
-instance FromText MarketType where
-  parser = (MarketType' . mk) <$> takeText
+instance Prelude.FromText MarketType where
+  parser = MarketType' Prelude.<$> Prelude.takeText
 
-instance ToText MarketType where
-  toText (MarketType' ci) = original ci
+instance Prelude.ToText MarketType where
+  toText (MarketType' x) = x
 
-instance Hashable MarketType
+instance Prelude.Hashable MarketType
 
-instance NFData MarketType
+instance Prelude.NFData MarketType
 
-instance ToByteString MarketType
+instance Prelude.ToByteString MarketType
 
-instance ToQuery MarketType
+instance Prelude.ToQuery MarketType
 
-instance ToHeader MarketType
+instance Prelude.ToHeader MarketType
 
-instance FromXML MarketType where
-  parseXML = parseXMLText "MarketType"
+instance Prelude.FromXML MarketType where
+  parseXML = Prelude.parseXMLText "MarketType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +21,55 @@ module Network.AWS.EC2.Types.RouteTableAssociationState where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.RouteTableAssociationStateCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the state of an association between a route table and a subnet or gateway.
+-- | Describes the state of an association between a route table and a subnet
+-- or gateway.
 --
---
---
--- /See:/ 'routeTableAssociationState' smart constructor.
+-- /See:/ 'newRouteTableAssociationState' smart constructor.
 data RouteTableAssociationState = RouteTableAssociationState'
-  { _rtasStatusMessage ::
-      !(Maybe Text),
-    _rtasState ::
-      !( Maybe
-           RouteTableAssociationStateCode
-       )
+  { -- | The status message, if applicable.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The state of the association.
+    state :: Prelude.Maybe RouteTableAssociationStateCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RouteTableAssociationState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RouteTableAssociationState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtasStatusMessage' - The status message, if applicable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtasState' - The state of the association.
-routeTableAssociationState ::
+-- 'statusMessage', 'routeTableAssociationState_statusMessage' - The status message, if applicable.
+--
+-- 'state', 'routeTableAssociationState_state' - The state of the association.
+newRouteTableAssociationState ::
   RouteTableAssociationState
-routeTableAssociationState =
+newRouteTableAssociationState =
   RouteTableAssociationState'
-    { _rtasStatusMessage =
-        Nothing,
-      _rtasState = Nothing
+    { statusMessage =
+        Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
 -- | The status message, if applicable.
-rtasStatusMessage :: Lens' RouteTableAssociationState (Maybe Text)
-rtasStatusMessage = lens _rtasStatusMessage (\s a -> s {_rtasStatusMessage = a})
+routeTableAssociationState_statusMessage :: Lens.Lens' RouteTableAssociationState (Prelude.Maybe Prelude.Text)
+routeTableAssociationState_statusMessage = Lens.lens (\RouteTableAssociationState' {statusMessage} -> statusMessage) (\s@RouteTableAssociationState' {} a -> s {statusMessage = a} :: RouteTableAssociationState)
 
 -- | The state of the association.
-rtasState :: Lens' RouteTableAssociationState (Maybe RouteTableAssociationStateCode)
-rtasState = lens _rtasState (\s a -> s {_rtasState = a})
+routeTableAssociationState_state :: Lens.Lens' RouteTableAssociationState (Prelude.Maybe RouteTableAssociationStateCode)
+routeTableAssociationState_state = Lens.lens (\RouteTableAssociationState' {state} -> state) (\s@RouteTableAssociationState' {} a -> s {state = a} :: RouteTableAssociationState)
 
-instance FromXML RouteTableAssociationState where
+instance Prelude.FromXML RouteTableAssociationState where
   parseXML x =
     RouteTableAssociationState'
-      <$> (x .@? "statusMessage") <*> (x .@? "state")
+      Prelude.<$> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "state")
 
-instance Hashable RouteTableAssociationState
+instance Prelude.Hashable RouteTableAssociationState
 
-instance NFData RouteTableAssociationState
+instance Prelude.NFData RouteTableAssociationState

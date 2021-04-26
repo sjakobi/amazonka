@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,61 +20,65 @@
 module Network.AWS.EC2.Types.PrefixList where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes prefixes for AWS services.
 --
---
---
--- /See:/ 'prefixList' smart constructor.
+-- /See:/ 'newPrefixList' smart constructor.
 data PrefixList = PrefixList'
-  { _plPrefixListName ::
-      !(Maybe Text),
-    _plCidrs :: !(Maybe [Text]),
-    _plPrefixListId :: !(Maybe Text)
+  { -- | The name of the prefix.
+    prefixListName :: Prelude.Maybe Prelude.Text,
+    -- | The IP address range of the AWS service.
+    cidrs :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the prefix.
+    prefixListId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PrefixList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PrefixList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plPrefixListName' - The name of the prefix.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plCidrs' - The IP address range of the AWS service.
+-- 'prefixListName', 'prefixList_prefixListName' - The name of the prefix.
 --
--- * 'plPrefixListId' - The ID of the prefix.
-prefixList ::
+-- 'cidrs', 'prefixList_cidrs' - The IP address range of the AWS service.
+--
+-- 'prefixListId', 'prefixList_prefixListId' - The ID of the prefix.
+newPrefixList ::
   PrefixList
-prefixList =
+newPrefixList =
   PrefixList'
-    { _plPrefixListName = Nothing,
-      _plCidrs = Nothing,
-      _plPrefixListId = Nothing
+    { prefixListName = Prelude.Nothing,
+      cidrs = Prelude.Nothing,
+      prefixListId = Prelude.Nothing
     }
 
 -- | The name of the prefix.
-plPrefixListName :: Lens' PrefixList (Maybe Text)
-plPrefixListName = lens _plPrefixListName (\s a -> s {_plPrefixListName = a})
+prefixList_prefixListName :: Lens.Lens' PrefixList (Prelude.Maybe Prelude.Text)
+prefixList_prefixListName = Lens.lens (\PrefixList' {prefixListName} -> prefixListName) (\s@PrefixList' {} a -> s {prefixListName = a} :: PrefixList)
 
 -- | The IP address range of the AWS service.
-plCidrs :: Lens' PrefixList [Text]
-plCidrs = lens _plCidrs (\s a -> s {_plCidrs = a}) . _Default . _Coerce
+prefixList_cidrs :: Lens.Lens' PrefixList (Prelude.Maybe [Prelude.Text])
+prefixList_cidrs = Lens.lens (\PrefixList' {cidrs} -> cidrs) (\s@PrefixList' {} a -> s {cidrs = a} :: PrefixList) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the prefix.
-plPrefixListId :: Lens' PrefixList (Maybe Text)
-plPrefixListId = lens _plPrefixListId (\s a -> s {_plPrefixListId = a})
+prefixList_prefixListId :: Lens.Lens' PrefixList (Prelude.Maybe Prelude.Text)
+prefixList_prefixListId = Lens.lens (\PrefixList' {prefixListId} -> prefixListId) (\s@PrefixList' {} a -> s {prefixListId = a} :: PrefixList)
 
-instance FromXML PrefixList where
+instance Prelude.FromXML PrefixList where
   parseXML x =
     PrefixList'
-      <$> (x .@? "prefixListName")
-      <*> ( x .@? "cidrSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "prefixListId")
+      Prelude.<$> (x Prelude..@? "prefixListName")
+      Prelude.<*> ( x Prelude..@? "cidrSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "prefixListId")
 
-instance Hashable PrefixList
+instance Prelude.Hashable PrefixList
 
-instance NFData PrefixList
+instance Prelude.NFData PrefixList

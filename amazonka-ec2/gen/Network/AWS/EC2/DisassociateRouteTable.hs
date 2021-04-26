@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,112 +23,127 @@
 --
 -- Disassociates a subnet or gateway from a route table.
 --
---
--- After you perform this action, the subnet no longer uses the routes in the route table. Instead, it uses the routes in the VPC's main route table. For more information about route tables, see <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables> in the /Amazon Virtual Private Cloud User Guide/ .
+-- After you perform this action, the subnet no longer uses the routes in
+-- the route table. Instead, it uses the routes in the VPC\'s main route
+-- table. For more information about route tables, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 module Network.AWS.EC2.DisassociateRouteTable
   ( -- * Creating a Request
-    disassociateRouteTable,
-    DisassociateRouteTable,
+    DisassociateRouteTable (..),
+    newDisassociateRouteTable,
 
     -- * Request Lenses
-    ddDryRun,
-    ddAssociationId,
+    disassociateRouteTable_dryRun,
+    disassociateRouteTable_associationId,
 
     -- * Destructuring the Response
-    disassociateRouteTableResponse,
-    DisassociateRouteTableResponse,
+    DisassociateRouteTableResponse (..),
+    newDisassociateRouteTableResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateRouteTable' smart constructor.
+-- | /See:/ 'newDisassociateRouteTable' smart constructor.
 data DisassociateRouteTable = DisassociateRouteTable'
-  { _ddDryRun ::
-      !(Maybe Bool),
-    _ddAssociationId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The association ID representing the current association between the
+    -- route table and subnet or gateway.
+    associationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateRouteTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateRouteTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddAssociationId' - The association ID representing the current association between the route table and subnet or gateway.
-disassociateRouteTable ::
-  -- | 'ddAssociationId'
-  Text ->
+-- 'dryRun', 'disassociateRouteTable_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'associationId', 'disassociateRouteTable_associationId' - The association ID representing the current association between the
+-- route table and subnet or gateway.
+newDisassociateRouteTable ::
+  -- | 'associationId'
+  Prelude.Text ->
   DisassociateRouteTable
-disassociateRouteTable pAssociationId_ =
+newDisassociateRouteTable pAssociationId_ =
   DisassociateRouteTable'
-    { _ddDryRun = Nothing,
-      _ddAssociationId = pAssociationId_
+    { dryRun = Prelude.Nothing,
+      associationId = pAssociationId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ddDryRun :: Lens' DisassociateRouteTable (Maybe Bool)
-ddDryRun = lens _ddDryRun (\s a -> s {_ddDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+disassociateRouteTable_dryRun :: Lens.Lens' DisassociateRouteTable (Prelude.Maybe Prelude.Bool)
+disassociateRouteTable_dryRun = Lens.lens (\DisassociateRouteTable' {dryRun} -> dryRun) (\s@DisassociateRouteTable' {} a -> s {dryRun = a} :: DisassociateRouteTable)
 
--- | The association ID representing the current association between the route table and subnet or gateway.
-ddAssociationId :: Lens' DisassociateRouteTable Text
-ddAssociationId = lens _ddAssociationId (\s a -> s {_ddAssociationId = a})
+-- | The association ID representing the current association between the
+-- route table and subnet or gateway.
+disassociateRouteTable_associationId :: Lens.Lens' DisassociateRouteTable Prelude.Text
+disassociateRouteTable_associationId = Lens.lens (\DisassociateRouteTable' {associationId} -> associationId) (\s@DisassociateRouteTable' {} a -> s {associationId = a} :: DisassociateRouteTable)
 
-instance AWSRequest DisassociateRouteTable where
+instance Prelude.AWSRequest DisassociateRouteTable where
   type
     Rs DisassociateRouteTable =
       DisassociateRouteTableResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveNull DisassociateRouteTableResponse'
+    Response.receiveNull
+      DisassociateRouteTableResponse'
 
-instance Hashable DisassociateRouteTable
+instance Prelude.Hashable DisassociateRouteTable
 
-instance NFData DisassociateRouteTable
+instance Prelude.NFData DisassociateRouteTable
 
-instance ToHeaders DisassociateRouteTable where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DisassociateRouteTable where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DisassociateRouteTable where
-  toPath = const "/"
+instance Prelude.ToPath DisassociateRouteTable where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateRouteTable where
+instance Prelude.ToQuery DisassociateRouteTable where
   toQuery DisassociateRouteTable' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DisassociateRouteTable" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _ddDryRun,
-        "AssociationId" =: _ddAssociationId
+          Prelude.=: ("DisassociateRouteTable" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "AssociationId" Prelude.=: associationId
       ]
 
--- | /See:/ 'disassociateRouteTableResponse' smart constructor.
+-- | /See:/ 'newDisassociateRouteTableResponse' smart constructor.
 data DisassociateRouteTableResponse = DisassociateRouteTableResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateRouteTableResponse' with the minimum fields required to make a request.
-disassociateRouteTableResponse ::
+-- |
+-- Create a value of 'DisassociateRouteTableResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisassociateRouteTableResponse ::
   DisassociateRouteTableResponse
-disassociateRouteTableResponse =
+newDisassociateRouteTableResponse =
   DisassociateRouteTableResponse'
 
-instance NFData DisassociateRouteTableResponse
+instance
+  Prelude.NFData
+    DisassociateRouteTableResponse

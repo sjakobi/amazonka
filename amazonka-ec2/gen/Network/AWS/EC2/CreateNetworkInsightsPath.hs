@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,243 +23,253 @@
 --
 -- Creates a path to analyze for reachability.
 --
---
--- Reachability Analyzer enables you to analyze and debug network reachability between two resources in your virtual private cloud (VPC). For more information, see <https://docs.aws.amazon.com/vpc/latest/reachability/ What is Reachability Analyzer> .
+-- Reachability Analyzer enables you to analyze and debug network
+-- reachability between two resources in your virtual private cloud (VPC).
+-- For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/reachability/ What is Reachability Analyzer>.
 module Network.AWS.EC2.CreateNetworkInsightsPath
   ( -- * Creating a Request
-    createNetworkInsightsPath,
-    CreateNetworkInsightsPath,
+    CreateNetworkInsightsPath (..),
+    newCreateNetworkInsightsPath,
 
     -- * Request Lenses
-    cnipnTagSpecifications,
-    cnipnDryRun,
-    cnipnDestinationIP,
-    cnipnSourceIP,
-    cnipnDestinationPort,
-    cnipnSource,
-    cnipnDestination,
-    cnipnProtocol,
-    cnipnClientToken,
+    createNetworkInsightsPath_tagSpecifications,
+    createNetworkInsightsPath_dryRun,
+    createNetworkInsightsPath_destinationIp,
+    createNetworkInsightsPath_sourceIp,
+    createNetworkInsightsPath_destinationPort,
+    createNetworkInsightsPath_source,
+    createNetworkInsightsPath_destination,
+    createNetworkInsightsPath_protocol,
+    createNetworkInsightsPath_clientToken,
 
     -- * Destructuring the Response
-    createNetworkInsightsPathResponse,
-    CreateNetworkInsightsPathResponse,
+    CreateNetworkInsightsPathResponse (..),
+    newCreateNetworkInsightsPathResponse,
 
     -- * Response Lenses
-    cniprnrsNetworkInsightsPath,
-    cniprnrsResponseStatus,
+    createNetworkInsightsPathResponse_networkInsightsPath,
+    createNetworkInsightsPathResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.NetworkInsightsPath
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createNetworkInsightsPath' smart constructor.
+-- | /See:/ 'newCreateNetworkInsightsPath' smart constructor.
 data CreateNetworkInsightsPath = CreateNetworkInsightsPath'
-  { _cnipnTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _cnipnDryRun ::
-      !(Maybe Bool),
-    _cnipnDestinationIP ::
-      !(Maybe Text),
-    _cnipnSourceIP ::
-      !(Maybe Text),
-    _cnipnDestinationPort ::
-      !(Maybe Nat),
-    _cnipnSource ::
-      !Text,
-    _cnipnDestination ::
-      !Text,
-    _cnipnProtocol ::
-      !Protocol,
-    _cnipnClientToken ::
-      !Text
+  { -- | The tags to add to the path.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IP address of the AWS resource that is the destination of the path.
+    destinationIp :: Prelude.Maybe Prelude.Text,
+    -- | The IP address of the AWS resource that is the source of the path.
+    sourceIp :: Prelude.Maybe Prelude.Text,
+    -- | The destination port.
+    destinationPort :: Prelude.Maybe Prelude.Nat,
+    -- | The AWS resource that is the source of the path.
+    source :: Prelude.Text,
+    -- | The AWS resource that is the destination of the path.
+    destination :: Prelude.Text,
+    -- | The protocol.
+    protocol :: Protocol,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+    clientToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateNetworkInsightsPath' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateNetworkInsightsPath' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cnipnTagSpecifications' - The tags to add to the path.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cnipnDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createNetworkInsightsPath_tagSpecifications' - The tags to add to the path.
 --
--- * 'cnipnDestinationIP' - The IP address of the AWS resource that is the destination of the path.
+-- 'dryRun', 'createNetworkInsightsPath_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'cnipnSourceIP' - The IP address of the AWS resource that is the source of the path.
+-- 'destinationIp', 'createNetworkInsightsPath_destinationIp' - The IP address of the AWS resource that is the destination of the path.
 --
--- * 'cnipnDestinationPort' - The destination port.
+-- 'sourceIp', 'createNetworkInsightsPath_sourceIp' - The IP address of the AWS resource that is the source of the path.
 --
--- * 'cnipnSource' - The AWS resource that is the source of the path.
+-- 'destinationPort', 'createNetworkInsightsPath_destinationPort' - The destination port.
 --
--- * 'cnipnDestination' - The AWS resource that is the destination of the path.
+-- 'source', 'createNetworkInsightsPath_source' - The AWS resource that is the source of the path.
 --
--- * 'cnipnProtocol' - The protocol.
+-- 'destination', 'createNetworkInsightsPath_destination' - The AWS resource that is the destination of the path.
 --
--- * 'cnipnClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-createNetworkInsightsPath ::
-  -- | 'cnipnSource'
-  Text ->
-  -- | 'cnipnDestination'
-  Text ->
-  -- | 'cnipnProtocol'
+-- 'protocol', 'createNetworkInsightsPath_protocol' - The protocol.
+--
+-- 'clientToken', 'createNetworkInsightsPath_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+newCreateNetworkInsightsPath ::
+  -- | 'source'
+  Prelude.Text ->
+  -- | 'destination'
+  Prelude.Text ->
+  -- | 'protocol'
   Protocol ->
-  -- | 'cnipnClientToken'
-  Text ->
+  -- | 'clientToken'
+  Prelude.Text ->
   CreateNetworkInsightsPath
-createNetworkInsightsPath
+newCreateNetworkInsightsPath
   pSource_
   pDestination_
   pProtocol_
   pClientToken_ =
     CreateNetworkInsightsPath'
-      { _cnipnTagSpecifications =
-          Nothing,
-        _cnipnDryRun = Nothing,
-        _cnipnDestinationIP = Nothing,
-        _cnipnSourceIP = Nothing,
-        _cnipnDestinationPort = Nothing,
-        _cnipnSource = pSource_,
-        _cnipnDestination = pDestination_,
-        _cnipnProtocol = pProtocol_,
-        _cnipnClientToken = pClientToken_
+      { tagSpecifications =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        destinationIp = Prelude.Nothing,
+        sourceIp = Prelude.Nothing,
+        destinationPort = Prelude.Nothing,
+        source = pSource_,
+        destination = pDestination_,
+        protocol = pProtocol_,
+        clientToken = pClientToken_
       }
 
 -- | The tags to add to the path.
-cnipnTagSpecifications :: Lens' CreateNetworkInsightsPath [TagSpecification]
-cnipnTagSpecifications = lens _cnipnTagSpecifications (\s a -> s {_cnipnTagSpecifications = a}) . _Default . _Coerce
+createNetworkInsightsPath_tagSpecifications :: Lens.Lens' CreateNetworkInsightsPath (Prelude.Maybe [TagSpecification])
+createNetworkInsightsPath_tagSpecifications = Lens.lens (\CreateNetworkInsightsPath' {tagSpecifications} -> tagSpecifications) (\s@CreateNetworkInsightsPath' {} a -> s {tagSpecifications = a} :: CreateNetworkInsightsPath) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-cnipnDryRun :: Lens' CreateNetworkInsightsPath (Maybe Bool)
-cnipnDryRun = lens _cnipnDryRun (\s a -> s {_cnipnDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createNetworkInsightsPath_dryRun :: Lens.Lens' CreateNetworkInsightsPath (Prelude.Maybe Prelude.Bool)
+createNetworkInsightsPath_dryRun = Lens.lens (\CreateNetworkInsightsPath' {dryRun} -> dryRun) (\s@CreateNetworkInsightsPath' {} a -> s {dryRun = a} :: CreateNetworkInsightsPath)
 
 -- | The IP address of the AWS resource that is the destination of the path.
-cnipnDestinationIP :: Lens' CreateNetworkInsightsPath (Maybe Text)
-cnipnDestinationIP = lens _cnipnDestinationIP (\s a -> s {_cnipnDestinationIP = a})
+createNetworkInsightsPath_destinationIp :: Lens.Lens' CreateNetworkInsightsPath (Prelude.Maybe Prelude.Text)
+createNetworkInsightsPath_destinationIp = Lens.lens (\CreateNetworkInsightsPath' {destinationIp} -> destinationIp) (\s@CreateNetworkInsightsPath' {} a -> s {destinationIp = a} :: CreateNetworkInsightsPath)
 
 -- | The IP address of the AWS resource that is the source of the path.
-cnipnSourceIP :: Lens' CreateNetworkInsightsPath (Maybe Text)
-cnipnSourceIP = lens _cnipnSourceIP (\s a -> s {_cnipnSourceIP = a})
+createNetworkInsightsPath_sourceIp :: Lens.Lens' CreateNetworkInsightsPath (Prelude.Maybe Prelude.Text)
+createNetworkInsightsPath_sourceIp = Lens.lens (\CreateNetworkInsightsPath' {sourceIp} -> sourceIp) (\s@CreateNetworkInsightsPath' {} a -> s {sourceIp = a} :: CreateNetworkInsightsPath)
 
 -- | The destination port.
-cnipnDestinationPort :: Lens' CreateNetworkInsightsPath (Maybe Natural)
-cnipnDestinationPort = lens _cnipnDestinationPort (\s a -> s {_cnipnDestinationPort = a}) . mapping _Nat
+createNetworkInsightsPath_destinationPort :: Lens.Lens' CreateNetworkInsightsPath (Prelude.Maybe Prelude.Natural)
+createNetworkInsightsPath_destinationPort = Lens.lens (\CreateNetworkInsightsPath' {destinationPort} -> destinationPort) (\s@CreateNetworkInsightsPath' {} a -> s {destinationPort = a} :: CreateNetworkInsightsPath) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The AWS resource that is the source of the path.
-cnipnSource :: Lens' CreateNetworkInsightsPath Text
-cnipnSource = lens _cnipnSource (\s a -> s {_cnipnSource = a})
+createNetworkInsightsPath_source :: Lens.Lens' CreateNetworkInsightsPath Prelude.Text
+createNetworkInsightsPath_source = Lens.lens (\CreateNetworkInsightsPath' {source} -> source) (\s@CreateNetworkInsightsPath' {} a -> s {source = a} :: CreateNetworkInsightsPath)
 
 -- | The AWS resource that is the destination of the path.
-cnipnDestination :: Lens' CreateNetworkInsightsPath Text
-cnipnDestination = lens _cnipnDestination (\s a -> s {_cnipnDestination = a})
+createNetworkInsightsPath_destination :: Lens.Lens' CreateNetworkInsightsPath Prelude.Text
+createNetworkInsightsPath_destination = Lens.lens (\CreateNetworkInsightsPath' {destination} -> destination) (\s@CreateNetworkInsightsPath' {} a -> s {destination = a} :: CreateNetworkInsightsPath)
 
 -- | The protocol.
-cnipnProtocol :: Lens' CreateNetworkInsightsPath Protocol
-cnipnProtocol = lens _cnipnProtocol (\s a -> s {_cnipnProtocol = a})
+createNetworkInsightsPath_protocol :: Lens.Lens' CreateNetworkInsightsPath Protocol
+createNetworkInsightsPath_protocol = Lens.lens (\CreateNetworkInsightsPath' {protocol} -> protocol) (\s@CreateNetworkInsightsPath' {} a -> s {protocol = a} :: CreateNetworkInsightsPath)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-cnipnClientToken :: Lens' CreateNetworkInsightsPath Text
-cnipnClientToken = lens _cnipnClientToken (\s a -> s {_cnipnClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+createNetworkInsightsPath_clientToken :: Lens.Lens' CreateNetworkInsightsPath Prelude.Text
+createNetworkInsightsPath_clientToken = Lens.lens (\CreateNetworkInsightsPath' {clientToken} -> clientToken) (\s@CreateNetworkInsightsPath' {} a -> s {clientToken = a} :: CreateNetworkInsightsPath)
 
-instance AWSRequest CreateNetworkInsightsPath where
+instance Prelude.AWSRequest CreateNetworkInsightsPath where
   type
     Rs CreateNetworkInsightsPath =
       CreateNetworkInsightsPathResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateNetworkInsightsPathResponse'
-            <$> (x .@? "networkInsightsPath")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "networkInsightsPath")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateNetworkInsightsPath
+instance Prelude.Hashable CreateNetworkInsightsPath
 
-instance NFData CreateNetworkInsightsPath
+instance Prelude.NFData CreateNetworkInsightsPath
 
-instance ToHeaders CreateNetworkInsightsPath where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateNetworkInsightsPath where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateNetworkInsightsPath where
-  toPath = const "/"
+instance Prelude.ToPath CreateNetworkInsightsPath where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateNetworkInsightsPath where
+instance Prelude.ToQuery CreateNetworkInsightsPath where
   toQuery CreateNetworkInsightsPath' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateNetworkInsightsPath" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _cnipnTagSpecifications
+          Prelude.=: ("CreateNetworkInsightsPath" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _cnipnDryRun,
-        "DestinationIp" =: _cnipnDestinationIP,
-        "SourceIp" =: _cnipnSourceIP,
-        "DestinationPort" =: _cnipnDestinationPort,
-        "Source" =: _cnipnSource,
-        "Destination" =: _cnipnDestination,
-        "Protocol" =: _cnipnProtocol,
-        "ClientToken" =: _cnipnClientToken
+        "DryRun" Prelude.=: dryRun,
+        "DestinationIp" Prelude.=: destinationIp,
+        "SourceIp" Prelude.=: sourceIp,
+        "DestinationPort" Prelude.=: destinationPort,
+        "Source" Prelude.=: source,
+        "Destination" Prelude.=: destination,
+        "Protocol" Prelude.=: protocol,
+        "ClientToken" Prelude.=: clientToken
       ]
 
--- | /See:/ 'createNetworkInsightsPathResponse' smart constructor.
+-- | /See:/ 'newCreateNetworkInsightsPathResponse' smart constructor.
 data CreateNetworkInsightsPathResponse = CreateNetworkInsightsPathResponse'
-  { _cniprnrsNetworkInsightsPath ::
-      !( Maybe
-           NetworkInsightsPath
-       ),
-    _cniprnrsResponseStatus ::
-      !Int
+  { -- | Information about the path.
+    networkInsightsPath :: Prelude.Maybe NetworkInsightsPath,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateNetworkInsightsPathResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateNetworkInsightsPathResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cniprnrsNetworkInsightsPath' - Information about the path.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cniprnrsResponseStatus' - -- | The response status code.
-createNetworkInsightsPathResponse ::
-  -- | 'cniprnrsResponseStatus'
-  Int ->
+-- 'networkInsightsPath', 'createNetworkInsightsPathResponse_networkInsightsPath' - Information about the path.
+--
+-- 'httpStatus', 'createNetworkInsightsPathResponse_httpStatus' - The response's http status code.
+newCreateNetworkInsightsPathResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateNetworkInsightsPathResponse
-createNetworkInsightsPathResponse pResponseStatus_ =
+newCreateNetworkInsightsPathResponse pHttpStatus_ =
   CreateNetworkInsightsPathResponse'
-    { _cniprnrsNetworkInsightsPath =
-        Nothing,
-      _cniprnrsResponseStatus =
-        pResponseStatus_
+    { networkInsightsPath =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the path.
-cniprnrsNetworkInsightsPath :: Lens' CreateNetworkInsightsPathResponse (Maybe NetworkInsightsPath)
-cniprnrsNetworkInsightsPath = lens _cniprnrsNetworkInsightsPath (\s a -> s {_cniprnrsNetworkInsightsPath = a})
+createNetworkInsightsPathResponse_networkInsightsPath :: Lens.Lens' CreateNetworkInsightsPathResponse (Prelude.Maybe NetworkInsightsPath)
+createNetworkInsightsPathResponse_networkInsightsPath = Lens.lens (\CreateNetworkInsightsPathResponse' {networkInsightsPath} -> networkInsightsPath) (\s@CreateNetworkInsightsPathResponse' {} a -> s {networkInsightsPath = a} :: CreateNetworkInsightsPathResponse)
 
--- | -- | The response status code.
-cniprnrsResponseStatus :: Lens' CreateNetworkInsightsPathResponse Int
-cniprnrsResponseStatus = lens _cniprnrsResponseStatus (\s a -> s {_cniprnrsResponseStatus = a})
+-- | The response's http status code.
+createNetworkInsightsPathResponse_httpStatus :: Lens.Lens' CreateNetworkInsightsPathResponse Prelude.Int
+createNetworkInsightsPathResponse_httpStatus = Lens.lens (\CreateNetworkInsightsPathResponse' {httpStatus} -> httpStatus) (\s@CreateNetworkInsightsPathResponse' {} a -> s {httpStatus = a} :: CreateNetworkInsightsPathResponse)
 
-instance NFData CreateNetworkInsightsPathResponse
+instance
+  Prelude.NFData
+    CreateNetworkInsightsPathResponse

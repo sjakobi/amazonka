@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.DefaultTargetCapacityType
   ( DefaultTargetCapacityType
       ( ..,
-        DTCTOnDemand,
-        DTCTSpot
+        DefaultTargetCapacityTypeOnDemand,
+        DefaultTargetCapacityTypeSpot
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DefaultTargetCapacityType
-  = DefaultTargetCapacityType'
-      ( CI
-          Text
-      )
+newtype DefaultTargetCapacityType = DefaultTargetCapacityType'
+  { fromDefaultTargetCapacityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DTCTOnDemand :: DefaultTargetCapacityType
-pattern DTCTOnDemand = DefaultTargetCapacityType' "on-demand"
+pattern DefaultTargetCapacityTypeOnDemand :: DefaultTargetCapacityType
+pattern DefaultTargetCapacityTypeOnDemand = DefaultTargetCapacityType' "on-demand"
 
-pattern DTCTSpot :: DefaultTargetCapacityType
-pattern DTCTSpot = DefaultTargetCapacityType' "spot"
+pattern DefaultTargetCapacityTypeSpot :: DefaultTargetCapacityType
+pattern DefaultTargetCapacityTypeSpot = DefaultTargetCapacityType' "spot"
 
 {-# COMPLETE
-  DTCTOnDemand,
-  DTCTSpot,
+  DefaultTargetCapacityTypeOnDemand,
+  DefaultTargetCapacityTypeSpot,
   DefaultTargetCapacityType'
   #-}
 
-instance FromText DefaultTargetCapacityType where
-  parser = (DefaultTargetCapacityType' . mk) <$> takeText
+instance Prelude.FromText DefaultTargetCapacityType where
+  parser = DefaultTargetCapacityType' Prelude.<$> Prelude.takeText
 
-instance ToText DefaultTargetCapacityType where
-  toText (DefaultTargetCapacityType' ci) = original ci
+instance Prelude.ToText DefaultTargetCapacityType where
+  toText (DefaultTargetCapacityType' x) = x
 
-instance Hashable DefaultTargetCapacityType
+instance Prelude.Hashable DefaultTargetCapacityType
 
-instance NFData DefaultTargetCapacityType
+instance Prelude.NFData DefaultTargetCapacityType
 
-instance ToByteString DefaultTargetCapacityType
+instance Prelude.ToByteString DefaultTargetCapacityType
 
-instance ToQuery DefaultTargetCapacityType
+instance Prelude.ToQuery DefaultTargetCapacityType
 
-instance ToHeader DefaultTargetCapacityType
+instance Prelude.ToHeader DefaultTargetCapacityType
 
-instance FromXML DefaultTargetCapacityType where
-  parseXML = parseXMLText "DefaultTargetCapacityType"
+instance Prelude.FromXML DefaultTargetCapacityType where
+  parseXML = Prelude.parseXMLText "DefaultTargetCapacityType"

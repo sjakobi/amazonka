@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,207 +23,292 @@
 --
 -- Describes one or more of your carrier gateways.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeCarrierGateways
   ( -- * Creating a Request
-    describeCarrierGateways,
-    DescribeCarrierGateways,
+    DescribeCarrierGateways (..),
+    newDescribeCarrierGateways,
 
     -- * Request Lenses
-    dcgsNextToken,
-    dcgsDryRun,
-    dcgsMaxResults,
-    dcgsCarrierGatewayIds,
-    dcgsFilters,
+    describeCarrierGateways_nextToken,
+    describeCarrierGateways_dryRun,
+    describeCarrierGateways_maxResults,
+    describeCarrierGateways_carrierGatewayIds,
+    describeCarrierGateways_filters,
 
     -- * Destructuring the Response
-    describeCarrierGatewaysResponse,
-    DescribeCarrierGatewaysResponse,
+    DescribeCarrierGatewaysResponse (..),
+    newDescribeCarrierGatewaysResponse,
 
     -- * Response Lenses
-    dcgrrsCarrierGateways,
-    dcgrrsNextToken,
-    dcgrrsResponseStatus,
+    describeCarrierGatewaysResponse_carrierGateways,
+    describeCarrierGatewaysResponse_nextToken,
+    describeCarrierGatewaysResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.CarrierGateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCarrierGateways' smart constructor.
+-- | /See:/ 'newDescribeCarrierGateways' smart constructor.
 data DescribeCarrierGateways = DescribeCarrierGateways'
-  { _dcgsNextToken ::
-      !(Maybe Text),
-    _dcgsDryRun ::
-      !(Maybe Bool),
-    _dcgsMaxResults ::
-      !(Maybe Nat),
-    _dcgsCarrierGatewayIds ::
-      !(Maybe [Text]),
-    _dcgsFilters ::
-      !(Maybe [Filter])
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more carrier gateway IDs.
+    carrierGatewayIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters.
+    --
+    -- -   @carrier-gateway-id@ - The ID of the carrier gateway.
+    --
+    -- -   @state@ - The state of the carrier gateway (@pending@ | @failed@ |
+    --     @available@ | @deleting@ | @deleted@).
+    --
+    -- -   @owner-id@ - The AWS account ID of the owner of the carrier gateway.
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
+    --
+    -- -   @vpc-id@ - The ID of the VPC associated with the carrier gateway.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCarrierGateways' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCarrierGateways' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcgsNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcgsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeCarrierGateways_nextToken' - The token for the next page of results.
 --
--- * 'dcgsMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeCarrierGateways_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dcgsCarrierGatewayIds' - One or more carrier gateway IDs.
+-- 'maxResults', 'describeCarrierGateways_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dcgsFilters' - One or more filters.     * @carrier-gateway-id@ - The ID of the carrier gateway.     * @state@ - The state of the carrier gateway (@pending@ | @failed@ | @available@ | @deleting@ | @deleted@ ).     * @owner-id@ - The AWS account ID of the owner of the carrier gateway.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC associated with the carrier gateway.
-describeCarrierGateways ::
+-- 'carrierGatewayIds', 'describeCarrierGateways_carrierGatewayIds' - One or more carrier gateway IDs.
+--
+-- 'filters', 'describeCarrierGateways_filters' - One or more filters.
+--
+-- -   @carrier-gateway-id@ - The ID of the carrier gateway.
+--
+-- -   @state@ - The state of the carrier gateway (@pending@ | @failed@ |
+--     @available@ | @deleting@ | @deleted@).
+--
+-- -   @owner-id@ - The AWS account ID of the owner of the carrier gateway.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC associated with the carrier gateway.
+newDescribeCarrierGateways ::
   DescribeCarrierGateways
-describeCarrierGateways =
+newDescribeCarrierGateways =
   DescribeCarrierGateways'
-    { _dcgsNextToken = Nothing,
-      _dcgsDryRun = Nothing,
-      _dcgsMaxResults = Nothing,
-      _dcgsCarrierGatewayIds = Nothing,
-      _dcgsFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      carrierGatewayIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dcgsNextToken :: Lens' DescribeCarrierGateways (Maybe Text)
-dcgsNextToken = lens _dcgsNextToken (\s a -> s {_dcgsNextToken = a})
+describeCarrierGateways_nextToken :: Lens.Lens' DescribeCarrierGateways (Prelude.Maybe Prelude.Text)
+describeCarrierGateways_nextToken = Lens.lens (\DescribeCarrierGateways' {nextToken} -> nextToken) (\s@DescribeCarrierGateways' {} a -> s {nextToken = a} :: DescribeCarrierGateways)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dcgsDryRun :: Lens' DescribeCarrierGateways (Maybe Bool)
-dcgsDryRun = lens _dcgsDryRun (\s a -> s {_dcgsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeCarrierGateways_dryRun :: Lens.Lens' DescribeCarrierGateways (Prelude.Maybe Prelude.Bool)
+describeCarrierGateways_dryRun = Lens.lens (\DescribeCarrierGateways' {dryRun} -> dryRun) (\s@DescribeCarrierGateways' {} a -> s {dryRun = a} :: DescribeCarrierGateways)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dcgsMaxResults :: Lens' DescribeCarrierGateways (Maybe Natural)
-dcgsMaxResults = lens _dcgsMaxResults (\s a -> s {_dcgsMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeCarrierGateways_maxResults :: Lens.Lens' DescribeCarrierGateways (Prelude.Maybe Prelude.Natural)
+describeCarrierGateways_maxResults = Lens.lens (\DescribeCarrierGateways' {maxResults} -> maxResults) (\s@DescribeCarrierGateways' {} a -> s {maxResults = a} :: DescribeCarrierGateways) Prelude.. Lens.mapping Prelude._Nat
 
 -- | One or more carrier gateway IDs.
-dcgsCarrierGatewayIds :: Lens' DescribeCarrierGateways [Text]
-dcgsCarrierGatewayIds = lens _dcgsCarrierGatewayIds (\s a -> s {_dcgsCarrierGatewayIds = a}) . _Default . _Coerce
+describeCarrierGateways_carrierGatewayIds :: Lens.Lens' DescribeCarrierGateways (Prelude.Maybe [Prelude.Text])
+describeCarrierGateways_carrierGatewayIds = Lens.lens (\DescribeCarrierGateways' {carrierGatewayIds} -> carrierGatewayIds) (\s@DescribeCarrierGateways' {} a -> s {carrierGatewayIds = a} :: DescribeCarrierGateways) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters.     * @carrier-gateway-id@ - The ID of the carrier gateway.     * @state@ - The state of the carrier gateway (@pending@ | @failed@ | @available@ | @deleting@ | @deleted@ ).     * @owner-id@ - The AWS account ID of the owner of the carrier gateway.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC associated with the carrier gateway.
-dcgsFilters :: Lens' DescribeCarrierGateways [Filter]
-dcgsFilters = lens _dcgsFilters (\s a -> s {_dcgsFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @carrier-gateway-id@ - The ID of the carrier gateway.
+--
+-- -   @state@ - The state of the carrier gateway (@pending@ | @failed@ |
+--     @available@ | @deleting@ | @deleted@).
+--
+-- -   @owner-id@ - The AWS account ID of the owner of the carrier gateway.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC associated with the carrier gateway.
+describeCarrierGateways_filters :: Lens.Lens' DescribeCarrierGateways (Prelude.Maybe [Filter])
+describeCarrierGateways_filters = Lens.lens (\DescribeCarrierGateways' {filters} -> filters) (\s@DescribeCarrierGateways' {} a -> s {filters = a} :: DescribeCarrierGateways) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeCarrierGateways where
+instance Pager.AWSPager DescribeCarrierGateways where
   page rq rs
-    | stop (rs ^. dcgrrsNextToken) = Nothing
-    | stop (rs ^. dcgrrsCarrierGateways) = Nothing
-    | otherwise =
-      Just $ rq & dcgsNextToken .~ rs ^. dcgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeCarrierGatewaysResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeCarrierGatewaysResponse_carrierGateways
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeCarrierGateways_nextToken
+          Lens..~ rs
+          Lens.^? describeCarrierGatewaysResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeCarrierGateways where
+instance Prelude.AWSRequest DescribeCarrierGateways where
   type
     Rs DescribeCarrierGateways =
       DescribeCarrierGatewaysResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeCarrierGatewaysResponse'
-            <$> ( x .@? "carrierGatewaySet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "nextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "carrierGatewaySet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCarrierGateways
+instance Prelude.Hashable DescribeCarrierGateways
 
-instance NFData DescribeCarrierGateways
+instance Prelude.NFData DescribeCarrierGateways
 
-instance ToHeaders DescribeCarrierGateways where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeCarrierGateways where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeCarrierGateways where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCarrierGateways where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCarrierGateways where
+instance Prelude.ToQuery DescribeCarrierGateways where
   toQuery DescribeCarrierGateways' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeCarrierGateways" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dcgsNextToken,
-        "DryRun" =: _dcgsDryRun,
-        "MaxResults" =: _dcgsMaxResults,
-        toQuery
-          ( toQueryList "CarrierGatewayId"
-              <$> _dcgsCarrierGatewayIds
+          Prelude.=: ("DescribeCarrierGateways" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "CarrierGatewayId"
+              Prelude.<$> carrierGatewayIds
           ),
-        toQuery (toQueryList "Filter" <$> _dcgsFilters)
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeCarrierGatewaysResponse' smart constructor.
+-- | /See:/ 'newDescribeCarrierGatewaysResponse' smart constructor.
 data DescribeCarrierGatewaysResponse = DescribeCarrierGatewaysResponse'
-  { _dcgrrsCarrierGateways ::
-      !( Maybe
-           [CarrierGateway]
-       ),
-    _dcgrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcgrrsResponseStatus ::
-      !Int
+  { -- | Information about the carrier gateway.
+    carrierGateways :: Prelude.Maybe [CarrierGateway],
+    -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCarrierGatewaysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCarrierGatewaysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcgrrsCarrierGateways' - Information about the carrier gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcgrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- 'carrierGateways', 'describeCarrierGatewaysResponse_carrierGateways' - Information about the carrier gateway.
 --
--- * 'dcgrrsResponseStatus' - -- | The response status code.
-describeCarrierGatewaysResponse ::
-  -- | 'dcgrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'describeCarrierGatewaysResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+--
+-- 'httpStatus', 'describeCarrierGatewaysResponse_httpStatus' - The response's http status code.
+newDescribeCarrierGatewaysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCarrierGatewaysResponse
-describeCarrierGatewaysResponse pResponseStatus_ =
+newDescribeCarrierGatewaysResponse pHttpStatus_ =
   DescribeCarrierGatewaysResponse'
-    { _dcgrrsCarrierGateways =
-        Nothing,
-      _dcgrrsNextToken = Nothing,
-      _dcgrrsResponseStatus = pResponseStatus_
+    { carrierGateways =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the carrier gateway.
-dcgrrsCarrierGateways :: Lens' DescribeCarrierGatewaysResponse [CarrierGateway]
-dcgrrsCarrierGateways = lens _dcgrrsCarrierGateways (\s a -> s {_dcgrrsCarrierGateways = a}) . _Default . _Coerce
+describeCarrierGatewaysResponse_carrierGateways :: Lens.Lens' DescribeCarrierGatewaysResponse (Prelude.Maybe [CarrierGateway])
+describeCarrierGatewaysResponse_carrierGateways = Lens.lens (\DescribeCarrierGatewaysResponse' {carrierGateways} -> carrierGateways) (\s@DescribeCarrierGatewaysResponse' {} a -> s {carrierGateways = a} :: DescribeCarrierGatewaysResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dcgrrsNextToken :: Lens' DescribeCarrierGatewaysResponse (Maybe Text)
-dcgrrsNextToken = lens _dcgrrsNextToken (\s a -> s {_dcgrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeCarrierGatewaysResponse_nextToken :: Lens.Lens' DescribeCarrierGatewaysResponse (Prelude.Maybe Prelude.Text)
+describeCarrierGatewaysResponse_nextToken = Lens.lens (\DescribeCarrierGatewaysResponse' {nextToken} -> nextToken) (\s@DescribeCarrierGatewaysResponse' {} a -> s {nextToken = a} :: DescribeCarrierGatewaysResponse)
 
--- | -- | The response status code.
-dcgrrsResponseStatus :: Lens' DescribeCarrierGatewaysResponse Int
-dcgrrsResponseStatus = lens _dcgrrsResponseStatus (\s a -> s {_dcgrrsResponseStatus = a})
+-- | The response's http status code.
+describeCarrierGatewaysResponse_httpStatus :: Lens.Lens' DescribeCarrierGatewaysResponse Prelude.Int
+describeCarrierGatewaysResponse_httpStatus = Lens.lens (\DescribeCarrierGatewaysResponse' {httpStatus} -> httpStatus) (\s@DescribeCarrierGatewaysResponse' {} a -> s {httpStatus = a} :: DescribeCarrierGatewaysResponse)
 
-instance NFData DescribeCarrierGatewaysResponse
+instance
+  Prelude.NFData
+    DescribeCarrierGatewaysResponse

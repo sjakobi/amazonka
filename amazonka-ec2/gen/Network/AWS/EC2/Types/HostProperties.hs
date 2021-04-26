@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,77 +20,89 @@
 module Network.AWS.EC2.Types.HostProperties where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the properties of a Dedicated Host.
 --
---
---
--- /See:/ 'hostProperties' smart constructor.
+-- /See:/ 'newHostProperties' smart constructor.
 data HostProperties = HostProperties'
-  { _hpInstanceFamily ::
-      !(Maybe Text),
-    _hpTotalVCPUs :: !(Maybe Int),
-    _hpInstanceType :: !(Maybe Text),
-    _hpCores :: !(Maybe Int),
-    _hpSockets :: !(Maybe Int)
+  { -- | The instance family supported by the Dedicated Host. For example, @m5@.
+    instanceFamily :: Prelude.Maybe Prelude.Text,
+    -- | The total number of vCPUs on the Dedicated Host.
+    totalVCpus :: Prelude.Maybe Prelude.Int,
+    -- | The instance type supported by the Dedicated Host. For example,
+    -- @m5.large@. If the host supports multiple instance types, no
+    -- __instanceType__ is returned.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | The number of cores on the Dedicated Host.
+    cores :: Prelude.Maybe Prelude.Int,
+    -- | The number of sockets on the Dedicated Host.
+    sockets :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HostProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HostProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hpInstanceFamily' - The instance family supported by the Dedicated Host. For example, @m5@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hpTotalVCPUs' - The total number of vCPUs on the Dedicated Host.
+-- 'instanceFamily', 'hostProperties_instanceFamily' - The instance family supported by the Dedicated Host. For example, @m5@.
 --
--- * 'hpInstanceType' - The instance type supported by the Dedicated Host. For example, @m5.large@ . If the host supports multiple instance types, no __instanceType__ is returned.
+-- 'totalVCpus', 'hostProperties_totalVCpus' - The total number of vCPUs on the Dedicated Host.
 --
--- * 'hpCores' - The number of cores on the Dedicated Host.
+-- 'instanceType', 'hostProperties_instanceType' - The instance type supported by the Dedicated Host. For example,
+-- @m5.large@. If the host supports multiple instance types, no
+-- __instanceType__ is returned.
 --
--- * 'hpSockets' - The number of sockets on the Dedicated Host.
-hostProperties ::
+-- 'cores', 'hostProperties_cores' - The number of cores on the Dedicated Host.
+--
+-- 'sockets', 'hostProperties_sockets' - The number of sockets on the Dedicated Host.
+newHostProperties ::
   HostProperties
-hostProperties =
+newHostProperties =
   HostProperties'
-    { _hpInstanceFamily = Nothing,
-      _hpTotalVCPUs = Nothing,
-      _hpInstanceType = Nothing,
-      _hpCores = Nothing,
-      _hpSockets = Nothing
+    { instanceFamily = Prelude.Nothing,
+      totalVCpus = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      cores = Prelude.Nothing,
+      sockets = Prelude.Nothing
     }
 
--- | The instance family supported by the Dedicated Host. For example, @m5@ .
-hpInstanceFamily :: Lens' HostProperties (Maybe Text)
-hpInstanceFamily = lens _hpInstanceFamily (\s a -> s {_hpInstanceFamily = a})
+-- | The instance family supported by the Dedicated Host. For example, @m5@.
+hostProperties_instanceFamily :: Lens.Lens' HostProperties (Prelude.Maybe Prelude.Text)
+hostProperties_instanceFamily = Lens.lens (\HostProperties' {instanceFamily} -> instanceFamily) (\s@HostProperties' {} a -> s {instanceFamily = a} :: HostProperties)
 
 -- | The total number of vCPUs on the Dedicated Host.
-hpTotalVCPUs :: Lens' HostProperties (Maybe Int)
-hpTotalVCPUs = lens _hpTotalVCPUs (\s a -> s {_hpTotalVCPUs = a})
+hostProperties_totalVCpus :: Lens.Lens' HostProperties (Prelude.Maybe Prelude.Int)
+hostProperties_totalVCpus = Lens.lens (\HostProperties' {totalVCpus} -> totalVCpus) (\s@HostProperties' {} a -> s {totalVCpus = a} :: HostProperties)
 
--- | The instance type supported by the Dedicated Host. For example, @m5.large@ . If the host supports multiple instance types, no __instanceType__ is returned.
-hpInstanceType :: Lens' HostProperties (Maybe Text)
-hpInstanceType = lens _hpInstanceType (\s a -> s {_hpInstanceType = a})
+-- | The instance type supported by the Dedicated Host. For example,
+-- @m5.large@. If the host supports multiple instance types, no
+-- __instanceType__ is returned.
+hostProperties_instanceType :: Lens.Lens' HostProperties (Prelude.Maybe Prelude.Text)
+hostProperties_instanceType = Lens.lens (\HostProperties' {instanceType} -> instanceType) (\s@HostProperties' {} a -> s {instanceType = a} :: HostProperties)
 
 -- | The number of cores on the Dedicated Host.
-hpCores :: Lens' HostProperties (Maybe Int)
-hpCores = lens _hpCores (\s a -> s {_hpCores = a})
+hostProperties_cores :: Lens.Lens' HostProperties (Prelude.Maybe Prelude.Int)
+hostProperties_cores = Lens.lens (\HostProperties' {cores} -> cores) (\s@HostProperties' {} a -> s {cores = a} :: HostProperties)
 
 -- | The number of sockets on the Dedicated Host.
-hpSockets :: Lens' HostProperties (Maybe Int)
-hpSockets = lens _hpSockets (\s a -> s {_hpSockets = a})
+hostProperties_sockets :: Lens.Lens' HostProperties (Prelude.Maybe Prelude.Int)
+hostProperties_sockets = Lens.lens (\HostProperties' {sockets} -> sockets) (\s@HostProperties' {} a -> s {sockets = a} :: HostProperties)
 
-instance FromXML HostProperties where
+instance Prelude.FromXML HostProperties where
   parseXML x =
     HostProperties'
-      <$> (x .@? "instanceFamily")
-      <*> (x .@? "totalVCpus")
-      <*> (x .@? "instanceType")
-      <*> (x .@? "cores")
-      <*> (x .@? "sockets")
+      Prelude.<$> (x Prelude..@? "instanceFamily")
+      Prelude.<*> (x Prelude..@? "totalVCpus")
+      Prelude.<*> (x Prelude..@? "instanceType")
+      Prelude.<*> (x Prelude..@? "cores")
+      Prelude.<*> (x Prelude..@? "sockets")
 
-instance Hashable HostProperties
+instance Prelude.Hashable HostProperties
 
-instance NFData HostProperties
+instance Prelude.NFData HostProperties

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,53 @@
 module Network.AWS.EC2.Types.LaunchTemplatesMonitoringRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the monitoring for the instance.
 --
---
---
--- /See:/ 'launchTemplatesMonitoringRequest' smart constructor.
-newtype LaunchTemplatesMonitoringRequest = LaunchTemplatesMonitoringRequest'
-  { _ltmrEnabled ::
-      Maybe
-        Bool
+-- /See:/ 'newLaunchTemplatesMonitoringRequest' smart constructor.
+data LaunchTemplatesMonitoringRequest = LaunchTemplatesMonitoringRequest'
+  { -- | Specify @true@ to enable detailed monitoring. Otherwise, basic
+    -- monitoring is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplatesMonitoringRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplatesMonitoringRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltmrEnabled' - Specify @true@ to enable detailed monitoring. Otherwise, basic monitoring is enabled.
-launchTemplatesMonitoringRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'enabled', 'launchTemplatesMonitoringRequest_enabled' - Specify @true@ to enable detailed monitoring. Otherwise, basic
+-- monitoring is enabled.
+newLaunchTemplatesMonitoringRequest ::
   LaunchTemplatesMonitoringRequest
-launchTemplatesMonitoringRequest =
+newLaunchTemplatesMonitoringRequest =
   LaunchTemplatesMonitoringRequest'
-    { _ltmrEnabled =
-        Nothing
+    { enabled =
+        Prelude.Nothing
     }
 
--- | Specify @true@ to enable detailed monitoring. Otherwise, basic monitoring is enabled.
-ltmrEnabled :: Lens' LaunchTemplatesMonitoringRequest (Maybe Bool)
-ltmrEnabled = lens _ltmrEnabled (\s a -> s {_ltmrEnabled = a})
+-- | Specify @true@ to enable detailed monitoring. Otherwise, basic
+-- monitoring is enabled.
+launchTemplatesMonitoringRequest_enabled :: Lens.Lens' LaunchTemplatesMonitoringRequest (Prelude.Maybe Prelude.Bool)
+launchTemplatesMonitoringRequest_enabled = Lens.lens (\LaunchTemplatesMonitoringRequest' {enabled} -> enabled) (\s@LaunchTemplatesMonitoringRequest' {} a -> s {enabled = a} :: LaunchTemplatesMonitoringRequest)
 
-instance Hashable LaunchTemplatesMonitoringRequest
+instance
+  Prelude.Hashable
+    LaunchTemplatesMonitoringRequest
 
-instance NFData LaunchTemplatesMonitoringRequest
+instance
+  Prelude.NFData
+    LaunchTemplatesMonitoringRequest
 
-instance ToQuery LaunchTemplatesMonitoringRequest where
+instance
+  Prelude.ToQuery
+    LaunchTemplatesMonitoringRequest
+  where
   toQuery LaunchTemplatesMonitoringRequest' {..} =
-    mconcat ["Enabled" =: _ltmrEnabled]
+    Prelude.mconcat ["Enabled" Prelude.=: enabled]

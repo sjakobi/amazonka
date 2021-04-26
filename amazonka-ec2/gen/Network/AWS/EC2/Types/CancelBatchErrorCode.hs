@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.CancelBatchErrorCode
   ( CancelBatchErrorCode
       ( ..,
-        CBECFleetRequestIdDoesNotExist,
-        CBECFleetRequestIdMalformed,
-        CBECFleetRequestNotInCancellableState,
-        CBECUnexpectedError
+        CancelBatchErrorCodeFleetRequestIdDoesNotExist,
+        CancelBatchErrorCodeFleetRequestIdMalformed,
+        CancelBatchErrorCodeFleetRequestNotInCancellableState,
+        CancelBatchErrorCodeUnexpectedError
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CancelBatchErrorCode
-  = CancelBatchErrorCode'
-      ( CI
-          Text
-      )
+newtype CancelBatchErrorCode = CancelBatchErrorCode'
+  { fromCancelBatchErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CBECFleetRequestIdDoesNotExist :: CancelBatchErrorCode
-pattern CBECFleetRequestIdDoesNotExist = CancelBatchErrorCode' "fleetRequestIdDoesNotExist"
+pattern CancelBatchErrorCodeFleetRequestIdDoesNotExist :: CancelBatchErrorCode
+pattern CancelBatchErrorCodeFleetRequestIdDoesNotExist = CancelBatchErrorCode' "fleetRequestIdDoesNotExist"
 
-pattern CBECFleetRequestIdMalformed :: CancelBatchErrorCode
-pattern CBECFleetRequestIdMalformed = CancelBatchErrorCode' "fleetRequestIdMalformed"
+pattern CancelBatchErrorCodeFleetRequestIdMalformed :: CancelBatchErrorCode
+pattern CancelBatchErrorCodeFleetRequestIdMalformed = CancelBatchErrorCode' "fleetRequestIdMalformed"
 
-pattern CBECFleetRequestNotInCancellableState :: CancelBatchErrorCode
-pattern CBECFleetRequestNotInCancellableState = CancelBatchErrorCode' "fleetRequestNotInCancellableState"
+pattern CancelBatchErrorCodeFleetRequestNotInCancellableState :: CancelBatchErrorCode
+pattern CancelBatchErrorCodeFleetRequestNotInCancellableState = CancelBatchErrorCode' "fleetRequestNotInCancellableState"
 
-pattern CBECUnexpectedError :: CancelBatchErrorCode
-pattern CBECUnexpectedError = CancelBatchErrorCode' "unexpectedError"
+pattern CancelBatchErrorCodeUnexpectedError :: CancelBatchErrorCode
+pattern CancelBatchErrorCodeUnexpectedError = CancelBatchErrorCode' "unexpectedError"
 
 {-# COMPLETE
-  CBECFleetRequestIdDoesNotExist,
-  CBECFleetRequestIdMalformed,
-  CBECFleetRequestNotInCancellableState,
-  CBECUnexpectedError,
+  CancelBatchErrorCodeFleetRequestIdDoesNotExist,
+  CancelBatchErrorCodeFleetRequestIdMalformed,
+  CancelBatchErrorCodeFleetRequestNotInCancellableState,
+  CancelBatchErrorCodeUnexpectedError,
   CancelBatchErrorCode'
   #-}
 
-instance FromText CancelBatchErrorCode where
-  parser = (CancelBatchErrorCode' . mk) <$> takeText
+instance Prelude.FromText CancelBatchErrorCode where
+  parser = CancelBatchErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText CancelBatchErrorCode where
-  toText (CancelBatchErrorCode' ci) = original ci
+instance Prelude.ToText CancelBatchErrorCode where
+  toText (CancelBatchErrorCode' x) = x
 
-instance Hashable CancelBatchErrorCode
+instance Prelude.Hashable CancelBatchErrorCode
 
-instance NFData CancelBatchErrorCode
+instance Prelude.NFData CancelBatchErrorCode
 
-instance ToByteString CancelBatchErrorCode
+instance Prelude.ToByteString CancelBatchErrorCode
 
-instance ToQuery CancelBatchErrorCode
+instance Prelude.ToQuery CancelBatchErrorCode
 
-instance ToHeader CancelBatchErrorCode
+instance Prelude.ToHeader CancelBatchErrorCode
 
-instance FromXML CancelBatchErrorCode where
-  parseXML = parseXMLText "CancelBatchErrorCode"
+instance Prelude.FromXML CancelBatchErrorCode where
+  parseXML = Prelude.parseXMLText "CancelBatchErrorCode"

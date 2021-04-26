@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,68 +20,73 @@
 module Network.AWS.EC2.Types.VolumeStatusAction where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a volume status operation code.
 --
---
---
--- /See:/ 'volumeStatusAction' smart constructor.
+-- /See:/ 'newVolumeStatusAction' smart constructor.
 data VolumeStatusAction = VolumeStatusAction'
-  { _vsaEventType ::
-      !(Maybe Text),
-    _vsaEventId :: !(Maybe Text),
-    _vsaCode :: !(Maybe Text),
-    _vsaDescription :: !(Maybe Text)
+  { -- | The event type associated with this operation.
+    eventType :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the event associated with this operation.
+    eventId :: Prelude.Maybe Prelude.Text,
+    -- | The code identifying the operation, for example, @enable-volume-io@.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | A description of the operation.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VolumeStatusAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VolumeStatusAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vsaEventType' - The event type associated with this operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vsaEventId' - The ID of the event associated with this operation.
+-- 'eventType', 'volumeStatusAction_eventType' - The event type associated with this operation.
 --
--- * 'vsaCode' - The code identifying the operation, for example, @enable-volume-io@ .
+-- 'eventId', 'volumeStatusAction_eventId' - The ID of the event associated with this operation.
 --
--- * 'vsaDescription' - A description of the operation.
-volumeStatusAction ::
+-- 'code', 'volumeStatusAction_code' - The code identifying the operation, for example, @enable-volume-io@.
+--
+-- 'description', 'volumeStatusAction_description' - A description of the operation.
+newVolumeStatusAction ::
   VolumeStatusAction
-volumeStatusAction =
+newVolumeStatusAction =
   VolumeStatusAction'
-    { _vsaEventType = Nothing,
-      _vsaEventId = Nothing,
-      _vsaCode = Nothing,
-      _vsaDescription = Nothing
+    { eventType = Prelude.Nothing,
+      eventId = Prelude.Nothing,
+      code = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The event type associated with this operation.
-vsaEventType :: Lens' VolumeStatusAction (Maybe Text)
-vsaEventType = lens _vsaEventType (\s a -> s {_vsaEventType = a})
+volumeStatusAction_eventType :: Lens.Lens' VolumeStatusAction (Prelude.Maybe Prelude.Text)
+volumeStatusAction_eventType = Lens.lens (\VolumeStatusAction' {eventType} -> eventType) (\s@VolumeStatusAction' {} a -> s {eventType = a} :: VolumeStatusAction)
 
 -- | The ID of the event associated with this operation.
-vsaEventId :: Lens' VolumeStatusAction (Maybe Text)
-vsaEventId = lens _vsaEventId (\s a -> s {_vsaEventId = a})
+volumeStatusAction_eventId :: Lens.Lens' VolumeStatusAction (Prelude.Maybe Prelude.Text)
+volumeStatusAction_eventId = Lens.lens (\VolumeStatusAction' {eventId} -> eventId) (\s@VolumeStatusAction' {} a -> s {eventId = a} :: VolumeStatusAction)
 
--- | The code identifying the operation, for example, @enable-volume-io@ .
-vsaCode :: Lens' VolumeStatusAction (Maybe Text)
-vsaCode = lens _vsaCode (\s a -> s {_vsaCode = a})
+-- | The code identifying the operation, for example, @enable-volume-io@.
+volumeStatusAction_code :: Lens.Lens' VolumeStatusAction (Prelude.Maybe Prelude.Text)
+volumeStatusAction_code = Lens.lens (\VolumeStatusAction' {code} -> code) (\s@VolumeStatusAction' {} a -> s {code = a} :: VolumeStatusAction)
 
 -- | A description of the operation.
-vsaDescription :: Lens' VolumeStatusAction (Maybe Text)
-vsaDescription = lens _vsaDescription (\s a -> s {_vsaDescription = a})
+volumeStatusAction_description :: Lens.Lens' VolumeStatusAction (Prelude.Maybe Prelude.Text)
+volumeStatusAction_description = Lens.lens (\VolumeStatusAction' {description} -> description) (\s@VolumeStatusAction' {} a -> s {description = a} :: VolumeStatusAction)
 
-instance FromXML VolumeStatusAction where
+instance Prelude.FromXML VolumeStatusAction where
   parseXML x =
     VolumeStatusAction'
-      <$> (x .@? "eventType")
-      <*> (x .@? "eventId")
-      <*> (x .@? "code")
-      <*> (x .@? "description")
+      Prelude.<$> (x Prelude..@? "eventType")
+      Prelude.<*> (x Prelude..@? "eventId")
+      Prelude.<*> (x Prelude..@? "code")
+      Prelude.<*> (x Prelude..@? "description")
 
-instance Hashable VolumeStatusAction
+instance Prelude.Hashable VolumeStatusAction
 
-instance NFData VolumeStatusAction
+instance Prelude.NFData VolumeStatusAction

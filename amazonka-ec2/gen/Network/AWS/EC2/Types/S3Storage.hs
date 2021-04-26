@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,121 @@
 module Network.AWS.EC2.Types.S3Storage where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the storage parameters for S3 and S3 buckets for an instance store-backed AMI.
+-- | Describes the storage parameters for S3 and S3 buckets for an instance
+-- store-backed AMI.
 --
---
---
--- /See:/ 's3Storage' smart constructor.
+-- /See:/ 'newS3Storage' smart constructor.
 data S3Storage = S3Storage'
-  { _ssUploadPolicySignature ::
-      !(Maybe Text),
-    _ssUploadPolicy :: !(Maybe Base64),
-    _ssPrefix :: !(Maybe Text),
-    _ssBucket :: !(Maybe Text),
-    _ssAWSAccessKeyId :: !(Maybe Text)
+  { -- | The signature of the JSON document.
+    uploadPolicySignature :: Prelude.Maybe Prelude.Text,
+    -- | An Amazon S3 upload policy that gives Amazon EC2 permission to upload
+    -- items into Amazon S3 on your behalf.
+    uploadPolicy :: Prelude.Maybe Prelude.Base64,
+    -- | The beginning of the file name of the AMI.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | The bucket in which to store the AMI. You can specify a bucket that you
+    -- already own or a new bucket that Amazon EC2 creates on your behalf. If
+    -- you specify a bucket that belongs to someone else, Amazon EC2 returns an
+    -- error.
+    bucket :: Prelude.Maybe Prelude.Text,
+    -- | The access key ID of the owner of the bucket. Before you specify a value
+    -- for your access key ID, review and follow the guidance in
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html Best Practices for Managing AWS Access Keys>.
+    aWSAccessKeyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3Storage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3Storage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssUploadPolicySignature' - The signature of the JSON document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssUploadPolicy' - An Amazon S3 upload policy that gives Amazon EC2 permission to upload items into Amazon S3 on your behalf.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- 'uploadPolicySignature', 's3Storage_uploadPolicySignature' - The signature of the JSON document.
 --
--- * 'ssPrefix' - The beginning of the file name of the AMI.
+-- 'uploadPolicy', 's3Storage_uploadPolicy' - An Amazon S3 upload policy that gives Amazon EC2 permission to upload
+-- items into Amazon S3 on your behalf.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- * 'ssBucket' - The bucket in which to store the AMI. You can specify a bucket that you already own or a new bucket that Amazon EC2 creates on your behalf. If you specify a bucket that belongs to someone else, Amazon EC2 returns an error.
+-- 'prefix', 's3Storage_prefix' - The beginning of the file name of the AMI.
 --
--- * 'ssAWSAccessKeyId' - The access key ID of the owner of the bucket. Before you specify a value for your access key ID, review and follow the guidance in <https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html Best Practices for Managing AWS Access Keys> .
-s3Storage ::
+-- 'bucket', 's3Storage_bucket' - The bucket in which to store the AMI. You can specify a bucket that you
+-- already own or a new bucket that Amazon EC2 creates on your behalf. If
+-- you specify a bucket that belongs to someone else, Amazon EC2 returns an
+-- error.
+--
+-- 'aWSAccessKeyId', 's3Storage_aWSAccessKeyId' - The access key ID of the owner of the bucket. Before you specify a value
+-- for your access key ID, review and follow the guidance in
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html Best Practices for Managing AWS Access Keys>.
+newS3Storage ::
   S3Storage
-s3Storage =
+newS3Storage =
   S3Storage'
-    { _ssUploadPolicySignature = Nothing,
-      _ssUploadPolicy = Nothing,
-      _ssPrefix = Nothing,
-      _ssBucket = Nothing,
-      _ssAWSAccessKeyId = Nothing
+    { uploadPolicySignature = Prelude.Nothing,
+      uploadPolicy = Prelude.Nothing,
+      prefix = Prelude.Nothing,
+      bucket = Prelude.Nothing,
+      aWSAccessKeyId = Prelude.Nothing
     }
 
 -- | The signature of the JSON document.
-ssUploadPolicySignature :: Lens' S3Storage (Maybe Text)
-ssUploadPolicySignature = lens _ssUploadPolicySignature (\s a -> s {_ssUploadPolicySignature = a})
+s3Storage_uploadPolicySignature :: Lens.Lens' S3Storage (Prelude.Maybe Prelude.Text)
+s3Storage_uploadPolicySignature = Lens.lens (\S3Storage' {uploadPolicySignature} -> uploadPolicySignature) (\s@S3Storage' {} a -> s {uploadPolicySignature = a} :: S3Storage)
 
--- | An Amazon S3 upload policy that gives Amazon EC2 permission to upload items into Amazon S3 on your behalf.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-ssUploadPolicy :: Lens' S3Storage (Maybe ByteString)
-ssUploadPolicy = lens _ssUploadPolicy (\s a -> s {_ssUploadPolicy = a}) . mapping _Base64
+-- | An Amazon S3 upload policy that gives Amazon EC2 permission to upload
+-- items into Amazon S3 on your behalf.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+s3Storage_uploadPolicy :: Lens.Lens' S3Storage (Prelude.Maybe Prelude.ByteString)
+s3Storage_uploadPolicy = Lens.lens (\S3Storage' {uploadPolicy} -> uploadPolicy) (\s@S3Storage' {} a -> s {uploadPolicy = a} :: S3Storage) Prelude.. Lens.mapping Prelude._Base64
 
 -- | The beginning of the file name of the AMI.
-ssPrefix :: Lens' S3Storage (Maybe Text)
-ssPrefix = lens _ssPrefix (\s a -> s {_ssPrefix = a})
+s3Storage_prefix :: Lens.Lens' S3Storage (Prelude.Maybe Prelude.Text)
+s3Storage_prefix = Lens.lens (\S3Storage' {prefix} -> prefix) (\s@S3Storage' {} a -> s {prefix = a} :: S3Storage)
 
--- | The bucket in which to store the AMI. You can specify a bucket that you already own or a new bucket that Amazon EC2 creates on your behalf. If you specify a bucket that belongs to someone else, Amazon EC2 returns an error.
-ssBucket :: Lens' S3Storage (Maybe Text)
-ssBucket = lens _ssBucket (\s a -> s {_ssBucket = a})
+-- | The bucket in which to store the AMI. You can specify a bucket that you
+-- already own or a new bucket that Amazon EC2 creates on your behalf. If
+-- you specify a bucket that belongs to someone else, Amazon EC2 returns an
+-- error.
+s3Storage_bucket :: Lens.Lens' S3Storage (Prelude.Maybe Prelude.Text)
+s3Storage_bucket = Lens.lens (\S3Storage' {bucket} -> bucket) (\s@S3Storage' {} a -> s {bucket = a} :: S3Storage)
 
--- | The access key ID of the owner of the bucket. Before you specify a value for your access key ID, review and follow the guidance in <https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html Best Practices for Managing AWS Access Keys> .
-ssAWSAccessKeyId :: Lens' S3Storage (Maybe Text)
-ssAWSAccessKeyId = lens _ssAWSAccessKeyId (\s a -> s {_ssAWSAccessKeyId = a})
+-- | The access key ID of the owner of the bucket. Before you specify a value
+-- for your access key ID, review and follow the guidance in
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html Best Practices for Managing AWS Access Keys>.
+s3Storage_aWSAccessKeyId :: Lens.Lens' S3Storage (Prelude.Maybe Prelude.Text)
+s3Storage_aWSAccessKeyId = Lens.lens (\S3Storage' {aWSAccessKeyId} -> aWSAccessKeyId) (\s@S3Storage' {} a -> s {aWSAccessKeyId = a} :: S3Storage)
 
-instance FromXML S3Storage where
+instance Prelude.FromXML S3Storage where
   parseXML x =
     S3Storage'
-      <$> (x .@? "uploadPolicySignature")
-      <*> (x .@? "uploadPolicy")
-      <*> (x .@? "prefix")
-      <*> (x .@? "bucket")
-      <*> (x .@? "AWSAccessKeyId")
+      Prelude.<$> (x Prelude..@? "uploadPolicySignature")
+      Prelude.<*> (x Prelude..@? "uploadPolicy")
+      Prelude.<*> (x Prelude..@? "prefix")
+      Prelude.<*> (x Prelude..@? "bucket")
+      Prelude.<*> (x Prelude..@? "AWSAccessKeyId")
 
-instance Hashable S3Storage
+instance Prelude.Hashable S3Storage
 
-instance NFData S3Storage
+instance Prelude.NFData S3Storage
 
-instance ToQuery S3Storage where
+instance Prelude.ToQuery S3Storage where
   toQuery S3Storage' {..} =
-    mconcat
-      [ "UploadPolicySignature" =: _ssUploadPolicySignature,
-        "UploadPolicy" =: _ssUploadPolicy,
-        "Prefix" =: _ssPrefix,
-        "Bucket" =: _ssBucket,
-        "AWSAccessKeyId" =: _ssAWSAccessKeyId
+    Prelude.mconcat
+      [ "UploadPolicySignature"
+          Prelude.=: uploadPolicySignature,
+        "UploadPolicy" Prelude.=: uploadPolicy,
+        "Prefix" Prelude.=: prefix,
+        "Bucket" Prelude.=: bucket,
+        "AWSAccessKeyId" Prelude.=: aWSAccessKeyId
       ]

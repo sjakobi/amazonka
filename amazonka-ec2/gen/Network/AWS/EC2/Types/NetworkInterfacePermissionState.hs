@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,61 @@ module Network.AWS.EC2.Types.NetworkInterfacePermissionState where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.NetworkInterfacePermissionStateCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the state of a network interface permission.
 --
---
---
--- /See:/ 'networkInterfacePermissionState' smart constructor.
+-- /See:/ 'newNetworkInterfacePermissionState' smart constructor.
 data NetworkInterfacePermissionState = NetworkInterfacePermissionState'
-  { _nipsStatusMessage ::
-      !( Maybe
-           Text
-       ),
-    _nipsState ::
-      !( Maybe
-           NetworkInterfacePermissionStateCode
-       )
+  { -- | A status message, if applicable.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The state of the permission.
+    state :: Prelude.Maybe NetworkInterfacePermissionStateCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkInterfacePermissionState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkInterfacePermissionState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nipsStatusMessage' - A status message, if applicable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nipsState' - The state of the permission.
-networkInterfacePermissionState ::
+-- 'statusMessage', 'networkInterfacePermissionState_statusMessage' - A status message, if applicable.
+--
+-- 'state', 'networkInterfacePermissionState_state' - The state of the permission.
+newNetworkInterfacePermissionState ::
   NetworkInterfacePermissionState
-networkInterfacePermissionState =
+newNetworkInterfacePermissionState =
   NetworkInterfacePermissionState'
-    { _nipsStatusMessage =
-        Nothing,
-      _nipsState = Nothing
+    { statusMessage =
+        Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
 -- | A status message, if applicable.
-nipsStatusMessage :: Lens' NetworkInterfacePermissionState (Maybe Text)
-nipsStatusMessage = lens _nipsStatusMessage (\s a -> s {_nipsStatusMessage = a})
+networkInterfacePermissionState_statusMessage :: Lens.Lens' NetworkInterfacePermissionState (Prelude.Maybe Prelude.Text)
+networkInterfacePermissionState_statusMessage = Lens.lens (\NetworkInterfacePermissionState' {statusMessage} -> statusMessage) (\s@NetworkInterfacePermissionState' {} a -> s {statusMessage = a} :: NetworkInterfacePermissionState)
 
 -- | The state of the permission.
-nipsState :: Lens' NetworkInterfacePermissionState (Maybe NetworkInterfacePermissionStateCode)
-nipsState = lens _nipsState (\s a -> s {_nipsState = a})
+networkInterfacePermissionState_state :: Lens.Lens' NetworkInterfacePermissionState (Prelude.Maybe NetworkInterfacePermissionStateCode)
+networkInterfacePermissionState_state = Lens.lens (\NetworkInterfacePermissionState' {state} -> state) (\s@NetworkInterfacePermissionState' {} a -> s {state = a} :: NetworkInterfacePermissionState)
 
-instance FromXML NetworkInterfacePermissionState where
+instance
+  Prelude.FromXML
+    NetworkInterfacePermissionState
+  where
   parseXML x =
     NetworkInterfacePermissionState'
-      <$> (x .@? "statusMessage") <*> (x .@? "state")
+      Prelude.<$> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "state")
 
-instance Hashable NetworkInterfacePermissionState
+instance
+  Prelude.Hashable
+    NetworkInterfacePermissionState
 
-instance NFData NetworkInterfacePermissionState
+instance
+  Prelude.NFData
+    NetworkInterfacePermissionState

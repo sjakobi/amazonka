@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,12 +24,12 @@ import Network.AWS.EC2.Types.CreditSpecification
 import Network.AWS.EC2.Types.ElasticGpuSpecificationResponse
 import Network.AWS.EC2.Types.InstanceType
 import Network.AWS.EC2.Types.LaunchTemplateBlockDeviceMapping
-import Network.AWS.EC2.Types.LaunchTemplateCPUOptions
 import Network.AWS.EC2.Types.LaunchTemplateCapacityReservationSpecificationResponse
+import Network.AWS.EC2.Types.LaunchTemplateCpuOptions
 import Network.AWS.EC2.Types.LaunchTemplateElasticInferenceAcceleratorResponse
 import Network.AWS.EC2.Types.LaunchTemplateEnclaveOptions
 import Network.AWS.EC2.Types.LaunchTemplateHibernationOptions
-import Network.AWS.EC2.Types.LaunchTemplateIAMInstanceProfileSpecification
+import Network.AWS.EC2.Types.LaunchTemplateIamInstanceProfileSpecification
 import Network.AWS.EC2.Types.LaunchTemplateInstanceMarketOptions
 import Network.AWS.EC2.Types.LaunchTemplateInstanceMetadataOptions
 import Network.AWS.EC2.Types.LaunchTemplateInstanceNetworkInterfaceSpecification
@@ -34,362 +38,360 @@ import Network.AWS.EC2.Types.LaunchTemplatePlacement
 import Network.AWS.EC2.Types.LaunchTemplateTagSpecification
 import Network.AWS.EC2.Types.LaunchTemplatesMonitoring
 import Network.AWS.EC2.Types.ShutdownBehavior
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The information for a launch template.
 --
---
---
--- /See:/ 'responseLaunchTemplateData' smart constructor.
+-- /See:/ 'newResponseLaunchTemplateData' smart constructor.
 data ResponseLaunchTemplateData = ResponseLaunchTemplateData'
-  { _rltdSecurityGroupIds ::
-      !(Maybe [Text]),
-    _rltdTagSpecifications ::
-      !( Maybe
-           [LaunchTemplateTagSpecification]
-       ),
-    _rltdElasticGpuSpecifications ::
-      !( Maybe
-           [ElasticGpuSpecificationResponse]
-       ),
-    _rltdInstanceType ::
-      !( Maybe
-           InstanceType
-       ),
-    _rltdCapacityReservationSpecification ::
-      !( Maybe
-           LaunchTemplateCapacityReservationSpecificationResponse
-       ),
-    _rltdEBSOptimized ::
-      !(Maybe Bool),
-    _rltdUserData ::
-      !(Maybe Text),
-    _rltdPlacement ::
-      !( Maybe
-           LaunchTemplatePlacement
-       ),
-    _rltdRamDiskId ::
-      !(Maybe Text),
-    _rltdCreditSpecification ::
-      !( Maybe
-           CreditSpecification
-       ),
-    _rltdInstanceMarketOptions ::
-      !( Maybe
-           LaunchTemplateInstanceMarketOptions
-       ),
-    _rltdLicenseSpecifications ::
-      !( Maybe
-           [LaunchTemplateLicenseConfiguration]
-       ),
-    _rltdInstanceInitiatedShutdownBehavior ::
-      !( Maybe
-           ShutdownBehavior
-       ),
-    _rltdImageId ::
-      !(Maybe Text),
-    _rltdSecurityGroups ::
-      !(Maybe [Text]),
-    _rltdElasticInferenceAccelerators ::
-      !( Maybe
-           [LaunchTemplateElasticInferenceAcceleratorResponse]
-       ),
-    _rltdIAMInstanceProfile ::
-      !( Maybe
-           LaunchTemplateIAMInstanceProfileSpecification
-       ),
-    _rltdHibernationOptions ::
-      !( Maybe
-           LaunchTemplateHibernationOptions
-       ),
-    _rltdMonitoring ::
-      !( Maybe
-           LaunchTemplatesMonitoring
-       ),
-    _rltdBlockDeviceMappings ::
-      !( Maybe
-           [LaunchTemplateBlockDeviceMapping]
-       ),
-    _rltdEnclaveOptions ::
-      !( Maybe
-           LaunchTemplateEnclaveOptions
-       ),
-    _rltdKernelId ::
-      !(Maybe Text),
-    _rltdCPUOptions ::
-      !( Maybe
-           LaunchTemplateCPUOptions
-       ),
-    _rltdKeyName ::
-      !(Maybe Text),
-    _rltdNetworkInterfaces ::
-      !( Maybe
-           [LaunchTemplateInstanceNetworkInterfaceSpecification]
-       ),
-    _rltdDisableAPITermination ::
-      !(Maybe Bool),
-    _rltdMetadataOptions ::
-      !( Maybe
-           LaunchTemplateInstanceMetadataOptions
-       )
+  { -- | The security group IDs.
+    securityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The tags.
+    tagSpecifications :: Prelude.Maybe [LaunchTemplateTagSpecification],
+    -- | The elastic GPU specification.
+    elasticGpuSpecifications :: Prelude.Maybe [ElasticGpuSpecificationResponse],
+    -- | The instance type.
+    instanceType :: Prelude.Maybe InstanceType,
+    -- | Information about the Capacity Reservation targeting option.
+    capacityReservationSpecification :: Prelude.Maybe LaunchTemplateCapacityReservationSpecificationResponse,
+    -- | Indicates whether the instance is optimized for Amazon EBS I\/O.
+    ebsOptimized :: Prelude.Maybe Prelude.Bool,
+    -- | The user data for the instance.
+    userData :: Prelude.Maybe Prelude.Text,
+    -- | The placement of the instance.
+    placement :: Prelude.Maybe LaunchTemplatePlacement,
+    -- | The ID of the RAM disk, if applicable.
+    ramDiskId :: Prelude.Maybe Prelude.Text,
+    -- | The credit option for CPU usage of the instance.
+    creditSpecification :: Prelude.Maybe CreditSpecification,
+    -- | The market (purchasing) option for the instances.
+    instanceMarketOptions :: Prelude.Maybe LaunchTemplateInstanceMarketOptions,
+    -- | The license configurations.
+    licenseSpecifications :: Prelude.Maybe [LaunchTemplateLicenseConfiguration],
+    -- | Indicates whether an instance stops or terminates when you initiate
+    -- shutdown from the instance (using the operating system command for
+    -- system shutdown).
+    instanceInitiatedShutdownBehavior :: Prelude.Maybe ShutdownBehavior,
+    -- | The ID of the AMI that was used to launch the instance.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | The security group names.
+    securityGroups :: Prelude.Maybe [Prelude.Text],
+    -- | The elastic inference accelerator for the instance.
+    elasticInferenceAccelerators :: Prelude.Maybe [LaunchTemplateElasticInferenceAcceleratorResponse],
+    -- | The IAM instance profile.
+    iamInstanceProfile :: Prelude.Maybe LaunchTemplateIamInstanceProfileSpecification,
+    -- | Indicates whether an instance is configured for hibernation. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate Your Instance>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    hibernationOptions :: Prelude.Maybe LaunchTemplateHibernationOptions,
+    -- | The monitoring for the instance.
+    monitoring :: Prelude.Maybe LaunchTemplatesMonitoring,
+    -- | The block device mappings.
+    blockDeviceMappings :: Prelude.Maybe [LaunchTemplateBlockDeviceMapping],
+    -- | Indicates whether the instance is enabled for AWS Nitro Enclaves.
+    enclaveOptions :: Prelude.Maybe LaunchTemplateEnclaveOptions,
+    -- | The ID of the kernel, if applicable.
+    kernelId :: Prelude.Maybe Prelude.Text,
+    -- | The CPU options for the instance. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html Optimizing CPU Options>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    cpuOptions :: Prelude.Maybe LaunchTemplateCpuOptions,
+    -- | The name of the key pair.
+    keyName :: Prelude.Maybe Prelude.Text,
+    -- | The network interfaces.
+    networkInterfaces :: Prelude.Maybe [LaunchTemplateInstanceNetworkInterfaceSpecification],
+    -- | If set to @true@, indicates that the instance cannot be terminated using
+    -- the Amazon EC2 console, command line tool, or API.
+    disableApiTermination :: Prelude.Maybe Prelude.Bool,
+    -- | The metadata options for the instance. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance Metadata and User Data>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    metadataOptions :: Prelude.Maybe LaunchTemplateInstanceMetadataOptions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResponseLaunchTemplateData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResponseLaunchTemplateData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rltdSecurityGroupIds' - The security group IDs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rltdTagSpecifications' - The tags.
+-- 'securityGroupIds', 'responseLaunchTemplateData_securityGroupIds' - The security group IDs.
 --
--- * 'rltdElasticGpuSpecifications' - The elastic GPU specification.
+-- 'tagSpecifications', 'responseLaunchTemplateData_tagSpecifications' - The tags.
 --
--- * 'rltdInstanceType' - The instance type.
+-- 'elasticGpuSpecifications', 'responseLaunchTemplateData_elasticGpuSpecifications' - The elastic GPU specification.
 --
--- * 'rltdCapacityReservationSpecification' - Information about the Capacity Reservation targeting option.
+-- 'instanceType', 'responseLaunchTemplateData_instanceType' - The instance type.
 --
--- * 'rltdEBSOptimized' - Indicates whether the instance is optimized for Amazon EBS I/O.
+-- 'capacityReservationSpecification', 'responseLaunchTemplateData_capacityReservationSpecification' - Information about the Capacity Reservation targeting option.
 --
--- * 'rltdUserData' - The user data for the instance.
+-- 'ebsOptimized', 'responseLaunchTemplateData_ebsOptimized' - Indicates whether the instance is optimized for Amazon EBS I\/O.
 --
--- * 'rltdPlacement' - The placement of the instance.
+-- 'userData', 'responseLaunchTemplateData_userData' - The user data for the instance.
 --
--- * 'rltdRamDiskId' - The ID of the RAM disk, if applicable.
+-- 'placement', 'responseLaunchTemplateData_placement' - The placement of the instance.
 --
--- * 'rltdCreditSpecification' - The credit option for CPU usage of the instance.
+-- 'ramDiskId', 'responseLaunchTemplateData_ramDiskId' - The ID of the RAM disk, if applicable.
 --
--- * 'rltdInstanceMarketOptions' - The market (purchasing) option for the instances.
+-- 'creditSpecification', 'responseLaunchTemplateData_creditSpecification' - The credit option for CPU usage of the instance.
 --
--- * 'rltdLicenseSpecifications' - The license configurations.
+-- 'instanceMarketOptions', 'responseLaunchTemplateData_instanceMarketOptions' - The market (purchasing) option for the instances.
 --
--- * 'rltdInstanceInitiatedShutdownBehavior' - Indicates whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown).
+-- 'licenseSpecifications', 'responseLaunchTemplateData_licenseSpecifications' - The license configurations.
 --
--- * 'rltdImageId' - The ID of the AMI that was used to launch the instance.
+-- 'instanceInitiatedShutdownBehavior', 'responseLaunchTemplateData_instanceInitiatedShutdownBehavior' - Indicates whether an instance stops or terminates when you initiate
+-- shutdown from the instance (using the operating system command for
+-- system shutdown).
 --
--- * 'rltdSecurityGroups' - The security group names.
+-- 'imageId', 'responseLaunchTemplateData_imageId' - The ID of the AMI that was used to launch the instance.
 --
--- * 'rltdElasticInferenceAccelerators' - The elastic inference accelerator for the instance.
+-- 'securityGroups', 'responseLaunchTemplateData_securityGroups' - The security group names.
 --
--- * 'rltdIAMInstanceProfile' - The IAM instance profile.
+-- 'elasticInferenceAccelerators', 'responseLaunchTemplateData_elasticInferenceAccelerators' - The elastic inference accelerator for the instance.
 --
--- * 'rltdHibernationOptions' - Indicates whether an instance is configured for hibernation. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate Your Instance> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- 'iamInstanceProfile', 'responseLaunchTemplateData_iamInstanceProfile' - The IAM instance profile.
 --
--- * 'rltdMonitoring' - The monitoring for the instance.
+-- 'hibernationOptions', 'responseLaunchTemplateData_hibernationOptions' - Indicates whether an instance is configured for hibernation. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate Your Instance>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
--- * 'rltdBlockDeviceMappings' - The block device mappings.
+-- 'monitoring', 'responseLaunchTemplateData_monitoring' - The monitoring for the instance.
 --
--- * 'rltdEnclaveOptions' - Indicates whether the instance is enabled for AWS Nitro Enclaves.
+-- 'blockDeviceMappings', 'responseLaunchTemplateData_blockDeviceMappings' - The block device mappings.
 --
--- * 'rltdKernelId' - The ID of the kernel, if applicable.
+-- 'enclaveOptions', 'responseLaunchTemplateData_enclaveOptions' - Indicates whether the instance is enabled for AWS Nitro Enclaves.
 --
--- * 'rltdCPUOptions' - The CPU options for the instance. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html Optimizing CPU Options> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- 'kernelId', 'responseLaunchTemplateData_kernelId' - The ID of the kernel, if applicable.
 --
--- * 'rltdKeyName' - The name of the key pair.
+-- 'cpuOptions', 'responseLaunchTemplateData_cpuOptions' - The CPU options for the instance. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html Optimizing CPU Options>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
--- * 'rltdNetworkInterfaces' - The network interfaces.
+-- 'keyName', 'responseLaunchTemplateData_keyName' - The name of the key pair.
 --
--- * 'rltdDisableAPITermination' - If set to @true@ , indicates that the instance cannot be terminated using the Amazon EC2 console, command line tool, or API.
+-- 'networkInterfaces', 'responseLaunchTemplateData_networkInterfaces' - The network interfaces.
 --
--- * 'rltdMetadataOptions' - The metadata options for the instance. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance Metadata and User Data> in the /Amazon Elastic Compute Cloud User Guide/ .
-responseLaunchTemplateData ::
+-- 'disableApiTermination', 'responseLaunchTemplateData_disableApiTermination' - If set to @true@, indicates that the instance cannot be terminated using
+-- the Amazon EC2 console, command line tool, or API.
+--
+-- 'metadataOptions', 'responseLaunchTemplateData_metadataOptions' - The metadata options for the instance. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance Metadata and User Data>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+newResponseLaunchTemplateData ::
   ResponseLaunchTemplateData
-responseLaunchTemplateData =
+newResponseLaunchTemplateData =
   ResponseLaunchTemplateData'
-    { _rltdSecurityGroupIds =
-        Nothing,
-      _rltdTagSpecifications = Nothing,
-      _rltdElasticGpuSpecifications = Nothing,
-      _rltdInstanceType = Nothing,
-      _rltdCapacityReservationSpecification = Nothing,
-      _rltdEBSOptimized = Nothing,
-      _rltdUserData = Nothing,
-      _rltdPlacement = Nothing,
-      _rltdRamDiskId = Nothing,
-      _rltdCreditSpecification = Nothing,
-      _rltdInstanceMarketOptions = Nothing,
-      _rltdLicenseSpecifications = Nothing,
-      _rltdInstanceInitiatedShutdownBehavior =
-        Nothing,
-      _rltdImageId = Nothing,
-      _rltdSecurityGroups = Nothing,
-      _rltdElasticInferenceAccelerators = Nothing,
-      _rltdIAMInstanceProfile = Nothing,
-      _rltdHibernationOptions = Nothing,
-      _rltdMonitoring = Nothing,
-      _rltdBlockDeviceMappings = Nothing,
-      _rltdEnclaveOptions = Nothing,
-      _rltdKernelId = Nothing,
-      _rltdCPUOptions = Nothing,
-      _rltdKeyName = Nothing,
-      _rltdNetworkInterfaces = Nothing,
-      _rltdDisableAPITermination = Nothing,
-      _rltdMetadataOptions = Nothing
+    { securityGroupIds =
+        Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing,
+      elasticGpuSpecifications = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      capacityReservationSpecification =
+        Prelude.Nothing,
+      ebsOptimized = Prelude.Nothing,
+      userData = Prelude.Nothing,
+      placement = Prelude.Nothing,
+      ramDiskId = Prelude.Nothing,
+      creditSpecification = Prelude.Nothing,
+      instanceMarketOptions = Prelude.Nothing,
+      licenseSpecifications = Prelude.Nothing,
+      instanceInitiatedShutdownBehavior =
+        Prelude.Nothing,
+      imageId = Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      elasticInferenceAccelerators = Prelude.Nothing,
+      iamInstanceProfile = Prelude.Nothing,
+      hibernationOptions = Prelude.Nothing,
+      monitoring = Prelude.Nothing,
+      blockDeviceMappings = Prelude.Nothing,
+      enclaveOptions = Prelude.Nothing,
+      kernelId = Prelude.Nothing,
+      cpuOptions = Prelude.Nothing,
+      keyName = Prelude.Nothing,
+      networkInterfaces = Prelude.Nothing,
+      disableApiTermination = Prelude.Nothing,
+      metadataOptions = Prelude.Nothing
     }
 
 -- | The security group IDs.
-rltdSecurityGroupIds :: Lens' ResponseLaunchTemplateData [Text]
-rltdSecurityGroupIds = lens _rltdSecurityGroupIds (\s a -> s {_rltdSecurityGroupIds = a}) . _Default . _Coerce
+responseLaunchTemplateData_securityGroupIds :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [Prelude.Text])
+responseLaunchTemplateData_securityGroupIds = Lens.lens (\ResponseLaunchTemplateData' {securityGroupIds} -> securityGroupIds) (\s@ResponseLaunchTemplateData' {} a -> s {securityGroupIds = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tags.
-rltdTagSpecifications :: Lens' ResponseLaunchTemplateData [LaunchTemplateTagSpecification]
-rltdTagSpecifications = lens _rltdTagSpecifications (\s a -> s {_rltdTagSpecifications = a}) . _Default . _Coerce
+responseLaunchTemplateData_tagSpecifications :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [LaunchTemplateTagSpecification])
+responseLaunchTemplateData_tagSpecifications = Lens.lens (\ResponseLaunchTemplateData' {tagSpecifications} -> tagSpecifications) (\s@ResponseLaunchTemplateData' {} a -> s {tagSpecifications = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The elastic GPU specification.
-rltdElasticGpuSpecifications :: Lens' ResponseLaunchTemplateData [ElasticGpuSpecificationResponse]
-rltdElasticGpuSpecifications = lens _rltdElasticGpuSpecifications (\s a -> s {_rltdElasticGpuSpecifications = a}) . _Default . _Coerce
+responseLaunchTemplateData_elasticGpuSpecifications :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [ElasticGpuSpecificationResponse])
+responseLaunchTemplateData_elasticGpuSpecifications = Lens.lens (\ResponseLaunchTemplateData' {elasticGpuSpecifications} -> elasticGpuSpecifications) (\s@ResponseLaunchTemplateData' {} a -> s {elasticGpuSpecifications = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The instance type.
-rltdInstanceType :: Lens' ResponseLaunchTemplateData (Maybe InstanceType)
-rltdInstanceType = lens _rltdInstanceType (\s a -> s {_rltdInstanceType = a})
+responseLaunchTemplateData_instanceType :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe InstanceType)
+responseLaunchTemplateData_instanceType = Lens.lens (\ResponseLaunchTemplateData' {instanceType} -> instanceType) (\s@ResponseLaunchTemplateData' {} a -> s {instanceType = a} :: ResponseLaunchTemplateData)
 
 -- | Information about the Capacity Reservation targeting option.
-rltdCapacityReservationSpecification :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplateCapacityReservationSpecificationResponse)
-rltdCapacityReservationSpecification = lens _rltdCapacityReservationSpecification (\s a -> s {_rltdCapacityReservationSpecification = a})
+responseLaunchTemplateData_capacityReservationSpecification :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplateCapacityReservationSpecificationResponse)
+responseLaunchTemplateData_capacityReservationSpecification = Lens.lens (\ResponseLaunchTemplateData' {capacityReservationSpecification} -> capacityReservationSpecification) (\s@ResponseLaunchTemplateData' {} a -> s {capacityReservationSpecification = a} :: ResponseLaunchTemplateData)
 
--- | Indicates whether the instance is optimized for Amazon EBS I/O.
-rltdEBSOptimized :: Lens' ResponseLaunchTemplateData (Maybe Bool)
-rltdEBSOptimized = lens _rltdEBSOptimized (\s a -> s {_rltdEBSOptimized = a})
+-- | Indicates whether the instance is optimized for Amazon EBS I\/O.
+responseLaunchTemplateData_ebsOptimized :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe Prelude.Bool)
+responseLaunchTemplateData_ebsOptimized = Lens.lens (\ResponseLaunchTemplateData' {ebsOptimized} -> ebsOptimized) (\s@ResponseLaunchTemplateData' {} a -> s {ebsOptimized = a} :: ResponseLaunchTemplateData)
 
 -- | The user data for the instance.
-rltdUserData :: Lens' ResponseLaunchTemplateData (Maybe Text)
-rltdUserData = lens _rltdUserData (\s a -> s {_rltdUserData = a})
+responseLaunchTemplateData_userData :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe Prelude.Text)
+responseLaunchTemplateData_userData = Lens.lens (\ResponseLaunchTemplateData' {userData} -> userData) (\s@ResponseLaunchTemplateData' {} a -> s {userData = a} :: ResponseLaunchTemplateData)
 
 -- | The placement of the instance.
-rltdPlacement :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplatePlacement)
-rltdPlacement = lens _rltdPlacement (\s a -> s {_rltdPlacement = a})
+responseLaunchTemplateData_placement :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplatePlacement)
+responseLaunchTemplateData_placement = Lens.lens (\ResponseLaunchTemplateData' {placement} -> placement) (\s@ResponseLaunchTemplateData' {} a -> s {placement = a} :: ResponseLaunchTemplateData)
 
 -- | The ID of the RAM disk, if applicable.
-rltdRamDiskId :: Lens' ResponseLaunchTemplateData (Maybe Text)
-rltdRamDiskId = lens _rltdRamDiskId (\s a -> s {_rltdRamDiskId = a})
+responseLaunchTemplateData_ramDiskId :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe Prelude.Text)
+responseLaunchTemplateData_ramDiskId = Lens.lens (\ResponseLaunchTemplateData' {ramDiskId} -> ramDiskId) (\s@ResponseLaunchTemplateData' {} a -> s {ramDiskId = a} :: ResponseLaunchTemplateData)
 
 -- | The credit option for CPU usage of the instance.
-rltdCreditSpecification :: Lens' ResponseLaunchTemplateData (Maybe CreditSpecification)
-rltdCreditSpecification = lens _rltdCreditSpecification (\s a -> s {_rltdCreditSpecification = a})
+responseLaunchTemplateData_creditSpecification :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe CreditSpecification)
+responseLaunchTemplateData_creditSpecification = Lens.lens (\ResponseLaunchTemplateData' {creditSpecification} -> creditSpecification) (\s@ResponseLaunchTemplateData' {} a -> s {creditSpecification = a} :: ResponseLaunchTemplateData)
 
 -- | The market (purchasing) option for the instances.
-rltdInstanceMarketOptions :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplateInstanceMarketOptions)
-rltdInstanceMarketOptions = lens _rltdInstanceMarketOptions (\s a -> s {_rltdInstanceMarketOptions = a})
+responseLaunchTemplateData_instanceMarketOptions :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplateInstanceMarketOptions)
+responseLaunchTemplateData_instanceMarketOptions = Lens.lens (\ResponseLaunchTemplateData' {instanceMarketOptions} -> instanceMarketOptions) (\s@ResponseLaunchTemplateData' {} a -> s {instanceMarketOptions = a} :: ResponseLaunchTemplateData)
 
 -- | The license configurations.
-rltdLicenseSpecifications :: Lens' ResponseLaunchTemplateData [LaunchTemplateLicenseConfiguration]
-rltdLicenseSpecifications = lens _rltdLicenseSpecifications (\s a -> s {_rltdLicenseSpecifications = a}) . _Default . _Coerce
+responseLaunchTemplateData_licenseSpecifications :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [LaunchTemplateLicenseConfiguration])
+responseLaunchTemplateData_licenseSpecifications = Lens.lens (\ResponseLaunchTemplateData' {licenseSpecifications} -> licenseSpecifications) (\s@ResponseLaunchTemplateData' {} a -> s {licenseSpecifications = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown).
-rltdInstanceInitiatedShutdownBehavior :: Lens' ResponseLaunchTemplateData (Maybe ShutdownBehavior)
-rltdInstanceInitiatedShutdownBehavior = lens _rltdInstanceInitiatedShutdownBehavior (\s a -> s {_rltdInstanceInitiatedShutdownBehavior = a})
+-- | Indicates whether an instance stops or terminates when you initiate
+-- shutdown from the instance (using the operating system command for
+-- system shutdown).
+responseLaunchTemplateData_instanceInitiatedShutdownBehavior :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe ShutdownBehavior)
+responseLaunchTemplateData_instanceInitiatedShutdownBehavior = Lens.lens (\ResponseLaunchTemplateData' {instanceInitiatedShutdownBehavior} -> instanceInitiatedShutdownBehavior) (\s@ResponseLaunchTemplateData' {} a -> s {instanceInitiatedShutdownBehavior = a} :: ResponseLaunchTemplateData)
 
 -- | The ID of the AMI that was used to launch the instance.
-rltdImageId :: Lens' ResponseLaunchTemplateData (Maybe Text)
-rltdImageId = lens _rltdImageId (\s a -> s {_rltdImageId = a})
+responseLaunchTemplateData_imageId :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe Prelude.Text)
+responseLaunchTemplateData_imageId = Lens.lens (\ResponseLaunchTemplateData' {imageId} -> imageId) (\s@ResponseLaunchTemplateData' {} a -> s {imageId = a} :: ResponseLaunchTemplateData)
 
 -- | The security group names.
-rltdSecurityGroups :: Lens' ResponseLaunchTemplateData [Text]
-rltdSecurityGroups = lens _rltdSecurityGroups (\s a -> s {_rltdSecurityGroups = a}) . _Default . _Coerce
+responseLaunchTemplateData_securityGroups :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [Prelude.Text])
+responseLaunchTemplateData_securityGroups = Lens.lens (\ResponseLaunchTemplateData' {securityGroups} -> securityGroups) (\s@ResponseLaunchTemplateData' {} a -> s {securityGroups = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The elastic inference accelerator for the instance.
-rltdElasticInferenceAccelerators :: Lens' ResponseLaunchTemplateData [LaunchTemplateElasticInferenceAcceleratorResponse]
-rltdElasticInferenceAccelerators = lens _rltdElasticInferenceAccelerators (\s a -> s {_rltdElasticInferenceAccelerators = a}) . _Default . _Coerce
+responseLaunchTemplateData_elasticInferenceAccelerators :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [LaunchTemplateElasticInferenceAcceleratorResponse])
+responseLaunchTemplateData_elasticInferenceAccelerators = Lens.lens (\ResponseLaunchTemplateData' {elasticInferenceAccelerators} -> elasticInferenceAccelerators) (\s@ResponseLaunchTemplateData' {} a -> s {elasticInferenceAccelerators = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The IAM instance profile.
-rltdIAMInstanceProfile :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplateIAMInstanceProfileSpecification)
-rltdIAMInstanceProfile = lens _rltdIAMInstanceProfile (\s a -> s {_rltdIAMInstanceProfile = a})
+responseLaunchTemplateData_iamInstanceProfile :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplateIamInstanceProfileSpecification)
+responseLaunchTemplateData_iamInstanceProfile = Lens.lens (\ResponseLaunchTemplateData' {iamInstanceProfile} -> iamInstanceProfile) (\s@ResponseLaunchTemplateData' {} a -> s {iamInstanceProfile = a} :: ResponseLaunchTemplateData)
 
--- | Indicates whether an instance is configured for hibernation. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate Your Instance> in the /Amazon Elastic Compute Cloud User Guide/ .
-rltdHibernationOptions :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplateHibernationOptions)
-rltdHibernationOptions = lens _rltdHibernationOptions (\s a -> s {_rltdHibernationOptions = a})
+-- | Indicates whether an instance is configured for hibernation. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate Your Instance>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+responseLaunchTemplateData_hibernationOptions :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplateHibernationOptions)
+responseLaunchTemplateData_hibernationOptions = Lens.lens (\ResponseLaunchTemplateData' {hibernationOptions} -> hibernationOptions) (\s@ResponseLaunchTemplateData' {} a -> s {hibernationOptions = a} :: ResponseLaunchTemplateData)
 
 -- | The monitoring for the instance.
-rltdMonitoring :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplatesMonitoring)
-rltdMonitoring = lens _rltdMonitoring (\s a -> s {_rltdMonitoring = a})
+responseLaunchTemplateData_monitoring :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplatesMonitoring)
+responseLaunchTemplateData_monitoring = Lens.lens (\ResponseLaunchTemplateData' {monitoring} -> monitoring) (\s@ResponseLaunchTemplateData' {} a -> s {monitoring = a} :: ResponseLaunchTemplateData)
 
 -- | The block device mappings.
-rltdBlockDeviceMappings :: Lens' ResponseLaunchTemplateData [LaunchTemplateBlockDeviceMapping]
-rltdBlockDeviceMappings = lens _rltdBlockDeviceMappings (\s a -> s {_rltdBlockDeviceMappings = a}) . _Default . _Coerce
+responseLaunchTemplateData_blockDeviceMappings :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [LaunchTemplateBlockDeviceMapping])
+responseLaunchTemplateData_blockDeviceMappings = Lens.lens (\ResponseLaunchTemplateData' {blockDeviceMappings} -> blockDeviceMappings) (\s@ResponseLaunchTemplateData' {} a -> s {blockDeviceMappings = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates whether the instance is enabled for AWS Nitro Enclaves.
-rltdEnclaveOptions :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplateEnclaveOptions)
-rltdEnclaveOptions = lens _rltdEnclaveOptions (\s a -> s {_rltdEnclaveOptions = a})
+responseLaunchTemplateData_enclaveOptions :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplateEnclaveOptions)
+responseLaunchTemplateData_enclaveOptions = Lens.lens (\ResponseLaunchTemplateData' {enclaveOptions} -> enclaveOptions) (\s@ResponseLaunchTemplateData' {} a -> s {enclaveOptions = a} :: ResponseLaunchTemplateData)
 
 -- | The ID of the kernel, if applicable.
-rltdKernelId :: Lens' ResponseLaunchTemplateData (Maybe Text)
-rltdKernelId = lens _rltdKernelId (\s a -> s {_rltdKernelId = a})
+responseLaunchTemplateData_kernelId :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe Prelude.Text)
+responseLaunchTemplateData_kernelId = Lens.lens (\ResponseLaunchTemplateData' {kernelId} -> kernelId) (\s@ResponseLaunchTemplateData' {} a -> s {kernelId = a} :: ResponseLaunchTemplateData)
 
--- | The CPU options for the instance. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html Optimizing CPU Options> in the /Amazon Elastic Compute Cloud User Guide/ .
-rltdCPUOptions :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplateCPUOptions)
-rltdCPUOptions = lens _rltdCPUOptions (\s a -> s {_rltdCPUOptions = a})
+-- | The CPU options for the instance. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html Optimizing CPU Options>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+responseLaunchTemplateData_cpuOptions :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplateCpuOptions)
+responseLaunchTemplateData_cpuOptions = Lens.lens (\ResponseLaunchTemplateData' {cpuOptions} -> cpuOptions) (\s@ResponseLaunchTemplateData' {} a -> s {cpuOptions = a} :: ResponseLaunchTemplateData)
 
 -- | The name of the key pair.
-rltdKeyName :: Lens' ResponseLaunchTemplateData (Maybe Text)
-rltdKeyName = lens _rltdKeyName (\s a -> s {_rltdKeyName = a})
+responseLaunchTemplateData_keyName :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe Prelude.Text)
+responseLaunchTemplateData_keyName = Lens.lens (\ResponseLaunchTemplateData' {keyName} -> keyName) (\s@ResponseLaunchTemplateData' {} a -> s {keyName = a} :: ResponseLaunchTemplateData)
 
 -- | The network interfaces.
-rltdNetworkInterfaces :: Lens' ResponseLaunchTemplateData [LaunchTemplateInstanceNetworkInterfaceSpecification]
-rltdNetworkInterfaces = lens _rltdNetworkInterfaces (\s a -> s {_rltdNetworkInterfaces = a}) . _Default . _Coerce
+responseLaunchTemplateData_networkInterfaces :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe [LaunchTemplateInstanceNetworkInterfaceSpecification])
+responseLaunchTemplateData_networkInterfaces = Lens.lens (\ResponseLaunchTemplateData' {networkInterfaces} -> networkInterfaces) (\s@ResponseLaunchTemplateData' {} a -> s {networkInterfaces = a} :: ResponseLaunchTemplateData) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If set to @true@ , indicates that the instance cannot be terminated using the Amazon EC2 console, command line tool, or API.
-rltdDisableAPITermination :: Lens' ResponseLaunchTemplateData (Maybe Bool)
-rltdDisableAPITermination = lens _rltdDisableAPITermination (\s a -> s {_rltdDisableAPITermination = a})
+-- | If set to @true@, indicates that the instance cannot be terminated using
+-- the Amazon EC2 console, command line tool, or API.
+responseLaunchTemplateData_disableApiTermination :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe Prelude.Bool)
+responseLaunchTemplateData_disableApiTermination = Lens.lens (\ResponseLaunchTemplateData' {disableApiTermination} -> disableApiTermination) (\s@ResponseLaunchTemplateData' {} a -> s {disableApiTermination = a} :: ResponseLaunchTemplateData)
 
--- | The metadata options for the instance. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance Metadata and User Data> in the /Amazon Elastic Compute Cloud User Guide/ .
-rltdMetadataOptions :: Lens' ResponseLaunchTemplateData (Maybe LaunchTemplateInstanceMetadataOptions)
-rltdMetadataOptions = lens _rltdMetadataOptions (\s a -> s {_rltdMetadataOptions = a})
+-- | The metadata options for the instance. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance Metadata and User Data>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+responseLaunchTemplateData_metadataOptions :: Lens.Lens' ResponseLaunchTemplateData (Prelude.Maybe LaunchTemplateInstanceMetadataOptions)
+responseLaunchTemplateData_metadataOptions = Lens.lens (\ResponseLaunchTemplateData' {metadataOptions} -> metadataOptions) (\s@ResponseLaunchTemplateData' {} a -> s {metadataOptions = a} :: ResponseLaunchTemplateData)
 
-instance FromXML ResponseLaunchTemplateData where
+instance Prelude.FromXML ResponseLaunchTemplateData where
   parseXML x =
     ResponseLaunchTemplateData'
-      <$> ( x .@? "securityGroupIdSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "tagSpecificationSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "elasticGpuSpecificationSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "instanceType")
-      <*> (x .@? "capacityReservationSpecification")
-      <*> (x .@? "ebsOptimized")
-      <*> (x .@? "userData")
-      <*> (x .@? "placement")
-      <*> (x .@? "ramDiskId")
-      <*> (x .@? "creditSpecification")
-      <*> (x .@? "instanceMarketOptions")
-      <*> ( x .@? "licenseSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "instanceInitiatedShutdownBehavior")
-      <*> (x .@? "imageId")
-      <*> ( x .@? "securityGroupSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "elasticInferenceAcceleratorSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "iamInstanceProfile")
-      <*> (x .@? "hibernationOptions")
-      <*> (x .@? "monitoring")
-      <*> ( x .@? "blockDeviceMappingSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "enclaveOptions")
-      <*> (x .@? "kernelId")
-      <*> (x .@? "cpuOptions")
-      <*> (x .@? "keyName")
-      <*> ( x .@? "networkInterfaceSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "disableApiTermination")
-      <*> (x .@? "metadataOptions")
+      Prelude.<$> ( x Prelude..@? "securityGroupIdSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "tagSpecificationSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "elasticGpuSpecificationSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "instanceType")
+      Prelude.<*> (x Prelude..@? "capacityReservationSpecification")
+      Prelude.<*> (x Prelude..@? "ebsOptimized")
+      Prelude.<*> (x Prelude..@? "userData")
+      Prelude.<*> (x Prelude..@? "placement")
+      Prelude.<*> (x Prelude..@? "ramDiskId")
+      Prelude.<*> (x Prelude..@? "creditSpecification")
+      Prelude.<*> (x Prelude..@? "instanceMarketOptions")
+      Prelude.<*> ( x Prelude..@? "licenseSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "instanceInitiatedShutdownBehavior")
+      Prelude.<*> (x Prelude..@? "imageId")
+      Prelude.<*> ( x Prelude..@? "securityGroupSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "elasticInferenceAcceleratorSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "iamInstanceProfile")
+      Prelude.<*> (x Prelude..@? "hibernationOptions")
+      Prelude.<*> (x Prelude..@? "monitoring")
+      Prelude.<*> ( x Prelude..@? "blockDeviceMappingSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "enclaveOptions")
+      Prelude.<*> (x Prelude..@? "kernelId")
+      Prelude.<*> (x Prelude..@? "cpuOptions")
+      Prelude.<*> (x Prelude..@? "keyName")
+      Prelude.<*> ( x Prelude..@? "networkInterfaceSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "disableApiTermination")
+      Prelude.<*> (x Prelude..@? "metadataOptions")
 
-instance Hashable ResponseLaunchTemplateData
+instance Prelude.Hashable ResponseLaunchTemplateData
 
-instance NFData ResponseLaunchTemplateData
+instance Prelude.NFData ResponseLaunchTemplateData

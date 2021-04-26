@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.TransitGatewayPrefixListReferenceState
   ( TransitGatewayPrefixListReferenceState
       ( ..,
-        TGPLRSAvailable,
-        TGPLRSDeleting,
-        TGPLRSModifying,
-        TGPLRSPending
+        TransitGatewayPrefixListReferenceStateAvailable,
+        TransitGatewayPrefixListReferenceStateDeleting,
+        TransitGatewayPrefixListReferenceStateModifying,
+        TransitGatewayPrefixListReferenceStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayPrefixListReferenceState
-  = TransitGatewayPrefixListReferenceState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayPrefixListReferenceState = TransitGatewayPrefixListReferenceState'
+  { fromTransitGatewayPrefixListReferenceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGPLRSAvailable :: TransitGatewayPrefixListReferenceState
-pattern TGPLRSAvailable = TransitGatewayPrefixListReferenceState' "available"
+pattern TransitGatewayPrefixListReferenceStateAvailable :: TransitGatewayPrefixListReferenceState
+pattern TransitGatewayPrefixListReferenceStateAvailable = TransitGatewayPrefixListReferenceState' "available"
 
-pattern TGPLRSDeleting :: TransitGatewayPrefixListReferenceState
-pattern TGPLRSDeleting = TransitGatewayPrefixListReferenceState' "deleting"
+pattern TransitGatewayPrefixListReferenceStateDeleting :: TransitGatewayPrefixListReferenceState
+pattern TransitGatewayPrefixListReferenceStateDeleting = TransitGatewayPrefixListReferenceState' "deleting"
 
-pattern TGPLRSModifying :: TransitGatewayPrefixListReferenceState
-pattern TGPLRSModifying = TransitGatewayPrefixListReferenceState' "modifying"
+pattern TransitGatewayPrefixListReferenceStateModifying :: TransitGatewayPrefixListReferenceState
+pattern TransitGatewayPrefixListReferenceStateModifying = TransitGatewayPrefixListReferenceState' "modifying"
 
-pattern TGPLRSPending :: TransitGatewayPrefixListReferenceState
-pattern TGPLRSPending = TransitGatewayPrefixListReferenceState' "pending"
+pattern TransitGatewayPrefixListReferenceStatePending :: TransitGatewayPrefixListReferenceState
+pattern TransitGatewayPrefixListReferenceStatePending = TransitGatewayPrefixListReferenceState' "pending"
 
 {-# COMPLETE
-  TGPLRSAvailable,
-  TGPLRSDeleting,
-  TGPLRSModifying,
-  TGPLRSPending,
+  TransitGatewayPrefixListReferenceStateAvailable,
+  TransitGatewayPrefixListReferenceStateDeleting,
+  TransitGatewayPrefixListReferenceStateModifying,
+  TransitGatewayPrefixListReferenceStatePending,
   TransitGatewayPrefixListReferenceState'
   #-}
 
-instance FromText TransitGatewayPrefixListReferenceState where
-  parser = (TransitGatewayPrefixListReferenceState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayPrefixListReferenceState where
+  parser = TransitGatewayPrefixListReferenceState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayPrefixListReferenceState where
-  toText (TransitGatewayPrefixListReferenceState' ci) = original ci
+instance Prelude.ToText TransitGatewayPrefixListReferenceState where
+  toText (TransitGatewayPrefixListReferenceState' x) = x
 
-instance Hashable TransitGatewayPrefixListReferenceState
+instance Prelude.Hashable TransitGatewayPrefixListReferenceState
 
-instance NFData TransitGatewayPrefixListReferenceState
+instance Prelude.NFData TransitGatewayPrefixListReferenceState
 
-instance ToByteString TransitGatewayPrefixListReferenceState
+instance Prelude.ToByteString TransitGatewayPrefixListReferenceState
 
-instance ToQuery TransitGatewayPrefixListReferenceState
+instance Prelude.ToQuery TransitGatewayPrefixListReferenceState
 
-instance ToHeader TransitGatewayPrefixListReferenceState
+instance Prelude.ToHeader TransitGatewayPrefixListReferenceState
 
-instance FromXML TransitGatewayPrefixListReferenceState where
-  parseXML = parseXMLText "TransitGatewayPrefixListReferenceState"
+instance Prelude.FromXML TransitGatewayPrefixListReferenceState where
+  parseXML = Prelude.parseXMLText "TransitGatewayPrefixListReferenceState"

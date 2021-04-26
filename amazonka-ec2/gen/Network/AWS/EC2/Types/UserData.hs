@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,33 +20,45 @@
 module Network.AWS.EC2.Types.UserData where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the user data for an instance.
 --
---
---
--- /See:/ 'userData' smart constructor.
-newtype UserData = UserData' {_udData :: Maybe Text}
-  deriving (Eq, Show, Data, Typeable, Generic)
+-- /See:/ 'newUserData' smart constructor.
+data UserData = UserData'
+  { -- | The user data. If you are using an AWS SDK or command line tool,
+    -- Base64-encoding is performed for you, and you can load the text from a
+    -- file. Otherwise, you must provide Base64-encoded text.
+    data' :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udData' - The user data. If you are using an AWS SDK or command line tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide Base64-encoded text.
-userData ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'data'', 'userData_data' - The user data. If you are using an AWS SDK or command line tool,
+-- Base64-encoding is performed for you, and you can load the text from a
+-- file. Otherwise, you must provide Base64-encoded text.
+newUserData ::
   UserData
-userData = UserData' {_udData = Nothing}
+newUserData = UserData' {data' = Prelude.Nothing}
 
--- | The user data. If you are using an AWS SDK or command line tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide Base64-encoded text.
-udData :: Lens' UserData (Maybe Text)
-udData = lens _udData (\s a -> s {_udData = a})
+-- | The user data. If you are using an AWS SDK or command line tool,
+-- Base64-encoding is performed for you, and you can load the text from a
+-- file. Otherwise, you must provide Base64-encoded text.
+userData_data :: Lens.Lens' UserData (Prelude.Maybe Prelude.Text)
+userData_data = Lens.lens (\UserData' {data'} -> data') (\s@UserData' {} a -> s {data' = a} :: UserData)
 
-instance Hashable UserData
+instance Prelude.Hashable UserData
 
-instance NFData UserData
+instance Prelude.NFData UserData
 
-instance ToQuery UserData where
-  toQuery UserData' {..} = mconcat ["Data" =: _udData]
+instance Prelude.ToQuery UserData where
+  toQuery UserData' {..} =
+    Prelude.mconcat ["Data" Prelude.=: data']

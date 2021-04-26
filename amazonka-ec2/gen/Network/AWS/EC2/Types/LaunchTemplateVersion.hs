@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,121 +21,114 @@ module Network.AWS.EC2.Types.LaunchTemplateVersion where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ResponseLaunchTemplateData
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch template version.
 --
---
---
--- /See:/ 'launchTemplateVersion' smart constructor.
+-- /See:/ 'newLaunchTemplateVersion' smart constructor.
 data LaunchTemplateVersion = LaunchTemplateVersion'
-  { _ltvDefaultVersion ::
-      !(Maybe Bool),
-    _ltvLaunchTemplateId ::
-      !(Maybe Text),
-    _ltvLaunchTemplateData ::
-      !( Maybe
-           ResponseLaunchTemplateData
-       ),
-    _ltvLaunchTemplateName ::
-      !(Maybe Text),
-    _ltvVersionDescription ::
-      !(Maybe Text),
-    _ltvVersionNumber ::
-      !(Maybe Integer),
-    _ltvCreateTime ::
-      !(Maybe ISO8601),
-    _ltvCreatedBy ::
-      !(Maybe Text)
+  { -- | Indicates whether the version is the default version.
+    defaultVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the launch template.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the launch template.
+    launchTemplateData :: Prelude.Maybe ResponseLaunchTemplateData,
+    -- | The name of the launch template.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | The description for the version.
+    versionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The version number.
+    versionNumber :: Prelude.Maybe Prelude.Integer,
+    -- | The time the version was created.
+    createTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The principal that created the version.
+    createdBy :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltvDefaultVersion' - Indicates whether the version is the default version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltvLaunchTemplateId' - The ID of the launch template.
+-- 'defaultVersion', 'launchTemplateVersion_defaultVersion' - Indicates whether the version is the default version.
 --
--- * 'ltvLaunchTemplateData' - Information about the launch template.
+-- 'launchTemplateId', 'launchTemplateVersion_launchTemplateId' - The ID of the launch template.
 --
--- * 'ltvLaunchTemplateName' - The name of the launch template.
+-- 'launchTemplateData', 'launchTemplateVersion_launchTemplateData' - Information about the launch template.
 --
--- * 'ltvVersionDescription' - The description for the version.
+-- 'launchTemplateName', 'launchTemplateVersion_launchTemplateName' - The name of the launch template.
 --
--- * 'ltvVersionNumber' - The version number.
+-- 'versionDescription', 'launchTemplateVersion_versionDescription' - The description for the version.
 --
--- * 'ltvCreateTime' - The time the version was created.
+-- 'versionNumber', 'launchTemplateVersion_versionNumber' - The version number.
 --
--- * 'ltvCreatedBy' - The principal that created the version.
-launchTemplateVersion ::
+-- 'createTime', 'launchTemplateVersion_createTime' - The time the version was created.
+--
+-- 'createdBy', 'launchTemplateVersion_createdBy' - The principal that created the version.
+newLaunchTemplateVersion ::
   LaunchTemplateVersion
-launchTemplateVersion =
+newLaunchTemplateVersion =
   LaunchTemplateVersion'
-    { _ltvDefaultVersion =
-        Nothing,
-      _ltvLaunchTemplateId = Nothing,
-      _ltvLaunchTemplateData = Nothing,
-      _ltvLaunchTemplateName = Nothing,
-      _ltvVersionDescription = Nothing,
-      _ltvVersionNumber = Nothing,
-      _ltvCreateTime = Nothing,
-      _ltvCreatedBy = Nothing
+    { defaultVersion =
+        Prelude.Nothing,
+      launchTemplateId = Prelude.Nothing,
+      launchTemplateData = Prelude.Nothing,
+      launchTemplateName = Prelude.Nothing,
+      versionDescription = Prelude.Nothing,
+      versionNumber = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      createdBy = Prelude.Nothing
     }
 
 -- | Indicates whether the version is the default version.
-ltvDefaultVersion :: Lens' LaunchTemplateVersion (Maybe Bool)
-ltvDefaultVersion = lens _ltvDefaultVersion (\s a -> s {_ltvDefaultVersion = a})
+launchTemplateVersion_defaultVersion :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe Prelude.Bool)
+launchTemplateVersion_defaultVersion = Lens.lens (\LaunchTemplateVersion' {defaultVersion} -> defaultVersion) (\s@LaunchTemplateVersion' {} a -> s {defaultVersion = a} :: LaunchTemplateVersion)
 
 -- | The ID of the launch template.
-ltvLaunchTemplateId :: Lens' LaunchTemplateVersion (Maybe Text)
-ltvLaunchTemplateId = lens _ltvLaunchTemplateId (\s a -> s {_ltvLaunchTemplateId = a})
+launchTemplateVersion_launchTemplateId :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe Prelude.Text)
+launchTemplateVersion_launchTemplateId = Lens.lens (\LaunchTemplateVersion' {launchTemplateId} -> launchTemplateId) (\s@LaunchTemplateVersion' {} a -> s {launchTemplateId = a} :: LaunchTemplateVersion)
 
 -- | Information about the launch template.
-ltvLaunchTemplateData :: Lens' LaunchTemplateVersion (Maybe ResponseLaunchTemplateData)
-ltvLaunchTemplateData = lens _ltvLaunchTemplateData (\s a -> s {_ltvLaunchTemplateData = a})
+launchTemplateVersion_launchTemplateData :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe ResponseLaunchTemplateData)
+launchTemplateVersion_launchTemplateData = Lens.lens (\LaunchTemplateVersion' {launchTemplateData} -> launchTemplateData) (\s@LaunchTemplateVersion' {} a -> s {launchTemplateData = a} :: LaunchTemplateVersion)
 
 -- | The name of the launch template.
-ltvLaunchTemplateName :: Lens' LaunchTemplateVersion (Maybe Text)
-ltvLaunchTemplateName = lens _ltvLaunchTemplateName (\s a -> s {_ltvLaunchTemplateName = a})
+launchTemplateVersion_launchTemplateName :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe Prelude.Text)
+launchTemplateVersion_launchTemplateName = Lens.lens (\LaunchTemplateVersion' {launchTemplateName} -> launchTemplateName) (\s@LaunchTemplateVersion' {} a -> s {launchTemplateName = a} :: LaunchTemplateVersion)
 
 -- | The description for the version.
-ltvVersionDescription :: Lens' LaunchTemplateVersion (Maybe Text)
-ltvVersionDescription = lens _ltvVersionDescription (\s a -> s {_ltvVersionDescription = a})
+launchTemplateVersion_versionDescription :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe Prelude.Text)
+launchTemplateVersion_versionDescription = Lens.lens (\LaunchTemplateVersion' {versionDescription} -> versionDescription) (\s@LaunchTemplateVersion' {} a -> s {versionDescription = a} :: LaunchTemplateVersion)
 
 -- | The version number.
-ltvVersionNumber :: Lens' LaunchTemplateVersion (Maybe Integer)
-ltvVersionNumber = lens _ltvVersionNumber (\s a -> s {_ltvVersionNumber = a})
+launchTemplateVersion_versionNumber :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe Prelude.Integer)
+launchTemplateVersion_versionNumber = Lens.lens (\LaunchTemplateVersion' {versionNumber} -> versionNumber) (\s@LaunchTemplateVersion' {} a -> s {versionNumber = a} :: LaunchTemplateVersion)
 
 -- | The time the version was created.
-ltvCreateTime :: Lens' LaunchTemplateVersion (Maybe UTCTime)
-ltvCreateTime = lens _ltvCreateTime (\s a -> s {_ltvCreateTime = a}) . mapping _Time
+launchTemplateVersion_createTime :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe Prelude.UTCTime)
+launchTemplateVersion_createTime = Lens.lens (\LaunchTemplateVersion' {createTime} -> createTime) (\s@LaunchTemplateVersion' {} a -> s {createTime = a} :: LaunchTemplateVersion) Prelude.. Lens.mapping Prelude._Time
 
 -- | The principal that created the version.
-ltvCreatedBy :: Lens' LaunchTemplateVersion (Maybe Text)
-ltvCreatedBy = lens _ltvCreatedBy (\s a -> s {_ltvCreatedBy = a})
+launchTemplateVersion_createdBy :: Lens.Lens' LaunchTemplateVersion (Prelude.Maybe Prelude.Text)
+launchTemplateVersion_createdBy = Lens.lens (\LaunchTemplateVersion' {createdBy} -> createdBy) (\s@LaunchTemplateVersion' {} a -> s {createdBy = a} :: LaunchTemplateVersion)
 
-instance FromXML LaunchTemplateVersion where
+instance Prelude.FromXML LaunchTemplateVersion where
   parseXML x =
     LaunchTemplateVersion'
-      <$> (x .@? "defaultVersion")
-      <*> (x .@? "launchTemplateId")
-      <*> (x .@? "launchTemplateData")
-      <*> (x .@? "launchTemplateName")
-      <*> (x .@? "versionDescription")
-      <*> (x .@? "versionNumber")
-      <*> (x .@? "createTime")
-      <*> (x .@? "createdBy")
+      Prelude.<$> (x Prelude..@? "defaultVersion")
+      Prelude.<*> (x Prelude..@? "launchTemplateId")
+      Prelude.<*> (x Prelude..@? "launchTemplateData")
+      Prelude.<*> (x Prelude..@? "launchTemplateName")
+      Prelude.<*> (x Prelude..@? "versionDescription")
+      Prelude.<*> (x Prelude..@? "versionNumber")
+      Prelude.<*> (x Prelude..@? "createTime")
+      Prelude.<*> (x Prelude..@? "createdBy")
 
-instance Hashable LaunchTemplateVersion
+instance Prelude.Hashable LaunchTemplateVersion
 
-instance NFData LaunchTemplateVersion
+instance Prelude.NFData LaunchTemplateVersion

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,197 +23,261 @@
 --
 -- Describes the state of fast snapshot restores for your snapshots.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeFastSnapshotRestores
   ( -- * Creating a Request
-    describeFastSnapshotRestores,
-    DescribeFastSnapshotRestores,
+    DescribeFastSnapshotRestores (..),
+    newDescribeFastSnapshotRestores,
 
     -- * Request Lenses
-    dfsrsNextToken,
-    dfsrsDryRun,
-    dfsrsMaxResults,
-    dfsrsFilters,
+    describeFastSnapshotRestores_nextToken,
+    describeFastSnapshotRestores_dryRun,
+    describeFastSnapshotRestores_maxResults,
+    describeFastSnapshotRestores_filters,
 
     -- * Destructuring the Response
-    describeFastSnapshotRestoresResponse,
-    DescribeFastSnapshotRestoresResponse,
+    DescribeFastSnapshotRestoresResponse (..),
+    newDescribeFastSnapshotRestoresResponse,
 
     -- * Response Lenses
-    dfsrrfrsFastSnapshotRestores,
-    dfsrrfrsNextToken,
-    dfsrrfrsResponseStatus,
+    describeFastSnapshotRestoresResponse_fastSnapshotRestores,
+    describeFastSnapshotRestoresResponse_nextToken,
+    describeFastSnapshotRestoresResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.DescribeFastSnapshotRestoreSuccessItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeFastSnapshotRestores' smart constructor.
+-- | /See:/ 'newDescribeFastSnapshotRestores' smart constructor.
 data DescribeFastSnapshotRestores = DescribeFastSnapshotRestores'
-  { _dfsrsNextToken ::
-      !(Maybe Text),
-    _dfsrsDryRun ::
-      !(Maybe Bool),
-    _dfsrsMaxResults ::
-      !(Maybe Nat),
-    _dfsrsFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The filters. The possible values are:
+    --
+    -- -   @availability-zone@: The Availability Zone of the snapshot.
+    --
+    -- -   @owner-id@: The ID of the AWS account that enabled fast snapshot
+    --     restore on the snapshot.
+    --
+    -- -   @snapshot-id@: The ID of the snapshot.
+    --
+    -- -   @state@: The state of fast snapshot restores for the snapshot
+    --     (@enabling@ | @optimizing@ | @enabled@ | @disabling@ | @disabled@).
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFastSnapshotRestores' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFastSnapshotRestores' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsrsNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsrsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeFastSnapshotRestores_nextToken' - The token for the next page of results.
 --
--- * 'dfsrsMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeFastSnapshotRestores_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dfsrsFilters' - The filters. The possible values are:     * @availability-zone@ : The Availability Zone of the snapshot.     * @owner-id@ : The ID of the AWS account that enabled fast snapshot restore on the snapshot.     * @snapshot-id@ : The ID of the snapshot.     * @state@ : The state of fast snapshot restores for the snapshot (@enabling@ | @optimizing@ | @enabled@ | @disabling@ | @disabled@ ).
-describeFastSnapshotRestores ::
+-- 'maxResults', 'describeFastSnapshotRestores_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
+-- 'filters', 'describeFastSnapshotRestores_filters' - The filters. The possible values are:
+--
+-- -   @availability-zone@: The Availability Zone of the snapshot.
+--
+-- -   @owner-id@: The ID of the AWS account that enabled fast snapshot
+--     restore on the snapshot.
+--
+-- -   @snapshot-id@: The ID of the snapshot.
+--
+-- -   @state@: The state of fast snapshot restores for the snapshot
+--     (@enabling@ | @optimizing@ | @enabled@ | @disabling@ | @disabled@).
+newDescribeFastSnapshotRestores ::
   DescribeFastSnapshotRestores
-describeFastSnapshotRestores =
+newDescribeFastSnapshotRestores =
   DescribeFastSnapshotRestores'
-    { _dfsrsNextToken =
-        Nothing,
-      _dfsrsDryRun = Nothing,
-      _dfsrsMaxResults = Nothing,
-      _dfsrsFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dfsrsNextToken :: Lens' DescribeFastSnapshotRestores (Maybe Text)
-dfsrsNextToken = lens _dfsrsNextToken (\s a -> s {_dfsrsNextToken = a})
+describeFastSnapshotRestores_nextToken :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Text)
+describeFastSnapshotRestores_nextToken = Lens.lens (\DescribeFastSnapshotRestores' {nextToken} -> nextToken) (\s@DescribeFastSnapshotRestores' {} a -> s {nextToken = a} :: DescribeFastSnapshotRestores)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dfsrsDryRun :: Lens' DescribeFastSnapshotRestores (Maybe Bool)
-dfsrsDryRun = lens _dfsrsDryRun (\s a -> s {_dfsrsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFastSnapshotRestores_dryRun :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Bool)
+describeFastSnapshotRestores_dryRun = Lens.lens (\DescribeFastSnapshotRestores' {dryRun} -> dryRun) (\s@DescribeFastSnapshotRestores' {} a -> s {dryRun = a} :: DescribeFastSnapshotRestores)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dfsrsMaxResults :: Lens' DescribeFastSnapshotRestores (Maybe Natural)
-dfsrsMaxResults = lens _dfsrsMaxResults (\s a -> s {_dfsrsMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeFastSnapshotRestores_maxResults :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Natural)
+describeFastSnapshotRestores_maxResults = Lens.lens (\DescribeFastSnapshotRestores' {maxResults} -> maxResults) (\s@DescribeFastSnapshotRestores' {} a -> s {maxResults = a} :: DescribeFastSnapshotRestores) Prelude.. Lens.mapping Prelude._Nat
 
--- | The filters. The possible values are:     * @availability-zone@ : The Availability Zone of the snapshot.     * @owner-id@ : The ID of the AWS account that enabled fast snapshot restore on the snapshot.     * @snapshot-id@ : The ID of the snapshot.     * @state@ : The state of fast snapshot restores for the snapshot (@enabling@ | @optimizing@ | @enabled@ | @disabling@ | @disabled@ ).
-dfsrsFilters :: Lens' DescribeFastSnapshotRestores [Filter]
-dfsrsFilters = lens _dfsrsFilters (\s a -> s {_dfsrsFilters = a}) . _Default . _Coerce
+-- | The filters. The possible values are:
+--
+-- -   @availability-zone@: The Availability Zone of the snapshot.
+--
+-- -   @owner-id@: The ID of the AWS account that enabled fast snapshot
+--     restore on the snapshot.
+--
+-- -   @snapshot-id@: The ID of the snapshot.
+--
+-- -   @state@: The state of fast snapshot restores for the snapshot
+--     (@enabling@ | @optimizing@ | @enabled@ | @disabling@ | @disabled@).
+describeFastSnapshotRestores_filters :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe [Filter])
+describeFastSnapshotRestores_filters = Lens.lens (\DescribeFastSnapshotRestores' {filters} -> filters) (\s@DescribeFastSnapshotRestores' {} a -> s {filters = a} :: DescribeFastSnapshotRestores) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeFastSnapshotRestores where
+instance Pager.AWSPager DescribeFastSnapshotRestores where
   page rq rs
-    | stop (rs ^. dfsrrfrsNextToken) = Nothing
-    | stop (rs ^. dfsrrfrsFastSnapshotRestores) = Nothing
-    | otherwise =
-      Just $ rq & dfsrsNextToken .~ rs ^. dfsrrfrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeFastSnapshotRestoresResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFastSnapshotRestoresResponse_fastSnapshotRestores
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeFastSnapshotRestores_nextToken
+          Lens..~ rs
+          Lens.^? describeFastSnapshotRestoresResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeFastSnapshotRestores where
+instance
+  Prelude.AWSRequest
+    DescribeFastSnapshotRestores
+  where
   type
     Rs DescribeFastSnapshotRestores =
       DescribeFastSnapshotRestoresResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeFastSnapshotRestoresResponse'
-            <$> ( x .@? "fastSnapshotRestoreSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "nextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "fastSnapshotRestoreSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFastSnapshotRestores
+instance
+  Prelude.Hashable
+    DescribeFastSnapshotRestores
 
-instance NFData DescribeFastSnapshotRestores
+instance Prelude.NFData DescribeFastSnapshotRestores
 
-instance ToHeaders DescribeFastSnapshotRestores where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeFastSnapshotRestores
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeFastSnapshotRestores where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFastSnapshotRestores where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFastSnapshotRestores where
+instance Prelude.ToQuery DescribeFastSnapshotRestores where
   toQuery DescribeFastSnapshotRestores' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeFastSnapshotRestores" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dfsrsNextToken,
-        "DryRun" =: _dfsrsDryRun,
-        "MaxResults" =: _dfsrsMaxResults,
-        toQuery (toQueryList "Filter" <$> _dfsrsFilters)
+          Prelude.=: ( "DescribeFastSnapshotRestores" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeFastSnapshotRestoresResponse' smart constructor.
+-- | /See:/ 'newDescribeFastSnapshotRestoresResponse' smart constructor.
 data DescribeFastSnapshotRestoresResponse = DescribeFastSnapshotRestoresResponse'
-  { _dfsrrfrsFastSnapshotRestores ::
-      !( Maybe
-           [DescribeFastSnapshotRestoreSuccessItem]
-       ),
-    _dfsrrfrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dfsrrfrsResponseStatus ::
-      !Int
+  { -- | Information about the state of fast snapshot restores.
+    fastSnapshotRestores :: Prelude.Maybe [DescribeFastSnapshotRestoreSuccessItem],
+    -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFastSnapshotRestoresResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFastSnapshotRestoresResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsrrfrsFastSnapshotRestores' - Information about the state of fast snapshot restores.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsrrfrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- 'fastSnapshotRestores', 'describeFastSnapshotRestoresResponse_fastSnapshotRestores' - Information about the state of fast snapshot restores.
 --
--- * 'dfsrrfrsResponseStatus' - -- | The response status code.
-describeFastSnapshotRestoresResponse ::
-  -- | 'dfsrrfrsResponseStatus'
-  Int ->
+-- 'nextToken', 'describeFastSnapshotRestoresResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+--
+-- 'httpStatus', 'describeFastSnapshotRestoresResponse_httpStatus' - The response's http status code.
+newDescribeFastSnapshotRestoresResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFastSnapshotRestoresResponse
-describeFastSnapshotRestoresResponse pResponseStatus_ =
+newDescribeFastSnapshotRestoresResponse pHttpStatus_ =
   DescribeFastSnapshotRestoresResponse'
-    { _dfsrrfrsFastSnapshotRestores =
-        Nothing,
-      _dfsrrfrsNextToken = Nothing,
-      _dfsrrfrsResponseStatus =
-        pResponseStatus_
+    { fastSnapshotRestores =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the state of fast snapshot restores.
-dfsrrfrsFastSnapshotRestores :: Lens' DescribeFastSnapshotRestoresResponse [DescribeFastSnapshotRestoreSuccessItem]
-dfsrrfrsFastSnapshotRestores = lens _dfsrrfrsFastSnapshotRestores (\s a -> s {_dfsrrfrsFastSnapshotRestores = a}) . _Default . _Coerce
+describeFastSnapshotRestoresResponse_fastSnapshotRestores :: Lens.Lens' DescribeFastSnapshotRestoresResponse (Prelude.Maybe [DescribeFastSnapshotRestoreSuccessItem])
+describeFastSnapshotRestoresResponse_fastSnapshotRestores = Lens.lens (\DescribeFastSnapshotRestoresResponse' {fastSnapshotRestores} -> fastSnapshotRestores) (\s@DescribeFastSnapshotRestoresResponse' {} a -> s {fastSnapshotRestores = a} :: DescribeFastSnapshotRestoresResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dfsrrfrsNextToken :: Lens' DescribeFastSnapshotRestoresResponse (Maybe Text)
-dfsrrfrsNextToken = lens _dfsrrfrsNextToken (\s a -> s {_dfsrrfrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeFastSnapshotRestoresResponse_nextToken :: Lens.Lens' DescribeFastSnapshotRestoresResponse (Prelude.Maybe Prelude.Text)
+describeFastSnapshotRestoresResponse_nextToken = Lens.lens (\DescribeFastSnapshotRestoresResponse' {nextToken} -> nextToken) (\s@DescribeFastSnapshotRestoresResponse' {} a -> s {nextToken = a} :: DescribeFastSnapshotRestoresResponse)
 
--- | -- | The response status code.
-dfsrrfrsResponseStatus :: Lens' DescribeFastSnapshotRestoresResponse Int
-dfsrrfrsResponseStatus = lens _dfsrrfrsResponseStatus (\s a -> s {_dfsrrfrsResponseStatus = a})
+-- | The response's http status code.
+describeFastSnapshotRestoresResponse_httpStatus :: Lens.Lens' DescribeFastSnapshotRestoresResponse Prelude.Int
+describeFastSnapshotRestoresResponse_httpStatus = Lens.lens (\DescribeFastSnapshotRestoresResponse' {httpStatus} -> httpStatus) (\s@DescribeFastSnapshotRestoresResponse' {} a -> s {httpStatus = a} :: DescribeFastSnapshotRestoresResponse)
 
-instance NFData DescribeFastSnapshotRestoresResponse
+instance
+  Prelude.NFData
+    DescribeFastSnapshotRestoresResponse

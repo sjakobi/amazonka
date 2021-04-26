@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.AllocationStrategy
   ( AllocationStrategy
       ( ..,
-        ASCapacityOptimized,
-        ASDiversified,
-        ASLowestPrice
+        AllocationStrategyCapacityOptimized,
+        AllocationStrategyDiversified,
+        AllocationStrategyLowestPrice
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AllocationStrategy
-  = AllocationStrategy'
-      ( CI
-          Text
-      )
+newtype AllocationStrategy = AllocationStrategy'
+  { fromAllocationStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASCapacityOptimized :: AllocationStrategy
-pattern ASCapacityOptimized = AllocationStrategy' "capacityOptimized"
+pattern AllocationStrategyCapacityOptimized :: AllocationStrategy
+pattern AllocationStrategyCapacityOptimized = AllocationStrategy' "capacityOptimized"
 
-pattern ASDiversified :: AllocationStrategy
-pattern ASDiversified = AllocationStrategy' "diversified"
+pattern AllocationStrategyDiversified :: AllocationStrategy
+pattern AllocationStrategyDiversified = AllocationStrategy' "diversified"
 
-pattern ASLowestPrice :: AllocationStrategy
-pattern ASLowestPrice = AllocationStrategy' "lowestPrice"
+pattern AllocationStrategyLowestPrice :: AllocationStrategy
+pattern AllocationStrategyLowestPrice = AllocationStrategy' "lowestPrice"
 
 {-# COMPLETE
-  ASCapacityOptimized,
-  ASDiversified,
-  ASLowestPrice,
+  AllocationStrategyCapacityOptimized,
+  AllocationStrategyDiversified,
+  AllocationStrategyLowestPrice,
   AllocationStrategy'
   #-}
 
-instance FromText AllocationStrategy where
-  parser = (AllocationStrategy' . mk) <$> takeText
+instance Prelude.FromText AllocationStrategy where
+  parser = AllocationStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText AllocationStrategy where
-  toText (AllocationStrategy' ci) = original ci
+instance Prelude.ToText AllocationStrategy where
+  toText (AllocationStrategy' x) = x
 
-instance Hashable AllocationStrategy
+instance Prelude.Hashable AllocationStrategy
 
-instance NFData AllocationStrategy
+instance Prelude.NFData AllocationStrategy
 
-instance ToByteString AllocationStrategy
+instance Prelude.ToByteString AllocationStrategy
 
-instance ToQuery AllocationStrategy
+instance Prelude.ToQuery AllocationStrategy
 
-instance ToHeader AllocationStrategy
+instance Prelude.ToHeader AllocationStrategy
 
-instance FromXML AllocationStrategy where
-  parseXML = parseXMLText "AllocationStrategy"
+instance Prelude.FromXML AllocationStrategy where
+  parseXML = Prelude.parseXMLText "AllocationStrategy"

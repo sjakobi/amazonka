@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,201 +23,450 @@
 --
 -- Describes one or more of your route tables.
 --
+-- Each subnet in your VPC must be associated with a route table. If a
+-- subnet is not explicitly associated with any route table, it is
+-- implicitly associated with the main route table. This command does not
+-- return the subnet ID for implicit associations.
 --
--- Each subnet in your VPC must be associated with a route table. If a subnet is not explicitly associated with any route table, it is implicitly associated with the main route table. This command does not return the subnet ID for implicit associations.
---
--- For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables> in the /Amazon Virtual Private Cloud User Guide/ .
---
+-- For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeRouteTables
   ( -- * Creating a Request
-    describeRouteTables,
-    DescribeRouteTables,
+    DescribeRouteTables (..),
+    newDescribeRouteTables,
 
     -- * Request Lenses
-    drtNextToken,
-    drtRouteTableIds,
-    drtDryRun,
-    drtMaxResults,
-    drtFilters,
+    describeRouteTables_nextToken,
+    describeRouteTables_routeTableIds,
+    describeRouteTables_dryRun,
+    describeRouteTables_maxResults,
+    describeRouteTables_filters,
 
     -- * Destructuring the Response
-    describeRouteTablesResponse,
-    DescribeRouteTablesResponse,
+    DescribeRouteTablesResponse (..),
+    newDescribeRouteTablesResponse,
 
     -- * Response Lenses
-    drtrrsNextToken,
-    drtrrsRouteTables,
-    drtrrsResponseStatus,
+    describeRouteTablesResponse_nextToken,
+    describeRouteTablesResponse_routeTables,
+    describeRouteTablesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.RouteTable
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeRouteTables' smart constructor.
+-- | /See:/ 'newDescribeRouteTables' smart constructor.
 data DescribeRouteTables = DescribeRouteTables'
-  { _drtNextToken ::
-      !(Maybe Text),
-    _drtRouteTableIds ::
-      !(Maybe [Text]),
-    _drtDryRun :: !(Maybe Bool),
-    _drtMaxResults :: !(Maybe Nat),
-    _drtFilters ::
-      !(Maybe [Filter])
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more route table IDs.
+    --
+    -- Default: Describes all your route tables.
+    routeTableIds :: Prelude.Maybe [Prelude.Text],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters.
+    --
+    -- -   @association.route-table-association-id@ - The ID of an association
+    --     ID for the route table.
+    --
+    -- -   @association.route-table-id@ - The ID of the route table involved in
+    --     the association.
+    --
+    -- -   @association.subnet-id@ - The ID of the subnet involved in the
+    --     association.
+    --
+    -- -   @association.main@ - Indicates whether the route table is the main
+    --     route table for the VPC (@true@ | @false@). Route tables that do not
+    --     have an association ID are not returned in the response.
+    --
+    -- -   @owner-id@ - The ID of the AWS account that owns the route table.
+    --
+    -- -   @route-table-id@ - The ID of the route table.
+    --
+    -- -   @route.destination-cidr-block@ - The IPv4 CIDR range specified in a
+    --     route in the table.
+    --
+    -- -   @route.destination-ipv6-cidr-block@ - The IPv6 CIDR range specified
+    --     in a route in the route table.
+    --
+    -- -   @route.destination-prefix-list-id@ - The ID (prefix) of the AWS
+    --     service specified in a route in the table.
+    --
+    -- -   @route.egress-only-internet-gateway-id@ - The ID of an egress-only
+    --     Internet gateway specified in a route in the route table.
+    --
+    -- -   @route.gateway-id@ - The ID of a gateway specified in a route in the
+    --     table.
+    --
+    -- -   @route.instance-id@ - The ID of an instance specified in a route in
+    --     the table.
+    --
+    -- -   @route.nat-gateway-id@ - The ID of a NAT gateway.
+    --
+    -- -   @route.transit-gateway-id@ - The ID of a transit gateway.
+    --
+    -- -   @route.origin@ - Describes how the route was created.
+    --     @CreateRouteTable@ indicates that the route was automatically
+    --     created when the route table was created; @CreateRoute@ indicates
+    --     that the route was manually added to the route table;
+    --     @EnableVgwRoutePropagation@ indicates that the route was propagated
+    --     by route propagation.
+    --
+    -- -   @route.state@ - The state of a route in the route table (@active@ |
+    --     @blackhole@). The blackhole state indicates that the route\'s target
+    --     isn\'t available (for example, the specified gateway isn\'t attached
+    --     to the VPC, the specified NAT instance has been terminated, and so
+    --     on).
+    --
+    -- -   @route.vpc-peering-connection-id@ - The ID of a VPC peering
+    --     connection specified in a route in the table.
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
+    --
+    -- -   @vpc-id@ - The ID of the VPC for the route table.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRouteTables' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRouteTables' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drtNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drtRouteTableIds' - One or more route table IDs. Default: Describes all your route tables.
+-- 'nextToken', 'describeRouteTables_nextToken' - The token for the next page of results.
 --
--- * 'drtDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'routeTableIds', 'describeRouteTables_routeTableIds' - One or more route table IDs.
 --
--- * 'drtMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- Default: Describes all your route tables.
 --
--- * 'drtFilters' - One or more filters.     * @association.route-table-association-id@ - The ID of an association ID for the route table.     * @association.route-table-id@ - The ID of the route table involved in the association.     * @association.subnet-id@ - The ID of the subnet involved in the association.     * @association.main@ - Indicates whether the route table is the main route table for the VPC (@true@ | @false@ ). Route tables that do not have an association ID are not returned in the response.     * @owner-id@ - The ID of the AWS account that owns the route table.     * @route-table-id@ - The ID of the route table.     * @route.destination-cidr-block@ - The IPv4 CIDR range specified in a route in the table.     * @route.destination-ipv6-cidr-block@ - The IPv6 CIDR range specified in a route in the route table.     * @route.destination-prefix-list-id@ - The ID (prefix) of the AWS service specified in a route in the table.     * @route.egress-only-internet-gateway-id@ - The ID of an egress-only Internet gateway specified in a route in the route table.     * @route.gateway-id@ - The ID of a gateway specified in a route in the table.     * @route.instance-id@ - The ID of an instance specified in a route in the table.     * @route.nat-gateway-id@ - The ID of a NAT gateway.     * @route.transit-gateway-id@ - The ID of a transit gateway.     * @route.origin@ - Describes how the route was created. @CreateRouteTable@ indicates that the route was automatically created when the route table was created; @CreateRoute@ indicates that the route was manually added to the route table; @EnableVgwRoutePropagation@ indicates that the route was propagated by route propagation.     * @route.state@ - The state of a route in the route table (@active@ | @blackhole@ ). The blackhole state indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, the specified NAT instance has been terminated, and so on).     * @route.vpc-peering-connection-id@ - The ID of a VPC peering connection specified in a route in the table.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC for the route table.
-describeRouteTables ::
+-- 'dryRun', 'describeRouteTables_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'maxResults', 'describeRouteTables_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
+-- 'filters', 'describeRouteTables_filters' - One or more filters.
+--
+-- -   @association.route-table-association-id@ - The ID of an association
+--     ID for the route table.
+--
+-- -   @association.route-table-id@ - The ID of the route table involved in
+--     the association.
+--
+-- -   @association.subnet-id@ - The ID of the subnet involved in the
+--     association.
+--
+-- -   @association.main@ - Indicates whether the route table is the main
+--     route table for the VPC (@true@ | @false@). Route tables that do not
+--     have an association ID are not returned in the response.
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the route table.
+--
+-- -   @route-table-id@ - The ID of the route table.
+--
+-- -   @route.destination-cidr-block@ - The IPv4 CIDR range specified in a
+--     route in the table.
+--
+-- -   @route.destination-ipv6-cidr-block@ - The IPv6 CIDR range specified
+--     in a route in the route table.
+--
+-- -   @route.destination-prefix-list-id@ - The ID (prefix) of the AWS
+--     service specified in a route in the table.
+--
+-- -   @route.egress-only-internet-gateway-id@ - The ID of an egress-only
+--     Internet gateway specified in a route in the route table.
+--
+-- -   @route.gateway-id@ - The ID of a gateway specified in a route in the
+--     table.
+--
+-- -   @route.instance-id@ - The ID of an instance specified in a route in
+--     the table.
+--
+-- -   @route.nat-gateway-id@ - The ID of a NAT gateway.
+--
+-- -   @route.transit-gateway-id@ - The ID of a transit gateway.
+--
+-- -   @route.origin@ - Describes how the route was created.
+--     @CreateRouteTable@ indicates that the route was automatically
+--     created when the route table was created; @CreateRoute@ indicates
+--     that the route was manually added to the route table;
+--     @EnableVgwRoutePropagation@ indicates that the route was propagated
+--     by route propagation.
+--
+-- -   @route.state@ - The state of a route in the route table (@active@ |
+--     @blackhole@). The blackhole state indicates that the route\'s target
+--     isn\'t available (for example, the specified gateway isn\'t attached
+--     to the VPC, the specified NAT instance has been terminated, and so
+--     on).
+--
+-- -   @route.vpc-peering-connection-id@ - The ID of a VPC peering
+--     connection specified in a route in the table.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC for the route table.
+newDescribeRouteTables ::
   DescribeRouteTables
-describeRouteTables =
+newDescribeRouteTables =
   DescribeRouteTables'
-    { _drtNextToken = Nothing,
-      _drtRouteTableIds = Nothing,
-      _drtDryRun = Nothing,
-      _drtMaxResults = Nothing,
-      _drtFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      routeTableIds = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-drtNextToken :: Lens' DescribeRouteTables (Maybe Text)
-drtNextToken = lens _drtNextToken (\s a -> s {_drtNextToken = a})
+describeRouteTables_nextToken :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Text)
+describeRouteTables_nextToken = Lens.lens (\DescribeRouteTables' {nextToken} -> nextToken) (\s@DescribeRouteTables' {} a -> s {nextToken = a} :: DescribeRouteTables)
 
--- | One or more route table IDs. Default: Describes all your route tables.
-drtRouteTableIds :: Lens' DescribeRouteTables [Text]
-drtRouteTableIds = lens _drtRouteTableIds (\s a -> s {_drtRouteTableIds = a}) . _Default . _Coerce
+-- | One or more route table IDs.
+--
+-- Default: Describes all your route tables.
+describeRouteTables_routeTableIds :: Lens.Lens' DescribeRouteTables (Prelude.Maybe [Prelude.Text])
+describeRouteTables_routeTableIds = Lens.lens (\DescribeRouteTables' {routeTableIds} -> routeTableIds) (\s@DescribeRouteTables' {} a -> s {routeTableIds = a} :: DescribeRouteTables) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-drtDryRun :: Lens' DescribeRouteTables (Maybe Bool)
-drtDryRun = lens _drtDryRun (\s a -> s {_drtDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeRouteTables_dryRun :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Bool)
+describeRouteTables_dryRun = Lens.lens (\DescribeRouteTables' {dryRun} -> dryRun) (\s@DescribeRouteTables' {} a -> s {dryRun = a} :: DescribeRouteTables)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-drtMaxResults :: Lens' DescribeRouteTables (Maybe Natural)
-drtMaxResults = lens _drtMaxResults (\s a -> s {_drtMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeRouteTables_maxResults :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Natural)
+describeRouteTables_maxResults = Lens.lens (\DescribeRouteTables' {maxResults} -> maxResults) (\s@DescribeRouteTables' {} a -> s {maxResults = a} :: DescribeRouteTables) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters.     * @association.route-table-association-id@ - The ID of an association ID for the route table.     * @association.route-table-id@ - The ID of the route table involved in the association.     * @association.subnet-id@ - The ID of the subnet involved in the association.     * @association.main@ - Indicates whether the route table is the main route table for the VPC (@true@ | @false@ ). Route tables that do not have an association ID are not returned in the response.     * @owner-id@ - The ID of the AWS account that owns the route table.     * @route-table-id@ - The ID of the route table.     * @route.destination-cidr-block@ - The IPv4 CIDR range specified in a route in the table.     * @route.destination-ipv6-cidr-block@ - The IPv6 CIDR range specified in a route in the route table.     * @route.destination-prefix-list-id@ - The ID (prefix) of the AWS service specified in a route in the table.     * @route.egress-only-internet-gateway-id@ - The ID of an egress-only Internet gateway specified in a route in the route table.     * @route.gateway-id@ - The ID of a gateway specified in a route in the table.     * @route.instance-id@ - The ID of an instance specified in a route in the table.     * @route.nat-gateway-id@ - The ID of a NAT gateway.     * @route.transit-gateway-id@ - The ID of a transit gateway.     * @route.origin@ - Describes how the route was created. @CreateRouteTable@ indicates that the route was automatically created when the route table was created; @CreateRoute@ indicates that the route was manually added to the route table; @EnableVgwRoutePropagation@ indicates that the route was propagated by route propagation.     * @route.state@ - The state of a route in the route table (@active@ | @blackhole@ ). The blackhole state indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, the specified NAT instance has been terminated, and so on).     * @route.vpc-peering-connection-id@ - The ID of a VPC peering connection specified in a route in the table.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC for the route table.
-drtFilters :: Lens' DescribeRouteTables [Filter]
-drtFilters = lens _drtFilters (\s a -> s {_drtFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @association.route-table-association-id@ - The ID of an association
+--     ID for the route table.
+--
+-- -   @association.route-table-id@ - The ID of the route table involved in
+--     the association.
+--
+-- -   @association.subnet-id@ - The ID of the subnet involved in the
+--     association.
+--
+-- -   @association.main@ - Indicates whether the route table is the main
+--     route table for the VPC (@true@ | @false@). Route tables that do not
+--     have an association ID are not returned in the response.
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the route table.
+--
+-- -   @route-table-id@ - The ID of the route table.
+--
+-- -   @route.destination-cidr-block@ - The IPv4 CIDR range specified in a
+--     route in the table.
+--
+-- -   @route.destination-ipv6-cidr-block@ - The IPv6 CIDR range specified
+--     in a route in the route table.
+--
+-- -   @route.destination-prefix-list-id@ - The ID (prefix) of the AWS
+--     service specified in a route in the table.
+--
+-- -   @route.egress-only-internet-gateway-id@ - The ID of an egress-only
+--     Internet gateway specified in a route in the route table.
+--
+-- -   @route.gateway-id@ - The ID of a gateway specified in a route in the
+--     table.
+--
+-- -   @route.instance-id@ - The ID of an instance specified in a route in
+--     the table.
+--
+-- -   @route.nat-gateway-id@ - The ID of a NAT gateway.
+--
+-- -   @route.transit-gateway-id@ - The ID of a transit gateway.
+--
+-- -   @route.origin@ - Describes how the route was created.
+--     @CreateRouteTable@ indicates that the route was automatically
+--     created when the route table was created; @CreateRoute@ indicates
+--     that the route was manually added to the route table;
+--     @EnableVgwRoutePropagation@ indicates that the route was propagated
+--     by route propagation.
+--
+-- -   @route.state@ - The state of a route in the route table (@active@ |
+--     @blackhole@). The blackhole state indicates that the route\'s target
+--     isn\'t available (for example, the specified gateway isn\'t attached
+--     to the VPC, the specified NAT instance has been terminated, and so
+--     on).
+--
+-- -   @route.vpc-peering-connection-id@ - The ID of a VPC peering
+--     connection specified in a route in the table.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC for the route table.
+describeRouteTables_filters :: Lens.Lens' DescribeRouteTables (Prelude.Maybe [Filter])
+describeRouteTables_filters = Lens.lens (\DescribeRouteTables' {filters} -> filters) (\s@DescribeRouteTables' {} a -> s {filters = a} :: DescribeRouteTables) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeRouteTables where
+instance Pager.AWSPager DescribeRouteTables where
   page rq rs
-    | stop (rs ^. drtrrsNextToken) = Nothing
-    | stop (rs ^. drtrrsRouteTables) = Nothing
-    | otherwise =
-      Just $ rq & drtNextToken .~ rs ^. drtrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeRouteTablesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeRouteTablesResponse_routeTables
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeRouteTables_nextToken
+          Lens..~ rs
+          Lens.^? describeRouteTablesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeRouteTables where
+instance Prelude.AWSRequest DescribeRouteTables where
   type
     Rs DescribeRouteTables =
       DescribeRouteTablesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeRouteTablesResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "routeTableSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "routeTableSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeRouteTables
+instance Prelude.Hashable DescribeRouteTables
 
-instance NFData DescribeRouteTables
+instance Prelude.NFData DescribeRouteTables
 
-instance ToHeaders DescribeRouteTables where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeRouteTables where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeRouteTables where
-  toPath = const "/"
+instance Prelude.ToPath DescribeRouteTables where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeRouteTables where
+instance Prelude.ToQuery DescribeRouteTables where
   toQuery DescribeRouteTables' {..} =
-    mconcat
-      [ "Action" =: ("DescribeRouteTables" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _drtNextToken,
-        toQuery
-          (toQueryList "RouteTableId" <$> _drtRouteTableIds),
-        "DryRun" =: _drtDryRun,
-        "MaxResults" =: _drtMaxResults,
-        toQuery (toQueryList "Filter" <$> _drtFilters)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeRouteTables" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        Prelude.toQuery
+          ( Prelude.toQueryList "RouteTableId"
+              Prelude.<$> routeTableIds
+          ),
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
 -- | Contains the output of DescribeRouteTables.
 --
---
---
--- /See:/ 'describeRouteTablesResponse' smart constructor.
+-- /See:/ 'newDescribeRouteTablesResponse' smart constructor.
 data DescribeRouteTablesResponse = DescribeRouteTablesResponse'
-  { _drtrrsNextToken ::
-      !(Maybe Text),
-    _drtrrsRouteTables ::
-      !( Maybe
-           [RouteTable]
-       ),
-    _drtrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about one or more route tables.
+    routeTables :: Prelude.Maybe [RouteTable],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRouteTablesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRouteTablesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drtrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drtrrsRouteTables' - Information about one or more route tables.
+-- 'nextToken', 'describeRouteTablesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'drtrrsResponseStatus' - -- | The response status code.
-describeRouteTablesResponse ::
-  -- | 'drtrrsResponseStatus'
-  Int ->
+-- 'routeTables', 'describeRouteTablesResponse_routeTables' - Information about one or more route tables.
+--
+-- 'httpStatus', 'describeRouteTablesResponse_httpStatus' - The response's http status code.
+newDescribeRouteTablesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeRouteTablesResponse
-describeRouteTablesResponse pResponseStatus_ =
+newDescribeRouteTablesResponse pHttpStatus_ =
   DescribeRouteTablesResponse'
-    { _drtrrsNextToken =
-        Nothing,
-      _drtrrsRouteTables = Nothing,
-      _drtrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      routeTables = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-drtrrsNextToken :: Lens' DescribeRouteTablesResponse (Maybe Text)
-drtrrsNextToken = lens _drtrrsNextToken (\s a -> s {_drtrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeRouteTablesResponse_nextToken :: Lens.Lens' DescribeRouteTablesResponse (Prelude.Maybe Prelude.Text)
+describeRouteTablesResponse_nextToken = Lens.lens (\DescribeRouteTablesResponse' {nextToken} -> nextToken) (\s@DescribeRouteTablesResponse' {} a -> s {nextToken = a} :: DescribeRouteTablesResponse)
 
 -- | Information about one or more route tables.
-drtrrsRouteTables :: Lens' DescribeRouteTablesResponse [RouteTable]
-drtrrsRouteTables = lens _drtrrsRouteTables (\s a -> s {_drtrrsRouteTables = a}) . _Default . _Coerce
+describeRouteTablesResponse_routeTables :: Lens.Lens' DescribeRouteTablesResponse (Prelude.Maybe [RouteTable])
+describeRouteTablesResponse_routeTables = Lens.lens (\DescribeRouteTablesResponse' {routeTables} -> routeTables) (\s@DescribeRouteTablesResponse' {} a -> s {routeTables = a} :: DescribeRouteTablesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drtrrsResponseStatus :: Lens' DescribeRouteTablesResponse Int
-drtrrsResponseStatus = lens _drtrrsResponseStatus (\s a -> s {_drtrrsResponseStatus = a})
+-- | The response's http status code.
+describeRouteTablesResponse_httpStatus :: Lens.Lens' DescribeRouteTablesResponse Prelude.Int
+describeRouteTablesResponse_httpStatus = Lens.lens (\DescribeRouteTablesResponse' {httpStatus} -> httpStatus) (\s@DescribeRouteTablesResponse' {} a -> s {httpStatus = a} :: DescribeRouteTablesResponse)
 
-instance NFData DescribeRouteTablesResponse
+instance Prelude.NFData DescribeRouteTablesResponse

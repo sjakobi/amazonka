@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,195 +23,202 @@
 --
 -- Creates a multicast domain using the specified transit gateway.
 --
---
--- The transit gateway must be in the available state before you create a domain. Use <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGateways.html DescribeTransitGateways> to see the state of transit gateway.
+-- The transit gateway must be in the available state before you create a
+-- domain. Use
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGateways.html DescribeTransitGateways>
+-- to see the state of transit gateway.
 module Network.AWS.EC2.CreateTransitGatewayMulticastDomain
   ( -- * Creating a Request
-    createTransitGatewayMulticastDomain,
-    CreateTransitGatewayMulticastDomain,
+    CreateTransitGatewayMulticastDomain (..),
+    newCreateTransitGatewayMulticastDomain,
 
     -- * Request Lenses
-    ctgmdTagSpecifications,
-    ctgmdDryRun,
-    ctgmdOptions,
-    ctgmdTransitGatewayId,
+    createTransitGatewayMulticastDomain_tagSpecifications,
+    createTransitGatewayMulticastDomain_dryRun,
+    createTransitGatewayMulticastDomain_options,
+    createTransitGatewayMulticastDomain_transitGatewayId,
 
     -- * Destructuring the Response
-    createTransitGatewayMulticastDomainResponse,
-    CreateTransitGatewayMulticastDomainResponse,
+    CreateTransitGatewayMulticastDomainResponse (..),
+    newCreateTransitGatewayMulticastDomainResponse,
 
     -- * Response Lenses
-    ctgmdrrsTransitGatewayMulticastDomain,
-    ctgmdrrsResponseStatus,
+    createTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain,
+    createTransitGatewayMulticastDomainResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayMulticastDomain
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTransitGatewayMulticastDomain' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayMulticastDomain' smart constructor.
 data CreateTransitGatewayMulticastDomain = CreateTransitGatewayMulticastDomain'
-  { _ctgmdTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _ctgmdDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ctgmdOptions ::
-      !( Maybe
-           CreateTransitGatewayMulticastDomainRequestOptions
-       ),
-    _ctgmdTransitGatewayId ::
-      !Text
+  { -- | The tags for the transit gateway multicast domain.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The options for the transit gateway multicast domain.
+    options :: Prelude.Maybe CreateTransitGatewayMulticastDomainRequestOptions,
+    -- | The ID of the transit gateway.
+    transitGatewayId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayMulticastDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayMulticastDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgmdTagSpecifications' - The tags for the transit gateway multicast domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgmdDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createTransitGatewayMulticastDomain_tagSpecifications' - The tags for the transit gateway multicast domain.
 --
--- * 'ctgmdOptions' - The options for the transit gateway multicast domain.
+-- 'dryRun', 'createTransitGatewayMulticastDomain_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ctgmdTransitGatewayId' - The ID of the transit gateway.
-createTransitGatewayMulticastDomain ::
-  -- | 'ctgmdTransitGatewayId'
-  Text ->
+-- 'options', 'createTransitGatewayMulticastDomain_options' - The options for the transit gateway multicast domain.
+--
+-- 'transitGatewayId', 'createTransitGatewayMulticastDomain_transitGatewayId' - The ID of the transit gateway.
+newCreateTransitGatewayMulticastDomain ::
+  -- | 'transitGatewayId'
+  Prelude.Text ->
   CreateTransitGatewayMulticastDomain
-createTransitGatewayMulticastDomain
+newCreateTransitGatewayMulticastDomain
   pTransitGatewayId_ =
     CreateTransitGatewayMulticastDomain'
-      { _ctgmdTagSpecifications =
-          Nothing,
-        _ctgmdDryRun = Nothing,
-        _ctgmdOptions = Nothing,
-        _ctgmdTransitGatewayId =
-          pTransitGatewayId_
+      { tagSpecifications =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        options = Prelude.Nothing,
+        transitGatewayId = pTransitGatewayId_
       }
 
 -- | The tags for the transit gateway multicast domain.
-ctgmdTagSpecifications :: Lens' CreateTransitGatewayMulticastDomain [TagSpecification]
-ctgmdTagSpecifications = lens _ctgmdTagSpecifications (\s a -> s {_ctgmdTagSpecifications = a}) . _Default . _Coerce
+createTransitGatewayMulticastDomain_tagSpecifications :: Lens.Lens' CreateTransitGatewayMulticastDomain (Prelude.Maybe [TagSpecification])
+createTransitGatewayMulticastDomain_tagSpecifications = Lens.lens (\CreateTransitGatewayMulticastDomain' {tagSpecifications} -> tagSpecifications) (\s@CreateTransitGatewayMulticastDomain' {} a -> s {tagSpecifications = a} :: CreateTransitGatewayMulticastDomain) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ctgmdDryRun :: Lens' CreateTransitGatewayMulticastDomain (Maybe Bool)
-ctgmdDryRun = lens _ctgmdDryRun (\s a -> s {_ctgmdDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTransitGatewayMulticastDomain_dryRun :: Lens.Lens' CreateTransitGatewayMulticastDomain (Prelude.Maybe Prelude.Bool)
+createTransitGatewayMulticastDomain_dryRun = Lens.lens (\CreateTransitGatewayMulticastDomain' {dryRun} -> dryRun) (\s@CreateTransitGatewayMulticastDomain' {} a -> s {dryRun = a} :: CreateTransitGatewayMulticastDomain)
 
 -- | The options for the transit gateway multicast domain.
-ctgmdOptions :: Lens' CreateTransitGatewayMulticastDomain (Maybe CreateTransitGatewayMulticastDomainRequestOptions)
-ctgmdOptions = lens _ctgmdOptions (\s a -> s {_ctgmdOptions = a})
+createTransitGatewayMulticastDomain_options :: Lens.Lens' CreateTransitGatewayMulticastDomain (Prelude.Maybe CreateTransitGatewayMulticastDomainRequestOptions)
+createTransitGatewayMulticastDomain_options = Lens.lens (\CreateTransitGatewayMulticastDomain' {options} -> options) (\s@CreateTransitGatewayMulticastDomain' {} a -> s {options = a} :: CreateTransitGatewayMulticastDomain)
 
 -- | The ID of the transit gateway.
-ctgmdTransitGatewayId :: Lens' CreateTransitGatewayMulticastDomain Text
-ctgmdTransitGatewayId = lens _ctgmdTransitGatewayId (\s a -> s {_ctgmdTransitGatewayId = a})
+createTransitGatewayMulticastDomain_transitGatewayId :: Lens.Lens' CreateTransitGatewayMulticastDomain Prelude.Text
+createTransitGatewayMulticastDomain_transitGatewayId = Lens.lens (\CreateTransitGatewayMulticastDomain' {transitGatewayId} -> transitGatewayId) (\s@CreateTransitGatewayMulticastDomain' {} a -> s {transitGatewayId = a} :: CreateTransitGatewayMulticastDomain)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateTransitGatewayMulticastDomain
   where
   type
     Rs CreateTransitGatewayMulticastDomain =
       CreateTransitGatewayMulticastDomainResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateTransitGatewayMulticastDomainResponse'
-            <$> (x .@? "transitGatewayMulticastDomain")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayMulticastDomain")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTransitGatewayMulticastDomain
-
-instance NFData CreateTransitGatewayMulticastDomain
+instance
+  Prelude.Hashable
+    CreateTransitGatewayMulticastDomain
 
 instance
-  ToHeaders
+  Prelude.NFData
+    CreateTransitGatewayMulticastDomain
+
+instance
+  Prelude.ToHeaders
     CreateTransitGatewayMulticastDomain
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateTransitGatewayMulticastDomain where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    CreateTransitGatewayMulticastDomain
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTransitGatewayMulticastDomain where
+instance
+  Prelude.ToQuery
+    CreateTransitGatewayMulticastDomain
+  where
   toQuery CreateTransitGatewayMulticastDomain' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "CreateTransitGatewayMulticastDomain" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _ctgmdTagSpecifications
+          Prelude.=: ( "CreateTransitGatewayMulticastDomain" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _ctgmdDryRun,
-        "Options" =: _ctgmdOptions,
-        "TransitGatewayId" =: _ctgmdTransitGatewayId
+        "DryRun" Prelude.=: dryRun,
+        "Options" Prelude.=: options,
+        "TransitGatewayId" Prelude.=: transitGatewayId
       ]
 
--- | /See:/ 'createTransitGatewayMulticastDomainResponse' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayMulticastDomainResponse' smart constructor.
 data CreateTransitGatewayMulticastDomainResponse = CreateTransitGatewayMulticastDomainResponse'
-  { _ctgmdrrsTransitGatewayMulticastDomain ::
-      !( Maybe
-           TransitGatewayMulticastDomain
-       ),
-    _ctgmdrrsResponseStatus ::
-      !Int
+  { -- | Information about the transit gateway multicast domain.
+    transitGatewayMulticastDomain :: Prelude.Maybe TransitGatewayMulticastDomain,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayMulticastDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayMulticastDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgmdrrsTransitGatewayMulticastDomain' - Information about the transit gateway multicast domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgmdrrsResponseStatus' - -- | The response status code.
-createTransitGatewayMulticastDomainResponse ::
-  -- | 'ctgmdrrsResponseStatus'
-  Int ->
+-- 'transitGatewayMulticastDomain', 'createTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain' - Information about the transit gateway multicast domain.
+--
+-- 'httpStatus', 'createTransitGatewayMulticastDomainResponse_httpStatus' - The response's http status code.
+newCreateTransitGatewayMulticastDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTransitGatewayMulticastDomainResponse
-createTransitGatewayMulticastDomainResponse
-  pResponseStatus_ =
+newCreateTransitGatewayMulticastDomainResponse
+  pHttpStatus_ =
     CreateTransitGatewayMulticastDomainResponse'
-      { _ctgmdrrsTransitGatewayMulticastDomain =
-          Nothing,
-        _ctgmdrrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayMulticastDomain =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the transit gateway multicast domain.
-ctgmdrrsTransitGatewayMulticastDomain :: Lens' CreateTransitGatewayMulticastDomainResponse (Maybe TransitGatewayMulticastDomain)
-ctgmdrrsTransitGatewayMulticastDomain = lens _ctgmdrrsTransitGatewayMulticastDomain (\s a -> s {_ctgmdrrsTransitGatewayMulticastDomain = a})
+createTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain :: Lens.Lens' CreateTransitGatewayMulticastDomainResponse (Prelude.Maybe TransitGatewayMulticastDomain)
+createTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain = Lens.lens (\CreateTransitGatewayMulticastDomainResponse' {transitGatewayMulticastDomain} -> transitGatewayMulticastDomain) (\s@CreateTransitGatewayMulticastDomainResponse' {} a -> s {transitGatewayMulticastDomain = a} :: CreateTransitGatewayMulticastDomainResponse)
 
--- | -- | The response status code.
-ctgmdrrsResponseStatus :: Lens' CreateTransitGatewayMulticastDomainResponse Int
-ctgmdrrsResponseStatus = lens _ctgmdrrsResponseStatus (\s a -> s {_ctgmdrrsResponseStatus = a})
+-- | The response's http status code.
+createTransitGatewayMulticastDomainResponse_httpStatus :: Lens.Lens' CreateTransitGatewayMulticastDomainResponse Prelude.Int
+createTransitGatewayMulticastDomainResponse_httpStatus = Lens.lens (\CreateTransitGatewayMulticastDomainResponse' {httpStatus} -> httpStatus) (\s@CreateTransitGatewayMulticastDomainResponse' {} a -> s {httpStatus = a} :: CreateTransitGatewayMulticastDomainResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateTransitGatewayMulticastDomainResponse

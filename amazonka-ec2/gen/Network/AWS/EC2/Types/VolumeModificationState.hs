@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.VolumeModificationState
   ( VolumeModificationState
       ( ..,
-        VMSCompleted,
-        VMSFailed,
-        VMSModifying,
-        VMSOptimizing
+        VolumeModificationStateCompleted,
+        VolumeModificationStateFailed,
+        VolumeModificationStateModifying,
+        VolumeModificationStateOptimizing
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VolumeModificationState
-  = VolumeModificationState'
-      ( CI
-          Text
-      )
+newtype VolumeModificationState = VolumeModificationState'
+  { fromVolumeModificationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VMSCompleted :: VolumeModificationState
-pattern VMSCompleted = VolumeModificationState' "completed"
+pattern VolumeModificationStateCompleted :: VolumeModificationState
+pattern VolumeModificationStateCompleted = VolumeModificationState' "completed"
 
-pattern VMSFailed :: VolumeModificationState
-pattern VMSFailed = VolumeModificationState' "failed"
+pattern VolumeModificationStateFailed :: VolumeModificationState
+pattern VolumeModificationStateFailed = VolumeModificationState' "failed"
 
-pattern VMSModifying :: VolumeModificationState
-pattern VMSModifying = VolumeModificationState' "modifying"
+pattern VolumeModificationStateModifying :: VolumeModificationState
+pattern VolumeModificationStateModifying = VolumeModificationState' "modifying"
 
-pattern VMSOptimizing :: VolumeModificationState
-pattern VMSOptimizing = VolumeModificationState' "optimizing"
+pattern VolumeModificationStateOptimizing :: VolumeModificationState
+pattern VolumeModificationStateOptimizing = VolumeModificationState' "optimizing"
 
 {-# COMPLETE
-  VMSCompleted,
-  VMSFailed,
-  VMSModifying,
-  VMSOptimizing,
+  VolumeModificationStateCompleted,
+  VolumeModificationStateFailed,
+  VolumeModificationStateModifying,
+  VolumeModificationStateOptimizing,
   VolumeModificationState'
   #-}
 
-instance FromText VolumeModificationState where
-  parser = (VolumeModificationState' . mk) <$> takeText
+instance Prelude.FromText VolumeModificationState where
+  parser = VolumeModificationState' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeModificationState where
-  toText (VolumeModificationState' ci) = original ci
+instance Prelude.ToText VolumeModificationState where
+  toText (VolumeModificationState' x) = x
 
-instance Hashable VolumeModificationState
+instance Prelude.Hashable VolumeModificationState
 
-instance NFData VolumeModificationState
+instance Prelude.NFData VolumeModificationState
 
-instance ToByteString VolumeModificationState
+instance Prelude.ToByteString VolumeModificationState
 
-instance ToQuery VolumeModificationState
+instance Prelude.ToQuery VolumeModificationState
 
-instance ToHeader VolumeModificationState
+instance Prelude.ToHeader VolumeModificationState
 
-instance FromXML VolumeModificationState where
-  parseXML = parseXMLText "VolumeModificationState"
+instance Prelude.FromXML VolumeModificationState where
+  parseXML = Prelude.parseXMLText "VolumeModificationState"

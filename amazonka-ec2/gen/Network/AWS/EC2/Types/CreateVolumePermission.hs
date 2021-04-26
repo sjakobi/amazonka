@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,61 @@ module Network.AWS.EC2.Types.CreateVolumePermission where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PermissionGroup
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the user or group to be added or removed from the list of create volume permissions for a volume.
+-- | Describes the user or group to be added or removed from the list of
+-- create volume permissions for a volume.
 --
---
---
--- /See:/ 'createVolumePermission' smart constructor.
+-- /See:/ 'newCreateVolumePermission' smart constructor.
 data CreateVolumePermission = CreateVolumePermission'
-  { _cvpGroup ::
-      !(Maybe PermissionGroup),
-    _cvpUserId ::
-      !(Maybe Text)
+  { -- | The group to be added or removed. The possible value is @all@.
+    group' :: Prelude.Maybe PermissionGroup,
+    -- | The AWS account ID to be added or removed.
+    userId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateVolumePermission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateVolumePermission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvpGroup' - The group to be added or removed. The possible value is @all@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvpUserId' - The AWS account ID to be added or removed.
-createVolumePermission ::
+-- 'group'', 'createVolumePermission_group' - The group to be added or removed. The possible value is @all@.
+--
+-- 'userId', 'createVolumePermission_userId' - The AWS account ID to be added or removed.
+newCreateVolumePermission ::
   CreateVolumePermission
-createVolumePermission =
+newCreateVolumePermission =
   CreateVolumePermission'
-    { _cvpGroup = Nothing,
-      _cvpUserId = Nothing
+    { group' = Prelude.Nothing,
+      userId = Prelude.Nothing
     }
 
--- | The group to be added or removed. The possible value is @all@ .
-cvpGroup :: Lens' CreateVolumePermission (Maybe PermissionGroup)
-cvpGroup = lens _cvpGroup (\s a -> s {_cvpGroup = a})
+-- | The group to be added or removed. The possible value is @all@.
+createVolumePermission_group :: Lens.Lens' CreateVolumePermission (Prelude.Maybe PermissionGroup)
+createVolumePermission_group = Lens.lens (\CreateVolumePermission' {group'} -> group') (\s@CreateVolumePermission' {} a -> s {group' = a} :: CreateVolumePermission)
 
 -- | The AWS account ID to be added or removed.
-cvpUserId :: Lens' CreateVolumePermission (Maybe Text)
-cvpUserId = lens _cvpUserId (\s a -> s {_cvpUserId = a})
+createVolumePermission_userId :: Lens.Lens' CreateVolumePermission (Prelude.Maybe Prelude.Text)
+createVolumePermission_userId = Lens.lens (\CreateVolumePermission' {userId} -> userId) (\s@CreateVolumePermission' {} a -> s {userId = a} :: CreateVolumePermission)
 
-instance FromXML CreateVolumePermission where
+instance Prelude.FromXML CreateVolumePermission where
   parseXML x =
     CreateVolumePermission'
-      <$> (x .@? "group") <*> (x .@? "userId")
+      Prelude.<$> (x Prelude..@? "group")
+      Prelude.<*> (x Prelude..@? "userId")
 
-instance Hashable CreateVolumePermission
+instance Prelude.Hashable CreateVolumePermission
 
-instance NFData CreateVolumePermission
+instance Prelude.NFData CreateVolumePermission
 
-instance ToQuery CreateVolumePermission where
+instance Prelude.ToQuery CreateVolumePermission where
   toQuery CreateVolumePermission' {..} =
-    mconcat
-      ["Group" =: _cvpGroup, "UserId" =: _cvpUserId]
+    Prelude.mconcat
+      [ "Group" Prelude.=: group',
+        "UserId" Prelude.=: userId
+      ]

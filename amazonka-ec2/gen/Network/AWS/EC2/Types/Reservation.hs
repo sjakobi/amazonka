@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,85 +22,97 @@ module Network.AWS.EC2.Types.Reservation where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.GroupIdentifier
 import Network.AWS.EC2.Types.Instance
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a launch request for one or more instances, and includes owner, requester, and security group information that applies to all instances in the launch request.
+-- | Describes a launch request for one or more instances, and includes
+-- owner, requester, and security group information that applies to all
+-- instances in the launch request.
 --
---
---
--- /See:/ 'reservation' smart constructor.
+-- /See:/ 'newReservation' smart constructor.
 data Reservation = Reservation'
-  { _rGroups ::
-      !(Maybe [GroupIdentifier]),
-    _rRequesterId :: !(Maybe Text),
-    _rInstances :: !(Maybe [Instance]),
-    _rReservationId :: !Text,
-    _rOwnerId :: !Text
+  { -- | [EC2-Classic only] The security groups.
+    groups :: Prelude.Maybe [GroupIdentifier],
+    -- | The ID of the requester that launched the instances on your behalf (for
+    -- example, AWS Management Console or Auto Scaling).
+    requesterId :: Prelude.Maybe Prelude.Text,
+    -- | The instances.
+    instances :: Prelude.Maybe [Instance],
+    -- | The ID of the reservation.
+    reservationId :: Prelude.Text,
+    -- | The ID of the AWS account that owns the reservation.
+    ownerId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Reservation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Reservation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rGroups' - [EC2-Classic only] The security groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rRequesterId' - The ID of the requester that launched the instances on your behalf (for example, AWS Management Console or Auto Scaling).
+-- 'groups', 'reservation_groups' - [EC2-Classic only] The security groups.
 --
--- * 'rInstances' - The instances.
+-- 'requesterId', 'reservation_requesterId' - The ID of the requester that launched the instances on your behalf (for
+-- example, AWS Management Console or Auto Scaling).
 --
--- * 'rReservationId' - The ID of the reservation.
+-- 'instances', 'reservation_instances' - The instances.
 --
--- * 'rOwnerId' - The ID of the AWS account that owns the reservation.
-reservation ::
-  -- | 'rReservationId'
-  Text ->
-  -- | 'rOwnerId'
-  Text ->
+-- 'reservationId', 'reservation_reservationId' - The ID of the reservation.
+--
+-- 'ownerId', 'reservation_ownerId' - The ID of the AWS account that owns the reservation.
+newReservation ::
+  -- | 'reservationId'
+  Prelude.Text ->
+  -- | 'ownerId'
+  Prelude.Text ->
   Reservation
-reservation pReservationId_ pOwnerId_ =
+newReservation pReservationId_ pOwnerId_ =
   Reservation'
-    { _rGroups = Nothing,
-      _rRequesterId = Nothing,
-      _rInstances = Nothing,
-      _rReservationId = pReservationId_,
-      _rOwnerId = pOwnerId_
+    { groups = Prelude.Nothing,
+      requesterId = Prelude.Nothing,
+      instances = Prelude.Nothing,
+      reservationId = pReservationId_,
+      ownerId = pOwnerId_
     }
 
 -- | [EC2-Classic only] The security groups.
-rGroups :: Lens' Reservation [GroupIdentifier]
-rGroups = lens _rGroups (\s a -> s {_rGroups = a}) . _Default . _Coerce
+reservation_groups :: Lens.Lens' Reservation (Prelude.Maybe [GroupIdentifier])
+reservation_groups = Lens.lens (\Reservation' {groups} -> groups) (\s@Reservation' {} a -> s {groups = a} :: Reservation) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ID of the requester that launched the instances on your behalf (for example, AWS Management Console or Auto Scaling).
-rRequesterId :: Lens' Reservation (Maybe Text)
-rRequesterId = lens _rRequesterId (\s a -> s {_rRequesterId = a})
+-- | The ID of the requester that launched the instances on your behalf (for
+-- example, AWS Management Console or Auto Scaling).
+reservation_requesterId :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_requesterId = Lens.lens (\Reservation' {requesterId} -> requesterId) (\s@Reservation' {} a -> s {requesterId = a} :: Reservation)
 
 -- | The instances.
-rInstances :: Lens' Reservation [Instance]
-rInstances = lens _rInstances (\s a -> s {_rInstances = a}) . _Default . _Coerce
+reservation_instances :: Lens.Lens' Reservation (Prelude.Maybe [Instance])
+reservation_instances = Lens.lens (\Reservation' {instances} -> instances) (\s@Reservation' {} a -> s {instances = a} :: Reservation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the reservation.
-rReservationId :: Lens' Reservation Text
-rReservationId = lens _rReservationId (\s a -> s {_rReservationId = a})
+reservation_reservationId :: Lens.Lens' Reservation Prelude.Text
+reservation_reservationId = Lens.lens (\Reservation' {reservationId} -> reservationId) (\s@Reservation' {} a -> s {reservationId = a} :: Reservation)
 
 -- | The ID of the AWS account that owns the reservation.
-rOwnerId :: Lens' Reservation Text
-rOwnerId = lens _rOwnerId (\s a -> s {_rOwnerId = a})
+reservation_ownerId :: Lens.Lens' Reservation Prelude.Text
+reservation_ownerId = Lens.lens (\Reservation' {ownerId} -> ownerId) (\s@Reservation' {} a -> s {ownerId = a} :: Reservation)
 
-instance FromXML Reservation where
+instance Prelude.FromXML Reservation where
   parseXML x =
     Reservation'
-      <$> ( x .@? "groupSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "requesterId")
-      <*> ( x .@? "instancesSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@ "reservationId")
-      <*> (x .@ "ownerId")
+      Prelude.<$> ( x Prelude..@? "groupSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "requesterId")
+      Prelude.<*> ( x Prelude..@? "instancesSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@ "reservationId")
+      Prelude.<*> (x Prelude..@ "ownerId")
 
-instance Hashable Reservation
+instance Prelude.Hashable Reservation
 
-instance NFData Reservation
+instance Prelude.NFData Reservation

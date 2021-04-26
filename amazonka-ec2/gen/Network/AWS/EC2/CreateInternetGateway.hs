@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an internet gateway for use with a VPC. After creating the internet gateway, you attach it to a VPC using 'AttachInternetGateway' .
+-- Creates an internet gateway for use with a VPC. After creating the
+-- internet gateway, you attach it to a VPC using AttachInternetGateway.
 --
---
--- For more information about your VPC and internet gateway, see the <https://docs.aws.amazon.com/vpc/latest/userguide/ Amazon Virtual Private Cloud User Guide> .
+-- For more information about your VPC and internet gateway, see the
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/ Amazon Virtual Private Cloud User Guide>.
 module Network.AWS.EC2.CreateInternetGateway
   ( -- * Creating a Request
-    createInternetGateway,
-    CreateInternetGateway,
+    CreateInternetGateway (..),
+    newCreateInternetGateway,
 
     -- * Request Lenses
-    cigTagSpecifications,
-    cigDryRun,
+    createInternetGateway_tagSpecifications,
+    createInternetGateway_dryRun,
 
     -- * Destructuring the Response
-    createInternetGatewayResponse,
-    CreateInternetGatewayResponse,
+    CreateInternetGatewayResponse (..),
+    newCreateInternetGatewayResponse,
 
     -- * Response Lenses
-    cigrrsInternetGateway,
-    cigrrsResponseStatus,
+    createInternetGatewayResponse_internetGateway,
+    createInternetGatewayResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.InternetGateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createInternetGateway' smart constructor.
+-- | /See:/ 'newCreateInternetGateway' smart constructor.
 data CreateInternetGateway = CreateInternetGateway'
-  { _cigTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _cigDryRun :: !(Maybe Bool)
+  { -- | The tags to assign to the internet gateway.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInternetGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInternetGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cigTagSpecifications' - The tags to assign to the internet gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cigDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-createInternetGateway ::
+-- 'tagSpecifications', 'createInternetGateway_tagSpecifications' - The tags to assign to the internet gateway.
+--
+-- 'dryRun', 'createInternetGateway_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+newCreateInternetGateway ::
   CreateInternetGateway
-createInternetGateway =
+newCreateInternetGateway =
   CreateInternetGateway'
-    { _cigTagSpecifications =
-        Nothing,
-      _cigDryRun = Nothing
+    { tagSpecifications =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing
     }
 
 -- | The tags to assign to the internet gateway.
-cigTagSpecifications :: Lens' CreateInternetGateway [TagSpecification]
-cigTagSpecifications = lens _cigTagSpecifications (\s a -> s {_cigTagSpecifications = a}) . _Default . _Coerce
+createInternetGateway_tagSpecifications :: Lens.Lens' CreateInternetGateway (Prelude.Maybe [TagSpecification])
+createInternetGateway_tagSpecifications = Lens.lens (\CreateInternetGateway' {tagSpecifications} -> tagSpecifications) (\s@CreateInternetGateway' {} a -> s {tagSpecifications = a} :: CreateInternetGateway) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-cigDryRun :: Lens' CreateInternetGateway (Maybe Bool)
-cigDryRun = lens _cigDryRun (\s a -> s {_cigDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createInternetGateway_dryRun :: Lens.Lens' CreateInternetGateway (Prelude.Maybe Prelude.Bool)
+createInternetGateway_dryRun = Lens.lens (\CreateInternetGateway' {dryRun} -> dryRun) (\s@CreateInternetGateway' {} a -> s {dryRun = a} :: CreateInternetGateway)
 
-instance AWSRequest CreateInternetGateway where
+instance Prelude.AWSRequest CreateInternetGateway where
   type
     Rs CreateInternetGateway =
       CreateInternetGatewayResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateInternetGatewayResponse'
-            <$> (x .@? "internetGateway") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "internetGateway")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateInternetGateway
+instance Prelude.Hashable CreateInternetGateway
 
-instance NFData CreateInternetGateway
+instance Prelude.NFData CreateInternetGateway
 
-instance ToHeaders CreateInternetGateway where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateInternetGateway where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateInternetGateway where
-  toPath = const "/"
+instance Prelude.ToPath CreateInternetGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateInternetGateway where
+instance Prelude.ToQuery CreateInternetGateway where
   toQuery CreateInternetGateway' {..} =
-    mconcat
-      [ "Action" =: ("CreateInternetGateway" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _cigTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateInternetGateway" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _cigDryRun
+        "DryRun" Prelude.=: dryRun
       ]
 
--- | /See:/ 'createInternetGatewayResponse' smart constructor.
+-- | /See:/ 'newCreateInternetGatewayResponse' smart constructor.
 data CreateInternetGatewayResponse = CreateInternetGatewayResponse'
-  { _cigrrsInternetGateway ::
-      !( Maybe
-           InternetGateway
-       ),
-    _cigrrsResponseStatus ::
-      !Int
+  { -- | Information about the internet gateway.
+    internetGateway :: Prelude.Maybe InternetGateway,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInternetGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInternetGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cigrrsInternetGateway' - Information about the internet gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cigrrsResponseStatus' - -- | The response status code.
-createInternetGatewayResponse ::
-  -- | 'cigrrsResponseStatus'
-  Int ->
+-- 'internetGateway', 'createInternetGatewayResponse_internetGateway' - Information about the internet gateway.
+--
+-- 'httpStatus', 'createInternetGatewayResponse_httpStatus' - The response's http status code.
+newCreateInternetGatewayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateInternetGatewayResponse
-createInternetGatewayResponse pResponseStatus_ =
+newCreateInternetGatewayResponse pHttpStatus_ =
   CreateInternetGatewayResponse'
-    { _cigrrsInternetGateway =
-        Nothing,
-      _cigrrsResponseStatus = pResponseStatus_
+    { internetGateway =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the internet gateway.
-cigrrsInternetGateway :: Lens' CreateInternetGatewayResponse (Maybe InternetGateway)
-cigrrsInternetGateway = lens _cigrrsInternetGateway (\s a -> s {_cigrrsInternetGateway = a})
+createInternetGatewayResponse_internetGateway :: Lens.Lens' CreateInternetGatewayResponse (Prelude.Maybe InternetGateway)
+createInternetGatewayResponse_internetGateway = Lens.lens (\CreateInternetGatewayResponse' {internetGateway} -> internetGateway) (\s@CreateInternetGatewayResponse' {} a -> s {internetGateway = a} :: CreateInternetGatewayResponse)
 
--- | -- | The response status code.
-cigrrsResponseStatus :: Lens' CreateInternetGatewayResponse Int
-cigrrsResponseStatus = lens _cigrrsResponseStatus (\s a -> s {_cigrrsResponseStatus = a})
+-- | The response's http status code.
+createInternetGatewayResponse_httpStatus :: Lens.Lens' CreateInternetGatewayResponse Prelude.Int
+createInternetGatewayResponse_httpStatus = Lens.lens (\CreateInternetGatewayResponse' {httpStatus} -> httpStatus) (\s@CreateInternetGatewayResponse' {} a -> s {httpStatus = a} :: CreateInternetGatewayResponse)
 
-instance NFData CreateInternetGatewayResponse
+instance Prelude.NFData CreateInternetGatewayResponse

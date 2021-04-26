@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Resets the specified attribute of the specified Amazon FPGA Image (AFI) to its default value. You can only reset the load permission attribute.
+-- Resets the specified attribute of the specified Amazon FPGA Image (AFI)
+-- to its default value. You can only reset the load permission attribute.
 module Network.AWS.EC2.ResetFpgaImageAttribute
   ( -- * Creating a Request
-    resetFpgaImageAttribute,
-    ResetFpgaImageAttribute,
+    ResetFpgaImageAttribute (..),
+    newResetFpgaImageAttribute,
 
     -- * Request Lenses
-    rfiaDryRun,
-    rfiaAttribute,
-    rfiaFpgaImageId,
+    resetFpgaImageAttribute_dryRun,
+    resetFpgaImageAttribute_attribute,
+    resetFpgaImageAttribute_fpgaImageId,
 
     -- * Destructuring the Response
-    resetFpgaImageAttributeResponse,
-    ResetFpgaImageAttributeResponse,
+    ResetFpgaImageAttributeResponse (..),
+    newResetFpgaImageAttributeResponse,
 
     -- * Response Lenses
-    rfiarrsReturn,
-    rfiarrsResponseStatus,
+    resetFpgaImageAttributeResponse_return,
+    resetFpgaImageAttributeResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resetFpgaImageAttribute' smart constructor.
+-- | /See:/ 'newResetFpgaImageAttribute' smart constructor.
 data ResetFpgaImageAttribute = ResetFpgaImageAttribute'
-  { _rfiaDryRun ::
-      !(Maybe Bool),
-    _rfiaAttribute ::
-      !( Maybe
-           ResetFpgaImageAttributeName
-       ),
-    _rfiaFpgaImageId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The attribute.
+    attribute :: Prelude.Maybe ResetFpgaImageAttributeName,
+    -- | The ID of the AFI.
+    fpgaImageId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetFpgaImageAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetFpgaImageAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rfiaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rfiaAttribute' - The attribute.
+-- 'dryRun', 'resetFpgaImageAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'rfiaFpgaImageId' - The ID of the AFI.
-resetFpgaImageAttribute ::
-  -- | 'rfiaFpgaImageId'
-  Text ->
+-- 'attribute', 'resetFpgaImageAttribute_attribute' - The attribute.
+--
+-- 'fpgaImageId', 'resetFpgaImageAttribute_fpgaImageId' - The ID of the AFI.
+newResetFpgaImageAttribute ::
+  -- | 'fpgaImageId'
+  Prelude.Text ->
   ResetFpgaImageAttribute
-resetFpgaImageAttribute pFpgaImageId_ =
+newResetFpgaImageAttribute pFpgaImageId_ =
   ResetFpgaImageAttribute'
-    { _rfiaDryRun = Nothing,
-      _rfiaAttribute = Nothing,
-      _rfiaFpgaImageId = pFpgaImageId_
+    { dryRun = Prelude.Nothing,
+      attribute = Prelude.Nothing,
+      fpgaImageId = pFpgaImageId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rfiaDryRun :: Lens' ResetFpgaImageAttribute (Maybe Bool)
-rfiaDryRun = lens _rfiaDryRun (\s a -> s {_rfiaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+resetFpgaImageAttribute_dryRun :: Lens.Lens' ResetFpgaImageAttribute (Prelude.Maybe Prelude.Bool)
+resetFpgaImageAttribute_dryRun = Lens.lens (\ResetFpgaImageAttribute' {dryRun} -> dryRun) (\s@ResetFpgaImageAttribute' {} a -> s {dryRun = a} :: ResetFpgaImageAttribute)
 
 -- | The attribute.
-rfiaAttribute :: Lens' ResetFpgaImageAttribute (Maybe ResetFpgaImageAttributeName)
-rfiaAttribute = lens _rfiaAttribute (\s a -> s {_rfiaAttribute = a})
+resetFpgaImageAttribute_attribute :: Lens.Lens' ResetFpgaImageAttribute (Prelude.Maybe ResetFpgaImageAttributeName)
+resetFpgaImageAttribute_attribute = Lens.lens (\ResetFpgaImageAttribute' {attribute} -> attribute) (\s@ResetFpgaImageAttribute' {} a -> s {attribute = a} :: ResetFpgaImageAttribute)
 
 -- | The ID of the AFI.
-rfiaFpgaImageId :: Lens' ResetFpgaImageAttribute Text
-rfiaFpgaImageId = lens _rfiaFpgaImageId (\s a -> s {_rfiaFpgaImageId = a})
+resetFpgaImageAttribute_fpgaImageId :: Lens.Lens' ResetFpgaImageAttribute Prelude.Text
+resetFpgaImageAttribute_fpgaImageId = Lens.lens (\ResetFpgaImageAttribute' {fpgaImageId} -> fpgaImageId) (\s@ResetFpgaImageAttribute' {} a -> s {fpgaImageId = a} :: ResetFpgaImageAttribute)
 
-instance AWSRequest ResetFpgaImageAttribute where
+instance Prelude.AWSRequest ResetFpgaImageAttribute where
   type
     Rs ResetFpgaImageAttribute =
       ResetFpgaImageAttributeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ResetFpgaImageAttributeResponse'
-            <$> (x .@? "return") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "return")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResetFpgaImageAttribute
+instance Prelude.Hashable ResetFpgaImageAttribute
 
-instance NFData ResetFpgaImageAttribute
+instance Prelude.NFData ResetFpgaImageAttribute
 
-instance ToHeaders ResetFpgaImageAttribute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ResetFpgaImageAttribute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ResetFpgaImageAttribute where
-  toPath = const "/"
+instance Prelude.ToPath ResetFpgaImageAttribute where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResetFpgaImageAttribute where
+instance Prelude.ToQuery ResetFpgaImageAttribute where
   toQuery ResetFpgaImageAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ResetFpgaImageAttribute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _rfiaDryRun,
-        "Attribute" =: _rfiaAttribute,
-        "FpgaImageId" =: _rfiaFpgaImageId
+          Prelude.=: ("ResetFpgaImageAttribute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "Attribute" Prelude.=: attribute,
+        "FpgaImageId" Prelude.=: fpgaImageId
       ]
 
--- | /See:/ 'resetFpgaImageAttributeResponse' smart constructor.
+-- | /See:/ 'newResetFpgaImageAttributeResponse' smart constructor.
 data ResetFpgaImageAttributeResponse = ResetFpgaImageAttributeResponse'
-  { _rfiarrsReturn ::
-      !( Maybe
-           Bool
-       ),
-    _rfiarrsResponseStatus ::
-      !Int
+  { -- | Is @true@ if the request succeeds, and an error otherwise.
+    return' :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetFpgaImageAttributeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetFpgaImageAttributeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rfiarrsReturn' - Is @true@ if the request succeeds, and an error otherwise.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rfiarrsResponseStatus' - -- | The response status code.
-resetFpgaImageAttributeResponse ::
-  -- | 'rfiarrsResponseStatus'
-  Int ->
+-- 'return'', 'resetFpgaImageAttributeResponse_return' - Is @true@ if the request succeeds, and an error otherwise.
+--
+-- 'httpStatus', 'resetFpgaImageAttributeResponse_httpStatus' - The response's http status code.
+newResetFpgaImageAttributeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResetFpgaImageAttributeResponse
-resetFpgaImageAttributeResponse pResponseStatus_ =
+newResetFpgaImageAttributeResponse pHttpStatus_ =
   ResetFpgaImageAttributeResponse'
-    { _rfiarrsReturn =
-        Nothing,
-      _rfiarrsResponseStatus = pResponseStatus_
+    { return' =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Is @true@ if the request succeeds, and an error otherwise.
-rfiarrsReturn :: Lens' ResetFpgaImageAttributeResponse (Maybe Bool)
-rfiarrsReturn = lens _rfiarrsReturn (\s a -> s {_rfiarrsReturn = a})
+resetFpgaImageAttributeResponse_return :: Lens.Lens' ResetFpgaImageAttributeResponse (Prelude.Maybe Prelude.Bool)
+resetFpgaImageAttributeResponse_return = Lens.lens (\ResetFpgaImageAttributeResponse' {return'} -> return') (\s@ResetFpgaImageAttributeResponse' {} a -> s {return' = a} :: ResetFpgaImageAttributeResponse)
 
--- | -- | The response status code.
-rfiarrsResponseStatus :: Lens' ResetFpgaImageAttributeResponse Int
-rfiarrsResponseStatus = lens _rfiarrsResponseStatus (\s a -> s {_rfiarrsResponseStatus = a})
+-- | The response's http status code.
+resetFpgaImageAttributeResponse_httpStatus :: Lens.Lens' ResetFpgaImageAttributeResponse Prelude.Int
+resetFpgaImageAttributeResponse_httpStatus = Lens.lens (\ResetFpgaImageAttributeResponse' {httpStatus} -> httpStatus) (\s@ResetFpgaImageAttributeResponse' {} a -> s {httpStatus = a} :: ResetFpgaImageAttributeResponse)
 
-instance NFData ResetFpgaImageAttributeResponse
+instance
+  Prelude.NFData
+    ResetFpgaImageAttributeResponse

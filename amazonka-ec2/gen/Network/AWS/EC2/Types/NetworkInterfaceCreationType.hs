@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,48 @@
 module Network.AWS.EC2.Types.NetworkInterfaceCreationType
   ( NetworkInterfaceCreationType
       ( ..,
-        Efa
+        NetworkInterfaceCreationTypeEfa
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkInterfaceCreationType
-  = NetworkInterfaceCreationType'
-      ( CI
-          Text
-      )
+newtype NetworkInterfaceCreationType = NetworkInterfaceCreationType'
+  { fromNetworkInterfaceCreationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Efa :: NetworkInterfaceCreationType
-pattern Efa = NetworkInterfaceCreationType' "efa"
+pattern NetworkInterfaceCreationTypeEfa :: NetworkInterfaceCreationType
+pattern NetworkInterfaceCreationTypeEfa = NetworkInterfaceCreationType' "efa"
 
 {-# COMPLETE
-  Efa,
+  NetworkInterfaceCreationTypeEfa,
   NetworkInterfaceCreationType'
   #-}
 
-instance FromText NetworkInterfaceCreationType where
-  parser = (NetworkInterfaceCreationType' . mk) <$> takeText
+instance Prelude.FromText NetworkInterfaceCreationType where
+  parser = NetworkInterfaceCreationType' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkInterfaceCreationType where
-  toText (NetworkInterfaceCreationType' ci) = original ci
+instance Prelude.ToText NetworkInterfaceCreationType where
+  toText (NetworkInterfaceCreationType' x) = x
 
-instance Hashable NetworkInterfaceCreationType
+instance Prelude.Hashable NetworkInterfaceCreationType
 
-instance NFData NetworkInterfaceCreationType
+instance Prelude.NFData NetworkInterfaceCreationType
 
-instance ToByteString NetworkInterfaceCreationType
+instance Prelude.ToByteString NetworkInterfaceCreationType
 
-instance ToQuery NetworkInterfaceCreationType
+instance Prelude.ToQuery NetworkInterfaceCreationType
 
-instance ToHeader NetworkInterfaceCreationType
+instance Prelude.ToHeader NetworkInterfaceCreationType

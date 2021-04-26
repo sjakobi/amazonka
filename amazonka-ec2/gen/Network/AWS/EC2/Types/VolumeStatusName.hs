@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.VolumeStatusName
   ( VolumeStatusName
       ( ..,
-        IOEnabled,
-        IOPerformance
+        VolumeStatusNameIoEnabled,
+        VolumeStatusNameIoPerformance
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VolumeStatusName = VolumeStatusName' (CI Text)
+newtype VolumeStatusName = VolumeStatusName'
+  { fromVolumeStatusName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IOEnabled :: VolumeStatusName
-pattern IOEnabled = VolumeStatusName' "io-enabled"
+pattern VolumeStatusNameIoEnabled :: VolumeStatusName
+pattern VolumeStatusNameIoEnabled = VolumeStatusName' "io-enabled"
 
-pattern IOPerformance :: VolumeStatusName
-pattern IOPerformance = VolumeStatusName' "io-performance"
+pattern VolumeStatusNameIoPerformance :: VolumeStatusName
+pattern VolumeStatusNameIoPerformance = VolumeStatusName' "io-performance"
 
 {-# COMPLETE
-  IOEnabled,
-  IOPerformance,
+  VolumeStatusNameIoEnabled,
+  VolumeStatusNameIoPerformance,
   VolumeStatusName'
   #-}
 
-instance FromText VolumeStatusName where
-  parser = (VolumeStatusName' . mk) <$> takeText
+instance Prelude.FromText VolumeStatusName where
+  parser = VolumeStatusName' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeStatusName where
-  toText (VolumeStatusName' ci) = original ci
+instance Prelude.ToText VolumeStatusName where
+  toText (VolumeStatusName' x) = x
 
-instance Hashable VolumeStatusName
+instance Prelude.Hashable VolumeStatusName
 
-instance NFData VolumeStatusName
+instance Prelude.NFData VolumeStatusName
 
-instance ToByteString VolumeStatusName
+instance Prelude.ToByteString VolumeStatusName
 
-instance ToQuery VolumeStatusName
+instance Prelude.ToQuery VolumeStatusName
 
-instance ToHeader VolumeStatusName
+instance Prelude.ToHeader VolumeStatusName
 
-instance FromXML VolumeStatusName where
-  parseXML = parseXMLText "VolumeStatusName"
+instance Prelude.FromXML VolumeStatusName where
+  parseXML = Prelude.parseXMLText "VolumeStatusName"

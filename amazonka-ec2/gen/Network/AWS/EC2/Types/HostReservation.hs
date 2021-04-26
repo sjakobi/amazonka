@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,164 +24,193 @@ import Network.AWS.EC2.Types.CurrencyCodeValues
 import Network.AWS.EC2.Types.PaymentOption
 import Network.AWS.EC2.Types.ReservationState
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about the Dedicated Host Reservation and associated Dedicated Hosts.
+-- | Details about the Dedicated Host Reservation and associated Dedicated
+-- Hosts.
 --
---
---
--- /See:/ 'hostReservation' smart constructor.
+-- /See:/ 'newHostReservation' smart constructor.
 data HostReservation = HostReservation'
-  { _hrInstanceFamily ::
-      !(Maybe Text),
-    _hrEnd :: !(Maybe ISO8601),
-    _hrHostIdSet :: !(Maybe [Text]),
-    _hrUpfrontPrice :: !(Maybe Text),
-    _hrPaymentOption ::
-      !(Maybe PaymentOption),
-    _hrDuration :: !(Maybe Int),
-    _hrOfferingId :: !(Maybe Text),
-    _hrHostReservationId :: !(Maybe Text),
-    _hrCurrencyCode ::
-      !(Maybe CurrencyCodeValues),
-    _hrState :: !(Maybe ReservationState),
-    _hrTags :: !(Maybe [Tag]),
-    _hrCount :: !(Maybe Int),
-    _hrHourlyPrice :: !(Maybe Text),
-    _hrStart :: !(Maybe ISO8601)
+  { -- | The instance family of the Dedicated Host Reservation. The instance
+    -- family on the Dedicated Host must be the same in order for it to benefit
+    -- from the reservation.
+    instanceFamily :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the reservation ends.
+    end :: Prelude.Maybe Prelude.ISO8601,
+    -- | The IDs of the Dedicated Hosts associated with the reservation.
+    hostIdSet :: Prelude.Maybe [Prelude.Text],
+    -- | The upfront price of the reservation.
+    upfrontPrice :: Prelude.Maybe Prelude.Text,
+    -- | The payment option selected for this reservation.
+    paymentOption :: Prelude.Maybe PaymentOption,
+    -- | The length of the reservation\'s term, specified in seconds. Can be
+    -- @31536000 (1 year)@ | @94608000 (3 years)@.
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | The ID of the reservation. This remains the same regardless of which
+    -- Dedicated Hosts are associated with it.
+    offeringId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the reservation that specifies the associated Dedicated Hosts.
+    hostReservationId :: Prelude.Maybe Prelude.Text,
+    -- | The currency in which the @upfrontPrice@ and @hourlyPrice@ amounts are
+    -- specified. At this time, the only supported currency is @USD@.
+    currencyCode :: Prelude.Maybe CurrencyCodeValues,
+    -- | The state of the reservation.
+    state :: Prelude.Maybe ReservationState,
+    -- | Any tags assigned to the Dedicated Host Reservation.
+    tags :: Prelude.Maybe [Tag],
+    -- | The number of Dedicated Hosts the reservation is associated with.
+    count :: Prelude.Maybe Prelude.Int,
+    -- | The hourly price of the reservation.
+    hourlyPrice :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the reservation started.
+    start :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HostReservation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HostReservation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hrInstanceFamily' - The instance family of the Dedicated Host Reservation. The instance family on the Dedicated Host must be the same in order for it to benefit from the reservation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hrEnd' - The date and time that the reservation ends.
+-- 'instanceFamily', 'hostReservation_instanceFamily' - The instance family of the Dedicated Host Reservation. The instance
+-- family on the Dedicated Host must be the same in order for it to benefit
+-- from the reservation.
 --
--- * 'hrHostIdSet' - The IDs of the Dedicated Hosts associated with the reservation.
+-- 'end', 'hostReservation_end' - The date and time that the reservation ends.
 --
--- * 'hrUpfrontPrice' - The upfront price of the reservation.
+-- 'hostIdSet', 'hostReservation_hostIdSet' - The IDs of the Dedicated Hosts associated with the reservation.
 --
--- * 'hrPaymentOption' - The payment option selected for this reservation.
+-- 'upfrontPrice', 'hostReservation_upfrontPrice' - The upfront price of the reservation.
 --
--- * 'hrDuration' - The length of the reservation's term, specified in seconds. Can be @31536000 (1 year)@ | @94608000 (3 years)@ .
+-- 'paymentOption', 'hostReservation_paymentOption' - The payment option selected for this reservation.
 --
--- * 'hrOfferingId' - The ID of the reservation. This remains the same regardless of which Dedicated Hosts are associated with it.
+-- 'duration', 'hostReservation_duration' - The length of the reservation\'s term, specified in seconds. Can be
+-- @31536000 (1 year)@ | @94608000 (3 years)@.
 --
--- * 'hrHostReservationId' - The ID of the reservation that specifies the associated Dedicated Hosts.
+-- 'offeringId', 'hostReservation_offeringId' - The ID of the reservation. This remains the same regardless of which
+-- Dedicated Hosts are associated with it.
 --
--- * 'hrCurrencyCode' - The currency in which the @upfrontPrice@ and @hourlyPrice@ amounts are specified. At this time, the only supported currency is @USD@ .
+-- 'hostReservationId', 'hostReservation_hostReservationId' - The ID of the reservation that specifies the associated Dedicated Hosts.
 --
--- * 'hrState' - The state of the reservation.
+-- 'currencyCode', 'hostReservation_currencyCode' - The currency in which the @upfrontPrice@ and @hourlyPrice@ amounts are
+-- specified. At this time, the only supported currency is @USD@.
 --
--- * 'hrTags' - Any tags assigned to the Dedicated Host Reservation.
+-- 'state', 'hostReservation_state' - The state of the reservation.
 --
--- * 'hrCount' - The number of Dedicated Hosts the reservation is associated with.
+-- 'tags', 'hostReservation_tags' - Any tags assigned to the Dedicated Host Reservation.
 --
--- * 'hrHourlyPrice' - The hourly price of the reservation.
+-- 'count', 'hostReservation_count' - The number of Dedicated Hosts the reservation is associated with.
 --
--- * 'hrStart' - The date and time that the reservation started.
-hostReservation ::
+-- 'hourlyPrice', 'hostReservation_hourlyPrice' - The hourly price of the reservation.
+--
+-- 'start', 'hostReservation_start' - The date and time that the reservation started.
+newHostReservation ::
   HostReservation
-hostReservation =
+newHostReservation =
   HostReservation'
-    { _hrInstanceFamily = Nothing,
-      _hrEnd = Nothing,
-      _hrHostIdSet = Nothing,
-      _hrUpfrontPrice = Nothing,
-      _hrPaymentOption = Nothing,
-      _hrDuration = Nothing,
-      _hrOfferingId = Nothing,
-      _hrHostReservationId = Nothing,
-      _hrCurrencyCode = Nothing,
-      _hrState = Nothing,
-      _hrTags = Nothing,
-      _hrCount = Nothing,
-      _hrHourlyPrice = Nothing,
-      _hrStart = Nothing
+    { instanceFamily = Prelude.Nothing,
+      end = Prelude.Nothing,
+      hostIdSet = Prelude.Nothing,
+      upfrontPrice = Prelude.Nothing,
+      paymentOption = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      offeringId = Prelude.Nothing,
+      hostReservationId = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      count = Prelude.Nothing,
+      hourlyPrice = Prelude.Nothing,
+      start = Prelude.Nothing
     }
 
--- | The instance family of the Dedicated Host Reservation. The instance family on the Dedicated Host must be the same in order for it to benefit from the reservation.
-hrInstanceFamily :: Lens' HostReservation (Maybe Text)
-hrInstanceFamily = lens _hrInstanceFamily (\s a -> s {_hrInstanceFamily = a})
+-- | The instance family of the Dedicated Host Reservation. The instance
+-- family on the Dedicated Host must be the same in order for it to benefit
+-- from the reservation.
+hostReservation_instanceFamily :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.Text)
+hostReservation_instanceFamily = Lens.lens (\HostReservation' {instanceFamily} -> instanceFamily) (\s@HostReservation' {} a -> s {instanceFamily = a} :: HostReservation)
 
 -- | The date and time that the reservation ends.
-hrEnd :: Lens' HostReservation (Maybe UTCTime)
-hrEnd = lens _hrEnd (\s a -> s {_hrEnd = a}) . mapping _Time
+hostReservation_end :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.UTCTime)
+hostReservation_end = Lens.lens (\HostReservation' {end} -> end) (\s@HostReservation' {} a -> s {end = a} :: HostReservation) Prelude.. Lens.mapping Prelude._Time
 
 -- | The IDs of the Dedicated Hosts associated with the reservation.
-hrHostIdSet :: Lens' HostReservation [Text]
-hrHostIdSet = lens _hrHostIdSet (\s a -> s {_hrHostIdSet = a}) . _Default . _Coerce
+hostReservation_hostIdSet :: Lens.Lens' HostReservation (Prelude.Maybe [Prelude.Text])
+hostReservation_hostIdSet = Lens.lens (\HostReservation' {hostIdSet} -> hostIdSet) (\s@HostReservation' {} a -> s {hostIdSet = a} :: HostReservation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The upfront price of the reservation.
-hrUpfrontPrice :: Lens' HostReservation (Maybe Text)
-hrUpfrontPrice = lens _hrUpfrontPrice (\s a -> s {_hrUpfrontPrice = a})
+hostReservation_upfrontPrice :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.Text)
+hostReservation_upfrontPrice = Lens.lens (\HostReservation' {upfrontPrice} -> upfrontPrice) (\s@HostReservation' {} a -> s {upfrontPrice = a} :: HostReservation)
 
 -- | The payment option selected for this reservation.
-hrPaymentOption :: Lens' HostReservation (Maybe PaymentOption)
-hrPaymentOption = lens _hrPaymentOption (\s a -> s {_hrPaymentOption = a})
+hostReservation_paymentOption :: Lens.Lens' HostReservation (Prelude.Maybe PaymentOption)
+hostReservation_paymentOption = Lens.lens (\HostReservation' {paymentOption} -> paymentOption) (\s@HostReservation' {} a -> s {paymentOption = a} :: HostReservation)
 
--- | The length of the reservation's term, specified in seconds. Can be @31536000 (1 year)@ | @94608000 (3 years)@ .
-hrDuration :: Lens' HostReservation (Maybe Int)
-hrDuration = lens _hrDuration (\s a -> s {_hrDuration = a})
+-- | The length of the reservation\'s term, specified in seconds. Can be
+-- @31536000 (1 year)@ | @94608000 (3 years)@.
+hostReservation_duration :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.Int)
+hostReservation_duration = Lens.lens (\HostReservation' {duration} -> duration) (\s@HostReservation' {} a -> s {duration = a} :: HostReservation)
 
--- | The ID of the reservation. This remains the same regardless of which Dedicated Hosts are associated with it.
-hrOfferingId :: Lens' HostReservation (Maybe Text)
-hrOfferingId = lens _hrOfferingId (\s a -> s {_hrOfferingId = a})
+-- | The ID of the reservation. This remains the same regardless of which
+-- Dedicated Hosts are associated with it.
+hostReservation_offeringId :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.Text)
+hostReservation_offeringId = Lens.lens (\HostReservation' {offeringId} -> offeringId) (\s@HostReservation' {} a -> s {offeringId = a} :: HostReservation)
 
 -- | The ID of the reservation that specifies the associated Dedicated Hosts.
-hrHostReservationId :: Lens' HostReservation (Maybe Text)
-hrHostReservationId = lens _hrHostReservationId (\s a -> s {_hrHostReservationId = a})
+hostReservation_hostReservationId :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.Text)
+hostReservation_hostReservationId = Lens.lens (\HostReservation' {hostReservationId} -> hostReservationId) (\s@HostReservation' {} a -> s {hostReservationId = a} :: HostReservation)
 
--- | The currency in which the @upfrontPrice@ and @hourlyPrice@ amounts are specified. At this time, the only supported currency is @USD@ .
-hrCurrencyCode :: Lens' HostReservation (Maybe CurrencyCodeValues)
-hrCurrencyCode = lens _hrCurrencyCode (\s a -> s {_hrCurrencyCode = a})
+-- | The currency in which the @upfrontPrice@ and @hourlyPrice@ amounts are
+-- specified. At this time, the only supported currency is @USD@.
+hostReservation_currencyCode :: Lens.Lens' HostReservation (Prelude.Maybe CurrencyCodeValues)
+hostReservation_currencyCode = Lens.lens (\HostReservation' {currencyCode} -> currencyCode) (\s@HostReservation' {} a -> s {currencyCode = a} :: HostReservation)
 
 -- | The state of the reservation.
-hrState :: Lens' HostReservation (Maybe ReservationState)
-hrState = lens _hrState (\s a -> s {_hrState = a})
+hostReservation_state :: Lens.Lens' HostReservation (Prelude.Maybe ReservationState)
+hostReservation_state = Lens.lens (\HostReservation' {state} -> state) (\s@HostReservation' {} a -> s {state = a} :: HostReservation)
 
 -- | Any tags assigned to the Dedicated Host Reservation.
-hrTags :: Lens' HostReservation [Tag]
-hrTags = lens _hrTags (\s a -> s {_hrTags = a}) . _Default . _Coerce
+hostReservation_tags :: Lens.Lens' HostReservation (Prelude.Maybe [Tag])
+hostReservation_tags = Lens.lens (\HostReservation' {tags} -> tags) (\s@HostReservation' {} a -> s {tags = a} :: HostReservation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of Dedicated Hosts the reservation is associated with.
-hrCount :: Lens' HostReservation (Maybe Int)
-hrCount = lens _hrCount (\s a -> s {_hrCount = a})
+hostReservation_count :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.Int)
+hostReservation_count = Lens.lens (\HostReservation' {count} -> count) (\s@HostReservation' {} a -> s {count = a} :: HostReservation)
 
 -- | The hourly price of the reservation.
-hrHourlyPrice :: Lens' HostReservation (Maybe Text)
-hrHourlyPrice = lens _hrHourlyPrice (\s a -> s {_hrHourlyPrice = a})
+hostReservation_hourlyPrice :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.Text)
+hostReservation_hourlyPrice = Lens.lens (\HostReservation' {hourlyPrice} -> hourlyPrice) (\s@HostReservation' {} a -> s {hourlyPrice = a} :: HostReservation)
 
 -- | The date and time that the reservation started.
-hrStart :: Lens' HostReservation (Maybe UTCTime)
-hrStart = lens _hrStart (\s a -> s {_hrStart = a}) . mapping _Time
+hostReservation_start :: Lens.Lens' HostReservation (Prelude.Maybe Prelude.UTCTime)
+hostReservation_start = Lens.lens (\HostReservation' {start} -> start) (\s@HostReservation' {} a -> s {start = a} :: HostReservation) Prelude.. Lens.mapping Prelude._Time
 
-instance FromXML HostReservation where
+instance Prelude.FromXML HostReservation where
   parseXML x =
     HostReservation'
-      <$> (x .@? "instanceFamily")
-      <*> (x .@? "end")
-      <*> ( x .@? "hostIdSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "upfrontPrice")
-      <*> (x .@? "paymentOption")
-      <*> (x .@? "duration")
-      <*> (x .@? "offeringId")
-      <*> (x .@? "hostReservationId")
-      <*> (x .@? "currencyCode")
-      <*> (x .@? "state")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "count")
-      <*> (x .@? "hourlyPrice")
-      <*> (x .@? "start")
+      Prelude.<$> (x Prelude..@? "instanceFamily")
+      Prelude.<*> (x Prelude..@? "end")
+      Prelude.<*> ( x Prelude..@? "hostIdSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "upfrontPrice")
+      Prelude.<*> (x Prelude..@? "paymentOption")
+      Prelude.<*> (x Prelude..@? "duration")
+      Prelude.<*> (x Prelude..@? "offeringId")
+      Prelude.<*> (x Prelude..@? "hostReservationId")
+      Prelude.<*> (x Prelude..@? "currencyCode")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "count")
+      Prelude.<*> (x Prelude..@? "hourlyPrice")
+      Prelude.<*> (x Prelude..@? "start")
 
-instance Hashable HostReservation
+instance Prelude.Hashable HostReservation
 
-instance NFData HostReservation
+instance Prelude.NFData HostReservation

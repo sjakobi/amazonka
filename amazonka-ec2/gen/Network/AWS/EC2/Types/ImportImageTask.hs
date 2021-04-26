@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,177 +23,212 @@ import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ImportImageLicenseConfigurationResponse
 import Network.AWS.EC2.Types.SnapshotDetail
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an import image task.
 --
---
---
--- /See:/ 'importImageTask' smart constructor.
+-- /See:/ 'newImportImageTask' smart constructor.
 data ImportImageTask = ImportImageTask'
-  { _iitHypervisor ::
-      !(Maybe Text),
-    _iitPlatform :: !(Maybe Text),
-    _iitStatusMessage :: !(Maybe Text),
-    _iitStatus :: !(Maybe Text),
-    _iitSnapshotDetails ::
-      !(Maybe [SnapshotDetail]),
-    _iitEncrypted :: !(Maybe Bool),
-    _iitImportTaskId :: !(Maybe Text),
-    _iitLicenseSpecifications ::
-      !( Maybe
-           [ImportImageLicenseConfigurationResponse]
-       ),
-    _iitArchitecture :: !(Maybe Text),
-    _iitImageId :: !(Maybe Text),
-    _iitKMSKeyId :: !(Maybe Text),
-    _iitTags :: !(Maybe [Tag]),
-    _iitDescription :: !(Maybe Text),
-    _iitLicenseType :: !(Maybe Text),
-    _iitProgress :: !(Maybe Text)
+  { -- | The target hypervisor for the import task.
+    --
+    -- Valid values: @xen@
+    hypervisor :: Prelude.Maybe Prelude.Text,
+    -- | The description string for the import image task.
+    platform :: Prelude.Maybe Prelude.Text,
+    -- | A descriptive status message for the import image task.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | A brief status for the import image task.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | Information about the snapshots.
+    snapshotDetails :: Prelude.Maybe [SnapshotDetail],
+    -- | Indicates whether the image is encrypted.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the import image task.
+    importTaskId :: Prelude.Maybe Prelude.Text,
+    -- | The ARNs of the license configurations that are associated with the
+    -- import image task.
+    licenseSpecifications :: Prelude.Maybe [ImportImageLicenseConfigurationResponse],
+    -- | The architecture of the virtual machine.
+    --
+    -- Valid values: @i386@ | @x86_64@ | @arm64@
+    architecture :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon Machine Image (AMI) of the imported virtual
+    -- machine.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the AWS Key Management Service (AWS KMS) customer
+    -- master key (CMK) that was used to create the encrypted image.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The tags for the import image task.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the import task.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The license type of the virtual machine.
+    licenseType :: Prelude.Maybe Prelude.Text,
+    -- | The percentage of progress of the import image task.
+    progress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportImageTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportImageTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iitHypervisor' - The target hypervisor for the import task. Valid values: @xen@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iitPlatform' - The description string for the import image task.
+-- 'hypervisor', 'importImageTask_hypervisor' - The target hypervisor for the import task.
 --
--- * 'iitStatusMessage' - A descriptive status message for the import image task.
+-- Valid values: @xen@
 --
--- * 'iitStatus' - A brief status for the import image task.
+-- 'platform', 'importImageTask_platform' - The description string for the import image task.
 --
--- * 'iitSnapshotDetails' - Information about the snapshots.
+-- 'statusMessage', 'importImageTask_statusMessage' - A descriptive status message for the import image task.
 --
--- * 'iitEncrypted' - Indicates whether the image is encrypted.
+-- 'status', 'importImageTask_status' - A brief status for the import image task.
 --
--- * 'iitImportTaskId' - The ID of the import image task.
+-- 'snapshotDetails', 'importImageTask_snapshotDetails' - Information about the snapshots.
 --
--- * 'iitLicenseSpecifications' - The ARNs of the license configurations that are associated with the import image task.
+-- 'encrypted', 'importImageTask_encrypted' - Indicates whether the image is encrypted.
 --
--- * 'iitArchitecture' - The architecture of the virtual machine. Valid values: @i386@ | @x86_64@ | @arm64@
+-- 'importTaskId', 'importImageTask_importTaskId' - The ID of the import image task.
 --
--- * 'iitImageId' - The ID of the Amazon Machine Image (AMI) of the imported virtual machine.
+-- 'licenseSpecifications', 'importImageTask_licenseSpecifications' - The ARNs of the license configurations that are associated with the
+-- import image task.
 --
--- * 'iitKMSKeyId' - The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the encrypted image.
+-- 'architecture', 'importImageTask_architecture' - The architecture of the virtual machine.
 --
--- * 'iitTags' - The tags for the import image task.
+-- Valid values: @i386@ | @x86_64@ | @arm64@
 --
--- * 'iitDescription' - A description of the import task.
+-- 'imageId', 'importImageTask_imageId' - The ID of the Amazon Machine Image (AMI) of the imported virtual
+-- machine.
 --
--- * 'iitLicenseType' - The license type of the virtual machine.
+-- 'kmsKeyId', 'importImageTask_kmsKeyId' - The identifier for the AWS Key Management Service (AWS KMS) customer
+-- master key (CMK) that was used to create the encrypted image.
 --
--- * 'iitProgress' - The percentage of progress of the import image task.
-importImageTask ::
+-- 'tags', 'importImageTask_tags' - The tags for the import image task.
+--
+-- 'description', 'importImageTask_description' - A description of the import task.
+--
+-- 'licenseType', 'importImageTask_licenseType' - The license type of the virtual machine.
+--
+-- 'progress', 'importImageTask_progress' - The percentage of progress of the import image task.
+newImportImageTask ::
   ImportImageTask
-importImageTask =
+newImportImageTask =
   ImportImageTask'
-    { _iitHypervisor = Nothing,
-      _iitPlatform = Nothing,
-      _iitStatusMessage = Nothing,
-      _iitStatus = Nothing,
-      _iitSnapshotDetails = Nothing,
-      _iitEncrypted = Nothing,
-      _iitImportTaskId = Nothing,
-      _iitLicenseSpecifications = Nothing,
-      _iitArchitecture = Nothing,
-      _iitImageId = Nothing,
-      _iitKMSKeyId = Nothing,
-      _iitTags = Nothing,
-      _iitDescription = Nothing,
-      _iitLicenseType = Nothing,
-      _iitProgress = Nothing
+    { hypervisor = Prelude.Nothing,
+      platform = Prelude.Nothing,
+      statusMessage = Prelude.Nothing,
+      status = Prelude.Nothing,
+      snapshotDetails = Prelude.Nothing,
+      encrypted = Prelude.Nothing,
+      importTaskId = Prelude.Nothing,
+      licenseSpecifications = Prelude.Nothing,
+      architecture = Prelude.Nothing,
+      imageId = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      licenseType = Prelude.Nothing,
+      progress = Prelude.Nothing
     }
 
--- | The target hypervisor for the import task. Valid values: @xen@
-iitHypervisor :: Lens' ImportImageTask (Maybe Text)
-iitHypervisor = lens _iitHypervisor (\s a -> s {_iitHypervisor = a})
+-- | The target hypervisor for the import task.
+--
+-- Valid values: @xen@
+importImageTask_hypervisor :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_hypervisor = Lens.lens (\ImportImageTask' {hypervisor} -> hypervisor) (\s@ImportImageTask' {} a -> s {hypervisor = a} :: ImportImageTask)
 
 -- | The description string for the import image task.
-iitPlatform :: Lens' ImportImageTask (Maybe Text)
-iitPlatform = lens _iitPlatform (\s a -> s {_iitPlatform = a})
+importImageTask_platform :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_platform = Lens.lens (\ImportImageTask' {platform} -> platform) (\s@ImportImageTask' {} a -> s {platform = a} :: ImportImageTask)
 
 -- | A descriptive status message for the import image task.
-iitStatusMessage :: Lens' ImportImageTask (Maybe Text)
-iitStatusMessage = lens _iitStatusMessage (\s a -> s {_iitStatusMessage = a})
+importImageTask_statusMessage :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_statusMessage = Lens.lens (\ImportImageTask' {statusMessage} -> statusMessage) (\s@ImportImageTask' {} a -> s {statusMessage = a} :: ImportImageTask)
 
 -- | A brief status for the import image task.
-iitStatus :: Lens' ImportImageTask (Maybe Text)
-iitStatus = lens _iitStatus (\s a -> s {_iitStatus = a})
+importImageTask_status :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_status = Lens.lens (\ImportImageTask' {status} -> status) (\s@ImportImageTask' {} a -> s {status = a} :: ImportImageTask)
 
 -- | Information about the snapshots.
-iitSnapshotDetails :: Lens' ImportImageTask [SnapshotDetail]
-iitSnapshotDetails = lens _iitSnapshotDetails (\s a -> s {_iitSnapshotDetails = a}) . _Default . _Coerce
+importImageTask_snapshotDetails :: Lens.Lens' ImportImageTask (Prelude.Maybe [SnapshotDetail])
+importImageTask_snapshotDetails = Lens.lens (\ImportImageTask' {snapshotDetails} -> snapshotDetails) (\s@ImportImageTask' {} a -> s {snapshotDetails = a} :: ImportImageTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates whether the image is encrypted.
-iitEncrypted :: Lens' ImportImageTask (Maybe Bool)
-iitEncrypted = lens _iitEncrypted (\s a -> s {_iitEncrypted = a})
+importImageTask_encrypted :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Bool)
+importImageTask_encrypted = Lens.lens (\ImportImageTask' {encrypted} -> encrypted) (\s@ImportImageTask' {} a -> s {encrypted = a} :: ImportImageTask)
 
 -- | The ID of the import image task.
-iitImportTaskId :: Lens' ImportImageTask (Maybe Text)
-iitImportTaskId = lens _iitImportTaskId (\s a -> s {_iitImportTaskId = a})
+importImageTask_importTaskId :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_importTaskId = Lens.lens (\ImportImageTask' {importTaskId} -> importTaskId) (\s@ImportImageTask' {} a -> s {importTaskId = a} :: ImportImageTask)
 
--- | The ARNs of the license configurations that are associated with the import image task.
-iitLicenseSpecifications :: Lens' ImportImageTask [ImportImageLicenseConfigurationResponse]
-iitLicenseSpecifications = lens _iitLicenseSpecifications (\s a -> s {_iitLicenseSpecifications = a}) . _Default . _Coerce
+-- | The ARNs of the license configurations that are associated with the
+-- import image task.
+importImageTask_licenseSpecifications :: Lens.Lens' ImportImageTask (Prelude.Maybe [ImportImageLicenseConfigurationResponse])
+importImageTask_licenseSpecifications = Lens.lens (\ImportImageTask' {licenseSpecifications} -> licenseSpecifications) (\s@ImportImageTask' {} a -> s {licenseSpecifications = a} :: ImportImageTask) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The architecture of the virtual machine. Valid values: @i386@ | @x86_64@ | @arm64@
-iitArchitecture :: Lens' ImportImageTask (Maybe Text)
-iitArchitecture = lens _iitArchitecture (\s a -> s {_iitArchitecture = a})
+-- | The architecture of the virtual machine.
+--
+-- Valid values: @i386@ | @x86_64@ | @arm64@
+importImageTask_architecture :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_architecture = Lens.lens (\ImportImageTask' {architecture} -> architecture) (\s@ImportImageTask' {} a -> s {architecture = a} :: ImportImageTask)
 
--- | The ID of the Amazon Machine Image (AMI) of the imported virtual machine.
-iitImageId :: Lens' ImportImageTask (Maybe Text)
-iitImageId = lens _iitImageId (\s a -> s {_iitImageId = a})
+-- | The ID of the Amazon Machine Image (AMI) of the imported virtual
+-- machine.
+importImageTask_imageId :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_imageId = Lens.lens (\ImportImageTask' {imageId} -> imageId) (\s@ImportImageTask' {} a -> s {imageId = a} :: ImportImageTask)
 
--- | The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the encrypted image.
-iitKMSKeyId :: Lens' ImportImageTask (Maybe Text)
-iitKMSKeyId = lens _iitKMSKeyId (\s a -> s {_iitKMSKeyId = a})
+-- | The identifier for the AWS Key Management Service (AWS KMS) customer
+-- master key (CMK) that was used to create the encrypted image.
+importImageTask_kmsKeyId :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_kmsKeyId = Lens.lens (\ImportImageTask' {kmsKeyId} -> kmsKeyId) (\s@ImportImageTask' {} a -> s {kmsKeyId = a} :: ImportImageTask)
 
 -- | The tags for the import image task.
-iitTags :: Lens' ImportImageTask [Tag]
-iitTags = lens _iitTags (\s a -> s {_iitTags = a}) . _Default . _Coerce
+importImageTask_tags :: Lens.Lens' ImportImageTask (Prelude.Maybe [Tag])
+importImageTask_tags = Lens.lens (\ImportImageTask' {tags} -> tags) (\s@ImportImageTask' {} a -> s {tags = a} :: ImportImageTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the import task.
-iitDescription :: Lens' ImportImageTask (Maybe Text)
-iitDescription = lens _iitDescription (\s a -> s {_iitDescription = a})
+importImageTask_description :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_description = Lens.lens (\ImportImageTask' {description} -> description) (\s@ImportImageTask' {} a -> s {description = a} :: ImportImageTask)
 
 -- | The license type of the virtual machine.
-iitLicenseType :: Lens' ImportImageTask (Maybe Text)
-iitLicenseType = lens _iitLicenseType (\s a -> s {_iitLicenseType = a})
+importImageTask_licenseType :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_licenseType = Lens.lens (\ImportImageTask' {licenseType} -> licenseType) (\s@ImportImageTask' {} a -> s {licenseType = a} :: ImportImageTask)
 
 -- | The percentage of progress of the import image task.
-iitProgress :: Lens' ImportImageTask (Maybe Text)
-iitProgress = lens _iitProgress (\s a -> s {_iitProgress = a})
+importImageTask_progress :: Lens.Lens' ImportImageTask (Prelude.Maybe Prelude.Text)
+importImageTask_progress = Lens.lens (\ImportImageTask' {progress} -> progress) (\s@ImportImageTask' {} a -> s {progress = a} :: ImportImageTask)
 
-instance FromXML ImportImageTask where
+instance Prelude.FromXML ImportImageTask where
   parseXML x =
     ImportImageTask'
-      <$> (x .@? "hypervisor")
-      <*> (x .@? "platform")
-      <*> (x .@? "statusMessage")
-      <*> (x .@? "status")
-      <*> ( x .@? "snapshotDetailSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "encrypted")
-      <*> (x .@? "importTaskId")
-      <*> ( x .@? "licenseSpecifications" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "architecture")
-      <*> (x .@? "imageId")
-      <*> (x .@? "kmsKeyId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "description")
-      <*> (x .@? "licenseType")
-      <*> (x .@? "progress")
+      Prelude.<$> (x Prelude..@? "hypervisor")
+      Prelude.<*> (x Prelude..@? "platform")
+      Prelude.<*> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> ( x Prelude..@? "snapshotDetailSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "encrypted")
+      Prelude.<*> (x Prelude..@? "importTaskId")
+      Prelude.<*> ( x Prelude..@? "licenseSpecifications"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "architecture")
+      Prelude.<*> (x Prelude..@? "imageId")
+      Prelude.<*> (x Prelude..@? "kmsKeyId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "description")
+      Prelude.<*> (x Prelude..@? "licenseType")
+      Prelude.<*> (x Prelude..@? "progress")
 
-instance Hashable ImportImageTask
+instance Prelude.Hashable ImportImageTask
 
-instance NFData ImportImageTask
+instance Prelude.NFData ImportImageTask

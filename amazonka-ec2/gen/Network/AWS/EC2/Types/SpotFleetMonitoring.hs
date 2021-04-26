@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,51 @@
 module Network.AWS.EC2.Types.SpotFleetMonitoring where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes whether monitoring is enabled.
 --
---
---
--- /See:/ 'spotFleetMonitoring' smart constructor.
-newtype SpotFleetMonitoring = SpotFleetMonitoring'
-  { _sfmEnabled ::
-      Maybe Bool
+-- /See:/ 'newSpotFleetMonitoring' smart constructor.
+data SpotFleetMonitoring = SpotFleetMonitoring'
+  { -- | Enables monitoring for the instance.
+    --
+    -- Default: @false@
+    enabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SpotFleetMonitoring' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SpotFleetMonitoring' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfmEnabled' - Enables monitoring for the instance. Default: @false@
-spotFleetMonitoring ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'enabled', 'spotFleetMonitoring_enabled' - Enables monitoring for the instance.
+--
+-- Default: @false@
+newSpotFleetMonitoring ::
   SpotFleetMonitoring
-spotFleetMonitoring =
-  SpotFleetMonitoring' {_sfmEnabled = Nothing}
+newSpotFleetMonitoring =
+  SpotFleetMonitoring' {enabled = Prelude.Nothing}
 
--- | Enables monitoring for the instance. Default: @false@
-sfmEnabled :: Lens' SpotFleetMonitoring (Maybe Bool)
-sfmEnabled = lens _sfmEnabled (\s a -> s {_sfmEnabled = a})
+-- | Enables monitoring for the instance.
+--
+-- Default: @false@
+spotFleetMonitoring_enabled :: Lens.Lens' SpotFleetMonitoring (Prelude.Maybe Prelude.Bool)
+spotFleetMonitoring_enabled = Lens.lens (\SpotFleetMonitoring' {enabled} -> enabled) (\s@SpotFleetMonitoring' {} a -> s {enabled = a} :: SpotFleetMonitoring)
 
-instance FromXML SpotFleetMonitoring where
+instance Prelude.FromXML SpotFleetMonitoring where
   parseXML x =
-    SpotFleetMonitoring' <$> (x .@? "enabled")
+    SpotFleetMonitoring'
+      Prelude.<$> (x Prelude..@? "enabled")
 
-instance Hashable SpotFleetMonitoring
+instance Prelude.Hashable SpotFleetMonitoring
 
-instance NFData SpotFleetMonitoring
+instance Prelude.NFData SpotFleetMonitoring
 
-instance ToQuery SpotFleetMonitoring where
+instance Prelude.ToQuery SpotFleetMonitoring where
   toQuery SpotFleetMonitoring' {..} =
-    mconcat ["Enabled" =: _sfmEnabled]
+    Prelude.mconcat ["Enabled" Prelude.=: enabled]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +21,54 @@ module Network.AWS.EC2.Types.ResponseError where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.LaunchTemplateErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the error that's returned when you cannot delete a launch template version.
+-- | Describes the error that\'s returned when you cannot delete a launch
+-- template version.
 --
---
---
--- /See:/ 'responseError' smart constructor.
+-- /See:/ 'newResponseError' smart constructor.
 data ResponseError = ResponseError'
-  { _reMessage ::
-      !(Maybe Text),
-    _reCode :: !(Maybe LaunchTemplateErrorCode)
+  { -- | The error message, if applicable.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    code :: Prelude.Maybe LaunchTemplateErrorCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResponseError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResponseError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'reMessage' - The error message, if applicable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'reCode' - The error code.
-responseError ::
+-- 'message', 'responseError_message' - The error message, if applicable.
+--
+-- 'code', 'responseError_code' - The error code.
+newResponseError ::
   ResponseError
-responseError =
+newResponseError =
   ResponseError'
-    { _reMessage = Nothing,
-      _reCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The error message, if applicable.
-reMessage :: Lens' ResponseError (Maybe Text)
-reMessage = lens _reMessage (\s a -> s {_reMessage = a})
+responseError_message :: Lens.Lens' ResponseError (Prelude.Maybe Prelude.Text)
+responseError_message = Lens.lens (\ResponseError' {message} -> message) (\s@ResponseError' {} a -> s {message = a} :: ResponseError)
 
 -- | The error code.
-reCode :: Lens' ResponseError (Maybe LaunchTemplateErrorCode)
-reCode = lens _reCode (\s a -> s {_reCode = a})
+responseError_code :: Lens.Lens' ResponseError (Prelude.Maybe LaunchTemplateErrorCode)
+responseError_code = Lens.lens (\ResponseError' {code} -> code) (\s@ResponseError' {} a -> s {code = a} :: ResponseError)
 
-instance FromXML ResponseError where
+instance Prelude.FromXML ResponseError where
   parseXML x =
     ResponseError'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
-instance Hashable ResponseError
+instance Prelude.Hashable ResponseError
 
-instance NFData ResponseError
+instance Prelude.NFData ResponseError

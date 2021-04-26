@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.Tenancy
   ( Tenancy
       ( ..,
-        Dedicated,
-        Default,
-        Host
+        TenancyDedicated,
+        TenancyDefault,
+        TenancyHost
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Tenancy = Tenancy' (CI Text)
+newtype Tenancy = Tenancy'
+  { fromTenancy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Dedicated :: Tenancy
-pattern Dedicated = Tenancy' "dedicated"
+pattern TenancyDedicated :: Tenancy
+pattern TenancyDedicated = Tenancy' "dedicated"
 
-pattern Default :: Tenancy
-pattern Default = Tenancy' "default"
+pattern TenancyDefault :: Tenancy
+pattern TenancyDefault = Tenancy' "default"
 
-pattern Host :: Tenancy
-pattern Host = Tenancy' "host"
+pattern TenancyHost :: Tenancy
+pattern TenancyHost = Tenancy' "host"
 
 {-# COMPLETE
-  Dedicated,
-  Default,
-  Host,
+  TenancyDedicated,
+  TenancyDefault,
+  TenancyHost,
   Tenancy'
   #-}
 
-instance FromText Tenancy where
-  parser = (Tenancy' . mk) <$> takeText
+instance Prelude.FromText Tenancy where
+  parser = Tenancy' Prelude.<$> Prelude.takeText
 
-instance ToText Tenancy where
-  toText (Tenancy' ci) = original ci
+instance Prelude.ToText Tenancy where
+  toText (Tenancy' x) = x
 
-instance Hashable Tenancy
+instance Prelude.Hashable Tenancy
 
-instance NFData Tenancy
+instance Prelude.NFData Tenancy
 
-instance ToByteString Tenancy
+instance Prelude.ToByteString Tenancy
 
-instance ToQuery Tenancy
+instance Prelude.ToQuery Tenancy
 
-instance ToHeader Tenancy
+instance Prelude.ToHeader Tenancy
 
-instance FromXML Tenancy where
-  parseXML = parseXMLText "Tenancy"
+instance Prelude.FromXML Tenancy where
+  parseXML = Prelude.parseXMLText "Tenancy"

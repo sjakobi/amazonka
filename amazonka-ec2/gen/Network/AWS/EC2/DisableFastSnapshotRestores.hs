@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables fast snapshot restores for the specified snapshots in the specified Availability Zones.
+-- Disables fast snapshot restores for the specified snapshots in the
+-- specified Availability Zones.
 module Network.AWS.EC2.DisableFastSnapshotRestores
   ( -- * Creating a Request
-    disableFastSnapshotRestores,
-    DisableFastSnapshotRestores,
+    DisableFastSnapshotRestores (..),
+    newDisableFastSnapshotRestores,
 
     -- * Request Lenses
-    dfsrDryRun,
-    dfsrAvailabilityZones,
-    dfsrSourceSnapshotIds,
+    disableFastSnapshotRestores_dryRun,
+    disableFastSnapshotRestores_availabilityZones,
+    disableFastSnapshotRestores_sourceSnapshotIds,
 
     -- * Destructuring the Response
-    disableFastSnapshotRestoresResponse,
-    DisableFastSnapshotRestoresResponse,
+    DisableFastSnapshotRestoresResponse (..),
+    newDisableFastSnapshotRestoresResponse,
 
     -- * Response Lenses
-    dfsrrrsUnsuccessful,
-    dfsrrrsSuccessful,
-    dfsrrrsResponseStatus,
+    disableFastSnapshotRestoresResponse_unsuccessful,
+    disableFastSnapshotRestoresResponse_successful,
+    disableFastSnapshotRestoresResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.DisableFastSnapshotRestoreErrorItem
+import Network.AWS.EC2.Types.DisableFastSnapshotRestoreSuccessItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableFastSnapshotRestores' smart constructor.
+-- | /See:/ 'newDisableFastSnapshotRestores' smart constructor.
 data DisableFastSnapshotRestores = DisableFastSnapshotRestores'
-  { _dfsrDryRun ::
-      !(Maybe Bool),
-    _dfsrAvailabilityZones ::
-      ![Text],
-    _dfsrSourceSnapshotIds ::
-      ![Text]
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more Availability Zones. For example, @us-east-2a@.
+    availabilityZones :: [Prelude.Text],
+    -- | The IDs of one or more snapshots. For example, @snap-1234567890abcdef0@.
+    sourceSnapshotIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableFastSnapshotRestores' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableFastSnapshotRestores' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsrAvailabilityZones' - One or more Availability Zones. For example, @us-east-2a@ .
+-- 'dryRun', 'disableFastSnapshotRestores_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dfsrSourceSnapshotIds' - The IDs of one or more snapshots. For example, @snap-1234567890abcdef0@ .
-disableFastSnapshotRestores ::
+-- 'availabilityZones', 'disableFastSnapshotRestores_availabilityZones' - One or more Availability Zones. For example, @us-east-2a@.
+--
+-- 'sourceSnapshotIds', 'disableFastSnapshotRestores_sourceSnapshotIds' - The IDs of one or more snapshots. For example, @snap-1234567890abcdef0@.
+newDisableFastSnapshotRestores ::
   DisableFastSnapshotRestores
-disableFastSnapshotRestores =
+newDisableFastSnapshotRestores =
   DisableFastSnapshotRestores'
-    { _dfsrDryRun = Nothing,
-      _dfsrAvailabilityZones = mempty,
-      _dfsrSourceSnapshotIds = mempty
+    { dryRun =
+        Prelude.Nothing,
+      availabilityZones = Prelude.mempty,
+      sourceSnapshotIds = Prelude.mempty
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dfsrDryRun :: Lens' DisableFastSnapshotRestores (Maybe Bool)
-dfsrDryRun = lens _dfsrDryRun (\s a -> s {_dfsrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+disableFastSnapshotRestores_dryRun :: Lens.Lens' DisableFastSnapshotRestores (Prelude.Maybe Prelude.Bool)
+disableFastSnapshotRestores_dryRun = Lens.lens (\DisableFastSnapshotRestores' {dryRun} -> dryRun) (\s@DisableFastSnapshotRestores' {} a -> s {dryRun = a} :: DisableFastSnapshotRestores)
 
--- | One or more Availability Zones. For example, @us-east-2a@ .
-dfsrAvailabilityZones :: Lens' DisableFastSnapshotRestores [Text]
-dfsrAvailabilityZones = lens _dfsrAvailabilityZones (\s a -> s {_dfsrAvailabilityZones = a}) . _Coerce
+-- | One or more Availability Zones. For example, @us-east-2a@.
+disableFastSnapshotRestores_availabilityZones :: Lens.Lens' DisableFastSnapshotRestores [Prelude.Text]
+disableFastSnapshotRestores_availabilityZones = Lens.lens (\DisableFastSnapshotRestores' {availabilityZones} -> availabilityZones) (\s@DisableFastSnapshotRestores' {} a -> s {availabilityZones = a} :: DisableFastSnapshotRestores) Prelude.. Prelude._Coerce
 
--- | The IDs of one or more snapshots. For example, @snap-1234567890abcdef0@ .
-dfsrSourceSnapshotIds :: Lens' DisableFastSnapshotRestores [Text]
-dfsrSourceSnapshotIds = lens _dfsrSourceSnapshotIds (\s a -> s {_dfsrSourceSnapshotIds = a}) . _Coerce
+-- | The IDs of one or more snapshots. For example, @snap-1234567890abcdef0@.
+disableFastSnapshotRestores_sourceSnapshotIds :: Lens.Lens' DisableFastSnapshotRestores [Prelude.Text]
+disableFastSnapshotRestores_sourceSnapshotIds = Lens.lens (\DisableFastSnapshotRestores' {sourceSnapshotIds} -> sourceSnapshotIds) (\s@DisableFastSnapshotRestores' {} a -> s {sourceSnapshotIds = a} :: DisableFastSnapshotRestores) Prelude.. Prelude._Coerce
 
-instance AWSRequest DisableFastSnapshotRestores where
+instance
+  Prelude.AWSRequest
+    DisableFastSnapshotRestores
+  where
   type
     Rs DisableFastSnapshotRestores =
       DisableFastSnapshotRestoresResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DisableFastSnapshotRestoresResponse'
-            <$> ( x .@? "unsuccessful" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> ( x .@? "successful" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "unsuccessful"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> ( x Prelude..@? "successful"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisableFastSnapshotRestores
+instance Prelude.Hashable DisableFastSnapshotRestores
 
-instance NFData DisableFastSnapshotRestores
+instance Prelude.NFData DisableFastSnapshotRestores
 
-instance ToHeaders DisableFastSnapshotRestores where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DisableFastSnapshotRestores
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DisableFastSnapshotRestores where
-  toPath = const "/"
+instance Prelude.ToPath DisableFastSnapshotRestores where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableFastSnapshotRestores where
+instance Prelude.ToQuery DisableFastSnapshotRestores where
   toQuery DisableFastSnapshotRestores' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DisableFastSnapshotRestores" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dfsrDryRun,
-        toQueryList
+          Prelude.=: ( "DisableFastSnapshotRestores" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQueryList
           "AvailabilityZone"
-          _dfsrAvailabilityZones,
-        toQueryList
+          availabilityZones,
+        Prelude.toQueryList
           "SourceSnapshotId"
-          _dfsrSourceSnapshotIds
+          sourceSnapshotIds
       ]
 
--- | /See:/ 'disableFastSnapshotRestoresResponse' smart constructor.
+-- | /See:/ 'newDisableFastSnapshotRestoresResponse' smart constructor.
 data DisableFastSnapshotRestoresResponse = DisableFastSnapshotRestoresResponse'
-  { _dfsrrrsUnsuccessful ::
-      !( Maybe
-           [DisableFastSnapshotRestoreErrorItem]
-       ),
-    _dfsrrrsSuccessful ::
-      !( Maybe
-           [DisableFastSnapshotRestoreSuccessItem]
-       ),
-    _dfsrrrsResponseStatus ::
-      !Int
+  { -- | Information about the snapshots for which fast snapshot restores could
+    -- not be disabled.
+    unsuccessful :: Prelude.Maybe [DisableFastSnapshotRestoreErrorItem],
+    -- | Information about the snapshots for which fast snapshot restores were
+    -- successfully disabled.
+    successful :: Prelude.Maybe [DisableFastSnapshotRestoreSuccessItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableFastSnapshotRestoresResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableFastSnapshotRestoresResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsrrrsUnsuccessful' - Information about the snapshots for which fast snapshot restores could not be disabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsrrrsSuccessful' - Information about the snapshots for which fast snapshot restores were successfully disabled.
+-- 'unsuccessful', 'disableFastSnapshotRestoresResponse_unsuccessful' - Information about the snapshots for which fast snapshot restores could
+-- not be disabled.
 --
--- * 'dfsrrrsResponseStatus' - -- | The response status code.
-disableFastSnapshotRestoresResponse ::
-  -- | 'dfsrrrsResponseStatus'
-  Int ->
+-- 'successful', 'disableFastSnapshotRestoresResponse_successful' - Information about the snapshots for which fast snapshot restores were
+-- successfully disabled.
+--
+-- 'httpStatus', 'disableFastSnapshotRestoresResponse_httpStatus' - The response's http status code.
+newDisableFastSnapshotRestoresResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisableFastSnapshotRestoresResponse
-disableFastSnapshotRestoresResponse pResponseStatus_ =
+newDisableFastSnapshotRestoresResponse pHttpStatus_ =
   DisableFastSnapshotRestoresResponse'
-    { _dfsrrrsUnsuccessful =
-        Nothing,
-      _dfsrrrsSuccessful = Nothing,
-      _dfsrrrsResponseStatus =
-        pResponseStatus_
+    { unsuccessful =
+        Prelude.Nothing,
+      successful = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the snapshots for which fast snapshot restores could not be disabled.
-dfsrrrsUnsuccessful :: Lens' DisableFastSnapshotRestoresResponse [DisableFastSnapshotRestoreErrorItem]
-dfsrrrsUnsuccessful = lens _dfsrrrsUnsuccessful (\s a -> s {_dfsrrrsUnsuccessful = a}) . _Default . _Coerce
+-- | Information about the snapshots for which fast snapshot restores could
+-- not be disabled.
+disableFastSnapshotRestoresResponse_unsuccessful :: Lens.Lens' DisableFastSnapshotRestoresResponse (Prelude.Maybe [DisableFastSnapshotRestoreErrorItem])
+disableFastSnapshotRestoresResponse_unsuccessful = Lens.lens (\DisableFastSnapshotRestoresResponse' {unsuccessful} -> unsuccessful) (\s@DisableFastSnapshotRestoresResponse' {} a -> s {unsuccessful = a} :: DisableFastSnapshotRestoresResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information about the snapshots for which fast snapshot restores were successfully disabled.
-dfsrrrsSuccessful :: Lens' DisableFastSnapshotRestoresResponse [DisableFastSnapshotRestoreSuccessItem]
-dfsrrrsSuccessful = lens _dfsrrrsSuccessful (\s a -> s {_dfsrrrsSuccessful = a}) . _Default . _Coerce
+-- | Information about the snapshots for which fast snapshot restores were
+-- successfully disabled.
+disableFastSnapshotRestoresResponse_successful :: Lens.Lens' DisableFastSnapshotRestoresResponse (Prelude.Maybe [DisableFastSnapshotRestoreSuccessItem])
+disableFastSnapshotRestoresResponse_successful = Lens.lens (\DisableFastSnapshotRestoresResponse' {successful} -> successful) (\s@DisableFastSnapshotRestoresResponse' {} a -> s {successful = a} :: DisableFastSnapshotRestoresResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dfsrrrsResponseStatus :: Lens' DisableFastSnapshotRestoresResponse Int
-dfsrrrsResponseStatus = lens _dfsrrrsResponseStatus (\s a -> s {_dfsrrrsResponseStatus = a})
+-- | The response's http status code.
+disableFastSnapshotRestoresResponse_httpStatus :: Lens.Lens' DisableFastSnapshotRestoresResponse Prelude.Int
+disableFastSnapshotRestoresResponse_httpStatus = Lens.lens (\DisableFastSnapshotRestoresResponse' {httpStatus} -> httpStatus) (\s@DisableFastSnapshotRestoresResponse' {} a -> s {httpStatus = a} :: DisableFastSnapshotRestoresResponse)
 
-instance NFData DisableFastSnapshotRestoresResponse
+instance
+  Prelude.NFData
+    DisableFastSnapshotRestoresResponse

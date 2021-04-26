@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,53 @@
 module Network.AWS.EC2.Types.SpotInstanceStateFault where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Spot Instance state change.
 --
---
---
--- /See:/ 'spotInstanceStateFault' smart constructor.
+-- /See:/ 'newSpotInstanceStateFault' smart constructor.
 data SpotInstanceStateFault = SpotInstanceStateFault'
-  { _sisfMessage ::
-      !(Maybe Text),
-    _sisfCode ::
-      !(Maybe Text)
+  { -- | The message for the Spot Instance state change.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The reason code for the Spot Instance state change.
+    code :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SpotInstanceStateFault' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SpotInstanceStateFault' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sisfMessage' - The message for the Spot Instance state change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sisfCode' - The reason code for the Spot Instance state change.
-spotInstanceStateFault ::
+-- 'message', 'spotInstanceStateFault_message' - The message for the Spot Instance state change.
+--
+-- 'code', 'spotInstanceStateFault_code' - The reason code for the Spot Instance state change.
+newSpotInstanceStateFault ::
   SpotInstanceStateFault
-spotInstanceStateFault =
+newSpotInstanceStateFault =
   SpotInstanceStateFault'
-    { _sisfMessage = Nothing,
-      _sisfCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The message for the Spot Instance state change.
-sisfMessage :: Lens' SpotInstanceStateFault (Maybe Text)
-sisfMessage = lens _sisfMessage (\s a -> s {_sisfMessage = a})
+spotInstanceStateFault_message :: Lens.Lens' SpotInstanceStateFault (Prelude.Maybe Prelude.Text)
+spotInstanceStateFault_message = Lens.lens (\SpotInstanceStateFault' {message} -> message) (\s@SpotInstanceStateFault' {} a -> s {message = a} :: SpotInstanceStateFault)
 
 -- | The reason code for the Spot Instance state change.
-sisfCode :: Lens' SpotInstanceStateFault (Maybe Text)
-sisfCode = lens _sisfCode (\s a -> s {_sisfCode = a})
+spotInstanceStateFault_code :: Lens.Lens' SpotInstanceStateFault (Prelude.Maybe Prelude.Text)
+spotInstanceStateFault_code = Lens.lens (\SpotInstanceStateFault' {code} -> code) (\s@SpotInstanceStateFault' {} a -> s {code = a} :: SpotInstanceStateFault)
 
-instance FromXML SpotInstanceStateFault where
+instance Prelude.FromXML SpotInstanceStateFault where
   parseXML x =
     SpotInstanceStateFault'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
-instance Hashable SpotInstanceStateFault
+instance Prelude.Hashable SpotInstanceStateFault
 
-instance NFData SpotInstanceStateFault
+instance Prelude.NFData SpotInstanceStateFault

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,61 @@
 module Network.AWS.EC2.Types.DisableFastSnapshotRestoreStateError where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an error that occurred when disabling fast snapshot restores.
 --
---
---
--- /See:/ 'disableFastSnapshotRestoreStateError' smart constructor.
+-- /See:/ 'newDisableFastSnapshotRestoreStateError' smart constructor.
 data DisableFastSnapshotRestoreStateError = DisableFastSnapshotRestoreStateError'
-  { _dfsrseMessage ::
-      !( Maybe
-           Text
-       ),
-    _dfsrseCode ::
-      !( Maybe
-           Text
-       )
+  { -- | The error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    code :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableFastSnapshotRestoreStateError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableFastSnapshotRestoreStateError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsrseMessage' - The error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsrseCode' - The error code.
-disableFastSnapshotRestoreStateError ::
+-- 'message', 'disableFastSnapshotRestoreStateError_message' - The error message.
+--
+-- 'code', 'disableFastSnapshotRestoreStateError_code' - The error code.
+newDisableFastSnapshotRestoreStateError ::
   DisableFastSnapshotRestoreStateError
-disableFastSnapshotRestoreStateError =
+newDisableFastSnapshotRestoreStateError =
   DisableFastSnapshotRestoreStateError'
-    { _dfsrseMessage =
-        Nothing,
-      _dfsrseCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The error message.
-dfsrseMessage :: Lens' DisableFastSnapshotRestoreStateError (Maybe Text)
-dfsrseMessage = lens _dfsrseMessage (\s a -> s {_dfsrseMessage = a})
+disableFastSnapshotRestoreStateError_message :: Lens.Lens' DisableFastSnapshotRestoreStateError (Prelude.Maybe Prelude.Text)
+disableFastSnapshotRestoreStateError_message = Lens.lens (\DisableFastSnapshotRestoreStateError' {message} -> message) (\s@DisableFastSnapshotRestoreStateError' {} a -> s {message = a} :: DisableFastSnapshotRestoreStateError)
 
 -- | The error code.
-dfsrseCode :: Lens' DisableFastSnapshotRestoreStateError (Maybe Text)
-dfsrseCode = lens _dfsrseCode (\s a -> s {_dfsrseCode = a})
-
-instance FromXML DisableFastSnapshotRestoreStateError where
-  parseXML x =
-    DisableFastSnapshotRestoreStateError'
-      <$> (x .@? "message") <*> (x .@? "code")
+disableFastSnapshotRestoreStateError_code :: Lens.Lens' DisableFastSnapshotRestoreStateError (Prelude.Maybe Prelude.Text)
+disableFastSnapshotRestoreStateError_code = Lens.lens (\DisableFastSnapshotRestoreStateError' {code} -> code) (\s@DisableFastSnapshotRestoreStateError' {} a -> s {code = a} :: DisableFastSnapshotRestoreStateError)
 
 instance
-  Hashable
+  Prelude.FromXML
+    DisableFastSnapshotRestoreStateError
+  where
+  parseXML x =
+    DisableFastSnapshotRestoreStateError'
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
+
+instance
+  Prelude.Hashable
     DisableFastSnapshotRestoreStateError
 
-instance NFData DisableFastSnapshotRestoreStateError
+instance
+  Prelude.NFData
+    DisableFastSnapshotRestoreStateError

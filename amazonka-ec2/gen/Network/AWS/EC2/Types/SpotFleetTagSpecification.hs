@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,70 +22,76 @@ module Network.AWS.EC2.Types.SpotFleetTagSpecification where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ResourceType
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The tags for a Spot Fleet resource.
 --
---
---
--- /See:/ 'spotFleetTagSpecification' smart constructor.
+-- /See:/ 'newSpotFleetTagSpecification' smart constructor.
 data SpotFleetTagSpecification = SpotFleetTagSpecification'
-  { _sftsResourceType ::
-      !( Maybe
-           ResourceType
-       ),
-    _sftsTags ::
-      !(Maybe [Tag])
+  { -- | The type of resource. Currently, the only resource type that is
+    -- supported is @instance@. To tag the Spot Fleet request on creation, use
+    -- the @TagSpecifications@ parameter in
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html SpotFleetRequestConfigData>
+    -- .
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The tags.
+    tags :: Prelude.Maybe [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SpotFleetTagSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SpotFleetTagSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sftsResourceType' - The type of resource. Currently, the only resource type that is supported is @instance@ . To tag the Spot Fleet request on creation, use the @TagSpecifications@ parameter in <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html @SpotFleetRequestConfigData@ > .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sftsTags' - The tags.
-spotFleetTagSpecification ::
+-- 'resourceType', 'spotFleetTagSpecification_resourceType' - The type of resource. Currently, the only resource type that is
+-- supported is @instance@. To tag the Spot Fleet request on creation, use
+-- the @TagSpecifications@ parameter in
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html SpotFleetRequestConfigData>
+-- .
+--
+-- 'tags', 'spotFleetTagSpecification_tags' - The tags.
+newSpotFleetTagSpecification ::
   SpotFleetTagSpecification
-spotFleetTagSpecification =
+newSpotFleetTagSpecification =
   SpotFleetTagSpecification'
-    { _sftsResourceType =
-        Nothing,
-      _sftsTags = Nothing
+    { resourceType =
+        Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
--- | The type of resource. Currently, the only resource type that is supported is @instance@ . To tag the Spot Fleet request on creation, use the @TagSpecifications@ parameter in <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html @SpotFleetRequestConfigData@ > .
-sftsResourceType :: Lens' SpotFleetTagSpecification (Maybe ResourceType)
-sftsResourceType = lens _sftsResourceType (\s a -> s {_sftsResourceType = a})
+-- | The type of resource. Currently, the only resource type that is
+-- supported is @instance@. To tag the Spot Fleet request on creation, use
+-- the @TagSpecifications@ parameter in
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html SpotFleetRequestConfigData>
+-- .
+spotFleetTagSpecification_resourceType :: Lens.Lens' SpotFleetTagSpecification (Prelude.Maybe ResourceType)
+spotFleetTagSpecification_resourceType = Lens.lens (\SpotFleetTagSpecification' {resourceType} -> resourceType) (\s@SpotFleetTagSpecification' {} a -> s {resourceType = a} :: SpotFleetTagSpecification)
 
 -- | The tags.
-sftsTags :: Lens' SpotFleetTagSpecification [Tag]
-sftsTags = lens _sftsTags (\s a -> s {_sftsTags = a}) . _Default . _Coerce
+spotFleetTagSpecification_tags :: Lens.Lens' SpotFleetTagSpecification (Prelude.Maybe [Tag])
+spotFleetTagSpecification_tags = Lens.lens (\SpotFleetTagSpecification' {tags} -> tags) (\s@SpotFleetTagSpecification' {} a -> s {tags = a} :: SpotFleetTagSpecification) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML SpotFleetTagSpecification where
+instance Prelude.FromXML SpotFleetTagSpecification where
   parseXML x =
     SpotFleetTagSpecification'
-      <$> (x .@? "resourceType")
-      <*> ( x .@? "tag" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "resourceType")
+      Prelude.<*> ( x Prelude..@? "tag" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable SpotFleetTagSpecification
+instance Prelude.Hashable SpotFleetTagSpecification
 
-instance NFData SpotFleetTagSpecification
+instance Prelude.NFData SpotFleetTagSpecification
 
-instance ToQuery SpotFleetTagSpecification where
+instance Prelude.ToQuery SpotFleetTagSpecification where
   toQuery SpotFleetTagSpecification' {..} =
-    mconcat
-      [ "ResourceType" =: _sftsResourceType,
-        toQuery (toQueryList "Tag" <$> _sftsTags)
+    Prelude.mconcat
+      [ "ResourceType" Prelude.=: resourceType,
+        Prelude.toQuery
+          (Prelude.toQueryList "Tag" Prelude.<$> tags)
       ]

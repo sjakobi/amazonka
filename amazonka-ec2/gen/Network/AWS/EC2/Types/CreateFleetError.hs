@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,72 +22,95 @@ module Network.AWS.EC2.Types.CreateFleetError where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceLifecycle
 import Network.AWS.EC2.Types.LaunchTemplateAndOverridesResponse
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the instances that could not be launched by the fleet.
 --
---
---
--- /See:/ 'createFleetError' smart constructor.
+-- /See:/ 'newCreateFleetError' smart constructor.
 data CreateFleetError = CreateFleetError'
-  { _cfeLaunchTemplateAndOverrides ::
-      !( Maybe
-           LaunchTemplateAndOverridesResponse
-       ),
-    _cfeLifecycle ::
-      !(Maybe InstanceLifecycle),
-    _cfeErrorMessage :: !(Maybe Text),
-    _cfeErrorCode :: !(Maybe Text)
+  { -- | The launch templates and overrides that were used for launching the
+    -- instances. The values that you specify in the Overrides replace the
+    -- values in the launch template.
+    launchTemplateAndOverrides :: Prelude.Maybe LaunchTemplateAndOverridesResponse,
+    -- | Indicates if the instance that could not be launched was a Spot Instance
+    -- or On-Demand Instance.
+    lifecycle :: Prelude.Maybe InstanceLifecycle,
+    -- | The error message that describes why the instance could not be launched.
+    -- For more information about error messages, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code that indicates why the instance could not be launched.
+    -- For more information about error codes, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFleetError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFleetError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfeLaunchTemplateAndOverrides' - The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfeLifecycle' - Indicates if the instance that could not be launched was a Spot Instance or On-Demand Instance.
+-- 'launchTemplateAndOverrides', 'createFleetError_launchTemplateAndOverrides' - The launch templates and overrides that were used for launching the
+-- instances. The values that you specify in the Overrides replace the
+-- values in the launch template.
 --
--- * 'cfeErrorMessage' - The error message that describes why the instance could not be launched. For more information about error messages, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
+-- 'lifecycle', 'createFleetError_lifecycle' - Indicates if the instance that could not be launched was a Spot Instance
+-- or On-Demand Instance.
 --
--- * 'cfeErrorCode' - The error code that indicates why the instance could not be launched. For more information about error codes, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
-createFleetError ::
+-- 'errorMessage', 'createFleetError_errorMessage' - The error message that describes why the instance could not be launched.
+-- For more information about error messages, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+--
+-- 'errorCode', 'createFleetError_errorCode' - The error code that indicates why the instance could not be launched.
+-- For more information about error codes, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+newCreateFleetError ::
   CreateFleetError
-createFleetError =
+newCreateFleetError =
   CreateFleetError'
-    { _cfeLaunchTemplateAndOverrides =
-        Nothing,
-      _cfeLifecycle = Nothing,
-      _cfeErrorMessage = Nothing,
-      _cfeErrorCode = Nothing
+    { launchTemplateAndOverrides =
+        Prelude.Nothing,
+      lifecycle = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
--- | The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.
-cfeLaunchTemplateAndOverrides :: Lens' CreateFleetError (Maybe LaunchTemplateAndOverridesResponse)
-cfeLaunchTemplateAndOverrides = lens _cfeLaunchTemplateAndOverrides (\s a -> s {_cfeLaunchTemplateAndOverrides = a})
+-- | The launch templates and overrides that were used for launching the
+-- instances. The values that you specify in the Overrides replace the
+-- values in the launch template.
+createFleetError_launchTemplateAndOverrides :: Lens.Lens' CreateFleetError (Prelude.Maybe LaunchTemplateAndOverridesResponse)
+createFleetError_launchTemplateAndOverrides = Lens.lens (\CreateFleetError' {launchTemplateAndOverrides} -> launchTemplateAndOverrides) (\s@CreateFleetError' {} a -> s {launchTemplateAndOverrides = a} :: CreateFleetError)
 
--- | Indicates if the instance that could not be launched was a Spot Instance or On-Demand Instance.
-cfeLifecycle :: Lens' CreateFleetError (Maybe InstanceLifecycle)
-cfeLifecycle = lens _cfeLifecycle (\s a -> s {_cfeLifecycle = a})
+-- | Indicates if the instance that could not be launched was a Spot Instance
+-- or On-Demand Instance.
+createFleetError_lifecycle :: Lens.Lens' CreateFleetError (Prelude.Maybe InstanceLifecycle)
+createFleetError_lifecycle = Lens.lens (\CreateFleetError' {lifecycle} -> lifecycle) (\s@CreateFleetError' {} a -> s {lifecycle = a} :: CreateFleetError)
 
--- | The error message that describes why the instance could not be launched. For more information about error messages, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
-cfeErrorMessage :: Lens' CreateFleetError (Maybe Text)
-cfeErrorMessage = lens _cfeErrorMessage (\s a -> s {_cfeErrorMessage = a})
+-- | The error message that describes why the instance could not be launched.
+-- For more information about error messages, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+createFleetError_errorMessage :: Lens.Lens' CreateFleetError (Prelude.Maybe Prelude.Text)
+createFleetError_errorMessage = Lens.lens (\CreateFleetError' {errorMessage} -> errorMessage) (\s@CreateFleetError' {} a -> s {errorMessage = a} :: CreateFleetError)
 
--- | The error code that indicates why the instance could not be launched. For more information about error codes, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
-cfeErrorCode :: Lens' CreateFleetError (Maybe Text)
-cfeErrorCode = lens _cfeErrorCode (\s a -> s {_cfeErrorCode = a})
+-- | The error code that indicates why the instance could not be launched.
+-- For more information about error codes, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+createFleetError_errorCode :: Lens.Lens' CreateFleetError (Prelude.Maybe Prelude.Text)
+createFleetError_errorCode = Lens.lens (\CreateFleetError' {errorCode} -> errorCode) (\s@CreateFleetError' {} a -> s {errorCode = a} :: CreateFleetError)
 
-instance FromXML CreateFleetError where
+instance Prelude.FromXML CreateFleetError where
   parseXML x =
     CreateFleetError'
-      <$> (x .@? "launchTemplateAndOverrides")
-      <*> (x .@? "lifecycle")
-      <*> (x .@? "errorMessage")
-      <*> (x .@? "errorCode")
+      Prelude.<$> (x Prelude..@? "launchTemplateAndOverrides")
+      Prelude.<*> (x Prelude..@? "lifecycle")
+      Prelude.<*> (x Prelude..@? "errorMessage")
+      Prelude.<*> (x Prelude..@? "errorCode")
 
-instance Hashable CreateFleetError
+instance Prelude.Hashable CreateFleetError
 
-instance NFData CreateFleetError
+instance Prelude.NFData CreateFleetError

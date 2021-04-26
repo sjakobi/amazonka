@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,62 @@ module Network.AWS.EC2.Types.TransitGatewayAttachmentAssociation where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.TransitGatewayAssociationState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an association.
 --
---
---
--- /See:/ 'transitGatewayAttachmentAssociation' smart constructor.
+-- /See:/ 'newTransitGatewayAttachmentAssociation' smart constructor.
 data TransitGatewayAttachmentAssociation = TransitGatewayAttachmentAssociation'
-  { _tgaaState ::
-      !( Maybe
-           TransitGatewayAssociationState
-       ),
-    _tgaaTransitGatewayRouteTableId ::
-      !( Maybe
-           Text
-       )
+  { -- | The state of the association.
+    state :: Prelude.Maybe TransitGatewayAssociationState,
+    -- | The ID of the route table for the transit gateway.
+    transitGatewayRouteTableId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGatewayAttachmentAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGatewayAttachmentAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgaaState' - The state of the association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgaaTransitGatewayRouteTableId' - The ID of the route table for the transit gateway.
-transitGatewayAttachmentAssociation ::
+-- 'state', 'transitGatewayAttachmentAssociation_state' - The state of the association.
+--
+-- 'transitGatewayRouteTableId', 'transitGatewayAttachmentAssociation_transitGatewayRouteTableId' - The ID of the route table for the transit gateway.
+newTransitGatewayAttachmentAssociation ::
   TransitGatewayAttachmentAssociation
-transitGatewayAttachmentAssociation =
+newTransitGatewayAttachmentAssociation =
   TransitGatewayAttachmentAssociation'
-    { _tgaaState =
-        Nothing,
-      _tgaaTransitGatewayRouteTableId =
-        Nothing
+    { state =
+        Prelude.Nothing,
+      transitGatewayRouteTableId =
+        Prelude.Nothing
     }
 
 -- | The state of the association.
-tgaaState :: Lens' TransitGatewayAttachmentAssociation (Maybe TransitGatewayAssociationState)
-tgaaState = lens _tgaaState (\s a -> s {_tgaaState = a})
+transitGatewayAttachmentAssociation_state :: Lens.Lens' TransitGatewayAttachmentAssociation (Prelude.Maybe TransitGatewayAssociationState)
+transitGatewayAttachmentAssociation_state = Lens.lens (\TransitGatewayAttachmentAssociation' {state} -> state) (\s@TransitGatewayAttachmentAssociation' {} a -> s {state = a} :: TransitGatewayAttachmentAssociation)
 
 -- | The ID of the route table for the transit gateway.
-tgaaTransitGatewayRouteTableId :: Lens' TransitGatewayAttachmentAssociation (Maybe Text)
-tgaaTransitGatewayRouteTableId = lens _tgaaTransitGatewayRouteTableId (\s a -> s {_tgaaTransitGatewayRouteTableId = a})
+transitGatewayAttachmentAssociation_transitGatewayRouteTableId :: Lens.Lens' TransitGatewayAttachmentAssociation (Prelude.Maybe Prelude.Text)
+transitGatewayAttachmentAssociation_transitGatewayRouteTableId = Lens.lens (\TransitGatewayAttachmentAssociation' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@TransitGatewayAttachmentAssociation' {} a -> s {transitGatewayRouteTableId = a} :: TransitGatewayAttachmentAssociation)
 
-instance FromXML TransitGatewayAttachmentAssociation where
+instance
+  Prelude.FromXML
+    TransitGatewayAttachmentAssociation
+  where
   parseXML x =
     TransitGatewayAttachmentAssociation'
-      <$> (x .@? "state")
-      <*> (x .@? "transitGatewayRouteTableId")
+      Prelude.<$> (x Prelude..@? "state")
+      Prelude.<*> (x Prelude..@? "transitGatewayRouteTableId")
 
-instance Hashable TransitGatewayAttachmentAssociation
+instance
+  Prelude.Hashable
+    TransitGatewayAttachmentAssociation
 
-instance NFData TransitGatewayAttachmentAssociation
+instance
+  Prelude.NFData
+    TransitGatewayAttachmentAssociation

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,63 @@
 module Network.AWS.EC2.Types.PtrUpdateStatus where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of an updated pointer (PTR) record for an Elastic IP address.
 --
---
---
--- /See:/ 'ptrUpdateStatus' smart constructor.
+-- /See:/ 'newPtrUpdateStatus' smart constructor.
 data PtrUpdateStatus = PtrUpdateStatus'
-  { _pusStatus ::
-      !(Maybe Text),
-    _pusReason :: !(Maybe Text),
-    _pusValue :: !(Maybe Text)
+  { -- | The status of the PTR record update.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The reason for the PTR record update.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The value for the PTR record update.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PtrUpdateStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PtrUpdateStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pusStatus' - The status of the PTR record update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pusReason' - The reason for the PTR record update.
+-- 'status', 'ptrUpdateStatus_status' - The status of the PTR record update.
 --
--- * 'pusValue' - The value for the PTR record update.
-ptrUpdateStatus ::
+-- 'reason', 'ptrUpdateStatus_reason' - The reason for the PTR record update.
+--
+-- 'value', 'ptrUpdateStatus_value' - The value for the PTR record update.
+newPtrUpdateStatus ::
   PtrUpdateStatus
-ptrUpdateStatus =
+newPtrUpdateStatus =
   PtrUpdateStatus'
-    { _pusStatus = Nothing,
-      _pusReason = Nothing,
-      _pusValue = Nothing
+    { status = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The status of the PTR record update.
-pusStatus :: Lens' PtrUpdateStatus (Maybe Text)
-pusStatus = lens _pusStatus (\s a -> s {_pusStatus = a})
+ptrUpdateStatus_status :: Lens.Lens' PtrUpdateStatus (Prelude.Maybe Prelude.Text)
+ptrUpdateStatus_status = Lens.lens (\PtrUpdateStatus' {status} -> status) (\s@PtrUpdateStatus' {} a -> s {status = a} :: PtrUpdateStatus)
 
 -- | The reason for the PTR record update.
-pusReason :: Lens' PtrUpdateStatus (Maybe Text)
-pusReason = lens _pusReason (\s a -> s {_pusReason = a})
+ptrUpdateStatus_reason :: Lens.Lens' PtrUpdateStatus (Prelude.Maybe Prelude.Text)
+ptrUpdateStatus_reason = Lens.lens (\PtrUpdateStatus' {reason} -> reason) (\s@PtrUpdateStatus' {} a -> s {reason = a} :: PtrUpdateStatus)
 
 -- | The value for the PTR record update.
-pusValue :: Lens' PtrUpdateStatus (Maybe Text)
-pusValue = lens _pusValue (\s a -> s {_pusValue = a})
+ptrUpdateStatus_value :: Lens.Lens' PtrUpdateStatus (Prelude.Maybe Prelude.Text)
+ptrUpdateStatus_value = Lens.lens (\PtrUpdateStatus' {value} -> value) (\s@PtrUpdateStatus' {} a -> s {value = a} :: PtrUpdateStatus)
 
-instance FromXML PtrUpdateStatus where
+instance Prelude.FromXML PtrUpdateStatus where
   parseXML x =
     PtrUpdateStatus'
-      <$> (x .@? "status")
-      <*> (x .@? "reason")
-      <*> (x .@? "value")
+      Prelude.<$> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "reason")
+      Prelude.<*> (x Prelude..@? "value")
 
-instance Hashable PtrUpdateStatus
+instance Prelude.Hashable PtrUpdateStatus
 
-instance NFData PtrUpdateStatus
+instance Prelude.NFData PtrUpdateStatus

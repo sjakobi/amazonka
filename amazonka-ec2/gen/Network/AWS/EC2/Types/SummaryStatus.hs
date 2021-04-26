@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.EC2.Types.SummaryStatus
   ( SummaryStatus
       ( ..,
-        SSImpaired,
-        SSInitializing,
-        SSInsufficientData,
-        SSNotApplicable,
-        SSOK
+        SummaryStatusImpaired,
+        SummaryStatusInitializing,
+        SummaryStatusInsufficientData,
+        SummaryStatusNotApplicable,
+        SummaryStatusOK
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SummaryStatus = SummaryStatus' (CI Text)
+newtype SummaryStatus = SummaryStatus'
+  { fromSummaryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSImpaired :: SummaryStatus
-pattern SSImpaired = SummaryStatus' "impaired"
+pattern SummaryStatusImpaired :: SummaryStatus
+pattern SummaryStatusImpaired = SummaryStatus' "impaired"
 
-pattern SSInitializing :: SummaryStatus
-pattern SSInitializing = SummaryStatus' "initializing"
+pattern SummaryStatusInitializing :: SummaryStatus
+pattern SummaryStatusInitializing = SummaryStatus' "initializing"
 
-pattern SSInsufficientData :: SummaryStatus
-pattern SSInsufficientData = SummaryStatus' "insufficient-data"
+pattern SummaryStatusInsufficientData :: SummaryStatus
+pattern SummaryStatusInsufficientData = SummaryStatus' "insufficient-data"
 
-pattern SSNotApplicable :: SummaryStatus
-pattern SSNotApplicable = SummaryStatus' "not-applicable"
+pattern SummaryStatusNotApplicable :: SummaryStatus
+pattern SummaryStatusNotApplicable = SummaryStatus' "not-applicable"
 
-pattern SSOK :: SummaryStatus
-pattern SSOK = SummaryStatus' "ok"
+pattern SummaryStatusOK :: SummaryStatus
+pattern SummaryStatusOK = SummaryStatus' "ok"
 
 {-# COMPLETE
-  SSImpaired,
-  SSInitializing,
-  SSInsufficientData,
-  SSNotApplicable,
-  SSOK,
+  SummaryStatusImpaired,
+  SummaryStatusInitializing,
+  SummaryStatusInsufficientData,
+  SummaryStatusNotApplicable,
+  SummaryStatusOK,
   SummaryStatus'
   #-}
 
-instance FromText SummaryStatus where
-  parser = (SummaryStatus' . mk) <$> takeText
+instance Prelude.FromText SummaryStatus where
+  parser = SummaryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SummaryStatus where
-  toText (SummaryStatus' ci) = original ci
+instance Prelude.ToText SummaryStatus where
+  toText (SummaryStatus' x) = x
 
-instance Hashable SummaryStatus
+instance Prelude.Hashable SummaryStatus
 
-instance NFData SummaryStatus
+instance Prelude.NFData SummaryStatus
 
-instance ToByteString SummaryStatus
+instance Prelude.ToByteString SummaryStatus
 
-instance ToQuery SummaryStatus
+instance Prelude.ToQuery SummaryStatus
 
-instance ToHeader SummaryStatus
+instance Prelude.ToHeader SummaryStatus
 
-instance FromXML SummaryStatus where
-  parseXML = parseXMLText "SummaryStatus"
+instance Prelude.FromXML SummaryStatus where
+  parseXML = Prelude.parseXMLText "SummaryStatus"

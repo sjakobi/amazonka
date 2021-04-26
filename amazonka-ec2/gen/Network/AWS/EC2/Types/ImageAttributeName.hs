@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.EC2.Types.ImageAttributeName
   ( ImageAttributeName
       ( ..,
-        IANBlockDeviceMapping,
-        IANDescription,
-        IANKernel,
-        IANLaunchPermission,
-        IANProductCodes,
-        IANRAMDisk,
-        IANSRIOVNetSupport
+        ImageAttributeNameBlockDeviceMapping,
+        ImageAttributeNameDescription,
+        ImageAttributeNameKernel,
+        ImageAttributeNameLaunchPermission,
+        ImageAttributeNameProductCodes,
+        ImageAttributeNameRamdisk,
+        ImageAttributeNameSriovNetSupport
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageAttributeName
-  = ImageAttributeName'
-      ( CI
-          Text
-      )
+newtype ImageAttributeName = ImageAttributeName'
+  { fromImageAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IANBlockDeviceMapping :: ImageAttributeName
-pattern IANBlockDeviceMapping = ImageAttributeName' "blockDeviceMapping"
+pattern ImageAttributeNameBlockDeviceMapping :: ImageAttributeName
+pattern ImageAttributeNameBlockDeviceMapping = ImageAttributeName' "blockDeviceMapping"
 
-pattern IANDescription :: ImageAttributeName
-pattern IANDescription = ImageAttributeName' "description"
+pattern ImageAttributeNameDescription :: ImageAttributeName
+pattern ImageAttributeNameDescription = ImageAttributeName' "description"
 
-pattern IANKernel :: ImageAttributeName
-pattern IANKernel = ImageAttributeName' "kernel"
+pattern ImageAttributeNameKernel :: ImageAttributeName
+pattern ImageAttributeNameKernel = ImageAttributeName' "kernel"
 
-pattern IANLaunchPermission :: ImageAttributeName
-pattern IANLaunchPermission = ImageAttributeName' "launchPermission"
+pattern ImageAttributeNameLaunchPermission :: ImageAttributeName
+pattern ImageAttributeNameLaunchPermission = ImageAttributeName' "launchPermission"
 
-pattern IANProductCodes :: ImageAttributeName
-pattern IANProductCodes = ImageAttributeName' "productCodes"
+pattern ImageAttributeNameProductCodes :: ImageAttributeName
+pattern ImageAttributeNameProductCodes = ImageAttributeName' "productCodes"
 
-pattern IANRAMDisk :: ImageAttributeName
-pattern IANRAMDisk = ImageAttributeName' "ramdisk"
+pattern ImageAttributeNameRamdisk :: ImageAttributeName
+pattern ImageAttributeNameRamdisk = ImageAttributeName' "ramdisk"
 
-pattern IANSRIOVNetSupport :: ImageAttributeName
-pattern IANSRIOVNetSupport = ImageAttributeName' "sriovNetSupport"
+pattern ImageAttributeNameSriovNetSupport :: ImageAttributeName
+pattern ImageAttributeNameSriovNetSupport = ImageAttributeName' "sriovNetSupport"
 
 {-# COMPLETE
-  IANBlockDeviceMapping,
-  IANDescription,
-  IANKernel,
-  IANLaunchPermission,
-  IANProductCodes,
-  IANRAMDisk,
-  IANSRIOVNetSupport,
+  ImageAttributeNameBlockDeviceMapping,
+  ImageAttributeNameDescription,
+  ImageAttributeNameKernel,
+  ImageAttributeNameLaunchPermission,
+  ImageAttributeNameProductCodes,
+  ImageAttributeNameRamdisk,
+  ImageAttributeNameSriovNetSupport,
   ImageAttributeName'
   #-}
 
-instance FromText ImageAttributeName where
-  parser = (ImageAttributeName' . mk) <$> takeText
+instance Prelude.FromText ImageAttributeName where
+  parser = ImageAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText ImageAttributeName where
-  toText (ImageAttributeName' ci) = original ci
+instance Prelude.ToText ImageAttributeName where
+  toText (ImageAttributeName' x) = x
 
-instance Hashable ImageAttributeName
+instance Prelude.Hashable ImageAttributeName
 
-instance NFData ImageAttributeName
+instance Prelude.NFData ImageAttributeName
 
-instance ToByteString ImageAttributeName
+instance Prelude.ToByteString ImageAttributeName
 
-instance ToQuery ImageAttributeName
+instance Prelude.ToQuery ImageAttributeName
 
-instance ToHeader ImageAttributeName
+instance Prelude.ToHeader ImageAttributeName

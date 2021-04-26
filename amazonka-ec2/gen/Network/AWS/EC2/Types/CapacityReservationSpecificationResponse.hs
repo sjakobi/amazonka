@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,71 +22,96 @@ module Network.AWS.EC2.Types.CapacityReservationSpecificationResponse where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.CapacityReservationPreference
 import Network.AWS.EC2.Types.CapacityReservationTargetResponse
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the instance's Capacity Reservation targeting preferences. The action returns the @capacityReservationPreference@ response element if the instance is configured to run in On-Demand capacity, or if it is configured in run in any @open@ Capacity Reservation that has matching attributes (instance type, platform, Availability Zone). The action returns the @capacityReservationTarget@ response element if the instance explicily targets a specific Capacity Reservation or Capacity Reservation group.
+-- | Describes the instance\'s Capacity Reservation targeting preferences.
+-- The action returns the @capacityReservationPreference@ response element
+-- if the instance is configured to run in On-Demand capacity, or if it is
+-- configured in run in any @open@ Capacity Reservation that has matching
+-- attributes (instance type, platform, Availability Zone). The action
+-- returns the @capacityReservationTarget@ response element if the instance
+-- explicily targets a specific Capacity Reservation or Capacity
+-- Reservation group.
 --
---
---
--- /See:/ 'capacityReservationSpecificationResponse' smart constructor.
+-- /See:/ 'newCapacityReservationSpecificationResponse' smart constructor.
 data CapacityReservationSpecificationResponse = CapacityReservationSpecificationResponse'
-  { _crsrCapacityReservationPreference ::
-      !( Maybe
-           CapacityReservationPreference
-       ),
-    _crsrCapacityReservationTarget ::
-      !( Maybe
-           CapacityReservationTargetResponse
-       )
+  { -- | Describes the instance\'s Capacity Reservation preferences. Possible
+    -- preferences include:
+    --
+    -- -   @open@ - The instance can run in any @open@ Capacity Reservation
+    --     that has matching attributes (instance type, platform, Availability
+    --     Zone).
+    --
+    -- -   @none@ - The instance avoids running in a Capacity Reservation even
+    --     if one is available. The instance runs in On-Demand capacity.
+    capacityReservationPreference :: Prelude.Maybe CapacityReservationPreference,
+    -- | Information about the targeted Capacity Reservation or Capacity
+    -- Reservation group.
+    capacityReservationTarget :: Prelude.Maybe CapacityReservationTargetResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CapacityReservationSpecificationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CapacityReservationSpecificationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsrCapacityReservationPreference' - Describes the instance's Capacity Reservation preferences. Possible preferences include:     * @open@ - The instance can run in any @open@ Capacity Reservation that has matching attributes (instance type, platform, Availability Zone).     * @none@ - The instance avoids running in a Capacity Reservation even if one is available. The instance runs in On-Demand capacity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crsrCapacityReservationTarget' - Information about the targeted Capacity Reservation or Capacity Reservation group.
-capacityReservationSpecificationResponse ::
+-- 'capacityReservationPreference', 'capacityReservationSpecificationResponse_capacityReservationPreference' - Describes the instance\'s Capacity Reservation preferences. Possible
+-- preferences include:
+--
+-- -   @open@ - The instance can run in any @open@ Capacity Reservation
+--     that has matching attributes (instance type, platform, Availability
+--     Zone).
+--
+-- -   @none@ - The instance avoids running in a Capacity Reservation even
+--     if one is available. The instance runs in On-Demand capacity.
+--
+-- 'capacityReservationTarget', 'capacityReservationSpecificationResponse_capacityReservationTarget' - Information about the targeted Capacity Reservation or Capacity
+-- Reservation group.
+newCapacityReservationSpecificationResponse ::
   CapacityReservationSpecificationResponse
-capacityReservationSpecificationResponse =
+newCapacityReservationSpecificationResponse =
   CapacityReservationSpecificationResponse'
-    { _crsrCapacityReservationPreference =
-        Nothing,
-      _crsrCapacityReservationTarget =
-        Nothing
+    { capacityReservationPreference =
+        Prelude.Nothing,
+      capacityReservationTarget =
+        Prelude.Nothing
     }
 
--- | Describes the instance's Capacity Reservation preferences. Possible preferences include:     * @open@ - The instance can run in any @open@ Capacity Reservation that has matching attributes (instance type, platform, Availability Zone).     * @none@ - The instance avoids running in a Capacity Reservation even if one is available. The instance runs in On-Demand capacity.
-crsrCapacityReservationPreference :: Lens' CapacityReservationSpecificationResponse (Maybe CapacityReservationPreference)
-crsrCapacityReservationPreference = lens _crsrCapacityReservationPreference (\s a -> s {_crsrCapacityReservationPreference = a})
+-- | Describes the instance\'s Capacity Reservation preferences. Possible
+-- preferences include:
+--
+-- -   @open@ - The instance can run in any @open@ Capacity Reservation
+--     that has matching attributes (instance type, platform, Availability
+--     Zone).
+--
+-- -   @none@ - The instance avoids running in a Capacity Reservation even
+--     if one is available. The instance runs in On-Demand capacity.
+capacityReservationSpecificationResponse_capacityReservationPreference :: Lens.Lens' CapacityReservationSpecificationResponse (Prelude.Maybe CapacityReservationPreference)
+capacityReservationSpecificationResponse_capacityReservationPreference = Lens.lens (\CapacityReservationSpecificationResponse' {capacityReservationPreference} -> capacityReservationPreference) (\s@CapacityReservationSpecificationResponse' {} a -> s {capacityReservationPreference = a} :: CapacityReservationSpecificationResponse)
 
--- | Information about the targeted Capacity Reservation or Capacity Reservation group.
-crsrCapacityReservationTarget :: Lens' CapacityReservationSpecificationResponse (Maybe CapacityReservationTargetResponse)
-crsrCapacityReservationTarget = lens _crsrCapacityReservationTarget (\s a -> s {_crsrCapacityReservationTarget = a})
+-- | Information about the targeted Capacity Reservation or Capacity
+-- Reservation group.
+capacityReservationSpecificationResponse_capacityReservationTarget :: Lens.Lens' CapacityReservationSpecificationResponse (Prelude.Maybe CapacityReservationTargetResponse)
+capacityReservationSpecificationResponse_capacityReservationTarget = Lens.lens (\CapacityReservationSpecificationResponse' {capacityReservationTarget} -> capacityReservationTarget) (\s@CapacityReservationSpecificationResponse' {} a -> s {capacityReservationTarget = a} :: CapacityReservationSpecificationResponse)
 
 instance
-  FromXML
+  Prelude.FromXML
     CapacityReservationSpecificationResponse
   where
   parseXML x =
     CapacityReservationSpecificationResponse'
-      <$> (x .@? "capacityReservationPreference")
-      <*> (x .@? "capacityReservationTarget")
+      Prelude.<$> (x Prelude..@? "capacityReservationPreference")
+        Prelude.<*> (x Prelude..@? "capacityReservationTarget")
 
 instance
-  Hashable
+  Prelude.Hashable
     CapacityReservationSpecificationResponse
 
 instance
-  NFData
+  Prelude.NFData
     CapacityReservationSpecificationResponse

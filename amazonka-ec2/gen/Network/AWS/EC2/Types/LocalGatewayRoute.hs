@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,101 +22,104 @@ module Network.AWS.EC2.Types.LocalGatewayRoute where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.LocalGatewayRouteState
 import Network.AWS.EC2.Types.LocalGatewayRouteType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a route for a local gateway route table.
 --
---
---
--- /See:/ 'localGatewayRoute' smart constructor.
+-- /See:/ 'newLocalGatewayRoute' smart constructor.
 data LocalGatewayRoute = LocalGatewayRoute'
-  { _lgrOwnerId ::
-      !(Maybe Text),
-    _lgrLocalGatewayVirtualInterfaceGroupId ::
-      !(Maybe Text),
-    _lgrLocalGatewayRouteTableARN ::
-      !(Maybe Text),
-    _lgrState ::
-      !(Maybe LocalGatewayRouteState),
-    _lgrLocalGatewayRouteTableId ::
-      !(Maybe Text),
-    _lgrDestinationCidrBlock ::
-      !(Maybe Text),
-    _lgrType ::
-      !(Maybe LocalGatewayRouteType)
+  { -- | The AWS account ID that owns the local gateway route.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the virtual interface group.
+    localGatewayVirtualInterfaceGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the local gateway route table.
+    localGatewayRouteTableArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the route.
+    state :: Prelude.Maybe LocalGatewayRouteState,
+    -- | The ID of the local gateway route table.
+    localGatewayRouteTableId :: Prelude.Maybe Prelude.Text,
+    -- | The CIDR block used for destination matches.
+    destinationCidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The route type.
+    type' :: Prelude.Maybe LocalGatewayRouteType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LocalGatewayRoute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LocalGatewayRoute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgrOwnerId' - The AWS account ID that owns the local gateway route.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgrLocalGatewayVirtualInterfaceGroupId' - The ID of the virtual interface group.
+-- 'ownerId', 'localGatewayRoute_ownerId' - The AWS account ID that owns the local gateway route.
 --
--- * 'lgrLocalGatewayRouteTableARN' - The Amazon Resource Name (ARN) of the local gateway route table.
+-- 'localGatewayVirtualInterfaceGroupId', 'localGatewayRoute_localGatewayVirtualInterfaceGroupId' - The ID of the virtual interface group.
 --
--- * 'lgrState' - The state of the route.
+-- 'localGatewayRouteTableArn', 'localGatewayRoute_localGatewayRouteTableArn' - The Amazon Resource Name (ARN) of the local gateway route table.
 --
--- * 'lgrLocalGatewayRouteTableId' - The ID of the local gateway route table.
+-- 'state', 'localGatewayRoute_state' - The state of the route.
 --
--- * 'lgrDestinationCidrBlock' - The CIDR block used for destination matches.
+-- 'localGatewayRouteTableId', 'localGatewayRoute_localGatewayRouteTableId' - The ID of the local gateway route table.
 --
--- * 'lgrType' - The route type.
-localGatewayRoute ::
+-- 'destinationCidrBlock', 'localGatewayRoute_destinationCidrBlock' - The CIDR block used for destination matches.
+--
+-- 'type'', 'localGatewayRoute_type' - The route type.
+newLocalGatewayRoute ::
   LocalGatewayRoute
-localGatewayRoute =
+newLocalGatewayRoute =
   LocalGatewayRoute'
-    { _lgrOwnerId = Nothing,
-      _lgrLocalGatewayVirtualInterfaceGroupId = Nothing,
-      _lgrLocalGatewayRouteTableARN = Nothing,
-      _lgrState = Nothing,
-      _lgrLocalGatewayRouteTableId = Nothing,
-      _lgrDestinationCidrBlock = Nothing,
-      _lgrType = Nothing
+    { ownerId = Prelude.Nothing,
+      localGatewayVirtualInterfaceGroupId =
+        Prelude.Nothing,
+      localGatewayRouteTableArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      localGatewayRouteTableId = Prelude.Nothing,
+      destinationCidrBlock = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The AWS account ID that owns the local gateway route.
-lgrOwnerId :: Lens' LocalGatewayRoute (Maybe Text)
-lgrOwnerId = lens _lgrOwnerId (\s a -> s {_lgrOwnerId = a})
+localGatewayRoute_ownerId :: Lens.Lens' LocalGatewayRoute (Prelude.Maybe Prelude.Text)
+localGatewayRoute_ownerId = Lens.lens (\LocalGatewayRoute' {ownerId} -> ownerId) (\s@LocalGatewayRoute' {} a -> s {ownerId = a} :: LocalGatewayRoute)
 
 -- | The ID of the virtual interface group.
-lgrLocalGatewayVirtualInterfaceGroupId :: Lens' LocalGatewayRoute (Maybe Text)
-lgrLocalGatewayVirtualInterfaceGroupId = lens _lgrLocalGatewayVirtualInterfaceGroupId (\s a -> s {_lgrLocalGatewayVirtualInterfaceGroupId = a})
+localGatewayRoute_localGatewayVirtualInterfaceGroupId :: Lens.Lens' LocalGatewayRoute (Prelude.Maybe Prelude.Text)
+localGatewayRoute_localGatewayVirtualInterfaceGroupId = Lens.lens (\LocalGatewayRoute' {localGatewayVirtualInterfaceGroupId} -> localGatewayVirtualInterfaceGroupId) (\s@LocalGatewayRoute' {} a -> s {localGatewayVirtualInterfaceGroupId = a} :: LocalGatewayRoute)
 
 -- | The Amazon Resource Name (ARN) of the local gateway route table.
-lgrLocalGatewayRouteTableARN :: Lens' LocalGatewayRoute (Maybe Text)
-lgrLocalGatewayRouteTableARN = lens _lgrLocalGatewayRouteTableARN (\s a -> s {_lgrLocalGatewayRouteTableARN = a})
+localGatewayRoute_localGatewayRouteTableArn :: Lens.Lens' LocalGatewayRoute (Prelude.Maybe Prelude.Text)
+localGatewayRoute_localGatewayRouteTableArn = Lens.lens (\LocalGatewayRoute' {localGatewayRouteTableArn} -> localGatewayRouteTableArn) (\s@LocalGatewayRoute' {} a -> s {localGatewayRouteTableArn = a} :: LocalGatewayRoute)
 
 -- | The state of the route.
-lgrState :: Lens' LocalGatewayRoute (Maybe LocalGatewayRouteState)
-lgrState = lens _lgrState (\s a -> s {_lgrState = a})
+localGatewayRoute_state :: Lens.Lens' LocalGatewayRoute (Prelude.Maybe LocalGatewayRouteState)
+localGatewayRoute_state = Lens.lens (\LocalGatewayRoute' {state} -> state) (\s@LocalGatewayRoute' {} a -> s {state = a} :: LocalGatewayRoute)
 
 -- | The ID of the local gateway route table.
-lgrLocalGatewayRouteTableId :: Lens' LocalGatewayRoute (Maybe Text)
-lgrLocalGatewayRouteTableId = lens _lgrLocalGatewayRouteTableId (\s a -> s {_lgrLocalGatewayRouteTableId = a})
+localGatewayRoute_localGatewayRouteTableId :: Lens.Lens' LocalGatewayRoute (Prelude.Maybe Prelude.Text)
+localGatewayRoute_localGatewayRouteTableId = Lens.lens (\LocalGatewayRoute' {localGatewayRouteTableId} -> localGatewayRouteTableId) (\s@LocalGatewayRoute' {} a -> s {localGatewayRouteTableId = a} :: LocalGatewayRoute)
 
 -- | The CIDR block used for destination matches.
-lgrDestinationCidrBlock :: Lens' LocalGatewayRoute (Maybe Text)
-lgrDestinationCidrBlock = lens _lgrDestinationCidrBlock (\s a -> s {_lgrDestinationCidrBlock = a})
+localGatewayRoute_destinationCidrBlock :: Lens.Lens' LocalGatewayRoute (Prelude.Maybe Prelude.Text)
+localGatewayRoute_destinationCidrBlock = Lens.lens (\LocalGatewayRoute' {destinationCidrBlock} -> destinationCidrBlock) (\s@LocalGatewayRoute' {} a -> s {destinationCidrBlock = a} :: LocalGatewayRoute)
 
 -- | The route type.
-lgrType :: Lens' LocalGatewayRoute (Maybe LocalGatewayRouteType)
-lgrType = lens _lgrType (\s a -> s {_lgrType = a})
+localGatewayRoute_type :: Lens.Lens' LocalGatewayRoute (Prelude.Maybe LocalGatewayRouteType)
+localGatewayRoute_type = Lens.lens (\LocalGatewayRoute' {type'} -> type') (\s@LocalGatewayRoute' {} a -> s {type' = a} :: LocalGatewayRoute)
 
-instance FromXML LocalGatewayRoute where
+instance Prelude.FromXML LocalGatewayRoute where
   parseXML x =
     LocalGatewayRoute'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "localGatewayVirtualInterfaceGroupId")
-      <*> (x .@? "localGatewayRouteTableArn")
-      <*> (x .@? "state")
-      <*> (x .@? "localGatewayRouteTableId")
-      <*> (x .@? "destinationCidrBlock")
-      <*> (x .@? "type")
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "localGatewayVirtualInterfaceGroupId")
+      Prelude.<*> (x Prelude..@? "localGatewayRouteTableArn")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> (x Prelude..@? "localGatewayRouteTableId")
+      Prelude.<*> (x Prelude..@? "destinationCidrBlock")
+      Prelude.<*> (x Prelude..@? "type")
 
-instance Hashable LocalGatewayRoute
+instance Prelude.Hashable LocalGatewayRoute
 
-instance NFData LocalGatewayRoute
+instance Prelude.NFData LocalGatewayRoute

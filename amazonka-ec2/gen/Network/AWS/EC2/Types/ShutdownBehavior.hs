@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.ShutdownBehavior
   ( ShutdownBehavior
       ( ..,
-        SBStop,
-        SBTerminate
+        ShutdownBehaviorStop,
+        ShutdownBehaviorTerminate
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShutdownBehavior = ShutdownBehavior' (CI Text)
+newtype ShutdownBehavior = ShutdownBehavior'
+  { fromShutdownBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SBStop :: ShutdownBehavior
-pattern SBStop = ShutdownBehavior' "stop"
+pattern ShutdownBehaviorStop :: ShutdownBehavior
+pattern ShutdownBehaviorStop = ShutdownBehavior' "stop"
 
-pattern SBTerminate :: ShutdownBehavior
-pattern SBTerminate = ShutdownBehavior' "terminate"
+pattern ShutdownBehaviorTerminate :: ShutdownBehavior
+pattern ShutdownBehaviorTerminate = ShutdownBehavior' "terminate"
 
 {-# COMPLETE
-  SBStop,
-  SBTerminate,
+  ShutdownBehaviorStop,
+  ShutdownBehaviorTerminate,
   ShutdownBehavior'
   #-}
 
-instance FromText ShutdownBehavior where
-  parser = (ShutdownBehavior' . mk) <$> takeText
+instance Prelude.FromText ShutdownBehavior where
+  parser = ShutdownBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText ShutdownBehavior where
-  toText (ShutdownBehavior' ci) = original ci
+instance Prelude.ToText ShutdownBehavior where
+  toText (ShutdownBehavior' x) = x
 
-instance Hashable ShutdownBehavior
+instance Prelude.Hashable ShutdownBehavior
 
-instance NFData ShutdownBehavior
+instance Prelude.NFData ShutdownBehavior
 
-instance ToByteString ShutdownBehavior
+instance Prelude.ToByteString ShutdownBehavior
 
-instance ToQuery ShutdownBehavior
+instance Prelude.ToQuery ShutdownBehavior
 
-instance ToHeader ShutdownBehavior
+instance Prelude.ToHeader ShutdownBehavior
 
-instance FromXML ShutdownBehavior where
-  parseXML = parseXMLText "ShutdownBehavior"
+instance Prelude.FromXML ShutdownBehavior where
+  parseXML = Prelude.parseXMLText "ShutdownBehavior"

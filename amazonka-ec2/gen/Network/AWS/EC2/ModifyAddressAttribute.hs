@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies an attribute of the specified Elastic IP address. For requirements, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#Using_Elastic_Addressing_Reverse_DNS Using reverse DNS for email applications> .
+-- Modifies an attribute of the specified Elastic IP address. For
+-- requirements, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#Using_Elastic_Addressing_Reverse_DNS Using reverse DNS for email applications>.
 module Network.AWS.EC2.ModifyAddressAttribute
   ( -- * Creating a Request
-    modifyAddressAttribute,
-    ModifyAddressAttribute,
+    ModifyAddressAttribute (..),
+    newModifyAddressAttribute,
 
     -- * Request Lenses
-    maaDryRun,
-    maaDomainName,
-    maaAllocationId,
+    modifyAddressAttribute_dryRun,
+    modifyAddressAttribute_domainName,
+    modifyAddressAttribute_allocationId,
 
     -- * Destructuring the Response
-    modifyAddressAttributeResponse,
-    ModifyAddressAttributeResponse,
+    ModifyAddressAttributeResponse (..),
+    newModifyAddressAttributeResponse,
 
     -- * Response Lenses
-    maarrsAddress,
-    maarrsResponseStatus,
+    modifyAddressAttributeResponse_address,
+    modifyAddressAttributeResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.AddressAttribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyAddressAttribute' smart constructor.
+-- | /See:/ 'newModifyAddressAttribute' smart constructor.
 data ModifyAddressAttribute = ModifyAddressAttribute'
-  { _maaDryRun ::
-      !(Maybe Bool),
-    _maaDomainName ::
-      !(Maybe Text),
-    _maaAllocationId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The domain name to modify for the IP address.
+    domainName :: Prelude.Maybe Prelude.Text,
+    -- | [EC2-VPC] The allocation ID.
+    allocationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyAddressAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyAddressAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'maaDomainName' - The domain name to modify for the IP address.
+-- 'dryRun', 'modifyAddressAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'maaAllocationId' - [EC2-VPC] The allocation ID.
-modifyAddressAttribute ::
-  -- | 'maaAllocationId'
-  Text ->
+-- 'domainName', 'modifyAddressAttribute_domainName' - The domain name to modify for the IP address.
+--
+-- 'allocationId', 'modifyAddressAttribute_allocationId' - [EC2-VPC] The allocation ID.
+newModifyAddressAttribute ::
+  -- | 'allocationId'
+  Prelude.Text ->
   ModifyAddressAttribute
-modifyAddressAttribute pAllocationId_ =
+newModifyAddressAttribute pAllocationId_ =
   ModifyAddressAttribute'
-    { _maaDryRun = Nothing,
-      _maaDomainName = Nothing,
-      _maaAllocationId = pAllocationId_
+    { dryRun = Prelude.Nothing,
+      domainName = Prelude.Nothing,
+      allocationId = pAllocationId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-maaDryRun :: Lens' ModifyAddressAttribute (Maybe Bool)
-maaDryRun = lens _maaDryRun (\s a -> s {_maaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyAddressAttribute_dryRun :: Lens.Lens' ModifyAddressAttribute (Prelude.Maybe Prelude.Bool)
+modifyAddressAttribute_dryRun = Lens.lens (\ModifyAddressAttribute' {dryRun} -> dryRun) (\s@ModifyAddressAttribute' {} a -> s {dryRun = a} :: ModifyAddressAttribute)
 
 -- | The domain name to modify for the IP address.
-maaDomainName :: Lens' ModifyAddressAttribute (Maybe Text)
-maaDomainName = lens _maaDomainName (\s a -> s {_maaDomainName = a})
+modifyAddressAttribute_domainName :: Lens.Lens' ModifyAddressAttribute (Prelude.Maybe Prelude.Text)
+modifyAddressAttribute_domainName = Lens.lens (\ModifyAddressAttribute' {domainName} -> domainName) (\s@ModifyAddressAttribute' {} a -> s {domainName = a} :: ModifyAddressAttribute)
 
 -- | [EC2-VPC] The allocation ID.
-maaAllocationId :: Lens' ModifyAddressAttribute Text
-maaAllocationId = lens _maaAllocationId (\s a -> s {_maaAllocationId = a})
+modifyAddressAttribute_allocationId :: Lens.Lens' ModifyAddressAttribute Prelude.Text
+modifyAddressAttribute_allocationId = Lens.lens (\ModifyAddressAttribute' {allocationId} -> allocationId) (\s@ModifyAddressAttribute' {} a -> s {allocationId = a} :: ModifyAddressAttribute)
 
-instance AWSRequest ModifyAddressAttribute where
+instance Prelude.AWSRequest ModifyAddressAttribute where
   type
     Rs ModifyAddressAttribute =
       ModifyAddressAttributeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyAddressAttributeResponse'
-            <$> (x .@? "address") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "address")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyAddressAttribute
+instance Prelude.Hashable ModifyAddressAttribute
 
-instance NFData ModifyAddressAttribute
+instance Prelude.NFData ModifyAddressAttribute
 
-instance ToHeaders ModifyAddressAttribute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyAddressAttribute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyAddressAttribute where
-  toPath = const "/"
+instance Prelude.ToPath ModifyAddressAttribute where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyAddressAttribute where
+instance Prelude.ToQuery ModifyAddressAttribute where
   toQuery ModifyAddressAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyAddressAttribute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _maaDryRun,
-        "DomainName" =: _maaDomainName,
-        "AllocationId" =: _maaAllocationId
+          Prelude.=: ("ModifyAddressAttribute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "DomainName" Prelude.=: domainName,
+        "AllocationId" Prelude.=: allocationId
       ]
 
--- | /See:/ 'modifyAddressAttributeResponse' smart constructor.
+-- | /See:/ 'newModifyAddressAttributeResponse' smart constructor.
 data ModifyAddressAttributeResponse = ModifyAddressAttributeResponse'
-  { _maarrsAddress ::
-      !( Maybe
-           AddressAttribute
-       ),
-    _maarrsResponseStatus ::
-      !Int
+  { -- | Information about the Elastic IP address.
+    address :: Prelude.Maybe AddressAttribute,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyAddressAttributeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyAddressAttributeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maarrsAddress' - Information about the Elastic IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'maarrsResponseStatus' - -- | The response status code.
-modifyAddressAttributeResponse ::
-  -- | 'maarrsResponseStatus'
-  Int ->
+-- 'address', 'modifyAddressAttributeResponse_address' - Information about the Elastic IP address.
+--
+-- 'httpStatus', 'modifyAddressAttributeResponse_httpStatus' - The response's http status code.
+newModifyAddressAttributeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyAddressAttributeResponse
-modifyAddressAttributeResponse pResponseStatus_ =
+newModifyAddressAttributeResponse pHttpStatus_ =
   ModifyAddressAttributeResponse'
-    { _maarrsAddress =
-        Nothing,
-      _maarrsResponseStatus = pResponseStatus_
+    { address =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the Elastic IP address.
-maarrsAddress :: Lens' ModifyAddressAttributeResponse (Maybe AddressAttribute)
-maarrsAddress = lens _maarrsAddress (\s a -> s {_maarrsAddress = a})
+modifyAddressAttributeResponse_address :: Lens.Lens' ModifyAddressAttributeResponse (Prelude.Maybe AddressAttribute)
+modifyAddressAttributeResponse_address = Lens.lens (\ModifyAddressAttributeResponse' {address} -> address) (\s@ModifyAddressAttributeResponse' {} a -> s {address = a} :: ModifyAddressAttributeResponse)
 
--- | -- | The response status code.
-maarrsResponseStatus :: Lens' ModifyAddressAttributeResponse Int
-maarrsResponseStatus = lens _maarrsResponseStatus (\s a -> s {_maarrsResponseStatus = a})
+-- | The response's http status code.
+modifyAddressAttributeResponse_httpStatus :: Lens.Lens' ModifyAddressAttributeResponse Prelude.Int
+modifyAddressAttributeResponse_httpStatus = Lens.lens (\ModifyAddressAttributeResponse' {httpStatus} -> httpStatus) (\s@ModifyAddressAttributeResponse' {} a -> s {httpStatus = a} :: ModifyAddressAttributeResponse)
 
-instance NFData ModifyAddressAttributeResponse
+instance
+  Prelude.NFData
+    ModifyAddressAttributeResponse

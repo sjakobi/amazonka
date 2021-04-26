@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,45 +20,47 @@
 module Network.AWS.EC2.Types.LaunchTemplatesMonitoring where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the monitoring for the instance.
 --
---
---
--- /See:/ 'launchTemplatesMonitoring' smart constructor.
-newtype LaunchTemplatesMonitoring = LaunchTemplatesMonitoring'
-  { _ltmEnabled ::
-      Maybe Bool
+-- /See:/ 'newLaunchTemplatesMonitoring' smart constructor.
+data LaunchTemplatesMonitoring = LaunchTemplatesMonitoring'
+  { -- | Indicates whether detailed monitoring is enabled. Otherwise, basic
+    -- monitoring is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplatesMonitoring' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplatesMonitoring' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltmEnabled' - Indicates whether detailed monitoring is enabled. Otherwise, basic monitoring is enabled.
-launchTemplatesMonitoring ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'enabled', 'launchTemplatesMonitoring_enabled' - Indicates whether detailed monitoring is enabled. Otherwise, basic
+-- monitoring is enabled.
+newLaunchTemplatesMonitoring ::
   LaunchTemplatesMonitoring
-launchTemplatesMonitoring =
-  LaunchTemplatesMonitoring' {_ltmEnabled = Nothing}
+newLaunchTemplatesMonitoring =
+  LaunchTemplatesMonitoring'
+    { enabled =
+        Prelude.Nothing
+    }
 
--- | Indicates whether detailed monitoring is enabled. Otherwise, basic monitoring is enabled.
-ltmEnabled :: Lens' LaunchTemplatesMonitoring (Maybe Bool)
-ltmEnabled = lens _ltmEnabled (\s a -> s {_ltmEnabled = a})
+-- | Indicates whether detailed monitoring is enabled. Otherwise, basic
+-- monitoring is enabled.
+launchTemplatesMonitoring_enabled :: Lens.Lens' LaunchTemplatesMonitoring (Prelude.Maybe Prelude.Bool)
+launchTemplatesMonitoring_enabled = Lens.lens (\LaunchTemplatesMonitoring' {enabled} -> enabled) (\s@LaunchTemplatesMonitoring' {} a -> s {enabled = a} :: LaunchTemplatesMonitoring)
 
-instance FromXML LaunchTemplatesMonitoring where
+instance Prelude.FromXML LaunchTemplatesMonitoring where
   parseXML x =
-    LaunchTemplatesMonitoring' <$> (x .@? "enabled")
+    LaunchTemplatesMonitoring'
+      Prelude.<$> (x Prelude..@? "enabled")
 
-instance Hashable LaunchTemplatesMonitoring
+instance Prelude.Hashable LaunchTemplatesMonitoring
 
-instance NFData LaunchTemplatesMonitoring
+instance Prelude.NFData LaunchTemplatesMonitoring

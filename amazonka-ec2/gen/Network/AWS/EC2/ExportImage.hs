@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,293 +21,352 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Exports an Amazon Machine Image (AMI) to a VM file. For more information, see <https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport_image.html Exporting a VM Directory from an Amazon Machine Image (AMI)> in the /VM Import\/Export User Guide/ .
+-- Exports an Amazon Machine Image (AMI) to a VM file. For more
+-- information, see
+-- <https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport_image.html Exporting a VM Directory from an Amazon Machine Image (AMI)>
+-- in the /VM Import\/Export User Guide/.
 module Network.AWS.EC2.ExportImage
   ( -- * Creating a Request
-    exportImage,
-    ExportImage,
+    ExportImage (..),
+    newExportImage,
 
     -- * Request Lenses
-    eiTagSpecifications,
-    eiDryRun,
-    eiRoleName,
-    eiDescription,
-    eiClientToken,
-    eiDiskImageFormat,
-    eiImageId,
-    eiS3ExportLocation,
+    exportImage_tagSpecifications,
+    exportImage_dryRun,
+    exportImage_roleName,
+    exportImage_description,
+    exportImage_clientToken,
+    exportImage_diskImageFormat,
+    exportImage_imageId,
+    exportImage_s3ExportLocation,
 
     -- * Destructuring the Response
-    exportImageResponse,
-    ExportImageResponse,
+    ExportImageResponse (..),
+    newExportImageResponse,
 
     -- * Response Lenses
-    eirrsStatusMessage,
-    eirrsStatus,
-    eirrsDiskImageFormat,
-    eirrsRoleName,
-    eirrsImageId,
-    eirrsTags,
-    eirrsS3ExportLocation,
-    eirrsDescription,
-    eirrsExportImageTaskId,
-    eirrsProgress,
-    eirrsResponseStatus,
+    exportImageResponse_statusMessage,
+    exportImageResponse_status,
+    exportImageResponse_diskImageFormat,
+    exportImageResponse_roleName,
+    exportImageResponse_imageId,
+    exportImageResponse_tags,
+    exportImageResponse_s3ExportLocation,
+    exportImageResponse_description,
+    exportImageResponse_exportImageTaskId,
+    exportImageResponse_progress,
+    exportImageResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.DiskImageFormat
+import Network.AWS.EC2.Types.ExportTaskS3Location
+import Network.AWS.EC2.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'exportImage' smart constructor.
+-- | /See:/ 'newExportImage' smart constructor.
 data ExportImage = ExportImage'
-  { _eiTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _eiDryRun :: !(Maybe Bool),
-    _eiRoleName :: !(Maybe Text),
-    _eiDescription :: !(Maybe Text),
-    _eiClientToken :: !(Maybe Text),
-    _eiDiskImageFormat :: !DiskImageFormat,
-    _eiImageId :: !Text,
-    _eiS3ExportLocation ::
-      !ExportTaskS3LocationRequest
+  { -- | The tags to apply to the export image task during creation.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the role that grants VM Import\/Export permission to export
+    -- images to your Amazon S3 bucket. If this parameter is not specified, the
+    -- default role is named \'vmimport\'.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the image being exported. The maximum length is 255
+    -- characters.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Token to enable idempotency for export image requests.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The disk image format.
+    diskImageFormat :: DiskImageFormat,
+    -- | The ID of the image.
+    imageId :: Prelude.Text,
+    -- | Information about the destination Amazon S3 bucket. The bucket must
+    -- exist and grant WRITE and READ_ACP permissions to the AWS account
+    -- vm-import-export\@amazon.com.
+    s3ExportLocation :: ExportTaskS3LocationRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eiTagSpecifications' - The tags to apply to the export image task during creation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eiDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'exportImage_tagSpecifications' - The tags to apply to the export image task during creation.
 --
--- * 'eiRoleName' - The name of the role that grants VM Import/Export permission to export images to your Amazon S3 bucket. If this parameter is not specified, the default role is named 'vmimport'.
+-- 'dryRun', 'exportImage_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'eiDescription' - A description of the image being exported. The maximum length is 255 characters.
+-- 'roleName', 'exportImage_roleName' - The name of the role that grants VM Import\/Export permission to export
+-- images to your Amazon S3 bucket. If this parameter is not specified, the
+-- default role is named \'vmimport\'.
 --
--- * 'eiClientToken' - Token to enable idempotency for export image requests.
+-- 'description', 'exportImage_description' - A description of the image being exported. The maximum length is 255
+-- characters.
 --
--- * 'eiDiskImageFormat' - The disk image format.
+-- 'clientToken', 'exportImage_clientToken' - Token to enable idempotency for export image requests.
 --
--- * 'eiImageId' - The ID of the image.
+-- 'diskImageFormat', 'exportImage_diskImageFormat' - The disk image format.
 --
--- * 'eiS3ExportLocation' - Information about the destination Amazon S3 bucket. The bucket must exist and grant WRITE and READ_ACP permissions to the AWS account vm-import-export@amazon.com.
-exportImage ::
-  -- | 'eiDiskImageFormat'
+-- 'imageId', 'exportImage_imageId' - The ID of the image.
+--
+-- 's3ExportLocation', 'exportImage_s3ExportLocation' - Information about the destination Amazon S3 bucket. The bucket must
+-- exist and grant WRITE and READ_ACP permissions to the AWS account
+-- vm-import-export\@amazon.com.
+newExportImage ::
+  -- | 'diskImageFormat'
   DiskImageFormat ->
-  -- | 'eiImageId'
-  Text ->
-  -- | 'eiS3ExportLocation'
+  -- | 'imageId'
+  Prelude.Text ->
+  -- | 's3ExportLocation'
   ExportTaskS3LocationRequest ->
   ExportImage
-exportImage
+newExportImage
   pDiskImageFormat_
   pImageId_
   pS3ExportLocation_ =
     ExportImage'
-      { _eiTagSpecifications = Nothing,
-        _eiDryRun = Nothing,
-        _eiRoleName = Nothing,
-        _eiDescription = Nothing,
-        _eiClientToken = Nothing,
-        _eiDiskImageFormat = pDiskImageFormat_,
-        _eiImageId = pImageId_,
-        _eiS3ExportLocation = pS3ExportLocation_
+      { tagSpecifications = Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        roleName = Prelude.Nothing,
+        description = Prelude.Nothing,
+        clientToken = Prelude.Nothing,
+        diskImageFormat = pDiskImageFormat_,
+        imageId = pImageId_,
+        s3ExportLocation = pS3ExportLocation_
       }
 
 -- | The tags to apply to the export image task during creation.
-eiTagSpecifications :: Lens' ExportImage [TagSpecification]
-eiTagSpecifications = lens _eiTagSpecifications (\s a -> s {_eiTagSpecifications = a}) . _Default . _Coerce
+exportImage_tagSpecifications :: Lens.Lens' ExportImage (Prelude.Maybe [TagSpecification])
+exportImage_tagSpecifications = Lens.lens (\ExportImage' {tagSpecifications} -> tagSpecifications) (\s@ExportImage' {} a -> s {tagSpecifications = a} :: ExportImage) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-eiDryRun :: Lens' ExportImage (Maybe Bool)
-eiDryRun = lens _eiDryRun (\s a -> s {_eiDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+exportImage_dryRun :: Lens.Lens' ExportImage (Prelude.Maybe Prelude.Bool)
+exportImage_dryRun = Lens.lens (\ExportImage' {dryRun} -> dryRun) (\s@ExportImage' {} a -> s {dryRun = a} :: ExportImage)
 
--- | The name of the role that grants VM Import/Export permission to export images to your Amazon S3 bucket. If this parameter is not specified, the default role is named 'vmimport'.
-eiRoleName :: Lens' ExportImage (Maybe Text)
-eiRoleName = lens _eiRoleName (\s a -> s {_eiRoleName = a})
+-- | The name of the role that grants VM Import\/Export permission to export
+-- images to your Amazon S3 bucket. If this parameter is not specified, the
+-- default role is named \'vmimport\'.
+exportImage_roleName :: Lens.Lens' ExportImage (Prelude.Maybe Prelude.Text)
+exportImage_roleName = Lens.lens (\ExportImage' {roleName} -> roleName) (\s@ExportImage' {} a -> s {roleName = a} :: ExportImage)
 
--- | A description of the image being exported. The maximum length is 255 characters.
-eiDescription :: Lens' ExportImage (Maybe Text)
-eiDescription = lens _eiDescription (\s a -> s {_eiDescription = a})
+-- | A description of the image being exported. The maximum length is 255
+-- characters.
+exportImage_description :: Lens.Lens' ExportImage (Prelude.Maybe Prelude.Text)
+exportImage_description = Lens.lens (\ExportImage' {description} -> description) (\s@ExportImage' {} a -> s {description = a} :: ExportImage)
 
 -- | Token to enable idempotency for export image requests.
-eiClientToken :: Lens' ExportImage (Maybe Text)
-eiClientToken = lens _eiClientToken (\s a -> s {_eiClientToken = a})
+exportImage_clientToken :: Lens.Lens' ExportImage (Prelude.Maybe Prelude.Text)
+exportImage_clientToken = Lens.lens (\ExportImage' {clientToken} -> clientToken) (\s@ExportImage' {} a -> s {clientToken = a} :: ExportImage)
 
 -- | The disk image format.
-eiDiskImageFormat :: Lens' ExportImage DiskImageFormat
-eiDiskImageFormat = lens _eiDiskImageFormat (\s a -> s {_eiDiskImageFormat = a})
+exportImage_diskImageFormat :: Lens.Lens' ExportImage DiskImageFormat
+exportImage_diskImageFormat = Lens.lens (\ExportImage' {diskImageFormat} -> diskImageFormat) (\s@ExportImage' {} a -> s {diskImageFormat = a} :: ExportImage)
 
 -- | The ID of the image.
-eiImageId :: Lens' ExportImage Text
-eiImageId = lens _eiImageId (\s a -> s {_eiImageId = a})
+exportImage_imageId :: Lens.Lens' ExportImage Prelude.Text
+exportImage_imageId = Lens.lens (\ExportImage' {imageId} -> imageId) (\s@ExportImage' {} a -> s {imageId = a} :: ExportImage)
 
--- | Information about the destination Amazon S3 bucket. The bucket must exist and grant WRITE and READ_ACP permissions to the AWS account vm-import-export@amazon.com.
-eiS3ExportLocation :: Lens' ExportImage ExportTaskS3LocationRequest
-eiS3ExportLocation = lens _eiS3ExportLocation (\s a -> s {_eiS3ExportLocation = a})
+-- | Information about the destination Amazon S3 bucket. The bucket must
+-- exist and grant WRITE and READ_ACP permissions to the AWS account
+-- vm-import-export\@amazon.com.
+exportImage_s3ExportLocation :: Lens.Lens' ExportImage ExportTaskS3LocationRequest
+exportImage_s3ExportLocation = Lens.lens (\ExportImage' {s3ExportLocation} -> s3ExportLocation) (\s@ExportImage' {} a -> s {s3ExportLocation = a} :: ExportImage)
 
-instance AWSRequest ExportImage where
+instance Prelude.AWSRequest ExportImage where
   type Rs ExportImage = ExportImageResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ExportImageResponse'
-            <$> (x .@? "statusMessage")
-            <*> (x .@? "status")
-            <*> (x .@? "diskImageFormat")
-            <*> (x .@? "roleName")
-            <*> (x .@? "imageId")
-            <*> ( x .@? "tagSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "s3ExportLocation")
-            <*> (x .@? "description")
-            <*> (x .@? "exportImageTaskId")
-            <*> (x .@? "progress")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "statusMessage")
+            Prelude.<*> (x Prelude..@? "status")
+            Prelude.<*> (x Prelude..@? "diskImageFormat")
+            Prelude.<*> (x Prelude..@? "roleName")
+            Prelude.<*> (x Prelude..@? "imageId")
+            Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "s3ExportLocation")
+            Prelude.<*> (x Prelude..@? "description")
+            Prelude.<*> (x Prelude..@? "exportImageTaskId")
+            Prelude.<*> (x Prelude..@? "progress")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ExportImage
+instance Prelude.Hashable ExportImage
 
-instance NFData ExportImage
+instance Prelude.NFData ExportImage
 
-instance ToHeaders ExportImage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ExportImage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ExportImage where
-  toPath = const "/"
+instance Prelude.ToPath ExportImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery ExportImage where
+instance Prelude.ToQuery ExportImage where
   toQuery ExportImage' {..} =
-    mconcat
-      [ "Action" =: ("ExportImage" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _eiTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ExportImage" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _eiDryRun,
-        "RoleName" =: _eiRoleName,
-        "Description" =: _eiDescription,
-        "ClientToken" =: _eiClientToken,
-        "DiskImageFormat" =: _eiDiskImageFormat,
-        "ImageId" =: _eiImageId,
-        "S3ExportLocation" =: _eiS3ExportLocation
+        "DryRun" Prelude.=: dryRun,
+        "RoleName" Prelude.=: roleName,
+        "Description" Prelude.=: description,
+        "ClientToken" Prelude.=: clientToken,
+        "DiskImageFormat" Prelude.=: diskImageFormat,
+        "ImageId" Prelude.=: imageId,
+        "S3ExportLocation" Prelude.=: s3ExportLocation
       ]
 
--- | /See:/ 'exportImageResponse' smart constructor.
+-- | /See:/ 'newExportImageResponse' smart constructor.
 data ExportImageResponse = ExportImageResponse'
-  { _eirrsStatusMessage ::
-      !(Maybe Text),
-    _eirrsStatus :: !(Maybe Text),
-    _eirrsDiskImageFormat ::
-      !(Maybe DiskImageFormat),
-    _eirrsRoleName :: !(Maybe Text),
-    _eirrsImageId :: !(Maybe Text),
-    _eirrsTags :: !(Maybe [Tag]),
-    _eirrsS3ExportLocation ::
-      !(Maybe ExportTaskS3Location),
-    _eirrsDescription ::
-      !(Maybe Text),
-    _eirrsExportImageTaskId ::
-      !(Maybe Text),
-    _eirrsProgress :: !(Maybe Text),
-    _eirrsResponseStatus :: !Int
+  { -- | The status message for the export image task.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status of the export image task. The possible values are @active@,
+    -- @completed@, @deleting@, and @deleted@.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The disk image format for the exported image.
+    diskImageFormat :: Prelude.Maybe DiskImageFormat,
+    -- | The name of the role that grants VM Import\/Export permission to export
+    -- images to your Amazon S3 bucket.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the image.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags assigned to the export image task.
+    tags :: Prelude.Maybe [Tag],
+    -- | Information about the destination Amazon S3 bucket.
+    s3ExportLocation :: Prelude.Maybe ExportTaskS3Location,
+    -- | A description of the image being exported.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the export image task.
+    exportImageTaskId :: Prelude.Maybe Prelude.Text,
+    -- | The percent complete of the export image task.
+    progress :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eirrsStatusMessage' - The status message for the export image task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eirrsStatus' - The status of the export image task. The possible values are @active@ , @completed@ , @deleting@ , and @deleted@ .
+-- 'statusMessage', 'exportImageResponse_statusMessage' - The status message for the export image task.
 --
--- * 'eirrsDiskImageFormat' - The disk image format for the exported image.
+-- 'status', 'exportImageResponse_status' - The status of the export image task. The possible values are @active@,
+-- @completed@, @deleting@, and @deleted@.
 --
--- * 'eirrsRoleName' - The name of the role that grants VM Import/Export permission to export images to your Amazon S3 bucket.
+-- 'diskImageFormat', 'exportImageResponse_diskImageFormat' - The disk image format for the exported image.
 --
--- * 'eirrsImageId' - The ID of the image.
+-- 'roleName', 'exportImageResponse_roleName' - The name of the role that grants VM Import\/Export permission to export
+-- images to your Amazon S3 bucket.
 --
--- * 'eirrsTags' - Any tags assigned to the export image task.
+-- 'imageId', 'exportImageResponse_imageId' - The ID of the image.
 --
--- * 'eirrsS3ExportLocation' - Information about the destination Amazon S3 bucket.
+-- 'tags', 'exportImageResponse_tags' - Any tags assigned to the export image task.
 --
--- * 'eirrsDescription' - A description of the image being exported.
+-- 's3ExportLocation', 'exportImageResponse_s3ExportLocation' - Information about the destination Amazon S3 bucket.
 --
--- * 'eirrsExportImageTaskId' - The ID of the export image task.
+-- 'description', 'exportImageResponse_description' - A description of the image being exported.
 --
--- * 'eirrsProgress' - The percent complete of the export image task.
+-- 'exportImageTaskId', 'exportImageResponse_exportImageTaskId' - The ID of the export image task.
 --
--- * 'eirrsResponseStatus' - -- | The response status code.
-exportImageResponse ::
-  -- | 'eirrsResponseStatus'
-  Int ->
+-- 'progress', 'exportImageResponse_progress' - The percent complete of the export image task.
+--
+-- 'httpStatus', 'exportImageResponse_httpStatus' - The response's http status code.
+newExportImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ExportImageResponse
-exportImageResponse pResponseStatus_ =
+newExportImageResponse pHttpStatus_ =
   ExportImageResponse'
-    { _eirrsStatusMessage = Nothing,
-      _eirrsStatus = Nothing,
-      _eirrsDiskImageFormat = Nothing,
-      _eirrsRoleName = Nothing,
-      _eirrsImageId = Nothing,
-      _eirrsTags = Nothing,
-      _eirrsS3ExportLocation = Nothing,
-      _eirrsDescription = Nothing,
-      _eirrsExportImageTaskId = Nothing,
-      _eirrsProgress = Nothing,
-      _eirrsResponseStatus = pResponseStatus_
+    { statusMessage =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      diskImageFormat = Prelude.Nothing,
+      roleName = Prelude.Nothing,
+      imageId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      s3ExportLocation = Prelude.Nothing,
+      description = Prelude.Nothing,
+      exportImageTaskId = Prelude.Nothing,
+      progress = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status message for the export image task.
-eirrsStatusMessage :: Lens' ExportImageResponse (Maybe Text)
-eirrsStatusMessage = lens _eirrsStatusMessage (\s a -> s {_eirrsStatusMessage = a})
+exportImageResponse_statusMessage :: Lens.Lens' ExportImageResponse (Prelude.Maybe Prelude.Text)
+exportImageResponse_statusMessage = Lens.lens (\ExportImageResponse' {statusMessage} -> statusMessage) (\s@ExportImageResponse' {} a -> s {statusMessage = a} :: ExportImageResponse)
 
--- | The status of the export image task. The possible values are @active@ , @completed@ , @deleting@ , and @deleted@ .
-eirrsStatus :: Lens' ExportImageResponse (Maybe Text)
-eirrsStatus = lens _eirrsStatus (\s a -> s {_eirrsStatus = a})
+-- | The status of the export image task. The possible values are @active@,
+-- @completed@, @deleting@, and @deleted@.
+exportImageResponse_status :: Lens.Lens' ExportImageResponse (Prelude.Maybe Prelude.Text)
+exportImageResponse_status = Lens.lens (\ExportImageResponse' {status} -> status) (\s@ExportImageResponse' {} a -> s {status = a} :: ExportImageResponse)
 
 -- | The disk image format for the exported image.
-eirrsDiskImageFormat :: Lens' ExportImageResponse (Maybe DiskImageFormat)
-eirrsDiskImageFormat = lens _eirrsDiskImageFormat (\s a -> s {_eirrsDiskImageFormat = a})
+exportImageResponse_diskImageFormat :: Lens.Lens' ExportImageResponse (Prelude.Maybe DiskImageFormat)
+exportImageResponse_diskImageFormat = Lens.lens (\ExportImageResponse' {diskImageFormat} -> diskImageFormat) (\s@ExportImageResponse' {} a -> s {diskImageFormat = a} :: ExportImageResponse)
 
--- | The name of the role that grants VM Import/Export permission to export images to your Amazon S3 bucket.
-eirrsRoleName :: Lens' ExportImageResponse (Maybe Text)
-eirrsRoleName = lens _eirrsRoleName (\s a -> s {_eirrsRoleName = a})
+-- | The name of the role that grants VM Import\/Export permission to export
+-- images to your Amazon S3 bucket.
+exportImageResponse_roleName :: Lens.Lens' ExportImageResponse (Prelude.Maybe Prelude.Text)
+exportImageResponse_roleName = Lens.lens (\ExportImageResponse' {roleName} -> roleName) (\s@ExportImageResponse' {} a -> s {roleName = a} :: ExportImageResponse)
 
 -- | The ID of the image.
-eirrsImageId :: Lens' ExportImageResponse (Maybe Text)
-eirrsImageId = lens _eirrsImageId (\s a -> s {_eirrsImageId = a})
+exportImageResponse_imageId :: Lens.Lens' ExportImageResponse (Prelude.Maybe Prelude.Text)
+exportImageResponse_imageId = Lens.lens (\ExportImageResponse' {imageId} -> imageId) (\s@ExportImageResponse' {} a -> s {imageId = a} :: ExportImageResponse)
 
 -- | Any tags assigned to the export image task.
-eirrsTags :: Lens' ExportImageResponse [Tag]
-eirrsTags = lens _eirrsTags (\s a -> s {_eirrsTags = a}) . _Default . _Coerce
+exportImageResponse_tags :: Lens.Lens' ExportImageResponse (Prelude.Maybe [Tag])
+exportImageResponse_tags = Lens.lens (\ExportImageResponse' {tags} -> tags) (\s@ExportImageResponse' {} a -> s {tags = a} :: ExportImageResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the destination Amazon S3 bucket.
-eirrsS3ExportLocation :: Lens' ExportImageResponse (Maybe ExportTaskS3Location)
-eirrsS3ExportLocation = lens _eirrsS3ExportLocation (\s a -> s {_eirrsS3ExportLocation = a})
+exportImageResponse_s3ExportLocation :: Lens.Lens' ExportImageResponse (Prelude.Maybe ExportTaskS3Location)
+exportImageResponse_s3ExportLocation = Lens.lens (\ExportImageResponse' {s3ExportLocation} -> s3ExportLocation) (\s@ExportImageResponse' {} a -> s {s3ExportLocation = a} :: ExportImageResponse)
 
 -- | A description of the image being exported.
-eirrsDescription :: Lens' ExportImageResponse (Maybe Text)
-eirrsDescription = lens _eirrsDescription (\s a -> s {_eirrsDescription = a})
+exportImageResponse_description :: Lens.Lens' ExportImageResponse (Prelude.Maybe Prelude.Text)
+exportImageResponse_description = Lens.lens (\ExportImageResponse' {description} -> description) (\s@ExportImageResponse' {} a -> s {description = a} :: ExportImageResponse)
 
 -- | The ID of the export image task.
-eirrsExportImageTaskId :: Lens' ExportImageResponse (Maybe Text)
-eirrsExportImageTaskId = lens _eirrsExportImageTaskId (\s a -> s {_eirrsExportImageTaskId = a})
+exportImageResponse_exportImageTaskId :: Lens.Lens' ExportImageResponse (Prelude.Maybe Prelude.Text)
+exportImageResponse_exportImageTaskId = Lens.lens (\ExportImageResponse' {exportImageTaskId} -> exportImageTaskId) (\s@ExportImageResponse' {} a -> s {exportImageTaskId = a} :: ExportImageResponse)
 
 -- | The percent complete of the export image task.
-eirrsProgress :: Lens' ExportImageResponse (Maybe Text)
-eirrsProgress = lens _eirrsProgress (\s a -> s {_eirrsProgress = a})
+exportImageResponse_progress :: Lens.Lens' ExportImageResponse (Prelude.Maybe Prelude.Text)
+exportImageResponse_progress = Lens.lens (\ExportImageResponse' {progress} -> progress) (\s@ExportImageResponse' {} a -> s {progress = a} :: ExportImageResponse)
 
--- | -- | The response status code.
-eirrsResponseStatus :: Lens' ExportImageResponse Int
-eirrsResponseStatus = lens _eirrsResponseStatus (\s a -> s {_eirrsResponseStatus = a})
+-- | The response's http status code.
+exportImageResponse_httpStatus :: Lens.Lens' ExportImageResponse Prelude.Int
+exportImageResponse_httpStatus = Lens.lens (\ExportImageResponse' {httpStatus} -> httpStatus) (\s@ExportImageResponse' {} a -> s {httpStatus = a} :: ExportImageResponse)
 
-instance NFData ExportImageResponse
+instance Prelude.NFData ExportImageResponse

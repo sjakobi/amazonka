@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,74 @@
 module Network.AWS.EC2.Types.ClientData where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the client-specific data.
 --
---
---
--- /See:/ 'clientData' smart constructor.
+-- /See:/ 'newClientData' smart constructor.
 data ClientData = ClientData'
-  { _cdUploadEnd ::
-      !(Maybe ISO8601),
-    _cdComment :: !(Maybe Text),
-    _cdUploadSize :: !(Maybe Double),
-    _cdUploadStart :: !(Maybe ISO8601)
+  { -- | The time that the disk upload ends.
+    uploadEnd :: Prelude.Maybe Prelude.ISO8601,
+    -- | A user-defined comment about the disk upload.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The size of the uploaded disk image, in GiB.
+    uploadSize :: Prelude.Maybe Prelude.Double,
+    -- | The time that the disk upload starts.
+    uploadStart :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClientData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClientData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdUploadEnd' - The time that the disk upload ends.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdComment' - A user-defined comment about the disk upload.
+-- 'uploadEnd', 'clientData_uploadEnd' - The time that the disk upload ends.
 --
--- * 'cdUploadSize' - The size of the uploaded disk image, in GiB.
+-- 'comment', 'clientData_comment' - A user-defined comment about the disk upload.
 --
--- * 'cdUploadStart' - The time that the disk upload starts.
-clientData ::
+-- 'uploadSize', 'clientData_uploadSize' - The size of the uploaded disk image, in GiB.
+--
+-- 'uploadStart', 'clientData_uploadStart' - The time that the disk upload starts.
+newClientData ::
   ClientData
-clientData =
+newClientData =
   ClientData'
-    { _cdUploadEnd = Nothing,
-      _cdComment = Nothing,
-      _cdUploadSize = Nothing,
-      _cdUploadStart = Nothing
+    { uploadEnd = Prelude.Nothing,
+      comment = Prelude.Nothing,
+      uploadSize = Prelude.Nothing,
+      uploadStart = Prelude.Nothing
     }
 
 -- | The time that the disk upload ends.
-cdUploadEnd :: Lens' ClientData (Maybe UTCTime)
-cdUploadEnd = lens _cdUploadEnd (\s a -> s {_cdUploadEnd = a}) . mapping _Time
+clientData_uploadEnd :: Lens.Lens' ClientData (Prelude.Maybe Prelude.UTCTime)
+clientData_uploadEnd = Lens.lens (\ClientData' {uploadEnd} -> uploadEnd) (\s@ClientData' {} a -> s {uploadEnd = a} :: ClientData) Prelude.. Lens.mapping Prelude._Time
 
 -- | A user-defined comment about the disk upload.
-cdComment :: Lens' ClientData (Maybe Text)
-cdComment = lens _cdComment (\s a -> s {_cdComment = a})
+clientData_comment :: Lens.Lens' ClientData (Prelude.Maybe Prelude.Text)
+clientData_comment = Lens.lens (\ClientData' {comment} -> comment) (\s@ClientData' {} a -> s {comment = a} :: ClientData)
 
 -- | The size of the uploaded disk image, in GiB.
-cdUploadSize :: Lens' ClientData (Maybe Double)
-cdUploadSize = lens _cdUploadSize (\s a -> s {_cdUploadSize = a})
+clientData_uploadSize :: Lens.Lens' ClientData (Prelude.Maybe Prelude.Double)
+clientData_uploadSize = Lens.lens (\ClientData' {uploadSize} -> uploadSize) (\s@ClientData' {} a -> s {uploadSize = a} :: ClientData)
 
 -- | The time that the disk upload starts.
-cdUploadStart :: Lens' ClientData (Maybe UTCTime)
-cdUploadStart = lens _cdUploadStart (\s a -> s {_cdUploadStart = a}) . mapping _Time
+clientData_uploadStart :: Lens.Lens' ClientData (Prelude.Maybe Prelude.UTCTime)
+clientData_uploadStart = Lens.lens (\ClientData' {uploadStart} -> uploadStart) (\s@ClientData' {} a -> s {uploadStart = a} :: ClientData) Prelude.. Lens.mapping Prelude._Time
 
-instance Hashable ClientData
+instance Prelude.Hashable ClientData
 
-instance NFData ClientData
+instance Prelude.NFData ClientData
 
-instance ToQuery ClientData where
+instance Prelude.ToQuery ClientData where
   toQuery ClientData' {..} =
-    mconcat
-      [ "UploadEnd" =: _cdUploadEnd,
-        "Comment" =: _cdComment,
-        "UploadSize" =: _cdUploadSize,
-        "UploadStart" =: _cdUploadStart
+    Prelude.mconcat
+      [ "UploadEnd" Prelude.=: uploadEnd,
+        "Comment" Prelude.=: comment,
+        "UploadSize" Prelude.=: uploadSize,
+        "UploadStart" Prelude.=: uploadStart
       ]

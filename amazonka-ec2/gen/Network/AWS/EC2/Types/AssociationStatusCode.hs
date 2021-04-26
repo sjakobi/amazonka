@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.AssociationStatusCode
   ( AssociationStatusCode
       ( ..,
-        ASCAssociated,
-        ASCAssociating,
-        ASCAssociationFailed,
-        ASCDisassociated,
-        ASCDisassociating
+        AssociationStatusCodeAssociated,
+        AssociationStatusCodeAssociating,
+        AssociationStatusCodeAssociationFailed,
+        AssociationStatusCodeDisassociated,
+        AssociationStatusCodeDisassociating
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationStatusCode
-  = AssociationStatusCode'
-      ( CI
-          Text
-      )
+newtype AssociationStatusCode = AssociationStatusCode'
+  { fromAssociationStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASCAssociated :: AssociationStatusCode
-pattern ASCAssociated = AssociationStatusCode' "associated"
+pattern AssociationStatusCodeAssociated :: AssociationStatusCode
+pattern AssociationStatusCodeAssociated = AssociationStatusCode' "associated"
 
-pattern ASCAssociating :: AssociationStatusCode
-pattern ASCAssociating = AssociationStatusCode' "associating"
+pattern AssociationStatusCodeAssociating :: AssociationStatusCode
+pattern AssociationStatusCodeAssociating = AssociationStatusCode' "associating"
 
-pattern ASCAssociationFailed :: AssociationStatusCode
-pattern ASCAssociationFailed = AssociationStatusCode' "association-failed"
+pattern AssociationStatusCodeAssociationFailed :: AssociationStatusCode
+pattern AssociationStatusCodeAssociationFailed = AssociationStatusCode' "association-failed"
 
-pattern ASCDisassociated :: AssociationStatusCode
-pattern ASCDisassociated = AssociationStatusCode' "disassociated"
+pattern AssociationStatusCodeDisassociated :: AssociationStatusCode
+pattern AssociationStatusCodeDisassociated = AssociationStatusCode' "disassociated"
 
-pattern ASCDisassociating :: AssociationStatusCode
-pattern ASCDisassociating = AssociationStatusCode' "disassociating"
+pattern AssociationStatusCodeDisassociating :: AssociationStatusCode
+pattern AssociationStatusCodeDisassociating = AssociationStatusCode' "disassociating"
 
 {-# COMPLETE
-  ASCAssociated,
-  ASCAssociating,
-  ASCAssociationFailed,
-  ASCDisassociated,
-  ASCDisassociating,
+  AssociationStatusCodeAssociated,
+  AssociationStatusCodeAssociating,
+  AssociationStatusCodeAssociationFailed,
+  AssociationStatusCodeDisassociated,
+  AssociationStatusCodeDisassociating,
   AssociationStatusCode'
   #-}
 
-instance FromText AssociationStatusCode where
-  parser = (AssociationStatusCode' . mk) <$> takeText
+instance Prelude.FromText AssociationStatusCode where
+  parser = AssociationStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationStatusCode where
-  toText (AssociationStatusCode' ci) = original ci
+instance Prelude.ToText AssociationStatusCode where
+  toText (AssociationStatusCode' x) = x
 
-instance Hashable AssociationStatusCode
+instance Prelude.Hashable AssociationStatusCode
 
-instance NFData AssociationStatusCode
+instance Prelude.NFData AssociationStatusCode
 
-instance ToByteString AssociationStatusCode
+instance Prelude.ToByteString AssociationStatusCode
 
-instance ToQuery AssociationStatusCode
+instance Prelude.ToQuery AssociationStatusCode
 
-instance ToHeader AssociationStatusCode
+instance Prelude.ToHeader AssociationStatusCode
 
-instance FromXML AssociationStatusCode where
-  parseXML = parseXMLText "AssociationStatusCode"
+instance Prelude.FromXML AssociationStatusCode where
+  parseXML = Prelude.parseXMLText "AssociationStatusCode"

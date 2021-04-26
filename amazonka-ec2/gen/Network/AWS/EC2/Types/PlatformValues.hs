@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.EC2.Types.PlatformValues
   ( PlatformValues
       ( ..,
-        Windows
+        PlatformValuesWindows
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlatformValues = PlatformValues' (CI Text)
+newtype PlatformValues = PlatformValues'
+  { fromPlatformValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Windows :: PlatformValues
-pattern Windows = PlatformValues' "Windows"
+pattern PlatformValuesWindows :: PlatformValues
+pattern PlatformValuesWindows = PlatformValues' "Windows"
 
 {-# COMPLETE
-  Windows,
+  PlatformValuesWindows,
   PlatformValues'
   #-}
 
-instance FromText PlatformValues where
-  parser = (PlatformValues' . mk) <$> takeText
+instance Prelude.FromText PlatformValues where
+  parser = PlatformValues' Prelude.<$> Prelude.takeText
 
-instance ToText PlatformValues where
-  toText (PlatformValues' ci) = original ci
+instance Prelude.ToText PlatformValues where
+  toText (PlatformValues' x) = x
 
-instance Hashable PlatformValues
+instance Prelude.Hashable PlatformValues
 
-instance NFData PlatformValues
+instance Prelude.NFData PlatformValues
 
-instance ToByteString PlatformValues
+instance Prelude.ToByteString PlatformValues
 
-instance ToQuery PlatformValues
+instance Prelude.ToQuery PlatformValues
 
-instance ToHeader PlatformValues
+instance Prelude.ToHeader PlatformValues
 
-instance FromXML PlatformValues where
-  parseXML = parseXMLText "PlatformValues"
+instance Prelude.FromXML PlatformValues where
+  parseXML = Prelude.parseXMLText "PlatformValues"

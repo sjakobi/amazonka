@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,125 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deregisters the specified AMI. After you deregister an AMI, it can't be used to launch new instances; however, it doesn't affect any instances that you've already launched from the AMI. You'll continue to incur usage costs for those instances until you terminate them.
+-- Deregisters the specified AMI. After you deregister an AMI, it can\'t be
+-- used to launch new instances; however, it doesn\'t affect any instances
+-- that you\'ve already launched from the AMI. You\'ll continue to incur
+-- usage costs for those instances until you terminate them.
 --
---
--- When you deregister an Amazon EBS-backed AMI, it doesn't affect the snapshot that was created for the root volume of the instance during the AMI creation process. When you deregister an instance store-backed AMI, it doesn't affect the files that you uploaded to Amazon S3 when you created the AMI.
+-- When you deregister an Amazon EBS-backed AMI, it doesn\'t affect the
+-- snapshot that was created for the root volume of the instance during the
+-- AMI creation process. When you deregister an instance store-backed AMI,
+-- it doesn\'t affect the files that you uploaded to Amazon S3 when you
+-- created the AMI.
 module Network.AWS.EC2.DeregisterImage
   ( -- * Creating a Request
-    deregisterImage,
-    DeregisterImage,
+    DeregisterImage (..),
+    newDeregisterImage,
 
     -- * Request Lenses
-    derDryRun,
-    derImageId,
+    deregisterImage_dryRun,
+    deregisterImage_imageId,
 
     -- * Destructuring the Response
-    deregisterImageResponse,
-    DeregisterImageResponse,
+    DeregisterImageResponse (..),
+    newDeregisterImageResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DeregisterImage.
 --
---
---
--- /See:/ 'deregisterImage' smart constructor.
+-- /See:/ 'newDeregisterImage' smart constructor.
 data DeregisterImage = DeregisterImage'
-  { _derDryRun ::
-      !(Maybe Bool),
-    _derImageId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the AMI.
+    imageId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derImageId' - The ID of the AMI.
-deregisterImage ::
-  -- | 'derImageId'
-  Text ->
+-- 'dryRun', 'deregisterImage_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'imageId', 'deregisterImage_imageId' - The ID of the AMI.
+newDeregisterImage ::
+  -- | 'imageId'
+  Prelude.Text ->
   DeregisterImage
-deregisterImage pImageId_ =
+newDeregisterImage pImageId_ =
   DeregisterImage'
-    { _derDryRun = Nothing,
-      _derImageId = pImageId_
+    { dryRun = Prelude.Nothing,
+      imageId = pImageId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-derDryRun :: Lens' DeregisterImage (Maybe Bool)
-derDryRun = lens _derDryRun (\s a -> s {_derDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deregisterImage_dryRun :: Lens.Lens' DeregisterImage (Prelude.Maybe Prelude.Bool)
+deregisterImage_dryRun = Lens.lens (\DeregisterImage' {dryRun} -> dryRun) (\s@DeregisterImage' {} a -> s {dryRun = a} :: DeregisterImage)
 
 -- | The ID of the AMI.
-derImageId :: Lens' DeregisterImage Text
-derImageId = lens _derImageId (\s a -> s {_derImageId = a})
+deregisterImage_imageId :: Lens.Lens' DeregisterImage Prelude.Text
+deregisterImage_imageId = Lens.lens (\DeregisterImage' {imageId} -> imageId) (\s@DeregisterImage' {} a -> s {imageId = a} :: DeregisterImage)
 
-instance AWSRequest DeregisterImage where
+instance Prelude.AWSRequest DeregisterImage where
   type Rs DeregisterImage = DeregisterImageResponse
-  request = postQuery ec2
-  response = receiveNull DeregisterImageResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeregisterImageResponse'
 
-instance Hashable DeregisterImage
+instance Prelude.Hashable DeregisterImage
 
-instance NFData DeregisterImage
+instance Prelude.NFData DeregisterImage
 
-instance ToHeaders DeregisterImage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeregisterImage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeregisterImage where
-  toPath = const "/"
+instance Prelude.ToPath DeregisterImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeregisterImage where
+instance Prelude.ToQuery DeregisterImage where
   toQuery DeregisterImage' {..} =
-    mconcat
-      [ "Action" =: ("DeregisterImage" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _derDryRun,
-        "ImageId" =: _derImageId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeregisterImage" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "ImageId" Prelude.=: imageId
       ]
 
--- | /See:/ 'deregisterImageResponse' smart constructor.
+-- | /See:/ 'newDeregisterImageResponse' smart constructor.
 data DeregisterImageResponse = DeregisterImageResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterImageResponse' with the minimum fields required to make a request.
-deregisterImageResponse ::
+-- |
+-- Create a value of 'DeregisterImageResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeregisterImageResponse ::
   DeregisterImageResponse
-deregisterImageResponse = DeregisterImageResponse'
+newDeregisterImageResponse = DeregisterImageResponse'
 
-instance NFData DeregisterImageResponse
+instance Prelude.NFData DeregisterImageResponse

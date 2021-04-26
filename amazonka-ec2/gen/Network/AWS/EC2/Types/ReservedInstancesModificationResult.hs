@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +21,70 @@ module Network.AWS.EC2.Types.ReservedInstancesModificationResult where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ReservedInstancesConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the modification request/s.
+-- | Describes the modification request\/s.
 --
---
---
--- /See:/ 'reservedInstancesModificationResult' smart constructor.
+-- /See:/ 'newReservedInstancesModificationResult' smart constructor.
 data ReservedInstancesModificationResult = ReservedInstancesModificationResult'
-  { _rimrTargetConfiguration ::
-      !( Maybe
-           ReservedInstancesConfiguration
-       ),
-    _rimrReservedInstancesId ::
-      !( Maybe
-           Text
-       )
+  { -- | The target Reserved Instances configurations supplied as part of the
+    -- modification request.
+    targetConfiguration :: Prelude.Maybe ReservedInstancesConfiguration,
+    -- | The ID for the Reserved Instances that were created as part of the
+    -- modification request. This field is only available when the modification
+    -- is fulfilled.
+    reservedInstancesId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedInstancesModificationResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedInstancesModificationResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rimrTargetConfiguration' - The target Reserved Instances configurations supplied as part of the modification request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rimrReservedInstancesId' - The ID for the Reserved Instances that were created as part of the modification request. This field is only available when the modification is fulfilled.
-reservedInstancesModificationResult ::
+-- 'targetConfiguration', 'reservedInstancesModificationResult_targetConfiguration' - The target Reserved Instances configurations supplied as part of the
+-- modification request.
+--
+-- 'reservedInstancesId', 'reservedInstancesModificationResult_reservedInstancesId' - The ID for the Reserved Instances that were created as part of the
+-- modification request. This field is only available when the modification
+-- is fulfilled.
+newReservedInstancesModificationResult ::
   ReservedInstancesModificationResult
-reservedInstancesModificationResult =
+newReservedInstancesModificationResult =
   ReservedInstancesModificationResult'
-    { _rimrTargetConfiguration =
-        Nothing,
-      _rimrReservedInstancesId = Nothing
+    { targetConfiguration =
+        Prelude.Nothing,
+      reservedInstancesId = Prelude.Nothing
     }
 
--- | The target Reserved Instances configurations supplied as part of the modification request.
-rimrTargetConfiguration :: Lens' ReservedInstancesModificationResult (Maybe ReservedInstancesConfiguration)
-rimrTargetConfiguration = lens _rimrTargetConfiguration (\s a -> s {_rimrTargetConfiguration = a})
+-- | The target Reserved Instances configurations supplied as part of the
+-- modification request.
+reservedInstancesModificationResult_targetConfiguration :: Lens.Lens' ReservedInstancesModificationResult (Prelude.Maybe ReservedInstancesConfiguration)
+reservedInstancesModificationResult_targetConfiguration = Lens.lens (\ReservedInstancesModificationResult' {targetConfiguration} -> targetConfiguration) (\s@ReservedInstancesModificationResult' {} a -> s {targetConfiguration = a} :: ReservedInstancesModificationResult)
 
--- | The ID for the Reserved Instances that were created as part of the modification request. This field is only available when the modification is fulfilled.
-rimrReservedInstancesId :: Lens' ReservedInstancesModificationResult (Maybe Text)
-rimrReservedInstancesId = lens _rimrReservedInstancesId (\s a -> s {_rimrReservedInstancesId = a})
+-- | The ID for the Reserved Instances that were created as part of the
+-- modification request. This field is only available when the modification
+-- is fulfilled.
+reservedInstancesModificationResult_reservedInstancesId :: Lens.Lens' ReservedInstancesModificationResult (Prelude.Maybe Prelude.Text)
+reservedInstancesModificationResult_reservedInstancesId = Lens.lens (\ReservedInstancesModificationResult' {reservedInstancesId} -> reservedInstancesId) (\s@ReservedInstancesModificationResult' {} a -> s {reservedInstancesId = a} :: ReservedInstancesModificationResult)
 
-instance FromXML ReservedInstancesModificationResult where
+instance
+  Prelude.FromXML
+    ReservedInstancesModificationResult
+  where
   parseXML x =
     ReservedInstancesModificationResult'
-      <$> (x .@? "targetConfiguration")
-      <*> (x .@? "reservedInstancesId")
+      Prelude.<$> (x Prelude..@? "targetConfiguration")
+      Prelude.<*> (x Prelude..@? "reservedInstancesId")
 
-instance Hashable ReservedInstancesModificationResult
+instance
+  Prelude.Hashable
+    ReservedInstancesModificationResult
 
-instance NFData ReservedInstancesModificationResult
+instance
+  Prelude.NFData
+    ReservedInstancesModificationResult

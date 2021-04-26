@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Replaces the specified route in the specified transit gateway route table.
+-- Replaces the specified route in the specified transit gateway route
+-- table.
 module Network.AWS.EC2.ReplaceTransitGatewayRoute
   ( -- * Creating a Request
-    replaceTransitGatewayRoute,
-    ReplaceTransitGatewayRoute,
+    ReplaceTransitGatewayRoute (..),
+    newReplaceTransitGatewayRoute,
 
     -- * Request Lenses
-    rtgrDryRun,
-    rtgrBlackhole,
-    rtgrTransitGatewayAttachmentId,
-    rtgrDestinationCidrBlock,
-    rtgrTransitGatewayRouteTableId,
+    replaceTransitGatewayRoute_dryRun,
+    replaceTransitGatewayRoute_blackhole,
+    replaceTransitGatewayRoute_transitGatewayAttachmentId,
+    replaceTransitGatewayRoute_destinationCidrBlock,
+    replaceTransitGatewayRoute_transitGatewayRouteTableId,
 
     -- * Destructuring the Response
-    replaceTransitGatewayRouteResponse,
-    ReplaceTransitGatewayRouteResponse,
+    ReplaceTransitGatewayRouteResponse (..),
+    newReplaceTransitGatewayRouteResponse,
 
     -- * Response Lenses
-    rtgrrrsRoute,
-    rtgrrrsResponseStatus,
+    replaceTransitGatewayRouteResponse_route,
+    replaceTransitGatewayRouteResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayRoute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'replaceTransitGatewayRoute' smart constructor.
+-- | /See:/ 'newReplaceTransitGatewayRoute' smart constructor.
 data ReplaceTransitGatewayRoute = ReplaceTransitGatewayRoute'
-  { _rtgrDryRun ::
-      !(Maybe Bool),
-    _rtgrBlackhole ::
-      !(Maybe Bool),
-    _rtgrTransitGatewayAttachmentId ::
-      !(Maybe Text),
-    _rtgrDestinationCidrBlock ::
-      !Text,
-    _rtgrTransitGatewayRouteTableId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether traffic matching this route is to be dropped.
+    blackhole :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the attachment.
+    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
+    -- | The CIDR range used for the destination match. Routing decisions are
+    -- based on the most specific match.
+    destinationCidrBlock :: Prelude.Text,
+    -- | The ID of the route table.
+    transitGatewayRouteTableId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplaceTransitGatewayRoute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplaceTransitGatewayRoute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtgrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtgrBlackhole' - Indicates whether traffic matching this route is to be dropped.
+-- 'dryRun', 'replaceTransitGatewayRoute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'rtgrTransitGatewayAttachmentId' - The ID of the attachment.
+-- 'blackhole', 'replaceTransitGatewayRoute_blackhole' - Indicates whether traffic matching this route is to be dropped.
 --
--- * 'rtgrDestinationCidrBlock' - The CIDR range used for the destination match. Routing decisions are based on the most specific match.
+-- 'transitGatewayAttachmentId', 'replaceTransitGatewayRoute_transitGatewayAttachmentId' - The ID of the attachment.
 --
--- * 'rtgrTransitGatewayRouteTableId' - The ID of the route table.
-replaceTransitGatewayRoute ::
-  -- | 'rtgrDestinationCidrBlock'
-  Text ->
-  -- | 'rtgrTransitGatewayRouteTableId'
-  Text ->
+-- 'destinationCidrBlock', 'replaceTransitGatewayRoute_destinationCidrBlock' - The CIDR range used for the destination match. Routing decisions are
+-- based on the most specific match.
+--
+-- 'transitGatewayRouteTableId', 'replaceTransitGatewayRoute_transitGatewayRouteTableId' - The ID of the route table.
+newReplaceTransitGatewayRoute ::
+  -- | 'destinationCidrBlock'
+  Prelude.Text ->
+  -- | 'transitGatewayRouteTableId'
+  Prelude.Text ->
   ReplaceTransitGatewayRoute
-replaceTransitGatewayRoute
+newReplaceTransitGatewayRoute
   pDestinationCidrBlock_
   pTransitGatewayRouteTableId_ =
     ReplaceTransitGatewayRoute'
-      { _rtgrDryRun = Nothing,
-        _rtgrBlackhole = Nothing,
-        _rtgrTransitGatewayAttachmentId = Nothing,
-        _rtgrDestinationCidrBlock =
-          pDestinationCidrBlock_,
-        _rtgrTransitGatewayRouteTableId =
+      { dryRun =
+          Prelude.Nothing,
+        blackhole = Prelude.Nothing,
+        transitGatewayAttachmentId = Prelude.Nothing,
+        destinationCidrBlock = pDestinationCidrBlock_,
+        transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rtgrDryRun :: Lens' ReplaceTransitGatewayRoute (Maybe Bool)
-rtgrDryRun = lens _rtgrDryRun (\s a -> s {_rtgrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+replaceTransitGatewayRoute_dryRun :: Lens.Lens' ReplaceTransitGatewayRoute (Prelude.Maybe Prelude.Bool)
+replaceTransitGatewayRoute_dryRun = Lens.lens (\ReplaceTransitGatewayRoute' {dryRun} -> dryRun) (\s@ReplaceTransitGatewayRoute' {} a -> s {dryRun = a} :: ReplaceTransitGatewayRoute)
 
 -- | Indicates whether traffic matching this route is to be dropped.
-rtgrBlackhole :: Lens' ReplaceTransitGatewayRoute (Maybe Bool)
-rtgrBlackhole = lens _rtgrBlackhole (\s a -> s {_rtgrBlackhole = a})
+replaceTransitGatewayRoute_blackhole :: Lens.Lens' ReplaceTransitGatewayRoute (Prelude.Maybe Prelude.Bool)
+replaceTransitGatewayRoute_blackhole = Lens.lens (\ReplaceTransitGatewayRoute' {blackhole} -> blackhole) (\s@ReplaceTransitGatewayRoute' {} a -> s {blackhole = a} :: ReplaceTransitGatewayRoute)
 
 -- | The ID of the attachment.
-rtgrTransitGatewayAttachmentId :: Lens' ReplaceTransitGatewayRoute (Maybe Text)
-rtgrTransitGatewayAttachmentId = lens _rtgrTransitGatewayAttachmentId (\s a -> s {_rtgrTransitGatewayAttachmentId = a})
+replaceTransitGatewayRoute_transitGatewayAttachmentId :: Lens.Lens' ReplaceTransitGatewayRoute (Prelude.Maybe Prelude.Text)
+replaceTransitGatewayRoute_transitGatewayAttachmentId = Lens.lens (\ReplaceTransitGatewayRoute' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@ReplaceTransitGatewayRoute' {} a -> s {transitGatewayAttachmentId = a} :: ReplaceTransitGatewayRoute)
 
--- | The CIDR range used for the destination match. Routing decisions are based on the most specific match.
-rtgrDestinationCidrBlock :: Lens' ReplaceTransitGatewayRoute Text
-rtgrDestinationCidrBlock = lens _rtgrDestinationCidrBlock (\s a -> s {_rtgrDestinationCidrBlock = a})
+-- | The CIDR range used for the destination match. Routing decisions are
+-- based on the most specific match.
+replaceTransitGatewayRoute_destinationCidrBlock :: Lens.Lens' ReplaceTransitGatewayRoute Prelude.Text
+replaceTransitGatewayRoute_destinationCidrBlock = Lens.lens (\ReplaceTransitGatewayRoute' {destinationCidrBlock} -> destinationCidrBlock) (\s@ReplaceTransitGatewayRoute' {} a -> s {destinationCidrBlock = a} :: ReplaceTransitGatewayRoute)
 
 -- | The ID of the route table.
-rtgrTransitGatewayRouteTableId :: Lens' ReplaceTransitGatewayRoute Text
-rtgrTransitGatewayRouteTableId = lens _rtgrTransitGatewayRouteTableId (\s a -> s {_rtgrTransitGatewayRouteTableId = a})
+replaceTransitGatewayRoute_transitGatewayRouteTableId :: Lens.Lens' ReplaceTransitGatewayRoute Prelude.Text
+replaceTransitGatewayRoute_transitGatewayRouteTableId = Lens.lens (\ReplaceTransitGatewayRoute' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@ReplaceTransitGatewayRoute' {} a -> s {transitGatewayRouteTableId = a} :: ReplaceTransitGatewayRoute)
 
-instance AWSRequest ReplaceTransitGatewayRoute where
+instance
+  Prelude.AWSRequest
+    ReplaceTransitGatewayRoute
+  where
   type
     Rs ReplaceTransitGatewayRoute =
       ReplaceTransitGatewayRouteResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ReplaceTransitGatewayRouteResponse'
-            <$> (x .@? "route") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "route")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ReplaceTransitGatewayRoute
+instance Prelude.Hashable ReplaceTransitGatewayRoute
 
-instance NFData ReplaceTransitGatewayRoute
+instance Prelude.NFData ReplaceTransitGatewayRoute
 
-instance ToHeaders ReplaceTransitGatewayRoute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ReplaceTransitGatewayRoute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ReplaceTransitGatewayRoute where
-  toPath = const "/"
+instance Prelude.ToPath ReplaceTransitGatewayRoute where
+  toPath = Prelude.const "/"
 
-instance ToQuery ReplaceTransitGatewayRoute where
+instance Prelude.ToQuery ReplaceTransitGatewayRoute where
   toQuery ReplaceTransitGatewayRoute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ReplaceTransitGatewayRoute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _rtgrDryRun,
-        "Blackhole" =: _rtgrBlackhole,
+          Prelude.=: ("ReplaceTransitGatewayRoute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "Blackhole" Prelude.=: blackhole,
         "TransitGatewayAttachmentId"
-          =: _rtgrTransitGatewayAttachmentId,
-        "DestinationCidrBlock" =: _rtgrDestinationCidrBlock,
+          Prelude.=: transitGatewayAttachmentId,
+        "DestinationCidrBlock"
+          Prelude.=: destinationCidrBlock,
         "TransitGatewayRouteTableId"
-          =: _rtgrTransitGatewayRouteTableId
+          Prelude.=: transitGatewayRouteTableId
       ]
 
--- | /See:/ 'replaceTransitGatewayRouteResponse' smart constructor.
+-- | /See:/ 'newReplaceTransitGatewayRouteResponse' smart constructor.
 data ReplaceTransitGatewayRouteResponse = ReplaceTransitGatewayRouteResponse'
-  { _rtgrrrsRoute ::
-      !( Maybe
-           TransitGatewayRoute
-       ),
-    _rtgrrrsResponseStatus ::
-      !Int
+  { -- | Information about the modified route.
+    route :: Prelude.Maybe TransitGatewayRoute,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplaceTransitGatewayRouteResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplaceTransitGatewayRouteResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtgrrrsRoute' - Information about the modified route.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtgrrrsResponseStatus' - -- | The response status code.
-replaceTransitGatewayRouteResponse ::
-  -- | 'rtgrrrsResponseStatus'
-  Int ->
+-- 'route', 'replaceTransitGatewayRouteResponse_route' - Information about the modified route.
+--
+-- 'httpStatus', 'replaceTransitGatewayRouteResponse_httpStatus' - The response's http status code.
+newReplaceTransitGatewayRouteResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ReplaceTransitGatewayRouteResponse
-replaceTransitGatewayRouteResponse pResponseStatus_ =
+newReplaceTransitGatewayRouteResponse pHttpStatus_ =
   ReplaceTransitGatewayRouteResponse'
-    { _rtgrrrsRoute =
-        Nothing,
-      _rtgrrrsResponseStatus =
-        pResponseStatus_
+    { route =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the modified route.
-rtgrrrsRoute :: Lens' ReplaceTransitGatewayRouteResponse (Maybe TransitGatewayRoute)
-rtgrrrsRoute = lens _rtgrrrsRoute (\s a -> s {_rtgrrrsRoute = a})
+replaceTransitGatewayRouteResponse_route :: Lens.Lens' ReplaceTransitGatewayRouteResponse (Prelude.Maybe TransitGatewayRoute)
+replaceTransitGatewayRouteResponse_route = Lens.lens (\ReplaceTransitGatewayRouteResponse' {route} -> route) (\s@ReplaceTransitGatewayRouteResponse' {} a -> s {route = a} :: ReplaceTransitGatewayRouteResponse)
 
--- | -- | The response status code.
-rtgrrrsResponseStatus :: Lens' ReplaceTransitGatewayRouteResponse Int
-rtgrrrsResponseStatus = lens _rtgrrrsResponseStatus (\s a -> s {_rtgrrrsResponseStatus = a})
+-- | The response's http status code.
+replaceTransitGatewayRouteResponse_httpStatus :: Lens.Lens' ReplaceTransitGatewayRouteResponse Prelude.Int
+replaceTransitGatewayRouteResponse_httpStatus = Lens.lens (\ReplaceTransitGatewayRouteResponse' {httpStatus} -> httpStatus) (\s@ReplaceTransitGatewayRouteResponse' {} a -> s {httpStatus = a} :: ReplaceTransitGatewayRouteResponse)
 
-instance NFData ReplaceTransitGatewayRouteResponse
+instance
+  Prelude.NFData
+    ReplaceTransitGatewayRouteResponse

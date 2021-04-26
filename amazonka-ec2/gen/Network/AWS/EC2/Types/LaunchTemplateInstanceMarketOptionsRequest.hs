@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,72 +22,63 @@ module Network.AWS.EC2.Types.LaunchTemplateInstanceMarketOptionsRequest where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.LaunchTemplateSpotMarketOptionsRequest
 import Network.AWS.EC2.Types.MarketType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The market (purchasing) option for the instances.
 --
---
---
--- /See:/ 'launchTemplateInstanceMarketOptionsRequest' smart constructor.
+-- /See:/ 'newLaunchTemplateInstanceMarketOptionsRequest' smart constructor.
 data LaunchTemplateInstanceMarketOptionsRequest = LaunchTemplateInstanceMarketOptionsRequest'
-  { _ltimorMarketType ::
-      !( Maybe
-           MarketType
-       ),
-    _ltimorSpotOptions ::
-      !( Maybe
-           LaunchTemplateSpotMarketOptionsRequest
-       )
+  { -- | The market type.
+    marketType :: Prelude.Maybe MarketType,
+    -- | The options for Spot Instances.
+    spotOptions :: Prelude.Maybe LaunchTemplateSpotMarketOptionsRequest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateInstanceMarketOptionsRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateInstanceMarketOptionsRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltimorMarketType' - The market type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltimorSpotOptions' - The options for Spot Instances.
-launchTemplateInstanceMarketOptionsRequest ::
+-- 'marketType', 'launchTemplateInstanceMarketOptionsRequest_marketType' - The market type.
+--
+-- 'spotOptions', 'launchTemplateInstanceMarketOptionsRequest_spotOptions' - The options for Spot Instances.
+newLaunchTemplateInstanceMarketOptionsRequest ::
   LaunchTemplateInstanceMarketOptionsRequest
-launchTemplateInstanceMarketOptionsRequest =
+newLaunchTemplateInstanceMarketOptionsRequest =
   LaunchTemplateInstanceMarketOptionsRequest'
-    { _ltimorMarketType =
-        Nothing,
-      _ltimorSpotOptions = Nothing
+    { marketType =
+        Prelude.Nothing,
+      spotOptions = Prelude.Nothing
     }
 
 -- | The market type.
-ltimorMarketType :: Lens' LaunchTemplateInstanceMarketOptionsRequest (Maybe MarketType)
-ltimorMarketType = lens _ltimorMarketType (\s a -> s {_ltimorMarketType = a})
+launchTemplateInstanceMarketOptionsRequest_marketType :: Lens.Lens' LaunchTemplateInstanceMarketOptionsRequest (Prelude.Maybe MarketType)
+launchTemplateInstanceMarketOptionsRequest_marketType = Lens.lens (\LaunchTemplateInstanceMarketOptionsRequest' {marketType} -> marketType) (\s@LaunchTemplateInstanceMarketOptionsRequest' {} a -> s {marketType = a} :: LaunchTemplateInstanceMarketOptionsRequest)
 
 -- | The options for Spot Instances.
-ltimorSpotOptions :: Lens' LaunchTemplateInstanceMarketOptionsRequest (Maybe LaunchTemplateSpotMarketOptionsRequest)
-ltimorSpotOptions = lens _ltimorSpotOptions (\s a -> s {_ltimorSpotOptions = a})
+launchTemplateInstanceMarketOptionsRequest_spotOptions :: Lens.Lens' LaunchTemplateInstanceMarketOptionsRequest (Prelude.Maybe LaunchTemplateSpotMarketOptionsRequest)
+launchTemplateInstanceMarketOptionsRequest_spotOptions = Lens.lens (\LaunchTemplateInstanceMarketOptionsRequest' {spotOptions} -> spotOptions) (\s@LaunchTemplateInstanceMarketOptionsRequest' {} a -> s {spotOptions = a} :: LaunchTemplateInstanceMarketOptionsRequest)
 
 instance
-  Hashable
+  Prelude.Hashable
     LaunchTemplateInstanceMarketOptionsRequest
 
 instance
-  NFData
+  Prelude.NFData
     LaunchTemplateInstanceMarketOptionsRequest
 
 instance
-  ToQuery
+  Prelude.ToQuery
     LaunchTemplateInstanceMarketOptionsRequest
   where
   toQuery
     LaunchTemplateInstanceMarketOptionsRequest' {..} =
-      mconcat
-        [ "MarketType" =: _ltimorMarketType,
-          "SpotOptions" =: _ltimorSpotOptions
+      Prelude.mconcat
+        [ "MarketType" Prelude.=: marketType,
+          "SpotOptions" Prelude.=: spotOptions
         ]

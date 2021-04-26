@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,152 +22,145 @@ module Network.AWS.EC2.Types.ReservedInstancesModification where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ReservedInstancesId
 import Network.AWS.EC2.Types.ReservedInstancesModificationResult
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Reserved Instance modification.
 --
---
---
--- /See:/ 'reservedInstancesModification' smart constructor.
+-- /See:/ 'newReservedInstancesModification' smart constructor.
 data ReservedInstancesModification = ReservedInstancesModification'
-  { _rimStatusMessage ::
-      !( Maybe
-           Text
-       ),
-    _rimStatus ::
-      !( Maybe
-           Text
-       ),
-    _rimCreateDate ::
-      !( Maybe
-           ISO8601
-       ),
-    _rimModificationResults ::
-      !( Maybe
-           [ReservedInstancesModificationResult]
-       ),
-    _rimEffectiveDate ::
-      !( Maybe
-           ISO8601
-       ),
-    _rimReservedInstancesIds ::
-      !( Maybe
-           [ReservedInstancesId]
-       ),
-    _rimReservedInstancesModificationId ::
-      !( Maybe
-           Text
-       ),
-    _rimUpdateDate ::
-      !( Maybe
-           ISO8601
-       ),
-    _rimClientToken ::
-      !( Maybe
-           Text
-       )
+  { -- | The reason for the status.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status of the Reserved Instances modification request.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The time when the modification request was created.
+    createDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | Contains target configurations along with their corresponding new
+    -- Reserved Instance IDs.
+    modificationResults :: Prelude.Maybe [ReservedInstancesModificationResult],
+    -- | The time for the modification to become effective.
+    effectiveDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The IDs of one or more Reserved Instances.
+    reservedInstancesIds :: Prelude.Maybe [ReservedInstancesId],
+    -- | A unique ID for the Reserved Instance modification.
+    reservedInstancesModificationId :: Prelude.Maybe Prelude.Text,
+    -- | The time when the modification request was last updated.
+    updateDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | A unique, case-sensitive key supplied by the client to ensure that the
+    -- request is idempotent. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedInstancesModification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedInstancesModification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rimStatusMessage' - The reason for the status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rimStatus' - The status of the Reserved Instances modification request.
+-- 'statusMessage', 'reservedInstancesModification_statusMessage' - The reason for the status.
 --
--- * 'rimCreateDate' - The time when the modification request was created.
+-- 'status', 'reservedInstancesModification_status' - The status of the Reserved Instances modification request.
 --
--- * 'rimModificationResults' - Contains target configurations along with their corresponding new Reserved Instance IDs.
+-- 'createDate', 'reservedInstancesModification_createDate' - The time when the modification request was created.
 --
--- * 'rimEffectiveDate' - The time for the modification to become effective.
+-- 'modificationResults', 'reservedInstancesModification_modificationResults' - Contains target configurations along with their corresponding new
+-- Reserved Instance IDs.
 --
--- * 'rimReservedInstancesIds' - The IDs of one or more Reserved Instances.
+-- 'effectiveDate', 'reservedInstancesModification_effectiveDate' - The time for the modification to become effective.
 --
--- * 'rimReservedInstancesModificationId' - A unique ID for the Reserved Instance modification.
+-- 'reservedInstancesIds', 'reservedInstancesModification_reservedInstancesIds' - The IDs of one or more Reserved Instances.
 --
--- * 'rimUpdateDate' - The time when the modification request was last updated.
+-- 'reservedInstancesModificationId', 'reservedInstancesModification_reservedInstancesModificationId' - A unique ID for the Reserved Instance modification.
 --
--- * 'rimClientToken' - A unique, case-sensitive key supplied by the client to ensure that the request is idempotent. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-reservedInstancesModification ::
+-- 'updateDate', 'reservedInstancesModification_updateDate' - The time when the modification request was last updated.
+--
+-- 'clientToken', 'reservedInstancesModification_clientToken' - A unique, case-sensitive key supplied by the client to ensure that the
+-- request is idempotent. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+newReservedInstancesModification ::
   ReservedInstancesModification
-reservedInstancesModification =
+newReservedInstancesModification =
   ReservedInstancesModification'
-    { _rimStatusMessage =
-        Nothing,
-      _rimStatus = Nothing,
-      _rimCreateDate = Nothing,
-      _rimModificationResults = Nothing,
-      _rimEffectiveDate = Nothing,
-      _rimReservedInstancesIds = Nothing,
-      _rimReservedInstancesModificationId =
-        Nothing,
-      _rimUpdateDate = Nothing,
-      _rimClientToken = Nothing
+    { statusMessage =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      createDate = Prelude.Nothing,
+      modificationResults = Prelude.Nothing,
+      effectiveDate = Prelude.Nothing,
+      reservedInstancesIds = Prelude.Nothing,
+      reservedInstancesModificationId =
+        Prelude.Nothing,
+      updateDate = Prelude.Nothing,
+      clientToken = Prelude.Nothing
     }
 
 -- | The reason for the status.
-rimStatusMessage :: Lens' ReservedInstancesModification (Maybe Text)
-rimStatusMessage = lens _rimStatusMessage (\s a -> s {_rimStatusMessage = a})
+reservedInstancesModification_statusMessage :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe Prelude.Text)
+reservedInstancesModification_statusMessage = Lens.lens (\ReservedInstancesModification' {statusMessage} -> statusMessage) (\s@ReservedInstancesModification' {} a -> s {statusMessage = a} :: ReservedInstancesModification)
 
 -- | The status of the Reserved Instances modification request.
-rimStatus :: Lens' ReservedInstancesModification (Maybe Text)
-rimStatus = lens _rimStatus (\s a -> s {_rimStatus = a})
+reservedInstancesModification_status :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe Prelude.Text)
+reservedInstancesModification_status = Lens.lens (\ReservedInstancesModification' {status} -> status) (\s@ReservedInstancesModification' {} a -> s {status = a} :: ReservedInstancesModification)
 
 -- | The time when the modification request was created.
-rimCreateDate :: Lens' ReservedInstancesModification (Maybe UTCTime)
-rimCreateDate = lens _rimCreateDate (\s a -> s {_rimCreateDate = a}) . mapping _Time
+reservedInstancesModification_createDate :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe Prelude.UTCTime)
+reservedInstancesModification_createDate = Lens.lens (\ReservedInstancesModification' {createDate} -> createDate) (\s@ReservedInstancesModification' {} a -> s {createDate = a} :: ReservedInstancesModification) Prelude.. Lens.mapping Prelude._Time
 
--- | Contains target configurations along with their corresponding new Reserved Instance IDs.
-rimModificationResults :: Lens' ReservedInstancesModification [ReservedInstancesModificationResult]
-rimModificationResults = lens _rimModificationResults (\s a -> s {_rimModificationResults = a}) . _Default . _Coerce
+-- | Contains target configurations along with their corresponding new
+-- Reserved Instance IDs.
+reservedInstancesModification_modificationResults :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe [ReservedInstancesModificationResult])
+reservedInstancesModification_modificationResults = Lens.lens (\ReservedInstancesModification' {modificationResults} -> modificationResults) (\s@ReservedInstancesModification' {} a -> s {modificationResults = a} :: ReservedInstancesModification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time for the modification to become effective.
-rimEffectiveDate :: Lens' ReservedInstancesModification (Maybe UTCTime)
-rimEffectiveDate = lens _rimEffectiveDate (\s a -> s {_rimEffectiveDate = a}) . mapping _Time
+reservedInstancesModification_effectiveDate :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe Prelude.UTCTime)
+reservedInstancesModification_effectiveDate = Lens.lens (\ReservedInstancesModification' {effectiveDate} -> effectiveDate) (\s@ReservedInstancesModification' {} a -> s {effectiveDate = a} :: ReservedInstancesModification) Prelude.. Lens.mapping Prelude._Time
 
 -- | The IDs of one or more Reserved Instances.
-rimReservedInstancesIds :: Lens' ReservedInstancesModification [ReservedInstancesId]
-rimReservedInstancesIds = lens _rimReservedInstancesIds (\s a -> s {_rimReservedInstancesIds = a}) . _Default . _Coerce
+reservedInstancesModification_reservedInstancesIds :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe [ReservedInstancesId])
+reservedInstancesModification_reservedInstancesIds = Lens.lens (\ReservedInstancesModification' {reservedInstancesIds} -> reservedInstancesIds) (\s@ReservedInstancesModification' {} a -> s {reservedInstancesIds = a} :: ReservedInstancesModification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A unique ID for the Reserved Instance modification.
-rimReservedInstancesModificationId :: Lens' ReservedInstancesModification (Maybe Text)
-rimReservedInstancesModificationId = lens _rimReservedInstancesModificationId (\s a -> s {_rimReservedInstancesModificationId = a})
+reservedInstancesModification_reservedInstancesModificationId :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe Prelude.Text)
+reservedInstancesModification_reservedInstancesModificationId = Lens.lens (\ReservedInstancesModification' {reservedInstancesModificationId} -> reservedInstancesModificationId) (\s@ReservedInstancesModification' {} a -> s {reservedInstancesModificationId = a} :: ReservedInstancesModification)
 
 -- | The time when the modification request was last updated.
-rimUpdateDate :: Lens' ReservedInstancesModification (Maybe UTCTime)
-rimUpdateDate = lens _rimUpdateDate (\s a -> s {_rimUpdateDate = a}) . mapping _Time
+reservedInstancesModification_updateDate :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe Prelude.UTCTime)
+reservedInstancesModification_updateDate = Lens.lens (\ReservedInstancesModification' {updateDate} -> updateDate) (\s@ReservedInstancesModification' {} a -> s {updateDate = a} :: ReservedInstancesModification) Prelude.. Lens.mapping Prelude._Time
 
--- | A unique, case-sensitive key supplied by the client to ensure that the request is idempotent. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-rimClientToken :: Lens' ReservedInstancesModification (Maybe Text)
-rimClientToken = lens _rimClientToken (\s a -> s {_rimClientToken = a})
+-- | A unique, case-sensitive key supplied by the client to ensure that the
+-- request is idempotent. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+reservedInstancesModification_clientToken :: Lens.Lens' ReservedInstancesModification (Prelude.Maybe Prelude.Text)
+reservedInstancesModification_clientToken = Lens.lens (\ReservedInstancesModification' {clientToken} -> clientToken) (\s@ReservedInstancesModification' {} a -> s {clientToken = a} :: ReservedInstancesModification)
 
-instance FromXML ReservedInstancesModification where
+instance
+  Prelude.FromXML
+    ReservedInstancesModification
+  where
   parseXML x =
     ReservedInstancesModification'
-      <$> (x .@? "statusMessage")
-      <*> (x .@? "status")
-      <*> (x .@? "createDate")
-      <*> ( x .@? "modificationResultSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "effectiveDate")
-      <*> ( x .@? "reservedInstancesSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "reservedInstancesModificationId")
-      <*> (x .@? "updateDate")
-      <*> (x .@? "clientToken")
+      Prelude.<$> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "createDate")
+      Prelude.<*> ( x Prelude..@? "modificationResultSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "effectiveDate")
+      Prelude.<*> ( x Prelude..@? "reservedInstancesSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "reservedInstancesModificationId")
+      Prelude.<*> (x Prelude..@? "updateDate")
+      Prelude.<*> (x Prelude..@? "clientToken")
 
-instance Hashable ReservedInstancesModification
+instance
+  Prelude.Hashable
+    ReservedInstancesModification
 
-instance NFData ReservedInstancesModification
+instance Prelude.NFData ReservedInstancesModification

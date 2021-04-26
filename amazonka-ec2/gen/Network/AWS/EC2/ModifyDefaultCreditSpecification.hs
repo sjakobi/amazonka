@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,211 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the default credit option for CPU usage of burstable performance instances. The default credit option is set at the account level per AWS Region, and is specified per instance family. All new burstable performance instances in the account launch using the default credit option.
+-- Modifies the default credit option for CPU usage of burstable
+-- performance instances. The default credit option is set at the account
+-- level per AWS Region, and is specified per instance family. All new
+-- burstable performance instances in the account launch using the default
+-- credit option.
 --
+-- @ModifyDefaultCreditSpecification@ is an asynchronous operation, which
+-- works at an AWS Region level and modifies the credit option for each
+-- Availability Zone. All zones in a Region are updated within five
+-- minutes. But if instances are launched during this operation, they might
+-- not get the new credit option until the zone is updated. To verify
+-- whether the update has occurred, you can call
+-- @GetDefaultCreditSpecification@ and check @DefaultCreditSpecification@
+-- for updates.
 --
--- @ModifyDefaultCreditSpecification@ is an asynchronous operation, which works at an AWS Region level and modifies the credit option for each Availability Zone. All zones in a Region are updated within five minutes. But if instances are launched during this operation, they might not get the new credit option until the zone is updated. To verify whether the update has occurred, you can call @GetDefaultCreditSpecification@ and check @DefaultCreditSpecification@ for updates.
---
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html Burstable performance instances> in the /Amazon EC2 User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html Burstable performance instances>
+-- in the /Amazon EC2 User Guide/.
 module Network.AWS.EC2.ModifyDefaultCreditSpecification
   ( -- * Creating a Request
-    modifyDefaultCreditSpecification,
-    ModifyDefaultCreditSpecification,
+    ModifyDefaultCreditSpecification (..),
+    newModifyDefaultCreditSpecification,
 
     -- * Request Lenses
-    mdcsDryRun,
-    mdcsInstanceFamily,
-    mdcsCPUCredits,
+    modifyDefaultCreditSpecification_dryRun,
+    modifyDefaultCreditSpecification_instanceFamily,
+    modifyDefaultCreditSpecification_cpuCredits,
 
     -- * Destructuring the Response
-    modifyDefaultCreditSpecificationResponse,
-    ModifyDefaultCreditSpecificationResponse,
+    ModifyDefaultCreditSpecificationResponse (..),
+    newModifyDefaultCreditSpecificationResponse,
 
     -- * Response Lenses
-    mdcsrrsInstanceFamilyCreditSpecification,
-    mdcsrrsResponseStatus,
+    modifyDefaultCreditSpecificationResponse_instanceFamilyCreditSpecification,
+    modifyDefaultCreditSpecificationResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.InstanceFamilyCreditSpecification
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyDefaultCreditSpecification' smart constructor.
+-- | /See:/ 'newModifyDefaultCreditSpecification' smart constructor.
 data ModifyDefaultCreditSpecification = ModifyDefaultCreditSpecification'
-  { _mdcsDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _mdcsInstanceFamily ::
-      !UnlimitedSupportedInstanceFamily,
-    _mdcsCPUCredits ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The instance family.
+    instanceFamily :: UnlimitedSupportedInstanceFamily,
+    -- | The credit option for CPU usage of the instance family.
+    --
+    -- Valid Values: @standard@ | @unlimited@
+    cpuCredits :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyDefaultCreditSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyDefaultCreditSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdcsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdcsInstanceFamily' - The instance family.
+-- 'dryRun', 'modifyDefaultCreditSpecification_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'mdcsCPUCredits' - The credit option for CPU usage of the instance family. Valid Values: @standard@ | @unlimited@
-modifyDefaultCreditSpecification ::
-  -- | 'mdcsInstanceFamily'
+-- 'instanceFamily', 'modifyDefaultCreditSpecification_instanceFamily' - The instance family.
+--
+-- 'cpuCredits', 'modifyDefaultCreditSpecification_cpuCredits' - The credit option for CPU usage of the instance family.
+--
+-- Valid Values: @standard@ | @unlimited@
+newModifyDefaultCreditSpecification ::
+  -- | 'instanceFamily'
   UnlimitedSupportedInstanceFamily ->
-  -- | 'mdcsCPUCredits'
-  Text ->
+  -- | 'cpuCredits'
+  Prelude.Text ->
   ModifyDefaultCreditSpecification
-modifyDefaultCreditSpecification
+newModifyDefaultCreditSpecification
   pInstanceFamily_
-  pCPUCredits_ =
+  pCpuCredits_ =
     ModifyDefaultCreditSpecification'
-      { _mdcsDryRun =
-          Nothing,
-        _mdcsInstanceFamily = pInstanceFamily_,
-        _mdcsCPUCredits = pCPUCredits_
+      { dryRun =
+          Prelude.Nothing,
+        instanceFamily = pInstanceFamily_,
+        cpuCredits = pCpuCredits_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-mdcsDryRun :: Lens' ModifyDefaultCreditSpecification (Maybe Bool)
-mdcsDryRun = lens _mdcsDryRun (\s a -> s {_mdcsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyDefaultCreditSpecification_dryRun :: Lens.Lens' ModifyDefaultCreditSpecification (Prelude.Maybe Prelude.Bool)
+modifyDefaultCreditSpecification_dryRun = Lens.lens (\ModifyDefaultCreditSpecification' {dryRun} -> dryRun) (\s@ModifyDefaultCreditSpecification' {} a -> s {dryRun = a} :: ModifyDefaultCreditSpecification)
 
 -- | The instance family.
-mdcsInstanceFamily :: Lens' ModifyDefaultCreditSpecification UnlimitedSupportedInstanceFamily
-mdcsInstanceFamily = lens _mdcsInstanceFamily (\s a -> s {_mdcsInstanceFamily = a})
+modifyDefaultCreditSpecification_instanceFamily :: Lens.Lens' ModifyDefaultCreditSpecification UnlimitedSupportedInstanceFamily
+modifyDefaultCreditSpecification_instanceFamily = Lens.lens (\ModifyDefaultCreditSpecification' {instanceFamily} -> instanceFamily) (\s@ModifyDefaultCreditSpecification' {} a -> s {instanceFamily = a} :: ModifyDefaultCreditSpecification)
 
--- | The credit option for CPU usage of the instance family. Valid Values: @standard@ | @unlimited@
-mdcsCPUCredits :: Lens' ModifyDefaultCreditSpecification Text
-mdcsCPUCredits = lens _mdcsCPUCredits (\s a -> s {_mdcsCPUCredits = a})
+-- | The credit option for CPU usage of the instance family.
+--
+-- Valid Values: @standard@ | @unlimited@
+modifyDefaultCreditSpecification_cpuCredits :: Lens.Lens' ModifyDefaultCreditSpecification Prelude.Text
+modifyDefaultCreditSpecification_cpuCredits = Lens.lens (\ModifyDefaultCreditSpecification' {cpuCredits} -> cpuCredits) (\s@ModifyDefaultCreditSpecification' {} a -> s {cpuCredits = a} :: ModifyDefaultCreditSpecification)
 
-instance AWSRequest ModifyDefaultCreditSpecification where
+instance
+  Prelude.AWSRequest
+    ModifyDefaultCreditSpecification
+  where
   type
     Rs ModifyDefaultCreditSpecification =
       ModifyDefaultCreditSpecificationResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyDefaultCreditSpecificationResponse'
-            <$> (x .@? "instanceFamilyCreditSpecification")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "instanceFamilyCreditSpecification")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyDefaultCreditSpecification
+instance
+  Prelude.Hashable
+    ModifyDefaultCreditSpecification
 
-instance NFData ModifyDefaultCreditSpecification
+instance
+  Prelude.NFData
+    ModifyDefaultCreditSpecification
 
-instance ToHeaders ModifyDefaultCreditSpecification where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ModifyDefaultCreditSpecification
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyDefaultCreditSpecification where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    ModifyDefaultCreditSpecification
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyDefaultCreditSpecification where
+instance
+  Prelude.ToQuery
+    ModifyDefaultCreditSpecification
+  where
   toQuery ModifyDefaultCreditSpecification' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyDefaultCreditSpecification" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _mdcsDryRun,
-        "InstanceFamily" =: _mdcsInstanceFamily,
-        "CpuCredits" =: _mdcsCPUCredits
+          Prelude.=: ( "ModifyDefaultCreditSpecification" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "InstanceFamily" Prelude.=: instanceFamily,
+        "CpuCredits" Prelude.=: cpuCredits
       ]
 
--- | /See:/ 'modifyDefaultCreditSpecificationResponse' smart constructor.
+-- | /See:/ 'newModifyDefaultCreditSpecificationResponse' smart constructor.
 data ModifyDefaultCreditSpecificationResponse = ModifyDefaultCreditSpecificationResponse'
-  { _mdcsrrsInstanceFamilyCreditSpecification ::
-      !( Maybe
-           InstanceFamilyCreditSpecification
-       ),
-    _mdcsrrsResponseStatus ::
-      !Int
+  { -- | The default credit option for CPU usage of the instance family.
+    instanceFamilyCreditSpecification :: Prelude.Maybe InstanceFamilyCreditSpecification,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyDefaultCreditSpecificationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyDefaultCreditSpecificationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdcsrrsInstanceFamilyCreditSpecification' - The default credit option for CPU usage of the instance family.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdcsrrsResponseStatus' - -- | The response status code.
-modifyDefaultCreditSpecificationResponse ::
-  -- | 'mdcsrrsResponseStatus'
-  Int ->
+-- 'instanceFamilyCreditSpecification', 'modifyDefaultCreditSpecificationResponse_instanceFamilyCreditSpecification' - The default credit option for CPU usage of the instance family.
+--
+-- 'httpStatus', 'modifyDefaultCreditSpecificationResponse_httpStatus' - The response's http status code.
+newModifyDefaultCreditSpecificationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyDefaultCreditSpecificationResponse
-modifyDefaultCreditSpecificationResponse
-  pResponseStatus_ =
+newModifyDefaultCreditSpecificationResponse
+  pHttpStatus_ =
     ModifyDefaultCreditSpecificationResponse'
-      { _mdcsrrsInstanceFamilyCreditSpecification =
-          Nothing,
-        _mdcsrrsResponseStatus =
-          pResponseStatus_
+      { instanceFamilyCreditSpecification =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The default credit option for CPU usage of the instance family.
-mdcsrrsInstanceFamilyCreditSpecification :: Lens' ModifyDefaultCreditSpecificationResponse (Maybe InstanceFamilyCreditSpecification)
-mdcsrrsInstanceFamilyCreditSpecification = lens _mdcsrrsInstanceFamilyCreditSpecification (\s a -> s {_mdcsrrsInstanceFamilyCreditSpecification = a})
+modifyDefaultCreditSpecificationResponse_instanceFamilyCreditSpecification :: Lens.Lens' ModifyDefaultCreditSpecificationResponse (Prelude.Maybe InstanceFamilyCreditSpecification)
+modifyDefaultCreditSpecificationResponse_instanceFamilyCreditSpecification = Lens.lens (\ModifyDefaultCreditSpecificationResponse' {instanceFamilyCreditSpecification} -> instanceFamilyCreditSpecification) (\s@ModifyDefaultCreditSpecificationResponse' {} a -> s {instanceFamilyCreditSpecification = a} :: ModifyDefaultCreditSpecificationResponse)
 
--- | -- | The response status code.
-mdcsrrsResponseStatus :: Lens' ModifyDefaultCreditSpecificationResponse Int
-mdcsrrsResponseStatus = lens _mdcsrrsResponseStatus (\s a -> s {_mdcsrrsResponseStatus = a})
+-- | The response's http status code.
+modifyDefaultCreditSpecificationResponse_httpStatus :: Lens.Lens' ModifyDefaultCreditSpecificationResponse Prelude.Int
+modifyDefaultCreditSpecificationResponse_httpStatus = Lens.lens (\ModifyDefaultCreditSpecificationResponse' {httpStatus} -> httpStatus) (\s@ModifyDefaultCreditSpecificationResponse' {} a -> s {httpStatus = a} :: ModifyDefaultCreditSpecificationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ModifyDefaultCreditSpecificationResponse

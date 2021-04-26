@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,219 +21,215 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a reference (route) to a prefix list in a specified transit gateway route table.
+-- Creates a reference (route) to a prefix list in a specified transit
+-- gateway route table.
 module Network.AWS.EC2.CreateTransitGatewayPrefixListReference
   ( -- * Creating a Request
-    createTransitGatewayPrefixListReference,
-    CreateTransitGatewayPrefixListReference,
+    CreateTransitGatewayPrefixListReference (..),
+    newCreateTransitGatewayPrefixListReference,
 
     -- * Request Lenses
-    ctgplrDryRun,
-    ctgplrBlackhole,
-    ctgplrTransitGatewayAttachmentId,
-    ctgplrTransitGatewayRouteTableId,
-    ctgplrPrefixListId,
+    createTransitGatewayPrefixListReference_dryRun,
+    createTransitGatewayPrefixListReference_blackhole,
+    createTransitGatewayPrefixListReference_transitGatewayAttachmentId,
+    createTransitGatewayPrefixListReference_transitGatewayRouteTableId,
+    createTransitGatewayPrefixListReference_prefixListId,
 
     -- * Destructuring the Response
-    createTransitGatewayPrefixListReferenceResponse,
-    CreateTransitGatewayPrefixListReferenceResponse,
+    CreateTransitGatewayPrefixListReferenceResponse (..),
+    newCreateTransitGatewayPrefixListReferenceResponse,
 
     -- * Response Lenses
-    ctgplrrrsTransitGatewayPrefixListReference,
-    ctgplrrrsResponseStatus,
+    createTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference,
+    createTransitGatewayPrefixListReferenceResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayPrefixListReference
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTransitGatewayPrefixListReference' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayPrefixListReference' smart constructor.
 data CreateTransitGatewayPrefixListReference = CreateTransitGatewayPrefixListReference'
-  { _ctgplrDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ctgplrBlackhole ::
-      !( Maybe
-           Bool
-       ),
-    _ctgplrTransitGatewayAttachmentId ::
-      !( Maybe
-           Text
-       ),
-    _ctgplrTransitGatewayRouteTableId ::
-      !Text,
-    _ctgplrPrefixListId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether to drop traffic that matches this route.
+    blackhole :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the attachment to which traffic is routed.
+    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway route table.
+    transitGatewayRouteTableId :: Prelude.Text,
+    -- | The ID of the prefix list that is used for destination matches.
+    prefixListId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayPrefixListReference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayPrefixListReference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgplrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgplrBlackhole' - Indicates whether to drop traffic that matches this route.
+-- 'dryRun', 'createTransitGatewayPrefixListReference_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ctgplrTransitGatewayAttachmentId' - The ID of the attachment to which traffic is routed.
+-- 'blackhole', 'createTransitGatewayPrefixListReference_blackhole' - Indicates whether to drop traffic that matches this route.
 --
--- * 'ctgplrTransitGatewayRouteTableId' - The ID of the transit gateway route table.
+-- 'transitGatewayAttachmentId', 'createTransitGatewayPrefixListReference_transitGatewayAttachmentId' - The ID of the attachment to which traffic is routed.
 --
--- * 'ctgplrPrefixListId' - The ID of the prefix list that is used for destination matches.
-createTransitGatewayPrefixListReference ::
-  -- | 'ctgplrTransitGatewayRouteTableId'
-  Text ->
-  -- | 'ctgplrPrefixListId'
-  Text ->
+-- 'transitGatewayRouteTableId', 'createTransitGatewayPrefixListReference_transitGatewayRouteTableId' - The ID of the transit gateway route table.
+--
+-- 'prefixListId', 'createTransitGatewayPrefixListReference_prefixListId' - The ID of the prefix list that is used for destination matches.
+newCreateTransitGatewayPrefixListReference ::
+  -- | 'transitGatewayRouteTableId'
+  Prelude.Text ->
+  -- | 'prefixListId'
+  Prelude.Text ->
   CreateTransitGatewayPrefixListReference
-createTransitGatewayPrefixListReference
+newCreateTransitGatewayPrefixListReference
   pTransitGatewayRouteTableId_
   pPrefixListId_ =
     CreateTransitGatewayPrefixListReference'
-      { _ctgplrDryRun =
-          Nothing,
-        _ctgplrBlackhole = Nothing,
-        _ctgplrTransitGatewayAttachmentId =
-          Nothing,
-        _ctgplrTransitGatewayRouteTableId =
+      { dryRun =
+          Prelude.Nothing,
+        blackhole = Prelude.Nothing,
+        transitGatewayAttachmentId =
+          Prelude.Nothing,
+        transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_,
-        _ctgplrPrefixListId =
-          pPrefixListId_
+        prefixListId = pPrefixListId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ctgplrDryRun :: Lens' CreateTransitGatewayPrefixListReference (Maybe Bool)
-ctgplrDryRun = lens _ctgplrDryRun (\s a -> s {_ctgplrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTransitGatewayPrefixListReference_dryRun :: Lens.Lens' CreateTransitGatewayPrefixListReference (Prelude.Maybe Prelude.Bool)
+createTransitGatewayPrefixListReference_dryRun = Lens.lens (\CreateTransitGatewayPrefixListReference' {dryRun} -> dryRun) (\s@CreateTransitGatewayPrefixListReference' {} a -> s {dryRun = a} :: CreateTransitGatewayPrefixListReference)
 
 -- | Indicates whether to drop traffic that matches this route.
-ctgplrBlackhole :: Lens' CreateTransitGatewayPrefixListReference (Maybe Bool)
-ctgplrBlackhole = lens _ctgplrBlackhole (\s a -> s {_ctgplrBlackhole = a})
+createTransitGatewayPrefixListReference_blackhole :: Lens.Lens' CreateTransitGatewayPrefixListReference (Prelude.Maybe Prelude.Bool)
+createTransitGatewayPrefixListReference_blackhole = Lens.lens (\CreateTransitGatewayPrefixListReference' {blackhole} -> blackhole) (\s@CreateTransitGatewayPrefixListReference' {} a -> s {blackhole = a} :: CreateTransitGatewayPrefixListReference)
 
 -- | The ID of the attachment to which traffic is routed.
-ctgplrTransitGatewayAttachmentId :: Lens' CreateTransitGatewayPrefixListReference (Maybe Text)
-ctgplrTransitGatewayAttachmentId = lens _ctgplrTransitGatewayAttachmentId (\s a -> s {_ctgplrTransitGatewayAttachmentId = a})
+createTransitGatewayPrefixListReference_transitGatewayAttachmentId :: Lens.Lens' CreateTransitGatewayPrefixListReference (Prelude.Maybe Prelude.Text)
+createTransitGatewayPrefixListReference_transitGatewayAttachmentId = Lens.lens (\CreateTransitGatewayPrefixListReference' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@CreateTransitGatewayPrefixListReference' {} a -> s {transitGatewayAttachmentId = a} :: CreateTransitGatewayPrefixListReference)
 
 -- | The ID of the transit gateway route table.
-ctgplrTransitGatewayRouteTableId :: Lens' CreateTransitGatewayPrefixListReference Text
-ctgplrTransitGatewayRouteTableId = lens _ctgplrTransitGatewayRouteTableId (\s a -> s {_ctgplrTransitGatewayRouteTableId = a})
+createTransitGatewayPrefixListReference_transitGatewayRouteTableId :: Lens.Lens' CreateTransitGatewayPrefixListReference Prelude.Text
+createTransitGatewayPrefixListReference_transitGatewayRouteTableId = Lens.lens (\CreateTransitGatewayPrefixListReference' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@CreateTransitGatewayPrefixListReference' {} a -> s {transitGatewayRouteTableId = a} :: CreateTransitGatewayPrefixListReference)
 
 -- | The ID of the prefix list that is used for destination matches.
-ctgplrPrefixListId :: Lens' CreateTransitGatewayPrefixListReference Text
-ctgplrPrefixListId = lens _ctgplrPrefixListId (\s a -> s {_ctgplrPrefixListId = a})
+createTransitGatewayPrefixListReference_prefixListId :: Lens.Lens' CreateTransitGatewayPrefixListReference Prelude.Text
+createTransitGatewayPrefixListReference_prefixListId = Lens.lens (\CreateTransitGatewayPrefixListReference' {prefixListId} -> prefixListId) (\s@CreateTransitGatewayPrefixListReference' {} a -> s {prefixListId = a} :: CreateTransitGatewayPrefixListReference)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateTransitGatewayPrefixListReference
   where
   type
     Rs CreateTransitGatewayPrefixListReference =
       CreateTransitGatewayPrefixListReferenceResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateTransitGatewayPrefixListReferenceResponse'
-            <$> (x .@? "transitGatewayPrefixListReference")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayPrefixListReference")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateTransitGatewayPrefixListReference
 
 instance
-  NFData
+  Prelude.NFData
     CreateTransitGatewayPrefixListReference
 
 instance
-  ToHeaders
-    CreateTransitGatewayPrefixListReference
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     CreateTransitGatewayPrefixListReference
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    CreateTransitGatewayPrefixListReference
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     CreateTransitGatewayPrefixListReference
   where
   toQuery CreateTransitGatewayPrefixListReference' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "CreateTransitGatewayPrefixListReference" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _ctgplrDryRun,
-        "Blackhole" =: _ctgplrBlackhole,
+          Prelude.=: ( "CreateTransitGatewayPrefixListReference" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "Blackhole" Prelude.=: blackhole,
         "TransitGatewayAttachmentId"
-          =: _ctgplrTransitGatewayAttachmentId,
+          Prelude.=: transitGatewayAttachmentId,
         "TransitGatewayRouteTableId"
-          =: _ctgplrTransitGatewayRouteTableId,
-        "PrefixListId" =: _ctgplrPrefixListId
+          Prelude.=: transitGatewayRouteTableId,
+        "PrefixListId" Prelude.=: prefixListId
       ]
 
--- | /See:/ 'createTransitGatewayPrefixListReferenceResponse' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayPrefixListReferenceResponse' smart constructor.
 data CreateTransitGatewayPrefixListReferenceResponse = CreateTransitGatewayPrefixListReferenceResponse'
-  { _ctgplrrrsTransitGatewayPrefixListReference ::
-      !( Maybe
-           TransitGatewayPrefixListReference
-       ),
-    _ctgplrrrsResponseStatus ::
-      !Int
+  { -- | Information about the prefix list reference.
+    transitGatewayPrefixListReference :: Prelude.Maybe TransitGatewayPrefixListReference,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayPrefixListReferenceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayPrefixListReferenceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgplrrrsTransitGatewayPrefixListReference' - Information about the prefix list reference.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgplrrrsResponseStatus' - -- | The response status code.
-createTransitGatewayPrefixListReferenceResponse ::
-  -- | 'ctgplrrrsResponseStatus'
-  Int ->
+-- 'transitGatewayPrefixListReference', 'createTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference' - Information about the prefix list reference.
+--
+-- 'httpStatus', 'createTransitGatewayPrefixListReferenceResponse_httpStatus' - The response's http status code.
+newCreateTransitGatewayPrefixListReferenceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTransitGatewayPrefixListReferenceResponse
-createTransitGatewayPrefixListReferenceResponse
-  pResponseStatus_ =
+newCreateTransitGatewayPrefixListReferenceResponse
+  pHttpStatus_ =
     CreateTransitGatewayPrefixListReferenceResponse'
-      { _ctgplrrrsTransitGatewayPrefixListReference =
-          Nothing,
-        _ctgplrrrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayPrefixListReference =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the prefix list reference.
-ctgplrrrsTransitGatewayPrefixListReference :: Lens' CreateTransitGatewayPrefixListReferenceResponse (Maybe TransitGatewayPrefixListReference)
-ctgplrrrsTransitGatewayPrefixListReference = lens _ctgplrrrsTransitGatewayPrefixListReference (\s a -> s {_ctgplrrrsTransitGatewayPrefixListReference = a})
+createTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference :: Lens.Lens' CreateTransitGatewayPrefixListReferenceResponse (Prelude.Maybe TransitGatewayPrefixListReference)
+createTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference = Lens.lens (\CreateTransitGatewayPrefixListReferenceResponse' {transitGatewayPrefixListReference} -> transitGatewayPrefixListReference) (\s@CreateTransitGatewayPrefixListReferenceResponse' {} a -> s {transitGatewayPrefixListReference = a} :: CreateTransitGatewayPrefixListReferenceResponse)
 
--- | -- | The response status code.
-ctgplrrrsResponseStatus :: Lens' CreateTransitGatewayPrefixListReferenceResponse Int
-ctgplrrrsResponseStatus = lens _ctgplrrrsResponseStatus (\s a -> s {_ctgplrrrsResponseStatus = a})
+-- | The response's http status code.
+createTransitGatewayPrefixListReferenceResponse_httpStatus :: Lens.Lens' CreateTransitGatewayPrefixListReferenceResponse Prelude.Int
+createTransitGatewayPrefixListReferenceResponse_httpStatus = Lens.lens (\CreateTransitGatewayPrefixListReferenceResponse' {httpStatus} -> httpStatus) (\s@CreateTransitGatewayPrefixListReferenceResponse' {} a -> s {httpStatus = a} :: CreateTransitGatewayPrefixListReferenceResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateTransitGatewayPrefixListReferenceResponse

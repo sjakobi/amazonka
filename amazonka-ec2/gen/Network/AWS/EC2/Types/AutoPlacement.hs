@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.AutoPlacement
   ( AutoPlacement
       ( ..,
-        ON,
-        Off
+        AutoPlacementON,
+        AutoPlacementOff
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoPlacement = AutoPlacement' (CI Text)
+newtype AutoPlacement = AutoPlacement'
+  { fromAutoPlacement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ON :: AutoPlacement
-pattern ON = AutoPlacement' "on"
+pattern AutoPlacementON :: AutoPlacement
+pattern AutoPlacementON = AutoPlacement' "on"
 
-pattern Off :: AutoPlacement
-pattern Off = AutoPlacement' "off"
+pattern AutoPlacementOff :: AutoPlacement
+pattern AutoPlacementOff = AutoPlacement' "off"
 
 {-# COMPLETE
-  ON,
-  Off,
+  AutoPlacementON,
+  AutoPlacementOff,
   AutoPlacement'
   #-}
 
-instance FromText AutoPlacement where
-  parser = (AutoPlacement' . mk) <$> takeText
+instance Prelude.FromText AutoPlacement where
+  parser = AutoPlacement' Prelude.<$> Prelude.takeText
 
-instance ToText AutoPlacement where
-  toText (AutoPlacement' ci) = original ci
+instance Prelude.ToText AutoPlacement where
+  toText (AutoPlacement' x) = x
 
-instance Hashable AutoPlacement
+instance Prelude.Hashable AutoPlacement
 
-instance NFData AutoPlacement
+instance Prelude.NFData AutoPlacement
 
-instance ToByteString AutoPlacement
+instance Prelude.ToByteString AutoPlacement
 
-instance ToQuery AutoPlacement
+instance Prelude.ToQuery AutoPlacement
 
-instance ToHeader AutoPlacement
+instance Prelude.ToHeader AutoPlacement
 
-instance FromXML AutoPlacement where
-  parseXML = parseXMLText "AutoPlacement"
+instance Prelude.FromXML AutoPlacement where
+  parseXML = Prelude.parseXMLText "AutoPlacement"

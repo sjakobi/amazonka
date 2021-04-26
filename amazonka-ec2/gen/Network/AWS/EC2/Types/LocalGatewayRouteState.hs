@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.LocalGatewayRouteState
   ( LocalGatewayRouteState
       ( ..,
-        LGRSActive,
-        LGRSBlackhole,
-        LGRSDeleted,
-        LGRSDeleting,
-        LGRSPending
+        LocalGatewayRouteStateActive,
+        LocalGatewayRouteStateBlackhole,
+        LocalGatewayRouteStateDeleted,
+        LocalGatewayRouteStateDeleting,
+        LocalGatewayRouteStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LocalGatewayRouteState
-  = LocalGatewayRouteState'
-      ( CI
-          Text
-      )
+newtype LocalGatewayRouteState = LocalGatewayRouteState'
+  { fromLocalGatewayRouteState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LGRSActive :: LocalGatewayRouteState
-pattern LGRSActive = LocalGatewayRouteState' "active"
+pattern LocalGatewayRouteStateActive :: LocalGatewayRouteState
+pattern LocalGatewayRouteStateActive = LocalGatewayRouteState' "active"
 
-pattern LGRSBlackhole :: LocalGatewayRouteState
-pattern LGRSBlackhole = LocalGatewayRouteState' "blackhole"
+pattern LocalGatewayRouteStateBlackhole :: LocalGatewayRouteState
+pattern LocalGatewayRouteStateBlackhole = LocalGatewayRouteState' "blackhole"
 
-pattern LGRSDeleted :: LocalGatewayRouteState
-pattern LGRSDeleted = LocalGatewayRouteState' "deleted"
+pattern LocalGatewayRouteStateDeleted :: LocalGatewayRouteState
+pattern LocalGatewayRouteStateDeleted = LocalGatewayRouteState' "deleted"
 
-pattern LGRSDeleting :: LocalGatewayRouteState
-pattern LGRSDeleting = LocalGatewayRouteState' "deleting"
+pattern LocalGatewayRouteStateDeleting :: LocalGatewayRouteState
+pattern LocalGatewayRouteStateDeleting = LocalGatewayRouteState' "deleting"
 
-pattern LGRSPending :: LocalGatewayRouteState
-pattern LGRSPending = LocalGatewayRouteState' "pending"
+pattern LocalGatewayRouteStatePending :: LocalGatewayRouteState
+pattern LocalGatewayRouteStatePending = LocalGatewayRouteState' "pending"
 
 {-# COMPLETE
-  LGRSActive,
-  LGRSBlackhole,
-  LGRSDeleted,
-  LGRSDeleting,
-  LGRSPending,
+  LocalGatewayRouteStateActive,
+  LocalGatewayRouteStateBlackhole,
+  LocalGatewayRouteStateDeleted,
+  LocalGatewayRouteStateDeleting,
+  LocalGatewayRouteStatePending,
   LocalGatewayRouteState'
   #-}
 
-instance FromText LocalGatewayRouteState where
-  parser = (LocalGatewayRouteState' . mk) <$> takeText
+instance Prelude.FromText LocalGatewayRouteState where
+  parser = LocalGatewayRouteState' Prelude.<$> Prelude.takeText
 
-instance ToText LocalGatewayRouteState where
-  toText (LocalGatewayRouteState' ci) = original ci
+instance Prelude.ToText LocalGatewayRouteState where
+  toText (LocalGatewayRouteState' x) = x
 
-instance Hashable LocalGatewayRouteState
+instance Prelude.Hashable LocalGatewayRouteState
 
-instance NFData LocalGatewayRouteState
+instance Prelude.NFData LocalGatewayRouteState
 
-instance ToByteString LocalGatewayRouteState
+instance Prelude.ToByteString LocalGatewayRouteState
 
-instance ToQuery LocalGatewayRouteState
+instance Prelude.ToQuery LocalGatewayRouteState
 
-instance ToHeader LocalGatewayRouteState
+instance Prelude.ToHeader LocalGatewayRouteState
 
-instance FromXML LocalGatewayRouteState where
-  parseXML = parseXMLText "LocalGatewayRouteState"
+instance Prelude.FromXML LocalGatewayRouteState where
+  parseXML = Prelude.parseXMLText "LocalGatewayRouteState"

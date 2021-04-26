@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,62 +22,63 @@ module Network.AWS.EC2.Types.LoadBalancersConfig where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ClassicLoadBalancersConfig
 import Network.AWS.EC2.Types.TargetGroupsConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the Classic Load Balancers and target groups to attach to a Spot Fleet request.
+-- | Describes the Classic Load Balancers and target groups to attach to a
+-- Spot Fleet request.
 --
---
---
--- /See:/ 'loadBalancersConfig' smart constructor.
+-- /See:/ 'newLoadBalancersConfig' smart constructor.
 data LoadBalancersConfig = LoadBalancersConfig'
-  { _lbcClassicLoadBalancersConfig ::
-      !( Maybe
-           ClassicLoadBalancersConfig
-       ),
-    _lbcTargetGroupsConfig ::
-      !(Maybe TargetGroupsConfig)
+  { -- | The Classic Load Balancers.
+    classicLoadBalancersConfig :: Prelude.Maybe ClassicLoadBalancersConfig,
+    -- | The target groups.
+    targetGroupsConfig :: Prelude.Maybe TargetGroupsConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoadBalancersConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoadBalancersConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbcClassicLoadBalancersConfig' - The Classic Load Balancers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbcTargetGroupsConfig' - The target groups.
-loadBalancersConfig ::
+-- 'classicLoadBalancersConfig', 'loadBalancersConfig_classicLoadBalancersConfig' - The Classic Load Balancers.
+--
+-- 'targetGroupsConfig', 'loadBalancersConfig_targetGroupsConfig' - The target groups.
+newLoadBalancersConfig ::
   LoadBalancersConfig
-loadBalancersConfig =
+newLoadBalancersConfig =
   LoadBalancersConfig'
-    { _lbcClassicLoadBalancersConfig =
-        Nothing,
-      _lbcTargetGroupsConfig = Nothing
+    { classicLoadBalancersConfig =
+        Prelude.Nothing,
+      targetGroupsConfig = Prelude.Nothing
     }
 
 -- | The Classic Load Balancers.
-lbcClassicLoadBalancersConfig :: Lens' LoadBalancersConfig (Maybe ClassicLoadBalancersConfig)
-lbcClassicLoadBalancersConfig = lens _lbcClassicLoadBalancersConfig (\s a -> s {_lbcClassicLoadBalancersConfig = a})
+loadBalancersConfig_classicLoadBalancersConfig :: Lens.Lens' LoadBalancersConfig (Prelude.Maybe ClassicLoadBalancersConfig)
+loadBalancersConfig_classicLoadBalancersConfig = Lens.lens (\LoadBalancersConfig' {classicLoadBalancersConfig} -> classicLoadBalancersConfig) (\s@LoadBalancersConfig' {} a -> s {classicLoadBalancersConfig = a} :: LoadBalancersConfig)
 
 -- | The target groups.
-lbcTargetGroupsConfig :: Lens' LoadBalancersConfig (Maybe TargetGroupsConfig)
-lbcTargetGroupsConfig = lens _lbcTargetGroupsConfig (\s a -> s {_lbcTargetGroupsConfig = a})
+loadBalancersConfig_targetGroupsConfig :: Lens.Lens' LoadBalancersConfig (Prelude.Maybe TargetGroupsConfig)
+loadBalancersConfig_targetGroupsConfig = Lens.lens (\LoadBalancersConfig' {targetGroupsConfig} -> targetGroupsConfig) (\s@LoadBalancersConfig' {} a -> s {targetGroupsConfig = a} :: LoadBalancersConfig)
 
-instance FromXML LoadBalancersConfig where
+instance Prelude.FromXML LoadBalancersConfig where
   parseXML x =
     LoadBalancersConfig'
-      <$> (x .@? "classicLoadBalancersConfig")
-      <*> (x .@? "targetGroupsConfig")
+      Prelude.<$> (x Prelude..@? "classicLoadBalancersConfig")
+      Prelude.<*> (x Prelude..@? "targetGroupsConfig")
 
-instance Hashable LoadBalancersConfig
+instance Prelude.Hashable LoadBalancersConfig
 
-instance NFData LoadBalancersConfig
+instance Prelude.NFData LoadBalancersConfig
 
-instance ToQuery LoadBalancersConfig where
+instance Prelude.ToQuery LoadBalancersConfig where
   toQuery LoadBalancersConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "ClassicLoadBalancersConfig"
-          =: _lbcClassicLoadBalancersConfig,
-        "TargetGroupsConfig" =: _lbcTargetGroupsConfig
+          Prelude.=: classicLoadBalancersConfig,
+        "TargetGroupsConfig" Prelude.=: targetGroupsConfig
       ]

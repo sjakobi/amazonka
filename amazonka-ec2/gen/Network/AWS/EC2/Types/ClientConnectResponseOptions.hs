@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,71 @@
 module Network.AWS.EC2.Types.ClientConnectResponseOptions where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.ClientVPNEndpointAttributeStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.EC2.Types.ClientVpnEndpointAttributeStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The options for managing connection authorization for new client connections.
+-- | The options for managing connection authorization for new client
+-- connections.
 --
---
---
--- /See:/ 'clientConnectResponseOptions' smart constructor.
+-- /See:/ 'newClientConnectResponseOptions' smart constructor.
 data ClientConnectResponseOptions = ClientConnectResponseOptions'
-  { _ccroStatus ::
-      !( Maybe
-           ClientVPNEndpointAttributeStatus
-       ),
-    _ccroEnabled ::
-      !(Maybe Bool),
-    _ccroLambdaFunctionARN ::
-      !(Maybe Text)
+  { -- | The status of any updates to the client connect options.
+    status :: Prelude.Maybe ClientVpnEndpointAttributeStatus,
+    -- | Indicates whether client connect options are enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the AWS Lambda function used for
+    -- connection authorization.
+    lambdaFunctionArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClientConnectResponseOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClientConnectResponseOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccroStatus' - The status of any updates to the client connect options.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccroEnabled' - Indicates whether client connect options are enabled.
+-- 'status', 'clientConnectResponseOptions_status' - The status of any updates to the client connect options.
 --
--- * 'ccroLambdaFunctionARN' - The Amazon Resource Name (ARN) of the AWS Lambda function used for connection authorization.
-clientConnectResponseOptions ::
+-- 'enabled', 'clientConnectResponseOptions_enabled' - Indicates whether client connect options are enabled.
+--
+-- 'lambdaFunctionArn', 'clientConnectResponseOptions_lambdaFunctionArn' - The Amazon Resource Name (ARN) of the AWS Lambda function used for
+-- connection authorization.
+newClientConnectResponseOptions ::
   ClientConnectResponseOptions
-clientConnectResponseOptions =
+newClientConnectResponseOptions =
   ClientConnectResponseOptions'
-    { _ccroStatus =
-        Nothing,
-      _ccroEnabled = Nothing,
-      _ccroLambdaFunctionARN = Nothing
+    { status =
+        Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      lambdaFunctionArn = Prelude.Nothing
     }
 
 -- | The status of any updates to the client connect options.
-ccroStatus :: Lens' ClientConnectResponseOptions (Maybe ClientVPNEndpointAttributeStatus)
-ccroStatus = lens _ccroStatus (\s a -> s {_ccroStatus = a})
+clientConnectResponseOptions_status :: Lens.Lens' ClientConnectResponseOptions (Prelude.Maybe ClientVpnEndpointAttributeStatus)
+clientConnectResponseOptions_status = Lens.lens (\ClientConnectResponseOptions' {status} -> status) (\s@ClientConnectResponseOptions' {} a -> s {status = a} :: ClientConnectResponseOptions)
 
 -- | Indicates whether client connect options are enabled.
-ccroEnabled :: Lens' ClientConnectResponseOptions (Maybe Bool)
-ccroEnabled = lens _ccroEnabled (\s a -> s {_ccroEnabled = a})
+clientConnectResponseOptions_enabled :: Lens.Lens' ClientConnectResponseOptions (Prelude.Maybe Prelude.Bool)
+clientConnectResponseOptions_enabled = Lens.lens (\ClientConnectResponseOptions' {enabled} -> enabled) (\s@ClientConnectResponseOptions' {} a -> s {enabled = a} :: ClientConnectResponseOptions)
 
--- | The Amazon Resource Name (ARN) of the AWS Lambda function used for connection authorization.
-ccroLambdaFunctionARN :: Lens' ClientConnectResponseOptions (Maybe Text)
-ccroLambdaFunctionARN = lens _ccroLambdaFunctionARN (\s a -> s {_ccroLambdaFunctionARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Lambda function used for
+-- connection authorization.
+clientConnectResponseOptions_lambdaFunctionArn :: Lens.Lens' ClientConnectResponseOptions (Prelude.Maybe Prelude.Text)
+clientConnectResponseOptions_lambdaFunctionArn = Lens.lens (\ClientConnectResponseOptions' {lambdaFunctionArn} -> lambdaFunctionArn) (\s@ClientConnectResponseOptions' {} a -> s {lambdaFunctionArn = a} :: ClientConnectResponseOptions)
 
-instance FromXML ClientConnectResponseOptions where
+instance Prelude.FromXML ClientConnectResponseOptions where
   parseXML x =
     ClientConnectResponseOptions'
-      <$> (x .@? "status")
-      <*> (x .@? "enabled")
-      <*> (x .@? "lambdaFunctionArn")
+      Prelude.<$> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "enabled")
+      Prelude.<*> (x Prelude..@? "lambdaFunctionArn")
 
-instance Hashable ClientConnectResponseOptions
+instance
+  Prelude.Hashable
+    ClientConnectResponseOptions
 
-instance NFData ClientConnectResponseOptions
+instance Prelude.NFData ClientConnectResponseOptions

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.AllowsMultipleInstanceTypes
   ( AllowsMultipleInstanceTypes
       ( ..,
-        AMITON,
-        AMITOff
+        AllowsMultipleInstanceTypesON,
+        AllowsMultipleInstanceTypesOff
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AllowsMultipleInstanceTypes
-  = AllowsMultipleInstanceTypes'
-      ( CI
-          Text
-      )
+newtype AllowsMultipleInstanceTypes = AllowsMultipleInstanceTypes'
+  { fromAllowsMultipleInstanceTypes ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMITON :: AllowsMultipleInstanceTypes
-pattern AMITON = AllowsMultipleInstanceTypes' "on"
+pattern AllowsMultipleInstanceTypesON :: AllowsMultipleInstanceTypes
+pattern AllowsMultipleInstanceTypesON = AllowsMultipleInstanceTypes' "on"
 
-pattern AMITOff :: AllowsMultipleInstanceTypes
-pattern AMITOff = AllowsMultipleInstanceTypes' "off"
+pattern AllowsMultipleInstanceTypesOff :: AllowsMultipleInstanceTypes
+pattern AllowsMultipleInstanceTypesOff = AllowsMultipleInstanceTypes' "off"
 
 {-# COMPLETE
-  AMITON,
-  AMITOff,
+  AllowsMultipleInstanceTypesON,
+  AllowsMultipleInstanceTypesOff,
   AllowsMultipleInstanceTypes'
   #-}
 
-instance FromText AllowsMultipleInstanceTypes where
-  parser = (AllowsMultipleInstanceTypes' . mk) <$> takeText
+instance Prelude.FromText AllowsMultipleInstanceTypes where
+  parser = AllowsMultipleInstanceTypes' Prelude.<$> Prelude.takeText
 
-instance ToText AllowsMultipleInstanceTypes where
-  toText (AllowsMultipleInstanceTypes' ci) = original ci
+instance Prelude.ToText AllowsMultipleInstanceTypes where
+  toText (AllowsMultipleInstanceTypes' x) = x
 
-instance Hashable AllowsMultipleInstanceTypes
+instance Prelude.Hashable AllowsMultipleInstanceTypes
 
-instance NFData AllowsMultipleInstanceTypes
+instance Prelude.NFData AllowsMultipleInstanceTypes
 
-instance ToByteString AllowsMultipleInstanceTypes
+instance Prelude.ToByteString AllowsMultipleInstanceTypes
 
-instance ToQuery AllowsMultipleInstanceTypes
+instance Prelude.ToQuery AllowsMultipleInstanceTypes
 
-instance ToHeader AllowsMultipleInstanceTypes
+instance Prelude.ToHeader AllowsMultipleInstanceTypes
 
-instance FromXML AllowsMultipleInstanceTypes where
-  parseXML = parseXMLText "AllowsMultipleInstanceTypes"
+instance Prelude.FromXML AllowsMultipleInstanceTypes where
+  parseXML = Prelude.parseXMLText "AllowsMultipleInstanceTypes"

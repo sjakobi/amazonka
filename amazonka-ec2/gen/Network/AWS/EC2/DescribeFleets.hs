@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,187 +23,277 @@
 --
 -- Describes the specified EC2 Fleets or all of your EC2 Fleets.
 --
---
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet.html#monitor-ec2-fleet Monitoring your EC2 Fleet> in the /Amazon EC2 User Guide/ .
---
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet.html#monitor-ec2-fleet Monitoring your EC2 Fleet>
+-- in the /Amazon EC2 User Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeFleets
   ( -- * Creating a Request
-    describeFleets,
-    DescribeFleets,
+    DescribeFleets (..),
+    newDescribeFleets,
 
     -- * Request Lenses
-    dfsNextToken,
-    dfsDryRun,
-    dfsMaxResults,
-    dfsFilters,
-    dfsFleetIds,
+    describeFleets_nextToken,
+    describeFleets_dryRun,
+    describeFleets_maxResults,
+    describeFleets_filters,
+    describeFleets_fleetIds,
 
     -- * Destructuring the Response
-    describeFleetsResponse,
-    DescribeFleetsResponse,
+    DescribeFleetsResponse (..),
+    newDescribeFleetsResponse,
 
     -- * Response Lenses
-    dfrfrsNextToken,
-    dfrfrsFleets,
-    dfrfrsResponseStatus,
+    describeFleetsResponse_nextToken,
+    describeFleetsResponse_fleets,
+    describeFleetsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.FleetData
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeFleets' smart constructor.
+-- | /See:/ 'newDescribeFleets' smart constructor.
 data DescribeFleets = DescribeFleets'
-  { _dfsNextToken ::
-      !(Maybe Text),
-    _dfsDryRun :: !(Maybe Bool),
-    _dfsMaxResults :: !(Maybe Int),
-    _dfsFilters :: !(Maybe [Filter]),
-    _dfsFleetIds :: !(Maybe [Text])
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return in a single call. Specify a
+    -- value between 1 and 1000. The default value is 1000. To retrieve the
+    -- remaining results, make another call with the returned @NextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The filters.
+    --
+    -- -   @activity-status@ - The progress of the EC2 Fleet ( @error@ |
+    --     @pending-fulfillment@ | @pending-termination@ | @fulfilled@).
+    --
+    -- -   @excess-capacity-termination-policy@ - Indicates whether to
+    --     terminate running instances if the target capacity is decreased
+    --     below the current EC2 Fleet size (@true@ | @false@).
+    --
+    -- -   @fleet-state@ - The state of the EC2 Fleet (@submitted@ | @active@ |
+    --     @deleted@ | @failed@ | @deleted-running@ | @deleted-terminating@ |
+    --     @modifying@).
+    --
+    -- -   @replace-unhealthy-instances@ - Indicates whether EC2 Fleet should
+    --     replace unhealthy instances (@true@ | @false@).
+    --
+    -- -   @type@ - The type of request (@instant@ | @request@ | @maintain@).
+    filters :: Prelude.Maybe [Filter],
+    -- | The ID of the EC2 Fleets.
+    fleetIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeFleets_nextToken' - The token for the next set of results.
 --
--- * 'dfsMaxResults' - The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value is 1000. To retrieve the remaining results, make another call with the returned @NextToken@ value.
+-- 'dryRun', 'describeFleets_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dfsFilters' - The filters.     * @activity-status@ - The progress of the EC2 Fleet ( @error@ | @pending-fulfillment@ | @pending-termination@ | @fulfilled@ ).     * @excess-capacity-termination-policy@ - Indicates whether to terminate running instances if the target capacity is decreased below the current EC2 Fleet size (@true@ | @false@ ).     * @fleet-state@ - The state of the EC2 Fleet (@submitted@ | @active@ | @deleted@ | @failed@ | @deleted-running@ | @deleted-terminating@ | @modifying@ ).     * @replace-unhealthy-instances@ - Indicates whether EC2 Fleet should replace unhealthy instances (@true@ | @false@ ).     * @type@ - The type of request (@instant@ | @request@ | @maintain@ ).
+-- 'maxResults', 'describeFleets_maxResults' - The maximum number of results to return in a single call. Specify a
+-- value between 1 and 1000. The default value is 1000. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
 --
--- * 'dfsFleetIds' - The ID of the EC2 Fleets.
-describeFleets ::
+-- 'filters', 'describeFleets_filters' - The filters.
+--
+-- -   @activity-status@ - The progress of the EC2 Fleet ( @error@ |
+--     @pending-fulfillment@ | @pending-termination@ | @fulfilled@).
+--
+-- -   @excess-capacity-termination-policy@ - Indicates whether to
+--     terminate running instances if the target capacity is decreased
+--     below the current EC2 Fleet size (@true@ | @false@).
+--
+-- -   @fleet-state@ - The state of the EC2 Fleet (@submitted@ | @active@ |
+--     @deleted@ | @failed@ | @deleted-running@ | @deleted-terminating@ |
+--     @modifying@).
+--
+-- -   @replace-unhealthy-instances@ - Indicates whether EC2 Fleet should
+--     replace unhealthy instances (@true@ | @false@).
+--
+-- -   @type@ - The type of request (@instant@ | @request@ | @maintain@).
+--
+-- 'fleetIds', 'describeFleets_fleetIds' - The ID of the EC2 Fleets.
+newDescribeFleets ::
   DescribeFleets
-describeFleets =
+newDescribeFleets =
   DescribeFleets'
-    { _dfsNextToken = Nothing,
-      _dfsDryRun = Nothing,
-      _dfsMaxResults = Nothing,
-      _dfsFilters = Nothing,
-      _dfsFleetIds = Nothing
+    { nextToken = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      fleetIds = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-dfsNextToken :: Lens' DescribeFleets (Maybe Text)
-dfsNextToken = lens _dfsNextToken (\s a -> s {_dfsNextToken = a})
+describeFleets_nextToken :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Text)
+describeFleets_nextToken = Lens.lens (\DescribeFleets' {nextToken} -> nextToken) (\s@DescribeFleets' {} a -> s {nextToken = a} :: DescribeFleets)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dfsDryRun :: Lens' DescribeFleets (Maybe Bool)
-dfsDryRun = lens _dfsDryRun (\s a -> s {_dfsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFleets_dryRun :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Bool)
+describeFleets_dryRun = Lens.lens (\DescribeFleets' {dryRun} -> dryRun) (\s@DescribeFleets' {} a -> s {dryRun = a} :: DescribeFleets)
 
--- | The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value is 1000. To retrieve the remaining results, make another call with the returned @NextToken@ value.
-dfsMaxResults :: Lens' DescribeFleets (Maybe Int)
-dfsMaxResults = lens _dfsMaxResults (\s a -> s {_dfsMaxResults = a})
+-- | The maximum number of results to return in a single call. Specify a
+-- value between 1 and 1000. The default value is 1000. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
+describeFleets_maxResults :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Int)
+describeFleets_maxResults = Lens.lens (\DescribeFleets' {maxResults} -> maxResults) (\s@DescribeFleets' {} a -> s {maxResults = a} :: DescribeFleets)
 
--- | The filters.     * @activity-status@ - The progress of the EC2 Fleet ( @error@ | @pending-fulfillment@ | @pending-termination@ | @fulfilled@ ).     * @excess-capacity-termination-policy@ - Indicates whether to terminate running instances if the target capacity is decreased below the current EC2 Fleet size (@true@ | @false@ ).     * @fleet-state@ - The state of the EC2 Fleet (@submitted@ | @active@ | @deleted@ | @failed@ | @deleted-running@ | @deleted-terminating@ | @modifying@ ).     * @replace-unhealthy-instances@ - Indicates whether EC2 Fleet should replace unhealthy instances (@true@ | @false@ ).     * @type@ - The type of request (@instant@ | @request@ | @maintain@ ).
-dfsFilters :: Lens' DescribeFleets [Filter]
-dfsFilters = lens _dfsFilters (\s a -> s {_dfsFilters = a}) . _Default . _Coerce
+-- | The filters.
+--
+-- -   @activity-status@ - The progress of the EC2 Fleet ( @error@ |
+--     @pending-fulfillment@ | @pending-termination@ | @fulfilled@).
+--
+-- -   @excess-capacity-termination-policy@ - Indicates whether to
+--     terminate running instances if the target capacity is decreased
+--     below the current EC2 Fleet size (@true@ | @false@).
+--
+-- -   @fleet-state@ - The state of the EC2 Fleet (@submitted@ | @active@ |
+--     @deleted@ | @failed@ | @deleted-running@ | @deleted-terminating@ |
+--     @modifying@).
+--
+-- -   @replace-unhealthy-instances@ - Indicates whether EC2 Fleet should
+--     replace unhealthy instances (@true@ | @false@).
+--
+-- -   @type@ - The type of request (@instant@ | @request@ | @maintain@).
+describeFleets_filters :: Lens.Lens' DescribeFleets (Prelude.Maybe [Filter])
+describeFleets_filters = Lens.lens (\DescribeFleets' {filters} -> filters) (\s@DescribeFleets' {} a -> s {filters = a} :: DescribeFleets) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the EC2 Fleets.
-dfsFleetIds :: Lens' DescribeFleets [Text]
-dfsFleetIds = lens _dfsFleetIds (\s a -> s {_dfsFleetIds = a}) . _Default . _Coerce
+describeFleets_fleetIds :: Lens.Lens' DescribeFleets (Prelude.Maybe [Prelude.Text])
+describeFleets_fleetIds = Lens.lens (\DescribeFleets' {fleetIds} -> fleetIds) (\s@DescribeFleets' {} a -> s {fleetIds = a} :: DescribeFleets) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeFleets where
+instance Pager.AWSPager DescribeFleets where
   page rq rs
-    | stop (rs ^. dfrfrsNextToken) = Nothing
-    | stop (rs ^. dfrfrsFleets) = Nothing
-    | otherwise =
-      Just $ rq & dfsNextToken .~ rs ^. dfrfrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetsResponse_fleets Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeFleets_nextToken
+          Lens..~ rs
+          Lens.^? describeFleetsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest DescribeFleets where
+instance Prelude.AWSRequest DescribeFleets where
   type Rs DescribeFleets = DescribeFleetsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeFleetsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "fleetSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "fleetSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFleets
+instance Prelude.Hashable DescribeFleets
 
-instance NFData DescribeFleets
+instance Prelude.NFData DescribeFleets
 
-instance ToHeaders DescribeFleets where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeFleets where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeFleets where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFleets where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFleets where
+instance Prelude.ToQuery DescribeFleets where
   toQuery DescribeFleets' {..} =
-    mconcat
-      [ "Action" =: ("DescribeFleets" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dfsNextToken,
-        "DryRun" =: _dfsDryRun,
-        "MaxResults" =: _dfsMaxResults,
-        toQuery (toQueryList "Filter" <$> _dfsFilters),
-        toQuery (toQueryList "FleetId" <$> _dfsFleetIds)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeFleets" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        Prelude.toQuery
+          (Prelude.toQueryList "FleetId" Prelude.<$> fleetIds)
       ]
 
--- | /See:/ 'describeFleetsResponse' smart constructor.
+-- | /See:/ 'newDescribeFleetsResponse' smart constructor.
 data DescribeFleetsResponse = DescribeFleetsResponse'
-  { _dfrfrsNextToken ::
-      !(Maybe Text),
-    _dfrfrsFleets ::
-      !(Maybe [FleetData]),
-    _dfrfrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the EC2 Fleets.
+    fleets :: Prelude.Maybe [FleetData],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfrfrsNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfrfrsFleets' - Information about the EC2 Fleets.
+-- 'nextToken', 'describeFleetsResponse_nextToken' - The token for the next set of results.
 --
--- * 'dfrfrsResponseStatus' - -- | The response status code.
-describeFleetsResponse ::
-  -- | 'dfrfrsResponseStatus'
-  Int ->
+-- 'fleets', 'describeFleetsResponse_fleets' - Information about the EC2 Fleets.
+--
+-- 'httpStatus', 'describeFleetsResponse_httpStatus' - The response's http status code.
+newDescribeFleetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFleetsResponse
-describeFleetsResponse pResponseStatus_ =
+newDescribeFleetsResponse pHttpStatus_ =
   DescribeFleetsResponse'
-    { _dfrfrsNextToken = Nothing,
-      _dfrfrsFleets = Nothing,
-      _dfrfrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      fleets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token for the next set of results.
-dfrfrsNextToken :: Lens' DescribeFleetsResponse (Maybe Text)
-dfrfrsNextToken = lens _dfrfrsNextToken (\s a -> s {_dfrfrsNextToken = a})
+describeFleetsResponse_nextToken :: Lens.Lens' DescribeFleetsResponse (Prelude.Maybe Prelude.Text)
+describeFleetsResponse_nextToken = Lens.lens (\DescribeFleetsResponse' {nextToken} -> nextToken) (\s@DescribeFleetsResponse' {} a -> s {nextToken = a} :: DescribeFleetsResponse)
 
 -- | Information about the EC2 Fleets.
-dfrfrsFleets :: Lens' DescribeFleetsResponse [FleetData]
-dfrfrsFleets = lens _dfrfrsFleets (\s a -> s {_dfrfrsFleets = a}) . _Default . _Coerce
+describeFleetsResponse_fleets :: Lens.Lens' DescribeFleetsResponse (Prelude.Maybe [FleetData])
+describeFleetsResponse_fleets = Lens.lens (\DescribeFleetsResponse' {fleets} -> fleets) (\s@DescribeFleetsResponse' {} a -> s {fleets = a} :: DescribeFleetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dfrfrsResponseStatus :: Lens' DescribeFleetsResponse Int
-dfrfrsResponseStatus = lens _dfrfrsResponseStatus (\s a -> s {_dfrfrsResponseStatus = a})
+-- | The response's http status code.
+describeFleetsResponse_httpStatus :: Lens.Lens' DescribeFleetsResponse Prelude.Int
+describeFleetsResponse_httpStatus = Lens.lens (\DescribeFleetsResponse' {httpStatus} -> httpStatus) (\s@DescribeFleetsResponse' {} a -> s {httpStatus = a} :: DescribeFleetsResponse)
 
-instance NFData DescribeFleetsResponse
+instance Prelude.NFData DescribeFleetsResponse

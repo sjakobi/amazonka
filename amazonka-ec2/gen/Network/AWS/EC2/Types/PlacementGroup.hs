@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,88 +23,98 @@ import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PlacementGroupState
 import Network.AWS.EC2.Types.PlacementStrategy
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a placement group.
 --
---
---
--- /See:/ 'placementGroup' smart constructor.
+-- /See:/ 'newPlacementGroup' smart constructor.
 data PlacementGroup = PlacementGroup'
-  { _pgStrategy ::
-      !(Maybe PlacementStrategy),
-    _pgGroupName :: !(Maybe Text),
-    _pgGroupId :: !(Maybe Text),
-    _pgState :: !(Maybe PlacementGroupState),
-    _pgTags :: !(Maybe [Tag]),
-    _pgPartitionCount :: !(Maybe Int)
+  { -- | The placement strategy.
+    strategy :: Prelude.Maybe PlacementStrategy,
+    -- | The name of the placement group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the placement group.
+    groupId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the placement group.
+    state :: Prelude.Maybe PlacementGroupState,
+    -- | Any tags applied to the placement group.
+    tags :: Prelude.Maybe [Tag],
+    -- | The number of partitions. Valid only if __strategy__ is set to
+    -- @partition@.
+    partitionCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlacementGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlacementGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgStrategy' - The placement strategy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pgGroupName' - The name of the placement group.
+-- 'strategy', 'placementGroup_strategy' - The placement strategy.
 --
--- * 'pgGroupId' - The ID of the placement group.
+-- 'groupName', 'placementGroup_groupName' - The name of the placement group.
 --
--- * 'pgState' - The state of the placement group.
+-- 'groupId', 'placementGroup_groupId' - The ID of the placement group.
 --
--- * 'pgTags' - Any tags applied to the placement group.
+-- 'state', 'placementGroup_state' - The state of the placement group.
 --
--- * 'pgPartitionCount' - The number of partitions. Valid only if __strategy__ is set to @partition@ .
-placementGroup ::
+-- 'tags', 'placementGroup_tags' - Any tags applied to the placement group.
+--
+-- 'partitionCount', 'placementGroup_partitionCount' - The number of partitions. Valid only if __strategy__ is set to
+-- @partition@.
+newPlacementGroup ::
   PlacementGroup
-placementGroup =
+newPlacementGroup =
   PlacementGroup'
-    { _pgStrategy = Nothing,
-      _pgGroupName = Nothing,
-      _pgGroupId = Nothing,
-      _pgState = Nothing,
-      _pgTags = Nothing,
-      _pgPartitionCount = Nothing
+    { strategy = Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      groupId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      partitionCount = Prelude.Nothing
     }
 
 -- | The placement strategy.
-pgStrategy :: Lens' PlacementGroup (Maybe PlacementStrategy)
-pgStrategy = lens _pgStrategy (\s a -> s {_pgStrategy = a})
+placementGroup_strategy :: Lens.Lens' PlacementGroup (Prelude.Maybe PlacementStrategy)
+placementGroup_strategy = Lens.lens (\PlacementGroup' {strategy} -> strategy) (\s@PlacementGroup' {} a -> s {strategy = a} :: PlacementGroup)
 
 -- | The name of the placement group.
-pgGroupName :: Lens' PlacementGroup (Maybe Text)
-pgGroupName = lens _pgGroupName (\s a -> s {_pgGroupName = a})
+placementGroup_groupName :: Lens.Lens' PlacementGroup (Prelude.Maybe Prelude.Text)
+placementGroup_groupName = Lens.lens (\PlacementGroup' {groupName} -> groupName) (\s@PlacementGroup' {} a -> s {groupName = a} :: PlacementGroup)
 
 -- | The ID of the placement group.
-pgGroupId :: Lens' PlacementGroup (Maybe Text)
-pgGroupId = lens _pgGroupId (\s a -> s {_pgGroupId = a})
+placementGroup_groupId :: Lens.Lens' PlacementGroup (Prelude.Maybe Prelude.Text)
+placementGroup_groupId = Lens.lens (\PlacementGroup' {groupId} -> groupId) (\s@PlacementGroup' {} a -> s {groupId = a} :: PlacementGroup)
 
 -- | The state of the placement group.
-pgState :: Lens' PlacementGroup (Maybe PlacementGroupState)
-pgState = lens _pgState (\s a -> s {_pgState = a})
+placementGroup_state :: Lens.Lens' PlacementGroup (Prelude.Maybe PlacementGroupState)
+placementGroup_state = Lens.lens (\PlacementGroup' {state} -> state) (\s@PlacementGroup' {} a -> s {state = a} :: PlacementGroup)
 
 -- | Any tags applied to the placement group.
-pgTags :: Lens' PlacementGroup [Tag]
-pgTags = lens _pgTags (\s a -> s {_pgTags = a}) . _Default . _Coerce
+placementGroup_tags :: Lens.Lens' PlacementGroup (Prelude.Maybe [Tag])
+placementGroup_tags = Lens.lens (\PlacementGroup' {tags} -> tags) (\s@PlacementGroup' {} a -> s {tags = a} :: PlacementGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of partitions. Valid only if __strategy__ is set to @partition@ .
-pgPartitionCount :: Lens' PlacementGroup (Maybe Int)
-pgPartitionCount = lens _pgPartitionCount (\s a -> s {_pgPartitionCount = a})
+-- | The number of partitions. Valid only if __strategy__ is set to
+-- @partition@.
+placementGroup_partitionCount :: Lens.Lens' PlacementGroup (Prelude.Maybe Prelude.Int)
+placementGroup_partitionCount = Lens.lens (\PlacementGroup' {partitionCount} -> partitionCount) (\s@PlacementGroup' {} a -> s {partitionCount = a} :: PlacementGroup)
 
-instance FromXML PlacementGroup where
+instance Prelude.FromXML PlacementGroup where
   parseXML x =
     PlacementGroup'
-      <$> (x .@? "strategy")
-      <*> (x .@? "groupName")
-      <*> (x .@? "groupId")
-      <*> (x .@? "state")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "partitionCount")
+      Prelude.<$> (x Prelude..@? "strategy")
+      Prelude.<*> (x Prelude..@? "groupName")
+      Prelude.<*> (x Prelude..@? "groupId")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "partitionCount")
 
-instance Hashable PlacementGroup
+instance Prelude.Hashable PlacementGroup
 
-instance NFData PlacementGroup
+instance Prelude.NFData PlacementGroup

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.TransitGatewayPropagationState
   ( TransitGatewayPropagationState
       ( ..,
-        TGPSDisabled,
-        TGPSDisabling,
-        TGPSEnabled,
-        TGPSEnabling
+        TransitGatewayPropagationStateDisabled,
+        TransitGatewayPropagationStateDisabling,
+        TransitGatewayPropagationStateEnabled,
+        TransitGatewayPropagationStateEnabling
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayPropagationState
-  = TransitGatewayPropagationState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayPropagationState = TransitGatewayPropagationState'
+  { fromTransitGatewayPropagationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGPSDisabled :: TransitGatewayPropagationState
-pattern TGPSDisabled = TransitGatewayPropagationState' "disabled"
+pattern TransitGatewayPropagationStateDisabled :: TransitGatewayPropagationState
+pattern TransitGatewayPropagationStateDisabled = TransitGatewayPropagationState' "disabled"
 
-pattern TGPSDisabling :: TransitGatewayPropagationState
-pattern TGPSDisabling = TransitGatewayPropagationState' "disabling"
+pattern TransitGatewayPropagationStateDisabling :: TransitGatewayPropagationState
+pattern TransitGatewayPropagationStateDisabling = TransitGatewayPropagationState' "disabling"
 
-pattern TGPSEnabled :: TransitGatewayPropagationState
-pattern TGPSEnabled = TransitGatewayPropagationState' "enabled"
+pattern TransitGatewayPropagationStateEnabled :: TransitGatewayPropagationState
+pattern TransitGatewayPropagationStateEnabled = TransitGatewayPropagationState' "enabled"
 
-pattern TGPSEnabling :: TransitGatewayPropagationState
-pattern TGPSEnabling = TransitGatewayPropagationState' "enabling"
+pattern TransitGatewayPropagationStateEnabling :: TransitGatewayPropagationState
+pattern TransitGatewayPropagationStateEnabling = TransitGatewayPropagationState' "enabling"
 
 {-# COMPLETE
-  TGPSDisabled,
-  TGPSDisabling,
-  TGPSEnabled,
-  TGPSEnabling,
+  TransitGatewayPropagationStateDisabled,
+  TransitGatewayPropagationStateDisabling,
+  TransitGatewayPropagationStateEnabled,
+  TransitGatewayPropagationStateEnabling,
   TransitGatewayPropagationState'
   #-}
 
-instance FromText TransitGatewayPropagationState where
-  parser = (TransitGatewayPropagationState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayPropagationState where
+  parser = TransitGatewayPropagationState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayPropagationState where
-  toText (TransitGatewayPropagationState' ci) = original ci
+instance Prelude.ToText TransitGatewayPropagationState where
+  toText (TransitGatewayPropagationState' x) = x
 
-instance Hashable TransitGatewayPropagationState
+instance Prelude.Hashable TransitGatewayPropagationState
 
-instance NFData TransitGatewayPropagationState
+instance Prelude.NFData TransitGatewayPropagationState
 
-instance ToByteString TransitGatewayPropagationState
+instance Prelude.ToByteString TransitGatewayPropagationState
 
-instance ToQuery TransitGatewayPropagationState
+instance Prelude.ToQuery TransitGatewayPropagationState
 
-instance ToHeader TransitGatewayPropagationState
+instance Prelude.ToHeader TransitGatewayPropagationState
 
-instance FromXML TransitGatewayPropagationState where
-  parseXML = parseXMLText "TransitGatewayPropagationState"
+instance Prelude.FromXML TransitGatewayPropagationState where
+  parseXML = Prelude.parseXMLText "TransitGatewayPropagationState"

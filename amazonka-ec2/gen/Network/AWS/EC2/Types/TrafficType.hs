@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.TrafficType
   ( TrafficType
       ( ..,
-        TTAccept,
-        TTAll,
-        TTReject
+        TrafficTypeACCEPT,
+        TrafficTypeALL,
+        TrafficTypeREJECT
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficType = TrafficType' (CI Text)
+newtype TrafficType = TrafficType'
+  { fromTrafficType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TTAccept :: TrafficType
-pattern TTAccept = TrafficType' "ACCEPT"
+pattern TrafficTypeACCEPT :: TrafficType
+pattern TrafficTypeACCEPT = TrafficType' "ACCEPT"
 
-pattern TTAll :: TrafficType
-pattern TTAll = TrafficType' "ALL"
+pattern TrafficTypeALL :: TrafficType
+pattern TrafficTypeALL = TrafficType' "ALL"
 
-pattern TTReject :: TrafficType
-pattern TTReject = TrafficType' "REJECT"
+pattern TrafficTypeREJECT :: TrafficType
+pattern TrafficTypeREJECT = TrafficType' "REJECT"
 
 {-# COMPLETE
-  TTAccept,
-  TTAll,
-  TTReject,
+  TrafficTypeACCEPT,
+  TrafficTypeALL,
+  TrafficTypeREJECT,
   TrafficType'
   #-}
 
-instance FromText TrafficType where
-  parser = (TrafficType' . mk) <$> takeText
+instance Prelude.FromText TrafficType where
+  parser = TrafficType' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficType where
-  toText (TrafficType' ci) = original ci
+instance Prelude.ToText TrafficType where
+  toText (TrafficType' x) = x
 
-instance Hashable TrafficType
+instance Prelude.Hashable TrafficType
 
-instance NFData TrafficType
+instance Prelude.NFData TrafficType
 
-instance ToByteString TrafficType
+instance Prelude.ToByteString TrafficType
 
-instance ToQuery TrafficType
+instance Prelude.ToQuery TrafficType
 
-instance ToHeader TrafficType
+instance Prelude.ToHeader TrafficType
 
-instance FromXML TrafficType where
-  parseXML = parseXMLText "TrafficType"
+instance Prelude.FromXML TrafficType where
+  parseXML = Prelude.parseXMLText "TrafficType"

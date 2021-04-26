@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,66 +22,72 @@ module Network.AWS.EC2.Types.FleetLaunchTemplateConfigRequest where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.FleetLaunchTemplateOverridesRequest
 import Network.AWS.EC2.Types.FleetLaunchTemplateSpecificationRequest
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch template and overrides.
 --
---
---
--- /See:/ 'fleetLaunchTemplateConfigRequest' smart constructor.
+-- /See:/ 'newFleetLaunchTemplateConfigRequest' smart constructor.
 data FleetLaunchTemplateConfigRequest = FleetLaunchTemplateConfigRequest'
-  { _fltcrLaunchTemplateSpecification ::
-      !( Maybe
-           FleetLaunchTemplateSpecificationRequest
-       ),
-    _fltcrOverrides ::
-      !( Maybe
-           [FleetLaunchTemplateOverridesRequest]
-       )
+  { -- | The launch template to use. You must specify either the launch template
+    -- ID or launch template name in the request.
+    launchTemplateSpecification :: Prelude.Maybe FleetLaunchTemplateSpecificationRequest,
+    -- | Any parameters that you specify override the same parameters in the
+    -- launch template.
+    overrides :: Prelude.Maybe [FleetLaunchTemplateOverridesRequest]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FleetLaunchTemplateConfigRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FleetLaunchTemplateConfigRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fltcrLaunchTemplateSpecification' - The launch template to use. You must specify either the launch template ID or launch template name in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fltcrOverrides' - Any parameters that you specify override the same parameters in the launch template.
-fleetLaunchTemplateConfigRequest ::
+-- 'launchTemplateSpecification', 'fleetLaunchTemplateConfigRequest_launchTemplateSpecification' - The launch template to use. You must specify either the launch template
+-- ID or launch template name in the request.
+--
+-- 'overrides', 'fleetLaunchTemplateConfigRequest_overrides' - Any parameters that you specify override the same parameters in the
+-- launch template.
+newFleetLaunchTemplateConfigRequest ::
   FleetLaunchTemplateConfigRequest
-fleetLaunchTemplateConfigRequest =
+newFleetLaunchTemplateConfigRequest =
   FleetLaunchTemplateConfigRequest'
-    { _fltcrLaunchTemplateSpecification =
-        Nothing,
-      _fltcrOverrides = Nothing
+    { launchTemplateSpecification =
+        Prelude.Nothing,
+      overrides = Prelude.Nothing
     }
 
--- | The launch template to use. You must specify either the launch template ID or launch template name in the request.
-fltcrLaunchTemplateSpecification :: Lens' FleetLaunchTemplateConfigRequest (Maybe FleetLaunchTemplateSpecificationRequest)
-fltcrLaunchTemplateSpecification = lens _fltcrLaunchTemplateSpecification (\s a -> s {_fltcrLaunchTemplateSpecification = a})
+-- | The launch template to use. You must specify either the launch template
+-- ID or launch template name in the request.
+fleetLaunchTemplateConfigRequest_launchTemplateSpecification :: Lens.Lens' FleetLaunchTemplateConfigRequest (Prelude.Maybe FleetLaunchTemplateSpecificationRequest)
+fleetLaunchTemplateConfigRequest_launchTemplateSpecification = Lens.lens (\FleetLaunchTemplateConfigRequest' {launchTemplateSpecification} -> launchTemplateSpecification) (\s@FleetLaunchTemplateConfigRequest' {} a -> s {launchTemplateSpecification = a} :: FleetLaunchTemplateConfigRequest)
 
--- | Any parameters that you specify override the same parameters in the launch template.
-fltcrOverrides :: Lens' FleetLaunchTemplateConfigRequest [FleetLaunchTemplateOverridesRequest]
-fltcrOverrides = lens _fltcrOverrides (\s a -> s {_fltcrOverrides = a}) . _Default . _Coerce
+-- | Any parameters that you specify override the same parameters in the
+-- launch template.
+fleetLaunchTemplateConfigRequest_overrides :: Lens.Lens' FleetLaunchTemplateConfigRequest (Prelude.Maybe [FleetLaunchTemplateOverridesRequest])
+fleetLaunchTemplateConfigRequest_overrides = Lens.lens (\FleetLaunchTemplateConfigRequest' {overrides} -> overrides) (\s@FleetLaunchTemplateConfigRequest' {} a -> s {overrides = a} :: FleetLaunchTemplateConfigRequest) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable FleetLaunchTemplateConfigRequest
+instance
+  Prelude.Hashable
+    FleetLaunchTemplateConfigRequest
 
-instance NFData FleetLaunchTemplateConfigRequest
+instance
+  Prelude.NFData
+    FleetLaunchTemplateConfigRequest
 
-instance ToQuery FleetLaunchTemplateConfigRequest where
+instance
+  Prelude.ToQuery
+    FleetLaunchTemplateConfigRequest
+  where
   toQuery FleetLaunchTemplateConfigRequest' {..} =
-    mconcat
+    Prelude.mconcat
       [ "LaunchTemplateSpecification"
-          =: _fltcrLaunchTemplateSpecification,
-        toQuery
-          (toQueryList "Overrides" <$> _fltcrOverrides)
+          Prelude.=: launchTemplateSpecification,
+        Prelude.toQuery
+          ( Prelude.toQueryList "Overrides"
+              Prelude.<$> overrides
+          )
       ]

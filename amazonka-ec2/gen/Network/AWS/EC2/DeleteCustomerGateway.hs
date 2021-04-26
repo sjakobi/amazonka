@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,114 +21,120 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified customer gateway. You must delete the VPN connection before you can delete the customer gateway.
+-- Deletes the specified customer gateway. You must delete the VPN
+-- connection before you can delete the customer gateway.
 module Network.AWS.EC2.DeleteCustomerGateway
   ( -- * Creating a Request
-    deleteCustomerGateway,
-    DeleteCustomerGateway,
+    DeleteCustomerGateway (..),
+    newDeleteCustomerGateway,
 
     -- * Request Lenses
-    dcgcDryRun,
-    dcgcCustomerGatewayId,
+    deleteCustomerGateway_dryRun,
+    deleteCustomerGateway_customerGatewayId,
 
     -- * Destructuring the Response
-    deleteCustomerGatewayResponse,
-    DeleteCustomerGatewayResponse,
+    DeleteCustomerGatewayResponse (..),
+    newDeleteCustomerGatewayResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DeleteCustomerGateway.
 --
---
---
--- /See:/ 'deleteCustomerGateway' smart constructor.
+-- /See:/ 'newDeleteCustomerGateway' smart constructor.
 data DeleteCustomerGateway = DeleteCustomerGateway'
-  { _dcgcDryRun ::
-      !(Maybe Bool),
-    _dcgcCustomerGatewayId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the customer gateway.
+    customerGatewayId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCustomerGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCustomerGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcgcDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcgcCustomerGatewayId' - The ID of the customer gateway.
-deleteCustomerGateway ::
-  -- | 'dcgcCustomerGatewayId'
-  Text ->
+-- 'dryRun', 'deleteCustomerGateway_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'customerGatewayId', 'deleteCustomerGateway_customerGatewayId' - The ID of the customer gateway.
+newDeleteCustomerGateway ::
+  -- | 'customerGatewayId'
+  Prelude.Text ->
   DeleteCustomerGateway
-deleteCustomerGateway pCustomerGatewayId_ =
+newDeleteCustomerGateway pCustomerGatewayId_ =
   DeleteCustomerGateway'
-    { _dcgcDryRun = Nothing,
-      _dcgcCustomerGatewayId = pCustomerGatewayId_
+    { dryRun = Prelude.Nothing,
+      customerGatewayId = pCustomerGatewayId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dcgcDryRun :: Lens' DeleteCustomerGateway (Maybe Bool)
-dcgcDryRun = lens _dcgcDryRun (\s a -> s {_dcgcDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteCustomerGateway_dryRun :: Lens.Lens' DeleteCustomerGateway (Prelude.Maybe Prelude.Bool)
+deleteCustomerGateway_dryRun = Lens.lens (\DeleteCustomerGateway' {dryRun} -> dryRun) (\s@DeleteCustomerGateway' {} a -> s {dryRun = a} :: DeleteCustomerGateway)
 
 -- | The ID of the customer gateway.
-dcgcCustomerGatewayId :: Lens' DeleteCustomerGateway Text
-dcgcCustomerGatewayId = lens _dcgcCustomerGatewayId (\s a -> s {_dcgcCustomerGatewayId = a})
+deleteCustomerGateway_customerGatewayId :: Lens.Lens' DeleteCustomerGateway Prelude.Text
+deleteCustomerGateway_customerGatewayId = Lens.lens (\DeleteCustomerGateway' {customerGatewayId} -> customerGatewayId) (\s@DeleteCustomerGateway' {} a -> s {customerGatewayId = a} :: DeleteCustomerGateway)
 
-instance AWSRequest DeleteCustomerGateway where
+instance Prelude.AWSRequest DeleteCustomerGateway where
   type
     Rs DeleteCustomerGateway =
       DeleteCustomerGatewayResponse
-  request = postQuery ec2
-  response = receiveNull DeleteCustomerGatewayResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteCustomerGatewayResponse'
 
-instance Hashable DeleteCustomerGateway
+instance Prelude.Hashable DeleteCustomerGateway
 
-instance NFData DeleteCustomerGateway
+instance Prelude.NFData DeleteCustomerGateway
 
-instance ToHeaders DeleteCustomerGateway where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteCustomerGateway where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteCustomerGateway where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCustomerGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCustomerGateway where
+instance Prelude.ToQuery DeleteCustomerGateway where
   toQuery DeleteCustomerGateway' {..} =
-    mconcat
-      [ "Action" =: ("DeleteCustomerGateway" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dcgcDryRun,
-        "CustomerGatewayId" =: _dcgcCustomerGatewayId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteCustomerGateway" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "CustomerGatewayId" Prelude.=: customerGatewayId
       ]
 
--- | /See:/ 'deleteCustomerGatewayResponse' smart constructor.
+-- | /See:/ 'newDeleteCustomerGatewayResponse' smart constructor.
 data DeleteCustomerGatewayResponse = DeleteCustomerGatewayResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCustomerGatewayResponse' with the minimum fields required to make a request.
-deleteCustomerGatewayResponse ::
+-- |
+-- Create a value of 'DeleteCustomerGatewayResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteCustomerGatewayResponse ::
   DeleteCustomerGatewayResponse
-deleteCustomerGatewayResponse =
+newDeleteCustomerGatewayResponse =
   DeleteCustomerGatewayResponse'
 
-instance NFData DeleteCustomerGatewayResponse
+instance Prelude.NFData DeleteCustomerGatewayResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the specified transit gateway. When you modify a transit gateway, the modified options are applied to new transit gateway attachments only. Your existing transit gateway attachments are not modified.
+-- Modifies the specified transit gateway. When you modify a transit
+-- gateway, the modified options are applied to new transit gateway
+-- attachments only. Your existing transit gateway attachments are not
+-- modified.
 module Network.AWS.EC2.ModifyTransitGateway
   ( -- * Creating a Request
-    modifyTransitGateway,
-    ModifyTransitGateway,
+    ModifyTransitGateway (..),
+    newModifyTransitGateway,
 
     -- * Request Lenses
-    mtgDryRun,
-    mtgOptions,
-    mtgDescription,
-    mtgTransitGatewayId,
+    modifyTransitGateway_dryRun,
+    modifyTransitGateway_options,
+    modifyTransitGateway_description,
+    modifyTransitGateway_transitGatewayId,
 
     -- * Destructuring the Response
-    modifyTransitGatewayResponse,
-    ModifyTransitGatewayResponse,
+    ModifyTransitGatewayResponse (..),
+    newModifyTransitGatewayResponse,
 
     -- * Response Lenses
-    mtgrrsTransitGateway,
-    mtgrrsResponseStatus,
+    modifyTransitGatewayResponse_transitGateway,
+    modifyTransitGatewayResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyTransitGateway' smart constructor.
+-- | /See:/ 'newModifyTransitGateway' smart constructor.
 data ModifyTransitGateway = ModifyTransitGateway'
-  { _mtgDryRun ::
-      !(Maybe Bool),
-    _mtgOptions ::
-      !( Maybe
-           ModifyTransitGatewayOptions
-       ),
-    _mtgDescription ::
-      !(Maybe Text),
-    _mtgTransitGatewayId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The options to modify.
+    options :: Prelude.Maybe ModifyTransitGatewayOptions,
+    -- | The description for the transit gateway.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway.
+    transitGatewayId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyTransitGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyTransitGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtgDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtgOptions' - The options to modify.
+-- 'dryRun', 'modifyTransitGateway_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'mtgDescription' - The description for the transit gateway.
+-- 'options', 'modifyTransitGateway_options' - The options to modify.
 --
--- * 'mtgTransitGatewayId' - The ID of the transit gateway.
-modifyTransitGateway ::
-  -- | 'mtgTransitGatewayId'
-  Text ->
+-- 'description', 'modifyTransitGateway_description' - The description for the transit gateway.
+--
+-- 'transitGatewayId', 'modifyTransitGateway_transitGatewayId' - The ID of the transit gateway.
+newModifyTransitGateway ::
+  -- | 'transitGatewayId'
+  Prelude.Text ->
   ModifyTransitGateway
-modifyTransitGateway pTransitGatewayId_ =
+newModifyTransitGateway pTransitGatewayId_ =
   ModifyTransitGateway'
-    { _mtgDryRun = Nothing,
-      _mtgOptions = Nothing,
-      _mtgDescription = Nothing,
-      _mtgTransitGatewayId = pTransitGatewayId_
+    { dryRun = Prelude.Nothing,
+      options = Prelude.Nothing,
+      description = Prelude.Nothing,
+      transitGatewayId = pTransitGatewayId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-mtgDryRun :: Lens' ModifyTransitGateway (Maybe Bool)
-mtgDryRun = lens _mtgDryRun (\s a -> s {_mtgDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyTransitGateway_dryRun :: Lens.Lens' ModifyTransitGateway (Prelude.Maybe Prelude.Bool)
+modifyTransitGateway_dryRun = Lens.lens (\ModifyTransitGateway' {dryRun} -> dryRun) (\s@ModifyTransitGateway' {} a -> s {dryRun = a} :: ModifyTransitGateway)
 
 -- | The options to modify.
-mtgOptions :: Lens' ModifyTransitGateway (Maybe ModifyTransitGatewayOptions)
-mtgOptions = lens _mtgOptions (\s a -> s {_mtgOptions = a})
+modifyTransitGateway_options :: Lens.Lens' ModifyTransitGateway (Prelude.Maybe ModifyTransitGatewayOptions)
+modifyTransitGateway_options = Lens.lens (\ModifyTransitGateway' {options} -> options) (\s@ModifyTransitGateway' {} a -> s {options = a} :: ModifyTransitGateway)
 
 -- | The description for the transit gateway.
-mtgDescription :: Lens' ModifyTransitGateway (Maybe Text)
-mtgDescription = lens _mtgDescription (\s a -> s {_mtgDescription = a})
+modifyTransitGateway_description :: Lens.Lens' ModifyTransitGateway (Prelude.Maybe Prelude.Text)
+modifyTransitGateway_description = Lens.lens (\ModifyTransitGateway' {description} -> description) (\s@ModifyTransitGateway' {} a -> s {description = a} :: ModifyTransitGateway)
 
 -- | The ID of the transit gateway.
-mtgTransitGatewayId :: Lens' ModifyTransitGateway Text
-mtgTransitGatewayId = lens _mtgTransitGatewayId (\s a -> s {_mtgTransitGatewayId = a})
+modifyTransitGateway_transitGatewayId :: Lens.Lens' ModifyTransitGateway Prelude.Text
+modifyTransitGateway_transitGatewayId = Lens.lens (\ModifyTransitGateway' {transitGatewayId} -> transitGatewayId) (\s@ModifyTransitGateway' {} a -> s {transitGatewayId = a} :: ModifyTransitGateway)
 
-instance AWSRequest ModifyTransitGateway where
+instance Prelude.AWSRequest ModifyTransitGateway where
   type
     Rs ModifyTransitGateway =
       ModifyTransitGatewayResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyTransitGatewayResponse'
-            <$> (x .@? "transitGateway") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGateway")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyTransitGateway
+instance Prelude.Hashable ModifyTransitGateway
 
-instance NFData ModifyTransitGateway
+instance Prelude.NFData ModifyTransitGateway
 
-instance ToHeaders ModifyTransitGateway where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyTransitGateway where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyTransitGateway where
-  toPath = const "/"
+instance Prelude.ToPath ModifyTransitGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyTransitGateway where
+instance Prelude.ToQuery ModifyTransitGateway where
   toQuery ModifyTransitGateway' {..} =
-    mconcat
-      [ "Action" =: ("ModifyTransitGateway" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _mtgDryRun,
-        "Options" =: _mtgOptions,
-        "Description" =: _mtgDescription,
-        "TransitGatewayId" =: _mtgTransitGatewayId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyTransitGateway" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "Options" Prelude.=: options,
+        "Description" Prelude.=: description,
+        "TransitGatewayId" Prelude.=: transitGatewayId
       ]
 
--- | /See:/ 'modifyTransitGatewayResponse' smart constructor.
+-- | /See:/ 'newModifyTransitGatewayResponse' smart constructor.
 data ModifyTransitGatewayResponse = ModifyTransitGatewayResponse'
-  { _mtgrrsTransitGateway ::
-      !( Maybe
-           TransitGateway
-       ),
-    _mtgrrsResponseStatus ::
-      !Int
+  { transitGateway :: Prelude.Maybe TransitGateway,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyTransitGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyTransitGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtgrrsTransitGateway' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtgrrsResponseStatus' - -- | The response status code.
-modifyTransitGatewayResponse ::
-  -- | 'mtgrrsResponseStatus'
-  Int ->
+-- 'transitGateway', 'modifyTransitGatewayResponse_transitGateway' - Undocumented member.
+--
+-- 'httpStatus', 'modifyTransitGatewayResponse_httpStatus' - The response's http status code.
+newModifyTransitGatewayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyTransitGatewayResponse
-modifyTransitGatewayResponse pResponseStatus_ =
+newModifyTransitGatewayResponse pHttpStatus_ =
   ModifyTransitGatewayResponse'
-    { _mtgrrsTransitGateway =
-        Nothing,
-      _mtgrrsResponseStatus = pResponseStatus_
+    { transitGateway =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-mtgrrsTransitGateway :: Lens' ModifyTransitGatewayResponse (Maybe TransitGateway)
-mtgrrsTransitGateway = lens _mtgrrsTransitGateway (\s a -> s {_mtgrrsTransitGateway = a})
+modifyTransitGatewayResponse_transitGateway :: Lens.Lens' ModifyTransitGatewayResponse (Prelude.Maybe TransitGateway)
+modifyTransitGatewayResponse_transitGateway = Lens.lens (\ModifyTransitGatewayResponse' {transitGateway} -> transitGateway) (\s@ModifyTransitGatewayResponse' {} a -> s {transitGateway = a} :: ModifyTransitGatewayResponse)
 
--- | -- | The response status code.
-mtgrrsResponseStatus :: Lens' ModifyTransitGatewayResponse Int
-mtgrrsResponseStatus = lens _mtgrrsResponseStatus (\s a -> s {_mtgrrsResponseStatus = a})
+-- | The response's http status code.
+modifyTransitGatewayResponse_httpStatus :: Lens.Lens' ModifyTransitGatewayResponse Prelude.Int
+modifyTransitGatewayResponse_httpStatus = Lens.lens (\ModifyTransitGatewayResponse' {httpStatus} -> httpStatus) (\s@ModifyTransitGatewayResponse' {} a -> s {httpStatus = a} :: ModifyTransitGatewayResponse)
 
-instance NFData ModifyTransitGatewayResponse
+instance Prelude.NFData ModifyTransitGatewayResponse

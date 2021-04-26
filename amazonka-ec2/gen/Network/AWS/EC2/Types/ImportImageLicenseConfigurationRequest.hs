@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,53 @@
 module Network.AWS.EC2.Types.ImportImageLicenseConfigurationRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The request information of license configurations.
 --
---
---
--- /See:/ 'importImageLicenseConfigurationRequest' smart constructor.
-newtype ImportImageLicenseConfigurationRequest = ImportImageLicenseConfigurationRequest'
-  { _iilcrLicenseConfigurationARN ::
-      Maybe
-        Text
+-- /See:/ 'newImportImageLicenseConfigurationRequest' smart constructor.
+data ImportImageLicenseConfigurationRequest = ImportImageLicenseConfigurationRequest'
+  { -- | The ARN of a license configuration.
+    licenseConfigurationArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportImageLicenseConfigurationRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportImageLicenseConfigurationRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iilcrLicenseConfigurationARN' - The ARN of a license configuration.
-importImageLicenseConfigurationRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'licenseConfigurationArn', 'importImageLicenseConfigurationRequest_licenseConfigurationArn' - The ARN of a license configuration.
+newImportImageLicenseConfigurationRequest ::
   ImportImageLicenseConfigurationRequest
-importImageLicenseConfigurationRequest =
+newImportImageLicenseConfigurationRequest =
   ImportImageLicenseConfigurationRequest'
-    { _iilcrLicenseConfigurationARN =
-        Nothing
+    { licenseConfigurationArn =
+        Prelude.Nothing
     }
 
 -- | The ARN of a license configuration.
-iilcrLicenseConfigurationARN :: Lens' ImportImageLicenseConfigurationRequest (Maybe Text)
-iilcrLicenseConfigurationARN = lens _iilcrLicenseConfigurationARN (\s a -> s {_iilcrLicenseConfigurationARN = a})
+importImageLicenseConfigurationRequest_licenseConfigurationArn :: Lens.Lens' ImportImageLicenseConfigurationRequest (Prelude.Maybe Prelude.Text)
+importImageLicenseConfigurationRequest_licenseConfigurationArn = Lens.lens (\ImportImageLicenseConfigurationRequest' {licenseConfigurationArn} -> licenseConfigurationArn) (\s@ImportImageLicenseConfigurationRequest' {} a -> s {licenseConfigurationArn = a} :: ImportImageLicenseConfigurationRequest)
 
 instance
-  Hashable
+  Prelude.Hashable
     ImportImageLicenseConfigurationRequest
 
 instance
-  NFData
+  Prelude.NFData
     ImportImageLicenseConfigurationRequest
 
 instance
-  ToQuery
+  Prelude.ToQuery
     ImportImageLicenseConfigurationRequest
   where
   toQuery ImportImageLicenseConfigurationRequest' {..} =
-    mconcat
+    Prelude.mconcat
       [ "LicenseConfigurationArn"
-          =: _iilcrLicenseConfigurationARN
+          Prelude.=: licenseConfigurationArn
       ]

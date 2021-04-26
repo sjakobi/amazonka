@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.EC2.Types.ReportStatusType
   ( ReportStatusType
       ( ..,
-        RSTImpaired,
-        RSTOK
+        ReportStatusTypeImpaired,
+        ReportStatusTypeOK
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportStatusType = ReportStatusType' (CI Text)
+newtype ReportStatusType = ReportStatusType'
+  { fromReportStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSTImpaired :: ReportStatusType
-pattern RSTImpaired = ReportStatusType' "impaired"
+pattern ReportStatusTypeImpaired :: ReportStatusType
+pattern ReportStatusTypeImpaired = ReportStatusType' "impaired"
 
-pattern RSTOK :: ReportStatusType
-pattern RSTOK = ReportStatusType' "ok"
+pattern ReportStatusTypeOK :: ReportStatusType
+pattern ReportStatusTypeOK = ReportStatusType' "ok"
 
 {-# COMPLETE
-  RSTImpaired,
-  RSTOK,
+  ReportStatusTypeImpaired,
+  ReportStatusTypeOK,
   ReportStatusType'
   #-}
 
-instance FromText ReportStatusType where
-  parser = (ReportStatusType' . mk) <$> takeText
+instance Prelude.FromText ReportStatusType where
+  parser = ReportStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText ReportStatusType where
-  toText (ReportStatusType' ci) = original ci
+instance Prelude.ToText ReportStatusType where
+  toText (ReportStatusType' x) = x
 
-instance Hashable ReportStatusType
+instance Prelude.Hashable ReportStatusType
 
-instance NFData ReportStatusType
+instance Prelude.NFData ReportStatusType
 
-instance ToByteString ReportStatusType
+instance Prelude.ToByteString ReportStatusType
 
-instance ToQuery ReportStatusType
+instance Prelude.ToQuery ReportStatusType
 
-instance ToHeader ReportStatusType
+instance Prelude.ToHeader ReportStatusType

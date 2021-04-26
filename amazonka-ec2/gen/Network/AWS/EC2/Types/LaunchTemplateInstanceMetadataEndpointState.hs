@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.LaunchTemplateInstanceMetadataEndpointState
   ( LaunchTemplateInstanceMetadataEndpointState
       ( ..,
-        Disabled,
-        Enabled
+        LaunchTemplateInstanceMetadataEndpointStateDisabled,
+        LaunchTemplateInstanceMetadataEndpointStateEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LaunchTemplateInstanceMetadataEndpointState
-  = LaunchTemplateInstanceMetadataEndpointState'
-      ( CI
-          Text
-      )
+newtype LaunchTemplateInstanceMetadataEndpointState = LaunchTemplateInstanceMetadataEndpointState'
+  { fromLaunchTemplateInstanceMetadataEndpointState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: LaunchTemplateInstanceMetadataEndpointState
-pattern Disabled = LaunchTemplateInstanceMetadataEndpointState' "disabled"
+pattern LaunchTemplateInstanceMetadataEndpointStateDisabled :: LaunchTemplateInstanceMetadataEndpointState
+pattern LaunchTemplateInstanceMetadataEndpointStateDisabled = LaunchTemplateInstanceMetadataEndpointState' "disabled"
 
-pattern Enabled :: LaunchTemplateInstanceMetadataEndpointState
-pattern Enabled = LaunchTemplateInstanceMetadataEndpointState' "enabled"
+pattern LaunchTemplateInstanceMetadataEndpointStateEnabled :: LaunchTemplateInstanceMetadataEndpointState
+pattern LaunchTemplateInstanceMetadataEndpointStateEnabled = LaunchTemplateInstanceMetadataEndpointState' "enabled"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  LaunchTemplateInstanceMetadataEndpointStateDisabled,
+  LaunchTemplateInstanceMetadataEndpointStateEnabled,
   LaunchTemplateInstanceMetadataEndpointState'
   #-}
 
-instance FromText LaunchTemplateInstanceMetadataEndpointState where
-  parser = (LaunchTemplateInstanceMetadataEndpointState' . mk) <$> takeText
+instance Prelude.FromText LaunchTemplateInstanceMetadataEndpointState where
+  parser = LaunchTemplateInstanceMetadataEndpointState' Prelude.<$> Prelude.takeText
 
-instance ToText LaunchTemplateInstanceMetadataEndpointState where
-  toText (LaunchTemplateInstanceMetadataEndpointState' ci) = original ci
+instance Prelude.ToText LaunchTemplateInstanceMetadataEndpointState where
+  toText (LaunchTemplateInstanceMetadataEndpointState' x) = x
 
-instance Hashable LaunchTemplateInstanceMetadataEndpointState
+instance Prelude.Hashable LaunchTemplateInstanceMetadataEndpointState
 
-instance NFData LaunchTemplateInstanceMetadataEndpointState
+instance Prelude.NFData LaunchTemplateInstanceMetadataEndpointState
 
-instance ToByteString LaunchTemplateInstanceMetadataEndpointState
+instance Prelude.ToByteString LaunchTemplateInstanceMetadataEndpointState
 
-instance ToQuery LaunchTemplateInstanceMetadataEndpointState
+instance Prelude.ToQuery LaunchTemplateInstanceMetadataEndpointState
 
-instance ToHeader LaunchTemplateInstanceMetadataEndpointState
+instance Prelude.ToHeader LaunchTemplateInstanceMetadataEndpointState
 
-instance FromXML LaunchTemplateInstanceMetadataEndpointState where
-  parseXML = parseXMLText "LaunchTemplateInstanceMetadataEndpointState"
+instance Prelude.FromXML LaunchTemplateInstanceMetadataEndpointState where
+  parseXML = Prelude.parseXMLText "LaunchTemplateInstanceMetadataEndpointState"

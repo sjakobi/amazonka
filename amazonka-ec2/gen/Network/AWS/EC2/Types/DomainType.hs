@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.DomainType
   ( DomainType
       ( ..,
-        DTStandard,
-        DTVPC
+        DomainTypeStandard,
+        DomainTypeVpc
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainType = DomainType' (CI Text)
+newtype DomainType = DomainType'
+  { fromDomainType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DTStandard :: DomainType
-pattern DTStandard = DomainType' "standard"
+pattern DomainTypeStandard :: DomainType
+pattern DomainTypeStandard = DomainType' "standard"
 
-pattern DTVPC :: DomainType
-pattern DTVPC = DomainType' "vpc"
+pattern DomainTypeVpc :: DomainType
+pattern DomainTypeVpc = DomainType' "vpc"
 
 {-# COMPLETE
-  DTStandard,
-  DTVPC,
+  DomainTypeStandard,
+  DomainTypeVpc,
   DomainType'
   #-}
 
-instance FromText DomainType where
-  parser = (DomainType' . mk) <$> takeText
+instance Prelude.FromText DomainType where
+  parser = DomainType' Prelude.<$> Prelude.takeText
 
-instance ToText DomainType where
-  toText (DomainType' ci) = original ci
+instance Prelude.ToText DomainType where
+  toText (DomainType' x) = x
 
-instance Hashable DomainType
+instance Prelude.Hashable DomainType
 
-instance NFData DomainType
+instance Prelude.NFData DomainType
 
-instance ToByteString DomainType
+instance Prelude.ToByteString DomainType
 
-instance ToQuery DomainType
+instance Prelude.ToQuery DomainType
 
-instance ToHeader DomainType
+instance Prelude.ToHeader DomainType
 
-instance FromXML DomainType where
-  parseXML = parseXMLText "DomainType"
+instance Prelude.FromXML DomainType where
+  parseXML = Prelude.parseXMLText "DomainType"

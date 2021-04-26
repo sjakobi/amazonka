@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,132 +21,159 @@ module Network.AWS.EC2.Types.TrafficMirrorSession where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Traffic Mirror session.
 --
---
---
--- /See:/ 'trafficMirrorSession' smart constructor.
+-- /See:/ 'newTrafficMirrorSession' smart constructor.
 data TrafficMirrorSession = TrafficMirrorSession'
-  { _tmsOwnerId ::
-      !(Maybe Text),
-    _tmsTrafficMirrorSessionId ::
-      !(Maybe Text),
-    _tmsPacketLength ::
-      !(Maybe Int),
-    _tmsTags :: !(Maybe [Tag]),
-    _tmsTrafficMirrorFilterId ::
-      !(Maybe Text),
-    _tmsNetworkInterfaceId ::
-      !(Maybe Text),
-    _tmsDescription ::
-      !(Maybe Text),
-    _tmsTrafficMirrorTargetId ::
-      !(Maybe Text),
-    _tmsSessionNumber ::
-      !(Maybe Int),
-    _tmsVirtualNetworkId ::
-      !(Maybe Int)
+  { -- | The ID of the account that owns the Traffic Mirror session.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The ID for the Traffic Mirror session.
+    trafficMirrorSessionId :: Prelude.Maybe Prelude.Text,
+    -- | The number of bytes in each packet to mirror. These are the bytes after
+    -- the VXLAN header. To mirror a subset, set this to the length (in bytes)
+    -- to mirror. For example, if you set this value to 100, then the first 100
+    -- bytes that meet the filter criteria are copied to the target. Do not
+    -- specify this parameter when you want to mirror the entire packet
+    packetLength :: Prelude.Maybe Prelude.Int,
+    -- | The tags assigned to the Traffic Mirror session.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ID of the Traffic Mirror filter.
+    trafficMirrorFilterId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Traffic Mirror session\'s network interface.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The description of the Traffic Mirror session.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Traffic Mirror target.
+    trafficMirrorTargetId :: Prelude.Maybe Prelude.Text,
+    -- | The session number determines the order in which sessions are evaluated
+    -- when an interface is used by multiple sessions. The first session with a
+    -- matching filter is the one that mirrors the packets.
+    --
+    -- Valid values are 1-32766.
+    sessionNumber :: Prelude.Maybe Prelude.Int,
+    -- | The virtual network ID associated with the Traffic Mirror session.
+    virtualNetworkId :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrafficMirrorSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrafficMirrorSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tmsOwnerId' - The ID of the account that owns the Traffic Mirror session.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tmsTrafficMirrorSessionId' - The ID for the Traffic Mirror session.
+-- 'ownerId', 'trafficMirrorSession_ownerId' - The ID of the account that owns the Traffic Mirror session.
 --
--- * 'tmsPacketLength' - The number of bytes in each packet to mirror. These are the bytes after the VXLAN header. To mirror a subset, set this to the length (in bytes) to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the filter criteria are copied to the target. Do not specify this parameter when you want to mirror the entire packet
+-- 'trafficMirrorSessionId', 'trafficMirrorSession_trafficMirrorSessionId' - The ID for the Traffic Mirror session.
 --
--- * 'tmsTags' - The tags assigned to the Traffic Mirror session.
+-- 'packetLength', 'trafficMirrorSession_packetLength' - The number of bytes in each packet to mirror. These are the bytes after
+-- the VXLAN header. To mirror a subset, set this to the length (in bytes)
+-- to mirror. For example, if you set this value to 100, then the first 100
+-- bytes that meet the filter criteria are copied to the target. Do not
+-- specify this parameter when you want to mirror the entire packet
 --
--- * 'tmsTrafficMirrorFilterId' - The ID of the Traffic Mirror filter.
+-- 'tags', 'trafficMirrorSession_tags' - The tags assigned to the Traffic Mirror session.
 --
--- * 'tmsNetworkInterfaceId' - The ID of the Traffic Mirror session's network interface.
+-- 'trafficMirrorFilterId', 'trafficMirrorSession_trafficMirrorFilterId' - The ID of the Traffic Mirror filter.
 --
--- * 'tmsDescription' - The description of the Traffic Mirror session.
+-- 'networkInterfaceId', 'trafficMirrorSession_networkInterfaceId' - The ID of the Traffic Mirror session\'s network interface.
 --
--- * 'tmsTrafficMirrorTargetId' - The ID of the Traffic Mirror target.
+-- 'description', 'trafficMirrorSession_description' - The description of the Traffic Mirror session.
 --
--- * 'tmsSessionNumber' - The session number determines the order in which sessions are evaluated when an interface is used by multiple sessions. The first session with a matching filter is the one that mirrors the packets. Valid values are 1-32766.
+-- 'trafficMirrorTargetId', 'trafficMirrorSession_trafficMirrorTargetId' - The ID of the Traffic Mirror target.
 --
--- * 'tmsVirtualNetworkId' - The virtual network ID associated with the Traffic Mirror session.
-trafficMirrorSession ::
+-- 'sessionNumber', 'trafficMirrorSession_sessionNumber' - The session number determines the order in which sessions are evaluated
+-- when an interface is used by multiple sessions. The first session with a
+-- matching filter is the one that mirrors the packets.
+--
+-- Valid values are 1-32766.
+--
+-- 'virtualNetworkId', 'trafficMirrorSession_virtualNetworkId' - The virtual network ID associated with the Traffic Mirror session.
+newTrafficMirrorSession ::
   TrafficMirrorSession
-trafficMirrorSession =
+newTrafficMirrorSession =
   TrafficMirrorSession'
-    { _tmsOwnerId = Nothing,
-      _tmsTrafficMirrorSessionId = Nothing,
-      _tmsPacketLength = Nothing,
-      _tmsTags = Nothing,
-      _tmsTrafficMirrorFilterId = Nothing,
-      _tmsNetworkInterfaceId = Nothing,
-      _tmsDescription = Nothing,
-      _tmsTrafficMirrorTargetId = Nothing,
-      _tmsSessionNumber = Nothing,
-      _tmsVirtualNetworkId = Nothing
+    { ownerId = Prelude.Nothing,
+      trafficMirrorSessionId = Prelude.Nothing,
+      packetLength = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      trafficMirrorFilterId = Prelude.Nothing,
+      networkInterfaceId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      trafficMirrorTargetId = Prelude.Nothing,
+      sessionNumber = Prelude.Nothing,
+      virtualNetworkId = Prelude.Nothing
     }
 
 -- | The ID of the account that owns the Traffic Mirror session.
-tmsOwnerId :: Lens' TrafficMirrorSession (Maybe Text)
-tmsOwnerId = lens _tmsOwnerId (\s a -> s {_tmsOwnerId = a})
+trafficMirrorSession_ownerId :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Text)
+trafficMirrorSession_ownerId = Lens.lens (\TrafficMirrorSession' {ownerId} -> ownerId) (\s@TrafficMirrorSession' {} a -> s {ownerId = a} :: TrafficMirrorSession)
 
 -- | The ID for the Traffic Mirror session.
-tmsTrafficMirrorSessionId :: Lens' TrafficMirrorSession (Maybe Text)
-tmsTrafficMirrorSessionId = lens _tmsTrafficMirrorSessionId (\s a -> s {_tmsTrafficMirrorSessionId = a})
+trafficMirrorSession_trafficMirrorSessionId :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Text)
+trafficMirrorSession_trafficMirrorSessionId = Lens.lens (\TrafficMirrorSession' {trafficMirrorSessionId} -> trafficMirrorSessionId) (\s@TrafficMirrorSession' {} a -> s {trafficMirrorSessionId = a} :: TrafficMirrorSession)
 
--- | The number of bytes in each packet to mirror. These are the bytes after the VXLAN header. To mirror a subset, set this to the length (in bytes) to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the filter criteria are copied to the target. Do not specify this parameter when you want to mirror the entire packet
-tmsPacketLength :: Lens' TrafficMirrorSession (Maybe Int)
-tmsPacketLength = lens _tmsPacketLength (\s a -> s {_tmsPacketLength = a})
+-- | The number of bytes in each packet to mirror. These are the bytes after
+-- the VXLAN header. To mirror a subset, set this to the length (in bytes)
+-- to mirror. For example, if you set this value to 100, then the first 100
+-- bytes that meet the filter criteria are copied to the target. Do not
+-- specify this parameter when you want to mirror the entire packet
+trafficMirrorSession_packetLength :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Int)
+trafficMirrorSession_packetLength = Lens.lens (\TrafficMirrorSession' {packetLength} -> packetLength) (\s@TrafficMirrorSession' {} a -> s {packetLength = a} :: TrafficMirrorSession)
 
 -- | The tags assigned to the Traffic Mirror session.
-tmsTags :: Lens' TrafficMirrorSession [Tag]
-tmsTags = lens _tmsTags (\s a -> s {_tmsTags = a}) . _Default . _Coerce
+trafficMirrorSession_tags :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe [Tag])
+trafficMirrorSession_tags = Lens.lens (\TrafficMirrorSession' {tags} -> tags) (\s@TrafficMirrorSession' {} a -> s {tags = a} :: TrafficMirrorSession) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the Traffic Mirror filter.
-tmsTrafficMirrorFilterId :: Lens' TrafficMirrorSession (Maybe Text)
-tmsTrafficMirrorFilterId = lens _tmsTrafficMirrorFilterId (\s a -> s {_tmsTrafficMirrorFilterId = a})
+trafficMirrorSession_trafficMirrorFilterId :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Text)
+trafficMirrorSession_trafficMirrorFilterId = Lens.lens (\TrafficMirrorSession' {trafficMirrorFilterId} -> trafficMirrorFilterId) (\s@TrafficMirrorSession' {} a -> s {trafficMirrorFilterId = a} :: TrafficMirrorSession)
 
--- | The ID of the Traffic Mirror session's network interface.
-tmsNetworkInterfaceId :: Lens' TrafficMirrorSession (Maybe Text)
-tmsNetworkInterfaceId = lens _tmsNetworkInterfaceId (\s a -> s {_tmsNetworkInterfaceId = a})
+-- | The ID of the Traffic Mirror session\'s network interface.
+trafficMirrorSession_networkInterfaceId :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Text)
+trafficMirrorSession_networkInterfaceId = Lens.lens (\TrafficMirrorSession' {networkInterfaceId} -> networkInterfaceId) (\s@TrafficMirrorSession' {} a -> s {networkInterfaceId = a} :: TrafficMirrorSession)
 
 -- | The description of the Traffic Mirror session.
-tmsDescription :: Lens' TrafficMirrorSession (Maybe Text)
-tmsDescription = lens _tmsDescription (\s a -> s {_tmsDescription = a})
+trafficMirrorSession_description :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Text)
+trafficMirrorSession_description = Lens.lens (\TrafficMirrorSession' {description} -> description) (\s@TrafficMirrorSession' {} a -> s {description = a} :: TrafficMirrorSession)
 
 -- | The ID of the Traffic Mirror target.
-tmsTrafficMirrorTargetId :: Lens' TrafficMirrorSession (Maybe Text)
-tmsTrafficMirrorTargetId = lens _tmsTrafficMirrorTargetId (\s a -> s {_tmsTrafficMirrorTargetId = a})
+trafficMirrorSession_trafficMirrorTargetId :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Text)
+trafficMirrorSession_trafficMirrorTargetId = Lens.lens (\TrafficMirrorSession' {trafficMirrorTargetId} -> trafficMirrorTargetId) (\s@TrafficMirrorSession' {} a -> s {trafficMirrorTargetId = a} :: TrafficMirrorSession)
 
--- | The session number determines the order in which sessions are evaluated when an interface is used by multiple sessions. The first session with a matching filter is the one that mirrors the packets. Valid values are 1-32766.
-tmsSessionNumber :: Lens' TrafficMirrorSession (Maybe Int)
-tmsSessionNumber = lens _tmsSessionNumber (\s a -> s {_tmsSessionNumber = a})
+-- | The session number determines the order in which sessions are evaluated
+-- when an interface is used by multiple sessions. The first session with a
+-- matching filter is the one that mirrors the packets.
+--
+-- Valid values are 1-32766.
+trafficMirrorSession_sessionNumber :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Int)
+trafficMirrorSession_sessionNumber = Lens.lens (\TrafficMirrorSession' {sessionNumber} -> sessionNumber) (\s@TrafficMirrorSession' {} a -> s {sessionNumber = a} :: TrafficMirrorSession)
 
 -- | The virtual network ID associated with the Traffic Mirror session.
-tmsVirtualNetworkId :: Lens' TrafficMirrorSession (Maybe Int)
-tmsVirtualNetworkId = lens _tmsVirtualNetworkId (\s a -> s {_tmsVirtualNetworkId = a})
+trafficMirrorSession_virtualNetworkId :: Lens.Lens' TrafficMirrorSession (Prelude.Maybe Prelude.Int)
+trafficMirrorSession_virtualNetworkId = Lens.lens (\TrafficMirrorSession' {virtualNetworkId} -> virtualNetworkId) (\s@TrafficMirrorSession' {} a -> s {virtualNetworkId = a} :: TrafficMirrorSession)
 
-instance FromXML TrafficMirrorSession where
+instance Prelude.FromXML TrafficMirrorSession where
   parseXML x =
     TrafficMirrorSession'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "trafficMirrorSessionId")
-      <*> (x .@? "packetLength")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "trafficMirrorFilterId")
-      <*> (x .@? "networkInterfaceId")
-      <*> (x .@? "description")
-      <*> (x .@? "trafficMirrorTargetId")
-      <*> (x .@? "sessionNumber")
-      <*> (x .@? "virtualNetworkId")
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "trafficMirrorSessionId")
+      Prelude.<*> (x Prelude..@? "packetLength")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "trafficMirrorFilterId")
+      Prelude.<*> (x Prelude..@? "networkInterfaceId")
+      Prelude.<*> (x Prelude..@? "description")
+      Prelude.<*> (x Prelude..@? "trafficMirrorTargetId")
+      Prelude.<*> (x Prelude..@? "sessionNumber")
+      Prelude.<*> (x Prelude..@? "virtualNetworkId")
 
-instance Hashable TrafficMirrorSession
+instance Prelude.Hashable TrafficMirrorSession
 
-instance NFData TrafficMirrorSession
+instance Prelude.NFData TrafficMirrorSession

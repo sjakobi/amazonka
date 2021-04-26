@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +21,53 @@ module Network.AWS.EC2.Types.AllowedPrincipal where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PrincipalType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a principal.
 --
---
---
--- /See:/ 'allowedPrincipal' smart constructor.
+-- /See:/ 'newAllowedPrincipal' smart constructor.
 data AllowedPrincipal = AllowedPrincipal'
-  { _apPrincipal ::
-      !(Maybe Text),
-    _apPrincipalType ::
-      !(Maybe PrincipalType)
+  { -- | The Amazon Resource Name (ARN) of the principal.
+    principal :: Prelude.Maybe Prelude.Text,
+    -- | The type of principal.
+    principalType :: Prelude.Maybe PrincipalType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AllowedPrincipal' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AllowedPrincipal' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apPrincipal' - The Amazon Resource Name (ARN) of the principal.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apPrincipalType' - The type of principal.
-allowedPrincipal ::
+-- 'principal', 'allowedPrincipal_principal' - The Amazon Resource Name (ARN) of the principal.
+--
+-- 'principalType', 'allowedPrincipal_principalType' - The type of principal.
+newAllowedPrincipal ::
   AllowedPrincipal
-allowedPrincipal =
+newAllowedPrincipal =
   AllowedPrincipal'
-    { _apPrincipal = Nothing,
-      _apPrincipalType = Nothing
+    { principal = Prelude.Nothing,
+      principalType = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the principal.
-apPrincipal :: Lens' AllowedPrincipal (Maybe Text)
-apPrincipal = lens _apPrincipal (\s a -> s {_apPrincipal = a})
+allowedPrincipal_principal :: Lens.Lens' AllowedPrincipal (Prelude.Maybe Prelude.Text)
+allowedPrincipal_principal = Lens.lens (\AllowedPrincipal' {principal} -> principal) (\s@AllowedPrincipal' {} a -> s {principal = a} :: AllowedPrincipal)
 
 -- | The type of principal.
-apPrincipalType :: Lens' AllowedPrincipal (Maybe PrincipalType)
-apPrincipalType = lens _apPrincipalType (\s a -> s {_apPrincipalType = a})
+allowedPrincipal_principalType :: Lens.Lens' AllowedPrincipal (Prelude.Maybe PrincipalType)
+allowedPrincipal_principalType = Lens.lens (\AllowedPrincipal' {principalType} -> principalType) (\s@AllowedPrincipal' {} a -> s {principalType = a} :: AllowedPrincipal)
 
-instance FromXML AllowedPrincipal where
+instance Prelude.FromXML AllowedPrincipal where
   parseXML x =
     AllowedPrincipal'
-      <$> (x .@? "principal") <*> (x .@? "principalType")
+      Prelude.<$> (x Prelude..@? "principal")
+      Prelude.<*> (x Prelude..@? "principalType")
 
-instance Hashable AllowedPrincipal
+instance Prelude.Hashable AllowedPrincipal
 
-instance NFData AllowedPrincipal
+instance Prelude.NFData AllowedPrincipal

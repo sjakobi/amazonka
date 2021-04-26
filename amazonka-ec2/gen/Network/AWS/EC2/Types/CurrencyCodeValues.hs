@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.EC2.Types.CurrencyCodeValues
   ( CurrencyCodeValues
       ( ..,
-        Usd
+        CurrencyCodeValuesUSD
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CurrencyCodeValues
-  = CurrencyCodeValues'
-      ( CI
-          Text
-      )
+newtype CurrencyCodeValues = CurrencyCodeValues'
+  { fromCurrencyCodeValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Usd :: CurrencyCodeValues
-pattern Usd = CurrencyCodeValues' "USD"
+pattern CurrencyCodeValuesUSD :: CurrencyCodeValues
+pattern CurrencyCodeValuesUSD = CurrencyCodeValues' "USD"
 
 {-# COMPLETE
-  Usd,
+  CurrencyCodeValuesUSD,
   CurrencyCodeValues'
   #-}
 
-instance FromText CurrencyCodeValues where
-  parser = (CurrencyCodeValues' . mk) <$> takeText
+instance Prelude.FromText CurrencyCodeValues where
+  parser = CurrencyCodeValues' Prelude.<$> Prelude.takeText
 
-instance ToText CurrencyCodeValues where
-  toText (CurrencyCodeValues' ci) = original ci
+instance Prelude.ToText CurrencyCodeValues where
+  toText (CurrencyCodeValues' x) = x
 
-instance Hashable CurrencyCodeValues
+instance Prelude.Hashable CurrencyCodeValues
 
-instance NFData CurrencyCodeValues
+instance Prelude.NFData CurrencyCodeValues
 
-instance ToByteString CurrencyCodeValues
+instance Prelude.ToByteString CurrencyCodeValues
 
-instance ToQuery CurrencyCodeValues
+instance Prelude.ToQuery CurrencyCodeValues
 
-instance ToHeader CurrencyCodeValues
+instance Prelude.ToHeader CurrencyCodeValues
 
-instance FromXML CurrencyCodeValues where
-  parseXML = parseXMLText "CurrencyCodeValues"
+instance Prelude.FromXML CurrencyCodeValues where
+  parseXML = Prelude.parseXMLText "CurrencyCodeValues"

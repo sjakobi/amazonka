@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,133 +22,160 @@ module Network.AWS.EC2.Types.SnapshotInfo where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.SnapshotState
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a snapshot.
 --
---
---
--- /See:/ 'snapshotInfo' smart constructor.
+-- /See:/ 'newSnapshotInfo' smart constructor.
 data SnapshotInfo = SnapshotInfo'
-  { _siOwnerId ::
-      !(Maybe Text),
-    _siEncrypted :: !(Maybe Bool),
-    _siOutpostARN :: !(Maybe Text),
-    _siStartTime :: !(Maybe ISO8601),
-    _siVolumeId :: !(Maybe Text),
-    _siState :: !(Maybe SnapshotState),
-    _siSnapshotId :: !(Maybe Text),
-    _siTags :: !(Maybe [Tag]),
-    _siDescription :: !(Maybe Text),
-    _siProgress :: !(Maybe Text),
-    _siVolumeSize :: !(Maybe Int)
+  { -- | Account id used when creating this snapshot.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the snapshot is encrypted.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the AWS Outpost on which the snapshot is stored. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html EBS Local Snapshot on Outposts>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | Time this snapshot was started. This is the same for all snapshots
+    -- initiated by the same request.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Source volume from which this snapshot was created.
+    volumeId :: Prelude.Maybe Prelude.Text,
+    -- | Current state of the snapshot.
+    state :: Prelude.Maybe SnapshotState,
+    -- | Snapshot id that can be used to describe this snapshot.
+    snapshotId :: Prelude.Maybe Prelude.Text,
+    -- | Tags associated with this snapshot.
+    tags :: Prelude.Maybe [Tag],
+    -- | Description specified by the CreateSnapshotRequest that has been applied
+    -- to all snapshots.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Progress this snapshot has made towards completing.
+    progress :: Prelude.Maybe Prelude.Text,
+    -- | Size of the volume from which this snapshot was created.
+    volumeSize :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SnapshotInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SnapshotInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siOwnerId' - Account id used when creating this snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siEncrypted' - Indicates whether the snapshot is encrypted.
+-- 'ownerId', 'snapshotInfo_ownerId' - Account id used when creating this snapshot.
 --
--- * 'siOutpostARN' - The ARN of the AWS Outpost on which the snapshot is stored. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html EBS Local Snapshot on Outposts> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- 'encrypted', 'snapshotInfo_encrypted' - Indicates whether the snapshot is encrypted.
 --
--- * 'siStartTime' - Time this snapshot was started. This is the same for all snapshots initiated by the same request.
+-- 'outpostArn', 'snapshotInfo_outpostArn' - The ARN of the AWS Outpost on which the snapshot is stored. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html EBS Local Snapshot on Outposts>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
--- * 'siVolumeId' - Source volume from which this snapshot was created.
+-- 'startTime', 'snapshotInfo_startTime' - Time this snapshot was started. This is the same for all snapshots
+-- initiated by the same request.
 --
--- * 'siState' - Current state of the snapshot.
+-- 'volumeId', 'snapshotInfo_volumeId' - Source volume from which this snapshot was created.
 --
--- * 'siSnapshotId' - Snapshot id that can be used to describe this snapshot.
+-- 'state', 'snapshotInfo_state' - Current state of the snapshot.
 --
--- * 'siTags' - Tags associated with this snapshot.
+-- 'snapshotId', 'snapshotInfo_snapshotId' - Snapshot id that can be used to describe this snapshot.
 --
--- * 'siDescription' - Description specified by the CreateSnapshotRequest that has been applied to all snapshots.
+-- 'tags', 'snapshotInfo_tags' - Tags associated with this snapshot.
 --
--- * 'siProgress' - Progress this snapshot has made towards completing.
+-- 'description', 'snapshotInfo_description' - Description specified by the CreateSnapshotRequest that has been applied
+-- to all snapshots.
 --
--- * 'siVolumeSize' - Size of the volume from which this snapshot was created.
-snapshotInfo ::
+-- 'progress', 'snapshotInfo_progress' - Progress this snapshot has made towards completing.
+--
+-- 'volumeSize', 'snapshotInfo_volumeSize' - Size of the volume from which this snapshot was created.
+newSnapshotInfo ::
   SnapshotInfo
-snapshotInfo =
+newSnapshotInfo =
   SnapshotInfo'
-    { _siOwnerId = Nothing,
-      _siEncrypted = Nothing,
-      _siOutpostARN = Nothing,
-      _siStartTime = Nothing,
-      _siVolumeId = Nothing,
-      _siState = Nothing,
-      _siSnapshotId = Nothing,
-      _siTags = Nothing,
-      _siDescription = Nothing,
-      _siProgress = Nothing,
-      _siVolumeSize = Nothing
+    { ownerId = Prelude.Nothing,
+      encrypted = Prelude.Nothing,
+      outpostArn = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      volumeId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      snapshotId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      progress = Prelude.Nothing,
+      volumeSize = Prelude.Nothing
     }
 
 -- | Account id used when creating this snapshot.
-siOwnerId :: Lens' SnapshotInfo (Maybe Text)
-siOwnerId = lens _siOwnerId (\s a -> s {_siOwnerId = a})
+snapshotInfo_ownerId :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Text)
+snapshotInfo_ownerId = Lens.lens (\SnapshotInfo' {ownerId} -> ownerId) (\s@SnapshotInfo' {} a -> s {ownerId = a} :: SnapshotInfo)
 
 -- | Indicates whether the snapshot is encrypted.
-siEncrypted :: Lens' SnapshotInfo (Maybe Bool)
-siEncrypted = lens _siEncrypted (\s a -> s {_siEncrypted = a})
+snapshotInfo_encrypted :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Bool)
+snapshotInfo_encrypted = Lens.lens (\SnapshotInfo' {encrypted} -> encrypted) (\s@SnapshotInfo' {} a -> s {encrypted = a} :: SnapshotInfo)
 
--- | The ARN of the AWS Outpost on which the snapshot is stored. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html EBS Local Snapshot on Outposts> in the /Amazon Elastic Compute Cloud User Guide/ .
-siOutpostARN :: Lens' SnapshotInfo (Maybe Text)
-siOutpostARN = lens _siOutpostARN (\s a -> s {_siOutpostARN = a})
+-- | The ARN of the AWS Outpost on which the snapshot is stored. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html EBS Local Snapshot on Outposts>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+snapshotInfo_outpostArn :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Text)
+snapshotInfo_outpostArn = Lens.lens (\SnapshotInfo' {outpostArn} -> outpostArn) (\s@SnapshotInfo' {} a -> s {outpostArn = a} :: SnapshotInfo)
 
--- | Time this snapshot was started. This is the same for all snapshots initiated by the same request.
-siStartTime :: Lens' SnapshotInfo (Maybe UTCTime)
-siStartTime = lens _siStartTime (\s a -> s {_siStartTime = a}) . mapping _Time
+-- | Time this snapshot was started. This is the same for all snapshots
+-- initiated by the same request.
+snapshotInfo_startTime :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.UTCTime)
+snapshotInfo_startTime = Lens.lens (\SnapshotInfo' {startTime} -> startTime) (\s@SnapshotInfo' {} a -> s {startTime = a} :: SnapshotInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | Source volume from which this snapshot was created.
-siVolumeId :: Lens' SnapshotInfo (Maybe Text)
-siVolumeId = lens _siVolumeId (\s a -> s {_siVolumeId = a})
+snapshotInfo_volumeId :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Text)
+snapshotInfo_volumeId = Lens.lens (\SnapshotInfo' {volumeId} -> volumeId) (\s@SnapshotInfo' {} a -> s {volumeId = a} :: SnapshotInfo)
 
 -- | Current state of the snapshot.
-siState :: Lens' SnapshotInfo (Maybe SnapshotState)
-siState = lens _siState (\s a -> s {_siState = a})
+snapshotInfo_state :: Lens.Lens' SnapshotInfo (Prelude.Maybe SnapshotState)
+snapshotInfo_state = Lens.lens (\SnapshotInfo' {state} -> state) (\s@SnapshotInfo' {} a -> s {state = a} :: SnapshotInfo)
 
 -- | Snapshot id that can be used to describe this snapshot.
-siSnapshotId :: Lens' SnapshotInfo (Maybe Text)
-siSnapshotId = lens _siSnapshotId (\s a -> s {_siSnapshotId = a})
+snapshotInfo_snapshotId :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Text)
+snapshotInfo_snapshotId = Lens.lens (\SnapshotInfo' {snapshotId} -> snapshotId) (\s@SnapshotInfo' {} a -> s {snapshotId = a} :: SnapshotInfo)
 
 -- | Tags associated with this snapshot.
-siTags :: Lens' SnapshotInfo [Tag]
-siTags = lens _siTags (\s a -> s {_siTags = a}) . _Default . _Coerce
+snapshotInfo_tags :: Lens.Lens' SnapshotInfo (Prelude.Maybe [Tag])
+snapshotInfo_tags = Lens.lens (\SnapshotInfo' {tags} -> tags) (\s@SnapshotInfo' {} a -> s {tags = a} :: SnapshotInfo) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Description specified by the CreateSnapshotRequest that has been applied to all snapshots.
-siDescription :: Lens' SnapshotInfo (Maybe Text)
-siDescription = lens _siDescription (\s a -> s {_siDescription = a})
+-- | Description specified by the CreateSnapshotRequest that has been applied
+-- to all snapshots.
+snapshotInfo_description :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Text)
+snapshotInfo_description = Lens.lens (\SnapshotInfo' {description} -> description) (\s@SnapshotInfo' {} a -> s {description = a} :: SnapshotInfo)
 
 -- | Progress this snapshot has made towards completing.
-siProgress :: Lens' SnapshotInfo (Maybe Text)
-siProgress = lens _siProgress (\s a -> s {_siProgress = a})
+snapshotInfo_progress :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Text)
+snapshotInfo_progress = Lens.lens (\SnapshotInfo' {progress} -> progress) (\s@SnapshotInfo' {} a -> s {progress = a} :: SnapshotInfo)
 
 -- | Size of the volume from which this snapshot was created.
-siVolumeSize :: Lens' SnapshotInfo (Maybe Int)
-siVolumeSize = lens _siVolumeSize (\s a -> s {_siVolumeSize = a})
+snapshotInfo_volumeSize :: Lens.Lens' SnapshotInfo (Prelude.Maybe Prelude.Int)
+snapshotInfo_volumeSize = Lens.lens (\SnapshotInfo' {volumeSize} -> volumeSize) (\s@SnapshotInfo' {} a -> s {volumeSize = a} :: SnapshotInfo)
 
-instance FromXML SnapshotInfo where
+instance Prelude.FromXML SnapshotInfo where
   parseXML x =
     SnapshotInfo'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "encrypted")
-      <*> (x .@? "outpostArn")
-      <*> (x .@? "startTime")
-      <*> (x .@? "volumeId")
-      <*> (x .@? "state")
-      <*> (x .@? "snapshotId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "description")
-      <*> (x .@? "progress")
-      <*> (x .@? "volumeSize")
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "encrypted")
+      Prelude.<*> (x Prelude..@? "outpostArn")
+      Prelude.<*> (x Prelude..@? "startTime")
+      Prelude.<*> (x Prelude..@? "volumeId")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> (x Prelude..@? "snapshotId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "description")
+      Prelude.<*> (x Prelude..@? "progress")
+      Prelude.<*> (x Prelude..@? "volumeSize")
 
-instance Hashable SnapshotInfo
+instance Prelude.Hashable SnapshotInfo
 
-instance NFData SnapshotInfo
+instance Prelude.NFData SnapshotInfo

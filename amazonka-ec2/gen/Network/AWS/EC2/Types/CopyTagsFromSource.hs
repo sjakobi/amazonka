@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,48 @@
 module Network.AWS.EC2.Types.CopyTagsFromSource
   ( CopyTagsFromSource
       ( ..,
-        Volume
+        CopyTagsFromSourceVolume
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CopyTagsFromSource
-  = CopyTagsFromSource'
-      ( CI
-          Text
-      )
+newtype CopyTagsFromSource = CopyTagsFromSource'
+  { fromCopyTagsFromSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Volume :: CopyTagsFromSource
-pattern Volume = CopyTagsFromSource' "volume"
+pattern CopyTagsFromSourceVolume :: CopyTagsFromSource
+pattern CopyTagsFromSourceVolume = CopyTagsFromSource' "volume"
 
 {-# COMPLETE
-  Volume,
+  CopyTagsFromSourceVolume,
   CopyTagsFromSource'
   #-}
 
-instance FromText CopyTagsFromSource where
-  parser = (CopyTagsFromSource' . mk) <$> takeText
+instance Prelude.FromText CopyTagsFromSource where
+  parser = CopyTagsFromSource' Prelude.<$> Prelude.takeText
 
-instance ToText CopyTagsFromSource where
-  toText (CopyTagsFromSource' ci) = original ci
+instance Prelude.ToText CopyTagsFromSource where
+  toText (CopyTagsFromSource' x) = x
 
-instance Hashable CopyTagsFromSource
+instance Prelude.Hashable CopyTagsFromSource
 
-instance NFData CopyTagsFromSource
+instance Prelude.NFData CopyTagsFromSource
 
-instance ToByteString CopyTagsFromSource
+instance Prelude.ToByteString CopyTagsFromSource
 
-instance ToQuery CopyTagsFromSource
+instance Prelude.ToQuery CopyTagsFromSource
 
-instance ToHeader CopyTagsFromSource
+instance Prelude.ToHeader CopyTagsFromSource

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,188 +23,379 @@
 --
 -- Describes one or more of your subnets.
 --
---
--- For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html Your VPC and Subnets> in the /Amazon Virtual Private Cloud User Guide/ .
---
+-- For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html Your VPC and Subnets>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeSubnets
   ( -- * Creating a Request
-    describeSubnets,
-    DescribeSubnets,
+    DescribeSubnets (..),
+    newDescribeSubnets,
 
     -- * Request Lenses
-    dssNextToken,
-    dssDryRun,
-    dssMaxResults,
-    dssSubnetIds,
-    dssFilters,
+    describeSubnets_nextToken,
+    describeSubnets_dryRun,
+    describeSubnets_maxResults,
+    describeSubnets_subnetIds,
+    describeSubnets_filters,
 
     -- * Destructuring the Response
-    describeSubnetsResponse,
-    DescribeSubnetsResponse,
+    DescribeSubnetsResponse (..),
+    newDescribeSubnetsResponse,
 
     -- * Response Lenses
-    dsrsrsNextToken,
-    dsrsrsSubnets,
-    dsrsrsResponseStatus,
+    describeSubnetsResponse_nextToken,
+    describeSubnetsResponse_subnets,
+    describeSubnetsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.Subnet
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeSubnets' smart constructor.
+-- | /See:/ 'newDescribeSubnets' smart constructor.
 data DescribeSubnets = DescribeSubnets'
-  { _dssNextToken ::
-      !(Maybe Text),
-    _dssDryRun :: !(Maybe Bool),
-    _dssMaxResults :: !(Maybe Nat),
-    _dssSubnetIds :: !(Maybe [Text]),
-    _dssFilters :: !(Maybe [Filter])
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more subnet IDs.
+    --
+    -- Default: Describes all your subnets.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters.
+    --
+    -- -   @availability-zone@ - The Availability Zone for the subnet. You can
+    --     also use @availabilityZone@ as the filter name.
+    --
+    -- -   @availability-zone-id@ - The ID of the Availability Zone for the
+    --     subnet. You can also use @availabilityZoneId@ as the filter name.
+    --
+    -- -   @available-ip-address-count@ - The number of IPv4 addresses in the
+    --     subnet that are available.
+    --
+    -- -   @cidr-block@ - The IPv4 CIDR block of the subnet. The CIDR block you
+    --     specify must exactly match the subnet\'s CIDR block for information
+    --     to be returned for the subnet. You can also use @cidr@ or
+    --     @cidrBlock@ as the filter names.
+    --
+    -- -   @default-for-az@ - Indicates whether this is the default subnet for
+    --     the Availability Zone. You can also use @defaultForAz@ as the filter
+    --     name.
+    --
+    -- -   @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block
+    --     associated with the subnet.
+    --
+    -- -   @ipv6-cidr-block-association.association-id@ - An association ID for
+    --     an IPv6 CIDR block associated with the subnet.
+    --
+    -- -   @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR
+    --     block associated with the subnet.
+    --
+    -- -   @owner-id@ - The ID of the AWS account that owns the subnet.
+    --
+    -- -   @state@ - The state of the subnet (@pending@ | @available@).
+    --
+    -- -   @subnet-arn@ - The Amazon Resource Name (ARN) of the subnet.
+    --
+    -- -   @subnet-id@ - The ID of the subnet.
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
+    --
+    -- -   @vpc-id@ - The ID of the VPC for the subnet.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSubnets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSubnets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeSubnets_nextToken' - The token for the next page of results.
 --
--- * 'dssMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeSubnets_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dssSubnetIds' - One or more subnet IDs. Default: Describes all your subnets.
+-- 'maxResults', 'describeSubnets_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dssFilters' - One or more filters.     * @availability-zone@ - The Availability Zone for the subnet. You can also use @availabilityZone@ as the filter name.     * @availability-zone-id@ - The ID of the Availability Zone for the subnet. You can also use @availabilityZoneId@ as the filter name.     * @available-ip-address-count@ - The number of IPv4 addresses in the subnet that are available.     * @cidr-block@ - The IPv4 CIDR block of the subnet. The CIDR block you specify must exactly match the subnet's CIDR block for information to be returned for the subnet. You can also use @cidr@ or @cidrBlock@ as the filter names.     * @default-for-az@ - Indicates whether this is the default subnet for the Availability Zone. You can also use @defaultForAz@ as the filter name.     * @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block associated with the subnet.     * @ipv6-cidr-block-association.association-id@ - An association ID for an IPv6 CIDR block associated with the subnet.     * @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR block associated with the subnet.     * @owner-id@ - The ID of the AWS account that owns the subnet.     * @state@ - The state of the subnet (@pending@ | @available@ ).     * @subnet-arn@ - The Amazon Resource Name (ARN) of the subnet.     * @subnet-id@ - The ID of the subnet.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC for the subnet.
-describeSubnets ::
+-- 'subnetIds', 'describeSubnets_subnetIds' - One or more subnet IDs.
+--
+-- Default: Describes all your subnets.
+--
+-- 'filters', 'describeSubnets_filters' - One or more filters.
+--
+-- -   @availability-zone@ - The Availability Zone for the subnet. You can
+--     also use @availabilityZone@ as the filter name.
+--
+-- -   @availability-zone-id@ - The ID of the Availability Zone for the
+--     subnet. You can also use @availabilityZoneId@ as the filter name.
+--
+-- -   @available-ip-address-count@ - The number of IPv4 addresses in the
+--     subnet that are available.
+--
+-- -   @cidr-block@ - The IPv4 CIDR block of the subnet. The CIDR block you
+--     specify must exactly match the subnet\'s CIDR block for information
+--     to be returned for the subnet. You can also use @cidr@ or
+--     @cidrBlock@ as the filter names.
+--
+-- -   @default-for-az@ - Indicates whether this is the default subnet for
+--     the Availability Zone. You can also use @defaultForAz@ as the filter
+--     name.
+--
+-- -   @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block
+--     associated with the subnet.
+--
+-- -   @ipv6-cidr-block-association.association-id@ - An association ID for
+--     an IPv6 CIDR block associated with the subnet.
+--
+-- -   @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR
+--     block associated with the subnet.
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the subnet.
+--
+-- -   @state@ - The state of the subnet (@pending@ | @available@).
+--
+-- -   @subnet-arn@ - The Amazon Resource Name (ARN) of the subnet.
+--
+-- -   @subnet-id@ - The ID of the subnet.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC for the subnet.
+newDescribeSubnets ::
   DescribeSubnets
-describeSubnets =
+newDescribeSubnets =
   DescribeSubnets'
-    { _dssNextToken = Nothing,
-      _dssDryRun = Nothing,
-      _dssMaxResults = Nothing,
-      _dssSubnetIds = Nothing,
-      _dssFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dssNextToken :: Lens' DescribeSubnets (Maybe Text)
-dssNextToken = lens _dssNextToken (\s a -> s {_dssNextToken = a})
+describeSubnets_nextToken :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Text)
+describeSubnets_nextToken = Lens.lens (\DescribeSubnets' {nextToken} -> nextToken) (\s@DescribeSubnets' {} a -> s {nextToken = a} :: DescribeSubnets)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dssDryRun :: Lens' DescribeSubnets (Maybe Bool)
-dssDryRun = lens _dssDryRun (\s a -> s {_dssDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeSubnets_dryRun :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Bool)
+describeSubnets_dryRun = Lens.lens (\DescribeSubnets' {dryRun} -> dryRun) (\s@DescribeSubnets' {} a -> s {dryRun = a} :: DescribeSubnets)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dssMaxResults :: Lens' DescribeSubnets (Maybe Natural)
-dssMaxResults = lens _dssMaxResults (\s a -> s {_dssMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeSubnets_maxResults :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Natural)
+describeSubnets_maxResults = Lens.lens (\DescribeSubnets' {maxResults} -> maxResults) (\s@DescribeSubnets' {} a -> s {maxResults = a} :: DescribeSubnets) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more subnet IDs. Default: Describes all your subnets.
-dssSubnetIds :: Lens' DescribeSubnets [Text]
-dssSubnetIds = lens _dssSubnetIds (\s a -> s {_dssSubnetIds = a}) . _Default . _Coerce
+-- | One or more subnet IDs.
+--
+-- Default: Describes all your subnets.
+describeSubnets_subnetIds :: Lens.Lens' DescribeSubnets (Prelude.Maybe [Prelude.Text])
+describeSubnets_subnetIds = Lens.lens (\DescribeSubnets' {subnetIds} -> subnetIds) (\s@DescribeSubnets' {} a -> s {subnetIds = a} :: DescribeSubnets) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters.     * @availability-zone@ - The Availability Zone for the subnet. You can also use @availabilityZone@ as the filter name.     * @availability-zone-id@ - The ID of the Availability Zone for the subnet. You can also use @availabilityZoneId@ as the filter name.     * @available-ip-address-count@ - The number of IPv4 addresses in the subnet that are available.     * @cidr-block@ - The IPv4 CIDR block of the subnet. The CIDR block you specify must exactly match the subnet's CIDR block for information to be returned for the subnet. You can also use @cidr@ or @cidrBlock@ as the filter names.     * @default-for-az@ - Indicates whether this is the default subnet for the Availability Zone. You can also use @defaultForAz@ as the filter name.     * @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block associated with the subnet.     * @ipv6-cidr-block-association.association-id@ - An association ID for an IPv6 CIDR block associated with the subnet.     * @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR block associated with the subnet.     * @owner-id@ - The ID of the AWS account that owns the subnet.     * @state@ - The state of the subnet (@pending@ | @available@ ).     * @subnet-arn@ - The Amazon Resource Name (ARN) of the subnet.     * @subnet-id@ - The ID of the subnet.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC for the subnet.
-dssFilters :: Lens' DescribeSubnets [Filter]
-dssFilters = lens _dssFilters (\s a -> s {_dssFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @availability-zone@ - The Availability Zone for the subnet. You can
+--     also use @availabilityZone@ as the filter name.
+--
+-- -   @availability-zone-id@ - The ID of the Availability Zone for the
+--     subnet. You can also use @availabilityZoneId@ as the filter name.
+--
+-- -   @available-ip-address-count@ - The number of IPv4 addresses in the
+--     subnet that are available.
+--
+-- -   @cidr-block@ - The IPv4 CIDR block of the subnet. The CIDR block you
+--     specify must exactly match the subnet\'s CIDR block for information
+--     to be returned for the subnet. You can also use @cidr@ or
+--     @cidrBlock@ as the filter names.
+--
+-- -   @default-for-az@ - Indicates whether this is the default subnet for
+--     the Availability Zone. You can also use @defaultForAz@ as the filter
+--     name.
+--
+-- -   @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block
+--     associated with the subnet.
+--
+-- -   @ipv6-cidr-block-association.association-id@ - An association ID for
+--     an IPv6 CIDR block associated with the subnet.
+--
+-- -   @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR
+--     block associated with the subnet.
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the subnet.
+--
+-- -   @state@ - The state of the subnet (@pending@ | @available@).
+--
+-- -   @subnet-arn@ - The Amazon Resource Name (ARN) of the subnet.
+--
+-- -   @subnet-id@ - The ID of the subnet.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC for the subnet.
+describeSubnets_filters :: Lens.Lens' DescribeSubnets (Prelude.Maybe [Filter])
+describeSubnets_filters = Lens.lens (\DescribeSubnets' {filters} -> filters) (\s@DescribeSubnets' {} a -> s {filters = a} :: DescribeSubnets) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeSubnets where
+instance Pager.AWSPager DescribeSubnets where
   page rq rs
-    | stop (rs ^. dsrsrsNextToken) = Nothing
-    | stop (rs ^. dsrsrsSubnets) = Nothing
-    | otherwise =
-      Just $ rq & dssNextToken .~ rs ^. dsrsrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeSubnetsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSubnetsResponse_subnets Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSubnets_nextToken
+          Lens..~ rs
+          Lens.^? describeSubnetsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeSubnets where
+instance Prelude.AWSRequest DescribeSubnets where
   type Rs DescribeSubnets = DescribeSubnetsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeSubnetsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "subnetSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "subnetSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSubnets
+instance Prelude.Hashable DescribeSubnets
 
-instance NFData DescribeSubnets
+instance Prelude.NFData DescribeSubnets
 
-instance ToHeaders DescribeSubnets where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSubnets where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSubnets where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSubnets where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSubnets where
+instance Prelude.ToQuery DescribeSubnets where
   toQuery DescribeSubnets' {..} =
-    mconcat
-      [ "Action" =: ("DescribeSubnets" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dssNextToken,
-        "DryRun" =: _dssDryRun,
-        "MaxResults" =: _dssMaxResults,
-        toQuery (toQueryList "SubnetId" <$> _dssSubnetIds),
-        toQuery (toQueryList "Filter" <$> _dssFilters)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeSubnets" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "SubnetId"
+              Prelude.<$> subnetIds
+          ),
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeSubnetsResponse' smart constructor.
+-- | /See:/ 'newDescribeSubnetsResponse' smart constructor.
 data DescribeSubnetsResponse = DescribeSubnetsResponse'
-  { _dsrsrsNextToken ::
-      !(Maybe Text),
-    _dsrsrsSubnets ::
-      !(Maybe [Subnet]),
-    _dsrsrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about one or more subnets.
+    subnets :: Prelude.Maybe [Subnet],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSubnetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSubnetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrsrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrsrsSubnets' - Information about one or more subnets.
+-- 'nextToken', 'describeSubnetsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dsrsrsResponseStatus' - -- | The response status code.
-describeSubnetsResponse ::
-  -- | 'dsrsrsResponseStatus'
-  Int ->
+-- 'subnets', 'describeSubnetsResponse_subnets' - Information about one or more subnets.
+--
+-- 'httpStatus', 'describeSubnetsResponse_httpStatus' - The response's http status code.
+newDescribeSubnetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSubnetsResponse
-describeSubnetsResponse pResponseStatus_ =
+newDescribeSubnetsResponse pHttpStatus_ =
   DescribeSubnetsResponse'
-    { _dsrsrsNextToken =
-        Nothing,
-      _dsrsrsSubnets = Nothing,
-      _dsrsrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      subnets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dsrsrsNextToken :: Lens' DescribeSubnetsResponse (Maybe Text)
-dsrsrsNextToken = lens _dsrsrsNextToken (\s a -> s {_dsrsrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeSubnetsResponse_nextToken :: Lens.Lens' DescribeSubnetsResponse (Prelude.Maybe Prelude.Text)
+describeSubnetsResponse_nextToken = Lens.lens (\DescribeSubnetsResponse' {nextToken} -> nextToken) (\s@DescribeSubnetsResponse' {} a -> s {nextToken = a} :: DescribeSubnetsResponse)
 
 -- | Information about one or more subnets.
-dsrsrsSubnets :: Lens' DescribeSubnetsResponse [Subnet]
-dsrsrsSubnets = lens _dsrsrsSubnets (\s a -> s {_dsrsrsSubnets = a}) . _Default . _Coerce
+describeSubnetsResponse_subnets :: Lens.Lens' DescribeSubnetsResponse (Prelude.Maybe [Subnet])
+describeSubnetsResponse_subnets = Lens.lens (\DescribeSubnetsResponse' {subnets} -> subnets) (\s@DescribeSubnetsResponse' {} a -> s {subnets = a} :: DescribeSubnetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsrsrsResponseStatus :: Lens' DescribeSubnetsResponse Int
-dsrsrsResponseStatus = lens _dsrsrsResponseStatus (\s a -> s {_dsrsrsResponseStatus = a})
+-- | The response's http status code.
+describeSubnetsResponse_httpStatus :: Lens.Lens' DescribeSubnetsResponse Prelude.Int
+describeSubnetsResponse_httpStatus = Lens.lens (\DescribeSubnetsResponse' {httpStatus} -> httpStatus) (\s@DescribeSubnetsResponse' {} a -> s {httpStatus = a} :: DescribeSubnetsResponse)
 
-instance NFData DescribeSubnetsResponse
+instance Prelude.NFData DescribeSubnetsResponse

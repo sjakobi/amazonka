@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,136 +23,144 @@
 --
 -- Creates a Traffic Mirror filter rule.
 --
---
--- A Traffic Mirror rule defines the Traffic Mirror source traffic to mirror.
+-- A Traffic Mirror rule defines the Traffic Mirror source traffic to
+-- mirror.
 --
 -- You need the Traffic Mirror filter ID when you create the rule.
 module Network.AWS.EC2.CreateTrafficMirrorFilterRule
   ( -- * Creating a Request
-    createTrafficMirrorFilterRule,
-    CreateTrafficMirrorFilterRule,
+    CreateTrafficMirrorFilterRule (..),
+    newCreateTrafficMirrorFilterRule,
 
     -- * Request Lenses
-    ctmfrDryRun,
-    ctmfrSourcePortRange,
-    ctmfrProtocol,
-    ctmfrDescription,
-    ctmfrClientToken,
-    ctmfrDestinationPortRange,
-    ctmfrTrafficMirrorFilterId,
-    ctmfrTrafficDirection,
-    ctmfrRuleNumber,
-    ctmfrRuleAction,
-    ctmfrDestinationCidrBlock,
-    ctmfrSourceCidrBlock,
+    createTrafficMirrorFilterRule_dryRun,
+    createTrafficMirrorFilterRule_sourcePortRange,
+    createTrafficMirrorFilterRule_protocol,
+    createTrafficMirrorFilterRule_description,
+    createTrafficMirrorFilterRule_clientToken,
+    createTrafficMirrorFilterRule_destinationPortRange,
+    createTrafficMirrorFilterRule_trafficMirrorFilterId,
+    createTrafficMirrorFilterRule_trafficDirection,
+    createTrafficMirrorFilterRule_ruleNumber,
+    createTrafficMirrorFilterRule_ruleAction,
+    createTrafficMirrorFilterRule_destinationCidrBlock,
+    createTrafficMirrorFilterRule_sourceCidrBlock,
 
     -- * Destructuring the Response
-    createTrafficMirrorFilterRuleResponse,
-    CreateTrafficMirrorFilterRuleResponse,
+    CreateTrafficMirrorFilterRuleResponse (..),
+    newCreateTrafficMirrorFilterRuleResponse,
 
     -- * Response Lenses
-    ctmfrrrsClientToken,
-    ctmfrrrsTrafficMirrorFilterRule,
-    ctmfrrrsResponseStatus,
+    createTrafficMirrorFilterRuleResponse_clientToken,
+    createTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule,
+    createTrafficMirrorFilterRuleResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TrafficMirrorFilterRule
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTrafficMirrorFilterRule' smart constructor.
+-- | /See:/ 'newCreateTrafficMirrorFilterRule' smart constructor.
 data CreateTrafficMirrorFilterRule = CreateTrafficMirrorFilterRule'
-  { _ctmfrDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ctmfrSourcePortRange ::
-      !( Maybe
-           TrafficMirrorPortRangeRequest
-       ),
-    _ctmfrProtocol ::
-      !( Maybe
-           Int
-       ),
-    _ctmfrDescription ::
-      !( Maybe
-           Text
-       ),
-    _ctmfrClientToken ::
-      !( Maybe
-           Text
-       ),
-    _ctmfrDestinationPortRange ::
-      !( Maybe
-           TrafficMirrorPortRangeRequest
-       ),
-    _ctmfrTrafficMirrorFilterId ::
-      !Text,
-    _ctmfrTrafficDirection ::
-      !TrafficDirection,
-    _ctmfrRuleNumber ::
-      !Int,
-    _ctmfrRuleAction ::
-      !TrafficMirrorRuleAction,
-    _ctmfrDestinationCidrBlock ::
-      !Text,
-    _ctmfrSourceCidrBlock ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The source port range.
+    sourcePortRange :: Prelude.Maybe TrafficMirrorPortRangeRequest,
+    -- | The protocol, for example UDP, to assign to the Traffic Mirror rule.
+    --
+    -- For information about the protocol value, see
+    -- <https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml Protocol Numbers>
+    -- on the Internet Assigned Numbers Authority (IANA) website.
+    protocol :: Prelude.Maybe Prelude.Int,
+    -- | The description of the Traffic Mirror rule.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The destination port range.
+    destinationPortRange :: Prelude.Maybe TrafficMirrorPortRangeRequest,
+    -- | The ID of the filter that this rule is associated with.
+    trafficMirrorFilterId :: Prelude.Text,
+    -- | The type of traffic (@ingress@ | @egress@).
+    trafficDirection :: TrafficDirection,
+    -- | The number of the Traffic Mirror rule. This number must be unique for
+    -- each Traffic Mirror rule in a given direction. The rules are processed
+    -- in ascending order by rule number.
+    ruleNumber :: Prelude.Int,
+    -- | The action to take (@accept@ | @reject@) on the filtered traffic.
+    ruleAction :: TrafficMirrorRuleAction,
+    -- | The destination CIDR block to assign to the Traffic Mirror rule.
+    destinationCidrBlock :: Prelude.Text,
+    -- | The source CIDR block to assign to the Traffic Mirror rule.
+    sourceCidrBlock :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrafficMirrorFilterRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrafficMirrorFilterRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctmfrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctmfrSourcePortRange' - The source port range.
+-- 'dryRun', 'createTrafficMirrorFilterRule_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ctmfrProtocol' - The protocol, for example UDP, to assign to the Traffic Mirror rule. For information about the protocol value, see <https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml Protocol Numbers> on the Internet Assigned Numbers Authority (IANA) website.
+-- 'sourcePortRange', 'createTrafficMirrorFilterRule_sourcePortRange' - The source port range.
 --
--- * 'ctmfrDescription' - The description of the Traffic Mirror rule.
+-- 'protocol', 'createTrafficMirrorFilterRule_protocol' - The protocol, for example UDP, to assign to the Traffic Mirror rule.
 --
--- * 'ctmfrClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
+-- For information about the protocol value, see
+-- <https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml Protocol Numbers>
+-- on the Internet Assigned Numbers Authority (IANA) website.
 --
--- * 'ctmfrDestinationPortRange' - The destination port range.
+-- 'description', 'createTrafficMirrorFilterRule_description' - The description of the Traffic Mirror rule.
 --
--- * 'ctmfrTrafficMirrorFilterId' - The ID of the filter that this rule is associated with.
+-- 'clientToken', 'createTrafficMirrorFilterRule_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
 --
--- * 'ctmfrTrafficDirection' - The type of traffic (@ingress@ | @egress@ ).
+-- 'destinationPortRange', 'createTrafficMirrorFilterRule_destinationPortRange' - The destination port range.
 --
--- * 'ctmfrRuleNumber' - The number of the Traffic Mirror rule. This number must be unique for each Traffic Mirror rule in a given direction. The rules are processed in ascending order by rule number.
+-- 'trafficMirrorFilterId', 'createTrafficMirrorFilterRule_trafficMirrorFilterId' - The ID of the filter that this rule is associated with.
 --
--- * 'ctmfrRuleAction' - The action to take (@accept@ | @reject@ ) on the filtered traffic.
+-- 'trafficDirection', 'createTrafficMirrorFilterRule_trafficDirection' - The type of traffic (@ingress@ | @egress@).
 --
--- * 'ctmfrDestinationCidrBlock' - The destination CIDR block to assign to the Traffic Mirror rule.
+-- 'ruleNumber', 'createTrafficMirrorFilterRule_ruleNumber' - The number of the Traffic Mirror rule. This number must be unique for
+-- each Traffic Mirror rule in a given direction. The rules are processed
+-- in ascending order by rule number.
 --
--- * 'ctmfrSourceCidrBlock' - The source CIDR block to assign to the Traffic Mirror rule.
-createTrafficMirrorFilterRule ::
-  -- | 'ctmfrTrafficMirrorFilterId'
-  Text ->
-  -- | 'ctmfrTrafficDirection'
+-- 'ruleAction', 'createTrafficMirrorFilterRule_ruleAction' - The action to take (@accept@ | @reject@) on the filtered traffic.
+--
+-- 'destinationCidrBlock', 'createTrafficMirrorFilterRule_destinationCidrBlock' - The destination CIDR block to assign to the Traffic Mirror rule.
+--
+-- 'sourceCidrBlock', 'createTrafficMirrorFilterRule_sourceCidrBlock' - The source CIDR block to assign to the Traffic Mirror rule.
+newCreateTrafficMirrorFilterRule ::
+  -- | 'trafficMirrorFilterId'
+  Prelude.Text ->
+  -- | 'trafficDirection'
   TrafficDirection ->
-  -- | 'ctmfrRuleNumber'
-  Int ->
-  -- | 'ctmfrRuleAction'
+  -- | 'ruleNumber'
+  Prelude.Int ->
+  -- | 'ruleAction'
   TrafficMirrorRuleAction ->
-  -- | 'ctmfrDestinationCidrBlock'
-  Text ->
-  -- | 'ctmfrSourceCidrBlock'
-  Text ->
+  -- | 'destinationCidrBlock'
+  Prelude.Text ->
+  -- | 'sourceCidrBlock'
+  Prelude.Text ->
   CreateTrafficMirrorFilterRule
-createTrafficMirrorFilterRule
+newCreateTrafficMirrorFilterRule
   pTrafficMirrorFilterId_
   pTrafficDirection_
   pRuleNumber_
@@ -156,172 +168,198 @@ createTrafficMirrorFilterRule
   pDestinationCidrBlock_
   pSourceCidrBlock_ =
     CreateTrafficMirrorFilterRule'
-      { _ctmfrDryRun =
-          Nothing,
-        _ctmfrSourcePortRange = Nothing,
-        _ctmfrProtocol = Nothing,
-        _ctmfrDescription = Nothing,
-        _ctmfrClientToken = Nothing,
-        _ctmfrDestinationPortRange = Nothing,
-        _ctmfrTrafficMirrorFilterId =
+      { dryRun =
+          Prelude.Nothing,
+        sourcePortRange = Prelude.Nothing,
+        protocol = Prelude.Nothing,
+        description = Prelude.Nothing,
+        clientToken = Prelude.Nothing,
+        destinationPortRange = Prelude.Nothing,
+        trafficMirrorFilterId =
           pTrafficMirrorFilterId_,
-        _ctmfrTrafficDirection = pTrafficDirection_,
-        _ctmfrRuleNumber = pRuleNumber_,
-        _ctmfrRuleAction = pRuleAction_,
-        _ctmfrDestinationCidrBlock =
+        trafficDirection = pTrafficDirection_,
+        ruleNumber = pRuleNumber_,
+        ruleAction = pRuleAction_,
+        destinationCidrBlock =
           pDestinationCidrBlock_,
-        _ctmfrSourceCidrBlock = pSourceCidrBlock_
+        sourceCidrBlock = pSourceCidrBlock_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ctmfrDryRun :: Lens' CreateTrafficMirrorFilterRule (Maybe Bool)
-ctmfrDryRun = lens _ctmfrDryRun (\s a -> s {_ctmfrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTrafficMirrorFilterRule_dryRun :: Lens.Lens' CreateTrafficMirrorFilterRule (Prelude.Maybe Prelude.Bool)
+createTrafficMirrorFilterRule_dryRun = Lens.lens (\CreateTrafficMirrorFilterRule' {dryRun} -> dryRun) (\s@CreateTrafficMirrorFilterRule' {} a -> s {dryRun = a} :: CreateTrafficMirrorFilterRule)
 
 -- | The source port range.
-ctmfrSourcePortRange :: Lens' CreateTrafficMirrorFilterRule (Maybe TrafficMirrorPortRangeRequest)
-ctmfrSourcePortRange = lens _ctmfrSourcePortRange (\s a -> s {_ctmfrSourcePortRange = a})
+createTrafficMirrorFilterRule_sourcePortRange :: Lens.Lens' CreateTrafficMirrorFilterRule (Prelude.Maybe TrafficMirrorPortRangeRequest)
+createTrafficMirrorFilterRule_sourcePortRange = Lens.lens (\CreateTrafficMirrorFilterRule' {sourcePortRange} -> sourcePortRange) (\s@CreateTrafficMirrorFilterRule' {} a -> s {sourcePortRange = a} :: CreateTrafficMirrorFilterRule)
 
--- | The protocol, for example UDP, to assign to the Traffic Mirror rule. For information about the protocol value, see <https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml Protocol Numbers> on the Internet Assigned Numbers Authority (IANA) website.
-ctmfrProtocol :: Lens' CreateTrafficMirrorFilterRule (Maybe Int)
-ctmfrProtocol = lens _ctmfrProtocol (\s a -> s {_ctmfrProtocol = a})
+-- | The protocol, for example UDP, to assign to the Traffic Mirror rule.
+--
+-- For information about the protocol value, see
+-- <https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml Protocol Numbers>
+-- on the Internet Assigned Numbers Authority (IANA) website.
+createTrafficMirrorFilterRule_protocol :: Lens.Lens' CreateTrafficMirrorFilterRule (Prelude.Maybe Prelude.Int)
+createTrafficMirrorFilterRule_protocol = Lens.lens (\CreateTrafficMirrorFilterRule' {protocol} -> protocol) (\s@CreateTrafficMirrorFilterRule' {} a -> s {protocol = a} :: CreateTrafficMirrorFilterRule)
 
 -- | The description of the Traffic Mirror rule.
-ctmfrDescription :: Lens' CreateTrafficMirrorFilterRule (Maybe Text)
-ctmfrDescription = lens _ctmfrDescription (\s a -> s {_ctmfrDescription = a})
+createTrafficMirrorFilterRule_description :: Lens.Lens' CreateTrafficMirrorFilterRule (Prelude.Maybe Prelude.Text)
+createTrafficMirrorFilterRule_description = Lens.lens (\CreateTrafficMirrorFilterRule' {description} -> description) (\s@CreateTrafficMirrorFilterRule' {} a -> s {description = a} :: CreateTrafficMirrorFilterRule)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-ctmfrClientToken :: Lens' CreateTrafficMirrorFilterRule (Maybe Text)
-ctmfrClientToken = lens _ctmfrClientToken (\s a -> s {_ctmfrClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+createTrafficMirrorFilterRule_clientToken :: Lens.Lens' CreateTrafficMirrorFilterRule (Prelude.Maybe Prelude.Text)
+createTrafficMirrorFilterRule_clientToken = Lens.lens (\CreateTrafficMirrorFilterRule' {clientToken} -> clientToken) (\s@CreateTrafficMirrorFilterRule' {} a -> s {clientToken = a} :: CreateTrafficMirrorFilterRule)
 
 -- | The destination port range.
-ctmfrDestinationPortRange :: Lens' CreateTrafficMirrorFilterRule (Maybe TrafficMirrorPortRangeRequest)
-ctmfrDestinationPortRange = lens _ctmfrDestinationPortRange (\s a -> s {_ctmfrDestinationPortRange = a})
+createTrafficMirrorFilterRule_destinationPortRange :: Lens.Lens' CreateTrafficMirrorFilterRule (Prelude.Maybe TrafficMirrorPortRangeRequest)
+createTrafficMirrorFilterRule_destinationPortRange = Lens.lens (\CreateTrafficMirrorFilterRule' {destinationPortRange} -> destinationPortRange) (\s@CreateTrafficMirrorFilterRule' {} a -> s {destinationPortRange = a} :: CreateTrafficMirrorFilterRule)
 
 -- | The ID of the filter that this rule is associated with.
-ctmfrTrafficMirrorFilterId :: Lens' CreateTrafficMirrorFilterRule Text
-ctmfrTrafficMirrorFilterId = lens _ctmfrTrafficMirrorFilterId (\s a -> s {_ctmfrTrafficMirrorFilterId = a})
+createTrafficMirrorFilterRule_trafficMirrorFilterId :: Lens.Lens' CreateTrafficMirrorFilterRule Prelude.Text
+createTrafficMirrorFilterRule_trafficMirrorFilterId = Lens.lens (\CreateTrafficMirrorFilterRule' {trafficMirrorFilterId} -> trafficMirrorFilterId) (\s@CreateTrafficMirrorFilterRule' {} a -> s {trafficMirrorFilterId = a} :: CreateTrafficMirrorFilterRule)
 
--- | The type of traffic (@ingress@ | @egress@ ).
-ctmfrTrafficDirection :: Lens' CreateTrafficMirrorFilterRule TrafficDirection
-ctmfrTrafficDirection = lens _ctmfrTrafficDirection (\s a -> s {_ctmfrTrafficDirection = a})
+-- | The type of traffic (@ingress@ | @egress@).
+createTrafficMirrorFilterRule_trafficDirection :: Lens.Lens' CreateTrafficMirrorFilterRule TrafficDirection
+createTrafficMirrorFilterRule_trafficDirection = Lens.lens (\CreateTrafficMirrorFilterRule' {trafficDirection} -> trafficDirection) (\s@CreateTrafficMirrorFilterRule' {} a -> s {trafficDirection = a} :: CreateTrafficMirrorFilterRule)
 
--- | The number of the Traffic Mirror rule. This number must be unique for each Traffic Mirror rule in a given direction. The rules are processed in ascending order by rule number.
-ctmfrRuleNumber :: Lens' CreateTrafficMirrorFilterRule Int
-ctmfrRuleNumber = lens _ctmfrRuleNumber (\s a -> s {_ctmfrRuleNumber = a})
+-- | The number of the Traffic Mirror rule. This number must be unique for
+-- each Traffic Mirror rule in a given direction. The rules are processed
+-- in ascending order by rule number.
+createTrafficMirrorFilterRule_ruleNumber :: Lens.Lens' CreateTrafficMirrorFilterRule Prelude.Int
+createTrafficMirrorFilterRule_ruleNumber = Lens.lens (\CreateTrafficMirrorFilterRule' {ruleNumber} -> ruleNumber) (\s@CreateTrafficMirrorFilterRule' {} a -> s {ruleNumber = a} :: CreateTrafficMirrorFilterRule)
 
--- | The action to take (@accept@ | @reject@ ) on the filtered traffic.
-ctmfrRuleAction :: Lens' CreateTrafficMirrorFilterRule TrafficMirrorRuleAction
-ctmfrRuleAction = lens _ctmfrRuleAction (\s a -> s {_ctmfrRuleAction = a})
+-- | The action to take (@accept@ | @reject@) on the filtered traffic.
+createTrafficMirrorFilterRule_ruleAction :: Lens.Lens' CreateTrafficMirrorFilterRule TrafficMirrorRuleAction
+createTrafficMirrorFilterRule_ruleAction = Lens.lens (\CreateTrafficMirrorFilterRule' {ruleAction} -> ruleAction) (\s@CreateTrafficMirrorFilterRule' {} a -> s {ruleAction = a} :: CreateTrafficMirrorFilterRule)
 
 -- | The destination CIDR block to assign to the Traffic Mirror rule.
-ctmfrDestinationCidrBlock :: Lens' CreateTrafficMirrorFilterRule Text
-ctmfrDestinationCidrBlock = lens _ctmfrDestinationCidrBlock (\s a -> s {_ctmfrDestinationCidrBlock = a})
+createTrafficMirrorFilterRule_destinationCidrBlock :: Lens.Lens' CreateTrafficMirrorFilterRule Prelude.Text
+createTrafficMirrorFilterRule_destinationCidrBlock = Lens.lens (\CreateTrafficMirrorFilterRule' {destinationCidrBlock} -> destinationCidrBlock) (\s@CreateTrafficMirrorFilterRule' {} a -> s {destinationCidrBlock = a} :: CreateTrafficMirrorFilterRule)
 
 -- | The source CIDR block to assign to the Traffic Mirror rule.
-ctmfrSourceCidrBlock :: Lens' CreateTrafficMirrorFilterRule Text
-ctmfrSourceCidrBlock = lens _ctmfrSourceCidrBlock (\s a -> s {_ctmfrSourceCidrBlock = a})
+createTrafficMirrorFilterRule_sourceCidrBlock :: Lens.Lens' CreateTrafficMirrorFilterRule Prelude.Text
+createTrafficMirrorFilterRule_sourceCidrBlock = Lens.lens (\CreateTrafficMirrorFilterRule' {sourceCidrBlock} -> sourceCidrBlock) (\s@CreateTrafficMirrorFilterRule' {} a -> s {sourceCidrBlock = a} :: CreateTrafficMirrorFilterRule)
 
-instance AWSRequest CreateTrafficMirrorFilterRule where
+instance
+  Prelude.AWSRequest
+    CreateTrafficMirrorFilterRule
+  where
   type
     Rs CreateTrafficMirrorFilterRule =
       CreateTrafficMirrorFilterRuleResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateTrafficMirrorFilterRuleResponse'
-            <$> (x .@? "clientToken")
-            <*> (x .@? "trafficMirrorFilterRule")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "clientToken")
+            Prelude.<*> (x Prelude..@? "trafficMirrorFilterRule")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTrafficMirrorFilterRule
+instance
+  Prelude.Hashable
+    CreateTrafficMirrorFilterRule
 
-instance NFData CreateTrafficMirrorFilterRule
+instance Prelude.NFData CreateTrafficMirrorFilterRule
 
-instance ToHeaders CreateTrafficMirrorFilterRule where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateTrafficMirrorFilterRule
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateTrafficMirrorFilterRule where
-  toPath = const "/"
+instance Prelude.ToPath CreateTrafficMirrorFilterRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTrafficMirrorFilterRule where
+instance
+  Prelude.ToQuery
+    CreateTrafficMirrorFilterRule
+  where
   toQuery CreateTrafficMirrorFilterRule' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateTrafficMirrorFilterRule" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _ctmfrDryRun,
-        "SourcePortRange" =: _ctmfrSourcePortRange,
-        "Protocol" =: _ctmfrProtocol,
-        "Description" =: _ctmfrDescription,
-        "ClientToken" =: _ctmfrClientToken,
-        "DestinationPortRange" =: _ctmfrDestinationPortRange,
+          Prelude.=: ( "CreateTrafficMirrorFilterRule" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "SourcePortRange" Prelude.=: sourcePortRange,
+        "Protocol" Prelude.=: protocol,
+        "Description" Prelude.=: description,
+        "ClientToken" Prelude.=: clientToken,
+        "DestinationPortRange"
+          Prelude.=: destinationPortRange,
         "TrafficMirrorFilterId"
-          =: _ctmfrTrafficMirrorFilterId,
-        "TrafficDirection" =: _ctmfrTrafficDirection,
-        "RuleNumber" =: _ctmfrRuleNumber,
-        "RuleAction" =: _ctmfrRuleAction,
-        "DestinationCidrBlock" =: _ctmfrDestinationCidrBlock,
-        "SourceCidrBlock" =: _ctmfrSourceCidrBlock
+          Prelude.=: trafficMirrorFilterId,
+        "TrafficDirection" Prelude.=: trafficDirection,
+        "RuleNumber" Prelude.=: ruleNumber,
+        "RuleAction" Prelude.=: ruleAction,
+        "DestinationCidrBlock"
+          Prelude.=: destinationCidrBlock,
+        "SourceCidrBlock" Prelude.=: sourceCidrBlock
       ]
 
--- | /See:/ 'createTrafficMirrorFilterRuleResponse' smart constructor.
+-- | /See:/ 'newCreateTrafficMirrorFilterRuleResponse' smart constructor.
 data CreateTrafficMirrorFilterRuleResponse = CreateTrafficMirrorFilterRuleResponse'
-  { _ctmfrrrsClientToken ::
-      !( Maybe
-           Text
-       ),
-    _ctmfrrrsTrafficMirrorFilterRule ::
-      !( Maybe
-           TrafficMirrorFilterRule
-       ),
-    _ctmfrrrsResponseStatus ::
-      !Int
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The Traffic Mirror rule.
+    trafficMirrorFilterRule :: Prelude.Maybe TrafficMirrorFilterRule,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrafficMirrorFilterRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrafficMirrorFilterRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctmfrrrsClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctmfrrrsTrafficMirrorFilterRule' - The Traffic Mirror rule.
+-- 'clientToken', 'createTrafficMirrorFilterRuleResponse_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
 --
--- * 'ctmfrrrsResponseStatus' - -- | The response status code.
-createTrafficMirrorFilterRuleResponse ::
-  -- | 'ctmfrrrsResponseStatus'
-  Int ->
+-- 'trafficMirrorFilterRule', 'createTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule' - The Traffic Mirror rule.
+--
+-- 'httpStatus', 'createTrafficMirrorFilterRuleResponse_httpStatus' - The response's http status code.
+newCreateTrafficMirrorFilterRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTrafficMirrorFilterRuleResponse
-createTrafficMirrorFilterRuleResponse
-  pResponseStatus_ =
-    CreateTrafficMirrorFilterRuleResponse'
-      { _ctmfrrrsClientToken =
-          Nothing,
-        _ctmfrrrsTrafficMirrorFilterRule =
-          Nothing,
-        _ctmfrrrsResponseStatus =
-          pResponseStatus_
-      }
+newCreateTrafficMirrorFilterRuleResponse pHttpStatus_ =
+  CreateTrafficMirrorFilterRuleResponse'
+    { clientToken =
+        Prelude.Nothing,
+      trafficMirrorFilterRule =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-ctmfrrrsClientToken :: Lens' CreateTrafficMirrorFilterRuleResponse (Maybe Text)
-ctmfrrrsClientToken = lens _ctmfrrrsClientToken (\s a -> s {_ctmfrrrsClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+createTrafficMirrorFilterRuleResponse_clientToken :: Lens.Lens' CreateTrafficMirrorFilterRuleResponse (Prelude.Maybe Prelude.Text)
+createTrafficMirrorFilterRuleResponse_clientToken = Lens.lens (\CreateTrafficMirrorFilterRuleResponse' {clientToken} -> clientToken) (\s@CreateTrafficMirrorFilterRuleResponse' {} a -> s {clientToken = a} :: CreateTrafficMirrorFilterRuleResponse)
 
 -- | The Traffic Mirror rule.
-ctmfrrrsTrafficMirrorFilterRule :: Lens' CreateTrafficMirrorFilterRuleResponse (Maybe TrafficMirrorFilterRule)
-ctmfrrrsTrafficMirrorFilterRule = lens _ctmfrrrsTrafficMirrorFilterRule (\s a -> s {_ctmfrrrsTrafficMirrorFilterRule = a})
+createTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule :: Lens.Lens' CreateTrafficMirrorFilterRuleResponse (Prelude.Maybe TrafficMirrorFilterRule)
+createTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule = Lens.lens (\CreateTrafficMirrorFilterRuleResponse' {trafficMirrorFilterRule} -> trafficMirrorFilterRule) (\s@CreateTrafficMirrorFilterRuleResponse' {} a -> s {trafficMirrorFilterRule = a} :: CreateTrafficMirrorFilterRuleResponse)
 
--- | -- | The response status code.
-ctmfrrrsResponseStatus :: Lens' CreateTrafficMirrorFilterRuleResponse Int
-ctmfrrrsResponseStatus = lens _ctmfrrrsResponseStatus (\s a -> s {_ctmfrrrsResponseStatus = a})
+-- | The response's http status code.
+createTrafficMirrorFilterRuleResponse_httpStatus :: Lens.Lens' CreateTrafficMirrorFilterRuleResponse Prelude.Int
+createTrafficMirrorFilterRuleResponse_httpStatus = Lens.lens (\CreateTrafficMirrorFilterRuleResponse' {httpStatus} -> httpStatus) (\s@CreateTrafficMirrorFilterRuleResponse' {} a -> s {httpStatus = a} :: CreateTrafficMirrorFilterRuleResponse)
 
-instance NFData CreateTrafficMirrorFilterRuleResponse
+instance
+  Prelude.NFData
+    CreateTrafficMirrorFilterRuleResponse

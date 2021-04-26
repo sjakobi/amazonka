@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +21,103 @@ module Network.AWS.EC2.Types.ImageDiskContainer where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.UserBucket
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the disk container object for an import image task.
 --
---
---
--- /See:/ 'imageDiskContainer' smart constructor.
+-- /See:/ 'newImageDiskContainer' smart constructor.
 data ImageDiskContainer = ImageDiskContainer'
-  { _idcFormat ::
-      !(Maybe Text),
-    _idcUserBucket ::
-      !(Maybe UserBucket),
-    _idcDeviceName :: !(Maybe Text),
-    _idcSnapshotId :: !(Maybe Text),
-    _idcDescription :: !(Maybe Text),
-    _idcURL :: !(Maybe Text)
+  { -- | The format of the disk image being imported.
+    --
+    -- Valid values: @OVA@ | @VHD@ | @VHDX@ | @VMDK@ | @RAW@
+    format :: Prelude.Maybe Prelude.Text,
+    -- | The S3 bucket for the disk image.
+    userBucket :: Prelude.Maybe UserBucket,
+    -- | The block device mapping for the disk.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the EBS snapshot to be used for importing the snapshot.
+    snapshotId :: Prelude.Maybe Prelude.Text,
+    -- | The description of the disk image.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The URL to the Amazon S3-based disk image being imported. The URL can
+    -- either be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..)
+    url :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageDiskContainer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageDiskContainer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idcFormat' - The format of the disk image being imported. Valid values: @OVA@ | @VHD@ | @VHDX@ | @VMDK@ | @RAW@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idcUserBucket' - The S3 bucket for the disk image.
+-- 'format', 'imageDiskContainer_format' - The format of the disk image being imported.
 --
--- * 'idcDeviceName' - The block device mapping for the disk.
+-- Valid values: @OVA@ | @VHD@ | @VHDX@ | @VMDK@ | @RAW@
 --
--- * 'idcSnapshotId' - The ID of the EBS snapshot to be used for importing the snapshot.
+-- 'userBucket', 'imageDiskContainer_userBucket' - The S3 bucket for the disk image.
 --
--- * 'idcDescription' - The description of the disk image.
+-- 'deviceName', 'imageDiskContainer_deviceName' - The block device mapping for the disk.
 --
--- * 'idcURL' - The URL to the Amazon S3-based disk image being imported. The URL can either be a https URL (https://..) or an Amazon S3 URL (s3://..)
-imageDiskContainer ::
+-- 'snapshotId', 'imageDiskContainer_snapshotId' - The ID of the EBS snapshot to be used for importing the snapshot.
+--
+-- 'description', 'imageDiskContainer_description' - The description of the disk image.
+--
+-- 'url', 'imageDiskContainer_url' - The URL to the Amazon S3-based disk image being imported. The URL can
+-- either be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..)
+newImageDiskContainer ::
   ImageDiskContainer
-imageDiskContainer =
+newImageDiskContainer =
   ImageDiskContainer'
-    { _idcFormat = Nothing,
-      _idcUserBucket = Nothing,
-      _idcDeviceName = Nothing,
-      _idcSnapshotId = Nothing,
-      _idcDescription = Nothing,
-      _idcURL = Nothing
+    { format = Prelude.Nothing,
+      userBucket = Prelude.Nothing,
+      deviceName = Prelude.Nothing,
+      snapshotId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      url = Prelude.Nothing
     }
 
--- | The format of the disk image being imported. Valid values: @OVA@ | @VHD@ | @VHDX@ | @VMDK@ | @RAW@
-idcFormat :: Lens' ImageDiskContainer (Maybe Text)
-idcFormat = lens _idcFormat (\s a -> s {_idcFormat = a})
+-- | The format of the disk image being imported.
+--
+-- Valid values: @OVA@ | @VHD@ | @VHDX@ | @VMDK@ | @RAW@
+imageDiskContainer_format :: Lens.Lens' ImageDiskContainer (Prelude.Maybe Prelude.Text)
+imageDiskContainer_format = Lens.lens (\ImageDiskContainer' {format} -> format) (\s@ImageDiskContainer' {} a -> s {format = a} :: ImageDiskContainer)
 
 -- | The S3 bucket for the disk image.
-idcUserBucket :: Lens' ImageDiskContainer (Maybe UserBucket)
-idcUserBucket = lens _idcUserBucket (\s a -> s {_idcUserBucket = a})
+imageDiskContainer_userBucket :: Lens.Lens' ImageDiskContainer (Prelude.Maybe UserBucket)
+imageDiskContainer_userBucket = Lens.lens (\ImageDiskContainer' {userBucket} -> userBucket) (\s@ImageDiskContainer' {} a -> s {userBucket = a} :: ImageDiskContainer)
 
 -- | The block device mapping for the disk.
-idcDeviceName :: Lens' ImageDiskContainer (Maybe Text)
-idcDeviceName = lens _idcDeviceName (\s a -> s {_idcDeviceName = a})
+imageDiskContainer_deviceName :: Lens.Lens' ImageDiskContainer (Prelude.Maybe Prelude.Text)
+imageDiskContainer_deviceName = Lens.lens (\ImageDiskContainer' {deviceName} -> deviceName) (\s@ImageDiskContainer' {} a -> s {deviceName = a} :: ImageDiskContainer)
 
 -- | The ID of the EBS snapshot to be used for importing the snapshot.
-idcSnapshotId :: Lens' ImageDiskContainer (Maybe Text)
-idcSnapshotId = lens _idcSnapshotId (\s a -> s {_idcSnapshotId = a})
+imageDiskContainer_snapshotId :: Lens.Lens' ImageDiskContainer (Prelude.Maybe Prelude.Text)
+imageDiskContainer_snapshotId = Lens.lens (\ImageDiskContainer' {snapshotId} -> snapshotId) (\s@ImageDiskContainer' {} a -> s {snapshotId = a} :: ImageDiskContainer)
 
 -- | The description of the disk image.
-idcDescription :: Lens' ImageDiskContainer (Maybe Text)
-idcDescription = lens _idcDescription (\s a -> s {_idcDescription = a})
+imageDiskContainer_description :: Lens.Lens' ImageDiskContainer (Prelude.Maybe Prelude.Text)
+imageDiskContainer_description = Lens.lens (\ImageDiskContainer' {description} -> description) (\s@ImageDiskContainer' {} a -> s {description = a} :: ImageDiskContainer)
 
--- | The URL to the Amazon S3-based disk image being imported. The URL can either be a https URL (https://..) or an Amazon S3 URL (s3://..)
-idcURL :: Lens' ImageDiskContainer (Maybe Text)
-idcURL = lens _idcURL (\s a -> s {_idcURL = a})
+-- | The URL to the Amazon S3-based disk image being imported. The URL can
+-- either be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..)
+imageDiskContainer_url :: Lens.Lens' ImageDiskContainer (Prelude.Maybe Prelude.Text)
+imageDiskContainer_url = Lens.lens (\ImageDiskContainer' {url} -> url) (\s@ImageDiskContainer' {} a -> s {url = a} :: ImageDiskContainer)
 
-instance Hashable ImageDiskContainer
+instance Prelude.Hashable ImageDiskContainer
 
-instance NFData ImageDiskContainer
+instance Prelude.NFData ImageDiskContainer
 
-instance ToQuery ImageDiskContainer where
+instance Prelude.ToQuery ImageDiskContainer where
   toQuery ImageDiskContainer' {..} =
-    mconcat
-      [ "Format" =: _idcFormat,
-        "UserBucket" =: _idcUserBucket,
-        "DeviceName" =: _idcDeviceName,
-        "SnapshotId" =: _idcSnapshotId,
-        "Description" =: _idcDescription,
-        "Url" =: _idcURL
+    Prelude.mconcat
+      [ "Format" Prelude.=: format,
+        "UserBucket" Prelude.=: userBucket,
+        "DeviceName" Prelude.=: deviceName,
+        "SnapshotId" Prelude.=: snapshotId,
+        "Description" Prelude.=: description,
+        "Url" Prelude.=: url
       ]

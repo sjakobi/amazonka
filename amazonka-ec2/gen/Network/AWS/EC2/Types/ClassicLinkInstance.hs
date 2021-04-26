@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,72 +22,77 @@ module Network.AWS.EC2.Types.ClassicLinkInstance where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.GroupIdentifier
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a linked EC2-Classic instance.
 --
---
---
--- /See:/ 'classicLinkInstance' smart constructor.
+-- /See:/ 'newClassicLinkInstance' smart constructor.
 data ClassicLinkInstance = ClassicLinkInstance'
-  { _cliGroups ::
-      !(Maybe [GroupIdentifier]),
-    _cliInstanceId :: !(Maybe Text),
-    _cliTags :: !(Maybe [Tag]),
-    _cliVPCId :: !(Maybe Text)
+  { -- | A list of security groups.
+    groups :: Prelude.Maybe [GroupIdentifier],
+    -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags assigned to the instance.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ID of the VPC.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClassicLinkInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClassicLinkInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cliGroups' - A list of security groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cliInstanceId' - The ID of the instance.
+-- 'groups', 'classicLinkInstance_groups' - A list of security groups.
 --
--- * 'cliTags' - Any tags assigned to the instance.
+-- 'instanceId', 'classicLinkInstance_instanceId' - The ID of the instance.
 --
--- * 'cliVPCId' - The ID of the VPC.
-classicLinkInstance ::
+-- 'tags', 'classicLinkInstance_tags' - Any tags assigned to the instance.
+--
+-- 'vpcId', 'classicLinkInstance_vpcId' - The ID of the VPC.
+newClassicLinkInstance ::
   ClassicLinkInstance
-classicLinkInstance =
+newClassicLinkInstance =
   ClassicLinkInstance'
-    { _cliGroups = Nothing,
-      _cliInstanceId = Nothing,
-      _cliTags = Nothing,
-      _cliVPCId = Nothing
+    { groups = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
 
 -- | A list of security groups.
-cliGroups :: Lens' ClassicLinkInstance [GroupIdentifier]
-cliGroups = lens _cliGroups (\s a -> s {_cliGroups = a}) . _Default . _Coerce
+classicLinkInstance_groups :: Lens.Lens' ClassicLinkInstance (Prelude.Maybe [GroupIdentifier])
+classicLinkInstance_groups = Lens.lens (\ClassicLinkInstance' {groups} -> groups) (\s@ClassicLinkInstance' {} a -> s {groups = a} :: ClassicLinkInstance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the instance.
-cliInstanceId :: Lens' ClassicLinkInstance (Maybe Text)
-cliInstanceId = lens _cliInstanceId (\s a -> s {_cliInstanceId = a})
+classicLinkInstance_instanceId :: Lens.Lens' ClassicLinkInstance (Prelude.Maybe Prelude.Text)
+classicLinkInstance_instanceId = Lens.lens (\ClassicLinkInstance' {instanceId} -> instanceId) (\s@ClassicLinkInstance' {} a -> s {instanceId = a} :: ClassicLinkInstance)
 
 -- | Any tags assigned to the instance.
-cliTags :: Lens' ClassicLinkInstance [Tag]
-cliTags = lens _cliTags (\s a -> s {_cliTags = a}) . _Default . _Coerce
+classicLinkInstance_tags :: Lens.Lens' ClassicLinkInstance (Prelude.Maybe [Tag])
+classicLinkInstance_tags = Lens.lens (\ClassicLinkInstance' {tags} -> tags) (\s@ClassicLinkInstance' {} a -> s {tags = a} :: ClassicLinkInstance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the VPC.
-cliVPCId :: Lens' ClassicLinkInstance (Maybe Text)
-cliVPCId = lens _cliVPCId (\s a -> s {_cliVPCId = a})
+classicLinkInstance_vpcId :: Lens.Lens' ClassicLinkInstance (Prelude.Maybe Prelude.Text)
+classicLinkInstance_vpcId = Lens.lens (\ClassicLinkInstance' {vpcId} -> vpcId) (\s@ClassicLinkInstance' {} a -> s {vpcId = a} :: ClassicLinkInstance)
 
-instance FromXML ClassicLinkInstance where
+instance Prelude.FromXML ClassicLinkInstance where
   parseXML x =
     ClassicLinkInstance'
-      <$> ( x .@? "groupSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "instanceId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "vpcId")
+      Prelude.<$> ( x Prelude..@? "groupSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "instanceId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "vpcId")
 
-instance Hashable ClassicLinkInstance
+instance Prelude.Hashable ClassicLinkInstance
 
-instance NFData ClassicLinkInstance
+instance Prelude.NFData ClassicLinkInstance

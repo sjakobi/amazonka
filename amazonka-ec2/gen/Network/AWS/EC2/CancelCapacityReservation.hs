@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels the specified Capacity Reservation, releases the reserved capacity, and changes the Capacity Reservation's state to @cancelled@ .
+-- Cancels the specified Capacity Reservation, releases the reserved
+-- capacity, and changes the Capacity Reservation\'s state to @cancelled@.
 --
---
--- Instances running in the reserved capacity continue running until you stop them. Stopped instances that target the Capacity Reservation can no longer launch. Modify these instances to either target a different Capacity Reservation, launch On-Demand Instance capacity, or run in any open Capacity Reservation that has matching attributes and sufficient capacity.
+-- Instances running in the reserved capacity continue running until you
+-- stop them. Stopped instances that target the Capacity Reservation can no
+-- longer launch. Modify these instances to either target a different
+-- Capacity Reservation, launch On-Demand Instance capacity, or run in any
+-- open Capacity Reservation that has matching attributes and sufficient
+-- capacity.
 module Network.AWS.EC2.CancelCapacityReservation
   ( -- * Creating a Request
-    cancelCapacityReservation,
-    CancelCapacityReservation,
+    CancelCapacityReservation (..),
+    newCancelCapacityReservation,
 
     -- * Request Lenses
-    ccrDryRun,
-    ccrCapacityReservationId,
+    cancelCapacityReservation_dryRun,
+    cancelCapacityReservation_capacityReservationId,
 
     -- * Destructuring the Response
-    cancelCapacityReservationResponse,
-    CancelCapacityReservationResponse,
+    CancelCapacityReservationResponse (..),
+    newCancelCapacityReservationResponse,
 
     -- * Response Lenses
-    ccrrrsReturn,
-    ccrrrsResponseStatus,
+    cancelCapacityReservationResponse_return,
+    cancelCapacityReservationResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'cancelCapacityReservation' smart constructor.
+-- | /See:/ 'newCancelCapacityReservation' smart constructor.
 data CancelCapacityReservation = CancelCapacityReservation'
-  { _ccrDryRun ::
-      !(Maybe Bool),
-    _ccrCapacityReservationId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the Capacity Reservation to be cancelled.
+    capacityReservationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelCapacityReservation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelCapacityReservation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrCapacityReservationId' - The ID of the Capacity Reservation to be cancelled.
-cancelCapacityReservation ::
-  -- | 'ccrCapacityReservationId'
-  Text ->
+-- 'dryRun', 'cancelCapacityReservation_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'capacityReservationId', 'cancelCapacityReservation_capacityReservationId' - The ID of the Capacity Reservation to be cancelled.
+newCancelCapacityReservation ::
+  -- | 'capacityReservationId'
+  Prelude.Text ->
   CancelCapacityReservation
-cancelCapacityReservation pCapacityReservationId_ =
+newCancelCapacityReservation pCapacityReservationId_ =
   CancelCapacityReservation'
-    { _ccrDryRun = Nothing,
-      _ccrCapacityReservationId =
-        pCapacityReservationId_
+    { dryRun =
+        Prelude.Nothing,
+      capacityReservationId = pCapacityReservationId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ccrDryRun :: Lens' CancelCapacityReservation (Maybe Bool)
-ccrDryRun = lens _ccrDryRun (\s a -> s {_ccrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+cancelCapacityReservation_dryRun :: Lens.Lens' CancelCapacityReservation (Prelude.Maybe Prelude.Bool)
+cancelCapacityReservation_dryRun = Lens.lens (\CancelCapacityReservation' {dryRun} -> dryRun) (\s@CancelCapacityReservation' {} a -> s {dryRun = a} :: CancelCapacityReservation)
 
 -- | The ID of the Capacity Reservation to be cancelled.
-ccrCapacityReservationId :: Lens' CancelCapacityReservation Text
-ccrCapacityReservationId = lens _ccrCapacityReservationId (\s a -> s {_ccrCapacityReservationId = a})
+cancelCapacityReservation_capacityReservationId :: Lens.Lens' CancelCapacityReservation Prelude.Text
+cancelCapacityReservation_capacityReservationId = Lens.lens (\CancelCapacityReservation' {capacityReservationId} -> capacityReservationId) (\s@CancelCapacityReservation' {} a -> s {capacityReservationId = a} :: CancelCapacityReservation)
 
-instance AWSRequest CancelCapacityReservation where
+instance Prelude.AWSRequest CancelCapacityReservation where
   type
     Rs CancelCapacityReservation =
       CancelCapacityReservationResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CancelCapacityReservationResponse'
-            <$> (x .@? "return") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "return")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelCapacityReservation
+instance Prelude.Hashable CancelCapacityReservation
 
-instance NFData CancelCapacityReservation
+instance Prelude.NFData CancelCapacityReservation
 
-instance ToHeaders CancelCapacityReservation where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CancelCapacityReservation where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CancelCapacityReservation where
-  toPath = const "/"
+instance Prelude.ToPath CancelCapacityReservation where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelCapacityReservation where
+instance Prelude.ToQuery CancelCapacityReservation where
   toQuery CancelCapacityReservation' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CancelCapacityReservation" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _ccrDryRun,
-        "CapacityReservationId" =: _ccrCapacityReservationId
+          Prelude.=: ("CancelCapacityReservation" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "CapacityReservationId"
+          Prelude.=: capacityReservationId
       ]
 
--- | /See:/ 'cancelCapacityReservationResponse' smart constructor.
+-- | /See:/ 'newCancelCapacityReservationResponse' smart constructor.
 data CancelCapacityReservationResponse = CancelCapacityReservationResponse'
-  { _ccrrrsReturn ::
-      !( Maybe
-           Bool
-       ),
-    _ccrrrsResponseStatus ::
-      !Int
+  { -- | Returns @true@ if the request succeeds; otherwise, it returns an error.
+    return' :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelCapacityReservationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelCapacityReservationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrrrsReturn' - Returns @true@ if the request succeeds; otherwise, it returns an error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrrrsResponseStatus' - -- | The response status code.
-cancelCapacityReservationResponse ::
-  -- | 'ccrrrsResponseStatus'
-  Int ->
+-- 'return'', 'cancelCapacityReservationResponse_return' - Returns @true@ if the request succeeds; otherwise, it returns an error.
+--
+-- 'httpStatus', 'cancelCapacityReservationResponse_httpStatus' - The response's http status code.
+newCancelCapacityReservationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelCapacityReservationResponse
-cancelCapacityReservationResponse pResponseStatus_ =
+newCancelCapacityReservationResponse pHttpStatus_ =
   CancelCapacityReservationResponse'
-    { _ccrrrsReturn =
-        Nothing,
-      _ccrrrsResponseStatus = pResponseStatus_
+    { return' =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Returns @true@ if the request succeeds; otherwise, it returns an error.
-ccrrrsReturn :: Lens' CancelCapacityReservationResponse (Maybe Bool)
-ccrrrsReturn = lens _ccrrrsReturn (\s a -> s {_ccrrrsReturn = a})
+cancelCapacityReservationResponse_return :: Lens.Lens' CancelCapacityReservationResponse (Prelude.Maybe Prelude.Bool)
+cancelCapacityReservationResponse_return = Lens.lens (\CancelCapacityReservationResponse' {return'} -> return') (\s@CancelCapacityReservationResponse' {} a -> s {return' = a} :: CancelCapacityReservationResponse)
 
--- | -- | The response status code.
-ccrrrsResponseStatus :: Lens' CancelCapacityReservationResponse Int
-ccrrrsResponseStatus = lens _ccrrrsResponseStatus (\s a -> s {_ccrrrsResponseStatus = a})
+-- | The response's http status code.
+cancelCapacityReservationResponse_httpStatus :: Lens.Lens' CancelCapacityReservationResponse Prelude.Int
+cancelCapacityReservationResponse_httpStatus = Lens.lens (\CancelCapacityReservationResponse' {httpStatus} -> httpStatus) (\s@CancelCapacityReservationResponse' {} a -> s {httpStatus = a} :: CancelCapacityReservationResponse)
 
-instance NFData CancelCapacityReservationResponse
+instance
+  Prelude.NFData
+    CancelCapacityReservationResponse

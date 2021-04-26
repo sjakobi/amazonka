@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.PlacementStrategy
   ( PlacementStrategy
       ( ..,
-        PSCluster,
-        PSPartition,
-        PSSpread
+        PlacementStrategyCluster,
+        PlacementStrategyPartition,
+        PlacementStrategySpread
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlacementStrategy = PlacementStrategy' (CI Text)
+newtype PlacementStrategy = PlacementStrategy'
+  { fromPlacementStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSCluster :: PlacementStrategy
-pattern PSCluster = PlacementStrategy' "cluster"
+pattern PlacementStrategyCluster :: PlacementStrategy
+pattern PlacementStrategyCluster = PlacementStrategy' "cluster"
 
-pattern PSPartition :: PlacementStrategy
-pattern PSPartition = PlacementStrategy' "partition"
+pattern PlacementStrategyPartition :: PlacementStrategy
+pattern PlacementStrategyPartition = PlacementStrategy' "partition"
 
-pattern PSSpread :: PlacementStrategy
-pattern PSSpread = PlacementStrategy' "spread"
+pattern PlacementStrategySpread :: PlacementStrategy
+pattern PlacementStrategySpread = PlacementStrategy' "spread"
 
 {-# COMPLETE
-  PSCluster,
-  PSPartition,
-  PSSpread,
+  PlacementStrategyCluster,
+  PlacementStrategyPartition,
+  PlacementStrategySpread,
   PlacementStrategy'
   #-}
 
-instance FromText PlacementStrategy where
-  parser = (PlacementStrategy' . mk) <$> takeText
+instance Prelude.FromText PlacementStrategy where
+  parser = PlacementStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText PlacementStrategy where
-  toText (PlacementStrategy' ci) = original ci
+instance Prelude.ToText PlacementStrategy where
+  toText (PlacementStrategy' x) = x
 
-instance Hashable PlacementStrategy
+instance Prelude.Hashable PlacementStrategy
 
-instance NFData PlacementStrategy
+instance Prelude.NFData PlacementStrategy
 
-instance ToByteString PlacementStrategy
+instance Prelude.ToByteString PlacementStrategy
 
-instance ToQuery PlacementStrategy
+instance Prelude.ToQuery PlacementStrategy
 
-instance ToHeader PlacementStrategy
+instance Prelude.ToHeader PlacementStrategy
 
-instance FromXML PlacementStrategy where
-  parseXML = parseXMLText "PlacementStrategy"
+instance Prelude.FromXML PlacementStrategy where
+  parseXML = Prelude.parseXMLText "PlacementStrategy"

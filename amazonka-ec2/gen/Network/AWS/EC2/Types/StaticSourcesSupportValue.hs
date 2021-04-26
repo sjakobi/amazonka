@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.StaticSourcesSupportValue
   ( StaticSourcesSupportValue
       ( ..,
-        SSSVDisable,
-        SSSVEnable
+        StaticSourcesSupportValueDisable,
+        StaticSourcesSupportValueEnable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StaticSourcesSupportValue
-  = StaticSourcesSupportValue'
-      ( CI
-          Text
-      )
+newtype StaticSourcesSupportValue = StaticSourcesSupportValue'
+  { fromStaticSourcesSupportValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSSVDisable :: StaticSourcesSupportValue
-pattern SSSVDisable = StaticSourcesSupportValue' "disable"
+pattern StaticSourcesSupportValueDisable :: StaticSourcesSupportValue
+pattern StaticSourcesSupportValueDisable = StaticSourcesSupportValue' "disable"
 
-pattern SSSVEnable :: StaticSourcesSupportValue
-pattern SSSVEnable = StaticSourcesSupportValue' "enable"
+pattern StaticSourcesSupportValueEnable :: StaticSourcesSupportValue
+pattern StaticSourcesSupportValueEnable = StaticSourcesSupportValue' "enable"
 
 {-# COMPLETE
-  SSSVDisable,
-  SSSVEnable,
+  StaticSourcesSupportValueDisable,
+  StaticSourcesSupportValueEnable,
   StaticSourcesSupportValue'
   #-}
 
-instance FromText StaticSourcesSupportValue where
-  parser = (StaticSourcesSupportValue' . mk) <$> takeText
+instance Prelude.FromText StaticSourcesSupportValue where
+  parser = StaticSourcesSupportValue' Prelude.<$> Prelude.takeText
 
-instance ToText StaticSourcesSupportValue where
-  toText (StaticSourcesSupportValue' ci) = original ci
+instance Prelude.ToText StaticSourcesSupportValue where
+  toText (StaticSourcesSupportValue' x) = x
 
-instance Hashable StaticSourcesSupportValue
+instance Prelude.Hashable StaticSourcesSupportValue
 
-instance NFData StaticSourcesSupportValue
+instance Prelude.NFData StaticSourcesSupportValue
 
-instance ToByteString StaticSourcesSupportValue
+instance Prelude.ToByteString StaticSourcesSupportValue
 
-instance ToQuery StaticSourcesSupportValue
+instance Prelude.ToQuery StaticSourcesSupportValue
 
-instance ToHeader StaticSourcesSupportValue
+instance Prelude.ToHeader StaticSourcesSupportValue
 
-instance FromXML StaticSourcesSupportValue where
-  parseXML = parseXMLText "StaticSourcesSupportValue"
+instance Prelude.FromXML StaticSourcesSupportValue where
+  parseXML = Prelude.parseXMLText "StaticSourcesSupportValue"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,204 +21,338 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the Amazon FPGA Images (AFIs) available to you. These include public AFIs, private AFIs that you own, and AFIs owned by other AWS accounts for which you have load permissions.
---
---
+-- Describes the Amazon FPGA Images (AFIs) available to you. These include
+-- public AFIs, private AFIs that you own, and AFIs owned by other AWS
+-- accounts for which you have load permissions.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeFpgaImages
   ( -- * Creating a Request
-    describeFpgaImages,
-    DescribeFpgaImages,
+    DescribeFpgaImages (..),
+    newDescribeFpgaImages,
 
     -- * Request Lenses
-    dfiNextToken,
-    dfiDryRun,
-    dfiMaxResults,
-    dfiOwners,
-    dfiFpgaImageIds,
-    dfiFilters,
+    describeFpgaImages_nextToken,
+    describeFpgaImages_dryRun,
+    describeFpgaImages_maxResults,
+    describeFpgaImages_owners,
+    describeFpgaImages_fpgaImageIds,
+    describeFpgaImages_filters,
 
     -- * Destructuring the Response
-    describeFpgaImagesResponse,
-    DescribeFpgaImagesResponse,
+    DescribeFpgaImagesResponse (..),
+    newDescribeFpgaImagesResponse,
 
     -- * Response Lenses
-    dfirfrsNextToken,
-    dfirfrsFpgaImages,
-    dfirfrsResponseStatus,
+    describeFpgaImagesResponse_nextToken,
+    describeFpgaImagesResponse_fpgaImages,
+    describeFpgaImagesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.FpgaImage
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeFpgaImages' smart constructor.
+-- | /See:/ 'newDescribeFpgaImages' smart constructor.
 data DescribeFpgaImages = DescribeFpgaImages'
-  { _dfiNextToken ::
-      !(Maybe Text),
-    _dfiDryRun :: !(Maybe Bool),
-    _dfiMaxResults :: !(Maybe Nat),
-    _dfiOwners :: !(Maybe [Text]),
-    _dfiFpgaImageIds ::
-      !(Maybe [Text]),
-    _dfiFilters :: !(Maybe [Filter])
+  { -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters the AFI by owner. Specify an AWS account ID, @self@ (owner is
+    -- the sender of the request), or an AWS owner alias (valid values are
+    -- @amazon@ | @aws-marketplace@).
+    owners :: Prelude.Maybe [Prelude.Text],
+    -- | The AFI IDs.
+    fpgaImageIds :: Prelude.Maybe [Prelude.Text],
+    -- | The filters.
+    --
+    -- -   @create-time@ - The creation time of the AFI.
+    --
+    -- -   @fpga-image-id@ - The FPGA image identifier (AFI ID).
+    --
+    -- -   @fpga-image-global-id@ - The global FPGA image identifier (AGFI ID).
+    --
+    -- -   @name@ - The name of the AFI.
+    --
+    -- -   @owner-id@ - The AWS account ID of the AFI owner.
+    --
+    -- -   @product-code@ - The product code.
+    --
+    -- -   @shell-version@ - The version of the AWS Shell that was used to
+    --     create the bitstream.
+    --
+    -- -   @state@ - The state of the AFI (@pending@ | @failed@ | @available@ |
+    --     @unavailable@).
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
+    --
+    -- -   @update-time@ - The time of the most recent update.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFpgaImages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFpgaImages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfiNextToken' - The token to retrieve the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfiDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeFpgaImages_nextToken' - The token to retrieve the next page of results.
 --
--- * 'dfiMaxResults' - The maximum number of results to return in a single call.
+-- 'dryRun', 'describeFpgaImages_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dfiOwners' - Filters the AFI by owner. Specify an AWS account ID, @self@ (owner is the sender of the request), or an AWS owner alias (valid values are @amazon@ | @aws-marketplace@ ).
+-- 'maxResults', 'describeFpgaImages_maxResults' - The maximum number of results to return in a single call.
 --
--- * 'dfiFpgaImageIds' - The AFI IDs.
+-- 'owners', 'describeFpgaImages_owners' - Filters the AFI by owner. Specify an AWS account ID, @self@ (owner is
+-- the sender of the request), or an AWS owner alias (valid values are
+-- @amazon@ | @aws-marketplace@).
 --
--- * 'dfiFilters' - The filters.     * @create-time@ - The creation time of the AFI.     * @fpga-image-id@ - The FPGA image identifier (AFI ID).     * @fpga-image-global-id@ - The global FPGA image identifier (AGFI ID).     * @name@ - The name of the AFI.     * @owner-id@ - The AWS account ID of the AFI owner.     * @product-code@ - The product code.     * @shell-version@ - The version of the AWS Shell that was used to create the bitstream.     * @state@ - The state of the AFI (@pending@ | @failed@ | @available@ | @unavailable@ ).     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @update-time@ - The time of the most recent update.
-describeFpgaImages ::
+-- 'fpgaImageIds', 'describeFpgaImages_fpgaImageIds' - The AFI IDs.
+--
+-- 'filters', 'describeFpgaImages_filters' - The filters.
+--
+-- -   @create-time@ - The creation time of the AFI.
+--
+-- -   @fpga-image-id@ - The FPGA image identifier (AFI ID).
+--
+-- -   @fpga-image-global-id@ - The global FPGA image identifier (AGFI ID).
+--
+-- -   @name@ - The name of the AFI.
+--
+-- -   @owner-id@ - The AWS account ID of the AFI owner.
+--
+-- -   @product-code@ - The product code.
+--
+-- -   @shell-version@ - The version of the AWS Shell that was used to
+--     create the bitstream.
+--
+-- -   @state@ - The state of the AFI (@pending@ | @failed@ | @available@ |
+--     @unavailable@).
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @update-time@ - The time of the most recent update.
+newDescribeFpgaImages ::
   DescribeFpgaImages
-describeFpgaImages =
+newDescribeFpgaImages =
   DescribeFpgaImages'
-    { _dfiNextToken = Nothing,
-      _dfiDryRun = Nothing,
-      _dfiMaxResults = Nothing,
-      _dfiOwners = Nothing,
-      _dfiFpgaImageIds = Nothing,
-      _dfiFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      owners = Prelude.Nothing,
+      fpgaImageIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token to retrieve the next page of results.
-dfiNextToken :: Lens' DescribeFpgaImages (Maybe Text)
-dfiNextToken = lens _dfiNextToken (\s a -> s {_dfiNextToken = a})
+describeFpgaImages_nextToken :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Text)
+describeFpgaImages_nextToken = Lens.lens (\DescribeFpgaImages' {nextToken} -> nextToken) (\s@DescribeFpgaImages' {} a -> s {nextToken = a} :: DescribeFpgaImages)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dfiDryRun :: Lens' DescribeFpgaImages (Maybe Bool)
-dfiDryRun = lens _dfiDryRun (\s a -> s {_dfiDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFpgaImages_dryRun :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Bool)
+describeFpgaImages_dryRun = Lens.lens (\DescribeFpgaImages' {dryRun} -> dryRun) (\s@DescribeFpgaImages' {} a -> s {dryRun = a} :: DescribeFpgaImages)
 
 -- | The maximum number of results to return in a single call.
-dfiMaxResults :: Lens' DescribeFpgaImages (Maybe Natural)
-dfiMaxResults = lens _dfiMaxResults (\s a -> s {_dfiMaxResults = a}) . mapping _Nat
+describeFpgaImages_maxResults :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Natural)
+describeFpgaImages_maxResults = Lens.lens (\DescribeFpgaImages' {maxResults} -> maxResults) (\s@DescribeFpgaImages' {} a -> s {maxResults = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filters the AFI by owner. Specify an AWS account ID, @self@ (owner is the sender of the request), or an AWS owner alias (valid values are @amazon@ | @aws-marketplace@ ).
-dfiOwners :: Lens' DescribeFpgaImages [Text]
-dfiOwners = lens _dfiOwners (\s a -> s {_dfiOwners = a}) . _Default . _Coerce
+-- | Filters the AFI by owner. Specify an AWS account ID, @self@ (owner is
+-- the sender of the request), or an AWS owner alias (valid values are
+-- @amazon@ | @aws-marketplace@).
+describeFpgaImages_owners :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Prelude.Text])
+describeFpgaImages_owners = Lens.lens (\DescribeFpgaImages' {owners} -> owners) (\s@DescribeFpgaImages' {} a -> s {owners = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The AFI IDs.
-dfiFpgaImageIds :: Lens' DescribeFpgaImages [Text]
-dfiFpgaImageIds = lens _dfiFpgaImageIds (\s a -> s {_dfiFpgaImageIds = a}) . _Default . _Coerce
+describeFpgaImages_fpgaImageIds :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Prelude.Text])
+describeFpgaImages_fpgaImageIds = Lens.lens (\DescribeFpgaImages' {fpgaImageIds} -> fpgaImageIds) (\s@DescribeFpgaImages' {} a -> s {fpgaImageIds = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The filters.     * @create-time@ - The creation time of the AFI.     * @fpga-image-id@ - The FPGA image identifier (AFI ID).     * @fpga-image-global-id@ - The global FPGA image identifier (AGFI ID).     * @name@ - The name of the AFI.     * @owner-id@ - The AWS account ID of the AFI owner.     * @product-code@ - The product code.     * @shell-version@ - The version of the AWS Shell that was used to create the bitstream.     * @state@ - The state of the AFI (@pending@ | @failed@ | @available@ | @unavailable@ ).     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @update-time@ - The time of the most recent update.
-dfiFilters :: Lens' DescribeFpgaImages [Filter]
-dfiFilters = lens _dfiFilters (\s a -> s {_dfiFilters = a}) . _Default . _Coerce
+-- | The filters.
+--
+-- -   @create-time@ - The creation time of the AFI.
+--
+-- -   @fpga-image-id@ - The FPGA image identifier (AFI ID).
+--
+-- -   @fpga-image-global-id@ - The global FPGA image identifier (AGFI ID).
+--
+-- -   @name@ - The name of the AFI.
+--
+-- -   @owner-id@ - The AWS account ID of the AFI owner.
+--
+-- -   @product-code@ - The product code.
+--
+-- -   @shell-version@ - The version of the AWS Shell that was used to
+--     create the bitstream.
+--
+-- -   @state@ - The state of the AFI (@pending@ | @failed@ | @available@ |
+--     @unavailable@).
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @update-time@ - The time of the most recent update.
+describeFpgaImages_filters :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Filter])
+describeFpgaImages_filters = Lens.lens (\DescribeFpgaImages' {filters} -> filters) (\s@DescribeFpgaImages' {} a -> s {filters = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeFpgaImages where
+instance Pager.AWSPager DescribeFpgaImages where
   page rq rs
-    | stop (rs ^. dfirfrsNextToken) = Nothing
-    | stop (rs ^. dfirfrsFpgaImages) = Nothing
-    | otherwise =
-      Just $ rq & dfiNextToken .~ rs ^. dfirfrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeFpgaImagesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFpgaImagesResponse_fpgaImages
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeFpgaImages_nextToken
+          Lens..~ rs
+          Lens.^? describeFpgaImagesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeFpgaImages where
+instance Prelude.AWSRequest DescribeFpgaImages where
   type
     Rs DescribeFpgaImages =
       DescribeFpgaImagesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeFpgaImagesResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "fpgaImageSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "fpgaImageSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFpgaImages
+instance Prelude.Hashable DescribeFpgaImages
 
-instance NFData DescribeFpgaImages
+instance Prelude.NFData DescribeFpgaImages
 
-instance ToHeaders DescribeFpgaImages where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeFpgaImages where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeFpgaImages where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFpgaImages where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFpgaImages where
+instance Prelude.ToQuery DescribeFpgaImages where
   toQuery DescribeFpgaImages' {..} =
-    mconcat
-      [ "Action" =: ("DescribeFpgaImages" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dfiNextToken,
-        "DryRun" =: _dfiDryRun,
-        "MaxResults" =: _dfiMaxResults,
-        toQuery (toQueryList "Owner" <$> _dfiOwners),
-        toQuery
-          (toQueryList "FpgaImageId" <$> _dfiFpgaImageIds),
-        toQuery (toQueryList "Filter" <$> _dfiFilters)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeFpgaImages" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Owner" Prelude.<$> owners),
+        Prelude.toQuery
+          ( Prelude.toQueryList "FpgaImageId"
+              Prelude.<$> fpgaImageIds
+          ),
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeFpgaImagesResponse' smart constructor.
+-- | /See:/ 'newDescribeFpgaImagesResponse' smart constructor.
 data DescribeFpgaImagesResponse = DescribeFpgaImagesResponse'
-  { _dfirfrsNextToken ::
-      !(Maybe Text),
-    _dfirfrsFpgaImages ::
-      !( Maybe
-           [FpgaImage]
-       ),
-    _dfirfrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the FPGA images.
+    fpgaImages :: Prelude.Maybe [FpgaImage],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFpgaImagesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFpgaImagesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfirfrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfirfrsFpgaImages' - Information about the FPGA images.
+-- 'nextToken', 'describeFpgaImagesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dfirfrsResponseStatus' - -- | The response status code.
-describeFpgaImagesResponse ::
-  -- | 'dfirfrsResponseStatus'
-  Int ->
+-- 'fpgaImages', 'describeFpgaImagesResponse_fpgaImages' - Information about the FPGA images.
+--
+-- 'httpStatus', 'describeFpgaImagesResponse_httpStatus' - The response's http status code.
+newDescribeFpgaImagesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFpgaImagesResponse
-describeFpgaImagesResponse pResponseStatus_ =
+newDescribeFpgaImagesResponse pHttpStatus_ =
   DescribeFpgaImagesResponse'
-    { _dfirfrsNextToken =
-        Nothing,
-      _dfirfrsFpgaImages = Nothing,
-      _dfirfrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      fpgaImages = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dfirfrsNextToken :: Lens' DescribeFpgaImagesResponse (Maybe Text)
-dfirfrsNextToken = lens _dfirfrsNextToken (\s a -> s {_dfirfrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeFpgaImagesResponse_nextToken :: Lens.Lens' DescribeFpgaImagesResponse (Prelude.Maybe Prelude.Text)
+describeFpgaImagesResponse_nextToken = Lens.lens (\DescribeFpgaImagesResponse' {nextToken} -> nextToken) (\s@DescribeFpgaImagesResponse' {} a -> s {nextToken = a} :: DescribeFpgaImagesResponse)
 
 -- | Information about the FPGA images.
-dfirfrsFpgaImages :: Lens' DescribeFpgaImagesResponse [FpgaImage]
-dfirfrsFpgaImages = lens _dfirfrsFpgaImages (\s a -> s {_dfirfrsFpgaImages = a}) . _Default . _Coerce
+describeFpgaImagesResponse_fpgaImages :: Lens.Lens' DescribeFpgaImagesResponse (Prelude.Maybe [FpgaImage])
+describeFpgaImagesResponse_fpgaImages = Lens.lens (\DescribeFpgaImagesResponse' {fpgaImages} -> fpgaImages) (\s@DescribeFpgaImagesResponse' {} a -> s {fpgaImages = a} :: DescribeFpgaImagesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dfirfrsResponseStatus :: Lens' DescribeFpgaImagesResponse Int
-dfirfrsResponseStatus = lens _dfirfrsResponseStatus (\s a -> s {_dfirfrsResponseStatus = a})
+-- | The response's http status code.
+describeFpgaImagesResponse_httpStatus :: Lens.Lens' DescribeFpgaImagesResponse Prelude.Int
+describeFpgaImagesResponse_httpStatus = Lens.lens (\DescribeFpgaImagesResponse' {httpStatus} -> httpStatus) (\s@DescribeFpgaImagesResponse' {} a -> s {httpStatus = a} :: DescribeFpgaImagesResponse)
 
-instance NFData DescribeFpgaImagesResponse
+instance Prelude.NFData DescribeFpgaImagesResponse

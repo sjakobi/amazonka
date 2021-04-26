@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,136 +24,148 @@
 -- Deletes the specified transit gateway.
 module Network.AWS.EC2.DeleteTransitGateway
   ( -- * Creating a Request
-    deleteTransitGateway,
-    DeleteTransitGateway,
+    DeleteTransitGateway (..),
+    newDeleteTransitGateway,
 
     -- * Request Lenses
-    dtgtDryRun,
-    dtgtTransitGatewayId,
+    deleteTransitGateway_dryRun,
+    deleteTransitGateway_transitGatewayId,
 
     -- * Destructuring the Response
-    deleteTransitGatewayResponse,
-    DeleteTransitGatewayResponse,
+    DeleteTransitGatewayResponse (..),
+    newDeleteTransitGatewayResponse,
 
     -- * Response Lenses
-    dtgrrsTransitGateway,
-    dtgrrsResponseStatus,
+    deleteTransitGatewayResponse_transitGateway,
+    deleteTransitGatewayResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTransitGateway' smart constructor.
+-- | /See:/ 'newDeleteTransitGateway' smart constructor.
 data DeleteTransitGateway = DeleteTransitGateway'
-  { _dtgtDryRun ::
-      !(Maybe Bool),
-    _dtgtTransitGatewayId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the transit gateway.
+    transitGatewayId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgtDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgtTransitGatewayId' - The ID of the transit gateway.
-deleteTransitGateway ::
-  -- | 'dtgtTransitGatewayId'
-  Text ->
+-- 'dryRun', 'deleteTransitGateway_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'transitGatewayId', 'deleteTransitGateway_transitGatewayId' - The ID of the transit gateway.
+newDeleteTransitGateway ::
+  -- | 'transitGatewayId'
+  Prelude.Text ->
   DeleteTransitGateway
-deleteTransitGateway pTransitGatewayId_ =
+newDeleteTransitGateway pTransitGatewayId_ =
   DeleteTransitGateway'
-    { _dtgtDryRun = Nothing,
-      _dtgtTransitGatewayId = pTransitGatewayId_
+    { dryRun = Prelude.Nothing,
+      transitGatewayId = pTransitGatewayId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgtDryRun :: Lens' DeleteTransitGateway (Maybe Bool)
-dtgtDryRun = lens _dtgtDryRun (\s a -> s {_dtgtDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteTransitGateway_dryRun :: Lens.Lens' DeleteTransitGateway (Prelude.Maybe Prelude.Bool)
+deleteTransitGateway_dryRun = Lens.lens (\DeleteTransitGateway' {dryRun} -> dryRun) (\s@DeleteTransitGateway' {} a -> s {dryRun = a} :: DeleteTransitGateway)
 
 -- | The ID of the transit gateway.
-dtgtTransitGatewayId :: Lens' DeleteTransitGateway Text
-dtgtTransitGatewayId = lens _dtgtTransitGatewayId (\s a -> s {_dtgtTransitGatewayId = a})
+deleteTransitGateway_transitGatewayId :: Lens.Lens' DeleteTransitGateway Prelude.Text
+deleteTransitGateway_transitGatewayId = Lens.lens (\DeleteTransitGateway' {transitGatewayId} -> transitGatewayId) (\s@DeleteTransitGateway' {} a -> s {transitGatewayId = a} :: DeleteTransitGateway)
 
-instance AWSRequest DeleteTransitGateway where
+instance Prelude.AWSRequest DeleteTransitGateway where
   type
     Rs DeleteTransitGateway =
       DeleteTransitGatewayResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayResponse'
-            <$> (x .@? "transitGateway") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGateway")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTransitGateway
+instance Prelude.Hashable DeleteTransitGateway
 
-instance NFData DeleteTransitGateway
+instance Prelude.NFData DeleteTransitGateway
 
-instance ToHeaders DeleteTransitGateway where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteTransitGateway where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTransitGateway where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTransitGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTransitGateway where
+instance Prelude.ToQuery DeleteTransitGateway where
   toQuery DeleteTransitGateway' {..} =
-    mconcat
-      [ "Action" =: ("DeleteTransitGateway" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dtgtDryRun,
-        "TransitGatewayId" =: _dtgtTransitGatewayId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteTransitGateway" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "TransitGatewayId" Prelude.=: transitGatewayId
       ]
 
--- | /See:/ 'deleteTransitGatewayResponse' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayResponse' smart constructor.
 data DeleteTransitGatewayResponse = DeleteTransitGatewayResponse'
-  { _dtgrrsTransitGateway ::
-      !( Maybe
-           TransitGateway
-       ),
-    _dtgrrsResponseStatus ::
-      !Int
+  { -- | Information about the deleted transit gateway.
+    transitGateway :: Prelude.Maybe TransitGateway,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrrsTransitGateway' - Information about the deleted transit gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrrsResponseStatus' - -- | The response status code.
-deleteTransitGatewayResponse ::
-  -- | 'dtgrrsResponseStatus'
-  Int ->
+-- 'transitGateway', 'deleteTransitGatewayResponse_transitGateway' - Information about the deleted transit gateway.
+--
+-- 'httpStatus', 'deleteTransitGatewayResponse_httpStatus' - The response's http status code.
+newDeleteTransitGatewayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTransitGatewayResponse
-deleteTransitGatewayResponse pResponseStatus_ =
+newDeleteTransitGatewayResponse pHttpStatus_ =
   DeleteTransitGatewayResponse'
-    { _dtgrrsTransitGateway =
-        Nothing,
-      _dtgrrsResponseStatus = pResponseStatus_
+    { transitGateway =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the deleted transit gateway.
-dtgrrsTransitGateway :: Lens' DeleteTransitGatewayResponse (Maybe TransitGateway)
-dtgrrsTransitGateway = lens _dtgrrsTransitGateway (\s a -> s {_dtgrrsTransitGateway = a})
+deleteTransitGatewayResponse_transitGateway :: Lens.Lens' DeleteTransitGatewayResponse (Prelude.Maybe TransitGateway)
+deleteTransitGatewayResponse_transitGateway = Lens.lens (\DeleteTransitGatewayResponse' {transitGateway} -> transitGateway) (\s@DeleteTransitGatewayResponse' {} a -> s {transitGateway = a} :: DeleteTransitGatewayResponse)
 
--- | -- | The response status code.
-dtgrrsResponseStatus :: Lens' DeleteTransitGatewayResponse Int
-dtgrrsResponseStatus = lens _dtgrrsResponseStatus (\s a -> s {_dtgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTransitGatewayResponse_httpStatus :: Lens.Lens' DeleteTransitGatewayResponse Prelude.Int
+deleteTransitGatewayResponse_httpStatus = Lens.lens (\DeleteTransitGatewayResponse' {httpStatus} -> httpStatus) (\s@DeleteTransitGatewayResponse' {} a -> s {httpStatus = a} :: DeleteTransitGatewayResponse)
 
-instance NFData DeleteTransitGatewayResponse
+instance Prelude.NFData DeleteTransitGatewayResponse

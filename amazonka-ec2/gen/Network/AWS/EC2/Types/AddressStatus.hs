@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.AddressStatus
   ( AddressStatus
       ( ..,
-        InClassic,
-        InVPC,
-        MoveInProgress
+        AddressStatusInClassic,
+        AddressStatusInVpc,
+        AddressStatusMoveInProgress
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AddressStatus = AddressStatus' (CI Text)
+newtype AddressStatus = AddressStatus'
+  { fromAddressStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InClassic :: AddressStatus
-pattern InClassic = AddressStatus' "InClassic"
+pattern AddressStatusInClassic :: AddressStatus
+pattern AddressStatusInClassic = AddressStatus' "InClassic"
 
-pattern InVPC :: AddressStatus
-pattern InVPC = AddressStatus' "InVpc"
+pattern AddressStatusInVpc :: AddressStatus
+pattern AddressStatusInVpc = AddressStatus' "InVpc"
 
-pattern MoveInProgress :: AddressStatus
-pattern MoveInProgress = AddressStatus' "MoveInProgress"
+pattern AddressStatusMoveInProgress :: AddressStatus
+pattern AddressStatusMoveInProgress = AddressStatus' "MoveInProgress"
 
 {-# COMPLETE
-  InClassic,
-  InVPC,
-  MoveInProgress,
+  AddressStatusInClassic,
+  AddressStatusInVpc,
+  AddressStatusMoveInProgress,
   AddressStatus'
   #-}
 
-instance FromText AddressStatus where
-  parser = (AddressStatus' . mk) <$> takeText
+instance Prelude.FromText AddressStatus where
+  parser = AddressStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AddressStatus where
-  toText (AddressStatus' ci) = original ci
+instance Prelude.ToText AddressStatus where
+  toText (AddressStatus' x) = x
 
-instance Hashable AddressStatus
+instance Prelude.Hashable AddressStatus
 
-instance NFData AddressStatus
+instance Prelude.NFData AddressStatus
 
-instance ToByteString AddressStatus
+instance Prelude.ToByteString AddressStatus
 
-instance ToQuery AddressStatus
+instance Prelude.ToQuery AddressStatus
 
-instance ToHeader AddressStatus
+instance Prelude.ToHeader AddressStatus
 
-instance FromXML AddressStatus where
-  parseXML = parseXMLText "AddressStatus"
+instance Prelude.FromXML AddressStatus where
+  parseXML = Prelude.parseXMLText "AddressStatus"

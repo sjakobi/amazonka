@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,109 +20,165 @@
 module Network.AWS.EC2.Types.UserIdGroupPair where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a security group and AWS account ID pair.
 --
---
---
--- /See:/ 'userIdGroupPair' smart constructor.
+-- /See:/ 'newUserIdGroupPair' smart constructor.
 data UserIdGroupPair = UserIdGroupPair'
-  { _uigpVPCPeeringConnectionId ::
-      !(Maybe Text),
-    _uigpGroupName :: !(Maybe Text),
-    _uigpGroupId :: !(Maybe Text),
-    _uigpUserId :: !(Maybe Text),
-    _uigpPeeringStatus :: !(Maybe Text),
-    _uigpDescription :: !(Maybe Text),
-    _uigpVPCId :: !(Maybe Text)
+  { -- | The ID of the VPC peering connection, if applicable.
+    vpcPeeringConnectionId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the security group. In a request, use this parameter for a
+    -- security group in EC2-Classic or a default VPC only. For a security
+    -- group in a nondefault VPC, use the security group ID.
+    --
+    -- For a referenced security group in another VPC, this value is not
+    -- returned if the referenced security group is deleted.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the security group.
+    groupId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of an AWS account.
+    --
+    -- For a referenced security group in another VPC, the account ID of the
+    -- referenced security group is returned in the response. If the referenced
+    -- security group is deleted, this value is not returned.
+    --
+    -- [EC2-Classic] Required when adding or removing rules that reference a
+    -- security group in another AWS account.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | The status of a VPC peering connection, if applicable.
+    peeringStatus :: Prelude.Maybe Prelude.Text,
+    -- | A description for the security group rule that references this user ID
+    -- group pair.
+    --
+    -- Constraints: Up to 255 characters in length. Allowed characters are a-z,
+    -- A-Z, 0-9, spaces, and ._-:\/()#,\@[]+=;{}!$*
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VPC for the referenced security group, if applicable.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserIdGroupPair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserIdGroupPair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uigpVPCPeeringConnectionId' - The ID of the VPC peering connection, if applicable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uigpGroupName' - The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a default VPC only. For a security group in a nondefault VPC, use the security group ID.  For a referenced security group in another VPC, this value is not returned if the referenced security group is deleted.
+-- 'vpcPeeringConnectionId', 'userIdGroupPair_vpcPeeringConnectionId' - The ID of the VPC peering connection, if applicable.
 --
--- * 'uigpGroupId' - The ID of the security group.
+-- 'groupName', 'userIdGroupPair_groupName' - The name of the security group. In a request, use this parameter for a
+-- security group in EC2-Classic or a default VPC only. For a security
+-- group in a nondefault VPC, use the security group ID.
 --
--- * 'uigpUserId' - The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced security group is returned in the response. If the referenced security group is deleted, this value is not returned. [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS account.
+-- For a referenced security group in another VPC, this value is not
+-- returned if the referenced security group is deleted.
 --
--- * 'uigpPeeringStatus' - The status of a VPC peering connection, if applicable.
+-- 'groupId', 'userIdGroupPair_groupId' - The ID of the security group.
 --
--- * 'uigpDescription' - A description for the security group rule that references this user ID group pair. Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*
+-- 'userId', 'userIdGroupPair_userId' - The ID of an AWS account.
 --
--- * 'uigpVPCId' - The ID of the VPC for the referenced security group, if applicable.
-userIdGroupPair ::
+-- For a referenced security group in another VPC, the account ID of the
+-- referenced security group is returned in the response. If the referenced
+-- security group is deleted, this value is not returned.
+--
+-- [EC2-Classic] Required when adding or removing rules that reference a
+-- security group in another AWS account.
+--
+-- 'peeringStatus', 'userIdGroupPair_peeringStatus' - The status of a VPC peering connection, if applicable.
+--
+-- 'description', 'userIdGroupPair_description' - A description for the security group rule that references this user ID
+-- group pair.
+--
+-- Constraints: Up to 255 characters in length. Allowed characters are a-z,
+-- A-Z, 0-9, spaces, and ._-:\/()#,\@[]+=;{}!$*
+--
+-- 'vpcId', 'userIdGroupPair_vpcId' - The ID of the VPC for the referenced security group, if applicable.
+newUserIdGroupPair ::
   UserIdGroupPair
-userIdGroupPair =
+newUserIdGroupPair =
   UserIdGroupPair'
-    { _uigpVPCPeeringConnectionId =
-        Nothing,
-      _uigpGroupName = Nothing,
-      _uigpGroupId = Nothing,
-      _uigpUserId = Nothing,
-      _uigpPeeringStatus = Nothing,
-      _uigpDescription = Nothing,
-      _uigpVPCId = Nothing
+    { vpcPeeringConnectionId =
+        Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      groupId = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      peeringStatus = Prelude.Nothing,
+      description = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
 
 -- | The ID of the VPC peering connection, if applicable.
-uigpVPCPeeringConnectionId :: Lens' UserIdGroupPair (Maybe Text)
-uigpVPCPeeringConnectionId = lens _uigpVPCPeeringConnectionId (\s a -> s {_uigpVPCPeeringConnectionId = a})
+userIdGroupPair_vpcPeeringConnectionId :: Lens.Lens' UserIdGroupPair (Prelude.Maybe Prelude.Text)
+userIdGroupPair_vpcPeeringConnectionId = Lens.lens (\UserIdGroupPair' {vpcPeeringConnectionId} -> vpcPeeringConnectionId) (\s@UserIdGroupPair' {} a -> s {vpcPeeringConnectionId = a} :: UserIdGroupPair)
 
--- | The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a default VPC only. For a security group in a nondefault VPC, use the security group ID.  For a referenced security group in another VPC, this value is not returned if the referenced security group is deleted.
-uigpGroupName :: Lens' UserIdGroupPair (Maybe Text)
-uigpGroupName = lens _uigpGroupName (\s a -> s {_uigpGroupName = a})
+-- | The name of the security group. In a request, use this parameter for a
+-- security group in EC2-Classic or a default VPC only. For a security
+-- group in a nondefault VPC, use the security group ID.
+--
+-- For a referenced security group in another VPC, this value is not
+-- returned if the referenced security group is deleted.
+userIdGroupPair_groupName :: Lens.Lens' UserIdGroupPair (Prelude.Maybe Prelude.Text)
+userIdGroupPair_groupName = Lens.lens (\UserIdGroupPair' {groupName} -> groupName) (\s@UserIdGroupPair' {} a -> s {groupName = a} :: UserIdGroupPair)
 
 -- | The ID of the security group.
-uigpGroupId :: Lens' UserIdGroupPair (Maybe Text)
-uigpGroupId = lens _uigpGroupId (\s a -> s {_uigpGroupId = a})
+userIdGroupPair_groupId :: Lens.Lens' UserIdGroupPair (Prelude.Maybe Prelude.Text)
+userIdGroupPair_groupId = Lens.lens (\UserIdGroupPair' {groupId} -> groupId) (\s@UserIdGroupPair' {} a -> s {groupId = a} :: UserIdGroupPair)
 
--- | The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced security group is returned in the response. If the referenced security group is deleted, this value is not returned. [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS account.
-uigpUserId :: Lens' UserIdGroupPair (Maybe Text)
-uigpUserId = lens _uigpUserId (\s a -> s {_uigpUserId = a})
+-- | The ID of an AWS account.
+--
+-- For a referenced security group in another VPC, the account ID of the
+-- referenced security group is returned in the response. If the referenced
+-- security group is deleted, this value is not returned.
+--
+-- [EC2-Classic] Required when adding or removing rules that reference a
+-- security group in another AWS account.
+userIdGroupPair_userId :: Lens.Lens' UserIdGroupPair (Prelude.Maybe Prelude.Text)
+userIdGroupPair_userId = Lens.lens (\UserIdGroupPair' {userId} -> userId) (\s@UserIdGroupPair' {} a -> s {userId = a} :: UserIdGroupPair)
 
 -- | The status of a VPC peering connection, if applicable.
-uigpPeeringStatus :: Lens' UserIdGroupPair (Maybe Text)
-uigpPeeringStatus = lens _uigpPeeringStatus (\s a -> s {_uigpPeeringStatus = a})
+userIdGroupPair_peeringStatus :: Lens.Lens' UserIdGroupPair (Prelude.Maybe Prelude.Text)
+userIdGroupPair_peeringStatus = Lens.lens (\UserIdGroupPair' {peeringStatus} -> peeringStatus) (\s@UserIdGroupPair' {} a -> s {peeringStatus = a} :: UserIdGroupPair)
 
--- | A description for the security group rule that references this user ID group pair. Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*
-uigpDescription :: Lens' UserIdGroupPair (Maybe Text)
-uigpDescription = lens _uigpDescription (\s a -> s {_uigpDescription = a})
+-- | A description for the security group rule that references this user ID
+-- group pair.
+--
+-- Constraints: Up to 255 characters in length. Allowed characters are a-z,
+-- A-Z, 0-9, spaces, and ._-:\/()#,\@[]+=;{}!$*
+userIdGroupPair_description :: Lens.Lens' UserIdGroupPair (Prelude.Maybe Prelude.Text)
+userIdGroupPair_description = Lens.lens (\UserIdGroupPair' {description} -> description) (\s@UserIdGroupPair' {} a -> s {description = a} :: UserIdGroupPair)
 
 -- | The ID of the VPC for the referenced security group, if applicable.
-uigpVPCId :: Lens' UserIdGroupPair (Maybe Text)
-uigpVPCId = lens _uigpVPCId (\s a -> s {_uigpVPCId = a})
+userIdGroupPair_vpcId :: Lens.Lens' UserIdGroupPair (Prelude.Maybe Prelude.Text)
+userIdGroupPair_vpcId = Lens.lens (\UserIdGroupPair' {vpcId} -> vpcId) (\s@UserIdGroupPair' {} a -> s {vpcId = a} :: UserIdGroupPair)
 
-instance FromXML UserIdGroupPair where
+instance Prelude.FromXML UserIdGroupPair where
   parseXML x =
     UserIdGroupPair'
-      <$> (x .@? "vpcPeeringConnectionId")
-      <*> (x .@? "groupName")
-      <*> (x .@? "groupId")
-      <*> (x .@? "userId")
-      <*> (x .@? "peeringStatus")
-      <*> (x .@? "description")
-      <*> (x .@? "vpcId")
+      Prelude.<$> (x Prelude..@? "vpcPeeringConnectionId")
+      Prelude.<*> (x Prelude..@? "groupName")
+      Prelude.<*> (x Prelude..@? "groupId")
+      Prelude.<*> (x Prelude..@? "userId")
+      Prelude.<*> (x Prelude..@? "peeringStatus")
+      Prelude.<*> (x Prelude..@? "description")
+      Prelude.<*> (x Prelude..@? "vpcId")
 
-instance Hashable UserIdGroupPair
+instance Prelude.Hashable UserIdGroupPair
 
-instance NFData UserIdGroupPair
+instance Prelude.NFData UserIdGroupPair
 
-instance ToQuery UserIdGroupPair where
+instance Prelude.ToQuery UserIdGroupPair where
   toQuery UserIdGroupPair' {..} =
-    mconcat
+    Prelude.mconcat
       [ "VpcPeeringConnectionId"
-          =: _uigpVPCPeeringConnectionId,
-        "GroupName" =: _uigpGroupName,
-        "GroupId" =: _uigpGroupId,
-        "UserId" =: _uigpUserId,
-        "PeeringStatus" =: _uigpPeeringStatus,
-        "Description" =: _uigpDescription,
-        "VpcId" =: _uigpVPCId
+          Prelude.=: vpcPeeringConnectionId,
+        "GroupName" Prelude.=: groupName,
+        "GroupId" Prelude.=: groupId,
+        "UserId" Prelude.=: userId,
+        "PeeringStatus" Prelude.=: peeringStatus,
+        "Description" Prelude.=: description,
+        "VpcId" Prelude.=: vpcId
       ]

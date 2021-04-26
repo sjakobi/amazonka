@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,168 +24,173 @@
 -- Rejects a transit gateway peering attachment request.
 module Network.AWS.EC2.RejectTransitGatewayPeeringAttachment
   ( -- * Creating a Request
-    rejectTransitGatewayPeeringAttachment,
-    RejectTransitGatewayPeeringAttachment,
+    RejectTransitGatewayPeeringAttachment (..),
+    newRejectTransitGatewayPeeringAttachment,
 
     -- * Request Lenses
-    rtgpaDryRun,
-    rtgpaTransitGatewayAttachmentId,
+    rejectTransitGatewayPeeringAttachment_dryRun,
+    rejectTransitGatewayPeeringAttachment_transitGatewayAttachmentId,
 
     -- * Destructuring the Response
-    rejectTransitGatewayPeeringAttachmentResponse,
-    RejectTransitGatewayPeeringAttachmentResponse,
+    RejectTransitGatewayPeeringAttachmentResponse (..),
+    newRejectTransitGatewayPeeringAttachmentResponse,
 
     -- * Response Lenses
-    rtgparrsTransitGatewayPeeringAttachment,
-    rtgparrsResponseStatus,
+    rejectTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment,
+    rejectTransitGatewayPeeringAttachmentResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayPeeringAttachment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rejectTransitGatewayPeeringAttachment' smart constructor.
+-- | /See:/ 'newRejectTransitGatewayPeeringAttachment' smart constructor.
 data RejectTransitGatewayPeeringAttachment = RejectTransitGatewayPeeringAttachment'
-  { _rtgpaDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _rtgpaTransitGatewayAttachmentId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the transit gateway peering attachment.
+    transitGatewayAttachmentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectTransitGatewayPeeringAttachment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectTransitGatewayPeeringAttachment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtgpaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtgpaTransitGatewayAttachmentId' - The ID of the transit gateway peering attachment.
-rejectTransitGatewayPeeringAttachment ::
-  -- | 'rtgpaTransitGatewayAttachmentId'
-  Text ->
+-- 'dryRun', 'rejectTransitGatewayPeeringAttachment_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'transitGatewayAttachmentId', 'rejectTransitGatewayPeeringAttachment_transitGatewayAttachmentId' - The ID of the transit gateway peering attachment.
+newRejectTransitGatewayPeeringAttachment ::
+  -- | 'transitGatewayAttachmentId'
+  Prelude.Text ->
   RejectTransitGatewayPeeringAttachment
-rejectTransitGatewayPeeringAttachment
+newRejectTransitGatewayPeeringAttachment
   pTransitGatewayAttachmentId_ =
     RejectTransitGatewayPeeringAttachment'
-      { _rtgpaDryRun =
-          Nothing,
-        _rtgpaTransitGatewayAttachmentId =
+      { dryRun =
+          Prelude.Nothing,
+        transitGatewayAttachmentId =
           pTransitGatewayAttachmentId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rtgpaDryRun :: Lens' RejectTransitGatewayPeeringAttachment (Maybe Bool)
-rtgpaDryRun = lens _rtgpaDryRun (\s a -> s {_rtgpaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+rejectTransitGatewayPeeringAttachment_dryRun :: Lens.Lens' RejectTransitGatewayPeeringAttachment (Prelude.Maybe Prelude.Bool)
+rejectTransitGatewayPeeringAttachment_dryRun = Lens.lens (\RejectTransitGatewayPeeringAttachment' {dryRun} -> dryRun) (\s@RejectTransitGatewayPeeringAttachment' {} a -> s {dryRun = a} :: RejectTransitGatewayPeeringAttachment)
 
 -- | The ID of the transit gateway peering attachment.
-rtgpaTransitGatewayAttachmentId :: Lens' RejectTransitGatewayPeeringAttachment Text
-rtgpaTransitGatewayAttachmentId = lens _rtgpaTransitGatewayAttachmentId (\s a -> s {_rtgpaTransitGatewayAttachmentId = a})
+rejectTransitGatewayPeeringAttachment_transitGatewayAttachmentId :: Lens.Lens' RejectTransitGatewayPeeringAttachment Prelude.Text
+rejectTransitGatewayPeeringAttachment_transitGatewayAttachmentId = Lens.lens (\RejectTransitGatewayPeeringAttachment' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@RejectTransitGatewayPeeringAttachment' {} a -> s {transitGatewayAttachmentId = a} :: RejectTransitGatewayPeeringAttachment)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     RejectTransitGatewayPeeringAttachment
   where
   type
     Rs RejectTransitGatewayPeeringAttachment =
       RejectTransitGatewayPeeringAttachmentResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           RejectTransitGatewayPeeringAttachmentResponse'
-            <$> (x .@? "transitGatewayPeeringAttachment")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayPeeringAttachment")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     RejectTransitGatewayPeeringAttachment
 
-instance NFData RejectTransitGatewayPeeringAttachment
+instance
+  Prelude.NFData
+    RejectTransitGatewayPeeringAttachment
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     RejectTransitGatewayPeeringAttachment
   where
-  toHeaders = const mempty
-
-instance ToPath RejectTransitGatewayPeeringAttachment where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    RejectTransitGatewayPeeringAttachment
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     RejectTransitGatewayPeeringAttachment
   where
   toQuery RejectTransitGatewayPeeringAttachment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "RejectTransitGatewayPeeringAttachment" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _rtgpaDryRun,
+          Prelude.=: ( "RejectTransitGatewayPeeringAttachment" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "TransitGatewayAttachmentId"
-          =: _rtgpaTransitGatewayAttachmentId
+          Prelude.=: transitGatewayAttachmentId
       ]
 
--- | /See:/ 'rejectTransitGatewayPeeringAttachmentResponse' smart constructor.
+-- | /See:/ 'newRejectTransitGatewayPeeringAttachmentResponse' smart constructor.
 data RejectTransitGatewayPeeringAttachmentResponse = RejectTransitGatewayPeeringAttachmentResponse'
-  { _rtgparrsTransitGatewayPeeringAttachment ::
-      !( Maybe
-           TransitGatewayPeeringAttachment
-       ),
-    _rtgparrsResponseStatus ::
-      !Int
+  { -- | The transit gateway peering attachment.
+    transitGatewayPeeringAttachment :: Prelude.Maybe TransitGatewayPeeringAttachment,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectTransitGatewayPeeringAttachmentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectTransitGatewayPeeringAttachmentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtgparrsTransitGatewayPeeringAttachment' - The transit gateway peering attachment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtgparrsResponseStatus' - -- | The response status code.
-rejectTransitGatewayPeeringAttachmentResponse ::
-  -- | 'rtgparrsResponseStatus'
-  Int ->
+-- 'transitGatewayPeeringAttachment', 'rejectTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment' - The transit gateway peering attachment.
+--
+-- 'httpStatus', 'rejectTransitGatewayPeeringAttachmentResponse_httpStatus' - The response's http status code.
+newRejectTransitGatewayPeeringAttachmentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RejectTransitGatewayPeeringAttachmentResponse
-rejectTransitGatewayPeeringAttachmentResponse
-  pResponseStatus_ =
+newRejectTransitGatewayPeeringAttachmentResponse
+  pHttpStatus_ =
     RejectTransitGatewayPeeringAttachmentResponse'
-      { _rtgparrsTransitGatewayPeeringAttachment =
-          Nothing,
-        _rtgparrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayPeeringAttachment =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The transit gateway peering attachment.
-rtgparrsTransitGatewayPeeringAttachment :: Lens' RejectTransitGatewayPeeringAttachmentResponse (Maybe TransitGatewayPeeringAttachment)
-rtgparrsTransitGatewayPeeringAttachment = lens _rtgparrsTransitGatewayPeeringAttachment (\s a -> s {_rtgparrsTransitGatewayPeeringAttachment = a})
+rejectTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment :: Lens.Lens' RejectTransitGatewayPeeringAttachmentResponse (Prelude.Maybe TransitGatewayPeeringAttachment)
+rejectTransitGatewayPeeringAttachmentResponse_transitGatewayPeeringAttachment = Lens.lens (\RejectTransitGatewayPeeringAttachmentResponse' {transitGatewayPeeringAttachment} -> transitGatewayPeeringAttachment) (\s@RejectTransitGatewayPeeringAttachmentResponse' {} a -> s {transitGatewayPeeringAttachment = a} :: RejectTransitGatewayPeeringAttachmentResponse)
 
--- | -- | The response status code.
-rtgparrsResponseStatus :: Lens' RejectTransitGatewayPeeringAttachmentResponse Int
-rtgparrsResponseStatus = lens _rtgparrsResponseStatus (\s a -> s {_rtgparrsResponseStatus = a})
+-- | The response's http status code.
+rejectTransitGatewayPeeringAttachmentResponse_httpStatus :: Lens.Lens' RejectTransitGatewayPeeringAttachmentResponse Prelude.Int
+rejectTransitGatewayPeeringAttachmentResponse_httpStatus = Lens.lens (\RejectTransitGatewayPeeringAttachmentResponse' {httpStatus} -> httpStatus) (\s@RejectTransitGatewayPeeringAttachmentResponse' {} a -> s {httpStatus = a} :: RejectTransitGatewayPeeringAttachmentResponse)
 
 instance
-  NFData
+  Prelude.NFData
     RejectTransitGatewayPeeringAttachmentResponse

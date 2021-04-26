@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the route table associated with a given subnet, internet gateway, or virtual private gateway in a VPC. After the operation completes, the subnet or gateway uses the routes in the new route table. For more information about route tables, see <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables> in the /Amazon Virtual Private Cloud User Guide/ .
+-- Changes the route table associated with a given subnet, internet
+-- gateway, or virtual private gateway in a VPC. After the operation
+-- completes, the subnet or gateway uses the routes in the new route table.
+-- For more information about route tables, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html Route Tables>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 --
---
--- You can also use this operation to change which table is the main route table in the VPC. Specify the main route table's association ID and the route table ID of the new main route table.
+-- You can also use this operation to change which table is the main route
+-- table in the VPC. Specify the main route table\'s association ID and the
+-- route table ID of the new main route table.
 module Network.AWS.EC2.ReplaceRouteTableAssociation
   ( -- * Creating a Request
-    replaceRouteTableAssociation,
-    ReplaceRouteTableAssociation,
+    ReplaceRouteTableAssociation (..),
+    newReplaceRouteTableAssociation,
 
     -- * Request Lenses
-    rrtaDryRun,
-    rrtaAssociationId,
-    rrtaRouteTableId,
+    replaceRouteTableAssociation_dryRun,
+    replaceRouteTableAssociation_associationId,
+    replaceRouteTableAssociation_routeTableId,
 
     -- * Destructuring the Response
-    replaceRouteTableAssociationResponse,
-    ReplaceRouteTableAssociationResponse,
+    ReplaceRouteTableAssociationResponse (..),
+    newReplaceRouteTableAssociationResponse,
 
     -- * Response Lenses
-    rrtarrsAssociationState,
-    rrtarrsNewAssociationId,
-    rrtarrsResponseStatus,
+    replaceRouteTableAssociationResponse_associationState,
+    replaceRouteTableAssociationResponse_newAssociationId,
+    replaceRouteTableAssociationResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.RouteTableAssociationState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'replaceRouteTableAssociation' smart constructor.
+-- | /See:/ 'newReplaceRouteTableAssociation' smart constructor.
 data ReplaceRouteTableAssociation = ReplaceRouteTableAssociation'
-  { _rrtaDryRun ::
-      !(Maybe Bool),
-    _rrtaAssociationId ::
-      !Text,
-    _rrtaRouteTableId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The association ID.
+    associationId :: Prelude.Text,
+    -- | The ID of the new route table to associate with the subnet.
+    routeTableId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplaceRouteTableAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplaceRouteTableAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrtaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrtaAssociationId' - The association ID.
+-- 'dryRun', 'replaceRouteTableAssociation_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'rrtaRouteTableId' - The ID of the new route table to associate with the subnet.
-replaceRouteTableAssociation ::
-  -- | 'rrtaAssociationId'
-  Text ->
-  -- | 'rrtaRouteTableId'
-  Text ->
+-- 'associationId', 'replaceRouteTableAssociation_associationId' - The association ID.
+--
+-- 'routeTableId', 'replaceRouteTableAssociation_routeTableId' - The ID of the new route table to associate with the subnet.
+newReplaceRouteTableAssociation ::
+  -- | 'associationId'
+  Prelude.Text ->
+  -- | 'routeTableId'
+  Prelude.Text ->
   ReplaceRouteTableAssociation
-replaceRouteTableAssociation
+newReplaceRouteTableAssociation
   pAssociationId_
   pRouteTableId_ =
     ReplaceRouteTableAssociation'
-      { _rrtaDryRun =
-          Nothing,
-        _rrtaAssociationId = pAssociationId_,
-        _rrtaRouteTableId = pRouteTableId_
+      { dryRun =
+          Prelude.Nothing,
+        associationId = pAssociationId_,
+        routeTableId = pRouteTableId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rrtaDryRun :: Lens' ReplaceRouteTableAssociation (Maybe Bool)
-rrtaDryRun = lens _rrtaDryRun (\s a -> s {_rrtaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+replaceRouteTableAssociation_dryRun :: Lens.Lens' ReplaceRouteTableAssociation (Prelude.Maybe Prelude.Bool)
+replaceRouteTableAssociation_dryRun = Lens.lens (\ReplaceRouteTableAssociation' {dryRun} -> dryRun) (\s@ReplaceRouteTableAssociation' {} a -> s {dryRun = a} :: ReplaceRouteTableAssociation)
 
 -- | The association ID.
-rrtaAssociationId :: Lens' ReplaceRouteTableAssociation Text
-rrtaAssociationId = lens _rrtaAssociationId (\s a -> s {_rrtaAssociationId = a})
+replaceRouteTableAssociation_associationId :: Lens.Lens' ReplaceRouteTableAssociation Prelude.Text
+replaceRouteTableAssociation_associationId = Lens.lens (\ReplaceRouteTableAssociation' {associationId} -> associationId) (\s@ReplaceRouteTableAssociation' {} a -> s {associationId = a} :: ReplaceRouteTableAssociation)
 
 -- | The ID of the new route table to associate with the subnet.
-rrtaRouteTableId :: Lens' ReplaceRouteTableAssociation Text
-rrtaRouteTableId = lens _rrtaRouteTableId (\s a -> s {_rrtaRouteTableId = a})
+replaceRouteTableAssociation_routeTableId :: Lens.Lens' ReplaceRouteTableAssociation Prelude.Text
+replaceRouteTableAssociation_routeTableId = Lens.lens (\ReplaceRouteTableAssociation' {routeTableId} -> routeTableId) (\s@ReplaceRouteTableAssociation' {} a -> s {routeTableId = a} :: ReplaceRouteTableAssociation)
 
-instance AWSRequest ReplaceRouteTableAssociation where
+instance
+  Prelude.AWSRequest
+    ReplaceRouteTableAssociation
+  where
   type
     Rs ReplaceRouteTableAssociation =
       ReplaceRouteTableAssociationResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ReplaceRouteTableAssociationResponse'
-            <$> (x .@? "associationState")
-            <*> (x .@? "newAssociationId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "associationState")
+            Prelude.<*> (x Prelude..@? "newAssociationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ReplaceRouteTableAssociation
+instance
+  Prelude.Hashable
+    ReplaceRouteTableAssociation
 
-instance NFData ReplaceRouteTableAssociation
+instance Prelude.NFData ReplaceRouteTableAssociation
 
-instance ToHeaders ReplaceRouteTableAssociation where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ReplaceRouteTableAssociation
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ReplaceRouteTableAssociation where
-  toPath = const "/"
+instance Prelude.ToPath ReplaceRouteTableAssociation where
+  toPath = Prelude.const "/"
 
-instance ToQuery ReplaceRouteTableAssociation where
+instance Prelude.ToQuery ReplaceRouteTableAssociation where
   toQuery ReplaceRouteTableAssociation' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ReplaceRouteTableAssociation" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _rrtaDryRun,
-        "AssociationId" =: _rrtaAssociationId,
-        "RouteTableId" =: _rrtaRouteTableId
+          Prelude.=: ( "ReplaceRouteTableAssociation" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "AssociationId" Prelude.=: associationId,
+        "RouteTableId" Prelude.=: routeTableId
       ]
 
--- | /See:/ 'replaceRouteTableAssociationResponse' smart constructor.
+-- | /See:/ 'newReplaceRouteTableAssociationResponse' smart constructor.
 data ReplaceRouteTableAssociationResponse = ReplaceRouteTableAssociationResponse'
-  { _rrtarrsAssociationState ::
-      !( Maybe
-           RouteTableAssociationState
-       ),
-    _rrtarrsNewAssociationId ::
-      !( Maybe
-           Text
-       ),
-    _rrtarrsResponseStatus ::
-      !Int
+  { -- | The state of the association.
+    associationState :: Prelude.Maybe RouteTableAssociationState,
+    -- | The ID of the new association.
+    newAssociationId' :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplaceRouteTableAssociationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplaceRouteTableAssociationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrtarrsAssociationState' - The state of the association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrtarrsNewAssociationId' - The ID of the new association.
+-- 'associationState', 'replaceRouteTableAssociationResponse_associationState' - The state of the association.
 --
--- * 'rrtarrsResponseStatus' - -- | The response status code.
-replaceRouteTableAssociationResponse ::
-  -- | 'rrtarrsResponseStatus'
-  Int ->
+-- 'newAssociationId'', 'replaceRouteTableAssociationResponse_newAssociationId' - The ID of the new association.
+--
+-- 'httpStatus', 'replaceRouteTableAssociationResponse_httpStatus' - The response's http status code.
+newReplaceRouteTableAssociationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ReplaceRouteTableAssociationResponse
-replaceRouteTableAssociationResponse pResponseStatus_ =
+newReplaceRouteTableAssociationResponse pHttpStatus_ =
   ReplaceRouteTableAssociationResponse'
-    { _rrtarrsAssociationState =
-        Nothing,
-      _rrtarrsNewAssociationId = Nothing,
-      _rrtarrsResponseStatus =
-        pResponseStatus_
+    { associationState =
+        Prelude.Nothing,
+      newAssociationId' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The state of the association.
-rrtarrsAssociationState :: Lens' ReplaceRouteTableAssociationResponse (Maybe RouteTableAssociationState)
-rrtarrsAssociationState = lens _rrtarrsAssociationState (\s a -> s {_rrtarrsAssociationState = a})
+replaceRouteTableAssociationResponse_associationState :: Lens.Lens' ReplaceRouteTableAssociationResponse (Prelude.Maybe RouteTableAssociationState)
+replaceRouteTableAssociationResponse_associationState = Lens.lens (\ReplaceRouteTableAssociationResponse' {associationState} -> associationState) (\s@ReplaceRouteTableAssociationResponse' {} a -> s {associationState = a} :: ReplaceRouteTableAssociationResponse)
 
 -- | The ID of the new association.
-rrtarrsNewAssociationId :: Lens' ReplaceRouteTableAssociationResponse (Maybe Text)
-rrtarrsNewAssociationId = lens _rrtarrsNewAssociationId (\s a -> s {_rrtarrsNewAssociationId = a})
+replaceRouteTableAssociationResponse_newAssociationId :: Lens.Lens' ReplaceRouteTableAssociationResponse (Prelude.Maybe Prelude.Text)
+replaceRouteTableAssociationResponse_newAssociationId = Lens.lens (\ReplaceRouteTableAssociationResponse' {newAssociationId'} -> newAssociationId') (\s@ReplaceRouteTableAssociationResponse' {} a -> s {newAssociationId' = a} :: ReplaceRouteTableAssociationResponse)
 
--- | -- | The response status code.
-rrtarrsResponseStatus :: Lens' ReplaceRouteTableAssociationResponse Int
-rrtarrsResponseStatus = lens _rrtarrsResponseStatus (\s a -> s {_rrtarrsResponseStatus = a})
+-- | The response's http status code.
+replaceRouteTableAssociationResponse_httpStatus :: Lens.Lens' ReplaceRouteTableAssociationResponse Prelude.Int
+replaceRouteTableAssociationResponse_httpStatus = Lens.lens (\ReplaceRouteTableAssociationResponse' {httpStatus} -> httpStatus) (\s@ReplaceRouteTableAssociationResponse' {} a -> s {httpStatus = a} :: ReplaceRouteTableAssociationResponse)
 
-instance NFData ReplaceRouteTableAssociationResponse
+instance
+  Prelude.NFData
+    ReplaceRouteTableAssociationResponse

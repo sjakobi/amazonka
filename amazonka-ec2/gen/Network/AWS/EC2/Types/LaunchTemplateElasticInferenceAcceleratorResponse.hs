@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,70 @@
 module Network.AWS.EC2.Types.LaunchTemplateElasticInferenceAcceleratorResponse where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an elastic inference accelerator.
 --
---
---
--- /See:/ 'launchTemplateElasticInferenceAcceleratorResponse' smart constructor.
+-- /See:/ 'newLaunchTemplateElasticInferenceAcceleratorResponse' smart constructor.
 data LaunchTemplateElasticInferenceAcceleratorResponse = LaunchTemplateElasticInferenceAcceleratorResponse'
-  { _lteiarCount ::
-      !( Maybe
-           Int
-       ),
-    _lteiarType ::
-      !( Maybe
-           Text
-       )
+  { -- | The number of elastic inference accelerators to attach to the instance.
+    --
+    -- Default: 1
+    count :: Prelude.Maybe Prelude.Int,
+    -- | The type of elastic inference accelerator. The possible values are
+    -- eia1.medium, eia1.large, and eia1.xlarge.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateElasticInferenceAcceleratorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateElasticInferenceAcceleratorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lteiarCount' - The number of elastic inference accelerators to attach to the instance.  Default: 1
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lteiarType' - The type of elastic inference accelerator. The possible values are eia1.medium, eia1.large, and eia1.xlarge.
-launchTemplateElasticInferenceAcceleratorResponse ::
+-- 'count', 'launchTemplateElasticInferenceAcceleratorResponse_count' - The number of elastic inference accelerators to attach to the instance.
+--
+-- Default: 1
+--
+-- 'type'', 'launchTemplateElasticInferenceAcceleratorResponse_type' - The type of elastic inference accelerator. The possible values are
+-- eia1.medium, eia1.large, and eia1.xlarge.
+newLaunchTemplateElasticInferenceAcceleratorResponse ::
   LaunchTemplateElasticInferenceAcceleratorResponse
-launchTemplateElasticInferenceAcceleratorResponse =
+newLaunchTemplateElasticInferenceAcceleratorResponse =
   LaunchTemplateElasticInferenceAcceleratorResponse'
-    { _lteiarCount =
-        Nothing,
-      _lteiarType = Nothing
+    { count =
+        Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The number of elastic inference accelerators to attach to the instance.  Default: 1
-lteiarCount :: Lens' LaunchTemplateElasticInferenceAcceleratorResponse (Maybe Int)
-lteiarCount = lens _lteiarCount (\s a -> s {_lteiarCount = a})
+-- | The number of elastic inference accelerators to attach to the instance.
+--
+-- Default: 1
+launchTemplateElasticInferenceAcceleratorResponse_count :: Lens.Lens' LaunchTemplateElasticInferenceAcceleratorResponse (Prelude.Maybe Prelude.Int)
+launchTemplateElasticInferenceAcceleratorResponse_count = Lens.lens (\LaunchTemplateElasticInferenceAcceleratorResponse' {count} -> count) (\s@LaunchTemplateElasticInferenceAcceleratorResponse' {} a -> s {count = a} :: LaunchTemplateElasticInferenceAcceleratorResponse)
 
--- | The type of elastic inference accelerator. The possible values are eia1.medium, eia1.large, and eia1.xlarge.
-lteiarType :: Lens' LaunchTemplateElasticInferenceAcceleratorResponse (Maybe Text)
-lteiarType = lens _lteiarType (\s a -> s {_lteiarType = a})
+-- | The type of elastic inference accelerator. The possible values are
+-- eia1.medium, eia1.large, and eia1.xlarge.
+launchTemplateElasticInferenceAcceleratorResponse_type :: Lens.Lens' LaunchTemplateElasticInferenceAcceleratorResponse (Prelude.Maybe Prelude.Text)
+launchTemplateElasticInferenceAcceleratorResponse_type = Lens.lens (\LaunchTemplateElasticInferenceAcceleratorResponse' {type'} -> type') (\s@LaunchTemplateElasticInferenceAcceleratorResponse' {} a -> s {type' = a} :: LaunchTemplateElasticInferenceAcceleratorResponse)
 
 instance
-  FromXML
+  Prelude.FromXML
     LaunchTemplateElasticInferenceAcceleratorResponse
   where
   parseXML x =
     LaunchTemplateElasticInferenceAcceleratorResponse'
-      <$> (x .@? "count") <*> (x .@? "type")
+      Prelude.<$> (x Prelude..@? "count")
+        Prelude.<*> (x Prelude..@? "type")
 
 instance
-  Hashable
+  Prelude.Hashable
     LaunchTemplateElasticInferenceAcceleratorResponse
 
 instance
-  NFData
+  Prelude.NFData
     LaunchTemplateElasticInferenceAcceleratorResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates a CIDR block from a subnet. Currently, you can disassociate an IPv6 CIDR block only. You must detach or delete all gateways and resources that are associated with the CIDR block before you can disassociate it.
+-- Disassociates a CIDR block from a subnet. Currently, you can
+-- disassociate an IPv6 CIDR block only. You must detach or delete all
+-- gateways and resources that are associated with the CIDR block before
+-- you can disassociate it.
 module Network.AWS.EC2.DisassociateSubnetCidrBlock
   ( -- * Creating a Request
-    disassociateSubnetCidrBlock,
-    DisassociateSubnetCidrBlock,
+    DisassociateSubnetCidrBlock (..),
+    newDisassociateSubnetCidrBlock,
 
     -- * Request Lenses
-    dscbAssociationId,
+    disassociateSubnetCidrBlock_associationId,
 
     -- * Destructuring the Response
-    disassociateSubnetCidrBlockResponse,
-    DisassociateSubnetCidrBlockResponse,
+    DisassociateSubnetCidrBlockResponse (..),
+    newDisassociateSubnetCidrBlockResponse,
 
     -- * Response Lenses
-    dscbrrsIPv6CidrBlockAssociation,
-    dscbrrsSubnetId,
-    dscbrrsResponseStatus,
+    disassociateSubnetCidrBlockResponse_ipv6CidrBlockAssociation,
+    disassociateSubnetCidrBlockResponse_subnetId,
+    disassociateSubnetCidrBlockResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.SubnetIpv6CidrBlockAssociation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateSubnetCidrBlock' smart constructor.
-newtype DisassociateSubnetCidrBlock = DisassociateSubnetCidrBlock'
-  { _dscbAssociationId ::
-      Text
+-- | /See:/ 'newDisassociateSubnetCidrBlock' smart constructor.
+data DisassociateSubnetCidrBlock = DisassociateSubnetCidrBlock'
+  { -- | The association ID for the CIDR block.
+    associationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateSubnetCidrBlock' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateSubnetCidrBlock' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscbAssociationId' - The association ID for the CIDR block.
-disassociateSubnetCidrBlock ::
-  -- | 'dscbAssociationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'associationId', 'disassociateSubnetCidrBlock_associationId' - The association ID for the CIDR block.
+newDisassociateSubnetCidrBlock ::
+  -- | 'associationId'
+  Prelude.Text ->
   DisassociateSubnetCidrBlock
-disassociateSubnetCidrBlock pAssociationId_ =
+newDisassociateSubnetCidrBlock pAssociationId_ =
   DisassociateSubnetCidrBlock'
-    { _dscbAssociationId =
+    { associationId =
         pAssociationId_
     }
 
 -- | The association ID for the CIDR block.
-dscbAssociationId :: Lens' DisassociateSubnetCidrBlock Text
-dscbAssociationId = lens _dscbAssociationId (\s a -> s {_dscbAssociationId = a})
+disassociateSubnetCidrBlock_associationId :: Lens.Lens' DisassociateSubnetCidrBlock Prelude.Text
+disassociateSubnetCidrBlock_associationId = Lens.lens (\DisassociateSubnetCidrBlock' {associationId} -> associationId) (\s@DisassociateSubnetCidrBlock' {} a -> s {associationId = a} :: DisassociateSubnetCidrBlock)
 
-instance AWSRequest DisassociateSubnetCidrBlock where
+instance
+  Prelude.AWSRequest
+    DisassociateSubnetCidrBlock
+  where
   type
     Rs DisassociateSubnetCidrBlock =
       DisassociateSubnetCidrBlockResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DisassociateSubnetCidrBlockResponse'
-            <$> (x .@? "ipv6CidrBlockAssociation")
-            <*> (x .@? "subnetId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ipv6CidrBlockAssociation")
+            Prelude.<*> (x Prelude..@? "subnetId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateSubnetCidrBlock
+instance Prelude.Hashable DisassociateSubnetCidrBlock
 
-instance NFData DisassociateSubnetCidrBlock
+instance Prelude.NFData DisassociateSubnetCidrBlock
 
-instance ToHeaders DisassociateSubnetCidrBlock where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DisassociateSubnetCidrBlock
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DisassociateSubnetCidrBlock where
-  toPath = const "/"
+instance Prelude.ToPath DisassociateSubnetCidrBlock where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateSubnetCidrBlock where
+instance Prelude.ToQuery DisassociateSubnetCidrBlock where
   toQuery DisassociateSubnetCidrBlock' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DisassociateSubnetCidrBlock" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "AssociationId" =: _dscbAssociationId
+          Prelude.=: ( "DisassociateSubnetCidrBlock" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "AssociationId" Prelude.=: associationId
       ]
 
--- | /See:/ 'disassociateSubnetCidrBlockResponse' smart constructor.
+-- | /See:/ 'newDisassociateSubnetCidrBlockResponse' smart constructor.
 data DisassociateSubnetCidrBlockResponse = DisassociateSubnetCidrBlockResponse'
-  { _dscbrrsIPv6CidrBlockAssociation ::
-      !( Maybe
-           SubnetIPv6CidrBlockAssociation
-       ),
-    _dscbrrsSubnetId ::
-      !( Maybe
-           Text
-       ),
-    _dscbrrsResponseStatus ::
-      !Int
+  { -- | Information about the IPv6 CIDR block association.
+    ipv6CidrBlockAssociation :: Prelude.Maybe SubnetIpv6CidrBlockAssociation,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateSubnetCidrBlockResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateSubnetCidrBlockResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscbrrsIPv6CidrBlockAssociation' - Information about the IPv6 CIDR block association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscbrrsSubnetId' - The ID of the subnet.
+-- 'ipv6CidrBlockAssociation', 'disassociateSubnetCidrBlockResponse_ipv6CidrBlockAssociation' - Information about the IPv6 CIDR block association.
 --
--- * 'dscbrrsResponseStatus' - -- | The response status code.
-disassociateSubnetCidrBlockResponse ::
-  -- | 'dscbrrsResponseStatus'
-  Int ->
+-- 'subnetId', 'disassociateSubnetCidrBlockResponse_subnetId' - The ID of the subnet.
+--
+-- 'httpStatus', 'disassociateSubnetCidrBlockResponse_httpStatus' - The response's http status code.
+newDisassociateSubnetCidrBlockResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateSubnetCidrBlockResponse
-disassociateSubnetCidrBlockResponse pResponseStatus_ =
+newDisassociateSubnetCidrBlockResponse pHttpStatus_ =
   DisassociateSubnetCidrBlockResponse'
-    { _dscbrrsIPv6CidrBlockAssociation =
-        Nothing,
-      _dscbrrsSubnetId = Nothing,
-      _dscbrrsResponseStatus =
-        pResponseStatus_
+    { ipv6CidrBlockAssociation =
+        Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the IPv6 CIDR block association.
-dscbrrsIPv6CidrBlockAssociation :: Lens' DisassociateSubnetCidrBlockResponse (Maybe SubnetIPv6CidrBlockAssociation)
-dscbrrsIPv6CidrBlockAssociation = lens _dscbrrsIPv6CidrBlockAssociation (\s a -> s {_dscbrrsIPv6CidrBlockAssociation = a})
+disassociateSubnetCidrBlockResponse_ipv6CidrBlockAssociation :: Lens.Lens' DisassociateSubnetCidrBlockResponse (Prelude.Maybe SubnetIpv6CidrBlockAssociation)
+disassociateSubnetCidrBlockResponse_ipv6CidrBlockAssociation = Lens.lens (\DisassociateSubnetCidrBlockResponse' {ipv6CidrBlockAssociation} -> ipv6CidrBlockAssociation) (\s@DisassociateSubnetCidrBlockResponse' {} a -> s {ipv6CidrBlockAssociation = a} :: DisassociateSubnetCidrBlockResponse)
 
 -- | The ID of the subnet.
-dscbrrsSubnetId :: Lens' DisassociateSubnetCidrBlockResponse (Maybe Text)
-dscbrrsSubnetId = lens _dscbrrsSubnetId (\s a -> s {_dscbrrsSubnetId = a})
+disassociateSubnetCidrBlockResponse_subnetId :: Lens.Lens' DisassociateSubnetCidrBlockResponse (Prelude.Maybe Prelude.Text)
+disassociateSubnetCidrBlockResponse_subnetId = Lens.lens (\DisassociateSubnetCidrBlockResponse' {subnetId} -> subnetId) (\s@DisassociateSubnetCidrBlockResponse' {} a -> s {subnetId = a} :: DisassociateSubnetCidrBlockResponse)
 
--- | -- | The response status code.
-dscbrrsResponseStatus :: Lens' DisassociateSubnetCidrBlockResponse Int
-dscbrrsResponseStatus = lens _dscbrrsResponseStatus (\s a -> s {_dscbrrsResponseStatus = a})
+-- | The response's http status code.
+disassociateSubnetCidrBlockResponse_httpStatus :: Lens.Lens' DisassociateSubnetCidrBlockResponse Prelude.Int
+disassociateSubnetCidrBlockResponse_httpStatus = Lens.lens (\DisassociateSubnetCidrBlockResponse' {httpStatus} -> httpStatus) (\s@DisassociateSubnetCidrBlockResponse' {} a -> s {httpStatus = a} :: DisassociateSubnetCidrBlockResponse)
 
-instance NFData DisassociateSubnetCidrBlockResponse
+instance
+  Prelude.NFData
+    DisassociateSubnetCidrBlockResponse

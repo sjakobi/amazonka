@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.InstanceHealthStatus
   ( InstanceHealthStatus
       ( ..,
-        Healthy,
-        Unhealthy
+        InstanceHealthStatusHealthy,
+        InstanceHealthStatusUnhealthy
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceHealthStatus
-  = InstanceHealthStatus'
-      ( CI
-          Text
-      )
+newtype InstanceHealthStatus = InstanceHealthStatus'
+  { fromInstanceHealthStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Healthy :: InstanceHealthStatus
-pattern Healthy = InstanceHealthStatus' "healthy"
+pattern InstanceHealthStatusHealthy :: InstanceHealthStatus
+pattern InstanceHealthStatusHealthy = InstanceHealthStatus' "healthy"
 
-pattern Unhealthy :: InstanceHealthStatus
-pattern Unhealthy = InstanceHealthStatus' "unhealthy"
+pattern InstanceHealthStatusUnhealthy :: InstanceHealthStatus
+pattern InstanceHealthStatusUnhealthy = InstanceHealthStatus' "unhealthy"
 
 {-# COMPLETE
-  Healthy,
-  Unhealthy,
+  InstanceHealthStatusHealthy,
+  InstanceHealthStatusUnhealthy,
   InstanceHealthStatus'
   #-}
 
-instance FromText InstanceHealthStatus where
-  parser = (InstanceHealthStatus' . mk) <$> takeText
+instance Prelude.FromText InstanceHealthStatus where
+  parser = InstanceHealthStatus' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceHealthStatus where
-  toText (InstanceHealthStatus' ci) = original ci
+instance Prelude.ToText InstanceHealthStatus where
+  toText (InstanceHealthStatus' x) = x
 
-instance Hashable InstanceHealthStatus
+instance Prelude.Hashable InstanceHealthStatus
 
-instance NFData InstanceHealthStatus
+instance Prelude.NFData InstanceHealthStatus
 
-instance ToByteString InstanceHealthStatus
+instance Prelude.ToByteString InstanceHealthStatus
 
-instance ToQuery InstanceHealthStatus
+instance Prelude.ToQuery InstanceHealthStatus
 
-instance ToHeader InstanceHealthStatus
+instance Prelude.ToHeader InstanceHealthStatus
 
-instance FromXML InstanceHealthStatus where
-  parseXML = parseXMLText "InstanceHealthStatus"
+instance Prelude.FromXML InstanceHealthStatus where
+  parseXML = Prelude.parseXMLText "InstanceHealthStatus"

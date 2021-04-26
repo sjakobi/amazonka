@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.EC2.Types.SpotInstanceState
   ( SpotInstanceState
       ( ..,
-        SISActive,
-        SISCancelled,
-        SISClosed,
-        SISFailed,
-        SISOpen
+        SpotInstanceStateActive,
+        SpotInstanceStateCancelled,
+        SpotInstanceStateClosed,
+        SpotInstanceStateFailed,
+        SpotInstanceStateOpen
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SpotInstanceState = SpotInstanceState' (CI Text)
+newtype SpotInstanceState = SpotInstanceState'
+  { fromSpotInstanceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SISActive :: SpotInstanceState
-pattern SISActive = SpotInstanceState' "active"
+pattern SpotInstanceStateActive :: SpotInstanceState
+pattern SpotInstanceStateActive = SpotInstanceState' "active"
 
-pattern SISCancelled :: SpotInstanceState
-pattern SISCancelled = SpotInstanceState' "cancelled"
+pattern SpotInstanceStateCancelled :: SpotInstanceState
+pattern SpotInstanceStateCancelled = SpotInstanceState' "cancelled"
 
-pattern SISClosed :: SpotInstanceState
-pattern SISClosed = SpotInstanceState' "closed"
+pattern SpotInstanceStateClosed :: SpotInstanceState
+pattern SpotInstanceStateClosed = SpotInstanceState' "closed"
 
-pattern SISFailed :: SpotInstanceState
-pattern SISFailed = SpotInstanceState' "failed"
+pattern SpotInstanceStateFailed :: SpotInstanceState
+pattern SpotInstanceStateFailed = SpotInstanceState' "failed"
 
-pattern SISOpen :: SpotInstanceState
-pattern SISOpen = SpotInstanceState' "open"
+pattern SpotInstanceStateOpen :: SpotInstanceState
+pattern SpotInstanceStateOpen = SpotInstanceState' "open"
 
 {-# COMPLETE
-  SISActive,
-  SISCancelled,
-  SISClosed,
-  SISFailed,
-  SISOpen,
+  SpotInstanceStateActive,
+  SpotInstanceStateCancelled,
+  SpotInstanceStateClosed,
+  SpotInstanceStateFailed,
+  SpotInstanceStateOpen,
   SpotInstanceState'
   #-}
 
-instance FromText SpotInstanceState where
-  parser = (SpotInstanceState' . mk) <$> takeText
+instance Prelude.FromText SpotInstanceState where
+  parser = SpotInstanceState' Prelude.<$> Prelude.takeText
 
-instance ToText SpotInstanceState where
-  toText (SpotInstanceState' ci) = original ci
+instance Prelude.ToText SpotInstanceState where
+  toText (SpotInstanceState' x) = x
 
-instance Hashable SpotInstanceState
+instance Prelude.Hashable SpotInstanceState
 
-instance NFData SpotInstanceState
+instance Prelude.NFData SpotInstanceState
 
-instance ToByteString SpotInstanceState
+instance Prelude.ToByteString SpotInstanceState
 
-instance ToQuery SpotInstanceState
+instance Prelude.ToQuery SpotInstanceState
 
-instance ToHeader SpotInstanceState
+instance Prelude.ToHeader SpotInstanceState
 
-instance FromXML SpotInstanceState where
-  parseXML = parseXMLText "SpotInstanceState"
+instance Prelude.FromXML SpotInstanceState where
+  parseXML = Prelude.parseXMLText "SpotInstanceState"

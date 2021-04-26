@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +21,55 @@ module Network.AWS.EC2.Types.FpgaInfo where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.FpgaDeviceInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the FPGAs for the instance type.
 --
---
---
--- /See:/ 'fpgaInfo' smart constructor.
+-- /See:/ 'newFpgaInfo' smart constructor.
 data FpgaInfo = FpgaInfo'
-  { _fiTotalFpgaMemoryInMiB ::
-      !(Maybe Int),
-    _fiFpgas :: !(Maybe [FpgaDeviceInfo])
+  { -- | The total memory of all FPGA accelerators for the instance type.
+    totalFpgaMemoryInMiB :: Prelude.Maybe Prelude.Int,
+    -- | Describes the FPGAs for the instance type.
+    fpgas :: Prelude.Maybe [FpgaDeviceInfo]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FpgaInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FpgaInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fiTotalFpgaMemoryInMiB' - The total memory of all FPGA accelerators for the instance type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fiFpgas' - Describes the FPGAs for the instance type.
-fpgaInfo ::
+-- 'totalFpgaMemoryInMiB', 'fpgaInfo_totalFpgaMemoryInMiB' - The total memory of all FPGA accelerators for the instance type.
+--
+-- 'fpgas', 'fpgaInfo_fpgas' - Describes the FPGAs for the instance type.
+newFpgaInfo ::
   FpgaInfo
-fpgaInfo =
+newFpgaInfo =
   FpgaInfo'
-    { _fiTotalFpgaMemoryInMiB = Nothing,
-      _fiFpgas = Nothing
+    { totalFpgaMemoryInMiB = Prelude.Nothing,
+      fpgas = Prelude.Nothing
     }
 
 -- | The total memory of all FPGA accelerators for the instance type.
-fiTotalFpgaMemoryInMiB :: Lens' FpgaInfo (Maybe Int)
-fiTotalFpgaMemoryInMiB = lens _fiTotalFpgaMemoryInMiB (\s a -> s {_fiTotalFpgaMemoryInMiB = a})
+fpgaInfo_totalFpgaMemoryInMiB :: Lens.Lens' FpgaInfo (Prelude.Maybe Prelude.Int)
+fpgaInfo_totalFpgaMemoryInMiB = Lens.lens (\FpgaInfo' {totalFpgaMemoryInMiB} -> totalFpgaMemoryInMiB) (\s@FpgaInfo' {} a -> s {totalFpgaMemoryInMiB = a} :: FpgaInfo)
 
 -- | Describes the FPGAs for the instance type.
-fiFpgas :: Lens' FpgaInfo [FpgaDeviceInfo]
-fiFpgas = lens _fiFpgas (\s a -> s {_fiFpgas = a}) . _Default . _Coerce
+fpgaInfo_fpgas :: Lens.Lens' FpgaInfo (Prelude.Maybe [FpgaDeviceInfo])
+fpgaInfo_fpgas = Lens.lens (\FpgaInfo' {fpgas} -> fpgas) (\s@FpgaInfo' {} a -> s {fpgas = a} :: FpgaInfo) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML FpgaInfo where
+instance Prelude.FromXML FpgaInfo where
   parseXML x =
     FpgaInfo'
-      <$> (x .@? "totalFpgaMemoryInMiB")
-      <*> ( x .@? "fpgas" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "totalFpgaMemoryInMiB")
+      Prelude.<*> ( x Prelude..@? "fpgas" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable FpgaInfo
+instance Prelude.Hashable FpgaInfo
 
-instance NFData FpgaInfo
+instance Prelude.NFData FpgaInfo

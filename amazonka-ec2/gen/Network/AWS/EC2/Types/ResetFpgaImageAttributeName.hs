@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,48 @@
 module Network.AWS.EC2.Types.ResetFpgaImageAttributeName
   ( ResetFpgaImageAttributeName
       ( ..,
-        LoadPermission
+        ResetFpgaImageAttributeNameLoadPermission
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResetFpgaImageAttributeName
-  = ResetFpgaImageAttributeName'
-      ( CI
-          Text
-      )
+newtype ResetFpgaImageAttributeName = ResetFpgaImageAttributeName'
+  { fromResetFpgaImageAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LoadPermission :: ResetFpgaImageAttributeName
-pattern LoadPermission = ResetFpgaImageAttributeName' "loadPermission"
+pattern ResetFpgaImageAttributeNameLoadPermission :: ResetFpgaImageAttributeName
+pattern ResetFpgaImageAttributeNameLoadPermission = ResetFpgaImageAttributeName' "loadPermission"
 
 {-# COMPLETE
-  LoadPermission,
+  ResetFpgaImageAttributeNameLoadPermission,
   ResetFpgaImageAttributeName'
   #-}
 
-instance FromText ResetFpgaImageAttributeName where
-  parser = (ResetFpgaImageAttributeName' . mk) <$> takeText
+instance Prelude.FromText ResetFpgaImageAttributeName where
+  parser = ResetFpgaImageAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText ResetFpgaImageAttributeName where
-  toText (ResetFpgaImageAttributeName' ci) = original ci
+instance Prelude.ToText ResetFpgaImageAttributeName where
+  toText (ResetFpgaImageAttributeName' x) = x
 
-instance Hashable ResetFpgaImageAttributeName
+instance Prelude.Hashable ResetFpgaImageAttributeName
 
-instance NFData ResetFpgaImageAttributeName
+instance Prelude.NFData ResetFpgaImageAttributeName
 
-instance ToByteString ResetFpgaImageAttributeName
+instance Prelude.ToByteString ResetFpgaImageAttributeName
 
-instance ToQuery ResetFpgaImageAttributeName
+instance Prelude.ToQuery ResetFpgaImageAttributeName
 
-instance ToHeader ResetFpgaImageAttributeName
+instance Prelude.ToHeader ResetFpgaImageAttributeName

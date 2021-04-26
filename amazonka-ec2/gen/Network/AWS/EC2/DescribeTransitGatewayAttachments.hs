@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,227 +21,342 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more attachments between resources and transit gateways. By default, all attachments are described. Alternatively, you can filter the results by attachment ID, attachment state, resource ID, or resource owner.
---
---
+-- Describes one or more attachments between resources and transit
+-- gateways. By default, all attachments are described. Alternatively, you
+-- can filter the results by attachment ID, attachment state, resource ID,
+-- or resource owner.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeTransitGatewayAttachments
   ( -- * Creating a Request
-    describeTransitGatewayAttachments,
-    DescribeTransitGatewayAttachments,
+    DescribeTransitGatewayAttachments (..),
+    newDescribeTransitGatewayAttachments,
 
     -- * Request Lenses
-    dtgaNextToken,
-    dtgaDryRun,
-    dtgaMaxResults,
-    dtgaTransitGatewayAttachmentIds,
-    dtgaFilters,
+    describeTransitGatewayAttachments_nextToken,
+    describeTransitGatewayAttachments_dryRun,
+    describeTransitGatewayAttachments_maxResults,
+    describeTransitGatewayAttachments_transitGatewayAttachmentIds,
+    describeTransitGatewayAttachments_filters,
 
     -- * Destructuring the Response
-    describeTransitGatewayAttachmentsResponse,
-    DescribeTransitGatewayAttachmentsResponse,
+    DescribeTransitGatewayAttachmentsResponse (..),
+    newDescribeTransitGatewayAttachmentsResponse,
 
     -- * Response Lenses
-    dtgarrsNextToken,
-    dtgarrsTransitGatewayAttachments,
-    dtgarrsResponseStatus,
+    describeTransitGatewayAttachmentsResponse_nextToken,
+    describeTransitGatewayAttachmentsResponse_transitGatewayAttachments,
+    describeTransitGatewayAttachmentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayAttachment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTransitGatewayAttachments' smart constructor.
+-- | /See:/ 'newDescribeTransitGatewayAttachments' smart constructor.
 data DescribeTransitGatewayAttachments = DescribeTransitGatewayAttachments'
-  { _dtgaNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dtgaDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dtgaMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dtgaTransitGatewayAttachmentIds ::
-      !( Maybe
-           [Text]
-       ),
-    _dtgaFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The IDs of the attachments.
+    transitGatewayAttachmentIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @association.state@ - The state of the association (@associating@ |
+    --     @associated@ | @disassociating@).
+    --
+    -- -   @association.transit-gateway-route-table-id@ - The ID of the route
+    --     table for the transit gateway.
+    --
+    -- -   @resource-id@ - The ID of the resource.
+    --
+    -- -   @resource-owner-id@ - The ID of the AWS account that owns the
+    --     resource.
+    --
+    -- -   @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@
+    --     | @direct-connect-gateway@ | @peering@ | @connect@.
+    --
+    -- -   @state@ - The state of the attachment. Valid values are @available@
+    --     | @deleted@ | @deleting@ | @failed@ | @failing@ |
+    --     @initiatingRequest@ | @modifying@ | @pendingAcceptance@ | @pending@
+    --     | @rollingBack@ | @rejected@ | @rejecting@.
+    --
+    -- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+    --
+    -- -   @transit-gateway-id@ - The ID of the transit gateway.
+    --
+    -- -   @transit-gateway-owner-id@ - The ID of the AWS account that owns the
+    --     transit gateway.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTransitGatewayAttachments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTransitGatewayAttachments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgaNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeTransitGatewayAttachments_nextToken' - The token for the next page of results.
 --
--- * 'dtgaMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeTransitGatewayAttachments_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dtgaTransitGatewayAttachmentIds' - The IDs of the attachments.
+-- 'maxResults', 'describeTransitGatewayAttachments_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dtgaFilters' - One or more filters. The possible values are:     * @association.state@ - The state of the association (@associating@ | @associated@ | @disassociating@ ).     * @association.transit-gateway-route-table-id@ - The ID of the route table for the transit gateway.     * @resource-id@ - The ID of the resource.     * @resource-owner-id@ - The ID of the AWS account that owns the resource.     * @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ | @connect@ .     * @state@ - The state of the attachment. Valid values are @available@ | @deleted@ | @deleting@ | @failed@ | @failing@ | @initiatingRequest@ | @modifying@ | @pendingAcceptance@ | @pending@ | @rollingBack@ | @rejected@ | @rejecting@ .     * @transit-gateway-attachment-id@ - The ID of the attachment.     * @transit-gateway-id@ - The ID of the transit gateway.     * @transit-gateway-owner-id@ - The ID of the AWS account that owns the transit gateway.
-describeTransitGatewayAttachments ::
+-- 'transitGatewayAttachmentIds', 'describeTransitGatewayAttachments_transitGatewayAttachmentIds' - The IDs of the attachments.
+--
+-- 'filters', 'describeTransitGatewayAttachments_filters' - One or more filters. The possible values are:
+--
+-- -   @association.state@ - The state of the association (@associating@ |
+--     @associated@ | @disassociating@).
+--
+-- -   @association.transit-gateway-route-table-id@ - The ID of the route
+--     table for the transit gateway.
+--
+-- -   @resource-id@ - The ID of the resource.
+--
+-- -   @resource-owner-id@ - The ID of the AWS account that owns the
+--     resource.
+--
+-- -   @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@
+--     | @direct-connect-gateway@ | @peering@ | @connect@.
+--
+-- -   @state@ - The state of the attachment. Valid values are @available@
+--     | @deleted@ | @deleting@ | @failed@ | @failing@ |
+--     @initiatingRequest@ | @modifying@ | @pendingAcceptance@ | @pending@
+--     | @rollingBack@ | @rejected@ | @rejecting@.
+--
+-- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+--
+-- -   @transit-gateway-id@ - The ID of the transit gateway.
+--
+-- -   @transit-gateway-owner-id@ - The ID of the AWS account that owns the
+--     transit gateway.
+newDescribeTransitGatewayAttachments ::
   DescribeTransitGatewayAttachments
-describeTransitGatewayAttachments =
+newDescribeTransitGatewayAttachments =
   DescribeTransitGatewayAttachments'
-    { _dtgaNextToken =
-        Nothing,
-      _dtgaDryRun = Nothing,
-      _dtgaMaxResults = Nothing,
-      _dtgaTransitGatewayAttachmentIds =
-        Nothing,
-      _dtgaFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      transitGatewayAttachmentIds =
+        Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dtgaNextToken :: Lens' DescribeTransitGatewayAttachments (Maybe Text)
-dtgaNextToken = lens _dtgaNextToken (\s a -> s {_dtgaNextToken = a})
+describeTransitGatewayAttachments_nextToken :: Lens.Lens' DescribeTransitGatewayAttachments (Prelude.Maybe Prelude.Text)
+describeTransitGatewayAttachments_nextToken = Lens.lens (\DescribeTransitGatewayAttachments' {nextToken} -> nextToken) (\s@DescribeTransitGatewayAttachments' {} a -> s {nextToken = a} :: DescribeTransitGatewayAttachments)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgaDryRun :: Lens' DescribeTransitGatewayAttachments (Maybe Bool)
-dtgaDryRun = lens _dtgaDryRun (\s a -> s {_dtgaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeTransitGatewayAttachments_dryRun :: Lens.Lens' DescribeTransitGatewayAttachments (Prelude.Maybe Prelude.Bool)
+describeTransitGatewayAttachments_dryRun = Lens.lens (\DescribeTransitGatewayAttachments' {dryRun} -> dryRun) (\s@DescribeTransitGatewayAttachments' {} a -> s {dryRun = a} :: DescribeTransitGatewayAttachments)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dtgaMaxResults :: Lens' DescribeTransitGatewayAttachments (Maybe Natural)
-dtgaMaxResults = lens _dtgaMaxResults (\s a -> s {_dtgaMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeTransitGatewayAttachments_maxResults :: Lens.Lens' DescribeTransitGatewayAttachments (Prelude.Maybe Prelude.Natural)
+describeTransitGatewayAttachments_maxResults = Lens.lens (\DescribeTransitGatewayAttachments' {maxResults} -> maxResults) (\s@DescribeTransitGatewayAttachments' {} a -> s {maxResults = a} :: DescribeTransitGatewayAttachments) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The IDs of the attachments.
-dtgaTransitGatewayAttachmentIds :: Lens' DescribeTransitGatewayAttachments [Text]
-dtgaTransitGatewayAttachmentIds = lens _dtgaTransitGatewayAttachmentIds (\s a -> s {_dtgaTransitGatewayAttachmentIds = a}) . _Default . _Coerce
+describeTransitGatewayAttachments_transitGatewayAttachmentIds :: Lens.Lens' DescribeTransitGatewayAttachments (Prelude.Maybe [Prelude.Text])
+describeTransitGatewayAttachments_transitGatewayAttachmentIds = Lens.lens (\DescribeTransitGatewayAttachments' {transitGatewayAttachmentIds} -> transitGatewayAttachmentIds) (\s@DescribeTransitGatewayAttachments' {} a -> s {transitGatewayAttachmentIds = a} :: DescribeTransitGatewayAttachments) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters. The possible values are:     * @association.state@ - The state of the association (@associating@ | @associated@ | @disassociating@ ).     * @association.transit-gateway-route-table-id@ - The ID of the route table for the transit gateway.     * @resource-id@ - The ID of the resource.     * @resource-owner-id@ - The ID of the AWS account that owns the resource.     * @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ | @connect@ .     * @state@ - The state of the attachment. Valid values are @available@ | @deleted@ | @deleting@ | @failed@ | @failing@ | @initiatingRequest@ | @modifying@ | @pendingAcceptance@ | @pending@ | @rollingBack@ | @rejected@ | @rejecting@ .     * @transit-gateway-attachment-id@ - The ID of the attachment.     * @transit-gateway-id@ - The ID of the transit gateway.     * @transit-gateway-owner-id@ - The ID of the AWS account that owns the transit gateway.
-dtgaFilters :: Lens' DescribeTransitGatewayAttachments [Filter]
-dtgaFilters = lens _dtgaFilters (\s a -> s {_dtgaFilters = a}) . _Default . _Coerce
+-- | One or more filters. The possible values are:
+--
+-- -   @association.state@ - The state of the association (@associating@ |
+--     @associated@ | @disassociating@).
+--
+-- -   @association.transit-gateway-route-table-id@ - The ID of the route
+--     table for the transit gateway.
+--
+-- -   @resource-id@ - The ID of the resource.
+--
+-- -   @resource-owner-id@ - The ID of the AWS account that owns the
+--     resource.
+--
+-- -   @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@
+--     | @direct-connect-gateway@ | @peering@ | @connect@.
+--
+-- -   @state@ - The state of the attachment. Valid values are @available@
+--     | @deleted@ | @deleting@ | @failed@ | @failing@ |
+--     @initiatingRequest@ | @modifying@ | @pendingAcceptance@ | @pending@
+--     | @rollingBack@ | @rejected@ | @rejecting@.
+--
+-- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+--
+-- -   @transit-gateway-id@ - The ID of the transit gateway.
+--
+-- -   @transit-gateway-owner-id@ - The ID of the AWS account that owns the
+--     transit gateway.
+describeTransitGatewayAttachments_filters :: Lens.Lens' DescribeTransitGatewayAttachments (Prelude.Maybe [Filter])
+describeTransitGatewayAttachments_filters = Lens.lens (\DescribeTransitGatewayAttachments' {filters} -> filters) (\s@DescribeTransitGatewayAttachments' {} a -> s {filters = a} :: DescribeTransitGatewayAttachments) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeTransitGatewayAttachments where
+instance
+  Pager.AWSPager
+    DescribeTransitGatewayAttachments
+  where
   page rq rs
-    | stop (rs ^. dtgarrsNextToken) = Nothing
-    | stop (rs ^. dtgarrsTransitGatewayAttachments) =
-      Nothing
-    | otherwise =
-      Just $ rq & dtgaNextToken .~ rs ^. dtgarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewayAttachmentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewayAttachmentsResponse_transitGatewayAttachments
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeTransitGatewayAttachments_nextToken
+          Lens..~ rs
+          Lens.^? describeTransitGatewayAttachmentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeTransitGatewayAttachments where
+instance
+  Prelude.AWSRequest
+    DescribeTransitGatewayAttachments
+  where
   type
     Rs DescribeTransitGatewayAttachments =
       DescribeTransitGatewayAttachmentsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeTransitGatewayAttachmentsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "transitGatewayAttachments" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "transitGatewayAttachments"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTransitGatewayAttachments
-
-instance NFData DescribeTransitGatewayAttachments
-
-instance ToHeaders DescribeTransitGatewayAttachments where
-  toHeaders = const mempty
-
-instance ToPath DescribeTransitGatewayAttachments where
-  toPath = const "/"
-
-instance ToQuery DescribeTransitGatewayAttachments where
-  toQuery DescribeTransitGatewayAttachments' {..} =
-    mconcat
-      [ "Action"
-          =: ("DescribeTransitGatewayAttachments" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dtgaNextToken,
-        "DryRun" =: _dtgaDryRun,
-        "MaxResults" =: _dtgaMaxResults,
-        toQuery
-          ( toQueryList "TransitGatewayAttachmentIds"
-              <$> _dtgaTransitGatewayAttachmentIds
-          ),
-        toQuery (toQueryList "Filter" <$> _dtgaFilters)
-      ]
-
--- | /See:/ 'describeTransitGatewayAttachmentsResponse' smart constructor.
-data DescribeTransitGatewayAttachmentsResponse = DescribeTransitGatewayAttachmentsResponse'
-  { _dtgarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dtgarrsTransitGatewayAttachments ::
-      !( Maybe
-           [TransitGatewayAttachment]
-       ),
-    _dtgarrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeTransitGatewayAttachmentsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dtgarrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
---
--- * 'dtgarrsTransitGatewayAttachments' - Information about the attachments.
---
--- * 'dtgarrsResponseStatus' - -- | The response status code.
-describeTransitGatewayAttachmentsResponse ::
-  -- | 'dtgarrsResponseStatus'
-  Int ->
-  DescribeTransitGatewayAttachmentsResponse
-describeTransitGatewayAttachmentsResponse
-  pResponseStatus_ =
-    DescribeTransitGatewayAttachmentsResponse'
-      { _dtgarrsNextToken =
-          Nothing,
-        _dtgarrsTransitGatewayAttachments =
-          Nothing,
-        _dtgarrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dtgarrsNextToken :: Lens' DescribeTransitGatewayAttachmentsResponse (Maybe Text)
-dtgarrsNextToken = lens _dtgarrsNextToken (\s a -> s {_dtgarrsNextToken = a})
-
--- | Information about the attachments.
-dtgarrsTransitGatewayAttachments :: Lens' DescribeTransitGatewayAttachmentsResponse [TransitGatewayAttachment]
-dtgarrsTransitGatewayAttachments = lens _dtgarrsTransitGatewayAttachments (\s a -> s {_dtgarrsTransitGatewayAttachments = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-dtgarrsResponseStatus :: Lens' DescribeTransitGatewayAttachmentsResponse Int
-dtgarrsResponseStatus = lens _dtgarrsResponseStatus (\s a -> s {_dtgarrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DescribeTransitGatewayAttachments
 
 instance
-  NFData
+  Prelude.NFData
+    DescribeTransitGatewayAttachments
+
+instance
+  Prelude.ToHeaders
+    DescribeTransitGatewayAttachments
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DescribeTransitGatewayAttachments
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeTransitGatewayAttachments
+  where
+  toQuery DescribeTransitGatewayAttachments' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "DescribeTransitGatewayAttachments" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "TransitGatewayAttachmentIds"
+              Prelude.<$> transitGatewayAttachmentIds
+          ),
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
+      ]
+
+-- | /See:/ 'newDescribeTransitGatewayAttachmentsResponse' smart constructor.
+data DescribeTransitGatewayAttachmentsResponse = DescribeTransitGatewayAttachmentsResponse'
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the attachments.
+    transitGatewayAttachments :: Prelude.Maybe [TransitGatewayAttachment],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeTransitGatewayAttachmentsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeTransitGatewayAttachmentsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+--
+-- 'transitGatewayAttachments', 'describeTransitGatewayAttachmentsResponse_transitGatewayAttachments' - Information about the attachments.
+--
+-- 'httpStatus', 'describeTransitGatewayAttachmentsResponse_httpStatus' - The response's http status code.
+newDescribeTransitGatewayAttachmentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeTransitGatewayAttachmentsResponse
+newDescribeTransitGatewayAttachmentsResponse
+  pHttpStatus_ =
+    DescribeTransitGatewayAttachmentsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        transitGatewayAttachments =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeTransitGatewayAttachmentsResponse_nextToken :: Lens.Lens' DescribeTransitGatewayAttachmentsResponse (Prelude.Maybe Prelude.Text)
+describeTransitGatewayAttachmentsResponse_nextToken = Lens.lens (\DescribeTransitGatewayAttachmentsResponse' {nextToken} -> nextToken) (\s@DescribeTransitGatewayAttachmentsResponse' {} a -> s {nextToken = a} :: DescribeTransitGatewayAttachmentsResponse)
+
+-- | Information about the attachments.
+describeTransitGatewayAttachmentsResponse_transitGatewayAttachments :: Lens.Lens' DescribeTransitGatewayAttachmentsResponse (Prelude.Maybe [TransitGatewayAttachment])
+describeTransitGatewayAttachmentsResponse_transitGatewayAttachments = Lens.lens (\DescribeTransitGatewayAttachmentsResponse' {transitGatewayAttachments} -> transitGatewayAttachments) (\s@DescribeTransitGatewayAttachmentsResponse' {} a -> s {transitGatewayAttachments = a} :: DescribeTransitGatewayAttachmentsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeTransitGatewayAttachmentsResponse_httpStatus :: Lens.Lens' DescribeTransitGatewayAttachmentsResponse Prelude.Int
+describeTransitGatewayAttachmentsResponse_httpStatus = Lens.lens (\DescribeTransitGatewayAttachmentsResponse' {httpStatus} -> httpStatus) (\s@DescribeTransitGatewayAttachmentsResponse' {} a -> s {httpStatus = a} :: DescribeTransitGatewayAttachmentsResponse)
+
+instance
+  Prelude.NFData
     DescribeTransitGatewayAttachmentsResponse

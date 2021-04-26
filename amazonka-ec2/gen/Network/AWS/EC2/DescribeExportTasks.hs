@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,141 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified export instance tasks or all of your export instance tasks.
+-- Describes the specified export instance tasks or all of your export
+-- instance tasks.
 module Network.AWS.EC2.DescribeExportTasks
   ( -- * Creating a Request
-    describeExportTasks,
-    DescribeExportTasks,
+    DescribeExportTasks (..),
+    newDescribeExportTasks,
 
     -- * Request Lenses
-    detExportTaskIds,
-    detFilters,
+    describeExportTasks_exportTaskIds,
+    describeExportTasks_filters,
 
     -- * Destructuring the Response
-    describeExportTasksResponse,
-    DescribeExportTasksResponse,
+    DescribeExportTasksResponse (..),
+    newDescribeExportTasksResponse,
 
     -- * Response Lenses
-    detrrsExportTasks,
-    detrrsResponseStatus,
+    describeExportTasksResponse_exportTasks,
+    describeExportTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ExportTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeExportTasks' smart constructor.
+-- | /See:/ 'newDescribeExportTasks' smart constructor.
 data DescribeExportTasks = DescribeExportTasks'
-  { _detExportTaskIds ::
-      !(Maybe [Text]),
-    _detFilters ::
-      !(Maybe [Filter])
+  { -- | The export task IDs.
+    exportTaskIds :: Prelude.Maybe [Prelude.Text],
+    -- | the filters for the export tasks.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExportTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExportTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detExportTaskIds' - The export task IDs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detFilters' - the filters for the export tasks.
-describeExportTasks ::
+-- 'exportTaskIds', 'describeExportTasks_exportTaskIds' - The export task IDs.
+--
+-- 'filters', 'describeExportTasks_filters' - the filters for the export tasks.
+newDescribeExportTasks ::
   DescribeExportTasks
-describeExportTasks =
+newDescribeExportTasks =
   DescribeExportTasks'
-    { _detExportTaskIds = Nothing,
-      _detFilters = Nothing
+    { exportTaskIds =
+        Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The export task IDs.
-detExportTaskIds :: Lens' DescribeExportTasks [Text]
-detExportTaskIds = lens _detExportTaskIds (\s a -> s {_detExportTaskIds = a}) . _Default . _Coerce
+describeExportTasks_exportTaskIds :: Lens.Lens' DescribeExportTasks (Prelude.Maybe [Prelude.Text])
+describeExportTasks_exportTaskIds = Lens.lens (\DescribeExportTasks' {exportTaskIds} -> exportTaskIds) (\s@DescribeExportTasks' {} a -> s {exportTaskIds = a} :: DescribeExportTasks) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | the filters for the export tasks.
-detFilters :: Lens' DescribeExportTasks [Filter]
-detFilters = lens _detFilters (\s a -> s {_detFilters = a}) . _Default . _Coerce
+describeExportTasks_filters :: Lens.Lens' DescribeExportTasks (Prelude.Maybe [Filter])
+describeExportTasks_filters = Lens.lens (\DescribeExportTasks' {filters} -> filters) (\s@DescribeExportTasks' {} a -> s {filters = a} :: DescribeExportTasks) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeExportTasks where
+instance Prelude.AWSRequest DescribeExportTasks where
   type
     Rs DescribeExportTasks =
       DescribeExportTasksResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeExportTasksResponse'
-            <$> ( x .@? "exportTaskSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "exportTaskSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeExportTasks
+instance Prelude.Hashable DescribeExportTasks
 
-instance NFData DescribeExportTasks
+instance Prelude.NFData DescribeExportTasks
 
-instance ToHeaders DescribeExportTasks where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeExportTasks where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeExportTasks where
-  toPath = const "/"
+instance Prelude.ToPath DescribeExportTasks where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeExportTasks where
+instance Prelude.ToQuery DescribeExportTasks where
   toQuery DescribeExportTasks' {..} =
-    mconcat
-      [ "Action" =: ("DescribeExportTasks" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          (toQueryList "ExportTaskId" <$> _detExportTaskIds),
-        toQuery (toQueryList "Filter" <$> _detFilters)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeExportTasks" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "ExportTaskId"
+              Prelude.<$> exportTaskIds
+          ),
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeExportTasksResponse' smart constructor.
+-- | /See:/ 'newDescribeExportTasksResponse' smart constructor.
 data DescribeExportTasksResponse = DescribeExportTasksResponse'
-  { _detrrsExportTasks ::
-      !( Maybe
-           [ExportTask]
-       ),
-    _detrrsResponseStatus ::
-      !Int
+  { -- | Information about the export tasks.
+    exportTasks :: Prelude.Maybe [ExportTask],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExportTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExportTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detrrsExportTasks' - Information about the export tasks.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detrrsResponseStatus' - -- | The response status code.
-describeExportTasksResponse ::
-  -- | 'detrrsResponseStatus'
-  Int ->
+-- 'exportTasks', 'describeExportTasksResponse_exportTasks' - Information about the export tasks.
+--
+-- 'httpStatus', 'describeExportTasksResponse_httpStatus' - The response's http status code.
+newDescribeExportTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeExportTasksResponse
-describeExportTasksResponse pResponseStatus_ =
+newDescribeExportTasksResponse pHttpStatus_ =
   DescribeExportTasksResponse'
-    { _detrrsExportTasks =
-        Nothing,
-      _detrrsResponseStatus = pResponseStatus_
+    { exportTasks =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the export tasks.
-detrrsExportTasks :: Lens' DescribeExportTasksResponse [ExportTask]
-detrrsExportTasks = lens _detrrsExportTasks (\s a -> s {_detrrsExportTasks = a}) . _Default . _Coerce
+describeExportTasksResponse_exportTasks :: Lens.Lens' DescribeExportTasksResponse (Prelude.Maybe [ExportTask])
+describeExportTasksResponse_exportTasks = Lens.lens (\DescribeExportTasksResponse' {exportTasks} -> exportTasks) (\s@DescribeExportTasksResponse' {} a -> s {exportTasks = a} :: DescribeExportTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-detrrsResponseStatus :: Lens' DescribeExportTasksResponse Int
-detrrsResponseStatus = lens _detrrsResponseStatus (\s a -> s {_detrrsResponseStatus = a})
+-- | The response's http status code.
+describeExportTasksResponse_httpStatus :: Lens.Lens' DescribeExportTasksResponse Prelude.Int
+describeExportTasksResponse_httpStatus = Lens.lens (\DescribeExportTasksResponse' {httpStatus} -> httpStatus) (\s@DescribeExportTasksResponse' {} a -> s {httpStatus = a} :: DescribeExportTasksResponse)
 
-instance NFData DescribeExportTasksResponse
+instance Prelude.NFData DescribeExportTasksResponse

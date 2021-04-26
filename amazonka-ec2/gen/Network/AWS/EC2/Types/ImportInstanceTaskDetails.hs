@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,84 +22,76 @@ module Network.AWS.EC2.Types.ImportInstanceTaskDetails where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ImportInstanceVolumeDetailItem
 import Network.AWS.EC2.Types.PlatformValues
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an import instance task.
 --
---
---
--- /See:/ 'importInstanceTaskDetails' smart constructor.
+-- /See:/ 'newImportInstanceTaskDetails' smart constructor.
 data ImportInstanceTaskDetails = ImportInstanceTaskDetails'
-  { _iitdPlatform ::
-      !( Maybe
-           PlatformValues
-       ),
-    _iitdInstanceId ::
-      !(Maybe Text),
-    _iitdVolumes ::
-      !( Maybe
-           [ImportInstanceVolumeDetailItem]
-       ),
-    _iitdDescription ::
-      !(Maybe Text)
+  { -- | The instance operating system.
+    platform :: Prelude.Maybe PlatformValues,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The volumes.
+    volumes :: Prelude.Maybe [ImportInstanceVolumeDetailItem],
+    -- | A description of the task.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportInstanceTaskDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportInstanceTaskDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iitdPlatform' - The instance operating system.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iitdInstanceId' - The ID of the instance.
+-- 'platform', 'importInstanceTaskDetails_platform' - The instance operating system.
 --
--- * 'iitdVolumes' - The volumes.
+-- 'instanceId', 'importInstanceTaskDetails_instanceId' - The ID of the instance.
 --
--- * 'iitdDescription' - A description of the task.
-importInstanceTaskDetails ::
+-- 'volumes', 'importInstanceTaskDetails_volumes' - The volumes.
+--
+-- 'description', 'importInstanceTaskDetails_description' - A description of the task.
+newImportInstanceTaskDetails ::
   ImportInstanceTaskDetails
-importInstanceTaskDetails =
+newImportInstanceTaskDetails =
   ImportInstanceTaskDetails'
-    { _iitdPlatform = Nothing,
-      _iitdInstanceId = Nothing,
-      _iitdVolumes = Nothing,
-      _iitdDescription = Nothing
+    { platform =
+        Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      volumes = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The instance operating system.
-iitdPlatform :: Lens' ImportInstanceTaskDetails (Maybe PlatformValues)
-iitdPlatform = lens _iitdPlatform (\s a -> s {_iitdPlatform = a})
+importInstanceTaskDetails_platform :: Lens.Lens' ImportInstanceTaskDetails (Prelude.Maybe PlatformValues)
+importInstanceTaskDetails_platform = Lens.lens (\ImportInstanceTaskDetails' {platform} -> platform) (\s@ImportInstanceTaskDetails' {} a -> s {platform = a} :: ImportInstanceTaskDetails)
 
 -- | The ID of the instance.
-iitdInstanceId :: Lens' ImportInstanceTaskDetails (Maybe Text)
-iitdInstanceId = lens _iitdInstanceId (\s a -> s {_iitdInstanceId = a})
+importInstanceTaskDetails_instanceId :: Lens.Lens' ImportInstanceTaskDetails (Prelude.Maybe Prelude.Text)
+importInstanceTaskDetails_instanceId = Lens.lens (\ImportInstanceTaskDetails' {instanceId} -> instanceId) (\s@ImportInstanceTaskDetails' {} a -> s {instanceId = a} :: ImportInstanceTaskDetails)
 
 -- | The volumes.
-iitdVolumes :: Lens' ImportInstanceTaskDetails [ImportInstanceVolumeDetailItem]
-iitdVolumes = lens _iitdVolumes (\s a -> s {_iitdVolumes = a}) . _Default . _Coerce
+importInstanceTaskDetails_volumes :: Lens.Lens' ImportInstanceTaskDetails (Prelude.Maybe [ImportInstanceVolumeDetailItem])
+importInstanceTaskDetails_volumes = Lens.lens (\ImportInstanceTaskDetails' {volumes} -> volumes) (\s@ImportInstanceTaskDetails' {} a -> s {volumes = a} :: ImportInstanceTaskDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the task.
-iitdDescription :: Lens' ImportInstanceTaskDetails (Maybe Text)
-iitdDescription = lens _iitdDescription (\s a -> s {_iitdDescription = a})
+importInstanceTaskDetails_description :: Lens.Lens' ImportInstanceTaskDetails (Prelude.Maybe Prelude.Text)
+importInstanceTaskDetails_description = Lens.lens (\ImportInstanceTaskDetails' {description} -> description) (\s@ImportInstanceTaskDetails' {} a -> s {description = a} :: ImportInstanceTaskDetails)
 
-instance FromXML ImportInstanceTaskDetails where
+instance Prelude.FromXML ImportInstanceTaskDetails where
   parseXML x =
     ImportInstanceTaskDetails'
-      <$> (x .@? "platform")
-      <*> (x .@? "instanceId")
-      <*> ( x .@? "volumes" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "description")
+      Prelude.<$> (x Prelude..@? "platform")
+      Prelude.<*> (x Prelude..@? "instanceId")
+      Prelude.<*> ( x Prelude..@? "volumes" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "description")
 
-instance Hashable ImportInstanceTaskDetails
+instance Prelude.Hashable ImportInstanceTaskDetails
 
-instance NFData ImportInstanceTaskDetails
+instance Prelude.NFData ImportInstanceTaskDetails

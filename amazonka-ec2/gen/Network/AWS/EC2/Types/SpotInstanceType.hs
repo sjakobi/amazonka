@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.SpotInstanceType
   ( SpotInstanceType
       ( ..,
-        OneTime,
-        Persistent
+        SpotInstanceTypeOneTime,
+        SpotInstanceTypePersistent
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SpotInstanceType = SpotInstanceType' (CI Text)
+newtype SpotInstanceType = SpotInstanceType'
+  { fromSpotInstanceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OneTime :: SpotInstanceType
-pattern OneTime = SpotInstanceType' "one-time"
+pattern SpotInstanceTypeOneTime :: SpotInstanceType
+pattern SpotInstanceTypeOneTime = SpotInstanceType' "one-time"
 
-pattern Persistent :: SpotInstanceType
-pattern Persistent = SpotInstanceType' "persistent"
+pattern SpotInstanceTypePersistent :: SpotInstanceType
+pattern SpotInstanceTypePersistent = SpotInstanceType' "persistent"
 
 {-# COMPLETE
-  OneTime,
-  Persistent,
+  SpotInstanceTypeOneTime,
+  SpotInstanceTypePersistent,
   SpotInstanceType'
   #-}
 
-instance FromText SpotInstanceType where
-  parser = (SpotInstanceType' . mk) <$> takeText
+instance Prelude.FromText SpotInstanceType where
+  parser = SpotInstanceType' Prelude.<$> Prelude.takeText
 
-instance ToText SpotInstanceType where
-  toText (SpotInstanceType' ci) = original ci
+instance Prelude.ToText SpotInstanceType where
+  toText (SpotInstanceType' x) = x
 
-instance Hashable SpotInstanceType
+instance Prelude.Hashable SpotInstanceType
 
-instance NFData SpotInstanceType
+instance Prelude.NFData SpotInstanceType
 
-instance ToByteString SpotInstanceType
+instance Prelude.ToByteString SpotInstanceType
 
-instance ToQuery SpotInstanceType
+instance Prelude.ToQuery SpotInstanceType
 
-instance ToHeader SpotInstanceType
+instance Prelude.ToHeader SpotInstanceType
 
-instance FromXML SpotInstanceType where
-  parseXML = parseXMLText "SpotInstanceType"
+instance Prelude.FromXML SpotInstanceType where
+  parseXML = Prelude.parseXMLText "SpotInstanceType"

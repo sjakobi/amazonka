@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,86 +20,76 @@
 module Network.AWS.EC2.Types.TransitGatewayMulticastDeregisteredGroupMembers where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the deregistered transit gateway multicast group members.
 --
---
---
--- /See:/ 'transitGatewayMulticastDeregisteredGroupMembers' smart constructor.
+-- /See:/ 'newTransitGatewayMulticastDeregisteredGroupMembers' smart constructor.
 data TransitGatewayMulticastDeregisteredGroupMembers = TransitGatewayMulticastDeregisteredGroupMembers'
-  { _tgmdgmTransitGatewayMulticastDomainId ::
-      !( Maybe
-           Text
-       ),
-    _tgmdgmDeregisteredNetworkInterfaceIds ::
-      !( Maybe
-           [Text]
-       ),
-    _tgmdgmGroupIPAddress ::
-      !( Maybe
-           Text
-       )
+  { -- | The ID of the transit gateway multicast domain.
+    transitGatewayMulticastDomainId :: Prelude.Maybe Prelude.Text,
+    -- | The network interface IDs of the deregistered members.
+    deregisteredNetworkInterfaceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The IP address assigned to the transit gateway multicast group.
+    groupIpAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGatewayMulticastDeregisteredGroupMembers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGatewayMulticastDeregisteredGroupMembers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgmdgmTransitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgmdgmDeregisteredNetworkInterfaceIds' - The network interface IDs of the deregistered members.
+-- 'transitGatewayMulticastDomainId', 'transitGatewayMulticastDeregisteredGroupMembers_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
 --
--- * 'tgmdgmGroupIPAddress' - The IP address assigned to the transit gateway multicast group.
-transitGatewayMulticastDeregisteredGroupMembers ::
+-- 'deregisteredNetworkInterfaceIds', 'transitGatewayMulticastDeregisteredGroupMembers_deregisteredNetworkInterfaceIds' - The network interface IDs of the deregistered members.
+--
+-- 'groupIpAddress', 'transitGatewayMulticastDeregisteredGroupMembers_groupIpAddress' - The IP address assigned to the transit gateway multicast group.
+newTransitGatewayMulticastDeregisteredGroupMembers ::
   TransitGatewayMulticastDeregisteredGroupMembers
-transitGatewayMulticastDeregisteredGroupMembers =
+newTransitGatewayMulticastDeregisteredGroupMembers =
   TransitGatewayMulticastDeregisteredGroupMembers'
-    { _tgmdgmTransitGatewayMulticastDomainId =
-        Nothing,
-      _tgmdgmDeregisteredNetworkInterfaceIds =
-        Nothing,
-      _tgmdgmGroupIPAddress =
-        Nothing
+    { transitGatewayMulticastDomainId =
+        Prelude.Nothing,
+      deregisteredNetworkInterfaceIds =
+        Prelude.Nothing,
+      groupIpAddress =
+        Prelude.Nothing
     }
 
 -- | The ID of the transit gateway multicast domain.
-tgmdgmTransitGatewayMulticastDomainId :: Lens' TransitGatewayMulticastDeregisteredGroupMembers (Maybe Text)
-tgmdgmTransitGatewayMulticastDomainId = lens _tgmdgmTransitGatewayMulticastDomainId (\s a -> s {_tgmdgmTransitGatewayMulticastDomainId = a})
+transitGatewayMulticastDeregisteredGroupMembers_transitGatewayMulticastDomainId :: Lens.Lens' TransitGatewayMulticastDeregisteredGroupMembers (Prelude.Maybe Prelude.Text)
+transitGatewayMulticastDeregisteredGroupMembers_transitGatewayMulticastDomainId = Lens.lens (\TransitGatewayMulticastDeregisteredGroupMembers' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@TransitGatewayMulticastDeregisteredGroupMembers' {} a -> s {transitGatewayMulticastDomainId = a} :: TransitGatewayMulticastDeregisteredGroupMembers)
 
 -- | The network interface IDs of the deregistered members.
-tgmdgmDeregisteredNetworkInterfaceIds :: Lens' TransitGatewayMulticastDeregisteredGroupMembers [Text]
-tgmdgmDeregisteredNetworkInterfaceIds = lens _tgmdgmDeregisteredNetworkInterfaceIds (\s a -> s {_tgmdgmDeregisteredNetworkInterfaceIds = a}) . _Default . _Coerce
+transitGatewayMulticastDeregisteredGroupMembers_deregisteredNetworkInterfaceIds :: Lens.Lens' TransitGatewayMulticastDeregisteredGroupMembers (Prelude.Maybe [Prelude.Text])
+transitGatewayMulticastDeregisteredGroupMembers_deregisteredNetworkInterfaceIds = Lens.lens (\TransitGatewayMulticastDeregisteredGroupMembers' {deregisteredNetworkInterfaceIds} -> deregisteredNetworkInterfaceIds) (\s@TransitGatewayMulticastDeregisteredGroupMembers' {} a -> s {deregisteredNetworkInterfaceIds = a} :: TransitGatewayMulticastDeregisteredGroupMembers) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The IP address assigned to the transit gateway multicast group.
-tgmdgmGroupIPAddress :: Lens' TransitGatewayMulticastDeregisteredGroupMembers (Maybe Text)
-tgmdgmGroupIPAddress = lens _tgmdgmGroupIPAddress (\s a -> s {_tgmdgmGroupIPAddress = a})
+transitGatewayMulticastDeregisteredGroupMembers_groupIpAddress :: Lens.Lens' TransitGatewayMulticastDeregisteredGroupMembers (Prelude.Maybe Prelude.Text)
+transitGatewayMulticastDeregisteredGroupMembers_groupIpAddress = Lens.lens (\TransitGatewayMulticastDeregisteredGroupMembers' {groupIpAddress} -> groupIpAddress) (\s@TransitGatewayMulticastDeregisteredGroupMembers' {} a -> s {groupIpAddress = a} :: TransitGatewayMulticastDeregisteredGroupMembers)
 
 instance
-  FromXML
+  Prelude.FromXML
     TransitGatewayMulticastDeregisteredGroupMembers
   where
   parseXML x =
     TransitGatewayMulticastDeregisteredGroupMembers'
-      <$> (x .@? "transitGatewayMulticastDomainId")
-        <*> ( x .@? "deregisteredNetworkInterfaceIds" .!@ mempty
-                >>= may (parseXMLList "item")
-            )
-        <*> (x .@? "groupIpAddress")
+      Prelude.<$> (x Prelude..@? "transitGatewayMulticastDomainId")
+        Prelude.<*> ( x Prelude..@? "deregisteredNetworkInterfaceIds"
+                        Prelude..!@ Prelude.mempty
+                        Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                    )
+        Prelude.<*> (x Prelude..@? "groupIpAddress")
 
 instance
-  Hashable
+  Prelude.Hashable
     TransitGatewayMulticastDeregisteredGroupMembers
 
 instance
-  NFData
+  Prelude.NFData
     TransitGatewayMulticastDeregisteredGroupMembers

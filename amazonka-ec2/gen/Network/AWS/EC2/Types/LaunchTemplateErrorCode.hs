@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,76 @@
 module Network.AWS.EC2.Types.LaunchTemplateErrorCode
   ( LaunchTemplateErrorCode
       ( ..,
-        LTECLaunchTemplateIdDoesNotExist,
-        LTECLaunchTemplateIdMalformed,
-        LTECLaunchTemplateNameDoesNotExist,
-        LTECLaunchTemplateNameMalformed,
-        LTECLaunchTemplateVersionDoesNotExist,
-        LTECUnexpectedError
+        LaunchTemplateErrorCodeLaunchTemplateIdDoesNotExist,
+        LaunchTemplateErrorCodeLaunchTemplateIdMalformed,
+        LaunchTemplateErrorCodeLaunchTemplateNameDoesNotExist,
+        LaunchTemplateErrorCodeLaunchTemplateNameMalformed,
+        LaunchTemplateErrorCodeLaunchTemplateVersionDoesNotExist,
+        LaunchTemplateErrorCodeUnexpectedError
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LaunchTemplateErrorCode
-  = LaunchTemplateErrorCode'
-      ( CI
-          Text
-      )
+newtype LaunchTemplateErrorCode = LaunchTemplateErrorCode'
+  { fromLaunchTemplateErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LTECLaunchTemplateIdDoesNotExist :: LaunchTemplateErrorCode
-pattern LTECLaunchTemplateIdDoesNotExist = LaunchTemplateErrorCode' "launchTemplateIdDoesNotExist"
+pattern LaunchTemplateErrorCodeLaunchTemplateIdDoesNotExist :: LaunchTemplateErrorCode
+pattern LaunchTemplateErrorCodeLaunchTemplateIdDoesNotExist = LaunchTemplateErrorCode' "launchTemplateIdDoesNotExist"
 
-pattern LTECLaunchTemplateIdMalformed :: LaunchTemplateErrorCode
-pattern LTECLaunchTemplateIdMalformed = LaunchTemplateErrorCode' "launchTemplateIdMalformed"
+pattern LaunchTemplateErrorCodeLaunchTemplateIdMalformed :: LaunchTemplateErrorCode
+pattern LaunchTemplateErrorCodeLaunchTemplateIdMalformed = LaunchTemplateErrorCode' "launchTemplateIdMalformed"
 
-pattern LTECLaunchTemplateNameDoesNotExist :: LaunchTemplateErrorCode
-pattern LTECLaunchTemplateNameDoesNotExist = LaunchTemplateErrorCode' "launchTemplateNameDoesNotExist"
+pattern LaunchTemplateErrorCodeLaunchTemplateNameDoesNotExist :: LaunchTemplateErrorCode
+pattern LaunchTemplateErrorCodeLaunchTemplateNameDoesNotExist = LaunchTemplateErrorCode' "launchTemplateNameDoesNotExist"
 
-pattern LTECLaunchTemplateNameMalformed :: LaunchTemplateErrorCode
-pattern LTECLaunchTemplateNameMalformed = LaunchTemplateErrorCode' "launchTemplateNameMalformed"
+pattern LaunchTemplateErrorCodeLaunchTemplateNameMalformed :: LaunchTemplateErrorCode
+pattern LaunchTemplateErrorCodeLaunchTemplateNameMalformed = LaunchTemplateErrorCode' "launchTemplateNameMalformed"
 
-pattern LTECLaunchTemplateVersionDoesNotExist :: LaunchTemplateErrorCode
-pattern LTECLaunchTemplateVersionDoesNotExist = LaunchTemplateErrorCode' "launchTemplateVersionDoesNotExist"
+pattern LaunchTemplateErrorCodeLaunchTemplateVersionDoesNotExist :: LaunchTemplateErrorCode
+pattern LaunchTemplateErrorCodeLaunchTemplateVersionDoesNotExist = LaunchTemplateErrorCode' "launchTemplateVersionDoesNotExist"
 
-pattern LTECUnexpectedError :: LaunchTemplateErrorCode
-pattern LTECUnexpectedError = LaunchTemplateErrorCode' "unexpectedError"
+pattern LaunchTemplateErrorCodeUnexpectedError :: LaunchTemplateErrorCode
+pattern LaunchTemplateErrorCodeUnexpectedError = LaunchTemplateErrorCode' "unexpectedError"
 
 {-# COMPLETE
-  LTECLaunchTemplateIdDoesNotExist,
-  LTECLaunchTemplateIdMalformed,
-  LTECLaunchTemplateNameDoesNotExist,
-  LTECLaunchTemplateNameMalformed,
-  LTECLaunchTemplateVersionDoesNotExist,
-  LTECUnexpectedError,
+  LaunchTemplateErrorCodeLaunchTemplateIdDoesNotExist,
+  LaunchTemplateErrorCodeLaunchTemplateIdMalformed,
+  LaunchTemplateErrorCodeLaunchTemplateNameDoesNotExist,
+  LaunchTemplateErrorCodeLaunchTemplateNameMalformed,
+  LaunchTemplateErrorCodeLaunchTemplateVersionDoesNotExist,
+  LaunchTemplateErrorCodeUnexpectedError,
   LaunchTemplateErrorCode'
   #-}
 
-instance FromText LaunchTemplateErrorCode where
-  parser = (LaunchTemplateErrorCode' . mk) <$> takeText
+instance Prelude.FromText LaunchTemplateErrorCode where
+  parser = LaunchTemplateErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText LaunchTemplateErrorCode where
-  toText (LaunchTemplateErrorCode' ci) = original ci
+instance Prelude.ToText LaunchTemplateErrorCode where
+  toText (LaunchTemplateErrorCode' x) = x
 
-instance Hashable LaunchTemplateErrorCode
+instance Prelude.Hashable LaunchTemplateErrorCode
 
-instance NFData LaunchTemplateErrorCode
+instance Prelude.NFData LaunchTemplateErrorCode
 
-instance ToByteString LaunchTemplateErrorCode
+instance Prelude.ToByteString LaunchTemplateErrorCode
 
-instance ToQuery LaunchTemplateErrorCode
+instance Prelude.ToQuery LaunchTemplateErrorCode
 
-instance ToHeader LaunchTemplateErrorCode
+instance Prelude.ToHeader LaunchTemplateErrorCode
 
-instance FromXML LaunchTemplateErrorCode where
-  parseXML = parseXMLText "LaunchTemplateErrorCode"
+instance Prelude.FromXML LaunchTemplateErrorCode where
+  parseXML = Prelude.parseXMLText "LaunchTemplateErrorCode"

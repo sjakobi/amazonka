@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,177 +24,187 @@
 -- Creates a static route for the specified local gateway route table.
 module Network.AWS.EC2.CreateLocalGatewayRoute
   ( -- * Creating a Request
-    createLocalGatewayRoute,
-    CreateLocalGatewayRoute,
+    CreateLocalGatewayRoute (..),
+    newCreateLocalGatewayRoute,
 
     -- * Request Lenses
-    clgrDryRun,
-    clgrDestinationCidrBlock,
-    clgrLocalGatewayRouteTableId,
-    clgrLocalGatewayVirtualInterfaceGroupId,
+    createLocalGatewayRoute_dryRun,
+    createLocalGatewayRoute_destinationCidrBlock,
+    createLocalGatewayRoute_localGatewayRouteTableId,
+    createLocalGatewayRoute_localGatewayVirtualInterfaceGroupId,
 
     -- * Destructuring the Response
-    createLocalGatewayRouteResponse,
-    CreateLocalGatewayRouteResponse,
+    CreateLocalGatewayRouteResponse (..),
+    newCreateLocalGatewayRouteResponse,
 
     -- * Response Lenses
-    clgrrrsRoute,
-    clgrrrsResponseStatus,
+    createLocalGatewayRouteResponse_route,
+    createLocalGatewayRouteResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.LocalGatewayRoute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createLocalGatewayRoute' smart constructor.
+-- | /See:/ 'newCreateLocalGatewayRoute' smart constructor.
 data CreateLocalGatewayRoute = CreateLocalGatewayRoute'
-  { _clgrDryRun ::
-      !(Maybe Bool),
-    _clgrDestinationCidrBlock ::
-      !Text,
-    _clgrLocalGatewayRouteTableId ::
-      !Text,
-    _clgrLocalGatewayVirtualInterfaceGroupId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The CIDR range used for destination matches. Routing decisions are based
+    -- on the most specific match.
+    destinationCidrBlock :: Prelude.Text,
+    -- | The ID of the local gateway route table.
+    localGatewayRouteTableId :: Prelude.Text,
+    -- | The ID of the virtual interface group.
+    localGatewayVirtualInterfaceGroupId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLocalGatewayRoute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLocalGatewayRoute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clgrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clgrDestinationCidrBlock' - The CIDR range used for destination matches. Routing decisions are based on the most specific match.
+-- 'dryRun', 'createLocalGatewayRoute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'clgrLocalGatewayRouteTableId' - The ID of the local gateway route table.
+-- 'destinationCidrBlock', 'createLocalGatewayRoute_destinationCidrBlock' - The CIDR range used for destination matches. Routing decisions are based
+-- on the most specific match.
 --
--- * 'clgrLocalGatewayVirtualInterfaceGroupId' - The ID of the virtual interface group.
-createLocalGatewayRoute ::
-  -- | 'clgrDestinationCidrBlock'
-  Text ->
-  -- | 'clgrLocalGatewayRouteTableId'
-  Text ->
-  -- | 'clgrLocalGatewayVirtualInterfaceGroupId'
-  Text ->
+-- 'localGatewayRouteTableId', 'createLocalGatewayRoute_localGatewayRouteTableId' - The ID of the local gateway route table.
+--
+-- 'localGatewayVirtualInterfaceGroupId', 'createLocalGatewayRoute_localGatewayVirtualInterfaceGroupId' - The ID of the virtual interface group.
+newCreateLocalGatewayRoute ::
+  -- | 'destinationCidrBlock'
+  Prelude.Text ->
+  -- | 'localGatewayRouteTableId'
+  Prelude.Text ->
+  -- | 'localGatewayVirtualInterfaceGroupId'
+  Prelude.Text ->
   CreateLocalGatewayRoute
-createLocalGatewayRoute
+newCreateLocalGatewayRoute
   pDestinationCidrBlock_
   pLocalGatewayRouteTableId_
   pLocalGatewayVirtualInterfaceGroupId_ =
     CreateLocalGatewayRoute'
-      { _clgrDryRun = Nothing,
-        _clgrDestinationCidrBlock = pDestinationCidrBlock_,
-        _clgrLocalGatewayRouteTableId =
+      { dryRun = Prelude.Nothing,
+        destinationCidrBlock = pDestinationCidrBlock_,
+        localGatewayRouteTableId =
           pLocalGatewayRouteTableId_,
-        _clgrLocalGatewayVirtualInterfaceGroupId =
+        localGatewayVirtualInterfaceGroupId =
           pLocalGatewayVirtualInterfaceGroupId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-clgrDryRun :: Lens' CreateLocalGatewayRoute (Maybe Bool)
-clgrDryRun = lens _clgrDryRun (\s a -> s {_clgrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createLocalGatewayRoute_dryRun :: Lens.Lens' CreateLocalGatewayRoute (Prelude.Maybe Prelude.Bool)
+createLocalGatewayRoute_dryRun = Lens.lens (\CreateLocalGatewayRoute' {dryRun} -> dryRun) (\s@CreateLocalGatewayRoute' {} a -> s {dryRun = a} :: CreateLocalGatewayRoute)
 
--- | The CIDR range used for destination matches. Routing decisions are based on the most specific match.
-clgrDestinationCidrBlock :: Lens' CreateLocalGatewayRoute Text
-clgrDestinationCidrBlock = lens _clgrDestinationCidrBlock (\s a -> s {_clgrDestinationCidrBlock = a})
+-- | The CIDR range used for destination matches. Routing decisions are based
+-- on the most specific match.
+createLocalGatewayRoute_destinationCidrBlock :: Lens.Lens' CreateLocalGatewayRoute Prelude.Text
+createLocalGatewayRoute_destinationCidrBlock = Lens.lens (\CreateLocalGatewayRoute' {destinationCidrBlock} -> destinationCidrBlock) (\s@CreateLocalGatewayRoute' {} a -> s {destinationCidrBlock = a} :: CreateLocalGatewayRoute)
 
 -- | The ID of the local gateway route table.
-clgrLocalGatewayRouteTableId :: Lens' CreateLocalGatewayRoute Text
-clgrLocalGatewayRouteTableId = lens _clgrLocalGatewayRouteTableId (\s a -> s {_clgrLocalGatewayRouteTableId = a})
+createLocalGatewayRoute_localGatewayRouteTableId :: Lens.Lens' CreateLocalGatewayRoute Prelude.Text
+createLocalGatewayRoute_localGatewayRouteTableId = Lens.lens (\CreateLocalGatewayRoute' {localGatewayRouteTableId} -> localGatewayRouteTableId) (\s@CreateLocalGatewayRoute' {} a -> s {localGatewayRouteTableId = a} :: CreateLocalGatewayRoute)
 
 -- | The ID of the virtual interface group.
-clgrLocalGatewayVirtualInterfaceGroupId :: Lens' CreateLocalGatewayRoute Text
-clgrLocalGatewayVirtualInterfaceGroupId = lens _clgrLocalGatewayVirtualInterfaceGroupId (\s a -> s {_clgrLocalGatewayVirtualInterfaceGroupId = a})
+createLocalGatewayRoute_localGatewayVirtualInterfaceGroupId :: Lens.Lens' CreateLocalGatewayRoute Prelude.Text
+createLocalGatewayRoute_localGatewayVirtualInterfaceGroupId = Lens.lens (\CreateLocalGatewayRoute' {localGatewayVirtualInterfaceGroupId} -> localGatewayVirtualInterfaceGroupId) (\s@CreateLocalGatewayRoute' {} a -> s {localGatewayVirtualInterfaceGroupId = a} :: CreateLocalGatewayRoute)
 
-instance AWSRequest CreateLocalGatewayRoute where
+instance Prelude.AWSRequest CreateLocalGatewayRoute where
   type
     Rs CreateLocalGatewayRoute =
       CreateLocalGatewayRouteResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateLocalGatewayRouteResponse'
-            <$> (x .@? "route") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "route")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateLocalGatewayRoute
+instance Prelude.Hashable CreateLocalGatewayRoute
 
-instance NFData CreateLocalGatewayRoute
+instance Prelude.NFData CreateLocalGatewayRoute
 
-instance ToHeaders CreateLocalGatewayRoute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateLocalGatewayRoute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateLocalGatewayRoute where
-  toPath = const "/"
+instance Prelude.ToPath CreateLocalGatewayRoute where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateLocalGatewayRoute where
+instance Prelude.ToQuery CreateLocalGatewayRoute where
   toQuery CreateLocalGatewayRoute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateLocalGatewayRoute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _clgrDryRun,
-        "DestinationCidrBlock" =: _clgrDestinationCidrBlock,
+          Prelude.=: ("CreateLocalGatewayRoute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "DestinationCidrBlock"
+          Prelude.=: destinationCidrBlock,
         "LocalGatewayRouteTableId"
-          =: _clgrLocalGatewayRouteTableId,
+          Prelude.=: localGatewayRouteTableId,
         "LocalGatewayVirtualInterfaceGroupId"
-          =: _clgrLocalGatewayVirtualInterfaceGroupId
+          Prelude.=: localGatewayVirtualInterfaceGroupId
       ]
 
--- | /See:/ 'createLocalGatewayRouteResponse' smart constructor.
+-- | /See:/ 'newCreateLocalGatewayRouteResponse' smart constructor.
 data CreateLocalGatewayRouteResponse = CreateLocalGatewayRouteResponse'
-  { _clgrrrsRoute ::
-      !( Maybe
-           LocalGatewayRoute
-       ),
-    _clgrrrsResponseStatus ::
-      !Int
+  { -- | Information about the route.
+    route :: Prelude.Maybe LocalGatewayRoute,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLocalGatewayRouteResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLocalGatewayRouteResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clgrrrsRoute' - Information about the route.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clgrrrsResponseStatus' - -- | The response status code.
-createLocalGatewayRouteResponse ::
-  -- | 'clgrrrsResponseStatus'
-  Int ->
+-- 'route', 'createLocalGatewayRouteResponse_route' - Information about the route.
+--
+-- 'httpStatus', 'createLocalGatewayRouteResponse_httpStatus' - The response's http status code.
+newCreateLocalGatewayRouteResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateLocalGatewayRouteResponse
-createLocalGatewayRouteResponse pResponseStatus_ =
+newCreateLocalGatewayRouteResponse pHttpStatus_ =
   CreateLocalGatewayRouteResponse'
-    { _clgrrrsRoute =
-        Nothing,
-      _clgrrrsResponseStatus = pResponseStatus_
+    { route =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the route.
-clgrrrsRoute :: Lens' CreateLocalGatewayRouteResponse (Maybe LocalGatewayRoute)
-clgrrrsRoute = lens _clgrrrsRoute (\s a -> s {_clgrrrsRoute = a})
+createLocalGatewayRouteResponse_route :: Lens.Lens' CreateLocalGatewayRouteResponse (Prelude.Maybe LocalGatewayRoute)
+createLocalGatewayRouteResponse_route = Lens.lens (\CreateLocalGatewayRouteResponse' {route} -> route) (\s@CreateLocalGatewayRouteResponse' {} a -> s {route = a} :: CreateLocalGatewayRouteResponse)
 
--- | -- | The response status code.
-clgrrrsResponseStatus :: Lens' CreateLocalGatewayRouteResponse Int
-clgrrrsResponseStatus = lens _clgrrrsResponseStatus (\s a -> s {_clgrrrsResponseStatus = a})
+-- | The response's http status code.
+createLocalGatewayRouteResponse_httpStatus :: Lens.Lens' CreateLocalGatewayRouteResponse Prelude.Int
+createLocalGatewayRouteResponse_httpStatus = Lens.lens (\CreateLocalGatewayRouteResponse' {httpStatus} -> httpStatus) (\s@CreateLocalGatewayRouteResponse' {} a -> s {httpStatus = a} :: CreateLocalGatewayRouteResponse)
 
-instance NFData CreateLocalGatewayRouteResponse
+instance
+  Prelude.NFData
+    CreateLocalGatewayRouteResponse

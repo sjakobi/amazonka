@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +21,129 @@ module Network.AWS.EC2.Types.InstanceState where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceStateName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the current state of an instance.
 --
---
---
--- /See:/ 'instanceState' smart constructor.
+-- /See:/ 'newInstanceState' smart constructor.
 data InstanceState = InstanceState'
-  { _isName ::
-      !InstanceStateName,
-    _isCode :: !Int
+  { -- | The current state of the instance.
+    name :: InstanceStateName,
+    -- | The state of the instance as a 16-bit unsigned integer.
+    --
+    -- The high byte is all of the bits between 2^8 and (2^16)-1, which equals
+    -- decimal values between 256 and 65,535. These numerical values are used
+    -- for internal purposes and should be ignored.
+    --
+    -- The low byte is all of the bits between 2^0 and (2^8)-1, which equals
+    -- decimal values between 0 and 255.
+    --
+    -- The valid values for instance-state-code will all be in the range of the
+    -- low byte and they are:
+    --
+    -- -   @0@ : @pending@
+    --
+    -- -   @16@ : @running@
+    --
+    -- -   @32@ : @shutting-down@
+    --
+    -- -   @48@ : @terminated@
+    --
+    -- -   @64@ : @stopping@
+    --
+    -- -   @80@ : @stopped@
+    --
+    -- You can ignore the high byte value by zeroing out all of the bits above
+    -- 2^8 or 256 in decimal.
+    code :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isName' - The current state of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isCode' - The state of the instance as a 16-bit unsigned integer.  The high byte is all of the bits between 2^8 and (2^16)-1, which equals decimal values between 256 and 65,535. These numerical values are used for internal purposes and should be ignored. The low byte is all of the bits between 2^0 and (2^8)-1, which equals decimal values between 0 and 255.  The valid values for instance-state-code will all be in the range of the low byte and they are:     * @0@ : @pending@      * @16@ : @running@      * @32@ : @shutting-down@      * @48@ : @terminated@      * @64@ : @stopping@      * @80@ : @stopped@  You can ignore the high byte value by zeroing out all of the bits above 2^8 or 256 in decimal.
-instanceState ::
-  -- | 'isName'
+-- 'name', 'instanceState_name' - The current state of the instance.
+--
+-- 'code', 'instanceState_code' - The state of the instance as a 16-bit unsigned integer.
+--
+-- The high byte is all of the bits between 2^8 and (2^16)-1, which equals
+-- decimal values between 256 and 65,535. These numerical values are used
+-- for internal purposes and should be ignored.
+--
+-- The low byte is all of the bits between 2^0 and (2^8)-1, which equals
+-- decimal values between 0 and 255.
+--
+-- The valid values for instance-state-code will all be in the range of the
+-- low byte and they are:
+--
+-- -   @0@ : @pending@
+--
+-- -   @16@ : @running@
+--
+-- -   @32@ : @shutting-down@
+--
+-- -   @48@ : @terminated@
+--
+-- -   @64@ : @stopping@
+--
+-- -   @80@ : @stopped@
+--
+-- You can ignore the high byte value by zeroing out all of the bits above
+-- 2^8 or 256 in decimal.
+newInstanceState ::
+  -- | 'name'
   InstanceStateName ->
-  -- | 'isCode'
-  Int ->
+  -- | 'code'
+  Prelude.Int ->
   InstanceState
-instanceState pName_ pCode_ =
-  InstanceState' {_isName = pName_, _isCode = pCode_}
+newInstanceState pName_ pCode_ =
+  InstanceState' {name = pName_, code = pCode_}
 
 -- | The current state of the instance.
-isName :: Lens' InstanceState InstanceStateName
-isName = lens _isName (\s a -> s {_isName = a})
+instanceState_name :: Lens.Lens' InstanceState InstanceStateName
+instanceState_name = Lens.lens (\InstanceState' {name} -> name) (\s@InstanceState' {} a -> s {name = a} :: InstanceState)
 
--- | The state of the instance as a 16-bit unsigned integer.  The high byte is all of the bits between 2^8 and (2^16)-1, which equals decimal values between 256 and 65,535. These numerical values are used for internal purposes and should be ignored. The low byte is all of the bits between 2^0 and (2^8)-1, which equals decimal values between 0 and 255.  The valid values for instance-state-code will all be in the range of the low byte and they are:     * @0@ : @pending@      * @16@ : @running@      * @32@ : @shutting-down@      * @48@ : @terminated@      * @64@ : @stopping@      * @80@ : @stopped@  You can ignore the high byte value by zeroing out all of the bits above 2^8 or 256 in decimal.
-isCode :: Lens' InstanceState Int
-isCode = lens _isCode (\s a -> s {_isCode = a})
+-- | The state of the instance as a 16-bit unsigned integer.
+--
+-- The high byte is all of the bits between 2^8 and (2^16)-1, which equals
+-- decimal values between 256 and 65,535. These numerical values are used
+-- for internal purposes and should be ignored.
+--
+-- The low byte is all of the bits between 2^0 and (2^8)-1, which equals
+-- decimal values between 0 and 255.
+--
+-- The valid values for instance-state-code will all be in the range of the
+-- low byte and they are:
+--
+-- -   @0@ : @pending@
+--
+-- -   @16@ : @running@
+--
+-- -   @32@ : @shutting-down@
+--
+-- -   @48@ : @terminated@
+--
+-- -   @64@ : @stopping@
+--
+-- -   @80@ : @stopped@
+--
+-- You can ignore the high byte value by zeroing out all of the bits above
+-- 2^8 or 256 in decimal.
+instanceState_code :: Lens.Lens' InstanceState Prelude.Int
+instanceState_code = Lens.lens (\InstanceState' {code} -> code) (\s@InstanceState' {} a -> s {code = a} :: InstanceState)
 
-instance FromXML InstanceState where
+instance Prelude.FromXML InstanceState where
   parseXML x =
-    InstanceState' <$> (x .@ "name") <*> (x .@ "code")
+    InstanceState'
+      Prelude.<$> (x Prelude..@ "name")
+      Prelude.<*> (x Prelude..@ "code")
 
-instance Hashable InstanceState
+instance Prelude.Hashable InstanceState
 
-instance NFData InstanceState
+instance Prelude.NFData InstanceState

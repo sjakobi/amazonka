@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.EC2.Types.ContainerFormat
   ( ContainerFormat
       ( ..,
-        Ova
+        ContainerFormatOva
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerFormat = ContainerFormat' (CI Text)
+newtype ContainerFormat = ContainerFormat'
+  { fromContainerFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ova :: ContainerFormat
-pattern Ova = ContainerFormat' "ova"
+pattern ContainerFormatOva :: ContainerFormat
+pattern ContainerFormatOva = ContainerFormat' "ova"
 
 {-# COMPLETE
-  Ova,
+  ContainerFormatOva,
   ContainerFormat'
   #-}
 
-instance FromText ContainerFormat where
-  parser = (ContainerFormat' . mk) <$> takeText
+instance Prelude.FromText ContainerFormat where
+  parser = ContainerFormat' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerFormat where
-  toText (ContainerFormat' ci) = original ci
+instance Prelude.ToText ContainerFormat where
+  toText (ContainerFormat' x) = x
 
-instance Hashable ContainerFormat
+instance Prelude.Hashable ContainerFormat
 
-instance NFData ContainerFormat
+instance Prelude.NFData ContainerFormat
 
-instance ToByteString ContainerFormat
+instance Prelude.ToByteString ContainerFormat
 
-instance ToQuery ContainerFormat
+instance Prelude.ToQuery ContainerFormat
 
-instance ToHeader ContainerFormat
+instance Prelude.ToHeader ContainerFormat
 
-instance FromXML ContainerFormat where
-  parseXML = parseXMLText "ContainerFormat"
+instance Prelude.FromXML ContainerFormat where
+  parseXML = Prelude.parseXMLText "ContainerFormat"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +21,64 @@ module Network.AWS.EC2.Types.InternetGatewayAttachment where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.AttachmentStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the attachment of a VPC to an internet gateway or an egress-only internet gateway.
+-- | Describes the attachment of a VPC to an internet gateway or an
+-- egress-only internet gateway.
 --
---
---
--- /See:/ 'internetGatewayAttachment' smart constructor.
+-- /See:/ 'newInternetGatewayAttachment' smart constructor.
 data InternetGatewayAttachment = InternetGatewayAttachment'
-  { _igaState ::
-      !AttachmentStatus,
-    _igaVPCId :: !Text
+  { -- | The current state of the attachment. For an internet gateway, the state
+    -- is @available@ when attached to a VPC; otherwise, this value is not
+    -- returned.
+    state :: AttachmentStatus,
+    -- | The ID of the VPC.
+    vpcId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InternetGatewayAttachment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InternetGatewayAttachment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'igaState' - The current state of the attachment. For an internet gateway, the state is @available@ when attached to a VPC; otherwise, this value is not returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'igaVPCId' - The ID of the VPC.
-internetGatewayAttachment ::
-  -- | 'igaState'
+-- 'state', 'internetGatewayAttachment_state' - The current state of the attachment. For an internet gateway, the state
+-- is @available@ when attached to a VPC; otherwise, this value is not
+-- returned.
+--
+-- 'vpcId', 'internetGatewayAttachment_vpcId' - The ID of the VPC.
+newInternetGatewayAttachment ::
+  -- | 'state'
   AttachmentStatus ->
-  -- | 'igaVPCId'
-  Text ->
+  -- | 'vpcId'
+  Prelude.Text ->
   InternetGatewayAttachment
-internetGatewayAttachment pState_ pVPCId_ =
+newInternetGatewayAttachment pState_ pVpcId_ =
   InternetGatewayAttachment'
-    { _igaState = pState_,
-      _igaVPCId = pVPCId_
+    { state = pState_,
+      vpcId = pVpcId_
     }
 
--- | The current state of the attachment. For an internet gateway, the state is @available@ when attached to a VPC; otherwise, this value is not returned.
-igaState :: Lens' InternetGatewayAttachment AttachmentStatus
-igaState = lens _igaState (\s a -> s {_igaState = a})
+-- | The current state of the attachment. For an internet gateway, the state
+-- is @available@ when attached to a VPC; otherwise, this value is not
+-- returned.
+internetGatewayAttachment_state :: Lens.Lens' InternetGatewayAttachment AttachmentStatus
+internetGatewayAttachment_state = Lens.lens (\InternetGatewayAttachment' {state} -> state) (\s@InternetGatewayAttachment' {} a -> s {state = a} :: InternetGatewayAttachment)
 
 -- | The ID of the VPC.
-igaVPCId :: Lens' InternetGatewayAttachment Text
-igaVPCId = lens _igaVPCId (\s a -> s {_igaVPCId = a})
+internetGatewayAttachment_vpcId :: Lens.Lens' InternetGatewayAttachment Prelude.Text
+internetGatewayAttachment_vpcId = Lens.lens (\InternetGatewayAttachment' {vpcId} -> vpcId) (\s@InternetGatewayAttachment' {} a -> s {vpcId = a} :: InternetGatewayAttachment)
 
-instance FromXML InternetGatewayAttachment where
+instance Prelude.FromXML InternetGatewayAttachment where
   parseXML x =
     InternetGatewayAttachment'
-      <$> (x .@ "state") <*> (x .@ "vpcId")
+      Prelude.<$> (x Prelude..@ "state")
+      Prelude.<*> (x Prelude..@ "vpcId")
 
-instance Hashable InternetGatewayAttachment
+instance Prelude.Hashable InternetGatewayAttachment
 
-instance NFData InternetGatewayAttachment
+instance Prelude.NFData InternetGatewayAttachment

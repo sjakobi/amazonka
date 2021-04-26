@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,66 +22,70 @@ module Network.AWS.EC2.Types.LaunchTemplateConfig where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.FleetLaunchTemplateSpecification
 import Network.AWS.EC2.Types.LaunchTemplateOverrides
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch template and overrides.
 --
---
---
--- /See:/ 'launchTemplateConfig' smart constructor.
+-- /See:/ 'newLaunchTemplateConfig' smart constructor.
 data LaunchTemplateConfig = LaunchTemplateConfig'
-  { _ltcLaunchTemplateSpecification ::
-      !( Maybe
-           FleetLaunchTemplateSpecification
-       ),
-    _ltcOverrides ::
-      !( Maybe
-           [LaunchTemplateOverrides]
-       )
+  { -- | The launch template.
+    launchTemplateSpecification :: Prelude.Maybe FleetLaunchTemplateSpecification,
+    -- | Any parameters that you specify override the same parameters in the
+    -- launch template.
+    overrides :: Prelude.Maybe [LaunchTemplateOverrides]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltcLaunchTemplateSpecification' - The launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltcOverrides' - Any parameters that you specify override the same parameters in the launch template.
-launchTemplateConfig ::
+-- 'launchTemplateSpecification', 'launchTemplateConfig_launchTemplateSpecification' - The launch template.
+--
+-- 'overrides', 'launchTemplateConfig_overrides' - Any parameters that you specify override the same parameters in the
+-- launch template.
+newLaunchTemplateConfig ::
   LaunchTemplateConfig
-launchTemplateConfig =
+newLaunchTemplateConfig =
   LaunchTemplateConfig'
-    { _ltcLaunchTemplateSpecification =
-        Nothing,
-      _ltcOverrides = Nothing
+    { launchTemplateSpecification =
+        Prelude.Nothing,
+      overrides = Prelude.Nothing
     }
 
 -- | The launch template.
-ltcLaunchTemplateSpecification :: Lens' LaunchTemplateConfig (Maybe FleetLaunchTemplateSpecification)
-ltcLaunchTemplateSpecification = lens _ltcLaunchTemplateSpecification (\s a -> s {_ltcLaunchTemplateSpecification = a})
+launchTemplateConfig_launchTemplateSpecification :: Lens.Lens' LaunchTemplateConfig (Prelude.Maybe FleetLaunchTemplateSpecification)
+launchTemplateConfig_launchTemplateSpecification = Lens.lens (\LaunchTemplateConfig' {launchTemplateSpecification} -> launchTemplateSpecification) (\s@LaunchTemplateConfig' {} a -> s {launchTemplateSpecification = a} :: LaunchTemplateConfig)
 
--- | Any parameters that you specify override the same parameters in the launch template.
-ltcOverrides :: Lens' LaunchTemplateConfig [LaunchTemplateOverrides]
-ltcOverrides = lens _ltcOverrides (\s a -> s {_ltcOverrides = a}) . _Default . _Coerce
+-- | Any parameters that you specify override the same parameters in the
+-- launch template.
+launchTemplateConfig_overrides :: Lens.Lens' LaunchTemplateConfig (Prelude.Maybe [LaunchTemplateOverrides])
+launchTemplateConfig_overrides = Lens.lens (\LaunchTemplateConfig' {overrides} -> overrides) (\s@LaunchTemplateConfig' {} a -> s {overrides = a} :: LaunchTemplateConfig) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML LaunchTemplateConfig where
+instance Prelude.FromXML LaunchTemplateConfig where
   parseXML x =
     LaunchTemplateConfig'
-      <$> (x .@? "launchTemplateSpecification")
-      <*> ( x .@? "overrides" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "launchTemplateSpecification")
+      Prelude.<*> ( x Prelude..@? "overrides" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable LaunchTemplateConfig
+instance Prelude.Hashable LaunchTemplateConfig
 
-instance NFData LaunchTemplateConfig
+instance Prelude.NFData LaunchTemplateConfig
 
-instance ToQuery LaunchTemplateConfig where
+instance Prelude.ToQuery LaunchTemplateConfig where
   toQuery LaunchTemplateConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "LaunchTemplateSpecification"
-          =: _ltcLaunchTemplateSpecification,
-        toQuery (toQueryList "Overrides" <$> _ltcOverrides)
+          Prelude.=: launchTemplateSpecification,
+        Prelude.toQuery
+          ( Prelude.toQueryList "Overrides"
+              Prelude.<$> overrides
+          )
       ]

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.MulticastSupportValue
   ( MulticastSupportValue
       ( ..,
-        MSVDisable,
-        MSVEnable
+        MulticastSupportValueDisable,
+        MulticastSupportValueEnable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MulticastSupportValue
-  = MulticastSupportValue'
-      ( CI
-          Text
-      )
+newtype MulticastSupportValue = MulticastSupportValue'
+  { fromMulticastSupportValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSVDisable :: MulticastSupportValue
-pattern MSVDisable = MulticastSupportValue' "disable"
+pattern MulticastSupportValueDisable :: MulticastSupportValue
+pattern MulticastSupportValueDisable = MulticastSupportValue' "disable"
 
-pattern MSVEnable :: MulticastSupportValue
-pattern MSVEnable = MulticastSupportValue' "enable"
+pattern MulticastSupportValueEnable :: MulticastSupportValue
+pattern MulticastSupportValueEnable = MulticastSupportValue' "enable"
 
 {-# COMPLETE
-  MSVDisable,
-  MSVEnable,
+  MulticastSupportValueDisable,
+  MulticastSupportValueEnable,
   MulticastSupportValue'
   #-}
 
-instance FromText MulticastSupportValue where
-  parser = (MulticastSupportValue' . mk) <$> takeText
+instance Prelude.FromText MulticastSupportValue where
+  parser = MulticastSupportValue' Prelude.<$> Prelude.takeText
 
-instance ToText MulticastSupportValue where
-  toText (MulticastSupportValue' ci) = original ci
+instance Prelude.ToText MulticastSupportValue where
+  toText (MulticastSupportValue' x) = x
 
-instance Hashable MulticastSupportValue
+instance Prelude.Hashable MulticastSupportValue
 
-instance NFData MulticastSupportValue
+instance Prelude.NFData MulticastSupportValue
 
-instance ToByteString MulticastSupportValue
+instance Prelude.ToByteString MulticastSupportValue
 
-instance ToQuery MulticastSupportValue
+instance Prelude.ToQuery MulticastSupportValue
 
-instance ToHeader MulticastSupportValue
+instance Prelude.ToHeader MulticastSupportValue
 
-instance FromXML MulticastSupportValue where
-  parseXML = parseXMLText "MulticastSupportValue"
+instance Prelude.FromXML MulticastSupportValue where
+  parseXML = Prelude.parseXMLText "MulticastSupportValue"

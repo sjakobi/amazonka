@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,136 +21,135 @@ module Network.AWS.EC2.Types.LaunchTemplatePlacementRequest where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tenancy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the placement of an instance.
 --
---
---
--- /See:/ 'launchTemplatePlacementRequest' smart constructor.
+-- /See:/ 'newLaunchTemplatePlacementRequest' smart constructor.
 data LaunchTemplatePlacementRequest = LaunchTemplatePlacementRequest'
-  { _ltprSpreadDomain ::
-      !( Maybe
-           Text
-       ),
-    _ltprGroupName ::
-      !( Maybe
-           Text
-       ),
-    _ltprTenancy ::
-      !( Maybe
-           Tenancy
-       ),
-    _ltprAffinity ::
-      !( Maybe
-           Text
-       ),
-    _ltprAvailabilityZone ::
-      !( Maybe
-           Text
-       ),
-    _ltprPartitionNumber ::
-      !( Maybe
-           Int
-       ),
-    _ltprHostResourceGroupARN ::
-      !( Maybe
-           Text
-       ),
-    _ltprHostId ::
-      !( Maybe
-           Text
-       )
+  { -- | Reserved for future use.
+    spreadDomain :: Prelude.Maybe Prelude.Text,
+    -- | The name of the placement group for the instance.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The tenancy of the instance (if the instance is running in a VPC). An
+    -- instance with a tenancy of dedicated runs on single-tenant hardware.
+    tenancy :: Prelude.Maybe Tenancy,
+    -- | The affinity setting for an instance on a Dedicated Host.
+    affinity :: Prelude.Maybe Prelude.Text,
+    -- | The Availability Zone for the instance.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The number of the partition the instance should launch in. Valid only if
+    -- the placement group strategy is set to @partition@.
+    partitionNumber :: Prelude.Maybe Prelude.Int,
+    -- | The ARN of the host resource group in which to launch the instances. If
+    -- you specify a host resource group ARN, omit the __Tenancy__ parameter or
+    -- set it to @host@.
+    hostResourceGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Dedicated Host for the instance.
+    hostId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplatePlacementRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplatePlacementRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltprSpreadDomain' - Reserved for future use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltprGroupName' - The name of the placement group for the instance.
+-- 'spreadDomain', 'launchTemplatePlacementRequest_spreadDomain' - Reserved for future use.
 --
--- * 'ltprTenancy' - The tenancy of the instance (if the instance is running in a VPC). An instance with a tenancy of dedicated runs on single-tenant hardware.
+-- 'groupName', 'launchTemplatePlacementRequest_groupName' - The name of the placement group for the instance.
 --
--- * 'ltprAffinity' - The affinity setting for an instance on a Dedicated Host.
+-- 'tenancy', 'launchTemplatePlacementRequest_tenancy' - The tenancy of the instance (if the instance is running in a VPC). An
+-- instance with a tenancy of dedicated runs on single-tenant hardware.
 --
--- * 'ltprAvailabilityZone' - The Availability Zone for the instance.
+-- 'affinity', 'launchTemplatePlacementRequest_affinity' - The affinity setting for an instance on a Dedicated Host.
 --
--- * 'ltprPartitionNumber' - The number of the partition the instance should launch in. Valid only if the placement group strategy is set to @partition@ .
+-- 'availabilityZone', 'launchTemplatePlacementRequest_availabilityZone' - The Availability Zone for the instance.
 --
--- * 'ltprHostResourceGroupARN' - The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the __Tenancy__ parameter or set it to @host@ .
+-- 'partitionNumber', 'launchTemplatePlacementRequest_partitionNumber' - The number of the partition the instance should launch in. Valid only if
+-- the placement group strategy is set to @partition@.
 --
--- * 'ltprHostId' - The ID of the Dedicated Host for the instance.
-launchTemplatePlacementRequest ::
+-- 'hostResourceGroupArn', 'launchTemplatePlacementRequest_hostResourceGroupArn' - The ARN of the host resource group in which to launch the instances. If
+-- you specify a host resource group ARN, omit the __Tenancy__ parameter or
+-- set it to @host@.
+--
+-- 'hostId', 'launchTemplatePlacementRequest_hostId' - The ID of the Dedicated Host for the instance.
+newLaunchTemplatePlacementRequest ::
   LaunchTemplatePlacementRequest
-launchTemplatePlacementRequest =
+newLaunchTemplatePlacementRequest =
   LaunchTemplatePlacementRequest'
-    { _ltprSpreadDomain =
-        Nothing,
-      _ltprGroupName = Nothing,
-      _ltprTenancy = Nothing,
-      _ltprAffinity = Nothing,
-      _ltprAvailabilityZone = Nothing,
-      _ltprPartitionNumber = Nothing,
-      _ltprHostResourceGroupARN = Nothing,
-      _ltprHostId = Nothing
+    { spreadDomain =
+        Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      tenancy = Prelude.Nothing,
+      affinity = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      partitionNumber = Prelude.Nothing,
+      hostResourceGroupArn = Prelude.Nothing,
+      hostId = Prelude.Nothing
     }
 
 -- | Reserved for future use.
-ltprSpreadDomain :: Lens' LaunchTemplatePlacementRequest (Maybe Text)
-ltprSpreadDomain = lens _ltprSpreadDomain (\s a -> s {_ltprSpreadDomain = a})
+launchTemplatePlacementRequest_spreadDomain :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Prelude.Text)
+launchTemplatePlacementRequest_spreadDomain = Lens.lens (\LaunchTemplatePlacementRequest' {spreadDomain} -> spreadDomain) (\s@LaunchTemplatePlacementRequest' {} a -> s {spreadDomain = a} :: LaunchTemplatePlacementRequest)
 
 -- | The name of the placement group for the instance.
-ltprGroupName :: Lens' LaunchTemplatePlacementRequest (Maybe Text)
-ltprGroupName = lens _ltprGroupName (\s a -> s {_ltprGroupName = a})
+launchTemplatePlacementRequest_groupName :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Prelude.Text)
+launchTemplatePlacementRequest_groupName = Lens.lens (\LaunchTemplatePlacementRequest' {groupName} -> groupName) (\s@LaunchTemplatePlacementRequest' {} a -> s {groupName = a} :: LaunchTemplatePlacementRequest)
 
--- | The tenancy of the instance (if the instance is running in a VPC). An instance with a tenancy of dedicated runs on single-tenant hardware.
-ltprTenancy :: Lens' LaunchTemplatePlacementRequest (Maybe Tenancy)
-ltprTenancy = lens _ltprTenancy (\s a -> s {_ltprTenancy = a})
+-- | The tenancy of the instance (if the instance is running in a VPC). An
+-- instance with a tenancy of dedicated runs on single-tenant hardware.
+launchTemplatePlacementRequest_tenancy :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Tenancy)
+launchTemplatePlacementRequest_tenancy = Lens.lens (\LaunchTemplatePlacementRequest' {tenancy} -> tenancy) (\s@LaunchTemplatePlacementRequest' {} a -> s {tenancy = a} :: LaunchTemplatePlacementRequest)
 
 -- | The affinity setting for an instance on a Dedicated Host.
-ltprAffinity :: Lens' LaunchTemplatePlacementRequest (Maybe Text)
-ltprAffinity = lens _ltprAffinity (\s a -> s {_ltprAffinity = a})
+launchTemplatePlacementRequest_affinity :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Prelude.Text)
+launchTemplatePlacementRequest_affinity = Lens.lens (\LaunchTemplatePlacementRequest' {affinity} -> affinity) (\s@LaunchTemplatePlacementRequest' {} a -> s {affinity = a} :: LaunchTemplatePlacementRequest)
 
 -- | The Availability Zone for the instance.
-ltprAvailabilityZone :: Lens' LaunchTemplatePlacementRequest (Maybe Text)
-ltprAvailabilityZone = lens _ltprAvailabilityZone (\s a -> s {_ltprAvailabilityZone = a})
+launchTemplatePlacementRequest_availabilityZone :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Prelude.Text)
+launchTemplatePlacementRequest_availabilityZone = Lens.lens (\LaunchTemplatePlacementRequest' {availabilityZone} -> availabilityZone) (\s@LaunchTemplatePlacementRequest' {} a -> s {availabilityZone = a} :: LaunchTemplatePlacementRequest)
 
--- | The number of the partition the instance should launch in. Valid only if the placement group strategy is set to @partition@ .
-ltprPartitionNumber :: Lens' LaunchTemplatePlacementRequest (Maybe Int)
-ltprPartitionNumber = lens _ltprPartitionNumber (\s a -> s {_ltprPartitionNumber = a})
+-- | The number of the partition the instance should launch in. Valid only if
+-- the placement group strategy is set to @partition@.
+launchTemplatePlacementRequest_partitionNumber :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Prelude.Int)
+launchTemplatePlacementRequest_partitionNumber = Lens.lens (\LaunchTemplatePlacementRequest' {partitionNumber} -> partitionNumber) (\s@LaunchTemplatePlacementRequest' {} a -> s {partitionNumber = a} :: LaunchTemplatePlacementRequest)
 
--- | The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the __Tenancy__ parameter or set it to @host@ .
-ltprHostResourceGroupARN :: Lens' LaunchTemplatePlacementRequest (Maybe Text)
-ltprHostResourceGroupARN = lens _ltprHostResourceGroupARN (\s a -> s {_ltprHostResourceGroupARN = a})
+-- | The ARN of the host resource group in which to launch the instances. If
+-- you specify a host resource group ARN, omit the __Tenancy__ parameter or
+-- set it to @host@.
+launchTemplatePlacementRequest_hostResourceGroupArn :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Prelude.Text)
+launchTemplatePlacementRequest_hostResourceGroupArn = Lens.lens (\LaunchTemplatePlacementRequest' {hostResourceGroupArn} -> hostResourceGroupArn) (\s@LaunchTemplatePlacementRequest' {} a -> s {hostResourceGroupArn = a} :: LaunchTemplatePlacementRequest)
 
 -- | The ID of the Dedicated Host for the instance.
-ltprHostId :: Lens' LaunchTemplatePlacementRequest (Maybe Text)
-ltprHostId = lens _ltprHostId (\s a -> s {_ltprHostId = a})
+launchTemplatePlacementRequest_hostId :: Lens.Lens' LaunchTemplatePlacementRequest (Prelude.Maybe Prelude.Text)
+launchTemplatePlacementRequest_hostId = Lens.lens (\LaunchTemplatePlacementRequest' {hostId} -> hostId) (\s@LaunchTemplatePlacementRequest' {} a -> s {hostId = a} :: LaunchTemplatePlacementRequest)
 
-instance Hashable LaunchTemplatePlacementRequest
+instance
+  Prelude.Hashable
+    LaunchTemplatePlacementRequest
 
-instance NFData LaunchTemplatePlacementRequest
+instance
+  Prelude.NFData
+    LaunchTemplatePlacementRequest
 
-instance ToQuery LaunchTemplatePlacementRequest where
+instance
+  Prelude.ToQuery
+    LaunchTemplatePlacementRequest
+  where
   toQuery LaunchTemplatePlacementRequest' {..} =
-    mconcat
-      [ "SpreadDomain" =: _ltprSpreadDomain,
-        "GroupName" =: _ltprGroupName,
-        "Tenancy" =: _ltprTenancy,
-        "Affinity" =: _ltprAffinity,
-        "AvailabilityZone" =: _ltprAvailabilityZone,
-        "PartitionNumber" =: _ltprPartitionNumber,
-        "HostResourceGroupArn" =: _ltprHostResourceGroupARN,
-        "HostId" =: _ltprHostId
+    Prelude.mconcat
+      [ "SpreadDomain" Prelude.=: spreadDomain,
+        "GroupName" Prelude.=: groupName,
+        "Tenancy" Prelude.=: tenancy,
+        "Affinity" Prelude.=: affinity,
+        "AvailabilityZone" Prelude.=: availabilityZone,
+        "PartitionNumber" Prelude.=: partitionNumber,
+        "HostResourceGroupArn"
+          Prelude.=: hostResourceGroupArn,
+        "HostId" Prelude.=: hostId
       ]

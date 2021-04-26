@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.EC2.Types.ElasticGpuState
   ( ElasticGpuState
       ( ..,
-        Attached
+        ElasticGpuStateATTACHED
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ElasticGpuState = ElasticGpuState' (CI Text)
+newtype ElasticGpuState = ElasticGpuState'
+  { fromElasticGpuState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Attached :: ElasticGpuState
-pattern Attached = ElasticGpuState' "ATTACHED"
+pattern ElasticGpuStateATTACHED :: ElasticGpuState
+pattern ElasticGpuStateATTACHED = ElasticGpuState' "ATTACHED"
 
 {-# COMPLETE
-  Attached,
+  ElasticGpuStateATTACHED,
   ElasticGpuState'
   #-}
 
-instance FromText ElasticGpuState where
-  parser = (ElasticGpuState' . mk) <$> takeText
+instance Prelude.FromText ElasticGpuState where
+  parser = ElasticGpuState' Prelude.<$> Prelude.takeText
 
-instance ToText ElasticGpuState where
-  toText (ElasticGpuState' ci) = original ci
+instance Prelude.ToText ElasticGpuState where
+  toText (ElasticGpuState' x) = x
 
-instance Hashable ElasticGpuState
+instance Prelude.Hashable ElasticGpuState
 
-instance NFData ElasticGpuState
+instance Prelude.NFData ElasticGpuState
 
-instance ToByteString ElasticGpuState
+instance Prelude.ToByteString ElasticGpuState
 
-instance ToQuery ElasticGpuState
+instance Prelude.ToQuery ElasticGpuState
 
-instance ToHeader ElasticGpuState
+instance Prelude.ToHeader ElasticGpuState
 
-instance FromXML ElasticGpuState where
-  parseXML = parseXMLText "ElasticGpuState"
+instance Prelude.FromXML ElasticGpuState where
+  parseXML = Prelude.parseXMLText "ElasticGpuState"

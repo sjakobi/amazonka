@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.TrafficDirection
   ( TrafficDirection
       ( ..,
-        Egress,
-        Ingress
+        TrafficDirectionEgress,
+        TrafficDirectionIngress
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficDirection = TrafficDirection' (CI Text)
+newtype TrafficDirection = TrafficDirection'
+  { fromTrafficDirection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Egress :: TrafficDirection
-pattern Egress = TrafficDirection' "egress"
+pattern TrafficDirectionEgress :: TrafficDirection
+pattern TrafficDirectionEgress = TrafficDirection' "egress"
 
-pattern Ingress :: TrafficDirection
-pattern Ingress = TrafficDirection' "ingress"
+pattern TrafficDirectionIngress :: TrafficDirection
+pattern TrafficDirectionIngress = TrafficDirection' "ingress"
 
 {-# COMPLETE
-  Egress,
-  Ingress,
+  TrafficDirectionEgress,
+  TrafficDirectionIngress,
   TrafficDirection'
   #-}
 
-instance FromText TrafficDirection where
-  parser = (TrafficDirection' . mk) <$> takeText
+instance Prelude.FromText TrafficDirection where
+  parser = TrafficDirection' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficDirection where
-  toText (TrafficDirection' ci) = original ci
+instance Prelude.ToText TrafficDirection where
+  toText (TrafficDirection' x) = x
 
-instance Hashable TrafficDirection
+instance Prelude.Hashable TrafficDirection
 
-instance NFData TrafficDirection
+instance Prelude.NFData TrafficDirection
 
-instance ToByteString TrafficDirection
+instance Prelude.ToByteString TrafficDirection
 
-instance ToQuery TrafficDirection
+instance Prelude.ToQuery TrafficDirection
 
-instance ToHeader TrafficDirection
+instance Prelude.ToHeader TrafficDirection
 
-instance FromXML TrafficDirection where
-  parseXML = parseXMLText "TrafficDirection"
+instance Prelude.FromXML TrafficDirection where
+  parseXML = Prelude.parseXMLText "TrafficDirection"

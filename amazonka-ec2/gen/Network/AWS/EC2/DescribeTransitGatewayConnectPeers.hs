@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,230 +23,280 @@
 --
 -- Describes one or more Connect peers.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeTransitGatewayConnectPeers
   ( -- * Creating a Request
-    describeTransitGatewayConnectPeers,
-    DescribeTransitGatewayConnectPeers,
+    DescribeTransitGatewayConnectPeers (..),
+    newDescribeTransitGatewayConnectPeers,
 
     -- * Request Lenses
-    dtgcpNextToken,
-    dtgcpDryRun,
-    dtgcpMaxResults,
-    dtgcpFilters,
-    dtgcpTransitGatewayConnectPeerIds,
+    describeTransitGatewayConnectPeers_nextToken,
+    describeTransitGatewayConnectPeers_dryRun,
+    describeTransitGatewayConnectPeers_maxResults,
+    describeTransitGatewayConnectPeers_filters,
+    describeTransitGatewayConnectPeers_transitGatewayConnectPeerIds,
 
     -- * Destructuring the Response
-    describeTransitGatewayConnectPeersResponse,
-    DescribeTransitGatewayConnectPeersResponse,
+    DescribeTransitGatewayConnectPeersResponse (..),
+    newDescribeTransitGatewayConnectPeersResponse,
 
     -- * Response Lenses
-    dtgcprtrsNextToken,
-    dtgcprtrsTransitGatewayConnectPeers,
-    dtgcprtrsResponseStatus,
+    describeTransitGatewayConnectPeersResponse_nextToken,
+    describeTransitGatewayConnectPeersResponse_transitGatewayConnectPeers,
+    describeTransitGatewayConnectPeersResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayConnectPeer
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTransitGatewayConnectPeers' smart constructor.
+-- | /See:/ 'newDescribeTransitGatewayConnectPeers' smart constructor.
 data DescribeTransitGatewayConnectPeers = DescribeTransitGatewayConnectPeers'
-  { _dtgcpNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dtgcpDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dtgcpMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dtgcpFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _dtgcpTransitGatewayConnectPeerIds ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @state@ - The state of the Connect peer (@pending@ | @available@ |
+    --     @deleting@ | @deleted@).
+    --
+    -- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+    --
+    -- -   @transit-gateway-connect-peer-id@ - The ID of the Connect peer.
+    filters :: Prelude.Maybe [Filter],
+    -- | The IDs of the Connect peers.
+    transitGatewayConnectPeerIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTransitGatewayConnectPeers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTransitGatewayConnectPeers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgcpNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgcpDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeTransitGatewayConnectPeers_nextToken' - The token for the next page of results.
 --
--- * 'dtgcpMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeTransitGatewayConnectPeers_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dtgcpFilters' - One or more filters. The possible values are:     * @state@ - The state of the Connect peer (@pending@ | @available@ | @deleting@ | @deleted@ ).     * @transit-gateway-attachment-id@ - The ID of the attachment.     * @transit-gateway-connect-peer-id@ - The ID of the Connect peer.
+-- 'maxResults', 'describeTransitGatewayConnectPeers_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dtgcpTransitGatewayConnectPeerIds' - The IDs of the Connect peers.
-describeTransitGatewayConnectPeers ::
+-- 'filters', 'describeTransitGatewayConnectPeers_filters' - One or more filters. The possible values are:
+--
+-- -   @state@ - The state of the Connect peer (@pending@ | @available@ |
+--     @deleting@ | @deleted@).
+--
+-- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+--
+-- -   @transit-gateway-connect-peer-id@ - The ID of the Connect peer.
+--
+-- 'transitGatewayConnectPeerIds', 'describeTransitGatewayConnectPeers_transitGatewayConnectPeerIds' - The IDs of the Connect peers.
+newDescribeTransitGatewayConnectPeers ::
   DescribeTransitGatewayConnectPeers
-describeTransitGatewayConnectPeers =
+newDescribeTransitGatewayConnectPeers =
   DescribeTransitGatewayConnectPeers'
-    { _dtgcpNextToken =
-        Nothing,
-      _dtgcpDryRun = Nothing,
-      _dtgcpMaxResults = Nothing,
-      _dtgcpFilters = Nothing,
-      _dtgcpTransitGatewayConnectPeerIds =
-        Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      transitGatewayConnectPeerIds =
+        Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dtgcpNextToken :: Lens' DescribeTransitGatewayConnectPeers (Maybe Text)
-dtgcpNextToken = lens _dtgcpNextToken (\s a -> s {_dtgcpNextToken = a})
+describeTransitGatewayConnectPeers_nextToken :: Lens.Lens' DescribeTransitGatewayConnectPeers (Prelude.Maybe Prelude.Text)
+describeTransitGatewayConnectPeers_nextToken = Lens.lens (\DescribeTransitGatewayConnectPeers' {nextToken} -> nextToken) (\s@DescribeTransitGatewayConnectPeers' {} a -> s {nextToken = a} :: DescribeTransitGatewayConnectPeers)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgcpDryRun :: Lens' DescribeTransitGatewayConnectPeers (Maybe Bool)
-dtgcpDryRun = lens _dtgcpDryRun (\s a -> s {_dtgcpDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeTransitGatewayConnectPeers_dryRun :: Lens.Lens' DescribeTransitGatewayConnectPeers (Prelude.Maybe Prelude.Bool)
+describeTransitGatewayConnectPeers_dryRun = Lens.lens (\DescribeTransitGatewayConnectPeers' {dryRun} -> dryRun) (\s@DescribeTransitGatewayConnectPeers' {} a -> s {dryRun = a} :: DescribeTransitGatewayConnectPeers)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dtgcpMaxResults :: Lens' DescribeTransitGatewayConnectPeers (Maybe Natural)
-dtgcpMaxResults = lens _dtgcpMaxResults (\s a -> s {_dtgcpMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeTransitGatewayConnectPeers_maxResults :: Lens.Lens' DescribeTransitGatewayConnectPeers (Prelude.Maybe Prelude.Natural)
+describeTransitGatewayConnectPeers_maxResults = Lens.lens (\DescribeTransitGatewayConnectPeers' {maxResults} -> maxResults) (\s@DescribeTransitGatewayConnectPeers' {} a -> s {maxResults = a} :: DescribeTransitGatewayConnectPeers) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters. The possible values are:     * @state@ - The state of the Connect peer (@pending@ | @available@ | @deleting@ | @deleted@ ).     * @transit-gateway-attachment-id@ - The ID of the attachment.     * @transit-gateway-connect-peer-id@ - The ID of the Connect peer.
-dtgcpFilters :: Lens' DescribeTransitGatewayConnectPeers [Filter]
-dtgcpFilters = lens _dtgcpFilters (\s a -> s {_dtgcpFilters = a}) . _Default . _Coerce
+-- | One or more filters. The possible values are:
+--
+-- -   @state@ - The state of the Connect peer (@pending@ | @available@ |
+--     @deleting@ | @deleted@).
+--
+-- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+--
+-- -   @transit-gateway-connect-peer-id@ - The ID of the Connect peer.
+describeTransitGatewayConnectPeers_filters :: Lens.Lens' DescribeTransitGatewayConnectPeers (Prelude.Maybe [Filter])
+describeTransitGatewayConnectPeers_filters = Lens.lens (\DescribeTransitGatewayConnectPeers' {filters} -> filters) (\s@DescribeTransitGatewayConnectPeers' {} a -> s {filters = a} :: DescribeTransitGatewayConnectPeers) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The IDs of the Connect peers.
-dtgcpTransitGatewayConnectPeerIds :: Lens' DescribeTransitGatewayConnectPeers [Text]
-dtgcpTransitGatewayConnectPeerIds = lens _dtgcpTransitGatewayConnectPeerIds (\s a -> s {_dtgcpTransitGatewayConnectPeerIds = a}) . _Default . _Coerce
-
-instance AWSPager DescribeTransitGatewayConnectPeers where
-  page rq rs
-    | stop (rs ^. dtgcprtrsNextToken) = Nothing
-    | stop (rs ^. dtgcprtrsTransitGatewayConnectPeers) =
-      Nothing
-    | otherwise =
-      Just $
-        rq
-          & dtgcpNextToken .~ rs ^. dtgcprtrsNextToken
+describeTransitGatewayConnectPeers_transitGatewayConnectPeerIds :: Lens.Lens' DescribeTransitGatewayConnectPeers (Prelude.Maybe [Prelude.Text])
+describeTransitGatewayConnectPeers_transitGatewayConnectPeerIds = Lens.lens (\DescribeTransitGatewayConnectPeers' {transitGatewayConnectPeerIds} -> transitGatewayConnectPeerIds) (\s@DescribeTransitGatewayConnectPeers' {} a -> s {transitGatewayConnectPeerIds = a} :: DescribeTransitGatewayConnectPeers) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  AWSRequest
+  Pager.AWSPager
+    DescribeTransitGatewayConnectPeers
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewayConnectPeersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewayConnectPeersResponse_transitGatewayConnectPeers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeTransitGatewayConnectPeers_nextToken
+          Lens..~ rs
+          Lens.^? describeTransitGatewayConnectPeersResponse_nextToken
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
     DescribeTransitGatewayConnectPeers
   where
   type
     Rs DescribeTransitGatewayConnectPeers =
       DescribeTransitGatewayConnectPeersResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeTransitGatewayConnectPeersResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "transitGatewayConnectPeerSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "transitGatewayConnectPeerSet"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTransitGatewayConnectPeers
+instance
+  Prelude.Hashable
+    DescribeTransitGatewayConnectPeers
 
-instance NFData DescribeTransitGatewayConnectPeers
+instance
+  Prelude.NFData
+    DescribeTransitGatewayConnectPeers
 
-instance ToHeaders DescribeTransitGatewayConnectPeers where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeTransitGatewayConnectPeers
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeTransitGatewayConnectPeers where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeTransitGatewayConnectPeers
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTransitGatewayConnectPeers where
+instance
+  Prelude.ToQuery
+    DescribeTransitGatewayConnectPeers
+  where
   toQuery DescribeTransitGatewayConnectPeers' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeTransitGatewayConnectPeers" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dtgcpNextToken,
-        "DryRun" =: _dtgcpDryRun,
-        "MaxResults" =: _dtgcpMaxResults,
-        toQuery (toQueryList "Filter" <$> _dtgcpFilters),
-        toQuery
-          ( toQueryList "TransitGatewayConnectPeerIds"
-              <$> _dtgcpTransitGatewayConnectPeerIds
+          Prelude.=: ( "DescribeTransitGatewayConnectPeers" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TransitGatewayConnectPeerIds"
+              Prelude.<$> transitGatewayConnectPeerIds
           )
       ]
 
--- | /See:/ 'describeTransitGatewayConnectPeersResponse' smart constructor.
+-- | /See:/ 'newDescribeTransitGatewayConnectPeersResponse' smart constructor.
 data DescribeTransitGatewayConnectPeersResponse = DescribeTransitGatewayConnectPeersResponse'
-  { _dtgcprtrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dtgcprtrsTransitGatewayConnectPeers ::
-      !( Maybe
-           [TransitGatewayConnectPeer]
-       ),
-    _dtgcprtrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the Connect peers.
+    transitGatewayConnectPeers :: Prelude.Maybe [TransitGatewayConnectPeer],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTransitGatewayConnectPeersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTransitGatewayConnectPeersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgcprtrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgcprtrsTransitGatewayConnectPeers' - Information about the Connect peers.
+-- 'nextToken', 'describeTransitGatewayConnectPeersResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dtgcprtrsResponseStatus' - -- | The response status code.
-describeTransitGatewayConnectPeersResponse ::
-  -- | 'dtgcprtrsResponseStatus'
-  Int ->
+-- 'transitGatewayConnectPeers', 'describeTransitGatewayConnectPeersResponse_transitGatewayConnectPeers' - Information about the Connect peers.
+--
+-- 'httpStatus', 'describeTransitGatewayConnectPeersResponse_httpStatus' - The response's http status code.
+newDescribeTransitGatewayConnectPeersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTransitGatewayConnectPeersResponse
-describeTransitGatewayConnectPeersResponse
-  pResponseStatus_ =
+newDescribeTransitGatewayConnectPeersResponse
+  pHttpStatus_ =
     DescribeTransitGatewayConnectPeersResponse'
-      { _dtgcprtrsNextToken =
-          Nothing,
-        _dtgcprtrsTransitGatewayConnectPeers =
-          Nothing,
-        _dtgcprtrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        transitGatewayConnectPeers =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dtgcprtrsNextToken :: Lens' DescribeTransitGatewayConnectPeersResponse (Maybe Text)
-dtgcprtrsNextToken = lens _dtgcprtrsNextToken (\s a -> s {_dtgcprtrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeTransitGatewayConnectPeersResponse_nextToken :: Lens.Lens' DescribeTransitGatewayConnectPeersResponse (Prelude.Maybe Prelude.Text)
+describeTransitGatewayConnectPeersResponse_nextToken = Lens.lens (\DescribeTransitGatewayConnectPeersResponse' {nextToken} -> nextToken) (\s@DescribeTransitGatewayConnectPeersResponse' {} a -> s {nextToken = a} :: DescribeTransitGatewayConnectPeersResponse)
 
 -- | Information about the Connect peers.
-dtgcprtrsTransitGatewayConnectPeers :: Lens' DescribeTransitGatewayConnectPeersResponse [TransitGatewayConnectPeer]
-dtgcprtrsTransitGatewayConnectPeers = lens _dtgcprtrsTransitGatewayConnectPeers (\s a -> s {_dtgcprtrsTransitGatewayConnectPeers = a}) . _Default . _Coerce
+describeTransitGatewayConnectPeersResponse_transitGatewayConnectPeers :: Lens.Lens' DescribeTransitGatewayConnectPeersResponse (Prelude.Maybe [TransitGatewayConnectPeer])
+describeTransitGatewayConnectPeersResponse_transitGatewayConnectPeers = Lens.lens (\DescribeTransitGatewayConnectPeersResponse' {transitGatewayConnectPeers} -> transitGatewayConnectPeers) (\s@DescribeTransitGatewayConnectPeersResponse' {} a -> s {transitGatewayConnectPeers = a} :: DescribeTransitGatewayConnectPeersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtgcprtrsResponseStatus :: Lens' DescribeTransitGatewayConnectPeersResponse Int
-dtgcprtrsResponseStatus = lens _dtgcprtrsResponseStatus (\s a -> s {_dtgcprtrsResponseStatus = a})
+-- | The response's http status code.
+describeTransitGatewayConnectPeersResponse_httpStatus :: Lens.Lens' DescribeTransitGatewayConnectPeersResponse Prelude.Int
+describeTransitGatewayConnectPeersResponse_httpStatus = Lens.lens (\DescribeTransitGatewayConnectPeersResponse' {httpStatus} -> httpStatus) (\s@DescribeTransitGatewayConnectPeersResponse' {} a -> s {httpStatus = a} :: DescribeTransitGatewayConnectPeersResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeTransitGatewayConnectPeersResponse

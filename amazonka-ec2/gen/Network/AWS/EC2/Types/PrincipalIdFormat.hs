@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +21,55 @@ module Network.AWS.EC2.Types.PrincipalIdFormat where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.IdFormat
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | PrincipalIdFormat description
 --
---
---
--- /See:/ 'principalIdFormat' smart constructor.
+-- /See:/ 'newPrincipalIdFormat' smart constructor.
 data PrincipalIdFormat = PrincipalIdFormat'
-  { _pifARN ::
-      !(Maybe Text),
-    _pifStatuses :: !(Maybe [IdFormat])
+  { -- | PrincipalIdFormatARN description
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | PrincipalIdFormatStatuses description
+    statuses :: Prelude.Maybe [IdFormat]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PrincipalIdFormat' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PrincipalIdFormat' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pifARN' - PrincipalIdFormatARN description
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pifStatuses' - PrincipalIdFormatStatuses description
-principalIdFormat ::
+-- 'arn', 'principalIdFormat_arn' - PrincipalIdFormatARN description
+--
+-- 'statuses', 'principalIdFormat_statuses' - PrincipalIdFormatStatuses description
+newPrincipalIdFormat ::
   PrincipalIdFormat
-principalIdFormat =
+newPrincipalIdFormat =
   PrincipalIdFormat'
-    { _pifARN = Nothing,
-      _pifStatuses = Nothing
+    { arn = Prelude.Nothing,
+      statuses = Prelude.Nothing
     }
 
 -- | PrincipalIdFormatARN description
-pifARN :: Lens' PrincipalIdFormat (Maybe Text)
-pifARN = lens _pifARN (\s a -> s {_pifARN = a})
+principalIdFormat_arn :: Lens.Lens' PrincipalIdFormat (Prelude.Maybe Prelude.Text)
+principalIdFormat_arn = Lens.lens (\PrincipalIdFormat' {arn} -> arn) (\s@PrincipalIdFormat' {} a -> s {arn = a} :: PrincipalIdFormat)
 
 -- | PrincipalIdFormatStatuses description
-pifStatuses :: Lens' PrincipalIdFormat [IdFormat]
-pifStatuses = lens _pifStatuses (\s a -> s {_pifStatuses = a}) . _Default . _Coerce
+principalIdFormat_statuses :: Lens.Lens' PrincipalIdFormat (Prelude.Maybe [IdFormat])
+principalIdFormat_statuses = Lens.lens (\PrincipalIdFormat' {statuses} -> statuses) (\s@PrincipalIdFormat' {} a -> s {statuses = a} :: PrincipalIdFormat) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML PrincipalIdFormat where
+instance Prelude.FromXML PrincipalIdFormat where
   parseXML x =
     PrincipalIdFormat'
-      <$> (x .@? "arn")
-      <*> ( x .@? "statusSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "arn")
+      Prelude.<*> ( x Prelude..@? "statusSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable PrincipalIdFormat
+instance Prelude.Hashable PrincipalIdFormat
 
-instance NFData PrincipalIdFormat
+instance Prelude.NFData PrincipalIdFormat

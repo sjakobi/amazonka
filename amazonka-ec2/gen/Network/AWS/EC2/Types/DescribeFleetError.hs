@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,72 +22,95 @@ module Network.AWS.EC2.Types.DescribeFleetError where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceLifecycle
 import Network.AWS.EC2.Types.LaunchTemplateAndOverridesResponse
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the instances that could not be launched by the fleet.
 --
---
---
--- /See:/ 'describeFleetError' smart constructor.
+-- /See:/ 'newDescribeFleetError' smart constructor.
 data DescribeFleetError = DescribeFleetError'
-  { _dfeLaunchTemplateAndOverrides ::
-      !( Maybe
-           LaunchTemplateAndOverridesResponse
-       ),
-    _dfeLifecycle ::
-      !(Maybe InstanceLifecycle),
-    _dfeErrorMessage :: !(Maybe Text),
-    _dfeErrorCode :: !(Maybe Text)
+  { -- | The launch templates and overrides that were used for launching the
+    -- instances. The values that you specify in the Overrides replace the
+    -- values in the launch template.
+    launchTemplateAndOverrides :: Prelude.Maybe LaunchTemplateAndOverridesResponse,
+    -- | Indicates if the instance that could not be launched was a Spot Instance
+    -- or On-Demand Instance.
+    lifecycle :: Prelude.Maybe InstanceLifecycle,
+    -- | The error message that describes why the instance could not be launched.
+    -- For more information about error messages, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code that indicates why the instance could not be launched.
+    -- For more information about error codes, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfeLaunchTemplateAndOverrides' - The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfeLifecycle' - Indicates if the instance that could not be launched was a Spot Instance or On-Demand Instance.
+-- 'launchTemplateAndOverrides', 'describeFleetError_launchTemplateAndOverrides' - The launch templates and overrides that were used for launching the
+-- instances. The values that you specify in the Overrides replace the
+-- values in the launch template.
 --
--- * 'dfeErrorMessage' - The error message that describes why the instance could not be launched. For more information about error messages, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
+-- 'lifecycle', 'describeFleetError_lifecycle' - Indicates if the instance that could not be launched was a Spot Instance
+-- or On-Demand Instance.
 --
--- * 'dfeErrorCode' - The error code that indicates why the instance could not be launched. For more information about error codes, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
-describeFleetError ::
+-- 'errorMessage', 'describeFleetError_errorMessage' - The error message that describes why the instance could not be launched.
+-- For more information about error messages, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+--
+-- 'errorCode', 'describeFleetError_errorCode' - The error code that indicates why the instance could not be launched.
+-- For more information about error codes, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+newDescribeFleetError ::
   DescribeFleetError
-describeFleetError =
+newDescribeFleetError =
   DescribeFleetError'
-    { _dfeLaunchTemplateAndOverrides =
-        Nothing,
-      _dfeLifecycle = Nothing,
-      _dfeErrorMessage = Nothing,
-      _dfeErrorCode = Nothing
+    { launchTemplateAndOverrides =
+        Prelude.Nothing,
+      lifecycle = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
--- | The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.
-dfeLaunchTemplateAndOverrides :: Lens' DescribeFleetError (Maybe LaunchTemplateAndOverridesResponse)
-dfeLaunchTemplateAndOverrides = lens _dfeLaunchTemplateAndOverrides (\s a -> s {_dfeLaunchTemplateAndOverrides = a})
+-- | The launch templates and overrides that were used for launching the
+-- instances. The values that you specify in the Overrides replace the
+-- values in the launch template.
+describeFleetError_launchTemplateAndOverrides :: Lens.Lens' DescribeFleetError (Prelude.Maybe LaunchTemplateAndOverridesResponse)
+describeFleetError_launchTemplateAndOverrides = Lens.lens (\DescribeFleetError' {launchTemplateAndOverrides} -> launchTemplateAndOverrides) (\s@DescribeFleetError' {} a -> s {launchTemplateAndOverrides = a} :: DescribeFleetError)
 
--- | Indicates if the instance that could not be launched was a Spot Instance or On-Demand Instance.
-dfeLifecycle :: Lens' DescribeFleetError (Maybe InstanceLifecycle)
-dfeLifecycle = lens _dfeLifecycle (\s a -> s {_dfeLifecycle = a})
+-- | Indicates if the instance that could not be launched was a Spot Instance
+-- or On-Demand Instance.
+describeFleetError_lifecycle :: Lens.Lens' DescribeFleetError (Prelude.Maybe InstanceLifecycle)
+describeFleetError_lifecycle = Lens.lens (\DescribeFleetError' {lifecycle} -> lifecycle) (\s@DescribeFleetError' {} a -> s {lifecycle = a} :: DescribeFleetError)
 
--- | The error message that describes why the instance could not be launched. For more information about error messages, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
-dfeErrorMessage :: Lens' DescribeFleetError (Maybe Text)
-dfeErrorMessage = lens _dfeErrorMessage (\s a -> s {_dfeErrorMessage = a})
+-- | The error message that describes why the instance could not be launched.
+-- For more information about error messages, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+describeFleetError_errorMessage :: Lens.Lens' DescribeFleetError (Prelude.Maybe Prelude.Text)
+describeFleetError_errorMessage = Lens.lens (\DescribeFleetError' {errorMessage} -> errorMessage) (\s@DescribeFleetError' {} a -> s {errorMessage = a} :: DescribeFleetError)
 
--- | The error code that indicates why the instance could not be launched. For more information about error codes, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes> .
-dfeErrorCode :: Lens' DescribeFleetError (Maybe Text)
-dfeErrorCode = lens _dfeErrorCode (\s a -> s {_dfeErrorCode = a})
+-- | The error code that indicates why the instance could not be launched.
+-- For more information about error codes, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+describeFleetError_errorCode :: Lens.Lens' DescribeFleetError (Prelude.Maybe Prelude.Text)
+describeFleetError_errorCode = Lens.lens (\DescribeFleetError' {errorCode} -> errorCode) (\s@DescribeFleetError' {} a -> s {errorCode = a} :: DescribeFleetError)
 
-instance FromXML DescribeFleetError where
+instance Prelude.FromXML DescribeFleetError where
   parseXML x =
     DescribeFleetError'
-      <$> (x .@? "launchTemplateAndOverrides")
-      <*> (x .@? "lifecycle")
-      <*> (x .@? "errorMessage")
-      <*> (x .@? "errorCode")
+      Prelude.<$> (x Prelude..@? "launchTemplateAndOverrides")
+      Prelude.<*> (x Prelude..@? "lifecycle")
+      Prelude.<*> (x Prelude..@? "errorMessage")
+      Prelude.<*> (x Prelude..@? "errorCode")
 
-instance Hashable DescribeFleetError
+instance Prelude.Hashable DescribeFleetError
 
-instance NFData DescribeFleetError
+instance Prelude.NFData DescribeFleetError

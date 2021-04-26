@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +21,83 @@ module Network.AWS.EC2.Types.SnapshotDiskContainer where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.UserBucket
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The disk container object for the import snapshot request.
 --
---
---
--- /See:/ 'snapshotDiskContainer' smart constructor.
+-- /See:/ 'newSnapshotDiskContainer' smart constructor.
 data SnapshotDiskContainer = SnapshotDiskContainer'
-  { _sdcFormat ::
-      !(Maybe Text),
-    _sdcUserBucket ::
-      !(Maybe UserBucket),
-    _sdcDescription ::
-      !(Maybe Text),
-    _sdcURL :: !(Maybe Text)
+  { -- | The format of the disk image being imported.
+    --
+    -- Valid values: @VHD@ | @VMDK@ | @RAW@
+    format :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 bucket for the disk image.
+    userBucket :: Prelude.Maybe UserBucket,
+    -- | The description of the disk image being imported.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The URL to the Amazon S3-based disk image being imported. It can either
+    -- be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..).
+    url :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SnapshotDiskContainer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SnapshotDiskContainer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdcFormat' - The format of the disk image being imported. Valid values: @VHD@ | @VMDK@ | @RAW@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdcUserBucket' - The Amazon S3 bucket for the disk image.
+-- 'format', 'snapshotDiskContainer_format' - The format of the disk image being imported.
 --
--- * 'sdcDescription' - The description of the disk image being imported.
+-- Valid values: @VHD@ | @VMDK@ | @RAW@
 --
--- * 'sdcURL' - The URL to the Amazon S3-based disk image being imported. It can either be a https URL (https://..) or an Amazon S3 URL (s3://..).
-snapshotDiskContainer ::
+-- 'userBucket', 'snapshotDiskContainer_userBucket' - The Amazon S3 bucket for the disk image.
+--
+-- 'description', 'snapshotDiskContainer_description' - The description of the disk image being imported.
+--
+-- 'url', 'snapshotDiskContainer_url' - The URL to the Amazon S3-based disk image being imported. It can either
+-- be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..).
+newSnapshotDiskContainer ::
   SnapshotDiskContainer
-snapshotDiskContainer =
+newSnapshotDiskContainer =
   SnapshotDiskContainer'
-    { _sdcFormat = Nothing,
-      _sdcUserBucket = Nothing,
-      _sdcDescription = Nothing,
-      _sdcURL = Nothing
+    { format = Prelude.Nothing,
+      userBucket = Prelude.Nothing,
+      description = Prelude.Nothing,
+      url = Prelude.Nothing
     }
 
--- | The format of the disk image being imported. Valid values: @VHD@ | @VMDK@ | @RAW@
-sdcFormat :: Lens' SnapshotDiskContainer (Maybe Text)
-sdcFormat = lens _sdcFormat (\s a -> s {_sdcFormat = a})
+-- | The format of the disk image being imported.
+--
+-- Valid values: @VHD@ | @VMDK@ | @RAW@
+snapshotDiskContainer_format :: Lens.Lens' SnapshotDiskContainer (Prelude.Maybe Prelude.Text)
+snapshotDiskContainer_format = Lens.lens (\SnapshotDiskContainer' {format} -> format) (\s@SnapshotDiskContainer' {} a -> s {format = a} :: SnapshotDiskContainer)
 
 -- | The Amazon S3 bucket for the disk image.
-sdcUserBucket :: Lens' SnapshotDiskContainer (Maybe UserBucket)
-sdcUserBucket = lens _sdcUserBucket (\s a -> s {_sdcUserBucket = a})
+snapshotDiskContainer_userBucket :: Lens.Lens' SnapshotDiskContainer (Prelude.Maybe UserBucket)
+snapshotDiskContainer_userBucket = Lens.lens (\SnapshotDiskContainer' {userBucket} -> userBucket) (\s@SnapshotDiskContainer' {} a -> s {userBucket = a} :: SnapshotDiskContainer)
 
 -- | The description of the disk image being imported.
-sdcDescription :: Lens' SnapshotDiskContainer (Maybe Text)
-sdcDescription = lens _sdcDescription (\s a -> s {_sdcDescription = a})
+snapshotDiskContainer_description :: Lens.Lens' SnapshotDiskContainer (Prelude.Maybe Prelude.Text)
+snapshotDiskContainer_description = Lens.lens (\SnapshotDiskContainer' {description} -> description) (\s@SnapshotDiskContainer' {} a -> s {description = a} :: SnapshotDiskContainer)
 
--- | The URL to the Amazon S3-based disk image being imported. It can either be a https URL (https://..) or an Amazon S3 URL (s3://..).
-sdcURL :: Lens' SnapshotDiskContainer (Maybe Text)
-sdcURL = lens _sdcURL (\s a -> s {_sdcURL = a})
+-- | The URL to the Amazon S3-based disk image being imported. It can either
+-- be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..).
+snapshotDiskContainer_url :: Lens.Lens' SnapshotDiskContainer (Prelude.Maybe Prelude.Text)
+snapshotDiskContainer_url = Lens.lens (\SnapshotDiskContainer' {url} -> url) (\s@SnapshotDiskContainer' {} a -> s {url = a} :: SnapshotDiskContainer)
 
-instance Hashable SnapshotDiskContainer
+instance Prelude.Hashable SnapshotDiskContainer
 
-instance NFData SnapshotDiskContainer
+instance Prelude.NFData SnapshotDiskContainer
 
-instance ToQuery SnapshotDiskContainer where
+instance Prelude.ToQuery SnapshotDiskContainer where
   toQuery SnapshotDiskContainer' {..} =
-    mconcat
-      [ "Format" =: _sdcFormat,
-        "UserBucket" =: _sdcUserBucket,
-        "Description" =: _sdcDescription,
-        "Url" =: _sdcURL
+    Prelude.mconcat
+      [ "Format" Prelude.=: format,
+        "UserBucket" Prelude.=: userBucket,
+        "Description" Prelude.=: description,
+        "Url" Prelude.=: url
       ]

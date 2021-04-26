@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.TransitGatewayConnectPeerState
   ( TransitGatewayConnectPeerState
       ( ..,
-        TGCPSAvailable,
-        TGCPSDeleted,
-        TGCPSDeleting,
-        TGCPSPending
+        TransitGatewayConnectPeerStateAvailable,
+        TransitGatewayConnectPeerStateDeleted,
+        TransitGatewayConnectPeerStateDeleting,
+        TransitGatewayConnectPeerStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayConnectPeerState
-  = TransitGatewayConnectPeerState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayConnectPeerState = TransitGatewayConnectPeerState'
+  { fromTransitGatewayConnectPeerState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGCPSAvailable :: TransitGatewayConnectPeerState
-pattern TGCPSAvailable = TransitGatewayConnectPeerState' "available"
+pattern TransitGatewayConnectPeerStateAvailable :: TransitGatewayConnectPeerState
+pattern TransitGatewayConnectPeerStateAvailable = TransitGatewayConnectPeerState' "available"
 
-pattern TGCPSDeleted :: TransitGatewayConnectPeerState
-pattern TGCPSDeleted = TransitGatewayConnectPeerState' "deleted"
+pattern TransitGatewayConnectPeerStateDeleted :: TransitGatewayConnectPeerState
+pattern TransitGatewayConnectPeerStateDeleted = TransitGatewayConnectPeerState' "deleted"
 
-pattern TGCPSDeleting :: TransitGatewayConnectPeerState
-pattern TGCPSDeleting = TransitGatewayConnectPeerState' "deleting"
+pattern TransitGatewayConnectPeerStateDeleting :: TransitGatewayConnectPeerState
+pattern TransitGatewayConnectPeerStateDeleting = TransitGatewayConnectPeerState' "deleting"
 
-pattern TGCPSPending :: TransitGatewayConnectPeerState
-pattern TGCPSPending = TransitGatewayConnectPeerState' "pending"
+pattern TransitGatewayConnectPeerStatePending :: TransitGatewayConnectPeerState
+pattern TransitGatewayConnectPeerStatePending = TransitGatewayConnectPeerState' "pending"
 
 {-# COMPLETE
-  TGCPSAvailable,
-  TGCPSDeleted,
-  TGCPSDeleting,
-  TGCPSPending,
+  TransitGatewayConnectPeerStateAvailable,
+  TransitGatewayConnectPeerStateDeleted,
+  TransitGatewayConnectPeerStateDeleting,
+  TransitGatewayConnectPeerStatePending,
   TransitGatewayConnectPeerState'
   #-}
 
-instance FromText TransitGatewayConnectPeerState where
-  parser = (TransitGatewayConnectPeerState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayConnectPeerState where
+  parser = TransitGatewayConnectPeerState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayConnectPeerState where
-  toText (TransitGatewayConnectPeerState' ci) = original ci
+instance Prelude.ToText TransitGatewayConnectPeerState where
+  toText (TransitGatewayConnectPeerState' x) = x
 
-instance Hashable TransitGatewayConnectPeerState
+instance Prelude.Hashable TransitGatewayConnectPeerState
 
-instance NFData TransitGatewayConnectPeerState
+instance Prelude.NFData TransitGatewayConnectPeerState
 
-instance ToByteString TransitGatewayConnectPeerState
+instance Prelude.ToByteString TransitGatewayConnectPeerState
 
-instance ToQuery TransitGatewayConnectPeerState
+instance Prelude.ToQuery TransitGatewayConnectPeerState
 
-instance ToHeader TransitGatewayConnectPeerState
+instance Prelude.ToHeader TransitGatewayConnectPeerState
 
-instance FromXML TransitGatewayConnectPeerState where
-  parseXML = parseXMLText "TransitGatewayConnectPeerState"
+instance Prelude.FromXML TransitGatewayConnectPeerState where
+  parseXML = Prelude.parseXMLText "TransitGatewayConnectPeerState"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,84 +19,83 @@
 module Network.AWS.EC2.Types.State
   ( State
       ( ..,
-        StaAvailable,
-        StaDeleted,
-        StaDeleting,
-        StaExpired,
-        StaFailed,
-        StaPending,
-        StaPendingAcceptance,
-        StaRejected
+        StateAvailable,
+        StateDeleted,
+        StateDeleting,
+        StateExpired,
+        StateFailed,
+        StatePending,
+        StatePendingAcceptance,
+        StateRejected
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data State = State' (CI Text)
+newtype State = State' {fromState :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern StaAvailable :: State
-pattern StaAvailable = State' "Available"
+pattern StateAvailable :: State
+pattern StateAvailable = State' "Available"
 
-pattern StaDeleted :: State
-pattern StaDeleted = State' "Deleted"
+pattern StateDeleted :: State
+pattern StateDeleted = State' "Deleted"
 
-pattern StaDeleting :: State
-pattern StaDeleting = State' "Deleting"
+pattern StateDeleting :: State
+pattern StateDeleting = State' "Deleting"
 
-pattern StaExpired :: State
-pattern StaExpired = State' "Expired"
+pattern StateExpired :: State
+pattern StateExpired = State' "Expired"
 
-pattern StaFailed :: State
-pattern StaFailed = State' "Failed"
+pattern StateFailed :: State
+pattern StateFailed = State' "Failed"
 
-pattern StaPending :: State
-pattern StaPending = State' "Pending"
+pattern StatePending :: State
+pattern StatePending = State' "Pending"
 
-pattern StaPendingAcceptance :: State
-pattern StaPendingAcceptance = State' "PendingAcceptance"
+pattern StatePendingAcceptance :: State
+pattern StatePendingAcceptance = State' "PendingAcceptance"
 
-pattern StaRejected :: State
-pattern StaRejected = State' "Rejected"
+pattern StateRejected :: State
+pattern StateRejected = State' "Rejected"
 
 {-# COMPLETE
-  StaAvailable,
-  StaDeleted,
-  StaDeleting,
-  StaExpired,
-  StaFailed,
-  StaPending,
-  StaPendingAcceptance,
-  StaRejected,
+  StateAvailable,
+  StateDeleted,
+  StateDeleting,
+  StateExpired,
+  StateFailed,
+  StatePending,
+  StatePendingAcceptance,
+  StateRejected,
   State'
   #-}
 
-instance FromText State where
-  parser = (State' . mk) <$> takeText
+instance Prelude.FromText State where
+  parser = State' Prelude.<$> Prelude.takeText
 
-instance ToText State where
-  toText (State' ci) = original ci
+instance Prelude.ToText State where
+  toText (State' x) = x
 
-instance Hashable State
+instance Prelude.Hashable State
 
-instance NFData State
+instance Prelude.NFData State
 
-instance ToByteString State
+instance Prelude.ToByteString State
 
-instance ToQuery State
+instance Prelude.ToQuery State
 
-instance ToHeader State
+instance Prelude.ToHeader State
 
-instance FromXML State where
-  parseXML = parseXMLText "State"
+instance Prelude.FromXML State where
+  parseXML = Prelude.parseXMLText "State"

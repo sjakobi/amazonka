@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,45 @@
 module Network.AWS.EC2.Types.AttributeBooleanValue where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a value for a resource attribute that is a Boolean value.
 --
---
---
--- /See:/ 'attributeBooleanValue' smart constructor.
-newtype AttributeBooleanValue = AttributeBooleanValue'
-  { _abvValue ::
-      Maybe Bool
+-- /See:/ 'newAttributeBooleanValue' smart constructor.
+data AttributeBooleanValue = AttributeBooleanValue'
+  { -- | The attribute value. The valid values are @true@ or @false@.
+    value :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributeBooleanValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributeBooleanValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'abvValue' - The attribute value. The valid values are @true@ or @false@ .
-attributeBooleanValue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'value', 'attributeBooleanValue_value' - The attribute value. The valid values are @true@ or @false@.
+newAttributeBooleanValue ::
   AttributeBooleanValue
-attributeBooleanValue =
-  AttributeBooleanValue' {_abvValue = Nothing}
+newAttributeBooleanValue =
+  AttributeBooleanValue' {value = Prelude.Nothing}
 
--- | The attribute value. The valid values are @true@ or @false@ .
-abvValue :: Lens' AttributeBooleanValue (Maybe Bool)
-abvValue = lens _abvValue (\s a -> s {_abvValue = a})
+-- | The attribute value. The valid values are @true@ or @false@.
+attributeBooleanValue_value :: Lens.Lens' AttributeBooleanValue (Prelude.Maybe Prelude.Bool)
+attributeBooleanValue_value = Lens.lens (\AttributeBooleanValue' {value} -> value) (\s@AttributeBooleanValue' {} a -> s {value = a} :: AttributeBooleanValue)
 
-instance FromXML AttributeBooleanValue where
+instance Prelude.FromXML AttributeBooleanValue where
   parseXML x =
-    AttributeBooleanValue' <$> (x .@? "value")
+    AttributeBooleanValue'
+      Prelude.<$> (x Prelude..@? "value")
 
-instance Hashable AttributeBooleanValue
+instance Prelude.Hashable AttributeBooleanValue
 
-instance NFData AttributeBooleanValue
+instance Prelude.NFData AttributeBooleanValue
 
-instance ToQuery AttributeBooleanValue where
+instance Prelude.ToQuery AttributeBooleanValue where
   toQuery AttributeBooleanValue' {..} =
-    mconcat ["Value" =: _abvValue]
+    Prelude.mconcat ["Value" Prelude.=: value]

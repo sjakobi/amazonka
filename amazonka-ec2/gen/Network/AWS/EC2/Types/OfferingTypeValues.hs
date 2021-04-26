@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,76 @@
 module Network.AWS.EC2.Types.OfferingTypeValues
   ( OfferingTypeValues
       ( ..,
-        OTVAllUpfront,
-        OTVHeavyUtilization,
-        OTVLightUtilization,
-        OTVMediumUtilization,
-        OTVNoUpfront,
-        OTVPartialUpfront
+        OfferingTypeValuesAllUpfront,
+        OfferingTypeValuesHeavyUtilization,
+        OfferingTypeValuesLightUtilization,
+        OfferingTypeValuesMediumUtilization,
+        OfferingTypeValuesNoUpfront,
+        OfferingTypeValuesPartialUpfront
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OfferingTypeValues
-  = OfferingTypeValues'
-      ( CI
-          Text
-      )
+newtype OfferingTypeValues = OfferingTypeValues'
+  { fromOfferingTypeValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OTVAllUpfront :: OfferingTypeValues
-pattern OTVAllUpfront = OfferingTypeValues' "All Upfront"
+pattern OfferingTypeValuesAllUpfront :: OfferingTypeValues
+pattern OfferingTypeValuesAllUpfront = OfferingTypeValues' "All Upfront"
 
-pattern OTVHeavyUtilization :: OfferingTypeValues
-pattern OTVHeavyUtilization = OfferingTypeValues' "Heavy Utilization"
+pattern OfferingTypeValuesHeavyUtilization :: OfferingTypeValues
+pattern OfferingTypeValuesHeavyUtilization = OfferingTypeValues' "Heavy Utilization"
 
-pattern OTVLightUtilization :: OfferingTypeValues
-pattern OTVLightUtilization = OfferingTypeValues' "Light Utilization"
+pattern OfferingTypeValuesLightUtilization :: OfferingTypeValues
+pattern OfferingTypeValuesLightUtilization = OfferingTypeValues' "Light Utilization"
 
-pattern OTVMediumUtilization :: OfferingTypeValues
-pattern OTVMediumUtilization = OfferingTypeValues' "Medium Utilization"
+pattern OfferingTypeValuesMediumUtilization :: OfferingTypeValues
+pattern OfferingTypeValuesMediumUtilization = OfferingTypeValues' "Medium Utilization"
 
-pattern OTVNoUpfront :: OfferingTypeValues
-pattern OTVNoUpfront = OfferingTypeValues' "No Upfront"
+pattern OfferingTypeValuesNoUpfront :: OfferingTypeValues
+pattern OfferingTypeValuesNoUpfront = OfferingTypeValues' "No Upfront"
 
-pattern OTVPartialUpfront :: OfferingTypeValues
-pattern OTVPartialUpfront = OfferingTypeValues' "Partial Upfront"
+pattern OfferingTypeValuesPartialUpfront :: OfferingTypeValues
+pattern OfferingTypeValuesPartialUpfront = OfferingTypeValues' "Partial Upfront"
 
 {-# COMPLETE
-  OTVAllUpfront,
-  OTVHeavyUtilization,
-  OTVLightUtilization,
-  OTVMediumUtilization,
-  OTVNoUpfront,
-  OTVPartialUpfront,
+  OfferingTypeValuesAllUpfront,
+  OfferingTypeValuesHeavyUtilization,
+  OfferingTypeValuesLightUtilization,
+  OfferingTypeValuesMediumUtilization,
+  OfferingTypeValuesNoUpfront,
+  OfferingTypeValuesPartialUpfront,
   OfferingTypeValues'
   #-}
 
-instance FromText OfferingTypeValues where
-  parser = (OfferingTypeValues' . mk) <$> takeText
+instance Prelude.FromText OfferingTypeValues where
+  parser = OfferingTypeValues' Prelude.<$> Prelude.takeText
 
-instance ToText OfferingTypeValues where
-  toText (OfferingTypeValues' ci) = original ci
+instance Prelude.ToText OfferingTypeValues where
+  toText (OfferingTypeValues' x) = x
 
-instance Hashable OfferingTypeValues
+instance Prelude.Hashable OfferingTypeValues
 
-instance NFData OfferingTypeValues
+instance Prelude.NFData OfferingTypeValues
 
-instance ToByteString OfferingTypeValues
+instance Prelude.ToByteString OfferingTypeValues
 
-instance ToQuery OfferingTypeValues
+instance Prelude.ToQuery OfferingTypeValues
 
-instance ToHeader OfferingTypeValues
+instance Prelude.ToHeader OfferingTypeValues
 
-instance FromXML OfferingTypeValues where
-  parseXML = parseXMLText "OfferingTypeValues"
+instance Prelude.FromXML OfferingTypeValues where
+  parseXML = Prelude.parseXMLText "OfferingTypeValues"

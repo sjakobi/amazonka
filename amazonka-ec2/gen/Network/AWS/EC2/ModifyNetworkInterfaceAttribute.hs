@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,221 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the specified network interface attribute. You can specify only one attribute at a time. You can use this action to attach and detach security groups from an existing EC2 instance.
+-- Modifies the specified network interface attribute. You can specify only
+-- one attribute at a time. You can use this action to attach and detach
+-- security groups from an existing EC2 instance.
 module Network.AWS.EC2.ModifyNetworkInterfaceAttribute
   ( -- * Creating a Request
-    modifyNetworkInterfaceAttribute,
-    ModifyNetworkInterfaceAttribute,
+    ModifyNetworkInterfaceAttribute (..),
+    newModifyNetworkInterfaceAttribute,
 
     -- * Request Lenses
-    mniaGroups,
-    mniaAttachment,
-    mniaDryRun,
-    mniaSourceDestCheck,
-    mniaDescription,
-    mniaNetworkInterfaceId,
+    modifyNetworkInterfaceAttribute_groups,
+    modifyNetworkInterfaceAttribute_attachment,
+    modifyNetworkInterfaceAttribute_dryRun,
+    modifyNetworkInterfaceAttribute_sourceDestCheck,
+    modifyNetworkInterfaceAttribute_description,
+    modifyNetworkInterfaceAttribute_networkInterfaceId,
 
     -- * Destructuring the Response
-    modifyNetworkInterfaceAttributeResponse,
-    ModifyNetworkInterfaceAttributeResponse,
+    ModifyNetworkInterfaceAttributeResponse (..),
+    newModifyNetworkInterfaceAttributeResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for ModifyNetworkInterfaceAttribute.
 --
---
---
--- /See:/ 'modifyNetworkInterfaceAttribute' smart constructor.
+-- /See:/ 'newModifyNetworkInterfaceAttribute' smart constructor.
 data ModifyNetworkInterfaceAttribute = ModifyNetworkInterfaceAttribute'
-  { _mniaGroups ::
-      !( Maybe
-           [Text]
-       ),
-    _mniaAttachment ::
-      !( Maybe
-           NetworkInterfaceAttachmentChanges
-       ),
-    _mniaDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _mniaSourceDestCheck ::
-      !( Maybe
-           AttributeBooleanValue
-       ),
-    _mniaDescription ::
-      !( Maybe
-           AttributeValue
-       ),
-    _mniaNetworkInterfaceId ::
-      !Text
+  { -- | Changes the security groups for the network interface. The new set of
+    -- groups you specify replaces the current set. You must specify at least
+    -- one group, even if it\'s just the default security group in the VPC. You
+    -- must specify the ID of the security group, not the name.
+    groups :: Prelude.Maybe [Prelude.Text],
+    -- | Information about the interface attachment. If modifying the \'delete on
+    -- termination\' attribute, you must specify the ID of the interface
+    -- attachment.
+    attachment :: Prelude.Maybe NetworkInterfaceAttachmentChanges,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether source\/destination checking is enabled. A value of
+    -- @true@ means checking is enabled, and @false@ means checking is
+    -- disabled. This value must be @false@ for a NAT instance to perform NAT.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT Instances>
+    -- in the /Amazon Virtual Private Cloud User Guide/.
+    sourceDestCheck :: Prelude.Maybe AttributeBooleanValue,
+    -- | A description for the network interface.
+    description :: Prelude.Maybe AttributeValue,
+    -- | The ID of the network interface.
+    networkInterfaceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyNetworkInterfaceAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyNetworkInterfaceAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mniaGroups' - Changes the security groups for the network interface. The new set of groups you specify replaces the current set. You must specify at least one group, even if it's just the default security group in the VPC. You must specify the ID of the security group, not the name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mniaAttachment' - Information about the interface attachment. If modifying the 'delete on termination' attribute, you must specify the ID of the interface attachment.
+-- 'groups', 'modifyNetworkInterfaceAttribute_groups' - Changes the security groups for the network interface. The new set of
+-- groups you specify replaces the current set. You must specify at least
+-- one group, even if it\'s just the default security group in the VPC. You
+-- must specify the ID of the security group, not the name.
 --
--- * 'mniaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'attachment', 'modifyNetworkInterfaceAttribute_attachment' - Information about the interface attachment. If modifying the \'delete on
+-- termination\' attribute, you must specify the ID of the interface
+-- attachment.
 --
--- * 'mniaSourceDestCheck' - Indicates whether source/destination checking is enabled. A value of @true@ means checking is enabled, and @false@ means checking is disabled. This value must be @false@ for a NAT instance to perform NAT. For more information, see <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT Instances> in the /Amazon Virtual Private Cloud User Guide/ .
+-- 'dryRun', 'modifyNetworkInterfaceAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'mniaDescription' - A description for the network interface.
+-- 'sourceDestCheck', 'modifyNetworkInterfaceAttribute_sourceDestCheck' - Indicates whether source\/destination checking is enabled. A value of
+-- @true@ means checking is enabled, and @false@ means checking is
+-- disabled. This value must be @false@ for a NAT instance to perform NAT.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT Instances>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 --
--- * 'mniaNetworkInterfaceId' - The ID of the network interface.
-modifyNetworkInterfaceAttribute ::
-  -- | 'mniaNetworkInterfaceId'
-  Text ->
+-- 'description', 'modifyNetworkInterfaceAttribute_description' - A description for the network interface.
+--
+-- 'networkInterfaceId', 'modifyNetworkInterfaceAttribute_networkInterfaceId' - The ID of the network interface.
+newModifyNetworkInterfaceAttribute ::
+  -- | 'networkInterfaceId'
+  Prelude.Text ->
   ModifyNetworkInterfaceAttribute
-modifyNetworkInterfaceAttribute pNetworkInterfaceId_ =
-  ModifyNetworkInterfaceAttribute'
-    { _mniaGroups =
-        Nothing,
-      _mniaAttachment = Nothing,
-      _mniaDryRun = Nothing,
-      _mniaSourceDestCheck = Nothing,
-      _mniaDescription = Nothing,
-      _mniaNetworkInterfaceId =
-        pNetworkInterfaceId_
-    }
+newModifyNetworkInterfaceAttribute
+  pNetworkInterfaceId_ =
+    ModifyNetworkInterfaceAttribute'
+      { groups =
+          Prelude.Nothing,
+        attachment = Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        sourceDestCheck = Prelude.Nothing,
+        description = Prelude.Nothing,
+        networkInterfaceId = pNetworkInterfaceId_
+      }
 
--- | Changes the security groups for the network interface. The new set of groups you specify replaces the current set. You must specify at least one group, even if it's just the default security group in the VPC. You must specify the ID of the security group, not the name.
-mniaGroups :: Lens' ModifyNetworkInterfaceAttribute [Text]
-mniaGroups = lens _mniaGroups (\s a -> s {_mniaGroups = a}) . _Default . _Coerce
+-- | Changes the security groups for the network interface. The new set of
+-- groups you specify replaces the current set. You must specify at least
+-- one group, even if it\'s just the default security group in the VPC. You
+-- must specify the ID of the security group, not the name.
+modifyNetworkInterfaceAttribute_groups :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe [Prelude.Text])
+modifyNetworkInterfaceAttribute_groups = Lens.lens (\ModifyNetworkInterfaceAttribute' {groups} -> groups) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {groups = a} :: ModifyNetworkInterfaceAttribute) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information about the interface attachment. If modifying the 'delete on termination' attribute, you must specify the ID of the interface attachment.
-mniaAttachment :: Lens' ModifyNetworkInterfaceAttribute (Maybe NetworkInterfaceAttachmentChanges)
-mniaAttachment = lens _mniaAttachment (\s a -> s {_mniaAttachment = a})
+-- | Information about the interface attachment. If modifying the \'delete on
+-- termination\' attribute, you must specify the ID of the interface
+-- attachment.
+modifyNetworkInterfaceAttribute_attachment :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe NetworkInterfaceAttachmentChanges)
+modifyNetworkInterfaceAttribute_attachment = Lens.lens (\ModifyNetworkInterfaceAttribute' {attachment} -> attachment) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {attachment = a} :: ModifyNetworkInterfaceAttribute)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-mniaDryRun :: Lens' ModifyNetworkInterfaceAttribute (Maybe Bool)
-mniaDryRun = lens _mniaDryRun (\s a -> s {_mniaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyNetworkInterfaceAttribute_dryRun :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe Prelude.Bool)
+modifyNetworkInterfaceAttribute_dryRun = Lens.lens (\ModifyNetworkInterfaceAttribute' {dryRun} -> dryRun) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {dryRun = a} :: ModifyNetworkInterfaceAttribute)
 
--- | Indicates whether source/destination checking is enabled. A value of @true@ means checking is enabled, and @false@ means checking is disabled. This value must be @false@ for a NAT instance to perform NAT. For more information, see <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT Instances> in the /Amazon Virtual Private Cloud User Guide/ .
-mniaSourceDestCheck :: Lens' ModifyNetworkInterfaceAttribute (Maybe AttributeBooleanValue)
-mniaSourceDestCheck = lens _mniaSourceDestCheck (\s a -> s {_mniaSourceDestCheck = a})
+-- | Indicates whether source\/destination checking is enabled. A value of
+-- @true@ means checking is enabled, and @false@ means checking is
+-- disabled. This value must be @false@ for a NAT instance to perform NAT.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT Instances>
+-- in the /Amazon Virtual Private Cloud User Guide/.
+modifyNetworkInterfaceAttribute_sourceDestCheck :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe AttributeBooleanValue)
+modifyNetworkInterfaceAttribute_sourceDestCheck = Lens.lens (\ModifyNetworkInterfaceAttribute' {sourceDestCheck} -> sourceDestCheck) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {sourceDestCheck = a} :: ModifyNetworkInterfaceAttribute)
 
 -- | A description for the network interface.
-mniaDescription :: Lens' ModifyNetworkInterfaceAttribute (Maybe AttributeValue)
-mniaDescription = lens _mniaDescription (\s a -> s {_mniaDescription = a})
+modifyNetworkInterfaceAttribute_description :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe AttributeValue)
+modifyNetworkInterfaceAttribute_description = Lens.lens (\ModifyNetworkInterfaceAttribute' {description} -> description) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {description = a} :: ModifyNetworkInterfaceAttribute)
 
 -- | The ID of the network interface.
-mniaNetworkInterfaceId :: Lens' ModifyNetworkInterfaceAttribute Text
-mniaNetworkInterfaceId = lens _mniaNetworkInterfaceId (\s a -> s {_mniaNetworkInterfaceId = a})
+modifyNetworkInterfaceAttribute_networkInterfaceId :: Lens.Lens' ModifyNetworkInterfaceAttribute Prelude.Text
+modifyNetworkInterfaceAttribute_networkInterfaceId = Lens.lens (\ModifyNetworkInterfaceAttribute' {networkInterfaceId} -> networkInterfaceId) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {networkInterfaceId = a} :: ModifyNetworkInterfaceAttribute)
 
-instance AWSRequest ModifyNetworkInterfaceAttribute where
+instance
+  Prelude.AWSRequest
+    ModifyNetworkInterfaceAttribute
+  where
   type
     Rs ModifyNetworkInterfaceAttribute =
       ModifyNetworkInterfaceAttributeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveNull
+    Response.receiveNull
       ModifyNetworkInterfaceAttributeResponse'
 
-instance Hashable ModifyNetworkInterfaceAttribute
+instance
+  Prelude.Hashable
+    ModifyNetworkInterfaceAttribute
 
-instance NFData ModifyNetworkInterfaceAttribute
+instance
+  Prelude.NFData
+    ModifyNetworkInterfaceAttribute
 
-instance ToHeaders ModifyNetworkInterfaceAttribute where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ModifyNetworkInterfaceAttribute
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyNetworkInterfaceAttribute where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    ModifyNetworkInterfaceAttribute
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyNetworkInterfaceAttribute where
+instance
+  Prelude.ToQuery
+    ModifyNetworkInterfaceAttribute
+  where
   toQuery ModifyNetworkInterfaceAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyNetworkInterfaceAttribute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          (toQueryList "SecurityGroupId" <$> _mniaGroups),
-        "Attachment" =: _mniaAttachment,
-        "DryRun" =: _mniaDryRun,
-        "SourceDestCheck" =: _mniaSourceDestCheck,
-        "Description" =: _mniaDescription,
-        "NetworkInterfaceId" =: _mniaNetworkInterfaceId
+          Prelude.=: ( "ModifyNetworkInterfaceAttribute" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "SecurityGroupId"
+              Prelude.<$> groups
+          ),
+        "Attachment" Prelude.=: attachment,
+        "DryRun" Prelude.=: dryRun,
+        "SourceDestCheck" Prelude.=: sourceDestCheck,
+        "Description" Prelude.=: description,
+        "NetworkInterfaceId" Prelude.=: networkInterfaceId
       ]
 
--- | /See:/ 'modifyNetworkInterfaceAttributeResponse' smart constructor.
+-- | /See:/ 'newModifyNetworkInterfaceAttributeResponse' smart constructor.
 data ModifyNetworkInterfaceAttributeResponse = ModifyNetworkInterfaceAttributeResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyNetworkInterfaceAttributeResponse' with the minimum fields required to make a request.
-modifyNetworkInterfaceAttributeResponse ::
+-- |
+-- Create a value of 'ModifyNetworkInterfaceAttributeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newModifyNetworkInterfaceAttributeResponse ::
   ModifyNetworkInterfaceAttributeResponse
-modifyNetworkInterfaceAttributeResponse =
+newModifyNetworkInterfaceAttributeResponse =
   ModifyNetworkInterfaceAttributeResponse'
 
 instance
-  NFData
+  Prelude.NFData
     ModifyNetworkInterfaceAttributeResponse

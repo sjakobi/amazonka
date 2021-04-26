@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,150 +22,246 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes the specified bundle tasks or all of your bundle tasks.
+--
+-- Completed bundle tasks are listed for only a limited time. If your
+-- bundle task is no longer in the list, you can still register an AMI from
+-- it. Just use @RegisterImage@ with the Amazon S3 bucket name and image
+-- manifest name you provided to the bundle task.
 module Network.AWS.EC2.DescribeBundleTasks
   ( -- * Creating a Request
-    describeBundleTasks,
-    DescribeBundleTasks,
+    DescribeBundleTasks (..),
+    newDescribeBundleTasks,
 
     -- * Request Lenses
-    dbtDryRun,
-    dbtFilters,
-    dbtBundleIds,
+    describeBundleTasks_dryRun,
+    describeBundleTasks_filters,
+    describeBundleTasks_bundleIds,
 
     -- * Destructuring the Response
-    describeBundleTasksResponse,
-    DescribeBundleTasksResponse,
+    DescribeBundleTasksResponse (..),
+    newDescribeBundleTasksResponse,
 
     -- * Response Lenses
-    dbtrrsBundleTasks,
-    dbtrrsResponseStatus,
+    describeBundleTasksResponse_bundleTasks,
+    describeBundleTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.BundleTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeBundleTasks' smart constructor.
+-- | /See:/ 'newDescribeBundleTasks' smart constructor.
 data DescribeBundleTasks = DescribeBundleTasks'
-  { _dbtDryRun ::
-      !(Maybe Bool),
-    _dbtFilters ::
-      !(Maybe [Filter]),
-    _dbtBundleIds ::
-      !(Maybe [Text])
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The filters.
+    --
+    -- -   @bundle-id@ - The ID of the bundle task.
+    --
+    -- -   @error-code@ - If the task failed, the error code returned.
+    --
+    -- -   @error-message@ - If the task failed, the error message returned.
+    --
+    -- -   @instance-id@ - The ID of the instance.
+    --
+    -- -   @progress@ - The level of task completion, as a percentage (for
+    --     example, 20%).
+    --
+    -- -   @s3-bucket@ - The Amazon S3 bucket to store the AMI.
+    --
+    -- -   @s3-prefix@ - The beginning of the AMI name.
+    --
+    -- -   @start-time@ - The time the task started (for example,
+    --     2013-09-15T17:15:20.000Z).
+    --
+    -- -   @state@ - The state of the task (@pending@ | @waiting-for-shutdown@
+    --     | @bundling@ | @storing@ | @cancelling@ | @complete@ | @failed@).
+    --
+    -- -   @update-time@ - The time of the most recent update for the task.
+    filters :: Prelude.Maybe [Filter],
+    -- | The bundle task IDs.
+    --
+    -- Default: Describes all your bundle tasks.
+    bundleIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBundleTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBundleTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbtDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbtFilters' - The filters.     * @bundle-id@ - The ID of the bundle task.     * @error-code@ - If the task failed, the error code returned.     * @error-message@ - If the task failed, the error message returned.     * @instance-id@ - The ID of the instance.     * @progress@ - The level of task completion, as a percentage (for example, 20%).     * @s3-bucket@ - The Amazon S3 bucket to store the AMI.     * @s3-prefix@ - The beginning of the AMI name.     * @start-time@ - The time the task started (for example, 2013-09-15T17:15:20.000Z).     * @state@ - The state of the task (@pending@ | @waiting-for-shutdown@ | @bundling@ | @storing@ | @cancelling@ | @complete@ | @failed@ ).     * @update-time@ - The time of the most recent update for the task.
+-- 'dryRun', 'describeBundleTasks_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dbtBundleIds' - The bundle task IDs. Default: Describes all your bundle tasks.
-describeBundleTasks ::
+-- 'filters', 'describeBundleTasks_filters' - The filters.
+--
+-- -   @bundle-id@ - The ID of the bundle task.
+--
+-- -   @error-code@ - If the task failed, the error code returned.
+--
+-- -   @error-message@ - If the task failed, the error message returned.
+--
+-- -   @instance-id@ - The ID of the instance.
+--
+-- -   @progress@ - The level of task completion, as a percentage (for
+--     example, 20%).
+--
+-- -   @s3-bucket@ - The Amazon S3 bucket to store the AMI.
+--
+-- -   @s3-prefix@ - The beginning of the AMI name.
+--
+-- -   @start-time@ - The time the task started (for example,
+--     2013-09-15T17:15:20.000Z).
+--
+-- -   @state@ - The state of the task (@pending@ | @waiting-for-shutdown@
+--     | @bundling@ | @storing@ | @cancelling@ | @complete@ | @failed@).
+--
+-- -   @update-time@ - The time of the most recent update for the task.
+--
+-- 'bundleIds', 'describeBundleTasks_bundleIds' - The bundle task IDs.
+--
+-- Default: Describes all your bundle tasks.
+newDescribeBundleTasks ::
   DescribeBundleTasks
-describeBundleTasks =
+newDescribeBundleTasks =
   DescribeBundleTasks'
-    { _dbtDryRun = Nothing,
-      _dbtFilters = Nothing,
-      _dbtBundleIds = Nothing
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      bundleIds = Prelude.Nothing
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dbtDryRun :: Lens' DescribeBundleTasks (Maybe Bool)
-dbtDryRun = lens _dbtDryRun (\s a -> s {_dbtDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeBundleTasks_dryRun :: Lens.Lens' DescribeBundleTasks (Prelude.Maybe Prelude.Bool)
+describeBundleTasks_dryRun = Lens.lens (\DescribeBundleTasks' {dryRun} -> dryRun) (\s@DescribeBundleTasks' {} a -> s {dryRun = a} :: DescribeBundleTasks)
 
--- | The filters.     * @bundle-id@ - The ID of the bundle task.     * @error-code@ - If the task failed, the error code returned.     * @error-message@ - If the task failed, the error message returned.     * @instance-id@ - The ID of the instance.     * @progress@ - The level of task completion, as a percentage (for example, 20%).     * @s3-bucket@ - The Amazon S3 bucket to store the AMI.     * @s3-prefix@ - The beginning of the AMI name.     * @start-time@ - The time the task started (for example, 2013-09-15T17:15:20.000Z).     * @state@ - The state of the task (@pending@ | @waiting-for-shutdown@ | @bundling@ | @storing@ | @cancelling@ | @complete@ | @failed@ ).     * @update-time@ - The time of the most recent update for the task.
-dbtFilters :: Lens' DescribeBundleTasks [Filter]
-dbtFilters = lens _dbtFilters (\s a -> s {_dbtFilters = a}) . _Default . _Coerce
+-- | The filters.
+--
+-- -   @bundle-id@ - The ID of the bundle task.
+--
+-- -   @error-code@ - If the task failed, the error code returned.
+--
+-- -   @error-message@ - If the task failed, the error message returned.
+--
+-- -   @instance-id@ - The ID of the instance.
+--
+-- -   @progress@ - The level of task completion, as a percentage (for
+--     example, 20%).
+--
+-- -   @s3-bucket@ - The Amazon S3 bucket to store the AMI.
+--
+-- -   @s3-prefix@ - The beginning of the AMI name.
+--
+-- -   @start-time@ - The time the task started (for example,
+--     2013-09-15T17:15:20.000Z).
+--
+-- -   @state@ - The state of the task (@pending@ | @waiting-for-shutdown@
+--     | @bundling@ | @storing@ | @cancelling@ | @complete@ | @failed@).
+--
+-- -   @update-time@ - The time of the most recent update for the task.
+describeBundleTasks_filters :: Lens.Lens' DescribeBundleTasks (Prelude.Maybe [Filter])
+describeBundleTasks_filters = Lens.lens (\DescribeBundleTasks' {filters} -> filters) (\s@DescribeBundleTasks' {} a -> s {filters = a} :: DescribeBundleTasks) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The bundle task IDs. Default: Describes all your bundle tasks.
-dbtBundleIds :: Lens' DescribeBundleTasks [Text]
-dbtBundleIds = lens _dbtBundleIds (\s a -> s {_dbtBundleIds = a}) . _Default . _Coerce
+-- | The bundle task IDs.
+--
+-- Default: Describes all your bundle tasks.
+describeBundleTasks_bundleIds :: Lens.Lens' DescribeBundleTasks (Prelude.Maybe [Prelude.Text])
+describeBundleTasks_bundleIds = Lens.lens (\DescribeBundleTasks' {bundleIds} -> bundleIds) (\s@DescribeBundleTasks' {} a -> s {bundleIds = a} :: DescribeBundleTasks) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeBundleTasks where
+instance Prelude.AWSRequest DescribeBundleTasks where
   type
     Rs DescribeBundleTasks =
       DescribeBundleTasksResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeBundleTasksResponse'
-            <$> ( x .@? "bundleInstanceTasksSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "bundleInstanceTasksSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeBundleTasks
+instance Prelude.Hashable DescribeBundleTasks
 
-instance NFData DescribeBundleTasks
+instance Prelude.NFData DescribeBundleTasks
 
-instance ToHeaders DescribeBundleTasks where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeBundleTasks where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeBundleTasks where
-  toPath = const "/"
+instance Prelude.ToPath DescribeBundleTasks where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeBundleTasks where
+instance Prelude.ToQuery DescribeBundleTasks where
   toQuery DescribeBundleTasks' {..} =
-    mconcat
-      [ "Action" =: ("DescribeBundleTasks" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dbtDryRun,
-        toQuery (toQueryList "Filter" <$> _dbtFilters),
-        toQuery (toQueryList "BundleId" <$> _dbtBundleIds)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeBundleTasks" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        Prelude.toQuery
+          ( Prelude.toQueryList "BundleId"
+              Prelude.<$> bundleIds
+          )
       ]
 
--- | /See:/ 'describeBundleTasksResponse' smart constructor.
+-- | /See:/ 'newDescribeBundleTasksResponse' smart constructor.
 data DescribeBundleTasksResponse = DescribeBundleTasksResponse'
-  { _dbtrrsBundleTasks ::
-      !( Maybe
-           [BundleTask]
-       ),
-    _dbtrrsResponseStatus ::
-      !Int
+  { -- | Information about the bundle tasks.
+    bundleTasks :: Prelude.Maybe [BundleTask],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBundleTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBundleTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbtrrsBundleTasks' - Information about the bundle tasks.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbtrrsResponseStatus' - -- | The response status code.
-describeBundleTasksResponse ::
-  -- | 'dbtrrsResponseStatus'
-  Int ->
+-- 'bundleTasks', 'describeBundleTasksResponse_bundleTasks' - Information about the bundle tasks.
+--
+-- 'httpStatus', 'describeBundleTasksResponse_httpStatus' - The response's http status code.
+newDescribeBundleTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeBundleTasksResponse
-describeBundleTasksResponse pResponseStatus_ =
+newDescribeBundleTasksResponse pHttpStatus_ =
   DescribeBundleTasksResponse'
-    { _dbtrrsBundleTasks =
-        Nothing,
-      _dbtrrsResponseStatus = pResponseStatus_
+    { bundleTasks =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the bundle tasks.
-dbtrrsBundleTasks :: Lens' DescribeBundleTasksResponse [BundleTask]
-dbtrrsBundleTasks = lens _dbtrrsBundleTasks (\s a -> s {_dbtrrsBundleTasks = a}) . _Default . _Coerce
+describeBundleTasksResponse_bundleTasks :: Lens.Lens' DescribeBundleTasksResponse (Prelude.Maybe [BundleTask])
+describeBundleTasksResponse_bundleTasks = Lens.lens (\DescribeBundleTasksResponse' {bundleTasks} -> bundleTasks) (\s@DescribeBundleTasksResponse' {} a -> s {bundleTasks = a} :: DescribeBundleTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dbtrrsResponseStatus :: Lens' DescribeBundleTasksResponse Int
-dbtrrsResponseStatus = lens _dbtrrsResponseStatus (\s a -> s {_dbtrrsResponseStatus = a})
+-- | The response's http status code.
+describeBundleTasksResponse_httpStatus :: Lens.Lens' DescribeBundleTasksResponse Prelude.Int
+describeBundleTasksResponse_httpStatus = Lens.lens (\DescribeBundleTasksResponse' {httpStatus} -> httpStatus) (\s@DescribeBundleTasksResponse' {} a -> s {httpStatus = a} :: DescribeBundleTasksResponse)
 
-instance NFData DescribeBundleTasksResponse
+instance Prelude.NFData DescribeBundleTasksResponse

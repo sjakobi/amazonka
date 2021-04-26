@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,74 +19,76 @@
 module Network.AWS.EC2.Types.AllocationState
   ( AllocationState
       ( ..,
-        ASAvailable,
-        ASPending,
-        ASPermanentFailure,
-        ASReleased,
-        ASReleasedPermanentFailure,
-        ASUnderAssessment
+        AllocationStateAvailable,
+        AllocationStatePending,
+        AllocationStatePermanentFailure,
+        AllocationStateReleased,
+        AllocationStateReleasedPermanentFailure,
+        AllocationStateUnderAssessment
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AllocationState = AllocationState' (CI Text)
+newtype AllocationState = AllocationState'
+  { fromAllocationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASAvailable :: AllocationState
-pattern ASAvailable = AllocationState' "available"
+pattern AllocationStateAvailable :: AllocationState
+pattern AllocationStateAvailable = AllocationState' "available"
 
-pattern ASPending :: AllocationState
-pattern ASPending = AllocationState' "pending"
+pattern AllocationStatePending :: AllocationState
+pattern AllocationStatePending = AllocationState' "pending"
 
-pattern ASPermanentFailure :: AllocationState
-pattern ASPermanentFailure = AllocationState' "permanent-failure"
+pattern AllocationStatePermanentFailure :: AllocationState
+pattern AllocationStatePermanentFailure = AllocationState' "permanent-failure"
 
-pattern ASReleased :: AllocationState
-pattern ASReleased = AllocationState' "released"
+pattern AllocationStateReleased :: AllocationState
+pattern AllocationStateReleased = AllocationState' "released"
 
-pattern ASReleasedPermanentFailure :: AllocationState
-pattern ASReleasedPermanentFailure = AllocationState' "released-permanent-failure"
+pattern AllocationStateReleasedPermanentFailure :: AllocationState
+pattern AllocationStateReleasedPermanentFailure = AllocationState' "released-permanent-failure"
 
-pattern ASUnderAssessment :: AllocationState
-pattern ASUnderAssessment = AllocationState' "under-assessment"
+pattern AllocationStateUnderAssessment :: AllocationState
+pattern AllocationStateUnderAssessment = AllocationState' "under-assessment"
 
 {-# COMPLETE
-  ASAvailable,
-  ASPending,
-  ASPermanentFailure,
-  ASReleased,
-  ASReleasedPermanentFailure,
-  ASUnderAssessment,
+  AllocationStateAvailable,
+  AllocationStatePending,
+  AllocationStatePermanentFailure,
+  AllocationStateReleased,
+  AllocationStateReleasedPermanentFailure,
+  AllocationStateUnderAssessment,
   AllocationState'
   #-}
 
-instance FromText AllocationState where
-  parser = (AllocationState' . mk) <$> takeText
+instance Prelude.FromText AllocationState where
+  parser = AllocationState' Prelude.<$> Prelude.takeText
 
-instance ToText AllocationState where
-  toText (AllocationState' ci) = original ci
+instance Prelude.ToText AllocationState where
+  toText (AllocationState' x) = x
 
-instance Hashable AllocationState
+instance Prelude.Hashable AllocationState
 
-instance NFData AllocationState
+instance Prelude.NFData AllocationState
 
-instance ToByteString AllocationState
+instance Prelude.ToByteString AllocationState
 
-instance ToQuery AllocationState
+instance Prelude.ToQuery AllocationState
 
-instance ToHeader AllocationState
+instance Prelude.ToHeader AllocationState
 
-instance FromXML AllocationState where
-  parseXML = parseXMLText "AllocationState"
+instance Prelude.FromXML AllocationState where
+  parseXML = Prelude.parseXMLText "AllocationState"

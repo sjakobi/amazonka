@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.ProductCodeValues
   ( ProductCodeValues
       ( ..,
-        Devpay,
-        Marketplace
+        ProductCodeValuesDevpay,
+        ProductCodeValuesMarketplace
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProductCodeValues = ProductCodeValues' (CI Text)
+newtype ProductCodeValues = ProductCodeValues'
+  { fromProductCodeValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Devpay :: ProductCodeValues
-pattern Devpay = ProductCodeValues' "devpay"
+pattern ProductCodeValuesDevpay :: ProductCodeValues
+pattern ProductCodeValuesDevpay = ProductCodeValues' "devpay"
 
-pattern Marketplace :: ProductCodeValues
-pattern Marketplace = ProductCodeValues' "marketplace"
+pattern ProductCodeValuesMarketplace :: ProductCodeValues
+pattern ProductCodeValuesMarketplace = ProductCodeValues' "marketplace"
 
 {-# COMPLETE
-  Devpay,
-  Marketplace,
+  ProductCodeValuesDevpay,
+  ProductCodeValuesMarketplace,
   ProductCodeValues'
   #-}
 
-instance FromText ProductCodeValues where
-  parser = (ProductCodeValues' . mk) <$> takeText
+instance Prelude.FromText ProductCodeValues where
+  parser = ProductCodeValues' Prelude.<$> Prelude.takeText
 
-instance ToText ProductCodeValues where
-  toText (ProductCodeValues' ci) = original ci
+instance Prelude.ToText ProductCodeValues where
+  toText (ProductCodeValues' x) = x
 
-instance Hashable ProductCodeValues
+instance Prelude.Hashable ProductCodeValues
 
-instance NFData ProductCodeValues
+instance Prelude.NFData ProductCodeValues
 
-instance ToByteString ProductCodeValues
+instance Prelude.ToByteString ProductCodeValues
 
-instance ToQuery ProductCodeValues
+instance Prelude.ToQuery ProductCodeValues
 
-instance ToHeader ProductCodeValues
+instance Prelude.ToHeader ProductCodeValues
 
-instance FromXML ProductCodeValues where
-  parseXML = parseXMLText "ProductCodeValues"
+instance Prelude.FromXML ProductCodeValues where
+  parseXML = Prelude.parseXMLText "ProductCodeValues"

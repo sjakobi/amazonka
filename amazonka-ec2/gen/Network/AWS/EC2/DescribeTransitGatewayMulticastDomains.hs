@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,249 +23,284 @@
 --
 -- Describes one or more transit gateway multicast domains.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeTransitGatewayMulticastDomains
   ( -- * Creating a Request
-    describeTransitGatewayMulticastDomains,
-    DescribeTransitGatewayMulticastDomains,
+    DescribeTransitGatewayMulticastDomains (..),
+    newDescribeTransitGatewayMulticastDomains,
 
     -- * Request Lenses
-    dtgmdNextToken,
-    dtgmdDryRun,
-    dtgmdMaxResults,
-    dtgmdFilters,
-    dtgmdTransitGatewayMulticastDomainIds,
+    describeTransitGatewayMulticastDomains_nextToken,
+    describeTransitGatewayMulticastDomains_dryRun,
+    describeTransitGatewayMulticastDomains_maxResults,
+    describeTransitGatewayMulticastDomains_filters,
+    describeTransitGatewayMulticastDomains_transitGatewayMulticastDomainIds,
 
     -- * Destructuring the Response
-    describeTransitGatewayMulticastDomainsResponse,
-    DescribeTransitGatewayMulticastDomainsResponse,
+    DescribeTransitGatewayMulticastDomainsResponse (..),
+    newDescribeTransitGatewayMulticastDomainsResponse,
 
     -- * Response Lenses
-    dtgmdrtrsNextToken,
-    dtgmdrtrsTransitGatewayMulticastDomains,
-    dtgmdrtrsResponseStatus,
+    describeTransitGatewayMulticastDomainsResponse_nextToken,
+    describeTransitGatewayMulticastDomainsResponse_transitGatewayMulticastDomains,
+    describeTransitGatewayMulticastDomainsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayMulticastDomain
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTransitGatewayMulticastDomains' smart constructor.
+-- | /See:/ 'newDescribeTransitGatewayMulticastDomains' smart constructor.
 data DescribeTransitGatewayMulticastDomains = DescribeTransitGatewayMulticastDomains'
-  { _dtgmdNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dtgmdDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dtgmdMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dtgmdFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _dtgmdTransitGatewayMulticastDomainIds ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @state@ - The state of the transit gateway multicast domain. Valid
+    --     values are @pending@ | @available@ | @deleting@ | @deleted@.
+    --
+    -- -   @transit-gateway-id@ - The ID of the transit gateway.
+    --
+    -- -   @transit-gateway-multicast-domain-id@ - The ID of the transit
+    --     gateway multicast domain.
+    filters :: Prelude.Maybe [Filter],
+    -- | The ID of the transit gateway multicast domain.
+    transitGatewayMulticastDomainIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTransitGatewayMulticastDomains' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTransitGatewayMulticastDomains' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgmdNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgmdDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeTransitGatewayMulticastDomains_nextToken' - The token for the next page of results.
 --
--- * 'dtgmdMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeTransitGatewayMulticastDomains_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dtgmdFilters' - One or more filters. The possible values are:     * @state@ - The state of the transit gateway multicast domain. Valid values are @pending@ | @available@ | @deleting@ | @deleted@ .     * @transit-gateway-id@ - The ID of the transit gateway.     * @transit-gateway-multicast-domain-id@ - The ID of the transit gateway multicast domain.
+-- 'maxResults', 'describeTransitGatewayMulticastDomains_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dtgmdTransitGatewayMulticastDomainIds' - The ID of the transit gateway multicast domain.
-describeTransitGatewayMulticastDomains ::
+-- 'filters', 'describeTransitGatewayMulticastDomains_filters' - One or more filters. The possible values are:
+--
+-- -   @state@ - The state of the transit gateway multicast domain. Valid
+--     values are @pending@ | @available@ | @deleting@ | @deleted@.
+--
+-- -   @transit-gateway-id@ - The ID of the transit gateway.
+--
+-- -   @transit-gateway-multicast-domain-id@ - The ID of the transit
+--     gateway multicast domain.
+--
+-- 'transitGatewayMulticastDomainIds', 'describeTransitGatewayMulticastDomains_transitGatewayMulticastDomainIds' - The ID of the transit gateway multicast domain.
+newDescribeTransitGatewayMulticastDomains ::
   DescribeTransitGatewayMulticastDomains
-describeTransitGatewayMulticastDomains =
+newDescribeTransitGatewayMulticastDomains =
   DescribeTransitGatewayMulticastDomains'
-    { _dtgmdNextToken =
-        Nothing,
-      _dtgmdDryRun = Nothing,
-      _dtgmdMaxResults = Nothing,
-      _dtgmdFilters = Nothing,
-      _dtgmdTransitGatewayMulticastDomainIds =
-        Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      transitGatewayMulticastDomainIds =
+        Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dtgmdNextToken :: Lens' DescribeTransitGatewayMulticastDomains (Maybe Text)
-dtgmdNextToken = lens _dtgmdNextToken (\s a -> s {_dtgmdNextToken = a})
+describeTransitGatewayMulticastDomains_nextToken :: Lens.Lens' DescribeTransitGatewayMulticastDomains (Prelude.Maybe Prelude.Text)
+describeTransitGatewayMulticastDomains_nextToken = Lens.lens (\DescribeTransitGatewayMulticastDomains' {nextToken} -> nextToken) (\s@DescribeTransitGatewayMulticastDomains' {} a -> s {nextToken = a} :: DescribeTransitGatewayMulticastDomains)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgmdDryRun :: Lens' DescribeTransitGatewayMulticastDomains (Maybe Bool)
-dtgmdDryRun = lens _dtgmdDryRun (\s a -> s {_dtgmdDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeTransitGatewayMulticastDomains_dryRun :: Lens.Lens' DescribeTransitGatewayMulticastDomains (Prelude.Maybe Prelude.Bool)
+describeTransitGatewayMulticastDomains_dryRun = Lens.lens (\DescribeTransitGatewayMulticastDomains' {dryRun} -> dryRun) (\s@DescribeTransitGatewayMulticastDomains' {} a -> s {dryRun = a} :: DescribeTransitGatewayMulticastDomains)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dtgmdMaxResults :: Lens' DescribeTransitGatewayMulticastDomains (Maybe Natural)
-dtgmdMaxResults = lens _dtgmdMaxResults (\s a -> s {_dtgmdMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeTransitGatewayMulticastDomains_maxResults :: Lens.Lens' DescribeTransitGatewayMulticastDomains (Prelude.Maybe Prelude.Natural)
+describeTransitGatewayMulticastDomains_maxResults = Lens.lens (\DescribeTransitGatewayMulticastDomains' {maxResults} -> maxResults) (\s@DescribeTransitGatewayMulticastDomains' {} a -> s {maxResults = a} :: DescribeTransitGatewayMulticastDomains) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters. The possible values are:     * @state@ - The state of the transit gateway multicast domain. Valid values are @pending@ | @available@ | @deleting@ | @deleted@ .     * @transit-gateway-id@ - The ID of the transit gateway.     * @transit-gateway-multicast-domain-id@ - The ID of the transit gateway multicast domain.
-dtgmdFilters :: Lens' DescribeTransitGatewayMulticastDomains [Filter]
-dtgmdFilters = lens _dtgmdFilters (\s a -> s {_dtgmdFilters = a}) . _Default . _Coerce
+-- | One or more filters. The possible values are:
+--
+-- -   @state@ - The state of the transit gateway multicast domain. Valid
+--     values are @pending@ | @available@ | @deleting@ | @deleted@.
+--
+-- -   @transit-gateway-id@ - The ID of the transit gateway.
+--
+-- -   @transit-gateway-multicast-domain-id@ - The ID of the transit
+--     gateway multicast domain.
+describeTransitGatewayMulticastDomains_filters :: Lens.Lens' DescribeTransitGatewayMulticastDomains (Prelude.Maybe [Filter])
+describeTransitGatewayMulticastDomains_filters = Lens.lens (\DescribeTransitGatewayMulticastDomains' {filters} -> filters) (\s@DescribeTransitGatewayMulticastDomains' {} a -> s {filters = a} :: DescribeTransitGatewayMulticastDomains) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the transit gateway multicast domain.
-dtgmdTransitGatewayMulticastDomainIds :: Lens' DescribeTransitGatewayMulticastDomains [Text]
-dtgmdTransitGatewayMulticastDomainIds = lens _dtgmdTransitGatewayMulticastDomainIds (\s a -> s {_dtgmdTransitGatewayMulticastDomainIds = a}) . _Default . _Coerce
+describeTransitGatewayMulticastDomains_transitGatewayMulticastDomainIds :: Lens.Lens' DescribeTransitGatewayMulticastDomains (Prelude.Maybe [Prelude.Text])
+describeTransitGatewayMulticastDomains_transitGatewayMulticastDomainIds = Lens.lens (\DescribeTransitGatewayMulticastDomains' {transitGatewayMulticastDomainIds} -> transitGatewayMulticastDomainIds) (\s@DescribeTransitGatewayMulticastDomains' {} a -> s {transitGatewayMulticastDomainIds = a} :: DescribeTransitGatewayMulticastDomains) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeTransitGatewayMulticastDomains
   where
   page rq rs
-    | stop (rs ^. dtgmdrtrsNextToken) = Nothing
-    | stop
-        (rs ^. dtgmdrtrsTransitGatewayMulticastDomains) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewayMulticastDomainsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewayMulticastDomainsResponse_transitGatewayMulticastDomains
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & dtgmdNextToken .~ rs ^. dtgmdrtrsNextToken
+          Lens.& describeTransitGatewayMulticastDomains_nextToken
+          Lens..~ rs
+            Lens.^? describeTransitGatewayMulticastDomainsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeTransitGatewayMulticastDomains
   where
   type
     Rs DescribeTransitGatewayMulticastDomains =
       DescribeTransitGatewayMulticastDomainsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeTransitGatewayMulticastDomainsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "transitGatewayMulticastDomains" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "transitGatewayMulticastDomains"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeTransitGatewayMulticastDomains
 
 instance
-  NFData
+  Prelude.NFData
     DescribeTransitGatewayMulticastDomains
 
 instance
-  ToHeaders
-    DescribeTransitGatewayMulticastDomains
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DescribeTransitGatewayMulticastDomains
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DescribeTransitGatewayMulticastDomains
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DescribeTransitGatewayMulticastDomains
   where
   toQuery DescribeTransitGatewayMulticastDomains' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DescribeTransitGatewayMulticastDomains" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dtgmdNextToken,
-        "DryRun" =: _dtgmdDryRun,
-        "MaxResults" =: _dtgmdMaxResults,
-        toQuery (toQueryList "Filter" <$> _dtgmdFilters),
-        toQuery
-          ( toQueryList "TransitGatewayMulticastDomainIds"
-              <$> _dtgmdTransitGatewayMulticastDomainIds
+          Prelude.=: ( "DescribeTransitGatewayMulticastDomains" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        Prelude.toQuery
+          ( Prelude.toQueryList
+              "TransitGatewayMulticastDomainIds"
+              Prelude.<$> transitGatewayMulticastDomainIds
           )
       ]
 
--- | /See:/ 'describeTransitGatewayMulticastDomainsResponse' smart constructor.
+-- | /See:/ 'newDescribeTransitGatewayMulticastDomainsResponse' smart constructor.
 data DescribeTransitGatewayMulticastDomainsResponse = DescribeTransitGatewayMulticastDomainsResponse'
-  { _dtgmdrtrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dtgmdrtrsTransitGatewayMulticastDomains ::
-      !( Maybe
-           [TransitGatewayMulticastDomain]
-       ),
-    _dtgmdrtrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the transit gateway multicast domains.
+    transitGatewayMulticastDomains :: Prelude.Maybe [TransitGatewayMulticastDomain],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTransitGatewayMulticastDomainsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTransitGatewayMulticastDomainsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgmdrtrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgmdrtrsTransitGatewayMulticastDomains' - Information about the transit gateway multicast domains.
+-- 'nextToken', 'describeTransitGatewayMulticastDomainsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dtgmdrtrsResponseStatus' - -- | The response status code.
-describeTransitGatewayMulticastDomainsResponse ::
-  -- | 'dtgmdrtrsResponseStatus'
-  Int ->
+-- 'transitGatewayMulticastDomains', 'describeTransitGatewayMulticastDomainsResponse_transitGatewayMulticastDomains' - Information about the transit gateway multicast domains.
+--
+-- 'httpStatus', 'describeTransitGatewayMulticastDomainsResponse_httpStatus' - The response's http status code.
+newDescribeTransitGatewayMulticastDomainsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTransitGatewayMulticastDomainsResponse
-describeTransitGatewayMulticastDomainsResponse
-  pResponseStatus_ =
+newDescribeTransitGatewayMulticastDomainsResponse
+  pHttpStatus_ =
     DescribeTransitGatewayMulticastDomainsResponse'
-      { _dtgmdrtrsNextToken =
-          Nothing,
-        _dtgmdrtrsTransitGatewayMulticastDomains =
-          Nothing,
-        _dtgmdrtrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        transitGatewayMulticastDomains =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dtgmdrtrsNextToken :: Lens' DescribeTransitGatewayMulticastDomainsResponse (Maybe Text)
-dtgmdrtrsNextToken = lens _dtgmdrtrsNextToken (\s a -> s {_dtgmdrtrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeTransitGatewayMulticastDomainsResponse_nextToken :: Lens.Lens' DescribeTransitGatewayMulticastDomainsResponse (Prelude.Maybe Prelude.Text)
+describeTransitGatewayMulticastDomainsResponse_nextToken = Lens.lens (\DescribeTransitGatewayMulticastDomainsResponse' {nextToken} -> nextToken) (\s@DescribeTransitGatewayMulticastDomainsResponse' {} a -> s {nextToken = a} :: DescribeTransitGatewayMulticastDomainsResponse)
 
 -- | Information about the transit gateway multicast domains.
-dtgmdrtrsTransitGatewayMulticastDomains :: Lens' DescribeTransitGatewayMulticastDomainsResponse [TransitGatewayMulticastDomain]
-dtgmdrtrsTransitGatewayMulticastDomains = lens _dtgmdrtrsTransitGatewayMulticastDomains (\s a -> s {_dtgmdrtrsTransitGatewayMulticastDomains = a}) . _Default . _Coerce
+describeTransitGatewayMulticastDomainsResponse_transitGatewayMulticastDomains :: Lens.Lens' DescribeTransitGatewayMulticastDomainsResponse (Prelude.Maybe [TransitGatewayMulticastDomain])
+describeTransitGatewayMulticastDomainsResponse_transitGatewayMulticastDomains = Lens.lens (\DescribeTransitGatewayMulticastDomainsResponse' {transitGatewayMulticastDomains} -> transitGatewayMulticastDomains) (\s@DescribeTransitGatewayMulticastDomainsResponse' {} a -> s {transitGatewayMulticastDomains = a} :: DescribeTransitGatewayMulticastDomainsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtgmdrtrsResponseStatus :: Lens' DescribeTransitGatewayMulticastDomainsResponse Int
-dtgmdrtrsResponseStatus = lens _dtgmdrtrsResponseStatus (\s a -> s {_dtgmdrtrsResponseStatus = a})
+-- | The response's http status code.
+describeTransitGatewayMulticastDomainsResponse_httpStatus :: Lens.Lens' DescribeTransitGatewayMulticastDomainsResponse Prelude.Int
+describeTransitGatewayMulticastDomainsResponse_httpStatus = Lens.lens (\DescribeTransitGatewayMulticastDomainsResponse' {httpStatus} -> httpStatus) (\s@DescribeTransitGatewayMulticastDomainsResponse' {} a -> s {httpStatus = a} :: DescribeTransitGatewayMulticastDomainsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeTransitGatewayMulticastDomainsResponse

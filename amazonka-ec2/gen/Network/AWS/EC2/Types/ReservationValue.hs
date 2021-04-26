@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,61 +20,67 @@
 module Network.AWS.EC2.Types.ReservationValue where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The cost associated with the Reserved Instance.
 --
---
---
--- /See:/ 'reservationValue' smart constructor.
+-- /See:/ 'newReservationValue' smart constructor.
 data ReservationValue = ReservationValue'
-  { _rvRemainingUpfrontValue ::
-      !(Maybe Text),
-    _rvHourlyPrice :: !(Maybe Text),
-    _rvRemainingTotalValue ::
-      !(Maybe Text)
+  { -- | The remaining upfront cost of the reservation.
+    remainingUpfrontValue :: Prelude.Maybe Prelude.Text,
+    -- | The hourly rate of the reservation.
+    hourlyPrice :: Prelude.Maybe Prelude.Text,
+    -- | The balance of the total value (the sum of remainingUpfrontValue +
+    -- hourlyPrice * number of hours remaining).
+    remainingTotalValue :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservationValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservationValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rvRemainingUpfrontValue' - The remaining upfront cost of the reservation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rvHourlyPrice' - The hourly rate of the reservation.
+-- 'remainingUpfrontValue', 'reservationValue_remainingUpfrontValue' - The remaining upfront cost of the reservation.
 --
--- * 'rvRemainingTotalValue' - The balance of the total value (the sum of remainingUpfrontValue + hourlyPrice * number of hours remaining).
-reservationValue ::
+-- 'hourlyPrice', 'reservationValue_hourlyPrice' - The hourly rate of the reservation.
+--
+-- 'remainingTotalValue', 'reservationValue_remainingTotalValue' - The balance of the total value (the sum of remainingUpfrontValue +
+-- hourlyPrice * number of hours remaining).
+newReservationValue ::
   ReservationValue
-reservationValue =
+newReservationValue =
   ReservationValue'
-    { _rvRemainingUpfrontValue =
-        Nothing,
-      _rvHourlyPrice = Nothing,
-      _rvRemainingTotalValue = Nothing
+    { remainingUpfrontValue =
+        Prelude.Nothing,
+      hourlyPrice = Prelude.Nothing,
+      remainingTotalValue = Prelude.Nothing
     }
 
 -- | The remaining upfront cost of the reservation.
-rvRemainingUpfrontValue :: Lens' ReservationValue (Maybe Text)
-rvRemainingUpfrontValue = lens _rvRemainingUpfrontValue (\s a -> s {_rvRemainingUpfrontValue = a})
+reservationValue_remainingUpfrontValue :: Lens.Lens' ReservationValue (Prelude.Maybe Prelude.Text)
+reservationValue_remainingUpfrontValue = Lens.lens (\ReservationValue' {remainingUpfrontValue} -> remainingUpfrontValue) (\s@ReservationValue' {} a -> s {remainingUpfrontValue = a} :: ReservationValue)
 
 -- | The hourly rate of the reservation.
-rvHourlyPrice :: Lens' ReservationValue (Maybe Text)
-rvHourlyPrice = lens _rvHourlyPrice (\s a -> s {_rvHourlyPrice = a})
+reservationValue_hourlyPrice :: Lens.Lens' ReservationValue (Prelude.Maybe Prelude.Text)
+reservationValue_hourlyPrice = Lens.lens (\ReservationValue' {hourlyPrice} -> hourlyPrice) (\s@ReservationValue' {} a -> s {hourlyPrice = a} :: ReservationValue)
 
--- | The balance of the total value (the sum of remainingUpfrontValue + hourlyPrice * number of hours remaining).
-rvRemainingTotalValue :: Lens' ReservationValue (Maybe Text)
-rvRemainingTotalValue = lens _rvRemainingTotalValue (\s a -> s {_rvRemainingTotalValue = a})
+-- | The balance of the total value (the sum of remainingUpfrontValue +
+-- hourlyPrice * number of hours remaining).
+reservationValue_remainingTotalValue :: Lens.Lens' ReservationValue (Prelude.Maybe Prelude.Text)
+reservationValue_remainingTotalValue = Lens.lens (\ReservationValue' {remainingTotalValue} -> remainingTotalValue) (\s@ReservationValue' {} a -> s {remainingTotalValue = a} :: ReservationValue)
 
-instance FromXML ReservationValue where
+instance Prelude.FromXML ReservationValue where
   parseXML x =
     ReservationValue'
-      <$> (x .@? "remainingUpfrontValue")
-      <*> (x .@? "hourlyPrice")
-      <*> (x .@? "remainingTotalValue")
+      Prelude.<$> (x Prelude..@? "remainingUpfrontValue")
+      Prelude.<*> (x Prelude..@? "hourlyPrice")
+      Prelude.<*> (x Prelude..@? "remainingTotalValue")
 
-instance Hashable ReservationValue
+instance Prelude.Hashable ReservationValue
 
-instance NFData ReservationValue
+instance Prelude.NFData ReservationValue

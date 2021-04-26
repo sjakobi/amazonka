@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,53 @@
 module Network.AWS.EC2.Types.AlternatePathHint where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an potential intermediate component of a feasible path.
 --
---
---
--- /See:/ 'alternatePathHint' smart constructor.
+-- /See:/ 'newAlternatePathHint' smart constructor.
 data AlternatePathHint = AlternatePathHint'
-  { _aphComponentId ::
-      !(Maybe Text),
-    _aphComponentARN :: !(Maybe Text)
+  { -- | The ID of the component.
+    componentId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the component.
+    componentArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AlternatePathHint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AlternatePathHint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aphComponentId' - The ID of the component.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aphComponentARN' - The Amazon Resource Name (ARN) of the component.
-alternatePathHint ::
+-- 'componentId', 'alternatePathHint_componentId' - The ID of the component.
+--
+-- 'componentArn', 'alternatePathHint_componentArn' - The Amazon Resource Name (ARN) of the component.
+newAlternatePathHint ::
   AlternatePathHint
-alternatePathHint =
+newAlternatePathHint =
   AlternatePathHint'
-    { _aphComponentId = Nothing,
-      _aphComponentARN = Nothing
+    { componentId = Prelude.Nothing,
+      componentArn = Prelude.Nothing
     }
 
 -- | The ID of the component.
-aphComponentId :: Lens' AlternatePathHint (Maybe Text)
-aphComponentId = lens _aphComponentId (\s a -> s {_aphComponentId = a})
+alternatePathHint_componentId :: Lens.Lens' AlternatePathHint (Prelude.Maybe Prelude.Text)
+alternatePathHint_componentId = Lens.lens (\AlternatePathHint' {componentId} -> componentId) (\s@AlternatePathHint' {} a -> s {componentId = a} :: AlternatePathHint)
 
 -- | The Amazon Resource Name (ARN) of the component.
-aphComponentARN :: Lens' AlternatePathHint (Maybe Text)
-aphComponentARN = lens _aphComponentARN (\s a -> s {_aphComponentARN = a})
+alternatePathHint_componentArn :: Lens.Lens' AlternatePathHint (Prelude.Maybe Prelude.Text)
+alternatePathHint_componentArn = Lens.lens (\AlternatePathHint' {componentArn} -> componentArn) (\s@AlternatePathHint' {} a -> s {componentArn = a} :: AlternatePathHint)
 
-instance FromXML AlternatePathHint where
+instance Prelude.FromXML AlternatePathHint where
   parseXML x =
     AlternatePathHint'
-      <$> (x .@? "componentId") <*> (x .@? "componentArn")
+      Prelude.<$> (x Prelude..@? "componentId")
+      Prelude.<*> (x Prelude..@? "componentArn")
 
-instance Hashable AlternatePathHint
+instance Prelude.Hashable AlternatePathHint
 
-instance NFData AlternatePathHint
+instance Prelude.NFData AlternatePathHint

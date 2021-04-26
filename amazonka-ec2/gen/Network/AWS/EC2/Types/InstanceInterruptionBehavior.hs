@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.InstanceInterruptionBehavior
   ( InstanceInterruptionBehavior
       ( ..,
-        Hibernate,
-        Stop,
-        Terminate
+        InstanceInterruptionBehaviorHibernate,
+        InstanceInterruptionBehaviorStop,
+        InstanceInterruptionBehaviorTerminate
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceInterruptionBehavior
-  = InstanceInterruptionBehavior'
-      ( CI
-          Text
-      )
+newtype InstanceInterruptionBehavior = InstanceInterruptionBehavior'
+  { fromInstanceInterruptionBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Hibernate :: InstanceInterruptionBehavior
-pattern Hibernate = InstanceInterruptionBehavior' "hibernate"
+pattern InstanceInterruptionBehaviorHibernate :: InstanceInterruptionBehavior
+pattern InstanceInterruptionBehaviorHibernate = InstanceInterruptionBehavior' "hibernate"
 
-pattern Stop :: InstanceInterruptionBehavior
-pattern Stop = InstanceInterruptionBehavior' "stop"
+pattern InstanceInterruptionBehaviorStop :: InstanceInterruptionBehavior
+pattern InstanceInterruptionBehaviorStop = InstanceInterruptionBehavior' "stop"
 
-pattern Terminate :: InstanceInterruptionBehavior
-pattern Terminate = InstanceInterruptionBehavior' "terminate"
+pattern InstanceInterruptionBehaviorTerminate :: InstanceInterruptionBehavior
+pattern InstanceInterruptionBehaviorTerminate = InstanceInterruptionBehavior' "terminate"
 
 {-# COMPLETE
-  Hibernate,
-  Stop,
-  Terminate,
+  InstanceInterruptionBehaviorHibernate,
+  InstanceInterruptionBehaviorStop,
+  InstanceInterruptionBehaviorTerminate,
   InstanceInterruptionBehavior'
   #-}
 
-instance FromText InstanceInterruptionBehavior where
-  parser = (InstanceInterruptionBehavior' . mk) <$> takeText
+instance Prelude.FromText InstanceInterruptionBehavior where
+  parser = InstanceInterruptionBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceInterruptionBehavior where
-  toText (InstanceInterruptionBehavior' ci) = original ci
+instance Prelude.ToText InstanceInterruptionBehavior where
+  toText (InstanceInterruptionBehavior' x) = x
 
-instance Hashable InstanceInterruptionBehavior
+instance Prelude.Hashable InstanceInterruptionBehavior
 
-instance NFData InstanceInterruptionBehavior
+instance Prelude.NFData InstanceInterruptionBehavior
 
-instance ToByteString InstanceInterruptionBehavior
+instance Prelude.ToByteString InstanceInterruptionBehavior
 
-instance ToQuery InstanceInterruptionBehavior
+instance Prelude.ToQuery InstanceInterruptionBehavior
 
-instance ToHeader InstanceInterruptionBehavior
+instance Prelude.ToHeader InstanceInterruptionBehavior
 
-instance FromXML InstanceInterruptionBehavior where
-  parseXML = parseXMLText "InstanceInterruptionBehavior"
+instance Prelude.FromXML InstanceInterruptionBehavior where
+  parseXML = Prelude.parseXMLText "InstanceInterruptionBehavior"

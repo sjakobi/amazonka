@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,61 @@ module Network.AWS.EC2.Types.CancelSpotFleetRequestsErrorItem where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.CancelSpotFleetRequestsError
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Spot Fleet request that was not successfully canceled.
 --
---
---
--- /See:/ 'cancelSpotFleetRequestsErrorItem' smart constructor.
+-- /See:/ 'newCancelSpotFleetRequestsErrorItem' smart constructor.
 data CancelSpotFleetRequestsErrorItem = CancelSpotFleetRequestsErrorItem'
-  { _csfreiError ::
-      !( Maybe
-           CancelSpotFleetRequestsError
-       ),
-    _csfreiSpotFleetRequestId ::
-      !( Maybe
-           Text
-       )
+  { -- | The error.
+    error :: Prelude.Maybe CancelSpotFleetRequestsError,
+    -- | The ID of the Spot Fleet request.
+    spotFleetRequestId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelSpotFleetRequestsErrorItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelSpotFleetRequestsErrorItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csfreiError' - The error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csfreiSpotFleetRequestId' - The ID of the Spot Fleet request.
-cancelSpotFleetRequestsErrorItem ::
+-- 'error', 'cancelSpotFleetRequestsErrorItem_error' - The error.
+--
+-- 'spotFleetRequestId', 'cancelSpotFleetRequestsErrorItem_spotFleetRequestId' - The ID of the Spot Fleet request.
+newCancelSpotFleetRequestsErrorItem ::
   CancelSpotFleetRequestsErrorItem
-cancelSpotFleetRequestsErrorItem =
+newCancelSpotFleetRequestsErrorItem =
   CancelSpotFleetRequestsErrorItem'
-    { _csfreiError =
-        Nothing,
-      _csfreiSpotFleetRequestId = Nothing
+    { error =
+        Prelude.Nothing,
+      spotFleetRequestId = Prelude.Nothing
     }
 
 -- | The error.
-csfreiError :: Lens' CancelSpotFleetRequestsErrorItem (Maybe CancelSpotFleetRequestsError)
-csfreiError = lens _csfreiError (\s a -> s {_csfreiError = a})
+cancelSpotFleetRequestsErrorItem_error :: Lens.Lens' CancelSpotFleetRequestsErrorItem (Prelude.Maybe CancelSpotFleetRequestsError)
+cancelSpotFleetRequestsErrorItem_error = Lens.lens (\CancelSpotFleetRequestsErrorItem' {error} -> error) (\s@CancelSpotFleetRequestsErrorItem' {} a -> s {error = a} :: CancelSpotFleetRequestsErrorItem)
 
 -- | The ID of the Spot Fleet request.
-csfreiSpotFleetRequestId :: Lens' CancelSpotFleetRequestsErrorItem (Maybe Text)
-csfreiSpotFleetRequestId = lens _csfreiSpotFleetRequestId (\s a -> s {_csfreiSpotFleetRequestId = a})
+cancelSpotFleetRequestsErrorItem_spotFleetRequestId :: Lens.Lens' CancelSpotFleetRequestsErrorItem (Prelude.Maybe Prelude.Text)
+cancelSpotFleetRequestsErrorItem_spotFleetRequestId = Lens.lens (\CancelSpotFleetRequestsErrorItem' {spotFleetRequestId} -> spotFleetRequestId) (\s@CancelSpotFleetRequestsErrorItem' {} a -> s {spotFleetRequestId = a} :: CancelSpotFleetRequestsErrorItem)
 
-instance FromXML CancelSpotFleetRequestsErrorItem where
+instance
+  Prelude.FromXML
+    CancelSpotFleetRequestsErrorItem
+  where
   parseXML x =
     CancelSpotFleetRequestsErrorItem'
-      <$> (x .@? "error") <*> (x .@? "spotFleetRequestId")
+      Prelude.<$> (x Prelude..@? "error")
+      Prelude.<*> (x Prelude..@? "spotFleetRequestId")
 
-instance Hashable CancelSpotFleetRequestsErrorItem
+instance
+  Prelude.Hashable
+    CancelSpotFleetRequestsErrorItem
 
-instance NFData CancelSpotFleetRequestsErrorItem
+instance
+  Prelude.NFData
+    CancelSpotFleetRequestsErrorItem

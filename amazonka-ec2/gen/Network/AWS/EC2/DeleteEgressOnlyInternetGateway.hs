@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,154 +24,172 @@
 -- Deletes an egress-only internet gateway.
 module Network.AWS.EC2.DeleteEgressOnlyInternetGateway
   ( -- * Creating a Request
-    deleteEgressOnlyInternetGateway,
-    DeleteEgressOnlyInternetGateway,
+    DeleteEgressOnlyInternetGateway (..),
+    newDeleteEgressOnlyInternetGateway,
 
     -- * Request Lenses
-    deoigDryRun,
-    deoigEgressOnlyInternetGatewayId,
+    deleteEgressOnlyInternetGateway_dryRun,
+    deleteEgressOnlyInternetGateway_egressOnlyInternetGatewayId,
 
     -- * Destructuring the Response
-    deleteEgressOnlyInternetGatewayResponse,
-    DeleteEgressOnlyInternetGatewayResponse,
+    DeleteEgressOnlyInternetGatewayResponse (..),
+    newDeleteEgressOnlyInternetGatewayResponse,
 
     -- * Response Lenses
-    deoigrrsReturnCode,
-    deoigrrsResponseStatus,
+    deleteEgressOnlyInternetGatewayResponse_returnCode,
+    deleteEgressOnlyInternetGatewayResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteEgressOnlyInternetGateway' smart constructor.
+-- | /See:/ 'newDeleteEgressOnlyInternetGateway' smart constructor.
 data DeleteEgressOnlyInternetGateway = DeleteEgressOnlyInternetGateway'
-  { _deoigDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _deoigEgressOnlyInternetGatewayId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the egress-only internet gateway.
+    egressOnlyInternetGatewayId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEgressOnlyInternetGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEgressOnlyInternetGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deoigDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deoigEgressOnlyInternetGatewayId' - The ID of the egress-only internet gateway.
-deleteEgressOnlyInternetGateway ::
-  -- | 'deoigEgressOnlyInternetGatewayId'
-  Text ->
+-- 'dryRun', 'deleteEgressOnlyInternetGateway_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'egressOnlyInternetGatewayId', 'deleteEgressOnlyInternetGateway_egressOnlyInternetGatewayId' - The ID of the egress-only internet gateway.
+newDeleteEgressOnlyInternetGateway ::
+  -- | 'egressOnlyInternetGatewayId'
+  Prelude.Text ->
   DeleteEgressOnlyInternetGateway
-deleteEgressOnlyInternetGateway
+newDeleteEgressOnlyInternetGateway
   pEgressOnlyInternetGatewayId_ =
     DeleteEgressOnlyInternetGateway'
-      { _deoigDryRun =
-          Nothing,
-        _deoigEgressOnlyInternetGatewayId =
+      { dryRun =
+          Prelude.Nothing,
+        egressOnlyInternetGatewayId =
           pEgressOnlyInternetGatewayId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-deoigDryRun :: Lens' DeleteEgressOnlyInternetGateway (Maybe Bool)
-deoigDryRun = lens _deoigDryRun (\s a -> s {_deoigDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteEgressOnlyInternetGateway_dryRun :: Lens.Lens' DeleteEgressOnlyInternetGateway (Prelude.Maybe Prelude.Bool)
+deleteEgressOnlyInternetGateway_dryRun = Lens.lens (\DeleteEgressOnlyInternetGateway' {dryRun} -> dryRun) (\s@DeleteEgressOnlyInternetGateway' {} a -> s {dryRun = a} :: DeleteEgressOnlyInternetGateway)
 
 -- | The ID of the egress-only internet gateway.
-deoigEgressOnlyInternetGatewayId :: Lens' DeleteEgressOnlyInternetGateway Text
-deoigEgressOnlyInternetGatewayId = lens _deoigEgressOnlyInternetGatewayId (\s a -> s {_deoigEgressOnlyInternetGatewayId = a})
+deleteEgressOnlyInternetGateway_egressOnlyInternetGatewayId :: Lens.Lens' DeleteEgressOnlyInternetGateway Prelude.Text
+deleteEgressOnlyInternetGateway_egressOnlyInternetGatewayId = Lens.lens (\DeleteEgressOnlyInternetGateway' {egressOnlyInternetGatewayId} -> egressOnlyInternetGatewayId) (\s@DeleteEgressOnlyInternetGateway' {} a -> s {egressOnlyInternetGatewayId = a} :: DeleteEgressOnlyInternetGateway)
 
-instance AWSRequest DeleteEgressOnlyInternetGateway where
+instance
+  Prelude.AWSRequest
+    DeleteEgressOnlyInternetGateway
+  where
   type
     Rs DeleteEgressOnlyInternetGateway =
       DeleteEgressOnlyInternetGatewayResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteEgressOnlyInternetGatewayResponse'
-            <$> (x .@? "returnCode") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "returnCode")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteEgressOnlyInternetGateway
+instance
+  Prelude.Hashable
+    DeleteEgressOnlyInternetGateway
 
-instance NFData DeleteEgressOnlyInternetGateway
+instance
+  Prelude.NFData
+    DeleteEgressOnlyInternetGateway
 
-instance ToHeaders DeleteEgressOnlyInternetGateway where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteEgressOnlyInternetGateway
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteEgressOnlyInternetGateway where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DeleteEgressOnlyInternetGateway
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEgressOnlyInternetGateway where
+instance
+  Prelude.ToQuery
+    DeleteEgressOnlyInternetGateway
+  where
   toQuery DeleteEgressOnlyInternetGateway' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteEgressOnlyInternetGateway" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _deoigDryRun,
+          Prelude.=: ( "DeleteEgressOnlyInternetGateway" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "EgressOnlyInternetGatewayId"
-          =: _deoigEgressOnlyInternetGatewayId
+          Prelude.=: egressOnlyInternetGatewayId
       ]
 
--- | /See:/ 'deleteEgressOnlyInternetGatewayResponse' smart constructor.
+-- | /See:/ 'newDeleteEgressOnlyInternetGatewayResponse' smart constructor.
 data DeleteEgressOnlyInternetGatewayResponse = DeleteEgressOnlyInternetGatewayResponse'
-  { _deoigrrsReturnCode ::
-      !( Maybe
-           Bool
-       ),
-    _deoigrrsResponseStatus ::
-      !Int
+  { -- | Returns @true@ if the request succeeds; otherwise, it returns an error.
+    returnCode :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEgressOnlyInternetGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEgressOnlyInternetGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deoigrrsReturnCode' - Returns @true@ if the request succeeds; otherwise, it returns an error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deoigrrsResponseStatus' - -- | The response status code.
-deleteEgressOnlyInternetGatewayResponse ::
-  -- | 'deoigrrsResponseStatus'
-  Int ->
+-- 'returnCode', 'deleteEgressOnlyInternetGatewayResponse_returnCode' - Returns @true@ if the request succeeds; otherwise, it returns an error.
+--
+-- 'httpStatus', 'deleteEgressOnlyInternetGatewayResponse_httpStatus' - The response's http status code.
+newDeleteEgressOnlyInternetGatewayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteEgressOnlyInternetGatewayResponse
-deleteEgressOnlyInternetGatewayResponse
-  pResponseStatus_ =
+newDeleteEgressOnlyInternetGatewayResponse
+  pHttpStatus_ =
     DeleteEgressOnlyInternetGatewayResponse'
-      { _deoigrrsReturnCode =
-          Nothing,
-        _deoigrrsResponseStatus =
-          pResponseStatus_
+      { returnCode =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Returns @true@ if the request succeeds; otherwise, it returns an error.
-deoigrrsReturnCode :: Lens' DeleteEgressOnlyInternetGatewayResponse (Maybe Bool)
-deoigrrsReturnCode = lens _deoigrrsReturnCode (\s a -> s {_deoigrrsReturnCode = a})
+deleteEgressOnlyInternetGatewayResponse_returnCode :: Lens.Lens' DeleteEgressOnlyInternetGatewayResponse (Prelude.Maybe Prelude.Bool)
+deleteEgressOnlyInternetGatewayResponse_returnCode = Lens.lens (\DeleteEgressOnlyInternetGatewayResponse' {returnCode} -> returnCode) (\s@DeleteEgressOnlyInternetGatewayResponse' {} a -> s {returnCode = a} :: DeleteEgressOnlyInternetGatewayResponse)
 
--- | -- | The response status code.
-deoigrrsResponseStatus :: Lens' DeleteEgressOnlyInternetGatewayResponse Int
-deoigrrsResponseStatus = lens _deoigrrsResponseStatus (\s a -> s {_deoigrrsResponseStatus = a})
+-- | The response's http status code.
+deleteEgressOnlyInternetGatewayResponse_httpStatus :: Lens.Lens' DeleteEgressOnlyInternetGatewayResponse Prelude.Int
+deleteEgressOnlyInternetGatewayResponse_httpStatus = Lens.lens (\DeleteEgressOnlyInternetGatewayResponse' {httpStatus} -> httpStatus) (\s@DeleteEgressOnlyInternetGatewayResponse' {} a -> s {httpStatus = a} :: DeleteEgressOnlyInternetGatewayResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteEgressOnlyInternetGatewayResponse

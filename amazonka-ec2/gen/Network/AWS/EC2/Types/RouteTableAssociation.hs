@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,100 +21,97 @@ module Network.AWS.EC2.Types.RouteTableAssociation where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.RouteTableAssociationState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an association between a route table and a subnet or gateway.
 --
---
---
--- /See:/ 'routeTableAssociation' smart constructor.
+-- /See:/ 'newRouteTableAssociation' smart constructor.
 data RouteTableAssociation = RouteTableAssociation'
-  { _rtaAssociationState ::
-      !( Maybe
-           RouteTableAssociationState
-       ),
-    _rtaMain :: !(Maybe Bool),
-    _rtaRouteTableId ::
-      !(Maybe Text),
-    _rtaSubnetId ::
-      !(Maybe Text),
-    _rtaRouteTableAssociationId ::
-      !(Maybe Text),
-    _rtaGatewayId ::
-      !(Maybe Text)
+  { -- | The state of the association.
+    associationState :: Prelude.Maybe RouteTableAssociationState,
+    -- | Indicates whether this is the main route table.
+    main :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the route table.
+    routeTableId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subnet. A subnet ID is not returned for an implicit
+    -- association.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the association.
+    routeTableAssociationId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the internet gateway or virtual private gateway.
+    gatewayId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RouteTableAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RouteTableAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtaAssociationState' - The state of the association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtaMain' - Indicates whether this is the main route table.
+-- 'associationState', 'routeTableAssociation_associationState' - The state of the association.
 --
--- * 'rtaRouteTableId' - The ID of the route table.
+-- 'main', 'routeTableAssociation_main' - Indicates whether this is the main route table.
 --
--- * 'rtaSubnetId' - The ID of the subnet. A subnet ID is not returned for an implicit association.
+-- 'routeTableId', 'routeTableAssociation_routeTableId' - The ID of the route table.
 --
--- * 'rtaRouteTableAssociationId' - The ID of the association.
+-- 'subnetId', 'routeTableAssociation_subnetId' - The ID of the subnet. A subnet ID is not returned for an implicit
+-- association.
 --
--- * 'rtaGatewayId' - The ID of the internet gateway or virtual private gateway.
-routeTableAssociation ::
+-- 'routeTableAssociationId', 'routeTableAssociation_routeTableAssociationId' - The ID of the association.
+--
+-- 'gatewayId', 'routeTableAssociation_gatewayId' - The ID of the internet gateway or virtual private gateway.
+newRouteTableAssociation ::
   RouteTableAssociation
-routeTableAssociation =
+newRouteTableAssociation =
   RouteTableAssociation'
-    { _rtaAssociationState =
-        Nothing,
-      _rtaMain = Nothing,
-      _rtaRouteTableId = Nothing,
-      _rtaSubnetId = Nothing,
-      _rtaRouteTableAssociationId = Nothing,
-      _rtaGatewayId = Nothing
+    { associationState =
+        Prelude.Nothing,
+      main = Prelude.Nothing,
+      routeTableId = Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      routeTableAssociationId = Prelude.Nothing,
+      gatewayId = Prelude.Nothing
     }
 
 -- | The state of the association.
-rtaAssociationState :: Lens' RouteTableAssociation (Maybe RouteTableAssociationState)
-rtaAssociationState = lens _rtaAssociationState (\s a -> s {_rtaAssociationState = a})
+routeTableAssociation_associationState :: Lens.Lens' RouteTableAssociation (Prelude.Maybe RouteTableAssociationState)
+routeTableAssociation_associationState = Lens.lens (\RouteTableAssociation' {associationState} -> associationState) (\s@RouteTableAssociation' {} a -> s {associationState = a} :: RouteTableAssociation)
 
 -- | Indicates whether this is the main route table.
-rtaMain :: Lens' RouteTableAssociation (Maybe Bool)
-rtaMain = lens _rtaMain (\s a -> s {_rtaMain = a})
+routeTableAssociation_main :: Lens.Lens' RouteTableAssociation (Prelude.Maybe Prelude.Bool)
+routeTableAssociation_main = Lens.lens (\RouteTableAssociation' {main} -> main) (\s@RouteTableAssociation' {} a -> s {main = a} :: RouteTableAssociation)
 
 -- | The ID of the route table.
-rtaRouteTableId :: Lens' RouteTableAssociation (Maybe Text)
-rtaRouteTableId = lens _rtaRouteTableId (\s a -> s {_rtaRouteTableId = a})
+routeTableAssociation_routeTableId :: Lens.Lens' RouteTableAssociation (Prelude.Maybe Prelude.Text)
+routeTableAssociation_routeTableId = Lens.lens (\RouteTableAssociation' {routeTableId} -> routeTableId) (\s@RouteTableAssociation' {} a -> s {routeTableId = a} :: RouteTableAssociation)
 
--- | The ID of the subnet. A subnet ID is not returned for an implicit association.
-rtaSubnetId :: Lens' RouteTableAssociation (Maybe Text)
-rtaSubnetId = lens _rtaSubnetId (\s a -> s {_rtaSubnetId = a})
+-- | The ID of the subnet. A subnet ID is not returned for an implicit
+-- association.
+routeTableAssociation_subnetId :: Lens.Lens' RouteTableAssociation (Prelude.Maybe Prelude.Text)
+routeTableAssociation_subnetId = Lens.lens (\RouteTableAssociation' {subnetId} -> subnetId) (\s@RouteTableAssociation' {} a -> s {subnetId = a} :: RouteTableAssociation)
 
 -- | The ID of the association.
-rtaRouteTableAssociationId :: Lens' RouteTableAssociation (Maybe Text)
-rtaRouteTableAssociationId = lens _rtaRouteTableAssociationId (\s a -> s {_rtaRouteTableAssociationId = a})
+routeTableAssociation_routeTableAssociationId :: Lens.Lens' RouteTableAssociation (Prelude.Maybe Prelude.Text)
+routeTableAssociation_routeTableAssociationId = Lens.lens (\RouteTableAssociation' {routeTableAssociationId} -> routeTableAssociationId) (\s@RouteTableAssociation' {} a -> s {routeTableAssociationId = a} :: RouteTableAssociation)
 
 -- | The ID of the internet gateway or virtual private gateway.
-rtaGatewayId :: Lens' RouteTableAssociation (Maybe Text)
-rtaGatewayId = lens _rtaGatewayId (\s a -> s {_rtaGatewayId = a})
+routeTableAssociation_gatewayId :: Lens.Lens' RouteTableAssociation (Prelude.Maybe Prelude.Text)
+routeTableAssociation_gatewayId = Lens.lens (\RouteTableAssociation' {gatewayId} -> gatewayId) (\s@RouteTableAssociation' {} a -> s {gatewayId = a} :: RouteTableAssociation)
 
-instance FromXML RouteTableAssociation where
+instance Prelude.FromXML RouteTableAssociation where
   parseXML x =
     RouteTableAssociation'
-      <$> (x .@? "associationState")
-      <*> (x .@? "main")
-      <*> (x .@? "routeTableId")
-      <*> (x .@? "subnetId")
-      <*> (x .@? "routeTableAssociationId")
-      <*> (x .@? "gatewayId")
+      Prelude.<$> (x Prelude..@? "associationState")
+      Prelude.<*> (x Prelude..@? "main")
+      Prelude.<*> (x Prelude..@? "routeTableId")
+      Prelude.<*> (x Prelude..@? "subnetId")
+      Prelude.<*> (x Prelude..@? "routeTableAssociationId")
+      Prelude.<*> (x Prelude..@? "gatewayId")
 
-instance Hashable RouteTableAssociation
+instance Prelude.Hashable RouteTableAssociation
 
-instance NFData RouteTableAssociation
+instance Prelude.NFData RouteTableAssociation

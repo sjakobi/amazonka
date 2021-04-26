@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a placement group in which to launch instances. The strategy of the placement group determines how the instances are organized within the group.
+-- Creates a placement group in which to launch instances. The strategy of
+-- the placement group determines how the instances are organized within
+-- the group.
 --
+-- A @cluster@ placement group is a logical grouping of instances within a
+-- single Availability Zone that benefit from low network latency, high
+-- network throughput. A @spread@ placement group places instances on
+-- distinct hardware. A @partition@ placement group places groups of
+-- instances in different partitions, where instances in one partition do
+-- not share the same hardware with instances in another partition.
 --
--- A @cluster@ placement group is a logical grouping of instances within a single Availability Zone that benefit from low network latency, high network throughput. A @spread@ placement group places instances on distinct hardware. A @partition@ placement group places groups of instances in different partitions, where instances in one partition do not share the same hardware with instances in another partition.
---
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html Placement groups> in the /Amazon EC2 User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html Placement groups>
+-- in the /Amazon EC2 User Guide/.
 module Network.AWS.EC2.CreatePlacementGroup
   ( -- * Creating a Request
-    createPlacementGroup,
-    CreatePlacementGroup,
+    CreatePlacementGroup (..),
+    newCreatePlacementGroup,
 
     -- * Request Lenses
-    cpgTagSpecifications,
-    cpgDryRun,
-    cpgStrategy,
-    cpgGroupName,
-    cpgPartitionCount,
+    createPlacementGroup_tagSpecifications,
+    createPlacementGroup_dryRun,
+    createPlacementGroup_strategy,
+    createPlacementGroup_groupName,
+    createPlacementGroup_partitionCount,
 
     -- * Destructuring the Response
-    createPlacementGroupResponse,
-    CreatePlacementGroupResponse,
+    CreatePlacementGroupResponse (..),
+    newCreatePlacementGroupResponse,
 
     -- * Response Lenses
-    cpgrrsPlacementGroup,
-    cpgrrsResponseStatus,
+    createPlacementGroupResponse_placementGroup,
+    createPlacementGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.PlacementGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createPlacementGroup' smart constructor.
+-- | /See:/ 'newCreatePlacementGroup' smart constructor.
 data CreatePlacementGroup = CreatePlacementGroup'
-  { _cpgTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _cpgDryRun :: !(Maybe Bool),
-    _cpgStrategy ::
-      !(Maybe PlacementStrategy),
-    _cpgGroupName ::
-      !(Maybe Text),
-    _cpgPartitionCount ::
-      !(Maybe Int)
+  { -- | The tags to apply to the new placement group.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The placement strategy.
+    strategy :: Prelude.Maybe PlacementStrategy,
+    -- | A name for the placement group. Must be unique within the scope of your
+    -- account for the Region.
+    --
+    -- Constraints: Up to 255 ASCII characters
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The number of partitions. Valid only when __Strategy__ is set to
+    -- @partition@.
+    partitionCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePlacementGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePlacementGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgTagSpecifications' - The tags to apply to the new placement group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpgDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createPlacementGroup_tagSpecifications' - The tags to apply to the new placement group.
 --
--- * 'cpgStrategy' - The placement strategy.
+-- 'dryRun', 'createPlacementGroup_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'cpgGroupName' - A name for the placement group. Must be unique within the scope of your account for the Region. Constraints: Up to 255 ASCII characters
+-- 'strategy', 'createPlacementGroup_strategy' - The placement strategy.
 --
--- * 'cpgPartitionCount' - The number of partitions. Valid only when __Strategy__ is set to @partition@ .
-createPlacementGroup ::
+-- 'groupName', 'createPlacementGroup_groupName' - A name for the placement group. Must be unique within the scope of your
+-- account for the Region.
+--
+-- Constraints: Up to 255 ASCII characters
+--
+-- 'partitionCount', 'createPlacementGroup_partitionCount' - The number of partitions. Valid only when __Strategy__ is set to
+-- @partition@.
+newCreatePlacementGroup ::
   CreatePlacementGroup
-createPlacementGroup =
+newCreatePlacementGroup =
   CreatePlacementGroup'
-    { _cpgTagSpecifications =
-        Nothing,
-      _cpgDryRun = Nothing,
-      _cpgStrategy = Nothing,
-      _cpgGroupName = Nothing,
-      _cpgPartitionCount = Nothing
+    { tagSpecifications =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      strategy = Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      partitionCount = Prelude.Nothing
     }
 
 -- | The tags to apply to the new placement group.
-cpgTagSpecifications :: Lens' CreatePlacementGroup [TagSpecification]
-cpgTagSpecifications = lens _cpgTagSpecifications (\s a -> s {_cpgTagSpecifications = a}) . _Default . _Coerce
+createPlacementGroup_tagSpecifications :: Lens.Lens' CreatePlacementGroup (Prelude.Maybe [TagSpecification])
+createPlacementGroup_tagSpecifications = Lens.lens (\CreatePlacementGroup' {tagSpecifications} -> tagSpecifications) (\s@CreatePlacementGroup' {} a -> s {tagSpecifications = a} :: CreatePlacementGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-cpgDryRun :: Lens' CreatePlacementGroup (Maybe Bool)
-cpgDryRun = lens _cpgDryRun (\s a -> s {_cpgDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createPlacementGroup_dryRun :: Lens.Lens' CreatePlacementGroup (Prelude.Maybe Prelude.Bool)
+createPlacementGroup_dryRun = Lens.lens (\CreatePlacementGroup' {dryRun} -> dryRun) (\s@CreatePlacementGroup' {} a -> s {dryRun = a} :: CreatePlacementGroup)
 
 -- | The placement strategy.
-cpgStrategy :: Lens' CreatePlacementGroup (Maybe PlacementStrategy)
-cpgStrategy = lens _cpgStrategy (\s a -> s {_cpgStrategy = a})
+createPlacementGroup_strategy :: Lens.Lens' CreatePlacementGroup (Prelude.Maybe PlacementStrategy)
+createPlacementGroup_strategy = Lens.lens (\CreatePlacementGroup' {strategy} -> strategy) (\s@CreatePlacementGroup' {} a -> s {strategy = a} :: CreatePlacementGroup)
 
--- | A name for the placement group. Must be unique within the scope of your account for the Region. Constraints: Up to 255 ASCII characters
-cpgGroupName :: Lens' CreatePlacementGroup (Maybe Text)
-cpgGroupName = lens _cpgGroupName (\s a -> s {_cpgGroupName = a})
+-- | A name for the placement group. Must be unique within the scope of your
+-- account for the Region.
+--
+-- Constraints: Up to 255 ASCII characters
+createPlacementGroup_groupName :: Lens.Lens' CreatePlacementGroup (Prelude.Maybe Prelude.Text)
+createPlacementGroup_groupName = Lens.lens (\CreatePlacementGroup' {groupName} -> groupName) (\s@CreatePlacementGroup' {} a -> s {groupName = a} :: CreatePlacementGroup)
 
--- | The number of partitions. Valid only when __Strategy__ is set to @partition@ .
-cpgPartitionCount :: Lens' CreatePlacementGroup (Maybe Int)
-cpgPartitionCount = lens _cpgPartitionCount (\s a -> s {_cpgPartitionCount = a})
+-- | The number of partitions. Valid only when __Strategy__ is set to
+-- @partition@.
+createPlacementGroup_partitionCount :: Lens.Lens' CreatePlacementGroup (Prelude.Maybe Prelude.Int)
+createPlacementGroup_partitionCount = Lens.lens (\CreatePlacementGroup' {partitionCount} -> partitionCount) (\s@CreatePlacementGroup' {} a -> s {partitionCount = a} :: CreatePlacementGroup)
 
-instance AWSRequest CreatePlacementGroup where
+instance Prelude.AWSRequest CreatePlacementGroup where
   type
     Rs CreatePlacementGroup =
       CreatePlacementGroupResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreatePlacementGroupResponse'
-            <$> (x .@? "placementGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "placementGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreatePlacementGroup
+instance Prelude.Hashable CreatePlacementGroup
 
-instance NFData CreatePlacementGroup
+instance Prelude.NFData CreatePlacementGroup
 
-instance ToHeaders CreatePlacementGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreatePlacementGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreatePlacementGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreatePlacementGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePlacementGroup where
+instance Prelude.ToQuery CreatePlacementGroup where
   toQuery CreatePlacementGroup' {..} =
-    mconcat
-      [ "Action" =: ("CreatePlacementGroup" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _cpgTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreatePlacementGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _cpgDryRun,
-        "Strategy" =: _cpgStrategy,
-        "GroupName" =: _cpgGroupName,
-        "PartitionCount" =: _cpgPartitionCount
+        "DryRun" Prelude.=: dryRun,
+        "Strategy" Prelude.=: strategy,
+        "GroupName" Prelude.=: groupName,
+        "PartitionCount" Prelude.=: partitionCount
       ]
 
--- | /See:/ 'createPlacementGroupResponse' smart constructor.
+-- | /See:/ 'newCreatePlacementGroupResponse' smart constructor.
 data CreatePlacementGroupResponse = CreatePlacementGroupResponse'
-  { _cpgrrsPlacementGroup ::
-      !( Maybe
-           PlacementGroup
-       ),
-    _cpgrrsResponseStatus ::
-      !Int
+  { placementGroup :: Prelude.Maybe PlacementGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePlacementGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePlacementGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgrrsPlacementGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpgrrsResponseStatus' - -- | The response status code.
-createPlacementGroupResponse ::
-  -- | 'cpgrrsResponseStatus'
-  Int ->
+-- 'placementGroup', 'createPlacementGroupResponse_placementGroup' - Undocumented member.
+--
+-- 'httpStatus', 'createPlacementGroupResponse_httpStatus' - The response's http status code.
+newCreatePlacementGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreatePlacementGroupResponse
-createPlacementGroupResponse pResponseStatus_ =
+newCreatePlacementGroupResponse pHttpStatus_ =
   CreatePlacementGroupResponse'
-    { _cpgrrsPlacementGroup =
-        Nothing,
-      _cpgrrsResponseStatus = pResponseStatus_
+    { placementGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cpgrrsPlacementGroup :: Lens' CreatePlacementGroupResponse (Maybe PlacementGroup)
-cpgrrsPlacementGroup = lens _cpgrrsPlacementGroup (\s a -> s {_cpgrrsPlacementGroup = a})
+createPlacementGroupResponse_placementGroup :: Lens.Lens' CreatePlacementGroupResponse (Prelude.Maybe PlacementGroup)
+createPlacementGroupResponse_placementGroup = Lens.lens (\CreatePlacementGroupResponse' {placementGroup} -> placementGroup) (\s@CreatePlacementGroupResponse' {} a -> s {placementGroup = a} :: CreatePlacementGroupResponse)
 
--- | -- | The response status code.
-cpgrrsResponseStatus :: Lens' CreatePlacementGroupResponse Int
-cpgrrsResponseStatus = lens _cpgrrsResponseStatus (\s a -> s {_cpgrrsResponseStatus = a})
+-- | The response's http status code.
+createPlacementGroupResponse_httpStatus :: Lens.Lens' CreatePlacementGroupResponse Prelude.Int
+createPlacementGroupResponse_httpStatus = Lens.lens (\CreatePlacementGroupResponse' {httpStatus} -> httpStatus) (\s@CreatePlacementGroupResponse' {} a -> s {httpStatus = a} :: CreatePlacementGroupResponse)
 
-instance NFData CreatePlacementGroupResponse
+instance Prelude.NFData CreatePlacementGroupResponse

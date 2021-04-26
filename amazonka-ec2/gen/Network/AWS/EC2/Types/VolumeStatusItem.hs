@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,106 +24,111 @@ import Network.AWS.EC2.Types.VolumeStatusAction
 import Network.AWS.EC2.Types.VolumeStatusAttachmentStatus
 import Network.AWS.EC2.Types.VolumeStatusEvent
 import Network.AWS.EC2.Types.VolumeStatusInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the volume status.
 --
---
---
--- /See:/ 'volumeStatusItem' smart constructor.
+-- /See:/ 'newVolumeStatusItem' smart constructor.
 data VolumeStatusItem = VolumeStatusItem'
-  { _vsiVolumeStatus ::
-      !(Maybe VolumeStatusInfo),
-    _vsiOutpostARN :: !(Maybe Text),
-    _vsiVolumeId :: !(Maybe Text),
-    _vsiActions ::
-      !(Maybe [VolumeStatusAction]),
-    _vsiEvents ::
-      !(Maybe [VolumeStatusEvent]),
-    _vsiAvailabilityZone :: !(Maybe Text),
-    _vsiAttachmentStatuses ::
-      !( Maybe
-           [VolumeStatusAttachmentStatus]
-       )
+  { -- | The volume status.
+    volumeStatus :: Prelude.Maybe VolumeStatusInfo,
+    -- | The Amazon Resource Name (ARN) of the Outpost.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The volume ID.
+    volumeId :: Prelude.Maybe Prelude.Text,
+    -- | The details of the operation.
+    actions :: Prelude.Maybe [VolumeStatusAction],
+    -- | A list of events associated with the volume.
+    events :: Prelude.Maybe [VolumeStatusEvent],
+    -- | The Availability Zone of the volume.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | Information about the instances to which the volume is attached.
+    attachmentStatuses :: Prelude.Maybe [VolumeStatusAttachmentStatus]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VolumeStatusItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VolumeStatusItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vsiVolumeStatus' - The volume status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vsiOutpostARN' - The Amazon Resource Name (ARN) of the Outpost.
+-- 'volumeStatus', 'volumeStatusItem_volumeStatus' - The volume status.
 --
--- * 'vsiVolumeId' - The volume ID.
+-- 'outpostArn', 'volumeStatusItem_outpostArn' - The Amazon Resource Name (ARN) of the Outpost.
 --
--- * 'vsiActions' - The details of the operation.
+-- 'volumeId', 'volumeStatusItem_volumeId' - The volume ID.
 --
--- * 'vsiEvents' - A list of events associated with the volume.
+-- 'actions', 'volumeStatusItem_actions' - The details of the operation.
 --
--- * 'vsiAvailabilityZone' - The Availability Zone of the volume.
+-- 'events', 'volumeStatusItem_events' - A list of events associated with the volume.
 --
--- * 'vsiAttachmentStatuses' - Information about the instances to which the volume is attached.
-volumeStatusItem ::
+-- 'availabilityZone', 'volumeStatusItem_availabilityZone' - The Availability Zone of the volume.
+--
+-- 'attachmentStatuses', 'volumeStatusItem_attachmentStatuses' - Information about the instances to which the volume is attached.
+newVolumeStatusItem ::
   VolumeStatusItem
-volumeStatusItem =
+newVolumeStatusItem =
   VolumeStatusItem'
-    { _vsiVolumeStatus = Nothing,
-      _vsiOutpostARN = Nothing,
-      _vsiVolumeId = Nothing,
-      _vsiActions = Nothing,
-      _vsiEvents = Nothing,
-      _vsiAvailabilityZone = Nothing,
-      _vsiAttachmentStatuses = Nothing
+    { volumeStatus = Prelude.Nothing,
+      outpostArn = Prelude.Nothing,
+      volumeId = Prelude.Nothing,
+      actions = Prelude.Nothing,
+      events = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      attachmentStatuses = Prelude.Nothing
     }
 
 -- | The volume status.
-vsiVolumeStatus :: Lens' VolumeStatusItem (Maybe VolumeStatusInfo)
-vsiVolumeStatus = lens _vsiVolumeStatus (\s a -> s {_vsiVolumeStatus = a})
+volumeStatusItem_volumeStatus :: Lens.Lens' VolumeStatusItem (Prelude.Maybe VolumeStatusInfo)
+volumeStatusItem_volumeStatus = Lens.lens (\VolumeStatusItem' {volumeStatus} -> volumeStatus) (\s@VolumeStatusItem' {} a -> s {volumeStatus = a} :: VolumeStatusItem)
 
 -- | The Amazon Resource Name (ARN) of the Outpost.
-vsiOutpostARN :: Lens' VolumeStatusItem (Maybe Text)
-vsiOutpostARN = lens _vsiOutpostARN (\s a -> s {_vsiOutpostARN = a})
+volumeStatusItem_outpostArn :: Lens.Lens' VolumeStatusItem (Prelude.Maybe Prelude.Text)
+volumeStatusItem_outpostArn = Lens.lens (\VolumeStatusItem' {outpostArn} -> outpostArn) (\s@VolumeStatusItem' {} a -> s {outpostArn = a} :: VolumeStatusItem)
 
 -- | The volume ID.
-vsiVolumeId :: Lens' VolumeStatusItem (Maybe Text)
-vsiVolumeId = lens _vsiVolumeId (\s a -> s {_vsiVolumeId = a})
+volumeStatusItem_volumeId :: Lens.Lens' VolumeStatusItem (Prelude.Maybe Prelude.Text)
+volumeStatusItem_volumeId = Lens.lens (\VolumeStatusItem' {volumeId} -> volumeId) (\s@VolumeStatusItem' {} a -> s {volumeId = a} :: VolumeStatusItem)
 
 -- | The details of the operation.
-vsiActions :: Lens' VolumeStatusItem [VolumeStatusAction]
-vsiActions = lens _vsiActions (\s a -> s {_vsiActions = a}) . _Default . _Coerce
+volumeStatusItem_actions :: Lens.Lens' VolumeStatusItem (Prelude.Maybe [VolumeStatusAction])
+volumeStatusItem_actions = Lens.lens (\VolumeStatusItem' {actions} -> actions) (\s@VolumeStatusItem' {} a -> s {actions = a} :: VolumeStatusItem) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of events associated with the volume.
-vsiEvents :: Lens' VolumeStatusItem [VolumeStatusEvent]
-vsiEvents = lens _vsiEvents (\s a -> s {_vsiEvents = a}) . _Default . _Coerce
+volumeStatusItem_events :: Lens.Lens' VolumeStatusItem (Prelude.Maybe [VolumeStatusEvent])
+volumeStatusItem_events = Lens.lens (\VolumeStatusItem' {events} -> events) (\s@VolumeStatusItem' {} a -> s {events = a} :: VolumeStatusItem) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Availability Zone of the volume.
-vsiAvailabilityZone :: Lens' VolumeStatusItem (Maybe Text)
-vsiAvailabilityZone = lens _vsiAvailabilityZone (\s a -> s {_vsiAvailabilityZone = a})
+volumeStatusItem_availabilityZone :: Lens.Lens' VolumeStatusItem (Prelude.Maybe Prelude.Text)
+volumeStatusItem_availabilityZone = Lens.lens (\VolumeStatusItem' {availabilityZone} -> availabilityZone) (\s@VolumeStatusItem' {} a -> s {availabilityZone = a} :: VolumeStatusItem)
 
 -- | Information about the instances to which the volume is attached.
-vsiAttachmentStatuses :: Lens' VolumeStatusItem [VolumeStatusAttachmentStatus]
-vsiAttachmentStatuses = lens _vsiAttachmentStatuses (\s a -> s {_vsiAttachmentStatuses = a}) . _Default . _Coerce
+volumeStatusItem_attachmentStatuses :: Lens.Lens' VolumeStatusItem (Prelude.Maybe [VolumeStatusAttachmentStatus])
+volumeStatusItem_attachmentStatuses = Lens.lens (\VolumeStatusItem' {attachmentStatuses} -> attachmentStatuses) (\s@VolumeStatusItem' {} a -> s {attachmentStatuses = a} :: VolumeStatusItem) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML VolumeStatusItem where
+instance Prelude.FromXML VolumeStatusItem where
   parseXML x =
     VolumeStatusItem'
-      <$> (x .@? "volumeStatus")
-      <*> (x .@? "outpostArn")
-      <*> (x .@? "volumeId")
-      <*> ( x .@? "actionsSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "eventsSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "availabilityZone")
-      <*> ( x .@? "attachmentStatuses" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "volumeStatus")
+      Prelude.<*> (x Prelude..@? "outpostArn")
+      Prelude.<*> (x Prelude..@? "volumeId")
+      Prelude.<*> ( x Prelude..@? "actionsSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "eventsSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> ( x Prelude..@? "attachmentStatuses"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable VolumeStatusItem
+instance Prelude.Hashable VolumeStatusItem
 
-instance NFData VolumeStatusItem
+instance Prelude.NFData VolumeStatusItem

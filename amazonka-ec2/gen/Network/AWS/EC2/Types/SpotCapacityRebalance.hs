@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +21,85 @@ module Network.AWS.EC2.Types.SpotCapacityRebalance where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ReplacementStrategy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Spot Instance replacement strategy to use when Amazon EC2 emits a signal that your Spot Instance is at an elevated risk of being interrupted. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#spot-fleet-capacity-rebalance Capacity rebalancing> in the /Amazon EC2 User Guide for Linux Instances/ .
+-- | The Spot Instance replacement strategy to use when Amazon EC2 emits a
+-- signal that your Spot Instance is at an elevated risk of being
+-- interrupted. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#spot-fleet-capacity-rebalance Capacity rebalancing>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
 --
---
---
--- /See:/ 'spotCapacityRebalance' smart constructor.
-newtype SpotCapacityRebalance = SpotCapacityRebalance'
-  { _scrReplacementStrategy ::
-      Maybe
-        ReplacementStrategy
+-- /See:/ 'newSpotCapacityRebalance' smart constructor.
+data SpotCapacityRebalance = SpotCapacityRebalance'
+  { -- | The replacement strategy to use. Only available for fleets of type
+    -- @maintain@. You must specify a value, otherwise you get an error.
+    --
+    -- To allow Spot Fleet to launch a replacement Spot Instance when an
+    -- instance rebalance notification is emitted for a Spot Instance in the
+    -- fleet, specify @launch@.
+    --
+    -- When a replacement instance is launched, the instance marked for
+    -- rebalance is not automatically terminated. You can terminate it, or you
+    -- can leave it running. You are charged for all instances while they are
+    -- running.
+    replacementStrategy :: Prelude.Maybe ReplacementStrategy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SpotCapacityRebalance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SpotCapacityRebalance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scrReplacementStrategy' - The replacement strategy to use. Only available for fleets of type @maintain@ . You must specify a value, otherwise you get an error. To allow Spot Fleet to launch a replacement Spot Instance when an instance rebalance notification is emitted for a Spot Instance in the fleet, specify @launch@ .
-spotCapacityRebalance ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'replacementStrategy', 'spotCapacityRebalance_replacementStrategy' - The replacement strategy to use. Only available for fleets of type
+-- @maintain@. You must specify a value, otherwise you get an error.
+--
+-- To allow Spot Fleet to launch a replacement Spot Instance when an
+-- instance rebalance notification is emitted for a Spot Instance in the
+-- fleet, specify @launch@.
+--
+-- When a replacement instance is launched, the instance marked for
+-- rebalance is not automatically terminated. You can terminate it, or you
+-- can leave it running. You are charged for all instances while they are
+-- running.
+newSpotCapacityRebalance ::
   SpotCapacityRebalance
-spotCapacityRebalance =
+newSpotCapacityRebalance =
   SpotCapacityRebalance'
-    { _scrReplacementStrategy =
-        Nothing
+    { replacementStrategy =
+        Prelude.Nothing
     }
 
--- | The replacement strategy to use. Only available for fleets of type @maintain@ . You must specify a value, otherwise you get an error. To allow Spot Fleet to launch a replacement Spot Instance when an instance rebalance notification is emitted for a Spot Instance in the fleet, specify @launch@ .
-scrReplacementStrategy :: Lens' SpotCapacityRebalance (Maybe ReplacementStrategy)
-scrReplacementStrategy = lens _scrReplacementStrategy (\s a -> s {_scrReplacementStrategy = a})
+-- | The replacement strategy to use. Only available for fleets of type
+-- @maintain@. You must specify a value, otherwise you get an error.
+--
+-- To allow Spot Fleet to launch a replacement Spot Instance when an
+-- instance rebalance notification is emitted for a Spot Instance in the
+-- fleet, specify @launch@.
+--
+-- When a replacement instance is launched, the instance marked for
+-- rebalance is not automatically terminated. You can terminate it, or you
+-- can leave it running. You are charged for all instances while they are
+-- running.
+spotCapacityRebalance_replacementStrategy :: Lens.Lens' SpotCapacityRebalance (Prelude.Maybe ReplacementStrategy)
+spotCapacityRebalance_replacementStrategy = Lens.lens (\SpotCapacityRebalance' {replacementStrategy} -> replacementStrategy) (\s@SpotCapacityRebalance' {} a -> s {replacementStrategy = a} :: SpotCapacityRebalance)
 
-instance FromXML SpotCapacityRebalance where
+instance Prelude.FromXML SpotCapacityRebalance where
   parseXML x =
     SpotCapacityRebalance'
-      <$> (x .@? "replacementStrategy")
+      Prelude.<$> (x Prelude..@? "replacementStrategy")
 
-instance Hashable SpotCapacityRebalance
+instance Prelude.Hashable SpotCapacityRebalance
 
-instance NFData SpotCapacityRebalance
+instance Prelude.NFData SpotCapacityRebalance
 
-instance ToQuery SpotCapacityRebalance where
+instance Prelude.ToQuery SpotCapacityRebalance where
   toQuery SpotCapacityRebalance' {..} =
-    mconcat
-      ["ReplacementStrategy" =: _scrReplacementStrategy]
+    Prelude.mconcat
+      [ "ReplacementStrategy"
+          Prelude.=: replacementStrategy
+      ]

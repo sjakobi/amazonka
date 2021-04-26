@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.EC2.Types.FleetReplacementStrategy
   ( FleetReplacementStrategy
       ( ..,
-        FRSLaunch
+        FleetReplacementStrategyLaunch
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetReplacementStrategy
-  = FleetReplacementStrategy'
-      ( CI
-          Text
-      )
+newtype FleetReplacementStrategy = FleetReplacementStrategy'
+  { fromFleetReplacementStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FRSLaunch :: FleetReplacementStrategy
-pattern FRSLaunch = FleetReplacementStrategy' "launch"
+pattern FleetReplacementStrategyLaunch :: FleetReplacementStrategy
+pattern FleetReplacementStrategyLaunch = FleetReplacementStrategy' "launch"
 
 {-# COMPLETE
-  FRSLaunch,
+  FleetReplacementStrategyLaunch,
   FleetReplacementStrategy'
   #-}
 
-instance FromText FleetReplacementStrategy where
-  parser = (FleetReplacementStrategy' . mk) <$> takeText
+instance Prelude.FromText FleetReplacementStrategy where
+  parser = FleetReplacementStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText FleetReplacementStrategy where
-  toText (FleetReplacementStrategy' ci) = original ci
+instance Prelude.ToText FleetReplacementStrategy where
+  toText (FleetReplacementStrategy' x) = x
 
-instance Hashable FleetReplacementStrategy
+instance Prelude.Hashable FleetReplacementStrategy
 
-instance NFData FleetReplacementStrategy
+instance Prelude.NFData FleetReplacementStrategy
 
-instance ToByteString FleetReplacementStrategy
+instance Prelude.ToByteString FleetReplacementStrategy
 
-instance ToQuery FleetReplacementStrategy
+instance Prelude.ToQuery FleetReplacementStrategy
 
-instance ToHeader FleetReplacementStrategy
+instance Prelude.ToHeader FleetReplacementStrategy
 
-instance FromXML FleetReplacementStrategy where
-  parseXML = parseXMLText "FleetReplacementStrategy"
+instance Prelude.FromXML FleetReplacementStrategy where
+  parseXML = Prelude.parseXMLText "FleetReplacementStrategy"

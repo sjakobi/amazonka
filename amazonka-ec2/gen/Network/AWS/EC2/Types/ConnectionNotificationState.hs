@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.ConnectionNotificationState
   ( ConnectionNotificationState
       ( ..,
-        CNSDisabled,
-        CNSEnabled
+        ConnectionNotificationStateDisabled,
+        ConnectionNotificationStateEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionNotificationState
-  = ConnectionNotificationState'
-      ( CI
-          Text
-      )
+newtype ConnectionNotificationState = ConnectionNotificationState'
+  { fromConnectionNotificationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CNSDisabled :: ConnectionNotificationState
-pattern CNSDisabled = ConnectionNotificationState' "Disabled"
+pattern ConnectionNotificationStateDisabled :: ConnectionNotificationState
+pattern ConnectionNotificationStateDisabled = ConnectionNotificationState' "Disabled"
 
-pattern CNSEnabled :: ConnectionNotificationState
-pattern CNSEnabled = ConnectionNotificationState' "Enabled"
+pattern ConnectionNotificationStateEnabled :: ConnectionNotificationState
+pattern ConnectionNotificationStateEnabled = ConnectionNotificationState' "Enabled"
 
 {-# COMPLETE
-  CNSDisabled,
-  CNSEnabled,
+  ConnectionNotificationStateDisabled,
+  ConnectionNotificationStateEnabled,
   ConnectionNotificationState'
   #-}
 
-instance FromText ConnectionNotificationState where
-  parser = (ConnectionNotificationState' . mk) <$> takeText
+instance Prelude.FromText ConnectionNotificationState where
+  parser = ConnectionNotificationState' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionNotificationState where
-  toText (ConnectionNotificationState' ci) = original ci
+instance Prelude.ToText ConnectionNotificationState where
+  toText (ConnectionNotificationState' x) = x
 
-instance Hashable ConnectionNotificationState
+instance Prelude.Hashable ConnectionNotificationState
 
-instance NFData ConnectionNotificationState
+instance Prelude.NFData ConnectionNotificationState
 
-instance ToByteString ConnectionNotificationState
+instance Prelude.ToByteString ConnectionNotificationState
 
-instance ToQuery ConnectionNotificationState
+instance Prelude.ToQuery ConnectionNotificationState
 
-instance ToHeader ConnectionNotificationState
+instance Prelude.ToHeader ConnectionNotificationState
 
-instance FromXML ConnectionNotificationState where
-  parseXML = parseXMLText "ConnectionNotificationState"
+instance Prelude.FromXML ConnectionNotificationState where
+  parseXML = Prelude.parseXMLText "ConnectionNotificationState"

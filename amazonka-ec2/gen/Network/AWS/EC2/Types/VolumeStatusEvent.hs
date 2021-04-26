@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,86 +20,93 @@
 module Network.AWS.EC2.Types.VolumeStatusEvent where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a volume status event.
 --
---
---
--- /See:/ 'volumeStatusEvent' smart constructor.
+-- /See:/ 'newVolumeStatusEvent' smart constructor.
 data VolumeStatusEvent = VolumeStatusEvent'
-  { _vseNotBefore ::
-      !(Maybe ISO8601),
-    _vseEventType :: !(Maybe Text),
-    _vseInstanceId :: !(Maybe Text),
-    _vseEventId :: !(Maybe Text),
-    _vseNotAfter :: !(Maybe ISO8601),
-    _vseDescription :: !(Maybe Text)
+  { -- | The earliest start time of the event.
+    notBefore :: Prelude.Maybe Prelude.ISO8601,
+    -- | The type of this event.
+    eventType :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance associated with the event.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of this event.
+    eventId :: Prelude.Maybe Prelude.Text,
+    -- | The latest end time of the event.
+    notAfter :: Prelude.Maybe Prelude.ISO8601,
+    -- | A description of the event.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VolumeStatusEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VolumeStatusEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vseNotBefore' - The earliest start time of the event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vseEventType' - The type of this event.
+-- 'notBefore', 'volumeStatusEvent_notBefore' - The earliest start time of the event.
 --
--- * 'vseInstanceId' - The ID of the instance associated with the event.
+-- 'eventType', 'volumeStatusEvent_eventType' - The type of this event.
 --
--- * 'vseEventId' - The ID of this event.
+-- 'instanceId', 'volumeStatusEvent_instanceId' - The ID of the instance associated with the event.
 --
--- * 'vseNotAfter' - The latest end time of the event.
+-- 'eventId', 'volumeStatusEvent_eventId' - The ID of this event.
 --
--- * 'vseDescription' - A description of the event.
-volumeStatusEvent ::
+-- 'notAfter', 'volumeStatusEvent_notAfter' - The latest end time of the event.
+--
+-- 'description', 'volumeStatusEvent_description' - A description of the event.
+newVolumeStatusEvent ::
   VolumeStatusEvent
-volumeStatusEvent =
+newVolumeStatusEvent =
   VolumeStatusEvent'
-    { _vseNotBefore = Nothing,
-      _vseEventType = Nothing,
-      _vseInstanceId = Nothing,
-      _vseEventId = Nothing,
-      _vseNotAfter = Nothing,
-      _vseDescription = Nothing
+    { notBefore = Prelude.Nothing,
+      eventType = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      eventId = Prelude.Nothing,
+      notAfter = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The earliest start time of the event.
-vseNotBefore :: Lens' VolumeStatusEvent (Maybe UTCTime)
-vseNotBefore = lens _vseNotBefore (\s a -> s {_vseNotBefore = a}) . mapping _Time
+volumeStatusEvent_notBefore :: Lens.Lens' VolumeStatusEvent (Prelude.Maybe Prelude.UTCTime)
+volumeStatusEvent_notBefore = Lens.lens (\VolumeStatusEvent' {notBefore} -> notBefore) (\s@VolumeStatusEvent' {} a -> s {notBefore = a} :: VolumeStatusEvent) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of this event.
-vseEventType :: Lens' VolumeStatusEvent (Maybe Text)
-vseEventType = lens _vseEventType (\s a -> s {_vseEventType = a})
+volumeStatusEvent_eventType :: Lens.Lens' VolumeStatusEvent (Prelude.Maybe Prelude.Text)
+volumeStatusEvent_eventType = Lens.lens (\VolumeStatusEvent' {eventType} -> eventType) (\s@VolumeStatusEvent' {} a -> s {eventType = a} :: VolumeStatusEvent)
 
 -- | The ID of the instance associated with the event.
-vseInstanceId :: Lens' VolumeStatusEvent (Maybe Text)
-vseInstanceId = lens _vseInstanceId (\s a -> s {_vseInstanceId = a})
+volumeStatusEvent_instanceId :: Lens.Lens' VolumeStatusEvent (Prelude.Maybe Prelude.Text)
+volumeStatusEvent_instanceId = Lens.lens (\VolumeStatusEvent' {instanceId} -> instanceId) (\s@VolumeStatusEvent' {} a -> s {instanceId = a} :: VolumeStatusEvent)
 
 -- | The ID of this event.
-vseEventId :: Lens' VolumeStatusEvent (Maybe Text)
-vseEventId = lens _vseEventId (\s a -> s {_vseEventId = a})
+volumeStatusEvent_eventId :: Lens.Lens' VolumeStatusEvent (Prelude.Maybe Prelude.Text)
+volumeStatusEvent_eventId = Lens.lens (\VolumeStatusEvent' {eventId} -> eventId) (\s@VolumeStatusEvent' {} a -> s {eventId = a} :: VolumeStatusEvent)
 
 -- | The latest end time of the event.
-vseNotAfter :: Lens' VolumeStatusEvent (Maybe UTCTime)
-vseNotAfter = lens _vseNotAfter (\s a -> s {_vseNotAfter = a}) . mapping _Time
+volumeStatusEvent_notAfter :: Lens.Lens' VolumeStatusEvent (Prelude.Maybe Prelude.UTCTime)
+volumeStatusEvent_notAfter = Lens.lens (\VolumeStatusEvent' {notAfter} -> notAfter) (\s@VolumeStatusEvent' {} a -> s {notAfter = a} :: VolumeStatusEvent) Prelude.. Lens.mapping Prelude._Time
 
 -- | A description of the event.
-vseDescription :: Lens' VolumeStatusEvent (Maybe Text)
-vseDescription = lens _vseDescription (\s a -> s {_vseDescription = a})
+volumeStatusEvent_description :: Lens.Lens' VolumeStatusEvent (Prelude.Maybe Prelude.Text)
+volumeStatusEvent_description = Lens.lens (\VolumeStatusEvent' {description} -> description) (\s@VolumeStatusEvent' {} a -> s {description = a} :: VolumeStatusEvent)
 
-instance FromXML VolumeStatusEvent where
+instance Prelude.FromXML VolumeStatusEvent where
   parseXML x =
     VolumeStatusEvent'
-      <$> (x .@? "notBefore")
-      <*> (x .@? "eventType")
-      <*> (x .@? "instanceId")
-      <*> (x .@? "eventId")
-      <*> (x .@? "notAfter")
-      <*> (x .@? "description")
+      Prelude.<$> (x Prelude..@? "notBefore")
+      Prelude.<*> (x Prelude..@? "eventType")
+      Prelude.<*> (x Prelude..@? "instanceId")
+      Prelude.<*> (x Prelude..@? "eventId")
+      Prelude.<*> (x Prelude..@? "notAfter")
+      Prelude.<*> (x Prelude..@? "description")
 
-instance Hashable VolumeStatusEvent
+instance Prelude.Hashable VolumeStatusEvent
 
-instance NFData VolumeStatusEvent
+instance Prelude.NFData VolumeStatusEvent

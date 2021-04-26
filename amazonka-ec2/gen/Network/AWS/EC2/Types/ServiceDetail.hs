@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,167 +20,197 @@
 module Network.AWS.EC2.Types.ServiceDetail where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.DNSNameState
-import Network.AWS.EC2.Types.PrivateDNSDetails
+import Network.AWS.EC2.Types.DnsNameState
+import Network.AWS.EC2.Types.PrivateDnsDetails
 import Network.AWS.EC2.Types.ServiceTypeDetail
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a VPC endpoint service.
 --
---
---
--- /See:/ 'serviceDetail' smart constructor.
+-- /See:/ 'newServiceDetail' smart constructor.
 data ServiceDetail = ServiceDetail'
-  { _sdManagesVPCEndpoints ::
-      !(Maybe Bool),
-    _sdAvailabilityZones :: !(Maybe [Text]),
-    _sdBaseEndpointDNSNames :: !(Maybe [Text]),
-    _sdServiceId :: !(Maybe Text),
-    _sdVPCEndpointPolicySupported ::
-      !(Maybe Bool),
-    _sdPrivateDNSNames ::
-      !(Maybe [PrivateDNSDetails]),
-    _sdPrivateDNSNameVerificationState ::
-      !(Maybe DNSNameState),
-    _sdServiceName :: !(Maybe Text),
-    _sdTags :: !(Maybe [Tag]),
-    _sdOwner :: !(Maybe Text),
-    _sdPrivateDNSName :: !(Maybe Text),
-    _sdAcceptanceRequired :: !(Maybe Bool),
-    _sdServiceType ::
-      !(Maybe [ServiceTypeDetail])
+  { -- | Indicates whether the service manages its VPC endpoints. Management of
+    -- the service VPC endpoints using the VPC endpoint API is restricted.
+    managesVpcEndpoints :: Prelude.Maybe Prelude.Bool,
+    -- | The Availability Zones in which the service is available.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | The DNS names for the service.
+    baseEndpointDnsNames :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the endpoint service.
+    serviceId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the service supports endpoint policies.
+    vpcEndpointPolicySupported :: Prelude.Maybe Prelude.Bool,
+    -- | The private DNS names assigned to the VPC endpoint service.
+    privateDnsNames :: Prelude.Maybe [PrivateDnsDetails],
+    -- | The verification state of the VPC endpoint service.
+    --
+    -- Consumers of the endpoint service cannot use the private name when the
+    -- state is not @verified@.
+    privateDnsNameVerificationState :: Prelude.Maybe DnsNameState,
+    -- | The Amazon Resource Name (ARN) of the service.
+    serviceName :: Prelude.Maybe Prelude.Text,
+    -- | Any tags assigned to the service.
+    tags :: Prelude.Maybe [Tag],
+    -- | The AWS account ID of the service owner.
+    owner :: Prelude.Maybe Prelude.Text,
+    -- | The private DNS name for the service.
+    privateDnsName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether VPC endpoint connection requests to the service must
+    -- be accepted by the service owner.
+    acceptanceRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The type of service.
+    serviceType :: Prelude.Maybe [ServiceTypeDetail]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdManagesVPCEndpoints' - Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC endpoint API is restricted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdAvailabilityZones' - The Availability Zones in which the service is available.
+-- 'managesVpcEndpoints', 'serviceDetail_managesVpcEndpoints' - Indicates whether the service manages its VPC endpoints. Management of
+-- the service VPC endpoints using the VPC endpoint API is restricted.
 --
--- * 'sdBaseEndpointDNSNames' - The DNS names for the service.
+-- 'availabilityZones', 'serviceDetail_availabilityZones' - The Availability Zones in which the service is available.
 --
--- * 'sdServiceId' - The ID of the endpoint service.
+-- 'baseEndpointDnsNames', 'serviceDetail_baseEndpointDnsNames' - The DNS names for the service.
 --
--- * 'sdVPCEndpointPolicySupported' - Indicates whether the service supports endpoint policies.
+-- 'serviceId', 'serviceDetail_serviceId' - The ID of the endpoint service.
 --
--- * 'sdPrivateDNSNames' - The private DNS names assigned to the VPC endpoint service.
+-- 'vpcEndpointPolicySupported', 'serviceDetail_vpcEndpointPolicySupported' - Indicates whether the service supports endpoint policies.
 --
--- * 'sdPrivateDNSNameVerificationState' - The verification state of the VPC endpoint service. Consumers of the endpoint service cannot use the private name when the state is not @verified@ .
+-- 'privateDnsNames', 'serviceDetail_privateDnsNames' - The private DNS names assigned to the VPC endpoint service.
 --
--- * 'sdServiceName' - The Amazon Resource Name (ARN) of the service.
+-- 'privateDnsNameVerificationState', 'serviceDetail_privateDnsNameVerificationState' - The verification state of the VPC endpoint service.
 --
--- * 'sdTags' - Any tags assigned to the service.
+-- Consumers of the endpoint service cannot use the private name when the
+-- state is not @verified@.
 --
--- * 'sdOwner' - The AWS account ID of the service owner.
+-- 'serviceName', 'serviceDetail_serviceName' - The Amazon Resource Name (ARN) of the service.
 --
--- * 'sdPrivateDNSName' - The private DNS name for the service.
+-- 'tags', 'serviceDetail_tags' - Any tags assigned to the service.
 --
--- * 'sdAcceptanceRequired' - Indicates whether VPC endpoint connection requests to the service must be accepted by the service owner.
+-- 'owner', 'serviceDetail_owner' - The AWS account ID of the service owner.
 --
--- * 'sdServiceType' - The type of service.
-serviceDetail ::
+-- 'privateDnsName', 'serviceDetail_privateDnsName' - The private DNS name for the service.
+--
+-- 'acceptanceRequired', 'serviceDetail_acceptanceRequired' - Indicates whether VPC endpoint connection requests to the service must
+-- be accepted by the service owner.
+--
+-- 'serviceType', 'serviceDetail_serviceType' - The type of service.
+newServiceDetail ::
   ServiceDetail
-serviceDetail =
+newServiceDetail =
   ServiceDetail'
-    { _sdManagesVPCEndpoints = Nothing,
-      _sdAvailabilityZones = Nothing,
-      _sdBaseEndpointDNSNames = Nothing,
-      _sdServiceId = Nothing,
-      _sdVPCEndpointPolicySupported = Nothing,
-      _sdPrivateDNSNames = Nothing,
-      _sdPrivateDNSNameVerificationState = Nothing,
-      _sdServiceName = Nothing,
-      _sdTags = Nothing,
-      _sdOwner = Nothing,
-      _sdPrivateDNSName = Nothing,
-      _sdAcceptanceRequired = Nothing,
-      _sdServiceType = Nothing
+    { managesVpcEndpoints =
+        Prelude.Nothing,
+      availabilityZones = Prelude.Nothing,
+      baseEndpointDnsNames = Prelude.Nothing,
+      serviceId = Prelude.Nothing,
+      vpcEndpointPolicySupported = Prelude.Nothing,
+      privateDnsNames = Prelude.Nothing,
+      privateDnsNameVerificationState = Prelude.Nothing,
+      serviceName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      privateDnsName = Prelude.Nothing,
+      acceptanceRequired = Prelude.Nothing,
+      serviceType = Prelude.Nothing
     }
 
--- | Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC endpoint API is restricted.
-sdManagesVPCEndpoints :: Lens' ServiceDetail (Maybe Bool)
-sdManagesVPCEndpoints = lens _sdManagesVPCEndpoints (\s a -> s {_sdManagesVPCEndpoints = a})
+-- | Indicates whether the service manages its VPC endpoints. Management of
+-- the service VPC endpoints using the VPC endpoint API is restricted.
+serviceDetail_managesVpcEndpoints :: Lens.Lens' ServiceDetail (Prelude.Maybe Prelude.Bool)
+serviceDetail_managesVpcEndpoints = Lens.lens (\ServiceDetail' {managesVpcEndpoints} -> managesVpcEndpoints) (\s@ServiceDetail' {} a -> s {managesVpcEndpoints = a} :: ServiceDetail)
 
 -- | The Availability Zones in which the service is available.
-sdAvailabilityZones :: Lens' ServiceDetail [Text]
-sdAvailabilityZones = lens _sdAvailabilityZones (\s a -> s {_sdAvailabilityZones = a}) . _Default . _Coerce
+serviceDetail_availabilityZones :: Lens.Lens' ServiceDetail (Prelude.Maybe [Prelude.Text])
+serviceDetail_availabilityZones = Lens.lens (\ServiceDetail' {availabilityZones} -> availabilityZones) (\s@ServiceDetail' {} a -> s {availabilityZones = a} :: ServiceDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The DNS names for the service.
-sdBaseEndpointDNSNames :: Lens' ServiceDetail [Text]
-sdBaseEndpointDNSNames = lens _sdBaseEndpointDNSNames (\s a -> s {_sdBaseEndpointDNSNames = a}) . _Default . _Coerce
+serviceDetail_baseEndpointDnsNames :: Lens.Lens' ServiceDetail (Prelude.Maybe [Prelude.Text])
+serviceDetail_baseEndpointDnsNames = Lens.lens (\ServiceDetail' {baseEndpointDnsNames} -> baseEndpointDnsNames) (\s@ServiceDetail' {} a -> s {baseEndpointDnsNames = a} :: ServiceDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the endpoint service.
-sdServiceId :: Lens' ServiceDetail (Maybe Text)
-sdServiceId = lens _sdServiceId (\s a -> s {_sdServiceId = a})
+serviceDetail_serviceId :: Lens.Lens' ServiceDetail (Prelude.Maybe Prelude.Text)
+serviceDetail_serviceId = Lens.lens (\ServiceDetail' {serviceId} -> serviceId) (\s@ServiceDetail' {} a -> s {serviceId = a} :: ServiceDetail)
 
 -- | Indicates whether the service supports endpoint policies.
-sdVPCEndpointPolicySupported :: Lens' ServiceDetail (Maybe Bool)
-sdVPCEndpointPolicySupported = lens _sdVPCEndpointPolicySupported (\s a -> s {_sdVPCEndpointPolicySupported = a})
+serviceDetail_vpcEndpointPolicySupported :: Lens.Lens' ServiceDetail (Prelude.Maybe Prelude.Bool)
+serviceDetail_vpcEndpointPolicySupported = Lens.lens (\ServiceDetail' {vpcEndpointPolicySupported} -> vpcEndpointPolicySupported) (\s@ServiceDetail' {} a -> s {vpcEndpointPolicySupported = a} :: ServiceDetail)
 
 -- | The private DNS names assigned to the VPC endpoint service.
-sdPrivateDNSNames :: Lens' ServiceDetail [PrivateDNSDetails]
-sdPrivateDNSNames = lens _sdPrivateDNSNames (\s a -> s {_sdPrivateDNSNames = a}) . _Default . _Coerce
+serviceDetail_privateDnsNames :: Lens.Lens' ServiceDetail (Prelude.Maybe [PrivateDnsDetails])
+serviceDetail_privateDnsNames = Lens.lens (\ServiceDetail' {privateDnsNames} -> privateDnsNames) (\s@ServiceDetail' {} a -> s {privateDnsNames = a} :: ServiceDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The verification state of the VPC endpoint service. Consumers of the endpoint service cannot use the private name when the state is not @verified@ .
-sdPrivateDNSNameVerificationState :: Lens' ServiceDetail (Maybe DNSNameState)
-sdPrivateDNSNameVerificationState = lens _sdPrivateDNSNameVerificationState (\s a -> s {_sdPrivateDNSNameVerificationState = a})
+-- | The verification state of the VPC endpoint service.
+--
+-- Consumers of the endpoint service cannot use the private name when the
+-- state is not @verified@.
+serviceDetail_privateDnsNameVerificationState :: Lens.Lens' ServiceDetail (Prelude.Maybe DnsNameState)
+serviceDetail_privateDnsNameVerificationState = Lens.lens (\ServiceDetail' {privateDnsNameVerificationState} -> privateDnsNameVerificationState) (\s@ServiceDetail' {} a -> s {privateDnsNameVerificationState = a} :: ServiceDetail)
 
 -- | The Amazon Resource Name (ARN) of the service.
-sdServiceName :: Lens' ServiceDetail (Maybe Text)
-sdServiceName = lens _sdServiceName (\s a -> s {_sdServiceName = a})
+serviceDetail_serviceName :: Lens.Lens' ServiceDetail (Prelude.Maybe Prelude.Text)
+serviceDetail_serviceName = Lens.lens (\ServiceDetail' {serviceName} -> serviceName) (\s@ServiceDetail' {} a -> s {serviceName = a} :: ServiceDetail)
 
 -- | Any tags assigned to the service.
-sdTags :: Lens' ServiceDetail [Tag]
-sdTags = lens _sdTags (\s a -> s {_sdTags = a}) . _Default . _Coerce
+serviceDetail_tags :: Lens.Lens' ServiceDetail (Prelude.Maybe [Tag])
+serviceDetail_tags = Lens.lens (\ServiceDetail' {tags} -> tags) (\s@ServiceDetail' {} a -> s {tags = a} :: ServiceDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The AWS account ID of the service owner.
-sdOwner :: Lens' ServiceDetail (Maybe Text)
-sdOwner = lens _sdOwner (\s a -> s {_sdOwner = a})
+serviceDetail_owner :: Lens.Lens' ServiceDetail (Prelude.Maybe Prelude.Text)
+serviceDetail_owner = Lens.lens (\ServiceDetail' {owner} -> owner) (\s@ServiceDetail' {} a -> s {owner = a} :: ServiceDetail)
 
 -- | The private DNS name for the service.
-sdPrivateDNSName :: Lens' ServiceDetail (Maybe Text)
-sdPrivateDNSName = lens _sdPrivateDNSName (\s a -> s {_sdPrivateDNSName = a})
+serviceDetail_privateDnsName :: Lens.Lens' ServiceDetail (Prelude.Maybe Prelude.Text)
+serviceDetail_privateDnsName = Lens.lens (\ServiceDetail' {privateDnsName} -> privateDnsName) (\s@ServiceDetail' {} a -> s {privateDnsName = a} :: ServiceDetail)
 
--- | Indicates whether VPC endpoint connection requests to the service must be accepted by the service owner.
-sdAcceptanceRequired :: Lens' ServiceDetail (Maybe Bool)
-sdAcceptanceRequired = lens _sdAcceptanceRequired (\s a -> s {_sdAcceptanceRequired = a})
+-- | Indicates whether VPC endpoint connection requests to the service must
+-- be accepted by the service owner.
+serviceDetail_acceptanceRequired :: Lens.Lens' ServiceDetail (Prelude.Maybe Prelude.Bool)
+serviceDetail_acceptanceRequired = Lens.lens (\ServiceDetail' {acceptanceRequired} -> acceptanceRequired) (\s@ServiceDetail' {} a -> s {acceptanceRequired = a} :: ServiceDetail)
 
 -- | The type of service.
-sdServiceType :: Lens' ServiceDetail [ServiceTypeDetail]
-sdServiceType = lens _sdServiceType (\s a -> s {_sdServiceType = a}) . _Default . _Coerce
+serviceDetail_serviceType :: Lens.Lens' ServiceDetail (Prelude.Maybe [ServiceTypeDetail])
+serviceDetail_serviceType = Lens.lens (\ServiceDetail' {serviceType} -> serviceType) (\s@ServiceDetail' {} a -> s {serviceType = a} :: ServiceDetail) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML ServiceDetail where
+instance Prelude.FromXML ServiceDetail where
   parseXML x =
     ServiceDetail'
-      <$> (x .@? "managesVpcEndpoints")
-      <*> ( x .@? "availabilityZoneSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "baseEndpointDnsNameSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "serviceId")
-      <*> (x .@? "vpcEndpointPolicySupported")
-      <*> ( x .@? "privateDnsNameSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "privateDnsNameVerificationState")
-      <*> (x .@? "serviceName")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "owner")
-      <*> (x .@? "privateDnsName")
-      <*> (x .@? "acceptanceRequired")
-      <*> ( x .@? "serviceType" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "managesVpcEndpoints")
+      Prelude.<*> ( x Prelude..@? "availabilityZoneSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "baseEndpointDnsNameSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "serviceId")
+      Prelude.<*> (x Prelude..@? "vpcEndpointPolicySupported")
+      Prelude.<*> ( x Prelude..@? "privateDnsNameSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "privateDnsNameVerificationState")
+      Prelude.<*> (x Prelude..@? "serviceName")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "owner")
+      Prelude.<*> (x Prelude..@? "privateDnsName")
+      Prelude.<*> (x Prelude..@? "acceptanceRequired")
+      Prelude.<*> ( x Prelude..@? "serviceType"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable ServiceDetail
+instance Prelude.Hashable ServiceDetail
 
-instance NFData ServiceDetail
+instance Prelude.NFData ServiceDetail

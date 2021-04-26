@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,62 @@ module Network.AWS.EC2.Types.UnsuccessfulInstanceCreditSpecificationItemError wh
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.UnsuccessfulInstanceCreditSpecificationErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the error for the burstable performance instance whose credit option for CPU usage was not modified.
+-- | Information about the error for the burstable performance instance whose
+-- credit option for CPU usage was not modified.
 --
---
---
--- /See:/ 'unsuccessfulInstanceCreditSpecificationItemError' smart constructor.
+-- /See:/ 'newUnsuccessfulInstanceCreditSpecificationItemError' smart constructor.
 data UnsuccessfulInstanceCreditSpecificationItemError = UnsuccessfulInstanceCreditSpecificationItemError'
-  { _uicsieMessage ::
-      !( Maybe
-           Text
-       ),
-    _uicsieCode ::
-      !( Maybe
-           UnsuccessfulInstanceCreditSpecificationErrorCode
-       )
+  { -- | The applicable error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    code :: Prelude.Maybe UnsuccessfulInstanceCreditSpecificationErrorCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnsuccessfulInstanceCreditSpecificationItemError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnsuccessfulInstanceCreditSpecificationItemError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uicsieMessage' - The applicable error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uicsieCode' - The error code.
-unsuccessfulInstanceCreditSpecificationItemError ::
+-- 'message', 'unsuccessfulInstanceCreditSpecificationItemError_message' - The applicable error message.
+--
+-- 'code', 'unsuccessfulInstanceCreditSpecificationItemError_code' - The error code.
+newUnsuccessfulInstanceCreditSpecificationItemError ::
   UnsuccessfulInstanceCreditSpecificationItemError
-unsuccessfulInstanceCreditSpecificationItemError =
+newUnsuccessfulInstanceCreditSpecificationItemError =
   UnsuccessfulInstanceCreditSpecificationItemError'
-    { _uicsieMessage =
-        Nothing,
-      _uicsieCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The applicable error message.
-uicsieMessage :: Lens' UnsuccessfulInstanceCreditSpecificationItemError (Maybe Text)
-uicsieMessage = lens _uicsieMessage (\s a -> s {_uicsieMessage = a})
+unsuccessfulInstanceCreditSpecificationItemError_message :: Lens.Lens' UnsuccessfulInstanceCreditSpecificationItemError (Prelude.Maybe Prelude.Text)
+unsuccessfulInstanceCreditSpecificationItemError_message = Lens.lens (\UnsuccessfulInstanceCreditSpecificationItemError' {message} -> message) (\s@UnsuccessfulInstanceCreditSpecificationItemError' {} a -> s {message = a} :: UnsuccessfulInstanceCreditSpecificationItemError)
 
 -- | The error code.
-uicsieCode :: Lens' UnsuccessfulInstanceCreditSpecificationItemError (Maybe UnsuccessfulInstanceCreditSpecificationErrorCode)
-uicsieCode = lens _uicsieCode (\s a -> s {_uicsieCode = a})
+unsuccessfulInstanceCreditSpecificationItemError_code :: Lens.Lens' UnsuccessfulInstanceCreditSpecificationItemError (Prelude.Maybe UnsuccessfulInstanceCreditSpecificationErrorCode)
+unsuccessfulInstanceCreditSpecificationItemError_code = Lens.lens (\UnsuccessfulInstanceCreditSpecificationItemError' {code} -> code) (\s@UnsuccessfulInstanceCreditSpecificationItemError' {} a -> s {code = a} :: UnsuccessfulInstanceCreditSpecificationItemError)
 
 instance
-  FromXML
+  Prelude.FromXML
     UnsuccessfulInstanceCreditSpecificationItemError
   where
   parseXML x =
     UnsuccessfulInstanceCreditSpecificationItemError'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+        Prelude.<*> (x Prelude..@? "code")
 
 instance
-  Hashable
+  Prelude.Hashable
     UnsuccessfulInstanceCreditSpecificationItemError
 
 instance
-  NFData
+  Prelude.NFData
     UnsuccessfulInstanceCreditSpecificationItemError

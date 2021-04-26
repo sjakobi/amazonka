@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.RuleAction
   ( RuleAction
       ( ..,
-        Allow,
-        Deny
+        RuleActionAllow,
+        RuleActionDeny
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RuleAction = RuleAction' (CI Text)
+newtype RuleAction = RuleAction'
+  { fromRuleAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: RuleAction
-pattern Allow = RuleAction' "allow"
+pattern RuleActionAllow :: RuleAction
+pattern RuleActionAllow = RuleAction' "allow"
 
-pattern Deny :: RuleAction
-pattern Deny = RuleAction' "deny"
+pattern RuleActionDeny :: RuleAction
+pattern RuleActionDeny = RuleAction' "deny"
 
 {-# COMPLETE
-  Allow,
-  Deny,
+  RuleActionAllow,
+  RuleActionDeny,
   RuleAction'
   #-}
 
-instance FromText RuleAction where
-  parser = (RuleAction' . mk) <$> takeText
+instance Prelude.FromText RuleAction where
+  parser = RuleAction' Prelude.<$> Prelude.takeText
 
-instance ToText RuleAction where
-  toText (RuleAction' ci) = original ci
+instance Prelude.ToText RuleAction where
+  toText (RuleAction' x) = x
 
-instance Hashable RuleAction
+instance Prelude.Hashable RuleAction
 
-instance NFData RuleAction
+instance Prelude.NFData RuleAction
 
-instance ToByteString RuleAction
+instance Prelude.ToByteString RuleAction
 
-instance ToQuery RuleAction
+instance Prelude.ToQuery RuleAction
 
-instance ToHeader RuleAction
+instance Prelude.ToHeader RuleAction
 
-instance FromXML RuleAction where
-  parseXML = parseXMLText "RuleAction"
+instance Prelude.FromXML RuleAction where
+  parseXML = Prelude.parseXMLText "RuleAction"

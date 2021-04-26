@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,53 @@
 module Network.AWS.EC2.Types.AnalysisComponent where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a path component.
 --
---
---
--- /See:/ 'analysisComponent' smart constructor.
+-- /See:/ 'newAnalysisComponent' smart constructor.
 data AnalysisComponent = AnalysisComponent'
-  { _acARN ::
-      !(Maybe Text),
-    _acId :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the component.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the component.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnalysisComponent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnalysisComponent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acARN' - The Amazon Resource Name (ARN) of the component.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acId' - The ID of the component.
-analysisComponent ::
+-- 'arn', 'analysisComponent_arn' - The Amazon Resource Name (ARN) of the component.
+--
+-- 'id', 'analysisComponent_id' - The ID of the component.
+newAnalysisComponent ::
   AnalysisComponent
-analysisComponent =
+newAnalysisComponent =
   AnalysisComponent'
-    { _acARN = Nothing,
-      _acId = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the component.
-acARN :: Lens' AnalysisComponent (Maybe Text)
-acARN = lens _acARN (\s a -> s {_acARN = a})
+analysisComponent_arn :: Lens.Lens' AnalysisComponent (Prelude.Maybe Prelude.Text)
+analysisComponent_arn = Lens.lens (\AnalysisComponent' {arn} -> arn) (\s@AnalysisComponent' {} a -> s {arn = a} :: AnalysisComponent)
 
 -- | The ID of the component.
-acId :: Lens' AnalysisComponent (Maybe Text)
-acId = lens _acId (\s a -> s {_acId = a})
+analysisComponent_id :: Lens.Lens' AnalysisComponent (Prelude.Maybe Prelude.Text)
+analysisComponent_id = Lens.lens (\AnalysisComponent' {id} -> id) (\s@AnalysisComponent' {} a -> s {id = a} :: AnalysisComponent)
 
-instance FromXML AnalysisComponent where
+instance Prelude.FromXML AnalysisComponent where
   parseXML x =
     AnalysisComponent'
-      <$> (x .@? "arn") <*> (x .@? "id")
+      Prelude.<$> (x Prelude..@? "arn")
+      Prelude.<*> (x Prelude..@? "id")
 
-instance Hashable AnalysisComponent
+instance Prelude.Hashable AnalysisComponent
 
-instance NFData AnalysisComponent
+instance Prelude.NFData AnalysisComponent

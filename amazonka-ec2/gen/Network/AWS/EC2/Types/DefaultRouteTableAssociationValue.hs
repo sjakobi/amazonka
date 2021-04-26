@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.DefaultRouteTableAssociationValue
   ( DefaultRouteTableAssociationValue
       ( ..,
-        DRTAVDisable,
-        DRTAVEnable
+        DefaultRouteTableAssociationValueDisable,
+        DefaultRouteTableAssociationValueEnable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DefaultRouteTableAssociationValue
-  = DefaultRouteTableAssociationValue'
-      ( CI
-          Text
-      )
+newtype DefaultRouteTableAssociationValue = DefaultRouteTableAssociationValue'
+  { fromDefaultRouteTableAssociationValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DRTAVDisable :: DefaultRouteTableAssociationValue
-pattern DRTAVDisable = DefaultRouteTableAssociationValue' "disable"
+pattern DefaultRouteTableAssociationValueDisable :: DefaultRouteTableAssociationValue
+pattern DefaultRouteTableAssociationValueDisable = DefaultRouteTableAssociationValue' "disable"
 
-pattern DRTAVEnable :: DefaultRouteTableAssociationValue
-pattern DRTAVEnable = DefaultRouteTableAssociationValue' "enable"
+pattern DefaultRouteTableAssociationValueEnable :: DefaultRouteTableAssociationValue
+pattern DefaultRouteTableAssociationValueEnable = DefaultRouteTableAssociationValue' "enable"
 
 {-# COMPLETE
-  DRTAVDisable,
-  DRTAVEnable,
+  DefaultRouteTableAssociationValueDisable,
+  DefaultRouteTableAssociationValueEnable,
   DefaultRouteTableAssociationValue'
   #-}
 
-instance FromText DefaultRouteTableAssociationValue where
-  parser = (DefaultRouteTableAssociationValue' . mk) <$> takeText
+instance Prelude.FromText DefaultRouteTableAssociationValue where
+  parser = DefaultRouteTableAssociationValue' Prelude.<$> Prelude.takeText
 
-instance ToText DefaultRouteTableAssociationValue where
-  toText (DefaultRouteTableAssociationValue' ci) = original ci
+instance Prelude.ToText DefaultRouteTableAssociationValue where
+  toText (DefaultRouteTableAssociationValue' x) = x
 
-instance Hashable DefaultRouteTableAssociationValue
+instance Prelude.Hashable DefaultRouteTableAssociationValue
 
-instance NFData DefaultRouteTableAssociationValue
+instance Prelude.NFData DefaultRouteTableAssociationValue
 
-instance ToByteString DefaultRouteTableAssociationValue
+instance Prelude.ToByteString DefaultRouteTableAssociationValue
 
-instance ToQuery DefaultRouteTableAssociationValue
+instance Prelude.ToQuery DefaultRouteTableAssociationValue
 
-instance ToHeader DefaultRouteTableAssociationValue
+instance Prelude.ToHeader DefaultRouteTableAssociationValue
 
-instance FromXML DefaultRouteTableAssociationValue where
-  parseXML = parseXMLText "DefaultRouteTableAssociationValue"
+instance Prelude.FromXML DefaultRouteTableAssociationValue where
+  parseXML = Prelude.parseXMLText "DefaultRouteTableAssociationValue"

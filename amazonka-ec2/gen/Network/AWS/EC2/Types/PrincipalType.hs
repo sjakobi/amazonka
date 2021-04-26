@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,74 +19,76 @@
 module Network.AWS.EC2.Types.PrincipalType
   ( PrincipalType
       ( ..,
-        PTAccount,
-        PTAll,
-        PTOrganizationUnit,
-        PTRole,
-        PTService,
-        PTUser
+        PrincipalTypeAccount,
+        PrincipalTypeAll,
+        PrincipalTypeOrganizationUnit,
+        PrincipalTypeRole,
+        PrincipalTypeService',
+        PrincipalTypeUser
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PrincipalType = PrincipalType' (CI Text)
+newtype PrincipalType = PrincipalType'
+  { fromPrincipalType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTAccount :: PrincipalType
-pattern PTAccount = PrincipalType' "Account"
+pattern PrincipalTypeAccount :: PrincipalType
+pattern PrincipalTypeAccount = PrincipalType' "Account"
 
-pattern PTAll :: PrincipalType
-pattern PTAll = PrincipalType' "All"
+pattern PrincipalTypeAll :: PrincipalType
+pattern PrincipalTypeAll = PrincipalType' "All"
 
-pattern PTOrganizationUnit :: PrincipalType
-pattern PTOrganizationUnit = PrincipalType' "OrganizationUnit"
+pattern PrincipalTypeOrganizationUnit :: PrincipalType
+pattern PrincipalTypeOrganizationUnit = PrincipalType' "OrganizationUnit"
 
-pattern PTRole :: PrincipalType
-pattern PTRole = PrincipalType' "Role"
+pattern PrincipalTypeRole :: PrincipalType
+pattern PrincipalTypeRole = PrincipalType' "Role"
 
-pattern PTService :: PrincipalType
-pattern PTService = PrincipalType' "Service"
+pattern PrincipalTypeService' :: PrincipalType
+pattern PrincipalTypeService' = PrincipalType' "Service"
 
-pattern PTUser :: PrincipalType
-pattern PTUser = PrincipalType' "User"
+pattern PrincipalTypeUser :: PrincipalType
+pattern PrincipalTypeUser = PrincipalType' "User"
 
 {-# COMPLETE
-  PTAccount,
-  PTAll,
-  PTOrganizationUnit,
-  PTRole,
-  PTService,
-  PTUser,
+  PrincipalTypeAccount,
+  PrincipalTypeAll,
+  PrincipalTypeOrganizationUnit,
+  PrincipalTypeRole,
+  PrincipalTypeService',
+  PrincipalTypeUser,
   PrincipalType'
   #-}
 
-instance FromText PrincipalType where
-  parser = (PrincipalType' . mk) <$> takeText
+instance Prelude.FromText PrincipalType where
+  parser = PrincipalType' Prelude.<$> Prelude.takeText
 
-instance ToText PrincipalType where
-  toText (PrincipalType' ci) = original ci
+instance Prelude.ToText PrincipalType where
+  toText (PrincipalType' x) = x
 
-instance Hashable PrincipalType
+instance Prelude.Hashable PrincipalType
 
-instance NFData PrincipalType
+instance Prelude.NFData PrincipalType
 
-instance ToByteString PrincipalType
+instance Prelude.ToByteString PrincipalType
 
-instance ToQuery PrincipalType
+instance Prelude.ToQuery PrincipalType
 
-instance ToHeader PrincipalType
+instance Prelude.ToHeader PrincipalType
 
-instance FromXML PrincipalType where
-  parseXML = parseXMLText "PrincipalType"
+instance Prelude.FromXML PrincipalType where
+  parseXML = Prelude.parseXMLText "PrincipalType"

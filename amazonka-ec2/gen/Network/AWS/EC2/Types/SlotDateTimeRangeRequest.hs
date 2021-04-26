@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,68 @@
 module Network.AWS.EC2.Types.SlotDateTimeRangeRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the time period for a Scheduled Instance to start its first schedule. The time period must span less than one day.
+-- | Describes the time period for a Scheduled Instance to start its first
+-- schedule. The time period must span less than one day.
 --
---
---
--- /See:/ 'slotDateTimeRangeRequest' smart constructor.
+-- /See:/ 'newSlotDateTimeRangeRequest' smart constructor.
 data SlotDateTimeRangeRequest = SlotDateTimeRangeRequest'
-  { _sdtrrEarliestTime ::
-      !ISO8601,
-    _sdtrrLatestTime ::
-      !ISO8601
+  { -- | The earliest date and time, in UTC, for the Scheduled Instance to start.
+    earliestTime :: Prelude.ISO8601,
+    -- | The latest date and time, in UTC, for the Scheduled Instance to start.
+    -- This value must be later than or equal to the earliest date and at most
+    -- three months in the future.
+    latestTime :: Prelude.ISO8601
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SlotDateTimeRangeRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SlotDateTimeRangeRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdtrrEarliestTime' - The earliest date and time, in UTC, for the Scheduled Instance to start.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdtrrLatestTime' - The latest date and time, in UTC, for the Scheduled Instance to start. This value must be later than or equal to the earliest date and at most three months in the future.
-slotDateTimeRangeRequest ::
-  -- | 'sdtrrEarliestTime'
-  UTCTime ->
-  -- | 'sdtrrLatestTime'
-  UTCTime ->
+-- 'earliestTime', 'slotDateTimeRangeRequest_earliestTime' - The earliest date and time, in UTC, for the Scheduled Instance to start.
+--
+-- 'latestTime', 'slotDateTimeRangeRequest_latestTime' - The latest date and time, in UTC, for the Scheduled Instance to start.
+-- This value must be later than or equal to the earliest date and at most
+-- three months in the future.
+newSlotDateTimeRangeRequest ::
+  -- | 'earliestTime'
+  Prelude.UTCTime ->
+  -- | 'latestTime'
+  Prelude.UTCTime ->
   SlotDateTimeRangeRequest
-slotDateTimeRangeRequest pEarliestTime_ pLatestTime_ =
-  SlotDateTimeRangeRequest'
-    { _sdtrrEarliestTime =
-        _Time # pEarliestTime_,
-      _sdtrrLatestTime = _Time # pLatestTime_
-    }
+newSlotDateTimeRangeRequest
+  pEarliestTime_
+  pLatestTime_ =
+    SlotDateTimeRangeRequest'
+      { earliestTime =
+          Prelude._Time Lens.# pEarliestTime_,
+        latestTime = Prelude._Time Lens.# pLatestTime_
+      }
 
 -- | The earliest date and time, in UTC, for the Scheduled Instance to start.
-sdtrrEarliestTime :: Lens' SlotDateTimeRangeRequest UTCTime
-sdtrrEarliestTime = lens _sdtrrEarliestTime (\s a -> s {_sdtrrEarliestTime = a}) . _Time
+slotDateTimeRangeRequest_earliestTime :: Lens.Lens' SlotDateTimeRangeRequest Prelude.UTCTime
+slotDateTimeRangeRequest_earliestTime = Lens.lens (\SlotDateTimeRangeRequest' {earliestTime} -> earliestTime) (\s@SlotDateTimeRangeRequest' {} a -> s {earliestTime = a} :: SlotDateTimeRangeRequest) Prelude.. Prelude._Time
 
--- | The latest date and time, in UTC, for the Scheduled Instance to start. This value must be later than or equal to the earliest date and at most three months in the future.
-sdtrrLatestTime :: Lens' SlotDateTimeRangeRequest UTCTime
-sdtrrLatestTime = lens _sdtrrLatestTime (\s a -> s {_sdtrrLatestTime = a}) . _Time
+-- | The latest date and time, in UTC, for the Scheduled Instance to start.
+-- This value must be later than or equal to the earliest date and at most
+-- three months in the future.
+slotDateTimeRangeRequest_latestTime :: Lens.Lens' SlotDateTimeRangeRequest Prelude.UTCTime
+slotDateTimeRangeRequest_latestTime = Lens.lens (\SlotDateTimeRangeRequest' {latestTime} -> latestTime) (\s@SlotDateTimeRangeRequest' {} a -> s {latestTime = a} :: SlotDateTimeRangeRequest) Prelude.. Prelude._Time
 
-instance Hashable SlotDateTimeRangeRequest
+instance Prelude.Hashable SlotDateTimeRangeRequest
 
-instance NFData SlotDateTimeRangeRequest
+instance Prelude.NFData SlotDateTimeRangeRequest
 
-instance ToQuery SlotDateTimeRangeRequest where
+instance Prelude.ToQuery SlotDateTimeRangeRequest where
   toQuery SlotDateTimeRangeRequest' {..} =
-    mconcat
-      [ "EarliestTime" =: _sdtrrEarliestTime,
-        "LatestTime" =: _sdtrrLatestTime
+    Prelude.mconcat
+      [ "EarliestTime" Prelude.=: earliestTime,
+        "LatestTime" Prelude.=: latestTime
       ]

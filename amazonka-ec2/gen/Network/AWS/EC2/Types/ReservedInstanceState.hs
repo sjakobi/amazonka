@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,76 @@
 module Network.AWS.EC2.Types.ReservedInstanceState
   ( ReservedInstanceState
       ( ..,
-        RISActive,
-        RISPaymentFailed,
-        RISPaymentPending,
-        RISQueued,
-        RISQueuedDeleted,
-        RISRetired
+        ReservedInstanceStateActive,
+        ReservedInstanceStatePaymentFailed,
+        ReservedInstanceStatePaymentPending,
+        ReservedInstanceStateQueued,
+        ReservedInstanceStateQueuedDeleted,
+        ReservedInstanceStateRetired
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReservedInstanceState
-  = ReservedInstanceState'
-      ( CI
-          Text
-      )
+newtype ReservedInstanceState = ReservedInstanceState'
+  { fromReservedInstanceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RISActive :: ReservedInstanceState
-pattern RISActive = ReservedInstanceState' "active"
+pattern ReservedInstanceStateActive :: ReservedInstanceState
+pattern ReservedInstanceStateActive = ReservedInstanceState' "active"
 
-pattern RISPaymentFailed :: ReservedInstanceState
-pattern RISPaymentFailed = ReservedInstanceState' "payment-failed"
+pattern ReservedInstanceStatePaymentFailed :: ReservedInstanceState
+pattern ReservedInstanceStatePaymentFailed = ReservedInstanceState' "payment-failed"
 
-pattern RISPaymentPending :: ReservedInstanceState
-pattern RISPaymentPending = ReservedInstanceState' "payment-pending"
+pattern ReservedInstanceStatePaymentPending :: ReservedInstanceState
+pattern ReservedInstanceStatePaymentPending = ReservedInstanceState' "payment-pending"
 
-pattern RISQueued :: ReservedInstanceState
-pattern RISQueued = ReservedInstanceState' "queued"
+pattern ReservedInstanceStateQueued :: ReservedInstanceState
+pattern ReservedInstanceStateQueued = ReservedInstanceState' "queued"
 
-pattern RISQueuedDeleted :: ReservedInstanceState
-pattern RISQueuedDeleted = ReservedInstanceState' "queued-deleted"
+pattern ReservedInstanceStateQueuedDeleted :: ReservedInstanceState
+pattern ReservedInstanceStateQueuedDeleted = ReservedInstanceState' "queued-deleted"
 
-pattern RISRetired :: ReservedInstanceState
-pattern RISRetired = ReservedInstanceState' "retired"
+pattern ReservedInstanceStateRetired :: ReservedInstanceState
+pattern ReservedInstanceStateRetired = ReservedInstanceState' "retired"
 
 {-# COMPLETE
-  RISActive,
-  RISPaymentFailed,
-  RISPaymentPending,
-  RISQueued,
-  RISQueuedDeleted,
-  RISRetired,
+  ReservedInstanceStateActive,
+  ReservedInstanceStatePaymentFailed,
+  ReservedInstanceStatePaymentPending,
+  ReservedInstanceStateQueued,
+  ReservedInstanceStateQueuedDeleted,
+  ReservedInstanceStateRetired,
   ReservedInstanceState'
   #-}
 
-instance FromText ReservedInstanceState where
-  parser = (ReservedInstanceState' . mk) <$> takeText
+instance Prelude.FromText ReservedInstanceState where
+  parser = ReservedInstanceState' Prelude.<$> Prelude.takeText
 
-instance ToText ReservedInstanceState where
-  toText (ReservedInstanceState' ci) = original ci
+instance Prelude.ToText ReservedInstanceState where
+  toText (ReservedInstanceState' x) = x
 
-instance Hashable ReservedInstanceState
+instance Prelude.Hashable ReservedInstanceState
 
-instance NFData ReservedInstanceState
+instance Prelude.NFData ReservedInstanceState
 
-instance ToByteString ReservedInstanceState
+instance Prelude.ToByteString ReservedInstanceState
 
-instance ToQuery ReservedInstanceState
+instance Prelude.ToQuery ReservedInstanceState
 
-instance ToHeader ReservedInstanceState
+instance Prelude.ToHeader ReservedInstanceState
 
-instance FromXML ReservedInstanceState where
-  parseXML = parseXMLText "ReservedInstanceState"
+instance Prelude.FromXML ReservedInstanceState where
+  parseXML = Prelude.parseXMLText "ReservedInstanceState"

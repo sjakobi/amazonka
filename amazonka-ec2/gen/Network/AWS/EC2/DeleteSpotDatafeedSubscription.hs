@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,104 +24,125 @@
 -- Deletes the data feed for Spot Instances.
 module Network.AWS.EC2.DeleteSpotDatafeedSubscription
   ( -- * Creating a Request
-    deleteSpotDatafeedSubscription,
-    DeleteSpotDatafeedSubscription,
+    DeleteSpotDatafeedSubscription (..),
+    newDeleteSpotDatafeedSubscription,
 
     -- * Request Lenses
-    dsdssDryRun,
+    deleteSpotDatafeedSubscription_dryRun,
 
     -- * Destructuring the Response
-    deleteSpotDatafeedSubscriptionResponse,
-    DeleteSpotDatafeedSubscriptionResponse,
+    DeleteSpotDatafeedSubscriptionResponse (..),
+    newDeleteSpotDatafeedSubscriptionResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DeleteSpotDatafeedSubscription.
 --
---
---
--- /See:/ 'deleteSpotDatafeedSubscription' smart constructor.
-newtype DeleteSpotDatafeedSubscription = DeleteSpotDatafeedSubscription'
-  { _dsdssDryRun ::
-      Maybe
-        Bool
+-- /See:/ 'newDeleteSpotDatafeedSubscription' smart constructor.
+data DeleteSpotDatafeedSubscription = DeleteSpotDatafeedSubscription'
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSpotDatafeedSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSpotDatafeedSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdssDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-deleteSpotDatafeedSubscription ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dryRun', 'deleteSpotDatafeedSubscription_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+newDeleteSpotDatafeedSubscription ::
   DeleteSpotDatafeedSubscription
-deleteSpotDatafeedSubscription =
+newDeleteSpotDatafeedSubscription =
   DeleteSpotDatafeedSubscription'
-    { _dsdssDryRun =
-        Nothing
+    { dryRun =
+        Prelude.Nothing
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dsdssDryRun :: Lens' DeleteSpotDatafeedSubscription (Maybe Bool)
-dsdssDryRun = lens _dsdssDryRun (\s a -> s {_dsdssDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteSpotDatafeedSubscription_dryRun :: Lens.Lens' DeleteSpotDatafeedSubscription (Prelude.Maybe Prelude.Bool)
+deleteSpotDatafeedSubscription_dryRun = Lens.lens (\DeleteSpotDatafeedSubscription' {dryRun} -> dryRun) (\s@DeleteSpotDatafeedSubscription' {} a -> s {dryRun = a} :: DeleteSpotDatafeedSubscription)
 
-instance AWSRequest DeleteSpotDatafeedSubscription where
+instance
+  Prelude.AWSRequest
+    DeleteSpotDatafeedSubscription
+  where
   type
     Rs DeleteSpotDatafeedSubscription =
       DeleteSpotDatafeedSubscriptionResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteSpotDatafeedSubscriptionResponse'
+    Response.receiveNull
+      DeleteSpotDatafeedSubscriptionResponse'
 
-instance Hashable DeleteSpotDatafeedSubscription
+instance
+  Prelude.Hashable
+    DeleteSpotDatafeedSubscription
 
-instance NFData DeleteSpotDatafeedSubscription
+instance
+  Prelude.NFData
+    DeleteSpotDatafeedSubscription
 
-instance ToHeaders DeleteSpotDatafeedSubscription where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteSpotDatafeedSubscription
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteSpotDatafeedSubscription where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DeleteSpotDatafeedSubscription
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSpotDatafeedSubscription where
+instance
+  Prelude.ToQuery
+    DeleteSpotDatafeedSubscription
+  where
   toQuery DeleteSpotDatafeedSubscription' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteSpotDatafeedSubscription" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dsdssDryRun
+          Prelude.=: ( "DeleteSpotDatafeedSubscription" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun
       ]
 
--- | /See:/ 'deleteSpotDatafeedSubscriptionResponse' smart constructor.
+-- | /See:/ 'newDeleteSpotDatafeedSubscriptionResponse' smart constructor.
 data DeleteSpotDatafeedSubscriptionResponse = DeleteSpotDatafeedSubscriptionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSpotDatafeedSubscriptionResponse' with the minimum fields required to make a request.
-deleteSpotDatafeedSubscriptionResponse ::
+-- |
+-- Create a value of 'DeleteSpotDatafeedSubscriptionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteSpotDatafeedSubscriptionResponse ::
   DeleteSpotDatafeedSubscriptionResponse
-deleteSpotDatafeedSubscriptionResponse =
+newDeleteSpotDatafeedSubscriptionResponse =
   DeleteSpotDatafeedSubscriptionResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeleteSpotDatafeedSubscriptionResponse

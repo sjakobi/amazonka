@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -24,190 +28,240 @@ import Network.AWS.EC2.Types.HostInstance
 import Network.AWS.EC2.Types.HostProperties
 import Network.AWS.EC2.Types.HostRecovery
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the properties of the Dedicated Host.
 --
---
---
--- /See:/ 'host' smart constructor.
+-- /See:/ 'newHost' smart constructor.
 data Host = Host'
-  { _hOwnerId :: !(Maybe Text),
-    _hHostProperties :: !(Maybe HostProperties),
-    _hAvailableCapacity :: !(Maybe AvailableCapacity),
-    _hHostReservationId :: !(Maybe Text),
-    _hAllocationTime :: !(Maybe ISO8601),
-    _hInstances :: !(Maybe [HostInstance]),
-    _hAvailabilityZoneId :: !(Maybe Text),
-    _hState :: !(Maybe AllocationState),
-    _hAvailabilityZone :: !(Maybe Text),
-    _hReleaseTime :: !(Maybe ISO8601),
-    _hTags :: !(Maybe [Tag]),
-    _hAutoPlacement :: !(Maybe AutoPlacement),
-    _hHostRecovery :: !(Maybe HostRecovery),
-    _hMemberOfServiceLinkedResourceGroup ::
-      !(Maybe Bool),
-    _hAllowsMultipleInstanceTypes ::
-      !(Maybe AllowsMultipleInstanceTypes),
-    _hHostId :: !(Maybe Text),
-    _hClientToken :: !(Maybe Text)
+  { -- | The ID of the AWS account that owns the Dedicated Host.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The hardware specifications of the Dedicated Host.
+    hostProperties :: Prelude.Maybe HostProperties,
+    -- | Information about the instances running on the Dedicated Host.
+    availableCapacity :: Prelude.Maybe AvailableCapacity,
+    -- | The reservation ID of the Dedicated Host. This returns a @null@ response
+    -- if the Dedicated Host doesn\'t have an associated reservation.
+    hostReservationId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the Dedicated Host was allocated.
+    allocationTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The IDs and instance type that are currently running on the Dedicated
+    -- Host.
+    instances :: Prelude.Maybe [HostInstance],
+    -- | The ID of the Availability Zone in which the Dedicated Host is
+    -- allocated.
+    availabilityZoneId :: Prelude.Maybe Prelude.Text,
+    -- | The Dedicated Host\'s state.
+    state :: Prelude.Maybe AllocationState,
+    -- | The Availability Zone of the Dedicated Host.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The time that the Dedicated Host was released.
+    releaseTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Any tags assigned to the Dedicated Host.
+    tags :: Prelude.Maybe [Tag],
+    -- | Whether auto-placement is on or off.
+    autoPlacement :: Prelude.Maybe AutoPlacement,
+    -- | Indicates whether host recovery is enabled or disabled for the Dedicated
+    -- Host.
+    hostRecovery :: Prelude.Maybe HostRecovery,
+    -- | Indicates whether the Dedicated Host is in a host resource group. If
+    -- __memberOfServiceLinkedResourceGroup__ is @true@, the host is in a host
+    -- resource group; otherwise, it is not.
+    memberOfServiceLinkedResourceGroup :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether the Dedicated Host supports multiple instance types of
+    -- the same instance family. If the value is @on@, the Dedicated Host
+    -- supports multiple instance types in the instance family. If the value is
+    -- @off@, the Dedicated Host supports a single instance type only.
+    allowsMultipleInstanceTypes :: Prelude.Maybe AllowsMultipleInstanceTypes,
+    -- | The ID of the Dedicated Host.
+    hostId :: Prelude.Maybe Prelude.Text,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Host' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Host' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hOwnerId' - The ID of the AWS account that owns the Dedicated Host.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hHostProperties' - The hardware specifications of the Dedicated Host.
+-- 'ownerId', 'host_ownerId' - The ID of the AWS account that owns the Dedicated Host.
 --
--- * 'hAvailableCapacity' - Information about the instances running on the Dedicated Host.
+-- 'hostProperties', 'host_hostProperties' - The hardware specifications of the Dedicated Host.
 --
--- * 'hHostReservationId' - The reservation ID of the Dedicated Host. This returns a @null@ response if the Dedicated Host doesn't have an associated reservation.
+-- 'availableCapacity', 'host_availableCapacity' - Information about the instances running on the Dedicated Host.
 --
--- * 'hAllocationTime' - The time that the Dedicated Host was allocated.
+-- 'hostReservationId', 'host_hostReservationId' - The reservation ID of the Dedicated Host. This returns a @null@ response
+-- if the Dedicated Host doesn\'t have an associated reservation.
 --
--- * 'hInstances' - The IDs and instance type that are currently running on the Dedicated Host.
+-- 'allocationTime', 'host_allocationTime' - The time that the Dedicated Host was allocated.
 --
--- * 'hAvailabilityZoneId' - The ID of the Availability Zone in which the Dedicated Host is allocated.
+-- 'instances', 'host_instances' - The IDs and instance type that are currently running on the Dedicated
+-- Host.
 --
--- * 'hState' - The Dedicated Host's state.
+-- 'availabilityZoneId', 'host_availabilityZoneId' - The ID of the Availability Zone in which the Dedicated Host is
+-- allocated.
 --
--- * 'hAvailabilityZone' - The Availability Zone of the Dedicated Host.
+-- 'state', 'host_state' - The Dedicated Host\'s state.
 --
--- * 'hReleaseTime' - The time that the Dedicated Host was released.
+-- 'availabilityZone', 'host_availabilityZone' - The Availability Zone of the Dedicated Host.
 --
--- * 'hTags' - Any tags assigned to the Dedicated Host.
+-- 'releaseTime', 'host_releaseTime' - The time that the Dedicated Host was released.
 --
--- * 'hAutoPlacement' - Whether auto-placement is on or off.
+-- 'tags', 'host_tags' - Any tags assigned to the Dedicated Host.
 --
--- * 'hHostRecovery' - Indicates whether host recovery is enabled or disabled for the Dedicated Host.
+-- 'autoPlacement', 'host_autoPlacement' - Whether auto-placement is on or off.
 --
--- * 'hMemberOfServiceLinkedResourceGroup' - Indicates whether the Dedicated Host is in a host resource group. If __memberOfServiceLinkedResourceGroup__ is @true@ , the host is in a host resource group; otherwise, it is not.
+-- 'hostRecovery', 'host_hostRecovery' - Indicates whether host recovery is enabled or disabled for the Dedicated
+-- Host.
 --
--- * 'hAllowsMultipleInstanceTypes' - Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value is @on@ , the Dedicated Host supports multiple instance types in the instance family. If the value is @off@ , the Dedicated Host supports a single instance type only.
+-- 'memberOfServiceLinkedResourceGroup', 'host_memberOfServiceLinkedResourceGroup' - Indicates whether the Dedicated Host is in a host resource group. If
+-- __memberOfServiceLinkedResourceGroup__ is @true@, the host is in a host
+-- resource group; otherwise, it is not.
 --
--- * 'hHostId' - The ID of the Dedicated Host.
+-- 'allowsMultipleInstanceTypes', 'host_allowsMultipleInstanceTypes' - Indicates whether the Dedicated Host supports multiple instance types of
+-- the same instance family. If the value is @on@, the Dedicated Host
+-- supports multiple instance types in the instance family. If the value is
+-- @off@, the Dedicated Host supports a single instance type only.
 --
--- * 'hClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-host ::
+-- 'hostId', 'host_hostId' - The ID of the Dedicated Host.
+--
+-- 'clientToken', 'host_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+newHost ::
   Host
-host =
+newHost =
   Host'
-    { _hOwnerId = Nothing,
-      _hHostProperties = Nothing,
-      _hAvailableCapacity = Nothing,
-      _hHostReservationId = Nothing,
-      _hAllocationTime = Nothing,
-      _hInstances = Nothing,
-      _hAvailabilityZoneId = Nothing,
-      _hState = Nothing,
-      _hAvailabilityZone = Nothing,
-      _hReleaseTime = Nothing,
-      _hTags = Nothing,
-      _hAutoPlacement = Nothing,
-      _hHostRecovery = Nothing,
-      _hMemberOfServiceLinkedResourceGroup = Nothing,
-      _hAllowsMultipleInstanceTypes = Nothing,
-      _hHostId = Nothing,
-      _hClientToken = Nothing
+    { ownerId = Prelude.Nothing,
+      hostProperties = Prelude.Nothing,
+      availableCapacity = Prelude.Nothing,
+      hostReservationId = Prelude.Nothing,
+      allocationTime = Prelude.Nothing,
+      instances = Prelude.Nothing,
+      availabilityZoneId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      releaseTime = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      autoPlacement = Prelude.Nothing,
+      hostRecovery = Prelude.Nothing,
+      memberOfServiceLinkedResourceGroup = Prelude.Nothing,
+      allowsMultipleInstanceTypes = Prelude.Nothing,
+      hostId = Prelude.Nothing,
+      clientToken = Prelude.Nothing
     }
 
 -- | The ID of the AWS account that owns the Dedicated Host.
-hOwnerId :: Lens' Host (Maybe Text)
-hOwnerId = lens _hOwnerId (\s a -> s {_hOwnerId = a})
+host_ownerId :: Lens.Lens' Host (Prelude.Maybe Prelude.Text)
+host_ownerId = Lens.lens (\Host' {ownerId} -> ownerId) (\s@Host' {} a -> s {ownerId = a} :: Host)
 
 -- | The hardware specifications of the Dedicated Host.
-hHostProperties :: Lens' Host (Maybe HostProperties)
-hHostProperties = lens _hHostProperties (\s a -> s {_hHostProperties = a})
+host_hostProperties :: Lens.Lens' Host (Prelude.Maybe HostProperties)
+host_hostProperties = Lens.lens (\Host' {hostProperties} -> hostProperties) (\s@Host' {} a -> s {hostProperties = a} :: Host)
 
 -- | Information about the instances running on the Dedicated Host.
-hAvailableCapacity :: Lens' Host (Maybe AvailableCapacity)
-hAvailableCapacity = lens _hAvailableCapacity (\s a -> s {_hAvailableCapacity = a})
+host_availableCapacity :: Lens.Lens' Host (Prelude.Maybe AvailableCapacity)
+host_availableCapacity = Lens.lens (\Host' {availableCapacity} -> availableCapacity) (\s@Host' {} a -> s {availableCapacity = a} :: Host)
 
--- | The reservation ID of the Dedicated Host. This returns a @null@ response if the Dedicated Host doesn't have an associated reservation.
-hHostReservationId :: Lens' Host (Maybe Text)
-hHostReservationId = lens _hHostReservationId (\s a -> s {_hHostReservationId = a})
+-- | The reservation ID of the Dedicated Host. This returns a @null@ response
+-- if the Dedicated Host doesn\'t have an associated reservation.
+host_hostReservationId :: Lens.Lens' Host (Prelude.Maybe Prelude.Text)
+host_hostReservationId = Lens.lens (\Host' {hostReservationId} -> hostReservationId) (\s@Host' {} a -> s {hostReservationId = a} :: Host)
 
 -- | The time that the Dedicated Host was allocated.
-hAllocationTime :: Lens' Host (Maybe UTCTime)
-hAllocationTime = lens _hAllocationTime (\s a -> s {_hAllocationTime = a}) . mapping _Time
+host_allocationTime :: Lens.Lens' Host (Prelude.Maybe Prelude.UTCTime)
+host_allocationTime = Lens.lens (\Host' {allocationTime} -> allocationTime) (\s@Host' {} a -> s {allocationTime = a} :: Host) Prelude.. Lens.mapping Prelude._Time
 
--- | The IDs and instance type that are currently running on the Dedicated Host.
-hInstances :: Lens' Host [HostInstance]
-hInstances = lens _hInstances (\s a -> s {_hInstances = a}) . _Default . _Coerce
+-- | The IDs and instance type that are currently running on the Dedicated
+-- Host.
+host_instances :: Lens.Lens' Host (Prelude.Maybe [HostInstance])
+host_instances = Lens.lens (\Host' {instances} -> instances) (\s@Host' {} a -> s {instances = a} :: Host) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ID of the Availability Zone in which the Dedicated Host is allocated.
-hAvailabilityZoneId :: Lens' Host (Maybe Text)
-hAvailabilityZoneId = lens _hAvailabilityZoneId (\s a -> s {_hAvailabilityZoneId = a})
+-- | The ID of the Availability Zone in which the Dedicated Host is
+-- allocated.
+host_availabilityZoneId :: Lens.Lens' Host (Prelude.Maybe Prelude.Text)
+host_availabilityZoneId = Lens.lens (\Host' {availabilityZoneId} -> availabilityZoneId) (\s@Host' {} a -> s {availabilityZoneId = a} :: Host)
 
--- | The Dedicated Host's state.
-hState :: Lens' Host (Maybe AllocationState)
-hState = lens _hState (\s a -> s {_hState = a})
+-- | The Dedicated Host\'s state.
+host_state :: Lens.Lens' Host (Prelude.Maybe AllocationState)
+host_state = Lens.lens (\Host' {state} -> state) (\s@Host' {} a -> s {state = a} :: Host)
 
 -- | The Availability Zone of the Dedicated Host.
-hAvailabilityZone :: Lens' Host (Maybe Text)
-hAvailabilityZone = lens _hAvailabilityZone (\s a -> s {_hAvailabilityZone = a})
+host_availabilityZone :: Lens.Lens' Host (Prelude.Maybe Prelude.Text)
+host_availabilityZone = Lens.lens (\Host' {availabilityZone} -> availabilityZone) (\s@Host' {} a -> s {availabilityZone = a} :: Host)
 
 -- | The time that the Dedicated Host was released.
-hReleaseTime :: Lens' Host (Maybe UTCTime)
-hReleaseTime = lens _hReleaseTime (\s a -> s {_hReleaseTime = a}) . mapping _Time
+host_releaseTime :: Lens.Lens' Host (Prelude.Maybe Prelude.UTCTime)
+host_releaseTime = Lens.lens (\Host' {releaseTime} -> releaseTime) (\s@Host' {} a -> s {releaseTime = a} :: Host) Prelude.. Lens.mapping Prelude._Time
 
 -- | Any tags assigned to the Dedicated Host.
-hTags :: Lens' Host [Tag]
-hTags = lens _hTags (\s a -> s {_hTags = a}) . _Default . _Coerce
+host_tags :: Lens.Lens' Host (Prelude.Maybe [Tag])
+host_tags = Lens.lens (\Host' {tags} -> tags) (\s@Host' {} a -> s {tags = a} :: Host) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Whether auto-placement is on or off.
-hAutoPlacement :: Lens' Host (Maybe AutoPlacement)
-hAutoPlacement = lens _hAutoPlacement (\s a -> s {_hAutoPlacement = a})
+host_autoPlacement :: Lens.Lens' Host (Prelude.Maybe AutoPlacement)
+host_autoPlacement = Lens.lens (\Host' {autoPlacement} -> autoPlacement) (\s@Host' {} a -> s {autoPlacement = a} :: Host)
 
--- | Indicates whether host recovery is enabled or disabled for the Dedicated Host.
-hHostRecovery :: Lens' Host (Maybe HostRecovery)
-hHostRecovery = lens _hHostRecovery (\s a -> s {_hHostRecovery = a})
+-- | Indicates whether host recovery is enabled or disabled for the Dedicated
+-- Host.
+host_hostRecovery :: Lens.Lens' Host (Prelude.Maybe HostRecovery)
+host_hostRecovery = Lens.lens (\Host' {hostRecovery} -> hostRecovery) (\s@Host' {} a -> s {hostRecovery = a} :: Host)
 
--- | Indicates whether the Dedicated Host is in a host resource group. If __memberOfServiceLinkedResourceGroup__ is @true@ , the host is in a host resource group; otherwise, it is not.
-hMemberOfServiceLinkedResourceGroup :: Lens' Host (Maybe Bool)
-hMemberOfServiceLinkedResourceGroup = lens _hMemberOfServiceLinkedResourceGroup (\s a -> s {_hMemberOfServiceLinkedResourceGroup = a})
+-- | Indicates whether the Dedicated Host is in a host resource group. If
+-- __memberOfServiceLinkedResourceGroup__ is @true@, the host is in a host
+-- resource group; otherwise, it is not.
+host_memberOfServiceLinkedResourceGroup :: Lens.Lens' Host (Prelude.Maybe Prelude.Bool)
+host_memberOfServiceLinkedResourceGroup = Lens.lens (\Host' {memberOfServiceLinkedResourceGroup} -> memberOfServiceLinkedResourceGroup) (\s@Host' {} a -> s {memberOfServiceLinkedResourceGroup = a} :: Host)
 
--- | Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value is @on@ , the Dedicated Host supports multiple instance types in the instance family. If the value is @off@ , the Dedicated Host supports a single instance type only.
-hAllowsMultipleInstanceTypes :: Lens' Host (Maybe AllowsMultipleInstanceTypes)
-hAllowsMultipleInstanceTypes = lens _hAllowsMultipleInstanceTypes (\s a -> s {_hAllowsMultipleInstanceTypes = a})
+-- | Indicates whether the Dedicated Host supports multiple instance types of
+-- the same instance family. If the value is @on@, the Dedicated Host
+-- supports multiple instance types in the instance family. If the value is
+-- @off@, the Dedicated Host supports a single instance type only.
+host_allowsMultipleInstanceTypes :: Lens.Lens' Host (Prelude.Maybe AllowsMultipleInstanceTypes)
+host_allowsMultipleInstanceTypes = Lens.lens (\Host' {allowsMultipleInstanceTypes} -> allowsMultipleInstanceTypes) (\s@Host' {} a -> s {allowsMultipleInstanceTypes = a} :: Host)
 
 -- | The ID of the Dedicated Host.
-hHostId :: Lens' Host (Maybe Text)
-hHostId = lens _hHostId (\s a -> s {_hHostId = a})
+host_hostId :: Lens.Lens' Host (Prelude.Maybe Prelude.Text)
+host_hostId = Lens.lens (\Host' {hostId} -> hostId) (\s@Host' {} a -> s {hostId = a} :: Host)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-hClientToken :: Lens' Host (Maybe Text)
-hClientToken = lens _hClientToken (\s a -> s {_hClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+host_clientToken :: Lens.Lens' Host (Prelude.Maybe Prelude.Text)
+host_clientToken = Lens.lens (\Host' {clientToken} -> clientToken) (\s@Host' {} a -> s {clientToken = a} :: Host)
 
-instance FromXML Host where
+instance Prelude.FromXML Host where
   parseXML x =
     Host'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "hostProperties")
-      <*> (x .@? "availableCapacity")
-      <*> (x .@? "hostReservationId")
-      <*> (x .@? "allocationTime")
-      <*> ( x .@? "instances" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "availabilityZoneId")
-      <*> (x .@? "state")
-      <*> (x .@? "availabilityZone")
-      <*> (x .@? "releaseTime")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "autoPlacement")
-      <*> (x .@? "hostRecovery")
-      <*> (x .@? "memberOfServiceLinkedResourceGroup")
-      <*> (x .@? "allowsMultipleInstanceTypes")
-      <*> (x .@? "hostId")
-      <*> (x .@? "clientToken")
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "hostProperties")
+      Prelude.<*> (x Prelude..@? "availableCapacity")
+      Prelude.<*> (x Prelude..@? "hostReservationId")
+      Prelude.<*> (x Prelude..@? "allocationTime")
+      Prelude.<*> ( x Prelude..@? "instances" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "availabilityZoneId")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> (x Prelude..@? "releaseTime")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "autoPlacement")
+      Prelude.<*> (x Prelude..@? "hostRecovery")
+      Prelude.<*> (x Prelude..@? "memberOfServiceLinkedResourceGroup")
+      Prelude.<*> (x Prelude..@? "allowsMultipleInstanceTypes")
+      Prelude.<*> (x Prelude..@? "hostId")
+      Prelude.<*> (x Prelude..@? "clientToken")
 
-instance Hashable Host
+instance Prelude.Hashable Host
 
-instance NFData Host
+instance Prelude.NFData Host

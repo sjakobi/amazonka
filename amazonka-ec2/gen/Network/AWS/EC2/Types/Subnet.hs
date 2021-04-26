@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,211 +20,244 @@
 module Network.AWS.EC2.Types.Subnet where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.SubnetIPv6CidrBlockAssociation
+import Network.AWS.EC2.Types.SubnetIpv6CidrBlockAssociation
 import Network.AWS.EC2.Types.SubnetState
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a subnet.
 --
---
---
--- /See:/ 'subnet' smart constructor.
+-- /See:/ 'newSubnet' smart constructor.
 data Subnet = Subnet'
-  { _sOwnerId :: !(Maybe Text),
-    _sCustomerOwnedIPv4Pool :: !(Maybe Text),
-    _sSubnetARN :: !(Maybe Text),
-    _sAssignIPv6AddressOnCreation :: !(Maybe Bool),
-    _sOutpostARN :: !(Maybe Text),
-    _sMapPublicIPOnLaunch :: !(Maybe Bool),
-    _sAvailabilityZoneId :: !(Maybe Text),
-    _sIPv6CidrBlockAssociationSet ::
-      !(Maybe [SubnetIPv6CidrBlockAssociation]),
-    _sTags :: !(Maybe [Tag]),
-    _sDefaultForAz :: !(Maybe Bool),
-    _sMapCustomerOwnedIPOnLaunch :: !(Maybe Bool),
-    _sAvailabilityZone :: !Text,
-    _sAvailableIPAddressCount :: !Int,
-    _sCidrBlock :: !Text,
-    _sState :: !SubnetState,
-    _sSubnetId :: !Text,
-    _sVPCId :: !Text
+  { -- | The ID of the AWS account that owns the subnet.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The customer-owned IPv4 address pool associated with the subnet.
+    customerOwnedIpv4Pool :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the subnet.
+    subnetArn :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether a network interface created in this subnet (including
+    -- a network interface created by RunInstances) receives an IPv6 address.
+    assignIpv6AddressOnCreation :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the Outpost.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether instances launched in this subnet receive a public
+    -- IPv4 address.
+    mapPublicIpOnLaunch :: Prelude.Maybe Prelude.Bool,
+    -- | The AZ ID of the subnet.
+    availabilityZoneId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the IPv6 CIDR blocks associated with the subnet.
+    ipv6CidrBlockAssociationSet :: Prelude.Maybe [SubnetIpv6CidrBlockAssociation],
+    -- | Any tags assigned to the subnet.
+    tags :: Prelude.Maybe [Tag],
+    -- | Indicates whether this is the default subnet for the Availability Zone.
+    defaultForAz :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether a network interface created in this subnet (including
+    -- a network interface created by RunInstances) receives a customer-owned
+    -- IPv4 address.
+    mapCustomerOwnedIpOnLaunch :: Prelude.Maybe Prelude.Bool,
+    -- | The Availability Zone of the subnet.
+    availabilityZone :: Prelude.Text,
+    -- | The number of unused private IPv4 addresses in the subnet. The IPv4
+    -- addresses for any stopped instances are considered unavailable.
+    availableIpAddressCount :: Prelude.Int,
+    -- | The IPv4 CIDR block assigned to the subnet.
+    cidrBlock :: Prelude.Text,
+    -- | The current state of the subnet.
+    state :: SubnetState,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Text,
+    -- | The ID of the VPC the subnet is in.
+    vpcId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subnet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subnet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sOwnerId' - The ID of the AWS account that owns the subnet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sCustomerOwnedIPv4Pool' - The customer-owned IPv4 address pool associated with the subnet.
+-- 'ownerId', 'subnet_ownerId' - The ID of the AWS account that owns the subnet.
 --
--- * 'sSubnetARN' - The Amazon Resource Name (ARN) of the subnet.
+-- 'customerOwnedIpv4Pool', 'subnet_customerOwnedIpv4Pool' - The customer-owned IPv4 address pool associated with the subnet.
 --
--- * 'sAssignIPv6AddressOnCreation' - Indicates whether a network interface created in this subnet (including a network interface created by 'RunInstances' ) receives an IPv6 address.
+-- 'subnetArn', 'subnet_subnetArn' - The Amazon Resource Name (ARN) of the subnet.
 --
--- * 'sOutpostARN' - The Amazon Resource Name (ARN) of the Outpost.
+-- 'assignIpv6AddressOnCreation', 'subnet_assignIpv6AddressOnCreation' - Indicates whether a network interface created in this subnet (including
+-- a network interface created by RunInstances) receives an IPv6 address.
 --
--- * 'sMapPublicIPOnLaunch' - Indicates whether instances launched in this subnet receive a public IPv4 address.
+-- 'outpostArn', 'subnet_outpostArn' - The Amazon Resource Name (ARN) of the Outpost.
 --
--- * 'sAvailabilityZoneId' - The AZ ID of the subnet.
+-- 'mapPublicIpOnLaunch', 'subnet_mapPublicIpOnLaunch' - Indicates whether instances launched in this subnet receive a public
+-- IPv4 address.
 --
--- * 'sIPv6CidrBlockAssociationSet' - Information about the IPv6 CIDR blocks associated with the subnet.
+-- 'availabilityZoneId', 'subnet_availabilityZoneId' - The AZ ID of the subnet.
 --
--- * 'sTags' - Any tags assigned to the subnet.
+-- 'ipv6CidrBlockAssociationSet', 'subnet_ipv6CidrBlockAssociationSet' - Information about the IPv6 CIDR blocks associated with the subnet.
 --
--- * 'sDefaultForAz' - Indicates whether this is the default subnet for the Availability Zone.
+-- 'tags', 'subnet_tags' - Any tags assigned to the subnet.
 --
--- * 'sMapCustomerOwnedIPOnLaunch' - Indicates whether a network interface created in this subnet (including a network interface created by 'RunInstances' ) receives a customer-owned IPv4 address.
+-- 'defaultForAz', 'subnet_defaultForAz' - Indicates whether this is the default subnet for the Availability Zone.
 --
--- * 'sAvailabilityZone' - The Availability Zone of the subnet.
+-- 'mapCustomerOwnedIpOnLaunch', 'subnet_mapCustomerOwnedIpOnLaunch' - Indicates whether a network interface created in this subnet (including
+-- a network interface created by RunInstances) receives a customer-owned
+-- IPv4 address.
 --
--- * 'sAvailableIPAddressCount' - The number of unused private IPv4 addresses in the subnet. The IPv4 addresses for any stopped instances are considered unavailable.
+-- 'availabilityZone', 'subnet_availabilityZone' - The Availability Zone of the subnet.
 --
--- * 'sCidrBlock' - The IPv4 CIDR block assigned to the subnet.
+-- 'availableIpAddressCount', 'subnet_availableIpAddressCount' - The number of unused private IPv4 addresses in the subnet. The IPv4
+-- addresses for any stopped instances are considered unavailable.
 --
--- * 'sState' - The current state of the subnet.
+-- 'cidrBlock', 'subnet_cidrBlock' - The IPv4 CIDR block assigned to the subnet.
 --
--- * 'sSubnetId' - The ID of the subnet.
+-- 'state', 'subnet_state' - The current state of the subnet.
 --
--- * 'sVPCId' - The ID of the VPC the subnet is in.
-subnet ::
-  -- | 'sAvailabilityZone'
-  Text ->
-  -- | 'sAvailableIPAddressCount'
-  Int ->
-  -- | 'sCidrBlock'
-  Text ->
-  -- | 'sState'
+-- 'subnetId', 'subnet_subnetId' - The ID of the subnet.
+--
+-- 'vpcId', 'subnet_vpcId' - The ID of the VPC the subnet is in.
+newSubnet ::
+  -- | 'availabilityZone'
+  Prelude.Text ->
+  -- | 'availableIpAddressCount'
+  Prelude.Int ->
+  -- | 'cidrBlock'
+  Prelude.Text ->
+  -- | 'state'
   SubnetState ->
-  -- | 'sSubnetId'
-  Text ->
-  -- | 'sVPCId'
-  Text ->
+  -- | 'subnetId'
+  Prelude.Text ->
+  -- | 'vpcId'
+  Prelude.Text ->
   Subnet
-subnet
+newSubnet
   pAvailabilityZone_
-  pAvailableIPAddressCount_
+  pAvailableIpAddressCount_
   pCidrBlock_
   pState_
   pSubnetId_
-  pVPCId_ =
+  pVpcId_ =
     Subnet'
-      { _sOwnerId = Nothing,
-        _sCustomerOwnedIPv4Pool = Nothing,
-        _sSubnetARN = Nothing,
-        _sAssignIPv6AddressOnCreation = Nothing,
-        _sOutpostARN = Nothing,
-        _sMapPublicIPOnLaunch = Nothing,
-        _sAvailabilityZoneId = Nothing,
-        _sIPv6CidrBlockAssociationSet = Nothing,
-        _sTags = Nothing,
-        _sDefaultForAz = Nothing,
-        _sMapCustomerOwnedIPOnLaunch = Nothing,
-        _sAvailabilityZone = pAvailabilityZone_,
-        _sAvailableIPAddressCount =
-          pAvailableIPAddressCount_,
-        _sCidrBlock = pCidrBlock_,
-        _sState = pState_,
-        _sSubnetId = pSubnetId_,
-        _sVPCId = pVPCId_
+      { ownerId = Prelude.Nothing,
+        customerOwnedIpv4Pool = Prelude.Nothing,
+        subnetArn = Prelude.Nothing,
+        assignIpv6AddressOnCreation = Prelude.Nothing,
+        outpostArn = Prelude.Nothing,
+        mapPublicIpOnLaunch = Prelude.Nothing,
+        availabilityZoneId = Prelude.Nothing,
+        ipv6CidrBlockAssociationSet = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        defaultForAz = Prelude.Nothing,
+        mapCustomerOwnedIpOnLaunch = Prelude.Nothing,
+        availabilityZone = pAvailabilityZone_,
+        availableIpAddressCount = pAvailableIpAddressCount_,
+        cidrBlock = pCidrBlock_,
+        state = pState_,
+        subnetId = pSubnetId_,
+        vpcId = pVpcId_
       }
 
 -- | The ID of the AWS account that owns the subnet.
-sOwnerId :: Lens' Subnet (Maybe Text)
-sOwnerId = lens _sOwnerId (\s a -> s {_sOwnerId = a})
+subnet_ownerId :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_ownerId = Lens.lens (\Subnet' {ownerId} -> ownerId) (\s@Subnet' {} a -> s {ownerId = a} :: Subnet)
 
 -- | The customer-owned IPv4 address pool associated with the subnet.
-sCustomerOwnedIPv4Pool :: Lens' Subnet (Maybe Text)
-sCustomerOwnedIPv4Pool = lens _sCustomerOwnedIPv4Pool (\s a -> s {_sCustomerOwnedIPv4Pool = a})
+subnet_customerOwnedIpv4Pool :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_customerOwnedIpv4Pool = Lens.lens (\Subnet' {customerOwnedIpv4Pool} -> customerOwnedIpv4Pool) (\s@Subnet' {} a -> s {customerOwnedIpv4Pool = a} :: Subnet)
 
 -- | The Amazon Resource Name (ARN) of the subnet.
-sSubnetARN :: Lens' Subnet (Maybe Text)
-sSubnetARN = lens _sSubnetARN (\s a -> s {_sSubnetARN = a})
+subnet_subnetArn :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_subnetArn = Lens.lens (\Subnet' {subnetArn} -> subnetArn) (\s@Subnet' {} a -> s {subnetArn = a} :: Subnet)
 
--- | Indicates whether a network interface created in this subnet (including a network interface created by 'RunInstances' ) receives an IPv6 address.
-sAssignIPv6AddressOnCreation :: Lens' Subnet (Maybe Bool)
-sAssignIPv6AddressOnCreation = lens _sAssignIPv6AddressOnCreation (\s a -> s {_sAssignIPv6AddressOnCreation = a})
+-- | Indicates whether a network interface created in this subnet (including
+-- a network interface created by RunInstances) receives an IPv6 address.
+subnet_assignIpv6AddressOnCreation :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Bool)
+subnet_assignIpv6AddressOnCreation = Lens.lens (\Subnet' {assignIpv6AddressOnCreation} -> assignIpv6AddressOnCreation) (\s@Subnet' {} a -> s {assignIpv6AddressOnCreation = a} :: Subnet)
 
 -- | The Amazon Resource Name (ARN) of the Outpost.
-sOutpostARN :: Lens' Subnet (Maybe Text)
-sOutpostARN = lens _sOutpostARN (\s a -> s {_sOutpostARN = a})
+subnet_outpostArn :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_outpostArn = Lens.lens (\Subnet' {outpostArn} -> outpostArn) (\s@Subnet' {} a -> s {outpostArn = a} :: Subnet)
 
--- | Indicates whether instances launched in this subnet receive a public IPv4 address.
-sMapPublicIPOnLaunch :: Lens' Subnet (Maybe Bool)
-sMapPublicIPOnLaunch = lens _sMapPublicIPOnLaunch (\s a -> s {_sMapPublicIPOnLaunch = a})
+-- | Indicates whether instances launched in this subnet receive a public
+-- IPv4 address.
+subnet_mapPublicIpOnLaunch :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Bool)
+subnet_mapPublicIpOnLaunch = Lens.lens (\Subnet' {mapPublicIpOnLaunch} -> mapPublicIpOnLaunch) (\s@Subnet' {} a -> s {mapPublicIpOnLaunch = a} :: Subnet)
 
 -- | The AZ ID of the subnet.
-sAvailabilityZoneId :: Lens' Subnet (Maybe Text)
-sAvailabilityZoneId = lens _sAvailabilityZoneId (\s a -> s {_sAvailabilityZoneId = a})
+subnet_availabilityZoneId :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_availabilityZoneId = Lens.lens (\Subnet' {availabilityZoneId} -> availabilityZoneId) (\s@Subnet' {} a -> s {availabilityZoneId = a} :: Subnet)
 
 -- | Information about the IPv6 CIDR blocks associated with the subnet.
-sIPv6CidrBlockAssociationSet :: Lens' Subnet [SubnetIPv6CidrBlockAssociation]
-sIPv6CidrBlockAssociationSet = lens _sIPv6CidrBlockAssociationSet (\s a -> s {_sIPv6CidrBlockAssociationSet = a}) . _Default . _Coerce
+subnet_ipv6CidrBlockAssociationSet :: Lens.Lens' Subnet (Prelude.Maybe [SubnetIpv6CidrBlockAssociation])
+subnet_ipv6CidrBlockAssociationSet = Lens.lens (\Subnet' {ipv6CidrBlockAssociationSet} -> ipv6CidrBlockAssociationSet) (\s@Subnet' {} a -> s {ipv6CidrBlockAssociationSet = a} :: Subnet) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Any tags assigned to the subnet.
-sTags :: Lens' Subnet [Tag]
-sTags = lens _sTags (\s a -> s {_sTags = a}) . _Default . _Coerce
+subnet_tags :: Lens.Lens' Subnet (Prelude.Maybe [Tag])
+subnet_tags = Lens.lens (\Subnet' {tags} -> tags) (\s@Subnet' {} a -> s {tags = a} :: Subnet) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates whether this is the default subnet for the Availability Zone.
-sDefaultForAz :: Lens' Subnet (Maybe Bool)
-sDefaultForAz = lens _sDefaultForAz (\s a -> s {_sDefaultForAz = a})
+subnet_defaultForAz :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Bool)
+subnet_defaultForAz = Lens.lens (\Subnet' {defaultForAz} -> defaultForAz) (\s@Subnet' {} a -> s {defaultForAz = a} :: Subnet)
 
--- | Indicates whether a network interface created in this subnet (including a network interface created by 'RunInstances' ) receives a customer-owned IPv4 address.
-sMapCustomerOwnedIPOnLaunch :: Lens' Subnet (Maybe Bool)
-sMapCustomerOwnedIPOnLaunch = lens _sMapCustomerOwnedIPOnLaunch (\s a -> s {_sMapCustomerOwnedIPOnLaunch = a})
+-- | Indicates whether a network interface created in this subnet (including
+-- a network interface created by RunInstances) receives a customer-owned
+-- IPv4 address.
+subnet_mapCustomerOwnedIpOnLaunch :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Bool)
+subnet_mapCustomerOwnedIpOnLaunch = Lens.lens (\Subnet' {mapCustomerOwnedIpOnLaunch} -> mapCustomerOwnedIpOnLaunch) (\s@Subnet' {} a -> s {mapCustomerOwnedIpOnLaunch = a} :: Subnet)
 
 -- | The Availability Zone of the subnet.
-sAvailabilityZone :: Lens' Subnet Text
-sAvailabilityZone = lens _sAvailabilityZone (\s a -> s {_sAvailabilityZone = a})
+subnet_availabilityZone :: Lens.Lens' Subnet Prelude.Text
+subnet_availabilityZone = Lens.lens (\Subnet' {availabilityZone} -> availabilityZone) (\s@Subnet' {} a -> s {availabilityZone = a} :: Subnet)
 
--- | The number of unused private IPv4 addresses in the subnet. The IPv4 addresses for any stopped instances are considered unavailable.
-sAvailableIPAddressCount :: Lens' Subnet Int
-sAvailableIPAddressCount = lens _sAvailableIPAddressCount (\s a -> s {_sAvailableIPAddressCount = a})
+-- | The number of unused private IPv4 addresses in the subnet. The IPv4
+-- addresses for any stopped instances are considered unavailable.
+subnet_availableIpAddressCount :: Lens.Lens' Subnet Prelude.Int
+subnet_availableIpAddressCount = Lens.lens (\Subnet' {availableIpAddressCount} -> availableIpAddressCount) (\s@Subnet' {} a -> s {availableIpAddressCount = a} :: Subnet)
 
 -- | The IPv4 CIDR block assigned to the subnet.
-sCidrBlock :: Lens' Subnet Text
-sCidrBlock = lens _sCidrBlock (\s a -> s {_sCidrBlock = a})
+subnet_cidrBlock :: Lens.Lens' Subnet Prelude.Text
+subnet_cidrBlock = Lens.lens (\Subnet' {cidrBlock} -> cidrBlock) (\s@Subnet' {} a -> s {cidrBlock = a} :: Subnet)
 
 -- | The current state of the subnet.
-sState :: Lens' Subnet SubnetState
-sState = lens _sState (\s a -> s {_sState = a})
+subnet_state :: Lens.Lens' Subnet SubnetState
+subnet_state = Lens.lens (\Subnet' {state} -> state) (\s@Subnet' {} a -> s {state = a} :: Subnet)
 
 -- | The ID of the subnet.
-sSubnetId :: Lens' Subnet Text
-sSubnetId = lens _sSubnetId (\s a -> s {_sSubnetId = a})
+subnet_subnetId :: Lens.Lens' Subnet Prelude.Text
+subnet_subnetId = Lens.lens (\Subnet' {subnetId} -> subnetId) (\s@Subnet' {} a -> s {subnetId = a} :: Subnet)
 
 -- | The ID of the VPC the subnet is in.
-sVPCId :: Lens' Subnet Text
-sVPCId = lens _sVPCId (\s a -> s {_sVPCId = a})
+subnet_vpcId :: Lens.Lens' Subnet Prelude.Text
+subnet_vpcId = Lens.lens (\Subnet' {vpcId} -> vpcId) (\s@Subnet' {} a -> s {vpcId = a} :: Subnet)
 
-instance FromXML Subnet where
+instance Prelude.FromXML Subnet where
   parseXML x =
     Subnet'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "customerOwnedIpv4Pool")
-      <*> (x .@? "subnetArn")
-      <*> (x .@? "assignIpv6AddressOnCreation")
-      <*> (x .@? "outpostArn")
-      <*> (x .@? "mapPublicIpOnLaunch")
-      <*> (x .@? "availabilityZoneId")
-      <*> ( x .@? "ipv6CidrBlockAssociationSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "defaultForAz")
-      <*> (x .@? "mapCustomerOwnedIpOnLaunch")
-      <*> (x .@ "availabilityZone")
-      <*> (x .@ "availableIpAddressCount")
-      <*> (x .@ "cidrBlock")
-      <*> (x .@ "state")
-      <*> (x .@ "subnetId")
-      <*> (x .@ "vpcId")
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "customerOwnedIpv4Pool")
+      Prelude.<*> (x Prelude..@? "subnetArn")
+      Prelude.<*> (x Prelude..@? "assignIpv6AddressOnCreation")
+      Prelude.<*> (x Prelude..@? "outpostArn")
+      Prelude.<*> (x Prelude..@? "mapPublicIpOnLaunch")
+      Prelude.<*> (x Prelude..@? "availabilityZoneId")
+      Prelude.<*> ( x Prelude..@? "ipv6CidrBlockAssociationSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "defaultForAz")
+      Prelude.<*> (x Prelude..@? "mapCustomerOwnedIpOnLaunch")
+      Prelude.<*> (x Prelude..@ "availabilityZone")
+      Prelude.<*> (x Prelude..@ "availableIpAddressCount")
+      Prelude.<*> (x Prelude..@ "cidrBlock")
+      Prelude.<*> (x Prelude..@ "state")
+      Prelude.<*> (x Prelude..@ "subnetId")
+      Prelude.<*> (x Prelude..@ "vpcId")
 
-instance Hashable Subnet
+instance Prelude.Hashable Subnet
 
-instance NFData Subnet
+instance Prelude.NFData Subnet

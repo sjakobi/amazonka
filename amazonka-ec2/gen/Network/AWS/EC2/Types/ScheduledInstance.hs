@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,177 +21,183 @@ module Network.AWS.EC2.Types.ScheduledInstance where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ScheduledInstanceRecurrence
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Scheduled Instance.
 --
---
---
--- /See:/ 'scheduledInstance' smart constructor.
+-- /See:/ 'newScheduledInstance' smart constructor.
 data ScheduledInstance = ScheduledInstance'
-  { _siPlatform ::
-      !(Maybe Text),
-    _siInstanceType :: !(Maybe Text),
-    _siNetworkPlatform :: !(Maybe Text),
-    _siSlotDurationInHours ::
-      !(Maybe Int),
-    _siCreateDate :: !(Maybe ISO8601),
-    _siScheduledInstanceId ::
-      !(Maybe Text),
-    _siPreviousSlotEndTime ::
-      !(Maybe ISO8601),
-    _siAvailabilityZone ::
-      !(Maybe Text),
-    _siRecurrence ::
-      !( Maybe
-           ScheduledInstanceRecurrence
-       ),
-    _siTotalScheduledInstanceHours ::
-      !(Maybe Int),
-    _siNextSlotStartTime ::
-      !(Maybe ISO8601),
-    _siHourlyPrice :: !(Maybe Text),
-    _siTermEndDate :: !(Maybe ISO8601),
-    _siTermStartDate ::
-      !(Maybe ISO8601),
-    _siInstanceCount :: !(Maybe Int)
+  { -- | The platform (@Linux\/UNIX@ or @Windows@).
+    platform :: Prelude.Maybe Prelude.Text,
+    -- | The instance type.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | The network platform (@EC2-Classic@ or @EC2-VPC@).
+    networkPlatform :: Prelude.Maybe Prelude.Text,
+    -- | The number of hours in the schedule.
+    slotDurationInHours :: Prelude.Maybe Prelude.Int,
+    -- | The date when the Scheduled Instance was purchased.
+    createDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The Scheduled Instance ID.
+    scheduledInstanceId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the previous schedule ended or will end.
+    previousSlotEndTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The Availability Zone.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The schedule recurrence.
+    recurrence :: Prelude.Maybe ScheduledInstanceRecurrence,
+    -- | The total number of hours for a single instance for the entire term.
+    totalScheduledInstanceHours :: Prelude.Maybe Prelude.Int,
+    -- | The time for the next schedule to start.
+    nextSlotStartTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The hourly price for a single instance.
+    hourlyPrice :: Prelude.Maybe Prelude.Text,
+    -- | The end date for the Scheduled Instance.
+    termEndDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The start date for the Scheduled Instance.
+    termStartDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The number of instances.
+    instanceCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduledInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduledInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siPlatform' - The platform (@Linux/UNIX@ or @Windows@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siInstanceType' - The instance type.
+-- 'platform', 'scheduledInstance_platform' - The platform (@Linux\/UNIX@ or @Windows@).
 --
--- * 'siNetworkPlatform' - The network platform (@EC2-Classic@ or @EC2-VPC@ ).
+-- 'instanceType', 'scheduledInstance_instanceType' - The instance type.
 --
--- * 'siSlotDurationInHours' - The number of hours in the schedule.
+-- 'networkPlatform', 'scheduledInstance_networkPlatform' - The network platform (@EC2-Classic@ or @EC2-VPC@).
 --
--- * 'siCreateDate' - The date when the Scheduled Instance was purchased.
+-- 'slotDurationInHours', 'scheduledInstance_slotDurationInHours' - The number of hours in the schedule.
 --
--- * 'siScheduledInstanceId' - The Scheduled Instance ID.
+-- 'createDate', 'scheduledInstance_createDate' - The date when the Scheduled Instance was purchased.
 --
--- * 'siPreviousSlotEndTime' - The time that the previous schedule ended or will end.
+-- 'scheduledInstanceId', 'scheduledInstance_scheduledInstanceId' - The Scheduled Instance ID.
 --
--- * 'siAvailabilityZone' - The Availability Zone.
+-- 'previousSlotEndTime', 'scheduledInstance_previousSlotEndTime' - The time that the previous schedule ended or will end.
 --
--- * 'siRecurrence' - The schedule recurrence.
+-- 'availabilityZone', 'scheduledInstance_availabilityZone' - The Availability Zone.
 --
--- * 'siTotalScheduledInstanceHours' - The total number of hours for a single instance for the entire term.
+-- 'recurrence', 'scheduledInstance_recurrence' - The schedule recurrence.
 --
--- * 'siNextSlotStartTime' - The time for the next schedule to start.
+-- 'totalScheduledInstanceHours', 'scheduledInstance_totalScheduledInstanceHours' - The total number of hours for a single instance for the entire term.
 --
--- * 'siHourlyPrice' - The hourly price for a single instance.
+-- 'nextSlotStartTime', 'scheduledInstance_nextSlotStartTime' - The time for the next schedule to start.
 --
--- * 'siTermEndDate' - The end date for the Scheduled Instance.
+-- 'hourlyPrice', 'scheduledInstance_hourlyPrice' - The hourly price for a single instance.
 --
--- * 'siTermStartDate' - The start date for the Scheduled Instance.
+-- 'termEndDate', 'scheduledInstance_termEndDate' - The end date for the Scheduled Instance.
 --
--- * 'siInstanceCount' - The number of instances.
-scheduledInstance ::
+-- 'termStartDate', 'scheduledInstance_termStartDate' - The start date for the Scheduled Instance.
+--
+-- 'instanceCount', 'scheduledInstance_instanceCount' - The number of instances.
+newScheduledInstance ::
   ScheduledInstance
-scheduledInstance =
+newScheduledInstance =
   ScheduledInstance'
-    { _siPlatform = Nothing,
-      _siInstanceType = Nothing,
-      _siNetworkPlatform = Nothing,
-      _siSlotDurationInHours = Nothing,
-      _siCreateDate = Nothing,
-      _siScheduledInstanceId = Nothing,
-      _siPreviousSlotEndTime = Nothing,
-      _siAvailabilityZone = Nothing,
-      _siRecurrence = Nothing,
-      _siTotalScheduledInstanceHours = Nothing,
-      _siNextSlotStartTime = Nothing,
-      _siHourlyPrice = Nothing,
-      _siTermEndDate = Nothing,
-      _siTermStartDate = Nothing,
-      _siInstanceCount = Nothing
+    { platform = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      networkPlatform = Prelude.Nothing,
+      slotDurationInHours = Prelude.Nothing,
+      createDate = Prelude.Nothing,
+      scheduledInstanceId = Prelude.Nothing,
+      previousSlotEndTime = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      recurrence = Prelude.Nothing,
+      totalScheduledInstanceHours = Prelude.Nothing,
+      nextSlotStartTime = Prelude.Nothing,
+      hourlyPrice = Prelude.Nothing,
+      termEndDate = Prelude.Nothing,
+      termStartDate = Prelude.Nothing,
+      instanceCount = Prelude.Nothing
     }
 
--- | The platform (@Linux/UNIX@ or @Windows@ ).
-siPlatform :: Lens' ScheduledInstance (Maybe Text)
-siPlatform = lens _siPlatform (\s a -> s {_siPlatform = a})
+-- | The platform (@Linux\/UNIX@ or @Windows@).
+scheduledInstance_platform :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Text)
+scheduledInstance_platform = Lens.lens (\ScheduledInstance' {platform} -> platform) (\s@ScheduledInstance' {} a -> s {platform = a} :: ScheduledInstance)
 
 -- | The instance type.
-siInstanceType :: Lens' ScheduledInstance (Maybe Text)
-siInstanceType = lens _siInstanceType (\s a -> s {_siInstanceType = a})
+scheduledInstance_instanceType :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Text)
+scheduledInstance_instanceType = Lens.lens (\ScheduledInstance' {instanceType} -> instanceType) (\s@ScheduledInstance' {} a -> s {instanceType = a} :: ScheduledInstance)
 
--- | The network platform (@EC2-Classic@ or @EC2-VPC@ ).
-siNetworkPlatform :: Lens' ScheduledInstance (Maybe Text)
-siNetworkPlatform = lens _siNetworkPlatform (\s a -> s {_siNetworkPlatform = a})
+-- | The network platform (@EC2-Classic@ or @EC2-VPC@).
+scheduledInstance_networkPlatform :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Text)
+scheduledInstance_networkPlatform = Lens.lens (\ScheduledInstance' {networkPlatform} -> networkPlatform) (\s@ScheduledInstance' {} a -> s {networkPlatform = a} :: ScheduledInstance)
 
 -- | The number of hours in the schedule.
-siSlotDurationInHours :: Lens' ScheduledInstance (Maybe Int)
-siSlotDurationInHours = lens _siSlotDurationInHours (\s a -> s {_siSlotDurationInHours = a})
+scheduledInstance_slotDurationInHours :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Int)
+scheduledInstance_slotDurationInHours = Lens.lens (\ScheduledInstance' {slotDurationInHours} -> slotDurationInHours) (\s@ScheduledInstance' {} a -> s {slotDurationInHours = a} :: ScheduledInstance)
 
 -- | The date when the Scheduled Instance was purchased.
-siCreateDate :: Lens' ScheduledInstance (Maybe UTCTime)
-siCreateDate = lens _siCreateDate (\s a -> s {_siCreateDate = a}) . mapping _Time
+scheduledInstance_createDate :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.UTCTime)
+scheduledInstance_createDate = Lens.lens (\ScheduledInstance' {createDate} -> createDate) (\s@ScheduledInstance' {} a -> s {createDate = a} :: ScheduledInstance) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Scheduled Instance ID.
-siScheduledInstanceId :: Lens' ScheduledInstance (Maybe Text)
-siScheduledInstanceId = lens _siScheduledInstanceId (\s a -> s {_siScheduledInstanceId = a})
+scheduledInstance_scheduledInstanceId :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Text)
+scheduledInstance_scheduledInstanceId = Lens.lens (\ScheduledInstance' {scheduledInstanceId} -> scheduledInstanceId) (\s@ScheduledInstance' {} a -> s {scheduledInstanceId = a} :: ScheduledInstance)
 
 -- | The time that the previous schedule ended or will end.
-siPreviousSlotEndTime :: Lens' ScheduledInstance (Maybe UTCTime)
-siPreviousSlotEndTime = lens _siPreviousSlotEndTime (\s a -> s {_siPreviousSlotEndTime = a}) . mapping _Time
+scheduledInstance_previousSlotEndTime :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.UTCTime)
+scheduledInstance_previousSlotEndTime = Lens.lens (\ScheduledInstance' {previousSlotEndTime} -> previousSlotEndTime) (\s@ScheduledInstance' {} a -> s {previousSlotEndTime = a} :: ScheduledInstance) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Availability Zone.
-siAvailabilityZone :: Lens' ScheduledInstance (Maybe Text)
-siAvailabilityZone = lens _siAvailabilityZone (\s a -> s {_siAvailabilityZone = a})
+scheduledInstance_availabilityZone :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Text)
+scheduledInstance_availabilityZone = Lens.lens (\ScheduledInstance' {availabilityZone} -> availabilityZone) (\s@ScheduledInstance' {} a -> s {availabilityZone = a} :: ScheduledInstance)
 
 -- | The schedule recurrence.
-siRecurrence :: Lens' ScheduledInstance (Maybe ScheduledInstanceRecurrence)
-siRecurrence = lens _siRecurrence (\s a -> s {_siRecurrence = a})
+scheduledInstance_recurrence :: Lens.Lens' ScheduledInstance (Prelude.Maybe ScheduledInstanceRecurrence)
+scheduledInstance_recurrence = Lens.lens (\ScheduledInstance' {recurrence} -> recurrence) (\s@ScheduledInstance' {} a -> s {recurrence = a} :: ScheduledInstance)
 
 -- | The total number of hours for a single instance for the entire term.
-siTotalScheduledInstanceHours :: Lens' ScheduledInstance (Maybe Int)
-siTotalScheduledInstanceHours = lens _siTotalScheduledInstanceHours (\s a -> s {_siTotalScheduledInstanceHours = a})
+scheduledInstance_totalScheduledInstanceHours :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Int)
+scheduledInstance_totalScheduledInstanceHours = Lens.lens (\ScheduledInstance' {totalScheduledInstanceHours} -> totalScheduledInstanceHours) (\s@ScheduledInstance' {} a -> s {totalScheduledInstanceHours = a} :: ScheduledInstance)
 
 -- | The time for the next schedule to start.
-siNextSlotStartTime :: Lens' ScheduledInstance (Maybe UTCTime)
-siNextSlotStartTime = lens _siNextSlotStartTime (\s a -> s {_siNextSlotStartTime = a}) . mapping _Time
+scheduledInstance_nextSlotStartTime :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.UTCTime)
+scheduledInstance_nextSlotStartTime = Lens.lens (\ScheduledInstance' {nextSlotStartTime} -> nextSlotStartTime) (\s@ScheduledInstance' {} a -> s {nextSlotStartTime = a} :: ScheduledInstance) Prelude.. Lens.mapping Prelude._Time
 
 -- | The hourly price for a single instance.
-siHourlyPrice :: Lens' ScheduledInstance (Maybe Text)
-siHourlyPrice = lens _siHourlyPrice (\s a -> s {_siHourlyPrice = a})
+scheduledInstance_hourlyPrice :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Text)
+scheduledInstance_hourlyPrice = Lens.lens (\ScheduledInstance' {hourlyPrice} -> hourlyPrice) (\s@ScheduledInstance' {} a -> s {hourlyPrice = a} :: ScheduledInstance)
 
 -- | The end date for the Scheduled Instance.
-siTermEndDate :: Lens' ScheduledInstance (Maybe UTCTime)
-siTermEndDate = lens _siTermEndDate (\s a -> s {_siTermEndDate = a}) . mapping _Time
+scheduledInstance_termEndDate :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.UTCTime)
+scheduledInstance_termEndDate = Lens.lens (\ScheduledInstance' {termEndDate} -> termEndDate) (\s@ScheduledInstance' {} a -> s {termEndDate = a} :: ScheduledInstance) Prelude.. Lens.mapping Prelude._Time
 
 -- | The start date for the Scheduled Instance.
-siTermStartDate :: Lens' ScheduledInstance (Maybe UTCTime)
-siTermStartDate = lens _siTermStartDate (\s a -> s {_siTermStartDate = a}) . mapping _Time
+scheduledInstance_termStartDate :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.UTCTime)
+scheduledInstance_termStartDate = Lens.lens (\ScheduledInstance' {termStartDate} -> termStartDate) (\s@ScheduledInstance' {} a -> s {termStartDate = a} :: ScheduledInstance) Prelude.. Lens.mapping Prelude._Time
 
 -- | The number of instances.
-siInstanceCount :: Lens' ScheduledInstance (Maybe Int)
-siInstanceCount = lens _siInstanceCount (\s a -> s {_siInstanceCount = a})
+scheduledInstance_instanceCount :: Lens.Lens' ScheduledInstance (Prelude.Maybe Prelude.Int)
+scheduledInstance_instanceCount = Lens.lens (\ScheduledInstance' {instanceCount} -> instanceCount) (\s@ScheduledInstance' {} a -> s {instanceCount = a} :: ScheduledInstance)
 
-instance FromXML ScheduledInstance where
+instance Prelude.FromXML ScheduledInstance where
   parseXML x =
     ScheduledInstance'
-      <$> (x .@? "platform")
-      <*> (x .@? "instanceType")
-      <*> (x .@? "networkPlatform")
-      <*> (x .@? "slotDurationInHours")
-      <*> (x .@? "createDate")
-      <*> (x .@? "scheduledInstanceId")
-      <*> (x .@? "previousSlotEndTime")
-      <*> (x .@? "availabilityZone")
-      <*> (x .@? "recurrence")
-      <*> (x .@? "totalScheduledInstanceHours")
-      <*> (x .@? "nextSlotStartTime")
-      <*> (x .@? "hourlyPrice")
-      <*> (x .@? "termEndDate")
-      <*> (x .@? "termStartDate")
-      <*> (x .@? "instanceCount")
+      Prelude.<$> (x Prelude..@? "platform")
+      Prelude.<*> (x Prelude..@? "instanceType")
+      Prelude.<*> (x Prelude..@? "networkPlatform")
+      Prelude.<*> (x Prelude..@? "slotDurationInHours")
+      Prelude.<*> (x Prelude..@? "createDate")
+      Prelude.<*> (x Prelude..@? "scheduledInstanceId")
+      Prelude.<*> (x Prelude..@? "previousSlotEndTime")
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> (x Prelude..@? "recurrence")
+      Prelude.<*> (x Prelude..@? "totalScheduledInstanceHours")
+      Prelude.<*> (x Prelude..@? "nextSlotStartTime")
+      Prelude.<*> (x Prelude..@? "hourlyPrice")
+      Prelude.<*> (x Prelude..@? "termEndDate")
+      Prelude.<*> (x Prelude..@? "termStartDate")
+      Prelude.<*> (x Prelude..@? "instanceCount")
 
-instance Hashable ScheduledInstance
+instance Prelude.Hashable ScheduledInstance
 
-instance NFData ScheduledInstance
+instance Prelude.NFData ScheduledInstance

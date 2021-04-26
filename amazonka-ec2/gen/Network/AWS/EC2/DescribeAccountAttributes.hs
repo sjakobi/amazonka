@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes attributes of your AWS account. The following are the supported account attributes:
+-- Describes attributes of your AWS account. The following are the
+-- supported account attributes:
 --
+-- -   @supported-platforms@: Indicates whether your account can launch
+--     instances into EC2-Classic and EC2-VPC, or only into EC2-VPC.
 --
---     * @supported-platforms@ : Indicates whether your account can launch instances into EC2-Classic and EC2-VPC, or only into EC2-VPC.
+-- -   @default-vpc@: The ID of the default VPC for your account, or
+--     @none@.
 --
---     * @default-vpc@ : The ID of the default VPC for your account, or @none@ .
+-- -   @max-instances@: This attribute is no longer supported. The returned
+--     value does not reflect your actual vCPU limit for running On-Demand
+--     Instances. For more information, see
+--     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits On-Demand Instance Limits>
+--     in the /Amazon Elastic Compute Cloud User Guide/.
 --
---     * @max-instances@ : This attribute is no longer supported. The returned value does not reflect your actual vCPU limit for running On-Demand Instances. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits On-Demand Instance Limits> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- -   @vpc-max-security-groups-per-interface@: The maximum number of
+--     security groups that you can assign to a network interface.
 --
---     * @vpc-max-security-groups-per-interface@ : The maximum number of security groups that you can assign to a network interface.
+-- -   @max-elastic-ips@: The maximum number of Elastic IP addresses that
+--     you can allocate for use with EC2-Classic.
 --
---     * @max-elastic-ips@ : The maximum number of Elastic IP addresses that you can allocate for use with EC2-Classic.
---
---     * @vpc-max-elastic-ips@ : The maximum number of Elastic IP addresses that you can allocate for use with EC2-VPC.
+-- -   @vpc-max-elastic-ips@: The maximum number of Elastic IP addresses
+--     that you can allocate for use with EC2-VPC.
 module Network.AWS.EC2.DescribeAccountAttributes
   ( -- * Creating a Request
-    describeAccountAttributes,
-    DescribeAccountAttributes,
+    DescribeAccountAttributes (..),
+    newDescribeAccountAttributes,
 
     -- * Request Lenses
-    daaDryRun,
-    daaAttributeNames,
+    describeAccountAttributes_dryRun,
+    describeAccountAttributes_attributeNames,
 
     -- * Destructuring the Response
-    describeAccountAttributesResponse,
-    DescribeAccountAttributesResponse,
+    DescribeAccountAttributesResponse (..),
+    newDescribeAccountAttributesResponse,
 
     -- * Response Lenses
-    daarrsAccountAttributes,
-    daarrsResponseStatus,
+    describeAccountAttributesResponse_accountAttributes,
+    describeAccountAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.AccountAttribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAccountAttributes' smart constructor.
+-- | /See:/ 'newDescribeAccountAttributes' smart constructor.
 data DescribeAccountAttributes = DescribeAccountAttributes'
-  { _daaDryRun ::
-      !(Maybe Bool),
-    _daaAttributeNames ::
-      !( Maybe
-           [AccountAttributeName]
-       )
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The account attribute names.
+    attributeNames :: Prelude.Maybe [AccountAttributeName]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daaAttributeNames' - The account attribute names.
-describeAccountAttributes ::
+-- 'dryRun', 'describeAccountAttributes_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'attributeNames', 'describeAccountAttributes_attributeNames' - The account attribute names.
+newDescribeAccountAttributes ::
   DescribeAccountAttributes
-describeAccountAttributes =
+newDescribeAccountAttributes =
   DescribeAccountAttributes'
-    { _daaDryRun = Nothing,
-      _daaAttributeNames = Nothing
+    { dryRun =
+        Prelude.Nothing,
+      attributeNames = Prelude.Nothing
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-daaDryRun :: Lens' DescribeAccountAttributes (Maybe Bool)
-daaDryRun = lens _daaDryRun (\s a -> s {_daaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeAccountAttributes_dryRun :: Lens.Lens' DescribeAccountAttributes (Prelude.Maybe Prelude.Bool)
+describeAccountAttributes_dryRun = Lens.lens (\DescribeAccountAttributes' {dryRun} -> dryRun) (\s@DescribeAccountAttributes' {} a -> s {dryRun = a} :: DescribeAccountAttributes)
 
 -- | The account attribute names.
-daaAttributeNames :: Lens' DescribeAccountAttributes [AccountAttributeName]
-daaAttributeNames = lens _daaAttributeNames (\s a -> s {_daaAttributeNames = a}) . _Default . _Coerce
+describeAccountAttributes_attributeNames :: Lens.Lens' DescribeAccountAttributes (Prelude.Maybe [AccountAttributeName])
+describeAccountAttributes_attributeNames = Lens.lens (\DescribeAccountAttributes' {attributeNames} -> attributeNames) (\s@DescribeAccountAttributes' {} a -> s {attributeNames = a} :: DescribeAccountAttributes) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeAccountAttributes where
+instance Prelude.AWSRequest DescribeAccountAttributes where
   type
     Rs DescribeAccountAttributes =
       DescribeAccountAttributesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeAccountAttributesResponse'
-            <$> ( x .@? "accountAttributeSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "accountAttributeSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountAttributes
+instance Prelude.Hashable DescribeAccountAttributes
 
-instance NFData DescribeAccountAttributes
+instance Prelude.NFData DescribeAccountAttributes
 
-instance ToHeaders DescribeAccountAttributes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAccountAttributes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAccountAttributes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccountAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccountAttributes where
+instance Prelude.ToQuery DescribeAccountAttributes where
   toQuery DescribeAccountAttributes' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeAccountAttributes" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _daaDryRun,
-        toQuery
-          (toQueryList "AttributeName" <$> _daaAttributeNames)
+          Prelude.=: ("DescribeAccountAttributes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQuery
+          ( Prelude.toQueryList "AttributeName"
+              Prelude.<$> attributeNames
+          )
       ]
 
--- | /See:/ 'describeAccountAttributesResponse' smart constructor.
+-- | /See:/ 'newDescribeAccountAttributesResponse' smart constructor.
 data DescribeAccountAttributesResponse = DescribeAccountAttributesResponse'
-  { _daarrsAccountAttributes ::
-      !( Maybe
-           [AccountAttribute]
-       ),
-    _daarrsResponseStatus ::
-      !Int
+  { -- | Information about the account attributes.
+    accountAttributes :: Prelude.Maybe [AccountAttribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daarrsAccountAttributes' - Information about the account attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daarrsResponseStatus' - -- | The response status code.
-describeAccountAttributesResponse ::
-  -- | 'daarrsResponseStatus'
-  Int ->
+-- 'accountAttributes', 'describeAccountAttributesResponse_accountAttributes' - Information about the account attributes.
+--
+-- 'httpStatus', 'describeAccountAttributesResponse_httpStatus' - The response's http status code.
+newDescribeAccountAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountAttributesResponse
-describeAccountAttributesResponse pResponseStatus_ =
+newDescribeAccountAttributesResponse pHttpStatus_ =
   DescribeAccountAttributesResponse'
-    { _daarrsAccountAttributes =
-        Nothing,
-      _daarrsResponseStatus = pResponseStatus_
+    { accountAttributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the account attributes.
-daarrsAccountAttributes :: Lens' DescribeAccountAttributesResponse [AccountAttribute]
-daarrsAccountAttributes = lens _daarrsAccountAttributes (\s a -> s {_daarrsAccountAttributes = a}) . _Default . _Coerce
+describeAccountAttributesResponse_accountAttributes :: Lens.Lens' DescribeAccountAttributesResponse (Prelude.Maybe [AccountAttribute])
+describeAccountAttributesResponse_accountAttributes = Lens.lens (\DescribeAccountAttributesResponse' {accountAttributes} -> accountAttributes) (\s@DescribeAccountAttributesResponse' {} a -> s {accountAttributes = a} :: DescribeAccountAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-daarrsResponseStatus :: Lens' DescribeAccountAttributesResponse Int
-daarrsResponseStatus = lens _daarrsResponseStatus (\s a -> s {_daarrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountAttributesResponse_httpStatus :: Lens.Lens' DescribeAccountAttributesResponse Prelude.Int
+describeAccountAttributesResponse_httpStatus = Lens.lens (\DescribeAccountAttributesResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountAttributesResponse' {} a -> s {httpStatus = a} :: DescribeAccountAttributesResponse)
 
-instance NFData DescribeAccountAttributesResponse
+instance
+  Prelude.NFData
+    DescribeAccountAttributesResponse

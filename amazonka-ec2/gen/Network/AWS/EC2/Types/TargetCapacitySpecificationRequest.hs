@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,94 +21,112 @@ module Network.AWS.EC2.Types.TargetCapacitySpecificationRequest where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DefaultTargetCapacityType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The number of units to request. You can choose to set the target capacity as the number of instances. Or you can set the target capacity to a performance characteristic that is important to your application workload, such as vCPUs, memory, or I/O. If the request type is @maintain@ , you can specify a target capacity of 0 and add capacity later.
+-- | The number of units to request. You can choose to set the target
+-- capacity as the number of instances. Or you can set the target capacity
+-- to a performance characteristic that is important to your application
+-- workload, such as vCPUs, memory, or I\/O. If the request type is
+-- @maintain@, you can specify a target capacity of 0 and add capacity
+-- later.
 --
+-- You can use the On-Demand Instance @MaxTotalPrice@ parameter, the Spot
+-- Instance @MaxTotalPrice@ parameter, or both parameters to ensure that
+-- your fleet cost does not exceed your budget. If you set a maximum price
+-- per hour for the On-Demand Instances and Spot Instances in your request,
+-- EC2 Fleet will launch instances until it reaches the maximum amount that
+-- you\'re willing to pay. When the maximum amount you\'re willing to pay
+-- is reached, the fleet stops launching instances even if it hasn’t met
+-- the target capacity. The @MaxTotalPrice@ parameters are located in
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_OnDemandOptionsRequest OnDemandOptionsRequest>
+-- and
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotOptionsRequest SpotOptionsRequest>.
 --
--- You can use the On-Demand Instance @MaxTotalPrice@ parameter, the Spot Instance @MaxTotalPrice@ parameter, or both parameters to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand Instances and Spot Instances in your request, EC2 Fleet will launch instances until it reaches the maximum amount that you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching instances even if it hasn’t met the target capacity. The @MaxTotalPrice@ parameters are located in <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_OnDemandOptionsRequest OnDemandOptionsRequest> and <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotOptionsRequest SpotOptionsRequest> .
---
---
--- /See:/ 'targetCapacitySpecificationRequest' smart constructor.
+-- /See:/ 'newTargetCapacitySpecificationRequest' smart constructor.
 data TargetCapacitySpecificationRequest = TargetCapacitySpecificationRequest'
-  { _tcsrDefaultTargetCapacityType ::
-      !( Maybe
-           DefaultTargetCapacityType
-       ),
-    _tcsrOnDemandTargetCapacity ::
-      !( Maybe
-           Int
-       ),
-    _tcsrSpotTargetCapacity ::
-      !( Maybe
-           Int
-       ),
-    _tcsrTotalTargetCapacity ::
-      !Int
+  { -- | The default @TotalTargetCapacity@, which is either @Spot@ or
+    -- @On-Demand@.
+    defaultTargetCapacityType :: Prelude.Maybe DefaultTargetCapacityType,
+    -- | The number of On-Demand units to request.
+    onDemandTargetCapacity :: Prelude.Maybe Prelude.Int,
+    -- | The number of Spot units to request.
+    spotTargetCapacity :: Prelude.Maybe Prelude.Int,
+    -- | The number of units to request, filled using
+    -- @DefaultTargetCapacityType@.
+    totalTargetCapacity :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetCapacitySpecificationRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetCapacitySpecificationRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcsrDefaultTargetCapacityType' - The default @TotalTargetCapacity@ , which is either @Spot@ or @On-Demand@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcsrOnDemandTargetCapacity' - The number of On-Demand units to request.
+-- 'defaultTargetCapacityType', 'targetCapacitySpecificationRequest_defaultTargetCapacityType' - The default @TotalTargetCapacity@, which is either @Spot@ or
+-- @On-Demand@.
 --
--- * 'tcsrSpotTargetCapacity' - The number of Spot units to request.
+-- 'onDemandTargetCapacity', 'targetCapacitySpecificationRequest_onDemandTargetCapacity' - The number of On-Demand units to request.
 --
--- * 'tcsrTotalTargetCapacity' - The number of units to request, filled using @DefaultTargetCapacityType@ .
-targetCapacitySpecificationRequest ::
-  -- | 'tcsrTotalTargetCapacity'
-  Int ->
+-- 'spotTargetCapacity', 'targetCapacitySpecificationRequest_spotTargetCapacity' - The number of Spot units to request.
+--
+-- 'totalTargetCapacity', 'targetCapacitySpecificationRequest_totalTargetCapacity' - The number of units to request, filled using
+-- @DefaultTargetCapacityType@.
+newTargetCapacitySpecificationRequest ::
+  -- | 'totalTargetCapacity'
+  Prelude.Int ->
   TargetCapacitySpecificationRequest
-targetCapacitySpecificationRequest
+newTargetCapacitySpecificationRequest
   pTotalTargetCapacity_ =
     TargetCapacitySpecificationRequest'
-      { _tcsrDefaultTargetCapacityType =
-          Nothing,
-        _tcsrOnDemandTargetCapacity = Nothing,
-        _tcsrSpotTargetCapacity = Nothing,
-        _tcsrTotalTargetCapacity =
+      { defaultTargetCapacityType =
+          Prelude.Nothing,
+        onDemandTargetCapacity =
+          Prelude.Nothing,
+        spotTargetCapacity = Prelude.Nothing,
+        totalTargetCapacity =
           pTotalTargetCapacity_
       }
 
--- | The default @TotalTargetCapacity@ , which is either @Spot@ or @On-Demand@ .
-tcsrDefaultTargetCapacityType :: Lens' TargetCapacitySpecificationRequest (Maybe DefaultTargetCapacityType)
-tcsrDefaultTargetCapacityType = lens _tcsrDefaultTargetCapacityType (\s a -> s {_tcsrDefaultTargetCapacityType = a})
+-- | The default @TotalTargetCapacity@, which is either @Spot@ or
+-- @On-Demand@.
+targetCapacitySpecificationRequest_defaultTargetCapacityType :: Lens.Lens' TargetCapacitySpecificationRequest (Prelude.Maybe DefaultTargetCapacityType)
+targetCapacitySpecificationRequest_defaultTargetCapacityType = Lens.lens (\TargetCapacitySpecificationRequest' {defaultTargetCapacityType} -> defaultTargetCapacityType) (\s@TargetCapacitySpecificationRequest' {} a -> s {defaultTargetCapacityType = a} :: TargetCapacitySpecificationRequest)
 
 -- | The number of On-Demand units to request.
-tcsrOnDemandTargetCapacity :: Lens' TargetCapacitySpecificationRequest (Maybe Int)
-tcsrOnDemandTargetCapacity = lens _tcsrOnDemandTargetCapacity (\s a -> s {_tcsrOnDemandTargetCapacity = a})
+targetCapacitySpecificationRequest_onDemandTargetCapacity :: Lens.Lens' TargetCapacitySpecificationRequest (Prelude.Maybe Prelude.Int)
+targetCapacitySpecificationRequest_onDemandTargetCapacity = Lens.lens (\TargetCapacitySpecificationRequest' {onDemandTargetCapacity} -> onDemandTargetCapacity) (\s@TargetCapacitySpecificationRequest' {} a -> s {onDemandTargetCapacity = a} :: TargetCapacitySpecificationRequest)
 
 -- | The number of Spot units to request.
-tcsrSpotTargetCapacity :: Lens' TargetCapacitySpecificationRequest (Maybe Int)
-tcsrSpotTargetCapacity = lens _tcsrSpotTargetCapacity (\s a -> s {_tcsrSpotTargetCapacity = a})
+targetCapacitySpecificationRequest_spotTargetCapacity :: Lens.Lens' TargetCapacitySpecificationRequest (Prelude.Maybe Prelude.Int)
+targetCapacitySpecificationRequest_spotTargetCapacity = Lens.lens (\TargetCapacitySpecificationRequest' {spotTargetCapacity} -> spotTargetCapacity) (\s@TargetCapacitySpecificationRequest' {} a -> s {spotTargetCapacity = a} :: TargetCapacitySpecificationRequest)
 
--- | The number of units to request, filled using @DefaultTargetCapacityType@ .
-tcsrTotalTargetCapacity :: Lens' TargetCapacitySpecificationRequest Int
-tcsrTotalTargetCapacity = lens _tcsrTotalTargetCapacity (\s a -> s {_tcsrTotalTargetCapacity = a})
+-- | The number of units to request, filled using
+-- @DefaultTargetCapacityType@.
+targetCapacitySpecificationRequest_totalTargetCapacity :: Lens.Lens' TargetCapacitySpecificationRequest Prelude.Int
+targetCapacitySpecificationRequest_totalTargetCapacity = Lens.lens (\TargetCapacitySpecificationRequest' {totalTargetCapacity} -> totalTargetCapacity) (\s@TargetCapacitySpecificationRequest' {} a -> s {totalTargetCapacity = a} :: TargetCapacitySpecificationRequest)
 
-instance Hashable TargetCapacitySpecificationRequest
+instance
+  Prelude.Hashable
+    TargetCapacitySpecificationRequest
 
-instance NFData TargetCapacitySpecificationRequest
+instance
+  Prelude.NFData
+    TargetCapacitySpecificationRequest
 
-instance ToQuery TargetCapacitySpecificationRequest where
+instance
+  Prelude.ToQuery
+    TargetCapacitySpecificationRequest
+  where
   toQuery TargetCapacitySpecificationRequest' {..} =
-    mconcat
+    Prelude.mconcat
       [ "DefaultTargetCapacityType"
-          =: _tcsrDefaultTargetCapacityType,
+          Prelude.=: defaultTargetCapacityType,
         "OnDemandTargetCapacity"
-          =: _tcsrOnDemandTargetCapacity,
-        "SpotTargetCapacity" =: _tcsrSpotTargetCapacity,
-        "TotalTargetCapacity" =: _tcsrTotalTargetCapacity
+          Prelude.=: onDemandTargetCapacity,
+        "SpotTargetCapacity" Prelude.=: spotTargetCapacity,
+        "TotalTargetCapacity" Prelude.=: totalTargetCapacity
       ]

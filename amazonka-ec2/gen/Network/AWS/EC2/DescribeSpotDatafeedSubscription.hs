@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the data feed for Spot Instances. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-data-feeds.html Spot Instance data feed> in the /Amazon EC2 User Guide for Linux Instances/ .
+-- Describes the data feed for Spot Instances. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-data-feeds.html Spot Instance data feed>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
 module Network.AWS.EC2.DescribeSpotDatafeedSubscription
   ( -- * Creating a Request
-    describeSpotDatafeedSubscription,
-    DescribeSpotDatafeedSubscription,
+    DescribeSpotDatafeedSubscription (..),
+    newDescribeSpotDatafeedSubscription,
 
     -- * Request Lenses
-    dsdsDryRun,
+    describeSpotDatafeedSubscription_dryRun,
 
     -- * Destructuring the Response
-    describeSpotDatafeedSubscriptionResponse,
-    DescribeSpotDatafeedSubscriptionResponse,
+    DescribeSpotDatafeedSubscriptionResponse (..),
+    newDescribeSpotDatafeedSubscriptionResponse,
 
     -- * Response Lenses
-    dsdsrrsSpotDatafeedSubscription,
-    dsdsrrsResponseStatus,
+    describeSpotDatafeedSubscriptionResponse_spotDatafeedSubscription,
+    describeSpotDatafeedSubscriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.SpotDatafeedSubscription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DescribeSpotDatafeedSubscription.
 --
---
---
--- /See:/ 'describeSpotDatafeedSubscription' smart constructor.
-newtype DescribeSpotDatafeedSubscription = DescribeSpotDatafeedSubscription'
-  { _dsdsDryRun ::
-      Maybe
-        Bool
+-- /See:/ 'newDescribeSpotDatafeedSubscription' smart constructor.
+data DescribeSpotDatafeedSubscription = DescribeSpotDatafeedSubscription'
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSpotDatafeedSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSpotDatafeedSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-describeSpotDatafeedSubscription ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dryRun', 'describeSpotDatafeedSubscription_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+newDescribeSpotDatafeedSubscription ::
   DescribeSpotDatafeedSubscription
-describeSpotDatafeedSubscription =
+newDescribeSpotDatafeedSubscription =
   DescribeSpotDatafeedSubscription'
-    { _dsdsDryRun =
-        Nothing
+    { dryRun =
+        Prelude.Nothing
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dsdsDryRun :: Lens' DescribeSpotDatafeedSubscription (Maybe Bool)
-dsdsDryRun = lens _dsdsDryRun (\s a -> s {_dsdsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeSpotDatafeedSubscription_dryRun :: Lens.Lens' DescribeSpotDatafeedSubscription (Prelude.Maybe Prelude.Bool)
+describeSpotDatafeedSubscription_dryRun = Lens.lens (\DescribeSpotDatafeedSubscription' {dryRun} -> dryRun) (\s@DescribeSpotDatafeedSubscription' {} a -> s {dryRun = a} :: DescribeSpotDatafeedSubscription)
 
-instance AWSRequest DescribeSpotDatafeedSubscription where
+instance
+  Prelude.AWSRequest
+    DescribeSpotDatafeedSubscription
+  where
   type
     Rs DescribeSpotDatafeedSubscription =
       DescribeSpotDatafeedSubscriptionResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeSpotDatafeedSubscriptionResponse'
-            <$> (x .@? "spotDatafeedSubscription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "spotDatafeedSubscription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSpotDatafeedSubscription
+instance
+  Prelude.Hashable
+    DescribeSpotDatafeedSubscription
 
-instance NFData DescribeSpotDatafeedSubscription
+instance
+  Prelude.NFData
+    DescribeSpotDatafeedSubscription
 
-instance ToHeaders DescribeSpotDatafeedSubscription where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeSpotDatafeedSubscription
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSpotDatafeedSubscription where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeSpotDatafeedSubscription
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSpotDatafeedSubscription where
+instance
+  Prelude.ToQuery
+    DescribeSpotDatafeedSubscription
+  where
   toQuery DescribeSpotDatafeedSubscription' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeSpotDatafeedSubscription" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dsdsDryRun
+          Prelude.=: ( "DescribeSpotDatafeedSubscription" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun
       ]
 
 -- | Contains the output of DescribeSpotDatafeedSubscription.
 --
---
---
--- /See:/ 'describeSpotDatafeedSubscriptionResponse' smart constructor.
+-- /See:/ 'newDescribeSpotDatafeedSubscriptionResponse' smart constructor.
 data DescribeSpotDatafeedSubscriptionResponse = DescribeSpotDatafeedSubscriptionResponse'
-  { _dsdsrrsSpotDatafeedSubscription ::
-      !( Maybe
-           SpotDatafeedSubscription
-       ),
-    _dsdsrrsResponseStatus ::
-      !Int
+  { -- | The Spot Instance data feed subscription.
+    spotDatafeedSubscription :: Prelude.Maybe SpotDatafeedSubscription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSpotDatafeedSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSpotDatafeedSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdsrrsSpotDatafeedSubscription' - The Spot Instance data feed subscription.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsdsrrsResponseStatus' - -- | The response status code.
-describeSpotDatafeedSubscriptionResponse ::
-  -- | 'dsdsrrsResponseStatus'
-  Int ->
+-- 'spotDatafeedSubscription', 'describeSpotDatafeedSubscriptionResponse_spotDatafeedSubscription' - The Spot Instance data feed subscription.
+--
+-- 'httpStatus', 'describeSpotDatafeedSubscriptionResponse_httpStatus' - The response's http status code.
+newDescribeSpotDatafeedSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSpotDatafeedSubscriptionResponse
-describeSpotDatafeedSubscriptionResponse
-  pResponseStatus_ =
+newDescribeSpotDatafeedSubscriptionResponse
+  pHttpStatus_ =
     DescribeSpotDatafeedSubscriptionResponse'
-      { _dsdsrrsSpotDatafeedSubscription =
-          Nothing,
-        _dsdsrrsResponseStatus =
-          pResponseStatus_
+      { spotDatafeedSubscription =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The Spot Instance data feed subscription.
-dsdsrrsSpotDatafeedSubscription :: Lens' DescribeSpotDatafeedSubscriptionResponse (Maybe SpotDatafeedSubscription)
-dsdsrrsSpotDatafeedSubscription = lens _dsdsrrsSpotDatafeedSubscription (\s a -> s {_dsdsrrsSpotDatafeedSubscription = a})
+describeSpotDatafeedSubscriptionResponse_spotDatafeedSubscription :: Lens.Lens' DescribeSpotDatafeedSubscriptionResponse (Prelude.Maybe SpotDatafeedSubscription)
+describeSpotDatafeedSubscriptionResponse_spotDatafeedSubscription = Lens.lens (\DescribeSpotDatafeedSubscriptionResponse' {spotDatafeedSubscription} -> spotDatafeedSubscription) (\s@DescribeSpotDatafeedSubscriptionResponse' {} a -> s {spotDatafeedSubscription = a} :: DescribeSpotDatafeedSubscriptionResponse)
 
--- | -- | The response status code.
-dsdsrrsResponseStatus :: Lens' DescribeSpotDatafeedSubscriptionResponse Int
-dsdsrrsResponseStatus = lens _dsdsrrsResponseStatus (\s a -> s {_dsdsrrsResponseStatus = a})
+-- | The response's http status code.
+describeSpotDatafeedSubscriptionResponse_httpStatus :: Lens.Lens' DescribeSpotDatafeedSubscriptionResponse Prelude.Int
+describeSpotDatafeedSubscriptionResponse_httpStatus = Lens.lens (\DescribeSpotDatafeedSubscriptionResponse' {httpStatus} -> httpStatus) (\s@DescribeSpotDatafeedSubscriptionResponse' {} a -> s {httpStatus = a} :: DescribeSpotDatafeedSubscriptionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeSpotDatafeedSubscriptionResponse

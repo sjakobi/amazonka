@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +21,64 @@ module Network.AWS.EC2.Types.ReservedInstanceReservationValue where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ReservationValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The total value of the Convertible Reserved Instance.
 --
---
---
--- /See:/ 'reservedInstanceReservationValue' smart constructor.
+-- /See:/ 'newReservedInstanceReservationValue' smart constructor.
 data ReservedInstanceReservationValue = ReservedInstanceReservationValue'
-  { _rirvReservationValue ::
-      !( Maybe
-           ReservationValue
-       ),
-    _rirvReservedInstanceId ::
-      !( Maybe
-           Text
-       )
+  { -- | The total value of the Convertible Reserved Instance that you are
+    -- exchanging.
+    reservationValue :: Prelude.Maybe ReservationValue,
+    -- | The ID of the Convertible Reserved Instance that you are exchanging.
+    reservedInstanceId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedInstanceReservationValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedInstanceReservationValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rirvReservationValue' - The total value of the Convertible Reserved Instance that you are exchanging.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rirvReservedInstanceId' - The ID of the Convertible Reserved Instance that you are exchanging.
-reservedInstanceReservationValue ::
+-- 'reservationValue', 'reservedInstanceReservationValue_reservationValue' - The total value of the Convertible Reserved Instance that you are
+-- exchanging.
+--
+-- 'reservedInstanceId', 'reservedInstanceReservationValue_reservedInstanceId' - The ID of the Convertible Reserved Instance that you are exchanging.
+newReservedInstanceReservationValue ::
   ReservedInstanceReservationValue
-reservedInstanceReservationValue =
+newReservedInstanceReservationValue =
   ReservedInstanceReservationValue'
-    { _rirvReservationValue =
-        Nothing,
-      _rirvReservedInstanceId = Nothing
+    { reservationValue =
+        Prelude.Nothing,
+      reservedInstanceId = Prelude.Nothing
     }
 
--- | The total value of the Convertible Reserved Instance that you are exchanging.
-rirvReservationValue :: Lens' ReservedInstanceReservationValue (Maybe ReservationValue)
-rirvReservationValue = lens _rirvReservationValue (\s a -> s {_rirvReservationValue = a})
+-- | The total value of the Convertible Reserved Instance that you are
+-- exchanging.
+reservedInstanceReservationValue_reservationValue :: Lens.Lens' ReservedInstanceReservationValue (Prelude.Maybe ReservationValue)
+reservedInstanceReservationValue_reservationValue = Lens.lens (\ReservedInstanceReservationValue' {reservationValue} -> reservationValue) (\s@ReservedInstanceReservationValue' {} a -> s {reservationValue = a} :: ReservedInstanceReservationValue)
 
 -- | The ID of the Convertible Reserved Instance that you are exchanging.
-rirvReservedInstanceId :: Lens' ReservedInstanceReservationValue (Maybe Text)
-rirvReservedInstanceId = lens _rirvReservedInstanceId (\s a -> s {_rirvReservedInstanceId = a})
+reservedInstanceReservationValue_reservedInstanceId :: Lens.Lens' ReservedInstanceReservationValue (Prelude.Maybe Prelude.Text)
+reservedInstanceReservationValue_reservedInstanceId = Lens.lens (\ReservedInstanceReservationValue' {reservedInstanceId} -> reservedInstanceId) (\s@ReservedInstanceReservationValue' {} a -> s {reservedInstanceId = a} :: ReservedInstanceReservationValue)
 
-instance FromXML ReservedInstanceReservationValue where
+instance
+  Prelude.FromXML
+    ReservedInstanceReservationValue
+  where
   parseXML x =
     ReservedInstanceReservationValue'
-      <$> (x .@? "reservationValue")
-      <*> (x .@? "reservedInstanceId")
+      Prelude.<$> (x Prelude..@? "reservationValue")
+      Prelude.<*> (x Prelude..@? "reservedInstanceId")
 
-instance Hashable ReservedInstanceReservationValue
+instance
+  Prelude.Hashable
+    ReservedInstanceReservationValue
 
-instance NFData ReservedInstanceReservationValue
+instance
+  Prelude.NFData
+    ReservedInstanceReservationValue

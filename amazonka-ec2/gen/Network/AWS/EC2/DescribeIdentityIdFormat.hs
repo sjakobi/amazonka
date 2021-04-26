@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,198 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the ID format settings for resources for the specified IAM user, IAM role, or root user. For example, you can view the resource types that are enabled for longer IDs. This request only returns information about resource types whose ID formats can be modified; it does not return information about other resource types. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/resource-ids.html Resource IDs> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- Describes the ID format settings for resources for the specified IAM
+-- user, IAM role, or root user. For example, you can view the resource
+-- types that are enabled for longer IDs. This request only returns
+-- information about resource types whose ID formats can be modified; it
+-- does not return information about other resource types. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/resource-ids.html Resource IDs>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
+-- The following resource types support longer IDs: @bundle@ |
+-- @conversion-task@ | @customer-gateway@ | @dhcp-options@ |
+-- @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ |
+-- @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ |
+-- @network-acl@ | @network-acl-association@ | @network-interface@ |
+-- @network-interface-attachment@ | @prefix-list@ | @reservation@ |
+-- @route-table@ | @route-table-association@ | @security-group@ |
+-- @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ |
+-- @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ |
+-- @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@.
 --
--- The following resource types support longer IDs: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@ .
---
--- These settings apply to the principal specified in the request. They do not apply to the principal that makes the request.
+-- These settings apply to the principal specified in the request. They do
+-- not apply to the principal that makes the request.
 module Network.AWS.EC2.DescribeIdentityIdFormat
   ( -- * Creating a Request
-    describeIdentityIdFormat,
-    DescribeIdentityIdFormat,
+    DescribeIdentityIdFormat (..),
+    newDescribeIdentityIdFormat,
 
     -- * Request Lenses
-    diifResource,
-    diifPrincipalARN,
+    describeIdentityIdFormat_resource,
+    describeIdentityIdFormat_principalArn,
 
     -- * Destructuring the Response
-    describeIdentityIdFormatResponse,
-    DescribeIdentityIdFormatResponse,
+    DescribeIdentityIdFormatResponse (..),
+    newDescribeIdentityIdFormatResponse,
 
     -- * Response Lenses
-    diifrrsStatuses,
-    diifrrsResponseStatus,
+    describeIdentityIdFormatResponse_statuses,
+    describeIdentityIdFormatResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.IdFormat
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeIdentityIdFormat' smart constructor.
+-- | /See:/ 'newDescribeIdentityIdFormat' smart constructor.
 data DescribeIdentityIdFormat = DescribeIdentityIdFormat'
-  { _diifResource ::
-      !(Maybe Text),
-    _diifPrincipalARN ::
-      !Text
+  { -- | The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@
+    -- | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ |
+    -- @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ |
+    -- @internet-gateway@ | @network-acl@ | @network-acl-association@ |
+    -- @network-interface@ | @network-interface-attachment@ | @prefix-list@ |
+    -- @reservation@ | @route-table@ | @route-table-association@ |
+    -- @security-group@ | @snapshot@ | @subnet@ |
+    -- @subnet-cidr-block-association@ | @volume@ | @vpc@ |
+    -- @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@
+    -- | @vpn-connection@ | @vpn-gateway@
+    resource :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the principal, which can be an IAM role, IAM user, or the
+    -- root user.
+    principalArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeIdentityIdFormat' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeIdentityIdFormat' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diifResource' - The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diifPrincipalARN' - The ARN of the principal, which can be an IAM role, IAM user, or the root user.
-describeIdentityIdFormat ::
-  -- | 'diifPrincipalARN'
-  Text ->
+-- 'resource', 'describeIdentityIdFormat_resource' - The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@
+-- | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ |
+-- @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ |
+-- @internet-gateway@ | @network-acl@ | @network-acl-association@ |
+-- @network-interface@ | @network-interface-attachment@ | @prefix-list@ |
+-- @reservation@ | @route-table@ | @route-table-association@ |
+-- @security-group@ | @snapshot@ | @subnet@ |
+-- @subnet-cidr-block-association@ | @volume@ | @vpc@ |
+-- @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@
+-- | @vpn-connection@ | @vpn-gateway@
+--
+-- 'principalArn', 'describeIdentityIdFormat_principalArn' - The ARN of the principal, which can be an IAM role, IAM user, or the
+-- root user.
+newDescribeIdentityIdFormat ::
+  -- | 'principalArn'
+  Prelude.Text ->
   DescribeIdentityIdFormat
-describeIdentityIdFormat pPrincipalARN_ =
+newDescribeIdentityIdFormat pPrincipalArn_ =
   DescribeIdentityIdFormat'
-    { _diifResource = Nothing,
-      _diifPrincipalARN = pPrincipalARN_
+    { resource =
+        Prelude.Nothing,
+      principalArn = pPrincipalArn_
     }
 
--- | The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@ | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ | @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ | @internet-gateway@ | @network-acl@ | @network-acl-association@ | @network-interface@ | @network-interface-attachment@ | @prefix-list@ | @reservation@ | @route-table@ | @route-table-association@ | @security-group@ | @snapshot@ | @subnet@ | @subnet-cidr-block-association@ | @volume@ | @vpc@ | @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@ | @vpn-connection@ | @vpn-gateway@
-diifResource :: Lens' DescribeIdentityIdFormat (Maybe Text)
-diifResource = lens _diifResource (\s a -> s {_diifResource = a})
+-- | The type of resource: @bundle@ | @conversion-task@ | @customer-gateway@
+-- | @dhcp-options@ | @elastic-ip-allocation@ | @elastic-ip-association@ |
+-- @export-task@ | @flow-log@ | @image@ | @import-task@ | @instance@ |
+-- @internet-gateway@ | @network-acl@ | @network-acl-association@ |
+-- @network-interface@ | @network-interface-attachment@ | @prefix-list@ |
+-- @reservation@ | @route-table@ | @route-table-association@ |
+-- @security-group@ | @snapshot@ | @subnet@ |
+-- @subnet-cidr-block-association@ | @volume@ | @vpc@ |
+-- @vpc-cidr-block-association@ | @vpc-endpoint@ | @vpc-peering-connection@
+-- | @vpn-connection@ | @vpn-gateway@
+describeIdentityIdFormat_resource :: Lens.Lens' DescribeIdentityIdFormat (Prelude.Maybe Prelude.Text)
+describeIdentityIdFormat_resource = Lens.lens (\DescribeIdentityIdFormat' {resource} -> resource) (\s@DescribeIdentityIdFormat' {} a -> s {resource = a} :: DescribeIdentityIdFormat)
 
--- | The ARN of the principal, which can be an IAM role, IAM user, or the root user.
-diifPrincipalARN :: Lens' DescribeIdentityIdFormat Text
-diifPrincipalARN = lens _diifPrincipalARN (\s a -> s {_diifPrincipalARN = a})
+-- | The ARN of the principal, which can be an IAM role, IAM user, or the
+-- root user.
+describeIdentityIdFormat_principalArn :: Lens.Lens' DescribeIdentityIdFormat Prelude.Text
+describeIdentityIdFormat_principalArn = Lens.lens (\DescribeIdentityIdFormat' {principalArn} -> principalArn) (\s@DescribeIdentityIdFormat' {} a -> s {principalArn = a} :: DescribeIdentityIdFormat)
 
-instance AWSRequest DescribeIdentityIdFormat where
+instance Prelude.AWSRequest DescribeIdentityIdFormat where
   type
     Rs DescribeIdentityIdFormat =
       DescribeIdentityIdFormatResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeIdentityIdFormatResponse'
-            <$> ( x .@? "statusSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "statusSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeIdentityIdFormat
+instance Prelude.Hashable DescribeIdentityIdFormat
 
-instance NFData DescribeIdentityIdFormat
+instance Prelude.NFData DescribeIdentityIdFormat
 
-instance ToHeaders DescribeIdentityIdFormat where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeIdentityIdFormat where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeIdentityIdFormat where
-  toPath = const "/"
+instance Prelude.ToPath DescribeIdentityIdFormat where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeIdentityIdFormat where
+instance Prelude.ToQuery DescribeIdentityIdFormat where
   toQuery DescribeIdentityIdFormat' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeIdentityIdFormat" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "Resource" =: _diifResource,
-        "PrincipalArn" =: _diifPrincipalARN
+          Prelude.=: ("DescribeIdentityIdFormat" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "Resource" Prelude.=: resource,
+        "PrincipalArn" Prelude.=: principalArn
       ]
 
--- | /See:/ 'describeIdentityIdFormatResponse' smart constructor.
+-- | /See:/ 'newDescribeIdentityIdFormatResponse' smart constructor.
 data DescribeIdentityIdFormatResponse = DescribeIdentityIdFormatResponse'
-  { _diifrrsStatuses ::
-      !( Maybe
-           [IdFormat]
-       ),
-    _diifrrsResponseStatus ::
-      !Int
+  { -- | Information about the ID format for the resources.
+    statuses :: Prelude.Maybe [IdFormat],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeIdentityIdFormatResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeIdentityIdFormatResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diifrrsStatuses' - Information about the ID format for the resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diifrrsResponseStatus' - -- | The response status code.
-describeIdentityIdFormatResponse ::
-  -- | 'diifrrsResponseStatus'
-  Int ->
+-- 'statuses', 'describeIdentityIdFormatResponse_statuses' - Information about the ID format for the resources.
+--
+-- 'httpStatus', 'describeIdentityIdFormatResponse_httpStatus' - The response's http status code.
+newDescribeIdentityIdFormatResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeIdentityIdFormatResponse
-describeIdentityIdFormatResponse pResponseStatus_ =
+newDescribeIdentityIdFormatResponse pHttpStatus_ =
   DescribeIdentityIdFormatResponse'
-    { _diifrrsStatuses =
-        Nothing,
-      _diifrrsResponseStatus = pResponseStatus_
+    { statuses =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the ID format for the resources.
-diifrrsStatuses :: Lens' DescribeIdentityIdFormatResponse [IdFormat]
-diifrrsStatuses = lens _diifrrsStatuses (\s a -> s {_diifrrsStatuses = a}) . _Default . _Coerce
+describeIdentityIdFormatResponse_statuses :: Lens.Lens' DescribeIdentityIdFormatResponse (Prelude.Maybe [IdFormat])
+describeIdentityIdFormatResponse_statuses = Lens.lens (\DescribeIdentityIdFormatResponse' {statuses} -> statuses) (\s@DescribeIdentityIdFormatResponse' {} a -> s {statuses = a} :: DescribeIdentityIdFormatResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-diifrrsResponseStatus :: Lens' DescribeIdentityIdFormatResponse Int
-diifrrsResponseStatus = lens _diifrrsResponseStatus (\s a -> s {_diifrrsResponseStatus = a})
+-- | The response's http status code.
+describeIdentityIdFormatResponse_httpStatus :: Lens.Lens' DescribeIdentityIdFormatResponse Prelude.Int
+describeIdentityIdFormatResponse_httpStatus = Lens.lens (\DescribeIdentityIdFormatResponse' {httpStatus} -> httpStatus) (\s@DescribeIdentityIdFormatResponse' {} a -> s {httpStatus = a} :: DescribeIdentityIdFormatResponse)
 
-instance NFData DescribeIdentityIdFormatResponse
+instance
+  Prelude.NFData
+    DescribeIdentityIdFormatResponse

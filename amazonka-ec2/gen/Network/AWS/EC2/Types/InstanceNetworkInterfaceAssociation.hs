@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,84 @@
 module Network.AWS.EC2.Types.InstanceNetworkInterfaceAssociation where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes association information for an Elastic IP address (IPv4).
 --
---
---
--- /See:/ 'instanceNetworkInterfaceAssociation' smart constructor.
+-- /See:/ 'newInstanceNetworkInterfaceAssociation' smart constructor.
 data InstanceNetworkInterfaceAssociation = InstanceNetworkInterfaceAssociation'
-  { _iniaIPOwnerId ::
-      !( Maybe
-           Text
-       ),
-    _iniaCarrierIP ::
-      !( Maybe
-           Text
-       ),
-    _iniaPublicDNSName ::
-      !( Maybe
-           Text
-       ),
-    _iniaPublicIP ::
-      !( Maybe
-           Text
-       )
+  { -- | The ID of the owner of the Elastic IP address.
+    ipOwnerId :: Prelude.Maybe Prelude.Text,
+    -- | The carrier IP address associated with the network interface.
+    carrierIp :: Prelude.Maybe Prelude.Text,
+    -- | The public DNS name.
+    publicDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The public IP address or Elastic IP address bound to the network
+    -- interface.
+    publicIp :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceNetworkInterfaceAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceNetworkInterfaceAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iniaIPOwnerId' - The ID of the owner of the Elastic IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iniaCarrierIP' - The carrier IP address associated with the network interface.
+-- 'ipOwnerId', 'instanceNetworkInterfaceAssociation_ipOwnerId' - The ID of the owner of the Elastic IP address.
 --
--- * 'iniaPublicDNSName' - The public DNS name.
+-- 'carrierIp', 'instanceNetworkInterfaceAssociation_carrierIp' - The carrier IP address associated with the network interface.
 --
--- * 'iniaPublicIP' - The public IP address or Elastic IP address bound to the network interface.
-instanceNetworkInterfaceAssociation ::
+-- 'publicDnsName', 'instanceNetworkInterfaceAssociation_publicDnsName' - The public DNS name.
+--
+-- 'publicIp', 'instanceNetworkInterfaceAssociation_publicIp' - The public IP address or Elastic IP address bound to the network
+-- interface.
+newInstanceNetworkInterfaceAssociation ::
   InstanceNetworkInterfaceAssociation
-instanceNetworkInterfaceAssociation =
+newInstanceNetworkInterfaceAssociation =
   InstanceNetworkInterfaceAssociation'
-    { _iniaIPOwnerId =
-        Nothing,
-      _iniaCarrierIP = Nothing,
-      _iniaPublicDNSName = Nothing,
-      _iniaPublicIP = Nothing
+    { ipOwnerId =
+        Prelude.Nothing,
+      carrierIp = Prelude.Nothing,
+      publicDnsName = Prelude.Nothing,
+      publicIp = Prelude.Nothing
     }
 
 -- | The ID of the owner of the Elastic IP address.
-iniaIPOwnerId :: Lens' InstanceNetworkInterfaceAssociation (Maybe Text)
-iniaIPOwnerId = lens _iniaIPOwnerId (\s a -> s {_iniaIPOwnerId = a})
+instanceNetworkInterfaceAssociation_ipOwnerId :: Lens.Lens' InstanceNetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+instanceNetworkInterfaceAssociation_ipOwnerId = Lens.lens (\InstanceNetworkInterfaceAssociation' {ipOwnerId} -> ipOwnerId) (\s@InstanceNetworkInterfaceAssociation' {} a -> s {ipOwnerId = a} :: InstanceNetworkInterfaceAssociation)
 
 -- | The carrier IP address associated with the network interface.
-iniaCarrierIP :: Lens' InstanceNetworkInterfaceAssociation (Maybe Text)
-iniaCarrierIP = lens _iniaCarrierIP (\s a -> s {_iniaCarrierIP = a})
+instanceNetworkInterfaceAssociation_carrierIp :: Lens.Lens' InstanceNetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+instanceNetworkInterfaceAssociation_carrierIp = Lens.lens (\InstanceNetworkInterfaceAssociation' {carrierIp} -> carrierIp) (\s@InstanceNetworkInterfaceAssociation' {} a -> s {carrierIp = a} :: InstanceNetworkInterfaceAssociation)
 
 -- | The public DNS name.
-iniaPublicDNSName :: Lens' InstanceNetworkInterfaceAssociation (Maybe Text)
-iniaPublicDNSName = lens _iniaPublicDNSName (\s a -> s {_iniaPublicDNSName = a})
+instanceNetworkInterfaceAssociation_publicDnsName :: Lens.Lens' InstanceNetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+instanceNetworkInterfaceAssociation_publicDnsName = Lens.lens (\InstanceNetworkInterfaceAssociation' {publicDnsName} -> publicDnsName) (\s@InstanceNetworkInterfaceAssociation' {} a -> s {publicDnsName = a} :: InstanceNetworkInterfaceAssociation)
 
--- | The public IP address or Elastic IP address bound to the network interface.
-iniaPublicIP :: Lens' InstanceNetworkInterfaceAssociation (Maybe Text)
-iniaPublicIP = lens _iniaPublicIP (\s a -> s {_iniaPublicIP = a})
+-- | The public IP address or Elastic IP address bound to the network
+-- interface.
+instanceNetworkInterfaceAssociation_publicIp :: Lens.Lens' InstanceNetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+instanceNetworkInterfaceAssociation_publicIp = Lens.lens (\InstanceNetworkInterfaceAssociation' {publicIp} -> publicIp) (\s@InstanceNetworkInterfaceAssociation' {} a -> s {publicIp = a} :: InstanceNetworkInterfaceAssociation)
 
-instance FromXML InstanceNetworkInterfaceAssociation where
+instance
+  Prelude.FromXML
+    InstanceNetworkInterfaceAssociation
+  where
   parseXML x =
     InstanceNetworkInterfaceAssociation'
-      <$> (x .@? "ipOwnerId")
-      <*> (x .@? "carrierIp")
-      <*> (x .@? "publicDnsName")
-      <*> (x .@? "publicIp")
+      Prelude.<$> (x Prelude..@? "ipOwnerId")
+      Prelude.<*> (x Prelude..@? "carrierIp")
+      Prelude.<*> (x Prelude..@? "publicDnsName")
+      Prelude.<*> (x Prelude..@? "publicIp")
 
-instance Hashable InstanceNetworkInterfaceAssociation
+instance
+  Prelude.Hashable
+    InstanceNetworkInterfaceAssociation
 
-instance NFData InstanceNetworkInterfaceAssociation
+instance
+  Prelude.NFData
+    InstanceNetworkInterfaceAssociation

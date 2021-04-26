@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,104 +19,106 @@
 module Network.AWS.EC2.Types.PrefixListState
   ( PrefixListState
       ( ..,
-        CreateComplete,
-        CreateFailed,
-        CreateInProgress,
-        DeleteComplete,
-        DeleteFailed,
-        DeleteInProgress,
-        ModifyComplete,
-        ModifyFailed,
-        ModifyInProgress,
-        RestoreComplete,
-        RestoreFailed,
-        RestoreInProgress
+        PrefixListStateCreateComplete,
+        PrefixListStateCreateFailed,
+        PrefixListStateCreateInProgress,
+        PrefixListStateDeleteComplete,
+        PrefixListStateDeleteFailed,
+        PrefixListStateDeleteInProgress,
+        PrefixListStateModifyComplete,
+        PrefixListStateModifyFailed,
+        PrefixListStateModifyInProgress,
+        PrefixListStateRestoreComplete,
+        PrefixListStateRestoreFailed,
+        PrefixListStateRestoreInProgress
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PrefixListState = PrefixListState' (CI Text)
+newtype PrefixListState = PrefixListState'
+  { fromPrefixListState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateComplete :: PrefixListState
-pattern CreateComplete = PrefixListState' "create-complete"
+pattern PrefixListStateCreateComplete :: PrefixListState
+pattern PrefixListStateCreateComplete = PrefixListState' "create-complete"
 
-pattern CreateFailed :: PrefixListState
-pattern CreateFailed = PrefixListState' "create-failed"
+pattern PrefixListStateCreateFailed :: PrefixListState
+pattern PrefixListStateCreateFailed = PrefixListState' "create-failed"
 
-pattern CreateInProgress :: PrefixListState
-pattern CreateInProgress = PrefixListState' "create-in-progress"
+pattern PrefixListStateCreateInProgress :: PrefixListState
+pattern PrefixListStateCreateInProgress = PrefixListState' "create-in-progress"
 
-pattern DeleteComplete :: PrefixListState
-pattern DeleteComplete = PrefixListState' "delete-complete"
+pattern PrefixListStateDeleteComplete :: PrefixListState
+pattern PrefixListStateDeleteComplete = PrefixListState' "delete-complete"
 
-pattern DeleteFailed :: PrefixListState
-pattern DeleteFailed = PrefixListState' "delete-failed"
+pattern PrefixListStateDeleteFailed :: PrefixListState
+pattern PrefixListStateDeleteFailed = PrefixListState' "delete-failed"
 
-pattern DeleteInProgress :: PrefixListState
-pattern DeleteInProgress = PrefixListState' "delete-in-progress"
+pattern PrefixListStateDeleteInProgress :: PrefixListState
+pattern PrefixListStateDeleteInProgress = PrefixListState' "delete-in-progress"
 
-pattern ModifyComplete :: PrefixListState
-pattern ModifyComplete = PrefixListState' "modify-complete"
+pattern PrefixListStateModifyComplete :: PrefixListState
+pattern PrefixListStateModifyComplete = PrefixListState' "modify-complete"
 
-pattern ModifyFailed :: PrefixListState
-pattern ModifyFailed = PrefixListState' "modify-failed"
+pattern PrefixListStateModifyFailed :: PrefixListState
+pattern PrefixListStateModifyFailed = PrefixListState' "modify-failed"
 
-pattern ModifyInProgress :: PrefixListState
-pattern ModifyInProgress = PrefixListState' "modify-in-progress"
+pattern PrefixListStateModifyInProgress :: PrefixListState
+pattern PrefixListStateModifyInProgress = PrefixListState' "modify-in-progress"
 
-pattern RestoreComplete :: PrefixListState
-pattern RestoreComplete = PrefixListState' "restore-complete"
+pattern PrefixListStateRestoreComplete :: PrefixListState
+pattern PrefixListStateRestoreComplete = PrefixListState' "restore-complete"
 
-pattern RestoreFailed :: PrefixListState
-pattern RestoreFailed = PrefixListState' "restore-failed"
+pattern PrefixListStateRestoreFailed :: PrefixListState
+pattern PrefixListStateRestoreFailed = PrefixListState' "restore-failed"
 
-pattern RestoreInProgress :: PrefixListState
-pattern RestoreInProgress = PrefixListState' "restore-in-progress"
+pattern PrefixListStateRestoreInProgress :: PrefixListState
+pattern PrefixListStateRestoreInProgress = PrefixListState' "restore-in-progress"
 
 {-# COMPLETE
-  CreateComplete,
-  CreateFailed,
-  CreateInProgress,
-  DeleteComplete,
-  DeleteFailed,
-  DeleteInProgress,
-  ModifyComplete,
-  ModifyFailed,
-  ModifyInProgress,
-  RestoreComplete,
-  RestoreFailed,
-  RestoreInProgress,
+  PrefixListStateCreateComplete,
+  PrefixListStateCreateFailed,
+  PrefixListStateCreateInProgress,
+  PrefixListStateDeleteComplete,
+  PrefixListStateDeleteFailed,
+  PrefixListStateDeleteInProgress,
+  PrefixListStateModifyComplete,
+  PrefixListStateModifyFailed,
+  PrefixListStateModifyInProgress,
+  PrefixListStateRestoreComplete,
+  PrefixListStateRestoreFailed,
+  PrefixListStateRestoreInProgress,
   PrefixListState'
   #-}
 
-instance FromText PrefixListState where
-  parser = (PrefixListState' . mk) <$> takeText
+instance Prelude.FromText PrefixListState where
+  parser = PrefixListState' Prelude.<$> Prelude.takeText
 
-instance ToText PrefixListState where
-  toText (PrefixListState' ci) = original ci
+instance Prelude.ToText PrefixListState where
+  toText (PrefixListState' x) = x
 
-instance Hashable PrefixListState
+instance Prelude.Hashable PrefixListState
 
-instance NFData PrefixListState
+instance Prelude.NFData PrefixListState
 
-instance ToByteString PrefixListState
+instance Prelude.ToByteString PrefixListState
 
-instance ToQuery PrefixListState
+instance Prelude.ToQuery PrefixListState
 
-instance ToHeader PrefixListState
+instance Prelude.ToHeader PrefixListState
 
-instance FromXML PrefixListState where
-  parseXML = parseXMLText "PrefixListState"
+instance Prelude.FromXML PrefixListState where
+  parseXML = Prelude.parseXMLText "PrefixListState"

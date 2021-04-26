@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,288 +23,304 @@
 --
 -- Modifies the specified Traffic Mirror rule.
 --
---
--- @DestinationCidrBlock@ and @SourceCidrBlock@ must both be an IPv4 range or an IPv6 range.
+-- @DestinationCidrBlock@ and @SourceCidrBlock@ must both be an IPv4 range
+-- or an IPv6 range.
 module Network.AWS.EC2.ModifyTrafficMirrorFilterRule
   ( -- * Creating a Request
-    modifyTrafficMirrorFilterRule,
-    ModifyTrafficMirrorFilterRule,
+    ModifyTrafficMirrorFilterRule (..),
+    newModifyTrafficMirrorFilterRule,
 
     -- * Request Lenses
-    mtmfrRemoveFields,
-    mtmfrDryRun,
-    mtmfrSourcePortRange,
-    mtmfrTrafficDirection,
-    mtmfrRuleAction,
-    mtmfrSourceCidrBlock,
-    mtmfrDestinationCidrBlock,
-    mtmfrProtocol,
-    mtmfrDescription,
-    mtmfrRuleNumber,
-    mtmfrDestinationPortRange,
-    mtmfrTrafficMirrorFilterRuleId,
+    modifyTrafficMirrorFilterRule_removeFields,
+    modifyTrafficMirrorFilterRule_dryRun,
+    modifyTrafficMirrorFilterRule_sourcePortRange,
+    modifyTrafficMirrorFilterRule_trafficDirection,
+    modifyTrafficMirrorFilterRule_ruleAction,
+    modifyTrafficMirrorFilterRule_sourceCidrBlock,
+    modifyTrafficMirrorFilterRule_destinationCidrBlock,
+    modifyTrafficMirrorFilterRule_protocol,
+    modifyTrafficMirrorFilterRule_description,
+    modifyTrafficMirrorFilterRule_ruleNumber,
+    modifyTrafficMirrorFilterRule_destinationPortRange,
+    modifyTrafficMirrorFilterRule_trafficMirrorFilterRuleId,
 
     -- * Destructuring the Response
-    modifyTrafficMirrorFilterRuleResponse,
-    ModifyTrafficMirrorFilterRuleResponse,
+    ModifyTrafficMirrorFilterRuleResponse (..),
+    newModifyTrafficMirrorFilterRuleResponse,
 
     -- * Response Lenses
-    mtmfrrrsTrafficMirrorFilterRule,
-    mtmfrrrsResponseStatus,
+    modifyTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule,
+    modifyTrafficMirrorFilterRuleResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TrafficMirrorFilterRule
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyTrafficMirrorFilterRule' smart constructor.
+-- | /See:/ 'newModifyTrafficMirrorFilterRule' smart constructor.
 data ModifyTrafficMirrorFilterRule = ModifyTrafficMirrorFilterRule'
-  { _mtmfrRemoveFields ::
-      !( Maybe
-           [TrafficMirrorFilterRuleField]
-       ),
-    _mtmfrDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _mtmfrSourcePortRange ::
-      !( Maybe
-           TrafficMirrorPortRangeRequest
-       ),
-    _mtmfrTrafficDirection ::
-      !( Maybe
-           TrafficDirection
-       ),
-    _mtmfrRuleAction ::
-      !( Maybe
-           TrafficMirrorRuleAction
-       ),
-    _mtmfrSourceCidrBlock ::
-      !( Maybe
-           Text
-       ),
-    _mtmfrDestinationCidrBlock ::
-      !( Maybe
-           Text
-       ),
-    _mtmfrProtocol ::
-      !( Maybe
-           Int
-       ),
-    _mtmfrDescription ::
-      !( Maybe
-           Text
-       ),
-    _mtmfrRuleNumber ::
-      !( Maybe
-           Int
-       ),
-    _mtmfrDestinationPortRange ::
-      !( Maybe
-           TrafficMirrorPortRangeRequest
-       ),
-    _mtmfrTrafficMirrorFilterRuleId ::
-      !Text
+  { -- | The properties that you want to remove from the Traffic Mirror filter
+    -- rule.
+    --
+    -- When you remove a property from a Traffic Mirror filter rule, the
+    -- property is set to the default.
+    removeFields :: Prelude.Maybe [TrafficMirrorFilterRuleField],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The port range to assign to the Traffic Mirror rule.
+    sourcePortRange :: Prelude.Maybe TrafficMirrorPortRangeRequest,
+    -- | The type of traffic (@ingress@ | @egress@) to assign to the rule.
+    trafficDirection :: Prelude.Maybe TrafficDirection,
+    -- | The action to assign to the rule.
+    ruleAction :: Prelude.Maybe TrafficMirrorRuleAction,
+    -- | The source CIDR block to assign to the Traffic Mirror rule.
+    sourceCidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The destination CIDR block to assign to the Traffic Mirror rule.
+    destinationCidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The protocol, for example TCP, to assign to the Traffic Mirror rule.
+    protocol :: Prelude.Maybe Prelude.Int,
+    -- | The description to assign to the Traffic Mirror rule.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The number of the Traffic Mirror rule. This number must be unique for
+    -- each Traffic Mirror rule in a given direction. The rules are processed
+    -- in ascending order by rule number.
+    ruleNumber :: Prelude.Maybe Prelude.Int,
+    -- | The destination ports that are associated with the Traffic Mirror rule.
+    destinationPortRange :: Prelude.Maybe TrafficMirrorPortRangeRequest,
+    -- | The ID of the Traffic Mirror rule.
+    trafficMirrorFilterRuleId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyTrafficMirrorFilterRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyTrafficMirrorFilterRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtmfrRemoveFields' - The properties that you want to remove from the Traffic Mirror filter rule. When you remove a property from a Traffic Mirror filter rule, the property is set to the default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtmfrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'removeFields', 'modifyTrafficMirrorFilterRule_removeFields' - The properties that you want to remove from the Traffic Mirror filter
+-- rule.
 --
--- * 'mtmfrSourcePortRange' - The port range to assign to the Traffic Mirror rule.
+-- When you remove a property from a Traffic Mirror filter rule, the
+-- property is set to the default.
 --
--- * 'mtmfrTrafficDirection' - The type of traffic (@ingress@ | @egress@ ) to assign to the rule.
+-- 'dryRun', 'modifyTrafficMirrorFilterRule_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'mtmfrRuleAction' - The action to assign to the rule.
+-- 'sourcePortRange', 'modifyTrafficMirrorFilterRule_sourcePortRange' - The port range to assign to the Traffic Mirror rule.
 --
--- * 'mtmfrSourceCidrBlock' - The source CIDR block to assign to the Traffic Mirror rule.
+-- 'trafficDirection', 'modifyTrafficMirrorFilterRule_trafficDirection' - The type of traffic (@ingress@ | @egress@) to assign to the rule.
 --
--- * 'mtmfrDestinationCidrBlock' - The destination CIDR block to assign to the Traffic Mirror rule.
+-- 'ruleAction', 'modifyTrafficMirrorFilterRule_ruleAction' - The action to assign to the rule.
 --
--- * 'mtmfrProtocol' - The protocol, for example TCP, to assign to the Traffic Mirror rule.
+-- 'sourceCidrBlock', 'modifyTrafficMirrorFilterRule_sourceCidrBlock' - The source CIDR block to assign to the Traffic Mirror rule.
 --
--- * 'mtmfrDescription' - The description to assign to the Traffic Mirror rule.
+-- 'destinationCidrBlock', 'modifyTrafficMirrorFilterRule_destinationCidrBlock' - The destination CIDR block to assign to the Traffic Mirror rule.
 --
--- * 'mtmfrRuleNumber' - The number of the Traffic Mirror rule. This number must be unique for each Traffic Mirror rule in a given direction. The rules are processed in ascending order by rule number.
+-- 'protocol', 'modifyTrafficMirrorFilterRule_protocol' - The protocol, for example TCP, to assign to the Traffic Mirror rule.
 --
--- * 'mtmfrDestinationPortRange' - The destination ports that are associated with the Traffic Mirror rule.
+-- 'description', 'modifyTrafficMirrorFilterRule_description' - The description to assign to the Traffic Mirror rule.
 --
--- * 'mtmfrTrafficMirrorFilterRuleId' - The ID of the Traffic Mirror rule.
-modifyTrafficMirrorFilterRule ::
-  -- | 'mtmfrTrafficMirrorFilterRuleId'
-  Text ->
+-- 'ruleNumber', 'modifyTrafficMirrorFilterRule_ruleNumber' - The number of the Traffic Mirror rule. This number must be unique for
+-- each Traffic Mirror rule in a given direction. The rules are processed
+-- in ascending order by rule number.
+--
+-- 'destinationPortRange', 'modifyTrafficMirrorFilterRule_destinationPortRange' - The destination ports that are associated with the Traffic Mirror rule.
+--
+-- 'trafficMirrorFilterRuleId', 'modifyTrafficMirrorFilterRule_trafficMirrorFilterRuleId' - The ID of the Traffic Mirror rule.
+newModifyTrafficMirrorFilterRule ::
+  -- | 'trafficMirrorFilterRuleId'
+  Prelude.Text ->
   ModifyTrafficMirrorFilterRule
-modifyTrafficMirrorFilterRule
+newModifyTrafficMirrorFilterRule
   pTrafficMirrorFilterRuleId_ =
     ModifyTrafficMirrorFilterRule'
-      { _mtmfrRemoveFields =
-          Nothing,
-        _mtmfrDryRun = Nothing,
-        _mtmfrSourcePortRange = Nothing,
-        _mtmfrTrafficDirection = Nothing,
-        _mtmfrRuleAction = Nothing,
-        _mtmfrSourceCidrBlock = Nothing,
-        _mtmfrDestinationCidrBlock = Nothing,
-        _mtmfrProtocol = Nothing,
-        _mtmfrDescription = Nothing,
-        _mtmfrRuleNumber = Nothing,
-        _mtmfrDestinationPortRange = Nothing,
-        _mtmfrTrafficMirrorFilterRuleId =
+      { removeFields =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        sourcePortRange = Prelude.Nothing,
+        trafficDirection = Prelude.Nothing,
+        ruleAction = Prelude.Nothing,
+        sourceCidrBlock = Prelude.Nothing,
+        destinationCidrBlock = Prelude.Nothing,
+        protocol = Prelude.Nothing,
+        description = Prelude.Nothing,
+        ruleNumber = Prelude.Nothing,
+        destinationPortRange = Prelude.Nothing,
+        trafficMirrorFilterRuleId =
           pTrafficMirrorFilterRuleId_
       }
 
--- | The properties that you want to remove from the Traffic Mirror filter rule. When you remove a property from a Traffic Mirror filter rule, the property is set to the default.
-mtmfrRemoveFields :: Lens' ModifyTrafficMirrorFilterRule [TrafficMirrorFilterRuleField]
-mtmfrRemoveFields = lens _mtmfrRemoveFields (\s a -> s {_mtmfrRemoveFields = a}) . _Default . _Coerce
+-- | The properties that you want to remove from the Traffic Mirror filter
+-- rule.
+--
+-- When you remove a property from a Traffic Mirror filter rule, the
+-- property is set to the default.
+modifyTrafficMirrorFilterRule_removeFields :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe [TrafficMirrorFilterRuleField])
+modifyTrafficMirrorFilterRule_removeFields = Lens.lens (\ModifyTrafficMirrorFilterRule' {removeFields} -> removeFields) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {removeFields = a} :: ModifyTrafficMirrorFilterRule) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-mtmfrDryRun :: Lens' ModifyTrafficMirrorFilterRule (Maybe Bool)
-mtmfrDryRun = lens _mtmfrDryRun (\s a -> s {_mtmfrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyTrafficMirrorFilterRule_dryRun :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe Prelude.Bool)
+modifyTrafficMirrorFilterRule_dryRun = Lens.lens (\ModifyTrafficMirrorFilterRule' {dryRun} -> dryRun) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {dryRun = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The port range to assign to the Traffic Mirror rule.
-mtmfrSourcePortRange :: Lens' ModifyTrafficMirrorFilterRule (Maybe TrafficMirrorPortRangeRequest)
-mtmfrSourcePortRange = lens _mtmfrSourcePortRange (\s a -> s {_mtmfrSourcePortRange = a})
+modifyTrafficMirrorFilterRule_sourcePortRange :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe TrafficMirrorPortRangeRequest)
+modifyTrafficMirrorFilterRule_sourcePortRange = Lens.lens (\ModifyTrafficMirrorFilterRule' {sourcePortRange} -> sourcePortRange) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {sourcePortRange = a} :: ModifyTrafficMirrorFilterRule)
 
--- | The type of traffic (@ingress@ | @egress@ ) to assign to the rule.
-mtmfrTrafficDirection :: Lens' ModifyTrafficMirrorFilterRule (Maybe TrafficDirection)
-mtmfrTrafficDirection = lens _mtmfrTrafficDirection (\s a -> s {_mtmfrTrafficDirection = a})
+-- | The type of traffic (@ingress@ | @egress@) to assign to the rule.
+modifyTrafficMirrorFilterRule_trafficDirection :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe TrafficDirection)
+modifyTrafficMirrorFilterRule_trafficDirection = Lens.lens (\ModifyTrafficMirrorFilterRule' {trafficDirection} -> trafficDirection) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {trafficDirection = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The action to assign to the rule.
-mtmfrRuleAction :: Lens' ModifyTrafficMirrorFilterRule (Maybe TrafficMirrorRuleAction)
-mtmfrRuleAction = lens _mtmfrRuleAction (\s a -> s {_mtmfrRuleAction = a})
+modifyTrafficMirrorFilterRule_ruleAction :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe TrafficMirrorRuleAction)
+modifyTrafficMirrorFilterRule_ruleAction = Lens.lens (\ModifyTrafficMirrorFilterRule' {ruleAction} -> ruleAction) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {ruleAction = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The source CIDR block to assign to the Traffic Mirror rule.
-mtmfrSourceCidrBlock :: Lens' ModifyTrafficMirrorFilterRule (Maybe Text)
-mtmfrSourceCidrBlock = lens _mtmfrSourceCidrBlock (\s a -> s {_mtmfrSourceCidrBlock = a})
+modifyTrafficMirrorFilterRule_sourceCidrBlock :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe Prelude.Text)
+modifyTrafficMirrorFilterRule_sourceCidrBlock = Lens.lens (\ModifyTrafficMirrorFilterRule' {sourceCidrBlock} -> sourceCidrBlock) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {sourceCidrBlock = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The destination CIDR block to assign to the Traffic Mirror rule.
-mtmfrDestinationCidrBlock :: Lens' ModifyTrafficMirrorFilterRule (Maybe Text)
-mtmfrDestinationCidrBlock = lens _mtmfrDestinationCidrBlock (\s a -> s {_mtmfrDestinationCidrBlock = a})
+modifyTrafficMirrorFilterRule_destinationCidrBlock :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe Prelude.Text)
+modifyTrafficMirrorFilterRule_destinationCidrBlock = Lens.lens (\ModifyTrafficMirrorFilterRule' {destinationCidrBlock} -> destinationCidrBlock) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {destinationCidrBlock = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The protocol, for example TCP, to assign to the Traffic Mirror rule.
-mtmfrProtocol :: Lens' ModifyTrafficMirrorFilterRule (Maybe Int)
-mtmfrProtocol = lens _mtmfrProtocol (\s a -> s {_mtmfrProtocol = a})
+modifyTrafficMirrorFilterRule_protocol :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe Prelude.Int)
+modifyTrafficMirrorFilterRule_protocol = Lens.lens (\ModifyTrafficMirrorFilterRule' {protocol} -> protocol) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {protocol = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The description to assign to the Traffic Mirror rule.
-mtmfrDescription :: Lens' ModifyTrafficMirrorFilterRule (Maybe Text)
-mtmfrDescription = lens _mtmfrDescription (\s a -> s {_mtmfrDescription = a})
+modifyTrafficMirrorFilterRule_description :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe Prelude.Text)
+modifyTrafficMirrorFilterRule_description = Lens.lens (\ModifyTrafficMirrorFilterRule' {description} -> description) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {description = a} :: ModifyTrafficMirrorFilterRule)
 
--- | The number of the Traffic Mirror rule. This number must be unique for each Traffic Mirror rule in a given direction. The rules are processed in ascending order by rule number.
-mtmfrRuleNumber :: Lens' ModifyTrafficMirrorFilterRule (Maybe Int)
-mtmfrRuleNumber = lens _mtmfrRuleNumber (\s a -> s {_mtmfrRuleNumber = a})
+-- | The number of the Traffic Mirror rule. This number must be unique for
+-- each Traffic Mirror rule in a given direction. The rules are processed
+-- in ascending order by rule number.
+modifyTrafficMirrorFilterRule_ruleNumber :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe Prelude.Int)
+modifyTrafficMirrorFilterRule_ruleNumber = Lens.lens (\ModifyTrafficMirrorFilterRule' {ruleNumber} -> ruleNumber) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {ruleNumber = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The destination ports that are associated with the Traffic Mirror rule.
-mtmfrDestinationPortRange :: Lens' ModifyTrafficMirrorFilterRule (Maybe TrafficMirrorPortRangeRequest)
-mtmfrDestinationPortRange = lens _mtmfrDestinationPortRange (\s a -> s {_mtmfrDestinationPortRange = a})
+modifyTrafficMirrorFilterRule_destinationPortRange :: Lens.Lens' ModifyTrafficMirrorFilterRule (Prelude.Maybe TrafficMirrorPortRangeRequest)
+modifyTrafficMirrorFilterRule_destinationPortRange = Lens.lens (\ModifyTrafficMirrorFilterRule' {destinationPortRange} -> destinationPortRange) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {destinationPortRange = a} :: ModifyTrafficMirrorFilterRule)
 
 -- | The ID of the Traffic Mirror rule.
-mtmfrTrafficMirrorFilterRuleId :: Lens' ModifyTrafficMirrorFilterRule Text
-mtmfrTrafficMirrorFilterRuleId = lens _mtmfrTrafficMirrorFilterRuleId (\s a -> s {_mtmfrTrafficMirrorFilterRuleId = a})
+modifyTrafficMirrorFilterRule_trafficMirrorFilterRuleId :: Lens.Lens' ModifyTrafficMirrorFilterRule Prelude.Text
+modifyTrafficMirrorFilterRule_trafficMirrorFilterRuleId = Lens.lens (\ModifyTrafficMirrorFilterRule' {trafficMirrorFilterRuleId} -> trafficMirrorFilterRuleId) (\s@ModifyTrafficMirrorFilterRule' {} a -> s {trafficMirrorFilterRuleId = a} :: ModifyTrafficMirrorFilterRule)
 
-instance AWSRequest ModifyTrafficMirrorFilterRule where
+instance
+  Prelude.AWSRequest
+    ModifyTrafficMirrorFilterRule
+  where
   type
     Rs ModifyTrafficMirrorFilterRule =
       ModifyTrafficMirrorFilterRuleResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyTrafficMirrorFilterRuleResponse'
-            <$> (x .@? "trafficMirrorFilterRule")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "trafficMirrorFilterRule")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyTrafficMirrorFilterRule
+instance
+  Prelude.Hashable
+    ModifyTrafficMirrorFilterRule
 
-instance NFData ModifyTrafficMirrorFilterRule
+instance Prelude.NFData ModifyTrafficMirrorFilterRule
 
-instance ToHeaders ModifyTrafficMirrorFilterRule where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ModifyTrafficMirrorFilterRule
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyTrafficMirrorFilterRule where
-  toPath = const "/"
+instance Prelude.ToPath ModifyTrafficMirrorFilterRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyTrafficMirrorFilterRule where
+instance
+  Prelude.ToQuery
+    ModifyTrafficMirrorFilterRule
+  where
   toQuery ModifyTrafficMirrorFilterRule' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyTrafficMirrorFilterRule" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          (toQueryList "RemoveField" <$> _mtmfrRemoveFields),
-        "DryRun" =: _mtmfrDryRun,
-        "SourcePortRange" =: _mtmfrSourcePortRange,
-        "TrafficDirection" =: _mtmfrTrafficDirection,
-        "RuleAction" =: _mtmfrRuleAction,
-        "SourceCidrBlock" =: _mtmfrSourceCidrBlock,
-        "DestinationCidrBlock" =: _mtmfrDestinationCidrBlock,
-        "Protocol" =: _mtmfrProtocol,
-        "Description" =: _mtmfrDescription,
-        "RuleNumber" =: _mtmfrRuleNumber,
-        "DestinationPortRange" =: _mtmfrDestinationPortRange,
+          Prelude.=: ( "ModifyTrafficMirrorFilterRule" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "RemoveField"
+              Prelude.<$> removeFields
+          ),
+        "DryRun" Prelude.=: dryRun,
+        "SourcePortRange" Prelude.=: sourcePortRange,
+        "TrafficDirection" Prelude.=: trafficDirection,
+        "RuleAction" Prelude.=: ruleAction,
+        "SourceCidrBlock" Prelude.=: sourceCidrBlock,
+        "DestinationCidrBlock"
+          Prelude.=: destinationCidrBlock,
+        "Protocol" Prelude.=: protocol,
+        "Description" Prelude.=: description,
+        "RuleNumber" Prelude.=: ruleNumber,
+        "DestinationPortRange"
+          Prelude.=: destinationPortRange,
         "TrafficMirrorFilterRuleId"
-          =: _mtmfrTrafficMirrorFilterRuleId
+          Prelude.=: trafficMirrorFilterRuleId
       ]
 
--- | /See:/ 'modifyTrafficMirrorFilterRuleResponse' smart constructor.
+-- | /See:/ 'newModifyTrafficMirrorFilterRuleResponse' smart constructor.
 data ModifyTrafficMirrorFilterRuleResponse = ModifyTrafficMirrorFilterRuleResponse'
-  { _mtmfrrrsTrafficMirrorFilterRule ::
-      !( Maybe
-           TrafficMirrorFilterRule
-       ),
-    _mtmfrrrsResponseStatus ::
-      !Int
+  { -- | Modifies a Traffic Mirror rule.
+    trafficMirrorFilterRule :: Prelude.Maybe TrafficMirrorFilterRule,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyTrafficMirrorFilterRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyTrafficMirrorFilterRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtmfrrrsTrafficMirrorFilterRule' - Modifies a Traffic Mirror rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtmfrrrsResponseStatus' - -- | The response status code.
-modifyTrafficMirrorFilterRuleResponse ::
-  -- | 'mtmfrrrsResponseStatus'
-  Int ->
+-- 'trafficMirrorFilterRule', 'modifyTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule' - Modifies a Traffic Mirror rule.
+--
+-- 'httpStatus', 'modifyTrafficMirrorFilterRuleResponse_httpStatus' - The response's http status code.
+newModifyTrafficMirrorFilterRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyTrafficMirrorFilterRuleResponse
-modifyTrafficMirrorFilterRuleResponse
-  pResponseStatus_ =
-    ModifyTrafficMirrorFilterRuleResponse'
-      { _mtmfrrrsTrafficMirrorFilterRule =
-          Nothing,
-        _mtmfrrrsResponseStatus =
-          pResponseStatus_
-      }
+newModifyTrafficMirrorFilterRuleResponse pHttpStatus_ =
+  ModifyTrafficMirrorFilterRuleResponse'
+    { trafficMirrorFilterRule =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | Modifies a Traffic Mirror rule.
-mtmfrrrsTrafficMirrorFilterRule :: Lens' ModifyTrafficMirrorFilterRuleResponse (Maybe TrafficMirrorFilterRule)
-mtmfrrrsTrafficMirrorFilterRule = lens _mtmfrrrsTrafficMirrorFilterRule (\s a -> s {_mtmfrrrsTrafficMirrorFilterRule = a})
+modifyTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule :: Lens.Lens' ModifyTrafficMirrorFilterRuleResponse (Prelude.Maybe TrafficMirrorFilterRule)
+modifyTrafficMirrorFilterRuleResponse_trafficMirrorFilterRule = Lens.lens (\ModifyTrafficMirrorFilterRuleResponse' {trafficMirrorFilterRule} -> trafficMirrorFilterRule) (\s@ModifyTrafficMirrorFilterRuleResponse' {} a -> s {trafficMirrorFilterRule = a} :: ModifyTrafficMirrorFilterRuleResponse)
 
--- | -- | The response status code.
-mtmfrrrsResponseStatus :: Lens' ModifyTrafficMirrorFilterRuleResponse Int
-mtmfrrrsResponseStatus = lens _mtmfrrrsResponseStatus (\s a -> s {_mtmfrrrsResponseStatus = a})
+-- | The response's http status code.
+modifyTrafficMirrorFilterRuleResponse_httpStatus :: Lens.Lens' ModifyTrafficMirrorFilterRuleResponse Prelude.Int
+modifyTrafficMirrorFilterRuleResponse_httpStatus = Lens.lens (\ModifyTrafficMirrorFilterRuleResponse' {httpStatus} -> httpStatus) (\s@ModifyTrafficMirrorFilterRuleResponse' {} a -> s {httpStatus = a} :: ModifyTrafficMirrorFilterRuleResponse)
 
-instance NFData ModifyTrafficMirrorFilterRuleResponse
+instance
+  Prelude.NFData
+    ModifyTrafficMirrorFilterRuleResponse

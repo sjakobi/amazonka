@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,160 +23,238 @@ import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.LogDestinationType
 import Network.AWS.EC2.Types.Tag
 import Network.AWS.EC2.Types.TrafficType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a flow log.
 --
---
---
--- /See:/ 'flowLog' smart constructor.
+-- /See:/ 'newFlowLog' smart constructor.
 data FlowLog = FlowLog'
-  { _flResourceId ::
-      !(Maybe Text),
-    _flMaxAggregationInterval :: !(Maybe Int),
-    _flCreationTime :: !(Maybe ISO8601),
-    _flDeliverLogsStatus :: !(Maybe Text),
-    _flFlowLogId :: !(Maybe Text),
-    _flLogDestination :: !(Maybe Text),
-    _flTrafficType :: !(Maybe TrafficType),
-    _flLogFormat :: !(Maybe Text),
-    _flLogGroupName :: !(Maybe Text),
-    _flDeliverLogsPermissionARN :: !(Maybe Text),
-    _flDeliverLogsErrorMessage :: !(Maybe Text),
-    _flTags :: !(Maybe [Tag]),
-    _flLogDestinationType :: !(Maybe LogDestinationType),
-    _flFlowLogStatus :: !(Maybe Text)
+  { -- | The ID of the resource on which the flow log was created.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum interval of time, in seconds, during which a flow of packets
+    -- is captured and aggregated into a flow log record.
+    --
+    -- When a network interface is attached to a
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instance>,
+    -- the aggregation interval is always 60 seconds (1 minute) or less,
+    -- regardless of the specified value.
+    --
+    -- Valid Values: @60@ | @600@
+    maxAggregationInterval :: Prelude.Maybe Prelude.Int,
+    -- | The date and time the flow log was created.
+    creationTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The status of the logs delivery (@SUCCESS@ | @FAILED@).
+    deliverLogsStatus :: Prelude.Maybe Prelude.Text,
+    -- | The flow log ID.
+    flowLogId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the destination to which the flow log data is published. Flow
+    -- log data can be published to an CloudWatch Logs log group or an Amazon
+    -- S3 bucket. If the flow log publishes to CloudWatch Logs, this element
+    -- indicates the Amazon Resource Name (ARN) of the CloudWatch Logs log
+    -- group to which the data is published. If the flow log publishes to
+    -- Amazon S3, this element indicates the ARN of the Amazon S3 bucket to
+    -- which the data is published.
+    logDestination :: Prelude.Maybe Prelude.Text,
+    -- | The type of traffic captured for the flow log.
+    trafficType :: Prelude.Maybe TrafficType,
+    -- | The format of the flow log record.
+    logFormat :: Prelude.Maybe Prelude.Text,
+    -- | The name of the flow log group.
+    logGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM role that posts logs to CloudWatch Logs.
+    deliverLogsPermissionArn :: Prelude.Maybe Prelude.Text,
+    -- | Information about the error that occurred. @Rate limited@ indicates that
+    -- CloudWatch Logs throttling has been applied for one or more network
+    -- interfaces, or that you\'ve reached the limit on the number of log
+    -- groups that you can create. @Access error@ indicates that the IAM role
+    -- associated with the flow log does not have sufficient permissions to
+    -- publish to CloudWatch Logs. @Unknown error@ indicates an internal error.
+    deliverLogsErrorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The tags for the flow log.
+    tags :: Prelude.Maybe [Tag],
+    -- | Specifies the type of destination to which the flow log data is
+    -- published. Flow log data can be published to CloudWatch Logs or Amazon
+    -- S3.
+    logDestinationType :: Prelude.Maybe LogDestinationType,
+    -- | The status of the flow log (@ACTIVE@).
+    flowLogStatus :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FlowLog' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FlowLog' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'flResourceId' - The ID of the resource on which the flow log was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'flMaxAggregationInterval' - The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record. When a network interface is attached to a <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instance> , the aggregation interval is always 60 seconds (1 minute) or less, regardless of the specified value. Valid Values: @60@ | @600@
+-- 'resourceId', 'flowLog_resourceId' - The ID of the resource on which the flow log was created.
 --
--- * 'flCreationTime' - The date and time the flow log was created.
+-- 'maxAggregationInterval', 'flowLog_maxAggregationInterval' - The maximum interval of time, in seconds, during which a flow of packets
+-- is captured and aggregated into a flow log record.
 --
--- * 'flDeliverLogsStatus' - The status of the logs delivery (@SUCCESS@ | @FAILED@ ).
+-- When a network interface is attached to a
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instance>,
+-- the aggregation interval is always 60 seconds (1 minute) or less,
+-- regardless of the specified value.
 --
--- * 'flFlowLogId' - The flow log ID.
+-- Valid Values: @60@ | @600@
 --
--- * 'flLogDestination' - Specifies the destination to which the flow log data is published. Flow log data can be published to an CloudWatch Logs log group or an Amazon S3 bucket. If the flow log publishes to CloudWatch Logs, this element indicates the Amazon Resource Name (ARN) of the CloudWatch Logs log group to which the data is published. If the flow log publishes to Amazon S3, this element indicates the ARN of the Amazon S3 bucket to which the data is published.
+-- 'creationTime', 'flowLog_creationTime' - The date and time the flow log was created.
 --
--- * 'flTrafficType' - The type of traffic captured for the flow log.
+-- 'deliverLogsStatus', 'flowLog_deliverLogsStatus' - The status of the logs delivery (@SUCCESS@ | @FAILED@).
 --
--- * 'flLogFormat' - The format of the flow log record.
+-- 'flowLogId', 'flowLog_flowLogId' - The flow log ID.
 --
--- * 'flLogGroupName' - The name of the flow log group.
+-- 'logDestination', 'flowLog_logDestination' - Specifies the destination to which the flow log data is published. Flow
+-- log data can be published to an CloudWatch Logs log group or an Amazon
+-- S3 bucket. If the flow log publishes to CloudWatch Logs, this element
+-- indicates the Amazon Resource Name (ARN) of the CloudWatch Logs log
+-- group to which the data is published. If the flow log publishes to
+-- Amazon S3, this element indicates the ARN of the Amazon S3 bucket to
+-- which the data is published.
 --
--- * 'flDeliverLogsPermissionARN' - The ARN of the IAM role that posts logs to CloudWatch Logs.
+-- 'trafficType', 'flowLog_trafficType' - The type of traffic captured for the flow log.
 --
--- * 'flDeliverLogsErrorMessage' - Information about the error that occurred. @Rate limited@ indicates that CloudWatch Logs throttling has been applied for one or more network interfaces, or that you've reached the limit on the number of log groups that you can create. @Access error@ indicates that the IAM role associated with the flow log does not have sufficient permissions to publish to CloudWatch Logs. @Unknown error@ indicates an internal error.
+-- 'logFormat', 'flowLog_logFormat' - The format of the flow log record.
 --
--- * 'flTags' - The tags for the flow log.
+-- 'logGroupName', 'flowLog_logGroupName' - The name of the flow log group.
 --
--- * 'flLogDestinationType' - Specifies the type of destination to which the flow log data is published. Flow log data can be published to CloudWatch Logs or Amazon S3.
+-- 'deliverLogsPermissionArn', 'flowLog_deliverLogsPermissionArn' - The ARN of the IAM role that posts logs to CloudWatch Logs.
 --
--- * 'flFlowLogStatus' - The status of the flow log (@ACTIVE@ ).
-flowLog ::
+-- 'deliverLogsErrorMessage', 'flowLog_deliverLogsErrorMessage' - Information about the error that occurred. @Rate limited@ indicates that
+-- CloudWatch Logs throttling has been applied for one or more network
+-- interfaces, or that you\'ve reached the limit on the number of log
+-- groups that you can create. @Access error@ indicates that the IAM role
+-- associated with the flow log does not have sufficient permissions to
+-- publish to CloudWatch Logs. @Unknown error@ indicates an internal error.
+--
+-- 'tags', 'flowLog_tags' - The tags for the flow log.
+--
+-- 'logDestinationType', 'flowLog_logDestinationType' - Specifies the type of destination to which the flow log data is
+-- published. Flow log data can be published to CloudWatch Logs or Amazon
+-- S3.
+--
+-- 'flowLogStatus', 'flowLog_flowLogStatus' - The status of the flow log (@ACTIVE@).
+newFlowLog ::
   FlowLog
-flowLog =
+newFlowLog =
   FlowLog'
-    { _flResourceId = Nothing,
-      _flMaxAggregationInterval = Nothing,
-      _flCreationTime = Nothing,
-      _flDeliverLogsStatus = Nothing,
-      _flFlowLogId = Nothing,
-      _flLogDestination = Nothing,
-      _flTrafficType = Nothing,
-      _flLogFormat = Nothing,
-      _flLogGroupName = Nothing,
-      _flDeliverLogsPermissionARN = Nothing,
-      _flDeliverLogsErrorMessage = Nothing,
-      _flTags = Nothing,
-      _flLogDestinationType = Nothing,
-      _flFlowLogStatus = Nothing
+    { resourceId = Prelude.Nothing,
+      maxAggregationInterval = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      deliverLogsStatus = Prelude.Nothing,
+      flowLogId = Prelude.Nothing,
+      logDestination = Prelude.Nothing,
+      trafficType = Prelude.Nothing,
+      logFormat = Prelude.Nothing,
+      logGroupName = Prelude.Nothing,
+      deliverLogsPermissionArn = Prelude.Nothing,
+      deliverLogsErrorMessage = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      logDestinationType = Prelude.Nothing,
+      flowLogStatus = Prelude.Nothing
     }
 
 -- | The ID of the resource on which the flow log was created.
-flResourceId :: Lens' FlowLog (Maybe Text)
-flResourceId = lens _flResourceId (\s a -> s {_flResourceId = a})
+flowLog_resourceId :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_resourceId = Lens.lens (\FlowLog' {resourceId} -> resourceId) (\s@FlowLog' {} a -> s {resourceId = a} :: FlowLog)
 
--- | The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record. When a network interface is attached to a <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instance> , the aggregation interval is always 60 seconds (1 minute) or less, regardless of the specified value. Valid Values: @60@ | @600@
-flMaxAggregationInterval :: Lens' FlowLog (Maybe Int)
-flMaxAggregationInterval = lens _flMaxAggregationInterval (\s a -> s {_flMaxAggregationInterval = a})
+-- | The maximum interval of time, in seconds, during which a flow of packets
+-- is captured and aggregated into a flow log record.
+--
+-- When a network interface is attached to a
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instance>,
+-- the aggregation interval is always 60 seconds (1 minute) or less,
+-- regardless of the specified value.
+--
+-- Valid Values: @60@ | @600@
+flowLog_maxAggregationInterval :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Int)
+flowLog_maxAggregationInterval = Lens.lens (\FlowLog' {maxAggregationInterval} -> maxAggregationInterval) (\s@FlowLog' {} a -> s {maxAggregationInterval = a} :: FlowLog)
 
 -- | The date and time the flow log was created.
-flCreationTime :: Lens' FlowLog (Maybe UTCTime)
-flCreationTime = lens _flCreationTime (\s a -> s {_flCreationTime = a}) . mapping _Time
+flowLog_creationTime :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.UTCTime)
+flowLog_creationTime = Lens.lens (\FlowLog' {creationTime} -> creationTime) (\s@FlowLog' {} a -> s {creationTime = a} :: FlowLog) Prelude.. Lens.mapping Prelude._Time
 
--- | The status of the logs delivery (@SUCCESS@ | @FAILED@ ).
-flDeliverLogsStatus :: Lens' FlowLog (Maybe Text)
-flDeliverLogsStatus = lens _flDeliverLogsStatus (\s a -> s {_flDeliverLogsStatus = a})
+-- | The status of the logs delivery (@SUCCESS@ | @FAILED@).
+flowLog_deliverLogsStatus :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_deliverLogsStatus = Lens.lens (\FlowLog' {deliverLogsStatus} -> deliverLogsStatus) (\s@FlowLog' {} a -> s {deliverLogsStatus = a} :: FlowLog)
 
 -- | The flow log ID.
-flFlowLogId :: Lens' FlowLog (Maybe Text)
-flFlowLogId = lens _flFlowLogId (\s a -> s {_flFlowLogId = a})
+flowLog_flowLogId :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_flowLogId = Lens.lens (\FlowLog' {flowLogId} -> flowLogId) (\s@FlowLog' {} a -> s {flowLogId = a} :: FlowLog)
 
--- | Specifies the destination to which the flow log data is published. Flow log data can be published to an CloudWatch Logs log group or an Amazon S3 bucket. If the flow log publishes to CloudWatch Logs, this element indicates the Amazon Resource Name (ARN) of the CloudWatch Logs log group to which the data is published. If the flow log publishes to Amazon S3, this element indicates the ARN of the Amazon S3 bucket to which the data is published.
-flLogDestination :: Lens' FlowLog (Maybe Text)
-flLogDestination = lens _flLogDestination (\s a -> s {_flLogDestination = a})
+-- | Specifies the destination to which the flow log data is published. Flow
+-- log data can be published to an CloudWatch Logs log group or an Amazon
+-- S3 bucket. If the flow log publishes to CloudWatch Logs, this element
+-- indicates the Amazon Resource Name (ARN) of the CloudWatch Logs log
+-- group to which the data is published. If the flow log publishes to
+-- Amazon S3, this element indicates the ARN of the Amazon S3 bucket to
+-- which the data is published.
+flowLog_logDestination :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_logDestination = Lens.lens (\FlowLog' {logDestination} -> logDestination) (\s@FlowLog' {} a -> s {logDestination = a} :: FlowLog)
 
 -- | The type of traffic captured for the flow log.
-flTrafficType :: Lens' FlowLog (Maybe TrafficType)
-flTrafficType = lens _flTrafficType (\s a -> s {_flTrafficType = a})
+flowLog_trafficType :: Lens.Lens' FlowLog (Prelude.Maybe TrafficType)
+flowLog_trafficType = Lens.lens (\FlowLog' {trafficType} -> trafficType) (\s@FlowLog' {} a -> s {trafficType = a} :: FlowLog)
 
 -- | The format of the flow log record.
-flLogFormat :: Lens' FlowLog (Maybe Text)
-flLogFormat = lens _flLogFormat (\s a -> s {_flLogFormat = a})
+flowLog_logFormat :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_logFormat = Lens.lens (\FlowLog' {logFormat} -> logFormat) (\s@FlowLog' {} a -> s {logFormat = a} :: FlowLog)
 
 -- | The name of the flow log group.
-flLogGroupName :: Lens' FlowLog (Maybe Text)
-flLogGroupName = lens _flLogGroupName (\s a -> s {_flLogGroupName = a})
+flowLog_logGroupName :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_logGroupName = Lens.lens (\FlowLog' {logGroupName} -> logGroupName) (\s@FlowLog' {} a -> s {logGroupName = a} :: FlowLog)
 
 -- | The ARN of the IAM role that posts logs to CloudWatch Logs.
-flDeliverLogsPermissionARN :: Lens' FlowLog (Maybe Text)
-flDeliverLogsPermissionARN = lens _flDeliverLogsPermissionARN (\s a -> s {_flDeliverLogsPermissionARN = a})
+flowLog_deliverLogsPermissionArn :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_deliverLogsPermissionArn = Lens.lens (\FlowLog' {deliverLogsPermissionArn} -> deliverLogsPermissionArn) (\s@FlowLog' {} a -> s {deliverLogsPermissionArn = a} :: FlowLog)
 
--- | Information about the error that occurred. @Rate limited@ indicates that CloudWatch Logs throttling has been applied for one or more network interfaces, or that you've reached the limit on the number of log groups that you can create. @Access error@ indicates that the IAM role associated with the flow log does not have sufficient permissions to publish to CloudWatch Logs. @Unknown error@ indicates an internal error.
-flDeliverLogsErrorMessage :: Lens' FlowLog (Maybe Text)
-flDeliverLogsErrorMessage = lens _flDeliverLogsErrorMessage (\s a -> s {_flDeliverLogsErrorMessage = a})
+-- | Information about the error that occurred. @Rate limited@ indicates that
+-- CloudWatch Logs throttling has been applied for one or more network
+-- interfaces, or that you\'ve reached the limit on the number of log
+-- groups that you can create. @Access error@ indicates that the IAM role
+-- associated with the flow log does not have sufficient permissions to
+-- publish to CloudWatch Logs. @Unknown error@ indicates an internal error.
+flowLog_deliverLogsErrorMessage :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_deliverLogsErrorMessage = Lens.lens (\FlowLog' {deliverLogsErrorMessage} -> deliverLogsErrorMessage) (\s@FlowLog' {} a -> s {deliverLogsErrorMessage = a} :: FlowLog)
 
 -- | The tags for the flow log.
-flTags :: Lens' FlowLog [Tag]
-flTags = lens _flTags (\s a -> s {_flTags = a}) . _Default . _Coerce
+flowLog_tags :: Lens.Lens' FlowLog (Prelude.Maybe [Tag])
+flowLog_tags = Lens.lens (\FlowLog' {tags} -> tags) (\s@FlowLog' {} a -> s {tags = a} :: FlowLog) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the type of destination to which the flow log data is published. Flow log data can be published to CloudWatch Logs or Amazon S3.
-flLogDestinationType :: Lens' FlowLog (Maybe LogDestinationType)
-flLogDestinationType = lens _flLogDestinationType (\s a -> s {_flLogDestinationType = a})
+-- | Specifies the type of destination to which the flow log data is
+-- published. Flow log data can be published to CloudWatch Logs or Amazon
+-- S3.
+flowLog_logDestinationType :: Lens.Lens' FlowLog (Prelude.Maybe LogDestinationType)
+flowLog_logDestinationType = Lens.lens (\FlowLog' {logDestinationType} -> logDestinationType) (\s@FlowLog' {} a -> s {logDestinationType = a} :: FlowLog)
 
--- | The status of the flow log (@ACTIVE@ ).
-flFlowLogStatus :: Lens' FlowLog (Maybe Text)
-flFlowLogStatus = lens _flFlowLogStatus (\s a -> s {_flFlowLogStatus = a})
+-- | The status of the flow log (@ACTIVE@).
+flowLog_flowLogStatus :: Lens.Lens' FlowLog (Prelude.Maybe Prelude.Text)
+flowLog_flowLogStatus = Lens.lens (\FlowLog' {flowLogStatus} -> flowLogStatus) (\s@FlowLog' {} a -> s {flowLogStatus = a} :: FlowLog)
 
-instance FromXML FlowLog where
+instance Prelude.FromXML FlowLog where
   parseXML x =
     FlowLog'
-      <$> (x .@? "resourceId")
-      <*> (x .@? "maxAggregationInterval")
-      <*> (x .@? "creationTime")
-      <*> (x .@? "deliverLogsStatus")
-      <*> (x .@? "flowLogId")
-      <*> (x .@? "logDestination")
-      <*> (x .@? "trafficType")
-      <*> (x .@? "logFormat")
-      <*> (x .@? "logGroupName")
-      <*> (x .@? "deliverLogsPermissionArn")
-      <*> (x .@? "deliverLogsErrorMessage")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "logDestinationType")
-      <*> (x .@? "flowLogStatus")
+      Prelude.<$> (x Prelude..@? "resourceId")
+      Prelude.<*> (x Prelude..@? "maxAggregationInterval")
+      Prelude.<*> (x Prelude..@? "creationTime")
+      Prelude.<*> (x Prelude..@? "deliverLogsStatus")
+      Prelude.<*> (x Prelude..@? "flowLogId")
+      Prelude.<*> (x Prelude..@? "logDestination")
+      Prelude.<*> (x Prelude..@? "trafficType")
+      Prelude.<*> (x Prelude..@? "logFormat")
+      Prelude.<*> (x Prelude..@? "logGroupName")
+      Prelude.<*> (x Prelude..@? "deliverLogsPermissionArn")
+      Prelude.<*> (x Prelude..@? "deliverLogsErrorMessage")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "logDestinationType")
+      Prelude.<*> (x Prelude..@? "flowLogStatus")
 
-instance Hashable FlowLog
+instance Prelude.Hashable FlowLog
 
-instance NFData FlowLog
+instance Prelude.NFData FlowLog

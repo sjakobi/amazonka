@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,76 @@
 module Network.AWS.EC2.Types.ConnectionLogResponseOptions where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the client connection logging options for a Client VPN endpoint.
+-- | Information about the client connection logging options for a Client VPN
+-- endpoint.
 --
---
---
--- /See:/ 'connectionLogResponseOptions' smart constructor.
+-- /See:/ 'newConnectionLogResponseOptions' smart constructor.
 data ConnectionLogResponseOptions = ConnectionLogResponseOptions'
-  { _clroCloudwatchLogStream ::
-      !(Maybe Text),
-    _clroEnabled ::
-      !(Maybe Bool),
-    _clroCloudwatchLogGroup ::
-      !(Maybe Text)
+  { -- | The name of the Amazon CloudWatch Logs log stream to which connection
+    -- logging data is published.
+    cloudwatchLogStream :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether client connection logging is enabled for the Client
+    -- VPN endpoint.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the Amazon CloudWatch Logs log group to which connection
+    -- logging data is published.
+    cloudwatchLogGroup :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectionLogResponseOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectionLogResponseOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clroCloudwatchLogStream' - The name of the Amazon CloudWatch Logs log stream to which connection logging data is published.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clroEnabled' - Indicates whether client connection logging is enabled for the Client VPN endpoint.
+-- 'cloudwatchLogStream', 'connectionLogResponseOptions_cloudwatchLogStream' - The name of the Amazon CloudWatch Logs log stream to which connection
+-- logging data is published.
 --
--- * 'clroCloudwatchLogGroup' - The name of the Amazon CloudWatch Logs log group to which connection logging data is published.
-connectionLogResponseOptions ::
+-- 'enabled', 'connectionLogResponseOptions_enabled' - Indicates whether client connection logging is enabled for the Client
+-- VPN endpoint.
+--
+-- 'cloudwatchLogGroup', 'connectionLogResponseOptions_cloudwatchLogGroup' - The name of the Amazon CloudWatch Logs log group to which connection
+-- logging data is published.
+newConnectionLogResponseOptions ::
   ConnectionLogResponseOptions
-connectionLogResponseOptions =
+newConnectionLogResponseOptions =
   ConnectionLogResponseOptions'
-    { _clroCloudwatchLogStream =
-        Nothing,
-      _clroEnabled = Nothing,
-      _clroCloudwatchLogGroup = Nothing
+    { cloudwatchLogStream =
+        Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      cloudwatchLogGroup = Prelude.Nothing
     }
 
--- | The name of the Amazon CloudWatch Logs log stream to which connection logging data is published.
-clroCloudwatchLogStream :: Lens' ConnectionLogResponseOptions (Maybe Text)
-clroCloudwatchLogStream = lens _clroCloudwatchLogStream (\s a -> s {_clroCloudwatchLogStream = a})
+-- | The name of the Amazon CloudWatch Logs log stream to which connection
+-- logging data is published.
+connectionLogResponseOptions_cloudwatchLogStream :: Lens.Lens' ConnectionLogResponseOptions (Prelude.Maybe Prelude.Text)
+connectionLogResponseOptions_cloudwatchLogStream = Lens.lens (\ConnectionLogResponseOptions' {cloudwatchLogStream} -> cloudwatchLogStream) (\s@ConnectionLogResponseOptions' {} a -> s {cloudwatchLogStream = a} :: ConnectionLogResponseOptions)
 
--- | Indicates whether client connection logging is enabled for the Client VPN endpoint.
-clroEnabled :: Lens' ConnectionLogResponseOptions (Maybe Bool)
-clroEnabled = lens _clroEnabled (\s a -> s {_clroEnabled = a})
+-- | Indicates whether client connection logging is enabled for the Client
+-- VPN endpoint.
+connectionLogResponseOptions_enabled :: Lens.Lens' ConnectionLogResponseOptions (Prelude.Maybe Prelude.Bool)
+connectionLogResponseOptions_enabled = Lens.lens (\ConnectionLogResponseOptions' {enabled} -> enabled) (\s@ConnectionLogResponseOptions' {} a -> s {enabled = a} :: ConnectionLogResponseOptions)
 
--- | The name of the Amazon CloudWatch Logs log group to which connection logging data is published.
-clroCloudwatchLogGroup :: Lens' ConnectionLogResponseOptions (Maybe Text)
-clroCloudwatchLogGroup = lens _clroCloudwatchLogGroup (\s a -> s {_clroCloudwatchLogGroup = a})
+-- | The name of the Amazon CloudWatch Logs log group to which connection
+-- logging data is published.
+connectionLogResponseOptions_cloudwatchLogGroup :: Lens.Lens' ConnectionLogResponseOptions (Prelude.Maybe Prelude.Text)
+connectionLogResponseOptions_cloudwatchLogGroup = Lens.lens (\ConnectionLogResponseOptions' {cloudwatchLogGroup} -> cloudwatchLogGroup) (\s@ConnectionLogResponseOptions' {} a -> s {cloudwatchLogGroup = a} :: ConnectionLogResponseOptions)
 
-instance FromXML ConnectionLogResponseOptions where
+instance Prelude.FromXML ConnectionLogResponseOptions where
   parseXML x =
     ConnectionLogResponseOptions'
-      <$> (x .@? "CloudwatchLogStream")
-      <*> (x .@? "Enabled")
-      <*> (x .@? "CloudwatchLogGroup")
+      Prelude.<$> (x Prelude..@? "CloudwatchLogStream")
+      Prelude.<*> (x Prelude..@? "Enabled")
+      Prelude.<*> (x Prelude..@? "CloudwatchLogGroup")
 
-instance Hashable ConnectionLogResponseOptions
+instance
+  Prelude.Hashable
+    ConnectionLogResponseOptions
 
-instance NFData ConnectionLogResponseOptions
+instance Prelude.NFData ConnectionLogResponseOptions

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,97 +21,84 @@ module Network.AWS.EC2.Types.DeleteLaunchTemplateVersionsResponseErrorItem where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ResponseError
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch template version that could not be deleted.
 --
---
---
--- /See:/ 'deleteLaunchTemplateVersionsResponseErrorItem' smart constructor.
+-- /See:/ 'newDeleteLaunchTemplateVersionsResponseErrorItem' smart constructor.
 data DeleteLaunchTemplateVersionsResponseErrorItem = DeleteLaunchTemplateVersionsResponseErrorItem'
-  { _dltvreiResponseError ::
-      !( Maybe
-           ResponseError
-       ),
-    _dltvreiLaunchTemplateId ::
-      !( Maybe
-           Text
-       ),
-    _dltvreiLaunchTemplateName ::
-      !( Maybe
-           Text
-       ),
-    _dltvreiVersionNumber ::
-      !( Maybe
-           Integer
-       )
+  { -- | Information about the error.
+    responseError :: Prelude.Maybe ResponseError,
+    -- | The ID of the launch template.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the launch template.
+    versionNumber :: Prelude.Maybe Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLaunchTemplateVersionsResponseErrorItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLaunchTemplateVersionsResponseErrorItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dltvreiResponseError' - Information about the error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dltvreiLaunchTemplateId' - The ID of the launch template.
+-- 'responseError', 'deleteLaunchTemplateVersionsResponseErrorItem_responseError' - Information about the error.
 --
--- * 'dltvreiLaunchTemplateName' - The name of the launch template.
+-- 'launchTemplateId', 'deleteLaunchTemplateVersionsResponseErrorItem_launchTemplateId' - The ID of the launch template.
 --
--- * 'dltvreiVersionNumber' - The version number of the launch template.
-deleteLaunchTemplateVersionsResponseErrorItem ::
+-- 'launchTemplateName', 'deleteLaunchTemplateVersionsResponseErrorItem_launchTemplateName' - The name of the launch template.
+--
+-- 'versionNumber', 'deleteLaunchTemplateVersionsResponseErrorItem_versionNumber' - The version number of the launch template.
+newDeleteLaunchTemplateVersionsResponseErrorItem ::
   DeleteLaunchTemplateVersionsResponseErrorItem
-deleteLaunchTemplateVersionsResponseErrorItem =
+newDeleteLaunchTemplateVersionsResponseErrorItem =
   DeleteLaunchTemplateVersionsResponseErrorItem'
-    { _dltvreiResponseError =
-        Nothing,
-      _dltvreiLaunchTemplateId =
-        Nothing,
-      _dltvreiLaunchTemplateName =
-        Nothing,
-      _dltvreiVersionNumber =
-        Nothing
+    { responseError =
+        Prelude.Nothing,
+      launchTemplateId =
+        Prelude.Nothing,
+      launchTemplateName =
+        Prelude.Nothing,
+      versionNumber =
+        Prelude.Nothing
     }
 
 -- | Information about the error.
-dltvreiResponseError :: Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Maybe ResponseError)
-dltvreiResponseError = lens _dltvreiResponseError (\s a -> s {_dltvreiResponseError = a})
+deleteLaunchTemplateVersionsResponseErrorItem_responseError :: Lens.Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Prelude.Maybe ResponseError)
+deleteLaunchTemplateVersionsResponseErrorItem_responseError = Lens.lens (\DeleteLaunchTemplateVersionsResponseErrorItem' {responseError} -> responseError) (\s@DeleteLaunchTemplateVersionsResponseErrorItem' {} a -> s {responseError = a} :: DeleteLaunchTemplateVersionsResponseErrorItem)
 
 -- | The ID of the launch template.
-dltvreiLaunchTemplateId :: Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Maybe Text)
-dltvreiLaunchTemplateId = lens _dltvreiLaunchTemplateId (\s a -> s {_dltvreiLaunchTemplateId = a})
+deleteLaunchTemplateVersionsResponseErrorItem_launchTemplateId :: Lens.Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Prelude.Maybe Prelude.Text)
+deleteLaunchTemplateVersionsResponseErrorItem_launchTemplateId = Lens.lens (\DeleteLaunchTemplateVersionsResponseErrorItem' {launchTemplateId} -> launchTemplateId) (\s@DeleteLaunchTemplateVersionsResponseErrorItem' {} a -> s {launchTemplateId = a} :: DeleteLaunchTemplateVersionsResponseErrorItem)
 
 -- | The name of the launch template.
-dltvreiLaunchTemplateName :: Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Maybe Text)
-dltvreiLaunchTemplateName = lens _dltvreiLaunchTemplateName (\s a -> s {_dltvreiLaunchTemplateName = a})
+deleteLaunchTemplateVersionsResponseErrorItem_launchTemplateName :: Lens.Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Prelude.Maybe Prelude.Text)
+deleteLaunchTemplateVersionsResponseErrorItem_launchTemplateName = Lens.lens (\DeleteLaunchTemplateVersionsResponseErrorItem' {launchTemplateName} -> launchTemplateName) (\s@DeleteLaunchTemplateVersionsResponseErrorItem' {} a -> s {launchTemplateName = a} :: DeleteLaunchTemplateVersionsResponseErrorItem)
 
 -- | The version number of the launch template.
-dltvreiVersionNumber :: Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Maybe Integer)
-dltvreiVersionNumber = lens _dltvreiVersionNumber (\s a -> s {_dltvreiVersionNumber = a})
+deleteLaunchTemplateVersionsResponseErrorItem_versionNumber :: Lens.Lens' DeleteLaunchTemplateVersionsResponseErrorItem (Prelude.Maybe Prelude.Integer)
+deleteLaunchTemplateVersionsResponseErrorItem_versionNumber = Lens.lens (\DeleteLaunchTemplateVersionsResponseErrorItem' {versionNumber} -> versionNumber) (\s@DeleteLaunchTemplateVersionsResponseErrorItem' {} a -> s {versionNumber = a} :: DeleteLaunchTemplateVersionsResponseErrorItem)
 
 instance
-  FromXML
+  Prelude.FromXML
     DeleteLaunchTemplateVersionsResponseErrorItem
   where
   parseXML x =
     DeleteLaunchTemplateVersionsResponseErrorItem'
-      <$> (x .@? "responseError")
-      <*> (x .@? "launchTemplateId")
-      <*> (x .@? "launchTemplateName")
-      <*> (x .@? "versionNumber")
+      Prelude.<$> (x Prelude..@? "responseError")
+        Prelude.<*> (x Prelude..@? "launchTemplateId")
+        Prelude.<*> (x Prelude..@? "launchTemplateName")
+        Prelude.<*> (x Prelude..@? "versionNumber")
 
 instance
-  Hashable
+  Prelude.Hashable
     DeleteLaunchTemplateVersionsResponseErrorItem
 
 instance
-  NFData
+  Prelude.NFData
     DeleteLaunchTemplateVersionsResponseErrorItem

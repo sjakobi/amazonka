@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,249 +21,272 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the route tables to which the specified resource attachment propagates routes.
---
---
+-- Lists the route tables to which the specified resource attachment
+-- propagates routes.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.GetTransitGatewayAttachmentPropagations
   ( -- * Creating a Request
-    getTransitGatewayAttachmentPropagations,
-    GetTransitGatewayAttachmentPropagations,
+    GetTransitGatewayAttachmentPropagations (..),
+    newGetTransitGatewayAttachmentPropagations,
 
     -- * Request Lenses
-    gtgapNextToken,
-    gtgapDryRun,
-    gtgapMaxResults,
-    gtgapFilters,
-    gtgapTransitGatewayAttachmentId,
+    getTransitGatewayAttachmentPropagations_nextToken,
+    getTransitGatewayAttachmentPropagations_dryRun,
+    getTransitGatewayAttachmentPropagations_maxResults,
+    getTransitGatewayAttachmentPropagations_filters,
+    getTransitGatewayAttachmentPropagations_transitGatewayAttachmentId,
 
     -- * Destructuring the Response
-    getTransitGatewayAttachmentPropagationsResponse,
-    GetTransitGatewayAttachmentPropagationsResponse,
+    GetTransitGatewayAttachmentPropagationsResponse (..),
+    newGetTransitGatewayAttachmentPropagationsResponse,
 
     -- * Response Lenses
-    gtgaprrsNextToken,
-    gtgaprrsTransitGatewayAttachmentPropagations,
-    gtgaprrsResponseStatus,
+    getTransitGatewayAttachmentPropagationsResponse_nextToken,
+    getTransitGatewayAttachmentPropagationsResponse_transitGatewayAttachmentPropagations,
+    getTransitGatewayAttachmentPropagationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayAttachmentPropagation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTransitGatewayAttachmentPropagations' smart constructor.
+-- | /See:/ 'newGetTransitGatewayAttachmentPropagations' smart constructor.
 data GetTransitGatewayAttachmentPropagations = GetTransitGatewayAttachmentPropagations'
-  { _gtgapNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gtgapDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _gtgapMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _gtgapFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _gtgapTransitGatewayAttachmentId ::
-      !Text
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
+    --     route table.
+    filters :: Prelude.Maybe [Filter],
+    -- | The ID of the attachment.
+    transitGatewayAttachmentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTransitGatewayAttachmentPropagations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTransitGatewayAttachmentPropagations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtgapNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtgapDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'getTransitGatewayAttachmentPropagations_nextToken' - The token for the next page of results.
 --
--- * 'gtgapMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'getTransitGatewayAttachmentPropagations_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'gtgapFilters' - One or more filters. The possible values are:     * @transit-gateway-route-table-id@ - The ID of the transit gateway route table.
+-- 'maxResults', 'getTransitGatewayAttachmentPropagations_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'gtgapTransitGatewayAttachmentId' - The ID of the attachment.
-getTransitGatewayAttachmentPropagations ::
-  -- | 'gtgapTransitGatewayAttachmentId'
-  Text ->
+-- 'filters', 'getTransitGatewayAttachmentPropagations_filters' - One or more filters. The possible values are:
+--
+-- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
+--     route table.
+--
+-- 'transitGatewayAttachmentId', 'getTransitGatewayAttachmentPropagations_transitGatewayAttachmentId' - The ID of the attachment.
+newGetTransitGatewayAttachmentPropagations ::
+  -- | 'transitGatewayAttachmentId'
+  Prelude.Text ->
   GetTransitGatewayAttachmentPropagations
-getTransitGatewayAttachmentPropagations
+newGetTransitGatewayAttachmentPropagations
   pTransitGatewayAttachmentId_ =
     GetTransitGatewayAttachmentPropagations'
-      { _gtgapNextToken =
-          Nothing,
-        _gtgapDryRun = Nothing,
-        _gtgapMaxResults = Nothing,
-        _gtgapFilters = Nothing,
-        _gtgapTransitGatewayAttachmentId =
+      { nextToken =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        filters = Prelude.Nothing,
+        transitGatewayAttachmentId =
           pTransitGatewayAttachmentId_
       }
 
 -- | The token for the next page of results.
-gtgapNextToken :: Lens' GetTransitGatewayAttachmentPropagations (Maybe Text)
-gtgapNextToken = lens _gtgapNextToken (\s a -> s {_gtgapNextToken = a})
+getTransitGatewayAttachmentPropagations_nextToken :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe Prelude.Text)
+getTransitGatewayAttachmentPropagations_nextToken = Lens.lens (\GetTransitGatewayAttachmentPropagations' {nextToken} -> nextToken) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {nextToken = a} :: GetTransitGatewayAttachmentPropagations)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-gtgapDryRun :: Lens' GetTransitGatewayAttachmentPropagations (Maybe Bool)
-gtgapDryRun = lens _gtgapDryRun (\s a -> s {_gtgapDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+getTransitGatewayAttachmentPropagations_dryRun :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe Prelude.Bool)
+getTransitGatewayAttachmentPropagations_dryRun = Lens.lens (\GetTransitGatewayAttachmentPropagations' {dryRun} -> dryRun) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {dryRun = a} :: GetTransitGatewayAttachmentPropagations)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-gtgapMaxResults :: Lens' GetTransitGatewayAttachmentPropagations (Maybe Natural)
-gtgapMaxResults = lens _gtgapMaxResults (\s a -> s {_gtgapMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+getTransitGatewayAttachmentPropagations_maxResults :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe Prelude.Natural)
+getTransitGatewayAttachmentPropagations_maxResults = Lens.lens (\GetTransitGatewayAttachmentPropagations' {maxResults} -> maxResults) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {maxResults = a} :: GetTransitGatewayAttachmentPropagations) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters. The possible values are:     * @transit-gateway-route-table-id@ - The ID of the transit gateway route table.
-gtgapFilters :: Lens' GetTransitGatewayAttachmentPropagations [Filter]
-gtgapFilters = lens _gtgapFilters (\s a -> s {_gtgapFilters = a}) . _Default . _Coerce
+-- | One or more filters. The possible values are:
+--
+-- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
+--     route table.
+getTransitGatewayAttachmentPropagations_filters :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe [Filter])
+getTransitGatewayAttachmentPropagations_filters = Lens.lens (\GetTransitGatewayAttachmentPropagations' {filters} -> filters) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {filters = a} :: GetTransitGatewayAttachmentPropagations) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the attachment.
-gtgapTransitGatewayAttachmentId :: Lens' GetTransitGatewayAttachmentPropagations Text
-gtgapTransitGatewayAttachmentId = lens _gtgapTransitGatewayAttachmentId (\s a -> s {_gtgapTransitGatewayAttachmentId = a})
+getTransitGatewayAttachmentPropagations_transitGatewayAttachmentId :: Lens.Lens' GetTransitGatewayAttachmentPropagations Prelude.Text
+getTransitGatewayAttachmentPropagations_transitGatewayAttachmentId = Lens.lens (\GetTransitGatewayAttachmentPropagations' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {transitGatewayAttachmentId = a} :: GetTransitGatewayAttachmentPropagations)
 
 instance
-  AWSPager
+  Pager.AWSPager
     GetTransitGatewayAttachmentPropagations
   where
   page rq rs
-    | stop (rs ^. gtgaprrsNextToken) = Nothing
-    | stop
-        (rs ^. gtgaprrsTransitGatewayAttachmentPropagations) =
-      Nothing
-    | otherwise =
-      Just $ rq & gtgapNextToken .~ rs ^. gtgaprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getTransitGatewayAttachmentPropagationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getTransitGatewayAttachmentPropagationsResponse_transitGatewayAttachmentPropagations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getTransitGatewayAttachmentPropagations_nextToken
+          Lens..~ rs
+            Lens.^? getTransitGatewayAttachmentPropagationsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetTransitGatewayAttachmentPropagations
   where
   type
     Rs GetTransitGatewayAttachmentPropagations =
       GetTransitGatewayAttachmentPropagationsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetTransitGatewayAttachmentPropagationsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "transitGatewayAttachmentPropagations"
-                    .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "transitGatewayAttachmentPropagations"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetTransitGatewayAttachmentPropagations
 
 instance
-  NFData
+  Prelude.NFData
     GetTransitGatewayAttachmentPropagations
 
 instance
-  ToHeaders
-    GetTransitGatewayAttachmentPropagations
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     GetTransitGatewayAttachmentPropagations
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    GetTransitGatewayAttachmentPropagations
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     GetTransitGatewayAttachmentPropagations
   where
   toQuery GetTransitGatewayAttachmentPropagations' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "GetTransitGatewayAttachmentPropagations" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _gtgapNextToken,
-        "DryRun" =: _gtgapDryRun,
-        "MaxResults" =: _gtgapMaxResults,
-        toQuery (toQueryList "Filter" <$> _gtgapFilters),
+          Prelude.=: ( "GetTransitGatewayAttachmentPropagations" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
         "TransitGatewayAttachmentId"
-          =: _gtgapTransitGatewayAttachmentId
+          Prelude.=: transitGatewayAttachmentId
       ]
 
--- | /See:/ 'getTransitGatewayAttachmentPropagationsResponse' smart constructor.
+-- | /See:/ 'newGetTransitGatewayAttachmentPropagationsResponse' smart constructor.
 data GetTransitGatewayAttachmentPropagationsResponse = GetTransitGatewayAttachmentPropagationsResponse'
-  { _gtgaprrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gtgaprrsTransitGatewayAttachmentPropagations ::
-      !( Maybe
-           [TransitGatewayAttachmentPropagation]
-       ),
-    _gtgaprrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the propagation route tables.
+    transitGatewayAttachmentPropagations :: Prelude.Maybe [TransitGatewayAttachmentPropagation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTransitGatewayAttachmentPropagationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTransitGatewayAttachmentPropagationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtgaprrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtgaprrsTransitGatewayAttachmentPropagations' - Information about the propagation route tables.
+-- 'nextToken', 'getTransitGatewayAttachmentPropagationsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'gtgaprrsResponseStatus' - -- | The response status code.
-getTransitGatewayAttachmentPropagationsResponse ::
-  -- | 'gtgaprrsResponseStatus'
-  Int ->
+-- 'transitGatewayAttachmentPropagations', 'getTransitGatewayAttachmentPropagationsResponse_transitGatewayAttachmentPropagations' - Information about the propagation route tables.
+--
+-- 'httpStatus', 'getTransitGatewayAttachmentPropagationsResponse_httpStatus' - The response's http status code.
+newGetTransitGatewayAttachmentPropagationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTransitGatewayAttachmentPropagationsResponse
-getTransitGatewayAttachmentPropagationsResponse
-  pResponseStatus_ =
+newGetTransitGatewayAttachmentPropagationsResponse
+  pHttpStatus_ =
     GetTransitGatewayAttachmentPropagationsResponse'
-      { _gtgaprrsNextToken =
-          Nothing,
-        _gtgaprrsTransitGatewayAttachmentPropagations =
-          Nothing,
-        _gtgaprrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        transitGatewayAttachmentPropagations =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-gtgaprrsNextToken :: Lens' GetTransitGatewayAttachmentPropagationsResponse (Maybe Text)
-gtgaprrsNextToken = lens _gtgaprrsNextToken (\s a -> s {_gtgaprrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+getTransitGatewayAttachmentPropagationsResponse_nextToken :: Lens.Lens' GetTransitGatewayAttachmentPropagationsResponse (Prelude.Maybe Prelude.Text)
+getTransitGatewayAttachmentPropagationsResponse_nextToken = Lens.lens (\GetTransitGatewayAttachmentPropagationsResponse' {nextToken} -> nextToken) (\s@GetTransitGatewayAttachmentPropagationsResponse' {} a -> s {nextToken = a} :: GetTransitGatewayAttachmentPropagationsResponse)
 
 -- | Information about the propagation route tables.
-gtgaprrsTransitGatewayAttachmentPropagations :: Lens' GetTransitGatewayAttachmentPropagationsResponse [TransitGatewayAttachmentPropagation]
-gtgaprrsTransitGatewayAttachmentPropagations = lens _gtgaprrsTransitGatewayAttachmentPropagations (\s a -> s {_gtgaprrsTransitGatewayAttachmentPropagations = a}) . _Default . _Coerce
+getTransitGatewayAttachmentPropagationsResponse_transitGatewayAttachmentPropagations :: Lens.Lens' GetTransitGatewayAttachmentPropagationsResponse (Prelude.Maybe [TransitGatewayAttachmentPropagation])
+getTransitGatewayAttachmentPropagationsResponse_transitGatewayAttachmentPropagations = Lens.lens (\GetTransitGatewayAttachmentPropagationsResponse' {transitGatewayAttachmentPropagations} -> transitGatewayAttachmentPropagations) (\s@GetTransitGatewayAttachmentPropagationsResponse' {} a -> s {transitGatewayAttachmentPropagations = a} :: GetTransitGatewayAttachmentPropagationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gtgaprrsResponseStatus :: Lens' GetTransitGatewayAttachmentPropagationsResponse Int
-gtgaprrsResponseStatus = lens _gtgaprrsResponseStatus (\s a -> s {_gtgaprrsResponseStatus = a})
+-- | The response's http status code.
+getTransitGatewayAttachmentPropagationsResponse_httpStatus :: Lens.Lens' GetTransitGatewayAttachmentPropagationsResponse Prelude.Int
+getTransitGatewayAttachmentPropagationsResponse_httpStatus = Lens.lens (\GetTransitGatewayAttachmentPropagationsResponse' {httpStatus} -> httpStatus) (\s@GetTransitGatewayAttachmentPropagationsResponse' {} a -> s {httpStatus = a} :: GetTransitGatewayAttachmentPropagationsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetTransitGatewayAttachmentPropagationsResponse

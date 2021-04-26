@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,60 +22,64 @@ module Network.AWS.EC2.Types.DiskImage where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DiskImageDetail
 import Network.AWS.EC2.Types.VolumeDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a disk image.
 --
---
---
--- /See:/ 'diskImage' smart constructor.
+-- /See:/ 'newDiskImage' smart constructor.
 data DiskImage = DiskImage'
-  { _diVolume ::
-      !(Maybe VolumeDetail),
-    _diImage :: !(Maybe DiskImageDetail),
-    _diDescription :: !(Maybe Text)
+  { -- | Information about the volume.
+    volume :: Prelude.Maybe VolumeDetail,
+    -- | Information about the disk image.
+    image :: Prelude.Maybe DiskImageDetail,
+    -- | A description of the disk image.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiskImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiskImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diVolume' - Information about the volume.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diImage' - Information about the disk image.
+-- 'volume', 'diskImage_volume' - Information about the volume.
 --
--- * 'diDescription' - A description of the disk image.
-diskImage ::
+-- 'image', 'diskImage_image' - Information about the disk image.
+--
+-- 'description', 'diskImage_description' - A description of the disk image.
+newDiskImage ::
   DiskImage
-diskImage =
+newDiskImage =
   DiskImage'
-    { _diVolume = Nothing,
-      _diImage = Nothing,
-      _diDescription = Nothing
+    { volume = Prelude.Nothing,
+      image = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | Information about the volume.
-diVolume :: Lens' DiskImage (Maybe VolumeDetail)
-diVolume = lens _diVolume (\s a -> s {_diVolume = a})
+diskImage_volume :: Lens.Lens' DiskImage (Prelude.Maybe VolumeDetail)
+diskImage_volume = Lens.lens (\DiskImage' {volume} -> volume) (\s@DiskImage' {} a -> s {volume = a} :: DiskImage)
 
 -- | Information about the disk image.
-diImage :: Lens' DiskImage (Maybe DiskImageDetail)
-diImage = lens _diImage (\s a -> s {_diImage = a})
+diskImage_image :: Lens.Lens' DiskImage (Prelude.Maybe DiskImageDetail)
+diskImage_image = Lens.lens (\DiskImage' {image} -> image) (\s@DiskImage' {} a -> s {image = a} :: DiskImage)
 
 -- | A description of the disk image.
-diDescription :: Lens' DiskImage (Maybe Text)
-diDescription = lens _diDescription (\s a -> s {_diDescription = a})
+diskImage_description :: Lens.Lens' DiskImage (Prelude.Maybe Prelude.Text)
+diskImage_description = Lens.lens (\DiskImage' {description} -> description) (\s@DiskImage' {} a -> s {description = a} :: DiskImage)
 
-instance Hashable DiskImage
+instance Prelude.Hashable DiskImage
 
-instance NFData DiskImage
+instance Prelude.NFData DiskImage
 
-instance ToQuery DiskImage where
+instance Prelude.ToQuery DiskImage where
   toQuery DiskImage' {..} =
-    mconcat
-      [ "Volume" =: _diVolume,
-        "Image" =: _diImage,
-        "Description" =: _diDescription
+    Prelude.mconcat
+      [ "Volume" Prelude.=: volume,
+        "Image" Prelude.=: image,
+        "Description" Prelude.=: description
       ]

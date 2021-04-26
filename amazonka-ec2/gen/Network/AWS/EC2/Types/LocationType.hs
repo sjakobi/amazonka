@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.LocationType
   ( LocationType
       ( ..,
-        AvailabilityZone,
-        AvailabilityZoneId,
-        Region
+        LocationTypeAvailabilityZone,
+        LocationTypeAvailabilityZoneId,
+        LocationTypeRegion
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LocationType = LocationType' (CI Text)
+newtype LocationType = LocationType'
+  { fromLocationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AvailabilityZone :: LocationType
-pattern AvailabilityZone = LocationType' "availability-zone"
+pattern LocationTypeAvailabilityZone :: LocationType
+pattern LocationTypeAvailabilityZone = LocationType' "availability-zone"
 
-pattern AvailabilityZoneId :: LocationType
-pattern AvailabilityZoneId = LocationType' "availability-zone-id"
+pattern LocationTypeAvailabilityZoneId :: LocationType
+pattern LocationTypeAvailabilityZoneId = LocationType' "availability-zone-id"
 
-pattern Region :: LocationType
-pattern Region = LocationType' "region"
+pattern LocationTypeRegion :: LocationType
+pattern LocationTypeRegion = LocationType' "region"
 
 {-# COMPLETE
-  AvailabilityZone,
-  AvailabilityZoneId,
-  Region,
+  LocationTypeAvailabilityZone,
+  LocationTypeAvailabilityZoneId,
+  LocationTypeRegion,
   LocationType'
   #-}
 
-instance FromText LocationType where
-  parser = (LocationType' . mk) <$> takeText
+instance Prelude.FromText LocationType where
+  parser = LocationType' Prelude.<$> Prelude.takeText
 
-instance ToText LocationType where
-  toText (LocationType' ci) = original ci
+instance Prelude.ToText LocationType where
+  toText (LocationType' x) = x
 
-instance Hashable LocationType
+instance Prelude.Hashable LocationType
 
-instance NFData LocationType
+instance Prelude.NFData LocationType
 
-instance ToByteString LocationType
+instance Prelude.ToByteString LocationType
 
-instance ToQuery LocationType
+instance Prelude.ToQuery LocationType
 
-instance ToHeader LocationType
+instance Prelude.ToHeader LocationType
 
-instance FromXML LocationType where
-  parseXML = parseXMLText "LocationType"
+instance Prelude.FromXML LocationType where
+  parseXML = Prelude.parseXMLText "LocationType"

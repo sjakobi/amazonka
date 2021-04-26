@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.InterfacePermissionType
   ( InterfacePermissionType
       ( ..,
-        EIPAssociate,
-        InstanceAttach
+        InterfacePermissionTypeEIPASSOCIATE,
+        InterfacePermissionTypeINSTANCEATTACH
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InterfacePermissionType
-  = InterfacePermissionType'
-      ( CI
-          Text
-      )
+newtype InterfacePermissionType = InterfacePermissionType'
+  { fromInterfacePermissionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EIPAssociate :: InterfacePermissionType
-pattern EIPAssociate = InterfacePermissionType' "EIP-ASSOCIATE"
+pattern InterfacePermissionTypeEIPASSOCIATE :: InterfacePermissionType
+pattern InterfacePermissionTypeEIPASSOCIATE = InterfacePermissionType' "EIP-ASSOCIATE"
 
-pattern InstanceAttach :: InterfacePermissionType
-pattern InstanceAttach = InterfacePermissionType' "INSTANCE-ATTACH"
+pattern InterfacePermissionTypeINSTANCEATTACH :: InterfacePermissionType
+pattern InterfacePermissionTypeINSTANCEATTACH = InterfacePermissionType' "INSTANCE-ATTACH"
 
 {-# COMPLETE
-  EIPAssociate,
-  InstanceAttach,
+  InterfacePermissionTypeEIPASSOCIATE,
+  InterfacePermissionTypeINSTANCEATTACH,
   InterfacePermissionType'
   #-}
 
-instance FromText InterfacePermissionType where
-  parser = (InterfacePermissionType' . mk) <$> takeText
+instance Prelude.FromText InterfacePermissionType where
+  parser = InterfacePermissionType' Prelude.<$> Prelude.takeText
 
-instance ToText InterfacePermissionType where
-  toText (InterfacePermissionType' ci) = original ci
+instance Prelude.ToText InterfacePermissionType where
+  toText (InterfacePermissionType' x) = x
 
-instance Hashable InterfacePermissionType
+instance Prelude.Hashable InterfacePermissionType
 
-instance NFData InterfacePermissionType
+instance Prelude.NFData InterfacePermissionType
 
-instance ToByteString InterfacePermissionType
+instance Prelude.ToByteString InterfacePermissionType
 
-instance ToQuery InterfacePermissionType
+instance Prelude.ToQuery InterfacePermissionType
 
-instance ToHeader InterfacePermissionType
+instance Prelude.ToHeader InterfacePermissionType
 
-instance FromXML InterfacePermissionType where
-  parseXML = parseXMLText "InterfacePermissionType"
+instance Prelude.FromXML InterfacePermissionType where
+  parseXML = Prelude.parseXMLText "InterfacePermissionType"

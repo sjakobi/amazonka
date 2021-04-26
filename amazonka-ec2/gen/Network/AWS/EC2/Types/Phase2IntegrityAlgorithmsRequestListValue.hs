@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,52 @@
 module Network.AWS.EC2.Types.Phase2IntegrityAlgorithmsRequestListValue where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the integrity algorithm for the VPN tunnel for phase 2 IKE negotiations.
+-- | Specifies the integrity algorithm for the VPN tunnel for phase 2 IKE
+-- negotiations.
 --
---
---
--- /See:/ 'phase2IntegrityAlgorithmsRequestListValue' smart constructor.
-newtype Phase2IntegrityAlgorithmsRequestListValue = Phase2IntegrityAlgorithmsRequestListValue'
-  { _piarlvValue ::
-      Maybe
-        Text
+-- /See:/ 'newPhase2IntegrityAlgorithmsRequestListValue' smart constructor.
+data Phase2IntegrityAlgorithmsRequestListValue = Phase2IntegrityAlgorithmsRequestListValue'
+  { -- | The integrity algorithm.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Phase2IntegrityAlgorithmsRequestListValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Phase2IntegrityAlgorithmsRequestListValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'piarlvValue' - The integrity algorithm.
-phase2IntegrityAlgorithmsRequestListValue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'value', 'phase2IntegrityAlgorithmsRequestListValue_value' - The integrity algorithm.
+newPhase2IntegrityAlgorithmsRequestListValue ::
   Phase2IntegrityAlgorithmsRequestListValue
-phase2IntegrityAlgorithmsRequestListValue =
+newPhase2IntegrityAlgorithmsRequestListValue =
   Phase2IntegrityAlgorithmsRequestListValue'
-    { _piarlvValue =
-        Nothing
+    { value =
+        Prelude.Nothing
     }
 
 -- | The integrity algorithm.
-piarlvValue :: Lens' Phase2IntegrityAlgorithmsRequestListValue (Maybe Text)
-piarlvValue = lens _piarlvValue (\s a -> s {_piarlvValue = a})
+phase2IntegrityAlgorithmsRequestListValue_value :: Lens.Lens' Phase2IntegrityAlgorithmsRequestListValue (Prelude.Maybe Prelude.Text)
+phase2IntegrityAlgorithmsRequestListValue_value = Lens.lens (\Phase2IntegrityAlgorithmsRequestListValue' {value} -> value) (\s@Phase2IntegrityAlgorithmsRequestListValue' {} a -> s {value = a} :: Phase2IntegrityAlgorithmsRequestListValue)
 
 instance
-  Hashable
+  Prelude.Hashable
     Phase2IntegrityAlgorithmsRequestListValue
 
 instance
-  NFData
+  Prelude.NFData
     Phase2IntegrityAlgorithmsRequestListValue
 
 instance
-  ToQuery
+  Prelude.ToQuery
     Phase2IntegrityAlgorithmsRequestListValue
   where
   toQuery
     Phase2IntegrityAlgorithmsRequestListValue' {..} =
-      mconcat ["Value" =: _piarlvValue]
+      Prelude.mconcat ["Value" Prelude.=: value]

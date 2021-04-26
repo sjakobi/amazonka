@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,148 +24,151 @@
 -- Deletes the specified path.
 module Network.AWS.EC2.DeleteNetworkInsightsPath
   ( -- * Creating a Request
-    deleteNetworkInsightsPath,
-    DeleteNetworkInsightsPath,
+    DeleteNetworkInsightsPath (..),
+    newDeleteNetworkInsightsPath,
 
     -- * Request Lenses
-    dnipDryRun,
-    dnipNetworkInsightsPathId,
+    deleteNetworkInsightsPath_dryRun,
+    deleteNetworkInsightsPath_networkInsightsPathId,
 
     -- * Destructuring the Response
-    deleteNetworkInsightsPathResponse,
-    DeleteNetworkInsightsPathResponse,
+    DeleteNetworkInsightsPathResponse (..),
+    newDeleteNetworkInsightsPathResponse,
 
     -- * Response Lenses
-    dniprrsNetworkInsightsPathId,
-    dniprrsResponseStatus,
+    deleteNetworkInsightsPathResponse_networkInsightsPathId,
+    deleteNetworkInsightsPathResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteNetworkInsightsPath' smart constructor.
+-- | /See:/ 'newDeleteNetworkInsightsPath' smart constructor.
 data DeleteNetworkInsightsPath = DeleteNetworkInsightsPath'
-  { _dnipDryRun ::
-      !(Maybe Bool),
-    _dnipNetworkInsightsPathId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the path.
+    networkInsightsPathId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNetworkInsightsPath' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteNetworkInsightsPath' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnipDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnipNetworkInsightsPathId' - The ID of the path.
-deleteNetworkInsightsPath ::
-  -- | 'dnipNetworkInsightsPathId'
-  Text ->
+-- 'dryRun', 'deleteNetworkInsightsPath_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'networkInsightsPathId', 'deleteNetworkInsightsPath_networkInsightsPathId' - The ID of the path.
+newDeleteNetworkInsightsPath ::
+  -- | 'networkInsightsPathId'
+  Prelude.Text ->
   DeleteNetworkInsightsPath
-deleteNetworkInsightsPath pNetworkInsightsPathId_ =
+newDeleteNetworkInsightsPath pNetworkInsightsPathId_ =
   DeleteNetworkInsightsPath'
-    { _dnipDryRun = Nothing,
-      _dnipNetworkInsightsPathId =
-        pNetworkInsightsPathId_
+    { dryRun =
+        Prelude.Nothing,
+      networkInsightsPathId = pNetworkInsightsPathId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dnipDryRun :: Lens' DeleteNetworkInsightsPath (Maybe Bool)
-dnipDryRun = lens _dnipDryRun (\s a -> s {_dnipDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteNetworkInsightsPath_dryRun :: Lens.Lens' DeleteNetworkInsightsPath (Prelude.Maybe Prelude.Bool)
+deleteNetworkInsightsPath_dryRun = Lens.lens (\DeleteNetworkInsightsPath' {dryRun} -> dryRun) (\s@DeleteNetworkInsightsPath' {} a -> s {dryRun = a} :: DeleteNetworkInsightsPath)
 
 -- | The ID of the path.
-dnipNetworkInsightsPathId :: Lens' DeleteNetworkInsightsPath Text
-dnipNetworkInsightsPathId = lens _dnipNetworkInsightsPathId (\s a -> s {_dnipNetworkInsightsPathId = a})
+deleteNetworkInsightsPath_networkInsightsPathId :: Lens.Lens' DeleteNetworkInsightsPath Prelude.Text
+deleteNetworkInsightsPath_networkInsightsPathId = Lens.lens (\DeleteNetworkInsightsPath' {networkInsightsPathId} -> networkInsightsPathId) (\s@DeleteNetworkInsightsPath' {} a -> s {networkInsightsPathId = a} :: DeleteNetworkInsightsPath)
 
-instance AWSRequest DeleteNetworkInsightsPath where
+instance Prelude.AWSRequest DeleteNetworkInsightsPath where
   type
     Rs DeleteNetworkInsightsPath =
       DeleteNetworkInsightsPathResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteNetworkInsightsPathResponse'
-            <$> (x .@? "networkInsightsPathId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "networkInsightsPathId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteNetworkInsightsPath
+instance Prelude.Hashable DeleteNetworkInsightsPath
 
-instance NFData DeleteNetworkInsightsPath
+instance Prelude.NFData DeleteNetworkInsightsPath
 
-instance ToHeaders DeleteNetworkInsightsPath where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteNetworkInsightsPath where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteNetworkInsightsPath where
-  toPath = const "/"
+instance Prelude.ToPath DeleteNetworkInsightsPath where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteNetworkInsightsPath where
+instance Prelude.ToQuery DeleteNetworkInsightsPath where
   toQuery DeleteNetworkInsightsPath' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteNetworkInsightsPath" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dnipDryRun,
+          Prelude.=: ("DeleteNetworkInsightsPath" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "NetworkInsightsPathId"
-          =: _dnipNetworkInsightsPathId
+          Prelude.=: networkInsightsPathId
       ]
 
--- | /See:/ 'deleteNetworkInsightsPathResponse' smart constructor.
+-- | /See:/ 'newDeleteNetworkInsightsPathResponse' smart constructor.
 data DeleteNetworkInsightsPathResponse = DeleteNetworkInsightsPathResponse'
-  { _dniprrsNetworkInsightsPathId ::
-      !( Maybe
-           Text
-       ),
-    _dniprrsResponseStatus ::
-      !Int
+  { -- | The ID of the path.
+    networkInsightsPathId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNetworkInsightsPathResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteNetworkInsightsPathResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dniprrsNetworkInsightsPathId' - The ID of the path.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dniprrsResponseStatus' - -- | The response status code.
-deleteNetworkInsightsPathResponse ::
-  -- | 'dniprrsResponseStatus'
-  Int ->
+-- 'networkInsightsPathId', 'deleteNetworkInsightsPathResponse_networkInsightsPathId' - The ID of the path.
+--
+-- 'httpStatus', 'deleteNetworkInsightsPathResponse_httpStatus' - The response's http status code.
+newDeleteNetworkInsightsPathResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteNetworkInsightsPathResponse
-deleteNetworkInsightsPathResponse pResponseStatus_ =
+newDeleteNetworkInsightsPathResponse pHttpStatus_ =
   DeleteNetworkInsightsPathResponse'
-    { _dniprrsNetworkInsightsPathId =
-        Nothing,
-      _dniprrsResponseStatus =
-        pResponseStatus_
+    { networkInsightsPathId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the path.
-dniprrsNetworkInsightsPathId :: Lens' DeleteNetworkInsightsPathResponse (Maybe Text)
-dniprrsNetworkInsightsPathId = lens _dniprrsNetworkInsightsPathId (\s a -> s {_dniprrsNetworkInsightsPathId = a})
+deleteNetworkInsightsPathResponse_networkInsightsPathId :: Lens.Lens' DeleteNetworkInsightsPathResponse (Prelude.Maybe Prelude.Text)
+deleteNetworkInsightsPathResponse_networkInsightsPathId = Lens.lens (\DeleteNetworkInsightsPathResponse' {networkInsightsPathId} -> networkInsightsPathId) (\s@DeleteNetworkInsightsPathResponse' {} a -> s {networkInsightsPathId = a} :: DeleteNetworkInsightsPathResponse)
 
--- | -- | The response status code.
-dniprrsResponseStatus :: Lens' DeleteNetworkInsightsPathResponse Int
-dniprrsResponseStatus = lens _dniprrsResponseStatus (\s a -> s {_dniprrsResponseStatus = a})
+-- | The response's http status code.
+deleteNetworkInsightsPathResponse_httpStatus :: Lens.Lens' DeleteNetworkInsightsPathResponse Prelude.Int
+deleteNetworkInsightsPathResponse_httpStatus = Lens.lens (\DeleteNetworkInsightsPathResponse' {httpStatus} -> httpStatus) (\s@DeleteNetworkInsightsPathResponse' {} a -> s {httpStatus = a} :: DeleteNetworkInsightsPathResponse)
 
-instance NFData DeleteNetworkInsightsPathResponse
+instance
+  Prelude.NFData
+    DeleteNetworkInsightsPathResponse

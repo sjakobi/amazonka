@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.AvailabilityZoneOptInStatus
   ( AvailabilityZoneOptInStatus
       ( ..,
-        NotOptedIn,
-        OptInNotRequired,
-        OptedIn
+        AvailabilityZoneOptInStatusNotOptedIn,
+        AvailabilityZoneOptInStatusOptInNotRequired,
+        AvailabilityZoneOptInStatusOptedIn
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AvailabilityZoneOptInStatus
-  = AvailabilityZoneOptInStatus'
-      ( CI
-          Text
-      )
+newtype AvailabilityZoneOptInStatus = AvailabilityZoneOptInStatus'
+  { fromAvailabilityZoneOptInStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NotOptedIn :: AvailabilityZoneOptInStatus
-pattern NotOptedIn = AvailabilityZoneOptInStatus' "not-opted-in"
+pattern AvailabilityZoneOptInStatusNotOptedIn :: AvailabilityZoneOptInStatus
+pattern AvailabilityZoneOptInStatusNotOptedIn = AvailabilityZoneOptInStatus' "not-opted-in"
 
-pattern OptInNotRequired :: AvailabilityZoneOptInStatus
-pattern OptInNotRequired = AvailabilityZoneOptInStatus' "opt-in-not-required"
+pattern AvailabilityZoneOptInStatusOptInNotRequired :: AvailabilityZoneOptInStatus
+pattern AvailabilityZoneOptInStatusOptInNotRequired = AvailabilityZoneOptInStatus' "opt-in-not-required"
 
-pattern OptedIn :: AvailabilityZoneOptInStatus
-pattern OptedIn = AvailabilityZoneOptInStatus' "opted-in"
+pattern AvailabilityZoneOptInStatusOptedIn :: AvailabilityZoneOptInStatus
+pattern AvailabilityZoneOptInStatusOptedIn = AvailabilityZoneOptInStatus' "opted-in"
 
 {-# COMPLETE
-  NotOptedIn,
-  OptInNotRequired,
-  OptedIn,
+  AvailabilityZoneOptInStatusNotOptedIn,
+  AvailabilityZoneOptInStatusOptInNotRequired,
+  AvailabilityZoneOptInStatusOptedIn,
   AvailabilityZoneOptInStatus'
   #-}
 
-instance FromText AvailabilityZoneOptInStatus where
-  parser = (AvailabilityZoneOptInStatus' . mk) <$> takeText
+instance Prelude.FromText AvailabilityZoneOptInStatus where
+  parser = AvailabilityZoneOptInStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AvailabilityZoneOptInStatus where
-  toText (AvailabilityZoneOptInStatus' ci) = original ci
+instance Prelude.ToText AvailabilityZoneOptInStatus where
+  toText (AvailabilityZoneOptInStatus' x) = x
 
-instance Hashable AvailabilityZoneOptInStatus
+instance Prelude.Hashable AvailabilityZoneOptInStatus
 
-instance NFData AvailabilityZoneOptInStatus
+instance Prelude.NFData AvailabilityZoneOptInStatus
 
-instance ToByteString AvailabilityZoneOptInStatus
+instance Prelude.ToByteString AvailabilityZoneOptInStatus
 
-instance ToQuery AvailabilityZoneOptInStatus
+instance Prelude.ToQuery AvailabilityZoneOptInStatus
 
-instance ToHeader AvailabilityZoneOptInStatus
+instance Prelude.ToHeader AvailabilityZoneOptInStatus
 
-instance FromXML AvailabilityZoneOptInStatus where
-  parseXML = parseXMLText "AvailabilityZoneOptInStatus"
+instance Prelude.FromXML AvailabilityZoneOptInStatus where
+  parseXML = Prelude.parseXMLText "AvailabilityZoneOptInStatus"

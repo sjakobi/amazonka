@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,52 @@
 module Network.AWS.EC2.Types.SuccessfulInstanceCreditSpecificationItem where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the burstable performance instance whose credit option for CPU usage was successfully modified.
+-- | Describes the burstable performance instance whose credit option for CPU
+-- usage was successfully modified.
 --
---
---
--- /See:/ 'successfulInstanceCreditSpecificationItem' smart constructor.
-newtype SuccessfulInstanceCreditSpecificationItem = SuccessfulInstanceCreditSpecificationItem'
-  { _sicsiInstanceId ::
-      Maybe
-        Text
+-- /See:/ 'newSuccessfulInstanceCreditSpecificationItem' smart constructor.
+data SuccessfulInstanceCreditSpecificationItem = SuccessfulInstanceCreditSpecificationItem'
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SuccessfulInstanceCreditSpecificationItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SuccessfulInstanceCreditSpecificationItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sicsiInstanceId' - The ID of the instance.
-successfulInstanceCreditSpecificationItem ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceId', 'successfulInstanceCreditSpecificationItem_instanceId' - The ID of the instance.
+newSuccessfulInstanceCreditSpecificationItem ::
   SuccessfulInstanceCreditSpecificationItem
-successfulInstanceCreditSpecificationItem =
+newSuccessfulInstanceCreditSpecificationItem =
   SuccessfulInstanceCreditSpecificationItem'
-    { _sicsiInstanceId =
-        Nothing
+    { instanceId =
+        Prelude.Nothing
     }
 
 -- | The ID of the instance.
-sicsiInstanceId :: Lens' SuccessfulInstanceCreditSpecificationItem (Maybe Text)
-sicsiInstanceId = lens _sicsiInstanceId (\s a -> s {_sicsiInstanceId = a})
+successfulInstanceCreditSpecificationItem_instanceId :: Lens.Lens' SuccessfulInstanceCreditSpecificationItem (Prelude.Maybe Prelude.Text)
+successfulInstanceCreditSpecificationItem_instanceId = Lens.lens (\SuccessfulInstanceCreditSpecificationItem' {instanceId} -> instanceId) (\s@SuccessfulInstanceCreditSpecificationItem' {} a -> s {instanceId = a} :: SuccessfulInstanceCreditSpecificationItem)
 
 instance
-  FromXML
+  Prelude.FromXML
     SuccessfulInstanceCreditSpecificationItem
   where
   parseXML x =
     SuccessfulInstanceCreditSpecificationItem'
-      <$> (x .@? "instanceId")
+      Prelude.<$> (x Prelude..@? "instanceId")
 
 instance
-  Hashable
+  Prelude.Hashable
     SuccessfulInstanceCreditSpecificationItem
 
 instance
-  NFData
+  Prelude.NFData
     SuccessfulInstanceCreditSpecificationItem

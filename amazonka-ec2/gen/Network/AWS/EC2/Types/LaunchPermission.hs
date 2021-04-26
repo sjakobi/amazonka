@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +21,69 @@ module Network.AWS.EC2.Types.LaunchPermission where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PermissionGroup
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch permission.
 --
---
---
--- /See:/ 'launchPermission' smart constructor.
+-- /See:/ 'newLaunchPermission' smart constructor.
 data LaunchPermission = LaunchPermission'
-  { _lGroup ::
-      !(Maybe PermissionGroup),
-    _lUserId :: !(Maybe Text)
+  { -- | The name of the group.
+    group' :: Prelude.Maybe PermissionGroup,
+    -- | The AWS account ID.
+    --
+    -- Constraints: Up to 10 000 account IDs can be specified in a single
+    -- request.
+    userId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchPermission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchPermission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lGroup' - The name of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lUserId' - The AWS account ID. Constraints: Up to 10 000 account IDs can be specified in a single request.
-launchPermission ::
+-- 'group'', 'launchPermission_group' - The name of the group.
+--
+-- 'userId', 'launchPermission_userId' - The AWS account ID.
+--
+-- Constraints: Up to 10 000 account IDs can be specified in a single
+-- request.
+newLaunchPermission ::
   LaunchPermission
-launchPermission =
+newLaunchPermission =
   LaunchPermission'
-    { _lGroup = Nothing,
-      _lUserId = Nothing
+    { group' = Prelude.Nothing,
+      userId = Prelude.Nothing
     }
 
 -- | The name of the group.
-lGroup :: Lens' LaunchPermission (Maybe PermissionGroup)
-lGroup = lens _lGroup (\s a -> s {_lGroup = a})
+launchPermission_group :: Lens.Lens' LaunchPermission (Prelude.Maybe PermissionGroup)
+launchPermission_group = Lens.lens (\LaunchPermission' {group'} -> group') (\s@LaunchPermission' {} a -> s {group' = a} :: LaunchPermission)
 
--- | The AWS account ID. Constraints: Up to 10 000 account IDs can be specified in a single request.
-lUserId :: Lens' LaunchPermission (Maybe Text)
-lUserId = lens _lUserId (\s a -> s {_lUserId = a})
+-- | The AWS account ID.
+--
+-- Constraints: Up to 10 000 account IDs can be specified in a single
+-- request.
+launchPermission_userId :: Lens.Lens' LaunchPermission (Prelude.Maybe Prelude.Text)
+launchPermission_userId = Lens.lens (\LaunchPermission' {userId} -> userId) (\s@LaunchPermission' {} a -> s {userId = a} :: LaunchPermission)
 
-instance FromXML LaunchPermission where
+instance Prelude.FromXML LaunchPermission where
   parseXML x =
     LaunchPermission'
-      <$> (x .@? "group") <*> (x .@? "userId")
+      Prelude.<$> (x Prelude..@? "group")
+      Prelude.<*> (x Prelude..@? "userId")
 
-instance Hashable LaunchPermission
+instance Prelude.Hashable LaunchPermission
 
-instance NFData LaunchPermission
+instance Prelude.NFData LaunchPermission
 
-instance ToQuery LaunchPermission where
+instance Prelude.ToQuery LaunchPermission where
   toQuery LaunchPermission' {..} =
-    mconcat ["Group" =: _lGroup, "UserId" =: _lUserId]
+    Prelude.mconcat
+      [ "Group" Prelude.=: group',
+        "UserId" Prelude.=: userId
+      ]

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,74 +19,76 @@
 module Network.AWS.EC2.Types.AttachmentStatus
   ( AttachmentStatus
       ( ..,
-        AAttached,
-        AAttaching,
-        AAvailable,
-        ABusy,
-        ADetached,
-        ADetaching
+        AttachmentStatusAAttached,
+        AttachmentStatusAAttaching,
+        AttachmentStatusAAvailable,
+        AttachmentStatusABusy,
+        AttachmentStatusADetached,
+        AttachmentStatusADetaching
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AttachmentStatus = AttachmentStatus' (CI Text)
+newtype AttachmentStatus = AttachmentStatus'
+  { fromAttachmentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AAttached :: AttachmentStatus
-pattern AAttached = AttachmentStatus' "attached"
+pattern AttachmentStatusAAttached :: AttachmentStatus
+pattern AttachmentStatusAAttached = AttachmentStatus' "attached"
 
-pattern AAttaching :: AttachmentStatus
-pattern AAttaching = AttachmentStatus' "attaching"
+pattern AttachmentStatusAAttaching :: AttachmentStatus
+pattern AttachmentStatusAAttaching = AttachmentStatus' "attaching"
 
-pattern AAvailable :: AttachmentStatus
-pattern AAvailable = AttachmentStatus' "available"
+pattern AttachmentStatusAAvailable :: AttachmentStatus
+pattern AttachmentStatusAAvailable = AttachmentStatus' "available"
 
-pattern ABusy :: AttachmentStatus
-pattern ABusy = AttachmentStatus' "busy"
+pattern AttachmentStatusABusy :: AttachmentStatus
+pattern AttachmentStatusABusy = AttachmentStatus' "busy"
 
-pattern ADetached :: AttachmentStatus
-pattern ADetached = AttachmentStatus' "detached"
+pattern AttachmentStatusADetached :: AttachmentStatus
+pattern AttachmentStatusADetached = AttachmentStatus' "detached"
 
-pattern ADetaching :: AttachmentStatus
-pattern ADetaching = AttachmentStatus' "detaching"
+pattern AttachmentStatusADetaching :: AttachmentStatus
+pattern AttachmentStatusADetaching = AttachmentStatus' "detaching"
 
 {-# COMPLETE
-  AAttached,
-  AAttaching,
-  AAvailable,
-  ABusy,
-  ADetached,
-  ADetaching,
+  AttachmentStatusAAttached,
+  AttachmentStatusAAttaching,
+  AttachmentStatusAAvailable,
+  AttachmentStatusABusy,
+  AttachmentStatusADetached,
+  AttachmentStatusADetaching,
   AttachmentStatus'
   #-}
 
-instance FromText AttachmentStatus where
-  parser = (AttachmentStatus' . mk) <$> takeText
+instance Prelude.FromText AttachmentStatus where
+  parser = AttachmentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AttachmentStatus where
-  toText (AttachmentStatus' ci) = original ci
+instance Prelude.ToText AttachmentStatus where
+  toText (AttachmentStatus' x) = x
 
-instance Hashable AttachmentStatus
+instance Prelude.Hashable AttachmentStatus
 
-instance NFData AttachmentStatus
+instance Prelude.NFData AttachmentStatus
 
-instance ToByteString AttachmentStatus
+instance Prelude.ToByteString AttachmentStatus
 
-instance ToQuery AttachmentStatus
+instance Prelude.ToQuery AttachmentStatus
 
-instance ToHeader AttachmentStatus
+instance Prelude.ToHeader AttachmentStatus
 
-instance FromXML AttachmentStatus where
-  parseXML = parseXMLText "AttachmentStatus"
+instance Prelude.FromXML AttachmentStatus where
+  parseXML = Prelude.parseXMLText "AttachmentStatus"

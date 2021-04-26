@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,85 +24,98 @@ import Network.AWS.EC2.Types.InstanceLifecycle
 import Network.AWS.EC2.Types.InstanceType
 import Network.AWS.EC2.Types.LaunchTemplateAndOverridesResponse
 import Network.AWS.EC2.Types.PlatformValues
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the instances that were launched by the fleet.
 --
---
---
--- /See:/ 'createFleetInstance' smart constructor.
+-- /See:/ 'newCreateFleetInstance' smart constructor.
 data CreateFleetInstance = CreateFleetInstance'
-  { _cfiInstanceIds ::
-      !(Maybe [Text]),
-    _cfiPlatform ::
-      !(Maybe PlatformValues),
-    _cfiInstanceType ::
-      !(Maybe InstanceType),
-    _cfiLaunchTemplateAndOverrides ::
-      !( Maybe
-           LaunchTemplateAndOverridesResponse
-       ),
-    _cfiLifecycle ::
-      !(Maybe InstanceLifecycle)
+  { -- | The IDs of the instances.
+    instanceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The value is @Windows@ for Windows instances. Otherwise, the value is
+    -- blank.
+    platform :: Prelude.Maybe PlatformValues,
+    -- | The instance type.
+    instanceType :: Prelude.Maybe InstanceType,
+    -- | The launch templates and overrides that were used for launching the
+    -- instances. The values that you specify in the Overrides replace the
+    -- values in the launch template.
+    launchTemplateAndOverrides :: Prelude.Maybe LaunchTemplateAndOverridesResponse,
+    -- | Indicates if the instance that was launched is a Spot Instance or
+    -- On-Demand Instance.
+    lifecycle :: Prelude.Maybe InstanceLifecycle
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFleetInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFleetInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfiInstanceIds' - The IDs of the instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfiPlatform' - The value is @Windows@ for Windows instances. Otherwise, the value is blank.
+-- 'instanceIds', 'createFleetInstance_instanceIds' - The IDs of the instances.
 --
--- * 'cfiInstanceType' - The instance type.
+-- 'platform', 'createFleetInstance_platform' - The value is @Windows@ for Windows instances. Otherwise, the value is
+-- blank.
 --
--- * 'cfiLaunchTemplateAndOverrides' - The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.
+-- 'instanceType', 'createFleetInstance_instanceType' - The instance type.
 --
--- * 'cfiLifecycle' - Indicates if the instance that was launched is a Spot Instance or On-Demand Instance.
-createFleetInstance ::
+-- 'launchTemplateAndOverrides', 'createFleetInstance_launchTemplateAndOverrides' - The launch templates and overrides that were used for launching the
+-- instances. The values that you specify in the Overrides replace the
+-- values in the launch template.
+--
+-- 'lifecycle', 'createFleetInstance_lifecycle' - Indicates if the instance that was launched is a Spot Instance or
+-- On-Demand Instance.
+newCreateFleetInstance ::
   CreateFleetInstance
-createFleetInstance =
+newCreateFleetInstance =
   CreateFleetInstance'
-    { _cfiInstanceIds = Nothing,
-      _cfiPlatform = Nothing,
-      _cfiInstanceType = Nothing,
-      _cfiLaunchTemplateAndOverrides = Nothing,
-      _cfiLifecycle = Nothing
+    { instanceIds = Prelude.Nothing,
+      platform = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      launchTemplateAndOverrides = Prelude.Nothing,
+      lifecycle = Prelude.Nothing
     }
 
 -- | The IDs of the instances.
-cfiInstanceIds :: Lens' CreateFleetInstance [Text]
-cfiInstanceIds = lens _cfiInstanceIds (\s a -> s {_cfiInstanceIds = a}) . _Default . _Coerce
+createFleetInstance_instanceIds :: Lens.Lens' CreateFleetInstance (Prelude.Maybe [Prelude.Text])
+createFleetInstance_instanceIds = Lens.lens (\CreateFleetInstance' {instanceIds} -> instanceIds) (\s@CreateFleetInstance' {} a -> s {instanceIds = a} :: CreateFleetInstance) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The value is @Windows@ for Windows instances. Otherwise, the value is blank.
-cfiPlatform :: Lens' CreateFleetInstance (Maybe PlatformValues)
-cfiPlatform = lens _cfiPlatform (\s a -> s {_cfiPlatform = a})
+-- | The value is @Windows@ for Windows instances. Otherwise, the value is
+-- blank.
+createFleetInstance_platform :: Lens.Lens' CreateFleetInstance (Prelude.Maybe PlatformValues)
+createFleetInstance_platform = Lens.lens (\CreateFleetInstance' {platform} -> platform) (\s@CreateFleetInstance' {} a -> s {platform = a} :: CreateFleetInstance)
 
 -- | The instance type.
-cfiInstanceType :: Lens' CreateFleetInstance (Maybe InstanceType)
-cfiInstanceType = lens _cfiInstanceType (\s a -> s {_cfiInstanceType = a})
+createFleetInstance_instanceType :: Lens.Lens' CreateFleetInstance (Prelude.Maybe InstanceType)
+createFleetInstance_instanceType = Lens.lens (\CreateFleetInstance' {instanceType} -> instanceType) (\s@CreateFleetInstance' {} a -> s {instanceType = a} :: CreateFleetInstance)
 
--- | The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.
-cfiLaunchTemplateAndOverrides :: Lens' CreateFleetInstance (Maybe LaunchTemplateAndOverridesResponse)
-cfiLaunchTemplateAndOverrides = lens _cfiLaunchTemplateAndOverrides (\s a -> s {_cfiLaunchTemplateAndOverrides = a})
+-- | The launch templates and overrides that were used for launching the
+-- instances. The values that you specify in the Overrides replace the
+-- values in the launch template.
+createFleetInstance_launchTemplateAndOverrides :: Lens.Lens' CreateFleetInstance (Prelude.Maybe LaunchTemplateAndOverridesResponse)
+createFleetInstance_launchTemplateAndOverrides = Lens.lens (\CreateFleetInstance' {launchTemplateAndOverrides} -> launchTemplateAndOverrides) (\s@CreateFleetInstance' {} a -> s {launchTemplateAndOverrides = a} :: CreateFleetInstance)
 
--- | Indicates if the instance that was launched is a Spot Instance or On-Demand Instance.
-cfiLifecycle :: Lens' CreateFleetInstance (Maybe InstanceLifecycle)
-cfiLifecycle = lens _cfiLifecycle (\s a -> s {_cfiLifecycle = a})
+-- | Indicates if the instance that was launched is a Spot Instance or
+-- On-Demand Instance.
+createFleetInstance_lifecycle :: Lens.Lens' CreateFleetInstance (Prelude.Maybe InstanceLifecycle)
+createFleetInstance_lifecycle = Lens.lens (\CreateFleetInstance' {lifecycle} -> lifecycle) (\s@CreateFleetInstance' {} a -> s {lifecycle = a} :: CreateFleetInstance)
 
-instance FromXML CreateFleetInstance where
+instance Prelude.FromXML CreateFleetInstance where
   parseXML x =
     CreateFleetInstance'
-      <$> ( x .@? "instanceIds" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "platform")
-      <*> (x .@? "instanceType")
-      <*> (x .@? "launchTemplateAndOverrides")
-      <*> (x .@? "lifecycle")
+      Prelude.<$> ( x Prelude..@? "instanceIds"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "platform")
+      Prelude.<*> (x Prelude..@? "instanceType")
+      Prelude.<*> (x Prelude..@? "launchTemplateAndOverrides")
+      Prelude.<*> (x Prelude..@? "lifecycle")
 
-instance Hashable CreateFleetInstance
+instance Prelude.Hashable CreateFleetInstance
 
-instance NFData CreateFleetInstance
+instance Prelude.NFData CreateFleetInstance

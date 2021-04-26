@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,59 +24,66 @@ import Network.AWS.EC2.Types.ExportTaskState
 import Network.AWS.EC2.Types.ExportToS3Task
 import Network.AWS.EC2.Types.InstanceExportDetails
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an export instance task.
 --
---
---
--- /See:/ 'exportTask' smart constructor.
+-- /See:/ 'newExportTask' smart constructor.
 data ExportTask = ExportTask'
-  { _etTags ::
-      !(Maybe [Tag]),
-    _etDescription :: !Text,
-    _etExportTaskId :: !Text,
-    _etExportToS3Task :: !ExportToS3Task,
-    _etInstanceExportDetails ::
-      !InstanceExportDetails,
-    _etState :: !ExportTaskState,
-    _etStatusMessage :: !Text
+  { -- | The tags for the export task.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the resource being exported.
+    description :: Prelude.Text,
+    -- | The ID of the export task.
+    exportTaskId :: Prelude.Text,
+    -- | Information about the export task.
+    exportToS3Task :: ExportToS3Task,
+    -- | Information about the instance to export.
+    instanceExportDetails :: InstanceExportDetails,
+    -- | The state of the export task.
+    state :: ExportTaskState,
+    -- | The status message related to the export task.
+    statusMessage :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etTags' - The tags for the export task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etDescription' - A description of the resource being exported.
+-- 'tags', 'exportTask_tags' - The tags for the export task.
 --
--- * 'etExportTaskId' - The ID of the export task.
+-- 'description', 'exportTask_description' - A description of the resource being exported.
 --
--- * 'etExportToS3Task' - Information about the export task.
+-- 'exportTaskId', 'exportTask_exportTaskId' - The ID of the export task.
 --
--- * 'etInstanceExportDetails' - Information about the instance to export.
+-- 'exportToS3Task', 'exportTask_exportToS3Task' - Information about the export task.
 --
--- * 'etState' - The state of the export task.
+-- 'instanceExportDetails', 'exportTask_instanceExportDetails' - Information about the instance to export.
 --
--- * 'etStatusMessage' - The status message related to the export task.
-exportTask ::
-  -- | 'etDescription'
-  Text ->
-  -- | 'etExportTaskId'
-  Text ->
-  -- | 'etExportToS3Task'
+-- 'state', 'exportTask_state' - The state of the export task.
+--
+-- 'statusMessage', 'exportTask_statusMessage' - The status message related to the export task.
+newExportTask ::
+  -- | 'description'
+  Prelude.Text ->
+  -- | 'exportTaskId'
+  Prelude.Text ->
+  -- | 'exportToS3Task'
   ExportToS3Task ->
-  -- | 'etInstanceExportDetails'
+  -- | 'instanceExportDetails'
   InstanceExportDetails ->
-  -- | 'etState'
+  -- | 'state'
   ExportTaskState ->
-  -- | 'etStatusMessage'
-  Text ->
+  -- | 'statusMessage'
+  Prelude.Text ->
   ExportTask
-exportTask
+newExportTask
   pDescription_
   pExportTaskId_
   pExportToS3Task_
@@ -80,56 +91,56 @@ exportTask
   pState_
   pStatusMessage_ =
     ExportTask'
-      { _etTags = Nothing,
-        _etDescription = pDescription_,
-        _etExportTaskId = pExportTaskId_,
-        _etExportToS3Task = pExportToS3Task_,
-        _etInstanceExportDetails = pInstanceExportDetails_,
-        _etState = pState_,
-        _etStatusMessage = pStatusMessage_
+      { tags = Prelude.Nothing,
+        description = pDescription_,
+        exportTaskId = pExportTaskId_,
+        exportToS3Task = pExportToS3Task_,
+        instanceExportDetails = pInstanceExportDetails_,
+        state = pState_,
+        statusMessage = pStatusMessage_
       }
 
 -- | The tags for the export task.
-etTags :: Lens' ExportTask [Tag]
-etTags = lens _etTags (\s a -> s {_etTags = a}) . _Default . _Coerce
+exportTask_tags :: Lens.Lens' ExportTask (Prelude.Maybe [Tag])
+exportTask_tags = Lens.lens (\ExportTask' {tags} -> tags) (\s@ExportTask' {} a -> s {tags = a} :: ExportTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the resource being exported.
-etDescription :: Lens' ExportTask Text
-etDescription = lens _etDescription (\s a -> s {_etDescription = a})
+exportTask_description :: Lens.Lens' ExportTask Prelude.Text
+exportTask_description = Lens.lens (\ExportTask' {description} -> description) (\s@ExportTask' {} a -> s {description = a} :: ExportTask)
 
 -- | The ID of the export task.
-etExportTaskId :: Lens' ExportTask Text
-etExportTaskId = lens _etExportTaskId (\s a -> s {_etExportTaskId = a})
+exportTask_exportTaskId :: Lens.Lens' ExportTask Prelude.Text
+exportTask_exportTaskId = Lens.lens (\ExportTask' {exportTaskId} -> exportTaskId) (\s@ExportTask' {} a -> s {exportTaskId = a} :: ExportTask)
 
 -- | Information about the export task.
-etExportToS3Task :: Lens' ExportTask ExportToS3Task
-etExportToS3Task = lens _etExportToS3Task (\s a -> s {_etExportToS3Task = a})
+exportTask_exportToS3Task :: Lens.Lens' ExportTask ExportToS3Task
+exportTask_exportToS3Task = Lens.lens (\ExportTask' {exportToS3Task} -> exportToS3Task) (\s@ExportTask' {} a -> s {exportToS3Task = a} :: ExportTask)
 
 -- | Information about the instance to export.
-etInstanceExportDetails :: Lens' ExportTask InstanceExportDetails
-etInstanceExportDetails = lens _etInstanceExportDetails (\s a -> s {_etInstanceExportDetails = a})
+exportTask_instanceExportDetails :: Lens.Lens' ExportTask InstanceExportDetails
+exportTask_instanceExportDetails = Lens.lens (\ExportTask' {instanceExportDetails} -> instanceExportDetails) (\s@ExportTask' {} a -> s {instanceExportDetails = a} :: ExportTask)
 
 -- | The state of the export task.
-etState :: Lens' ExportTask ExportTaskState
-etState = lens _etState (\s a -> s {_etState = a})
+exportTask_state :: Lens.Lens' ExportTask ExportTaskState
+exportTask_state = Lens.lens (\ExportTask' {state} -> state) (\s@ExportTask' {} a -> s {state = a} :: ExportTask)
 
 -- | The status message related to the export task.
-etStatusMessage :: Lens' ExportTask Text
-etStatusMessage = lens _etStatusMessage (\s a -> s {_etStatusMessage = a})
+exportTask_statusMessage :: Lens.Lens' ExportTask Prelude.Text
+exportTask_statusMessage = Lens.lens (\ExportTask' {statusMessage} -> statusMessage) (\s@ExportTask' {} a -> s {statusMessage = a} :: ExportTask)
 
-instance FromXML ExportTask where
+instance Prelude.FromXML ExportTask where
   parseXML x =
     ExportTask'
-      <$> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@ "description")
-      <*> (x .@ "exportTaskId")
-      <*> (x .@ "exportToS3")
-      <*> (x .@ "instanceExport")
-      <*> (x .@ "state")
-      <*> (x .@ "statusMessage")
+      Prelude.<$> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@ "description")
+      Prelude.<*> (x Prelude..@ "exportTaskId")
+      Prelude.<*> (x Prelude..@ "exportToS3")
+      Prelude.<*> (x Prelude..@ "instanceExport")
+      Prelude.<*> (x Prelude..@ "state")
+      Prelude.<*> (x Prelude..@ "statusMessage")
 
-instance Hashable ExportTask
+instance Prelude.Hashable ExportTask
 
-instance NFData ExportTask
+instance Prelude.NFData ExportTask

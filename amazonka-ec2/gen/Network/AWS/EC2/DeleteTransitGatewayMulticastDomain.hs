@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,163 +24,173 @@
 -- Deletes the specified transit gateway multicast domain.
 module Network.AWS.EC2.DeleteTransitGatewayMulticastDomain
   ( -- * Creating a Request
-    deleteTransitGatewayMulticastDomain,
-    DeleteTransitGatewayMulticastDomain,
+    DeleteTransitGatewayMulticastDomain (..),
+    newDeleteTransitGatewayMulticastDomain,
 
     -- * Request Lenses
-    deleDryRun,
-    deleTransitGatewayMulticastDomainId,
+    deleteTransitGatewayMulticastDomain_dryRun,
+    deleteTransitGatewayMulticastDomain_transitGatewayMulticastDomainId,
 
     -- * Destructuring the Response
-    deleteTransitGatewayMulticastDomainResponse,
-    DeleteTransitGatewayMulticastDomainResponse,
+    DeleteTransitGatewayMulticastDomainResponse (..),
+    newDeleteTransitGatewayMulticastDomainResponse,
 
     -- * Response Lenses
-    dtgmdrrsTransitGatewayMulticastDomain,
-    dtgmdrrsResponseStatus,
+    deleteTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain,
+    deleteTransitGatewayMulticastDomainResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayMulticastDomain
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTransitGatewayMulticastDomain' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayMulticastDomain' smart constructor.
 data DeleteTransitGatewayMulticastDomain = DeleteTransitGatewayMulticastDomain'
-  { _deleDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _deleTransitGatewayMulticastDomainId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the transit gateway multicast domain.
+    transitGatewayMulticastDomainId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayMulticastDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayMulticastDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deleDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deleTransitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
-deleteTransitGatewayMulticastDomain ::
-  -- | 'deleTransitGatewayMulticastDomainId'
-  Text ->
+-- 'dryRun', 'deleteTransitGatewayMulticastDomain_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'transitGatewayMulticastDomainId', 'deleteTransitGatewayMulticastDomain_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
+newDeleteTransitGatewayMulticastDomain ::
+  -- | 'transitGatewayMulticastDomainId'
+  Prelude.Text ->
   DeleteTransitGatewayMulticastDomain
-deleteTransitGatewayMulticastDomain
+newDeleteTransitGatewayMulticastDomain
   pTransitGatewayMulticastDomainId_ =
     DeleteTransitGatewayMulticastDomain'
-      { _deleDryRun =
-          Nothing,
-        _deleTransitGatewayMulticastDomainId =
+      { dryRun =
+          Prelude.Nothing,
+        transitGatewayMulticastDomainId =
           pTransitGatewayMulticastDomainId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-deleDryRun :: Lens' DeleteTransitGatewayMulticastDomain (Maybe Bool)
-deleDryRun = lens _deleDryRun (\s a -> s {_deleDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteTransitGatewayMulticastDomain_dryRun :: Lens.Lens' DeleteTransitGatewayMulticastDomain (Prelude.Maybe Prelude.Bool)
+deleteTransitGatewayMulticastDomain_dryRun = Lens.lens (\DeleteTransitGatewayMulticastDomain' {dryRun} -> dryRun) (\s@DeleteTransitGatewayMulticastDomain' {} a -> s {dryRun = a} :: DeleteTransitGatewayMulticastDomain)
 
 -- | The ID of the transit gateway multicast domain.
-deleTransitGatewayMulticastDomainId :: Lens' DeleteTransitGatewayMulticastDomain Text
-deleTransitGatewayMulticastDomainId = lens _deleTransitGatewayMulticastDomainId (\s a -> s {_deleTransitGatewayMulticastDomainId = a})
+deleteTransitGatewayMulticastDomain_transitGatewayMulticastDomainId :: Lens.Lens' DeleteTransitGatewayMulticastDomain Prelude.Text
+deleteTransitGatewayMulticastDomain_transitGatewayMulticastDomainId = Lens.lens (\DeleteTransitGatewayMulticastDomain' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@DeleteTransitGatewayMulticastDomain' {} a -> s {transitGatewayMulticastDomainId = a} :: DeleteTransitGatewayMulticastDomain)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteTransitGatewayMulticastDomain
   where
   type
     Rs DeleteTransitGatewayMulticastDomain =
       DeleteTransitGatewayMulticastDomainResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayMulticastDomainResponse'
-            <$> (x .@? "transitGatewayMulticastDomain")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayMulticastDomain")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTransitGatewayMulticastDomain
-
-instance NFData DeleteTransitGatewayMulticastDomain
+instance
+  Prelude.Hashable
+    DeleteTransitGatewayMulticastDomain
 
 instance
-  ToHeaders
+  Prelude.NFData
+    DeleteTransitGatewayMulticastDomain
+
+instance
+  Prelude.ToHeaders
     DeleteTransitGatewayMulticastDomain
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTransitGatewayMulticastDomain where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DeleteTransitGatewayMulticastDomain
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTransitGatewayMulticastDomain where
+instance
+  Prelude.ToQuery
+    DeleteTransitGatewayMulticastDomain
+  where
   toQuery DeleteTransitGatewayMulticastDomain' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DeleteTransitGatewayMulticastDomain" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _deleDryRun,
+          Prelude.=: ( "DeleteTransitGatewayMulticastDomain" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "TransitGatewayMulticastDomainId"
-          =: _deleTransitGatewayMulticastDomainId
+          Prelude.=: transitGatewayMulticastDomainId
       ]
 
--- | /See:/ 'deleteTransitGatewayMulticastDomainResponse' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayMulticastDomainResponse' smart constructor.
 data DeleteTransitGatewayMulticastDomainResponse = DeleteTransitGatewayMulticastDomainResponse'
-  { _dtgmdrrsTransitGatewayMulticastDomain ::
-      !( Maybe
-           TransitGatewayMulticastDomain
-       ),
-    _dtgmdrrsResponseStatus ::
-      !Int
+  { -- | Information about the deleted transit gateway multicast domain.
+    transitGatewayMulticastDomain :: Prelude.Maybe TransitGatewayMulticastDomain,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayMulticastDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayMulticastDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgmdrrsTransitGatewayMulticastDomain' - Information about the deleted transit gateway multicast domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgmdrrsResponseStatus' - -- | The response status code.
-deleteTransitGatewayMulticastDomainResponse ::
-  -- | 'dtgmdrrsResponseStatus'
-  Int ->
+-- 'transitGatewayMulticastDomain', 'deleteTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain' - Information about the deleted transit gateway multicast domain.
+--
+-- 'httpStatus', 'deleteTransitGatewayMulticastDomainResponse_httpStatus' - The response's http status code.
+newDeleteTransitGatewayMulticastDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTransitGatewayMulticastDomainResponse
-deleteTransitGatewayMulticastDomainResponse
-  pResponseStatus_ =
+newDeleteTransitGatewayMulticastDomainResponse
+  pHttpStatus_ =
     DeleteTransitGatewayMulticastDomainResponse'
-      { _dtgmdrrsTransitGatewayMulticastDomain =
-          Nothing,
-        _dtgmdrrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayMulticastDomain =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the deleted transit gateway multicast domain.
-dtgmdrrsTransitGatewayMulticastDomain :: Lens' DeleteTransitGatewayMulticastDomainResponse (Maybe TransitGatewayMulticastDomain)
-dtgmdrrsTransitGatewayMulticastDomain = lens _dtgmdrrsTransitGatewayMulticastDomain (\s a -> s {_dtgmdrrsTransitGatewayMulticastDomain = a})
+deleteTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain :: Lens.Lens' DeleteTransitGatewayMulticastDomainResponse (Prelude.Maybe TransitGatewayMulticastDomain)
+deleteTransitGatewayMulticastDomainResponse_transitGatewayMulticastDomain = Lens.lens (\DeleteTransitGatewayMulticastDomainResponse' {transitGatewayMulticastDomain} -> transitGatewayMulticastDomain) (\s@DeleteTransitGatewayMulticastDomainResponse' {} a -> s {transitGatewayMulticastDomain = a} :: DeleteTransitGatewayMulticastDomainResponse)
 
--- | -- | The response status code.
-dtgmdrrsResponseStatus :: Lens' DeleteTransitGatewayMulticastDomainResponse Int
-dtgmdrrsResponseStatus = lens _dtgmdrrsResponseStatus (\s a -> s {_dtgmdrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTransitGatewayMulticastDomainResponse_httpStatus :: Lens.Lens' DeleteTransitGatewayMulticastDomainResponse Prelude.Int
+deleteTransitGatewayMulticastDomainResponse_httpStatus = Lens.lens (\DeleteTransitGatewayMulticastDomainResponse' {httpStatus} -> httpStatus) (\s@DeleteTransitGatewayMulticastDomainResponse' {} a -> s {httpStatus = a} :: DeleteTransitGatewayMulticastDomainResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteTransitGatewayMulticastDomainResponse

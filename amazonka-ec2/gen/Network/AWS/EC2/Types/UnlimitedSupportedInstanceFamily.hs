@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.UnlimitedSupportedInstanceFamily
   ( UnlimitedSupportedInstanceFamily
       ( ..,
-        T2,
-        T3,
-        T3a,
-        T4g
+        UnlimitedSupportedInstanceFamilyT2,
+        UnlimitedSupportedInstanceFamilyT3,
+        UnlimitedSupportedInstanceFamilyT3a,
+        UnlimitedSupportedInstanceFamilyT4g
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UnlimitedSupportedInstanceFamily
-  = UnlimitedSupportedInstanceFamily'
-      ( CI
-          Text
-      )
+newtype UnlimitedSupportedInstanceFamily = UnlimitedSupportedInstanceFamily'
+  { fromUnlimitedSupportedInstanceFamily ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern T2 :: UnlimitedSupportedInstanceFamily
-pattern T2 = UnlimitedSupportedInstanceFamily' "t2"
+pattern UnlimitedSupportedInstanceFamilyT2 :: UnlimitedSupportedInstanceFamily
+pattern UnlimitedSupportedInstanceFamilyT2 = UnlimitedSupportedInstanceFamily' "t2"
 
-pattern T3 :: UnlimitedSupportedInstanceFamily
-pattern T3 = UnlimitedSupportedInstanceFamily' "t3"
+pattern UnlimitedSupportedInstanceFamilyT3 :: UnlimitedSupportedInstanceFamily
+pattern UnlimitedSupportedInstanceFamilyT3 = UnlimitedSupportedInstanceFamily' "t3"
 
-pattern T3a :: UnlimitedSupportedInstanceFamily
-pattern T3a = UnlimitedSupportedInstanceFamily' "t3a"
+pattern UnlimitedSupportedInstanceFamilyT3a :: UnlimitedSupportedInstanceFamily
+pattern UnlimitedSupportedInstanceFamilyT3a = UnlimitedSupportedInstanceFamily' "t3a"
 
-pattern T4g :: UnlimitedSupportedInstanceFamily
-pattern T4g = UnlimitedSupportedInstanceFamily' "t4g"
+pattern UnlimitedSupportedInstanceFamilyT4g :: UnlimitedSupportedInstanceFamily
+pattern UnlimitedSupportedInstanceFamilyT4g = UnlimitedSupportedInstanceFamily' "t4g"
 
 {-# COMPLETE
-  T2,
-  T3,
-  T3a,
-  T4g,
+  UnlimitedSupportedInstanceFamilyT2,
+  UnlimitedSupportedInstanceFamilyT3,
+  UnlimitedSupportedInstanceFamilyT3a,
+  UnlimitedSupportedInstanceFamilyT4g,
   UnlimitedSupportedInstanceFamily'
   #-}
 
-instance FromText UnlimitedSupportedInstanceFamily where
-  parser = (UnlimitedSupportedInstanceFamily' . mk) <$> takeText
+instance Prelude.FromText UnlimitedSupportedInstanceFamily where
+  parser = UnlimitedSupportedInstanceFamily' Prelude.<$> Prelude.takeText
 
-instance ToText UnlimitedSupportedInstanceFamily where
-  toText (UnlimitedSupportedInstanceFamily' ci) = original ci
+instance Prelude.ToText UnlimitedSupportedInstanceFamily where
+  toText (UnlimitedSupportedInstanceFamily' x) = x
 
-instance Hashable UnlimitedSupportedInstanceFamily
+instance Prelude.Hashable UnlimitedSupportedInstanceFamily
 
-instance NFData UnlimitedSupportedInstanceFamily
+instance Prelude.NFData UnlimitedSupportedInstanceFamily
 
-instance ToByteString UnlimitedSupportedInstanceFamily
+instance Prelude.ToByteString UnlimitedSupportedInstanceFamily
 
-instance ToQuery UnlimitedSupportedInstanceFamily
+instance Prelude.ToQuery UnlimitedSupportedInstanceFamily
 
-instance ToHeader UnlimitedSupportedInstanceFamily
+instance Prelude.ToHeader UnlimitedSupportedInstanceFamily
 
-instance FromXML UnlimitedSupportedInstanceFamily where
-  parseXML = parseXMLText "UnlimitedSupportedInstanceFamily"
+instance Prelude.FromXML UnlimitedSupportedInstanceFamily where
+  parseXML = Prelude.parseXMLText "UnlimitedSupportedInstanceFamily"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,53 @@
 module Network.AWS.EC2.Types.DiskImageVolumeDescription where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a disk image volume.
 --
---
---
--- /See:/ 'diskImageVolumeDescription' smart constructor.
+-- /See:/ 'newDiskImageVolumeDescription' smart constructor.
 data DiskImageVolumeDescription = DiskImageVolumeDescription'
-  { _divdId ::
-      !(Maybe Text),
-    _divdSize ::
-      !(Maybe Integer)
+  { -- | The volume identifier.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The size of the volume, in GiB.
+    size :: Prelude.Maybe Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiskImageVolumeDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiskImageVolumeDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'divdId' - The volume identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'divdSize' - The size of the volume, in GiB.
-diskImageVolumeDescription ::
+-- 'id', 'diskImageVolumeDescription_id' - The volume identifier.
+--
+-- 'size', 'diskImageVolumeDescription_size' - The size of the volume, in GiB.
+newDiskImageVolumeDescription ::
   DiskImageVolumeDescription
-diskImageVolumeDescription =
+newDiskImageVolumeDescription =
   DiskImageVolumeDescription'
-    { _divdId = Nothing,
-      _divdSize = Nothing
+    { id = Prelude.Nothing,
+      size = Prelude.Nothing
     }
 
 -- | The volume identifier.
-divdId :: Lens' DiskImageVolumeDescription (Maybe Text)
-divdId = lens _divdId (\s a -> s {_divdId = a})
+diskImageVolumeDescription_id :: Lens.Lens' DiskImageVolumeDescription (Prelude.Maybe Prelude.Text)
+diskImageVolumeDescription_id = Lens.lens (\DiskImageVolumeDescription' {id} -> id) (\s@DiskImageVolumeDescription' {} a -> s {id = a} :: DiskImageVolumeDescription)
 
 -- | The size of the volume, in GiB.
-divdSize :: Lens' DiskImageVolumeDescription (Maybe Integer)
-divdSize = lens _divdSize (\s a -> s {_divdSize = a})
+diskImageVolumeDescription_size :: Lens.Lens' DiskImageVolumeDescription (Prelude.Maybe Prelude.Integer)
+diskImageVolumeDescription_size = Lens.lens (\DiskImageVolumeDescription' {size} -> size) (\s@DiskImageVolumeDescription' {} a -> s {size = a} :: DiskImageVolumeDescription)
 
-instance FromXML DiskImageVolumeDescription where
+instance Prelude.FromXML DiskImageVolumeDescription where
   parseXML x =
     DiskImageVolumeDescription'
-      <$> (x .@? "id") <*> (x .@? "size")
+      Prelude.<$> (x Prelude..@? "id")
+      Prelude.<*> (x Prelude..@? "size")
 
-instance Hashable DiskImageVolumeDescription
+instance Prelude.Hashable DiskImageVolumeDescription
 
-instance NFData DiskImageVolumeDescription
+instance Prelude.NFData DiskImageVolumeDescription

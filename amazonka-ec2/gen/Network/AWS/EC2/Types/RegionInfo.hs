@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,66 @@
 module Network.AWS.EC2.Types.RegionInfo where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Region.
 --
---
---
--- /See:/ 'regionInfo' smart constructor.
+-- /See:/ 'newRegionInfo' smart constructor.
 data RegionInfo = RegionInfo'
-  { _riRegionName ::
-      !(Maybe Text),
-    _riOptInStatus :: !(Maybe Text),
-    _riEndpoint :: !(Maybe Text)
+  { -- | The name of the Region.
+    regionName :: Prelude.Maybe Prelude.Text,
+    -- | The Region opt-in status. The possible values are @opt-in-not-required@,
+    -- @opted-in@, and @not-opted-in@.
+    optInStatus :: Prelude.Maybe Prelude.Text,
+    -- | The Region service endpoint.
+    endpoint :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegionInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegionInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riRegionName' - The name of the Region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riOptInStatus' - The Region opt-in status. The possible values are @opt-in-not-required@ , @opted-in@ , and @not-opted-in@ .
+-- 'regionName', 'regionInfo_regionName' - The name of the Region.
 --
--- * 'riEndpoint' - The Region service endpoint.
-regionInfo ::
+-- 'optInStatus', 'regionInfo_optInStatus' - The Region opt-in status. The possible values are @opt-in-not-required@,
+-- @opted-in@, and @not-opted-in@.
+--
+-- 'endpoint', 'regionInfo_endpoint' - The Region service endpoint.
+newRegionInfo ::
   RegionInfo
-regionInfo =
+newRegionInfo =
   RegionInfo'
-    { _riRegionName = Nothing,
-      _riOptInStatus = Nothing,
-      _riEndpoint = Nothing
+    { regionName = Prelude.Nothing,
+      optInStatus = Prelude.Nothing,
+      endpoint = Prelude.Nothing
     }
 
 -- | The name of the Region.
-riRegionName :: Lens' RegionInfo (Maybe Text)
-riRegionName = lens _riRegionName (\s a -> s {_riRegionName = a})
+regionInfo_regionName :: Lens.Lens' RegionInfo (Prelude.Maybe Prelude.Text)
+regionInfo_regionName = Lens.lens (\RegionInfo' {regionName} -> regionName) (\s@RegionInfo' {} a -> s {regionName = a} :: RegionInfo)
 
--- | The Region opt-in status. The possible values are @opt-in-not-required@ , @opted-in@ , and @not-opted-in@ .
-riOptInStatus :: Lens' RegionInfo (Maybe Text)
-riOptInStatus = lens _riOptInStatus (\s a -> s {_riOptInStatus = a})
+-- | The Region opt-in status. The possible values are @opt-in-not-required@,
+-- @opted-in@, and @not-opted-in@.
+regionInfo_optInStatus :: Lens.Lens' RegionInfo (Prelude.Maybe Prelude.Text)
+regionInfo_optInStatus = Lens.lens (\RegionInfo' {optInStatus} -> optInStatus) (\s@RegionInfo' {} a -> s {optInStatus = a} :: RegionInfo)
 
 -- | The Region service endpoint.
-riEndpoint :: Lens' RegionInfo (Maybe Text)
-riEndpoint = lens _riEndpoint (\s a -> s {_riEndpoint = a})
+regionInfo_endpoint :: Lens.Lens' RegionInfo (Prelude.Maybe Prelude.Text)
+regionInfo_endpoint = Lens.lens (\RegionInfo' {endpoint} -> endpoint) (\s@RegionInfo' {} a -> s {endpoint = a} :: RegionInfo)
 
-instance FromXML RegionInfo where
+instance Prelude.FromXML RegionInfo where
   parseXML x =
     RegionInfo'
-      <$> (x .@? "regionName")
-      <*> (x .@? "optInStatus")
-      <*> (x .@? "regionEndpoint")
+      Prelude.<$> (x Prelude..@? "regionName")
+      Prelude.<*> (x Prelude..@? "optInStatus")
+      Prelude.<*> (x Prelude..@? "regionEndpoint")
 
-instance Hashable RegionInfo
+instance Prelude.Hashable RegionInfo
 
-instance NFData RegionInfo
+instance Prelude.NFData RegionInfo

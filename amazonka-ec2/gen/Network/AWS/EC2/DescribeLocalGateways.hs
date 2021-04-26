@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,207 +21,280 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more local gateways. By default, all local gateways are described. Alternatively, you can filter the results.
---
---
+-- Describes one or more local gateways. By default, all local gateways are
+-- described. Alternatively, you can filter the results.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeLocalGateways
   ( -- * Creating a Request
-    describeLocalGateways,
-    DescribeLocalGateways,
+    DescribeLocalGateways (..),
+    newDescribeLocalGateways,
 
     -- * Request Lenses
-    dlgNextToken,
-    dlgDryRun,
-    dlgMaxResults,
-    dlgLocalGatewayIds,
-    dlgFilters,
+    describeLocalGateways_nextToken,
+    describeLocalGateways_dryRun,
+    describeLocalGateways_maxResults,
+    describeLocalGateways_localGatewayIds,
+    describeLocalGateways_filters,
 
     -- * Destructuring the Response
-    describeLocalGatewaysResponse,
-    DescribeLocalGatewaysResponse,
+    DescribeLocalGatewaysResponse (..),
+    newDescribeLocalGatewaysResponse,
 
     -- * Response Lenses
-    dlgrrsNextToken,
-    dlgrrsLocalGateways,
-    dlgrrsResponseStatus,
+    describeLocalGatewaysResponse_nextToken,
+    describeLocalGatewaysResponse_localGateways,
+    describeLocalGatewaysResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.LocalGateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLocalGateways' smart constructor.
+-- | /See:/ 'newDescribeLocalGateways' smart constructor.
 data DescribeLocalGateways = DescribeLocalGateways'
-  { _dlgNextToken ::
-      !(Maybe Text),
-    _dlgDryRun :: !(Maybe Bool),
-    _dlgMaxResults ::
-      !(Maybe Nat),
-    _dlgLocalGatewayIds ::
-      !(Maybe [Text]),
-    _dlgFilters ::
-      !(Maybe [Filter])
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters.
+    --
+    -- -   @local-gateway-id@ - The ID of a local gateway.
+    --
+    -- -   @local-gateway-route-table-id@ - The ID of the local gateway route
+    --     table.
+    --
+    -- -   @local-gateway-route-table-virtual-interface-group-association-id@ -
+    --     The ID of the association.
+    --
+    -- -   @local-gateway-route-table-virtual-interface-group-id@ - The ID of
+    --     the virtual interface group.
+    --
+    -- -   @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.
+    --
+    -- -   @state@ - The state of the association.
+    localGatewayIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLocalGateways' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLocalGateways' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlgNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlgDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeLocalGateways_nextToken' - The token for the next page of results.
 --
--- * 'dlgMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeLocalGateways_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dlgLocalGatewayIds' - One or more filters.     * @local-gateway-id@ - The ID of a local gateway.     * @local-gateway-route-table-id@ - The ID of the local gateway route table.     * @local-gateway-route-table-virtual-interface-group-association-id@ - The ID of the association.     * @local-gateway-route-table-virtual-interface-group-id@ - The ID of the virtual interface group.     * @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.     * @state@ - The state of the association.
+-- 'maxResults', 'describeLocalGateways_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dlgFilters' - One or more filters.
-describeLocalGateways ::
+-- 'localGatewayIds', 'describeLocalGateways_localGatewayIds' - One or more filters.
+--
+-- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-route-table-id@ - The ID of the local gateway route
+--     table.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-association-id@ -
+--     The ID of the association.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-id@ - The ID of
+--     the virtual interface group.
+--
+-- -   @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.
+--
+-- -   @state@ - The state of the association.
+--
+-- 'filters', 'describeLocalGateways_filters' - One or more filters.
+newDescribeLocalGateways ::
   DescribeLocalGateways
-describeLocalGateways =
+newDescribeLocalGateways =
   DescribeLocalGateways'
-    { _dlgNextToken = Nothing,
-      _dlgDryRun = Nothing,
-      _dlgMaxResults = Nothing,
-      _dlgLocalGatewayIds = Nothing,
-      _dlgFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      localGatewayIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dlgNextToken :: Lens' DescribeLocalGateways (Maybe Text)
-dlgNextToken = lens _dlgNextToken (\s a -> s {_dlgNextToken = a})
+describeLocalGateways_nextToken :: Lens.Lens' DescribeLocalGateways (Prelude.Maybe Prelude.Text)
+describeLocalGateways_nextToken = Lens.lens (\DescribeLocalGateways' {nextToken} -> nextToken) (\s@DescribeLocalGateways' {} a -> s {nextToken = a} :: DescribeLocalGateways)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dlgDryRun :: Lens' DescribeLocalGateways (Maybe Bool)
-dlgDryRun = lens _dlgDryRun (\s a -> s {_dlgDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeLocalGateways_dryRun :: Lens.Lens' DescribeLocalGateways (Prelude.Maybe Prelude.Bool)
+describeLocalGateways_dryRun = Lens.lens (\DescribeLocalGateways' {dryRun} -> dryRun) (\s@DescribeLocalGateways' {} a -> s {dryRun = a} :: DescribeLocalGateways)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dlgMaxResults :: Lens' DescribeLocalGateways (Maybe Natural)
-dlgMaxResults = lens _dlgMaxResults (\s a -> s {_dlgMaxResults = a}) . mapping _Nat
-
--- | One or more filters.     * @local-gateway-id@ - The ID of a local gateway.     * @local-gateway-route-table-id@ - The ID of the local gateway route table.     * @local-gateway-route-table-virtual-interface-group-association-id@ - The ID of the association.     * @local-gateway-route-table-virtual-interface-group-id@ - The ID of the virtual interface group.     * @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.     * @state@ - The state of the association.
-dlgLocalGatewayIds :: Lens' DescribeLocalGateways [Text]
-dlgLocalGatewayIds = lens _dlgLocalGatewayIds (\s a -> s {_dlgLocalGatewayIds = a}) . _Default . _Coerce
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeLocalGateways_maxResults :: Lens.Lens' DescribeLocalGateways (Prelude.Maybe Prelude.Natural)
+describeLocalGateways_maxResults = Lens.lens (\DescribeLocalGateways' {maxResults} -> maxResults) (\s@DescribeLocalGateways' {} a -> s {maxResults = a} :: DescribeLocalGateways) Prelude.. Lens.mapping Prelude._Nat
 
 -- | One or more filters.
-dlgFilters :: Lens' DescribeLocalGateways [Filter]
-dlgFilters = lens _dlgFilters (\s a -> s {_dlgFilters = a}) . _Default . _Coerce
+--
+-- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-route-table-id@ - The ID of the local gateway route
+--     table.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-association-id@ -
+--     The ID of the association.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-id@ - The ID of
+--     the virtual interface group.
+--
+-- -   @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.
+--
+-- -   @state@ - The state of the association.
+describeLocalGateways_localGatewayIds :: Lens.Lens' DescribeLocalGateways (Prelude.Maybe [Prelude.Text])
+describeLocalGateways_localGatewayIds = Lens.lens (\DescribeLocalGateways' {localGatewayIds} -> localGatewayIds) (\s@DescribeLocalGateways' {} a -> s {localGatewayIds = a} :: DescribeLocalGateways) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeLocalGateways where
+-- | One or more filters.
+describeLocalGateways_filters :: Lens.Lens' DescribeLocalGateways (Prelude.Maybe [Filter])
+describeLocalGateways_filters = Lens.lens (\DescribeLocalGateways' {filters} -> filters) (\s@DescribeLocalGateways' {} a -> s {filters = a} :: DescribeLocalGateways) Prelude.. Lens.mapping Prelude._Coerce
+
+instance Pager.AWSPager DescribeLocalGateways where
   page rq rs
-    | stop (rs ^. dlgrrsNextToken) = Nothing
-    | stop (rs ^. dlgrrsLocalGateways) = Nothing
-    | otherwise =
-      Just $ rq & dlgNextToken .~ rs ^. dlgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeLocalGatewaysResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeLocalGatewaysResponse_localGateways
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeLocalGateways_nextToken
+          Lens..~ rs
+          Lens.^? describeLocalGatewaysResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeLocalGateways where
+instance Prelude.AWSRequest DescribeLocalGateways where
   type
     Rs DescribeLocalGateways =
       DescribeLocalGatewaysResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeLocalGatewaysResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "localGatewaySet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "localGatewaySet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeLocalGateways
+instance Prelude.Hashable DescribeLocalGateways
 
-instance NFData DescribeLocalGateways
+instance Prelude.NFData DescribeLocalGateways
 
-instance ToHeaders DescribeLocalGateways where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeLocalGateways where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeLocalGateways where
-  toPath = const "/"
+instance Prelude.ToPath DescribeLocalGateways where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeLocalGateways where
+instance Prelude.ToQuery DescribeLocalGateways where
   toQuery DescribeLocalGateways' {..} =
-    mconcat
-      [ "Action" =: ("DescribeLocalGateways" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dlgNextToken,
-        "DryRun" =: _dlgDryRun,
-        "MaxResults" =: _dlgMaxResults,
-        toQuery
-          ( toQueryList "LocalGatewayId"
-              <$> _dlgLocalGatewayIds
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeLocalGateways" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "LocalGatewayId"
+              Prelude.<$> localGatewayIds
           ),
-        toQuery (toQueryList "Filter" <$> _dlgFilters)
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeLocalGatewaysResponse' smart constructor.
+-- | /See:/ 'newDescribeLocalGatewaysResponse' smart constructor.
 data DescribeLocalGatewaysResponse = DescribeLocalGatewaysResponse'
-  { _dlgrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dlgrrsLocalGateways ::
-      !( Maybe
-           [LocalGateway]
-       ),
-    _dlgrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the local gateways.
+    localGateways :: Prelude.Maybe [LocalGateway],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLocalGatewaysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLocalGatewaysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlgrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlgrrsLocalGateways' - Information about the local gateways.
+-- 'nextToken', 'describeLocalGatewaysResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dlgrrsResponseStatus' - -- | The response status code.
-describeLocalGatewaysResponse ::
-  -- | 'dlgrrsResponseStatus'
-  Int ->
+-- 'localGateways', 'describeLocalGatewaysResponse_localGateways' - Information about the local gateways.
+--
+-- 'httpStatus', 'describeLocalGatewaysResponse_httpStatus' - The response's http status code.
+newDescribeLocalGatewaysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLocalGatewaysResponse
-describeLocalGatewaysResponse pResponseStatus_ =
+newDescribeLocalGatewaysResponse pHttpStatus_ =
   DescribeLocalGatewaysResponse'
-    { _dlgrrsNextToken =
-        Nothing,
-      _dlgrrsLocalGateways = Nothing,
-      _dlgrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      localGateways = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dlgrrsNextToken :: Lens' DescribeLocalGatewaysResponse (Maybe Text)
-dlgrrsNextToken = lens _dlgrrsNextToken (\s a -> s {_dlgrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeLocalGatewaysResponse_nextToken :: Lens.Lens' DescribeLocalGatewaysResponse (Prelude.Maybe Prelude.Text)
+describeLocalGatewaysResponse_nextToken = Lens.lens (\DescribeLocalGatewaysResponse' {nextToken} -> nextToken) (\s@DescribeLocalGatewaysResponse' {} a -> s {nextToken = a} :: DescribeLocalGatewaysResponse)
 
 -- | Information about the local gateways.
-dlgrrsLocalGateways :: Lens' DescribeLocalGatewaysResponse [LocalGateway]
-dlgrrsLocalGateways = lens _dlgrrsLocalGateways (\s a -> s {_dlgrrsLocalGateways = a}) . _Default . _Coerce
+describeLocalGatewaysResponse_localGateways :: Lens.Lens' DescribeLocalGatewaysResponse (Prelude.Maybe [LocalGateway])
+describeLocalGatewaysResponse_localGateways = Lens.lens (\DescribeLocalGatewaysResponse' {localGateways} -> localGateways) (\s@DescribeLocalGatewaysResponse' {} a -> s {localGateways = a} :: DescribeLocalGatewaysResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dlgrrsResponseStatus :: Lens' DescribeLocalGatewaysResponse Int
-dlgrrsResponseStatus = lens _dlgrrsResponseStatus (\s a -> s {_dlgrrsResponseStatus = a})
+-- | The response's http status code.
+describeLocalGatewaysResponse_httpStatus :: Lens.Lens' DescribeLocalGatewaysResponse Prelude.Int
+describeLocalGatewaysResponse_httpStatus = Lens.lens (\DescribeLocalGatewaysResponse' {httpStatus} -> httpStatus) (\s@DescribeLocalGatewaysResponse' {} a -> s {httpStatus = a} :: DescribeLocalGatewaysResponse)
 
-instance NFData DescribeLocalGatewaysResponse
+instance Prelude.NFData DescribeLocalGatewaysResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,38 +20,41 @@
 module Network.AWS.EC2.Types.PlacementResponse where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the placement of an instance.
 --
---
---
--- /See:/ 'placementResponse' smart constructor.
-newtype PlacementResponse = PlacementResponse'
-  { _prGroupName ::
-      Maybe Text
+-- /See:/ 'newPlacementResponse' smart constructor.
+data PlacementResponse = PlacementResponse'
+  { -- | The name of the placement group that the instance is in.
+    groupName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlacementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlacementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prGroupName' - The name of the placement group that the instance is in.
-placementResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'groupName', 'placementResponse_groupName' - The name of the placement group that the instance is in.
+newPlacementResponse ::
   PlacementResponse
-placementResponse =
-  PlacementResponse' {_prGroupName = Nothing}
+newPlacementResponse =
+  PlacementResponse' {groupName = Prelude.Nothing}
 
 -- | The name of the placement group that the instance is in.
-prGroupName :: Lens' PlacementResponse (Maybe Text)
-prGroupName = lens _prGroupName (\s a -> s {_prGroupName = a})
+placementResponse_groupName :: Lens.Lens' PlacementResponse (Prelude.Maybe Prelude.Text)
+placementResponse_groupName = Lens.lens (\PlacementResponse' {groupName} -> groupName) (\s@PlacementResponse' {} a -> s {groupName = a} :: PlacementResponse)
 
-instance FromXML PlacementResponse where
+instance Prelude.FromXML PlacementResponse where
   parseXML x =
-    PlacementResponse' <$> (x .@? "groupName")
+    PlacementResponse'
+      Prelude.<$> (x Prelude..@? "groupName")
 
-instance Hashable PlacementResponse
+instance Prelude.Hashable PlacementResponse
 
-instance NFData PlacementResponse
+instance Prelude.NFData PlacementResponse

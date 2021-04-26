@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- When you no longer want to use an On-Demand Dedicated Host it can be released. On-Demand billing is stopped and the host goes into @released@ state. The host ID of Dedicated Hosts that have been released can no longer be specified in another request, for example, to modify the host. You must stop or terminate all instances on a host before it can be released.
+-- When you no longer want to use an On-Demand Dedicated Host it can be
+-- released. On-Demand billing is stopped and the host goes into @released@
+-- state. The host ID of Dedicated Hosts that have been released can no
+-- longer be specified in another request, for example, to modify the host.
+-- You must stop or terminate all instances on a host before it can be
+-- released.
 --
+-- When Dedicated Hosts are released, it may take some time for them to
+-- stop counting toward your limit and you may receive capacity errors when
+-- trying to allocate new Dedicated Hosts. Wait a few minutes and then try
+-- again.
 --
--- When Dedicated Hosts are released, it may take some time for them to stop counting toward your limit and you may receive capacity errors when trying to allocate new Dedicated Hosts. Wait a few minutes and then try again.
---
--- Released hosts still appear in a 'DescribeHosts' response.
+-- Released hosts still appear in a DescribeHosts response.
 module Network.AWS.EC2.ReleaseHosts
   ( -- * Creating a Request
-    releaseHosts,
-    ReleaseHosts,
+    ReleaseHosts (..),
+    newReleaseHosts,
 
     -- * Request Lenses
-    rhHostIds,
+    releaseHosts_hostIds,
 
     -- * Destructuring the Response
-    releaseHostsResponse,
-    ReleaseHostsResponse,
+    ReleaseHostsResponse (..),
+    newReleaseHostsResponse,
 
     -- * Response Lenses
-    rhrrsUnsuccessful,
-    rhrrsSuccessful,
-    rhrrsResponseStatus,
+    releaseHostsResponse_unsuccessful,
+    releaseHostsResponse_successful,
+    releaseHostsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.UnsuccessfulItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'releaseHosts' smart constructor.
-newtype ReleaseHosts = ReleaseHosts'
-  { _rhHostIds ::
-      [Text]
+-- | /See:/ 'newReleaseHosts' smart constructor.
+data ReleaseHosts = ReleaseHosts'
+  { -- | The IDs of the Dedicated Hosts to release.
+    hostIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReleaseHosts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReleaseHosts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rhHostIds' - The IDs of the Dedicated Hosts to release.
-releaseHosts ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'hostIds', 'releaseHosts_hostIds' - The IDs of the Dedicated Hosts to release.
+newReleaseHosts ::
   ReleaseHosts
-releaseHosts = ReleaseHosts' {_rhHostIds = mempty}
+newReleaseHosts =
+  ReleaseHosts' {hostIds = Prelude.mempty}
 
 -- | The IDs of the Dedicated Hosts to release.
-rhHostIds :: Lens' ReleaseHosts [Text]
-rhHostIds = lens _rhHostIds (\s a -> s {_rhHostIds = a}) . _Coerce
+releaseHosts_hostIds :: Lens.Lens' ReleaseHosts [Prelude.Text]
+releaseHosts_hostIds = Lens.lens (\ReleaseHosts' {hostIds} -> hostIds) (\s@ReleaseHosts' {} a -> s {hostIds = a} :: ReleaseHosts) Prelude.. Prelude._Coerce
 
-instance AWSRequest ReleaseHosts where
+instance Prelude.AWSRequest ReleaseHosts where
   type Rs ReleaseHosts = ReleaseHostsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ReleaseHostsResponse'
-            <$> ( x .@? "unsuccessful" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> ( x .@? "successful" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "unsuccessful"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> ( x Prelude..@? "successful"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ReleaseHosts
+instance Prelude.Hashable ReleaseHosts
 
-instance NFData ReleaseHosts
+instance Prelude.NFData ReleaseHosts
 
-instance ToHeaders ReleaseHosts where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ReleaseHosts where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ReleaseHosts where
-  toPath = const "/"
+instance Prelude.ToPath ReleaseHosts where
+  toPath = Prelude.const "/"
 
-instance ToQuery ReleaseHosts where
+instance Prelude.ToQuery ReleaseHosts where
   toQuery ReleaseHosts' {..} =
-    mconcat
-      [ "Action" =: ("ReleaseHosts" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQueryList "HostId" _rhHostIds
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ReleaseHosts" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQueryList "HostId" hostIds
       ]
 
--- | /See:/ 'releaseHostsResponse' smart constructor.
+-- | /See:/ 'newReleaseHostsResponse' smart constructor.
 data ReleaseHostsResponse = ReleaseHostsResponse'
-  { _rhrrsUnsuccessful ::
-      !(Maybe [UnsuccessfulItem]),
-    _rhrrsSuccessful ::
-      !(Maybe [Text]),
-    _rhrrsResponseStatus :: !Int
+  { -- | The IDs of the Dedicated Hosts that could not be released, including an
+    -- error message.
+    unsuccessful :: Prelude.Maybe [UnsuccessfulItem],
+    -- | The IDs of the Dedicated Hosts that were successfully released.
+    successful :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReleaseHostsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReleaseHostsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rhrrsUnsuccessful' - The IDs of the Dedicated Hosts that could not be released, including an error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rhrrsSuccessful' - The IDs of the Dedicated Hosts that were successfully released.
+-- 'unsuccessful', 'releaseHostsResponse_unsuccessful' - The IDs of the Dedicated Hosts that could not be released, including an
+-- error message.
 --
--- * 'rhrrsResponseStatus' - -- | The response status code.
-releaseHostsResponse ::
-  -- | 'rhrrsResponseStatus'
-  Int ->
+-- 'successful', 'releaseHostsResponse_successful' - The IDs of the Dedicated Hosts that were successfully released.
+--
+-- 'httpStatus', 'releaseHostsResponse_httpStatus' - The response's http status code.
+newReleaseHostsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ReleaseHostsResponse
-releaseHostsResponse pResponseStatus_ =
+newReleaseHostsResponse pHttpStatus_ =
   ReleaseHostsResponse'
-    { _rhrrsUnsuccessful = Nothing,
-      _rhrrsSuccessful = Nothing,
-      _rhrrsResponseStatus = pResponseStatus_
+    { unsuccessful =
+        Prelude.Nothing,
+      successful = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The IDs of the Dedicated Hosts that could not be released, including an error message.
-rhrrsUnsuccessful :: Lens' ReleaseHostsResponse [UnsuccessfulItem]
-rhrrsUnsuccessful = lens _rhrrsUnsuccessful (\s a -> s {_rhrrsUnsuccessful = a}) . _Default . _Coerce
+-- | The IDs of the Dedicated Hosts that could not be released, including an
+-- error message.
+releaseHostsResponse_unsuccessful :: Lens.Lens' ReleaseHostsResponse (Prelude.Maybe [UnsuccessfulItem])
+releaseHostsResponse_unsuccessful = Lens.lens (\ReleaseHostsResponse' {unsuccessful} -> unsuccessful) (\s@ReleaseHostsResponse' {} a -> s {unsuccessful = a} :: ReleaseHostsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The IDs of the Dedicated Hosts that were successfully released.
-rhrrsSuccessful :: Lens' ReleaseHostsResponse [Text]
-rhrrsSuccessful = lens _rhrrsSuccessful (\s a -> s {_rhrrsSuccessful = a}) . _Default . _Coerce
+releaseHostsResponse_successful :: Lens.Lens' ReleaseHostsResponse (Prelude.Maybe [Prelude.Text])
+releaseHostsResponse_successful = Lens.lens (\ReleaseHostsResponse' {successful} -> successful) (\s@ReleaseHostsResponse' {} a -> s {successful = a} :: ReleaseHostsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-rhrrsResponseStatus :: Lens' ReleaseHostsResponse Int
-rhrrsResponseStatus = lens _rhrrsResponseStatus (\s a -> s {_rhrrsResponseStatus = a})
+-- | The response's http status code.
+releaseHostsResponse_httpStatus :: Lens.Lens' ReleaseHostsResponse Prelude.Int
+releaseHostsResponse_httpStatus = Lens.lens (\ReleaseHostsResponse' {httpStatus} -> httpStatus) (\s@ReleaseHostsResponse' {} a -> s {httpStatus = a} :: ReleaseHostsResponse)
 
-instance NFData ReleaseHostsResponse
+instance Prelude.NFData ReleaseHostsResponse

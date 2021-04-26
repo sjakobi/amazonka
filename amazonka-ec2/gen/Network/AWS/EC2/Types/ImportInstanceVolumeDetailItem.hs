@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,123 +22,111 @@ module Network.AWS.EC2.Types.ImportInstanceVolumeDetailItem where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DiskImageDescription
 import Network.AWS.EC2.Types.DiskImageVolumeDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an import volume task.
 --
---
---
--- /See:/ 'importInstanceVolumeDetailItem' smart constructor.
+-- /See:/ 'newImportInstanceVolumeDetailItem' smart constructor.
 data ImportInstanceVolumeDetailItem = ImportInstanceVolumeDetailItem'
-  { _iivdiStatusMessage ::
-      !( Maybe
-           Text
-       ),
-    _iivdiBytesConverted ::
-      !( Maybe
-           Integer
-       ),
-    _iivdiStatus ::
-      !( Maybe
-           Text
-       ),
-    _iivdiVolume ::
-      !( Maybe
-           DiskImageVolumeDescription
-       ),
-    _iivdiImage ::
-      !( Maybe
-           DiskImageDescription
-       ),
-    _iivdiAvailabilityZone ::
-      !( Maybe
-           Text
-       ),
-    _iivdiDescription ::
-      !( Maybe
-           Text
-       )
+  { -- | The status information or errors related to the disk image.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The number of bytes converted so far.
+    bytesConverted :: Prelude.Maybe Prelude.Integer,
+    -- | The status of the import of this particular disk image.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The volume.
+    volume :: Prelude.Maybe DiskImageVolumeDescription,
+    -- | The image.
+    image :: Prelude.Maybe DiskImageDescription,
+    -- | The Availability Zone where the resulting instance will reside.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | A description of the task.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportInstanceVolumeDetailItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportInstanceVolumeDetailItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iivdiStatusMessage' - The status information or errors related to the disk image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iivdiBytesConverted' - The number of bytes converted so far.
+-- 'statusMessage', 'importInstanceVolumeDetailItem_statusMessage' - The status information or errors related to the disk image.
 --
--- * 'iivdiStatus' - The status of the import of this particular disk image.
+-- 'bytesConverted', 'importInstanceVolumeDetailItem_bytesConverted' - The number of bytes converted so far.
 --
--- * 'iivdiVolume' - The volume.
+-- 'status', 'importInstanceVolumeDetailItem_status' - The status of the import of this particular disk image.
 --
--- * 'iivdiImage' - The image.
+-- 'volume', 'importInstanceVolumeDetailItem_volume' - The volume.
 --
--- * 'iivdiAvailabilityZone' - The Availability Zone where the resulting instance will reside.
+-- 'image', 'importInstanceVolumeDetailItem_image' - The image.
 --
--- * 'iivdiDescription' - A description of the task.
-importInstanceVolumeDetailItem ::
+-- 'availabilityZone', 'importInstanceVolumeDetailItem_availabilityZone' - The Availability Zone where the resulting instance will reside.
+--
+-- 'description', 'importInstanceVolumeDetailItem_description' - A description of the task.
+newImportInstanceVolumeDetailItem ::
   ImportInstanceVolumeDetailItem
-importInstanceVolumeDetailItem =
+newImportInstanceVolumeDetailItem =
   ImportInstanceVolumeDetailItem'
-    { _iivdiStatusMessage =
-        Nothing,
-      _iivdiBytesConverted = Nothing,
-      _iivdiStatus = Nothing,
-      _iivdiVolume = Nothing,
-      _iivdiImage = Nothing,
-      _iivdiAvailabilityZone = Nothing,
-      _iivdiDescription = Nothing
+    { statusMessage =
+        Prelude.Nothing,
+      bytesConverted = Prelude.Nothing,
+      status = Prelude.Nothing,
+      volume = Prelude.Nothing,
+      image = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The status information or errors related to the disk image.
-iivdiStatusMessage :: Lens' ImportInstanceVolumeDetailItem (Maybe Text)
-iivdiStatusMessage = lens _iivdiStatusMessage (\s a -> s {_iivdiStatusMessage = a})
+importInstanceVolumeDetailItem_statusMessage :: Lens.Lens' ImportInstanceVolumeDetailItem (Prelude.Maybe Prelude.Text)
+importInstanceVolumeDetailItem_statusMessage = Lens.lens (\ImportInstanceVolumeDetailItem' {statusMessage} -> statusMessage) (\s@ImportInstanceVolumeDetailItem' {} a -> s {statusMessage = a} :: ImportInstanceVolumeDetailItem)
 
 -- | The number of bytes converted so far.
-iivdiBytesConverted :: Lens' ImportInstanceVolumeDetailItem (Maybe Integer)
-iivdiBytesConverted = lens _iivdiBytesConverted (\s a -> s {_iivdiBytesConverted = a})
+importInstanceVolumeDetailItem_bytesConverted :: Lens.Lens' ImportInstanceVolumeDetailItem (Prelude.Maybe Prelude.Integer)
+importInstanceVolumeDetailItem_bytesConverted = Lens.lens (\ImportInstanceVolumeDetailItem' {bytesConverted} -> bytesConverted) (\s@ImportInstanceVolumeDetailItem' {} a -> s {bytesConverted = a} :: ImportInstanceVolumeDetailItem)
 
 -- | The status of the import of this particular disk image.
-iivdiStatus :: Lens' ImportInstanceVolumeDetailItem (Maybe Text)
-iivdiStatus = lens _iivdiStatus (\s a -> s {_iivdiStatus = a})
+importInstanceVolumeDetailItem_status :: Lens.Lens' ImportInstanceVolumeDetailItem (Prelude.Maybe Prelude.Text)
+importInstanceVolumeDetailItem_status = Lens.lens (\ImportInstanceVolumeDetailItem' {status} -> status) (\s@ImportInstanceVolumeDetailItem' {} a -> s {status = a} :: ImportInstanceVolumeDetailItem)
 
 -- | The volume.
-iivdiVolume :: Lens' ImportInstanceVolumeDetailItem (Maybe DiskImageVolumeDescription)
-iivdiVolume = lens _iivdiVolume (\s a -> s {_iivdiVolume = a})
+importInstanceVolumeDetailItem_volume :: Lens.Lens' ImportInstanceVolumeDetailItem (Prelude.Maybe DiskImageVolumeDescription)
+importInstanceVolumeDetailItem_volume = Lens.lens (\ImportInstanceVolumeDetailItem' {volume} -> volume) (\s@ImportInstanceVolumeDetailItem' {} a -> s {volume = a} :: ImportInstanceVolumeDetailItem)
 
 -- | The image.
-iivdiImage :: Lens' ImportInstanceVolumeDetailItem (Maybe DiskImageDescription)
-iivdiImage = lens _iivdiImage (\s a -> s {_iivdiImage = a})
+importInstanceVolumeDetailItem_image :: Lens.Lens' ImportInstanceVolumeDetailItem (Prelude.Maybe DiskImageDescription)
+importInstanceVolumeDetailItem_image = Lens.lens (\ImportInstanceVolumeDetailItem' {image} -> image) (\s@ImportInstanceVolumeDetailItem' {} a -> s {image = a} :: ImportInstanceVolumeDetailItem)
 
 -- | The Availability Zone where the resulting instance will reside.
-iivdiAvailabilityZone :: Lens' ImportInstanceVolumeDetailItem (Maybe Text)
-iivdiAvailabilityZone = lens _iivdiAvailabilityZone (\s a -> s {_iivdiAvailabilityZone = a})
+importInstanceVolumeDetailItem_availabilityZone :: Lens.Lens' ImportInstanceVolumeDetailItem (Prelude.Maybe Prelude.Text)
+importInstanceVolumeDetailItem_availabilityZone = Lens.lens (\ImportInstanceVolumeDetailItem' {availabilityZone} -> availabilityZone) (\s@ImportInstanceVolumeDetailItem' {} a -> s {availabilityZone = a} :: ImportInstanceVolumeDetailItem)
 
 -- | A description of the task.
-iivdiDescription :: Lens' ImportInstanceVolumeDetailItem (Maybe Text)
-iivdiDescription = lens _iivdiDescription (\s a -> s {_iivdiDescription = a})
+importInstanceVolumeDetailItem_description :: Lens.Lens' ImportInstanceVolumeDetailItem (Prelude.Maybe Prelude.Text)
+importInstanceVolumeDetailItem_description = Lens.lens (\ImportInstanceVolumeDetailItem' {description} -> description) (\s@ImportInstanceVolumeDetailItem' {} a -> s {description = a} :: ImportInstanceVolumeDetailItem)
 
-instance FromXML ImportInstanceVolumeDetailItem where
+instance
+  Prelude.FromXML
+    ImportInstanceVolumeDetailItem
+  where
   parseXML x =
     ImportInstanceVolumeDetailItem'
-      <$> (x .@? "statusMessage")
-      <*> (x .@? "bytesConverted")
-      <*> (x .@? "status")
-      <*> (x .@? "volume")
-      <*> (x .@? "image")
-      <*> (x .@? "availabilityZone")
-      <*> (x .@? "description")
+      Prelude.<$> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "bytesConverted")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "volume")
+      Prelude.<*> (x Prelude..@? "image")
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> (x Prelude..@? "description")
 
-instance Hashable ImportInstanceVolumeDetailItem
+instance
+  Prelude.Hashable
+    ImportInstanceVolumeDetailItem
 
-instance NFData ImportInstanceVolumeDetailItem
+instance
+  Prelude.NFData
+    ImportInstanceVolumeDetailItem

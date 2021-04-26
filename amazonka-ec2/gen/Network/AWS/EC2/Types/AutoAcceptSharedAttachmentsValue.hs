@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.AutoAcceptSharedAttachmentsValue
   ( AutoAcceptSharedAttachmentsValue
       ( ..,
-        AASAVDisable,
-        AASAVEnable
+        AutoAcceptSharedAttachmentsValueDisable,
+        AutoAcceptSharedAttachmentsValueEnable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoAcceptSharedAttachmentsValue
-  = AutoAcceptSharedAttachmentsValue'
-      ( CI
-          Text
-      )
+newtype AutoAcceptSharedAttachmentsValue = AutoAcceptSharedAttachmentsValue'
+  { fromAutoAcceptSharedAttachmentsValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AASAVDisable :: AutoAcceptSharedAttachmentsValue
-pattern AASAVDisable = AutoAcceptSharedAttachmentsValue' "disable"
+pattern AutoAcceptSharedAttachmentsValueDisable :: AutoAcceptSharedAttachmentsValue
+pattern AutoAcceptSharedAttachmentsValueDisable = AutoAcceptSharedAttachmentsValue' "disable"
 
-pattern AASAVEnable :: AutoAcceptSharedAttachmentsValue
-pattern AASAVEnable = AutoAcceptSharedAttachmentsValue' "enable"
+pattern AutoAcceptSharedAttachmentsValueEnable :: AutoAcceptSharedAttachmentsValue
+pattern AutoAcceptSharedAttachmentsValueEnable = AutoAcceptSharedAttachmentsValue' "enable"
 
 {-# COMPLETE
-  AASAVDisable,
-  AASAVEnable,
+  AutoAcceptSharedAttachmentsValueDisable,
+  AutoAcceptSharedAttachmentsValueEnable,
   AutoAcceptSharedAttachmentsValue'
   #-}
 
-instance FromText AutoAcceptSharedAttachmentsValue where
-  parser = (AutoAcceptSharedAttachmentsValue' . mk) <$> takeText
+instance Prelude.FromText AutoAcceptSharedAttachmentsValue where
+  parser = AutoAcceptSharedAttachmentsValue' Prelude.<$> Prelude.takeText
 
-instance ToText AutoAcceptSharedAttachmentsValue where
-  toText (AutoAcceptSharedAttachmentsValue' ci) = original ci
+instance Prelude.ToText AutoAcceptSharedAttachmentsValue where
+  toText (AutoAcceptSharedAttachmentsValue' x) = x
 
-instance Hashable AutoAcceptSharedAttachmentsValue
+instance Prelude.Hashable AutoAcceptSharedAttachmentsValue
 
-instance NFData AutoAcceptSharedAttachmentsValue
+instance Prelude.NFData AutoAcceptSharedAttachmentsValue
 
-instance ToByteString AutoAcceptSharedAttachmentsValue
+instance Prelude.ToByteString AutoAcceptSharedAttachmentsValue
 
-instance ToQuery AutoAcceptSharedAttachmentsValue
+instance Prelude.ToQuery AutoAcceptSharedAttachmentsValue
 
-instance ToHeader AutoAcceptSharedAttachmentsValue
+instance Prelude.ToHeader AutoAcceptSharedAttachmentsValue
 
-instance FromXML AutoAcceptSharedAttachmentsValue where
-  parseXML = parseXMLText "AutoAcceptSharedAttachmentsValue"
+instance Prelude.FromXML AutoAcceptSharedAttachmentsValue where
+  parseXML = Prelude.parseXMLText "AutoAcceptSharedAttachmentsValue"

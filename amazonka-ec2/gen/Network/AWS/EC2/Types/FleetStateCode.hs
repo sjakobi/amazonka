@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +19,81 @@
 module Network.AWS.EC2.Types.FleetStateCode
   ( FleetStateCode
       ( ..,
-        FSCActive,
-        FSCDeleted,
-        FSCDeletedRunning,
-        FSCDeletedTerminating,
-        FSCFailed,
-        FSCModifying,
-        FSCSubmitted
+        FleetStateCodeActive,
+        FleetStateCodeDeleted,
+        FleetStateCodeDeletedRunning,
+        FleetStateCodeDeletedTerminating,
+        FleetStateCodeFailed,
+        FleetStateCodeModifying,
+        FleetStateCodeSubmitted
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetStateCode = FleetStateCode' (CI Text)
+newtype FleetStateCode = FleetStateCode'
+  { fromFleetStateCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FSCActive :: FleetStateCode
-pattern FSCActive = FleetStateCode' "active"
+pattern FleetStateCodeActive :: FleetStateCode
+pattern FleetStateCodeActive = FleetStateCode' "active"
 
-pattern FSCDeleted :: FleetStateCode
-pattern FSCDeleted = FleetStateCode' "deleted"
+pattern FleetStateCodeDeleted :: FleetStateCode
+pattern FleetStateCodeDeleted = FleetStateCode' "deleted"
 
-pattern FSCDeletedRunning :: FleetStateCode
-pattern FSCDeletedRunning = FleetStateCode' "deleted_running"
+pattern FleetStateCodeDeletedRunning :: FleetStateCode
+pattern FleetStateCodeDeletedRunning = FleetStateCode' "deleted_running"
 
-pattern FSCDeletedTerminating :: FleetStateCode
-pattern FSCDeletedTerminating = FleetStateCode' "deleted_terminating"
+pattern FleetStateCodeDeletedTerminating :: FleetStateCode
+pattern FleetStateCodeDeletedTerminating = FleetStateCode' "deleted_terminating"
 
-pattern FSCFailed :: FleetStateCode
-pattern FSCFailed = FleetStateCode' "failed"
+pattern FleetStateCodeFailed :: FleetStateCode
+pattern FleetStateCodeFailed = FleetStateCode' "failed"
 
-pattern FSCModifying :: FleetStateCode
-pattern FSCModifying = FleetStateCode' "modifying"
+pattern FleetStateCodeModifying :: FleetStateCode
+pattern FleetStateCodeModifying = FleetStateCode' "modifying"
 
-pattern FSCSubmitted :: FleetStateCode
-pattern FSCSubmitted = FleetStateCode' "submitted"
+pattern FleetStateCodeSubmitted :: FleetStateCode
+pattern FleetStateCodeSubmitted = FleetStateCode' "submitted"
 
 {-# COMPLETE
-  FSCActive,
-  FSCDeleted,
-  FSCDeletedRunning,
-  FSCDeletedTerminating,
-  FSCFailed,
-  FSCModifying,
-  FSCSubmitted,
+  FleetStateCodeActive,
+  FleetStateCodeDeleted,
+  FleetStateCodeDeletedRunning,
+  FleetStateCodeDeletedTerminating,
+  FleetStateCodeFailed,
+  FleetStateCodeModifying,
+  FleetStateCodeSubmitted,
   FleetStateCode'
   #-}
 
-instance FromText FleetStateCode where
-  parser = (FleetStateCode' . mk) <$> takeText
+instance Prelude.FromText FleetStateCode where
+  parser = FleetStateCode' Prelude.<$> Prelude.takeText
 
-instance ToText FleetStateCode where
-  toText (FleetStateCode' ci) = original ci
+instance Prelude.ToText FleetStateCode where
+  toText (FleetStateCode' x) = x
 
-instance Hashable FleetStateCode
+instance Prelude.Hashable FleetStateCode
 
-instance NFData FleetStateCode
+instance Prelude.NFData FleetStateCode
 
-instance ToByteString FleetStateCode
+instance Prelude.ToByteString FleetStateCode
 
-instance ToQuery FleetStateCode
+instance Prelude.ToQuery FleetStateCode
 
-instance ToHeader FleetStateCode
+instance Prelude.ToHeader FleetStateCode
 
-instance FromXML FleetStateCode where
-  parseXML = parseXMLText "FleetStateCode"
+instance Prelude.FromXML FleetStateCode where
+  parseXML = Prelude.parseXMLText "FleetStateCode"

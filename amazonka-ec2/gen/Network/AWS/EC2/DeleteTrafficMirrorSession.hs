@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,148 +24,156 @@
 -- Deletes the specified Traffic Mirror session.
 module Network.AWS.EC2.DeleteTrafficMirrorSession
   ( -- * Creating a Request
-    deleteTrafficMirrorSession,
-    DeleteTrafficMirrorSession,
+    DeleteTrafficMirrorSession (..),
+    newDeleteTrafficMirrorSession,
 
     -- * Request Lenses
-    dtmstDryRun,
-    dtmstTrafficMirrorSessionId,
+    deleteTrafficMirrorSession_dryRun,
+    deleteTrafficMirrorSession_trafficMirrorSessionId,
 
     -- * Destructuring the Response
-    deleteTrafficMirrorSessionResponse,
-    DeleteTrafficMirrorSessionResponse,
+    DeleteTrafficMirrorSessionResponse (..),
+    newDeleteTrafficMirrorSessionResponse,
 
     -- * Response Lenses
-    dtmsrtrsTrafficMirrorSessionId,
-    dtmsrtrsResponseStatus,
+    deleteTrafficMirrorSessionResponse_trafficMirrorSessionId,
+    deleteTrafficMirrorSessionResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTrafficMirrorSession' smart constructor.
+-- | /See:/ 'newDeleteTrafficMirrorSession' smart constructor.
 data DeleteTrafficMirrorSession = DeleteTrafficMirrorSession'
-  { _dtmstDryRun ::
-      !(Maybe Bool),
-    _dtmstTrafficMirrorSessionId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the Traffic Mirror session.
+    trafficMirrorSessionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrafficMirrorSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrafficMirrorSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtmstDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtmstTrafficMirrorSessionId' - The ID of the Traffic Mirror session.
-deleteTrafficMirrorSession ::
-  -- | 'dtmstTrafficMirrorSessionId'
-  Text ->
+-- 'dryRun', 'deleteTrafficMirrorSession_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'trafficMirrorSessionId', 'deleteTrafficMirrorSession_trafficMirrorSessionId' - The ID of the Traffic Mirror session.
+newDeleteTrafficMirrorSession ::
+  -- | 'trafficMirrorSessionId'
+  Prelude.Text ->
   DeleteTrafficMirrorSession
-deleteTrafficMirrorSession pTrafficMirrorSessionId_ =
-  DeleteTrafficMirrorSession'
-    { _dtmstDryRun = Nothing,
-      _dtmstTrafficMirrorSessionId =
-        pTrafficMirrorSessionId_
-    }
+newDeleteTrafficMirrorSession
+  pTrafficMirrorSessionId_ =
+    DeleteTrafficMirrorSession'
+      { dryRun =
+          Prelude.Nothing,
+        trafficMirrorSessionId =
+          pTrafficMirrorSessionId_
+      }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtmstDryRun :: Lens' DeleteTrafficMirrorSession (Maybe Bool)
-dtmstDryRun = lens _dtmstDryRun (\s a -> s {_dtmstDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteTrafficMirrorSession_dryRun :: Lens.Lens' DeleteTrafficMirrorSession (Prelude.Maybe Prelude.Bool)
+deleteTrafficMirrorSession_dryRun = Lens.lens (\DeleteTrafficMirrorSession' {dryRun} -> dryRun) (\s@DeleteTrafficMirrorSession' {} a -> s {dryRun = a} :: DeleteTrafficMirrorSession)
 
 -- | The ID of the Traffic Mirror session.
-dtmstTrafficMirrorSessionId :: Lens' DeleteTrafficMirrorSession Text
-dtmstTrafficMirrorSessionId = lens _dtmstTrafficMirrorSessionId (\s a -> s {_dtmstTrafficMirrorSessionId = a})
+deleteTrafficMirrorSession_trafficMirrorSessionId :: Lens.Lens' DeleteTrafficMirrorSession Prelude.Text
+deleteTrafficMirrorSession_trafficMirrorSessionId = Lens.lens (\DeleteTrafficMirrorSession' {trafficMirrorSessionId} -> trafficMirrorSessionId) (\s@DeleteTrafficMirrorSession' {} a -> s {trafficMirrorSessionId = a} :: DeleteTrafficMirrorSession)
 
-instance AWSRequest DeleteTrafficMirrorSession where
+instance
+  Prelude.AWSRequest
+    DeleteTrafficMirrorSession
+  where
   type
     Rs DeleteTrafficMirrorSession =
       DeleteTrafficMirrorSessionResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteTrafficMirrorSessionResponse'
-            <$> (x .@? "trafficMirrorSessionId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "trafficMirrorSessionId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTrafficMirrorSession
+instance Prelude.Hashable DeleteTrafficMirrorSession
 
-instance NFData DeleteTrafficMirrorSession
+instance Prelude.NFData DeleteTrafficMirrorSession
 
-instance ToHeaders DeleteTrafficMirrorSession where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteTrafficMirrorSession where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTrafficMirrorSession where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTrafficMirrorSession where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTrafficMirrorSession where
+instance Prelude.ToQuery DeleteTrafficMirrorSession where
   toQuery DeleteTrafficMirrorSession' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteTrafficMirrorSession" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dtmstDryRun,
+          Prelude.=: ("DeleteTrafficMirrorSession" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "TrafficMirrorSessionId"
-          =: _dtmstTrafficMirrorSessionId
+          Prelude.=: trafficMirrorSessionId
       ]
 
--- | /See:/ 'deleteTrafficMirrorSessionResponse' smart constructor.
+-- | /See:/ 'newDeleteTrafficMirrorSessionResponse' smart constructor.
 data DeleteTrafficMirrorSessionResponse = DeleteTrafficMirrorSessionResponse'
-  { _dtmsrtrsTrafficMirrorSessionId ::
-      !( Maybe
-           Text
-       ),
-    _dtmsrtrsResponseStatus ::
-      !Int
+  { -- | The ID of the deleted Traffic Mirror session.
+    trafficMirrorSessionId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrafficMirrorSessionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrafficMirrorSessionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtmsrtrsTrafficMirrorSessionId' - The ID of the deleted Traffic Mirror session.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtmsrtrsResponseStatus' - -- | The response status code.
-deleteTrafficMirrorSessionResponse ::
-  -- | 'dtmsrtrsResponseStatus'
-  Int ->
+-- 'trafficMirrorSessionId', 'deleteTrafficMirrorSessionResponse_trafficMirrorSessionId' - The ID of the deleted Traffic Mirror session.
+--
+-- 'httpStatus', 'deleteTrafficMirrorSessionResponse_httpStatus' - The response's http status code.
+newDeleteTrafficMirrorSessionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTrafficMirrorSessionResponse
-deleteTrafficMirrorSessionResponse pResponseStatus_ =
+newDeleteTrafficMirrorSessionResponse pHttpStatus_ =
   DeleteTrafficMirrorSessionResponse'
-    { _dtmsrtrsTrafficMirrorSessionId =
-        Nothing,
-      _dtmsrtrsResponseStatus =
-        pResponseStatus_
+    { trafficMirrorSessionId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the deleted Traffic Mirror session.
-dtmsrtrsTrafficMirrorSessionId :: Lens' DeleteTrafficMirrorSessionResponse (Maybe Text)
-dtmsrtrsTrafficMirrorSessionId = lens _dtmsrtrsTrafficMirrorSessionId (\s a -> s {_dtmsrtrsTrafficMirrorSessionId = a})
+deleteTrafficMirrorSessionResponse_trafficMirrorSessionId :: Lens.Lens' DeleteTrafficMirrorSessionResponse (Prelude.Maybe Prelude.Text)
+deleteTrafficMirrorSessionResponse_trafficMirrorSessionId = Lens.lens (\DeleteTrafficMirrorSessionResponse' {trafficMirrorSessionId} -> trafficMirrorSessionId) (\s@DeleteTrafficMirrorSessionResponse' {} a -> s {trafficMirrorSessionId = a} :: DeleteTrafficMirrorSessionResponse)
 
--- | -- | The response status code.
-dtmsrtrsResponseStatus :: Lens' DeleteTrafficMirrorSessionResponse Int
-dtmsrtrsResponseStatus = lens _dtmsrtrsResponseStatus (\s a -> s {_dtmsrtrsResponseStatus = a})
+-- | The response's http status code.
+deleteTrafficMirrorSessionResponse_httpStatus :: Lens.Lens' DeleteTrafficMirrorSessionResponse Prelude.Int
+deleteTrafficMirrorSessionResponse_httpStatus = Lens.lens (\DeleteTrafficMirrorSessionResponse' {httpStatus} -> httpStatus) (\s@DeleteTrafficMirrorSessionResponse' {} a -> s {httpStatus = a} :: DeleteTrafficMirrorSessionResponse)
 
-instance NFData DeleteTrafficMirrorSessionResponse
+instance
+  Prelude.NFData
+    DeleteTrafficMirrorSessionResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.EC2.Types.ListingState
   ( ListingState
       ( ..,
-        LAvailable,
-        LCancelled,
-        LPending,
-        LSold
+        ListingStateAvailable,
+        ListingStateCancelled,
+        ListingStatePending,
+        ListingStateSold
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ListingState = ListingState' (CI Text)
+newtype ListingState = ListingState'
+  { fromListingState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LAvailable :: ListingState
-pattern LAvailable = ListingState' "available"
+pattern ListingStateAvailable :: ListingState
+pattern ListingStateAvailable = ListingState' "available"
 
-pattern LCancelled :: ListingState
-pattern LCancelled = ListingState' "cancelled"
+pattern ListingStateCancelled :: ListingState
+pattern ListingStateCancelled = ListingState' "cancelled"
 
-pattern LPending :: ListingState
-pattern LPending = ListingState' "pending"
+pattern ListingStatePending :: ListingState
+pattern ListingStatePending = ListingState' "pending"
 
-pattern LSold :: ListingState
-pattern LSold = ListingState' "sold"
+pattern ListingStateSold :: ListingState
+pattern ListingStateSold = ListingState' "sold"
 
 {-# COMPLETE
-  LAvailable,
-  LCancelled,
-  LPending,
-  LSold,
+  ListingStateAvailable,
+  ListingStateCancelled,
+  ListingStatePending,
+  ListingStateSold,
   ListingState'
   #-}
 
-instance FromText ListingState where
-  parser = (ListingState' . mk) <$> takeText
+instance Prelude.FromText ListingState where
+  parser = ListingState' Prelude.<$> Prelude.takeText
 
-instance ToText ListingState where
-  toText (ListingState' ci) = original ci
+instance Prelude.ToText ListingState where
+  toText (ListingState' x) = x
 
-instance Hashable ListingState
+instance Prelude.Hashable ListingState
 
-instance NFData ListingState
+instance Prelude.NFData ListingState
 
-instance ToByteString ListingState
+instance Prelude.ToByteString ListingState
 
-instance ToQuery ListingState
+instance Prelude.ToQuery ListingState
 
-instance ToHeader ListingState
+instance Prelude.ToHeader ListingState
 
-instance FromXML ListingState where
-  parseXML = parseXMLText "ListingState"
+instance Prelude.FromXML ListingState where
+  parseXML = Prelude.parseXMLText "ListingState"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.EC2.Types.TrafficMirrorNetworkService
   ( TrafficMirrorNetworkService
       ( ..,
-        AmazonDNS
+        TrafficMirrorNetworkServiceAmazonDns
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficMirrorNetworkService
-  = TrafficMirrorNetworkService'
-      ( CI
-          Text
-      )
+newtype TrafficMirrorNetworkService = TrafficMirrorNetworkService'
+  { fromTrafficMirrorNetworkService ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmazonDNS :: TrafficMirrorNetworkService
-pattern AmazonDNS = TrafficMirrorNetworkService' "amazon-dns"
+pattern TrafficMirrorNetworkServiceAmazonDns :: TrafficMirrorNetworkService
+pattern TrafficMirrorNetworkServiceAmazonDns = TrafficMirrorNetworkService' "amazon-dns"
 
 {-# COMPLETE
-  AmazonDNS,
+  TrafficMirrorNetworkServiceAmazonDns,
   TrafficMirrorNetworkService'
   #-}
 
-instance FromText TrafficMirrorNetworkService where
-  parser = (TrafficMirrorNetworkService' . mk) <$> takeText
+instance Prelude.FromText TrafficMirrorNetworkService where
+  parser = TrafficMirrorNetworkService' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficMirrorNetworkService where
-  toText (TrafficMirrorNetworkService' ci) = original ci
+instance Prelude.ToText TrafficMirrorNetworkService where
+  toText (TrafficMirrorNetworkService' x) = x
 
-instance Hashable TrafficMirrorNetworkService
+instance Prelude.Hashable TrafficMirrorNetworkService
 
-instance NFData TrafficMirrorNetworkService
+instance Prelude.NFData TrafficMirrorNetworkService
 
-instance ToByteString TrafficMirrorNetworkService
+instance Prelude.ToByteString TrafficMirrorNetworkService
 
-instance ToQuery TrafficMirrorNetworkService
+instance Prelude.ToQuery TrafficMirrorNetworkService
 
-instance ToHeader TrafficMirrorNetworkService
+instance Prelude.ToHeader TrafficMirrorNetworkService
 
-instance FromXML TrafficMirrorNetworkService where
-  parseXML = parseXMLText "TrafficMirrorNetworkService"
+instance Prelude.FromXML TrafficMirrorNetworkService where
+  parseXML = Prelude.parseXMLText "TrafficMirrorNetworkService"

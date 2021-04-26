@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.CapacityReservationPreference
   ( CapacityReservationPreference
       ( ..,
-        None,
-        Open
+        CapacityReservationPreferenceNone,
+        CapacityReservationPreferenceOpen
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CapacityReservationPreference
-  = CapacityReservationPreference'
-      ( CI
-          Text
-      )
+newtype CapacityReservationPreference = CapacityReservationPreference'
+  { fromCapacityReservationPreference ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern None :: CapacityReservationPreference
-pattern None = CapacityReservationPreference' "none"
+pattern CapacityReservationPreferenceNone :: CapacityReservationPreference
+pattern CapacityReservationPreferenceNone = CapacityReservationPreference' "none"
 
-pattern Open :: CapacityReservationPreference
-pattern Open = CapacityReservationPreference' "open"
+pattern CapacityReservationPreferenceOpen :: CapacityReservationPreference
+pattern CapacityReservationPreferenceOpen = CapacityReservationPreference' "open"
 
 {-# COMPLETE
-  None,
-  Open,
+  CapacityReservationPreferenceNone,
+  CapacityReservationPreferenceOpen,
   CapacityReservationPreference'
   #-}
 
-instance FromText CapacityReservationPreference where
-  parser = (CapacityReservationPreference' . mk) <$> takeText
+instance Prelude.FromText CapacityReservationPreference where
+  parser = CapacityReservationPreference' Prelude.<$> Prelude.takeText
 
-instance ToText CapacityReservationPreference where
-  toText (CapacityReservationPreference' ci) = original ci
+instance Prelude.ToText CapacityReservationPreference where
+  toText (CapacityReservationPreference' x) = x
 
-instance Hashable CapacityReservationPreference
+instance Prelude.Hashable CapacityReservationPreference
 
-instance NFData CapacityReservationPreference
+instance Prelude.NFData CapacityReservationPreference
 
-instance ToByteString CapacityReservationPreference
+instance Prelude.ToByteString CapacityReservationPreference
 
-instance ToQuery CapacityReservationPreference
+instance Prelude.ToQuery CapacityReservationPreference
 
-instance ToHeader CapacityReservationPreference
+instance Prelude.ToHeader CapacityReservationPreference
 
-instance FromXML CapacityReservationPreference where
-  parseXML = parseXMLText "CapacityReservationPreference"
+instance Prelude.FromXML CapacityReservationPreference where
+  parseXML = Prelude.parseXMLText "CapacityReservationPreference"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,171 +23,220 @@
 --
 -- Modifies the specified EC2 Fleet.
 --
---
--- You can only modify an EC2 Fleet request of type @maintain@ .
+-- You can only modify an EC2 Fleet request of type @maintain@.
 --
 -- While the EC2 Fleet is being modified, it is in the @modifying@ state.
 --
--- To scale up your EC2 Fleet, increase its target capacity. The EC2 Fleet launches the additional Spot Instances according to the allocation strategy for the EC2 Fleet request. If the allocation strategy is @lowest-price@ , the EC2 Fleet launches instances using the Spot Instance pool with the lowest price. If the allocation strategy is @diversified@ , the EC2 Fleet distributes the instances across the Spot Instance pools. If the allocation strategy is @capacity-optimized@ , EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.
+-- To scale up your EC2 Fleet, increase its target capacity. The EC2 Fleet
+-- launches the additional Spot Instances according to the allocation
+-- strategy for the EC2 Fleet request. If the allocation strategy is
+-- @lowest-price@, the EC2 Fleet launches instances using the Spot Instance
+-- pool with the lowest price. If the allocation strategy is @diversified@,
+-- the EC2 Fleet distributes the instances across the Spot Instance pools.
+-- If the allocation strategy is @capacity-optimized@, EC2 Fleet launches
+-- instances from Spot Instance pools with optimal capacity for the number
+-- of instances that are launching.
 --
--- To scale down your EC2 Fleet, decrease its target capacity. First, the EC2 Fleet cancels any open requests that exceed the new target capacity. You can request that the EC2 Fleet terminate Spot Instances until the size of the fleet no longer exceeds the new target capacity. If the allocation strategy is @lowest-price@ , the EC2 Fleet terminates the instances with the highest price per unit. If the allocation strategy is @capacity-optimized@ , the EC2 Fleet terminates the instances in the Spot Instance pools that have the least available Spot Instance capacity. If the allocation strategy is @diversified@ , the EC2 Fleet terminates instances across the Spot Instance pools. Alternatively, you can request that the EC2 Fleet keep the fleet at its current size, but not replace any Spot Instances that are interrupted or that you terminate manually.
+-- To scale down your EC2 Fleet, decrease its target capacity. First, the
+-- EC2 Fleet cancels any open requests that exceed the new target capacity.
+-- You can request that the EC2 Fleet terminate Spot Instances until the
+-- size of the fleet no longer exceeds the new target capacity. If the
+-- allocation strategy is @lowest-price@, the EC2 Fleet terminates the
+-- instances with the highest price per unit. If the allocation strategy is
+-- @capacity-optimized@, the EC2 Fleet terminates the instances in the Spot
+-- Instance pools that have the least available Spot Instance capacity. If
+-- the allocation strategy is @diversified@, the EC2 Fleet terminates
+-- instances across the Spot Instance pools. Alternatively, you can request
+-- that the EC2 Fleet keep the fleet at its current size, but not replace
+-- any Spot Instances that are interrupted or that you terminate manually.
 --
--- If you are finished with your EC2 Fleet for now, but will use it again later, you can set the target capacity to 0.
+-- If you are finished with your EC2 Fleet for now, but will use it again
+-- later, you can set the target capacity to 0.
 module Network.AWS.EC2.ModifyFleet
   ( -- * Creating a Request
-    modifyFleet,
-    ModifyFleet,
+    ModifyFleet (..),
+    newModifyFleet,
 
     -- * Request Lenses
-    mfLaunchTemplateConfigs,
-    mfDryRun,
-    mfExcessCapacityTerminationPolicy,
-    mfTargetCapacitySpecification,
-    mfFleetId,
+    modifyFleet_launchTemplateConfigs,
+    modifyFleet_dryRun,
+    modifyFleet_excessCapacityTerminationPolicy,
+    modifyFleet_targetCapacitySpecification,
+    modifyFleet_fleetId,
 
     -- * Destructuring the Response
-    modifyFleetResponse,
-    ModifyFleetResponse,
+    ModifyFleetResponse (..),
+    newModifyFleetResponse,
 
     -- * Response Lenses
-    mfrrsReturn,
-    mfrrsResponseStatus,
+    modifyFleetResponse_return,
+    modifyFleetResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyFleet' smart constructor.
+-- | /See:/ 'newModifyFleet' smart constructor.
 data ModifyFleet = ModifyFleet'
-  { _mfLaunchTemplateConfigs ::
-      !(Maybe [FleetLaunchTemplateConfigRequest]),
-    _mfDryRun :: !(Maybe Bool),
-    _mfExcessCapacityTerminationPolicy ::
-      !(Maybe FleetExcessCapacityTerminationPolicy),
-    _mfTargetCapacitySpecification ::
-      !(Maybe TargetCapacitySpecificationRequest),
-    _mfFleetId :: !Text
+  { -- | The launch template and overrides.
+    launchTemplateConfigs :: Prelude.Maybe [FleetLaunchTemplateConfigRequest],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether running instances should be terminated if the total
+    -- target capacity of the EC2 Fleet is decreased below the current size of
+    -- the EC2 Fleet.
+    excessCapacityTerminationPolicy :: Prelude.Maybe FleetExcessCapacityTerminationPolicy,
+    -- | The size of the EC2 Fleet.
+    targetCapacitySpecification :: Prelude.Maybe TargetCapacitySpecificationRequest,
+    -- | The ID of the EC2 Fleet.
+    fleetId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mfLaunchTemplateConfigs' - The launch template and overrides.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mfDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'launchTemplateConfigs', 'modifyFleet_launchTemplateConfigs' - The launch template and overrides.
 --
--- * 'mfExcessCapacityTerminationPolicy' - Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.
+-- 'dryRun', 'modifyFleet_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'mfTargetCapacitySpecification' - The size of the EC2 Fleet.
+-- 'excessCapacityTerminationPolicy', 'modifyFleet_excessCapacityTerminationPolicy' - Indicates whether running instances should be terminated if the total
+-- target capacity of the EC2 Fleet is decreased below the current size of
+-- the EC2 Fleet.
 --
--- * 'mfFleetId' - The ID of the EC2 Fleet.
-modifyFleet ::
-  -- | 'mfFleetId'
-  Text ->
+-- 'targetCapacitySpecification', 'modifyFleet_targetCapacitySpecification' - The size of the EC2 Fleet.
+--
+-- 'fleetId', 'modifyFleet_fleetId' - The ID of the EC2 Fleet.
+newModifyFleet ::
+  -- | 'fleetId'
+  Prelude.Text ->
   ModifyFleet
-modifyFleet pFleetId_ =
+newModifyFleet pFleetId_ =
   ModifyFleet'
-    { _mfLaunchTemplateConfigs = Nothing,
-      _mfDryRun = Nothing,
-      _mfExcessCapacityTerminationPolicy = Nothing,
-      _mfTargetCapacitySpecification = Nothing,
-      _mfFleetId = pFleetId_
+    { launchTemplateConfigs =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      excessCapacityTerminationPolicy = Prelude.Nothing,
+      targetCapacitySpecification = Prelude.Nothing,
+      fleetId = pFleetId_
     }
 
 -- | The launch template and overrides.
-mfLaunchTemplateConfigs :: Lens' ModifyFleet [FleetLaunchTemplateConfigRequest]
-mfLaunchTemplateConfigs = lens _mfLaunchTemplateConfigs (\s a -> s {_mfLaunchTemplateConfigs = a}) . _Default . _Coerce
+modifyFleet_launchTemplateConfigs :: Lens.Lens' ModifyFleet (Prelude.Maybe [FleetLaunchTemplateConfigRequest])
+modifyFleet_launchTemplateConfigs = Lens.lens (\ModifyFleet' {launchTemplateConfigs} -> launchTemplateConfigs) (\s@ModifyFleet' {} a -> s {launchTemplateConfigs = a} :: ModifyFleet) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-mfDryRun :: Lens' ModifyFleet (Maybe Bool)
-mfDryRun = lens _mfDryRun (\s a -> s {_mfDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyFleet_dryRun :: Lens.Lens' ModifyFleet (Prelude.Maybe Prelude.Bool)
+modifyFleet_dryRun = Lens.lens (\ModifyFleet' {dryRun} -> dryRun) (\s@ModifyFleet' {} a -> s {dryRun = a} :: ModifyFleet)
 
--- | Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.
-mfExcessCapacityTerminationPolicy :: Lens' ModifyFleet (Maybe FleetExcessCapacityTerminationPolicy)
-mfExcessCapacityTerminationPolicy = lens _mfExcessCapacityTerminationPolicy (\s a -> s {_mfExcessCapacityTerminationPolicy = a})
+-- | Indicates whether running instances should be terminated if the total
+-- target capacity of the EC2 Fleet is decreased below the current size of
+-- the EC2 Fleet.
+modifyFleet_excessCapacityTerminationPolicy :: Lens.Lens' ModifyFleet (Prelude.Maybe FleetExcessCapacityTerminationPolicy)
+modifyFleet_excessCapacityTerminationPolicy = Lens.lens (\ModifyFleet' {excessCapacityTerminationPolicy} -> excessCapacityTerminationPolicy) (\s@ModifyFleet' {} a -> s {excessCapacityTerminationPolicy = a} :: ModifyFleet)
 
 -- | The size of the EC2 Fleet.
-mfTargetCapacitySpecification :: Lens' ModifyFleet (Maybe TargetCapacitySpecificationRequest)
-mfTargetCapacitySpecification = lens _mfTargetCapacitySpecification (\s a -> s {_mfTargetCapacitySpecification = a})
+modifyFleet_targetCapacitySpecification :: Lens.Lens' ModifyFleet (Prelude.Maybe TargetCapacitySpecificationRequest)
+modifyFleet_targetCapacitySpecification = Lens.lens (\ModifyFleet' {targetCapacitySpecification} -> targetCapacitySpecification) (\s@ModifyFleet' {} a -> s {targetCapacitySpecification = a} :: ModifyFleet)
 
 -- | The ID of the EC2 Fleet.
-mfFleetId :: Lens' ModifyFleet Text
-mfFleetId = lens _mfFleetId (\s a -> s {_mfFleetId = a})
+modifyFleet_fleetId :: Lens.Lens' ModifyFleet Prelude.Text
+modifyFleet_fleetId = Lens.lens (\ModifyFleet' {fleetId} -> fleetId) (\s@ModifyFleet' {} a -> s {fleetId = a} :: ModifyFleet)
 
-instance AWSRequest ModifyFleet where
+instance Prelude.AWSRequest ModifyFleet where
   type Rs ModifyFleet = ModifyFleetResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyFleetResponse'
-            <$> (x .@? "return") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "return")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyFleet
+instance Prelude.Hashable ModifyFleet
 
-instance NFData ModifyFleet
+instance Prelude.NFData ModifyFleet
 
-instance ToHeaders ModifyFleet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyFleet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyFleet where
-  toPath = const "/"
+instance Prelude.ToPath ModifyFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyFleet where
+instance Prelude.ToQuery ModifyFleet where
   toQuery ModifyFleet' {..} =
-    mconcat
-      [ "Action" =: ("ModifyFleet" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "LaunchTemplateConfig"
-              <$> _mfLaunchTemplateConfigs
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyFleet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "LaunchTemplateConfig"
+              Prelude.<$> launchTemplateConfigs
           ),
-        "DryRun" =: _mfDryRun,
+        "DryRun" Prelude.=: dryRun,
         "ExcessCapacityTerminationPolicy"
-          =: _mfExcessCapacityTerminationPolicy,
+          Prelude.=: excessCapacityTerminationPolicy,
         "TargetCapacitySpecification"
-          =: _mfTargetCapacitySpecification,
-        "FleetId" =: _mfFleetId
+          Prelude.=: targetCapacitySpecification,
+        "FleetId" Prelude.=: fleetId
       ]
 
--- | /See:/ 'modifyFleetResponse' smart constructor.
+-- | /See:/ 'newModifyFleetResponse' smart constructor.
 data ModifyFleetResponse = ModifyFleetResponse'
-  { _mfrrsReturn ::
-      !(Maybe Bool),
-    _mfrrsResponseStatus :: !Int
+  { -- | Is @true@ if the request succeeds, and an error otherwise.
+    return' :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyFleetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyFleetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mfrrsReturn' - Is @true@ if the request succeeds, and an error otherwise.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mfrrsResponseStatus' - -- | The response status code.
-modifyFleetResponse ::
-  -- | 'mfrrsResponseStatus'
-  Int ->
+-- 'return'', 'modifyFleetResponse_return' - Is @true@ if the request succeeds, and an error otherwise.
+--
+-- 'httpStatus', 'modifyFleetResponse_httpStatus' - The response's http status code.
+newModifyFleetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyFleetResponse
-modifyFleetResponse pResponseStatus_ =
+newModifyFleetResponse pHttpStatus_ =
   ModifyFleetResponse'
-    { _mfrrsReturn = Nothing,
-      _mfrrsResponseStatus = pResponseStatus_
+    { return' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Is @true@ if the request succeeds, and an error otherwise.
-mfrrsReturn :: Lens' ModifyFleetResponse (Maybe Bool)
-mfrrsReturn = lens _mfrrsReturn (\s a -> s {_mfrrsReturn = a})
+modifyFleetResponse_return :: Lens.Lens' ModifyFleetResponse (Prelude.Maybe Prelude.Bool)
+modifyFleetResponse_return = Lens.lens (\ModifyFleetResponse' {return'} -> return') (\s@ModifyFleetResponse' {} a -> s {return' = a} :: ModifyFleetResponse)
 
--- | -- | The response status code.
-mfrrsResponseStatus :: Lens' ModifyFleetResponse Int
-mfrrsResponseStatus = lens _mfrrsResponseStatus (\s a -> s {_mfrrsResponseStatus = a})
+-- | The response's http status code.
+modifyFleetResponse_httpStatus :: Lens.Lens' ModifyFleetResponse Prelude.Int
+modifyFleetResponse_httpStatus = Lens.lens (\ModifyFleetResponse' {httpStatus} -> httpStatus) (\s@ModifyFleetResponse' {} a -> s {httpStatus = a} :: ModifyFleetResponse)
 
-instance NFData ModifyFleetResponse
+instance Prelude.NFData ModifyFleetResponse

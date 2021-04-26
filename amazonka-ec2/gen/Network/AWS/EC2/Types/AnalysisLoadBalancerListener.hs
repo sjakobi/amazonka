@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,58 +20,56 @@
 module Network.AWS.EC2.Types.AnalysisLoadBalancerListener where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a load balancer listener.
 --
---
---
--- /See:/ 'analysisLoadBalancerListener' smart constructor.
+-- /See:/ 'newAnalysisLoadBalancerListener' smart constructor.
 data AnalysisLoadBalancerListener = AnalysisLoadBalancerListener'
-  { _alblLoadBalancerPort ::
-      !(Maybe Nat),
-    _alblInstancePort ::
-      !(Maybe Nat)
+  { -- | The port on which the load balancer is listening.
+    loadBalancerPort :: Prelude.Maybe Prelude.Nat,
+    -- | [Classic Load Balancers] The back-end port for the listener.
+    instancePort :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnalysisLoadBalancerListener' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnalysisLoadBalancerListener' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alblLoadBalancerPort' - The port on which the load balancer is listening.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alblInstancePort' - [Classic Load Balancers] The back-end port for the listener.
-analysisLoadBalancerListener ::
+-- 'loadBalancerPort', 'analysisLoadBalancerListener_loadBalancerPort' - The port on which the load balancer is listening.
+--
+-- 'instancePort', 'analysisLoadBalancerListener_instancePort' - [Classic Load Balancers] The back-end port for the listener.
+newAnalysisLoadBalancerListener ::
   AnalysisLoadBalancerListener
-analysisLoadBalancerListener =
+newAnalysisLoadBalancerListener =
   AnalysisLoadBalancerListener'
-    { _alblLoadBalancerPort =
-        Nothing,
-      _alblInstancePort = Nothing
+    { loadBalancerPort =
+        Prelude.Nothing,
+      instancePort = Prelude.Nothing
     }
 
 -- | The port on which the load balancer is listening.
-alblLoadBalancerPort :: Lens' AnalysisLoadBalancerListener (Maybe Natural)
-alblLoadBalancerPort = lens _alblLoadBalancerPort (\s a -> s {_alblLoadBalancerPort = a}) . mapping _Nat
+analysisLoadBalancerListener_loadBalancerPort :: Lens.Lens' AnalysisLoadBalancerListener (Prelude.Maybe Prelude.Natural)
+analysisLoadBalancerListener_loadBalancerPort = Lens.lens (\AnalysisLoadBalancerListener' {loadBalancerPort} -> loadBalancerPort) (\s@AnalysisLoadBalancerListener' {} a -> s {loadBalancerPort = a} :: AnalysisLoadBalancerListener) Prelude.. Lens.mapping Prelude._Nat
 
 -- | [Classic Load Balancers] The back-end port for the listener.
-alblInstancePort :: Lens' AnalysisLoadBalancerListener (Maybe Natural)
-alblInstancePort = lens _alblInstancePort (\s a -> s {_alblInstancePort = a}) . mapping _Nat
+analysisLoadBalancerListener_instancePort :: Lens.Lens' AnalysisLoadBalancerListener (Prelude.Maybe Prelude.Natural)
+analysisLoadBalancerListener_instancePort = Lens.lens (\AnalysisLoadBalancerListener' {instancePort} -> instancePort) (\s@AnalysisLoadBalancerListener' {} a -> s {instancePort = a} :: AnalysisLoadBalancerListener) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromXML AnalysisLoadBalancerListener where
+instance Prelude.FromXML AnalysisLoadBalancerListener where
   parseXML x =
     AnalysisLoadBalancerListener'
-      <$> (x .@? "loadBalancerPort") <*> (x .@? "instancePort")
+      Prelude.<$> (x Prelude..@? "loadBalancerPort")
+      Prelude.<*> (x Prelude..@? "instancePort")
 
-instance Hashable AnalysisLoadBalancerListener
+instance
+  Prelude.Hashable
+    AnalysisLoadBalancerListener
 
-instance NFData AnalysisLoadBalancerListener
+instance Prelude.NFData AnalysisLoadBalancerListener

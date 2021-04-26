@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,97 @@ module Network.AWS.EC2.Types.DiskImageDescription where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DiskImageFormat
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a disk image.
 --
---
---
--- /See:/ 'diskImageDescription' smart constructor.
+-- /See:/ 'newDiskImageDescription' smart constructor.
 data DiskImageDescription = DiskImageDescription'
-  { _didFormat ::
-      !(Maybe DiskImageFormat),
-    _didImportManifestURL ::
-      !(Maybe Text),
-    _didChecksum :: !(Maybe Text),
-    _didSize :: !(Maybe Integer)
+  { -- | The disk image format.
+    format :: Prelude.Maybe DiskImageFormat,
+    -- | A presigned URL for the import manifest stored in Amazon S3. For
+    -- information about creating a presigned URL for an Amazon S3 object, read
+    -- the \"Query String Request Authentication Alternative\" section of the
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html Authenticating REST Requests>
+    -- topic in the /Amazon Simple Storage Service Developer Guide/.
+    --
+    -- For information about the import manifest referenced by this API action,
+    -- see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/manifest.html VM Import Manifest>.
+    importManifestUrl :: Prelude.Maybe Prelude.Text,
+    -- | The checksum computed for the disk image.
+    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The size of the disk image, in GiB.
+    size :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiskImageDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiskImageDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'didFormat' - The disk image format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'didImportManifestURL' - A presigned URL for the import manifest stored in Amazon S3. For information about creating a presigned URL for an Amazon S3 object, read the "Query String Request Authentication Alternative" section of the <https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html Authenticating REST Requests> topic in the /Amazon Simple Storage Service Developer Guide/ . For information about the import manifest referenced by this API action, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/manifest.html VM Import Manifest> .
+-- 'format', 'diskImageDescription_format' - The disk image format.
 --
--- * 'didChecksum' - The checksum computed for the disk image.
+-- 'importManifestUrl', 'diskImageDescription_importManifestUrl' - A presigned URL for the import manifest stored in Amazon S3. For
+-- information about creating a presigned URL for an Amazon S3 object, read
+-- the \"Query String Request Authentication Alternative\" section of the
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html Authenticating REST Requests>
+-- topic in the /Amazon Simple Storage Service Developer Guide/.
 --
--- * 'didSize' - The size of the disk image, in GiB.
-diskImageDescription ::
+-- For information about the import manifest referenced by this API action,
+-- see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/manifest.html VM Import Manifest>.
+--
+-- 'checksum', 'diskImageDescription_checksum' - The checksum computed for the disk image.
+--
+-- 'size', 'diskImageDescription_size' - The size of the disk image, in GiB.
+newDiskImageDescription ::
   DiskImageDescription
-diskImageDescription =
+newDiskImageDescription =
   DiskImageDescription'
-    { _didFormat = Nothing,
-      _didImportManifestURL = Nothing,
-      _didChecksum = Nothing,
-      _didSize = Nothing
+    { format = Prelude.Nothing,
+      importManifestUrl = Prelude.Nothing,
+      checksum = Prelude.Nothing,
+      size = Prelude.Nothing
     }
 
 -- | The disk image format.
-didFormat :: Lens' DiskImageDescription (Maybe DiskImageFormat)
-didFormat = lens _didFormat (\s a -> s {_didFormat = a})
+diskImageDescription_format :: Lens.Lens' DiskImageDescription (Prelude.Maybe DiskImageFormat)
+diskImageDescription_format = Lens.lens (\DiskImageDescription' {format} -> format) (\s@DiskImageDescription' {} a -> s {format = a} :: DiskImageDescription)
 
--- | A presigned URL for the import manifest stored in Amazon S3. For information about creating a presigned URL for an Amazon S3 object, read the "Query String Request Authentication Alternative" section of the <https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html Authenticating REST Requests> topic in the /Amazon Simple Storage Service Developer Guide/ . For information about the import manifest referenced by this API action, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/manifest.html VM Import Manifest> .
-didImportManifestURL :: Lens' DiskImageDescription (Maybe Text)
-didImportManifestURL = lens _didImportManifestURL (\s a -> s {_didImportManifestURL = a})
+-- | A presigned URL for the import manifest stored in Amazon S3. For
+-- information about creating a presigned URL for an Amazon S3 object, read
+-- the \"Query String Request Authentication Alternative\" section of the
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html Authenticating REST Requests>
+-- topic in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- For information about the import manifest referenced by this API action,
+-- see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/manifest.html VM Import Manifest>.
+diskImageDescription_importManifestUrl :: Lens.Lens' DiskImageDescription (Prelude.Maybe Prelude.Text)
+diskImageDescription_importManifestUrl = Lens.lens (\DiskImageDescription' {importManifestUrl} -> importManifestUrl) (\s@DiskImageDescription' {} a -> s {importManifestUrl = a} :: DiskImageDescription)
 
 -- | The checksum computed for the disk image.
-didChecksum :: Lens' DiskImageDescription (Maybe Text)
-didChecksum = lens _didChecksum (\s a -> s {_didChecksum = a})
+diskImageDescription_checksum :: Lens.Lens' DiskImageDescription (Prelude.Maybe Prelude.Text)
+diskImageDescription_checksum = Lens.lens (\DiskImageDescription' {checksum} -> checksum) (\s@DiskImageDescription' {} a -> s {checksum = a} :: DiskImageDescription)
 
 -- | The size of the disk image, in GiB.
-didSize :: Lens' DiskImageDescription (Maybe Integer)
-didSize = lens _didSize (\s a -> s {_didSize = a})
+diskImageDescription_size :: Lens.Lens' DiskImageDescription (Prelude.Maybe Prelude.Integer)
+diskImageDescription_size = Lens.lens (\DiskImageDescription' {size} -> size) (\s@DiskImageDescription' {} a -> s {size = a} :: DiskImageDescription)
 
-instance FromXML DiskImageDescription where
+instance Prelude.FromXML DiskImageDescription where
   parseXML x =
     DiskImageDescription'
-      <$> (x .@? "format")
-      <*> (x .@? "importManifestUrl")
-      <*> (x .@? "checksum")
-      <*> (x .@? "size")
+      Prelude.<$> (x Prelude..@? "format")
+      Prelude.<*> (x Prelude..@? "importManifestUrl")
+      Prelude.<*> (x Prelude..@? "checksum")
+      Prelude.<*> (x Prelude..@? "size")
 
-instance Hashable DiskImageDescription
+instance Prelude.Hashable DiskImageDescription
 
-instance NFData DiskImageDescription
+instance Prelude.NFData DiskImageDescription

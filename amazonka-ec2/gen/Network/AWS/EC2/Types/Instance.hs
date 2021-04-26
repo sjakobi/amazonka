@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,8 +21,8 @@ module Network.AWS.EC2.Types.Instance where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ArchitectureValues
-import Network.AWS.EC2.Types.CPUOptions
 import Network.AWS.EC2.Types.CapacityReservationSpecificationResponse
+import Network.AWS.EC2.Types.CpuOptions
 import Network.AWS.EC2.Types.DeviceType
 import Network.AWS.EC2.Types.ElasticGpuAssociation
 import Network.AWS.EC2.Types.ElasticInferenceAcceleratorAssociation
@@ -26,7 +30,7 @@ import Network.AWS.EC2.Types.EnclaveOptions
 import Network.AWS.EC2.Types.GroupIdentifier
 import Network.AWS.EC2.Types.HibernationOptions
 import Network.AWS.EC2.Types.HypervisorType
-import Network.AWS.EC2.Types.IAMInstanceProfile
+import Network.AWS.EC2.Types.IamInstanceProfile
 import Network.AWS.EC2.Types.InstanceBlockDeviceMapping
 import Network.AWS.EC2.Types.InstanceLifecycleType
 import Network.AWS.EC2.Types.InstanceMetadataOptionsResponse
@@ -41,203 +45,309 @@ import Network.AWS.EC2.Types.ProductCode
 import Network.AWS.EC2.Types.StateReason
 import Network.AWS.EC2.Types.Tag
 import Network.AWS.EC2.Types.VirtualizationType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an instance.
 --
---
---
--- /See:/ 'instance'' smart constructor.
+-- /See:/ 'newInstance' smart constructor.
 data Instance = Instance'
-  { _iPlatform ::
-      !(Maybe PlatformValues),
-    _iInstanceLifecycle ::
-      !(Maybe InstanceLifecycleType),
-    _iStateTransitionReason :: !(Maybe Text),
-    _iRootDeviceName :: !(Maybe Text),
-    _iCapacityReservationSpecification ::
-      !(Maybe CapacityReservationSpecificationResponse),
-    _iEBSOptimized :: !(Maybe Bool),
-    _iRAMDiskId :: !(Maybe Text),
-    _iElasticInferenceAcceleratorAssociations ::
-      !(Maybe [ElasticInferenceAcceleratorAssociation]),
-    _iStateReason :: !(Maybe StateReason),
-    _iOutpostARN :: !(Maybe Text),
-    _iSourceDestCheck :: !(Maybe Bool),
-    _iProductCodes :: !(Maybe [ProductCode]),
-    _iSecurityGroups :: !(Maybe [GroupIdentifier]),
-    _iIAMInstanceProfile :: !(Maybe IAMInstanceProfile),
-    _iPublicDNSName :: !(Maybe Text),
-    _iHibernationOptions :: !(Maybe HibernationOptions),
-    _iCapacityReservationId :: !(Maybe Text),
-    _iTags :: !(Maybe [Tag]),
-    _iSRIOVNetSupport :: !(Maybe Text),
-    _iBlockDeviceMappings ::
-      !(Maybe [InstanceBlockDeviceMapping]),
-    _iPublicIPAddress :: !(Maybe Text),
-    _iSubnetId :: !(Maybe Text),
-    _iEnclaveOptions :: !(Maybe EnclaveOptions),
-    _iKernelId :: !(Maybe Text),
-    _iCPUOptions :: !(Maybe CPUOptions),
-    _iPrivateDNSName :: !(Maybe Text),
-    _iKeyName :: !(Maybe Text),
-    _iNetworkInterfaces ::
-      !(Maybe [InstanceNetworkInterface]),
-    _iLicenses :: !(Maybe [LicenseConfiguration]),
-    _iVPCId :: !(Maybe Text),
-    _iElasticGpuAssociations ::
-      !(Maybe [ElasticGpuAssociation]),
-    _iMetadataOptions ::
-      !(Maybe InstanceMetadataOptionsResponse),
-    _iEnaSupport :: !(Maybe Bool),
-    _iSpotInstanceRequestId :: !(Maybe Text),
-    _iClientToken :: !(Maybe Text),
-    _iPrivateIPAddress :: !(Maybe Text),
-    _iInstanceId :: !Text,
-    _iImageId :: !Text,
-    _iAMILaunchIndex :: !Int,
-    _iInstanceType :: !InstanceType,
-    _iLaunchTime :: !ISO8601,
-    _iPlacement :: !Placement,
-    _iMonitoring :: !Monitoring,
-    _iArchitecture :: !ArchitectureValues,
-    _iRootDeviceType :: !DeviceType,
-    _iVirtualizationType :: !VirtualizationType,
-    _iHypervisor :: !HypervisorType,
-    _iState :: !InstanceState
+  { -- | The value is @Windows@ for Windows instances; otherwise blank.
+    platform :: Prelude.Maybe PlatformValues,
+    -- | Indicates whether this is a Spot Instance or a Scheduled Instance.
+    instanceLifecycle :: Prelude.Maybe InstanceLifecycleType,
+    -- | The reason for the most recent state transition. This might be an empty
+    -- string.
+    stateTransitionReason :: Prelude.Maybe Prelude.Text,
+    -- | The device name of the root device volume (for example, @\/dev\/sda1@).
+    rootDeviceName :: Prelude.Maybe Prelude.Text,
+    -- | Information about the Capacity Reservation targeting option.
+    capacityReservationSpecification :: Prelude.Maybe CapacityReservationSpecificationResponse,
+    -- | Indicates whether the instance is optimized for Amazon EBS I\/O. This
+    -- optimization provides dedicated throughput to Amazon EBS and an
+    -- optimized configuration stack to provide optimal I\/O performance. This
+    -- optimization isn\'t available with all instance types. Additional usage
+    -- charges apply when using an EBS Optimized instance.
+    ebsOptimized :: Prelude.Maybe Prelude.Bool,
+    -- | The RAM disk associated with this instance, if applicable.
+    ramdiskId :: Prelude.Maybe Prelude.Text,
+    -- | The elastic inference accelerator associated with the instance.
+    elasticInferenceAcceleratorAssociations :: Prelude.Maybe [ElasticInferenceAcceleratorAssociation],
+    -- | The reason for the most recent state transition.
+    stateReason :: Prelude.Maybe StateReason,
+    -- | The Amazon Resource Name (ARN) of the Outpost.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether to enable an instance launched in a VPC to perform
+    -- NAT. This controls whether source\/destination checking is enabled on
+    -- the instance. A value of @true@ means that checking is enabled, and
+    -- @false@ means that checking is disabled. The value must be @false@ for
+    -- the instance to perform NAT. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT instances>
+    -- in the /Amazon VPC User Guide/.
+    sourceDestCheck :: Prelude.Maybe Prelude.Bool,
+    -- | The product codes attached to this instance, if applicable.
+    productCodes :: Prelude.Maybe [ProductCode],
+    -- | The security groups for the instance.
+    securityGroups :: Prelude.Maybe [GroupIdentifier],
+    -- | The IAM instance profile associated with the instance, if applicable.
+    iamInstanceProfile :: Prelude.Maybe IamInstanceProfile,
+    -- | (IPv4 only) The public DNS name assigned to the instance. This name is
+    -- not available until the instance enters the @running@ state. For
+    -- EC2-VPC, this name is only available if you\'ve enabled DNS hostnames
+    -- for your VPC.
+    publicDnsName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the instance is enabled for hibernation.
+    hibernationOptions :: Prelude.Maybe HibernationOptions,
+    -- | The ID of the Capacity Reservation.
+    capacityReservationId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags assigned to the instance.
+    tags :: Prelude.Maybe [Tag],
+    -- | Specifies whether enhanced networking with the Intel 82599 Virtual
+    -- Function interface is enabled.
+    sriovNetSupport :: Prelude.Maybe Prelude.Text,
+    -- | Any block device mapping entries for the instance.
+    blockDeviceMappings :: Prelude.Maybe [InstanceBlockDeviceMapping],
+    -- | The public IPv4 address, or the Carrier IP address assigned to the
+    -- instance, if applicable.
+    --
+    -- A Carrier IP address only applies to an instance launched in a subnet
+    -- associated with a Wavelength Zone.
+    publicIpAddress :: Prelude.Maybe Prelude.Text,
+    -- | [EC2-VPC] The ID of the subnet in which the instance is running.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the instance is enabled for AWS Nitro Enclaves.
+    enclaveOptions :: Prelude.Maybe EnclaveOptions,
+    -- | The kernel associated with this instance, if applicable.
+    kernelId :: Prelude.Maybe Prelude.Text,
+    -- | The CPU options for the instance.
+    cpuOptions :: Prelude.Maybe CpuOptions,
+    -- | (IPv4 only) The private DNS hostname name assigned to the instance. This
+    -- DNS hostname can only be used inside the Amazon EC2 network. This name
+    -- is not available until the instance enters the @running@ state.
+    --
+    -- [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided
+    -- private DNS hostnames if you\'ve enabled DNS resolution and DNS
+    -- hostnames in your VPC. If you are not using the Amazon-provided DNS
+    -- server in your VPC, your custom domain name servers must resolve the
+    -- hostname as appropriate.
+    privateDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the key pair, if this instance was launched with an
+    -- associated key pair.
+    keyName :: Prelude.Maybe Prelude.Text,
+    -- | [EC2-VPC] The network interfaces for the instance.
+    networkInterfaces :: Prelude.Maybe [InstanceNetworkInterface],
+    -- | The license configurations.
+    licenses :: Prelude.Maybe [LicenseConfiguration],
+    -- | [EC2-VPC] The ID of the VPC in which the instance is running.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The Elastic GPU associated with the instance.
+    elasticGpuAssociations :: Prelude.Maybe [ElasticGpuAssociation],
+    -- | The metadata options for the instance.
+    metadataOptions :: Prelude.Maybe InstanceMetadataOptionsResponse,
+    -- | Specifies whether enhanced networking with ENA is enabled.
+    enaSupport :: Prelude.Maybe Prelude.Bool,
+    -- | If the request is a Spot Instance request, the ID of the request.
+    spotInstanceRequestId :: Prelude.Maybe Prelude.Text,
+    -- | The idempotency token you provided when you launched the instance, if
+    -- applicable.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The private IPv4 address assigned to the instance.
+    privateIpAddress :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Text,
+    -- | The ID of the AMI used to launch the instance.
+    imageId :: Prelude.Text,
+    -- | The AMI launch index, which can be used to find this instance in the
+    -- launch group.
+    amiLaunchIndex :: Prelude.Int,
+    -- | The instance type.
+    instanceType :: InstanceType,
+    -- | The time the instance was launched.
+    launchTime :: Prelude.ISO8601,
+    -- | The location where the instance launched, if applicable.
+    placement :: Placement,
+    -- | The monitoring for the instance.
+    monitoring :: Monitoring,
+    -- | The architecture of the image.
+    architecture :: ArchitectureValues,
+    -- | The root device type used by the AMI. The AMI can use an EBS volume or
+    -- an instance store volume.
+    rootDeviceType :: DeviceType,
+    -- | The virtualization type of the instance.
+    virtualizationType :: VirtualizationType,
+    -- | The hypervisor type of the instance. The value @xen@ is used for both
+    -- Xen and Nitro hypervisors.
+    hypervisor :: HypervisorType,
+    -- | The current state of the instance.
+    state :: InstanceState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Instance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Instance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iPlatform' - The value is @Windows@ for Windows instances; otherwise blank.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iInstanceLifecycle' - Indicates whether this is a Spot Instance or a Scheduled Instance.
+-- 'platform', 'instance_platform' - The value is @Windows@ for Windows instances; otherwise blank.
 --
--- * 'iStateTransitionReason' - The reason for the most recent state transition. This might be an empty string.
+-- 'instanceLifecycle', 'instance_instanceLifecycle' - Indicates whether this is a Spot Instance or a Scheduled Instance.
 --
--- * 'iRootDeviceName' - The device name of the root device volume (for example, @/dev/sda1@ ).
+-- 'stateTransitionReason', 'instance_stateTransitionReason' - The reason for the most recent state transition. This might be an empty
+-- string.
 --
--- * 'iCapacityReservationSpecification' - Information about the Capacity Reservation targeting option.
+-- 'rootDeviceName', 'instance_rootDeviceName' - The device name of the root device volume (for example, @\/dev\/sda1@).
 --
--- * 'iEBSOptimized' - Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+-- 'capacityReservationSpecification', 'instance_capacityReservationSpecification' - Information about the Capacity Reservation targeting option.
 --
--- * 'iRAMDiskId' - The RAM disk associated with this instance, if applicable.
+-- 'ebsOptimized', 'instance_ebsOptimized' - Indicates whether the instance is optimized for Amazon EBS I\/O. This
+-- optimization provides dedicated throughput to Amazon EBS and an
+-- optimized configuration stack to provide optimal I\/O performance. This
+-- optimization isn\'t available with all instance types. Additional usage
+-- charges apply when using an EBS Optimized instance.
 --
--- * 'iElasticInferenceAcceleratorAssociations' - The elastic inference accelerator associated with the instance.
+-- 'ramdiskId', 'instance_ramdiskId' - The RAM disk associated with this instance, if applicable.
 --
--- * 'iStateReason' - The reason for the most recent state transition.
+-- 'elasticInferenceAcceleratorAssociations', 'instance_elasticInferenceAcceleratorAssociations' - The elastic inference accelerator associated with the instance.
 --
--- * 'iOutpostARN' - The Amazon Resource Name (ARN) of the Outpost.
+-- 'stateReason', 'instance_stateReason' - The reason for the most recent state transition.
 --
--- * 'iSourceDestCheck' - Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether source/destination checking is enabled on the instance. A value of @true@ means that checking is enabled, and @false@ means that checking is disabled. The value must be @false@ for the instance to perform NAT. For more information, see <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT instances> in the /Amazon VPC User Guide/ .
+-- 'outpostArn', 'instance_outpostArn' - The Amazon Resource Name (ARN) of the Outpost.
 --
--- * 'iProductCodes' - The product codes attached to this instance, if applicable.
+-- 'sourceDestCheck', 'instance_sourceDestCheck' - Specifies whether to enable an instance launched in a VPC to perform
+-- NAT. This controls whether source\/destination checking is enabled on
+-- the instance. A value of @true@ means that checking is enabled, and
+-- @false@ means that checking is disabled. The value must be @false@ for
+-- the instance to perform NAT. For more information, see
+-- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT instances>
+-- in the /Amazon VPC User Guide/.
 --
--- * 'iSecurityGroups' - The security groups for the instance.
+-- 'productCodes', 'instance_productCodes' - The product codes attached to this instance, if applicable.
 --
--- * 'iIAMInstanceProfile' - The IAM instance profile associated with the instance, if applicable.
+-- 'securityGroups', 'instance_securityGroups' - The security groups for the instance.
 --
--- * 'iPublicDNSName' - (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters the @running@ state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your VPC.
+-- 'iamInstanceProfile', 'instance_iamInstanceProfile' - The IAM instance profile associated with the instance, if applicable.
 --
--- * 'iHibernationOptions' - Indicates whether the instance is enabled for hibernation.
+-- 'publicDnsName', 'instance_publicDnsName' - (IPv4 only) The public DNS name assigned to the instance. This name is
+-- not available until the instance enters the @running@ state. For
+-- EC2-VPC, this name is only available if you\'ve enabled DNS hostnames
+-- for your VPC.
 --
--- * 'iCapacityReservationId' - The ID of the Capacity Reservation.
+-- 'hibernationOptions', 'instance_hibernationOptions' - Indicates whether the instance is enabled for hibernation.
 --
--- * 'iTags' - Any tags assigned to the instance.
+-- 'capacityReservationId', 'instance_capacityReservationId' - The ID of the Capacity Reservation.
 --
--- * 'iSRIOVNetSupport' - Specifies whether enhanced networking with the Intel 82599 Virtual Function interface is enabled.
+-- 'tags', 'instance_tags' - Any tags assigned to the instance.
 --
--- * 'iBlockDeviceMappings' - Any block device mapping entries for the instance.
+-- 'sriovNetSupport', 'instance_sriovNetSupport' - Specifies whether enhanced networking with the Intel 82599 Virtual
+-- Function interface is enabled.
 --
--- * 'iPublicIPAddress' - The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable. A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
+-- 'blockDeviceMappings', 'instance_blockDeviceMappings' - Any block device mapping entries for the instance.
 --
--- * 'iSubnetId' - [EC2-VPC] The ID of the subnet in which the instance is running.
+-- 'publicIpAddress', 'instance_publicIpAddress' - The public IPv4 address, or the Carrier IP address assigned to the
+-- instance, if applicable.
 --
--- * 'iEnclaveOptions' - Indicates whether the instance is enabled for AWS Nitro Enclaves.
+-- A Carrier IP address only applies to an instance launched in a subnet
+-- associated with a Wavelength Zone.
 --
--- * 'iKernelId' - The kernel associated with this instance, if applicable.
+-- 'subnetId', 'instance_subnetId' - [EC2-VPC] The ID of the subnet in which the instance is running.
 --
--- * 'iCPUOptions' - The CPU options for the instance.
+-- 'enclaveOptions', 'instance_enclaveOptions' - Indicates whether the instance is enabled for AWS Nitro Enclaves.
 --
--- * 'iPrivateDNSName' - (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the Amazon EC2 network. This name is not available until the instance enters the @running@ state.  [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom domain name servers must resolve the hostname as appropriate.
+-- 'kernelId', 'instance_kernelId' - The kernel associated with this instance, if applicable.
 --
--- * 'iKeyName' - The name of the key pair, if this instance was launched with an associated key pair.
+-- 'cpuOptions', 'instance_cpuOptions' - The CPU options for the instance.
 --
--- * 'iNetworkInterfaces' - [EC2-VPC] The network interfaces for the instance.
+-- 'privateDnsName', 'instance_privateDnsName' - (IPv4 only) The private DNS hostname name assigned to the instance. This
+-- DNS hostname can only be used inside the Amazon EC2 network. This name
+-- is not available until the instance enters the @running@ state.
 --
--- * 'iLicenses' - The license configurations.
+-- [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided
+-- private DNS hostnames if you\'ve enabled DNS resolution and DNS
+-- hostnames in your VPC. If you are not using the Amazon-provided DNS
+-- server in your VPC, your custom domain name servers must resolve the
+-- hostname as appropriate.
 --
--- * 'iVPCId' - [EC2-VPC] The ID of the VPC in which the instance is running.
+-- 'keyName', 'instance_keyName' - The name of the key pair, if this instance was launched with an
+-- associated key pair.
 --
--- * 'iElasticGpuAssociations' - The Elastic GPU associated with the instance.
+-- 'networkInterfaces', 'instance_networkInterfaces' - [EC2-VPC] The network interfaces for the instance.
 --
--- * 'iMetadataOptions' - The metadata options for the instance.
+-- 'licenses', 'instance_licenses' - The license configurations.
 --
--- * 'iEnaSupport' - Specifies whether enhanced networking with ENA is enabled.
+-- 'vpcId', 'instance_vpcId' - [EC2-VPC] The ID of the VPC in which the instance is running.
 --
--- * 'iSpotInstanceRequestId' - If the request is a Spot Instance request, the ID of the request.
+-- 'elasticGpuAssociations', 'instance_elasticGpuAssociations' - The Elastic GPU associated with the instance.
 --
--- * 'iClientToken' - The idempotency token you provided when you launched the instance, if applicable.
+-- 'metadataOptions', 'instance_metadataOptions' - The metadata options for the instance.
 --
--- * 'iPrivateIPAddress' - The private IPv4 address assigned to the instance.
+-- 'enaSupport', 'instance_enaSupport' - Specifies whether enhanced networking with ENA is enabled.
 --
--- * 'iInstanceId' - The ID of the instance.
+-- 'spotInstanceRequestId', 'instance_spotInstanceRequestId' - If the request is a Spot Instance request, the ID of the request.
 --
--- * 'iImageId' - The ID of the AMI used to launch the instance.
+-- 'clientToken', 'instance_clientToken' - The idempotency token you provided when you launched the instance, if
+-- applicable.
 --
--- * 'iAMILaunchIndex' - The AMI launch index, which can be used to find this instance in the launch group.
+-- 'privateIpAddress', 'instance_privateIpAddress' - The private IPv4 address assigned to the instance.
 --
--- * 'iInstanceType' - The instance type.
+-- 'instanceId', 'instance_instanceId' - The ID of the instance.
 --
--- * 'iLaunchTime' - The time the instance was launched.
+-- 'imageId', 'instance_imageId' - The ID of the AMI used to launch the instance.
 --
--- * 'iPlacement' - The location where the instance launched, if applicable.
+-- 'amiLaunchIndex', 'instance_amiLaunchIndex' - The AMI launch index, which can be used to find this instance in the
+-- launch group.
 --
--- * 'iMonitoring' - The monitoring for the instance.
+-- 'instanceType', 'instance_instanceType' - The instance type.
 --
--- * 'iArchitecture' - The architecture of the image.
+-- 'launchTime', 'instance_launchTime' - The time the instance was launched.
 --
--- * 'iRootDeviceType' - The root device type used by the AMI. The AMI can use an EBS volume or an instance store volume.
+-- 'placement', 'instance_placement' - The location where the instance launched, if applicable.
 --
--- * 'iVirtualizationType' - The virtualization type of the instance.
+-- 'monitoring', 'instance_monitoring' - The monitoring for the instance.
 --
--- * 'iHypervisor' - The hypervisor type of the instance. The value @xen@ is used for both Xen and Nitro hypervisors.
+-- 'architecture', 'instance_architecture' - The architecture of the image.
 --
--- * 'iState' - The current state of the instance.
-instance' ::
-  -- | 'iInstanceId'
-  Text ->
-  -- | 'iImageId'
-  Text ->
-  -- | 'iAMILaunchIndex'
-  Int ->
-  -- | 'iInstanceType'
+-- 'rootDeviceType', 'instance_rootDeviceType' - The root device type used by the AMI. The AMI can use an EBS volume or
+-- an instance store volume.
+--
+-- 'virtualizationType', 'instance_virtualizationType' - The virtualization type of the instance.
+--
+-- 'hypervisor', 'instance_hypervisor' - The hypervisor type of the instance. The value @xen@ is used for both
+-- Xen and Nitro hypervisors.
+--
+-- 'state', 'instance_state' - The current state of the instance.
+newInstance ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'imageId'
+  Prelude.Text ->
+  -- | 'amiLaunchIndex'
+  Prelude.Int ->
+  -- | 'instanceType'
   InstanceType ->
-  -- | 'iLaunchTime'
-  UTCTime ->
-  -- | 'iPlacement'
+  -- | 'launchTime'
+  Prelude.UTCTime ->
+  -- | 'placement'
   Placement ->
-  -- | 'iMonitoring'
+  -- | 'monitoring'
   Monitoring ->
-  -- | 'iArchitecture'
+  -- | 'architecture'
   ArchitectureValues ->
-  -- | 'iRootDeviceType'
+  -- | 'rootDeviceType'
   DeviceType ->
-  -- | 'iVirtualizationType'
+  -- | 'virtualizationType'
   VirtualizationType ->
-  -- | 'iHypervisor'
+  -- | 'hypervisor'
   HypervisorType ->
-  -- | 'iState'
+  -- | 'state'
   InstanceState ->
   Instance
-instance'
+newInstance
   pInstanceId_
   pImageId_
-  pAMILaunchIndex_
+  pAmiLaunchIndex_
   pInstanceType_
   pLaunchTime_
   pPlacement_
@@ -248,317 +358,356 @@ instance'
   pHypervisor_
   pState_ =
     Instance'
-      { _iPlatform = Nothing,
-        _iInstanceLifecycle = Nothing,
-        _iStateTransitionReason = Nothing,
-        _iRootDeviceName = Nothing,
-        _iCapacityReservationSpecification = Nothing,
-        _iEBSOptimized = Nothing,
-        _iRAMDiskId = Nothing,
-        _iElasticInferenceAcceleratorAssociations = Nothing,
-        _iStateReason = Nothing,
-        _iOutpostARN = Nothing,
-        _iSourceDestCheck = Nothing,
-        _iProductCodes = Nothing,
-        _iSecurityGroups = Nothing,
-        _iIAMInstanceProfile = Nothing,
-        _iPublicDNSName = Nothing,
-        _iHibernationOptions = Nothing,
-        _iCapacityReservationId = Nothing,
-        _iTags = Nothing,
-        _iSRIOVNetSupport = Nothing,
-        _iBlockDeviceMappings = Nothing,
-        _iPublicIPAddress = Nothing,
-        _iSubnetId = Nothing,
-        _iEnclaveOptions = Nothing,
-        _iKernelId = Nothing,
-        _iCPUOptions = Nothing,
-        _iPrivateDNSName = Nothing,
-        _iKeyName = Nothing,
-        _iNetworkInterfaces = Nothing,
-        _iLicenses = Nothing,
-        _iVPCId = Nothing,
-        _iElasticGpuAssociations = Nothing,
-        _iMetadataOptions = Nothing,
-        _iEnaSupport = Nothing,
-        _iSpotInstanceRequestId = Nothing,
-        _iClientToken = Nothing,
-        _iPrivateIPAddress = Nothing,
-        _iInstanceId = pInstanceId_,
-        _iImageId = pImageId_,
-        _iAMILaunchIndex = pAMILaunchIndex_,
-        _iInstanceType = pInstanceType_,
-        _iLaunchTime = _Time # pLaunchTime_,
-        _iPlacement = pPlacement_,
-        _iMonitoring = pMonitoring_,
-        _iArchitecture = pArchitecture_,
-        _iRootDeviceType = pRootDeviceType_,
-        _iVirtualizationType = pVirtualizationType_,
-        _iHypervisor = pHypervisor_,
-        _iState = pState_
+      { platform = Prelude.Nothing,
+        instanceLifecycle = Prelude.Nothing,
+        stateTransitionReason = Prelude.Nothing,
+        rootDeviceName = Prelude.Nothing,
+        capacityReservationSpecification = Prelude.Nothing,
+        ebsOptimized = Prelude.Nothing,
+        ramdiskId = Prelude.Nothing,
+        elasticInferenceAcceleratorAssociations =
+          Prelude.Nothing,
+        stateReason = Prelude.Nothing,
+        outpostArn = Prelude.Nothing,
+        sourceDestCheck = Prelude.Nothing,
+        productCodes = Prelude.Nothing,
+        securityGroups = Prelude.Nothing,
+        iamInstanceProfile = Prelude.Nothing,
+        publicDnsName = Prelude.Nothing,
+        hibernationOptions = Prelude.Nothing,
+        capacityReservationId = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        sriovNetSupport = Prelude.Nothing,
+        blockDeviceMappings = Prelude.Nothing,
+        publicIpAddress = Prelude.Nothing,
+        subnetId = Prelude.Nothing,
+        enclaveOptions = Prelude.Nothing,
+        kernelId = Prelude.Nothing,
+        cpuOptions = Prelude.Nothing,
+        privateDnsName = Prelude.Nothing,
+        keyName = Prelude.Nothing,
+        networkInterfaces = Prelude.Nothing,
+        licenses = Prelude.Nothing,
+        vpcId = Prelude.Nothing,
+        elasticGpuAssociations = Prelude.Nothing,
+        metadataOptions = Prelude.Nothing,
+        enaSupport = Prelude.Nothing,
+        spotInstanceRequestId = Prelude.Nothing,
+        clientToken = Prelude.Nothing,
+        privateIpAddress = Prelude.Nothing,
+        instanceId = pInstanceId_,
+        imageId = pImageId_,
+        amiLaunchIndex = pAmiLaunchIndex_,
+        instanceType = pInstanceType_,
+        launchTime = Prelude._Time Lens.# pLaunchTime_,
+        placement = pPlacement_,
+        monitoring = pMonitoring_,
+        architecture = pArchitecture_,
+        rootDeviceType = pRootDeviceType_,
+        virtualizationType = pVirtualizationType_,
+        hypervisor = pHypervisor_,
+        state = pState_
       }
 
 -- | The value is @Windows@ for Windows instances; otherwise blank.
-iPlatform :: Lens' Instance (Maybe PlatformValues)
-iPlatform = lens _iPlatform (\s a -> s {_iPlatform = a})
+instance_platform :: Lens.Lens' Instance (Prelude.Maybe PlatformValues)
+instance_platform = Lens.lens (\Instance' {platform} -> platform) (\s@Instance' {} a -> s {platform = a} :: Instance)
 
 -- | Indicates whether this is a Spot Instance or a Scheduled Instance.
-iInstanceLifecycle :: Lens' Instance (Maybe InstanceLifecycleType)
-iInstanceLifecycle = lens _iInstanceLifecycle (\s a -> s {_iInstanceLifecycle = a})
+instance_instanceLifecycle :: Lens.Lens' Instance (Prelude.Maybe InstanceLifecycleType)
+instance_instanceLifecycle = Lens.lens (\Instance' {instanceLifecycle} -> instanceLifecycle) (\s@Instance' {} a -> s {instanceLifecycle = a} :: Instance)
 
--- | The reason for the most recent state transition. This might be an empty string.
-iStateTransitionReason :: Lens' Instance (Maybe Text)
-iStateTransitionReason = lens _iStateTransitionReason (\s a -> s {_iStateTransitionReason = a})
+-- | The reason for the most recent state transition. This might be an empty
+-- string.
+instance_stateTransitionReason :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_stateTransitionReason = Lens.lens (\Instance' {stateTransitionReason} -> stateTransitionReason) (\s@Instance' {} a -> s {stateTransitionReason = a} :: Instance)
 
--- | The device name of the root device volume (for example, @/dev/sda1@ ).
-iRootDeviceName :: Lens' Instance (Maybe Text)
-iRootDeviceName = lens _iRootDeviceName (\s a -> s {_iRootDeviceName = a})
+-- | The device name of the root device volume (for example, @\/dev\/sda1@).
+instance_rootDeviceName :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_rootDeviceName = Lens.lens (\Instance' {rootDeviceName} -> rootDeviceName) (\s@Instance' {} a -> s {rootDeviceName = a} :: Instance)
 
 -- | Information about the Capacity Reservation targeting option.
-iCapacityReservationSpecification :: Lens' Instance (Maybe CapacityReservationSpecificationResponse)
-iCapacityReservationSpecification = lens _iCapacityReservationSpecification (\s a -> s {_iCapacityReservationSpecification = a})
+instance_capacityReservationSpecification :: Lens.Lens' Instance (Prelude.Maybe CapacityReservationSpecificationResponse)
+instance_capacityReservationSpecification = Lens.lens (\Instance' {capacityReservationSpecification} -> capacityReservationSpecification) (\s@Instance' {} a -> s {capacityReservationSpecification = a} :: Instance)
 
--- | Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
-iEBSOptimized :: Lens' Instance (Maybe Bool)
-iEBSOptimized = lens _iEBSOptimized (\s a -> s {_iEBSOptimized = a})
+-- | Indicates whether the instance is optimized for Amazon EBS I\/O. This
+-- optimization provides dedicated throughput to Amazon EBS and an
+-- optimized configuration stack to provide optimal I\/O performance. This
+-- optimization isn\'t available with all instance types. Additional usage
+-- charges apply when using an EBS Optimized instance.
+instance_ebsOptimized :: Lens.Lens' Instance (Prelude.Maybe Prelude.Bool)
+instance_ebsOptimized = Lens.lens (\Instance' {ebsOptimized} -> ebsOptimized) (\s@Instance' {} a -> s {ebsOptimized = a} :: Instance)
 
 -- | The RAM disk associated with this instance, if applicable.
-iRAMDiskId :: Lens' Instance (Maybe Text)
-iRAMDiskId = lens _iRAMDiskId (\s a -> s {_iRAMDiskId = a})
+instance_ramdiskId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_ramdiskId = Lens.lens (\Instance' {ramdiskId} -> ramdiskId) (\s@Instance' {} a -> s {ramdiskId = a} :: Instance)
 
 -- | The elastic inference accelerator associated with the instance.
-iElasticInferenceAcceleratorAssociations :: Lens' Instance [ElasticInferenceAcceleratorAssociation]
-iElasticInferenceAcceleratorAssociations = lens _iElasticInferenceAcceleratorAssociations (\s a -> s {_iElasticInferenceAcceleratorAssociations = a}) . _Default . _Coerce
+instance_elasticInferenceAcceleratorAssociations :: Lens.Lens' Instance (Prelude.Maybe [ElasticInferenceAcceleratorAssociation])
+instance_elasticInferenceAcceleratorAssociations = Lens.lens (\Instance' {elasticInferenceAcceleratorAssociations} -> elasticInferenceAcceleratorAssociations) (\s@Instance' {} a -> s {elasticInferenceAcceleratorAssociations = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The reason for the most recent state transition.
-iStateReason :: Lens' Instance (Maybe StateReason)
-iStateReason = lens _iStateReason (\s a -> s {_iStateReason = a})
+instance_stateReason :: Lens.Lens' Instance (Prelude.Maybe StateReason)
+instance_stateReason = Lens.lens (\Instance' {stateReason} -> stateReason) (\s@Instance' {} a -> s {stateReason = a} :: Instance)
 
 -- | The Amazon Resource Name (ARN) of the Outpost.
-iOutpostARN :: Lens' Instance (Maybe Text)
-iOutpostARN = lens _iOutpostARN (\s a -> s {_iOutpostARN = a})
+instance_outpostArn :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_outpostArn = Lens.lens (\Instance' {outpostArn} -> outpostArn) (\s@Instance' {} a -> s {outpostArn = a} :: Instance)
 
--- | Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether source/destination checking is enabled on the instance. A value of @true@ means that checking is enabled, and @false@ means that checking is disabled. The value must be @false@ for the instance to perform NAT. For more information, see <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT instances> in the /Amazon VPC User Guide/ .
-iSourceDestCheck :: Lens' Instance (Maybe Bool)
-iSourceDestCheck = lens _iSourceDestCheck (\s a -> s {_iSourceDestCheck = a})
+-- | Specifies whether to enable an instance launched in a VPC to perform
+-- NAT. This controls whether source\/destination checking is enabled on
+-- the instance. A value of @true@ means that checking is enabled, and
+-- @false@ means that checking is disabled. The value must be @false@ for
+-- the instance to perform NAT. For more information, see
+-- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html NAT instances>
+-- in the /Amazon VPC User Guide/.
+instance_sourceDestCheck :: Lens.Lens' Instance (Prelude.Maybe Prelude.Bool)
+instance_sourceDestCheck = Lens.lens (\Instance' {sourceDestCheck} -> sourceDestCheck) (\s@Instance' {} a -> s {sourceDestCheck = a} :: Instance)
 
 -- | The product codes attached to this instance, if applicable.
-iProductCodes :: Lens' Instance [ProductCode]
-iProductCodes = lens _iProductCodes (\s a -> s {_iProductCodes = a}) . _Default . _Coerce
+instance_productCodes :: Lens.Lens' Instance (Prelude.Maybe [ProductCode])
+instance_productCodes = Lens.lens (\Instance' {productCodes} -> productCodes) (\s@Instance' {} a -> s {productCodes = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The security groups for the instance.
-iSecurityGroups :: Lens' Instance [GroupIdentifier]
-iSecurityGroups = lens _iSecurityGroups (\s a -> s {_iSecurityGroups = a}) . _Default . _Coerce
+instance_securityGroups :: Lens.Lens' Instance (Prelude.Maybe [GroupIdentifier])
+instance_securityGroups = Lens.lens (\Instance' {securityGroups} -> securityGroups) (\s@Instance' {} a -> s {securityGroups = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The IAM instance profile associated with the instance, if applicable.
-iIAMInstanceProfile :: Lens' Instance (Maybe IAMInstanceProfile)
-iIAMInstanceProfile = lens _iIAMInstanceProfile (\s a -> s {_iIAMInstanceProfile = a})
+instance_iamInstanceProfile :: Lens.Lens' Instance (Prelude.Maybe IamInstanceProfile)
+instance_iamInstanceProfile = Lens.lens (\Instance' {iamInstanceProfile} -> iamInstanceProfile) (\s@Instance' {} a -> s {iamInstanceProfile = a} :: Instance)
 
--- | (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters the @running@ state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your VPC.
-iPublicDNSName :: Lens' Instance (Maybe Text)
-iPublicDNSName = lens _iPublicDNSName (\s a -> s {_iPublicDNSName = a})
+-- | (IPv4 only) The public DNS name assigned to the instance. This name is
+-- not available until the instance enters the @running@ state. For
+-- EC2-VPC, this name is only available if you\'ve enabled DNS hostnames
+-- for your VPC.
+instance_publicDnsName :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_publicDnsName = Lens.lens (\Instance' {publicDnsName} -> publicDnsName) (\s@Instance' {} a -> s {publicDnsName = a} :: Instance)
 
 -- | Indicates whether the instance is enabled for hibernation.
-iHibernationOptions :: Lens' Instance (Maybe HibernationOptions)
-iHibernationOptions = lens _iHibernationOptions (\s a -> s {_iHibernationOptions = a})
+instance_hibernationOptions :: Lens.Lens' Instance (Prelude.Maybe HibernationOptions)
+instance_hibernationOptions = Lens.lens (\Instance' {hibernationOptions} -> hibernationOptions) (\s@Instance' {} a -> s {hibernationOptions = a} :: Instance)
 
 -- | The ID of the Capacity Reservation.
-iCapacityReservationId :: Lens' Instance (Maybe Text)
-iCapacityReservationId = lens _iCapacityReservationId (\s a -> s {_iCapacityReservationId = a})
+instance_capacityReservationId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_capacityReservationId = Lens.lens (\Instance' {capacityReservationId} -> capacityReservationId) (\s@Instance' {} a -> s {capacityReservationId = a} :: Instance)
 
 -- | Any tags assigned to the instance.
-iTags :: Lens' Instance [Tag]
-iTags = lens _iTags (\s a -> s {_iTags = a}) . _Default . _Coerce
+instance_tags :: Lens.Lens' Instance (Prelude.Maybe [Tag])
+instance_tags = Lens.lens (\Instance' {tags} -> tags) (\s@Instance' {} a -> s {tags = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether enhanced networking with the Intel 82599 Virtual Function interface is enabled.
-iSRIOVNetSupport :: Lens' Instance (Maybe Text)
-iSRIOVNetSupport = lens _iSRIOVNetSupport (\s a -> s {_iSRIOVNetSupport = a})
+-- | Specifies whether enhanced networking with the Intel 82599 Virtual
+-- Function interface is enabled.
+instance_sriovNetSupport :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_sriovNetSupport = Lens.lens (\Instance' {sriovNetSupport} -> sriovNetSupport) (\s@Instance' {} a -> s {sriovNetSupport = a} :: Instance)
 
 -- | Any block device mapping entries for the instance.
-iBlockDeviceMappings :: Lens' Instance [InstanceBlockDeviceMapping]
-iBlockDeviceMappings = lens _iBlockDeviceMappings (\s a -> s {_iBlockDeviceMappings = a}) . _Default . _Coerce
+instance_blockDeviceMappings :: Lens.Lens' Instance (Prelude.Maybe [InstanceBlockDeviceMapping])
+instance_blockDeviceMappings = Lens.lens (\Instance' {blockDeviceMappings} -> blockDeviceMappings) (\s@Instance' {} a -> s {blockDeviceMappings = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable. A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
-iPublicIPAddress :: Lens' Instance (Maybe Text)
-iPublicIPAddress = lens _iPublicIPAddress (\s a -> s {_iPublicIPAddress = a})
+-- | The public IPv4 address, or the Carrier IP address assigned to the
+-- instance, if applicable.
+--
+-- A Carrier IP address only applies to an instance launched in a subnet
+-- associated with a Wavelength Zone.
+instance_publicIpAddress :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_publicIpAddress = Lens.lens (\Instance' {publicIpAddress} -> publicIpAddress) (\s@Instance' {} a -> s {publicIpAddress = a} :: Instance)
 
 -- | [EC2-VPC] The ID of the subnet in which the instance is running.
-iSubnetId :: Lens' Instance (Maybe Text)
-iSubnetId = lens _iSubnetId (\s a -> s {_iSubnetId = a})
+instance_subnetId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_subnetId = Lens.lens (\Instance' {subnetId} -> subnetId) (\s@Instance' {} a -> s {subnetId = a} :: Instance)
 
 -- | Indicates whether the instance is enabled for AWS Nitro Enclaves.
-iEnclaveOptions :: Lens' Instance (Maybe EnclaveOptions)
-iEnclaveOptions = lens _iEnclaveOptions (\s a -> s {_iEnclaveOptions = a})
+instance_enclaveOptions :: Lens.Lens' Instance (Prelude.Maybe EnclaveOptions)
+instance_enclaveOptions = Lens.lens (\Instance' {enclaveOptions} -> enclaveOptions) (\s@Instance' {} a -> s {enclaveOptions = a} :: Instance)
 
 -- | The kernel associated with this instance, if applicable.
-iKernelId :: Lens' Instance (Maybe Text)
-iKernelId = lens _iKernelId (\s a -> s {_iKernelId = a})
+instance_kernelId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_kernelId = Lens.lens (\Instance' {kernelId} -> kernelId) (\s@Instance' {} a -> s {kernelId = a} :: Instance)
 
 -- | The CPU options for the instance.
-iCPUOptions :: Lens' Instance (Maybe CPUOptions)
-iCPUOptions = lens _iCPUOptions (\s a -> s {_iCPUOptions = a})
+instance_cpuOptions :: Lens.Lens' Instance (Prelude.Maybe CpuOptions)
+instance_cpuOptions = Lens.lens (\Instance' {cpuOptions} -> cpuOptions) (\s@Instance' {} a -> s {cpuOptions = a} :: Instance)
 
--- | (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the Amazon EC2 network. This name is not available until the instance enters the @running@ state.  [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom domain name servers must resolve the hostname as appropriate.
-iPrivateDNSName :: Lens' Instance (Maybe Text)
-iPrivateDNSName = lens _iPrivateDNSName (\s a -> s {_iPrivateDNSName = a})
+-- | (IPv4 only) The private DNS hostname name assigned to the instance. This
+-- DNS hostname can only be used inside the Amazon EC2 network. This name
+-- is not available until the instance enters the @running@ state.
+--
+-- [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided
+-- private DNS hostnames if you\'ve enabled DNS resolution and DNS
+-- hostnames in your VPC. If you are not using the Amazon-provided DNS
+-- server in your VPC, your custom domain name servers must resolve the
+-- hostname as appropriate.
+instance_privateDnsName :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_privateDnsName = Lens.lens (\Instance' {privateDnsName} -> privateDnsName) (\s@Instance' {} a -> s {privateDnsName = a} :: Instance)
 
--- | The name of the key pair, if this instance was launched with an associated key pair.
-iKeyName :: Lens' Instance (Maybe Text)
-iKeyName = lens _iKeyName (\s a -> s {_iKeyName = a})
+-- | The name of the key pair, if this instance was launched with an
+-- associated key pair.
+instance_keyName :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_keyName = Lens.lens (\Instance' {keyName} -> keyName) (\s@Instance' {} a -> s {keyName = a} :: Instance)
 
 -- | [EC2-VPC] The network interfaces for the instance.
-iNetworkInterfaces :: Lens' Instance [InstanceNetworkInterface]
-iNetworkInterfaces = lens _iNetworkInterfaces (\s a -> s {_iNetworkInterfaces = a}) . _Default . _Coerce
+instance_networkInterfaces :: Lens.Lens' Instance (Prelude.Maybe [InstanceNetworkInterface])
+instance_networkInterfaces = Lens.lens (\Instance' {networkInterfaces} -> networkInterfaces) (\s@Instance' {} a -> s {networkInterfaces = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The license configurations.
-iLicenses :: Lens' Instance [LicenseConfiguration]
-iLicenses = lens _iLicenses (\s a -> s {_iLicenses = a}) . _Default . _Coerce
+instance_licenses :: Lens.Lens' Instance (Prelude.Maybe [LicenseConfiguration])
+instance_licenses = Lens.lens (\Instance' {licenses} -> licenses) (\s@Instance' {} a -> s {licenses = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | [EC2-VPC] The ID of the VPC in which the instance is running.
-iVPCId :: Lens' Instance (Maybe Text)
-iVPCId = lens _iVPCId (\s a -> s {_iVPCId = a})
+instance_vpcId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_vpcId = Lens.lens (\Instance' {vpcId} -> vpcId) (\s@Instance' {} a -> s {vpcId = a} :: Instance)
 
 -- | The Elastic GPU associated with the instance.
-iElasticGpuAssociations :: Lens' Instance [ElasticGpuAssociation]
-iElasticGpuAssociations = lens _iElasticGpuAssociations (\s a -> s {_iElasticGpuAssociations = a}) . _Default . _Coerce
+instance_elasticGpuAssociations :: Lens.Lens' Instance (Prelude.Maybe [ElasticGpuAssociation])
+instance_elasticGpuAssociations = Lens.lens (\Instance' {elasticGpuAssociations} -> elasticGpuAssociations) (\s@Instance' {} a -> s {elasticGpuAssociations = a} :: Instance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The metadata options for the instance.
-iMetadataOptions :: Lens' Instance (Maybe InstanceMetadataOptionsResponse)
-iMetadataOptions = lens _iMetadataOptions (\s a -> s {_iMetadataOptions = a})
+instance_metadataOptions :: Lens.Lens' Instance (Prelude.Maybe InstanceMetadataOptionsResponse)
+instance_metadataOptions = Lens.lens (\Instance' {metadataOptions} -> metadataOptions) (\s@Instance' {} a -> s {metadataOptions = a} :: Instance)
 
 -- | Specifies whether enhanced networking with ENA is enabled.
-iEnaSupport :: Lens' Instance (Maybe Bool)
-iEnaSupport = lens _iEnaSupport (\s a -> s {_iEnaSupport = a})
+instance_enaSupport :: Lens.Lens' Instance (Prelude.Maybe Prelude.Bool)
+instance_enaSupport = Lens.lens (\Instance' {enaSupport} -> enaSupport) (\s@Instance' {} a -> s {enaSupport = a} :: Instance)
 
 -- | If the request is a Spot Instance request, the ID of the request.
-iSpotInstanceRequestId :: Lens' Instance (Maybe Text)
-iSpotInstanceRequestId = lens _iSpotInstanceRequestId (\s a -> s {_iSpotInstanceRequestId = a})
+instance_spotInstanceRequestId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_spotInstanceRequestId = Lens.lens (\Instance' {spotInstanceRequestId} -> spotInstanceRequestId) (\s@Instance' {} a -> s {spotInstanceRequestId = a} :: Instance)
 
--- | The idempotency token you provided when you launched the instance, if applicable.
-iClientToken :: Lens' Instance (Maybe Text)
-iClientToken = lens _iClientToken (\s a -> s {_iClientToken = a})
+-- | The idempotency token you provided when you launched the instance, if
+-- applicable.
+instance_clientToken :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_clientToken = Lens.lens (\Instance' {clientToken} -> clientToken) (\s@Instance' {} a -> s {clientToken = a} :: Instance)
 
 -- | The private IPv4 address assigned to the instance.
-iPrivateIPAddress :: Lens' Instance (Maybe Text)
-iPrivateIPAddress = lens _iPrivateIPAddress (\s a -> s {_iPrivateIPAddress = a})
+instance_privateIpAddress :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_privateIpAddress = Lens.lens (\Instance' {privateIpAddress} -> privateIpAddress) (\s@Instance' {} a -> s {privateIpAddress = a} :: Instance)
 
 -- | The ID of the instance.
-iInstanceId :: Lens' Instance Text
-iInstanceId = lens _iInstanceId (\s a -> s {_iInstanceId = a})
+instance_instanceId :: Lens.Lens' Instance Prelude.Text
+instance_instanceId = Lens.lens (\Instance' {instanceId} -> instanceId) (\s@Instance' {} a -> s {instanceId = a} :: Instance)
 
 -- | The ID of the AMI used to launch the instance.
-iImageId :: Lens' Instance Text
-iImageId = lens _iImageId (\s a -> s {_iImageId = a})
+instance_imageId :: Lens.Lens' Instance Prelude.Text
+instance_imageId = Lens.lens (\Instance' {imageId} -> imageId) (\s@Instance' {} a -> s {imageId = a} :: Instance)
 
--- | The AMI launch index, which can be used to find this instance in the launch group.
-iAMILaunchIndex :: Lens' Instance Int
-iAMILaunchIndex = lens _iAMILaunchIndex (\s a -> s {_iAMILaunchIndex = a})
+-- | The AMI launch index, which can be used to find this instance in the
+-- launch group.
+instance_amiLaunchIndex :: Lens.Lens' Instance Prelude.Int
+instance_amiLaunchIndex = Lens.lens (\Instance' {amiLaunchIndex} -> amiLaunchIndex) (\s@Instance' {} a -> s {amiLaunchIndex = a} :: Instance)
 
 -- | The instance type.
-iInstanceType :: Lens' Instance InstanceType
-iInstanceType = lens _iInstanceType (\s a -> s {_iInstanceType = a})
+instance_instanceType :: Lens.Lens' Instance InstanceType
+instance_instanceType = Lens.lens (\Instance' {instanceType} -> instanceType) (\s@Instance' {} a -> s {instanceType = a} :: Instance)
 
 -- | The time the instance was launched.
-iLaunchTime :: Lens' Instance UTCTime
-iLaunchTime = lens _iLaunchTime (\s a -> s {_iLaunchTime = a}) . _Time
+instance_launchTime :: Lens.Lens' Instance Prelude.UTCTime
+instance_launchTime = Lens.lens (\Instance' {launchTime} -> launchTime) (\s@Instance' {} a -> s {launchTime = a} :: Instance) Prelude.. Prelude._Time
 
 -- | The location where the instance launched, if applicable.
-iPlacement :: Lens' Instance Placement
-iPlacement = lens _iPlacement (\s a -> s {_iPlacement = a})
+instance_placement :: Lens.Lens' Instance Placement
+instance_placement = Lens.lens (\Instance' {placement} -> placement) (\s@Instance' {} a -> s {placement = a} :: Instance)
 
 -- | The monitoring for the instance.
-iMonitoring :: Lens' Instance Monitoring
-iMonitoring = lens _iMonitoring (\s a -> s {_iMonitoring = a})
+instance_monitoring :: Lens.Lens' Instance Monitoring
+instance_monitoring = Lens.lens (\Instance' {monitoring} -> monitoring) (\s@Instance' {} a -> s {monitoring = a} :: Instance)
 
 -- | The architecture of the image.
-iArchitecture :: Lens' Instance ArchitectureValues
-iArchitecture = lens _iArchitecture (\s a -> s {_iArchitecture = a})
+instance_architecture :: Lens.Lens' Instance ArchitectureValues
+instance_architecture = Lens.lens (\Instance' {architecture} -> architecture) (\s@Instance' {} a -> s {architecture = a} :: Instance)
 
--- | The root device type used by the AMI. The AMI can use an EBS volume or an instance store volume.
-iRootDeviceType :: Lens' Instance DeviceType
-iRootDeviceType = lens _iRootDeviceType (\s a -> s {_iRootDeviceType = a})
+-- | The root device type used by the AMI. The AMI can use an EBS volume or
+-- an instance store volume.
+instance_rootDeviceType :: Lens.Lens' Instance DeviceType
+instance_rootDeviceType = Lens.lens (\Instance' {rootDeviceType} -> rootDeviceType) (\s@Instance' {} a -> s {rootDeviceType = a} :: Instance)
 
 -- | The virtualization type of the instance.
-iVirtualizationType :: Lens' Instance VirtualizationType
-iVirtualizationType = lens _iVirtualizationType (\s a -> s {_iVirtualizationType = a})
+instance_virtualizationType :: Lens.Lens' Instance VirtualizationType
+instance_virtualizationType = Lens.lens (\Instance' {virtualizationType} -> virtualizationType) (\s@Instance' {} a -> s {virtualizationType = a} :: Instance)
 
--- | The hypervisor type of the instance. The value @xen@ is used for both Xen and Nitro hypervisors.
-iHypervisor :: Lens' Instance HypervisorType
-iHypervisor = lens _iHypervisor (\s a -> s {_iHypervisor = a})
+-- | The hypervisor type of the instance. The value @xen@ is used for both
+-- Xen and Nitro hypervisors.
+instance_hypervisor :: Lens.Lens' Instance HypervisorType
+instance_hypervisor = Lens.lens (\Instance' {hypervisor} -> hypervisor) (\s@Instance' {} a -> s {hypervisor = a} :: Instance)
 
 -- | The current state of the instance.
-iState :: Lens' Instance InstanceState
-iState = lens _iState (\s a -> s {_iState = a})
+instance_state :: Lens.Lens' Instance InstanceState
+instance_state = Lens.lens (\Instance' {state} -> state) (\s@Instance' {} a -> s {state = a} :: Instance)
 
-instance FromXML Instance where
+instance Prelude.FromXML Instance where
   parseXML x =
     Instance'
-      <$> (x .@? "platform")
-      <*> (x .@? "instanceLifecycle")
-      <*> (x .@? "reason")
-      <*> (x .@? "rootDeviceName")
-      <*> (x .@? "capacityReservationSpecification")
-      <*> (x .@? "ebsOptimized")
-      <*> (x .@? "ramdiskId")
-      <*> ( x .@? "elasticInferenceAcceleratorAssociationSet"
-              .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "stateReason")
-      <*> (x .@? "outpostArn")
-      <*> (x .@? "sourceDestCheck")
-      <*> ( x .@? "productCodes" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "groupSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "iamInstanceProfile")
-      <*> (x .@? "dnsName")
-      <*> (x .@? "hibernationOptions")
-      <*> (x .@? "capacityReservationId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "sriovNetSupport")
-      <*> ( x .@? "blockDeviceMapping" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "ipAddress")
-      <*> (x .@? "subnetId")
-      <*> (x .@? "enclaveOptions")
-      <*> (x .@? "kernelId")
-      <*> (x .@? "cpuOptions")
-      <*> (x .@? "privateDnsName")
-      <*> (x .@? "keyName")
-      <*> ( x .@? "networkInterfaceSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "licenseSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "vpcId")
-      <*> ( x .@? "elasticGpuAssociationSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "metadataOptions")
-      <*> (x .@? "enaSupport")
-      <*> (x .@? "spotInstanceRequestId")
-      <*> (x .@? "clientToken")
-      <*> (x .@? "privateIpAddress")
-      <*> (x .@ "instanceId")
-      <*> (x .@ "imageId")
-      <*> (x .@ "amiLaunchIndex")
-      <*> (x .@ "instanceType")
-      <*> (x .@ "launchTime")
-      <*> (x .@ "placement")
-      <*> (x .@ "monitoring")
-      <*> (x .@ "architecture")
-      <*> (x .@ "rootDeviceType")
-      <*> (x .@ "virtualizationType")
-      <*> (x .@ "hypervisor")
-      <*> (x .@ "instanceState")
+      Prelude.<$> (x Prelude..@? "platform")
+      Prelude.<*> (x Prelude..@? "instanceLifecycle")
+      Prelude.<*> (x Prelude..@? "reason")
+      Prelude.<*> (x Prelude..@? "rootDeviceName")
+      Prelude.<*> (x Prelude..@? "capacityReservationSpecification")
+      Prelude.<*> (x Prelude..@? "ebsOptimized")
+      Prelude.<*> (x Prelude..@? "ramdiskId")
+      Prelude.<*> ( x
+                      Prelude..@? "elasticInferenceAcceleratorAssociationSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "stateReason")
+      Prelude.<*> (x Prelude..@? "outpostArn")
+      Prelude.<*> (x Prelude..@? "sourceDestCheck")
+      Prelude.<*> ( x Prelude..@? "productCodes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "groupSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "iamInstanceProfile")
+      Prelude.<*> (x Prelude..@? "dnsName")
+      Prelude.<*> (x Prelude..@? "hibernationOptions")
+      Prelude.<*> (x Prelude..@? "capacityReservationId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "sriovNetSupport")
+      Prelude.<*> ( x Prelude..@? "blockDeviceMapping"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "ipAddress")
+      Prelude.<*> (x Prelude..@? "subnetId")
+      Prelude.<*> (x Prelude..@? "enclaveOptions")
+      Prelude.<*> (x Prelude..@? "kernelId")
+      Prelude.<*> (x Prelude..@? "cpuOptions")
+      Prelude.<*> (x Prelude..@? "privateDnsName")
+      Prelude.<*> (x Prelude..@? "keyName")
+      Prelude.<*> ( x Prelude..@? "networkInterfaceSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "licenseSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "vpcId")
+      Prelude.<*> ( x Prelude..@? "elasticGpuAssociationSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "metadataOptions")
+      Prelude.<*> (x Prelude..@? "enaSupport")
+      Prelude.<*> (x Prelude..@? "spotInstanceRequestId")
+      Prelude.<*> (x Prelude..@? "clientToken")
+      Prelude.<*> (x Prelude..@? "privateIpAddress")
+      Prelude.<*> (x Prelude..@ "instanceId")
+      Prelude.<*> (x Prelude..@ "imageId")
+      Prelude.<*> (x Prelude..@ "amiLaunchIndex")
+      Prelude.<*> (x Prelude..@ "instanceType")
+      Prelude.<*> (x Prelude..@ "launchTime")
+      Prelude.<*> (x Prelude..@ "placement")
+      Prelude.<*> (x Prelude..@ "monitoring")
+      Prelude.<*> (x Prelude..@ "architecture")
+      Prelude.<*> (x Prelude..@ "rootDeviceType")
+      Prelude.<*> (x Prelude..@ "virtualizationType")
+      Prelude.<*> (x Prelude..@ "hypervisor")
+      Prelude.<*> (x Prelude..@ "instanceState")
 
-instance Hashable Instance
+instance Prelude.Hashable Instance
 
-instance NFData Instance
+instance Prelude.NFData Instance

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.EC2.Types.ReplacementStrategy
   ( ReplacementStrategy
       ( ..,
-        Launch
+        ReplacementStrategyLaunch
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplacementStrategy
-  = ReplacementStrategy'
-      ( CI
-          Text
-      )
+newtype ReplacementStrategy = ReplacementStrategy'
+  { fromReplacementStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Launch :: ReplacementStrategy
-pattern Launch = ReplacementStrategy' "launch"
+pattern ReplacementStrategyLaunch :: ReplacementStrategy
+pattern ReplacementStrategyLaunch = ReplacementStrategy' "launch"
 
 {-# COMPLETE
-  Launch,
+  ReplacementStrategyLaunch,
   ReplacementStrategy'
   #-}
 
-instance FromText ReplacementStrategy where
-  parser = (ReplacementStrategy' . mk) <$> takeText
+instance Prelude.FromText ReplacementStrategy where
+  parser = ReplacementStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText ReplacementStrategy where
-  toText (ReplacementStrategy' ci) = original ci
+instance Prelude.ToText ReplacementStrategy where
+  toText (ReplacementStrategy' x) = x
 
-instance Hashable ReplacementStrategy
+instance Prelude.Hashable ReplacementStrategy
 
-instance NFData ReplacementStrategy
+instance Prelude.NFData ReplacementStrategy
 
-instance ToByteString ReplacementStrategy
+instance Prelude.ToByteString ReplacementStrategy
 
-instance ToQuery ReplacementStrategy
+instance Prelude.ToQuery ReplacementStrategy
 
-instance ToHeader ReplacementStrategy
+instance Prelude.ToHeader ReplacementStrategy
 
-instance FromXML ReplacementStrategy where
-  parseXML = parseXMLText "ReplacementStrategy"
+instance Prelude.FromXML ReplacementStrategy where
+  parseXML = Prelude.parseXMLText "ReplacementStrategy"

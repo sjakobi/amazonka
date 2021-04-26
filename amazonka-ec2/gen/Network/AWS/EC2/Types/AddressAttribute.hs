@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,73 @@ module Network.AWS.EC2.Types.AddressAttribute where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PtrUpdateStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The attributes associated with an Elastic IP address.
 --
---
---
--- /See:/ 'addressAttribute' smart constructor.
+-- /See:/ 'newAddressAttribute' smart constructor.
 data AddressAttribute = AddressAttribute'
-  { _aaPtrRecord ::
-      !(Maybe Text),
-    _aaPublicIP :: !(Maybe Text),
-    _aaAllocationId :: !(Maybe Text),
-    _aaPtrRecordUpdate ::
-      !(Maybe PtrUpdateStatus)
+  { -- | The pointer (PTR) record for the IP address.
+    ptrRecord :: Prelude.Maybe Prelude.Text,
+    -- | The public IP address.
+    publicIp :: Prelude.Maybe Prelude.Text,
+    -- | [EC2-VPC] The allocation ID.
+    allocationId :: Prelude.Maybe Prelude.Text,
+    -- | The updated PTR record for the IP address.
+    ptrRecordUpdate :: Prelude.Maybe PtrUpdateStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddressAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddressAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaPtrRecord' - The pointer (PTR) record for the IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaPublicIP' - The public IP address.
+-- 'ptrRecord', 'addressAttribute_ptrRecord' - The pointer (PTR) record for the IP address.
 --
--- * 'aaAllocationId' - [EC2-VPC] The allocation ID.
+-- 'publicIp', 'addressAttribute_publicIp' - The public IP address.
 --
--- * 'aaPtrRecordUpdate' - The updated PTR record for the IP address.
-addressAttribute ::
+-- 'allocationId', 'addressAttribute_allocationId' - [EC2-VPC] The allocation ID.
+--
+-- 'ptrRecordUpdate', 'addressAttribute_ptrRecordUpdate' - The updated PTR record for the IP address.
+newAddressAttribute ::
   AddressAttribute
-addressAttribute =
+newAddressAttribute =
   AddressAttribute'
-    { _aaPtrRecord = Nothing,
-      _aaPublicIP = Nothing,
-      _aaAllocationId = Nothing,
-      _aaPtrRecordUpdate = Nothing
+    { ptrRecord = Prelude.Nothing,
+      publicIp = Prelude.Nothing,
+      allocationId = Prelude.Nothing,
+      ptrRecordUpdate = Prelude.Nothing
     }
 
 -- | The pointer (PTR) record for the IP address.
-aaPtrRecord :: Lens' AddressAttribute (Maybe Text)
-aaPtrRecord = lens _aaPtrRecord (\s a -> s {_aaPtrRecord = a})
+addressAttribute_ptrRecord :: Lens.Lens' AddressAttribute (Prelude.Maybe Prelude.Text)
+addressAttribute_ptrRecord = Lens.lens (\AddressAttribute' {ptrRecord} -> ptrRecord) (\s@AddressAttribute' {} a -> s {ptrRecord = a} :: AddressAttribute)
 
 -- | The public IP address.
-aaPublicIP :: Lens' AddressAttribute (Maybe Text)
-aaPublicIP = lens _aaPublicIP (\s a -> s {_aaPublicIP = a})
+addressAttribute_publicIp :: Lens.Lens' AddressAttribute (Prelude.Maybe Prelude.Text)
+addressAttribute_publicIp = Lens.lens (\AddressAttribute' {publicIp} -> publicIp) (\s@AddressAttribute' {} a -> s {publicIp = a} :: AddressAttribute)
 
 -- | [EC2-VPC] The allocation ID.
-aaAllocationId :: Lens' AddressAttribute (Maybe Text)
-aaAllocationId = lens _aaAllocationId (\s a -> s {_aaAllocationId = a})
+addressAttribute_allocationId :: Lens.Lens' AddressAttribute (Prelude.Maybe Prelude.Text)
+addressAttribute_allocationId = Lens.lens (\AddressAttribute' {allocationId} -> allocationId) (\s@AddressAttribute' {} a -> s {allocationId = a} :: AddressAttribute)
 
 -- | The updated PTR record for the IP address.
-aaPtrRecordUpdate :: Lens' AddressAttribute (Maybe PtrUpdateStatus)
-aaPtrRecordUpdate = lens _aaPtrRecordUpdate (\s a -> s {_aaPtrRecordUpdate = a})
+addressAttribute_ptrRecordUpdate :: Lens.Lens' AddressAttribute (Prelude.Maybe PtrUpdateStatus)
+addressAttribute_ptrRecordUpdate = Lens.lens (\AddressAttribute' {ptrRecordUpdate} -> ptrRecordUpdate) (\s@AddressAttribute' {} a -> s {ptrRecordUpdate = a} :: AddressAttribute)
 
-instance FromXML AddressAttribute where
+instance Prelude.FromXML AddressAttribute where
   parseXML x =
     AddressAttribute'
-      <$> (x .@? "ptrRecord")
-      <*> (x .@? "publicIp")
-      <*> (x .@? "allocationId")
-      <*> (x .@? "ptrRecordUpdate")
+      Prelude.<$> (x Prelude..@? "ptrRecord")
+      Prelude.<*> (x Prelude..@? "publicIp")
+      Prelude.<*> (x Prelude..@? "allocationId")
+      Prelude.<*> (x Prelude..@? "ptrRecordUpdate")
 
-instance Hashable AddressAttribute
+instance Prelude.Hashable AddressAttribute
 
-instance NFData AddressAttribute
+instance Prelude.NFData AddressAttribute

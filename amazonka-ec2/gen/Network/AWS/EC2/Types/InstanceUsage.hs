@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,59 @@
 module Network.AWS.EC2.Types.InstanceUsage where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the Capacity Reservation usage.
 --
---
---
--- /See:/ 'instanceUsage' smart constructor.
+-- /See:/ 'newInstanceUsage' smart constructor.
 data InstanceUsage = InstanceUsage'
-  { _iuAccountId ::
-      !(Maybe Text),
-    _iuUsedInstanceCount :: !(Maybe Int)
+  { -- | The ID of the AWS account that is making use of the Capacity
+    -- Reservation.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The number of instances the AWS account currently has in the Capacity
+    -- Reservation.
+    usedInstanceCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceUsage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceUsage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iuAccountId' - The ID of the AWS account that is making use of the Capacity Reservation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iuUsedInstanceCount' - The number of instances the AWS account currently has in the Capacity Reservation.
-instanceUsage ::
+-- 'accountId', 'instanceUsage_accountId' - The ID of the AWS account that is making use of the Capacity
+-- Reservation.
+--
+-- 'usedInstanceCount', 'instanceUsage_usedInstanceCount' - The number of instances the AWS account currently has in the Capacity
+-- Reservation.
+newInstanceUsage ::
   InstanceUsage
-instanceUsage =
+newInstanceUsage =
   InstanceUsage'
-    { _iuAccountId = Nothing,
-      _iuUsedInstanceCount = Nothing
+    { accountId = Prelude.Nothing,
+      usedInstanceCount = Prelude.Nothing
     }
 
--- | The ID of the AWS account that is making use of the Capacity Reservation.
-iuAccountId :: Lens' InstanceUsage (Maybe Text)
-iuAccountId = lens _iuAccountId (\s a -> s {_iuAccountId = a})
+-- | The ID of the AWS account that is making use of the Capacity
+-- Reservation.
+instanceUsage_accountId :: Lens.Lens' InstanceUsage (Prelude.Maybe Prelude.Text)
+instanceUsage_accountId = Lens.lens (\InstanceUsage' {accountId} -> accountId) (\s@InstanceUsage' {} a -> s {accountId = a} :: InstanceUsage)
 
--- | The number of instances the AWS account currently has in the Capacity Reservation.
-iuUsedInstanceCount :: Lens' InstanceUsage (Maybe Int)
-iuUsedInstanceCount = lens _iuUsedInstanceCount (\s a -> s {_iuUsedInstanceCount = a})
+-- | The number of instances the AWS account currently has in the Capacity
+-- Reservation.
+instanceUsage_usedInstanceCount :: Lens.Lens' InstanceUsage (Prelude.Maybe Prelude.Int)
+instanceUsage_usedInstanceCount = Lens.lens (\InstanceUsage' {usedInstanceCount} -> usedInstanceCount) (\s@InstanceUsage' {} a -> s {usedInstanceCount = a} :: InstanceUsage)
 
-instance FromXML InstanceUsage where
+instance Prelude.FromXML InstanceUsage where
   parseXML x =
     InstanceUsage'
-      <$> (x .@? "accountId") <*> (x .@? "usedInstanceCount")
+      Prelude.<$> (x Prelude..@? "accountId")
+      Prelude.<*> (x Prelude..@? "usedInstanceCount")
 
-instance Hashable InstanceUsage
+instance Prelude.Hashable InstanceUsage
 
-instance NFData InstanceUsage
+instance Prelude.NFData InstanceUsage

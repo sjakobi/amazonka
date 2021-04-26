@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.ExportEnvironment
   ( ExportEnvironment
       ( ..,
-        Citrix,
-        Microsoft,
-        VMware
+        ExportEnvironmentCitrix,
+        ExportEnvironmentMicrosoft,
+        ExportEnvironmentVmware
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExportEnvironment = ExportEnvironment' (CI Text)
+newtype ExportEnvironment = ExportEnvironment'
+  { fromExportEnvironment ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Citrix :: ExportEnvironment
-pattern Citrix = ExportEnvironment' "citrix"
+pattern ExportEnvironmentCitrix :: ExportEnvironment
+pattern ExportEnvironmentCitrix = ExportEnvironment' "citrix"
 
-pattern Microsoft :: ExportEnvironment
-pattern Microsoft = ExportEnvironment' "microsoft"
+pattern ExportEnvironmentMicrosoft :: ExportEnvironment
+pattern ExportEnvironmentMicrosoft = ExportEnvironment' "microsoft"
 
-pattern VMware :: ExportEnvironment
-pattern VMware = ExportEnvironment' "vmware"
+pattern ExportEnvironmentVmware :: ExportEnvironment
+pattern ExportEnvironmentVmware = ExportEnvironment' "vmware"
 
 {-# COMPLETE
-  Citrix,
-  Microsoft,
-  VMware,
+  ExportEnvironmentCitrix,
+  ExportEnvironmentMicrosoft,
+  ExportEnvironmentVmware,
   ExportEnvironment'
   #-}
 
-instance FromText ExportEnvironment where
-  parser = (ExportEnvironment' . mk) <$> takeText
+instance Prelude.FromText ExportEnvironment where
+  parser = ExportEnvironment' Prelude.<$> Prelude.takeText
 
-instance ToText ExportEnvironment where
-  toText (ExportEnvironment' ci) = original ci
+instance Prelude.ToText ExportEnvironment where
+  toText (ExportEnvironment' x) = x
 
-instance Hashable ExportEnvironment
+instance Prelude.Hashable ExportEnvironment
 
-instance NFData ExportEnvironment
+instance Prelude.NFData ExportEnvironment
 
-instance ToByteString ExportEnvironment
+instance Prelude.ToByteString ExportEnvironment
 
-instance ToQuery ExportEnvironment
+instance Prelude.ToQuery ExportEnvironment
 
-instance ToHeader ExportEnvironment
+instance Prelude.ToHeader ExportEnvironment
 
-instance FromXML ExportEnvironment where
-  parseXML = parseXMLText "ExportEnvironment"
+instance Prelude.FromXML ExportEnvironment where
+  parseXML = Prelude.parseXMLText "ExportEnvironment"

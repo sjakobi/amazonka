@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +19,81 @@
 module Network.AWS.EC2.Types.ImageState
   ( ImageState
       ( ..,
-        ISAvailable,
-        ISDeregistered,
-        ISError',
-        ISFailed,
-        ISInvalid,
-        ISPending,
-        ISTransient
+        ImageStateAvailable,
+        ImageStateDeregistered,
+        ImageStateError,
+        ImageStateFailed,
+        ImageStateInvalid,
+        ImageStatePending,
+        ImageStateTransient
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageState = ImageState' (CI Text)
+newtype ImageState = ImageState'
+  { fromImageState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISAvailable :: ImageState
-pattern ISAvailable = ImageState' "available"
+pattern ImageStateAvailable :: ImageState
+pattern ImageStateAvailable = ImageState' "available"
 
-pattern ISDeregistered :: ImageState
-pattern ISDeregistered = ImageState' "deregistered"
+pattern ImageStateDeregistered :: ImageState
+pattern ImageStateDeregistered = ImageState' "deregistered"
 
-pattern ISError' :: ImageState
-pattern ISError' = ImageState' "error"
+pattern ImageStateError :: ImageState
+pattern ImageStateError = ImageState' "error"
 
-pattern ISFailed :: ImageState
-pattern ISFailed = ImageState' "failed"
+pattern ImageStateFailed :: ImageState
+pattern ImageStateFailed = ImageState' "failed"
 
-pattern ISInvalid :: ImageState
-pattern ISInvalid = ImageState' "invalid"
+pattern ImageStateInvalid :: ImageState
+pattern ImageStateInvalid = ImageState' "invalid"
 
-pattern ISPending :: ImageState
-pattern ISPending = ImageState' "pending"
+pattern ImageStatePending :: ImageState
+pattern ImageStatePending = ImageState' "pending"
 
-pattern ISTransient :: ImageState
-pattern ISTransient = ImageState' "transient"
+pattern ImageStateTransient :: ImageState
+pattern ImageStateTransient = ImageState' "transient"
 
 {-# COMPLETE
-  ISAvailable,
-  ISDeregistered,
-  ISError',
-  ISFailed,
-  ISInvalid,
-  ISPending,
-  ISTransient,
+  ImageStateAvailable,
+  ImageStateDeregistered,
+  ImageStateError,
+  ImageStateFailed,
+  ImageStateInvalid,
+  ImageStatePending,
+  ImageStateTransient,
   ImageState'
   #-}
 
-instance FromText ImageState where
-  parser = (ImageState' . mk) <$> takeText
+instance Prelude.FromText ImageState where
+  parser = ImageState' Prelude.<$> Prelude.takeText
 
-instance ToText ImageState where
-  toText (ImageState' ci) = original ci
+instance Prelude.ToText ImageState where
+  toText (ImageState' x) = x
 
-instance Hashable ImageState
+instance Prelude.Hashable ImageState
 
-instance NFData ImageState
+instance Prelude.NFData ImageState
 
-instance ToByteString ImageState
+instance Prelude.ToByteString ImageState
 
-instance ToQuery ImageState
+instance Prelude.ToQuery ImageState
 
-instance ToHeader ImageState
+instance Prelude.ToHeader ImageState
 
-instance FromXML ImageState where
-  parseXML = parseXMLText "ImageState"
+instance Prelude.FromXML ImageState where
+  parseXML = Prelude.parseXMLText "ImageState"

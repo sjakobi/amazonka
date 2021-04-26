@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +21,58 @@ module Network.AWS.EC2.Types.GpuInfo where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.GpuDeviceInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the GPU accelerators for the instance type.
 --
---
---
--- /See:/ 'gpuInfo' smart constructor.
+-- /See:/ 'newGpuInfo' smart constructor.
 data GpuInfo = GpuInfo'
-  { _giGpus ::
-      !(Maybe [GpuDeviceInfo]),
-    _giTotalGpuMemoryInMiB :: !(Maybe Int)
+  { -- | Describes the GPU accelerators for the instance type.
+    gpus :: Prelude.Maybe [GpuDeviceInfo],
+    -- | The total size of the memory for the GPU accelerators for the instance
+    -- type, in MiB.
+    totalGpuMemoryInMiB :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GpuInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GpuInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giGpus' - Describes the GPU accelerators for the instance type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giTotalGpuMemoryInMiB' - The total size of the memory for the GPU accelerators for the instance type, in MiB.
-gpuInfo ::
+-- 'gpus', 'gpuInfo_gpus' - Describes the GPU accelerators for the instance type.
+--
+-- 'totalGpuMemoryInMiB', 'gpuInfo_totalGpuMemoryInMiB' - The total size of the memory for the GPU accelerators for the instance
+-- type, in MiB.
+newGpuInfo ::
   GpuInfo
-gpuInfo =
+newGpuInfo =
   GpuInfo'
-    { _giGpus = Nothing,
-      _giTotalGpuMemoryInMiB = Nothing
+    { gpus = Prelude.Nothing,
+      totalGpuMemoryInMiB = Prelude.Nothing
     }
 
 -- | Describes the GPU accelerators for the instance type.
-giGpus :: Lens' GpuInfo [GpuDeviceInfo]
-giGpus = lens _giGpus (\s a -> s {_giGpus = a}) . _Default . _Coerce
+gpuInfo_gpus :: Lens.Lens' GpuInfo (Prelude.Maybe [GpuDeviceInfo])
+gpuInfo_gpus = Lens.lens (\GpuInfo' {gpus} -> gpus) (\s@GpuInfo' {} a -> s {gpus = a} :: GpuInfo) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The total size of the memory for the GPU accelerators for the instance type, in MiB.
-giTotalGpuMemoryInMiB :: Lens' GpuInfo (Maybe Int)
-giTotalGpuMemoryInMiB = lens _giTotalGpuMemoryInMiB (\s a -> s {_giTotalGpuMemoryInMiB = a})
+-- | The total size of the memory for the GPU accelerators for the instance
+-- type, in MiB.
+gpuInfo_totalGpuMemoryInMiB :: Lens.Lens' GpuInfo (Prelude.Maybe Prelude.Int)
+gpuInfo_totalGpuMemoryInMiB = Lens.lens (\GpuInfo' {totalGpuMemoryInMiB} -> totalGpuMemoryInMiB) (\s@GpuInfo' {} a -> s {totalGpuMemoryInMiB = a} :: GpuInfo)
 
-instance FromXML GpuInfo where
+instance Prelude.FromXML GpuInfo where
   parseXML x =
     GpuInfo'
-      <$> ( x .@? "gpus" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "totalGpuMemoryInMiB")
+      Prelude.<$> ( x Prelude..@? "gpus" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "totalGpuMemoryInMiB")
 
-instance Hashable GpuInfo
+instance Prelude.Hashable GpuInfo
 
-instance NFData GpuInfo
+instance Prelude.NFData GpuInfo

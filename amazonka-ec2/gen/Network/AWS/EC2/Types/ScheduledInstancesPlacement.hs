@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,55 @@
 module Network.AWS.EC2.Types.ScheduledInstancesPlacement where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the placement for a Scheduled Instance.
 --
---
---
--- /See:/ 'scheduledInstancesPlacement' smart constructor.
+-- /See:/ 'newScheduledInstancesPlacement' smart constructor.
 data ScheduledInstancesPlacement = ScheduledInstancesPlacement'
-  { _sipGroupName ::
-      !(Maybe Text),
-    _sipAvailabilityZone ::
-      !(Maybe Text)
+  { -- | The name of the placement group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The Availability Zone.
+    availabilityZone :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduledInstancesPlacement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduledInstancesPlacement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sipGroupName' - The name of the placement group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sipAvailabilityZone' - The Availability Zone.
-scheduledInstancesPlacement ::
+-- 'groupName', 'scheduledInstancesPlacement_groupName' - The name of the placement group.
+--
+-- 'availabilityZone', 'scheduledInstancesPlacement_availabilityZone' - The Availability Zone.
+newScheduledInstancesPlacement ::
   ScheduledInstancesPlacement
-scheduledInstancesPlacement =
+newScheduledInstancesPlacement =
   ScheduledInstancesPlacement'
-    { _sipGroupName =
-        Nothing,
-      _sipAvailabilityZone = Nothing
+    { groupName =
+        Prelude.Nothing,
+      availabilityZone = Prelude.Nothing
     }
 
 -- | The name of the placement group.
-sipGroupName :: Lens' ScheduledInstancesPlacement (Maybe Text)
-sipGroupName = lens _sipGroupName (\s a -> s {_sipGroupName = a})
+scheduledInstancesPlacement_groupName :: Lens.Lens' ScheduledInstancesPlacement (Prelude.Maybe Prelude.Text)
+scheduledInstancesPlacement_groupName = Lens.lens (\ScheduledInstancesPlacement' {groupName} -> groupName) (\s@ScheduledInstancesPlacement' {} a -> s {groupName = a} :: ScheduledInstancesPlacement)
 
 -- | The Availability Zone.
-sipAvailabilityZone :: Lens' ScheduledInstancesPlacement (Maybe Text)
-sipAvailabilityZone = lens _sipAvailabilityZone (\s a -> s {_sipAvailabilityZone = a})
+scheduledInstancesPlacement_availabilityZone :: Lens.Lens' ScheduledInstancesPlacement (Prelude.Maybe Prelude.Text)
+scheduledInstancesPlacement_availabilityZone = Lens.lens (\ScheduledInstancesPlacement' {availabilityZone} -> availabilityZone) (\s@ScheduledInstancesPlacement' {} a -> s {availabilityZone = a} :: ScheduledInstancesPlacement)
 
-instance Hashable ScheduledInstancesPlacement
+instance Prelude.Hashable ScheduledInstancesPlacement
 
-instance NFData ScheduledInstancesPlacement
+instance Prelude.NFData ScheduledInstancesPlacement
 
-instance ToQuery ScheduledInstancesPlacement where
+instance Prelude.ToQuery ScheduledInstancesPlacement where
   toQuery ScheduledInstancesPlacement' {..} =
-    mconcat
-      [ "GroupName" =: _sipGroupName,
-        "AvailabilityZone" =: _sipAvailabilityZone
+    Prelude.mconcat
+      [ "GroupName" Prelude.=: groupName,
+        "AvailabilityZone" Prelude.=: availabilityZone
       ]

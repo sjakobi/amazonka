@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,140 +20,148 @@
 module Network.AWS.EC2.Types.PathComponent where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.AnalysisACLRule
+import Network.AWS.EC2.Types.AnalysisAclRule
 import Network.AWS.EC2.Types.AnalysisComponent
 import Network.AWS.EC2.Types.AnalysisPacketHeader
 import Network.AWS.EC2.Types.AnalysisRouteTableRoute
 import Network.AWS.EC2.Types.AnalysisSecurityGroupRule
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a path component.
 --
---
---
--- /See:/ 'pathComponent' smart constructor.
+-- /See:/ 'newPathComponent' smart constructor.
 data PathComponent = PathComponent'
-  { _pcSecurityGroupRule ::
-      !(Maybe AnalysisSecurityGroupRule),
-    _pcSequenceNumber :: !(Maybe Int),
-    _pcSubnet :: !(Maybe AnalysisComponent),
-    _pcSourceVPC :: !(Maybe AnalysisComponent),
-    _pcACLRule :: !(Maybe AnalysisACLRule),
-    _pcInboundHeader ::
-      !(Maybe AnalysisPacketHeader),
-    _pcComponent :: !(Maybe AnalysisComponent),
-    _pcDestinationVPC ::
-      !(Maybe AnalysisComponent),
-    _pcRouteTableRoute ::
-      !(Maybe AnalysisRouteTableRoute),
-    _pcOutboundHeader ::
-      !(Maybe AnalysisPacketHeader),
-    _pcVPC :: !(Maybe AnalysisComponent)
+  { -- | The security group rule.
+    securityGroupRule :: Prelude.Maybe AnalysisSecurityGroupRule,
+    -- | The sequence number.
+    sequenceNumber :: Prelude.Maybe Prelude.Int,
+    -- | The subnet.
+    subnet :: Prelude.Maybe AnalysisComponent,
+    -- | The source VPC.
+    sourceVpc :: Prelude.Maybe AnalysisComponent,
+    -- | The network ACL rule.
+    aclRule :: Prelude.Maybe AnalysisAclRule,
+    -- | The inbound header.
+    inboundHeader :: Prelude.Maybe AnalysisPacketHeader,
+    -- | The component.
+    component :: Prelude.Maybe AnalysisComponent,
+    -- | The destination VPC.
+    destinationVpc :: Prelude.Maybe AnalysisComponent,
+    -- | The route table route.
+    routeTableRoute :: Prelude.Maybe AnalysisRouteTableRoute,
+    -- | The outbound header.
+    outboundHeader :: Prelude.Maybe AnalysisPacketHeader,
+    -- | The component VPC.
+    vpc :: Prelude.Maybe AnalysisComponent
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PathComponent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PathComponent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcSecurityGroupRule' - The security group rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcSequenceNumber' - The sequence number.
+-- 'securityGroupRule', 'pathComponent_securityGroupRule' - The security group rule.
 --
--- * 'pcSubnet' - The subnet.
+-- 'sequenceNumber', 'pathComponent_sequenceNumber' - The sequence number.
 --
--- * 'pcSourceVPC' - The source VPC.
+-- 'subnet', 'pathComponent_subnet' - The subnet.
 --
--- * 'pcACLRule' - The network ACL rule.
+-- 'sourceVpc', 'pathComponent_sourceVpc' - The source VPC.
 --
--- * 'pcInboundHeader' - The inbound header.
+-- 'aclRule', 'pathComponent_aclRule' - The network ACL rule.
 --
--- * 'pcComponent' - The component.
+-- 'inboundHeader', 'pathComponent_inboundHeader' - The inbound header.
 --
--- * 'pcDestinationVPC' - The destination VPC.
+-- 'component', 'pathComponent_component' - The component.
 --
--- * 'pcRouteTableRoute' - The route table route.
+-- 'destinationVpc', 'pathComponent_destinationVpc' - The destination VPC.
 --
--- * 'pcOutboundHeader' - The outbound header.
+-- 'routeTableRoute', 'pathComponent_routeTableRoute' - The route table route.
 --
--- * 'pcVPC' - The component VPC.
-pathComponent ::
+-- 'outboundHeader', 'pathComponent_outboundHeader' - The outbound header.
+--
+-- 'vpc', 'pathComponent_vpc' - The component VPC.
+newPathComponent ::
   PathComponent
-pathComponent =
+newPathComponent =
   PathComponent'
-    { _pcSecurityGroupRule = Nothing,
-      _pcSequenceNumber = Nothing,
-      _pcSubnet = Nothing,
-      _pcSourceVPC = Nothing,
-      _pcACLRule = Nothing,
-      _pcInboundHeader = Nothing,
-      _pcComponent = Nothing,
-      _pcDestinationVPC = Nothing,
-      _pcRouteTableRoute = Nothing,
-      _pcOutboundHeader = Nothing,
-      _pcVPC = Nothing
+    { securityGroupRule = Prelude.Nothing,
+      sequenceNumber = Prelude.Nothing,
+      subnet = Prelude.Nothing,
+      sourceVpc = Prelude.Nothing,
+      aclRule = Prelude.Nothing,
+      inboundHeader = Prelude.Nothing,
+      component = Prelude.Nothing,
+      destinationVpc = Prelude.Nothing,
+      routeTableRoute = Prelude.Nothing,
+      outboundHeader = Prelude.Nothing,
+      vpc = Prelude.Nothing
     }
 
 -- | The security group rule.
-pcSecurityGroupRule :: Lens' PathComponent (Maybe AnalysisSecurityGroupRule)
-pcSecurityGroupRule = lens _pcSecurityGroupRule (\s a -> s {_pcSecurityGroupRule = a})
+pathComponent_securityGroupRule :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisSecurityGroupRule)
+pathComponent_securityGroupRule = Lens.lens (\PathComponent' {securityGroupRule} -> securityGroupRule) (\s@PathComponent' {} a -> s {securityGroupRule = a} :: PathComponent)
 
 -- | The sequence number.
-pcSequenceNumber :: Lens' PathComponent (Maybe Int)
-pcSequenceNumber = lens _pcSequenceNumber (\s a -> s {_pcSequenceNumber = a})
+pathComponent_sequenceNumber :: Lens.Lens' PathComponent (Prelude.Maybe Prelude.Int)
+pathComponent_sequenceNumber = Lens.lens (\PathComponent' {sequenceNumber} -> sequenceNumber) (\s@PathComponent' {} a -> s {sequenceNumber = a} :: PathComponent)
 
 -- | The subnet.
-pcSubnet :: Lens' PathComponent (Maybe AnalysisComponent)
-pcSubnet = lens _pcSubnet (\s a -> s {_pcSubnet = a})
+pathComponent_subnet :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisComponent)
+pathComponent_subnet = Lens.lens (\PathComponent' {subnet} -> subnet) (\s@PathComponent' {} a -> s {subnet = a} :: PathComponent)
 
 -- | The source VPC.
-pcSourceVPC :: Lens' PathComponent (Maybe AnalysisComponent)
-pcSourceVPC = lens _pcSourceVPC (\s a -> s {_pcSourceVPC = a})
+pathComponent_sourceVpc :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisComponent)
+pathComponent_sourceVpc = Lens.lens (\PathComponent' {sourceVpc} -> sourceVpc) (\s@PathComponent' {} a -> s {sourceVpc = a} :: PathComponent)
 
 -- | The network ACL rule.
-pcACLRule :: Lens' PathComponent (Maybe AnalysisACLRule)
-pcACLRule = lens _pcACLRule (\s a -> s {_pcACLRule = a})
+pathComponent_aclRule :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisAclRule)
+pathComponent_aclRule = Lens.lens (\PathComponent' {aclRule} -> aclRule) (\s@PathComponent' {} a -> s {aclRule = a} :: PathComponent)
 
 -- | The inbound header.
-pcInboundHeader :: Lens' PathComponent (Maybe AnalysisPacketHeader)
-pcInboundHeader = lens _pcInboundHeader (\s a -> s {_pcInboundHeader = a})
+pathComponent_inboundHeader :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisPacketHeader)
+pathComponent_inboundHeader = Lens.lens (\PathComponent' {inboundHeader} -> inboundHeader) (\s@PathComponent' {} a -> s {inboundHeader = a} :: PathComponent)
 
 -- | The component.
-pcComponent :: Lens' PathComponent (Maybe AnalysisComponent)
-pcComponent = lens _pcComponent (\s a -> s {_pcComponent = a})
+pathComponent_component :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisComponent)
+pathComponent_component = Lens.lens (\PathComponent' {component} -> component) (\s@PathComponent' {} a -> s {component = a} :: PathComponent)
 
 -- | The destination VPC.
-pcDestinationVPC :: Lens' PathComponent (Maybe AnalysisComponent)
-pcDestinationVPC = lens _pcDestinationVPC (\s a -> s {_pcDestinationVPC = a})
+pathComponent_destinationVpc :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisComponent)
+pathComponent_destinationVpc = Lens.lens (\PathComponent' {destinationVpc} -> destinationVpc) (\s@PathComponent' {} a -> s {destinationVpc = a} :: PathComponent)
 
 -- | The route table route.
-pcRouteTableRoute :: Lens' PathComponent (Maybe AnalysisRouteTableRoute)
-pcRouteTableRoute = lens _pcRouteTableRoute (\s a -> s {_pcRouteTableRoute = a})
+pathComponent_routeTableRoute :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisRouteTableRoute)
+pathComponent_routeTableRoute = Lens.lens (\PathComponent' {routeTableRoute} -> routeTableRoute) (\s@PathComponent' {} a -> s {routeTableRoute = a} :: PathComponent)
 
 -- | The outbound header.
-pcOutboundHeader :: Lens' PathComponent (Maybe AnalysisPacketHeader)
-pcOutboundHeader = lens _pcOutboundHeader (\s a -> s {_pcOutboundHeader = a})
+pathComponent_outboundHeader :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisPacketHeader)
+pathComponent_outboundHeader = Lens.lens (\PathComponent' {outboundHeader} -> outboundHeader) (\s@PathComponent' {} a -> s {outboundHeader = a} :: PathComponent)
 
 -- | The component VPC.
-pcVPC :: Lens' PathComponent (Maybe AnalysisComponent)
-pcVPC = lens _pcVPC (\s a -> s {_pcVPC = a})
+pathComponent_vpc :: Lens.Lens' PathComponent (Prelude.Maybe AnalysisComponent)
+pathComponent_vpc = Lens.lens (\PathComponent' {vpc} -> vpc) (\s@PathComponent' {} a -> s {vpc = a} :: PathComponent)
 
-instance FromXML PathComponent where
+instance Prelude.FromXML PathComponent where
   parseXML x =
     PathComponent'
-      <$> (x .@? "securityGroupRule")
-      <*> (x .@? "sequenceNumber")
-      <*> (x .@? "subnet")
-      <*> (x .@? "sourceVpc")
-      <*> (x .@? "aclRule")
-      <*> (x .@? "inboundHeader")
-      <*> (x .@? "component")
-      <*> (x .@? "destinationVpc")
-      <*> (x .@? "routeTableRoute")
-      <*> (x .@? "outboundHeader")
-      <*> (x .@? "vpc")
+      Prelude.<$> (x Prelude..@? "securityGroupRule")
+      Prelude.<*> (x Prelude..@? "sequenceNumber")
+      Prelude.<*> (x Prelude..@? "subnet")
+      Prelude.<*> (x Prelude..@? "sourceVpc")
+      Prelude.<*> (x Prelude..@? "aclRule")
+      Prelude.<*> (x Prelude..@? "inboundHeader")
+      Prelude.<*> (x Prelude..@? "component")
+      Prelude.<*> (x Prelude..@? "destinationVpc")
+      Prelude.<*> (x Prelude..@? "routeTableRoute")
+      Prelude.<*> (x Prelude..@? "outboundHeader")
+      Prelude.<*> (x Prelude..@? "vpc")
 
-instance Hashable PathComponent
+instance Prelude.Hashable PathComponent
 
-instance NFData PathComponent
+instance Prelude.NFData PathComponent

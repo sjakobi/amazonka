@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.InstanceMetadataOptionsState
   ( InstanceMetadataOptionsState
       ( ..,
-        IMOSApplied,
-        IMOSPending
+        InstanceMetadataOptionsStateApplied,
+        InstanceMetadataOptionsStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceMetadataOptionsState
-  = InstanceMetadataOptionsState'
-      ( CI
-          Text
-      )
+newtype InstanceMetadataOptionsState = InstanceMetadataOptionsState'
+  { fromInstanceMetadataOptionsState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IMOSApplied :: InstanceMetadataOptionsState
-pattern IMOSApplied = InstanceMetadataOptionsState' "applied"
+pattern InstanceMetadataOptionsStateApplied :: InstanceMetadataOptionsState
+pattern InstanceMetadataOptionsStateApplied = InstanceMetadataOptionsState' "applied"
 
-pattern IMOSPending :: InstanceMetadataOptionsState
-pattern IMOSPending = InstanceMetadataOptionsState' "pending"
+pattern InstanceMetadataOptionsStatePending :: InstanceMetadataOptionsState
+pattern InstanceMetadataOptionsStatePending = InstanceMetadataOptionsState' "pending"
 
 {-# COMPLETE
-  IMOSApplied,
-  IMOSPending,
+  InstanceMetadataOptionsStateApplied,
+  InstanceMetadataOptionsStatePending,
   InstanceMetadataOptionsState'
   #-}
 
-instance FromText InstanceMetadataOptionsState where
-  parser = (InstanceMetadataOptionsState' . mk) <$> takeText
+instance Prelude.FromText InstanceMetadataOptionsState where
+  parser = InstanceMetadataOptionsState' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceMetadataOptionsState where
-  toText (InstanceMetadataOptionsState' ci) = original ci
+instance Prelude.ToText InstanceMetadataOptionsState where
+  toText (InstanceMetadataOptionsState' x) = x
 
-instance Hashable InstanceMetadataOptionsState
+instance Prelude.Hashable InstanceMetadataOptionsState
 
-instance NFData InstanceMetadataOptionsState
+instance Prelude.NFData InstanceMetadataOptionsState
 
-instance ToByteString InstanceMetadataOptionsState
+instance Prelude.ToByteString InstanceMetadataOptionsState
 
-instance ToQuery InstanceMetadataOptionsState
+instance Prelude.ToQuery InstanceMetadataOptionsState
 
-instance ToHeader InstanceMetadataOptionsState
+instance Prelude.ToHeader InstanceMetadataOptionsState
 
-instance FromXML InstanceMetadataOptionsState where
-  parseXML = parseXMLText "InstanceMetadataOptionsState"
+instance Prelude.FromXML InstanceMetadataOptionsState where
+  parseXML = Prelude.parseXMLText "InstanceMetadataOptionsState"

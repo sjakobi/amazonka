@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,209 +23,259 @@
 --
 -- Describes your managed prefix lists and any AWS-managed prefix lists.
 --
---
--- To view the entries for your prefix list, use 'GetManagedPrefixListEntries' .
---
+-- To view the entries for your prefix list, use
+-- GetManagedPrefixListEntries.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeManagedPrefixLists
   ( -- * Creating a Request
-    describeManagedPrefixLists,
-    DescribeManagedPrefixLists,
+    DescribeManagedPrefixLists (..),
+    newDescribeManagedPrefixLists,
 
     -- * Request Lenses
-    dmplNextToken,
-    dmplPrefixListIds,
-    dmplDryRun,
-    dmplMaxResults,
-    dmplFilters,
+    describeManagedPrefixLists_nextToken,
+    describeManagedPrefixLists_prefixListIds,
+    describeManagedPrefixLists_dryRun,
+    describeManagedPrefixLists_maxResults,
+    describeManagedPrefixLists_filters,
 
     -- * Destructuring the Response
-    describeManagedPrefixListsResponse,
-    DescribeManagedPrefixListsResponse,
+    DescribeManagedPrefixListsResponse (..),
+    newDescribeManagedPrefixListsResponse,
 
     -- * Response Lenses
-    dmplrmrsNextToken,
-    dmplrmrsPrefixLists,
-    dmplrmrsResponseStatus,
+    describeManagedPrefixListsResponse_nextToken,
+    describeManagedPrefixListsResponse_prefixLists,
+    describeManagedPrefixListsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ManagedPrefixList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeManagedPrefixLists' smart constructor.
+-- | /See:/ 'newDescribeManagedPrefixLists' smart constructor.
 data DescribeManagedPrefixLists = DescribeManagedPrefixLists'
-  { _dmplNextToken ::
-      !(Maybe Text),
-    _dmplPrefixListIds ::
-      !(Maybe [Text]),
-    _dmplDryRun ::
-      !(Maybe Bool),
-    _dmplMaxResults ::
-      !(Maybe Nat),
-    _dmplFilters ::
-      !(Maybe [Filter])
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more prefix list IDs.
+    prefixListIds :: Prelude.Maybe [Prelude.Text],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters.
+    --
+    -- -   @owner-id@ - The ID of the prefix list owner.
+    --
+    -- -   @prefix-list-id@ - The ID of the prefix list.
+    --
+    -- -   @prefix-list-name@ - The name of the prefix list.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeManagedPrefixLists' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeManagedPrefixLists' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmplNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmplPrefixListIds' - One or more prefix list IDs.
+-- 'nextToken', 'describeManagedPrefixLists_nextToken' - The token for the next page of results.
 --
--- * 'dmplDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'prefixListIds', 'describeManagedPrefixLists_prefixListIds' - One or more prefix list IDs.
 --
--- * 'dmplMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeManagedPrefixLists_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dmplFilters' - One or more filters.     * @owner-id@ - The ID of the prefix list owner.     * @prefix-list-id@ - The ID of the prefix list.     * @prefix-list-name@ - The name of the prefix list.
-describeManagedPrefixLists ::
+-- 'maxResults', 'describeManagedPrefixLists_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
+-- 'filters', 'describeManagedPrefixLists_filters' - One or more filters.
+--
+-- -   @owner-id@ - The ID of the prefix list owner.
+--
+-- -   @prefix-list-id@ - The ID of the prefix list.
+--
+-- -   @prefix-list-name@ - The name of the prefix list.
+newDescribeManagedPrefixLists ::
   DescribeManagedPrefixLists
-describeManagedPrefixLists =
+newDescribeManagedPrefixLists =
   DescribeManagedPrefixLists'
-    { _dmplNextToken =
-        Nothing,
-      _dmplPrefixListIds = Nothing,
-      _dmplDryRun = Nothing,
-      _dmplMaxResults = Nothing,
-      _dmplFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      prefixListIds = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dmplNextToken :: Lens' DescribeManagedPrefixLists (Maybe Text)
-dmplNextToken = lens _dmplNextToken (\s a -> s {_dmplNextToken = a})
+describeManagedPrefixLists_nextToken :: Lens.Lens' DescribeManagedPrefixLists (Prelude.Maybe Prelude.Text)
+describeManagedPrefixLists_nextToken = Lens.lens (\DescribeManagedPrefixLists' {nextToken} -> nextToken) (\s@DescribeManagedPrefixLists' {} a -> s {nextToken = a} :: DescribeManagedPrefixLists)
 
 -- | One or more prefix list IDs.
-dmplPrefixListIds :: Lens' DescribeManagedPrefixLists [Text]
-dmplPrefixListIds = lens _dmplPrefixListIds (\s a -> s {_dmplPrefixListIds = a}) . _Default . _Coerce
+describeManagedPrefixLists_prefixListIds :: Lens.Lens' DescribeManagedPrefixLists (Prelude.Maybe [Prelude.Text])
+describeManagedPrefixLists_prefixListIds = Lens.lens (\DescribeManagedPrefixLists' {prefixListIds} -> prefixListIds) (\s@DescribeManagedPrefixLists' {} a -> s {prefixListIds = a} :: DescribeManagedPrefixLists) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dmplDryRun :: Lens' DescribeManagedPrefixLists (Maybe Bool)
-dmplDryRun = lens _dmplDryRun (\s a -> s {_dmplDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeManagedPrefixLists_dryRun :: Lens.Lens' DescribeManagedPrefixLists (Prelude.Maybe Prelude.Bool)
+describeManagedPrefixLists_dryRun = Lens.lens (\DescribeManagedPrefixLists' {dryRun} -> dryRun) (\s@DescribeManagedPrefixLists' {} a -> s {dryRun = a} :: DescribeManagedPrefixLists)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dmplMaxResults :: Lens' DescribeManagedPrefixLists (Maybe Natural)
-dmplMaxResults = lens _dmplMaxResults (\s a -> s {_dmplMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeManagedPrefixLists_maxResults :: Lens.Lens' DescribeManagedPrefixLists (Prelude.Maybe Prelude.Natural)
+describeManagedPrefixLists_maxResults = Lens.lens (\DescribeManagedPrefixLists' {maxResults} -> maxResults) (\s@DescribeManagedPrefixLists' {} a -> s {maxResults = a} :: DescribeManagedPrefixLists) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters.     * @owner-id@ - The ID of the prefix list owner.     * @prefix-list-id@ - The ID of the prefix list.     * @prefix-list-name@ - The name of the prefix list.
-dmplFilters :: Lens' DescribeManagedPrefixLists [Filter]
-dmplFilters = lens _dmplFilters (\s a -> s {_dmplFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @owner-id@ - The ID of the prefix list owner.
+--
+-- -   @prefix-list-id@ - The ID of the prefix list.
+--
+-- -   @prefix-list-name@ - The name of the prefix list.
+describeManagedPrefixLists_filters :: Lens.Lens' DescribeManagedPrefixLists (Prelude.Maybe [Filter])
+describeManagedPrefixLists_filters = Lens.lens (\DescribeManagedPrefixLists' {filters} -> filters) (\s@DescribeManagedPrefixLists' {} a -> s {filters = a} :: DescribeManagedPrefixLists) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeManagedPrefixLists where
+instance Pager.AWSPager DescribeManagedPrefixLists where
   page rq rs
-    | stop (rs ^. dmplrmrsNextToken) = Nothing
-    | stop (rs ^. dmplrmrsPrefixLists) = Nothing
-    | otherwise =
-      Just $ rq & dmplNextToken .~ rs ^. dmplrmrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeManagedPrefixListsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeManagedPrefixListsResponse_prefixLists
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeManagedPrefixLists_nextToken
+          Lens..~ rs
+          Lens.^? describeManagedPrefixListsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeManagedPrefixLists where
+instance
+  Prelude.AWSRequest
+    DescribeManagedPrefixLists
+  where
   type
     Rs DescribeManagedPrefixLists =
       DescribeManagedPrefixListsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeManagedPrefixListsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "prefixListSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "prefixListSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeManagedPrefixLists
+instance Prelude.Hashable DescribeManagedPrefixLists
 
-instance NFData DescribeManagedPrefixLists
+instance Prelude.NFData DescribeManagedPrefixLists
 
-instance ToHeaders DescribeManagedPrefixLists where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeManagedPrefixLists where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeManagedPrefixLists where
-  toPath = const "/"
+instance Prelude.ToPath DescribeManagedPrefixLists where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeManagedPrefixLists where
+instance Prelude.ToQuery DescribeManagedPrefixLists where
   toQuery DescribeManagedPrefixLists' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeManagedPrefixLists" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dmplNextToken,
-        toQuery
-          (toQueryList "PrefixListId" <$> _dmplPrefixListIds),
-        "DryRun" =: _dmplDryRun,
-        "MaxResults" =: _dmplMaxResults,
-        toQuery (toQueryList "Filter" <$> _dmplFilters)
+          Prelude.=: ("DescribeManagedPrefixLists" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        Prelude.toQuery
+          ( Prelude.toQueryList "PrefixListId"
+              Prelude.<$> prefixListIds
+          ),
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeManagedPrefixListsResponse' smart constructor.
+-- | /See:/ 'newDescribeManagedPrefixListsResponse' smart constructor.
 data DescribeManagedPrefixListsResponse = DescribeManagedPrefixListsResponse'
-  { _dmplrmrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dmplrmrsPrefixLists ::
-      !( Maybe
-           [ManagedPrefixList]
-       ),
-    _dmplrmrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the prefix lists.
+    prefixLists :: Prelude.Maybe [ManagedPrefixList],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeManagedPrefixListsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeManagedPrefixListsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmplrmrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmplrmrsPrefixLists' - Information about the prefix lists.
+-- 'nextToken', 'describeManagedPrefixListsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dmplrmrsResponseStatus' - -- | The response status code.
-describeManagedPrefixListsResponse ::
-  -- | 'dmplrmrsResponseStatus'
-  Int ->
+-- 'prefixLists', 'describeManagedPrefixListsResponse_prefixLists' - Information about the prefix lists.
+--
+-- 'httpStatus', 'describeManagedPrefixListsResponse_httpStatus' - The response's http status code.
+newDescribeManagedPrefixListsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeManagedPrefixListsResponse
-describeManagedPrefixListsResponse pResponseStatus_ =
+newDescribeManagedPrefixListsResponse pHttpStatus_ =
   DescribeManagedPrefixListsResponse'
-    { _dmplrmrsNextToken =
-        Nothing,
-      _dmplrmrsPrefixLists = Nothing,
-      _dmplrmrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      prefixLists = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dmplrmrsNextToken :: Lens' DescribeManagedPrefixListsResponse (Maybe Text)
-dmplrmrsNextToken = lens _dmplrmrsNextToken (\s a -> s {_dmplrmrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeManagedPrefixListsResponse_nextToken :: Lens.Lens' DescribeManagedPrefixListsResponse (Prelude.Maybe Prelude.Text)
+describeManagedPrefixListsResponse_nextToken = Lens.lens (\DescribeManagedPrefixListsResponse' {nextToken} -> nextToken) (\s@DescribeManagedPrefixListsResponse' {} a -> s {nextToken = a} :: DescribeManagedPrefixListsResponse)
 
 -- | Information about the prefix lists.
-dmplrmrsPrefixLists :: Lens' DescribeManagedPrefixListsResponse [ManagedPrefixList]
-dmplrmrsPrefixLists = lens _dmplrmrsPrefixLists (\s a -> s {_dmplrmrsPrefixLists = a}) . _Default . _Coerce
+describeManagedPrefixListsResponse_prefixLists :: Lens.Lens' DescribeManagedPrefixListsResponse (Prelude.Maybe [ManagedPrefixList])
+describeManagedPrefixListsResponse_prefixLists = Lens.lens (\DescribeManagedPrefixListsResponse' {prefixLists} -> prefixLists) (\s@DescribeManagedPrefixListsResponse' {} a -> s {prefixLists = a} :: DescribeManagedPrefixListsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dmplrmrsResponseStatus :: Lens' DescribeManagedPrefixListsResponse Int
-dmplrmrsResponseStatus = lens _dmplrmrsResponseStatus (\s a -> s {_dmplrmrsResponseStatus = a})
+-- | The response's http status code.
+describeManagedPrefixListsResponse_httpStatus :: Lens.Lens' DescribeManagedPrefixListsResponse Prelude.Int
+describeManagedPrefixListsResponse_httpStatus = Lens.lens (\DescribeManagedPrefixListsResponse' {httpStatus} -> httpStatus) (\s@DescribeManagedPrefixListsResponse' {} a -> s {httpStatus = a} :: DescribeManagedPrefixListsResponse)
 
-instance NFData DescribeManagedPrefixListsResponse
+instance
+  Prelude.NFData
+    DescribeManagedPrefixListsResponse

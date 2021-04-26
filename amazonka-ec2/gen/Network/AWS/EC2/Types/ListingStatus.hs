@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.EC2.Types.ListingStatus
   ( ListingStatus
       ( ..,
-        LSActive,
-        LSCancelled,
-        LSClosed,
-        LSPending
+        ListingStatusActive,
+        ListingStatusCancelled,
+        ListingStatusClosed,
+        ListingStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ListingStatus = ListingStatus' (CI Text)
+newtype ListingStatus = ListingStatus'
+  { fromListingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LSActive :: ListingStatus
-pattern LSActive = ListingStatus' "active"
+pattern ListingStatusActive :: ListingStatus
+pattern ListingStatusActive = ListingStatus' "active"
 
-pattern LSCancelled :: ListingStatus
-pattern LSCancelled = ListingStatus' "cancelled"
+pattern ListingStatusCancelled :: ListingStatus
+pattern ListingStatusCancelled = ListingStatus' "cancelled"
 
-pattern LSClosed :: ListingStatus
-pattern LSClosed = ListingStatus' "closed"
+pattern ListingStatusClosed :: ListingStatus
+pattern ListingStatusClosed = ListingStatus' "closed"
 
-pattern LSPending :: ListingStatus
-pattern LSPending = ListingStatus' "pending"
+pattern ListingStatusPending :: ListingStatus
+pattern ListingStatusPending = ListingStatus' "pending"
 
 {-# COMPLETE
-  LSActive,
-  LSCancelled,
-  LSClosed,
-  LSPending,
+  ListingStatusActive,
+  ListingStatusCancelled,
+  ListingStatusClosed,
+  ListingStatusPending,
   ListingStatus'
   #-}
 
-instance FromText ListingStatus where
-  parser = (ListingStatus' . mk) <$> takeText
+instance Prelude.FromText ListingStatus where
+  parser = ListingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ListingStatus where
-  toText (ListingStatus' ci) = original ci
+instance Prelude.ToText ListingStatus where
+  toText (ListingStatus' x) = x
 
-instance Hashable ListingStatus
+instance Prelude.Hashable ListingStatus
 
-instance NFData ListingStatus
+instance Prelude.NFData ListingStatus
 
-instance ToByteString ListingStatus
+instance Prelude.ToByteString ListingStatus
 
-instance ToQuery ListingStatus
+instance Prelude.ToQuery ListingStatus
 
-instance ToHeader ListingStatus
+instance Prelude.ToHeader ListingStatus
 
-instance FromXML ListingStatus where
-  parseXML = parseXMLText "ListingStatus"
+instance Prelude.FromXML ListingStatus where
+  parseXML = Prelude.parseXMLText "ListingStatus"

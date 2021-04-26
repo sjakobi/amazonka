@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,58 @@
 module Network.AWS.EC2.Types.RunInstancesMonitoringEnabled where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the monitoring of an instance.
 --
---
---
--- /See:/ 'runInstancesMonitoringEnabled' smart constructor.
-newtype RunInstancesMonitoringEnabled = RunInstancesMonitoringEnabled'
-  { _rimeEnabled ::
-      Bool
+-- /See:/ 'newRunInstancesMonitoringEnabled' smart constructor.
+data RunInstancesMonitoringEnabled = RunInstancesMonitoringEnabled'
+  { -- | Indicates whether detailed monitoring is enabled. Otherwise, basic
+    -- monitoring is enabled.
+    enabled :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RunInstancesMonitoringEnabled' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RunInstancesMonitoringEnabled' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rimeEnabled' - Indicates whether detailed monitoring is enabled. Otherwise, basic monitoring is enabled.
-runInstancesMonitoringEnabled ::
-  -- | 'rimeEnabled'
-  Bool ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'enabled', 'runInstancesMonitoringEnabled_enabled' - Indicates whether detailed monitoring is enabled. Otherwise, basic
+-- monitoring is enabled.
+newRunInstancesMonitoringEnabled ::
+  -- | 'enabled'
+  Prelude.Bool ->
   RunInstancesMonitoringEnabled
-runInstancesMonitoringEnabled pEnabled_ =
-  RunInstancesMonitoringEnabled'
-    { _rimeEnabled =
-        pEnabled_
-    }
+newRunInstancesMonitoringEnabled pEnabled_ =
+  RunInstancesMonitoringEnabled' {enabled = pEnabled_}
 
--- | Indicates whether detailed monitoring is enabled. Otherwise, basic monitoring is enabled.
-rimeEnabled :: Lens' RunInstancesMonitoringEnabled Bool
-rimeEnabled = lens _rimeEnabled (\s a -> s {_rimeEnabled = a})
+-- | Indicates whether detailed monitoring is enabled. Otherwise, basic
+-- monitoring is enabled.
+runInstancesMonitoringEnabled_enabled :: Lens.Lens' RunInstancesMonitoringEnabled Prelude.Bool
+runInstancesMonitoringEnabled_enabled = Lens.lens (\RunInstancesMonitoringEnabled' {enabled} -> enabled) (\s@RunInstancesMonitoringEnabled' {} a -> s {enabled = a} :: RunInstancesMonitoringEnabled)
 
-instance FromXML RunInstancesMonitoringEnabled where
+instance
+  Prelude.FromXML
+    RunInstancesMonitoringEnabled
+  where
   parseXML x =
-    RunInstancesMonitoringEnabled' <$> (x .@ "enabled")
+    RunInstancesMonitoringEnabled'
+      Prelude.<$> (x Prelude..@ "enabled")
 
-instance Hashable RunInstancesMonitoringEnabled
+instance
+  Prelude.Hashable
+    RunInstancesMonitoringEnabled
 
-instance NFData RunInstancesMonitoringEnabled
+instance Prelude.NFData RunInstancesMonitoringEnabled
 
-instance ToQuery RunInstancesMonitoringEnabled where
+instance
+  Prelude.ToQuery
+    RunInstancesMonitoringEnabled
+  where
   toQuery RunInstancesMonitoringEnabled' {..} =
-    mconcat ["Enabled" =: _rimeEnabled]
+    Prelude.mconcat ["Enabled" Prelude.=: enabled]

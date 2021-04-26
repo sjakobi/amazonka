@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,122 +22,106 @@ module Network.AWS.EC2.Types.TransitGatewayMulticastDomainAssociations where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.SubnetAssociation
 import Network.AWS.EC2.Types.TransitGatewayAttachmentResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the multicast domain associations.
 --
---
---
--- /See:/ 'transitGatewayMulticastDomainAssociations' smart constructor.
+-- /See:/ 'newTransitGatewayMulticastDomainAssociations' smart constructor.
 data TransitGatewayMulticastDomainAssociations = TransitGatewayMulticastDomainAssociations'
-  { _tgmdasResourceId ::
-      !( Maybe
-           Text
-       ),
-    _tgmdasTransitGatewayMulticastDomainId ::
-      !( Maybe
-           Text
-       ),
-    _tgmdasResourceType ::
-      !( Maybe
-           TransitGatewayAttachmentResourceType
-       ),
-    _tgmdasResourceOwnerId ::
-      !( Maybe
-           Text
-       ),
-    _tgmdasTransitGatewayAttachmentId ::
-      !( Maybe
-           Text
-       ),
-    _tgmdasSubnets ::
-      !( Maybe
-           [SubnetAssociation]
-       )
+  { -- | The ID of the resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway multicast domain.
+    transitGatewayMulticastDomainId :: Prelude.Maybe Prelude.Text,
+    -- | The type of resource, for example a VPC attachment.
+    resourceType :: Prelude.Maybe TransitGatewayAttachmentResourceType,
+    -- | The ID of the AWS account that owns the resource.
+    resourceOwnerId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway attachment.
+    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
+    -- | The subnets associated with the multicast domain.
+    subnets :: Prelude.Maybe [SubnetAssociation]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGatewayMulticastDomainAssociations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGatewayMulticastDomainAssociations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgmdasResourceId' - The ID of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgmdasTransitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
+-- 'resourceId', 'transitGatewayMulticastDomainAssociations_resourceId' - The ID of the resource.
 --
--- * 'tgmdasResourceType' - The type of resource, for example a VPC attachment.
+-- 'transitGatewayMulticastDomainId', 'transitGatewayMulticastDomainAssociations_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
 --
--- * 'tgmdasResourceOwnerId' - The ID of the AWS account that owns the resource.
+-- 'resourceType', 'transitGatewayMulticastDomainAssociations_resourceType' - The type of resource, for example a VPC attachment.
 --
--- * 'tgmdasTransitGatewayAttachmentId' - The ID of the transit gateway attachment.
+-- 'resourceOwnerId', 'transitGatewayMulticastDomainAssociations_resourceOwnerId' - The ID of the AWS account that owns the resource.
 --
--- * 'tgmdasSubnets' - The subnets associated with the multicast domain.
-transitGatewayMulticastDomainAssociations ::
+-- 'transitGatewayAttachmentId', 'transitGatewayMulticastDomainAssociations_transitGatewayAttachmentId' - The ID of the transit gateway attachment.
+--
+-- 'subnets', 'transitGatewayMulticastDomainAssociations_subnets' - The subnets associated with the multicast domain.
+newTransitGatewayMulticastDomainAssociations ::
   TransitGatewayMulticastDomainAssociations
-transitGatewayMulticastDomainAssociations =
+newTransitGatewayMulticastDomainAssociations =
   TransitGatewayMulticastDomainAssociations'
-    { _tgmdasResourceId =
-        Nothing,
-      _tgmdasTransitGatewayMulticastDomainId =
-        Nothing,
-      _tgmdasResourceType = Nothing,
-      _tgmdasResourceOwnerId = Nothing,
-      _tgmdasTransitGatewayAttachmentId =
-        Nothing,
-      _tgmdasSubnets = Nothing
+    { resourceId =
+        Prelude.Nothing,
+      transitGatewayMulticastDomainId =
+        Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      resourceOwnerId =
+        Prelude.Nothing,
+      transitGatewayAttachmentId =
+        Prelude.Nothing,
+      subnets = Prelude.Nothing
     }
 
 -- | The ID of the resource.
-tgmdasResourceId :: Lens' TransitGatewayMulticastDomainAssociations (Maybe Text)
-tgmdasResourceId = lens _tgmdasResourceId (\s a -> s {_tgmdasResourceId = a})
+transitGatewayMulticastDomainAssociations_resourceId :: Lens.Lens' TransitGatewayMulticastDomainAssociations (Prelude.Maybe Prelude.Text)
+transitGatewayMulticastDomainAssociations_resourceId = Lens.lens (\TransitGatewayMulticastDomainAssociations' {resourceId} -> resourceId) (\s@TransitGatewayMulticastDomainAssociations' {} a -> s {resourceId = a} :: TransitGatewayMulticastDomainAssociations)
 
 -- | The ID of the transit gateway multicast domain.
-tgmdasTransitGatewayMulticastDomainId :: Lens' TransitGatewayMulticastDomainAssociations (Maybe Text)
-tgmdasTransitGatewayMulticastDomainId = lens _tgmdasTransitGatewayMulticastDomainId (\s a -> s {_tgmdasTransitGatewayMulticastDomainId = a})
+transitGatewayMulticastDomainAssociations_transitGatewayMulticastDomainId :: Lens.Lens' TransitGatewayMulticastDomainAssociations (Prelude.Maybe Prelude.Text)
+transitGatewayMulticastDomainAssociations_transitGatewayMulticastDomainId = Lens.lens (\TransitGatewayMulticastDomainAssociations' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@TransitGatewayMulticastDomainAssociations' {} a -> s {transitGatewayMulticastDomainId = a} :: TransitGatewayMulticastDomainAssociations)
 
 -- | The type of resource, for example a VPC attachment.
-tgmdasResourceType :: Lens' TransitGatewayMulticastDomainAssociations (Maybe TransitGatewayAttachmentResourceType)
-tgmdasResourceType = lens _tgmdasResourceType (\s a -> s {_tgmdasResourceType = a})
+transitGatewayMulticastDomainAssociations_resourceType :: Lens.Lens' TransitGatewayMulticastDomainAssociations (Prelude.Maybe TransitGatewayAttachmentResourceType)
+transitGatewayMulticastDomainAssociations_resourceType = Lens.lens (\TransitGatewayMulticastDomainAssociations' {resourceType} -> resourceType) (\s@TransitGatewayMulticastDomainAssociations' {} a -> s {resourceType = a} :: TransitGatewayMulticastDomainAssociations)
 
 -- | The ID of the AWS account that owns the resource.
-tgmdasResourceOwnerId :: Lens' TransitGatewayMulticastDomainAssociations (Maybe Text)
-tgmdasResourceOwnerId = lens _tgmdasResourceOwnerId (\s a -> s {_tgmdasResourceOwnerId = a})
+transitGatewayMulticastDomainAssociations_resourceOwnerId :: Lens.Lens' TransitGatewayMulticastDomainAssociations (Prelude.Maybe Prelude.Text)
+transitGatewayMulticastDomainAssociations_resourceOwnerId = Lens.lens (\TransitGatewayMulticastDomainAssociations' {resourceOwnerId} -> resourceOwnerId) (\s@TransitGatewayMulticastDomainAssociations' {} a -> s {resourceOwnerId = a} :: TransitGatewayMulticastDomainAssociations)
 
 -- | The ID of the transit gateway attachment.
-tgmdasTransitGatewayAttachmentId :: Lens' TransitGatewayMulticastDomainAssociations (Maybe Text)
-tgmdasTransitGatewayAttachmentId = lens _tgmdasTransitGatewayAttachmentId (\s a -> s {_tgmdasTransitGatewayAttachmentId = a})
+transitGatewayMulticastDomainAssociations_transitGatewayAttachmentId :: Lens.Lens' TransitGatewayMulticastDomainAssociations (Prelude.Maybe Prelude.Text)
+transitGatewayMulticastDomainAssociations_transitGatewayAttachmentId = Lens.lens (\TransitGatewayMulticastDomainAssociations' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@TransitGatewayMulticastDomainAssociations' {} a -> s {transitGatewayAttachmentId = a} :: TransitGatewayMulticastDomainAssociations)
 
 -- | The subnets associated with the multicast domain.
-tgmdasSubnets :: Lens' TransitGatewayMulticastDomainAssociations [SubnetAssociation]
-tgmdasSubnets = lens _tgmdasSubnets (\s a -> s {_tgmdasSubnets = a}) . _Default . _Coerce
+transitGatewayMulticastDomainAssociations_subnets :: Lens.Lens' TransitGatewayMulticastDomainAssociations (Prelude.Maybe [SubnetAssociation])
+transitGatewayMulticastDomainAssociations_subnets = Lens.lens (\TransitGatewayMulticastDomainAssociations' {subnets} -> subnets) (\s@TransitGatewayMulticastDomainAssociations' {} a -> s {subnets = a} :: TransitGatewayMulticastDomainAssociations) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  FromXML
+  Prelude.FromXML
     TransitGatewayMulticastDomainAssociations
   where
   parseXML x =
     TransitGatewayMulticastDomainAssociations'
-      <$> (x .@? "resourceId")
-      <*> (x .@? "transitGatewayMulticastDomainId")
-      <*> (x .@? "resourceType")
-      <*> (x .@? "resourceOwnerId")
-      <*> (x .@? "transitGatewayAttachmentId")
-      <*> ( x .@? "subnets" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "resourceId")
+        Prelude.<*> (x Prelude..@? "transitGatewayMulticastDomainId")
+        Prelude.<*> (x Prelude..@? "resourceType")
+        Prelude.<*> (x Prelude..@? "resourceOwnerId")
+        Prelude.<*> (x Prelude..@? "transitGatewayAttachmentId")
+        Prelude.<*> ( x Prelude..@? "subnets" Prelude..!@ Prelude.mempty
+                        Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                    )
 
 instance
-  Hashable
+  Prelude.Hashable
     TransitGatewayMulticastDomainAssociations
 
 instance
-  NFData
+  Prelude.NFData
     TransitGatewayMulticastDomainAssociations

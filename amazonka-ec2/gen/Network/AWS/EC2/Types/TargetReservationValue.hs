@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,61 +22,63 @@ module Network.AWS.EC2.Types.TargetReservationValue where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ReservationValue
 import Network.AWS.EC2.Types.TargetConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The total value of the new Convertible Reserved Instances.
 --
---
---
--- /See:/ 'targetReservationValue' smart constructor.
+-- /See:/ 'newTargetReservationValue' smart constructor.
 data TargetReservationValue = TargetReservationValue'
-  { _trvTargetConfiguration ::
-      !( Maybe
-           TargetConfiguration
-       ),
-    _trvReservationValue ::
-      !(Maybe ReservationValue)
+  { -- | The configuration of the Convertible Reserved Instances that make up the
+    -- exchange.
+    targetConfiguration :: Prelude.Maybe TargetConfiguration,
+    -- | The total value of the Convertible Reserved Instances that make up the
+    -- exchange. This is the sum of the list value, remaining upfront price,
+    -- and additional upfront cost of the exchange.
+    reservationValue :: Prelude.Maybe ReservationValue
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetReservationValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetReservationValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trvTargetConfiguration' - The configuration of the Convertible Reserved Instances that make up the exchange.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trvReservationValue' - The total value of the Convertible Reserved Instances that make up the exchange. This is the sum of the list value, remaining upfront price, and additional upfront cost of the exchange.
-targetReservationValue ::
+-- 'targetConfiguration', 'targetReservationValue_targetConfiguration' - The configuration of the Convertible Reserved Instances that make up the
+-- exchange.
+--
+-- 'reservationValue', 'targetReservationValue_reservationValue' - The total value of the Convertible Reserved Instances that make up the
+-- exchange. This is the sum of the list value, remaining upfront price,
+-- and additional upfront cost of the exchange.
+newTargetReservationValue ::
   TargetReservationValue
-targetReservationValue =
+newTargetReservationValue =
   TargetReservationValue'
-    { _trvTargetConfiguration =
-        Nothing,
-      _trvReservationValue = Nothing
+    { targetConfiguration =
+        Prelude.Nothing,
+      reservationValue = Prelude.Nothing
     }
 
--- | The configuration of the Convertible Reserved Instances that make up the exchange.
-trvTargetConfiguration :: Lens' TargetReservationValue (Maybe TargetConfiguration)
-trvTargetConfiguration = lens _trvTargetConfiguration (\s a -> s {_trvTargetConfiguration = a})
+-- | The configuration of the Convertible Reserved Instances that make up the
+-- exchange.
+targetReservationValue_targetConfiguration :: Lens.Lens' TargetReservationValue (Prelude.Maybe TargetConfiguration)
+targetReservationValue_targetConfiguration = Lens.lens (\TargetReservationValue' {targetConfiguration} -> targetConfiguration) (\s@TargetReservationValue' {} a -> s {targetConfiguration = a} :: TargetReservationValue)
 
--- | The total value of the Convertible Reserved Instances that make up the exchange. This is the sum of the list value, remaining upfront price, and additional upfront cost of the exchange.
-trvReservationValue :: Lens' TargetReservationValue (Maybe ReservationValue)
-trvReservationValue = lens _trvReservationValue (\s a -> s {_trvReservationValue = a})
+-- | The total value of the Convertible Reserved Instances that make up the
+-- exchange. This is the sum of the list value, remaining upfront price,
+-- and additional upfront cost of the exchange.
+targetReservationValue_reservationValue :: Lens.Lens' TargetReservationValue (Prelude.Maybe ReservationValue)
+targetReservationValue_reservationValue = Lens.lens (\TargetReservationValue' {reservationValue} -> reservationValue) (\s@TargetReservationValue' {} a -> s {reservationValue = a} :: TargetReservationValue)
 
-instance FromXML TargetReservationValue where
+instance Prelude.FromXML TargetReservationValue where
   parseXML x =
     TargetReservationValue'
-      <$> (x .@? "targetConfiguration")
-      <*> (x .@? "reservationValue")
+      Prelude.<$> (x Prelude..@? "targetConfiguration")
+      Prelude.<*> (x Prelude..@? "reservationValue")
 
-instance Hashable TargetReservationValue
+instance Prelude.Hashable TargetReservationValue
 
-instance NFData TargetReservationValue
+instance Prelude.NFData TargetReservationValue

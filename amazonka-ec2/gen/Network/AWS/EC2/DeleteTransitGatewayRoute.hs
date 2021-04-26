@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified route from the specified transit gateway route table.
+-- Deletes the specified route from the specified transit gateway route
+-- table.
 module Network.AWS.EC2.DeleteTransitGatewayRoute
   ( -- * Creating a Request
-    deleteTransitGatewayRoute,
-    DeleteTransitGatewayRoute,
+    DeleteTransitGatewayRoute (..),
+    newDeleteTransitGatewayRoute,
 
     -- * Request Lenses
-    dtgrDryRun,
-    dtgrTransitGatewayRouteTableId,
-    dtgrDestinationCidrBlock,
+    deleteTransitGatewayRoute_dryRun,
+    deleteTransitGatewayRoute_transitGatewayRouteTableId,
+    deleteTransitGatewayRoute_destinationCidrBlock,
 
     -- * Destructuring the Response
-    deleteTransitGatewayRouteResponse,
-    DeleteTransitGatewayRouteResponse,
+    DeleteTransitGatewayRouteResponse (..),
+    newDeleteTransitGatewayRouteResponse,
 
     -- * Response Lenses
-    dtgrrrsRoute,
-    dtgrrrsResponseStatus,
+    deleteTransitGatewayRouteResponse_route,
+    deleteTransitGatewayRouteResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayRoute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTransitGatewayRoute' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayRoute' smart constructor.
 data DeleteTransitGatewayRoute = DeleteTransitGatewayRoute'
-  { _dtgrDryRun ::
-      !(Maybe Bool),
-    _dtgrTransitGatewayRouteTableId ::
-      !Text,
-    _dtgrDestinationCidrBlock ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the transit gateway route table.
+    transitGatewayRouteTableId :: Prelude.Text,
+    -- | The CIDR range for the route. This must match the CIDR for the route
+    -- exactly.
+    destinationCidrBlock :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayRoute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayRoute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrTransitGatewayRouteTableId' - The ID of the transit gateway route table.
+-- 'dryRun', 'deleteTransitGatewayRoute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dtgrDestinationCidrBlock' - The CIDR range for the route. This must match the CIDR for the route exactly.
-deleteTransitGatewayRoute ::
-  -- | 'dtgrTransitGatewayRouteTableId'
-  Text ->
-  -- | 'dtgrDestinationCidrBlock'
-  Text ->
+-- 'transitGatewayRouteTableId', 'deleteTransitGatewayRoute_transitGatewayRouteTableId' - The ID of the transit gateway route table.
+--
+-- 'destinationCidrBlock', 'deleteTransitGatewayRoute_destinationCidrBlock' - The CIDR range for the route. This must match the CIDR for the route
+-- exactly.
+newDeleteTransitGatewayRoute ::
+  -- | 'transitGatewayRouteTableId'
+  Prelude.Text ->
+  -- | 'destinationCidrBlock'
+  Prelude.Text ->
   DeleteTransitGatewayRoute
-deleteTransitGatewayRoute
+newDeleteTransitGatewayRoute
   pTransitGatewayRouteTableId_
   pDestinationCidrBlock_ =
     DeleteTransitGatewayRoute'
-      { _dtgrDryRun = Nothing,
-        _dtgrTransitGatewayRouteTableId =
+      { dryRun =
+          Prelude.Nothing,
+        transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_,
-        _dtgrDestinationCidrBlock =
-          pDestinationCidrBlock_
+        destinationCidrBlock = pDestinationCidrBlock_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgrDryRun :: Lens' DeleteTransitGatewayRoute (Maybe Bool)
-dtgrDryRun = lens _dtgrDryRun (\s a -> s {_dtgrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteTransitGatewayRoute_dryRun :: Lens.Lens' DeleteTransitGatewayRoute (Prelude.Maybe Prelude.Bool)
+deleteTransitGatewayRoute_dryRun = Lens.lens (\DeleteTransitGatewayRoute' {dryRun} -> dryRun) (\s@DeleteTransitGatewayRoute' {} a -> s {dryRun = a} :: DeleteTransitGatewayRoute)
 
 -- | The ID of the transit gateway route table.
-dtgrTransitGatewayRouteTableId :: Lens' DeleteTransitGatewayRoute Text
-dtgrTransitGatewayRouteTableId = lens _dtgrTransitGatewayRouteTableId (\s a -> s {_dtgrTransitGatewayRouteTableId = a})
+deleteTransitGatewayRoute_transitGatewayRouteTableId :: Lens.Lens' DeleteTransitGatewayRoute Prelude.Text
+deleteTransitGatewayRoute_transitGatewayRouteTableId = Lens.lens (\DeleteTransitGatewayRoute' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@DeleteTransitGatewayRoute' {} a -> s {transitGatewayRouteTableId = a} :: DeleteTransitGatewayRoute)
 
--- | The CIDR range for the route. This must match the CIDR for the route exactly.
-dtgrDestinationCidrBlock :: Lens' DeleteTransitGatewayRoute Text
-dtgrDestinationCidrBlock = lens _dtgrDestinationCidrBlock (\s a -> s {_dtgrDestinationCidrBlock = a})
+-- | The CIDR range for the route. This must match the CIDR for the route
+-- exactly.
+deleteTransitGatewayRoute_destinationCidrBlock :: Lens.Lens' DeleteTransitGatewayRoute Prelude.Text
+deleteTransitGatewayRoute_destinationCidrBlock = Lens.lens (\DeleteTransitGatewayRoute' {destinationCidrBlock} -> destinationCidrBlock) (\s@DeleteTransitGatewayRoute' {} a -> s {destinationCidrBlock = a} :: DeleteTransitGatewayRoute)
 
-instance AWSRequest DeleteTransitGatewayRoute where
+instance Prelude.AWSRequest DeleteTransitGatewayRoute where
   type
     Rs DeleteTransitGatewayRoute =
       DeleteTransitGatewayRouteResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayRouteResponse'
-            <$> (x .@? "route") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "route")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTransitGatewayRoute
+instance Prelude.Hashable DeleteTransitGatewayRoute
 
-instance NFData DeleteTransitGatewayRoute
+instance Prelude.NFData DeleteTransitGatewayRoute
 
-instance ToHeaders DeleteTransitGatewayRoute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteTransitGatewayRoute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTransitGatewayRoute where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTransitGatewayRoute where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTransitGatewayRoute where
+instance Prelude.ToQuery DeleteTransitGatewayRoute where
   toQuery DeleteTransitGatewayRoute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteTransitGatewayRoute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dtgrDryRun,
+          Prelude.=: ("DeleteTransitGatewayRoute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "TransitGatewayRouteTableId"
-          =: _dtgrTransitGatewayRouteTableId,
-        "DestinationCidrBlock" =: _dtgrDestinationCidrBlock
+          Prelude.=: transitGatewayRouteTableId,
+        "DestinationCidrBlock"
+          Prelude.=: destinationCidrBlock
       ]
 
--- | /See:/ 'deleteTransitGatewayRouteResponse' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayRouteResponse' smart constructor.
 data DeleteTransitGatewayRouteResponse = DeleteTransitGatewayRouteResponse'
-  { _dtgrrrsRoute ::
-      !( Maybe
-           TransitGatewayRoute
-       ),
-    _dtgrrrsResponseStatus ::
-      !Int
+  { -- | Information about the route.
+    route :: Prelude.Maybe TransitGatewayRoute,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayRouteResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayRouteResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrrrsRoute' - Information about the route.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrrrsResponseStatus' - -- | The response status code.
-deleteTransitGatewayRouteResponse ::
-  -- | 'dtgrrrsResponseStatus'
-  Int ->
+-- 'route', 'deleteTransitGatewayRouteResponse_route' - Information about the route.
+--
+-- 'httpStatus', 'deleteTransitGatewayRouteResponse_httpStatus' - The response's http status code.
+newDeleteTransitGatewayRouteResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTransitGatewayRouteResponse
-deleteTransitGatewayRouteResponse pResponseStatus_ =
+newDeleteTransitGatewayRouteResponse pHttpStatus_ =
   DeleteTransitGatewayRouteResponse'
-    { _dtgrrrsRoute =
-        Nothing,
-      _dtgrrrsResponseStatus =
-        pResponseStatus_
+    { route =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the route.
-dtgrrrsRoute :: Lens' DeleteTransitGatewayRouteResponse (Maybe TransitGatewayRoute)
-dtgrrrsRoute = lens _dtgrrrsRoute (\s a -> s {_dtgrrrsRoute = a})
+deleteTransitGatewayRouteResponse_route :: Lens.Lens' DeleteTransitGatewayRouteResponse (Prelude.Maybe TransitGatewayRoute)
+deleteTransitGatewayRouteResponse_route = Lens.lens (\DeleteTransitGatewayRouteResponse' {route} -> route) (\s@DeleteTransitGatewayRouteResponse' {} a -> s {route = a} :: DeleteTransitGatewayRouteResponse)
 
--- | -- | The response status code.
-dtgrrrsResponseStatus :: Lens' DeleteTransitGatewayRouteResponse Int
-dtgrrrsResponseStatus = lens _dtgrrrsResponseStatus (\s a -> s {_dtgrrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTransitGatewayRouteResponse_httpStatus :: Lens.Lens' DeleteTransitGatewayRouteResponse Prelude.Int
+deleteTransitGatewayRouteResponse_httpStatus = Lens.lens (\DeleteTransitGatewayRouteResponse' {httpStatus} -> httpStatus) (\s@DeleteTransitGatewayRouteResponse' {} a -> s {httpStatus = a} :: DeleteTransitGatewayRouteResponse)
 
-instance NFData DeleteTransitGatewayRouteResponse
+instance
+  Prelude.NFData
+    DeleteTransitGatewayRouteResponse

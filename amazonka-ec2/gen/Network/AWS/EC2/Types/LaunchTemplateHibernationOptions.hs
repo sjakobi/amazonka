@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,50 +20,54 @@
 module Network.AWS.EC2.Types.LaunchTemplateHibernationOptions where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Indicates whether an instance is configured for hibernation.
 --
---
---
--- /See:/ 'launchTemplateHibernationOptions' smart constructor.
-newtype LaunchTemplateHibernationOptions = LaunchTemplateHibernationOptions'
-  { _lthoConfigured ::
-      Maybe
-        Bool
+-- /See:/ 'newLaunchTemplateHibernationOptions' smart constructor.
+data LaunchTemplateHibernationOptions = LaunchTemplateHibernationOptions'
+  { -- | If this parameter is set to @true@, the instance is enabled for
+    -- hibernation; otherwise, it is not enabled for hibernation.
+    configured :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateHibernationOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateHibernationOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lthoConfigured' - If this parameter is set to @true@ , the instance is enabled for hibernation; otherwise, it is not enabled for hibernation.
-launchTemplateHibernationOptions ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'configured', 'launchTemplateHibernationOptions_configured' - If this parameter is set to @true@, the instance is enabled for
+-- hibernation; otherwise, it is not enabled for hibernation.
+newLaunchTemplateHibernationOptions ::
   LaunchTemplateHibernationOptions
-launchTemplateHibernationOptions =
+newLaunchTemplateHibernationOptions =
   LaunchTemplateHibernationOptions'
-    { _lthoConfigured =
-        Nothing
+    { configured =
+        Prelude.Nothing
     }
 
--- | If this parameter is set to @true@ , the instance is enabled for hibernation; otherwise, it is not enabled for hibernation.
-lthoConfigured :: Lens' LaunchTemplateHibernationOptions (Maybe Bool)
-lthoConfigured = lens _lthoConfigured (\s a -> s {_lthoConfigured = a})
+-- | If this parameter is set to @true@, the instance is enabled for
+-- hibernation; otherwise, it is not enabled for hibernation.
+launchTemplateHibernationOptions_configured :: Lens.Lens' LaunchTemplateHibernationOptions (Prelude.Maybe Prelude.Bool)
+launchTemplateHibernationOptions_configured = Lens.lens (\LaunchTemplateHibernationOptions' {configured} -> configured) (\s@LaunchTemplateHibernationOptions' {} a -> s {configured = a} :: LaunchTemplateHibernationOptions)
 
-instance FromXML LaunchTemplateHibernationOptions where
+instance
+  Prelude.FromXML
+    LaunchTemplateHibernationOptions
+  where
   parseXML x =
     LaunchTemplateHibernationOptions'
-      <$> (x .@? "configured")
+      Prelude.<$> (x Prelude..@? "configured")
 
-instance Hashable LaunchTemplateHibernationOptions
+instance
+  Prelude.Hashable
+    LaunchTemplateHibernationOptions
 
-instance NFData LaunchTemplateHibernationOptions
+instance
+  Prelude.NFData
+    LaunchTemplateHibernationOptions

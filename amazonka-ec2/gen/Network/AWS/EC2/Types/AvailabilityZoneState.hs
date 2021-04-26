@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.AvailabilityZoneState
   ( AvailabilityZoneState
       ( ..,
-        AZSAvailable,
-        AZSImpaired,
-        AZSInformation,
-        AZSUnavailable
+        AvailabilityZoneStateAvailable,
+        AvailabilityZoneStateImpaired,
+        AvailabilityZoneStateInformation,
+        AvailabilityZoneStateUnavailable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AvailabilityZoneState
-  = AvailabilityZoneState'
-      ( CI
-          Text
-      )
+newtype AvailabilityZoneState = AvailabilityZoneState'
+  { fromAvailabilityZoneState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AZSAvailable :: AvailabilityZoneState
-pattern AZSAvailable = AvailabilityZoneState' "available"
+pattern AvailabilityZoneStateAvailable :: AvailabilityZoneState
+pattern AvailabilityZoneStateAvailable = AvailabilityZoneState' "available"
 
-pattern AZSImpaired :: AvailabilityZoneState
-pattern AZSImpaired = AvailabilityZoneState' "impaired"
+pattern AvailabilityZoneStateImpaired :: AvailabilityZoneState
+pattern AvailabilityZoneStateImpaired = AvailabilityZoneState' "impaired"
 
-pattern AZSInformation :: AvailabilityZoneState
-pattern AZSInformation = AvailabilityZoneState' "information"
+pattern AvailabilityZoneStateInformation :: AvailabilityZoneState
+pattern AvailabilityZoneStateInformation = AvailabilityZoneState' "information"
 
-pattern AZSUnavailable :: AvailabilityZoneState
-pattern AZSUnavailable = AvailabilityZoneState' "unavailable"
+pattern AvailabilityZoneStateUnavailable :: AvailabilityZoneState
+pattern AvailabilityZoneStateUnavailable = AvailabilityZoneState' "unavailable"
 
 {-# COMPLETE
-  AZSAvailable,
-  AZSImpaired,
-  AZSInformation,
-  AZSUnavailable,
+  AvailabilityZoneStateAvailable,
+  AvailabilityZoneStateImpaired,
+  AvailabilityZoneStateInformation,
+  AvailabilityZoneStateUnavailable,
   AvailabilityZoneState'
   #-}
 
-instance FromText AvailabilityZoneState where
-  parser = (AvailabilityZoneState' . mk) <$> takeText
+instance Prelude.FromText AvailabilityZoneState where
+  parser = AvailabilityZoneState' Prelude.<$> Prelude.takeText
 
-instance ToText AvailabilityZoneState where
-  toText (AvailabilityZoneState' ci) = original ci
+instance Prelude.ToText AvailabilityZoneState where
+  toText (AvailabilityZoneState' x) = x
 
-instance Hashable AvailabilityZoneState
+instance Prelude.Hashable AvailabilityZoneState
 
-instance NFData AvailabilityZoneState
+instance Prelude.NFData AvailabilityZoneState
 
-instance ToByteString AvailabilityZoneState
+instance Prelude.ToByteString AvailabilityZoneState
 
-instance ToQuery AvailabilityZoneState
+instance Prelude.ToQuery AvailabilityZoneState
 
-instance ToHeader AvailabilityZoneState
+instance Prelude.ToHeader AvailabilityZoneState
 
-instance FromXML AvailabilityZoneState where
-  parseXML = parseXMLText "AvailabilityZoneState"
+instance Prelude.FromXML AvailabilityZoneState where
+  parseXML = Prelude.parseXMLText "AvailabilityZoneState"

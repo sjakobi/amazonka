@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,101 +23,117 @@ import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceState
 import Network.AWS.EC2.Types.InstanceStatusEvent
 import Network.AWS.EC2.Types.InstanceStatusSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the status of an instance.
 --
---
---
--- /See:/ 'instanceStatus' smart constructor.
+-- /See:/ 'newInstanceStatus' smart constructor.
 data InstanceStatus = InstanceStatus'
-  { _issInstanceId ::
-      !(Maybe Text),
-    _issSystemStatus ::
-      !(Maybe InstanceStatusSummary),
-    _issOutpostARN :: !(Maybe Text),
-    _issInstanceStatus ::
-      !(Maybe InstanceStatusSummary),
-    _issEvents ::
-      !(Maybe [InstanceStatusEvent]),
-    _issAvailabilityZone :: !(Maybe Text),
-    _issInstanceState ::
-      !(Maybe InstanceState)
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | Reports impaired functionality that stems from issues related to the
+    -- systems that support an instance, such as hardware failures and network
+    -- connectivity problems.
+    systemStatus :: Prelude.Maybe InstanceStatusSummary,
+    -- | The Amazon Resource Name (ARN) of the Outpost.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | Reports impaired functionality that stems from issues internal to the
+    -- instance, such as impaired reachability.
+    instanceStatus :: Prelude.Maybe InstanceStatusSummary,
+    -- | Any scheduled events associated with the instance.
+    events :: Prelude.Maybe [InstanceStatusEvent],
+    -- | The Availability Zone of the instance.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The intended state of the instance. DescribeInstanceStatus requires that
+    -- an instance be in the @running@ state.
+    instanceState :: Prelude.Maybe InstanceState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'issInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'issSystemStatus' - Reports impaired functionality that stems from issues related to the systems that support an instance, such as hardware failures and network connectivity problems.
+-- 'instanceId', 'instanceStatus_instanceId' - The ID of the instance.
 --
--- * 'issOutpostARN' - The Amazon Resource Name (ARN) of the Outpost.
+-- 'systemStatus', 'instanceStatus_systemStatus' - Reports impaired functionality that stems from issues related to the
+-- systems that support an instance, such as hardware failures and network
+-- connectivity problems.
 --
--- * 'issInstanceStatus' - Reports impaired functionality that stems from issues internal to the instance, such as impaired reachability.
+-- 'outpostArn', 'instanceStatus_outpostArn' - The Amazon Resource Name (ARN) of the Outpost.
 --
--- * 'issEvents' - Any scheduled events associated with the instance.
+-- 'instanceStatus', 'instanceStatus_instanceStatus' - Reports impaired functionality that stems from issues internal to the
+-- instance, such as impaired reachability.
 --
--- * 'issAvailabilityZone' - The Availability Zone of the instance.
+-- 'events', 'instanceStatus_events' - Any scheduled events associated with the instance.
 --
--- * 'issInstanceState' - The intended state of the instance. 'DescribeInstanceStatus' requires that an instance be in the @running@ state.
-instanceStatus ::
+-- 'availabilityZone', 'instanceStatus_availabilityZone' - The Availability Zone of the instance.
+--
+-- 'instanceState', 'instanceStatus_instanceState' - The intended state of the instance. DescribeInstanceStatus requires that
+-- an instance be in the @running@ state.
+newInstanceStatus ::
   InstanceStatus
-instanceStatus =
+newInstanceStatus =
   InstanceStatus'
-    { _issInstanceId = Nothing,
-      _issSystemStatus = Nothing,
-      _issOutpostARN = Nothing,
-      _issInstanceStatus = Nothing,
-      _issEvents = Nothing,
-      _issAvailabilityZone = Nothing,
-      _issInstanceState = Nothing
+    { instanceId = Prelude.Nothing,
+      systemStatus = Prelude.Nothing,
+      outpostArn = Prelude.Nothing,
+      instanceStatus = Prelude.Nothing,
+      events = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      instanceState = Prelude.Nothing
     }
 
 -- | The ID of the instance.
-issInstanceId :: Lens' InstanceStatus (Maybe Text)
-issInstanceId = lens _issInstanceId (\s a -> s {_issInstanceId = a})
+instanceStatus_instanceId :: Lens.Lens' InstanceStatus (Prelude.Maybe Prelude.Text)
+instanceStatus_instanceId = Lens.lens (\InstanceStatus' {instanceId} -> instanceId) (\s@InstanceStatus' {} a -> s {instanceId = a} :: InstanceStatus)
 
--- | Reports impaired functionality that stems from issues related to the systems that support an instance, such as hardware failures and network connectivity problems.
-issSystemStatus :: Lens' InstanceStatus (Maybe InstanceStatusSummary)
-issSystemStatus = lens _issSystemStatus (\s a -> s {_issSystemStatus = a})
+-- | Reports impaired functionality that stems from issues related to the
+-- systems that support an instance, such as hardware failures and network
+-- connectivity problems.
+instanceStatus_systemStatus :: Lens.Lens' InstanceStatus (Prelude.Maybe InstanceStatusSummary)
+instanceStatus_systemStatus = Lens.lens (\InstanceStatus' {systemStatus} -> systemStatus) (\s@InstanceStatus' {} a -> s {systemStatus = a} :: InstanceStatus)
 
 -- | The Amazon Resource Name (ARN) of the Outpost.
-issOutpostARN :: Lens' InstanceStatus (Maybe Text)
-issOutpostARN = lens _issOutpostARN (\s a -> s {_issOutpostARN = a})
+instanceStatus_outpostArn :: Lens.Lens' InstanceStatus (Prelude.Maybe Prelude.Text)
+instanceStatus_outpostArn = Lens.lens (\InstanceStatus' {outpostArn} -> outpostArn) (\s@InstanceStatus' {} a -> s {outpostArn = a} :: InstanceStatus)
 
--- | Reports impaired functionality that stems from issues internal to the instance, such as impaired reachability.
-issInstanceStatus :: Lens' InstanceStatus (Maybe InstanceStatusSummary)
-issInstanceStatus = lens _issInstanceStatus (\s a -> s {_issInstanceStatus = a})
+-- | Reports impaired functionality that stems from issues internal to the
+-- instance, such as impaired reachability.
+instanceStatus_instanceStatus :: Lens.Lens' InstanceStatus (Prelude.Maybe InstanceStatusSummary)
+instanceStatus_instanceStatus = Lens.lens (\InstanceStatus' {instanceStatus} -> instanceStatus) (\s@InstanceStatus' {} a -> s {instanceStatus = a} :: InstanceStatus)
 
 -- | Any scheduled events associated with the instance.
-issEvents :: Lens' InstanceStatus [InstanceStatusEvent]
-issEvents = lens _issEvents (\s a -> s {_issEvents = a}) . _Default . _Coerce
+instanceStatus_events :: Lens.Lens' InstanceStatus (Prelude.Maybe [InstanceStatusEvent])
+instanceStatus_events = Lens.lens (\InstanceStatus' {events} -> events) (\s@InstanceStatus' {} a -> s {events = a} :: InstanceStatus) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Availability Zone of the instance.
-issAvailabilityZone :: Lens' InstanceStatus (Maybe Text)
-issAvailabilityZone = lens _issAvailabilityZone (\s a -> s {_issAvailabilityZone = a})
+instanceStatus_availabilityZone :: Lens.Lens' InstanceStatus (Prelude.Maybe Prelude.Text)
+instanceStatus_availabilityZone = Lens.lens (\InstanceStatus' {availabilityZone} -> availabilityZone) (\s@InstanceStatus' {} a -> s {availabilityZone = a} :: InstanceStatus)
 
--- | The intended state of the instance. 'DescribeInstanceStatus' requires that an instance be in the @running@ state.
-issInstanceState :: Lens' InstanceStatus (Maybe InstanceState)
-issInstanceState = lens _issInstanceState (\s a -> s {_issInstanceState = a})
+-- | The intended state of the instance. DescribeInstanceStatus requires that
+-- an instance be in the @running@ state.
+instanceStatus_instanceState :: Lens.Lens' InstanceStatus (Prelude.Maybe InstanceState)
+instanceStatus_instanceState = Lens.lens (\InstanceStatus' {instanceState} -> instanceState) (\s@InstanceStatus' {} a -> s {instanceState = a} :: InstanceStatus)
 
-instance FromXML InstanceStatus where
+instance Prelude.FromXML InstanceStatus where
   parseXML x =
     InstanceStatus'
-      <$> (x .@? "instanceId")
-      <*> (x .@? "systemStatus")
-      <*> (x .@? "outpostArn")
-      <*> (x .@? "instanceStatus")
-      <*> ( x .@? "eventsSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "availabilityZone")
-      <*> (x .@? "instanceState")
+      Prelude.<$> (x Prelude..@? "instanceId")
+      Prelude.<*> (x Prelude..@? "systemStatus")
+      Prelude.<*> (x Prelude..@? "outpostArn")
+      Prelude.<*> (x Prelude..@? "instanceStatus")
+      Prelude.<*> ( x Prelude..@? "eventsSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> (x Prelude..@? "instanceState")
 
-instance Hashable InstanceStatus
+instance Prelude.Hashable InstanceStatus
 
-instance NFData InstanceStatus
+instance Prelude.NFData InstanceStatus

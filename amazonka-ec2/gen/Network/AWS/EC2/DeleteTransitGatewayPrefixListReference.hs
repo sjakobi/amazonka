@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,191 +21,191 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a reference (route) to a prefix list in a specified transit gateway route table.
+-- Deletes a reference (route) to a prefix list in a specified transit
+-- gateway route table.
 module Network.AWS.EC2.DeleteTransitGatewayPrefixListReference
   ( -- * Creating a Request
-    deleteTransitGatewayPrefixListReference,
-    DeleteTransitGatewayPrefixListReference,
+    DeleteTransitGatewayPrefixListReference (..),
+    newDeleteTransitGatewayPrefixListReference,
 
     -- * Request Lenses
-    dtgplrDryRun,
-    dtgplrTransitGatewayRouteTableId,
-    dtgplrPrefixListId,
+    deleteTransitGatewayPrefixListReference_dryRun,
+    deleteTransitGatewayPrefixListReference_transitGatewayRouteTableId,
+    deleteTransitGatewayPrefixListReference_prefixListId,
 
     -- * Destructuring the Response
-    deleteTransitGatewayPrefixListReferenceResponse,
-    DeleteTransitGatewayPrefixListReferenceResponse,
+    DeleteTransitGatewayPrefixListReferenceResponse (..),
+    newDeleteTransitGatewayPrefixListReferenceResponse,
 
     -- * Response Lenses
-    dtgplrrrsTransitGatewayPrefixListReference,
-    dtgplrrrsResponseStatus,
+    deleteTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference,
+    deleteTransitGatewayPrefixListReferenceResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayPrefixListReference
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTransitGatewayPrefixListReference' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayPrefixListReference' smart constructor.
 data DeleteTransitGatewayPrefixListReference = DeleteTransitGatewayPrefixListReference'
-  { _dtgplrDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dtgplrTransitGatewayRouteTableId ::
-      !Text,
-    _dtgplrPrefixListId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the route table.
+    transitGatewayRouteTableId :: Prelude.Text,
+    -- | The ID of the prefix list.
+    prefixListId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayPrefixListReference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayPrefixListReference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgplrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgplrTransitGatewayRouteTableId' - The ID of the route table.
+-- 'dryRun', 'deleteTransitGatewayPrefixListReference_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dtgplrPrefixListId' - The ID of the prefix list.
-deleteTransitGatewayPrefixListReference ::
-  -- | 'dtgplrTransitGatewayRouteTableId'
-  Text ->
-  -- | 'dtgplrPrefixListId'
-  Text ->
+-- 'transitGatewayRouteTableId', 'deleteTransitGatewayPrefixListReference_transitGatewayRouteTableId' - The ID of the route table.
+--
+-- 'prefixListId', 'deleteTransitGatewayPrefixListReference_prefixListId' - The ID of the prefix list.
+newDeleteTransitGatewayPrefixListReference ::
+  -- | 'transitGatewayRouteTableId'
+  Prelude.Text ->
+  -- | 'prefixListId'
+  Prelude.Text ->
   DeleteTransitGatewayPrefixListReference
-deleteTransitGatewayPrefixListReference
+newDeleteTransitGatewayPrefixListReference
   pTransitGatewayRouteTableId_
   pPrefixListId_ =
     DeleteTransitGatewayPrefixListReference'
-      { _dtgplrDryRun =
-          Nothing,
-        _dtgplrTransitGatewayRouteTableId =
+      { dryRun =
+          Prelude.Nothing,
+        transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_,
-        _dtgplrPrefixListId =
-          pPrefixListId_
+        prefixListId = pPrefixListId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgplrDryRun :: Lens' DeleteTransitGatewayPrefixListReference (Maybe Bool)
-dtgplrDryRun = lens _dtgplrDryRun (\s a -> s {_dtgplrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteTransitGatewayPrefixListReference_dryRun :: Lens.Lens' DeleteTransitGatewayPrefixListReference (Prelude.Maybe Prelude.Bool)
+deleteTransitGatewayPrefixListReference_dryRun = Lens.lens (\DeleteTransitGatewayPrefixListReference' {dryRun} -> dryRun) (\s@DeleteTransitGatewayPrefixListReference' {} a -> s {dryRun = a} :: DeleteTransitGatewayPrefixListReference)
 
 -- | The ID of the route table.
-dtgplrTransitGatewayRouteTableId :: Lens' DeleteTransitGatewayPrefixListReference Text
-dtgplrTransitGatewayRouteTableId = lens _dtgplrTransitGatewayRouteTableId (\s a -> s {_dtgplrTransitGatewayRouteTableId = a})
+deleteTransitGatewayPrefixListReference_transitGatewayRouteTableId :: Lens.Lens' DeleteTransitGatewayPrefixListReference Prelude.Text
+deleteTransitGatewayPrefixListReference_transitGatewayRouteTableId = Lens.lens (\DeleteTransitGatewayPrefixListReference' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@DeleteTransitGatewayPrefixListReference' {} a -> s {transitGatewayRouteTableId = a} :: DeleteTransitGatewayPrefixListReference)
 
 -- | The ID of the prefix list.
-dtgplrPrefixListId :: Lens' DeleteTransitGatewayPrefixListReference Text
-dtgplrPrefixListId = lens _dtgplrPrefixListId (\s a -> s {_dtgplrPrefixListId = a})
+deleteTransitGatewayPrefixListReference_prefixListId :: Lens.Lens' DeleteTransitGatewayPrefixListReference Prelude.Text
+deleteTransitGatewayPrefixListReference_prefixListId = Lens.lens (\DeleteTransitGatewayPrefixListReference' {prefixListId} -> prefixListId) (\s@DeleteTransitGatewayPrefixListReference' {} a -> s {prefixListId = a} :: DeleteTransitGatewayPrefixListReference)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteTransitGatewayPrefixListReference
   where
   type
     Rs DeleteTransitGatewayPrefixListReference =
       DeleteTransitGatewayPrefixListReferenceResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayPrefixListReferenceResponse'
-            <$> (x .@? "transitGatewayPrefixListReference")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayPrefixListReference")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DeleteTransitGatewayPrefixListReference
 
 instance
-  NFData
+  Prelude.NFData
     DeleteTransitGatewayPrefixListReference
 
 instance
-  ToHeaders
-    DeleteTransitGatewayPrefixListReference
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DeleteTransitGatewayPrefixListReference
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DeleteTransitGatewayPrefixListReference
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DeleteTransitGatewayPrefixListReference
   where
   toQuery DeleteTransitGatewayPrefixListReference' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DeleteTransitGatewayPrefixListReference" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dtgplrDryRun,
+          Prelude.=: ( "DeleteTransitGatewayPrefixListReference" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "TransitGatewayRouteTableId"
-          =: _dtgplrTransitGatewayRouteTableId,
-        "PrefixListId" =: _dtgplrPrefixListId
+          Prelude.=: transitGatewayRouteTableId,
+        "PrefixListId" Prelude.=: prefixListId
       ]
 
--- | /See:/ 'deleteTransitGatewayPrefixListReferenceResponse' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayPrefixListReferenceResponse' smart constructor.
 data DeleteTransitGatewayPrefixListReferenceResponse = DeleteTransitGatewayPrefixListReferenceResponse'
-  { _dtgplrrrsTransitGatewayPrefixListReference ::
-      !( Maybe
-           TransitGatewayPrefixListReference
-       ),
-    _dtgplrrrsResponseStatus ::
-      !Int
+  { -- | Information about the deleted prefix list reference.
+    transitGatewayPrefixListReference :: Prelude.Maybe TransitGatewayPrefixListReference,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayPrefixListReferenceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayPrefixListReferenceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgplrrrsTransitGatewayPrefixListReference' - Information about the deleted prefix list reference.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgplrrrsResponseStatus' - -- | The response status code.
-deleteTransitGatewayPrefixListReferenceResponse ::
-  -- | 'dtgplrrrsResponseStatus'
-  Int ->
+-- 'transitGatewayPrefixListReference', 'deleteTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference' - Information about the deleted prefix list reference.
+--
+-- 'httpStatus', 'deleteTransitGatewayPrefixListReferenceResponse_httpStatus' - The response's http status code.
+newDeleteTransitGatewayPrefixListReferenceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTransitGatewayPrefixListReferenceResponse
-deleteTransitGatewayPrefixListReferenceResponse
-  pResponseStatus_ =
+newDeleteTransitGatewayPrefixListReferenceResponse
+  pHttpStatus_ =
     DeleteTransitGatewayPrefixListReferenceResponse'
-      { _dtgplrrrsTransitGatewayPrefixListReference =
-          Nothing,
-        _dtgplrrrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayPrefixListReference =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the deleted prefix list reference.
-dtgplrrrsTransitGatewayPrefixListReference :: Lens' DeleteTransitGatewayPrefixListReferenceResponse (Maybe TransitGatewayPrefixListReference)
-dtgplrrrsTransitGatewayPrefixListReference = lens _dtgplrrrsTransitGatewayPrefixListReference (\s a -> s {_dtgplrrrsTransitGatewayPrefixListReference = a})
+deleteTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference :: Lens.Lens' DeleteTransitGatewayPrefixListReferenceResponse (Prelude.Maybe TransitGatewayPrefixListReference)
+deleteTransitGatewayPrefixListReferenceResponse_transitGatewayPrefixListReference = Lens.lens (\DeleteTransitGatewayPrefixListReferenceResponse' {transitGatewayPrefixListReference} -> transitGatewayPrefixListReference) (\s@DeleteTransitGatewayPrefixListReferenceResponse' {} a -> s {transitGatewayPrefixListReference = a} :: DeleteTransitGatewayPrefixListReferenceResponse)
 
--- | -- | The response status code.
-dtgplrrrsResponseStatus :: Lens' DeleteTransitGatewayPrefixListReferenceResponse Int
-dtgplrrrsResponseStatus = lens _dtgplrrrsResponseStatus (\s a -> s {_dtgplrrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTransitGatewayPrefixListReferenceResponse_httpStatus :: Lens.Lens' DeleteTransitGatewayPrefixListReferenceResponse Prelude.Int
+deleteTransitGatewayPrefixListReferenceResponse_httpStatus = Lens.lens (\DeleteTransitGatewayPrefixListReferenceResponse' {httpStatus} -> httpStatus) (\s@DeleteTransitGatewayPrefixListReferenceResponse' {} a -> s {httpStatus = a} :: DeleteTransitGatewayPrefixListReferenceResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteTransitGatewayPrefixListReferenceResponse

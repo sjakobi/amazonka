@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,66 @@
 module Network.AWS.EC2.Types.InstanceCreditSpecificationRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the credit option for CPU usage of a burstable performance instance.
+-- | Describes the credit option for CPU usage of a burstable performance
+-- instance.
 --
---
---
--- /See:/ 'instanceCreditSpecificationRequest' smart constructor.
+-- /See:/ 'newInstanceCreditSpecificationRequest' smart constructor.
 data InstanceCreditSpecificationRequest = InstanceCreditSpecificationRequest'
-  { _icsrInstanceId ::
-      !( Maybe
-           Text
-       ),
-    _icsrCPUCredits ::
-      !( Maybe
-           Text
-       )
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The credit option for CPU usage of the instance. Valid values are
+    -- @standard@ and @unlimited@.
+    cpuCredits :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceCreditSpecificationRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceCreditSpecificationRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icsrInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icsrCPUCredits' - The credit option for CPU usage of the instance. Valid values are @standard@ and @unlimited@ .
-instanceCreditSpecificationRequest ::
+-- 'instanceId', 'instanceCreditSpecificationRequest_instanceId' - The ID of the instance.
+--
+-- 'cpuCredits', 'instanceCreditSpecificationRequest_cpuCredits' - The credit option for CPU usage of the instance. Valid values are
+-- @standard@ and @unlimited@.
+newInstanceCreditSpecificationRequest ::
   InstanceCreditSpecificationRequest
-instanceCreditSpecificationRequest =
+newInstanceCreditSpecificationRequest =
   InstanceCreditSpecificationRequest'
-    { _icsrInstanceId =
-        Nothing,
-      _icsrCPUCredits = Nothing
+    { instanceId =
+        Prelude.Nothing,
+      cpuCredits = Prelude.Nothing
     }
 
 -- | The ID of the instance.
-icsrInstanceId :: Lens' InstanceCreditSpecificationRequest (Maybe Text)
-icsrInstanceId = lens _icsrInstanceId (\s a -> s {_icsrInstanceId = a})
+instanceCreditSpecificationRequest_instanceId :: Lens.Lens' InstanceCreditSpecificationRequest (Prelude.Maybe Prelude.Text)
+instanceCreditSpecificationRequest_instanceId = Lens.lens (\InstanceCreditSpecificationRequest' {instanceId} -> instanceId) (\s@InstanceCreditSpecificationRequest' {} a -> s {instanceId = a} :: InstanceCreditSpecificationRequest)
 
--- | The credit option for CPU usage of the instance. Valid values are @standard@ and @unlimited@ .
-icsrCPUCredits :: Lens' InstanceCreditSpecificationRequest (Maybe Text)
-icsrCPUCredits = lens _icsrCPUCredits (\s a -> s {_icsrCPUCredits = a})
+-- | The credit option for CPU usage of the instance. Valid values are
+-- @standard@ and @unlimited@.
+instanceCreditSpecificationRequest_cpuCredits :: Lens.Lens' InstanceCreditSpecificationRequest (Prelude.Maybe Prelude.Text)
+instanceCreditSpecificationRequest_cpuCredits = Lens.lens (\InstanceCreditSpecificationRequest' {cpuCredits} -> cpuCredits) (\s@InstanceCreditSpecificationRequest' {} a -> s {cpuCredits = a} :: InstanceCreditSpecificationRequest)
 
-instance Hashable InstanceCreditSpecificationRequest
+instance
+  Prelude.Hashable
+    InstanceCreditSpecificationRequest
 
-instance NFData InstanceCreditSpecificationRequest
+instance
+  Prelude.NFData
+    InstanceCreditSpecificationRequest
 
-instance ToQuery InstanceCreditSpecificationRequest where
+instance
+  Prelude.ToQuery
+    InstanceCreditSpecificationRequest
+  where
   toQuery InstanceCreditSpecificationRequest' {..} =
-    mconcat
-      [ "InstanceId" =: _icsrInstanceId,
-        "CpuCredits" =: _icsrCPUCredits
+    Prelude.mconcat
+      [ "InstanceId" Prelude.=: instanceId,
+        "CpuCredits" Prelude.=: cpuCredits
       ]

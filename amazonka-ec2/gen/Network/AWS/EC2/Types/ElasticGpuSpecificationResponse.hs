@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,51 @@
 module Network.AWS.EC2.Types.ElasticGpuSpecificationResponse where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an elastic GPU.
 --
---
---
--- /See:/ 'elasticGpuSpecificationResponse' smart constructor.
-newtype ElasticGpuSpecificationResponse = ElasticGpuSpecificationResponse'
-  { _egsrType ::
-      Maybe
-        Text
+-- /See:/ 'newElasticGpuSpecificationResponse' smart constructor.
+data ElasticGpuSpecificationResponse = ElasticGpuSpecificationResponse'
+  { -- | The elastic GPU type.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticGpuSpecificationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticGpuSpecificationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'egsrType' - The elastic GPU type.
-elasticGpuSpecificationResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'type'', 'elasticGpuSpecificationResponse_type' - The elastic GPU type.
+newElasticGpuSpecificationResponse ::
   ElasticGpuSpecificationResponse
-elasticGpuSpecificationResponse =
+newElasticGpuSpecificationResponse =
   ElasticGpuSpecificationResponse'
-    { _egsrType =
-        Nothing
+    { type' =
+        Prelude.Nothing
     }
 
 -- | The elastic GPU type.
-egsrType :: Lens' ElasticGpuSpecificationResponse (Maybe Text)
-egsrType = lens _egsrType (\s a -> s {_egsrType = a})
+elasticGpuSpecificationResponse_type :: Lens.Lens' ElasticGpuSpecificationResponse (Prelude.Maybe Prelude.Text)
+elasticGpuSpecificationResponse_type = Lens.lens (\ElasticGpuSpecificationResponse' {type'} -> type') (\s@ElasticGpuSpecificationResponse' {} a -> s {type' = a} :: ElasticGpuSpecificationResponse)
 
-instance FromXML ElasticGpuSpecificationResponse where
+instance
+  Prelude.FromXML
+    ElasticGpuSpecificationResponse
+  where
   parseXML x =
-    ElasticGpuSpecificationResponse' <$> (x .@? "type")
+    ElasticGpuSpecificationResponse'
+      Prelude.<$> (x Prelude..@? "type")
 
-instance Hashable ElasticGpuSpecificationResponse
+instance
+  Prelude.Hashable
+    ElasticGpuSpecificationResponse
 
-instance NFData ElasticGpuSpecificationResponse
+instance
+  Prelude.NFData
+    ElasticGpuSpecificationResponse

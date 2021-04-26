@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,53 @@
 module Network.AWS.EC2.Types.Scope
   ( Scope
       ( ..,
-        SAvailabilityZone,
-        SRegion
+        ScopeAvailabilityZone,
+        ScopeRegion
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Scope = Scope' (CI Text)
+newtype Scope = Scope' {fromScope :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SAvailabilityZone :: Scope
-pattern SAvailabilityZone = Scope' "Availability Zone"
+pattern ScopeAvailabilityZone :: Scope
+pattern ScopeAvailabilityZone = Scope' "Availability Zone"
 
-pattern SRegion :: Scope
-pattern SRegion = Scope' "Region"
+pattern ScopeRegion :: Scope
+pattern ScopeRegion = Scope' "Region"
 
 {-# COMPLETE
-  SAvailabilityZone,
-  SRegion,
+  ScopeAvailabilityZone,
+  ScopeRegion,
   Scope'
   #-}
 
-instance FromText Scope where
-  parser = (Scope' . mk) <$> takeText
+instance Prelude.FromText Scope where
+  parser = Scope' Prelude.<$> Prelude.takeText
 
-instance ToText Scope where
-  toText (Scope' ci) = original ci
+instance Prelude.ToText Scope where
+  toText (Scope' x) = x
 
-instance Hashable Scope
+instance Prelude.Hashable Scope
 
-instance NFData Scope
+instance Prelude.NFData Scope
 
-instance ToByteString Scope
+instance Prelude.ToByteString Scope
 
-instance ToQuery Scope
+instance Prelude.ToQuery Scope
 
-instance ToHeader Scope
+instance Prelude.ToHeader Scope
 
-instance FromXML Scope where
-  parseXML = parseXMLText "Scope"
+instance Prelude.FromXML Scope where
+  parseXML = Prelude.parseXMLText "Scope"

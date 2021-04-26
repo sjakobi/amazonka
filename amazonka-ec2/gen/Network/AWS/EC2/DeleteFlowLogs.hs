@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,134 +24,153 @@
 -- Deletes one or more flow logs.
 module Network.AWS.EC2.DeleteFlowLogs
   ( -- * Creating a Request
-    deleteFlowLogs,
-    DeleteFlowLogs,
+    DeleteFlowLogs (..),
+    newDeleteFlowLogs,
 
     -- * Request Lenses
-    dflDryRun,
-    dflFlowLogIds,
+    deleteFlowLogs_dryRun,
+    deleteFlowLogs_flowLogIds,
 
     -- * Destructuring the Response
-    deleteFlowLogsResponse,
-    DeleteFlowLogsResponse,
+    DeleteFlowLogsResponse (..),
+    newDeleteFlowLogsResponse,
 
     -- * Response Lenses
-    dflrrsUnsuccessful,
-    dflrrsResponseStatus,
+    deleteFlowLogsResponse_unsuccessful,
+    deleteFlowLogsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.UnsuccessfulItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteFlowLogs' smart constructor.
+-- | /See:/ 'newDeleteFlowLogs' smart constructor.
 data DeleteFlowLogs = DeleteFlowLogs'
-  { _dflDryRun ::
-      !(Maybe Bool),
-    _dflFlowLogIds :: ![Text]
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more flow log IDs.
+    --
+    -- Constraint: Maximum of 1000 flow log IDs.
+    flowLogIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFlowLogs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFlowLogs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dflDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dflFlowLogIds' - One or more flow log IDs. Constraint: Maximum of 1000 flow log IDs.
-deleteFlowLogs ::
+-- 'dryRun', 'deleteFlowLogs_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'flowLogIds', 'deleteFlowLogs_flowLogIds' - One or more flow log IDs.
+--
+-- Constraint: Maximum of 1000 flow log IDs.
+newDeleteFlowLogs ::
   DeleteFlowLogs
-deleteFlowLogs =
+newDeleteFlowLogs =
   DeleteFlowLogs'
-    { _dflDryRun = Nothing,
-      _dflFlowLogIds = mempty
+    { dryRun = Prelude.Nothing,
+      flowLogIds = Prelude.mempty
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dflDryRun :: Lens' DeleteFlowLogs (Maybe Bool)
-dflDryRun = lens _dflDryRun (\s a -> s {_dflDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteFlowLogs_dryRun :: Lens.Lens' DeleteFlowLogs (Prelude.Maybe Prelude.Bool)
+deleteFlowLogs_dryRun = Lens.lens (\DeleteFlowLogs' {dryRun} -> dryRun) (\s@DeleteFlowLogs' {} a -> s {dryRun = a} :: DeleteFlowLogs)
 
--- | One or more flow log IDs. Constraint: Maximum of 1000 flow log IDs.
-dflFlowLogIds :: Lens' DeleteFlowLogs [Text]
-dflFlowLogIds = lens _dflFlowLogIds (\s a -> s {_dflFlowLogIds = a}) . _Coerce
+-- | One or more flow log IDs.
+--
+-- Constraint: Maximum of 1000 flow log IDs.
+deleteFlowLogs_flowLogIds :: Lens.Lens' DeleteFlowLogs [Prelude.Text]
+deleteFlowLogs_flowLogIds = Lens.lens (\DeleteFlowLogs' {flowLogIds} -> flowLogIds) (\s@DeleteFlowLogs' {} a -> s {flowLogIds = a} :: DeleteFlowLogs) Prelude.. Prelude._Coerce
 
-instance AWSRequest DeleteFlowLogs where
+instance Prelude.AWSRequest DeleteFlowLogs where
   type Rs DeleteFlowLogs = DeleteFlowLogsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteFlowLogsResponse'
-            <$> ( x .@? "unsuccessful" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "unsuccessful"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteFlowLogs
+instance Prelude.Hashable DeleteFlowLogs
 
-instance NFData DeleteFlowLogs
+instance Prelude.NFData DeleteFlowLogs
 
-instance ToHeaders DeleteFlowLogs where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteFlowLogs where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteFlowLogs where
-  toPath = const "/"
+instance Prelude.ToPath DeleteFlowLogs where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteFlowLogs where
+instance Prelude.ToQuery DeleteFlowLogs where
   toQuery DeleteFlowLogs' {..} =
-    mconcat
-      [ "Action" =: ("DeleteFlowLogs" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dflDryRun,
-        toQueryList "FlowLogId" _dflFlowLogIds
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteFlowLogs" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQueryList "FlowLogId" flowLogIds
       ]
 
--- | /See:/ 'deleteFlowLogsResponse' smart constructor.
+-- | /See:/ 'newDeleteFlowLogsResponse' smart constructor.
 data DeleteFlowLogsResponse = DeleteFlowLogsResponse'
-  { _dflrrsUnsuccessful ::
-      !( Maybe
-           [UnsuccessfulItem]
-       ),
-    _dflrrsResponseStatus ::
-      !Int
+  { -- | Information about the flow logs that could not be deleted successfully.
+    unsuccessful :: Prelude.Maybe [UnsuccessfulItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFlowLogsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFlowLogsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dflrrsUnsuccessful' - Information about the flow logs that could not be deleted successfully.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dflrrsResponseStatus' - -- | The response status code.
-deleteFlowLogsResponse ::
-  -- | 'dflrrsResponseStatus'
-  Int ->
+-- 'unsuccessful', 'deleteFlowLogsResponse_unsuccessful' - Information about the flow logs that could not be deleted successfully.
+--
+-- 'httpStatus', 'deleteFlowLogsResponse_httpStatus' - The response's http status code.
+newDeleteFlowLogsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteFlowLogsResponse
-deleteFlowLogsResponse pResponseStatus_ =
+newDeleteFlowLogsResponse pHttpStatus_ =
   DeleteFlowLogsResponse'
-    { _dflrrsUnsuccessful =
-        Nothing,
-      _dflrrsResponseStatus = pResponseStatus_
+    { unsuccessful =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the flow logs that could not be deleted successfully.
-dflrrsUnsuccessful :: Lens' DeleteFlowLogsResponse [UnsuccessfulItem]
-dflrrsUnsuccessful = lens _dflrrsUnsuccessful (\s a -> s {_dflrrsUnsuccessful = a}) . _Default . _Coerce
+deleteFlowLogsResponse_unsuccessful :: Lens.Lens' DeleteFlowLogsResponse (Prelude.Maybe [UnsuccessfulItem])
+deleteFlowLogsResponse_unsuccessful = Lens.lens (\DeleteFlowLogsResponse' {unsuccessful} -> unsuccessful) (\s@DeleteFlowLogsResponse' {} a -> s {unsuccessful = a} :: DeleteFlowLogsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dflrrsResponseStatus :: Lens' DeleteFlowLogsResponse Int
-dflrrsResponseStatus = lens _dflrrsResponseStatus (\s a -> s {_dflrrsResponseStatus = a})
+-- | The response's http status code.
+deleteFlowLogsResponse_httpStatus :: Lens.Lens' DeleteFlowLogsResponse Prelude.Int
+deleteFlowLogsResponse_httpStatus = Lens.lens (\DeleteFlowLogsResponse' {httpStatus} -> httpStatus) (\s@DeleteFlowLogsResponse' {} a -> s {httpStatus = a} :: DeleteFlowLogsResponse)
 
-instance NFData DeleteFlowLogsResponse
+instance Prelude.NFData DeleteFlowLogsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,175 +24,189 @@
 -- Modifies the start time for a scheduled Amazon EC2 instance event.
 module Network.AWS.EC2.ModifyInstanceEventStartTime
   ( -- * Creating a Request
-    modifyInstanceEventStartTime,
-    ModifyInstanceEventStartTime,
+    ModifyInstanceEventStartTime (..),
+    newModifyInstanceEventStartTime,
 
     -- * Request Lenses
-    miestDryRun,
-    miestInstanceId,
-    miestInstanceEventId,
-    miestNotBefore,
+    modifyInstanceEventStartTime_dryRun,
+    modifyInstanceEventStartTime_instanceId,
+    modifyInstanceEventStartTime_instanceEventId,
+    modifyInstanceEventStartTime_notBefore,
 
     -- * Destructuring the Response
-    modifyInstanceEventStartTimeResponse,
-    ModifyInstanceEventStartTimeResponse,
+    ModifyInstanceEventStartTimeResponse (..),
+    newModifyInstanceEventStartTimeResponse,
 
     -- * Response Lenses
-    miestrrsEvent,
-    miestrrsResponseStatus,
+    modifyInstanceEventStartTimeResponse_event,
+    modifyInstanceEventStartTimeResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.InstanceStatusEvent
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyInstanceEventStartTime' smart constructor.
+-- | /See:/ 'newModifyInstanceEventStartTime' smart constructor.
 data ModifyInstanceEventStartTime = ModifyInstanceEventStartTime'
-  { _miestDryRun ::
-      !(Maybe Bool),
-    _miestInstanceId ::
-      !Text,
-    _miestInstanceEventId ::
-      !Text,
-    _miestNotBefore ::
-      !ISO8601
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the instance with the scheduled event.
+    instanceId :: Prelude.Text,
+    -- | The ID of the event whose date and time you are modifying.
+    instanceEventId :: Prelude.Text,
+    -- | The new date and time when the event will take place.
+    notBefore :: Prelude.ISO8601
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceEventStartTime' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceEventStartTime' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'miestDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'miestInstanceId' - The ID of the instance with the scheduled event.
+-- 'dryRun', 'modifyInstanceEventStartTime_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'miestInstanceEventId' - The ID of the event whose date and time you are modifying.
+-- 'instanceId', 'modifyInstanceEventStartTime_instanceId' - The ID of the instance with the scheduled event.
 --
--- * 'miestNotBefore' - The new date and time when the event will take place.
-modifyInstanceEventStartTime ::
-  -- | 'miestInstanceId'
-  Text ->
-  -- | 'miestInstanceEventId'
-  Text ->
-  -- | 'miestNotBefore'
-  UTCTime ->
+-- 'instanceEventId', 'modifyInstanceEventStartTime_instanceEventId' - The ID of the event whose date and time you are modifying.
+--
+-- 'notBefore', 'modifyInstanceEventStartTime_notBefore' - The new date and time when the event will take place.
+newModifyInstanceEventStartTime ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'instanceEventId'
+  Prelude.Text ->
+  -- | 'notBefore'
+  Prelude.UTCTime ->
   ModifyInstanceEventStartTime
-modifyInstanceEventStartTime
+newModifyInstanceEventStartTime
   pInstanceId_
   pInstanceEventId_
   pNotBefore_ =
     ModifyInstanceEventStartTime'
-      { _miestDryRun =
-          Nothing,
-        _miestInstanceId = pInstanceId_,
-        _miestInstanceEventId = pInstanceEventId_,
-        _miestNotBefore = _Time # pNotBefore_
+      { dryRun =
+          Prelude.Nothing,
+        instanceId = pInstanceId_,
+        instanceEventId = pInstanceEventId_,
+        notBefore = Prelude._Time Lens.# pNotBefore_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-miestDryRun :: Lens' ModifyInstanceEventStartTime (Maybe Bool)
-miestDryRun = lens _miestDryRun (\s a -> s {_miestDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyInstanceEventStartTime_dryRun :: Lens.Lens' ModifyInstanceEventStartTime (Prelude.Maybe Prelude.Bool)
+modifyInstanceEventStartTime_dryRun = Lens.lens (\ModifyInstanceEventStartTime' {dryRun} -> dryRun) (\s@ModifyInstanceEventStartTime' {} a -> s {dryRun = a} :: ModifyInstanceEventStartTime)
 
 -- | The ID of the instance with the scheduled event.
-miestInstanceId :: Lens' ModifyInstanceEventStartTime Text
-miestInstanceId = lens _miestInstanceId (\s a -> s {_miestInstanceId = a})
+modifyInstanceEventStartTime_instanceId :: Lens.Lens' ModifyInstanceEventStartTime Prelude.Text
+modifyInstanceEventStartTime_instanceId = Lens.lens (\ModifyInstanceEventStartTime' {instanceId} -> instanceId) (\s@ModifyInstanceEventStartTime' {} a -> s {instanceId = a} :: ModifyInstanceEventStartTime)
 
 -- | The ID of the event whose date and time you are modifying.
-miestInstanceEventId :: Lens' ModifyInstanceEventStartTime Text
-miestInstanceEventId = lens _miestInstanceEventId (\s a -> s {_miestInstanceEventId = a})
+modifyInstanceEventStartTime_instanceEventId :: Lens.Lens' ModifyInstanceEventStartTime Prelude.Text
+modifyInstanceEventStartTime_instanceEventId = Lens.lens (\ModifyInstanceEventStartTime' {instanceEventId} -> instanceEventId) (\s@ModifyInstanceEventStartTime' {} a -> s {instanceEventId = a} :: ModifyInstanceEventStartTime)
 
 -- | The new date and time when the event will take place.
-miestNotBefore :: Lens' ModifyInstanceEventStartTime UTCTime
-miestNotBefore = lens _miestNotBefore (\s a -> s {_miestNotBefore = a}) . _Time
+modifyInstanceEventStartTime_notBefore :: Lens.Lens' ModifyInstanceEventStartTime Prelude.UTCTime
+modifyInstanceEventStartTime_notBefore = Lens.lens (\ModifyInstanceEventStartTime' {notBefore} -> notBefore) (\s@ModifyInstanceEventStartTime' {} a -> s {notBefore = a} :: ModifyInstanceEventStartTime) Prelude.. Prelude._Time
 
-instance AWSRequest ModifyInstanceEventStartTime where
+instance
+  Prelude.AWSRequest
+    ModifyInstanceEventStartTime
+  where
   type
     Rs ModifyInstanceEventStartTime =
       ModifyInstanceEventStartTimeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyInstanceEventStartTimeResponse'
-            <$> (x .@? "event") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "event")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyInstanceEventStartTime
+instance
+  Prelude.Hashable
+    ModifyInstanceEventStartTime
 
-instance NFData ModifyInstanceEventStartTime
+instance Prelude.NFData ModifyInstanceEventStartTime
 
-instance ToHeaders ModifyInstanceEventStartTime where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ModifyInstanceEventStartTime
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyInstanceEventStartTime where
-  toPath = const "/"
+instance Prelude.ToPath ModifyInstanceEventStartTime where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyInstanceEventStartTime where
+instance Prelude.ToQuery ModifyInstanceEventStartTime where
   toQuery ModifyInstanceEventStartTime' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyInstanceEventStartTime" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _miestDryRun,
-        "InstanceId" =: _miestInstanceId,
-        "InstanceEventId" =: _miestInstanceEventId,
-        "NotBefore" =: _miestNotBefore
+          Prelude.=: ( "ModifyInstanceEventStartTime" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "InstanceId" Prelude.=: instanceId,
+        "InstanceEventId" Prelude.=: instanceEventId,
+        "NotBefore" Prelude.=: notBefore
       ]
 
--- | /See:/ 'modifyInstanceEventStartTimeResponse' smart constructor.
+-- | /See:/ 'newModifyInstanceEventStartTimeResponse' smart constructor.
 data ModifyInstanceEventStartTimeResponse = ModifyInstanceEventStartTimeResponse'
-  { _miestrrsEvent ::
-      !( Maybe
-           InstanceStatusEvent
-       ),
-    _miestrrsResponseStatus ::
-      !Int
+  { event :: Prelude.Maybe InstanceStatusEvent,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceEventStartTimeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceEventStartTimeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'miestrrsEvent' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'miestrrsResponseStatus' - -- | The response status code.
-modifyInstanceEventStartTimeResponse ::
-  -- | 'miestrrsResponseStatus'
-  Int ->
+-- 'event', 'modifyInstanceEventStartTimeResponse_event' - Undocumented member.
+--
+-- 'httpStatus', 'modifyInstanceEventStartTimeResponse_httpStatus' - The response's http status code.
+newModifyInstanceEventStartTimeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyInstanceEventStartTimeResponse
-modifyInstanceEventStartTimeResponse pResponseStatus_ =
+newModifyInstanceEventStartTimeResponse pHttpStatus_ =
   ModifyInstanceEventStartTimeResponse'
-    { _miestrrsEvent =
-        Nothing,
-      _miestrrsResponseStatus =
-        pResponseStatus_
+    { event =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-miestrrsEvent :: Lens' ModifyInstanceEventStartTimeResponse (Maybe InstanceStatusEvent)
-miestrrsEvent = lens _miestrrsEvent (\s a -> s {_miestrrsEvent = a})
+modifyInstanceEventStartTimeResponse_event :: Lens.Lens' ModifyInstanceEventStartTimeResponse (Prelude.Maybe InstanceStatusEvent)
+modifyInstanceEventStartTimeResponse_event = Lens.lens (\ModifyInstanceEventStartTimeResponse' {event} -> event) (\s@ModifyInstanceEventStartTimeResponse' {} a -> s {event = a} :: ModifyInstanceEventStartTimeResponse)
 
--- | -- | The response status code.
-miestrrsResponseStatus :: Lens' ModifyInstanceEventStartTimeResponse Int
-miestrrsResponseStatus = lens _miestrrsResponseStatus (\s a -> s {_miestrrsResponseStatus = a})
+-- | The response's http status code.
+modifyInstanceEventStartTimeResponse_httpStatus :: Lens.Lens' ModifyInstanceEventStartTimeResponse Prelude.Int
+modifyInstanceEventStartTimeResponse_httpStatus = Lens.lens (\ModifyInstanceEventStartTimeResponse' {httpStatus} -> httpStatus) (\s@ModifyInstanceEventStartTimeResponse' {} a -> s {httpStatus = a} :: ModifyInstanceEventStartTimeResponse)
 
-instance NFData ModifyInstanceEventStartTimeResponse
+instance
+  Prelude.NFData
+    ModifyInstanceEventStartTimeResponse

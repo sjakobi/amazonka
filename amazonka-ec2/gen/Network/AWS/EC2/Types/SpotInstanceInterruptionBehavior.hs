@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.SpotInstanceInterruptionBehavior
   ( SpotInstanceInterruptionBehavior
       ( ..,
-        SIIBHibernate,
-        SIIBStop,
-        SIIBTerminate
+        SpotInstanceInterruptionBehaviorHibernate,
+        SpotInstanceInterruptionBehaviorStop,
+        SpotInstanceInterruptionBehaviorTerminate
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SpotInstanceInterruptionBehavior
-  = SpotInstanceInterruptionBehavior'
-      ( CI
-          Text
-      )
+newtype SpotInstanceInterruptionBehavior = SpotInstanceInterruptionBehavior'
+  { fromSpotInstanceInterruptionBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SIIBHibernate :: SpotInstanceInterruptionBehavior
-pattern SIIBHibernate = SpotInstanceInterruptionBehavior' "hibernate"
+pattern SpotInstanceInterruptionBehaviorHibernate :: SpotInstanceInterruptionBehavior
+pattern SpotInstanceInterruptionBehaviorHibernate = SpotInstanceInterruptionBehavior' "hibernate"
 
-pattern SIIBStop :: SpotInstanceInterruptionBehavior
-pattern SIIBStop = SpotInstanceInterruptionBehavior' "stop"
+pattern SpotInstanceInterruptionBehaviorStop :: SpotInstanceInterruptionBehavior
+pattern SpotInstanceInterruptionBehaviorStop = SpotInstanceInterruptionBehavior' "stop"
 
-pattern SIIBTerminate :: SpotInstanceInterruptionBehavior
-pattern SIIBTerminate = SpotInstanceInterruptionBehavior' "terminate"
+pattern SpotInstanceInterruptionBehaviorTerminate :: SpotInstanceInterruptionBehavior
+pattern SpotInstanceInterruptionBehaviorTerminate = SpotInstanceInterruptionBehavior' "terminate"
 
 {-# COMPLETE
-  SIIBHibernate,
-  SIIBStop,
-  SIIBTerminate,
+  SpotInstanceInterruptionBehaviorHibernate,
+  SpotInstanceInterruptionBehaviorStop,
+  SpotInstanceInterruptionBehaviorTerminate,
   SpotInstanceInterruptionBehavior'
   #-}
 
-instance FromText SpotInstanceInterruptionBehavior where
-  parser = (SpotInstanceInterruptionBehavior' . mk) <$> takeText
+instance Prelude.FromText SpotInstanceInterruptionBehavior where
+  parser = SpotInstanceInterruptionBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText SpotInstanceInterruptionBehavior where
-  toText (SpotInstanceInterruptionBehavior' ci) = original ci
+instance Prelude.ToText SpotInstanceInterruptionBehavior where
+  toText (SpotInstanceInterruptionBehavior' x) = x
 
-instance Hashable SpotInstanceInterruptionBehavior
+instance Prelude.Hashable SpotInstanceInterruptionBehavior
 
-instance NFData SpotInstanceInterruptionBehavior
+instance Prelude.NFData SpotInstanceInterruptionBehavior
 
-instance ToByteString SpotInstanceInterruptionBehavior
+instance Prelude.ToByteString SpotInstanceInterruptionBehavior
 
-instance ToQuery SpotInstanceInterruptionBehavior
+instance Prelude.ToQuery SpotInstanceInterruptionBehavior
 
-instance ToHeader SpotInstanceInterruptionBehavior
+instance Prelude.ToHeader SpotInstanceInterruptionBehavior
 
-instance FromXML SpotInstanceInterruptionBehavior where
-  parseXML = parseXMLText "SpotInstanceInterruptionBehavior"
+instance Prelude.FromXML SpotInstanceInterruptionBehavior where
+  parseXML = Prelude.parseXMLText "SpotInstanceInterruptionBehavior"

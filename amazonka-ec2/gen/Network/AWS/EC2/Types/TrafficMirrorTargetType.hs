@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.TrafficMirrorTargetType
   ( TrafficMirrorTargetType
       ( ..,
-        NetworkInterface,
-        NetworkLoadBalancer
+        TrafficMirrorTargetTypeNetworkInterface,
+        TrafficMirrorTargetTypeNetworkLoadBalancer
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficMirrorTargetType
-  = TrafficMirrorTargetType'
-      ( CI
-          Text
-      )
+newtype TrafficMirrorTargetType = TrafficMirrorTargetType'
+  { fromTrafficMirrorTargetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NetworkInterface :: TrafficMirrorTargetType
-pattern NetworkInterface = TrafficMirrorTargetType' "network-interface"
+pattern TrafficMirrorTargetTypeNetworkInterface :: TrafficMirrorTargetType
+pattern TrafficMirrorTargetTypeNetworkInterface = TrafficMirrorTargetType' "network-interface"
 
-pattern NetworkLoadBalancer :: TrafficMirrorTargetType
-pattern NetworkLoadBalancer = TrafficMirrorTargetType' "network-load-balancer"
+pattern TrafficMirrorTargetTypeNetworkLoadBalancer :: TrafficMirrorTargetType
+pattern TrafficMirrorTargetTypeNetworkLoadBalancer = TrafficMirrorTargetType' "network-load-balancer"
 
 {-# COMPLETE
-  NetworkInterface,
-  NetworkLoadBalancer,
+  TrafficMirrorTargetTypeNetworkInterface,
+  TrafficMirrorTargetTypeNetworkLoadBalancer,
   TrafficMirrorTargetType'
   #-}
 
-instance FromText TrafficMirrorTargetType where
-  parser = (TrafficMirrorTargetType' . mk) <$> takeText
+instance Prelude.FromText TrafficMirrorTargetType where
+  parser = TrafficMirrorTargetType' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficMirrorTargetType where
-  toText (TrafficMirrorTargetType' ci) = original ci
+instance Prelude.ToText TrafficMirrorTargetType where
+  toText (TrafficMirrorTargetType' x) = x
 
-instance Hashable TrafficMirrorTargetType
+instance Prelude.Hashable TrafficMirrorTargetType
 
-instance NFData TrafficMirrorTargetType
+instance Prelude.NFData TrafficMirrorTargetType
 
-instance ToByteString TrafficMirrorTargetType
+instance Prelude.ToByteString TrafficMirrorTargetType
 
-instance ToQuery TrafficMirrorTargetType
+instance Prelude.ToQuery TrafficMirrorTargetType
 
-instance ToHeader TrafficMirrorTargetType
+instance Prelude.ToHeader TrafficMirrorTargetType
 
-instance FromXML TrafficMirrorTargetType where
-  parseXML = parseXMLText "TrafficMirrorTargetType"
+instance Prelude.FromXML TrafficMirrorTargetType where
+  parseXML = Prelude.parseXMLText "TrafficMirrorTargetType"

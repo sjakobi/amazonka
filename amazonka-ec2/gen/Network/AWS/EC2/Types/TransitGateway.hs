@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,107 +23,115 @@ import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tag
 import Network.AWS.EC2.Types.TransitGatewayOptions
 import Network.AWS.EC2.Types.TransitGatewayState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a transit gateway.
 --
---
---
--- /See:/ 'transitGateway' smart constructor.
+-- /See:/ 'newTransitGateway' smart constructor.
 data TransitGateway = TransitGateway'
-  { _tgOwnerId ::
-      !(Maybe Text),
-    _tgCreationTime :: !(Maybe ISO8601),
-    _tgOptions ::
-      !(Maybe TransitGatewayOptions),
-    _tgTransitGatewayARN :: !(Maybe Text),
-    _tgState :: !(Maybe TransitGatewayState),
-    _tgTags :: !(Maybe [Tag]),
-    _tgDescription :: !(Maybe Text),
-    _tgTransitGatewayId :: !(Maybe Text)
+  { -- | The ID of the AWS account ID that owns the transit gateway.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The creation time.
+    creationTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The transit gateway options.
+    options :: Prelude.Maybe TransitGatewayOptions,
+    -- | The Amazon Resource Name (ARN) of the transit gateway.
+    transitGatewayArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the transit gateway.
+    state :: Prelude.Maybe TransitGatewayState,
+    -- | The tags for the transit gateway.
+    tags :: Prelude.Maybe [Tag],
+    -- | The description of the transit gateway.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway.
+    transitGatewayId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgOwnerId' - The ID of the AWS account ID that owns the transit gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgCreationTime' - The creation time.
+-- 'ownerId', 'transitGateway_ownerId' - The ID of the AWS account ID that owns the transit gateway.
 --
--- * 'tgOptions' - The transit gateway options.
+-- 'creationTime', 'transitGateway_creationTime' - The creation time.
 --
--- * 'tgTransitGatewayARN' - The Amazon Resource Name (ARN) of the transit gateway.
+-- 'options', 'transitGateway_options' - The transit gateway options.
 --
--- * 'tgState' - The state of the transit gateway.
+-- 'transitGatewayArn', 'transitGateway_transitGatewayArn' - The Amazon Resource Name (ARN) of the transit gateway.
 --
--- * 'tgTags' - The tags for the transit gateway.
+-- 'state', 'transitGateway_state' - The state of the transit gateway.
 --
--- * 'tgDescription' - The description of the transit gateway.
+-- 'tags', 'transitGateway_tags' - The tags for the transit gateway.
 --
--- * 'tgTransitGatewayId' - The ID of the transit gateway.
-transitGateway ::
+-- 'description', 'transitGateway_description' - The description of the transit gateway.
+--
+-- 'transitGatewayId', 'transitGateway_transitGatewayId' - The ID of the transit gateway.
+newTransitGateway ::
   TransitGateway
-transitGateway =
+newTransitGateway =
   TransitGateway'
-    { _tgOwnerId = Nothing,
-      _tgCreationTime = Nothing,
-      _tgOptions = Nothing,
-      _tgTransitGatewayARN = Nothing,
-      _tgState = Nothing,
-      _tgTags = Nothing,
-      _tgDescription = Nothing,
-      _tgTransitGatewayId = Nothing
+    { ownerId = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      options = Prelude.Nothing,
+      transitGatewayArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      transitGatewayId = Prelude.Nothing
     }
 
 -- | The ID of the AWS account ID that owns the transit gateway.
-tgOwnerId :: Lens' TransitGateway (Maybe Text)
-tgOwnerId = lens _tgOwnerId (\s a -> s {_tgOwnerId = a})
+transitGateway_ownerId :: Lens.Lens' TransitGateway (Prelude.Maybe Prelude.Text)
+transitGateway_ownerId = Lens.lens (\TransitGateway' {ownerId} -> ownerId) (\s@TransitGateway' {} a -> s {ownerId = a} :: TransitGateway)
 
 -- | The creation time.
-tgCreationTime :: Lens' TransitGateway (Maybe UTCTime)
-tgCreationTime = lens _tgCreationTime (\s a -> s {_tgCreationTime = a}) . mapping _Time
+transitGateway_creationTime :: Lens.Lens' TransitGateway (Prelude.Maybe Prelude.UTCTime)
+transitGateway_creationTime = Lens.lens (\TransitGateway' {creationTime} -> creationTime) (\s@TransitGateway' {} a -> s {creationTime = a} :: TransitGateway) Prelude.. Lens.mapping Prelude._Time
 
 -- | The transit gateway options.
-tgOptions :: Lens' TransitGateway (Maybe TransitGatewayOptions)
-tgOptions = lens _tgOptions (\s a -> s {_tgOptions = a})
+transitGateway_options :: Lens.Lens' TransitGateway (Prelude.Maybe TransitGatewayOptions)
+transitGateway_options = Lens.lens (\TransitGateway' {options} -> options) (\s@TransitGateway' {} a -> s {options = a} :: TransitGateway)
 
 -- | The Amazon Resource Name (ARN) of the transit gateway.
-tgTransitGatewayARN :: Lens' TransitGateway (Maybe Text)
-tgTransitGatewayARN = lens _tgTransitGatewayARN (\s a -> s {_tgTransitGatewayARN = a})
+transitGateway_transitGatewayArn :: Lens.Lens' TransitGateway (Prelude.Maybe Prelude.Text)
+transitGateway_transitGatewayArn = Lens.lens (\TransitGateway' {transitGatewayArn} -> transitGatewayArn) (\s@TransitGateway' {} a -> s {transitGatewayArn = a} :: TransitGateway)
 
 -- | The state of the transit gateway.
-tgState :: Lens' TransitGateway (Maybe TransitGatewayState)
-tgState = lens _tgState (\s a -> s {_tgState = a})
+transitGateway_state :: Lens.Lens' TransitGateway (Prelude.Maybe TransitGatewayState)
+transitGateway_state = Lens.lens (\TransitGateway' {state} -> state) (\s@TransitGateway' {} a -> s {state = a} :: TransitGateway)
 
 -- | The tags for the transit gateway.
-tgTags :: Lens' TransitGateway [Tag]
-tgTags = lens _tgTags (\s a -> s {_tgTags = a}) . _Default . _Coerce
+transitGateway_tags :: Lens.Lens' TransitGateway (Prelude.Maybe [Tag])
+transitGateway_tags = Lens.lens (\TransitGateway' {tags} -> tags) (\s@TransitGateway' {} a -> s {tags = a} :: TransitGateway) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the transit gateway.
-tgDescription :: Lens' TransitGateway (Maybe Text)
-tgDescription = lens _tgDescription (\s a -> s {_tgDescription = a})
+transitGateway_description :: Lens.Lens' TransitGateway (Prelude.Maybe Prelude.Text)
+transitGateway_description = Lens.lens (\TransitGateway' {description} -> description) (\s@TransitGateway' {} a -> s {description = a} :: TransitGateway)
 
 -- | The ID of the transit gateway.
-tgTransitGatewayId :: Lens' TransitGateway (Maybe Text)
-tgTransitGatewayId = lens _tgTransitGatewayId (\s a -> s {_tgTransitGatewayId = a})
+transitGateway_transitGatewayId :: Lens.Lens' TransitGateway (Prelude.Maybe Prelude.Text)
+transitGateway_transitGatewayId = Lens.lens (\TransitGateway' {transitGatewayId} -> transitGatewayId) (\s@TransitGateway' {} a -> s {transitGatewayId = a} :: TransitGateway)
 
-instance FromXML TransitGateway where
+instance Prelude.FromXML TransitGateway where
   parseXML x =
     TransitGateway'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "creationTime")
-      <*> (x .@? "options")
-      <*> (x .@? "transitGatewayArn")
-      <*> (x .@? "state")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "description")
-      <*> (x .@? "transitGatewayId")
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "creationTime")
+      Prelude.<*> (x Prelude..@? "options")
+      Prelude.<*> (x Prelude..@? "transitGatewayArn")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "description")
+      Prelude.<*> (x Prelude..@? "transitGatewayId")
 
-instance Hashable TransitGateway
+instance Prelude.Hashable TransitGateway
 
-instance NFData TransitGateway
+instance Prelude.NFData TransitGateway

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,213 +21,257 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the resource groups to which a Capacity Reservation has been added.
---
---
+-- Lists the resource groups to which a Capacity Reservation has been
+-- added.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.GetGroupsForCapacityReservation
   ( -- * Creating a Request
-    getGroupsForCapacityReservation,
-    GetGroupsForCapacityReservation,
+    GetGroupsForCapacityReservation (..),
+    newGetGroupsForCapacityReservation,
 
     -- * Request Lenses
-    ggfcrNextToken,
-    ggfcrDryRun,
-    ggfcrMaxResults,
-    ggfcrCapacityReservationId,
+    getGroupsForCapacityReservation_nextToken,
+    getGroupsForCapacityReservation_dryRun,
+    getGroupsForCapacityReservation_maxResults,
+    getGroupsForCapacityReservation_capacityReservationId,
 
     -- * Destructuring the Response
-    getGroupsForCapacityReservationResponse,
-    GetGroupsForCapacityReservationResponse,
+    GetGroupsForCapacityReservationResponse (..),
+    newGetGroupsForCapacityReservationResponse,
 
     -- * Response Lenses
-    ggfcrrrsNextToken,
-    ggfcrrrsCapacityReservationGroups,
-    ggfcrrrsResponseStatus,
+    getGroupsForCapacityReservationResponse_nextToken,
+    getGroupsForCapacityReservationResponse_capacityReservationGroups,
+    getGroupsForCapacityReservationResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.CapacityReservationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGroupsForCapacityReservation' smart constructor.
+-- | /See:/ 'newGetGroupsForCapacityReservation' smart constructor.
 data GetGroupsForCapacityReservation = GetGroupsForCapacityReservation'
-  { _ggfcrNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ggfcrDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ggfcrMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _ggfcrCapacityReservationId ::
-      !Text
+  { -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return for the request in a single
+    -- page. The remaining results can be seen by sending another request with
+    -- the returned @nextToken@ value. This value can be between 5 and 500. If
+    -- @maxResults@ is given a larger value than 500, you receive an error.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the Capacity Reservation.
+    capacityReservationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupsForCapacityReservation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupsForCapacityReservation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggfcrNextToken' - The token to use to retrieve the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggfcrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'getGroupsForCapacityReservation_nextToken' - The token to use to retrieve the next page of results.
 --
--- * 'ggfcrMaxResults' - The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned @nextToken@ value. This value can be between 5 and 500. If @maxResults@ is given a larger value than 500, you receive an error.
+-- 'dryRun', 'getGroupsForCapacityReservation_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ggfcrCapacityReservationId' - The ID of the Capacity Reservation.
-getGroupsForCapacityReservation ::
-  -- | 'ggfcrCapacityReservationId'
-  Text ->
+-- 'maxResults', 'getGroupsForCapacityReservation_maxResults' - The maximum number of results to return for the request in a single
+-- page. The remaining results can be seen by sending another request with
+-- the returned @nextToken@ value. This value can be between 5 and 500. If
+-- @maxResults@ is given a larger value than 500, you receive an error.
+--
+-- 'capacityReservationId', 'getGroupsForCapacityReservation_capacityReservationId' - The ID of the Capacity Reservation.
+newGetGroupsForCapacityReservation ::
+  -- | 'capacityReservationId'
+  Prelude.Text ->
   GetGroupsForCapacityReservation
-getGroupsForCapacityReservation
+newGetGroupsForCapacityReservation
   pCapacityReservationId_ =
     GetGroupsForCapacityReservation'
-      { _ggfcrNextToken =
-          Nothing,
-        _ggfcrDryRun = Nothing,
-        _ggfcrMaxResults = Nothing,
-        _ggfcrCapacityReservationId =
+      { nextToken =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        capacityReservationId =
           pCapacityReservationId_
       }
 
 -- | The token to use to retrieve the next page of results.
-ggfcrNextToken :: Lens' GetGroupsForCapacityReservation (Maybe Text)
-ggfcrNextToken = lens _ggfcrNextToken (\s a -> s {_ggfcrNextToken = a})
+getGroupsForCapacityReservation_nextToken :: Lens.Lens' GetGroupsForCapacityReservation (Prelude.Maybe Prelude.Text)
+getGroupsForCapacityReservation_nextToken = Lens.lens (\GetGroupsForCapacityReservation' {nextToken} -> nextToken) (\s@GetGroupsForCapacityReservation' {} a -> s {nextToken = a} :: GetGroupsForCapacityReservation)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ggfcrDryRun :: Lens' GetGroupsForCapacityReservation (Maybe Bool)
-ggfcrDryRun = lens _ggfcrDryRun (\s a -> s {_ggfcrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+getGroupsForCapacityReservation_dryRun :: Lens.Lens' GetGroupsForCapacityReservation (Prelude.Maybe Prelude.Bool)
+getGroupsForCapacityReservation_dryRun = Lens.lens (\GetGroupsForCapacityReservation' {dryRun} -> dryRun) (\s@GetGroupsForCapacityReservation' {} a -> s {dryRun = a} :: GetGroupsForCapacityReservation)
 
--- | The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned @nextToken@ value. This value can be between 5 and 500. If @maxResults@ is given a larger value than 500, you receive an error.
-ggfcrMaxResults :: Lens' GetGroupsForCapacityReservation (Maybe Natural)
-ggfcrMaxResults = lens _ggfcrMaxResults (\s a -> s {_ggfcrMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return for the request in a single
+-- page. The remaining results can be seen by sending another request with
+-- the returned @nextToken@ value. This value can be between 5 and 500. If
+-- @maxResults@ is given a larger value than 500, you receive an error.
+getGroupsForCapacityReservation_maxResults :: Lens.Lens' GetGroupsForCapacityReservation (Prelude.Maybe Prelude.Natural)
+getGroupsForCapacityReservation_maxResults = Lens.lens (\GetGroupsForCapacityReservation' {maxResults} -> maxResults) (\s@GetGroupsForCapacityReservation' {} a -> s {maxResults = a} :: GetGroupsForCapacityReservation) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ID of the Capacity Reservation.
-ggfcrCapacityReservationId :: Lens' GetGroupsForCapacityReservation Text
-ggfcrCapacityReservationId = lens _ggfcrCapacityReservationId (\s a -> s {_ggfcrCapacityReservationId = a})
+getGroupsForCapacityReservation_capacityReservationId :: Lens.Lens' GetGroupsForCapacityReservation Prelude.Text
+getGroupsForCapacityReservation_capacityReservationId = Lens.lens (\GetGroupsForCapacityReservation' {capacityReservationId} -> capacityReservationId) (\s@GetGroupsForCapacityReservation' {} a -> s {capacityReservationId = a} :: GetGroupsForCapacityReservation)
 
-instance AWSPager GetGroupsForCapacityReservation where
+instance
+  Pager.AWSPager
+    GetGroupsForCapacityReservation
+  where
   page rq rs
-    | stop (rs ^. ggfcrrrsNextToken) = Nothing
-    | stop (rs ^. ggfcrrrsCapacityReservationGroups) =
-      Nothing
-    | otherwise =
-      Just $ rq & ggfcrNextToken .~ rs ^. ggfcrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getGroupsForCapacityReservationResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getGroupsForCapacityReservationResponse_capacityReservationGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getGroupsForCapacityReservation_nextToken
+          Lens..~ rs
+          Lens.^? getGroupsForCapacityReservationResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetGroupsForCapacityReservation where
+instance
+  Prelude.AWSRequest
+    GetGroupsForCapacityReservation
+  where
   type
     Rs GetGroupsForCapacityReservation =
       GetGroupsForCapacityReservationResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetGroupsForCapacityReservationResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "capacityReservationGroupSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "capacityReservationGroupSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGroupsForCapacityReservation
-
-instance NFData GetGroupsForCapacityReservation
-
-instance ToHeaders GetGroupsForCapacityReservation where
-  toHeaders = const mempty
-
-instance ToPath GetGroupsForCapacityReservation where
-  toPath = const "/"
-
-instance ToQuery GetGroupsForCapacityReservation where
-  toQuery GetGroupsForCapacityReservation' {..} =
-    mconcat
-      [ "Action"
-          =: ("GetGroupsForCapacityReservation" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _ggfcrNextToken,
-        "DryRun" =: _ggfcrDryRun,
-        "MaxResults" =: _ggfcrMaxResults,
-        "CapacityReservationId"
-          =: _ggfcrCapacityReservationId
-      ]
-
--- | /See:/ 'getGroupsForCapacityReservationResponse' smart constructor.
-data GetGroupsForCapacityReservationResponse = GetGroupsForCapacityReservationResponse'
-  { _ggfcrrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ggfcrrrsCapacityReservationGroups ::
-      !( Maybe
-           [CapacityReservationGroup]
-       ),
-    _ggfcrrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GetGroupsForCapacityReservationResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'ggfcrrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
---
--- * 'ggfcrrrsCapacityReservationGroups' - Information about the resource groups to which the Capacity Reservation has been added.
---
--- * 'ggfcrrrsResponseStatus' - -- | The response status code.
-getGroupsForCapacityReservationResponse ::
-  -- | 'ggfcrrrsResponseStatus'
-  Int ->
-  GetGroupsForCapacityReservationResponse
-getGroupsForCapacityReservationResponse
-  pResponseStatus_ =
-    GetGroupsForCapacityReservationResponse'
-      { _ggfcrrrsNextToken =
-          Nothing,
-        _ggfcrrrsCapacityReservationGroups =
-          Nothing,
-        _ggfcrrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-ggfcrrrsNextToken :: Lens' GetGroupsForCapacityReservationResponse (Maybe Text)
-ggfcrrrsNextToken = lens _ggfcrrrsNextToken (\s a -> s {_ggfcrrrsNextToken = a})
-
--- | Information about the resource groups to which the Capacity Reservation has been added.
-ggfcrrrsCapacityReservationGroups :: Lens' GetGroupsForCapacityReservationResponse [CapacityReservationGroup]
-ggfcrrrsCapacityReservationGroups = lens _ggfcrrrsCapacityReservationGroups (\s a -> s {_ggfcrrrsCapacityReservationGroups = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-ggfcrrrsResponseStatus :: Lens' GetGroupsForCapacityReservationResponse Int
-ggfcrrrsResponseStatus = lens _ggfcrrrsResponseStatus (\s a -> s {_ggfcrrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    GetGroupsForCapacityReservation
 
 instance
-  NFData
+  Prelude.NFData
+    GetGroupsForCapacityReservation
+
+instance
+  Prelude.ToHeaders
+    GetGroupsForCapacityReservation
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    GetGroupsForCapacityReservation
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    GetGroupsForCapacityReservation
+  where
+  toQuery GetGroupsForCapacityReservation' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "GetGroupsForCapacityReservation" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        "CapacityReservationId"
+          Prelude.=: capacityReservationId
+      ]
+
+-- | /See:/ 'newGetGroupsForCapacityReservationResponse' smart constructor.
+data GetGroupsForCapacityReservationResponse = GetGroupsForCapacityReservationResponse'
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the resource groups to which the Capacity Reservation
+    -- has been added.
+    capacityReservationGroups :: Prelude.Maybe [CapacityReservationGroup],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetGroupsForCapacityReservationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'getGroupsForCapacityReservationResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+--
+-- 'capacityReservationGroups', 'getGroupsForCapacityReservationResponse_capacityReservationGroups' - Information about the resource groups to which the Capacity Reservation
+-- has been added.
+--
+-- 'httpStatus', 'getGroupsForCapacityReservationResponse_httpStatus' - The response's http status code.
+newGetGroupsForCapacityReservationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GetGroupsForCapacityReservationResponse
+newGetGroupsForCapacityReservationResponse
+  pHttpStatus_ =
+    GetGroupsForCapacityReservationResponse'
+      { nextToken =
+          Prelude.Nothing,
+        capacityReservationGroups =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+getGroupsForCapacityReservationResponse_nextToken :: Lens.Lens' GetGroupsForCapacityReservationResponse (Prelude.Maybe Prelude.Text)
+getGroupsForCapacityReservationResponse_nextToken = Lens.lens (\GetGroupsForCapacityReservationResponse' {nextToken} -> nextToken) (\s@GetGroupsForCapacityReservationResponse' {} a -> s {nextToken = a} :: GetGroupsForCapacityReservationResponse)
+
+-- | Information about the resource groups to which the Capacity Reservation
+-- has been added.
+getGroupsForCapacityReservationResponse_capacityReservationGroups :: Lens.Lens' GetGroupsForCapacityReservationResponse (Prelude.Maybe [CapacityReservationGroup])
+getGroupsForCapacityReservationResponse_capacityReservationGroups = Lens.lens (\GetGroupsForCapacityReservationResponse' {capacityReservationGroups} -> capacityReservationGroups) (\s@GetGroupsForCapacityReservationResponse' {} a -> s {capacityReservationGroups = a} :: GetGroupsForCapacityReservationResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+getGroupsForCapacityReservationResponse_httpStatus :: Lens.Lens' GetGroupsForCapacityReservationResponse Prelude.Int
+getGroupsForCapacityReservationResponse_httpStatus = Lens.lens (\GetGroupsForCapacityReservationResponse' {httpStatus} -> httpStatus) (\s@GetGroupsForCapacityReservationResponse' {} a -> s {httpStatus = a} :: GetGroupsForCapacityReservationResponse)
+
+instance
+  Prelude.NFData
     GetGroupsForCapacityReservationResponse

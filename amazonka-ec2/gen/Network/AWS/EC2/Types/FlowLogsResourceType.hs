@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.EC2.Types.FlowLogsResourceType
   ( FlowLogsResourceType
       ( ..,
-        FLRTNetworkInterface,
-        FLRTSubnet,
-        FLRTVPC
+        FlowLogsResourceTypeNetworkInterface,
+        FlowLogsResourceTypeSubnet,
+        FlowLogsResourceTypeVPC
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FlowLogsResourceType
-  = FlowLogsResourceType'
-      ( CI
-          Text
-      )
+newtype FlowLogsResourceType = FlowLogsResourceType'
+  { fromFlowLogsResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FLRTNetworkInterface :: FlowLogsResourceType
-pattern FLRTNetworkInterface = FlowLogsResourceType' "NetworkInterface"
+pattern FlowLogsResourceTypeNetworkInterface :: FlowLogsResourceType
+pattern FlowLogsResourceTypeNetworkInterface = FlowLogsResourceType' "NetworkInterface"
 
-pattern FLRTSubnet :: FlowLogsResourceType
-pattern FLRTSubnet = FlowLogsResourceType' "Subnet"
+pattern FlowLogsResourceTypeSubnet :: FlowLogsResourceType
+pattern FlowLogsResourceTypeSubnet = FlowLogsResourceType' "Subnet"
 
-pattern FLRTVPC :: FlowLogsResourceType
-pattern FLRTVPC = FlowLogsResourceType' "VPC"
+pattern FlowLogsResourceTypeVPC :: FlowLogsResourceType
+pattern FlowLogsResourceTypeVPC = FlowLogsResourceType' "VPC"
 
 {-# COMPLETE
-  FLRTNetworkInterface,
-  FLRTSubnet,
-  FLRTVPC,
+  FlowLogsResourceTypeNetworkInterface,
+  FlowLogsResourceTypeSubnet,
+  FlowLogsResourceTypeVPC,
   FlowLogsResourceType'
   #-}
 
-instance FromText FlowLogsResourceType where
-  parser = (FlowLogsResourceType' . mk) <$> takeText
+instance Prelude.FromText FlowLogsResourceType where
+  parser = FlowLogsResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText FlowLogsResourceType where
-  toText (FlowLogsResourceType' ci) = original ci
+instance Prelude.ToText FlowLogsResourceType where
+  toText (FlowLogsResourceType' x) = x
 
-instance Hashable FlowLogsResourceType
+instance Prelude.Hashable FlowLogsResourceType
 
-instance NFData FlowLogsResourceType
+instance Prelude.NFData FlowLogsResourceType
 
-instance ToByteString FlowLogsResourceType
+instance Prelude.ToByteString FlowLogsResourceType
 
-instance ToQuery FlowLogsResourceType
+instance Prelude.ToQuery FlowLogsResourceType
 
-instance ToHeader FlowLogsResourceType
+instance Prelude.ToHeader FlowLogsResourceType

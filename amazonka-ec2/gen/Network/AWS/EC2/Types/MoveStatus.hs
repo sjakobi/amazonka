@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.MoveStatus
   ( MoveStatus
       ( ..,
-        MovingToVPC,
-        RestoringToClassic
+        MoveStatusMovingToVpc,
+        MoveStatusRestoringToClassic
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MoveStatus = MoveStatus' (CI Text)
+newtype MoveStatus = MoveStatus'
+  { fromMoveStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MovingToVPC :: MoveStatus
-pattern MovingToVPC = MoveStatus' "movingToVpc"
+pattern MoveStatusMovingToVpc :: MoveStatus
+pattern MoveStatusMovingToVpc = MoveStatus' "movingToVpc"
 
-pattern RestoringToClassic :: MoveStatus
-pattern RestoringToClassic = MoveStatus' "restoringToClassic"
+pattern MoveStatusRestoringToClassic :: MoveStatus
+pattern MoveStatusRestoringToClassic = MoveStatus' "restoringToClassic"
 
 {-# COMPLETE
-  MovingToVPC,
-  RestoringToClassic,
+  MoveStatusMovingToVpc,
+  MoveStatusRestoringToClassic,
   MoveStatus'
   #-}
 
-instance FromText MoveStatus where
-  parser = (MoveStatus' . mk) <$> takeText
+instance Prelude.FromText MoveStatus where
+  parser = MoveStatus' Prelude.<$> Prelude.takeText
 
-instance ToText MoveStatus where
-  toText (MoveStatus' ci) = original ci
+instance Prelude.ToText MoveStatus where
+  toText (MoveStatus' x) = x
 
-instance Hashable MoveStatus
+instance Prelude.Hashable MoveStatus
 
-instance NFData MoveStatus
+instance Prelude.NFData MoveStatus
 
-instance ToByteString MoveStatus
+instance Prelude.ToByteString MoveStatus
 
-instance ToQuery MoveStatus
+instance Prelude.ToQuery MoveStatus
 
-instance ToHeader MoveStatus
+instance Prelude.ToHeader MoveStatus
 
-instance FromXML MoveStatus where
-  parseXML = parseXMLText "MoveStatus"
+instance Prelude.FromXML MoveStatus where
+  parseXML = Prelude.parseXMLText "MoveStatus"

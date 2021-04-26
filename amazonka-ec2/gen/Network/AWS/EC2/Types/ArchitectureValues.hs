@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.ArchitectureValues
   ( ArchitectureValues
       ( ..,
-        AVARM64,
-        AVI386,
-        AVX86_64
+        ArchitectureValuesARM64,
+        ArchitectureValuesI386,
+        ArchitectureValuesX8664
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArchitectureValues
-  = ArchitectureValues'
-      ( CI
-          Text
-      )
+newtype ArchitectureValues = ArchitectureValues'
+  { fromArchitectureValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AVARM64 :: ArchitectureValues
-pattern AVARM64 = ArchitectureValues' "arm64"
+pattern ArchitectureValuesARM64 :: ArchitectureValues
+pattern ArchitectureValuesARM64 = ArchitectureValues' "arm64"
 
-pattern AVI386 :: ArchitectureValues
-pattern AVI386 = ArchitectureValues' "i386"
+pattern ArchitectureValuesI386 :: ArchitectureValues
+pattern ArchitectureValuesI386 = ArchitectureValues' "i386"
 
-pattern AVX86_64 :: ArchitectureValues
-pattern AVX86_64 = ArchitectureValues' "x86_64"
+pattern ArchitectureValuesX8664 :: ArchitectureValues
+pattern ArchitectureValuesX8664 = ArchitectureValues' "x86_64"
 
 {-# COMPLETE
-  AVARM64,
-  AVI386,
-  AVX86_64,
+  ArchitectureValuesARM64,
+  ArchitectureValuesI386,
+  ArchitectureValuesX8664,
   ArchitectureValues'
   #-}
 
-instance FromText ArchitectureValues where
-  parser = (ArchitectureValues' . mk) <$> takeText
+instance Prelude.FromText ArchitectureValues where
+  parser = ArchitectureValues' Prelude.<$> Prelude.takeText
 
-instance ToText ArchitectureValues where
-  toText (ArchitectureValues' ci) = original ci
+instance Prelude.ToText ArchitectureValues where
+  toText (ArchitectureValues' x) = x
 
-instance Hashable ArchitectureValues
+instance Prelude.Hashable ArchitectureValues
 
-instance NFData ArchitectureValues
+instance Prelude.NFData ArchitectureValues
 
-instance ToByteString ArchitectureValues
+instance Prelude.ToByteString ArchitectureValues
 
-instance ToQuery ArchitectureValues
+instance Prelude.ToQuery ArchitectureValues
 
-instance ToHeader ArchitectureValues
+instance Prelude.ToHeader ArchitectureValues
 
-instance FromXML ArchitectureValues where
-  parseXML = parseXMLText "ArchitectureValues"
+instance Prelude.FromXML ArchitectureValues where
+  parseXML = Prelude.parseXMLText "ArchitectureValues"

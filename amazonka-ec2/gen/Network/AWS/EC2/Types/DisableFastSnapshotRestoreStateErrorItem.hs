@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,62 @@ module Network.AWS.EC2.Types.DisableFastSnapshotRestoreStateErrorItem where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DisableFastSnapshotRestoreStateError
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an error that occurred when disabling fast snapshot restores.
+-- | Contains information about an error that occurred when disabling fast
+-- snapshot restores.
 --
---
---
--- /See:/ 'disableFastSnapshotRestoreStateErrorItem' smart constructor.
+-- /See:/ 'newDisableFastSnapshotRestoreStateErrorItem' smart constructor.
 data DisableFastSnapshotRestoreStateErrorItem = DisableFastSnapshotRestoreStateErrorItem'
-  { _dfsrseiAvailabilityZone ::
-      !( Maybe
-           Text
-       ),
-    _dfsrseiError ::
-      !( Maybe
-           DisableFastSnapshotRestoreStateError
-       )
+  { -- | The Availability Zone.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The error.
+    error :: Prelude.Maybe DisableFastSnapshotRestoreStateError
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableFastSnapshotRestoreStateErrorItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableFastSnapshotRestoreStateErrorItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsrseiAvailabilityZone' - The Availability Zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsrseiError' - The error.
-disableFastSnapshotRestoreStateErrorItem ::
+-- 'availabilityZone', 'disableFastSnapshotRestoreStateErrorItem_availabilityZone' - The Availability Zone.
+--
+-- 'error', 'disableFastSnapshotRestoreStateErrorItem_error' - The error.
+newDisableFastSnapshotRestoreStateErrorItem ::
   DisableFastSnapshotRestoreStateErrorItem
-disableFastSnapshotRestoreStateErrorItem =
+newDisableFastSnapshotRestoreStateErrorItem =
   DisableFastSnapshotRestoreStateErrorItem'
-    { _dfsrseiAvailabilityZone =
-        Nothing,
-      _dfsrseiError = Nothing
+    { availabilityZone =
+        Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | The Availability Zone.
-dfsrseiAvailabilityZone :: Lens' DisableFastSnapshotRestoreStateErrorItem (Maybe Text)
-dfsrseiAvailabilityZone = lens _dfsrseiAvailabilityZone (\s a -> s {_dfsrseiAvailabilityZone = a})
+disableFastSnapshotRestoreStateErrorItem_availabilityZone :: Lens.Lens' DisableFastSnapshotRestoreStateErrorItem (Prelude.Maybe Prelude.Text)
+disableFastSnapshotRestoreStateErrorItem_availabilityZone = Lens.lens (\DisableFastSnapshotRestoreStateErrorItem' {availabilityZone} -> availabilityZone) (\s@DisableFastSnapshotRestoreStateErrorItem' {} a -> s {availabilityZone = a} :: DisableFastSnapshotRestoreStateErrorItem)
 
 -- | The error.
-dfsrseiError :: Lens' DisableFastSnapshotRestoreStateErrorItem (Maybe DisableFastSnapshotRestoreStateError)
-dfsrseiError = lens _dfsrseiError (\s a -> s {_dfsrseiError = a})
+disableFastSnapshotRestoreStateErrorItem_error :: Lens.Lens' DisableFastSnapshotRestoreStateErrorItem (Prelude.Maybe DisableFastSnapshotRestoreStateError)
+disableFastSnapshotRestoreStateErrorItem_error = Lens.lens (\DisableFastSnapshotRestoreStateErrorItem' {error} -> error) (\s@DisableFastSnapshotRestoreStateErrorItem' {} a -> s {error = a} :: DisableFastSnapshotRestoreStateErrorItem)
 
 instance
-  FromXML
+  Prelude.FromXML
     DisableFastSnapshotRestoreStateErrorItem
   where
   parseXML x =
     DisableFastSnapshotRestoreStateErrorItem'
-      <$> (x .@? "availabilityZone") <*> (x .@? "error")
+      Prelude.<$> (x Prelude..@? "availabilityZone")
+        Prelude.<*> (x Prelude..@? "error")
 
 instance
-  Hashable
+  Prelude.Hashable
     DisableFastSnapshotRestoreStateErrorItem
 
 instance
-  NFData
+  Prelude.NFData
     DisableFastSnapshotRestoreStateErrorItem

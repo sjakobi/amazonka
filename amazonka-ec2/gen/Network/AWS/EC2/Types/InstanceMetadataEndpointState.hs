@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.InstanceMetadataEndpointState
   ( InstanceMetadataEndpointState
       ( ..,
-        IMESDisabled,
-        IMESEnabled
+        InstanceMetadataEndpointStateDisabled,
+        InstanceMetadataEndpointStateEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceMetadataEndpointState
-  = InstanceMetadataEndpointState'
-      ( CI
-          Text
-      )
+newtype InstanceMetadataEndpointState = InstanceMetadataEndpointState'
+  { fromInstanceMetadataEndpointState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IMESDisabled :: InstanceMetadataEndpointState
-pattern IMESDisabled = InstanceMetadataEndpointState' "disabled"
+pattern InstanceMetadataEndpointStateDisabled :: InstanceMetadataEndpointState
+pattern InstanceMetadataEndpointStateDisabled = InstanceMetadataEndpointState' "disabled"
 
-pattern IMESEnabled :: InstanceMetadataEndpointState
-pattern IMESEnabled = InstanceMetadataEndpointState' "enabled"
+pattern InstanceMetadataEndpointStateEnabled :: InstanceMetadataEndpointState
+pattern InstanceMetadataEndpointStateEnabled = InstanceMetadataEndpointState' "enabled"
 
 {-# COMPLETE
-  IMESDisabled,
-  IMESEnabled,
+  InstanceMetadataEndpointStateDisabled,
+  InstanceMetadataEndpointStateEnabled,
   InstanceMetadataEndpointState'
   #-}
 
-instance FromText InstanceMetadataEndpointState where
-  parser = (InstanceMetadataEndpointState' . mk) <$> takeText
+instance Prelude.FromText InstanceMetadataEndpointState where
+  parser = InstanceMetadataEndpointState' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceMetadataEndpointState where
-  toText (InstanceMetadataEndpointState' ci) = original ci
+instance Prelude.ToText InstanceMetadataEndpointState where
+  toText (InstanceMetadataEndpointState' x) = x
 
-instance Hashable InstanceMetadataEndpointState
+instance Prelude.Hashable InstanceMetadataEndpointState
 
-instance NFData InstanceMetadataEndpointState
+instance Prelude.NFData InstanceMetadataEndpointState
 
-instance ToByteString InstanceMetadataEndpointState
+instance Prelude.ToByteString InstanceMetadataEndpointState
 
-instance ToQuery InstanceMetadataEndpointState
+instance Prelude.ToQuery InstanceMetadataEndpointState
 
-instance ToHeader InstanceMetadataEndpointState
+instance Prelude.ToHeader InstanceMetadataEndpointState
 
-instance FromXML InstanceMetadataEndpointState where
-  parseXML = parseXMLText "InstanceMetadataEndpointState"
+instance Prelude.FromXML InstanceMetadataEndpointState where
+  parseXML = Prelude.parseXMLText "InstanceMetadataEndpointState"

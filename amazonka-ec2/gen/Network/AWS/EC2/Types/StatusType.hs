@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.EC2.Types.StatusType
   ( StatusType
       ( ..,
-        STFailed,
-        STInitializing,
-        STInsufficientData,
-        STPassed
+        StatusTypeFailed,
+        StatusTypeInitializing,
+        StatusTypeInsufficientData,
+        StatusTypePassed
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StatusType = StatusType' (CI Text)
+newtype StatusType = StatusType'
+  { fromStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STFailed :: StatusType
-pattern STFailed = StatusType' "failed"
+pattern StatusTypeFailed :: StatusType
+pattern StatusTypeFailed = StatusType' "failed"
 
-pattern STInitializing :: StatusType
-pattern STInitializing = StatusType' "initializing"
+pattern StatusTypeInitializing :: StatusType
+pattern StatusTypeInitializing = StatusType' "initializing"
 
-pattern STInsufficientData :: StatusType
-pattern STInsufficientData = StatusType' "insufficient-data"
+pattern StatusTypeInsufficientData :: StatusType
+pattern StatusTypeInsufficientData = StatusType' "insufficient-data"
 
-pattern STPassed :: StatusType
-pattern STPassed = StatusType' "passed"
+pattern StatusTypePassed :: StatusType
+pattern StatusTypePassed = StatusType' "passed"
 
 {-# COMPLETE
-  STFailed,
-  STInitializing,
-  STInsufficientData,
-  STPassed,
+  StatusTypeFailed,
+  StatusTypeInitializing,
+  StatusTypeInsufficientData,
+  StatusTypePassed,
   StatusType'
   #-}
 
-instance FromText StatusType where
-  parser = (StatusType' . mk) <$> takeText
+instance Prelude.FromText StatusType where
+  parser = StatusType' Prelude.<$> Prelude.takeText
 
-instance ToText StatusType where
-  toText (StatusType' ci) = original ci
+instance Prelude.ToText StatusType where
+  toText (StatusType' x) = x
 
-instance Hashable StatusType
+instance Prelude.Hashable StatusType
 
-instance NFData StatusType
+instance Prelude.NFData StatusType
 
-instance ToByteString StatusType
+instance Prelude.ToByteString StatusType
 
-instance ToQuery StatusType
+instance Prelude.ToQuery StatusType
 
-instance ToHeader StatusType
+instance Prelude.ToHeader StatusType
 
-instance FromXML StatusType where
-  parseXML = parseXMLText "StatusType"
+instance Prelude.FromXML StatusType where
+  parseXML = Prelude.parseXMLText "StatusType"

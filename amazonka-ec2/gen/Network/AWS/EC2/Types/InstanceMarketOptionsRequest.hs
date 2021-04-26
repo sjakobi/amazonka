@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,64 +22,57 @@ module Network.AWS.EC2.Types.InstanceMarketOptionsRequest where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.MarketType
 import Network.AWS.EC2.Types.SpotMarketOptions
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the market (purchasing) option for the instances.
 --
---
---
--- /See:/ 'instanceMarketOptionsRequest' smart constructor.
+-- /See:/ 'newInstanceMarketOptionsRequest' smart constructor.
 data InstanceMarketOptionsRequest = InstanceMarketOptionsRequest'
-  { _imorMarketType ::
-      !( Maybe
-           MarketType
-       ),
-    _imorSpotOptions ::
-      !( Maybe
-           SpotMarketOptions
-       )
+  { -- | The market type.
+    marketType :: Prelude.Maybe MarketType,
+    -- | The options for Spot Instances.
+    spotOptions :: Prelude.Maybe SpotMarketOptions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceMarketOptionsRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceMarketOptionsRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'imorMarketType' - The market type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'imorSpotOptions' - The options for Spot Instances.
-instanceMarketOptionsRequest ::
+-- 'marketType', 'instanceMarketOptionsRequest_marketType' - The market type.
+--
+-- 'spotOptions', 'instanceMarketOptionsRequest_spotOptions' - The options for Spot Instances.
+newInstanceMarketOptionsRequest ::
   InstanceMarketOptionsRequest
-instanceMarketOptionsRequest =
+newInstanceMarketOptionsRequest =
   InstanceMarketOptionsRequest'
-    { _imorMarketType =
-        Nothing,
-      _imorSpotOptions = Nothing
+    { marketType =
+        Prelude.Nothing,
+      spotOptions = Prelude.Nothing
     }
 
 -- | The market type.
-imorMarketType :: Lens' InstanceMarketOptionsRequest (Maybe MarketType)
-imorMarketType = lens _imorMarketType (\s a -> s {_imorMarketType = a})
+instanceMarketOptionsRequest_marketType :: Lens.Lens' InstanceMarketOptionsRequest (Prelude.Maybe MarketType)
+instanceMarketOptionsRequest_marketType = Lens.lens (\InstanceMarketOptionsRequest' {marketType} -> marketType) (\s@InstanceMarketOptionsRequest' {} a -> s {marketType = a} :: InstanceMarketOptionsRequest)
 
 -- | The options for Spot Instances.
-imorSpotOptions :: Lens' InstanceMarketOptionsRequest (Maybe SpotMarketOptions)
-imorSpotOptions = lens _imorSpotOptions (\s a -> s {_imorSpotOptions = a})
+instanceMarketOptionsRequest_spotOptions :: Lens.Lens' InstanceMarketOptionsRequest (Prelude.Maybe SpotMarketOptions)
+instanceMarketOptionsRequest_spotOptions = Lens.lens (\InstanceMarketOptionsRequest' {spotOptions} -> spotOptions) (\s@InstanceMarketOptionsRequest' {} a -> s {spotOptions = a} :: InstanceMarketOptionsRequest)
 
-instance Hashable InstanceMarketOptionsRequest
+instance
+  Prelude.Hashable
+    InstanceMarketOptionsRequest
 
-instance NFData InstanceMarketOptionsRequest
+instance Prelude.NFData InstanceMarketOptionsRequest
 
-instance ToQuery InstanceMarketOptionsRequest where
+instance Prelude.ToQuery InstanceMarketOptionsRequest where
   toQuery InstanceMarketOptionsRequest' {..} =
-    mconcat
-      [ "MarketType" =: _imorMarketType,
-        "SpotOptions" =: _imorSpotOptions
+    Prelude.mconcat
+      [ "MarketType" Prelude.=: marketType,
+        "SpotOptions" Prelude.=: spotOptions
       ]

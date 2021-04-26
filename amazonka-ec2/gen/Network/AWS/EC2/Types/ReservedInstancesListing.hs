@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,151 +24,151 @@ import Network.AWS.EC2.Types.InstanceCount
 import Network.AWS.EC2.Types.ListingStatus
 import Network.AWS.EC2.Types.PriceSchedule
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Reserved Instance listing.
 --
---
---
--- /See:/ 'reservedInstancesListing' smart constructor.
+-- /See:/ 'newReservedInstancesListing' smart constructor.
 data ReservedInstancesListing = ReservedInstancesListing'
-  { _rilStatusMessage ::
-      !(Maybe Text),
-    _rilStatus ::
-      !( Maybe
-           ListingStatus
-       ),
-    _rilPriceSchedules ::
-      !( Maybe
-           [PriceSchedule]
-       ),
-    _rilReservedInstancesId ::
-      !(Maybe Text),
-    _rilCreateDate ::
-      !(Maybe ISO8601),
-    _rilTags ::
-      !(Maybe [Tag]),
-    _rilInstanceCounts ::
-      !( Maybe
-           [InstanceCount]
-       ),
-    _rilReservedInstancesListingId ::
-      !(Maybe Text),
-    _rilUpdateDate ::
-      !(Maybe ISO8601),
-    _rilClientToken ::
-      !(Maybe Text)
+  { -- | The reason for the current status of the Reserved Instance listing. The
+    -- response can be blank.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status of the Reserved Instance listing.
+    status :: Prelude.Maybe ListingStatus,
+    -- | The price of the Reserved Instance listing.
+    priceSchedules :: Prelude.Maybe [PriceSchedule],
+    -- | The ID of the Reserved Instance.
+    reservedInstancesId :: Prelude.Maybe Prelude.Text,
+    -- | The time the listing was created.
+    createDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | Any tags assigned to the resource.
+    tags :: Prelude.Maybe [Tag],
+    -- | The number of instances in this state.
+    instanceCounts :: Prelude.Maybe [InstanceCount],
+    -- | The ID of the Reserved Instance listing.
+    reservedInstancesListingId :: Prelude.Maybe Prelude.Text,
+    -- | The last modified timestamp of the listing.
+    updateDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | A unique, case-sensitive key supplied by the client to ensure that the
+    -- request is idempotent. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedInstancesListing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedInstancesListing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rilStatusMessage' - The reason for the current status of the Reserved Instance listing. The response can be blank.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rilStatus' - The status of the Reserved Instance listing.
+-- 'statusMessage', 'reservedInstancesListing_statusMessage' - The reason for the current status of the Reserved Instance listing. The
+-- response can be blank.
 --
--- * 'rilPriceSchedules' - The price of the Reserved Instance listing.
+-- 'status', 'reservedInstancesListing_status' - The status of the Reserved Instance listing.
 --
--- * 'rilReservedInstancesId' - The ID of the Reserved Instance.
+-- 'priceSchedules', 'reservedInstancesListing_priceSchedules' - The price of the Reserved Instance listing.
 --
--- * 'rilCreateDate' - The time the listing was created.
+-- 'reservedInstancesId', 'reservedInstancesListing_reservedInstancesId' - The ID of the Reserved Instance.
 --
--- * 'rilTags' - Any tags assigned to the resource.
+-- 'createDate', 'reservedInstancesListing_createDate' - The time the listing was created.
 --
--- * 'rilInstanceCounts' - The number of instances in this state.
+-- 'tags', 'reservedInstancesListing_tags' - Any tags assigned to the resource.
 --
--- * 'rilReservedInstancesListingId' - The ID of the Reserved Instance listing.
+-- 'instanceCounts', 'reservedInstancesListing_instanceCounts' - The number of instances in this state.
 --
--- * 'rilUpdateDate' - The last modified timestamp of the listing.
+-- 'reservedInstancesListingId', 'reservedInstancesListing_reservedInstancesListingId' - The ID of the Reserved Instance listing.
 --
--- * 'rilClientToken' - A unique, case-sensitive key supplied by the client to ensure that the request is idempotent. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-reservedInstancesListing ::
+-- 'updateDate', 'reservedInstancesListing_updateDate' - The last modified timestamp of the listing.
+--
+-- 'clientToken', 'reservedInstancesListing_clientToken' - A unique, case-sensitive key supplied by the client to ensure that the
+-- request is idempotent. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+newReservedInstancesListing ::
   ReservedInstancesListing
-reservedInstancesListing =
+newReservedInstancesListing =
   ReservedInstancesListing'
-    { _rilStatusMessage =
-        Nothing,
-      _rilStatus = Nothing,
-      _rilPriceSchedules = Nothing,
-      _rilReservedInstancesId = Nothing,
-      _rilCreateDate = Nothing,
-      _rilTags = Nothing,
-      _rilInstanceCounts = Nothing,
-      _rilReservedInstancesListingId = Nothing,
-      _rilUpdateDate = Nothing,
-      _rilClientToken = Nothing
+    { statusMessage =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      priceSchedules = Prelude.Nothing,
+      reservedInstancesId = Prelude.Nothing,
+      createDate = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      instanceCounts = Prelude.Nothing,
+      reservedInstancesListingId = Prelude.Nothing,
+      updateDate = Prelude.Nothing,
+      clientToken = Prelude.Nothing
     }
 
--- | The reason for the current status of the Reserved Instance listing. The response can be blank.
-rilStatusMessage :: Lens' ReservedInstancesListing (Maybe Text)
-rilStatusMessage = lens _rilStatusMessage (\s a -> s {_rilStatusMessage = a})
+-- | The reason for the current status of the Reserved Instance listing. The
+-- response can be blank.
+reservedInstancesListing_statusMessage :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe Prelude.Text)
+reservedInstancesListing_statusMessage = Lens.lens (\ReservedInstancesListing' {statusMessage} -> statusMessage) (\s@ReservedInstancesListing' {} a -> s {statusMessage = a} :: ReservedInstancesListing)
 
 -- | The status of the Reserved Instance listing.
-rilStatus :: Lens' ReservedInstancesListing (Maybe ListingStatus)
-rilStatus = lens _rilStatus (\s a -> s {_rilStatus = a})
+reservedInstancesListing_status :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe ListingStatus)
+reservedInstancesListing_status = Lens.lens (\ReservedInstancesListing' {status} -> status) (\s@ReservedInstancesListing' {} a -> s {status = a} :: ReservedInstancesListing)
 
 -- | The price of the Reserved Instance listing.
-rilPriceSchedules :: Lens' ReservedInstancesListing [PriceSchedule]
-rilPriceSchedules = lens _rilPriceSchedules (\s a -> s {_rilPriceSchedules = a}) . _Default . _Coerce
+reservedInstancesListing_priceSchedules :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe [PriceSchedule])
+reservedInstancesListing_priceSchedules = Lens.lens (\ReservedInstancesListing' {priceSchedules} -> priceSchedules) (\s@ReservedInstancesListing' {} a -> s {priceSchedules = a} :: ReservedInstancesListing) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the Reserved Instance.
-rilReservedInstancesId :: Lens' ReservedInstancesListing (Maybe Text)
-rilReservedInstancesId = lens _rilReservedInstancesId (\s a -> s {_rilReservedInstancesId = a})
+reservedInstancesListing_reservedInstancesId :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe Prelude.Text)
+reservedInstancesListing_reservedInstancesId = Lens.lens (\ReservedInstancesListing' {reservedInstancesId} -> reservedInstancesId) (\s@ReservedInstancesListing' {} a -> s {reservedInstancesId = a} :: ReservedInstancesListing)
 
 -- | The time the listing was created.
-rilCreateDate :: Lens' ReservedInstancesListing (Maybe UTCTime)
-rilCreateDate = lens _rilCreateDate (\s a -> s {_rilCreateDate = a}) . mapping _Time
+reservedInstancesListing_createDate :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe Prelude.UTCTime)
+reservedInstancesListing_createDate = Lens.lens (\ReservedInstancesListing' {createDate} -> createDate) (\s@ReservedInstancesListing' {} a -> s {createDate = a} :: ReservedInstancesListing) Prelude.. Lens.mapping Prelude._Time
 
 -- | Any tags assigned to the resource.
-rilTags :: Lens' ReservedInstancesListing [Tag]
-rilTags = lens _rilTags (\s a -> s {_rilTags = a}) . _Default . _Coerce
+reservedInstancesListing_tags :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe [Tag])
+reservedInstancesListing_tags = Lens.lens (\ReservedInstancesListing' {tags} -> tags) (\s@ReservedInstancesListing' {} a -> s {tags = a} :: ReservedInstancesListing) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of instances in this state.
-rilInstanceCounts :: Lens' ReservedInstancesListing [InstanceCount]
-rilInstanceCounts = lens _rilInstanceCounts (\s a -> s {_rilInstanceCounts = a}) . _Default . _Coerce
+reservedInstancesListing_instanceCounts :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe [InstanceCount])
+reservedInstancesListing_instanceCounts = Lens.lens (\ReservedInstancesListing' {instanceCounts} -> instanceCounts) (\s@ReservedInstancesListing' {} a -> s {instanceCounts = a} :: ReservedInstancesListing) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the Reserved Instance listing.
-rilReservedInstancesListingId :: Lens' ReservedInstancesListing (Maybe Text)
-rilReservedInstancesListingId = lens _rilReservedInstancesListingId (\s a -> s {_rilReservedInstancesListingId = a})
+reservedInstancesListing_reservedInstancesListingId :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe Prelude.Text)
+reservedInstancesListing_reservedInstancesListingId = Lens.lens (\ReservedInstancesListing' {reservedInstancesListingId} -> reservedInstancesListingId) (\s@ReservedInstancesListing' {} a -> s {reservedInstancesListingId = a} :: ReservedInstancesListing)
 
 -- | The last modified timestamp of the listing.
-rilUpdateDate :: Lens' ReservedInstancesListing (Maybe UTCTime)
-rilUpdateDate = lens _rilUpdateDate (\s a -> s {_rilUpdateDate = a}) . mapping _Time
+reservedInstancesListing_updateDate :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe Prelude.UTCTime)
+reservedInstancesListing_updateDate = Lens.lens (\ReservedInstancesListing' {updateDate} -> updateDate) (\s@ReservedInstancesListing' {} a -> s {updateDate = a} :: ReservedInstancesListing) Prelude.. Lens.mapping Prelude._Time
 
--- | A unique, case-sensitive key supplied by the client to ensure that the request is idempotent. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-rilClientToken :: Lens' ReservedInstancesListing (Maybe Text)
-rilClientToken = lens _rilClientToken (\s a -> s {_rilClientToken = a})
+-- | A unique, case-sensitive key supplied by the client to ensure that the
+-- request is idempotent. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+reservedInstancesListing_clientToken :: Lens.Lens' ReservedInstancesListing (Prelude.Maybe Prelude.Text)
+reservedInstancesListing_clientToken = Lens.lens (\ReservedInstancesListing' {clientToken} -> clientToken) (\s@ReservedInstancesListing' {} a -> s {clientToken = a} :: ReservedInstancesListing)
 
-instance FromXML ReservedInstancesListing where
+instance Prelude.FromXML ReservedInstancesListing where
   parseXML x =
     ReservedInstancesListing'
-      <$> (x .@? "statusMessage")
-      <*> (x .@? "status")
-      <*> ( x .@? "priceSchedules" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "reservedInstancesId")
-      <*> (x .@? "createDate")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "instanceCounts" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "reservedInstancesListingId")
-      <*> (x .@? "updateDate")
-      <*> (x .@? "clientToken")
+      Prelude.<$> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> ( x Prelude..@? "priceSchedules"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "reservedInstancesId")
+      Prelude.<*> (x Prelude..@? "createDate")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "instanceCounts"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "reservedInstancesListingId")
+      Prelude.<*> (x Prelude..@? "updateDate")
+      Prelude.<*> (x Prelude..@? "clientToken")
 
-instance Hashable ReservedInstancesListing
+instance Prelude.Hashable ReservedInstancesListing
 
-instance NFData ReservedInstancesListing
+instance Prelude.NFData ReservedInstancesListing

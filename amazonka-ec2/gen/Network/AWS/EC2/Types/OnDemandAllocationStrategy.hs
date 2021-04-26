@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.OnDemandAllocationStrategy
   ( OnDemandAllocationStrategy
       ( ..,
-        LowestPrice,
-        Prioritized
+        OnDemandAllocationStrategyLowestPrice,
+        OnDemandAllocationStrategyPrioritized
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OnDemandAllocationStrategy
-  = OnDemandAllocationStrategy'
-      ( CI
-          Text
-      )
+newtype OnDemandAllocationStrategy = OnDemandAllocationStrategy'
+  { fromOnDemandAllocationStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LowestPrice :: OnDemandAllocationStrategy
-pattern LowestPrice = OnDemandAllocationStrategy' "lowestPrice"
+pattern OnDemandAllocationStrategyLowestPrice :: OnDemandAllocationStrategy
+pattern OnDemandAllocationStrategyLowestPrice = OnDemandAllocationStrategy' "lowestPrice"
 
-pattern Prioritized :: OnDemandAllocationStrategy
-pattern Prioritized = OnDemandAllocationStrategy' "prioritized"
+pattern OnDemandAllocationStrategyPrioritized :: OnDemandAllocationStrategy
+pattern OnDemandAllocationStrategyPrioritized = OnDemandAllocationStrategy' "prioritized"
 
 {-# COMPLETE
-  LowestPrice,
-  Prioritized,
+  OnDemandAllocationStrategyLowestPrice,
+  OnDemandAllocationStrategyPrioritized,
   OnDemandAllocationStrategy'
   #-}
 
-instance FromText OnDemandAllocationStrategy where
-  parser = (OnDemandAllocationStrategy' . mk) <$> takeText
+instance Prelude.FromText OnDemandAllocationStrategy where
+  parser = OnDemandAllocationStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText OnDemandAllocationStrategy where
-  toText (OnDemandAllocationStrategy' ci) = original ci
+instance Prelude.ToText OnDemandAllocationStrategy where
+  toText (OnDemandAllocationStrategy' x) = x
 
-instance Hashable OnDemandAllocationStrategy
+instance Prelude.Hashable OnDemandAllocationStrategy
 
-instance NFData OnDemandAllocationStrategy
+instance Prelude.NFData OnDemandAllocationStrategy
 
-instance ToByteString OnDemandAllocationStrategy
+instance Prelude.ToByteString OnDemandAllocationStrategy
 
-instance ToQuery OnDemandAllocationStrategy
+instance Prelude.ToQuery OnDemandAllocationStrategy
 
-instance ToHeader OnDemandAllocationStrategy
+instance Prelude.ToHeader OnDemandAllocationStrategy
 
-instance FromXML OnDemandAllocationStrategy where
-  parseXML = parseXMLText "OnDemandAllocationStrategy"
+instance Prelude.FromXML OnDemandAllocationStrategy where
+  parseXML = Prelude.parseXMLText "OnDemandAllocationStrategy"

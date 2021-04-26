@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.EC2.Types.OperationType
   ( OperationType
       ( ..,
-        Add,
-        Remove
+        OperationTypeAdd,
+        OperationTypeRemove
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationType = OperationType' (CI Text)
+newtype OperationType = OperationType'
+  { fromOperationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Add :: OperationType
-pattern Add = OperationType' "add"
+pattern OperationTypeAdd :: OperationType
+pattern OperationTypeAdd = OperationType' "add"
 
-pattern Remove :: OperationType
-pattern Remove = OperationType' "remove"
+pattern OperationTypeRemove :: OperationType
+pattern OperationTypeRemove = OperationType' "remove"
 
 {-# COMPLETE
-  Add,
-  Remove,
+  OperationTypeAdd,
+  OperationTypeRemove,
   OperationType'
   #-}
 
-instance FromText OperationType where
-  parser = (OperationType' . mk) <$> takeText
+instance Prelude.FromText OperationType where
+  parser = OperationType' Prelude.<$> Prelude.takeText
 
-instance ToText OperationType where
-  toText (OperationType' ci) = original ci
+instance Prelude.ToText OperationType where
+  toText (OperationType' x) = x
 
-instance Hashable OperationType
+instance Prelude.Hashable OperationType
 
-instance NFData OperationType
+instance Prelude.NFData OperationType
 
-instance ToByteString OperationType
+instance Prelude.ToByteString OperationType
 
-instance ToQuery OperationType
+instance Prelude.ToQuery OperationType
 
-instance ToHeader OperationType
+instance Prelude.ToHeader OperationType

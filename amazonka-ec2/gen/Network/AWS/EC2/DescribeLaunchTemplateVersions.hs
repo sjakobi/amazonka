@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,278 +21,418 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more versions of a specified launch template. You can describe all versions, individual versions, or a range of versions. You can also describe all the latest versions or all the default versions of all the launch templates in your account.
---
---
+-- Describes one or more versions of a specified launch template. You can
+-- describe all versions, individual versions, or a range of versions. You
+-- can also describe all the latest versions or all the default versions of
+-- all the launch templates in your account.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeLaunchTemplateVersions
   ( -- * Creating a Request
-    describeLaunchTemplateVersions,
-    DescribeLaunchTemplateVersions,
+    DescribeLaunchTemplateVersions (..),
+    newDescribeLaunchTemplateVersions,
 
     -- * Request Lenses
-    dltvNextToken,
-    dltvVersions,
-    dltvDryRun,
-    dltvMaxResults,
-    dltvMinVersion,
-    dltvLaunchTemplateId,
-    dltvLaunchTemplateName,
-    dltvMaxVersion,
-    dltvFilters,
+    describeLaunchTemplateVersions_nextToken,
+    describeLaunchTemplateVersions_versions,
+    describeLaunchTemplateVersions_dryRun,
+    describeLaunchTemplateVersions_maxResults,
+    describeLaunchTemplateVersions_minVersion,
+    describeLaunchTemplateVersions_launchTemplateId,
+    describeLaunchTemplateVersions_launchTemplateName,
+    describeLaunchTemplateVersions_maxVersion,
+    describeLaunchTemplateVersions_filters,
 
     -- * Destructuring the Response
-    describeLaunchTemplateVersionsResponse,
-    DescribeLaunchTemplateVersionsResponse,
+    DescribeLaunchTemplateVersionsResponse (..),
+    newDescribeLaunchTemplateVersionsResponse,
 
     -- * Response Lenses
-    dltvrlrsNextToken,
-    dltvrlrsLaunchTemplateVersions,
-    dltvrlrsResponseStatus,
+    describeLaunchTemplateVersionsResponse_nextToken,
+    describeLaunchTemplateVersionsResponse_launchTemplateVersions,
+    describeLaunchTemplateVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.LaunchTemplateVersion
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLaunchTemplateVersions' smart constructor.
+-- | /See:/ 'newDescribeLaunchTemplateVersions' smart constructor.
 data DescribeLaunchTemplateVersions = DescribeLaunchTemplateVersions'
-  { _dltvNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dltvVersions ::
-      !( Maybe
-           [Text]
-       ),
-    _dltvDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dltvMaxResults ::
-      !( Maybe
-           Int
-       ),
-    _dltvMinVersion ::
-      !( Maybe
-           Text
-       ),
-    _dltvLaunchTemplateId ::
-      !( Maybe
-           Text
-       ),
-    _dltvLaunchTemplateName ::
-      !( Maybe
-           Text
-       ),
-    _dltvMaxVersion ::
-      !( Maybe
-           Text
-       ),
-    _dltvFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more versions of the launch template. Valid values depend on
+    -- whether you are describing a specified launch template (by ID or name)
+    -- or all launch templates in your account.
+    --
+    -- To describe one or more versions of a specified launch template, valid
+    -- values are @$Latest@, @$Default@, and numbers.
+    --
+    -- To describe all launch templates in your account that are defined as the
+    -- latest version, the valid value is @$Latest@. To describe all launch
+    -- templates in your account that are defined as the default version, the
+    -- valid value is @$Default@. You can specify @$Latest@ and @$Default@ in
+    -- the same call. You cannot specify numbers.
+    versions :: Prelude.Maybe [Prelude.Text],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return in a single call. To retrieve
+    -- the remaining results, make another call with the returned @NextToken@
+    -- value. This value can be between 1 and 200.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The version number after which to describe launch template versions.
+    minVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the launch template. To describe one or more versions of a
+    -- specified launch template, you must specify either the launch template
+    -- ID or the launch template name in the request. To describe all the
+    -- latest or default launch template versions in your account, you must
+    -- omit this parameter.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template. To describe one or more versions of a
+    -- specified launch template, you must specify either the launch template
+    -- ID or the launch template name in the request. To describe all the
+    -- latest or default launch template versions in your account, you must
+    -- omit this parameter.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | The version number up to which to describe launch template versions.
+    maxVersion :: Prelude.Maybe Prelude.Text,
+    -- | One or more filters.
+    --
+    -- -   @create-time@ - The time the launch template version was created.
+    --
+    -- -   @ebs-optimized@ - A boolean that indicates whether the instance is
+    --     optimized for Amazon EBS I\/O.
+    --
+    -- -   @iam-instance-profile@ - The ARN of the IAM instance profile.
+    --
+    -- -   @image-id@ - The ID of the AMI.
+    --
+    -- -   @instance-type@ - The instance type.
+    --
+    -- -   @is-default-version@ - A boolean that indicates whether the launch
+    --     template version is the default version.
+    --
+    -- -   @kernel-id@ - The kernel ID.
+    --
+    -- -   @ram-disk-id@ - The RAM disk ID.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLaunchTemplateVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLaunchTemplateVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dltvNextToken' - The token to request the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dltvVersions' - One or more versions of the launch template. Valid values depend on whether you are describing a specified launch template (by ID or name) or all launch templates in your account. To describe one or more versions of a specified launch template, valid values are @> Latest@ , @> Default@ , and numbers. To describe all launch templates in your account that are defined as the latest version, the valid value is @> Latest@ . To describe all launch templates in your account that are defined as the default version, the valid value is @> Default@ . You can specify @> Latest@ and @> Default@ in the same call. You cannot specify numbers.
+-- 'nextToken', 'describeLaunchTemplateVersions_nextToken' - The token to request the next page of results.
 --
--- * 'dltvDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'versions', 'describeLaunchTemplateVersions_versions' - One or more versions of the launch template. Valid values depend on
+-- whether you are describing a specified launch template (by ID or name)
+-- or all launch templates in your account.
 --
--- * 'dltvMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value. This value can be between 1 and 200.
+-- To describe one or more versions of a specified launch template, valid
+-- values are @$Latest@, @$Default@, and numbers.
 --
--- * 'dltvMinVersion' - The version number after which to describe launch template versions.
+-- To describe all launch templates in your account that are defined as the
+-- latest version, the valid value is @$Latest@. To describe all launch
+-- templates in your account that are defined as the default version, the
+-- valid value is @$Default@. You can specify @$Latest@ and @$Default@ in
+-- the same call. You cannot specify numbers.
 --
--- * 'dltvLaunchTemplateId' - The ID of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
+-- 'dryRun', 'describeLaunchTemplateVersions_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dltvLaunchTemplateName' - The name of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
+-- 'maxResults', 'describeLaunchTemplateVersions_maxResults' - The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned @NextToken@
+-- value. This value can be between 1 and 200.
 --
--- * 'dltvMaxVersion' - The version number up to which to describe launch template versions.
+-- 'minVersion', 'describeLaunchTemplateVersions_minVersion' - The version number after which to describe launch template versions.
 --
--- * 'dltvFilters' - One or more filters.     * @create-time@ - The time the launch template version was created.     * @ebs-optimized@ - A boolean that indicates whether the instance is optimized for Amazon EBS I/O.     * @iam-instance-profile@ - The ARN of the IAM instance profile.     * @image-id@ - The ID of the AMI.     * @instance-type@ - The instance type.     * @is-default-version@ - A boolean that indicates whether the launch template version is the default version.     * @kernel-id@ - The kernel ID.     * @ram-disk-id@ - The RAM disk ID.
-describeLaunchTemplateVersions ::
+-- 'launchTemplateId', 'describeLaunchTemplateVersions_launchTemplateId' - The ID of the launch template. To describe one or more versions of a
+-- specified launch template, you must specify either the launch template
+-- ID or the launch template name in the request. To describe all the
+-- latest or default launch template versions in your account, you must
+-- omit this parameter.
+--
+-- 'launchTemplateName', 'describeLaunchTemplateVersions_launchTemplateName' - The name of the launch template. To describe one or more versions of a
+-- specified launch template, you must specify either the launch template
+-- ID or the launch template name in the request. To describe all the
+-- latest or default launch template versions in your account, you must
+-- omit this parameter.
+--
+-- 'maxVersion', 'describeLaunchTemplateVersions_maxVersion' - The version number up to which to describe launch template versions.
+--
+-- 'filters', 'describeLaunchTemplateVersions_filters' - One or more filters.
+--
+-- -   @create-time@ - The time the launch template version was created.
+--
+-- -   @ebs-optimized@ - A boolean that indicates whether the instance is
+--     optimized for Amazon EBS I\/O.
+--
+-- -   @iam-instance-profile@ - The ARN of the IAM instance profile.
+--
+-- -   @image-id@ - The ID of the AMI.
+--
+-- -   @instance-type@ - The instance type.
+--
+-- -   @is-default-version@ - A boolean that indicates whether the launch
+--     template version is the default version.
+--
+-- -   @kernel-id@ - The kernel ID.
+--
+-- -   @ram-disk-id@ - The RAM disk ID.
+newDescribeLaunchTemplateVersions ::
   DescribeLaunchTemplateVersions
-describeLaunchTemplateVersions =
+newDescribeLaunchTemplateVersions =
   DescribeLaunchTemplateVersions'
-    { _dltvNextToken =
-        Nothing,
-      _dltvVersions = Nothing,
-      _dltvDryRun = Nothing,
-      _dltvMaxResults = Nothing,
-      _dltvMinVersion = Nothing,
-      _dltvLaunchTemplateId = Nothing,
-      _dltvLaunchTemplateName = Nothing,
-      _dltvMaxVersion = Nothing,
-      _dltvFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      versions = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      minVersion = Prelude.Nothing,
+      launchTemplateId = Prelude.Nothing,
+      launchTemplateName = Prelude.Nothing,
+      maxVersion = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token to request the next page of results.
-dltvNextToken :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvNextToken = lens _dltvNextToken (\s a -> s {_dltvNextToken = a})
+describeLaunchTemplateVersions_nextToken :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe Prelude.Text)
+describeLaunchTemplateVersions_nextToken = Lens.lens (\DescribeLaunchTemplateVersions' {nextToken} -> nextToken) (\s@DescribeLaunchTemplateVersions' {} a -> s {nextToken = a} :: DescribeLaunchTemplateVersions)
 
--- | One or more versions of the launch template. Valid values depend on whether you are describing a specified launch template (by ID or name) or all launch templates in your account. To describe one or more versions of a specified launch template, valid values are @> Latest@ , @> Default@ , and numbers. To describe all launch templates in your account that are defined as the latest version, the valid value is @> Latest@ . To describe all launch templates in your account that are defined as the default version, the valid value is @> Default@ . You can specify @> Latest@ and @> Default@ in the same call. You cannot specify numbers.
-dltvVersions :: Lens' DescribeLaunchTemplateVersions [Text]
-dltvVersions = lens _dltvVersions (\s a -> s {_dltvVersions = a}) . _Default . _Coerce
+-- | One or more versions of the launch template. Valid values depend on
+-- whether you are describing a specified launch template (by ID or name)
+-- or all launch templates in your account.
+--
+-- To describe one or more versions of a specified launch template, valid
+-- values are @$Latest@, @$Default@, and numbers.
+--
+-- To describe all launch templates in your account that are defined as the
+-- latest version, the valid value is @$Latest@. To describe all launch
+-- templates in your account that are defined as the default version, the
+-- valid value is @$Default@. You can specify @$Latest@ and @$Default@ in
+-- the same call. You cannot specify numbers.
+describeLaunchTemplateVersions_versions :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe [Prelude.Text])
+describeLaunchTemplateVersions_versions = Lens.lens (\DescribeLaunchTemplateVersions' {versions} -> versions) (\s@DescribeLaunchTemplateVersions' {} a -> s {versions = a} :: DescribeLaunchTemplateVersions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dltvDryRun :: Lens' DescribeLaunchTemplateVersions (Maybe Bool)
-dltvDryRun = lens _dltvDryRun (\s a -> s {_dltvDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeLaunchTemplateVersions_dryRun :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe Prelude.Bool)
+describeLaunchTemplateVersions_dryRun = Lens.lens (\DescribeLaunchTemplateVersions' {dryRun} -> dryRun) (\s@DescribeLaunchTemplateVersions' {} a -> s {dryRun = a} :: DescribeLaunchTemplateVersions)
 
--- | The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value. This value can be between 1 and 200.
-dltvMaxResults :: Lens' DescribeLaunchTemplateVersions (Maybe Int)
-dltvMaxResults = lens _dltvMaxResults (\s a -> s {_dltvMaxResults = a})
+-- | The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned @NextToken@
+-- value. This value can be between 1 and 200.
+describeLaunchTemplateVersions_maxResults :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe Prelude.Int)
+describeLaunchTemplateVersions_maxResults = Lens.lens (\DescribeLaunchTemplateVersions' {maxResults} -> maxResults) (\s@DescribeLaunchTemplateVersions' {} a -> s {maxResults = a} :: DescribeLaunchTemplateVersions)
 
 -- | The version number after which to describe launch template versions.
-dltvMinVersion :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvMinVersion = lens _dltvMinVersion (\s a -> s {_dltvMinVersion = a})
+describeLaunchTemplateVersions_minVersion :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe Prelude.Text)
+describeLaunchTemplateVersions_minVersion = Lens.lens (\DescribeLaunchTemplateVersions' {minVersion} -> minVersion) (\s@DescribeLaunchTemplateVersions' {} a -> s {minVersion = a} :: DescribeLaunchTemplateVersions)
 
--- | The ID of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
-dltvLaunchTemplateId :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvLaunchTemplateId = lens _dltvLaunchTemplateId (\s a -> s {_dltvLaunchTemplateId = a})
+-- | The ID of the launch template. To describe one or more versions of a
+-- specified launch template, you must specify either the launch template
+-- ID or the launch template name in the request. To describe all the
+-- latest or default launch template versions in your account, you must
+-- omit this parameter.
+describeLaunchTemplateVersions_launchTemplateId :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe Prelude.Text)
+describeLaunchTemplateVersions_launchTemplateId = Lens.lens (\DescribeLaunchTemplateVersions' {launchTemplateId} -> launchTemplateId) (\s@DescribeLaunchTemplateVersions' {} a -> s {launchTemplateId = a} :: DescribeLaunchTemplateVersions)
 
--- | The name of the launch template. To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name in the request. To describe all the latest or default launch template versions in your account, you must omit this parameter.
-dltvLaunchTemplateName :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvLaunchTemplateName = lens _dltvLaunchTemplateName (\s a -> s {_dltvLaunchTemplateName = a})
+-- | The name of the launch template. To describe one or more versions of a
+-- specified launch template, you must specify either the launch template
+-- ID or the launch template name in the request. To describe all the
+-- latest or default launch template versions in your account, you must
+-- omit this parameter.
+describeLaunchTemplateVersions_launchTemplateName :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe Prelude.Text)
+describeLaunchTemplateVersions_launchTemplateName = Lens.lens (\DescribeLaunchTemplateVersions' {launchTemplateName} -> launchTemplateName) (\s@DescribeLaunchTemplateVersions' {} a -> s {launchTemplateName = a} :: DescribeLaunchTemplateVersions)
 
 -- | The version number up to which to describe launch template versions.
-dltvMaxVersion :: Lens' DescribeLaunchTemplateVersions (Maybe Text)
-dltvMaxVersion = lens _dltvMaxVersion (\s a -> s {_dltvMaxVersion = a})
+describeLaunchTemplateVersions_maxVersion :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe Prelude.Text)
+describeLaunchTemplateVersions_maxVersion = Lens.lens (\DescribeLaunchTemplateVersions' {maxVersion} -> maxVersion) (\s@DescribeLaunchTemplateVersions' {} a -> s {maxVersion = a} :: DescribeLaunchTemplateVersions)
 
--- | One or more filters.     * @create-time@ - The time the launch template version was created.     * @ebs-optimized@ - A boolean that indicates whether the instance is optimized for Amazon EBS I/O.     * @iam-instance-profile@ - The ARN of the IAM instance profile.     * @image-id@ - The ID of the AMI.     * @instance-type@ - The instance type.     * @is-default-version@ - A boolean that indicates whether the launch template version is the default version.     * @kernel-id@ - The kernel ID.     * @ram-disk-id@ - The RAM disk ID.
-dltvFilters :: Lens' DescribeLaunchTemplateVersions [Filter]
-dltvFilters = lens _dltvFilters (\s a -> s {_dltvFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @create-time@ - The time the launch template version was created.
+--
+-- -   @ebs-optimized@ - A boolean that indicates whether the instance is
+--     optimized for Amazon EBS I\/O.
+--
+-- -   @iam-instance-profile@ - The ARN of the IAM instance profile.
+--
+-- -   @image-id@ - The ID of the AMI.
+--
+-- -   @instance-type@ - The instance type.
+--
+-- -   @is-default-version@ - A boolean that indicates whether the launch
+--     template version is the default version.
+--
+-- -   @kernel-id@ - The kernel ID.
+--
+-- -   @ram-disk-id@ - The RAM disk ID.
+describeLaunchTemplateVersions_filters :: Lens.Lens' DescribeLaunchTemplateVersions (Prelude.Maybe [Filter])
+describeLaunchTemplateVersions_filters = Lens.lens (\DescribeLaunchTemplateVersions' {filters} -> filters) (\s@DescribeLaunchTemplateVersions' {} a -> s {filters = a} :: DescribeLaunchTemplateVersions) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeLaunchTemplateVersions where
+instance
+  Pager.AWSPager
+    DescribeLaunchTemplateVersions
+  where
   page rq rs
-    | stop (rs ^. dltvrlrsNextToken) = Nothing
-    | stop (rs ^. dltvrlrsLaunchTemplateVersions) =
-      Nothing
-    | otherwise =
-      Just $ rq & dltvNextToken .~ rs ^. dltvrlrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeLaunchTemplateVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeLaunchTemplateVersionsResponse_launchTemplateVersions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeLaunchTemplateVersions_nextToken
+          Lens..~ rs
+          Lens.^? describeLaunchTemplateVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeLaunchTemplateVersions where
+instance
+  Prelude.AWSRequest
+    DescribeLaunchTemplateVersions
+  where
   type
     Rs DescribeLaunchTemplateVersions =
       DescribeLaunchTemplateVersionsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeLaunchTemplateVersionsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "launchTemplateVersionSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "launchTemplateVersionSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeLaunchTemplateVersions
-
-instance NFData DescribeLaunchTemplateVersions
-
-instance ToHeaders DescribeLaunchTemplateVersions where
-  toHeaders = const mempty
-
-instance ToPath DescribeLaunchTemplateVersions where
-  toPath = const "/"
-
-instance ToQuery DescribeLaunchTemplateVersions where
-  toQuery DescribeLaunchTemplateVersions' {..} =
-    mconcat
-      [ "Action"
-          =: ("DescribeLaunchTemplateVersions" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dltvNextToken,
-        toQuery
-          ( toQueryList "LaunchTemplateVersion"
-              <$> _dltvVersions
-          ),
-        "DryRun" =: _dltvDryRun,
-        "MaxResults" =: _dltvMaxResults,
-        "MinVersion" =: _dltvMinVersion,
-        "LaunchTemplateId" =: _dltvLaunchTemplateId,
-        "LaunchTemplateName" =: _dltvLaunchTemplateName,
-        "MaxVersion" =: _dltvMaxVersion,
-        toQuery (toQueryList "Filter" <$> _dltvFilters)
-      ]
-
--- | /See:/ 'describeLaunchTemplateVersionsResponse' smart constructor.
-data DescribeLaunchTemplateVersionsResponse = DescribeLaunchTemplateVersionsResponse'
-  { _dltvrlrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dltvrlrsLaunchTemplateVersions ::
-      !( Maybe
-           [LaunchTemplateVersion]
-       ),
-    _dltvrlrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeLaunchTemplateVersionsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dltvrlrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
---
--- * 'dltvrlrsLaunchTemplateVersions' - Information about the launch template versions.
---
--- * 'dltvrlrsResponseStatus' - -- | The response status code.
-describeLaunchTemplateVersionsResponse ::
-  -- | 'dltvrlrsResponseStatus'
-  Int ->
-  DescribeLaunchTemplateVersionsResponse
-describeLaunchTemplateVersionsResponse
-  pResponseStatus_ =
-    DescribeLaunchTemplateVersionsResponse'
-      { _dltvrlrsNextToken =
-          Nothing,
-        _dltvrlrsLaunchTemplateVersions =
-          Nothing,
-        _dltvrlrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dltvrlrsNextToken :: Lens' DescribeLaunchTemplateVersionsResponse (Maybe Text)
-dltvrlrsNextToken = lens _dltvrlrsNextToken (\s a -> s {_dltvrlrsNextToken = a})
-
--- | Information about the launch template versions.
-dltvrlrsLaunchTemplateVersions :: Lens' DescribeLaunchTemplateVersionsResponse [LaunchTemplateVersion]
-dltvrlrsLaunchTemplateVersions = lens _dltvrlrsLaunchTemplateVersions (\s a -> s {_dltvrlrsLaunchTemplateVersions = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-dltvrlrsResponseStatus :: Lens' DescribeLaunchTemplateVersionsResponse Int
-dltvrlrsResponseStatus = lens _dltvrlrsResponseStatus (\s a -> s {_dltvrlrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DescribeLaunchTemplateVersions
 
 instance
-  NFData
+  Prelude.NFData
+    DescribeLaunchTemplateVersions
+
+instance
+  Prelude.ToHeaders
+    DescribeLaunchTemplateVersions
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DescribeLaunchTemplateVersions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeLaunchTemplateVersions
+  where
+  toQuery DescribeLaunchTemplateVersions' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "DescribeLaunchTemplateVersions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        Prelude.toQuery
+          ( Prelude.toQueryList "LaunchTemplateVersion"
+              Prelude.<$> versions
+          ),
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        "MinVersion" Prelude.=: minVersion,
+        "LaunchTemplateId" Prelude.=: launchTemplateId,
+        "LaunchTemplateName" Prelude.=: launchTemplateName,
+        "MaxVersion" Prelude.=: maxVersion,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
+      ]
+
+-- | /See:/ 'newDescribeLaunchTemplateVersionsResponse' smart constructor.
+data DescribeLaunchTemplateVersionsResponse = DescribeLaunchTemplateVersionsResponse'
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the launch template versions.
+    launchTemplateVersions :: Prelude.Maybe [LaunchTemplateVersion],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeLaunchTemplateVersionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeLaunchTemplateVersionsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+--
+-- 'launchTemplateVersions', 'describeLaunchTemplateVersionsResponse_launchTemplateVersions' - Information about the launch template versions.
+--
+-- 'httpStatus', 'describeLaunchTemplateVersionsResponse_httpStatus' - The response's http status code.
+newDescribeLaunchTemplateVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeLaunchTemplateVersionsResponse
+newDescribeLaunchTemplateVersionsResponse
+  pHttpStatus_ =
+    DescribeLaunchTemplateVersionsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        launchTemplateVersions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeLaunchTemplateVersionsResponse_nextToken :: Lens.Lens' DescribeLaunchTemplateVersionsResponse (Prelude.Maybe Prelude.Text)
+describeLaunchTemplateVersionsResponse_nextToken = Lens.lens (\DescribeLaunchTemplateVersionsResponse' {nextToken} -> nextToken) (\s@DescribeLaunchTemplateVersionsResponse' {} a -> s {nextToken = a} :: DescribeLaunchTemplateVersionsResponse)
+
+-- | Information about the launch template versions.
+describeLaunchTemplateVersionsResponse_launchTemplateVersions :: Lens.Lens' DescribeLaunchTemplateVersionsResponse (Prelude.Maybe [LaunchTemplateVersion])
+describeLaunchTemplateVersionsResponse_launchTemplateVersions = Lens.lens (\DescribeLaunchTemplateVersionsResponse' {launchTemplateVersions} -> launchTemplateVersions) (\s@DescribeLaunchTemplateVersionsResponse' {} a -> s {launchTemplateVersions = a} :: DescribeLaunchTemplateVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeLaunchTemplateVersionsResponse_httpStatus :: Lens.Lens' DescribeLaunchTemplateVersionsResponse Prelude.Int
+describeLaunchTemplateVersionsResponse_httpStatus = Lens.lens (\DescribeLaunchTemplateVersionsResponse' {httpStatus} -> httpStatus) (\s@DescribeLaunchTemplateVersionsResponse' {} a -> s {httpStatus = a} :: DescribeLaunchTemplateVersionsResponse)
+
+instance
+  Prelude.NFData
     DescribeLaunchTemplateVersionsResponse

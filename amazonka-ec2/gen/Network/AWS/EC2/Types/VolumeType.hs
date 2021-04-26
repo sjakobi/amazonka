@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +19,81 @@
 module Network.AWS.EC2.Types.VolumeType
   ( VolumeType
       ( ..,
-        GP2,
-        GP3,
-        IO1,
-        IO2,
-        SC1,
-        ST1,
-        Standard
+        VolumeTypeGP2,
+        VolumeTypeGP3,
+        VolumeTypeIO1,
+        VolumeTypeIO2,
+        VolumeTypeSC1,
+        VolumeTypeST1,
+        VolumeTypeStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VolumeType = VolumeType' (CI Text)
+newtype VolumeType = VolumeType'
+  { fromVolumeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GP2 :: VolumeType
-pattern GP2 = VolumeType' "gp2"
+pattern VolumeTypeGP2 :: VolumeType
+pattern VolumeTypeGP2 = VolumeType' "gp2"
 
-pattern GP3 :: VolumeType
-pattern GP3 = VolumeType' "gp3"
+pattern VolumeTypeGP3 :: VolumeType
+pattern VolumeTypeGP3 = VolumeType' "gp3"
 
-pattern IO1 :: VolumeType
-pattern IO1 = VolumeType' "io1"
+pattern VolumeTypeIO1 :: VolumeType
+pattern VolumeTypeIO1 = VolumeType' "io1"
 
-pattern IO2 :: VolumeType
-pattern IO2 = VolumeType' "io2"
+pattern VolumeTypeIO2 :: VolumeType
+pattern VolumeTypeIO2 = VolumeType' "io2"
 
-pattern SC1 :: VolumeType
-pattern SC1 = VolumeType' "sc1"
+pattern VolumeTypeSC1 :: VolumeType
+pattern VolumeTypeSC1 = VolumeType' "sc1"
 
-pattern ST1 :: VolumeType
-pattern ST1 = VolumeType' "st1"
+pattern VolumeTypeST1 :: VolumeType
+pattern VolumeTypeST1 = VolumeType' "st1"
 
-pattern Standard :: VolumeType
-pattern Standard = VolumeType' "standard"
+pattern VolumeTypeStandard :: VolumeType
+pattern VolumeTypeStandard = VolumeType' "standard"
 
 {-# COMPLETE
-  GP2,
-  GP3,
-  IO1,
-  IO2,
-  SC1,
-  ST1,
-  Standard,
+  VolumeTypeGP2,
+  VolumeTypeGP3,
+  VolumeTypeIO1,
+  VolumeTypeIO2,
+  VolumeTypeSC1,
+  VolumeTypeST1,
+  VolumeTypeStandard,
   VolumeType'
   #-}
 
-instance FromText VolumeType where
-  parser = (VolumeType' . mk) <$> takeText
+instance Prelude.FromText VolumeType where
+  parser = VolumeType' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeType where
-  toText (VolumeType' ci) = original ci
+instance Prelude.ToText VolumeType where
+  toText (VolumeType' x) = x
 
-instance Hashable VolumeType
+instance Prelude.Hashable VolumeType
 
-instance NFData VolumeType
+instance Prelude.NFData VolumeType
 
-instance ToByteString VolumeType
+instance Prelude.ToByteString VolumeType
 
-instance ToQuery VolumeType
+instance Prelude.ToQuery VolumeType
 
-instance ToHeader VolumeType
+instance Prelude.ToHeader VolumeType
 
-instance FromXML VolumeType where
-  parseXML = parseXMLText "VolumeType"
+instance Prelude.FromXML VolumeType where
+  parseXML = Prelude.parseXMLText "VolumeType"

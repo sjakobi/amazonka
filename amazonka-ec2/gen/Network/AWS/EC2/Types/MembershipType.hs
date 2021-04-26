@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.MembershipType
   ( MembershipType
       ( ..,
-        MTIgmp,
-        MTStatic
+        MembershipTypeIgmp,
+        MembershipTypeStatic
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MembershipType = MembershipType' (CI Text)
+newtype MembershipType = MembershipType'
+  { fromMembershipType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MTIgmp :: MembershipType
-pattern MTIgmp = MembershipType' "igmp"
+pattern MembershipTypeIgmp :: MembershipType
+pattern MembershipTypeIgmp = MembershipType' "igmp"
 
-pattern MTStatic :: MembershipType
-pattern MTStatic = MembershipType' "static"
+pattern MembershipTypeStatic :: MembershipType
+pattern MembershipTypeStatic = MembershipType' "static"
 
 {-# COMPLETE
-  MTIgmp,
-  MTStatic,
+  MembershipTypeIgmp,
+  MembershipTypeStatic,
   MembershipType'
   #-}
 
-instance FromText MembershipType where
-  parser = (MembershipType' . mk) <$> takeText
+instance Prelude.FromText MembershipType where
+  parser = MembershipType' Prelude.<$> Prelude.takeText
 
-instance ToText MembershipType where
-  toText (MembershipType' ci) = original ci
+instance Prelude.ToText MembershipType where
+  toText (MembershipType' x) = x
 
-instance Hashable MembershipType
+instance Prelude.Hashable MembershipType
 
-instance NFData MembershipType
+instance Prelude.NFData MembershipType
 
-instance ToByteString MembershipType
+instance Prelude.ToByteString MembershipType
 
-instance ToQuery MembershipType
+instance Prelude.ToQuery MembershipType
 
-instance ToHeader MembershipType
+instance Prelude.ToHeader MembershipType
 
-instance FromXML MembershipType where
-  parseXML = parseXMLText "MembershipType"
+instance Prelude.FromXML MembershipType where
+  parseXML = Prelude.parseXMLText "MembershipType"

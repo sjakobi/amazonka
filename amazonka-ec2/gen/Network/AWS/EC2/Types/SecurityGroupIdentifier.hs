@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,54 @@
 module Network.AWS.EC2.Types.SecurityGroupIdentifier where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a security group.
 --
---
---
--- /See:/ 'securityGroupIdentifier' smart constructor.
+-- /See:/ 'newSecurityGroupIdentifier' smart constructor.
 data SecurityGroupIdentifier = SecurityGroupIdentifier'
-  { _sgiGroupName ::
-      !(Maybe Text),
-    _sgiGroupId ::
-      !(Maybe Text)
+  { -- | The name of the security group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the security group.
+    groupId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityGroupIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityGroupIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgiGroupName' - The name of the security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgiGroupId' - The ID of the security group.
-securityGroupIdentifier ::
+-- 'groupName', 'securityGroupIdentifier_groupName' - The name of the security group.
+--
+-- 'groupId', 'securityGroupIdentifier_groupId' - The ID of the security group.
+newSecurityGroupIdentifier ::
   SecurityGroupIdentifier
-securityGroupIdentifier =
+newSecurityGroupIdentifier =
   SecurityGroupIdentifier'
-    { _sgiGroupName = Nothing,
-      _sgiGroupId = Nothing
+    { groupName =
+        Prelude.Nothing,
+      groupId = Prelude.Nothing
     }
 
 -- | The name of the security group.
-sgiGroupName :: Lens' SecurityGroupIdentifier (Maybe Text)
-sgiGroupName = lens _sgiGroupName (\s a -> s {_sgiGroupName = a})
+securityGroupIdentifier_groupName :: Lens.Lens' SecurityGroupIdentifier (Prelude.Maybe Prelude.Text)
+securityGroupIdentifier_groupName = Lens.lens (\SecurityGroupIdentifier' {groupName} -> groupName) (\s@SecurityGroupIdentifier' {} a -> s {groupName = a} :: SecurityGroupIdentifier)
 
 -- | The ID of the security group.
-sgiGroupId :: Lens' SecurityGroupIdentifier (Maybe Text)
-sgiGroupId = lens _sgiGroupId (\s a -> s {_sgiGroupId = a})
+securityGroupIdentifier_groupId :: Lens.Lens' SecurityGroupIdentifier (Prelude.Maybe Prelude.Text)
+securityGroupIdentifier_groupId = Lens.lens (\SecurityGroupIdentifier' {groupId} -> groupId) (\s@SecurityGroupIdentifier' {} a -> s {groupId = a} :: SecurityGroupIdentifier)
 
-instance FromXML SecurityGroupIdentifier where
+instance Prelude.FromXML SecurityGroupIdentifier where
   parseXML x =
     SecurityGroupIdentifier'
-      <$> (x .@? "groupName") <*> (x .@? "groupId")
+      Prelude.<$> (x Prelude..@? "groupName")
+      Prelude.<*> (x Prelude..@? "groupId")
 
-instance Hashable SecurityGroupIdentifier
+instance Prelude.Hashable SecurityGroupIdentifier
 
-instance NFData SecurityGroupIdentifier
+instance Prelude.NFData SecurityGroupIdentifier

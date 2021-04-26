@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,168 +24,184 @@
 -- Creates a route table for the specified transit gateway.
 module Network.AWS.EC2.CreateTransitGatewayRouteTable
   ( -- * Creating a Request
-    createTransitGatewayRouteTable,
-    CreateTransitGatewayRouteTable,
+    CreateTransitGatewayRouteTable (..),
+    newCreateTransitGatewayRouteTable,
 
     -- * Request Lenses
-    ctgrtTagSpecifications,
-    ctgrtDryRun,
-    ctgrtTransitGatewayId,
+    createTransitGatewayRouteTable_tagSpecifications,
+    createTransitGatewayRouteTable_dryRun,
+    createTransitGatewayRouteTable_transitGatewayId,
 
     -- * Destructuring the Response
-    createTransitGatewayRouteTableResponse,
-    CreateTransitGatewayRouteTableResponse,
+    CreateTransitGatewayRouteTableResponse (..),
+    newCreateTransitGatewayRouteTableResponse,
 
     -- * Response Lenses
-    ctgrtrrsTransitGatewayRouteTable,
-    ctgrtrrsResponseStatus,
+    createTransitGatewayRouteTableResponse_transitGatewayRouteTable,
+    createTransitGatewayRouteTableResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayRouteTable
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTransitGatewayRouteTable' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayRouteTable' smart constructor.
 data CreateTransitGatewayRouteTable = CreateTransitGatewayRouteTable'
-  { _ctgrtTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _ctgrtDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ctgrtTransitGatewayId ::
-      !Text
+  { -- | The tags to apply to the transit gateway route table.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the transit gateway.
+    transitGatewayId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayRouteTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayRouteTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgrtTagSpecifications' - The tags to apply to the transit gateway route table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgrtDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createTransitGatewayRouteTable_tagSpecifications' - The tags to apply to the transit gateway route table.
 --
--- * 'ctgrtTransitGatewayId' - The ID of the transit gateway.
-createTransitGatewayRouteTable ::
-  -- | 'ctgrtTransitGatewayId'
-  Text ->
+-- 'dryRun', 'createTransitGatewayRouteTable_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'transitGatewayId', 'createTransitGatewayRouteTable_transitGatewayId' - The ID of the transit gateway.
+newCreateTransitGatewayRouteTable ::
+  -- | 'transitGatewayId'
+  Prelude.Text ->
   CreateTransitGatewayRouteTable
-createTransitGatewayRouteTable pTransitGatewayId_ =
+newCreateTransitGatewayRouteTable pTransitGatewayId_ =
   CreateTransitGatewayRouteTable'
-    { _ctgrtTagSpecifications =
-        Nothing,
-      _ctgrtDryRun = Nothing,
-      _ctgrtTransitGatewayId = pTransitGatewayId_
+    { tagSpecifications =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      transitGatewayId = pTransitGatewayId_
     }
 
 -- | The tags to apply to the transit gateway route table.
-ctgrtTagSpecifications :: Lens' CreateTransitGatewayRouteTable [TagSpecification]
-ctgrtTagSpecifications = lens _ctgrtTagSpecifications (\s a -> s {_ctgrtTagSpecifications = a}) . _Default . _Coerce
+createTransitGatewayRouteTable_tagSpecifications :: Lens.Lens' CreateTransitGatewayRouteTable (Prelude.Maybe [TagSpecification])
+createTransitGatewayRouteTable_tagSpecifications = Lens.lens (\CreateTransitGatewayRouteTable' {tagSpecifications} -> tagSpecifications) (\s@CreateTransitGatewayRouteTable' {} a -> s {tagSpecifications = a} :: CreateTransitGatewayRouteTable) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ctgrtDryRun :: Lens' CreateTransitGatewayRouteTable (Maybe Bool)
-ctgrtDryRun = lens _ctgrtDryRun (\s a -> s {_ctgrtDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTransitGatewayRouteTable_dryRun :: Lens.Lens' CreateTransitGatewayRouteTable (Prelude.Maybe Prelude.Bool)
+createTransitGatewayRouteTable_dryRun = Lens.lens (\CreateTransitGatewayRouteTable' {dryRun} -> dryRun) (\s@CreateTransitGatewayRouteTable' {} a -> s {dryRun = a} :: CreateTransitGatewayRouteTable)
 
 -- | The ID of the transit gateway.
-ctgrtTransitGatewayId :: Lens' CreateTransitGatewayRouteTable Text
-ctgrtTransitGatewayId = lens _ctgrtTransitGatewayId (\s a -> s {_ctgrtTransitGatewayId = a})
+createTransitGatewayRouteTable_transitGatewayId :: Lens.Lens' CreateTransitGatewayRouteTable Prelude.Text
+createTransitGatewayRouteTable_transitGatewayId = Lens.lens (\CreateTransitGatewayRouteTable' {transitGatewayId} -> transitGatewayId) (\s@CreateTransitGatewayRouteTable' {} a -> s {transitGatewayId = a} :: CreateTransitGatewayRouteTable)
 
-instance AWSRequest CreateTransitGatewayRouteTable where
+instance
+  Prelude.AWSRequest
+    CreateTransitGatewayRouteTable
+  where
   type
     Rs CreateTransitGatewayRouteTable =
       CreateTransitGatewayRouteTableResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateTransitGatewayRouteTableResponse'
-            <$> (x .@? "transitGatewayRouteTable")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayRouteTable")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTransitGatewayRouteTable
+instance
+  Prelude.Hashable
+    CreateTransitGatewayRouteTable
 
-instance NFData CreateTransitGatewayRouteTable
+instance
+  Prelude.NFData
+    CreateTransitGatewayRouteTable
 
-instance ToHeaders CreateTransitGatewayRouteTable where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateTransitGatewayRouteTable
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateTransitGatewayRouteTable where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    CreateTransitGatewayRouteTable
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTransitGatewayRouteTable where
+instance
+  Prelude.ToQuery
+    CreateTransitGatewayRouteTable
+  where
   toQuery CreateTransitGatewayRouteTable' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateTransitGatewayRouteTable" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecifications"
-              <$> _ctgrtTagSpecifications
+          Prelude.=: ( "CreateTransitGatewayRouteTable" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecifications"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _ctgrtDryRun,
-        "TransitGatewayId" =: _ctgrtTransitGatewayId
+        "DryRun" Prelude.=: dryRun,
+        "TransitGatewayId" Prelude.=: transitGatewayId
       ]
 
--- | /See:/ 'createTransitGatewayRouteTableResponse' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayRouteTableResponse' smart constructor.
 data CreateTransitGatewayRouteTableResponse = CreateTransitGatewayRouteTableResponse'
-  { _ctgrtrrsTransitGatewayRouteTable ::
-      !( Maybe
-           TransitGatewayRouteTable
-       ),
-    _ctgrtrrsResponseStatus ::
-      !Int
+  { -- | Information about the transit gateway route table.
+    transitGatewayRouteTable :: Prelude.Maybe TransitGatewayRouteTable,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayRouteTableResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayRouteTableResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgrtrrsTransitGatewayRouteTable' - Information about the transit gateway route table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgrtrrsResponseStatus' - -- | The response status code.
-createTransitGatewayRouteTableResponse ::
-  -- | 'ctgrtrrsResponseStatus'
-  Int ->
+-- 'transitGatewayRouteTable', 'createTransitGatewayRouteTableResponse_transitGatewayRouteTable' - Information about the transit gateway route table.
+--
+-- 'httpStatus', 'createTransitGatewayRouteTableResponse_httpStatus' - The response's http status code.
+newCreateTransitGatewayRouteTableResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTransitGatewayRouteTableResponse
-createTransitGatewayRouteTableResponse
-  pResponseStatus_ =
+newCreateTransitGatewayRouteTableResponse
+  pHttpStatus_ =
     CreateTransitGatewayRouteTableResponse'
-      { _ctgrtrrsTransitGatewayRouteTable =
-          Nothing,
-        _ctgrtrrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayRouteTable =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the transit gateway route table.
-ctgrtrrsTransitGatewayRouteTable :: Lens' CreateTransitGatewayRouteTableResponse (Maybe TransitGatewayRouteTable)
-ctgrtrrsTransitGatewayRouteTable = lens _ctgrtrrsTransitGatewayRouteTable (\s a -> s {_ctgrtrrsTransitGatewayRouteTable = a})
+createTransitGatewayRouteTableResponse_transitGatewayRouteTable :: Lens.Lens' CreateTransitGatewayRouteTableResponse (Prelude.Maybe TransitGatewayRouteTable)
+createTransitGatewayRouteTableResponse_transitGatewayRouteTable = Lens.lens (\CreateTransitGatewayRouteTableResponse' {transitGatewayRouteTable} -> transitGatewayRouteTable) (\s@CreateTransitGatewayRouteTableResponse' {} a -> s {transitGatewayRouteTable = a} :: CreateTransitGatewayRouteTableResponse)
 
--- | -- | The response status code.
-ctgrtrrsResponseStatus :: Lens' CreateTransitGatewayRouteTableResponse Int
-ctgrtrrsResponseStatus = lens _ctgrtrrsResponseStatus (\s a -> s {_ctgrtrrsResponseStatus = a})
+-- | The response's http status code.
+createTransitGatewayRouteTableResponse_httpStatus :: Lens.Lens' CreateTransitGatewayRouteTableResponse Prelude.Int
+createTransitGatewayRouteTableResponse_httpStatus = Lens.lens (\CreateTransitGatewayRouteTableResponse' {httpStatus} -> httpStatus) (\s@CreateTransitGatewayRouteTableResponse' {} a -> s {httpStatus = a} :: CreateTransitGatewayRouteTableResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateTransitGatewayRouteTableResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.EnaSupport
   ( EnaSupport
       ( ..,
-        ESRequired,
-        ESSupported,
-        ESUnsupported
+        EnaSupportRequired,
+        EnaSupportSupported,
+        EnaSupportUnsupported
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnaSupport = EnaSupport' (CI Text)
+newtype EnaSupport = EnaSupport'
+  { fromEnaSupport ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESRequired :: EnaSupport
-pattern ESRequired = EnaSupport' "required"
+pattern EnaSupportRequired :: EnaSupport
+pattern EnaSupportRequired = EnaSupport' "required"
 
-pattern ESSupported :: EnaSupport
-pattern ESSupported = EnaSupport' "supported"
+pattern EnaSupportSupported :: EnaSupport
+pattern EnaSupportSupported = EnaSupport' "supported"
 
-pattern ESUnsupported :: EnaSupport
-pattern ESUnsupported = EnaSupport' "unsupported"
+pattern EnaSupportUnsupported :: EnaSupport
+pattern EnaSupportUnsupported = EnaSupport' "unsupported"
 
 {-# COMPLETE
-  ESRequired,
-  ESSupported,
-  ESUnsupported,
+  EnaSupportRequired,
+  EnaSupportSupported,
+  EnaSupportUnsupported,
   EnaSupport'
   #-}
 
-instance FromText EnaSupport where
-  parser = (EnaSupport' . mk) <$> takeText
+instance Prelude.FromText EnaSupport where
+  parser = EnaSupport' Prelude.<$> Prelude.takeText
 
-instance ToText EnaSupport where
-  toText (EnaSupport' ci) = original ci
+instance Prelude.ToText EnaSupport where
+  toText (EnaSupport' x) = x
 
-instance Hashable EnaSupport
+instance Prelude.Hashable EnaSupport
 
-instance NFData EnaSupport
+instance Prelude.NFData EnaSupport
 
-instance ToByteString EnaSupport
+instance Prelude.ToByteString EnaSupport
 
-instance ToQuery EnaSupport
+instance Prelude.ToQuery EnaSupport
 
-instance ToHeader EnaSupport
+instance Prelude.ToHeader EnaSupport
 
-instance FromXML EnaSupport where
-  parseXML = parseXMLText "EnaSupport"
+instance Prelude.FromXML EnaSupport where
+  parseXML = Prelude.parseXMLText "EnaSupport"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restores an Elastic IP address that was previously moved to the EC2-VPC platform back to the EC2-Classic platform. You cannot move an Elastic IP address that was originally allocated for use in EC2-VPC. The Elastic IP address must not be associated with an instance or network interface.
+-- Restores an Elastic IP address that was previously moved to the EC2-VPC
+-- platform back to the EC2-Classic platform. You cannot move an Elastic IP
+-- address that was originally allocated for use in EC2-VPC. The Elastic IP
+-- address must not be associated with an instance or network interface.
 module Network.AWS.EC2.RestoreAddressToClassic
   ( -- * Creating a Request
-    restoreAddressToClassic,
-    RestoreAddressToClassic,
+    RestoreAddressToClassic (..),
+    newRestoreAddressToClassic,
 
     -- * Request Lenses
-    ratcDryRun,
-    ratcPublicIP,
+    restoreAddressToClassic_dryRun,
+    restoreAddressToClassic_publicIp,
 
     -- * Destructuring the Response
-    restoreAddressToClassicResponse,
-    RestoreAddressToClassicResponse,
+    RestoreAddressToClassicResponse (..),
+    newRestoreAddressToClassicResponse,
 
     -- * Response Lenses
-    ratcrrsStatus,
-    ratcrrsPublicIP,
-    ratcrrsResponseStatus,
+    restoreAddressToClassicResponse_status,
+    restoreAddressToClassicResponse_publicIp,
+    restoreAddressToClassicResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.AddressStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'restoreAddressToClassic' smart constructor.
+-- | /See:/ 'newRestoreAddressToClassic' smart constructor.
 data RestoreAddressToClassic = RestoreAddressToClassic'
-  { _ratcDryRun ::
-      !(Maybe Bool),
-    _ratcPublicIP :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The Elastic IP address.
+    publicIp :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreAddressToClassic' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreAddressToClassic' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ratcDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ratcPublicIP' - The Elastic IP address.
-restoreAddressToClassic ::
-  -- | 'ratcPublicIP'
-  Text ->
+-- 'dryRun', 'restoreAddressToClassic_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'publicIp', 'restoreAddressToClassic_publicIp' - The Elastic IP address.
+newRestoreAddressToClassic ::
+  -- | 'publicIp'
+  Prelude.Text ->
   RestoreAddressToClassic
-restoreAddressToClassic pPublicIP_ =
+newRestoreAddressToClassic pPublicIp_ =
   RestoreAddressToClassic'
-    { _ratcDryRun = Nothing,
-      _ratcPublicIP = pPublicIP_
+    { dryRun = Prelude.Nothing,
+      publicIp = pPublicIp_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ratcDryRun :: Lens' RestoreAddressToClassic (Maybe Bool)
-ratcDryRun = lens _ratcDryRun (\s a -> s {_ratcDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+restoreAddressToClassic_dryRun :: Lens.Lens' RestoreAddressToClassic (Prelude.Maybe Prelude.Bool)
+restoreAddressToClassic_dryRun = Lens.lens (\RestoreAddressToClassic' {dryRun} -> dryRun) (\s@RestoreAddressToClassic' {} a -> s {dryRun = a} :: RestoreAddressToClassic)
 
 -- | The Elastic IP address.
-ratcPublicIP :: Lens' RestoreAddressToClassic Text
-ratcPublicIP = lens _ratcPublicIP (\s a -> s {_ratcPublicIP = a})
+restoreAddressToClassic_publicIp :: Lens.Lens' RestoreAddressToClassic Prelude.Text
+restoreAddressToClassic_publicIp = Lens.lens (\RestoreAddressToClassic' {publicIp} -> publicIp) (\s@RestoreAddressToClassic' {} a -> s {publicIp = a} :: RestoreAddressToClassic)
 
-instance AWSRequest RestoreAddressToClassic where
+instance Prelude.AWSRequest RestoreAddressToClassic where
   type
     Rs RestoreAddressToClassic =
       RestoreAddressToClassicResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           RestoreAddressToClassicResponse'
-            <$> (x .@? "status")
-            <*> (x .@? "publicIp")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "status")
+            Prelude.<*> (x Prelude..@? "publicIp")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RestoreAddressToClassic
+instance Prelude.Hashable RestoreAddressToClassic
 
-instance NFData RestoreAddressToClassic
+instance Prelude.NFData RestoreAddressToClassic
 
-instance ToHeaders RestoreAddressToClassic where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RestoreAddressToClassic where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RestoreAddressToClassic where
-  toPath = const "/"
+instance Prelude.ToPath RestoreAddressToClassic where
+  toPath = Prelude.const "/"
 
-instance ToQuery RestoreAddressToClassic where
+instance Prelude.ToQuery RestoreAddressToClassic where
   toQuery RestoreAddressToClassic' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RestoreAddressToClassic" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _ratcDryRun,
-        "PublicIp" =: _ratcPublicIP
+          Prelude.=: ("RestoreAddressToClassic" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "PublicIp" Prelude.=: publicIp
       ]
 
--- | /See:/ 'restoreAddressToClassicResponse' smart constructor.
+-- | /See:/ 'newRestoreAddressToClassicResponse' smart constructor.
 data RestoreAddressToClassicResponse = RestoreAddressToClassicResponse'
-  { _ratcrrsStatus ::
-      !( Maybe
-           AddressStatus
-       ),
-    _ratcrrsPublicIP ::
-      !( Maybe
-           Text
-       ),
-    _ratcrrsResponseStatus ::
-      !Int
+  { -- | The move status for the IP address.
+    status :: Prelude.Maybe AddressStatus,
+    -- | The Elastic IP address.
+    publicIp :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreAddressToClassicResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreAddressToClassicResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ratcrrsStatus' - The move status for the IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ratcrrsPublicIP' - The Elastic IP address.
+-- 'status', 'restoreAddressToClassicResponse_status' - The move status for the IP address.
 --
--- * 'ratcrrsResponseStatus' - -- | The response status code.
-restoreAddressToClassicResponse ::
-  -- | 'ratcrrsResponseStatus'
-  Int ->
+-- 'publicIp', 'restoreAddressToClassicResponse_publicIp' - The Elastic IP address.
+--
+-- 'httpStatus', 'restoreAddressToClassicResponse_httpStatus' - The response's http status code.
+newRestoreAddressToClassicResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RestoreAddressToClassicResponse
-restoreAddressToClassicResponse pResponseStatus_ =
+newRestoreAddressToClassicResponse pHttpStatus_ =
   RestoreAddressToClassicResponse'
-    { _ratcrrsStatus =
-        Nothing,
-      _ratcrrsPublicIP = Nothing,
-      _ratcrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      publicIp = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The move status for the IP address.
-ratcrrsStatus :: Lens' RestoreAddressToClassicResponse (Maybe AddressStatus)
-ratcrrsStatus = lens _ratcrrsStatus (\s a -> s {_ratcrrsStatus = a})
+restoreAddressToClassicResponse_status :: Lens.Lens' RestoreAddressToClassicResponse (Prelude.Maybe AddressStatus)
+restoreAddressToClassicResponse_status = Lens.lens (\RestoreAddressToClassicResponse' {status} -> status) (\s@RestoreAddressToClassicResponse' {} a -> s {status = a} :: RestoreAddressToClassicResponse)
 
 -- | The Elastic IP address.
-ratcrrsPublicIP :: Lens' RestoreAddressToClassicResponse (Maybe Text)
-ratcrrsPublicIP = lens _ratcrrsPublicIP (\s a -> s {_ratcrrsPublicIP = a})
+restoreAddressToClassicResponse_publicIp :: Lens.Lens' RestoreAddressToClassicResponse (Prelude.Maybe Prelude.Text)
+restoreAddressToClassicResponse_publicIp = Lens.lens (\RestoreAddressToClassicResponse' {publicIp} -> publicIp) (\s@RestoreAddressToClassicResponse' {} a -> s {publicIp = a} :: RestoreAddressToClassicResponse)
 
--- | -- | The response status code.
-ratcrrsResponseStatus :: Lens' RestoreAddressToClassicResponse Int
-ratcrrsResponseStatus = lens _ratcrrsResponseStatus (\s a -> s {_ratcrrsResponseStatus = a})
+-- | The response's http status code.
+restoreAddressToClassicResponse_httpStatus :: Lens.Lens' RestoreAddressToClassicResponse Prelude.Int
+restoreAddressToClassicResponse_httpStatus = Lens.lens (\RestoreAddressToClassicResponse' {httpStatus} -> httpStatus) (\s@RestoreAddressToClassicResponse' {} a -> s {httpStatus = a} :: RestoreAddressToClassicResponse)
 
-instance NFData RestoreAddressToClassicResponse
+instance
+  Prelude.NFData
+    RestoreAddressToClassicResponse

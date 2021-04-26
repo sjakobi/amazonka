@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,74 +19,76 @@
 module Network.AWS.EC2.Types.VolumeState
   ( VolumeState
       ( ..,
-        VAvailable,
-        VCreating,
-        VDeleted,
-        VDeleting,
-        VError',
-        VInUse
+        VolumeStateAvailable,
+        VolumeStateCreating,
+        VolumeStateDeleted,
+        VolumeStateDeleting,
+        VolumeStateError,
+        VolumeStateInUse
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VolumeState = VolumeState' (CI Text)
+newtype VolumeState = VolumeState'
+  { fromVolumeState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VAvailable :: VolumeState
-pattern VAvailable = VolumeState' "available"
+pattern VolumeStateAvailable :: VolumeState
+pattern VolumeStateAvailable = VolumeState' "available"
 
-pattern VCreating :: VolumeState
-pattern VCreating = VolumeState' "creating"
+pattern VolumeStateCreating :: VolumeState
+pattern VolumeStateCreating = VolumeState' "creating"
 
-pattern VDeleted :: VolumeState
-pattern VDeleted = VolumeState' "deleted"
+pattern VolumeStateDeleted :: VolumeState
+pattern VolumeStateDeleted = VolumeState' "deleted"
 
-pattern VDeleting :: VolumeState
-pattern VDeleting = VolumeState' "deleting"
+pattern VolumeStateDeleting :: VolumeState
+pattern VolumeStateDeleting = VolumeState' "deleting"
 
-pattern VError' :: VolumeState
-pattern VError' = VolumeState' "error"
+pattern VolumeStateError :: VolumeState
+pattern VolumeStateError = VolumeState' "error"
 
-pattern VInUse :: VolumeState
-pattern VInUse = VolumeState' "in-use"
+pattern VolumeStateInUse :: VolumeState
+pattern VolumeStateInUse = VolumeState' "in-use"
 
 {-# COMPLETE
-  VAvailable,
-  VCreating,
-  VDeleted,
-  VDeleting,
-  VError',
-  VInUse,
+  VolumeStateAvailable,
+  VolumeStateCreating,
+  VolumeStateDeleted,
+  VolumeStateDeleting,
+  VolumeStateError,
+  VolumeStateInUse,
   VolumeState'
   #-}
 
-instance FromText VolumeState where
-  parser = (VolumeState' . mk) <$> takeText
+instance Prelude.FromText VolumeState where
+  parser = VolumeState' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeState where
-  toText (VolumeState' ci) = original ci
+instance Prelude.ToText VolumeState where
+  toText (VolumeState' x) = x
 
-instance Hashable VolumeState
+instance Prelude.Hashable VolumeState
 
-instance NFData VolumeState
+instance Prelude.NFData VolumeState
 
-instance ToByteString VolumeState
+instance Prelude.ToByteString VolumeState
 
-instance ToQuery VolumeState
+instance Prelude.ToQuery VolumeState
 
-instance ToHeader VolumeState
+instance Prelude.ToHeader VolumeState
 
-instance FromXML VolumeState where
-  parseXML = parseXMLText "VolumeState"
+instance Prelude.FromXML VolumeState where
+  parseXML = Prelude.parseXMLText "VolumeState"

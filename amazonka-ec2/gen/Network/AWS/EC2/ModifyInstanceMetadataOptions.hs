@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,286 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modify the instance metadata parameters on a running or stopped instance. When you modify the parameters on a stopped instance, they are applied when the instance is started. When you modify the parameters on a running instance, the API responds with a state of “pending”. After the parameter modifications are successfully applied to the instance, the state of the modifications changes from “pending” to “applied” in subsequent describe-instances API calls. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance metadata and user data> in the /Amazon EC2 User Guide/ .
+-- Modify the instance metadata parameters on a running or stopped
+-- instance. When you modify the parameters on a stopped instance, they are
+-- applied when the instance is started. When you modify the parameters on
+-- a running instance, the API responds with a state of “pending”. After
+-- the parameter modifications are successfully applied to the instance,
+-- the state of the modifications changes from “pending” to “applied” in
+-- subsequent describe-instances API calls. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance metadata and user data>
+-- in the /Amazon EC2 User Guide/.
 module Network.AWS.EC2.ModifyInstanceMetadataOptions
   ( -- * Creating a Request
-    modifyInstanceMetadataOptions,
-    ModifyInstanceMetadataOptions,
+    ModifyInstanceMetadataOptions (..),
+    newModifyInstanceMetadataOptions,
 
     -- * Request Lenses
-    mimoDryRun,
-    mimoHTTPEndpoint,
-    mimoHTTPPutResponseHopLimit,
-    mimoHTTPTokens,
-    mimoInstanceId,
+    modifyInstanceMetadataOptions_dryRun,
+    modifyInstanceMetadataOptions_httpEndpoint,
+    modifyInstanceMetadataOptions_httpPutResponseHopLimit,
+    modifyInstanceMetadataOptions_httpTokens,
+    modifyInstanceMetadataOptions_instanceId,
 
     -- * Destructuring the Response
-    modifyInstanceMetadataOptionsResponse,
-    ModifyInstanceMetadataOptionsResponse,
+    ModifyInstanceMetadataOptionsResponse (..),
+    newModifyInstanceMetadataOptionsResponse,
 
     -- * Response Lenses
-    mimorrsInstanceMetadataOptions,
-    mimorrsInstanceId,
-    mimorrsResponseStatus,
+    modifyInstanceMetadataOptionsResponse_instanceMetadataOptions,
+    modifyInstanceMetadataOptionsResponse_instanceId,
+    modifyInstanceMetadataOptionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.InstanceMetadataOptionsResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyInstanceMetadataOptions' smart constructor.
+-- | /See:/ 'newModifyInstanceMetadataOptions' smart constructor.
 data ModifyInstanceMetadataOptions = ModifyInstanceMetadataOptions'
-  { _mimoDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _mimoHTTPEndpoint ::
-      !( Maybe
-           InstanceMetadataEndpointState
-       ),
-    _mimoHTTPPutResponseHopLimit ::
-      !( Maybe
-           Int
-       ),
-    _mimoHTTPTokens ::
-      !( Maybe
-           HTTPTokensState
-       ),
-    _mimoInstanceId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | This parameter enables or disables the HTTP metadata endpoint on your
+    -- instances. If the parameter is not specified, the existing state is
+    -- maintained.
+    --
+    -- If you specify a value of @disabled@, you will not be able to access
+    -- your instance metadata.
+    httpEndpoint :: Prelude.Maybe InstanceMetadataEndpointState,
+    -- | The desired HTTP PUT response hop limit for instance metadata requests.
+    -- The larger the number, the further instance metadata requests can
+    -- travel. If no parameter is specified, the existing state is maintained.
+    --
+    -- Possible values: Integers from 1 to 64
+    httpPutResponseHopLimit :: Prelude.Maybe Prelude.Int,
+    -- | The state of token usage for your instance metadata requests. If the
+    -- parameter is not specified in the request, the default state is
+    -- @optional@.
+    --
+    -- If the state is @optional@, you can choose to retrieve instance metadata
+    -- with or without a signed token header on your request. If you retrieve
+    -- the IAM role credentials without a token, the version 1.0 role
+    -- credentials are returned. If you retrieve the IAM role credentials using
+    -- a valid signed token, the version 2.0 role credentials are returned.
+    --
+    -- If the state is @required@, you must send a signed token header with any
+    -- instance metadata retrieval requests. In this state, retrieving the IAM
+    -- role credential always returns the version 2.0 credentials; the version
+    -- 1.0 credentials are not available.
+    httpTokens :: Prelude.Maybe HttpTokensState,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceMetadataOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceMetadataOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mimoDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mimoHTTPEndpoint' - This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the existing state is maintained.
+-- 'dryRun', 'modifyInstanceMetadataOptions_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'mimoHTTPPutResponseHopLimit' - The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel. If no parameter is specified, the existing state is maintained. Possible values: Integers from 1 to 64
+-- 'httpEndpoint', 'modifyInstanceMetadataOptions_httpEndpoint' - This parameter enables or disables the HTTP metadata endpoint on your
+-- instances. If the parameter is not specified, the existing state is
+-- maintained.
 --
--- * 'mimoHTTPTokens' - The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is @optional@ . If the state is @optional@ , you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned. If the state is @required@ , you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credential always returns the version 2.0 credentials; the version 1.0 credentials are not available.
+-- If you specify a value of @disabled@, you will not be able to access
+-- your instance metadata.
 --
--- * 'mimoInstanceId' - The ID of the instance.
-modifyInstanceMetadataOptions ::
-  -- | 'mimoInstanceId'
-  Text ->
+-- 'httpPutResponseHopLimit', 'modifyInstanceMetadataOptions_httpPutResponseHopLimit' - The desired HTTP PUT response hop limit for instance metadata requests.
+-- The larger the number, the further instance metadata requests can
+-- travel. If no parameter is specified, the existing state is maintained.
+--
+-- Possible values: Integers from 1 to 64
+--
+-- 'httpTokens', 'modifyInstanceMetadataOptions_httpTokens' - The state of token usage for your instance metadata requests. If the
+-- parameter is not specified in the request, the default state is
+-- @optional@.
+--
+-- If the state is @optional@, you can choose to retrieve instance metadata
+-- with or without a signed token header on your request. If you retrieve
+-- the IAM role credentials without a token, the version 1.0 role
+-- credentials are returned. If you retrieve the IAM role credentials using
+-- a valid signed token, the version 2.0 role credentials are returned.
+--
+-- If the state is @required@, you must send a signed token header with any
+-- instance metadata retrieval requests. In this state, retrieving the IAM
+-- role credential always returns the version 2.0 credentials; the version
+-- 1.0 credentials are not available.
+--
+-- 'instanceId', 'modifyInstanceMetadataOptions_instanceId' - The ID of the instance.
+newModifyInstanceMetadataOptions ::
+  -- | 'instanceId'
+  Prelude.Text ->
   ModifyInstanceMetadataOptions
-modifyInstanceMetadataOptions pInstanceId_ =
+newModifyInstanceMetadataOptions pInstanceId_ =
   ModifyInstanceMetadataOptions'
-    { _mimoDryRun =
-        Nothing,
-      _mimoHTTPEndpoint = Nothing,
-      _mimoHTTPPutResponseHopLimit = Nothing,
-      _mimoHTTPTokens = Nothing,
-      _mimoInstanceId = pInstanceId_
+    { dryRun =
+        Prelude.Nothing,
+      httpEndpoint = Prelude.Nothing,
+      httpPutResponseHopLimit = Prelude.Nothing,
+      httpTokens = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-mimoDryRun :: Lens' ModifyInstanceMetadataOptions (Maybe Bool)
-mimoDryRun = lens _mimoDryRun (\s a -> s {_mimoDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyInstanceMetadataOptions_dryRun :: Lens.Lens' ModifyInstanceMetadataOptions (Prelude.Maybe Prelude.Bool)
+modifyInstanceMetadataOptions_dryRun = Lens.lens (\ModifyInstanceMetadataOptions' {dryRun} -> dryRun) (\s@ModifyInstanceMetadataOptions' {} a -> s {dryRun = a} :: ModifyInstanceMetadataOptions)
 
--- | This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the existing state is maintained.
-mimoHTTPEndpoint :: Lens' ModifyInstanceMetadataOptions (Maybe InstanceMetadataEndpointState)
-mimoHTTPEndpoint = lens _mimoHTTPEndpoint (\s a -> s {_mimoHTTPEndpoint = a})
+-- | This parameter enables or disables the HTTP metadata endpoint on your
+-- instances. If the parameter is not specified, the existing state is
+-- maintained.
+--
+-- If you specify a value of @disabled@, you will not be able to access
+-- your instance metadata.
+modifyInstanceMetadataOptions_httpEndpoint :: Lens.Lens' ModifyInstanceMetadataOptions (Prelude.Maybe InstanceMetadataEndpointState)
+modifyInstanceMetadataOptions_httpEndpoint = Lens.lens (\ModifyInstanceMetadataOptions' {httpEndpoint} -> httpEndpoint) (\s@ModifyInstanceMetadataOptions' {} a -> s {httpEndpoint = a} :: ModifyInstanceMetadataOptions)
 
--- | The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel. If no parameter is specified, the existing state is maintained. Possible values: Integers from 1 to 64
-mimoHTTPPutResponseHopLimit :: Lens' ModifyInstanceMetadataOptions (Maybe Int)
-mimoHTTPPutResponseHopLimit = lens _mimoHTTPPutResponseHopLimit (\s a -> s {_mimoHTTPPutResponseHopLimit = a})
+-- | The desired HTTP PUT response hop limit for instance metadata requests.
+-- The larger the number, the further instance metadata requests can
+-- travel. If no parameter is specified, the existing state is maintained.
+--
+-- Possible values: Integers from 1 to 64
+modifyInstanceMetadataOptions_httpPutResponseHopLimit :: Lens.Lens' ModifyInstanceMetadataOptions (Prelude.Maybe Prelude.Int)
+modifyInstanceMetadataOptions_httpPutResponseHopLimit = Lens.lens (\ModifyInstanceMetadataOptions' {httpPutResponseHopLimit} -> httpPutResponseHopLimit) (\s@ModifyInstanceMetadataOptions' {} a -> s {httpPutResponseHopLimit = a} :: ModifyInstanceMetadataOptions)
 
--- | The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is @optional@ . If the state is @optional@ , you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned. If the state is @required@ , you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credential always returns the version 2.0 credentials; the version 1.0 credentials are not available.
-mimoHTTPTokens :: Lens' ModifyInstanceMetadataOptions (Maybe HTTPTokensState)
-mimoHTTPTokens = lens _mimoHTTPTokens (\s a -> s {_mimoHTTPTokens = a})
+-- | The state of token usage for your instance metadata requests. If the
+-- parameter is not specified in the request, the default state is
+-- @optional@.
+--
+-- If the state is @optional@, you can choose to retrieve instance metadata
+-- with or without a signed token header on your request. If you retrieve
+-- the IAM role credentials without a token, the version 1.0 role
+-- credentials are returned. If you retrieve the IAM role credentials using
+-- a valid signed token, the version 2.0 role credentials are returned.
+--
+-- If the state is @required@, you must send a signed token header with any
+-- instance metadata retrieval requests. In this state, retrieving the IAM
+-- role credential always returns the version 2.0 credentials; the version
+-- 1.0 credentials are not available.
+modifyInstanceMetadataOptions_httpTokens :: Lens.Lens' ModifyInstanceMetadataOptions (Prelude.Maybe HttpTokensState)
+modifyInstanceMetadataOptions_httpTokens = Lens.lens (\ModifyInstanceMetadataOptions' {httpTokens} -> httpTokens) (\s@ModifyInstanceMetadataOptions' {} a -> s {httpTokens = a} :: ModifyInstanceMetadataOptions)
 
 -- | The ID of the instance.
-mimoInstanceId :: Lens' ModifyInstanceMetadataOptions Text
-mimoInstanceId = lens _mimoInstanceId (\s a -> s {_mimoInstanceId = a})
+modifyInstanceMetadataOptions_instanceId :: Lens.Lens' ModifyInstanceMetadataOptions Prelude.Text
+modifyInstanceMetadataOptions_instanceId = Lens.lens (\ModifyInstanceMetadataOptions' {instanceId} -> instanceId) (\s@ModifyInstanceMetadataOptions' {} a -> s {instanceId = a} :: ModifyInstanceMetadataOptions)
 
-instance AWSRequest ModifyInstanceMetadataOptions where
+instance
+  Prelude.AWSRequest
+    ModifyInstanceMetadataOptions
+  where
   type
     Rs ModifyInstanceMetadataOptions =
       ModifyInstanceMetadataOptionsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyInstanceMetadataOptionsResponse'
-            <$> (x .@? "instanceMetadataOptions")
-            <*> (x .@? "instanceId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "instanceMetadataOptions")
+            Prelude.<*> (x Prelude..@? "instanceId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyInstanceMetadataOptions
+instance
+  Prelude.Hashable
+    ModifyInstanceMetadataOptions
 
-instance NFData ModifyInstanceMetadataOptions
+instance Prelude.NFData ModifyInstanceMetadataOptions
 
-instance ToHeaders ModifyInstanceMetadataOptions where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ModifyInstanceMetadataOptions
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyInstanceMetadataOptions where
-  toPath = const "/"
+instance Prelude.ToPath ModifyInstanceMetadataOptions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyInstanceMetadataOptions where
+instance
+  Prelude.ToQuery
+    ModifyInstanceMetadataOptions
+  where
   toQuery ModifyInstanceMetadataOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyInstanceMetadataOptions" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _mimoDryRun,
-        "HttpEndpoint" =: _mimoHTTPEndpoint,
+          Prelude.=: ( "ModifyInstanceMetadataOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "HttpEndpoint" Prelude.=: httpEndpoint,
         "HttpPutResponseHopLimit"
-          =: _mimoHTTPPutResponseHopLimit,
-        "HttpTokens" =: _mimoHTTPTokens,
-        "InstanceId" =: _mimoInstanceId
+          Prelude.=: httpPutResponseHopLimit,
+        "HttpTokens" Prelude.=: httpTokens,
+        "InstanceId" Prelude.=: instanceId
       ]
 
--- | /See:/ 'modifyInstanceMetadataOptionsResponse' smart constructor.
+-- | /See:/ 'newModifyInstanceMetadataOptionsResponse' smart constructor.
 data ModifyInstanceMetadataOptionsResponse = ModifyInstanceMetadataOptionsResponse'
-  { _mimorrsInstanceMetadataOptions ::
-      !( Maybe
-           InstanceMetadataOptionsResponse
-       ),
-    _mimorrsInstanceId ::
-      !( Maybe
-           Text
-       ),
-    _mimorrsResponseStatus ::
-      !Int
+  { -- | The metadata options for the instance.
+    instanceMetadataOptions :: Prelude.Maybe InstanceMetadataOptionsResponse,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceMetadataOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceMetadataOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mimorrsInstanceMetadataOptions' - The metadata options for the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mimorrsInstanceId' - The ID of the instance.
+-- 'instanceMetadataOptions', 'modifyInstanceMetadataOptionsResponse_instanceMetadataOptions' - The metadata options for the instance.
 --
--- * 'mimorrsResponseStatus' - -- | The response status code.
-modifyInstanceMetadataOptionsResponse ::
-  -- | 'mimorrsResponseStatus'
-  Int ->
+-- 'instanceId', 'modifyInstanceMetadataOptionsResponse_instanceId' - The ID of the instance.
+--
+-- 'httpStatus', 'modifyInstanceMetadataOptionsResponse_httpStatus' - The response's http status code.
+newModifyInstanceMetadataOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyInstanceMetadataOptionsResponse
-modifyInstanceMetadataOptionsResponse
-  pResponseStatus_ =
-    ModifyInstanceMetadataOptionsResponse'
-      { _mimorrsInstanceMetadataOptions =
-          Nothing,
-        _mimorrsInstanceId = Nothing,
-        _mimorrsResponseStatus =
-          pResponseStatus_
-      }
+newModifyInstanceMetadataOptionsResponse pHttpStatus_ =
+  ModifyInstanceMetadataOptionsResponse'
+    { instanceMetadataOptions =
+        Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The metadata options for the instance.
-mimorrsInstanceMetadataOptions :: Lens' ModifyInstanceMetadataOptionsResponse (Maybe InstanceMetadataOptionsResponse)
-mimorrsInstanceMetadataOptions = lens _mimorrsInstanceMetadataOptions (\s a -> s {_mimorrsInstanceMetadataOptions = a})
+modifyInstanceMetadataOptionsResponse_instanceMetadataOptions :: Lens.Lens' ModifyInstanceMetadataOptionsResponse (Prelude.Maybe InstanceMetadataOptionsResponse)
+modifyInstanceMetadataOptionsResponse_instanceMetadataOptions = Lens.lens (\ModifyInstanceMetadataOptionsResponse' {instanceMetadataOptions} -> instanceMetadataOptions) (\s@ModifyInstanceMetadataOptionsResponse' {} a -> s {instanceMetadataOptions = a} :: ModifyInstanceMetadataOptionsResponse)
 
 -- | The ID of the instance.
-mimorrsInstanceId :: Lens' ModifyInstanceMetadataOptionsResponse (Maybe Text)
-mimorrsInstanceId = lens _mimorrsInstanceId (\s a -> s {_mimorrsInstanceId = a})
+modifyInstanceMetadataOptionsResponse_instanceId :: Lens.Lens' ModifyInstanceMetadataOptionsResponse (Prelude.Maybe Prelude.Text)
+modifyInstanceMetadataOptionsResponse_instanceId = Lens.lens (\ModifyInstanceMetadataOptionsResponse' {instanceId} -> instanceId) (\s@ModifyInstanceMetadataOptionsResponse' {} a -> s {instanceId = a} :: ModifyInstanceMetadataOptionsResponse)
 
--- | -- | The response status code.
-mimorrsResponseStatus :: Lens' ModifyInstanceMetadataOptionsResponse Int
-mimorrsResponseStatus = lens _mimorrsResponseStatus (\s a -> s {_mimorrsResponseStatus = a})
+-- | The response's http status code.
+modifyInstanceMetadataOptionsResponse_httpStatus :: Lens.Lens' ModifyInstanceMetadataOptionsResponse Prelude.Int
+modifyInstanceMetadataOptionsResponse_httpStatus = Lens.lens (\ModifyInstanceMetadataOptionsResponse' {httpStatus} -> httpStatus) (\s@ModifyInstanceMetadataOptionsResponse' {} a -> s {httpStatus = a} :: ModifyInstanceMetadataOptionsResponse)
 
-instance NFData ModifyInstanceMetadataOptionsResponse
+instance
+  Prelude.NFData
+    ModifyInstanceMetadataOptionsResponse

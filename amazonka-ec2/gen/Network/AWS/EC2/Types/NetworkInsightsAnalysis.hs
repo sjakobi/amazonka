@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,186 +25,187 @@ import Network.AWS.EC2.Types.AnalysisStatus
 import Network.AWS.EC2.Types.Explanation
 import Network.AWS.EC2.Types.PathComponent
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a network insights analysis.
 --
---
---
--- /See:/ 'networkInsightsAnalysis' smart constructor.
+-- /See:/ 'newNetworkInsightsAnalysis' smart constructor.
 data NetworkInsightsAnalysis = NetworkInsightsAnalysis'
-  { _nStatusMessage ::
-      !(Maybe Text),
-    _nStatus ::
-      !(Maybe AnalysisStatus),
-    _nNetworkInsightsAnalysisId ::
-      !(Maybe Text),
-    _nStartDate ::
-      !(Maybe ISO8601),
-    _nFilterInARNs ::
-      !(Maybe [Text]),
-    _nReturnPathComponents ::
-      !( Maybe
-           [PathComponent]
-       ),
-    _nExplanations ::
-      !(Maybe [Explanation]),
-    _nNetworkPathFound ::
-      !(Maybe Bool),
-    _nNetworkInsightsAnalysisARN ::
-      !(Maybe Text),
-    _nTags ::
-      !(Maybe [Tag]),
-    _nNetworkInsightsPathId ::
-      !(Maybe Text),
-    _nAlternatePathHints ::
-      !( Maybe
-           [AlternatePathHint]
-       ),
-    _nForwardPathComponents ::
-      !( Maybe
-           [PathComponent]
-       )
+  { -- | The status message, if the status is @failed@.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status of the network insights analysis.
+    status :: Prelude.Maybe AnalysisStatus,
+    -- | The ID of the network insights analysis.
+    networkInsightsAnalysisId :: Prelude.Maybe Prelude.Text,
+    -- | The time the analysis started.
+    startDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The Amazon Resource Names (ARN) of the AWS resources that the path must
+    -- traverse.
+    filterInArns :: Prelude.Maybe [Prelude.Text],
+    -- | The components in the path from destination to source.
+    returnPathComponents :: Prelude.Maybe [PathComponent],
+    -- | The explanations. For more information, see
+    -- <https://docs.aws.amazon.com/vpc/latest/reachability/explanation-codes.html Reachability Analyzer explanation codes>.
+    explanations :: Prelude.Maybe [Explanation],
+    -- | Indicates whether the destination is reachable from the source.
+    networkPathFound :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the network insights analysis.
+    networkInsightsAnalysisArn :: Prelude.Maybe Prelude.Text,
+    -- | The tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ID of the path.
+    networkInsightsPathId :: Prelude.Maybe Prelude.Text,
+    -- | Potential intermediate components.
+    alternatePathHints :: Prelude.Maybe [AlternatePathHint],
+    -- | The components in the path from source to destination.
+    forwardPathComponents :: Prelude.Maybe [PathComponent]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkInsightsAnalysis' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkInsightsAnalysis' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nStatusMessage' - The status message, if the status is @failed@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nStatus' - The status of the network insights analysis.
+-- 'statusMessage', 'networkInsightsAnalysis_statusMessage' - The status message, if the status is @failed@.
 --
--- * 'nNetworkInsightsAnalysisId' - The ID of the network insights analysis.
+-- 'status', 'networkInsightsAnalysis_status' - The status of the network insights analysis.
 --
--- * 'nStartDate' - The time the analysis started.
+-- 'networkInsightsAnalysisId', 'networkInsightsAnalysis_networkInsightsAnalysisId' - The ID of the network insights analysis.
 --
--- * 'nFilterInARNs' - The Amazon Resource Names (ARN) of the AWS resources that the path must traverse.
+-- 'startDate', 'networkInsightsAnalysis_startDate' - The time the analysis started.
 --
--- * 'nReturnPathComponents' - The components in the path from destination to source.
+-- 'filterInArns', 'networkInsightsAnalysis_filterInArns' - The Amazon Resource Names (ARN) of the AWS resources that the path must
+-- traverse.
 --
--- * 'nExplanations' - The explanations. For more information, see <https://docs.aws.amazon.com/vpc/latest/reachability/explanation-codes.html Reachability Analyzer explanation codes> .
+-- 'returnPathComponents', 'networkInsightsAnalysis_returnPathComponents' - The components in the path from destination to source.
 --
--- * 'nNetworkPathFound' - Indicates whether the destination is reachable from the source.
+-- 'explanations', 'networkInsightsAnalysis_explanations' - The explanations. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/reachability/explanation-codes.html Reachability Analyzer explanation codes>.
 --
--- * 'nNetworkInsightsAnalysisARN' - The Amazon Resource Name (ARN) of the network insights analysis.
+-- 'networkPathFound', 'networkInsightsAnalysis_networkPathFound' - Indicates whether the destination is reachable from the source.
 --
--- * 'nTags' - The tags.
+-- 'networkInsightsAnalysisArn', 'networkInsightsAnalysis_networkInsightsAnalysisArn' - The Amazon Resource Name (ARN) of the network insights analysis.
 --
--- * 'nNetworkInsightsPathId' - The ID of the path.
+-- 'tags', 'networkInsightsAnalysis_tags' - The tags.
 --
--- * 'nAlternatePathHints' - Potential intermediate components.
+-- 'networkInsightsPathId', 'networkInsightsAnalysis_networkInsightsPathId' - The ID of the path.
 --
--- * 'nForwardPathComponents' - The components in the path from source to destination.
-networkInsightsAnalysis ::
+-- 'alternatePathHints', 'networkInsightsAnalysis_alternatePathHints' - Potential intermediate components.
+--
+-- 'forwardPathComponents', 'networkInsightsAnalysis_forwardPathComponents' - The components in the path from source to destination.
+newNetworkInsightsAnalysis ::
   NetworkInsightsAnalysis
-networkInsightsAnalysis =
+newNetworkInsightsAnalysis =
   NetworkInsightsAnalysis'
-    { _nStatusMessage = Nothing,
-      _nStatus = Nothing,
-      _nNetworkInsightsAnalysisId = Nothing,
-      _nStartDate = Nothing,
-      _nFilterInARNs = Nothing,
-      _nReturnPathComponents = Nothing,
-      _nExplanations = Nothing,
-      _nNetworkPathFound = Nothing,
-      _nNetworkInsightsAnalysisARN = Nothing,
-      _nTags = Nothing,
-      _nNetworkInsightsPathId = Nothing,
-      _nAlternatePathHints = Nothing,
-      _nForwardPathComponents = Nothing
+    { statusMessage =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      networkInsightsAnalysisId = Prelude.Nothing,
+      startDate = Prelude.Nothing,
+      filterInArns = Prelude.Nothing,
+      returnPathComponents = Prelude.Nothing,
+      explanations = Prelude.Nothing,
+      networkPathFound = Prelude.Nothing,
+      networkInsightsAnalysisArn = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      networkInsightsPathId = Prelude.Nothing,
+      alternatePathHints = Prelude.Nothing,
+      forwardPathComponents = Prelude.Nothing
     }
 
--- | The status message, if the status is @failed@ .
-nStatusMessage :: Lens' NetworkInsightsAnalysis (Maybe Text)
-nStatusMessage = lens _nStatusMessage (\s a -> s {_nStatusMessage = a})
+-- | The status message, if the status is @failed@.
+networkInsightsAnalysis_statusMessage :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe Prelude.Text)
+networkInsightsAnalysis_statusMessage = Lens.lens (\NetworkInsightsAnalysis' {statusMessage} -> statusMessage) (\s@NetworkInsightsAnalysis' {} a -> s {statusMessage = a} :: NetworkInsightsAnalysis)
 
 -- | The status of the network insights analysis.
-nStatus :: Lens' NetworkInsightsAnalysis (Maybe AnalysisStatus)
-nStatus = lens _nStatus (\s a -> s {_nStatus = a})
+networkInsightsAnalysis_status :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe AnalysisStatus)
+networkInsightsAnalysis_status = Lens.lens (\NetworkInsightsAnalysis' {status} -> status) (\s@NetworkInsightsAnalysis' {} a -> s {status = a} :: NetworkInsightsAnalysis)
 
 -- | The ID of the network insights analysis.
-nNetworkInsightsAnalysisId :: Lens' NetworkInsightsAnalysis (Maybe Text)
-nNetworkInsightsAnalysisId = lens _nNetworkInsightsAnalysisId (\s a -> s {_nNetworkInsightsAnalysisId = a})
+networkInsightsAnalysis_networkInsightsAnalysisId :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe Prelude.Text)
+networkInsightsAnalysis_networkInsightsAnalysisId = Lens.lens (\NetworkInsightsAnalysis' {networkInsightsAnalysisId} -> networkInsightsAnalysisId) (\s@NetworkInsightsAnalysis' {} a -> s {networkInsightsAnalysisId = a} :: NetworkInsightsAnalysis)
 
 -- | The time the analysis started.
-nStartDate :: Lens' NetworkInsightsAnalysis (Maybe UTCTime)
-nStartDate = lens _nStartDate (\s a -> s {_nStartDate = a}) . mapping _Time
+networkInsightsAnalysis_startDate :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe Prelude.UTCTime)
+networkInsightsAnalysis_startDate = Lens.lens (\NetworkInsightsAnalysis' {startDate} -> startDate) (\s@NetworkInsightsAnalysis' {} a -> s {startDate = a} :: NetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Time
 
--- | The Amazon Resource Names (ARN) of the AWS resources that the path must traverse.
-nFilterInARNs :: Lens' NetworkInsightsAnalysis [Text]
-nFilterInARNs = lens _nFilterInARNs (\s a -> s {_nFilterInARNs = a}) . _Default . _Coerce
+-- | The Amazon Resource Names (ARN) of the AWS resources that the path must
+-- traverse.
+networkInsightsAnalysis_filterInArns :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe [Prelude.Text])
+networkInsightsAnalysis_filterInArns = Lens.lens (\NetworkInsightsAnalysis' {filterInArns} -> filterInArns) (\s@NetworkInsightsAnalysis' {} a -> s {filterInArns = a} :: NetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The components in the path from destination to source.
-nReturnPathComponents :: Lens' NetworkInsightsAnalysis [PathComponent]
-nReturnPathComponents = lens _nReturnPathComponents (\s a -> s {_nReturnPathComponents = a}) . _Default . _Coerce
+networkInsightsAnalysis_returnPathComponents :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe [PathComponent])
+networkInsightsAnalysis_returnPathComponents = Lens.lens (\NetworkInsightsAnalysis' {returnPathComponents} -> returnPathComponents) (\s@NetworkInsightsAnalysis' {} a -> s {returnPathComponents = a} :: NetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The explanations. For more information, see <https://docs.aws.amazon.com/vpc/latest/reachability/explanation-codes.html Reachability Analyzer explanation codes> .
-nExplanations :: Lens' NetworkInsightsAnalysis [Explanation]
-nExplanations = lens _nExplanations (\s a -> s {_nExplanations = a}) . _Default . _Coerce
+-- | The explanations. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/reachability/explanation-codes.html Reachability Analyzer explanation codes>.
+networkInsightsAnalysis_explanations :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe [Explanation])
+networkInsightsAnalysis_explanations = Lens.lens (\NetworkInsightsAnalysis' {explanations} -> explanations) (\s@NetworkInsightsAnalysis' {} a -> s {explanations = a} :: NetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates whether the destination is reachable from the source.
-nNetworkPathFound :: Lens' NetworkInsightsAnalysis (Maybe Bool)
-nNetworkPathFound = lens _nNetworkPathFound (\s a -> s {_nNetworkPathFound = a})
+networkInsightsAnalysis_networkPathFound :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe Prelude.Bool)
+networkInsightsAnalysis_networkPathFound = Lens.lens (\NetworkInsightsAnalysis' {networkPathFound} -> networkPathFound) (\s@NetworkInsightsAnalysis' {} a -> s {networkPathFound = a} :: NetworkInsightsAnalysis)
 
 -- | The Amazon Resource Name (ARN) of the network insights analysis.
-nNetworkInsightsAnalysisARN :: Lens' NetworkInsightsAnalysis (Maybe Text)
-nNetworkInsightsAnalysisARN = lens _nNetworkInsightsAnalysisARN (\s a -> s {_nNetworkInsightsAnalysisARN = a})
+networkInsightsAnalysis_networkInsightsAnalysisArn :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe Prelude.Text)
+networkInsightsAnalysis_networkInsightsAnalysisArn = Lens.lens (\NetworkInsightsAnalysis' {networkInsightsAnalysisArn} -> networkInsightsAnalysisArn) (\s@NetworkInsightsAnalysis' {} a -> s {networkInsightsAnalysisArn = a} :: NetworkInsightsAnalysis)
 
 -- | The tags.
-nTags :: Lens' NetworkInsightsAnalysis [Tag]
-nTags = lens _nTags (\s a -> s {_nTags = a}) . _Default . _Coerce
+networkInsightsAnalysis_tags :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe [Tag])
+networkInsightsAnalysis_tags = Lens.lens (\NetworkInsightsAnalysis' {tags} -> tags) (\s@NetworkInsightsAnalysis' {} a -> s {tags = a} :: NetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the path.
-nNetworkInsightsPathId :: Lens' NetworkInsightsAnalysis (Maybe Text)
-nNetworkInsightsPathId = lens _nNetworkInsightsPathId (\s a -> s {_nNetworkInsightsPathId = a})
+networkInsightsAnalysis_networkInsightsPathId :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe Prelude.Text)
+networkInsightsAnalysis_networkInsightsPathId = Lens.lens (\NetworkInsightsAnalysis' {networkInsightsPathId} -> networkInsightsPathId) (\s@NetworkInsightsAnalysis' {} a -> s {networkInsightsPathId = a} :: NetworkInsightsAnalysis)
 
 -- | Potential intermediate components.
-nAlternatePathHints :: Lens' NetworkInsightsAnalysis [AlternatePathHint]
-nAlternatePathHints = lens _nAlternatePathHints (\s a -> s {_nAlternatePathHints = a}) . _Default . _Coerce
+networkInsightsAnalysis_alternatePathHints :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe [AlternatePathHint])
+networkInsightsAnalysis_alternatePathHints = Lens.lens (\NetworkInsightsAnalysis' {alternatePathHints} -> alternatePathHints) (\s@NetworkInsightsAnalysis' {} a -> s {alternatePathHints = a} :: NetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The components in the path from source to destination.
-nForwardPathComponents :: Lens' NetworkInsightsAnalysis [PathComponent]
-nForwardPathComponents = lens _nForwardPathComponents (\s a -> s {_nForwardPathComponents = a}) . _Default . _Coerce
+networkInsightsAnalysis_forwardPathComponents :: Lens.Lens' NetworkInsightsAnalysis (Prelude.Maybe [PathComponent])
+networkInsightsAnalysis_forwardPathComponents = Lens.lens (\NetworkInsightsAnalysis' {forwardPathComponents} -> forwardPathComponents) (\s@NetworkInsightsAnalysis' {} a -> s {forwardPathComponents = a} :: NetworkInsightsAnalysis) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML NetworkInsightsAnalysis where
+instance Prelude.FromXML NetworkInsightsAnalysis where
   parseXML x =
     NetworkInsightsAnalysis'
-      <$> (x .@? "statusMessage")
-      <*> (x .@? "status")
-      <*> (x .@? "networkInsightsAnalysisId")
-      <*> (x .@? "startDate")
-      <*> ( x .@? "filterInArnSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "returnPathComponentSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "explanationSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "networkPathFound")
-      <*> (x .@? "networkInsightsAnalysisArn")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "networkInsightsPathId")
-      <*> ( x .@? "alternatePathHintSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "forwardPathComponentSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "networkInsightsAnalysisId")
+      Prelude.<*> (x Prelude..@? "startDate")
+      Prelude.<*> ( x Prelude..@? "filterInArnSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "returnPathComponentSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "explanationSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "networkPathFound")
+      Prelude.<*> (x Prelude..@? "networkInsightsAnalysisArn")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "networkInsightsPathId")
+      Prelude.<*> ( x Prelude..@? "alternatePathHintSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "forwardPathComponentSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable NetworkInsightsAnalysis
+instance Prelude.Hashable NetworkInsightsAnalysis
 
-instance NFData NetworkInsightsAnalysis
+instance Prelude.NFData NetworkInsightsAnalysis

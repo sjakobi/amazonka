@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,214 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the IP address ranges that were specified in calls to 'ProvisionByoipCidr' .
+-- Describes the IP address ranges that were specified in calls to
+-- ProvisionByoipCidr.
 --
---
--- To describe the address pools that were created when you provisioned the address ranges, use 'DescribePublicIpv4Pools' or 'DescribeIpv6Pools' .
---
+-- To describe the address pools that were created when you provisioned the
+-- address ranges, use DescribePublicIpv4Pools or DescribeIpv6Pools.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeByoipCidrs
   ( -- * Creating a Request
-    describeByoipCidrs,
-    DescribeByoipCidrs,
+    DescribeByoipCidrs (..),
+    newDescribeByoipCidrs,
 
     -- * Request Lenses
-    dbcNextToken,
-    dbcDryRun,
-    dbcMaxResults,
+    describeByoipCidrs_nextToken,
+    describeByoipCidrs_dryRun,
+    describeByoipCidrs_maxResults,
 
     -- * Destructuring the Response
-    describeByoipCidrsResponse,
-    DescribeByoipCidrsResponse,
+    DescribeByoipCidrsResponse (..),
+    newDescribeByoipCidrsResponse,
 
     -- * Response Lenses
-    dbcrrsNextToken,
-    dbcrrsByoipCidrs,
-    dbcrrsResponseStatus,
+    describeByoipCidrsResponse_nextToken,
+    describeByoipCidrsResponse_byoipCidrs,
+    describeByoipCidrsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ByoipCidr
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeByoipCidrs' smart constructor.
+-- | /See:/ 'newDescribeByoipCidrs' smart constructor.
 data DescribeByoipCidrs = DescribeByoipCidrs'
-  { _dbcNextToken ::
-      !(Maybe Text),
-    _dbcDryRun :: !(Maybe Bool),
-    _dbcMaxResults :: !Nat
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeByoipCidrs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeByoipCidrs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbcNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbcDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeByoipCidrs_nextToken' - The token for the next page of results.
 --
--- * 'dbcMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-describeByoipCidrs ::
-  -- | 'dbcMaxResults'
-  Natural ->
+-- 'dryRun', 'describeByoipCidrs_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'maxResults', 'describeByoipCidrs_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+newDescribeByoipCidrs ::
+  -- | 'maxResults'
+  Prelude.Natural ->
   DescribeByoipCidrs
-describeByoipCidrs pMaxResults_ =
+newDescribeByoipCidrs pMaxResults_ =
   DescribeByoipCidrs'
-    { _dbcNextToken = Nothing,
-      _dbcDryRun = Nothing,
-      _dbcMaxResults = _Nat # pMaxResults_
+    { nextToken = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude._Nat Lens.# pMaxResults_
     }
 
 -- | The token for the next page of results.
-dbcNextToken :: Lens' DescribeByoipCidrs (Maybe Text)
-dbcNextToken = lens _dbcNextToken (\s a -> s {_dbcNextToken = a})
+describeByoipCidrs_nextToken :: Lens.Lens' DescribeByoipCidrs (Prelude.Maybe Prelude.Text)
+describeByoipCidrs_nextToken = Lens.lens (\DescribeByoipCidrs' {nextToken} -> nextToken) (\s@DescribeByoipCidrs' {} a -> s {nextToken = a} :: DescribeByoipCidrs)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dbcDryRun :: Lens' DescribeByoipCidrs (Maybe Bool)
-dbcDryRun = lens _dbcDryRun (\s a -> s {_dbcDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeByoipCidrs_dryRun :: Lens.Lens' DescribeByoipCidrs (Prelude.Maybe Prelude.Bool)
+describeByoipCidrs_dryRun = Lens.lens (\DescribeByoipCidrs' {dryRun} -> dryRun) (\s@DescribeByoipCidrs' {} a -> s {dryRun = a} :: DescribeByoipCidrs)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dbcMaxResults :: Lens' DescribeByoipCidrs Natural
-dbcMaxResults = lens _dbcMaxResults (\s a -> s {_dbcMaxResults = a}) . _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeByoipCidrs_maxResults :: Lens.Lens' DescribeByoipCidrs Prelude.Natural
+describeByoipCidrs_maxResults = Lens.lens (\DescribeByoipCidrs' {maxResults} -> maxResults) (\s@DescribeByoipCidrs' {} a -> s {maxResults = a} :: DescribeByoipCidrs) Prelude.. Prelude._Nat
 
-instance AWSPager DescribeByoipCidrs where
+instance Pager.AWSPager DescribeByoipCidrs where
   page rq rs
-    | stop (rs ^. dbcrrsNextToken) = Nothing
-    | stop (rs ^. dbcrrsByoipCidrs) = Nothing
-    | otherwise =
-      Just $ rq & dbcNextToken .~ rs ^. dbcrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeByoipCidrsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeByoipCidrsResponse_byoipCidrs
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeByoipCidrs_nextToken
+          Lens..~ rs
+          Lens.^? describeByoipCidrsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeByoipCidrs where
+instance Prelude.AWSRequest DescribeByoipCidrs where
   type
     Rs DescribeByoipCidrs =
       DescribeByoipCidrsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeByoipCidrsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "byoipCidrSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "byoipCidrSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeByoipCidrs
+instance Prelude.Hashable DescribeByoipCidrs
 
-instance NFData DescribeByoipCidrs
+instance Prelude.NFData DescribeByoipCidrs
 
-instance ToHeaders DescribeByoipCidrs where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeByoipCidrs where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeByoipCidrs where
-  toPath = const "/"
+instance Prelude.ToPath DescribeByoipCidrs where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeByoipCidrs where
+instance Prelude.ToQuery DescribeByoipCidrs where
   toQuery DescribeByoipCidrs' {..} =
-    mconcat
-      [ "Action" =: ("DescribeByoipCidrs" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dbcNextToken,
-        "DryRun" =: _dbcDryRun,
-        "MaxResults" =: _dbcMaxResults
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeByoipCidrs" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'describeByoipCidrsResponse' smart constructor.
+-- | /See:/ 'newDescribeByoipCidrsResponse' smart constructor.
 data DescribeByoipCidrsResponse = DescribeByoipCidrsResponse'
-  { _dbcrrsNextToken ::
-      !(Maybe Text),
-    _dbcrrsByoipCidrs ::
-      !( Maybe
-           [ByoipCidr]
-       ),
-    _dbcrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about your address ranges.
+    byoipCidrs :: Prelude.Maybe [ByoipCidr],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeByoipCidrsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeByoipCidrsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbcrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbcrrsByoipCidrs' - Information about your address ranges.
+-- 'nextToken', 'describeByoipCidrsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dbcrrsResponseStatus' - -- | The response status code.
-describeByoipCidrsResponse ::
-  -- | 'dbcrrsResponseStatus'
-  Int ->
+-- 'byoipCidrs', 'describeByoipCidrsResponse_byoipCidrs' - Information about your address ranges.
+--
+-- 'httpStatus', 'describeByoipCidrsResponse_httpStatus' - The response's http status code.
+newDescribeByoipCidrsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeByoipCidrsResponse
-describeByoipCidrsResponse pResponseStatus_ =
+newDescribeByoipCidrsResponse pHttpStatus_ =
   DescribeByoipCidrsResponse'
-    { _dbcrrsNextToken =
-        Nothing,
-      _dbcrrsByoipCidrs = Nothing,
-      _dbcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      byoipCidrs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dbcrrsNextToken :: Lens' DescribeByoipCidrsResponse (Maybe Text)
-dbcrrsNextToken = lens _dbcrrsNextToken (\s a -> s {_dbcrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeByoipCidrsResponse_nextToken :: Lens.Lens' DescribeByoipCidrsResponse (Prelude.Maybe Prelude.Text)
+describeByoipCidrsResponse_nextToken = Lens.lens (\DescribeByoipCidrsResponse' {nextToken} -> nextToken) (\s@DescribeByoipCidrsResponse' {} a -> s {nextToken = a} :: DescribeByoipCidrsResponse)
 
 -- | Information about your address ranges.
-dbcrrsByoipCidrs :: Lens' DescribeByoipCidrsResponse [ByoipCidr]
-dbcrrsByoipCidrs = lens _dbcrrsByoipCidrs (\s a -> s {_dbcrrsByoipCidrs = a}) . _Default . _Coerce
+describeByoipCidrsResponse_byoipCidrs :: Lens.Lens' DescribeByoipCidrsResponse (Prelude.Maybe [ByoipCidr])
+describeByoipCidrsResponse_byoipCidrs = Lens.lens (\DescribeByoipCidrsResponse' {byoipCidrs} -> byoipCidrs) (\s@DescribeByoipCidrsResponse' {} a -> s {byoipCidrs = a} :: DescribeByoipCidrsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dbcrrsResponseStatus :: Lens' DescribeByoipCidrsResponse Int
-dbcrrsResponseStatus = lens _dbcrrsResponseStatus (\s a -> s {_dbcrrsResponseStatus = a})
+-- | The response's http status code.
+describeByoipCidrsResponse_httpStatus :: Lens.Lens' DescribeByoipCidrsResponse Prelude.Int
+describeByoipCidrsResponse_httpStatus = Lens.lens (\DescribeByoipCidrsResponse' {httpStatus} -> httpStatus) (\s@DescribeByoipCidrsResponse' {} a -> s {httpStatus = a} :: DescribeByoipCidrsResponse)
 
-instance NFData DescribeByoipCidrsResponse
+instance Prelude.NFData DescribeByoipCidrsResponse

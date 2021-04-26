@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,210 +23,243 @@
 --
 -- Gets information about the entries for a specified managed prefix list.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.GetManagedPrefixListEntries
   ( -- * Creating a Request
-    getManagedPrefixListEntries,
-    GetManagedPrefixListEntries,
+    GetManagedPrefixListEntries (..),
+    newGetManagedPrefixListEntries,
 
     -- * Request Lenses
-    gmpleNextToken,
-    gmpleDryRun,
-    gmpleMaxResults,
-    gmpleTargetVersion,
-    gmplePrefixListId,
+    getManagedPrefixListEntries_nextToken,
+    getManagedPrefixListEntries_dryRun,
+    getManagedPrefixListEntries_maxResults,
+    getManagedPrefixListEntries_targetVersion,
+    getManagedPrefixListEntries_prefixListId,
 
     -- * Destructuring the Response
-    getManagedPrefixListEntriesResponse,
-    GetManagedPrefixListEntriesResponse,
+    GetManagedPrefixListEntriesResponse (..),
+    newGetManagedPrefixListEntriesResponse,
 
     -- * Response Lenses
-    gmplerrsNextToken,
-    gmplerrsEntries,
-    gmplerrsResponseStatus,
+    getManagedPrefixListEntriesResponse_nextToken,
+    getManagedPrefixListEntriesResponse_entries,
+    getManagedPrefixListEntriesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.PrefixListEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getManagedPrefixListEntries' smart constructor.
+-- | /See:/ 'newGetManagedPrefixListEntries' smart constructor.
 data GetManagedPrefixListEntries = GetManagedPrefixListEntries'
-  { _gmpleNextToken ::
-      !(Maybe Text),
-    _gmpleDryRun ::
-      !(Maybe Bool),
-    _gmpleMaxResults ::
-      !(Maybe Nat),
-    _gmpleTargetVersion ::
-      !( Maybe
-           Integer
-       ),
-    _gmplePrefixListId ::
-      !Text
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The version of the prefix list for which to return the entries. The
+    -- default is the current version.
+    targetVersion :: Prelude.Maybe Prelude.Integer,
+    -- | The ID of the prefix list.
+    prefixListId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetManagedPrefixListEntries' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetManagedPrefixListEntries' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmpleNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmpleDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'getManagedPrefixListEntries_nextToken' - The token for the next page of results.
 --
--- * 'gmpleMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'getManagedPrefixListEntries_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'gmpleTargetVersion' - The version of the prefix list for which to return the entries. The default is the current version.
+-- 'maxResults', 'getManagedPrefixListEntries_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'gmplePrefixListId' - The ID of the prefix list.
-getManagedPrefixListEntries ::
-  -- | 'gmplePrefixListId'
-  Text ->
+-- 'targetVersion', 'getManagedPrefixListEntries_targetVersion' - The version of the prefix list for which to return the entries. The
+-- default is the current version.
+--
+-- 'prefixListId', 'getManagedPrefixListEntries_prefixListId' - The ID of the prefix list.
+newGetManagedPrefixListEntries ::
+  -- | 'prefixListId'
+  Prelude.Text ->
   GetManagedPrefixListEntries
-getManagedPrefixListEntries pPrefixListId_ =
+newGetManagedPrefixListEntries pPrefixListId_ =
   GetManagedPrefixListEntries'
-    { _gmpleNextToken =
-        Nothing,
-      _gmpleDryRun = Nothing,
-      _gmpleMaxResults = Nothing,
-      _gmpleTargetVersion = Nothing,
-      _gmplePrefixListId = pPrefixListId_
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      targetVersion = Prelude.Nothing,
+      prefixListId = pPrefixListId_
     }
 
 -- | The token for the next page of results.
-gmpleNextToken :: Lens' GetManagedPrefixListEntries (Maybe Text)
-gmpleNextToken = lens _gmpleNextToken (\s a -> s {_gmpleNextToken = a})
+getManagedPrefixListEntries_nextToken :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Text)
+getManagedPrefixListEntries_nextToken = Lens.lens (\GetManagedPrefixListEntries' {nextToken} -> nextToken) (\s@GetManagedPrefixListEntries' {} a -> s {nextToken = a} :: GetManagedPrefixListEntries)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-gmpleDryRun :: Lens' GetManagedPrefixListEntries (Maybe Bool)
-gmpleDryRun = lens _gmpleDryRun (\s a -> s {_gmpleDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+getManagedPrefixListEntries_dryRun :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Bool)
+getManagedPrefixListEntries_dryRun = Lens.lens (\GetManagedPrefixListEntries' {dryRun} -> dryRun) (\s@GetManagedPrefixListEntries' {} a -> s {dryRun = a} :: GetManagedPrefixListEntries)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-gmpleMaxResults :: Lens' GetManagedPrefixListEntries (Maybe Natural)
-gmpleMaxResults = lens _gmpleMaxResults (\s a -> s {_gmpleMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+getManagedPrefixListEntries_maxResults :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Natural)
+getManagedPrefixListEntries_maxResults = Lens.lens (\GetManagedPrefixListEntries' {maxResults} -> maxResults) (\s@GetManagedPrefixListEntries' {} a -> s {maxResults = a} :: GetManagedPrefixListEntries) Prelude.. Lens.mapping Prelude._Nat
 
--- | The version of the prefix list for which to return the entries. The default is the current version.
-gmpleTargetVersion :: Lens' GetManagedPrefixListEntries (Maybe Integer)
-gmpleTargetVersion = lens _gmpleTargetVersion (\s a -> s {_gmpleTargetVersion = a})
+-- | The version of the prefix list for which to return the entries. The
+-- default is the current version.
+getManagedPrefixListEntries_targetVersion :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Integer)
+getManagedPrefixListEntries_targetVersion = Lens.lens (\GetManagedPrefixListEntries' {targetVersion} -> targetVersion) (\s@GetManagedPrefixListEntries' {} a -> s {targetVersion = a} :: GetManagedPrefixListEntries)
 
 -- | The ID of the prefix list.
-gmplePrefixListId :: Lens' GetManagedPrefixListEntries Text
-gmplePrefixListId = lens _gmplePrefixListId (\s a -> s {_gmplePrefixListId = a})
+getManagedPrefixListEntries_prefixListId :: Lens.Lens' GetManagedPrefixListEntries Prelude.Text
+getManagedPrefixListEntries_prefixListId = Lens.lens (\GetManagedPrefixListEntries' {prefixListId} -> prefixListId) (\s@GetManagedPrefixListEntries' {} a -> s {prefixListId = a} :: GetManagedPrefixListEntries)
 
-instance AWSPager GetManagedPrefixListEntries where
+instance Pager.AWSPager GetManagedPrefixListEntries where
   page rq rs
-    | stop (rs ^. gmplerrsNextToken) = Nothing
-    | stop (rs ^. gmplerrsEntries) = Nothing
-    | otherwise =
-      Just $ rq & gmpleNextToken .~ rs ^. gmplerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getManagedPrefixListEntriesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getManagedPrefixListEntriesResponse_entries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getManagedPrefixListEntries_nextToken
+          Lens..~ rs
+          Lens.^? getManagedPrefixListEntriesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetManagedPrefixListEntries where
+instance
+  Prelude.AWSRequest
+    GetManagedPrefixListEntries
+  where
   type
     Rs GetManagedPrefixListEntries =
       GetManagedPrefixListEntriesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetManagedPrefixListEntriesResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "entrySet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "entrySet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetManagedPrefixListEntries
+instance Prelude.Hashable GetManagedPrefixListEntries
 
-instance NFData GetManagedPrefixListEntries
+instance Prelude.NFData GetManagedPrefixListEntries
 
-instance ToHeaders GetManagedPrefixListEntries where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetManagedPrefixListEntries
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetManagedPrefixListEntries where
-  toPath = const "/"
+instance Prelude.ToPath GetManagedPrefixListEntries where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetManagedPrefixListEntries where
+instance Prelude.ToQuery GetManagedPrefixListEntries where
   toQuery GetManagedPrefixListEntries' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("GetManagedPrefixListEntries" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _gmpleNextToken,
-        "DryRun" =: _gmpleDryRun,
-        "MaxResults" =: _gmpleMaxResults,
-        "TargetVersion" =: _gmpleTargetVersion,
-        "PrefixListId" =: _gmplePrefixListId
+          Prelude.=: ( "GetManagedPrefixListEntries" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        "TargetVersion" Prelude.=: targetVersion,
+        "PrefixListId" Prelude.=: prefixListId
       ]
 
--- | /See:/ 'getManagedPrefixListEntriesResponse' smart constructor.
+-- | /See:/ 'newGetManagedPrefixListEntriesResponse' smart constructor.
 data GetManagedPrefixListEntriesResponse = GetManagedPrefixListEntriesResponse'
-  { _gmplerrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gmplerrsEntries ::
-      !( Maybe
-           [PrefixListEntry]
-       ),
-    _gmplerrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the prefix list entries.
+    entries :: Prelude.Maybe [PrefixListEntry],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetManagedPrefixListEntriesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetManagedPrefixListEntriesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmplerrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmplerrsEntries' - Information about the prefix list entries.
+-- 'nextToken', 'getManagedPrefixListEntriesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'gmplerrsResponseStatus' - -- | The response status code.
-getManagedPrefixListEntriesResponse ::
-  -- | 'gmplerrsResponseStatus'
-  Int ->
+-- 'entries', 'getManagedPrefixListEntriesResponse_entries' - Information about the prefix list entries.
+--
+-- 'httpStatus', 'getManagedPrefixListEntriesResponse_httpStatus' - The response's http status code.
+newGetManagedPrefixListEntriesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetManagedPrefixListEntriesResponse
-getManagedPrefixListEntriesResponse pResponseStatus_ =
+newGetManagedPrefixListEntriesResponse pHttpStatus_ =
   GetManagedPrefixListEntriesResponse'
-    { _gmplerrsNextToken =
-        Nothing,
-      _gmplerrsEntries = Nothing,
-      _gmplerrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      entries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-gmplerrsNextToken :: Lens' GetManagedPrefixListEntriesResponse (Maybe Text)
-gmplerrsNextToken = lens _gmplerrsNextToken (\s a -> s {_gmplerrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+getManagedPrefixListEntriesResponse_nextToken :: Lens.Lens' GetManagedPrefixListEntriesResponse (Prelude.Maybe Prelude.Text)
+getManagedPrefixListEntriesResponse_nextToken = Lens.lens (\GetManagedPrefixListEntriesResponse' {nextToken} -> nextToken) (\s@GetManagedPrefixListEntriesResponse' {} a -> s {nextToken = a} :: GetManagedPrefixListEntriesResponse)
 
 -- | Information about the prefix list entries.
-gmplerrsEntries :: Lens' GetManagedPrefixListEntriesResponse [PrefixListEntry]
-gmplerrsEntries = lens _gmplerrsEntries (\s a -> s {_gmplerrsEntries = a}) . _Default . _Coerce
+getManagedPrefixListEntriesResponse_entries :: Lens.Lens' GetManagedPrefixListEntriesResponse (Prelude.Maybe [PrefixListEntry])
+getManagedPrefixListEntriesResponse_entries = Lens.lens (\GetManagedPrefixListEntriesResponse' {entries} -> entries) (\s@GetManagedPrefixListEntriesResponse' {} a -> s {entries = a} :: GetManagedPrefixListEntriesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gmplerrsResponseStatus :: Lens' GetManagedPrefixListEntriesResponse Int
-gmplerrsResponseStatus = lens _gmplerrsResponseStatus (\s a -> s {_gmplerrsResponseStatus = a})
+-- | The response's http status code.
+getManagedPrefixListEntriesResponse_httpStatus :: Lens.Lens' GetManagedPrefixListEntriesResponse Prelude.Int
+getManagedPrefixListEntriesResponse_httpStatus = Lens.lens (\GetManagedPrefixListEntriesResponse' {httpStatus} -> httpStatus) (\s@GetManagedPrefixListEntriesResponse' {} a -> s {httpStatus = a} :: GetManagedPrefixListEntriesResponse)
 
-instance NFData GetManagedPrefixListEntriesResponse
+instance
+  Prelude.NFData
+    GetManagedPrefixListEntriesResponse

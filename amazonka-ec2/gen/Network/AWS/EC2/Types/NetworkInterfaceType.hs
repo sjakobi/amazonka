@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.NetworkInterfaceType
   ( NetworkInterfaceType
       ( ..,
-        NITEfa,
-        NITInterface,
-        NITNatGateway
+        NetworkInterfaceTypeEfa,
+        NetworkInterfaceTypeInterface,
+        NetworkInterfaceTypeNatGateway
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkInterfaceType
-  = NetworkInterfaceType'
-      ( CI
-          Text
-      )
+newtype NetworkInterfaceType = NetworkInterfaceType'
+  { fromNetworkInterfaceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NITEfa :: NetworkInterfaceType
-pattern NITEfa = NetworkInterfaceType' "efa"
+pattern NetworkInterfaceTypeEfa :: NetworkInterfaceType
+pattern NetworkInterfaceTypeEfa = NetworkInterfaceType' "efa"
 
-pattern NITInterface :: NetworkInterfaceType
-pattern NITInterface = NetworkInterfaceType' "interface"
+pattern NetworkInterfaceTypeInterface :: NetworkInterfaceType
+pattern NetworkInterfaceTypeInterface = NetworkInterfaceType' "interface"
 
-pattern NITNatGateway :: NetworkInterfaceType
-pattern NITNatGateway = NetworkInterfaceType' "natGateway"
+pattern NetworkInterfaceTypeNatGateway :: NetworkInterfaceType
+pattern NetworkInterfaceTypeNatGateway = NetworkInterfaceType' "natGateway"
 
 {-# COMPLETE
-  NITEfa,
-  NITInterface,
-  NITNatGateway,
+  NetworkInterfaceTypeEfa,
+  NetworkInterfaceTypeInterface,
+  NetworkInterfaceTypeNatGateway,
   NetworkInterfaceType'
   #-}
 
-instance FromText NetworkInterfaceType where
-  parser = (NetworkInterfaceType' . mk) <$> takeText
+instance Prelude.FromText NetworkInterfaceType where
+  parser = NetworkInterfaceType' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkInterfaceType where
-  toText (NetworkInterfaceType' ci) = original ci
+instance Prelude.ToText NetworkInterfaceType where
+  toText (NetworkInterfaceType' x) = x
 
-instance Hashable NetworkInterfaceType
+instance Prelude.Hashable NetworkInterfaceType
 
-instance NFData NetworkInterfaceType
+instance Prelude.NFData NetworkInterfaceType
 
-instance ToByteString NetworkInterfaceType
+instance Prelude.ToByteString NetworkInterfaceType
 
-instance ToQuery NetworkInterfaceType
+instance Prelude.ToQuery NetworkInterfaceType
 
-instance ToHeader NetworkInterfaceType
+instance Prelude.ToHeader NetworkInterfaceType
 
-instance FromXML NetworkInterfaceType where
-  parseXML = parseXMLText "NetworkInterfaceType"
+instance Prelude.FromXML NetworkInterfaceType where
+  parseXML = Prelude.parseXMLText "NetworkInterfaceType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,48 @@
 module Network.AWS.EC2.Types.AddressAttributeName
   ( AddressAttributeName
       ( ..,
-        DomainName
+        AddressAttributeNameDomainName
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AddressAttributeName
-  = AddressAttributeName'
-      ( CI
-          Text
-      )
+newtype AddressAttributeName = AddressAttributeName'
+  { fromAddressAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DomainName :: AddressAttributeName
-pattern DomainName = AddressAttributeName' "domain-name"
+pattern AddressAttributeNameDomainName :: AddressAttributeName
+pattern AddressAttributeNameDomainName = AddressAttributeName' "domain-name"
 
 {-# COMPLETE
-  DomainName,
+  AddressAttributeNameDomainName,
   AddressAttributeName'
   #-}
 
-instance FromText AddressAttributeName where
-  parser = (AddressAttributeName' . mk) <$> takeText
+instance Prelude.FromText AddressAttributeName where
+  parser = AddressAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText AddressAttributeName where
-  toText (AddressAttributeName' ci) = original ci
+instance Prelude.ToText AddressAttributeName where
+  toText (AddressAttributeName' x) = x
 
-instance Hashable AddressAttributeName
+instance Prelude.Hashable AddressAttributeName
 
-instance NFData AddressAttributeName
+instance Prelude.NFData AddressAttributeName
 
-instance ToByteString AddressAttributeName
+instance Prelude.ToByteString AddressAttributeName
 
-instance ToQuery AddressAttributeName
+instance Prelude.ToQuery AddressAttributeName
 
-instance ToHeader AddressAttributeName
+instance Prelude.ToHeader AddressAttributeName

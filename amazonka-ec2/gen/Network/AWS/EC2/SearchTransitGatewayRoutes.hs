@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,187 +24,286 @@
 -- Searches for routes in the specified transit gateway route table.
 module Network.AWS.EC2.SearchTransitGatewayRoutes
   ( -- * Creating a Request
-    searchTransitGatewayRoutes,
-    SearchTransitGatewayRoutes,
+    SearchTransitGatewayRoutes (..),
+    newSearchTransitGatewayRoutes,
 
     -- * Request Lenses
-    stgrDryRun,
-    stgrMaxResults,
-    stgrTransitGatewayRouteTableId,
-    stgrFilters,
+    searchTransitGatewayRoutes_dryRun,
+    searchTransitGatewayRoutes_maxResults,
+    searchTransitGatewayRoutes_transitGatewayRouteTableId,
+    searchTransitGatewayRoutes_filters,
 
     -- * Destructuring the Response
-    searchTransitGatewayRoutesResponse,
-    SearchTransitGatewayRoutesResponse,
+    SearchTransitGatewayRoutesResponse (..),
+    newSearchTransitGatewayRoutesResponse,
 
     -- * Response Lenses
-    stgrrrsRoutes,
-    stgrrrsAdditionalRoutesAvailable,
-    stgrrrsResponseStatus,
+    searchTransitGatewayRoutesResponse_routes,
+    searchTransitGatewayRoutesResponse_additionalRoutesAvailable,
+    searchTransitGatewayRoutesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayRoute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'searchTransitGatewayRoutes' smart constructor.
+-- | /See:/ 'newSearchTransitGatewayRoutes' smart constructor.
 data SearchTransitGatewayRoutes = SearchTransitGatewayRoutes'
-  { _stgrDryRun ::
-      !(Maybe Bool),
-    _stgrMaxResults ::
-      !(Maybe Nat),
-    _stgrTransitGatewayRouteTableId ::
-      !Text,
-    _stgrFilters ::
-      ![Filter]
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of routes to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the transit gateway route table.
+    transitGatewayRouteTableId :: Prelude.Text,
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @attachment.transit-gateway-attachment-id@- The id of the transit
+    --     gateway attachment.
+    --
+    -- -   @attachment.resource-id@ - The resource id of the transit gateway
+    --     attachment.
+    --
+    -- -   @attachment.resource-type@ - The attachment resource type. Valid
+    --     values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ |
+    --     @connect@.
+    --
+    -- -   @prefix-list-id@ - The ID of the prefix list.
+    --
+    -- -   @route-search.exact-match@ - The exact match of the specified
+    --     filter.
+    --
+    -- -   @route-search.longest-prefix-match@ - The longest prefix that
+    --     matches the route.
+    --
+    -- -   @route-search.subnet-of-match@ - The routes with a subnet that match
+    --     the specified CIDR filter.
+    --
+    -- -   @route-search.supernet-of-match@ - The routes with a CIDR that
+    --     encompass the CIDR filter. For example, if you have 10.0.1.0\/29 and
+    --     10.0.1.0\/31 routes in your route table and you specify
+    --     supernet-of-match as 10.0.1.0\/30, then the result returns
+    --     10.0.1.0\/29.
+    --
+    -- -   @state@ - The state of the route (@active@ | @blackhole@).
+    --
+    -- -   @type@ - The type of route (@propagated@ | @static@).
+    filters :: [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchTransitGatewayRoutes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchTransitGatewayRoutes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stgrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stgrMaxResults' - The maximum number of routes to return.
+-- 'dryRun', 'searchTransitGatewayRoutes_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'stgrTransitGatewayRouteTableId' - The ID of the transit gateway route table.
+-- 'maxResults', 'searchTransitGatewayRoutes_maxResults' - The maximum number of routes to return.
 --
--- * 'stgrFilters' - One or more filters. The possible values are:     * @attachment.transit-gateway-attachment-id@ - The id of the transit gateway attachment.     * @attachment.resource-id@ - The resource id of the transit gateway attachment.     * @attachment.resource-type@ - The attachment resource type. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ | @connect@ .     * @prefix-list-id@ - The ID of the prefix list.     * @route-search.exact-match@ - The exact match of the specified filter.     * @route-search.longest-prefix-match@ - The longest prefix that matches the route.     * @route-search.subnet-of-match@ - The routes with a subnet that match the specified CIDR filter.     * @route-search.supernet-of-match@ - The routes with a CIDR that encompass the CIDR filter. For example, if you have 10.0.1.0/29 and 10.0.1.0/31 routes in your route table and you specify supernet-of-match as 10.0.1.0/30, then the result returns 10.0.1.0/29.     * @state@ - The state of the route (@active@ | @blackhole@ ).     * @type@ - The type of route (@propagated@ | @static@ ).
-searchTransitGatewayRoutes ::
-  -- | 'stgrTransitGatewayRouteTableId'
-  Text ->
+-- 'transitGatewayRouteTableId', 'searchTransitGatewayRoutes_transitGatewayRouteTableId' - The ID of the transit gateway route table.
+--
+-- 'filters', 'searchTransitGatewayRoutes_filters' - One or more filters. The possible values are:
+--
+-- -   @attachment.transit-gateway-attachment-id@- The id of the transit
+--     gateway attachment.
+--
+-- -   @attachment.resource-id@ - The resource id of the transit gateway
+--     attachment.
+--
+-- -   @attachment.resource-type@ - The attachment resource type. Valid
+--     values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ |
+--     @connect@.
+--
+-- -   @prefix-list-id@ - The ID of the prefix list.
+--
+-- -   @route-search.exact-match@ - The exact match of the specified
+--     filter.
+--
+-- -   @route-search.longest-prefix-match@ - The longest prefix that
+--     matches the route.
+--
+-- -   @route-search.subnet-of-match@ - The routes with a subnet that match
+--     the specified CIDR filter.
+--
+-- -   @route-search.supernet-of-match@ - The routes with a CIDR that
+--     encompass the CIDR filter. For example, if you have 10.0.1.0\/29 and
+--     10.0.1.0\/31 routes in your route table and you specify
+--     supernet-of-match as 10.0.1.0\/30, then the result returns
+--     10.0.1.0\/29.
+--
+-- -   @state@ - The state of the route (@active@ | @blackhole@).
+--
+-- -   @type@ - The type of route (@propagated@ | @static@).
+newSearchTransitGatewayRoutes ::
+  -- | 'transitGatewayRouteTableId'
+  Prelude.Text ->
   SearchTransitGatewayRoutes
-searchTransitGatewayRoutes
+newSearchTransitGatewayRoutes
   pTransitGatewayRouteTableId_ =
     SearchTransitGatewayRoutes'
-      { _stgrDryRun = Nothing,
-        _stgrMaxResults = Nothing,
-        _stgrTransitGatewayRouteTableId =
+      { dryRun =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_,
-        _stgrFilters = mempty
+        filters = Prelude.mempty
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-stgrDryRun :: Lens' SearchTransitGatewayRoutes (Maybe Bool)
-stgrDryRun = lens _stgrDryRun (\s a -> s {_stgrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+searchTransitGatewayRoutes_dryRun :: Lens.Lens' SearchTransitGatewayRoutes (Prelude.Maybe Prelude.Bool)
+searchTransitGatewayRoutes_dryRun = Lens.lens (\SearchTransitGatewayRoutes' {dryRun} -> dryRun) (\s@SearchTransitGatewayRoutes' {} a -> s {dryRun = a} :: SearchTransitGatewayRoutes)
 
 -- | The maximum number of routes to return.
-stgrMaxResults :: Lens' SearchTransitGatewayRoutes (Maybe Natural)
-stgrMaxResults = lens _stgrMaxResults (\s a -> s {_stgrMaxResults = a}) . mapping _Nat
+searchTransitGatewayRoutes_maxResults :: Lens.Lens' SearchTransitGatewayRoutes (Prelude.Maybe Prelude.Natural)
+searchTransitGatewayRoutes_maxResults = Lens.lens (\SearchTransitGatewayRoutes' {maxResults} -> maxResults) (\s@SearchTransitGatewayRoutes' {} a -> s {maxResults = a} :: SearchTransitGatewayRoutes) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ID of the transit gateway route table.
-stgrTransitGatewayRouteTableId :: Lens' SearchTransitGatewayRoutes Text
-stgrTransitGatewayRouteTableId = lens _stgrTransitGatewayRouteTableId (\s a -> s {_stgrTransitGatewayRouteTableId = a})
+searchTransitGatewayRoutes_transitGatewayRouteTableId :: Lens.Lens' SearchTransitGatewayRoutes Prelude.Text
+searchTransitGatewayRoutes_transitGatewayRouteTableId = Lens.lens (\SearchTransitGatewayRoutes' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@SearchTransitGatewayRoutes' {} a -> s {transitGatewayRouteTableId = a} :: SearchTransitGatewayRoutes)
 
--- | One or more filters. The possible values are:     * @attachment.transit-gateway-attachment-id@ - The id of the transit gateway attachment.     * @attachment.resource-id@ - The resource id of the transit gateway attachment.     * @attachment.resource-type@ - The attachment resource type. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ | @connect@ .     * @prefix-list-id@ - The ID of the prefix list.     * @route-search.exact-match@ - The exact match of the specified filter.     * @route-search.longest-prefix-match@ - The longest prefix that matches the route.     * @route-search.subnet-of-match@ - The routes with a subnet that match the specified CIDR filter.     * @route-search.supernet-of-match@ - The routes with a CIDR that encompass the CIDR filter. For example, if you have 10.0.1.0/29 and 10.0.1.0/31 routes in your route table and you specify supernet-of-match as 10.0.1.0/30, then the result returns 10.0.1.0/29.     * @state@ - The state of the route (@active@ | @blackhole@ ).     * @type@ - The type of route (@propagated@ | @static@ ).
-stgrFilters :: Lens' SearchTransitGatewayRoutes [Filter]
-stgrFilters = lens _stgrFilters (\s a -> s {_stgrFilters = a}) . _Coerce
+-- | One or more filters. The possible values are:
+--
+-- -   @attachment.transit-gateway-attachment-id@- The id of the transit
+--     gateway attachment.
+--
+-- -   @attachment.resource-id@ - The resource id of the transit gateway
+--     attachment.
+--
+-- -   @attachment.resource-type@ - The attachment resource type. Valid
+--     values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ |
+--     @connect@.
+--
+-- -   @prefix-list-id@ - The ID of the prefix list.
+--
+-- -   @route-search.exact-match@ - The exact match of the specified
+--     filter.
+--
+-- -   @route-search.longest-prefix-match@ - The longest prefix that
+--     matches the route.
+--
+-- -   @route-search.subnet-of-match@ - The routes with a subnet that match
+--     the specified CIDR filter.
+--
+-- -   @route-search.supernet-of-match@ - The routes with a CIDR that
+--     encompass the CIDR filter. For example, if you have 10.0.1.0\/29 and
+--     10.0.1.0\/31 routes in your route table and you specify
+--     supernet-of-match as 10.0.1.0\/30, then the result returns
+--     10.0.1.0\/29.
+--
+-- -   @state@ - The state of the route (@active@ | @blackhole@).
+--
+-- -   @type@ - The type of route (@propagated@ | @static@).
+searchTransitGatewayRoutes_filters :: Lens.Lens' SearchTransitGatewayRoutes [Filter]
+searchTransitGatewayRoutes_filters = Lens.lens (\SearchTransitGatewayRoutes' {filters} -> filters) (\s@SearchTransitGatewayRoutes' {} a -> s {filters = a} :: SearchTransitGatewayRoutes) Prelude.. Prelude._Coerce
 
-instance AWSRequest SearchTransitGatewayRoutes where
+instance
+  Prelude.AWSRequest
+    SearchTransitGatewayRoutes
+  where
   type
     Rs SearchTransitGatewayRoutes =
       SearchTransitGatewayRoutesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           SearchTransitGatewayRoutesResponse'
-            <$> ( x .@? "routeSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "additionalRoutesAvailable")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "routeSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "additionalRoutesAvailable")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchTransitGatewayRoutes
+instance Prelude.Hashable SearchTransitGatewayRoutes
 
-instance NFData SearchTransitGatewayRoutes
+instance Prelude.NFData SearchTransitGatewayRoutes
 
-instance ToHeaders SearchTransitGatewayRoutes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SearchTransitGatewayRoutes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SearchTransitGatewayRoutes where
-  toPath = const "/"
+instance Prelude.ToPath SearchTransitGatewayRoutes where
+  toPath = Prelude.const "/"
 
-instance ToQuery SearchTransitGatewayRoutes where
+instance Prelude.ToQuery SearchTransitGatewayRoutes where
   toQuery SearchTransitGatewayRoutes' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("SearchTransitGatewayRoutes" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _stgrDryRun,
-        "MaxResults" =: _stgrMaxResults,
+          Prelude.=: ("SearchTransitGatewayRoutes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
         "TransitGatewayRouteTableId"
-          =: _stgrTransitGatewayRouteTableId,
-        toQueryList "Filter" _stgrFilters
+          Prelude.=: transitGatewayRouteTableId,
+        Prelude.toQueryList "Filter" filters
       ]
 
--- | /See:/ 'searchTransitGatewayRoutesResponse' smart constructor.
+-- | /See:/ 'newSearchTransitGatewayRoutesResponse' smart constructor.
 data SearchTransitGatewayRoutesResponse = SearchTransitGatewayRoutesResponse'
-  { _stgrrrsRoutes ::
-      !( Maybe
-           [TransitGatewayRoute]
-       ),
-    _stgrrrsAdditionalRoutesAvailable ::
-      !( Maybe
-           Bool
-       ),
-    _stgrrrsResponseStatus ::
-      !Int
+  { -- | Information about the routes.
+    routes :: Prelude.Maybe [TransitGatewayRoute],
+    -- | Indicates whether there are additional routes available.
+    additionalRoutesAvailable :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchTransitGatewayRoutesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchTransitGatewayRoutesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stgrrrsRoutes' - Information about the routes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stgrrrsAdditionalRoutesAvailable' - Indicates whether there are additional routes available.
+-- 'routes', 'searchTransitGatewayRoutesResponse_routes' - Information about the routes.
 --
--- * 'stgrrrsResponseStatus' - -- | The response status code.
-searchTransitGatewayRoutesResponse ::
-  -- | 'stgrrrsResponseStatus'
-  Int ->
+-- 'additionalRoutesAvailable', 'searchTransitGatewayRoutesResponse_additionalRoutesAvailable' - Indicates whether there are additional routes available.
+--
+-- 'httpStatus', 'searchTransitGatewayRoutesResponse_httpStatus' - The response's http status code.
+newSearchTransitGatewayRoutesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SearchTransitGatewayRoutesResponse
-searchTransitGatewayRoutesResponse pResponseStatus_ =
+newSearchTransitGatewayRoutesResponse pHttpStatus_ =
   SearchTransitGatewayRoutesResponse'
-    { _stgrrrsRoutes =
-        Nothing,
-      _stgrrrsAdditionalRoutesAvailable =
-        Nothing,
-      _stgrrrsResponseStatus =
-        pResponseStatus_
+    { routes =
+        Prelude.Nothing,
+      additionalRoutesAvailable =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the routes.
-stgrrrsRoutes :: Lens' SearchTransitGatewayRoutesResponse [TransitGatewayRoute]
-stgrrrsRoutes = lens _stgrrrsRoutes (\s a -> s {_stgrrrsRoutes = a}) . _Default . _Coerce
+searchTransitGatewayRoutesResponse_routes :: Lens.Lens' SearchTransitGatewayRoutesResponse (Prelude.Maybe [TransitGatewayRoute])
+searchTransitGatewayRoutesResponse_routes = Lens.lens (\SearchTransitGatewayRoutesResponse' {routes} -> routes) (\s@SearchTransitGatewayRoutesResponse' {} a -> s {routes = a} :: SearchTransitGatewayRoutesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates whether there are additional routes available.
-stgrrrsAdditionalRoutesAvailable :: Lens' SearchTransitGatewayRoutesResponse (Maybe Bool)
-stgrrrsAdditionalRoutesAvailable = lens _stgrrrsAdditionalRoutesAvailable (\s a -> s {_stgrrrsAdditionalRoutesAvailable = a})
+searchTransitGatewayRoutesResponse_additionalRoutesAvailable :: Lens.Lens' SearchTransitGatewayRoutesResponse (Prelude.Maybe Prelude.Bool)
+searchTransitGatewayRoutesResponse_additionalRoutesAvailable = Lens.lens (\SearchTransitGatewayRoutesResponse' {additionalRoutesAvailable} -> additionalRoutesAvailable) (\s@SearchTransitGatewayRoutesResponse' {} a -> s {additionalRoutesAvailable = a} :: SearchTransitGatewayRoutesResponse)
 
--- | -- | The response status code.
-stgrrrsResponseStatus :: Lens' SearchTransitGatewayRoutesResponse Int
-stgrrrsResponseStatus = lens _stgrrrsResponseStatus (\s a -> s {_stgrrrsResponseStatus = a})
+-- | The response's http status code.
+searchTransitGatewayRoutesResponse_httpStatus :: Lens.Lens' SearchTransitGatewayRoutesResponse Prelude.Int
+searchTransitGatewayRoutesResponse_httpStatus = Lens.lens (\SearchTransitGatewayRoutesResponse' {httpStatus} -> httpStatus) (\s@SearchTransitGatewayRoutesResponse' {} a -> s {httpStatus = a} :: SearchTransitGatewayRoutesResponse)
 
-instance NFData SearchTransitGatewayRoutesResponse
+instance
+  Prelude.NFData
+    SearchTransitGatewayRoutesResponse

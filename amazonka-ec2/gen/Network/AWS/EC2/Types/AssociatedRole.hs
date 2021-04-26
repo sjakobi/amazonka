@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,70 +20,86 @@
 module Network.AWS.EC2.Types.AssociatedRole where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the associated IAM roles.
 --
---
---
--- /See:/ 'associatedRole' smart constructor.
+-- /See:/ 'newAssociatedRole' smart constructor.
 data AssociatedRole = AssociatedRole'
-  { _arCertificateS3ObjectKey ::
-      !(Maybe Text),
-    _arEncryptionKMSKeyId :: !(Maybe Text),
-    _arCertificateS3BucketName ::
-      !(Maybe Text),
-    _arAssociatedRoleARN :: !(Maybe Text)
+  { -- | The key of the Amazon S3 object ey where the certificate, certificate
+    -- chain, and encrypted private key bundle is stored. The object key is
+    -- formated as follows: @role_arn@\/@certificate_arn@.
+    certificateS3ObjectKey :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the KMS customer master key (CMK) used to encrypt the private
+    -- key.
+    encryptionKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Amazon S3 bucket in which the Amazon S3 object is
+    -- stored.
+    certificateS3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the associated IAM role.
+    associatedRoleArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociatedRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociatedRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arCertificateS3ObjectKey' - The key of the Amazon S3 object ey where the certificate, certificate chain, and encrypted private key bundle is stored. The object key is formated as follows: @role_arn@ /@certificate_arn@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arEncryptionKMSKeyId' - The ID of the KMS customer master key (CMK) used to encrypt the private key.
+-- 'certificateS3ObjectKey', 'associatedRole_certificateS3ObjectKey' - The key of the Amazon S3 object ey where the certificate, certificate
+-- chain, and encrypted private key bundle is stored. The object key is
+-- formated as follows: @role_arn@\/@certificate_arn@.
 --
--- * 'arCertificateS3BucketName' - The name of the Amazon S3 bucket in which the Amazon S3 object is stored.
+-- 'encryptionKmsKeyId', 'associatedRole_encryptionKmsKeyId' - The ID of the KMS customer master key (CMK) used to encrypt the private
+-- key.
 --
--- * 'arAssociatedRoleARN' - The ARN of the associated IAM role.
-associatedRole ::
+-- 'certificateS3BucketName', 'associatedRole_certificateS3BucketName' - The name of the Amazon S3 bucket in which the Amazon S3 object is
+-- stored.
+--
+-- 'associatedRoleArn', 'associatedRole_associatedRoleArn' - The ARN of the associated IAM role.
+newAssociatedRole ::
   AssociatedRole
-associatedRole =
+newAssociatedRole =
   AssociatedRole'
-    { _arCertificateS3ObjectKey =
-        Nothing,
-      _arEncryptionKMSKeyId = Nothing,
-      _arCertificateS3BucketName = Nothing,
-      _arAssociatedRoleARN = Nothing
+    { certificateS3ObjectKey =
+        Prelude.Nothing,
+      encryptionKmsKeyId = Prelude.Nothing,
+      certificateS3BucketName = Prelude.Nothing,
+      associatedRoleArn = Prelude.Nothing
     }
 
--- | The key of the Amazon S3 object ey where the certificate, certificate chain, and encrypted private key bundle is stored. The object key is formated as follows: @role_arn@ /@certificate_arn@ .
-arCertificateS3ObjectKey :: Lens' AssociatedRole (Maybe Text)
-arCertificateS3ObjectKey = lens _arCertificateS3ObjectKey (\s a -> s {_arCertificateS3ObjectKey = a})
+-- | The key of the Amazon S3 object ey where the certificate, certificate
+-- chain, and encrypted private key bundle is stored. The object key is
+-- formated as follows: @role_arn@\/@certificate_arn@.
+associatedRole_certificateS3ObjectKey :: Lens.Lens' AssociatedRole (Prelude.Maybe Prelude.Text)
+associatedRole_certificateS3ObjectKey = Lens.lens (\AssociatedRole' {certificateS3ObjectKey} -> certificateS3ObjectKey) (\s@AssociatedRole' {} a -> s {certificateS3ObjectKey = a} :: AssociatedRole)
 
--- | The ID of the KMS customer master key (CMK) used to encrypt the private key.
-arEncryptionKMSKeyId :: Lens' AssociatedRole (Maybe Text)
-arEncryptionKMSKeyId = lens _arEncryptionKMSKeyId (\s a -> s {_arEncryptionKMSKeyId = a})
+-- | The ID of the KMS customer master key (CMK) used to encrypt the private
+-- key.
+associatedRole_encryptionKmsKeyId :: Lens.Lens' AssociatedRole (Prelude.Maybe Prelude.Text)
+associatedRole_encryptionKmsKeyId = Lens.lens (\AssociatedRole' {encryptionKmsKeyId} -> encryptionKmsKeyId) (\s@AssociatedRole' {} a -> s {encryptionKmsKeyId = a} :: AssociatedRole)
 
--- | The name of the Amazon S3 bucket in which the Amazon S3 object is stored.
-arCertificateS3BucketName :: Lens' AssociatedRole (Maybe Text)
-arCertificateS3BucketName = lens _arCertificateS3BucketName (\s a -> s {_arCertificateS3BucketName = a})
+-- | The name of the Amazon S3 bucket in which the Amazon S3 object is
+-- stored.
+associatedRole_certificateS3BucketName :: Lens.Lens' AssociatedRole (Prelude.Maybe Prelude.Text)
+associatedRole_certificateS3BucketName = Lens.lens (\AssociatedRole' {certificateS3BucketName} -> certificateS3BucketName) (\s@AssociatedRole' {} a -> s {certificateS3BucketName = a} :: AssociatedRole)
 
 -- | The ARN of the associated IAM role.
-arAssociatedRoleARN :: Lens' AssociatedRole (Maybe Text)
-arAssociatedRoleARN = lens _arAssociatedRoleARN (\s a -> s {_arAssociatedRoleARN = a})
+associatedRole_associatedRoleArn :: Lens.Lens' AssociatedRole (Prelude.Maybe Prelude.Text)
+associatedRole_associatedRoleArn = Lens.lens (\AssociatedRole' {associatedRoleArn} -> associatedRoleArn) (\s@AssociatedRole' {} a -> s {associatedRoleArn = a} :: AssociatedRole)
 
-instance FromXML AssociatedRole where
+instance Prelude.FromXML AssociatedRole where
   parseXML x =
     AssociatedRole'
-      <$> (x .@? "certificateS3ObjectKey")
-      <*> (x .@? "encryptionKmsKeyId")
-      <*> (x .@? "certificateS3BucketName")
-      <*> (x .@? "associatedRoleArn")
+      Prelude.<$> (x Prelude..@? "certificateS3ObjectKey")
+      Prelude.<*> (x Prelude..@? "encryptionKmsKeyId")
+      Prelude.<*> (x Prelude..@? "certificateS3BucketName")
+      Prelude.<*> (x Prelude..@? "associatedRoleArn")
 
-instance Hashable AssociatedRole
+instance Prelude.Hashable AssociatedRole
 
-instance NFData AssociatedRole
+instance Prelude.NFData AssociatedRole

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified Connect attachment. You must first delete any Connect peers for the attachment.
+-- Deletes the specified Connect attachment. You must first delete any
+-- Connect peers for the attachment.
 module Network.AWS.EC2.DeleteTransitGatewayConnect
   ( -- * Creating a Request
-    deleteTransitGatewayConnect,
-    DeleteTransitGatewayConnect,
+    DeleteTransitGatewayConnect (..),
+    newDeleteTransitGatewayConnect,
 
     -- * Request Lenses
-    dtgctDryRun,
-    dtgctTransitGatewayAttachmentId,
+    deleteTransitGatewayConnect_dryRun,
+    deleteTransitGatewayConnect_transitGatewayAttachmentId,
 
     -- * Destructuring the Response
-    deleteTransitGatewayConnectResponse,
-    DeleteTransitGatewayConnectResponse,
+    DeleteTransitGatewayConnectResponse (..),
+    newDeleteTransitGatewayConnectResponse,
 
     -- * Response Lenses
-    dtgcrtrsTransitGatewayConnect,
-    dtgcrtrsResponseStatus,
+    deleteTransitGatewayConnectResponse_transitGatewayConnect,
+    deleteTransitGatewayConnectResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayConnect
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTransitGatewayConnect' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayConnect' smart constructor.
 data DeleteTransitGatewayConnect = DeleteTransitGatewayConnect'
-  { _dtgctDryRun ::
-      !(Maybe Bool),
-    _dtgctTransitGatewayAttachmentId ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the Connect attachment.
+    transitGatewayAttachmentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayConnect' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayConnect' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgctDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgctTransitGatewayAttachmentId' - The ID of the Connect attachment.
-deleteTransitGatewayConnect ::
-  -- | 'dtgctTransitGatewayAttachmentId'
-  Text ->
+-- 'dryRun', 'deleteTransitGatewayConnect_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'transitGatewayAttachmentId', 'deleteTransitGatewayConnect_transitGatewayAttachmentId' - The ID of the Connect attachment.
+newDeleteTransitGatewayConnect ::
+  -- | 'transitGatewayAttachmentId'
+  Prelude.Text ->
   DeleteTransitGatewayConnect
-deleteTransitGatewayConnect
+newDeleteTransitGatewayConnect
   pTransitGatewayAttachmentId_ =
     DeleteTransitGatewayConnect'
-      { _dtgctDryRun =
-          Nothing,
-        _dtgctTransitGatewayAttachmentId =
+      { dryRun =
+          Prelude.Nothing,
+        transitGatewayAttachmentId =
           pTransitGatewayAttachmentId_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgctDryRun :: Lens' DeleteTransitGatewayConnect (Maybe Bool)
-dtgctDryRun = lens _dtgctDryRun (\s a -> s {_dtgctDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteTransitGatewayConnect_dryRun :: Lens.Lens' DeleteTransitGatewayConnect (Prelude.Maybe Prelude.Bool)
+deleteTransitGatewayConnect_dryRun = Lens.lens (\DeleteTransitGatewayConnect' {dryRun} -> dryRun) (\s@DeleteTransitGatewayConnect' {} a -> s {dryRun = a} :: DeleteTransitGatewayConnect)
 
 -- | The ID of the Connect attachment.
-dtgctTransitGatewayAttachmentId :: Lens' DeleteTransitGatewayConnect Text
-dtgctTransitGatewayAttachmentId = lens _dtgctTransitGatewayAttachmentId (\s a -> s {_dtgctTransitGatewayAttachmentId = a})
+deleteTransitGatewayConnect_transitGatewayAttachmentId :: Lens.Lens' DeleteTransitGatewayConnect Prelude.Text
+deleteTransitGatewayConnect_transitGatewayAttachmentId = Lens.lens (\DeleteTransitGatewayConnect' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@DeleteTransitGatewayConnect' {} a -> s {transitGatewayAttachmentId = a} :: DeleteTransitGatewayConnect)
 
-instance AWSRequest DeleteTransitGatewayConnect where
+instance
+  Prelude.AWSRequest
+    DeleteTransitGatewayConnect
+  where
   type
     Rs DeleteTransitGatewayConnect =
       DeleteTransitGatewayConnectResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayConnectResponse'
-            <$> (x .@? "transitGatewayConnect")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayConnect")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTransitGatewayConnect
+instance Prelude.Hashable DeleteTransitGatewayConnect
 
-instance NFData DeleteTransitGatewayConnect
+instance Prelude.NFData DeleteTransitGatewayConnect
 
-instance ToHeaders DeleteTransitGatewayConnect where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteTransitGatewayConnect
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTransitGatewayConnect where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTransitGatewayConnect where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTransitGatewayConnect where
+instance Prelude.ToQuery DeleteTransitGatewayConnect where
   toQuery DeleteTransitGatewayConnect' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteTransitGatewayConnect" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dtgctDryRun,
+          Prelude.=: ( "DeleteTransitGatewayConnect" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
         "TransitGatewayAttachmentId"
-          =: _dtgctTransitGatewayAttachmentId
+          Prelude.=: transitGatewayAttachmentId
       ]
 
--- | /See:/ 'deleteTransitGatewayConnectResponse' smart constructor.
+-- | /See:/ 'newDeleteTransitGatewayConnectResponse' smart constructor.
 data DeleteTransitGatewayConnectResponse = DeleteTransitGatewayConnectResponse'
-  { _dtgcrtrsTransitGatewayConnect ::
-      !( Maybe
-           TransitGatewayConnect
-       ),
-    _dtgcrtrsResponseStatus ::
-      !Int
+  { -- | Information about the deleted Connect attachment.
+    transitGatewayConnect :: Prelude.Maybe TransitGatewayConnect,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTransitGatewayConnectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTransitGatewayConnectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgcrtrsTransitGatewayConnect' - Information about the deleted Connect attachment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgcrtrsResponseStatus' - -- | The response status code.
-deleteTransitGatewayConnectResponse ::
-  -- | 'dtgcrtrsResponseStatus'
-  Int ->
+-- 'transitGatewayConnect', 'deleteTransitGatewayConnectResponse_transitGatewayConnect' - Information about the deleted Connect attachment.
+--
+-- 'httpStatus', 'deleteTransitGatewayConnectResponse_httpStatus' - The response's http status code.
+newDeleteTransitGatewayConnectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTransitGatewayConnectResponse
-deleteTransitGatewayConnectResponse pResponseStatus_ =
+newDeleteTransitGatewayConnectResponse pHttpStatus_ =
   DeleteTransitGatewayConnectResponse'
-    { _dtgcrtrsTransitGatewayConnect =
-        Nothing,
-      _dtgcrtrsResponseStatus =
-        pResponseStatus_
+    { transitGatewayConnect =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the deleted Connect attachment.
-dtgcrtrsTransitGatewayConnect :: Lens' DeleteTransitGatewayConnectResponse (Maybe TransitGatewayConnect)
-dtgcrtrsTransitGatewayConnect = lens _dtgcrtrsTransitGatewayConnect (\s a -> s {_dtgcrtrsTransitGatewayConnect = a})
+deleteTransitGatewayConnectResponse_transitGatewayConnect :: Lens.Lens' DeleteTransitGatewayConnectResponse (Prelude.Maybe TransitGatewayConnect)
+deleteTransitGatewayConnectResponse_transitGatewayConnect = Lens.lens (\DeleteTransitGatewayConnectResponse' {transitGatewayConnect} -> transitGatewayConnect) (\s@DeleteTransitGatewayConnectResponse' {} a -> s {transitGatewayConnect = a} :: DeleteTransitGatewayConnectResponse)
 
--- | -- | The response status code.
-dtgcrtrsResponseStatus :: Lens' DeleteTransitGatewayConnectResponse Int
-dtgcrtrsResponseStatus = lens _dtgcrtrsResponseStatus (\s a -> s {_dtgcrtrsResponseStatus = a})
+-- | The response's http status code.
+deleteTransitGatewayConnectResponse_httpStatus :: Lens.Lens' DeleteTransitGatewayConnectResponse Prelude.Int
+deleteTransitGatewayConnectResponse_httpStatus = Lens.lens (\DeleteTransitGatewayConnectResponse' {httpStatus} -> httpStatus) (\s@DeleteTransitGatewayConnectResponse' {} a -> s {httpStatus = a} :: DeleteTransitGatewayConnectResponse)
 
-instance NFData DeleteTransitGatewayConnectResponse
+instance
+  Prelude.NFData
+    DeleteTransitGatewayConnectResponse

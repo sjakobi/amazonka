@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,248 +21,284 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about the associations for the specified transit gateway route table.
---
---
+-- Gets information about the associations for the specified transit
+-- gateway route table.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.GetTransitGatewayRouteTableAssociations
   ( -- * Creating a Request
-    getTransitGatewayRouteTableAssociations,
-    GetTransitGatewayRouteTableAssociations,
+    GetTransitGatewayRouteTableAssociations (..),
+    newGetTransitGatewayRouteTableAssociations,
 
     -- * Request Lenses
-    gtgrtaNextToken,
-    gtgrtaDryRun,
-    gtgrtaMaxResults,
-    gtgrtaFilters,
-    gtgrtaTransitGatewayRouteTableId,
+    getTransitGatewayRouteTableAssociations_nextToken,
+    getTransitGatewayRouteTableAssociations_dryRun,
+    getTransitGatewayRouteTableAssociations_maxResults,
+    getTransitGatewayRouteTableAssociations_filters,
+    getTransitGatewayRouteTableAssociations_transitGatewayRouteTableId,
 
     -- * Destructuring the Response
-    getTransitGatewayRouteTableAssociationsResponse,
-    GetTransitGatewayRouteTableAssociationsResponse,
+    GetTransitGatewayRouteTableAssociationsResponse (..),
+    newGetTransitGatewayRouteTableAssociationsResponse,
 
     -- * Response Lenses
-    gtgrtarrsNextToken,
-    gtgrtarrsAssociations,
-    gtgrtarrsResponseStatus,
+    getTransitGatewayRouteTableAssociationsResponse_nextToken,
+    getTransitGatewayRouteTableAssociationsResponse_associations,
+    getTransitGatewayRouteTableAssociationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayRouteTableAssociation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTransitGatewayRouteTableAssociations' smart constructor.
+-- | /See:/ 'newGetTransitGatewayRouteTableAssociations' smart constructor.
 data GetTransitGatewayRouteTableAssociations = GetTransitGatewayRouteTableAssociations'
-  { _gtgrtaNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gtgrtaDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _gtgrtaMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _gtgrtaFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _gtgrtaTransitGatewayRouteTableId ::
-      !Text
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @resource-id@ - The ID of the resource.
+    --
+    -- -   @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@
+    --     | @direct-connect-gateway@ | @peering@ | @connect@.
+    --
+    -- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+    filters :: Prelude.Maybe [Filter],
+    -- | The ID of the transit gateway route table.
+    transitGatewayRouteTableId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTransitGatewayRouteTableAssociations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTransitGatewayRouteTableAssociations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtgrtaNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtgrtaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'getTransitGatewayRouteTableAssociations_nextToken' - The token for the next page of results.
 --
--- * 'gtgrtaMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'getTransitGatewayRouteTableAssociations_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'gtgrtaFilters' - One or more filters. The possible values are:     * @resource-id@ - The ID of the resource.     * @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ | @connect@ .     * @transit-gateway-attachment-id@ - The ID of the attachment.
+-- 'maxResults', 'getTransitGatewayRouteTableAssociations_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'gtgrtaTransitGatewayRouteTableId' - The ID of the transit gateway route table.
-getTransitGatewayRouteTableAssociations ::
-  -- | 'gtgrtaTransitGatewayRouteTableId'
-  Text ->
+-- 'filters', 'getTransitGatewayRouteTableAssociations_filters' - One or more filters. The possible values are:
+--
+-- -   @resource-id@ - The ID of the resource.
+--
+-- -   @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@
+--     | @direct-connect-gateway@ | @peering@ | @connect@.
+--
+-- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+--
+-- 'transitGatewayRouteTableId', 'getTransitGatewayRouteTableAssociations_transitGatewayRouteTableId' - The ID of the transit gateway route table.
+newGetTransitGatewayRouteTableAssociations ::
+  -- | 'transitGatewayRouteTableId'
+  Prelude.Text ->
   GetTransitGatewayRouteTableAssociations
-getTransitGatewayRouteTableAssociations
+newGetTransitGatewayRouteTableAssociations
   pTransitGatewayRouteTableId_ =
     GetTransitGatewayRouteTableAssociations'
-      { _gtgrtaNextToken =
-          Nothing,
-        _gtgrtaDryRun = Nothing,
-        _gtgrtaMaxResults = Nothing,
-        _gtgrtaFilters = Nothing,
-        _gtgrtaTransitGatewayRouteTableId =
+      { nextToken =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        filters = Prelude.Nothing,
+        transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_
       }
 
 -- | The token for the next page of results.
-gtgrtaNextToken :: Lens' GetTransitGatewayRouteTableAssociations (Maybe Text)
-gtgrtaNextToken = lens _gtgrtaNextToken (\s a -> s {_gtgrtaNextToken = a})
+getTransitGatewayRouteTableAssociations_nextToken :: Lens.Lens' GetTransitGatewayRouteTableAssociations (Prelude.Maybe Prelude.Text)
+getTransitGatewayRouteTableAssociations_nextToken = Lens.lens (\GetTransitGatewayRouteTableAssociations' {nextToken} -> nextToken) (\s@GetTransitGatewayRouteTableAssociations' {} a -> s {nextToken = a} :: GetTransitGatewayRouteTableAssociations)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-gtgrtaDryRun :: Lens' GetTransitGatewayRouteTableAssociations (Maybe Bool)
-gtgrtaDryRun = lens _gtgrtaDryRun (\s a -> s {_gtgrtaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+getTransitGatewayRouteTableAssociations_dryRun :: Lens.Lens' GetTransitGatewayRouteTableAssociations (Prelude.Maybe Prelude.Bool)
+getTransitGatewayRouteTableAssociations_dryRun = Lens.lens (\GetTransitGatewayRouteTableAssociations' {dryRun} -> dryRun) (\s@GetTransitGatewayRouteTableAssociations' {} a -> s {dryRun = a} :: GetTransitGatewayRouteTableAssociations)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-gtgrtaMaxResults :: Lens' GetTransitGatewayRouteTableAssociations (Maybe Natural)
-gtgrtaMaxResults = lens _gtgrtaMaxResults (\s a -> s {_gtgrtaMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+getTransitGatewayRouteTableAssociations_maxResults :: Lens.Lens' GetTransitGatewayRouteTableAssociations (Prelude.Maybe Prelude.Natural)
+getTransitGatewayRouteTableAssociations_maxResults = Lens.lens (\GetTransitGatewayRouteTableAssociations' {maxResults} -> maxResults) (\s@GetTransitGatewayRouteTableAssociations' {} a -> s {maxResults = a} :: GetTransitGatewayRouteTableAssociations) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters. The possible values are:     * @resource-id@ - The ID of the resource.     * @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @peering@ | @connect@ .     * @transit-gateway-attachment-id@ - The ID of the attachment.
-gtgrtaFilters :: Lens' GetTransitGatewayRouteTableAssociations [Filter]
-gtgrtaFilters = lens _gtgrtaFilters (\s a -> s {_gtgrtaFilters = a}) . _Default . _Coerce
+-- | One or more filters. The possible values are:
+--
+-- -   @resource-id@ - The ID of the resource.
+--
+-- -   @resource-type@ - The resource type. Valid values are @vpc@ | @vpn@
+--     | @direct-connect-gateway@ | @peering@ | @connect@.
+--
+-- -   @transit-gateway-attachment-id@ - The ID of the attachment.
+getTransitGatewayRouteTableAssociations_filters :: Lens.Lens' GetTransitGatewayRouteTableAssociations (Prelude.Maybe [Filter])
+getTransitGatewayRouteTableAssociations_filters = Lens.lens (\GetTransitGatewayRouteTableAssociations' {filters} -> filters) (\s@GetTransitGatewayRouteTableAssociations' {} a -> s {filters = a} :: GetTransitGatewayRouteTableAssociations) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the transit gateway route table.
-gtgrtaTransitGatewayRouteTableId :: Lens' GetTransitGatewayRouteTableAssociations Text
-gtgrtaTransitGatewayRouteTableId = lens _gtgrtaTransitGatewayRouteTableId (\s a -> s {_gtgrtaTransitGatewayRouteTableId = a})
+getTransitGatewayRouteTableAssociations_transitGatewayRouteTableId :: Lens.Lens' GetTransitGatewayRouteTableAssociations Prelude.Text
+getTransitGatewayRouteTableAssociations_transitGatewayRouteTableId = Lens.lens (\GetTransitGatewayRouteTableAssociations' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@GetTransitGatewayRouteTableAssociations' {} a -> s {transitGatewayRouteTableId = a} :: GetTransitGatewayRouteTableAssociations)
 
 instance
-  AWSPager
+  Pager.AWSPager
     GetTransitGatewayRouteTableAssociations
   where
   page rq rs
-    | stop (rs ^. gtgrtarrsNextToken) = Nothing
-    | stop (rs ^. gtgrtarrsAssociations) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? getTransitGatewayRouteTableAssociationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getTransitGatewayRouteTableAssociationsResponse_associations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & gtgrtaNextToken .~ rs ^. gtgrtarrsNextToken
+          Lens.& getTransitGatewayRouteTableAssociations_nextToken
+          Lens..~ rs
+            Lens.^? getTransitGatewayRouteTableAssociationsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetTransitGatewayRouteTableAssociations
   where
   type
     Rs GetTransitGatewayRouteTableAssociations =
       GetTransitGatewayRouteTableAssociationsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetTransitGatewayRouteTableAssociationsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "associations" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "associations"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetTransitGatewayRouteTableAssociations
 
 instance
-  NFData
+  Prelude.NFData
     GetTransitGatewayRouteTableAssociations
 
 instance
-  ToHeaders
-    GetTransitGatewayRouteTableAssociations
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     GetTransitGatewayRouteTableAssociations
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    GetTransitGatewayRouteTableAssociations
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     GetTransitGatewayRouteTableAssociations
   where
   toQuery GetTransitGatewayRouteTableAssociations' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "GetTransitGatewayRouteTableAssociations" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _gtgrtaNextToken,
-        "DryRun" =: _gtgrtaDryRun,
-        "MaxResults" =: _gtgrtaMaxResults,
-        toQuery (toQueryList "Filter" <$> _gtgrtaFilters),
+          Prelude.=: ( "GetTransitGatewayRouteTableAssociations" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
         "TransitGatewayRouteTableId"
-          =: _gtgrtaTransitGatewayRouteTableId
+          Prelude.=: transitGatewayRouteTableId
       ]
 
--- | /See:/ 'getTransitGatewayRouteTableAssociationsResponse' smart constructor.
+-- | /See:/ 'newGetTransitGatewayRouteTableAssociationsResponse' smart constructor.
 data GetTransitGatewayRouteTableAssociationsResponse = GetTransitGatewayRouteTableAssociationsResponse'
-  { _gtgrtarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gtgrtarrsAssociations ::
-      !( Maybe
-           [TransitGatewayRouteTableAssociation]
-       ),
-    _gtgrtarrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the associations.
+    associations :: Prelude.Maybe [TransitGatewayRouteTableAssociation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTransitGatewayRouteTableAssociationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTransitGatewayRouteTableAssociationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtgrtarrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtgrtarrsAssociations' - Information about the associations.
+-- 'nextToken', 'getTransitGatewayRouteTableAssociationsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'gtgrtarrsResponseStatus' - -- | The response status code.
-getTransitGatewayRouteTableAssociationsResponse ::
-  -- | 'gtgrtarrsResponseStatus'
-  Int ->
+-- 'associations', 'getTransitGatewayRouteTableAssociationsResponse_associations' - Information about the associations.
+--
+-- 'httpStatus', 'getTransitGatewayRouteTableAssociationsResponse_httpStatus' - The response's http status code.
+newGetTransitGatewayRouteTableAssociationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTransitGatewayRouteTableAssociationsResponse
-getTransitGatewayRouteTableAssociationsResponse
-  pResponseStatus_ =
+newGetTransitGatewayRouteTableAssociationsResponse
+  pHttpStatus_ =
     GetTransitGatewayRouteTableAssociationsResponse'
-      { _gtgrtarrsNextToken =
-          Nothing,
-        _gtgrtarrsAssociations =
-          Nothing,
-        _gtgrtarrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        associations =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-gtgrtarrsNextToken :: Lens' GetTransitGatewayRouteTableAssociationsResponse (Maybe Text)
-gtgrtarrsNextToken = lens _gtgrtarrsNextToken (\s a -> s {_gtgrtarrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+getTransitGatewayRouteTableAssociationsResponse_nextToken :: Lens.Lens' GetTransitGatewayRouteTableAssociationsResponse (Prelude.Maybe Prelude.Text)
+getTransitGatewayRouteTableAssociationsResponse_nextToken = Lens.lens (\GetTransitGatewayRouteTableAssociationsResponse' {nextToken} -> nextToken) (\s@GetTransitGatewayRouteTableAssociationsResponse' {} a -> s {nextToken = a} :: GetTransitGatewayRouteTableAssociationsResponse)
 
 -- | Information about the associations.
-gtgrtarrsAssociations :: Lens' GetTransitGatewayRouteTableAssociationsResponse [TransitGatewayRouteTableAssociation]
-gtgrtarrsAssociations = lens _gtgrtarrsAssociations (\s a -> s {_gtgrtarrsAssociations = a}) . _Default . _Coerce
+getTransitGatewayRouteTableAssociationsResponse_associations :: Lens.Lens' GetTransitGatewayRouteTableAssociationsResponse (Prelude.Maybe [TransitGatewayRouteTableAssociation])
+getTransitGatewayRouteTableAssociationsResponse_associations = Lens.lens (\GetTransitGatewayRouteTableAssociationsResponse' {associations} -> associations) (\s@GetTransitGatewayRouteTableAssociationsResponse' {} a -> s {associations = a} :: GetTransitGatewayRouteTableAssociationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gtgrtarrsResponseStatus :: Lens' GetTransitGatewayRouteTableAssociationsResponse Int
-gtgrtarrsResponseStatus = lens _gtgrtarrsResponseStatus (\s a -> s {_gtgrtarrsResponseStatus = a})
+-- | The response's http status code.
+getTransitGatewayRouteTableAssociationsResponse_httpStatus :: Lens.Lens' GetTransitGatewayRouteTableAssociationsResponse Prelude.Int
+getTransitGatewayRouteTableAssociationsResponse_httpStatus = Lens.lens (\GetTransitGatewayRouteTableAssociationsResponse' {httpStatus} -> httpStatus) (\s@GetTransitGatewayRouteTableAssociationsResponse' {} a -> s {httpStatus = a} :: GetTransitGatewayRouteTableAssociationsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetTransitGatewayRouteTableAssociationsResponse

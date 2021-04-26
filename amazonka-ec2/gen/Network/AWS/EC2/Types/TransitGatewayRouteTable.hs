@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,113 +22,112 @@ module Network.AWS.EC2.Types.TransitGatewayRouteTable where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tag
 import Network.AWS.EC2.Types.TransitGatewayRouteTableState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a transit gateway route table.
 --
---
---
--- /See:/ 'transitGatewayRouteTable' smart constructor.
+-- /See:/ 'newTransitGatewayRouteTable' smart constructor.
 data TransitGatewayRouteTable = TransitGatewayRouteTable'
-  { _tgrtCreationTime ::
-      !(Maybe ISO8601),
-    _tgrtDefaultAssociationRouteTable ::
-      !(Maybe Bool),
-    _tgrtDefaultPropagationRouteTable ::
-      !(Maybe Bool),
-    _tgrtState ::
-      !( Maybe
-           TransitGatewayRouteTableState
-       ),
-    _tgrtTags ::
-      !(Maybe [Tag]),
-    _tgrtTransitGatewayRouteTableId ::
-      !(Maybe Text),
-    _tgrtTransitGatewayId ::
-      !(Maybe Text)
+  { -- | The creation time.
+    creationTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Indicates whether this is the default association route table for the
+    -- transit gateway.
+    defaultAssociationRouteTable :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether this is the default propagation route table for the
+    -- transit gateway.
+    defaultPropagationRouteTable :: Prelude.Maybe Prelude.Bool,
+    -- | The state of the transit gateway route table.
+    state :: Prelude.Maybe TransitGatewayRouteTableState,
+    -- | Any tags assigned to the route table.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ID of the transit gateway route table.
+    transitGatewayRouteTableId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway.
+    transitGatewayId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGatewayRouteTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGatewayRouteTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgrtCreationTime' - The creation time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgrtDefaultAssociationRouteTable' - Indicates whether this is the default association route table for the transit gateway.
+-- 'creationTime', 'transitGatewayRouteTable_creationTime' - The creation time.
 --
--- * 'tgrtDefaultPropagationRouteTable' - Indicates whether this is the default propagation route table for the transit gateway.
+-- 'defaultAssociationRouteTable', 'transitGatewayRouteTable_defaultAssociationRouteTable' - Indicates whether this is the default association route table for the
+-- transit gateway.
 --
--- * 'tgrtState' - The state of the transit gateway route table.
+-- 'defaultPropagationRouteTable', 'transitGatewayRouteTable_defaultPropagationRouteTable' - Indicates whether this is the default propagation route table for the
+-- transit gateway.
 --
--- * 'tgrtTags' - Any tags assigned to the route table.
+-- 'state', 'transitGatewayRouteTable_state' - The state of the transit gateway route table.
 --
--- * 'tgrtTransitGatewayRouteTableId' - The ID of the transit gateway route table.
+-- 'tags', 'transitGatewayRouteTable_tags' - Any tags assigned to the route table.
 --
--- * 'tgrtTransitGatewayId' - The ID of the transit gateway.
-transitGatewayRouteTable ::
+-- 'transitGatewayRouteTableId', 'transitGatewayRouteTable_transitGatewayRouteTableId' - The ID of the transit gateway route table.
+--
+-- 'transitGatewayId', 'transitGatewayRouteTable_transitGatewayId' - The ID of the transit gateway.
+newTransitGatewayRouteTable ::
   TransitGatewayRouteTable
-transitGatewayRouteTable =
+newTransitGatewayRouteTable =
   TransitGatewayRouteTable'
-    { _tgrtCreationTime =
-        Nothing,
-      _tgrtDefaultAssociationRouteTable = Nothing,
-      _tgrtDefaultPropagationRouteTable = Nothing,
-      _tgrtState = Nothing,
-      _tgrtTags = Nothing,
-      _tgrtTransitGatewayRouteTableId = Nothing,
-      _tgrtTransitGatewayId = Nothing
+    { creationTime =
+        Prelude.Nothing,
+      defaultAssociationRouteTable = Prelude.Nothing,
+      defaultPropagationRouteTable = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      transitGatewayRouteTableId = Prelude.Nothing,
+      transitGatewayId = Prelude.Nothing
     }
 
 -- | The creation time.
-tgrtCreationTime :: Lens' TransitGatewayRouteTable (Maybe UTCTime)
-tgrtCreationTime = lens _tgrtCreationTime (\s a -> s {_tgrtCreationTime = a}) . mapping _Time
+transitGatewayRouteTable_creationTime :: Lens.Lens' TransitGatewayRouteTable (Prelude.Maybe Prelude.UTCTime)
+transitGatewayRouteTable_creationTime = Lens.lens (\TransitGatewayRouteTable' {creationTime} -> creationTime) (\s@TransitGatewayRouteTable' {} a -> s {creationTime = a} :: TransitGatewayRouteTable) Prelude.. Lens.mapping Prelude._Time
 
--- | Indicates whether this is the default association route table for the transit gateway.
-tgrtDefaultAssociationRouteTable :: Lens' TransitGatewayRouteTable (Maybe Bool)
-tgrtDefaultAssociationRouteTable = lens _tgrtDefaultAssociationRouteTable (\s a -> s {_tgrtDefaultAssociationRouteTable = a})
+-- | Indicates whether this is the default association route table for the
+-- transit gateway.
+transitGatewayRouteTable_defaultAssociationRouteTable :: Lens.Lens' TransitGatewayRouteTable (Prelude.Maybe Prelude.Bool)
+transitGatewayRouteTable_defaultAssociationRouteTable = Lens.lens (\TransitGatewayRouteTable' {defaultAssociationRouteTable} -> defaultAssociationRouteTable) (\s@TransitGatewayRouteTable' {} a -> s {defaultAssociationRouteTable = a} :: TransitGatewayRouteTable)
 
--- | Indicates whether this is the default propagation route table for the transit gateway.
-tgrtDefaultPropagationRouteTable :: Lens' TransitGatewayRouteTable (Maybe Bool)
-tgrtDefaultPropagationRouteTable = lens _tgrtDefaultPropagationRouteTable (\s a -> s {_tgrtDefaultPropagationRouteTable = a})
+-- | Indicates whether this is the default propagation route table for the
+-- transit gateway.
+transitGatewayRouteTable_defaultPropagationRouteTable :: Lens.Lens' TransitGatewayRouteTable (Prelude.Maybe Prelude.Bool)
+transitGatewayRouteTable_defaultPropagationRouteTable = Lens.lens (\TransitGatewayRouteTable' {defaultPropagationRouteTable} -> defaultPropagationRouteTable) (\s@TransitGatewayRouteTable' {} a -> s {defaultPropagationRouteTable = a} :: TransitGatewayRouteTable)
 
 -- | The state of the transit gateway route table.
-tgrtState :: Lens' TransitGatewayRouteTable (Maybe TransitGatewayRouteTableState)
-tgrtState = lens _tgrtState (\s a -> s {_tgrtState = a})
+transitGatewayRouteTable_state :: Lens.Lens' TransitGatewayRouteTable (Prelude.Maybe TransitGatewayRouteTableState)
+transitGatewayRouteTable_state = Lens.lens (\TransitGatewayRouteTable' {state} -> state) (\s@TransitGatewayRouteTable' {} a -> s {state = a} :: TransitGatewayRouteTable)
 
 -- | Any tags assigned to the route table.
-tgrtTags :: Lens' TransitGatewayRouteTable [Tag]
-tgrtTags = lens _tgrtTags (\s a -> s {_tgrtTags = a}) . _Default . _Coerce
+transitGatewayRouteTable_tags :: Lens.Lens' TransitGatewayRouteTable (Prelude.Maybe [Tag])
+transitGatewayRouteTable_tags = Lens.lens (\TransitGatewayRouteTable' {tags} -> tags) (\s@TransitGatewayRouteTable' {} a -> s {tags = a} :: TransitGatewayRouteTable) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the transit gateway route table.
-tgrtTransitGatewayRouteTableId :: Lens' TransitGatewayRouteTable (Maybe Text)
-tgrtTransitGatewayRouteTableId = lens _tgrtTransitGatewayRouteTableId (\s a -> s {_tgrtTransitGatewayRouteTableId = a})
+transitGatewayRouteTable_transitGatewayRouteTableId :: Lens.Lens' TransitGatewayRouteTable (Prelude.Maybe Prelude.Text)
+transitGatewayRouteTable_transitGatewayRouteTableId = Lens.lens (\TransitGatewayRouteTable' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@TransitGatewayRouteTable' {} a -> s {transitGatewayRouteTableId = a} :: TransitGatewayRouteTable)
 
 -- | The ID of the transit gateway.
-tgrtTransitGatewayId :: Lens' TransitGatewayRouteTable (Maybe Text)
-tgrtTransitGatewayId = lens _tgrtTransitGatewayId (\s a -> s {_tgrtTransitGatewayId = a})
+transitGatewayRouteTable_transitGatewayId :: Lens.Lens' TransitGatewayRouteTable (Prelude.Maybe Prelude.Text)
+transitGatewayRouteTable_transitGatewayId = Lens.lens (\TransitGatewayRouteTable' {transitGatewayId} -> transitGatewayId) (\s@TransitGatewayRouteTable' {} a -> s {transitGatewayId = a} :: TransitGatewayRouteTable)
 
-instance FromXML TransitGatewayRouteTable where
+instance Prelude.FromXML TransitGatewayRouteTable where
   parseXML x =
     TransitGatewayRouteTable'
-      <$> (x .@? "creationTime")
-      <*> (x .@? "defaultAssociationRouteTable")
-      <*> (x .@? "defaultPropagationRouteTable")
-      <*> (x .@? "state")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "transitGatewayRouteTableId")
-      <*> (x .@? "transitGatewayId")
+      Prelude.<$> (x Prelude..@? "creationTime")
+      Prelude.<*> (x Prelude..@? "defaultAssociationRouteTable")
+      Prelude.<*> (x Prelude..@? "defaultPropagationRouteTable")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "transitGatewayRouteTableId")
+      Prelude.<*> (x Prelude..@? "transitGatewayId")
 
-instance Hashable TransitGatewayRouteTable
+instance Prelude.Hashable TransitGatewayRouteTable
 
-instance NFData TransitGatewayRouteTable
+instance Prelude.NFData TransitGatewayRouteTable

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.Protocol
   ( Protocol
       ( ..,
-        PTCP,
-        PUdp
+        ProtocolTcp,
+        ProtocolUdp
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Protocol = Protocol' (CI Text)
+newtype Protocol = Protocol'
+  { fromProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTCP :: Protocol
-pattern PTCP = Protocol' "tcp"
+pattern ProtocolTcp :: Protocol
+pattern ProtocolTcp = Protocol' "tcp"
 
-pattern PUdp :: Protocol
-pattern PUdp = Protocol' "udp"
+pattern ProtocolUdp :: Protocol
+pattern ProtocolUdp = Protocol' "udp"
 
 {-# COMPLETE
-  PTCP,
-  PUdp,
+  ProtocolTcp,
+  ProtocolUdp,
   Protocol'
   #-}
 
-instance FromText Protocol where
-  parser = (Protocol' . mk) <$> takeText
+instance Prelude.FromText Protocol where
+  parser = Protocol' Prelude.<$> Prelude.takeText
 
-instance ToText Protocol where
-  toText (Protocol' ci) = original ci
+instance Prelude.ToText Protocol where
+  toText (Protocol' x) = x
 
-instance Hashable Protocol
+instance Prelude.Hashable Protocol
 
-instance NFData Protocol
+instance Prelude.NFData Protocol
 
-instance ToByteString Protocol
+instance Prelude.ToByteString Protocol
 
-instance ToQuery Protocol
+instance Prelude.ToQuery Protocol
 
-instance ToHeader Protocol
+instance Prelude.ToHeader Protocol
 
-instance FromXML Protocol where
-  parseXML = parseXMLText "Protocol"
+instance Prelude.FromXML Protocol where
+  parseXML = Prelude.parseXMLText "Protocol"

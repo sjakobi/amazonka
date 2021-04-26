@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,233 +21,272 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a Connect peer for a specified transit gateway Connect attachment between a transit gateway and an appliance.
+-- Creates a Connect peer for a specified transit gateway Connect
+-- attachment between a transit gateway and an appliance.
 --
+-- The peer address and transit gateway address must be the same IP address
+-- family (IPv4 or IPv6).
 --
--- The peer address and transit gateway address must be the same IP address family (IPv4 or IPv6).
---
--- For more information, see <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-connect.html#tgw-connect-peer Connect peers> in the /Transit Gateways Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/tgw/tgw-connect.html#tgw-connect-peer Connect peers>
+-- in the /Transit Gateways Guide/.
 module Network.AWS.EC2.CreateTransitGatewayConnectPeer
   ( -- * Creating a Request
-    createTransitGatewayConnectPeer,
-    CreateTransitGatewayConnectPeer,
+    CreateTransitGatewayConnectPeer (..),
+    newCreateTransitGatewayConnectPeer,
 
     -- * Request Lenses
-    ctgcpTagSpecifications,
-    ctgcpDryRun,
-    ctgcpTransitGatewayAddress,
-    ctgcpBGPOptions,
-    ctgcpTransitGatewayAttachmentId,
-    ctgcpPeerAddress,
-    ctgcpInsideCidrBlocks,
+    createTransitGatewayConnectPeer_tagSpecifications,
+    createTransitGatewayConnectPeer_dryRun,
+    createTransitGatewayConnectPeer_transitGatewayAddress,
+    createTransitGatewayConnectPeer_bgpOptions,
+    createTransitGatewayConnectPeer_transitGatewayAttachmentId,
+    createTransitGatewayConnectPeer_peerAddress,
+    createTransitGatewayConnectPeer_insideCidrBlocks,
 
     -- * Destructuring the Response
-    createTransitGatewayConnectPeerResponse,
-    CreateTransitGatewayConnectPeerResponse,
+    CreateTransitGatewayConnectPeerResponse (..),
+    newCreateTransitGatewayConnectPeerResponse,
 
     -- * Response Lenses
-    ctgcprrsTransitGatewayConnectPeer,
-    ctgcprrsResponseStatus,
+    createTransitGatewayConnectPeerResponse_transitGatewayConnectPeer,
+    createTransitGatewayConnectPeerResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayConnectPeer
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTransitGatewayConnectPeer' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayConnectPeer' smart constructor.
 data CreateTransitGatewayConnectPeer = CreateTransitGatewayConnectPeer'
-  { _ctgcpTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _ctgcpDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _ctgcpTransitGatewayAddress ::
-      !( Maybe
-           Text
-       ),
-    _ctgcpBGPOptions ::
-      !( Maybe
-           TransitGatewayConnectRequestBGPOptions
-       ),
-    _ctgcpTransitGatewayAttachmentId ::
-      !Text,
-    _ctgcpPeerAddress ::
-      !Text,
-    _ctgcpInsideCidrBlocks ::
-      ![Text]
+  { -- | The tags to apply to the Connect peer.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The peer IP address (GRE outer IP address) on the transit gateway side
+    -- of the Connect peer, which must be specified from a transit gateway CIDR
+    -- block. If not specified, Amazon automatically assigns the first
+    -- available IP address from the transit gateway CIDR block.
+    transitGatewayAddress :: Prelude.Maybe Prelude.Text,
+    -- | The BGP options for the Connect peer.
+    bgpOptions :: Prelude.Maybe TransitGatewayConnectRequestBgpOptions,
+    -- | The ID of the Connect attachment.
+    transitGatewayAttachmentId :: Prelude.Text,
+    -- | The peer IP address (GRE outer IP address) on the appliance side of the
+    -- Connect peer.
+    peerAddress :: Prelude.Text,
+    -- | The range of inside IP addresses that are used for BGP peering. You must
+    -- specify a size \/29 IPv4 CIDR block from the @169.254.0.0\/16@ range.
+    -- The first address from the range must be configured on the appliance as
+    -- the BGP IP address. You can also optionally specify a size \/125 IPv6
+    -- CIDR block from the @fd00::\/8@ range.
+    insideCidrBlocks :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayConnectPeer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayConnectPeer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgcpTagSpecifications' - The tags to apply to the Connect peer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgcpDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createTransitGatewayConnectPeer_tagSpecifications' - The tags to apply to the Connect peer.
 --
--- * 'ctgcpTransitGatewayAddress' - The peer IP address (GRE outer IP address) on the transit gateway side of the Connect peer, which must be specified from a transit gateway CIDR block. If not specified, Amazon automatically assigns the first available IP address from the transit gateway CIDR block.
+-- 'dryRun', 'createTransitGatewayConnectPeer_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ctgcpBGPOptions' - The BGP options for the Connect peer.
+-- 'transitGatewayAddress', 'createTransitGatewayConnectPeer_transitGatewayAddress' - The peer IP address (GRE outer IP address) on the transit gateway side
+-- of the Connect peer, which must be specified from a transit gateway CIDR
+-- block. If not specified, Amazon automatically assigns the first
+-- available IP address from the transit gateway CIDR block.
 --
--- * 'ctgcpTransitGatewayAttachmentId' - The ID of the Connect attachment.
+-- 'bgpOptions', 'createTransitGatewayConnectPeer_bgpOptions' - The BGP options for the Connect peer.
 --
--- * 'ctgcpPeerAddress' - The peer IP address (GRE outer IP address) on the appliance side of the Connect peer.
+-- 'transitGatewayAttachmentId', 'createTransitGatewayConnectPeer_transitGatewayAttachmentId' - The ID of the Connect attachment.
 --
--- * 'ctgcpInsideCidrBlocks' - The range of inside IP addresses that are used for BGP peering. You must specify a size /29 IPv4 CIDR block from the @169.254.0.0/16@ range. The first address from the range must be configured on the appliance as the BGP IP address. You can also optionally specify a size /125 IPv6 CIDR block from the @fd00::/8@ range.
-createTransitGatewayConnectPeer ::
-  -- | 'ctgcpTransitGatewayAttachmentId'
-  Text ->
-  -- | 'ctgcpPeerAddress'
-  Text ->
+-- 'peerAddress', 'createTransitGatewayConnectPeer_peerAddress' - The peer IP address (GRE outer IP address) on the appliance side of the
+-- Connect peer.
+--
+-- 'insideCidrBlocks', 'createTransitGatewayConnectPeer_insideCidrBlocks' - The range of inside IP addresses that are used for BGP peering. You must
+-- specify a size \/29 IPv4 CIDR block from the @169.254.0.0\/16@ range.
+-- The first address from the range must be configured on the appliance as
+-- the BGP IP address. You can also optionally specify a size \/125 IPv6
+-- CIDR block from the @fd00::\/8@ range.
+newCreateTransitGatewayConnectPeer ::
+  -- | 'transitGatewayAttachmentId'
+  Prelude.Text ->
+  -- | 'peerAddress'
+  Prelude.Text ->
   CreateTransitGatewayConnectPeer
-createTransitGatewayConnectPeer
+newCreateTransitGatewayConnectPeer
   pTransitGatewayAttachmentId_
   pPeerAddress_ =
     CreateTransitGatewayConnectPeer'
-      { _ctgcpTagSpecifications =
-          Nothing,
-        _ctgcpDryRun = Nothing,
-        _ctgcpTransitGatewayAddress = Nothing,
-        _ctgcpBGPOptions = Nothing,
-        _ctgcpTransitGatewayAttachmentId =
+      { tagSpecifications =
+          Prelude.Nothing,
+        dryRun = Prelude.Nothing,
+        transitGatewayAddress = Prelude.Nothing,
+        bgpOptions = Prelude.Nothing,
+        transitGatewayAttachmentId =
           pTransitGatewayAttachmentId_,
-        _ctgcpPeerAddress = pPeerAddress_,
-        _ctgcpInsideCidrBlocks = mempty
+        peerAddress = pPeerAddress_,
+        insideCidrBlocks = Prelude.mempty
       }
 
 -- | The tags to apply to the Connect peer.
-ctgcpTagSpecifications :: Lens' CreateTransitGatewayConnectPeer [TagSpecification]
-ctgcpTagSpecifications = lens _ctgcpTagSpecifications (\s a -> s {_ctgcpTagSpecifications = a}) . _Default . _Coerce
+createTransitGatewayConnectPeer_tagSpecifications :: Lens.Lens' CreateTransitGatewayConnectPeer (Prelude.Maybe [TagSpecification])
+createTransitGatewayConnectPeer_tagSpecifications = Lens.lens (\CreateTransitGatewayConnectPeer' {tagSpecifications} -> tagSpecifications) (\s@CreateTransitGatewayConnectPeer' {} a -> s {tagSpecifications = a} :: CreateTransitGatewayConnectPeer) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ctgcpDryRun :: Lens' CreateTransitGatewayConnectPeer (Maybe Bool)
-ctgcpDryRun = lens _ctgcpDryRun (\s a -> s {_ctgcpDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTransitGatewayConnectPeer_dryRun :: Lens.Lens' CreateTransitGatewayConnectPeer (Prelude.Maybe Prelude.Bool)
+createTransitGatewayConnectPeer_dryRun = Lens.lens (\CreateTransitGatewayConnectPeer' {dryRun} -> dryRun) (\s@CreateTransitGatewayConnectPeer' {} a -> s {dryRun = a} :: CreateTransitGatewayConnectPeer)
 
--- | The peer IP address (GRE outer IP address) on the transit gateway side of the Connect peer, which must be specified from a transit gateway CIDR block. If not specified, Amazon automatically assigns the first available IP address from the transit gateway CIDR block.
-ctgcpTransitGatewayAddress :: Lens' CreateTransitGatewayConnectPeer (Maybe Text)
-ctgcpTransitGatewayAddress = lens _ctgcpTransitGatewayAddress (\s a -> s {_ctgcpTransitGatewayAddress = a})
+-- | The peer IP address (GRE outer IP address) on the transit gateway side
+-- of the Connect peer, which must be specified from a transit gateway CIDR
+-- block. If not specified, Amazon automatically assigns the first
+-- available IP address from the transit gateway CIDR block.
+createTransitGatewayConnectPeer_transitGatewayAddress :: Lens.Lens' CreateTransitGatewayConnectPeer (Prelude.Maybe Prelude.Text)
+createTransitGatewayConnectPeer_transitGatewayAddress = Lens.lens (\CreateTransitGatewayConnectPeer' {transitGatewayAddress} -> transitGatewayAddress) (\s@CreateTransitGatewayConnectPeer' {} a -> s {transitGatewayAddress = a} :: CreateTransitGatewayConnectPeer)
 
 -- | The BGP options for the Connect peer.
-ctgcpBGPOptions :: Lens' CreateTransitGatewayConnectPeer (Maybe TransitGatewayConnectRequestBGPOptions)
-ctgcpBGPOptions = lens _ctgcpBGPOptions (\s a -> s {_ctgcpBGPOptions = a})
+createTransitGatewayConnectPeer_bgpOptions :: Lens.Lens' CreateTransitGatewayConnectPeer (Prelude.Maybe TransitGatewayConnectRequestBgpOptions)
+createTransitGatewayConnectPeer_bgpOptions = Lens.lens (\CreateTransitGatewayConnectPeer' {bgpOptions} -> bgpOptions) (\s@CreateTransitGatewayConnectPeer' {} a -> s {bgpOptions = a} :: CreateTransitGatewayConnectPeer)
 
 -- | The ID of the Connect attachment.
-ctgcpTransitGatewayAttachmentId :: Lens' CreateTransitGatewayConnectPeer Text
-ctgcpTransitGatewayAttachmentId = lens _ctgcpTransitGatewayAttachmentId (\s a -> s {_ctgcpTransitGatewayAttachmentId = a})
+createTransitGatewayConnectPeer_transitGatewayAttachmentId :: Lens.Lens' CreateTransitGatewayConnectPeer Prelude.Text
+createTransitGatewayConnectPeer_transitGatewayAttachmentId = Lens.lens (\CreateTransitGatewayConnectPeer' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@CreateTransitGatewayConnectPeer' {} a -> s {transitGatewayAttachmentId = a} :: CreateTransitGatewayConnectPeer)
 
--- | The peer IP address (GRE outer IP address) on the appliance side of the Connect peer.
-ctgcpPeerAddress :: Lens' CreateTransitGatewayConnectPeer Text
-ctgcpPeerAddress = lens _ctgcpPeerAddress (\s a -> s {_ctgcpPeerAddress = a})
+-- | The peer IP address (GRE outer IP address) on the appliance side of the
+-- Connect peer.
+createTransitGatewayConnectPeer_peerAddress :: Lens.Lens' CreateTransitGatewayConnectPeer Prelude.Text
+createTransitGatewayConnectPeer_peerAddress = Lens.lens (\CreateTransitGatewayConnectPeer' {peerAddress} -> peerAddress) (\s@CreateTransitGatewayConnectPeer' {} a -> s {peerAddress = a} :: CreateTransitGatewayConnectPeer)
 
--- | The range of inside IP addresses that are used for BGP peering. You must specify a size /29 IPv4 CIDR block from the @169.254.0.0/16@ range. The first address from the range must be configured on the appliance as the BGP IP address. You can also optionally specify a size /125 IPv6 CIDR block from the @fd00::/8@ range.
-ctgcpInsideCidrBlocks :: Lens' CreateTransitGatewayConnectPeer [Text]
-ctgcpInsideCidrBlocks = lens _ctgcpInsideCidrBlocks (\s a -> s {_ctgcpInsideCidrBlocks = a}) . _Coerce
+-- | The range of inside IP addresses that are used for BGP peering. You must
+-- specify a size \/29 IPv4 CIDR block from the @169.254.0.0\/16@ range.
+-- The first address from the range must be configured on the appliance as
+-- the BGP IP address. You can also optionally specify a size \/125 IPv6
+-- CIDR block from the @fd00::\/8@ range.
+createTransitGatewayConnectPeer_insideCidrBlocks :: Lens.Lens' CreateTransitGatewayConnectPeer [Prelude.Text]
+createTransitGatewayConnectPeer_insideCidrBlocks = Lens.lens (\CreateTransitGatewayConnectPeer' {insideCidrBlocks} -> insideCidrBlocks) (\s@CreateTransitGatewayConnectPeer' {} a -> s {insideCidrBlocks = a} :: CreateTransitGatewayConnectPeer) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateTransitGatewayConnectPeer where
+instance
+  Prelude.AWSRequest
+    CreateTransitGatewayConnectPeer
+  where
   type
     Rs CreateTransitGatewayConnectPeer =
       CreateTransitGatewayConnectPeerResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateTransitGatewayConnectPeerResponse'
-            <$> (x .@? "transitGatewayConnectPeer")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "transitGatewayConnectPeer")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTransitGatewayConnectPeer
+instance
+  Prelude.Hashable
+    CreateTransitGatewayConnectPeer
 
-instance NFData CreateTransitGatewayConnectPeer
+instance
+  Prelude.NFData
+    CreateTransitGatewayConnectPeer
 
-instance ToHeaders CreateTransitGatewayConnectPeer where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateTransitGatewayConnectPeer
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateTransitGatewayConnectPeer where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    CreateTransitGatewayConnectPeer
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTransitGatewayConnectPeer where
+instance
+  Prelude.ToQuery
+    CreateTransitGatewayConnectPeer
+  where
   toQuery CreateTransitGatewayConnectPeer' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateTransitGatewayConnectPeer" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _ctgcpTagSpecifications
+          Prelude.=: ( "CreateTransitGatewayConnectPeer" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _ctgcpDryRun,
+        "DryRun" Prelude.=: dryRun,
         "TransitGatewayAddress"
-          =: _ctgcpTransitGatewayAddress,
-        "BgpOptions" =: _ctgcpBGPOptions,
+          Prelude.=: transitGatewayAddress,
+        "BgpOptions" Prelude.=: bgpOptions,
         "TransitGatewayAttachmentId"
-          =: _ctgcpTransitGatewayAttachmentId,
-        "PeerAddress" =: _ctgcpPeerAddress,
-        toQueryList
+          Prelude.=: transitGatewayAttachmentId,
+        "PeerAddress" Prelude.=: peerAddress,
+        Prelude.toQueryList
           "InsideCidrBlocks"
-          _ctgcpInsideCidrBlocks
+          insideCidrBlocks
       ]
 
--- | /See:/ 'createTransitGatewayConnectPeerResponse' smart constructor.
+-- | /See:/ 'newCreateTransitGatewayConnectPeerResponse' smart constructor.
 data CreateTransitGatewayConnectPeerResponse = CreateTransitGatewayConnectPeerResponse'
-  { _ctgcprrsTransitGatewayConnectPeer ::
-      !( Maybe
-           TransitGatewayConnectPeer
-       ),
-    _ctgcprrsResponseStatus ::
-      !Int
+  { -- | Information about the Connect peer.
+    transitGatewayConnectPeer :: Prelude.Maybe TransitGatewayConnectPeer,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitGatewayConnectPeerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitGatewayConnectPeerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctgcprrsTransitGatewayConnectPeer' - Information about the Connect peer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctgcprrsResponseStatus' - -- | The response status code.
-createTransitGatewayConnectPeerResponse ::
-  -- | 'ctgcprrsResponseStatus'
-  Int ->
+-- 'transitGatewayConnectPeer', 'createTransitGatewayConnectPeerResponse_transitGatewayConnectPeer' - Information about the Connect peer.
+--
+-- 'httpStatus', 'createTransitGatewayConnectPeerResponse_httpStatus' - The response's http status code.
+newCreateTransitGatewayConnectPeerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTransitGatewayConnectPeerResponse
-createTransitGatewayConnectPeerResponse
-  pResponseStatus_ =
+newCreateTransitGatewayConnectPeerResponse
+  pHttpStatus_ =
     CreateTransitGatewayConnectPeerResponse'
-      { _ctgcprrsTransitGatewayConnectPeer =
-          Nothing,
-        _ctgcprrsResponseStatus =
-          pResponseStatus_
+      { transitGatewayConnectPeer =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the Connect peer.
-ctgcprrsTransitGatewayConnectPeer :: Lens' CreateTransitGatewayConnectPeerResponse (Maybe TransitGatewayConnectPeer)
-ctgcprrsTransitGatewayConnectPeer = lens _ctgcprrsTransitGatewayConnectPeer (\s a -> s {_ctgcprrsTransitGatewayConnectPeer = a})
+createTransitGatewayConnectPeerResponse_transitGatewayConnectPeer :: Lens.Lens' CreateTransitGatewayConnectPeerResponse (Prelude.Maybe TransitGatewayConnectPeer)
+createTransitGatewayConnectPeerResponse_transitGatewayConnectPeer = Lens.lens (\CreateTransitGatewayConnectPeerResponse' {transitGatewayConnectPeer} -> transitGatewayConnectPeer) (\s@CreateTransitGatewayConnectPeerResponse' {} a -> s {transitGatewayConnectPeer = a} :: CreateTransitGatewayConnectPeerResponse)
 
--- | -- | The response status code.
-ctgcprrsResponseStatus :: Lens' CreateTransitGatewayConnectPeerResponse Int
-ctgcprrsResponseStatus = lens _ctgcprrsResponseStatus (\s a -> s {_ctgcprrsResponseStatus = a})
+-- | The response's http status code.
+createTransitGatewayConnectPeerResponse_httpStatus :: Lens.Lens' CreateTransitGatewayConnectPeerResponse Prelude.Int
+createTransitGatewayConnectPeerResponse_httpStatus = Lens.lens (\CreateTransitGatewayConnectPeerResponse' {httpStatus} -> httpStatus) (\s@CreateTransitGatewayConnectPeerResponse' {} a -> s {httpStatus = a} :: CreateTransitGatewayConnectPeerResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateTransitGatewayConnectPeerResponse

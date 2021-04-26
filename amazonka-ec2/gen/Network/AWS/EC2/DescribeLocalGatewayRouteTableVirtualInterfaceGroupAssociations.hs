@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,261 +21,309 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the associations between virtual interface groups and local gateway route tables.
---
---
+-- Describes the associations between virtual interface groups and local
+-- gateway route tables.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
   ( -- * Creating a Request
-    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations,
-    DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations,
+    DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (..),
+    newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations,
 
     -- * Request Lenses
-    dlgrtvigaNextToken,
-    dlgrtvigaDryRun,
-    dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds,
-    dlgrtvigaMaxResults,
-    dlgrtvigaFilters,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_nextToken,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_dryRun,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_localGatewayRouteTableVirtualInterfaceGroupAssociationIds,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_maxResults,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_filters,
 
     -- * Destructuring the Response
-    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse,
-    DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse,
+    DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse (..),
+    newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse,
 
     -- * Response Lenses
-    dlgrtvigarrsNextToken,
-    dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations,
-    dlgrtvigarrsResponseStatus,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_nextToken,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_localGatewayRouteTableVirtualInterfaceGroupAssociations,
+    describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.LocalGatewayRouteTableVirtualInterfaceGroupAssociation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' smart constructor.
+-- | /See:/ 'newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' smart constructor.
 data DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations = DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations'
-  { _dlgrtvigaNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dlgrtvigaDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds ::
-      !( Maybe
-           [Text]
-       ),
-    _dlgrtvigaMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dlgrtvigaFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the associations.
+    localGatewayRouteTableVirtualInterfaceGroupAssociationIds :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters.
+    --
+    -- -   @local-gateway-id@ - The ID of a local gateway.
+    --
+    -- -   @local-gateway-route-table-id@ - The ID of the local gateway route
+    --     table.
+    --
+    -- -   @local-gateway-route-table-virtual-interface-group-association-id@ -
+    --     The ID of the association.
+    --
+    -- -   @local-gateway-route-table-virtual-interface-group-id@ - The ID of
+    --     the virtual interface group.
+    --
+    -- -   @state@ - The state of the association.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlgrtvigaNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlgrtvigaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_nextToken' - The token for the next page of results.
 --
--- * 'dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds' - The IDs of the associations.
+-- 'dryRun', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dlgrtvigaMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'localGatewayRouteTableVirtualInterfaceGroupAssociationIds', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_localGatewayRouteTableVirtualInterfaceGroupAssociationIds' - The IDs of the associations.
 --
--- * 'dlgrtvigaFilters' - One or more filters.     * @local-gateway-id@ - The ID of a local gateway.     * @local-gateway-route-table-id@ - The ID of the local gateway route table.     * @local-gateway-route-table-virtual-interface-group-association-id@ - The ID of the association.     * @local-gateway-route-table-virtual-interface-group-id@ - The ID of the virtual interface group.     * @state@ - The state of the association.
-describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations ::
+-- 'maxResults', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
+-- 'filters', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_filters' - One or more filters.
+--
+-- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-route-table-id@ - The ID of the local gateway route
+--     table.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-association-id@ -
+--     The ID of the association.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-id@ - The ID of
+--     the virtual interface group.
+--
+-- -   @state@ - The state of the association.
+newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations ::
   DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
-describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations =
+newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations =
   DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations'
-    { _dlgrtvigaNextToken =
-        Nothing,
-      _dlgrtvigaDryRun =
-        Nothing,
-      _dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds =
-        Nothing,
-      _dlgrtvigaMaxResults =
-        Nothing,
-      _dlgrtvigaFilters =
-        Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun =
+        Prelude.Nothing,
+      localGatewayRouteTableVirtualInterfaceGroupAssociationIds =
+        Prelude.Nothing,
+      maxResults =
+        Prelude.Nothing,
+      filters =
+        Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dlgrtvigaNextToken :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Maybe Text)
-dlgrtvigaNextToken = lens _dlgrtvigaNextToken (\s a -> s {_dlgrtvigaNextToken = a})
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_nextToken :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Prelude.Maybe Prelude.Text)
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_nextToken = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {nextToken} -> nextToken) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {} a -> s {nextToken = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dlgrtvigaDryRun :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Maybe Bool)
-dlgrtvigaDryRun = lens _dlgrtvigaDryRun (\s a -> s {_dlgrtvigaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_dryRun :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Prelude.Maybe Prelude.Bool)
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_dryRun = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {dryRun} -> dryRun) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {} a -> s {dryRun = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations)
 
 -- | The IDs of the associations.
-dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations [Text]
-dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds = lens _dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds (\s a -> s {_dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds = a}) . _Default . _Coerce
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_localGatewayRouteTableVirtualInterfaceGroupAssociationIds :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Prelude.Maybe [Prelude.Text])
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_localGatewayRouteTableVirtualInterfaceGroupAssociationIds = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {localGatewayRouteTableVirtualInterfaceGroupAssociationIds} -> localGatewayRouteTableVirtualInterfaceGroupAssociationIds) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {} a -> s {localGatewayRouteTableVirtualInterfaceGroupAssociationIds = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dlgrtvigaMaxResults :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Maybe Natural)
-dlgrtvigaMaxResults = lens _dlgrtvigaMaxResults (\s a -> s {_dlgrtvigaMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_maxResults :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Prelude.Maybe Prelude.Natural)
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_maxResults = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {maxResults} -> maxResults) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {} a -> s {maxResults = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters.     * @local-gateway-id@ - The ID of a local gateway.     * @local-gateway-route-table-id@ - The ID of the local gateway route table.     * @local-gateway-route-table-virtual-interface-group-association-id@ - The ID of the association.     * @local-gateway-route-table-virtual-interface-group-id@ - The ID of the virtual interface group.     * @state@ - The state of the association.
-dlgrtvigaFilters :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations [Filter]
-dlgrtvigaFilters = lens _dlgrtvigaFilters (\s a -> s {_dlgrtvigaFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-route-table-id@ - The ID of the local gateway route
+--     table.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-association-id@ -
+--     The ID of the association.
+--
+-- -   @local-gateway-route-table-virtual-interface-group-id@ - The ID of
+--     the virtual interface group.
+--
+-- -   @state@ - The state of the association.
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_filters :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations (Prelude.Maybe [Filter])
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_filters = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {filters} -> filters) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {} a -> s {filters = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
   where
   page rq rs
-    | stop (rs ^. dlgrtvigarrsNextToken) = Nothing
-    | stop
+    | Pager.stop
         ( rs
-            ^. dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations
+            Lens.^? describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_nextToken
+              Prelude.. Lens._Just
         ) =
-      Nothing
-    | otherwise =
-      Just $
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_localGatewayRouteTableVirtualInterfaceGroupAssociations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & dlgrtvigaNextToken .~ rs ^. dlgrtvigarrsNextToken
+          Lens.& describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations_nextToken
+          Lens..~ rs
+            Lens.^? describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
   where
   type
     Rs
       DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations =
       DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse'
-            <$> (x .@? "nextToken")
-              <*> ( x
-                      .@? "localGatewayRouteTableVirtualInterfaceGroupAssociationSet"
-                      .!@ mempty
-                      >>= may (parseXMLList "item")
-                  )
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x
+                              Prelude..@? "localGatewayRouteTableVirtualInterfaceGroupAssociationSet"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
 
 instance
-  NFData
+  Prelude.NFData
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
 
 instance
-  ToHeaders
-    DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations
   where
   toQuery
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations" ::
-                   ByteString
-               ),
-          "Version" =: ("2016-11-15" :: ByteString),
-          "NextToken" =: _dlgrtvigaNextToken,
-          "DryRun" =: _dlgrtvigaDryRun,
-          toQuery
-            ( toQueryList
+            Prelude.=: ( "DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+          "NextToken" Prelude.=: nextToken,
+          "DryRun" Prelude.=: dryRun,
+          Prelude.toQuery
+            ( Prelude.toQueryList
                 "LocalGatewayRouteTableVirtualInterfaceGroupAssociationId"
-                <$> _dlgrtvigaLocalGatewayRouteTableVirtualInterfaceGroupAssociationIds
+                Prelude.<$> localGatewayRouteTableVirtualInterfaceGroupAssociationIds
             ),
-          "MaxResults" =: _dlgrtvigaMaxResults,
-          toQuery (toQueryList "Filter" <$> _dlgrtvigaFilters)
+          "MaxResults" Prelude.=: maxResults,
+          Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters)
         ]
 
--- | /See:/ 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' smart constructor.
+-- | /See:/ 'newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' smart constructor.
 data DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse = DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse'
-  { _dlgrtvigarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations ::
-      !( Maybe
-           [LocalGatewayRouteTableVirtualInterfaceGroupAssociation]
-       ),
-    _dlgrtvigarrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the associations.
+    localGatewayRouteTableVirtualInterfaceGroupAssociations :: Prelude.Maybe [LocalGatewayRouteTableVirtualInterfaceGroupAssociation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlgrtvigarrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations' - Information about the associations.
+-- 'nextToken', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dlgrtvigarrsResponseStatus' - -- | The response status code.
-describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse ::
-  -- | 'dlgrtvigarrsResponseStatus'
-  Int ->
+-- 'localGatewayRouteTableVirtualInterfaceGroupAssociations', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_localGatewayRouteTableVirtualInterfaceGroupAssociations' - Information about the associations.
+--
+-- 'httpStatus', 'describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_httpStatus' - The response's http status code.
+newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse
-describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse
-  pResponseStatus_ =
+newDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse
+  pHttpStatus_ =
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse'
-      { _dlgrtvigarrsNextToken =
-          Nothing,
-        _dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations =
-          Nothing,
-        _dlgrtvigarrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        localGatewayRouteTableVirtualInterfaceGroupAssociations =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dlgrtvigarrsNextToken :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse (Maybe Text)
-dlgrtvigarrsNextToken = lens _dlgrtvigarrsNextToken (\s a -> s {_dlgrtvigarrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_nextToken :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse (Prelude.Maybe Prelude.Text)
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_nextToken = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' {nextToken} -> nextToken) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' {} a -> s {nextToken = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse)
 
 -- | Information about the associations.
-dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse [LocalGatewayRouteTableVirtualInterfaceGroupAssociation]
-dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations = lens _dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations (\s a -> s {_dlgrtvigarrsLocalGatewayRouteTableVirtualInterfaceGroupAssociations = a}) . _Default . _Coerce
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_localGatewayRouteTableVirtualInterfaceGroupAssociations :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse (Prelude.Maybe [LocalGatewayRouteTableVirtualInterfaceGroupAssociation])
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_localGatewayRouteTableVirtualInterfaceGroupAssociations = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' {localGatewayRouteTableVirtualInterfaceGroupAssociations} -> localGatewayRouteTableVirtualInterfaceGroupAssociations) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' {} a -> s {localGatewayRouteTableVirtualInterfaceGroupAssociations = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dlgrtvigarrsResponseStatus :: Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse Int
-dlgrtvigarrsResponseStatus = lens _dlgrtvigarrsResponseStatus (\s a -> s {_dlgrtvigarrsResponseStatus = a})
+-- | The response's http status code.
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_httpStatus :: Lens.Lens' DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse Prelude.Int
+describeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse_httpStatus = Lens.lens (\DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' {httpStatus} -> httpStatus) (\s@DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse' {} a -> s {httpStatus = a} :: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResponse

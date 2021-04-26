@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,61 +20,60 @@
 module Network.AWS.EC2.Types.CapacityReservationTarget where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a target Capacity Reservation or Capacity Reservation group.
 --
---
---
--- /See:/ 'capacityReservationTarget' smart constructor.
+-- /See:/ 'newCapacityReservationTarget' smart constructor.
 data CapacityReservationTarget = CapacityReservationTarget'
-  { _crtCapacityReservationResourceGroupARN ::
-      !(Maybe Text),
-    _crtCapacityReservationId ::
-      !(Maybe Text)
+  { -- | The ARN of the Capacity Reservation resource group in which to run the
+    -- instance.
+    capacityReservationResourceGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Capacity Reservation in which to run the instance.
+    capacityReservationId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CapacityReservationTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CapacityReservationTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crtCapacityReservationResourceGroupARN' - The ARN of the Capacity Reservation resource group in which to run the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crtCapacityReservationId' - The ID of the Capacity Reservation in which to run the instance.
-capacityReservationTarget ::
+-- 'capacityReservationResourceGroupArn', 'capacityReservationTarget_capacityReservationResourceGroupArn' - The ARN of the Capacity Reservation resource group in which to run the
+-- instance.
+--
+-- 'capacityReservationId', 'capacityReservationTarget_capacityReservationId' - The ID of the Capacity Reservation in which to run the instance.
+newCapacityReservationTarget ::
   CapacityReservationTarget
-capacityReservationTarget =
+newCapacityReservationTarget =
   CapacityReservationTarget'
-    { _crtCapacityReservationResourceGroupARN =
-        Nothing,
-      _crtCapacityReservationId = Nothing
+    { capacityReservationResourceGroupArn =
+        Prelude.Nothing,
+      capacityReservationId = Prelude.Nothing
     }
 
--- | The ARN of the Capacity Reservation resource group in which to run the instance.
-crtCapacityReservationResourceGroupARN :: Lens' CapacityReservationTarget (Maybe Text)
-crtCapacityReservationResourceGroupARN = lens _crtCapacityReservationResourceGroupARN (\s a -> s {_crtCapacityReservationResourceGroupARN = a})
+-- | The ARN of the Capacity Reservation resource group in which to run the
+-- instance.
+capacityReservationTarget_capacityReservationResourceGroupArn :: Lens.Lens' CapacityReservationTarget (Prelude.Maybe Prelude.Text)
+capacityReservationTarget_capacityReservationResourceGroupArn = Lens.lens (\CapacityReservationTarget' {capacityReservationResourceGroupArn} -> capacityReservationResourceGroupArn) (\s@CapacityReservationTarget' {} a -> s {capacityReservationResourceGroupArn = a} :: CapacityReservationTarget)
 
 -- | The ID of the Capacity Reservation in which to run the instance.
-crtCapacityReservationId :: Lens' CapacityReservationTarget (Maybe Text)
-crtCapacityReservationId = lens _crtCapacityReservationId (\s a -> s {_crtCapacityReservationId = a})
+capacityReservationTarget_capacityReservationId :: Lens.Lens' CapacityReservationTarget (Prelude.Maybe Prelude.Text)
+capacityReservationTarget_capacityReservationId = Lens.lens (\CapacityReservationTarget' {capacityReservationId} -> capacityReservationId) (\s@CapacityReservationTarget' {} a -> s {capacityReservationId = a} :: CapacityReservationTarget)
 
-instance Hashable CapacityReservationTarget
+instance Prelude.Hashable CapacityReservationTarget
 
-instance NFData CapacityReservationTarget
+instance Prelude.NFData CapacityReservationTarget
 
-instance ToQuery CapacityReservationTarget where
+instance Prelude.ToQuery CapacityReservationTarget where
   toQuery CapacityReservationTarget' {..} =
-    mconcat
+    Prelude.mconcat
       [ "CapacityReservationResourceGroupArn"
-          =: _crtCapacityReservationResourceGroupARN,
-        "CapacityReservationId" =: _crtCapacityReservationId
+          Prelude.=: capacityReservationResourceGroupArn,
+        "CapacityReservationId"
+          Prelude.=: capacityReservationId
       ]

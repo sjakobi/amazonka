@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.FleetType
   ( FleetType
       ( ..,
-        FTInstant,
-        FTMaintain,
-        FTRequest
+        FleetTypeFTInstant,
+        FleetTypeFTMaintain,
+        FleetTypeFTRequest
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetType = FleetType' (CI Text)
+newtype FleetType = FleetType'
+  { fromFleetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FTInstant :: FleetType
-pattern FTInstant = FleetType' "instant"
+pattern FleetTypeFTInstant :: FleetType
+pattern FleetTypeFTInstant = FleetType' "instant"
 
-pattern FTMaintain :: FleetType
-pattern FTMaintain = FleetType' "maintain"
+pattern FleetTypeFTMaintain :: FleetType
+pattern FleetTypeFTMaintain = FleetType' "maintain"
 
-pattern FTRequest :: FleetType
-pattern FTRequest = FleetType' "request"
+pattern FleetTypeFTRequest :: FleetType
+pattern FleetTypeFTRequest = FleetType' "request"
 
 {-# COMPLETE
-  FTInstant,
-  FTMaintain,
-  FTRequest,
+  FleetTypeFTInstant,
+  FleetTypeFTMaintain,
+  FleetTypeFTRequest,
   FleetType'
   #-}
 
-instance FromText FleetType where
-  parser = (FleetType' . mk) <$> takeText
+instance Prelude.FromText FleetType where
+  parser = FleetType' Prelude.<$> Prelude.takeText
 
-instance ToText FleetType where
-  toText (FleetType' ci) = original ci
+instance Prelude.ToText FleetType where
+  toText (FleetType' x) = x
 
-instance Hashable FleetType
+instance Prelude.Hashable FleetType
 
-instance NFData FleetType
+instance Prelude.NFData FleetType
 
-instance ToByteString FleetType
+instance Prelude.ToByteString FleetType
 
-instance ToQuery FleetType
+instance Prelude.ToQuery FleetType
 
-instance ToHeader FleetType
+instance Prelude.ToHeader FleetType
 
-instance FromXML FleetType where
-  parseXML = parseXMLText "FleetType"
+instance Prelude.FromXML FleetType where
+  parseXML = Prelude.parseXMLText "FleetType"

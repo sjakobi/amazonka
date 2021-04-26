@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,124 +22,140 @@ module Network.AWS.EC2.Types.NetworkInfo where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.EnaSupport
 import Network.AWS.EC2.Types.NetworkCardInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the networking features of the instance type.
 --
---
---
--- /See:/ 'networkInfo' smart constructor.
+-- /See:/ 'newNetworkInfo' smart constructor.
 data NetworkInfo = NetworkInfo'
-  { _niDefaultNetworkCardIndex ::
-      !(Maybe Int),
-    _niEfaSupported :: !(Maybe Bool),
-    _niNetworkCards :: !(Maybe [NetworkCardInfo]),
-    _niIPv4AddressesPerInterface :: !(Maybe Int),
-    _niMaximumNetworkInterfaces :: !(Maybe Int),
-    _niIPv6Supported :: !(Maybe Bool),
-    _niMaximumNetworkCards :: !(Maybe Int),
-    _niNetworkPerformance :: !(Maybe Text),
-    _niIPv6AddressesPerInterface :: !(Maybe Int),
-    _niEnaSupport :: !(Maybe EnaSupport)
+  { -- | The index of the default network card, starting at 0.
+    defaultNetworkCardIndex :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether Elastic Fabric Adapter (EFA) is supported.
+    efaSupported :: Prelude.Maybe Prelude.Bool,
+    -- | Describes the network cards for the instance type.
+    networkCards :: Prelude.Maybe [NetworkCardInfo],
+    -- | The maximum number of IPv4 addresses per network interface.
+    ipv4AddressesPerInterface :: Prelude.Maybe Prelude.Int,
+    -- | The maximum number of network interfaces for the instance type.
+    maximumNetworkInterfaces :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether IPv6 is supported.
+    ipv6Supported :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of physical network cards that can be allocated to
+    -- the instance.
+    maximumNetworkCards :: Prelude.Maybe Prelude.Int,
+    -- | The network performance.
+    networkPerformance :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of IPv6 addresses per network interface.
+    ipv6AddressesPerInterface :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether Elastic Network Adapter (ENA) is supported.
+    enaSupport :: Prelude.Maybe EnaSupport
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'niDefaultNetworkCardIndex' - The index of the default network card, starting at 0.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'niEfaSupported' - Indicates whether Elastic Fabric Adapter (EFA) is supported.
+-- 'defaultNetworkCardIndex', 'networkInfo_defaultNetworkCardIndex' - The index of the default network card, starting at 0.
 --
--- * 'niNetworkCards' - Describes the network cards for the instance type.
+-- 'efaSupported', 'networkInfo_efaSupported' - Indicates whether Elastic Fabric Adapter (EFA) is supported.
 --
--- * 'niIPv4AddressesPerInterface' - The maximum number of IPv4 addresses per network interface.
+-- 'networkCards', 'networkInfo_networkCards' - Describes the network cards for the instance type.
 --
--- * 'niMaximumNetworkInterfaces' - The maximum number of network interfaces for the instance type.
+-- 'ipv4AddressesPerInterface', 'networkInfo_ipv4AddressesPerInterface' - The maximum number of IPv4 addresses per network interface.
 --
--- * 'niIPv6Supported' - Indicates whether IPv6 is supported.
+-- 'maximumNetworkInterfaces', 'networkInfo_maximumNetworkInterfaces' - The maximum number of network interfaces for the instance type.
 --
--- * 'niMaximumNetworkCards' - The maximum number of physical network cards that can be allocated to the instance.
+-- 'ipv6Supported', 'networkInfo_ipv6Supported' - Indicates whether IPv6 is supported.
 --
--- * 'niNetworkPerformance' - The network performance.
+-- 'maximumNetworkCards', 'networkInfo_maximumNetworkCards' - The maximum number of physical network cards that can be allocated to
+-- the instance.
 --
--- * 'niIPv6AddressesPerInterface' - The maximum number of IPv6 addresses per network interface.
+-- 'networkPerformance', 'networkInfo_networkPerformance' - The network performance.
 --
--- * 'niEnaSupport' - Indicates whether Elastic Network Adapter (ENA) is supported.
-networkInfo ::
+-- 'ipv6AddressesPerInterface', 'networkInfo_ipv6AddressesPerInterface' - The maximum number of IPv6 addresses per network interface.
+--
+-- 'enaSupport', 'networkInfo_enaSupport' - Indicates whether Elastic Network Adapter (ENA) is supported.
+newNetworkInfo ::
   NetworkInfo
-networkInfo =
+newNetworkInfo =
   NetworkInfo'
-    { _niDefaultNetworkCardIndex = Nothing,
-      _niEfaSupported = Nothing,
-      _niNetworkCards = Nothing,
-      _niIPv4AddressesPerInterface = Nothing,
-      _niMaximumNetworkInterfaces = Nothing,
-      _niIPv6Supported = Nothing,
-      _niMaximumNetworkCards = Nothing,
-      _niNetworkPerformance = Nothing,
-      _niIPv6AddressesPerInterface = Nothing,
-      _niEnaSupport = Nothing
+    { defaultNetworkCardIndex =
+        Prelude.Nothing,
+      efaSupported = Prelude.Nothing,
+      networkCards = Prelude.Nothing,
+      ipv4AddressesPerInterface = Prelude.Nothing,
+      maximumNetworkInterfaces = Prelude.Nothing,
+      ipv6Supported = Prelude.Nothing,
+      maximumNetworkCards = Prelude.Nothing,
+      networkPerformance = Prelude.Nothing,
+      ipv6AddressesPerInterface = Prelude.Nothing,
+      enaSupport = Prelude.Nothing
     }
 
 -- | The index of the default network card, starting at 0.
-niDefaultNetworkCardIndex :: Lens' NetworkInfo (Maybe Int)
-niDefaultNetworkCardIndex = lens _niDefaultNetworkCardIndex (\s a -> s {_niDefaultNetworkCardIndex = a})
+networkInfo_defaultNetworkCardIndex :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Int)
+networkInfo_defaultNetworkCardIndex = Lens.lens (\NetworkInfo' {defaultNetworkCardIndex} -> defaultNetworkCardIndex) (\s@NetworkInfo' {} a -> s {defaultNetworkCardIndex = a} :: NetworkInfo)
 
 -- | Indicates whether Elastic Fabric Adapter (EFA) is supported.
-niEfaSupported :: Lens' NetworkInfo (Maybe Bool)
-niEfaSupported = lens _niEfaSupported (\s a -> s {_niEfaSupported = a})
+networkInfo_efaSupported :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Bool)
+networkInfo_efaSupported = Lens.lens (\NetworkInfo' {efaSupported} -> efaSupported) (\s@NetworkInfo' {} a -> s {efaSupported = a} :: NetworkInfo)
 
 -- | Describes the network cards for the instance type.
-niNetworkCards :: Lens' NetworkInfo [NetworkCardInfo]
-niNetworkCards = lens _niNetworkCards (\s a -> s {_niNetworkCards = a}) . _Default . _Coerce
+networkInfo_networkCards :: Lens.Lens' NetworkInfo (Prelude.Maybe [NetworkCardInfo])
+networkInfo_networkCards = Lens.lens (\NetworkInfo' {networkCards} -> networkCards) (\s@NetworkInfo' {} a -> s {networkCards = a} :: NetworkInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of IPv4 addresses per network interface.
-niIPv4AddressesPerInterface :: Lens' NetworkInfo (Maybe Int)
-niIPv4AddressesPerInterface = lens _niIPv4AddressesPerInterface (\s a -> s {_niIPv4AddressesPerInterface = a})
+networkInfo_ipv4AddressesPerInterface :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Int)
+networkInfo_ipv4AddressesPerInterface = Lens.lens (\NetworkInfo' {ipv4AddressesPerInterface} -> ipv4AddressesPerInterface) (\s@NetworkInfo' {} a -> s {ipv4AddressesPerInterface = a} :: NetworkInfo)
 
 -- | The maximum number of network interfaces for the instance type.
-niMaximumNetworkInterfaces :: Lens' NetworkInfo (Maybe Int)
-niMaximumNetworkInterfaces = lens _niMaximumNetworkInterfaces (\s a -> s {_niMaximumNetworkInterfaces = a})
+networkInfo_maximumNetworkInterfaces :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Int)
+networkInfo_maximumNetworkInterfaces = Lens.lens (\NetworkInfo' {maximumNetworkInterfaces} -> maximumNetworkInterfaces) (\s@NetworkInfo' {} a -> s {maximumNetworkInterfaces = a} :: NetworkInfo)
 
 -- | Indicates whether IPv6 is supported.
-niIPv6Supported :: Lens' NetworkInfo (Maybe Bool)
-niIPv6Supported = lens _niIPv6Supported (\s a -> s {_niIPv6Supported = a})
+networkInfo_ipv6Supported :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Bool)
+networkInfo_ipv6Supported = Lens.lens (\NetworkInfo' {ipv6Supported} -> ipv6Supported) (\s@NetworkInfo' {} a -> s {ipv6Supported = a} :: NetworkInfo)
 
--- | The maximum number of physical network cards that can be allocated to the instance.
-niMaximumNetworkCards :: Lens' NetworkInfo (Maybe Int)
-niMaximumNetworkCards = lens _niMaximumNetworkCards (\s a -> s {_niMaximumNetworkCards = a})
+-- | The maximum number of physical network cards that can be allocated to
+-- the instance.
+networkInfo_maximumNetworkCards :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Int)
+networkInfo_maximumNetworkCards = Lens.lens (\NetworkInfo' {maximumNetworkCards} -> maximumNetworkCards) (\s@NetworkInfo' {} a -> s {maximumNetworkCards = a} :: NetworkInfo)
 
 -- | The network performance.
-niNetworkPerformance :: Lens' NetworkInfo (Maybe Text)
-niNetworkPerformance = lens _niNetworkPerformance (\s a -> s {_niNetworkPerformance = a})
+networkInfo_networkPerformance :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Text)
+networkInfo_networkPerformance = Lens.lens (\NetworkInfo' {networkPerformance} -> networkPerformance) (\s@NetworkInfo' {} a -> s {networkPerformance = a} :: NetworkInfo)
 
 -- | The maximum number of IPv6 addresses per network interface.
-niIPv6AddressesPerInterface :: Lens' NetworkInfo (Maybe Int)
-niIPv6AddressesPerInterface = lens _niIPv6AddressesPerInterface (\s a -> s {_niIPv6AddressesPerInterface = a})
+networkInfo_ipv6AddressesPerInterface :: Lens.Lens' NetworkInfo (Prelude.Maybe Prelude.Int)
+networkInfo_ipv6AddressesPerInterface = Lens.lens (\NetworkInfo' {ipv6AddressesPerInterface} -> ipv6AddressesPerInterface) (\s@NetworkInfo' {} a -> s {ipv6AddressesPerInterface = a} :: NetworkInfo)
 
 -- | Indicates whether Elastic Network Adapter (ENA) is supported.
-niEnaSupport :: Lens' NetworkInfo (Maybe EnaSupport)
-niEnaSupport = lens _niEnaSupport (\s a -> s {_niEnaSupport = a})
+networkInfo_enaSupport :: Lens.Lens' NetworkInfo (Prelude.Maybe EnaSupport)
+networkInfo_enaSupport = Lens.lens (\NetworkInfo' {enaSupport} -> enaSupport) (\s@NetworkInfo' {} a -> s {enaSupport = a} :: NetworkInfo)
 
-instance FromXML NetworkInfo where
+instance Prelude.FromXML NetworkInfo where
   parseXML x =
     NetworkInfo'
-      <$> (x .@? "defaultNetworkCardIndex")
-      <*> (x .@? "efaSupported")
-      <*> ( x .@? "networkCards" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "ipv4AddressesPerInterface")
-      <*> (x .@? "maximumNetworkInterfaces")
-      <*> (x .@? "ipv6Supported")
-      <*> (x .@? "maximumNetworkCards")
-      <*> (x .@? "networkPerformance")
-      <*> (x .@? "ipv6AddressesPerInterface")
-      <*> (x .@? "enaSupport")
+      Prelude.<$> (x Prelude..@? "defaultNetworkCardIndex")
+      Prelude.<*> (x Prelude..@? "efaSupported")
+      Prelude.<*> ( x Prelude..@? "networkCards"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "ipv4AddressesPerInterface")
+      Prelude.<*> (x Prelude..@? "maximumNetworkInterfaces")
+      Prelude.<*> (x Prelude..@? "ipv6Supported")
+      Prelude.<*> (x Prelude..@? "maximumNetworkCards")
+      Prelude.<*> (x Prelude..@? "networkPerformance")
+      Prelude.<*> (x Prelude..@? "ipv6AddressesPerInterface")
+      Prelude.<*> (x Prelude..@? "enaSupport")
 
-instance Hashable NetworkInfo
+instance Prelude.Hashable NetworkInfo
 
-instance NFData NetworkInfo
+instance Prelude.NFData NetworkInfo

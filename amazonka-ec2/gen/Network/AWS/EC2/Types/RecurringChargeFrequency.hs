@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.EC2.Types.RecurringChargeFrequency
   ( RecurringChargeFrequency
       ( ..,
-        Hourly
+        RecurringChargeFrequencyHourly
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecurringChargeFrequency
-  = RecurringChargeFrequency'
-      ( CI
-          Text
-      )
+newtype RecurringChargeFrequency = RecurringChargeFrequency'
+  { fromRecurringChargeFrequency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Hourly :: RecurringChargeFrequency
-pattern Hourly = RecurringChargeFrequency' "Hourly"
+pattern RecurringChargeFrequencyHourly :: RecurringChargeFrequency
+pattern RecurringChargeFrequencyHourly = RecurringChargeFrequency' "Hourly"
 
 {-# COMPLETE
-  Hourly,
+  RecurringChargeFrequencyHourly,
   RecurringChargeFrequency'
   #-}
 
-instance FromText RecurringChargeFrequency where
-  parser = (RecurringChargeFrequency' . mk) <$> takeText
+instance Prelude.FromText RecurringChargeFrequency where
+  parser = RecurringChargeFrequency' Prelude.<$> Prelude.takeText
 
-instance ToText RecurringChargeFrequency where
-  toText (RecurringChargeFrequency' ci) = original ci
+instance Prelude.ToText RecurringChargeFrequency where
+  toText (RecurringChargeFrequency' x) = x
 
-instance Hashable RecurringChargeFrequency
+instance Prelude.Hashable RecurringChargeFrequency
 
-instance NFData RecurringChargeFrequency
+instance Prelude.NFData RecurringChargeFrequency
 
-instance ToByteString RecurringChargeFrequency
+instance Prelude.ToByteString RecurringChargeFrequency
 
-instance ToQuery RecurringChargeFrequency
+instance Prelude.ToQuery RecurringChargeFrequency
 
-instance ToHeader RecurringChargeFrequency
+instance Prelude.ToHeader RecurringChargeFrequency
 
-instance FromXML RecurringChargeFrequency where
-  parseXML = parseXMLText "RecurringChargeFrequency"
+instance Prelude.FromXML RecurringChargeFrequency where
+  parseXML = Prelude.parseXMLText "RecurringChargeFrequency"

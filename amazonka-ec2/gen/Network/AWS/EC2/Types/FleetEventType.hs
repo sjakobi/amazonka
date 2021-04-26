@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.FleetEventType
   ( FleetEventType
       ( ..,
-        FETFleetChange,
-        FETInstanceChange,
-        FETServiceError
+        FleetEventTypeFETFleetChange,
+        FleetEventTypeFETInstanceChange,
+        FleetEventTypeFETServiceError
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetEventType = FleetEventType' (CI Text)
+newtype FleetEventType = FleetEventType'
+  { fromFleetEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FETFleetChange :: FleetEventType
-pattern FETFleetChange = FleetEventType' "fleet-change"
+pattern FleetEventTypeFETFleetChange :: FleetEventType
+pattern FleetEventTypeFETFleetChange = FleetEventType' "fleet-change"
 
-pattern FETInstanceChange :: FleetEventType
-pattern FETInstanceChange = FleetEventType' "instance-change"
+pattern FleetEventTypeFETInstanceChange :: FleetEventType
+pattern FleetEventTypeFETInstanceChange = FleetEventType' "instance-change"
 
-pattern FETServiceError :: FleetEventType
-pattern FETServiceError = FleetEventType' "service-error"
+pattern FleetEventTypeFETServiceError :: FleetEventType
+pattern FleetEventTypeFETServiceError = FleetEventType' "service-error"
 
 {-# COMPLETE
-  FETFleetChange,
-  FETInstanceChange,
-  FETServiceError,
+  FleetEventTypeFETFleetChange,
+  FleetEventTypeFETInstanceChange,
+  FleetEventTypeFETServiceError,
   FleetEventType'
   #-}
 
-instance FromText FleetEventType where
-  parser = (FleetEventType' . mk) <$> takeText
+instance Prelude.FromText FleetEventType where
+  parser = FleetEventType' Prelude.<$> Prelude.takeText
 
-instance ToText FleetEventType where
-  toText (FleetEventType' ci) = original ci
+instance Prelude.ToText FleetEventType where
+  toText (FleetEventType' x) = x
 
-instance Hashable FleetEventType
+instance Prelude.Hashable FleetEventType
 
-instance NFData FleetEventType
+instance Prelude.NFData FleetEventType
 
-instance ToByteString FleetEventType
+instance Prelude.ToByteString FleetEventType
 
-instance ToQuery FleetEventType
+instance Prelude.ToQuery FleetEventType
 
-instance ToHeader FleetEventType
+instance Prelude.ToHeader FleetEventType
 
-instance FromXML FleetEventType where
-  parseXML = parseXMLText "FleetEventType"
+instance Prelude.FromXML FleetEventType where
+  parseXML = Prelude.parseXMLText "FleetEventType"

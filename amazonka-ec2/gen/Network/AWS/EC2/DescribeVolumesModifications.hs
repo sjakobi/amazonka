@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,216 +21,335 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the most recent volume modification request for the specified EBS volumes.
+-- Describes the most recent volume modification request for the specified
+-- EBS volumes.
 --
+-- If a volume has never been modified, some information in the output will
+-- be null. If a volume has been modified more than once, the output
+-- includes only the most recent modification request.
 --
--- If a volume has never been modified, some information in the output will be null. If a volume has been modified more than once, the output includes only the most recent modification request.
---
--- You can also use CloudWatch Events to check the status of a modification to an EBS volume. For information about CloudWatch Events, see the <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ Amazon CloudWatch Events User Guide> . For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-expand-volume.html#monitoring_mods Monitoring volume modifications> in the /Amazon Elastic Compute Cloud User Guide/ .
---
+-- You can also use CloudWatch Events to check the status of a modification
+-- to an EBS volume. For information about CloudWatch Events, see the
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ Amazon CloudWatch Events User Guide>.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-expand-volume.html#monitoring_mods Monitoring volume modifications>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeVolumesModifications
   ( -- * Creating a Request
-    describeVolumesModifications,
-    DescribeVolumesModifications,
+    DescribeVolumesModifications (..),
+    newDescribeVolumesModifications,
 
     -- * Request Lenses
-    dvmNextToken,
-    dvmDryRun,
-    dvmVolumeIds,
-    dvmMaxResults,
-    dvmFilters,
+    describeVolumesModifications_nextToken,
+    describeVolumesModifications_dryRun,
+    describeVolumesModifications_volumeIds,
+    describeVolumesModifications_maxResults,
+    describeVolumesModifications_filters,
 
     -- * Destructuring the Response
-    describeVolumesModificationsResponse,
-    DescribeVolumesModificationsResponse,
+    DescribeVolumesModificationsResponse (..),
+    newDescribeVolumesModificationsResponse,
 
     -- * Response Lenses
-    dvmrrsNextToken,
-    dvmrrsVolumesModifications,
-    dvmrrsResponseStatus,
+    describeVolumesModificationsResponse_nextToken,
+    describeVolumesModificationsResponse_volumesModifications,
+    describeVolumesModificationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.VolumeModification
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeVolumesModifications' smart constructor.
+-- | /See:/ 'newDescribeVolumesModifications' smart constructor.
 data DescribeVolumesModifications = DescribeVolumesModifications'
-  { _dvmNextToken ::
-      !(Maybe Text),
-    _dvmDryRun ::
-      !(Maybe Bool),
-    _dvmVolumeIds ::
-      !( Maybe
-           [Text]
-       ),
-    _dvmMaxResults ::
-      !(Maybe Int),
-    _dvmFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The @nextToken@ value returned by a previous paginated request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the volumes.
+    volumeIds :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of results (up to a limit of 500) to be returned in a
+    -- paginated request.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The filters.
+    --
+    -- -   @modification-state@ - The current modification state (modifying |
+    --     optimizing | completed | failed).
+    --
+    -- -   @original-iops@ - The original IOPS rate of the volume.
+    --
+    -- -   @original-size@ - The original size of the volume, in GiB.
+    --
+    -- -   @original-volume-type@ - The original volume type of the volume
+    --     (standard | io1 | io2 | gp2 | sc1 | st1).
+    --
+    -- -   @originalMultiAttachEnabled@ - Indicates whether Multi-Attach
+    --     support was enabled (true | false).
+    --
+    -- -   @start-time@ - The modification start time.
+    --
+    -- -   @target-iops@ - The target IOPS rate of the volume.
+    --
+    -- -   @target-size@ - The target size of the volume, in GiB.
+    --
+    -- -   @target-volume-type@ - The target volume type of the volume
+    --     (standard | io1 | io2 | gp2 | sc1 | st1).
+    --
+    -- -   @targetMultiAttachEnabled@ - Indicates whether Multi-Attach support
+    --     is to be enabled (true | false).
+    --
+    -- -   @volume-id@ - The ID of the volume.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeVolumesModifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeVolumesModifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvmNextToken' - The @nextToken@ value returned by a previous paginated request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvmDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeVolumesModifications_nextToken' - The @nextToken@ value returned by a previous paginated request.
 --
--- * 'dvmVolumeIds' - The IDs of the volumes.
+-- 'dryRun', 'describeVolumesModifications_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dvmMaxResults' - The maximum number of results (up to a limit of 500) to be returned in a paginated request.
+-- 'volumeIds', 'describeVolumesModifications_volumeIds' - The IDs of the volumes.
 --
--- * 'dvmFilters' - The filters.     * @modification-state@ - The current modification state (modifying | optimizing | completed | failed).     * @original-iops@ - The original IOPS rate of the volume.     * @original-size@ - The original size of the volume, in GiB.     * @original-volume-type@ - The original volume type of the volume (standard | io1 | io2 | gp2 | sc1 | st1).     * @originalMultiAttachEnabled@ - Indicates whether Multi-Attach support was enabled (true | false).     * @start-time@ - The modification start time.     * @target-iops@ - The target IOPS rate of the volume.     * @target-size@ - The target size of the volume, in GiB.     * @target-volume-type@ - The target volume type of the volume (standard | io1 | io2 | gp2 | sc1 | st1).     * @targetMultiAttachEnabled@ - Indicates whether Multi-Attach support is to be enabled (true | false).     * @volume-id@ - The ID of the volume.
-describeVolumesModifications ::
+-- 'maxResults', 'describeVolumesModifications_maxResults' - The maximum number of results (up to a limit of 500) to be returned in a
+-- paginated request.
+--
+-- 'filters', 'describeVolumesModifications_filters' - The filters.
+--
+-- -   @modification-state@ - The current modification state (modifying |
+--     optimizing | completed | failed).
+--
+-- -   @original-iops@ - The original IOPS rate of the volume.
+--
+-- -   @original-size@ - The original size of the volume, in GiB.
+--
+-- -   @original-volume-type@ - The original volume type of the volume
+--     (standard | io1 | io2 | gp2 | sc1 | st1).
+--
+-- -   @originalMultiAttachEnabled@ - Indicates whether Multi-Attach
+--     support was enabled (true | false).
+--
+-- -   @start-time@ - The modification start time.
+--
+-- -   @target-iops@ - The target IOPS rate of the volume.
+--
+-- -   @target-size@ - The target size of the volume, in GiB.
+--
+-- -   @target-volume-type@ - The target volume type of the volume
+--     (standard | io1 | io2 | gp2 | sc1 | st1).
+--
+-- -   @targetMultiAttachEnabled@ - Indicates whether Multi-Attach support
+--     is to be enabled (true | false).
+--
+-- -   @volume-id@ - The ID of the volume.
+newDescribeVolumesModifications ::
   DescribeVolumesModifications
-describeVolumesModifications =
+newDescribeVolumesModifications =
   DescribeVolumesModifications'
-    { _dvmNextToken =
-        Nothing,
-      _dvmDryRun = Nothing,
-      _dvmVolumeIds = Nothing,
-      _dvmMaxResults = Nothing,
-      _dvmFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      volumeIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The @nextToken@ value returned by a previous paginated request.
-dvmNextToken :: Lens' DescribeVolumesModifications (Maybe Text)
-dvmNextToken = lens _dvmNextToken (\s a -> s {_dvmNextToken = a})
+describeVolumesModifications_nextToken :: Lens.Lens' DescribeVolumesModifications (Prelude.Maybe Prelude.Text)
+describeVolumesModifications_nextToken = Lens.lens (\DescribeVolumesModifications' {nextToken} -> nextToken) (\s@DescribeVolumesModifications' {} a -> s {nextToken = a} :: DescribeVolumesModifications)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dvmDryRun :: Lens' DescribeVolumesModifications (Maybe Bool)
-dvmDryRun = lens _dvmDryRun (\s a -> s {_dvmDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeVolumesModifications_dryRun :: Lens.Lens' DescribeVolumesModifications (Prelude.Maybe Prelude.Bool)
+describeVolumesModifications_dryRun = Lens.lens (\DescribeVolumesModifications' {dryRun} -> dryRun) (\s@DescribeVolumesModifications' {} a -> s {dryRun = a} :: DescribeVolumesModifications)
 
 -- | The IDs of the volumes.
-dvmVolumeIds :: Lens' DescribeVolumesModifications [Text]
-dvmVolumeIds = lens _dvmVolumeIds (\s a -> s {_dvmVolumeIds = a}) . _Default . _Coerce
+describeVolumesModifications_volumeIds :: Lens.Lens' DescribeVolumesModifications (Prelude.Maybe [Prelude.Text])
+describeVolumesModifications_volumeIds = Lens.lens (\DescribeVolumesModifications' {volumeIds} -> volumeIds) (\s@DescribeVolumesModifications' {} a -> s {volumeIds = a} :: DescribeVolumesModifications) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of results (up to a limit of 500) to be returned in a paginated request.
-dvmMaxResults :: Lens' DescribeVolumesModifications (Maybe Int)
-dvmMaxResults = lens _dvmMaxResults (\s a -> s {_dvmMaxResults = a})
+-- | The maximum number of results (up to a limit of 500) to be returned in a
+-- paginated request.
+describeVolumesModifications_maxResults :: Lens.Lens' DescribeVolumesModifications (Prelude.Maybe Prelude.Int)
+describeVolumesModifications_maxResults = Lens.lens (\DescribeVolumesModifications' {maxResults} -> maxResults) (\s@DescribeVolumesModifications' {} a -> s {maxResults = a} :: DescribeVolumesModifications)
 
--- | The filters.     * @modification-state@ - The current modification state (modifying | optimizing | completed | failed).     * @original-iops@ - The original IOPS rate of the volume.     * @original-size@ - The original size of the volume, in GiB.     * @original-volume-type@ - The original volume type of the volume (standard | io1 | io2 | gp2 | sc1 | st1).     * @originalMultiAttachEnabled@ - Indicates whether Multi-Attach support was enabled (true | false).     * @start-time@ - The modification start time.     * @target-iops@ - The target IOPS rate of the volume.     * @target-size@ - The target size of the volume, in GiB.     * @target-volume-type@ - The target volume type of the volume (standard | io1 | io2 | gp2 | sc1 | st1).     * @targetMultiAttachEnabled@ - Indicates whether Multi-Attach support is to be enabled (true | false).     * @volume-id@ - The ID of the volume.
-dvmFilters :: Lens' DescribeVolumesModifications [Filter]
-dvmFilters = lens _dvmFilters (\s a -> s {_dvmFilters = a}) . _Default . _Coerce
+-- | The filters.
+--
+-- -   @modification-state@ - The current modification state (modifying |
+--     optimizing | completed | failed).
+--
+-- -   @original-iops@ - The original IOPS rate of the volume.
+--
+-- -   @original-size@ - The original size of the volume, in GiB.
+--
+-- -   @original-volume-type@ - The original volume type of the volume
+--     (standard | io1 | io2 | gp2 | sc1 | st1).
+--
+-- -   @originalMultiAttachEnabled@ - Indicates whether Multi-Attach
+--     support was enabled (true | false).
+--
+-- -   @start-time@ - The modification start time.
+--
+-- -   @target-iops@ - The target IOPS rate of the volume.
+--
+-- -   @target-size@ - The target size of the volume, in GiB.
+--
+-- -   @target-volume-type@ - The target volume type of the volume
+--     (standard | io1 | io2 | gp2 | sc1 | st1).
+--
+-- -   @targetMultiAttachEnabled@ - Indicates whether Multi-Attach support
+--     is to be enabled (true | false).
+--
+-- -   @volume-id@ - The ID of the volume.
+describeVolumesModifications_filters :: Lens.Lens' DescribeVolumesModifications (Prelude.Maybe [Filter])
+describeVolumesModifications_filters = Lens.lens (\DescribeVolumesModifications' {filters} -> filters) (\s@DescribeVolumesModifications' {} a -> s {filters = a} :: DescribeVolumesModifications) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeVolumesModifications where
+instance Pager.AWSPager DescribeVolumesModifications where
   page rq rs
-    | stop (rs ^. dvmrrsNextToken) = Nothing
-    | stop (rs ^. dvmrrsVolumesModifications) = Nothing
-    | otherwise =
-      Just $ rq & dvmNextToken .~ rs ^. dvmrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeVolumesModificationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeVolumesModificationsResponse_volumesModifications
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeVolumesModifications_nextToken
+          Lens..~ rs
+          Lens.^? describeVolumesModificationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeVolumesModifications where
+instance
+  Prelude.AWSRequest
+    DescribeVolumesModifications
+  where
   type
     Rs DescribeVolumesModifications =
       DescribeVolumesModificationsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeVolumesModificationsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "volumeModificationSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "volumeModificationSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeVolumesModifications
+instance
+  Prelude.Hashable
+    DescribeVolumesModifications
 
-instance NFData DescribeVolumesModifications
+instance Prelude.NFData DescribeVolumesModifications
 
-instance ToHeaders DescribeVolumesModifications where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeVolumesModifications
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeVolumesModifications where
-  toPath = const "/"
+instance Prelude.ToPath DescribeVolumesModifications where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeVolumesModifications where
+instance Prelude.ToQuery DescribeVolumesModifications where
   toQuery DescribeVolumesModifications' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeVolumesModifications" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dvmNextToken,
-        "DryRun" =: _dvmDryRun,
-        toQuery (toQueryList "VolumeId" <$> _dvmVolumeIds),
-        "MaxResults" =: _dvmMaxResults,
-        toQuery (toQueryList "Filter" <$> _dvmFilters)
+          Prelude.=: ( "DescribeVolumesModifications" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQuery
+          ( Prelude.toQueryList "VolumeId"
+              Prelude.<$> volumeIds
+          ),
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeVolumesModificationsResponse' smart constructor.
+-- | /See:/ 'newDescribeVolumesModificationsResponse' smart constructor.
 data DescribeVolumesModificationsResponse = DescribeVolumesModificationsResponse'
-  { _dvmrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dvmrrsVolumesModifications ::
-      !( Maybe
-           [VolumeModification]
-       ),
-    _dvmrrsResponseStatus ::
-      !Int
+  { -- | Token for pagination, null if there are no more results
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the volume modifications.
+    volumesModifications :: Prelude.Maybe [VolumeModification],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeVolumesModificationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeVolumesModificationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvmrrsNextToken' - Token for pagination, null if there are no more results
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvmrrsVolumesModifications' - Information about the volume modifications.
+-- 'nextToken', 'describeVolumesModificationsResponse_nextToken' - Token for pagination, null if there are no more results
 --
--- * 'dvmrrsResponseStatus' - -- | The response status code.
-describeVolumesModificationsResponse ::
-  -- | 'dvmrrsResponseStatus'
-  Int ->
+-- 'volumesModifications', 'describeVolumesModificationsResponse_volumesModifications' - Information about the volume modifications.
+--
+-- 'httpStatus', 'describeVolumesModificationsResponse_httpStatus' - The response's http status code.
+newDescribeVolumesModificationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeVolumesModificationsResponse
-describeVolumesModificationsResponse pResponseStatus_ =
+newDescribeVolumesModificationsResponse pHttpStatus_ =
   DescribeVolumesModificationsResponse'
-    { _dvmrrsNextToken =
-        Nothing,
-      _dvmrrsVolumesModifications = Nothing,
-      _dvmrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      volumesModifications =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Token for pagination, null if there are no more results
-dvmrrsNextToken :: Lens' DescribeVolumesModificationsResponse (Maybe Text)
-dvmrrsNextToken = lens _dvmrrsNextToken (\s a -> s {_dvmrrsNextToken = a})
+describeVolumesModificationsResponse_nextToken :: Lens.Lens' DescribeVolumesModificationsResponse (Prelude.Maybe Prelude.Text)
+describeVolumesModificationsResponse_nextToken = Lens.lens (\DescribeVolumesModificationsResponse' {nextToken} -> nextToken) (\s@DescribeVolumesModificationsResponse' {} a -> s {nextToken = a} :: DescribeVolumesModificationsResponse)
 
 -- | Information about the volume modifications.
-dvmrrsVolumesModifications :: Lens' DescribeVolumesModificationsResponse [VolumeModification]
-dvmrrsVolumesModifications = lens _dvmrrsVolumesModifications (\s a -> s {_dvmrrsVolumesModifications = a}) . _Default . _Coerce
+describeVolumesModificationsResponse_volumesModifications :: Lens.Lens' DescribeVolumesModificationsResponse (Prelude.Maybe [VolumeModification])
+describeVolumesModificationsResponse_volumesModifications = Lens.lens (\DescribeVolumesModificationsResponse' {volumesModifications} -> volumesModifications) (\s@DescribeVolumesModificationsResponse' {} a -> s {volumesModifications = a} :: DescribeVolumesModificationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dvmrrsResponseStatus :: Lens' DescribeVolumesModificationsResponse Int
-dvmrrsResponseStatus = lens _dvmrrsResponseStatus (\s a -> s {_dvmrrsResponseStatus = a})
+-- | The response's http status code.
+describeVolumesModificationsResponse_httpStatus :: Lens.Lens' DescribeVolumesModificationsResponse Prelude.Int
+describeVolumesModificationsResponse_httpStatus = Lens.lens (\DescribeVolumesModificationsResponse' {httpStatus} -> httpStatus) (\s@DescribeVolumesModificationsResponse' {} a -> s {httpStatus = a} :: DescribeVolumesModificationsResponse)
 
-instance NFData DescribeVolumesModificationsResponse
+instance
+  Prelude.NFData
+    DescribeVolumesModificationsResponse

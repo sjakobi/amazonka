@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,228 +21,220 @@ module Network.AWS.EC2.Types.ScheduledInstancesLaunchSpecification where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ScheduledInstancesBlockDeviceMapping
-import Network.AWS.EC2.Types.ScheduledInstancesIAMInstanceProfile
+import Network.AWS.EC2.Types.ScheduledInstancesIamInstanceProfile
 import Network.AWS.EC2.Types.ScheduledInstancesMonitoring
 import Network.AWS.EC2.Types.ScheduledInstancesNetworkInterface
 import Network.AWS.EC2.Types.ScheduledInstancesPlacement
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the launch specification for a Scheduled Instance.
 --
+-- If you are launching the Scheduled Instance in EC2-VPC, you must specify
+-- the ID of the subnet. You can specify the subnet using either @SubnetId@
+-- or @NetworkInterface@.
 --
--- If you are launching the Scheduled Instance in EC2-VPC, you must specify the ID of the subnet. You can specify the subnet using either @SubnetId@ or @NetworkInterface@ .
---
---
--- /See:/ 'scheduledInstancesLaunchSpecification' smart constructor.
+-- /See:/ 'newScheduledInstancesLaunchSpecification' smart constructor.
 data ScheduledInstancesLaunchSpecification = ScheduledInstancesLaunchSpecification'
-  { _silsSecurityGroupIds ::
-      !( Maybe
-           [Text]
-       ),
-    _silsInstanceType ::
-      !( Maybe
-           Text
-       ),
-    _silsEBSOptimized ::
-      !( Maybe
-           Bool
-       ),
-    _silsUserData ::
-      !( Maybe
-           Text
-       ),
-    _silsPlacement ::
-      !( Maybe
-           ScheduledInstancesPlacement
-       ),
-    _silsRAMDiskId ::
-      !( Maybe
-           Text
-       ),
-    _silsIAMInstanceProfile ::
-      !( Maybe
-           ScheduledInstancesIAMInstanceProfile
-       ),
-    _silsMonitoring ::
-      !( Maybe
-           ScheduledInstancesMonitoring
-       ),
-    _silsBlockDeviceMappings ::
-      !( Maybe
-           [ScheduledInstancesBlockDeviceMapping]
-       ),
-    _silsSubnetId ::
-      !( Maybe
-           Text
-       ),
-    _silsKernelId ::
-      !( Maybe
-           Text
-       ),
-    _silsKeyName ::
-      !( Maybe
-           Text
-       ),
-    _silsNetworkInterfaces ::
-      !( Maybe
-           [ScheduledInstancesNetworkInterface]
-       ),
-    _silsImageId ::
-      !Text
+  { -- | The IDs of the security groups.
+    securityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The instance type.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the instances are optimized for EBS I\/O. This
+    -- optimization provides dedicated throughput to Amazon EBS and an
+    -- optimized configuration stack to provide optimal EBS I\/O performance.
+    -- This optimization isn\'t available with all instance types. Additional
+    -- usage charges apply when using an EBS-optimized instance.
+    --
+    -- Default: @false@
+    ebsOptimized :: Prelude.Maybe Prelude.Bool,
+    -- | The base64-encoded MIME user data.
+    userData :: Prelude.Maybe Prelude.Text,
+    -- | The placement information.
+    placement :: Prelude.Maybe ScheduledInstancesPlacement,
+    -- | The ID of the RAM disk.
+    ramdiskId :: Prelude.Maybe Prelude.Text,
+    -- | The IAM instance profile.
+    iamInstanceProfile :: Prelude.Maybe ScheduledInstancesIamInstanceProfile,
+    -- | Enable or disable monitoring for the instances.
+    monitoring :: Prelude.Maybe ScheduledInstancesMonitoring,
+    -- | The block device mapping entries.
+    blockDeviceMappings :: Prelude.Maybe [ScheduledInstancesBlockDeviceMapping],
+    -- | The ID of the subnet in which to launch the instances.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the kernel.
+    kernelId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the key pair.
+    keyName :: Prelude.Maybe Prelude.Text,
+    -- | The network interfaces.
+    networkInterfaces :: Prelude.Maybe [ScheduledInstancesNetworkInterface],
+    -- | The ID of the Amazon Machine Image (AMI).
+    imageId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduledInstancesLaunchSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduledInstancesLaunchSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'silsSecurityGroupIds' - The IDs of the security groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'silsInstanceType' - The instance type.
+-- 'securityGroupIds', 'scheduledInstancesLaunchSpecification_securityGroupIds' - The IDs of the security groups.
 --
--- * 'silsEBSOptimized' - Indicates whether the instances are optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance. Default: @false@
+-- 'instanceType', 'scheduledInstancesLaunchSpecification_instanceType' - The instance type.
 --
--- * 'silsUserData' - The base64-encoded MIME user data.
+-- 'ebsOptimized', 'scheduledInstancesLaunchSpecification_ebsOptimized' - Indicates whether the instances are optimized for EBS I\/O. This
+-- optimization provides dedicated throughput to Amazon EBS and an
+-- optimized configuration stack to provide optimal EBS I\/O performance.
+-- This optimization isn\'t available with all instance types. Additional
+-- usage charges apply when using an EBS-optimized instance.
 --
--- * 'silsPlacement' - The placement information.
+-- Default: @false@
 --
--- * 'silsRAMDiskId' - The ID of the RAM disk.
+-- 'userData', 'scheduledInstancesLaunchSpecification_userData' - The base64-encoded MIME user data.
 --
--- * 'silsIAMInstanceProfile' - The IAM instance profile.
+-- 'placement', 'scheduledInstancesLaunchSpecification_placement' - The placement information.
 --
--- * 'silsMonitoring' - Enable or disable monitoring for the instances.
+-- 'ramdiskId', 'scheduledInstancesLaunchSpecification_ramdiskId' - The ID of the RAM disk.
 --
--- * 'silsBlockDeviceMappings' - The block device mapping entries.
+-- 'iamInstanceProfile', 'scheduledInstancesLaunchSpecification_iamInstanceProfile' - The IAM instance profile.
 --
--- * 'silsSubnetId' - The ID of the subnet in which to launch the instances.
+-- 'monitoring', 'scheduledInstancesLaunchSpecification_monitoring' - Enable or disable monitoring for the instances.
 --
--- * 'silsKernelId' - The ID of the kernel.
+-- 'blockDeviceMappings', 'scheduledInstancesLaunchSpecification_blockDeviceMappings' - The block device mapping entries.
 --
--- * 'silsKeyName' - The name of the key pair.
+-- 'subnetId', 'scheduledInstancesLaunchSpecification_subnetId' - The ID of the subnet in which to launch the instances.
 --
--- * 'silsNetworkInterfaces' - The network interfaces.
+-- 'kernelId', 'scheduledInstancesLaunchSpecification_kernelId' - The ID of the kernel.
 --
--- * 'silsImageId' - The ID of the Amazon Machine Image (AMI).
-scheduledInstancesLaunchSpecification ::
-  -- | 'silsImageId'
-  Text ->
+-- 'keyName', 'scheduledInstancesLaunchSpecification_keyName' - The name of the key pair.
+--
+-- 'networkInterfaces', 'scheduledInstancesLaunchSpecification_networkInterfaces' - The network interfaces.
+--
+-- 'imageId', 'scheduledInstancesLaunchSpecification_imageId' - The ID of the Amazon Machine Image (AMI).
+newScheduledInstancesLaunchSpecification ::
+  -- | 'imageId'
+  Prelude.Text ->
   ScheduledInstancesLaunchSpecification
-scheduledInstancesLaunchSpecification pImageId_ =
+newScheduledInstancesLaunchSpecification pImageId_ =
   ScheduledInstancesLaunchSpecification'
-    { _silsSecurityGroupIds =
-        Nothing,
-      _silsInstanceType = Nothing,
-      _silsEBSOptimized = Nothing,
-      _silsUserData = Nothing,
-      _silsPlacement = Nothing,
-      _silsRAMDiskId = Nothing,
-      _silsIAMInstanceProfile = Nothing,
-      _silsMonitoring = Nothing,
-      _silsBlockDeviceMappings = Nothing,
-      _silsSubnetId = Nothing,
-      _silsKernelId = Nothing,
-      _silsKeyName = Nothing,
-      _silsNetworkInterfaces = Nothing,
-      _silsImageId = pImageId_
+    { securityGroupIds =
+        Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      ebsOptimized = Prelude.Nothing,
+      userData = Prelude.Nothing,
+      placement = Prelude.Nothing,
+      ramdiskId = Prelude.Nothing,
+      iamInstanceProfile = Prelude.Nothing,
+      monitoring = Prelude.Nothing,
+      blockDeviceMappings =
+        Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      kernelId = Prelude.Nothing,
+      keyName = Prelude.Nothing,
+      networkInterfaces = Prelude.Nothing,
+      imageId = pImageId_
     }
 
 -- | The IDs of the security groups.
-silsSecurityGroupIds :: Lens' ScheduledInstancesLaunchSpecification [Text]
-silsSecurityGroupIds = lens _silsSecurityGroupIds (\s a -> s {_silsSecurityGroupIds = a}) . _Default . _Coerce
+scheduledInstancesLaunchSpecification_securityGroupIds :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe [Prelude.Text])
+scheduledInstancesLaunchSpecification_securityGroupIds = Lens.lens (\ScheduledInstancesLaunchSpecification' {securityGroupIds} -> securityGroupIds) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {securityGroupIds = a} :: ScheduledInstancesLaunchSpecification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The instance type.
-silsInstanceType :: Lens' ScheduledInstancesLaunchSpecification (Maybe Text)
-silsInstanceType = lens _silsInstanceType (\s a -> s {_silsInstanceType = a})
+scheduledInstancesLaunchSpecification_instanceType :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe Prelude.Text)
+scheduledInstancesLaunchSpecification_instanceType = Lens.lens (\ScheduledInstancesLaunchSpecification' {instanceType} -> instanceType) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {instanceType = a} :: ScheduledInstancesLaunchSpecification)
 
--- | Indicates whether the instances are optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance. Default: @false@
-silsEBSOptimized :: Lens' ScheduledInstancesLaunchSpecification (Maybe Bool)
-silsEBSOptimized = lens _silsEBSOptimized (\s a -> s {_silsEBSOptimized = a})
+-- | Indicates whether the instances are optimized for EBS I\/O. This
+-- optimization provides dedicated throughput to Amazon EBS and an
+-- optimized configuration stack to provide optimal EBS I\/O performance.
+-- This optimization isn\'t available with all instance types. Additional
+-- usage charges apply when using an EBS-optimized instance.
+--
+-- Default: @false@
+scheduledInstancesLaunchSpecification_ebsOptimized :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe Prelude.Bool)
+scheduledInstancesLaunchSpecification_ebsOptimized = Lens.lens (\ScheduledInstancesLaunchSpecification' {ebsOptimized} -> ebsOptimized) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {ebsOptimized = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The base64-encoded MIME user data.
-silsUserData :: Lens' ScheduledInstancesLaunchSpecification (Maybe Text)
-silsUserData = lens _silsUserData (\s a -> s {_silsUserData = a})
+scheduledInstancesLaunchSpecification_userData :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe Prelude.Text)
+scheduledInstancesLaunchSpecification_userData = Lens.lens (\ScheduledInstancesLaunchSpecification' {userData} -> userData) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {userData = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The placement information.
-silsPlacement :: Lens' ScheduledInstancesLaunchSpecification (Maybe ScheduledInstancesPlacement)
-silsPlacement = lens _silsPlacement (\s a -> s {_silsPlacement = a})
+scheduledInstancesLaunchSpecification_placement :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe ScheduledInstancesPlacement)
+scheduledInstancesLaunchSpecification_placement = Lens.lens (\ScheduledInstancesLaunchSpecification' {placement} -> placement) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {placement = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The ID of the RAM disk.
-silsRAMDiskId :: Lens' ScheduledInstancesLaunchSpecification (Maybe Text)
-silsRAMDiskId = lens _silsRAMDiskId (\s a -> s {_silsRAMDiskId = a})
+scheduledInstancesLaunchSpecification_ramdiskId :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe Prelude.Text)
+scheduledInstancesLaunchSpecification_ramdiskId = Lens.lens (\ScheduledInstancesLaunchSpecification' {ramdiskId} -> ramdiskId) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {ramdiskId = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The IAM instance profile.
-silsIAMInstanceProfile :: Lens' ScheduledInstancesLaunchSpecification (Maybe ScheduledInstancesIAMInstanceProfile)
-silsIAMInstanceProfile = lens _silsIAMInstanceProfile (\s a -> s {_silsIAMInstanceProfile = a})
+scheduledInstancesLaunchSpecification_iamInstanceProfile :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe ScheduledInstancesIamInstanceProfile)
+scheduledInstancesLaunchSpecification_iamInstanceProfile = Lens.lens (\ScheduledInstancesLaunchSpecification' {iamInstanceProfile} -> iamInstanceProfile) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {iamInstanceProfile = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | Enable or disable monitoring for the instances.
-silsMonitoring :: Lens' ScheduledInstancesLaunchSpecification (Maybe ScheduledInstancesMonitoring)
-silsMonitoring = lens _silsMonitoring (\s a -> s {_silsMonitoring = a})
+scheduledInstancesLaunchSpecification_monitoring :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe ScheduledInstancesMonitoring)
+scheduledInstancesLaunchSpecification_monitoring = Lens.lens (\ScheduledInstancesLaunchSpecification' {monitoring} -> monitoring) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {monitoring = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The block device mapping entries.
-silsBlockDeviceMappings :: Lens' ScheduledInstancesLaunchSpecification [ScheduledInstancesBlockDeviceMapping]
-silsBlockDeviceMappings = lens _silsBlockDeviceMappings (\s a -> s {_silsBlockDeviceMappings = a}) . _Default . _Coerce
+scheduledInstancesLaunchSpecification_blockDeviceMappings :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe [ScheduledInstancesBlockDeviceMapping])
+scheduledInstancesLaunchSpecification_blockDeviceMappings = Lens.lens (\ScheduledInstancesLaunchSpecification' {blockDeviceMappings} -> blockDeviceMappings) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {blockDeviceMappings = a} :: ScheduledInstancesLaunchSpecification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the subnet in which to launch the instances.
-silsSubnetId :: Lens' ScheduledInstancesLaunchSpecification (Maybe Text)
-silsSubnetId = lens _silsSubnetId (\s a -> s {_silsSubnetId = a})
+scheduledInstancesLaunchSpecification_subnetId :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe Prelude.Text)
+scheduledInstancesLaunchSpecification_subnetId = Lens.lens (\ScheduledInstancesLaunchSpecification' {subnetId} -> subnetId) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {subnetId = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The ID of the kernel.
-silsKernelId :: Lens' ScheduledInstancesLaunchSpecification (Maybe Text)
-silsKernelId = lens _silsKernelId (\s a -> s {_silsKernelId = a})
+scheduledInstancesLaunchSpecification_kernelId :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe Prelude.Text)
+scheduledInstancesLaunchSpecification_kernelId = Lens.lens (\ScheduledInstancesLaunchSpecification' {kernelId} -> kernelId) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {kernelId = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The name of the key pair.
-silsKeyName :: Lens' ScheduledInstancesLaunchSpecification (Maybe Text)
-silsKeyName = lens _silsKeyName (\s a -> s {_silsKeyName = a})
+scheduledInstancesLaunchSpecification_keyName :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe Prelude.Text)
+scheduledInstancesLaunchSpecification_keyName = Lens.lens (\ScheduledInstancesLaunchSpecification' {keyName} -> keyName) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {keyName = a} :: ScheduledInstancesLaunchSpecification)
 
 -- | The network interfaces.
-silsNetworkInterfaces :: Lens' ScheduledInstancesLaunchSpecification [ScheduledInstancesNetworkInterface]
-silsNetworkInterfaces = lens _silsNetworkInterfaces (\s a -> s {_silsNetworkInterfaces = a}) . _Default . _Coerce
+scheduledInstancesLaunchSpecification_networkInterfaces :: Lens.Lens' ScheduledInstancesLaunchSpecification (Prelude.Maybe [ScheduledInstancesNetworkInterface])
+scheduledInstancesLaunchSpecification_networkInterfaces = Lens.lens (\ScheduledInstancesLaunchSpecification' {networkInterfaces} -> networkInterfaces) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {networkInterfaces = a} :: ScheduledInstancesLaunchSpecification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the Amazon Machine Image (AMI).
-silsImageId :: Lens' ScheduledInstancesLaunchSpecification Text
-silsImageId = lens _silsImageId (\s a -> s {_silsImageId = a})
+scheduledInstancesLaunchSpecification_imageId :: Lens.Lens' ScheduledInstancesLaunchSpecification Prelude.Text
+scheduledInstancesLaunchSpecification_imageId = Lens.lens (\ScheduledInstancesLaunchSpecification' {imageId} -> imageId) (\s@ScheduledInstancesLaunchSpecification' {} a -> s {imageId = a} :: ScheduledInstancesLaunchSpecification)
 
 instance
-  Hashable
+  Prelude.Hashable
     ScheduledInstancesLaunchSpecification
 
-instance NFData ScheduledInstancesLaunchSpecification
+instance
+  Prelude.NFData
+    ScheduledInstancesLaunchSpecification
 
 instance
-  ToQuery
+  Prelude.ToQuery
     ScheduledInstancesLaunchSpecification
   where
   toQuery ScheduledInstancesLaunchSpecification' {..} =
-    mconcat
-      [ toQuery
-          ( toQueryList "SecurityGroupId"
-              <$> _silsSecurityGroupIds
+    Prelude.mconcat
+      [ Prelude.toQuery
+          ( Prelude.toQueryList "SecurityGroupId"
+              Prelude.<$> securityGroupIds
           ),
-        "InstanceType" =: _silsInstanceType,
-        "EbsOptimized" =: _silsEBSOptimized,
-        "UserData" =: _silsUserData,
-        "Placement" =: _silsPlacement,
-        "RamdiskId" =: _silsRAMDiskId,
-        "IamInstanceProfile" =: _silsIAMInstanceProfile,
-        "Monitoring" =: _silsMonitoring,
-        toQuery
-          ( toQueryList "BlockDeviceMapping"
-              <$> _silsBlockDeviceMappings
+        "InstanceType" Prelude.=: instanceType,
+        "EbsOptimized" Prelude.=: ebsOptimized,
+        "UserData" Prelude.=: userData,
+        "Placement" Prelude.=: placement,
+        "RamdiskId" Prelude.=: ramdiskId,
+        "IamInstanceProfile" Prelude.=: iamInstanceProfile,
+        "Monitoring" Prelude.=: monitoring,
+        Prelude.toQuery
+          ( Prelude.toQueryList "BlockDeviceMapping"
+              Prelude.<$> blockDeviceMappings
           ),
-        "SubnetId" =: _silsSubnetId,
-        "KernelId" =: _silsKernelId,
-        "KeyName" =: _silsKeyName,
-        toQuery
-          ( toQueryList "NetworkInterface"
-              <$> _silsNetworkInterfaces
+        "SubnetId" Prelude.=: subnetId,
+        "KernelId" Prelude.=: kernelId,
+        "KeyName" Prelude.=: keyName,
+        Prelude.toQuery
+          ( Prelude.toQueryList "NetworkInterface"
+              Prelude.<$> networkInterfaces
           ),
-        "ImageId" =: _silsImageId
+        "ImageId" Prelude.=: imageId
       ]

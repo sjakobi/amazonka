@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.TransitGatewayRouteTableState
   ( TransitGatewayRouteTableState
       ( ..,
-        TGRTSAvailable,
-        TGRTSDeleted,
-        TGRTSDeleting,
-        TGRTSPending
+        TransitGatewayRouteTableStateAvailable,
+        TransitGatewayRouteTableStateDeleted,
+        TransitGatewayRouteTableStateDeleting,
+        TransitGatewayRouteTableStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayRouteTableState
-  = TransitGatewayRouteTableState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayRouteTableState = TransitGatewayRouteTableState'
+  { fromTransitGatewayRouteTableState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGRTSAvailable :: TransitGatewayRouteTableState
-pattern TGRTSAvailable = TransitGatewayRouteTableState' "available"
+pattern TransitGatewayRouteTableStateAvailable :: TransitGatewayRouteTableState
+pattern TransitGatewayRouteTableStateAvailable = TransitGatewayRouteTableState' "available"
 
-pattern TGRTSDeleted :: TransitGatewayRouteTableState
-pattern TGRTSDeleted = TransitGatewayRouteTableState' "deleted"
+pattern TransitGatewayRouteTableStateDeleted :: TransitGatewayRouteTableState
+pattern TransitGatewayRouteTableStateDeleted = TransitGatewayRouteTableState' "deleted"
 
-pattern TGRTSDeleting :: TransitGatewayRouteTableState
-pattern TGRTSDeleting = TransitGatewayRouteTableState' "deleting"
+pattern TransitGatewayRouteTableStateDeleting :: TransitGatewayRouteTableState
+pattern TransitGatewayRouteTableStateDeleting = TransitGatewayRouteTableState' "deleting"
 
-pattern TGRTSPending :: TransitGatewayRouteTableState
-pattern TGRTSPending = TransitGatewayRouteTableState' "pending"
+pattern TransitGatewayRouteTableStatePending :: TransitGatewayRouteTableState
+pattern TransitGatewayRouteTableStatePending = TransitGatewayRouteTableState' "pending"
 
 {-# COMPLETE
-  TGRTSAvailable,
-  TGRTSDeleted,
-  TGRTSDeleting,
-  TGRTSPending,
+  TransitGatewayRouteTableStateAvailable,
+  TransitGatewayRouteTableStateDeleted,
+  TransitGatewayRouteTableStateDeleting,
+  TransitGatewayRouteTableStatePending,
   TransitGatewayRouteTableState'
   #-}
 
-instance FromText TransitGatewayRouteTableState where
-  parser = (TransitGatewayRouteTableState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayRouteTableState where
+  parser = TransitGatewayRouteTableState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayRouteTableState where
-  toText (TransitGatewayRouteTableState' ci) = original ci
+instance Prelude.ToText TransitGatewayRouteTableState where
+  toText (TransitGatewayRouteTableState' x) = x
 
-instance Hashable TransitGatewayRouteTableState
+instance Prelude.Hashable TransitGatewayRouteTableState
 
-instance NFData TransitGatewayRouteTableState
+instance Prelude.NFData TransitGatewayRouteTableState
 
-instance ToByteString TransitGatewayRouteTableState
+instance Prelude.ToByteString TransitGatewayRouteTableState
 
-instance ToQuery TransitGatewayRouteTableState
+instance Prelude.ToQuery TransitGatewayRouteTableState
 
-instance ToHeader TransitGatewayRouteTableState
+instance Prelude.ToHeader TransitGatewayRouteTableState
 
-instance FromXML TransitGatewayRouteTableState where
-  parseXML = parseXMLText "TransitGatewayRouteTableState"
+instance Prelude.FromXML TransitGatewayRouteTableState where
+  parseXML = Prelude.parseXMLText "TransitGatewayRouteTableState"

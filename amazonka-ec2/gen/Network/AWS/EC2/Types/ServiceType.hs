@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.ServiceType
   ( ServiceType
       ( ..,
-        Gateway,
-        GatewayLoadBalancer,
-        Interface
+        ServiceTypeGateway,
+        ServiceTypeGatewayLoadBalancer,
+        ServiceTypeInterface
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceType = ServiceType' (CI Text)
+newtype ServiceType = ServiceType'
+  { fromServiceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Gateway :: ServiceType
-pattern Gateway = ServiceType' "Gateway"
+pattern ServiceTypeGateway :: ServiceType
+pattern ServiceTypeGateway = ServiceType' "Gateway"
 
-pattern GatewayLoadBalancer :: ServiceType
-pattern GatewayLoadBalancer = ServiceType' "GatewayLoadBalancer"
+pattern ServiceTypeGatewayLoadBalancer :: ServiceType
+pattern ServiceTypeGatewayLoadBalancer = ServiceType' "GatewayLoadBalancer"
 
-pattern Interface :: ServiceType
-pattern Interface = ServiceType' "Interface"
+pattern ServiceTypeInterface :: ServiceType
+pattern ServiceTypeInterface = ServiceType' "Interface"
 
 {-# COMPLETE
-  Gateway,
-  GatewayLoadBalancer,
-  Interface,
+  ServiceTypeGateway,
+  ServiceTypeGatewayLoadBalancer,
+  ServiceTypeInterface,
   ServiceType'
   #-}
 
-instance FromText ServiceType where
-  parser = (ServiceType' . mk) <$> takeText
+instance Prelude.FromText ServiceType where
+  parser = ServiceType' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceType where
-  toText (ServiceType' ci) = original ci
+instance Prelude.ToText ServiceType where
+  toText (ServiceType' x) = x
 
-instance Hashable ServiceType
+instance Prelude.Hashable ServiceType
 
-instance NFData ServiceType
+instance Prelude.NFData ServiceType
 
-instance ToByteString ServiceType
+instance Prelude.ToByteString ServiceType
 
-instance ToQuery ServiceType
+instance Prelude.ToQuery ServiceType
 
-instance ToHeader ServiceType
+instance Prelude.ToHeader ServiceType
 
-instance FromXML ServiceType where
-  parseXML = parseXMLText "ServiceType"
+instance Prelude.FromXML ServiceType where
+  parseXML = Prelude.parseXMLText "ServiceType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.DeleteFleetErrorCode
   ( DeleteFleetErrorCode
       ( ..,
-        DFECFleetIdDoesNotExist,
-        DFECFleetIdMalformed,
-        DFECFleetNotInDeletableState,
-        DFECUnexpectedError
+        DeleteFleetErrorCodeFleetIdDoesNotExist,
+        DeleteFleetErrorCodeFleetIdMalformed,
+        DeleteFleetErrorCodeFleetNotInDeletableState,
+        DeleteFleetErrorCodeUnexpectedError
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeleteFleetErrorCode
-  = DeleteFleetErrorCode'
-      ( CI
-          Text
-      )
+newtype DeleteFleetErrorCode = DeleteFleetErrorCode'
+  { fromDeleteFleetErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DFECFleetIdDoesNotExist :: DeleteFleetErrorCode
-pattern DFECFleetIdDoesNotExist = DeleteFleetErrorCode' "fleetIdDoesNotExist"
+pattern DeleteFleetErrorCodeFleetIdDoesNotExist :: DeleteFleetErrorCode
+pattern DeleteFleetErrorCodeFleetIdDoesNotExist = DeleteFleetErrorCode' "fleetIdDoesNotExist"
 
-pattern DFECFleetIdMalformed :: DeleteFleetErrorCode
-pattern DFECFleetIdMalformed = DeleteFleetErrorCode' "fleetIdMalformed"
+pattern DeleteFleetErrorCodeFleetIdMalformed :: DeleteFleetErrorCode
+pattern DeleteFleetErrorCodeFleetIdMalformed = DeleteFleetErrorCode' "fleetIdMalformed"
 
-pattern DFECFleetNotInDeletableState :: DeleteFleetErrorCode
-pattern DFECFleetNotInDeletableState = DeleteFleetErrorCode' "fleetNotInDeletableState"
+pattern DeleteFleetErrorCodeFleetNotInDeletableState :: DeleteFleetErrorCode
+pattern DeleteFleetErrorCodeFleetNotInDeletableState = DeleteFleetErrorCode' "fleetNotInDeletableState"
 
-pattern DFECUnexpectedError :: DeleteFleetErrorCode
-pattern DFECUnexpectedError = DeleteFleetErrorCode' "unexpectedError"
+pattern DeleteFleetErrorCodeUnexpectedError :: DeleteFleetErrorCode
+pattern DeleteFleetErrorCodeUnexpectedError = DeleteFleetErrorCode' "unexpectedError"
 
 {-# COMPLETE
-  DFECFleetIdDoesNotExist,
-  DFECFleetIdMalformed,
-  DFECFleetNotInDeletableState,
-  DFECUnexpectedError,
+  DeleteFleetErrorCodeFleetIdDoesNotExist,
+  DeleteFleetErrorCodeFleetIdMalformed,
+  DeleteFleetErrorCodeFleetNotInDeletableState,
+  DeleteFleetErrorCodeUnexpectedError,
   DeleteFleetErrorCode'
   #-}
 
-instance FromText DeleteFleetErrorCode where
-  parser = (DeleteFleetErrorCode' . mk) <$> takeText
+instance Prelude.FromText DeleteFleetErrorCode where
+  parser = DeleteFleetErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText DeleteFleetErrorCode where
-  toText (DeleteFleetErrorCode' ci) = original ci
+instance Prelude.ToText DeleteFleetErrorCode where
+  toText (DeleteFleetErrorCode' x) = x
 
-instance Hashable DeleteFleetErrorCode
+instance Prelude.Hashable DeleteFleetErrorCode
 
-instance NFData DeleteFleetErrorCode
+instance Prelude.NFData DeleteFleetErrorCode
 
-instance ToByteString DeleteFleetErrorCode
+instance Prelude.ToByteString DeleteFleetErrorCode
 
-instance ToQuery DeleteFleetErrorCode
+instance Prelude.ToQuery DeleteFleetErrorCode
 
-instance ToHeader DeleteFleetErrorCode
+instance Prelude.ToHeader DeleteFleetErrorCode
 
-instance FromXML DeleteFleetErrorCode where
-  parseXML = parseXMLText "DeleteFleetErrorCode"
+instance Prelude.FromXML DeleteFleetErrorCode where
+  parseXML = Prelude.parseXMLText "DeleteFleetErrorCode"

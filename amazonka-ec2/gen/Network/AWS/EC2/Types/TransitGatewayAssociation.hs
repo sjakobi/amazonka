@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,93 +22,88 @@ module Network.AWS.EC2.Types.TransitGatewayAssociation where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.TransitGatewayAssociationState
 import Network.AWS.EC2.Types.TransitGatewayAttachmentResourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an association between a resource attachment and a transit gateway route table.
+-- | Describes an association between a resource attachment and a transit
+-- gateway route table.
 --
---
---
--- /See:/ 'transitGatewayAssociation' smart constructor.
+-- /See:/ 'newTransitGatewayAssociation' smart constructor.
 data TransitGatewayAssociation = TransitGatewayAssociation'
-  { _tgaResourceId ::
-      !(Maybe Text),
-    _tgaResourceType ::
-      !( Maybe
-           TransitGatewayAttachmentResourceType
-       ),
-    _tgaState ::
-      !( Maybe
-           TransitGatewayAssociationState
-       ),
-    _tgaTransitGatewayAttachmentId ::
-      !(Maybe Text),
-    _tgaTransitGatewayRouteTableId ::
-      !(Maybe Text)
+  { -- | The ID of the resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The resource type. Note that the @tgw-peering@ resource type has been
+    -- deprecated.
+    resourceType :: Prelude.Maybe TransitGatewayAttachmentResourceType,
+    -- | The state of the association.
+    state :: Prelude.Maybe TransitGatewayAssociationState,
+    -- | The ID of the attachment.
+    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway route table.
+    transitGatewayRouteTableId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGatewayAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGatewayAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgaResourceId' - The ID of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgaResourceType' - The resource type. Note that the @tgw-peering@ resource type has been deprecated.
+-- 'resourceId', 'transitGatewayAssociation_resourceId' - The ID of the resource.
 --
--- * 'tgaState' - The state of the association.
+-- 'resourceType', 'transitGatewayAssociation_resourceType' - The resource type. Note that the @tgw-peering@ resource type has been
+-- deprecated.
 --
--- * 'tgaTransitGatewayAttachmentId' - The ID of the attachment.
+-- 'state', 'transitGatewayAssociation_state' - The state of the association.
 --
--- * 'tgaTransitGatewayRouteTableId' - The ID of the transit gateway route table.
-transitGatewayAssociation ::
+-- 'transitGatewayAttachmentId', 'transitGatewayAssociation_transitGatewayAttachmentId' - The ID of the attachment.
+--
+-- 'transitGatewayRouteTableId', 'transitGatewayAssociation_transitGatewayRouteTableId' - The ID of the transit gateway route table.
+newTransitGatewayAssociation ::
   TransitGatewayAssociation
-transitGatewayAssociation =
+newTransitGatewayAssociation =
   TransitGatewayAssociation'
-    { _tgaResourceId =
-        Nothing,
-      _tgaResourceType = Nothing,
-      _tgaState = Nothing,
-      _tgaTransitGatewayAttachmentId = Nothing,
-      _tgaTransitGatewayRouteTableId = Nothing
+    { resourceId =
+        Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      state = Prelude.Nothing,
+      transitGatewayAttachmentId = Prelude.Nothing,
+      transitGatewayRouteTableId = Prelude.Nothing
     }
 
 -- | The ID of the resource.
-tgaResourceId :: Lens' TransitGatewayAssociation (Maybe Text)
-tgaResourceId = lens _tgaResourceId (\s a -> s {_tgaResourceId = a})
+transitGatewayAssociation_resourceId :: Lens.Lens' TransitGatewayAssociation (Prelude.Maybe Prelude.Text)
+transitGatewayAssociation_resourceId = Lens.lens (\TransitGatewayAssociation' {resourceId} -> resourceId) (\s@TransitGatewayAssociation' {} a -> s {resourceId = a} :: TransitGatewayAssociation)
 
--- | The resource type. Note that the @tgw-peering@ resource type has been deprecated.
-tgaResourceType :: Lens' TransitGatewayAssociation (Maybe TransitGatewayAttachmentResourceType)
-tgaResourceType = lens _tgaResourceType (\s a -> s {_tgaResourceType = a})
+-- | The resource type. Note that the @tgw-peering@ resource type has been
+-- deprecated.
+transitGatewayAssociation_resourceType :: Lens.Lens' TransitGatewayAssociation (Prelude.Maybe TransitGatewayAttachmentResourceType)
+transitGatewayAssociation_resourceType = Lens.lens (\TransitGatewayAssociation' {resourceType} -> resourceType) (\s@TransitGatewayAssociation' {} a -> s {resourceType = a} :: TransitGatewayAssociation)
 
 -- | The state of the association.
-tgaState :: Lens' TransitGatewayAssociation (Maybe TransitGatewayAssociationState)
-tgaState = lens _tgaState (\s a -> s {_tgaState = a})
+transitGatewayAssociation_state :: Lens.Lens' TransitGatewayAssociation (Prelude.Maybe TransitGatewayAssociationState)
+transitGatewayAssociation_state = Lens.lens (\TransitGatewayAssociation' {state} -> state) (\s@TransitGatewayAssociation' {} a -> s {state = a} :: TransitGatewayAssociation)
 
 -- | The ID of the attachment.
-tgaTransitGatewayAttachmentId :: Lens' TransitGatewayAssociation (Maybe Text)
-tgaTransitGatewayAttachmentId = lens _tgaTransitGatewayAttachmentId (\s a -> s {_tgaTransitGatewayAttachmentId = a})
+transitGatewayAssociation_transitGatewayAttachmentId :: Lens.Lens' TransitGatewayAssociation (Prelude.Maybe Prelude.Text)
+transitGatewayAssociation_transitGatewayAttachmentId = Lens.lens (\TransitGatewayAssociation' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@TransitGatewayAssociation' {} a -> s {transitGatewayAttachmentId = a} :: TransitGatewayAssociation)
 
 -- | The ID of the transit gateway route table.
-tgaTransitGatewayRouteTableId :: Lens' TransitGatewayAssociation (Maybe Text)
-tgaTransitGatewayRouteTableId = lens _tgaTransitGatewayRouteTableId (\s a -> s {_tgaTransitGatewayRouteTableId = a})
+transitGatewayAssociation_transitGatewayRouteTableId :: Lens.Lens' TransitGatewayAssociation (Prelude.Maybe Prelude.Text)
+transitGatewayAssociation_transitGatewayRouteTableId = Lens.lens (\TransitGatewayAssociation' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@TransitGatewayAssociation' {} a -> s {transitGatewayRouteTableId = a} :: TransitGatewayAssociation)
 
-instance FromXML TransitGatewayAssociation where
+instance Prelude.FromXML TransitGatewayAssociation where
   parseXML x =
     TransitGatewayAssociation'
-      <$> (x .@? "resourceId")
-      <*> (x .@? "resourceType")
-      <*> (x .@? "state")
-      <*> (x .@? "transitGatewayAttachmentId")
-      <*> (x .@? "transitGatewayRouteTableId")
+      Prelude.<$> (x Prelude..@? "resourceId")
+      Prelude.<*> (x Prelude..@? "resourceType")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> (x Prelude..@? "transitGatewayAttachmentId")
+      Prelude.<*> (x Prelude..@? "transitGatewayRouteTableId")
 
-instance Hashable TransitGatewayAssociation
+instance Prelude.Hashable TransitGatewayAssociation
 
-instance NFData TransitGatewayAssociation
+instance Prelude.NFData TransitGatewayAssociation

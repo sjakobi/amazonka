@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.SpotAllocationStrategy
   ( SpotAllocationStrategy
       ( ..,
-        SASCapacityOptimized,
-        SASDiversified,
-        SASLowestPrice
+        SpotAllocationStrategyCapacityOptimized,
+        SpotAllocationStrategyDiversified,
+        SpotAllocationStrategyLowestPrice
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SpotAllocationStrategy
-  = SpotAllocationStrategy'
-      ( CI
-          Text
-      )
+newtype SpotAllocationStrategy = SpotAllocationStrategy'
+  { fromSpotAllocationStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SASCapacityOptimized :: SpotAllocationStrategy
-pattern SASCapacityOptimized = SpotAllocationStrategy' "capacity-optimized"
+pattern SpotAllocationStrategyCapacityOptimized :: SpotAllocationStrategy
+pattern SpotAllocationStrategyCapacityOptimized = SpotAllocationStrategy' "capacity-optimized"
 
-pattern SASDiversified :: SpotAllocationStrategy
-pattern SASDiversified = SpotAllocationStrategy' "diversified"
+pattern SpotAllocationStrategyDiversified :: SpotAllocationStrategy
+pattern SpotAllocationStrategyDiversified = SpotAllocationStrategy' "diversified"
 
-pattern SASLowestPrice :: SpotAllocationStrategy
-pattern SASLowestPrice = SpotAllocationStrategy' "lowest-price"
+pattern SpotAllocationStrategyLowestPrice :: SpotAllocationStrategy
+pattern SpotAllocationStrategyLowestPrice = SpotAllocationStrategy' "lowest-price"
 
 {-# COMPLETE
-  SASCapacityOptimized,
-  SASDiversified,
-  SASLowestPrice,
+  SpotAllocationStrategyCapacityOptimized,
+  SpotAllocationStrategyDiversified,
+  SpotAllocationStrategyLowestPrice,
   SpotAllocationStrategy'
   #-}
 
-instance FromText SpotAllocationStrategy where
-  parser = (SpotAllocationStrategy' . mk) <$> takeText
+instance Prelude.FromText SpotAllocationStrategy where
+  parser = SpotAllocationStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText SpotAllocationStrategy where
-  toText (SpotAllocationStrategy' ci) = original ci
+instance Prelude.ToText SpotAllocationStrategy where
+  toText (SpotAllocationStrategy' x) = x
 
-instance Hashable SpotAllocationStrategy
+instance Prelude.Hashable SpotAllocationStrategy
 
-instance NFData SpotAllocationStrategy
+instance Prelude.NFData SpotAllocationStrategy
 
-instance ToByteString SpotAllocationStrategy
+instance Prelude.ToByteString SpotAllocationStrategy
 
-instance ToQuery SpotAllocationStrategy
+instance Prelude.ToQuery SpotAllocationStrategy
 
-instance ToHeader SpotAllocationStrategy
+instance Prelude.ToHeader SpotAllocationStrategy
 
-instance FromXML SpotAllocationStrategy where
-  parseXML = parseXMLText "SpotAllocationStrategy"
+instance Prelude.FromXML SpotAllocationStrategy where
+  parseXML = Prelude.parseXMLText "SpotAllocationStrategy"

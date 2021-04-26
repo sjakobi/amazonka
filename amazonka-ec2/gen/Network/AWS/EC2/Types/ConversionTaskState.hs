@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.ConversionTaskState
   ( ConversionTaskState
       ( ..,
-        Active,
-        Cancelled,
-        Cancelling,
-        Completed
+        ConversionTaskStateActive,
+        ConversionTaskStateCancelled,
+        ConversionTaskStateCancelling,
+        ConversionTaskStateCompleted
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConversionTaskState
-  = ConversionTaskState'
-      ( CI
-          Text
-      )
+newtype ConversionTaskState = ConversionTaskState'
+  { fromConversionTaskState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ConversionTaskState
-pattern Active = ConversionTaskState' "active"
+pattern ConversionTaskStateActive :: ConversionTaskState
+pattern ConversionTaskStateActive = ConversionTaskState' "active"
 
-pattern Cancelled :: ConversionTaskState
-pattern Cancelled = ConversionTaskState' "cancelled"
+pattern ConversionTaskStateCancelled :: ConversionTaskState
+pattern ConversionTaskStateCancelled = ConversionTaskState' "cancelled"
 
-pattern Cancelling :: ConversionTaskState
-pattern Cancelling = ConversionTaskState' "cancelling"
+pattern ConversionTaskStateCancelling :: ConversionTaskState
+pattern ConversionTaskStateCancelling = ConversionTaskState' "cancelling"
 
-pattern Completed :: ConversionTaskState
-pattern Completed = ConversionTaskState' "completed"
+pattern ConversionTaskStateCompleted :: ConversionTaskState
+pattern ConversionTaskStateCompleted = ConversionTaskState' "completed"
 
 {-# COMPLETE
-  Active,
-  Cancelled,
-  Cancelling,
-  Completed,
+  ConversionTaskStateActive,
+  ConversionTaskStateCancelled,
+  ConversionTaskStateCancelling,
+  ConversionTaskStateCompleted,
   ConversionTaskState'
   #-}
 
-instance FromText ConversionTaskState where
-  parser = (ConversionTaskState' . mk) <$> takeText
+instance Prelude.FromText ConversionTaskState where
+  parser = ConversionTaskState' Prelude.<$> Prelude.takeText
 
-instance ToText ConversionTaskState where
-  toText (ConversionTaskState' ci) = original ci
+instance Prelude.ToText ConversionTaskState where
+  toText (ConversionTaskState' x) = x
 
-instance Hashable ConversionTaskState
+instance Prelude.Hashable ConversionTaskState
 
-instance NFData ConversionTaskState
+instance Prelude.NFData ConversionTaskState
 
-instance ToByteString ConversionTaskState
+instance Prelude.ToByteString ConversionTaskState
 
-instance ToQuery ConversionTaskState
+instance Prelude.ToQuery ConversionTaskState
 
-instance ToHeader ConversionTaskState
+instance Prelude.ToHeader ConversionTaskState
 
-instance FromXML ConversionTaskState where
-  parseXML = parseXMLText "ConversionTaskState"
+instance Prelude.FromXML ConversionTaskState where
+  parseXML = Prelude.parseXMLText "ConversionTaskState"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,232 +21,289 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified Scheduled Instances or all your Scheduled Instances.
---
---
+-- Describes the specified Scheduled Instances or all your Scheduled
+-- Instances.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeScheduledInstances
   ( -- * Creating a Request
-    describeScheduledInstances,
-    DescribeScheduledInstances,
+    DescribeScheduledInstances (..),
+    newDescribeScheduledInstances,
 
     -- * Request Lenses
-    dsiNextToken,
-    dsiDryRun,
-    dsiScheduledInstanceIds,
-    dsiMaxResults,
-    dsiSlotStartTimeRange,
-    dsiFilters,
+    describeScheduledInstances_nextToken,
+    describeScheduledInstances_dryRun,
+    describeScheduledInstances_scheduledInstanceIds,
+    describeScheduledInstances_maxResults,
+    describeScheduledInstances_slotStartTimeRange,
+    describeScheduledInstances_filters,
 
     -- * Destructuring the Response
-    describeScheduledInstancesResponse,
-    DescribeScheduledInstancesResponse,
+    DescribeScheduledInstancesResponse (..),
+    newDescribeScheduledInstancesResponse,
 
     -- * Response Lenses
-    dsirrsNextToken,
-    dsirrsScheduledInstanceSet,
-    dsirrsResponseStatus,
+    describeScheduledInstancesResponse_nextToken,
+    describeScheduledInstancesResponse_scheduledInstanceSet,
+    describeScheduledInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ScheduledInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DescribeScheduledInstances.
 --
---
---
--- /See:/ 'describeScheduledInstances' smart constructor.
+-- /See:/ 'newDescribeScheduledInstances' smart constructor.
 data DescribeScheduledInstances = DescribeScheduledInstances'
-  { _dsiNextToken ::
-      !(Maybe Text),
-    _dsiDryRun ::
-      !(Maybe Bool),
-    _dsiScheduledInstanceIds ::
-      !(Maybe [Text]),
-    _dsiMaxResults ::
-      !(Maybe Int),
-    _dsiSlotStartTimeRange ::
-      !( Maybe
-           SlotStartTimeRangeRequest
-       ),
-    _dsiFilters ::
-      !(Maybe [Filter])
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The Scheduled Instance IDs.
+    scheduledInstanceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of results to return in a single call. This value can
+    -- be between 5 and 300. The default value is 100. To retrieve the
+    -- remaining results, make another call with the returned @NextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The time period for the first schedule to start.
+    slotStartTimeRange :: Prelude.Maybe SlotStartTimeRangeRequest,
+    -- | The filters.
+    --
+    -- -   @availability-zone@ - The Availability Zone (for example,
+    --     @us-west-2a@).
+    --
+    -- -   @instance-type@ - The instance type (for example, @c4.large@).
+    --
+    -- -   @network-platform@ - The network platform (@EC2-Classic@ or
+    --     @EC2-VPC@).
+    --
+    -- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsiNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsiDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeScheduledInstances_nextToken' - The token for the next set of results.
 --
--- * 'dsiScheduledInstanceIds' - The Scheduled Instance IDs.
+-- 'dryRun', 'describeScheduledInstances_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dsiMaxResults' - The maximum number of results to return in a single call. This value can be between 5 and 300. The default value is 100. To retrieve the remaining results, make another call with the returned @NextToken@ value.
+-- 'scheduledInstanceIds', 'describeScheduledInstances_scheduledInstanceIds' - The Scheduled Instance IDs.
 --
--- * 'dsiSlotStartTimeRange' - The time period for the first schedule to start.
+-- 'maxResults', 'describeScheduledInstances_maxResults' - The maximum number of results to return in a single call. This value can
+-- be between 5 and 300. The default value is 100. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
 --
--- * 'dsiFilters' - The filters.     * @availability-zone@ - The Availability Zone (for example, @us-west-2a@ ).     * @instance-type@ - The instance type (for example, @c4.large@ ).     * @network-platform@ - The network platform (@EC2-Classic@ or @EC2-VPC@ ).     * @platform@ - The platform (@Linux/UNIX@ or @Windows@ ).
-describeScheduledInstances ::
+-- 'slotStartTimeRange', 'describeScheduledInstances_slotStartTimeRange' - The time period for the first schedule to start.
+--
+-- 'filters', 'describeScheduledInstances_filters' - The filters.
+--
+-- -   @availability-zone@ - The Availability Zone (for example,
+--     @us-west-2a@).
+--
+-- -   @instance-type@ - The instance type (for example, @c4.large@).
+--
+-- -   @network-platform@ - The network platform (@EC2-Classic@ or
+--     @EC2-VPC@).
+--
+-- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
+newDescribeScheduledInstances ::
   DescribeScheduledInstances
-describeScheduledInstances =
+newDescribeScheduledInstances =
   DescribeScheduledInstances'
-    { _dsiNextToken =
-        Nothing,
-      _dsiDryRun = Nothing,
-      _dsiScheduledInstanceIds = Nothing,
-      _dsiMaxResults = Nothing,
-      _dsiSlotStartTimeRange = Nothing,
-      _dsiFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      scheduledInstanceIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      slotStartTimeRange = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-dsiNextToken :: Lens' DescribeScheduledInstances (Maybe Text)
-dsiNextToken = lens _dsiNextToken (\s a -> s {_dsiNextToken = a})
+describeScheduledInstances_nextToken :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Text)
+describeScheduledInstances_nextToken = Lens.lens (\DescribeScheduledInstances' {nextToken} -> nextToken) (\s@DescribeScheduledInstances' {} a -> s {nextToken = a} :: DescribeScheduledInstances)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dsiDryRun :: Lens' DescribeScheduledInstances (Maybe Bool)
-dsiDryRun = lens _dsiDryRun (\s a -> s {_dsiDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeScheduledInstances_dryRun :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Bool)
+describeScheduledInstances_dryRun = Lens.lens (\DescribeScheduledInstances' {dryRun} -> dryRun) (\s@DescribeScheduledInstances' {} a -> s {dryRun = a} :: DescribeScheduledInstances)
 
 -- | The Scheduled Instance IDs.
-dsiScheduledInstanceIds :: Lens' DescribeScheduledInstances [Text]
-dsiScheduledInstanceIds = lens _dsiScheduledInstanceIds (\s a -> s {_dsiScheduledInstanceIds = a}) . _Default . _Coerce
+describeScheduledInstances_scheduledInstanceIds :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe [Prelude.Text])
+describeScheduledInstances_scheduledInstanceIds = Lens.lens (\DescribeScheduledInstances' {scheduledInstanceIds} -> scheduledInstanceIds) (\s@DescribeScheduledInstances' {} a -> s {scheduledInstanceIds = a} :: DescribeScheduledInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of results to return in a single call. This value can be between 5 and 300. The default value is 100. To retrieve the remaining results, make another call with the returned @NextToken@ value.
-dsiMaxResults :: Lens' DescribeScheduledInstances (Maybe Int)
-dsiMaxResults = lens _dsiMaxResults (\s a -> s {_dsiMaxResults = a})
+-- | The maximum number of results to return in a single call. This value can
+-- be between 5 and 300. The default value is 100. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
+describeScheduledInstances_maxResults :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Int)
+describeScheduledInstances_maxResults = Lens.lens (\DescribeScheduledInstances' {maxResults} -> maxResults) (\s@DescribeScheduledInstances' {} a -> s {maxResults = a} :: DescribeScheduledInstances)
 
 -- | The time period for the first schedule to start.
-dsiSlotStartTimeRange :: Lens' DescribeScheduledInstances (Maybe SlotStartTimeRangeRequest)
-dsiSlotStartTimeRange = lens _dsiSlotStartTimeRange (\s a -> s {_dsiSlotStartTimeRange = a})
+describeScheduledInstances_slotStartTimeRange :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe SlotStartTimeRangeRequest)
+describeScheduledInstances_slotStartTimeRange = Lens.lens (\DescribeScheduledInstances' {slotStartTimeRange} -> slotStartTimeRange) (\s@DescribeScheduledInstances' {} a -> s {slotStartTimeRange = a} :: DescribeScheduledInstances)
 
--- | The filters.     * @availability-zone@ - The Availability Zone (for example, @us-west-2a@ ).     * @instance-type@ - The instance type (for example, @c4.large@ ).     * @network-platform@ - The network platform (@EC2-Classic@ or @EC2-VPC@ ).     * @platform@ - The platform (@Linux/UNIX@ or @Windows@ ).
-dsiFilters :: Lens' DescribeScheduledInstances [Filter]
-dsiFilters = lens _dsiFilters (\s a -> s {_dsiFilters = a}) . _Default . _Coerce
+-- | The filters.
+--
+-- -   @availability-zone@ - The Availability Zone (for example,
+--     @us-west-2a@).
+--
+-- -   @instance-type@ - The instance type (for example, @c4.large@).
+--
+-- -   @network-platform@ - The network platform (@EC2-Classic@ or
+--     @EC2-VPC@).
+--
+-- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
+describeScheduledInstances_filters :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe [Filter])
+describeScheduledInstances_filters = Lens.lens (\DescribeScheduledInstances' {filters} -> filters) (\s@DescribeScheduledInstances' {} a -> s {filters = a} :: DescribeScheduledInstances) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeScheduledInstances where
+instance Pager.AWSPager DescribeScheduledInstances where
   page rq rs
-    | stop (rs ^. dsirrsNextToken) = Nothing
-    | stop (rs ^. dsirrsScheduledInstanceSet) = Nothing
-    | otherwise =
-      Just $ rq & dsiNextToken .~ rs ^. dsirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeScheduledInstancesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeScheduledInstancesResponse_scheduledInstanceSet
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeScheduledInstances_nextToken
+          Lens..~ rs
+          Lens.^? describeScheduledInstancesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeScheduledInstances where
+instance
+  Prelude.AWSRequest
+    DescribeScheduledInstances
+  where
   type
     Rs DescribeScheduledInstances =
       DescribeScheduledInstancesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeScheduledInstancesResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "scheduledInstanceSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "scheduledInstanceSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeScheduledInstances
+instance Prelude.Hashable DescribeScheduledInstances
 
-instance NFData DescribeScheduledInstances
+instance Prelude.NFData DescribeScheduledInstances
 
-instance ToHeaders DescribeScheduledInstances where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeScheduledInstances where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeScheduledInstances where
-  toPath = const "/"
+instance Prelude.ToPath DescribeScheduledInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeScheduledInstances where
+instance Prelude.ToQuery DescribeScheduledInstances where
   toQuery DescribeScheduledInstances' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeScheduledInstances" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dsiNextToken,
-        "DryRun" =: _dsiDryRun,
-        toQuery
-          ( toQueryList "ScheduledInstanceId"
-              <$> _dsiScheduledInstanceIds
+          Prelude.=: ("DescribeScheduledInstances" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQuery
+          ( Prelude.toQueryList "ScheduledInstanceId"
+              Prelude.<$> scheduledInstanceIds
           ),
-        "MaxResults" =: _dsiMaxResults,
-        "SlotStartTimeRange" =: _dsiSlotStartTimeRange,
-        toQuery (toQueryList "Filter" <$> _dsiFilters)
+        "MaxResults" Prelude.=: maxResults,
+        "SlotStartTimeRange" Prelude.=: slotStartTimeRange,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
 -- | Contains the output of DescribeScheduledInstances.
 --
---
---
--- /See:/ 'describeScheduledInstancesResponse' smart constructor.
+-- /See:/ 'newDescribeScheduledInstancesResponse' smart constructor.
 data DescribeScheduledInstancesResponse = DescribeScheduledInstancesResponse'
-  { _dsirrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsirrsScheduledInstanceSet ::
-      !( Maybe
-           [ScheduledInstance]
-       ),
-    _dsirrsResponseStatus ::
-      !Int
+  { -- | The token required to retrieve the next set of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the Scheduled Instances.
+    scheduledInstanceSet :: Prelude.Maybe [ScheduledInstance],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScheduledInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScheduledInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsirrsNextToken' - The token required to retrieve the next set of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsirrsScheduledInstanceSet' - Information about the Scheduled Instances.
+-- 'nextToken', 'describeScheduledInstancesResponse_nextToken' - The token required to retrieve the next set of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dsirrsResponseStatus' - -- | The response status code.
-describeScheduledInstancesResponse ::
-  -- | 'dsirrsResponseStatus'
-  Int ->
+-- 'scheduledInstanceSet', 'describeScheduledInstancesResponse_scheduledInstanceSet' - Information about the Scheduled Instances.
+--
+-- 'httpStatus', 'describeScheduledInstancesResponse_httpStatus' - The response's http status code.
+newDescribeScheduledInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeScheduledInstancesResponse
-describeScheduledInstancesResponse pResponseStatus_ =
+newDescribeScheduledInstancesResponse pHttpStatus_ =
   DescribeScheduledInstancesResponse'
-    { _dsirrsNextToken =
-        Nothing,
-      _dsirrsScheduledInstanceSet = Nothing,
-      _dsirrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      scheduledInstanceSet = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token required to retrieve the next set of results. This value is @null@ when there are no more results to return.
-dsirrsNextToken :: Lens' DescribeScheduledInstancesResponse (Maybe Text)
-dsirrsNextToken = lens _dsirrsNextToken (\s a -> s {_dsirrsNextToken = a})
+-- | The token required to retrieve the next set of results. This value is
+-- @null@ when there are no more results to return.
+describeScheduledInstancesResponse_nextToken :: Lens.Lens' DescribeScheduledInstancesResponse (Prelude.Maybe Prelude.Text)
+describeScheduledInstancesResponse_nextToken = Lens.lens (\DescribeScheduledInstancesResponse' {nextToken} -> nextToken) (\s@DescribeScheduledInstancesResponse' {} a -> s {nextToken = a} :: DescribeScheduledInstancesResponse)
 
 -- | Information about the Scheduled Instances.
-dsirrsScheduledInstanceSet :: Lens' DescribeScheduledInstancesResponse [ScheduledInstance]
-dsirrsScheduledInstanceSet = lens _dsirrsScheduledInstanceSet (\s a -> s {_dsirrsScheduledInstanceSet = a}) . _Default . _Coerce
+describeScheduledInstancesResponse_scheduledInstanceSet :: Lens.Lens' DescribeScheduledInstancesResponse (Prelude.Maybe [ScheduledInstance])
+describeScheduledInstancesResponse_scheduledInstanceSet = Lens.lens (\DescribeScheduledInstancesResponse' {scheduledInstanceSet} -> scheduledInstanceSet) (\s@DescribeScheduledInstancesResponse' {} a -> s {scheduledInstanceSet = a} :: DescribeScheduledInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsirrsResponseStatus :: Lens' DescribeScheduledInstancesResponse Int
-dsirrsResponseStatus = lens _dsirrsResponseStatus (\s a -> s {_dsirrsResponseStatus = a})
+-- | The response's http status code.
+describeScheduledInstancesResponse_httpStatus :: Lens.Lens' DescribeScheduledInstancesResponse Prelude.Int
+describeScheduledInstancesResponse_httpStatus = Lens.lens (\DescribeScheduledInstancesResponse' {httpStatus} -> httpStatus) (\s@DescribeScheduledInstancesResponse' {} a -> s {httpStatus = a} :: DescribeScheduledInstancesResponse)
 
-instance NFData DescribeScheduledInstancesResponse
+instance
+  Prelude.NFData
+    DescribeScheduledInstancesResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,48 @@
 module Network.AWS.EC2.Types.ResetImageAttributeName
   ( ResetImageAttributeName
       ( ..,
-        LaunchPermission
+        ResetImageAttributeNameLaunchPermission
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResetImageAttributeName
-  = ResetImageAttributeName'
-      ( CI
-          Text
-      )
+newtype ResetImageAttributeName = ResetImageAttributeName'
+  { fromResetImageAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LaunchPermission :: ResetImageAttributeName
-pattern LaunchPermission = ResetImageAttributeName' "launchPermission"
+pattern ResetImageAttributeNameLaunchPermission :: ResetImageAttributeName
+pattern ResetImageAttributeNameLaunchPermission = ResetImageAttributeName' "launchPermission"
 
 {-# COMPLETE
-  LaunchPermission,
+  ResetImageAttributeNameLaunchPermission,
   ResetImageAttributeName'
   #-}
 
-instance FromText ResetImageAttributeName where
-  parser = (ResetImageAttributeName' . mk) <$> takeText
+instance Prelude.FromText ResetImageAttributeName where
+  parser = ResetImageAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText ResetImageAttributeName where
-  toText (ResetImageAttributeName' ci) = original ci
+instance Prelude.ToText ResetImageAttributeName where
+  toText (ResetImageAttributeName' x) = x
 
-instance Hashable ResetImageAttributeName
+instance Prelude.Hashable ResetImageAttributeName
 
-instance NFData ResetImageAttributeName
+instance Prelude.NFData ResetImageAttributeName
 
-instance ToByteString ResetImageAttributeName
+instance Prelude.ToByteString ResetImageAttributeName
 
-instance ToQuery ResetImageAttributeName
+instance Prelude.ToQuery ResetImageAttributeName
 
-instance ToHeader ResetImageAttributeName
+instance Prelude.ToHeader ResetImageAttributeName

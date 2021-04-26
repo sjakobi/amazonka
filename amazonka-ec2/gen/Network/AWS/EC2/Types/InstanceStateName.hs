@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,74 +19,76 @@
 module Network.AWS.EC2.Types.InstanceStateName
   ( InstanceStateName
       ( ..,
-        ISNPending,
-        ISNRunning,
-        ISNShuttingDown,
-        ISNStopped,
-        ISNStopping,
-        ISNTerminated
+        InstanceStateNamePending,
+        InstanceStateNameRunning,
+        InstanceStateNameShuttingDown,
+        InstanceStateNameStopped,
+        InstanceStateNameStopping,
+        InstanceStateNameTerminated
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceStateName = InstanceStateName' (CI Text)
+newtype InstanceStateName = InstanceStateName'
+  { fromInstanceStateName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISNPending :: InstanceStateName
-pattern ISNPending = InstanceStateName' "pending"
+pattern InstanceStateNamePending :: InstanceStateName
+pattern InstanceStateNamePending = InstanceStateName' "pending"
 
-pattern ISNRunning :: InstanceStateName
-pattern ISNRunning = InstanceStateName' "running"
+pattern InstanceStateNameRunning :: InstanceStateName
+pattern InstanceStateNameRunning = InstanceStateName' "running"
 
-pattern ISNShuttingDown :: InstanceStateName
-pattern ISNShuttingDown = InstanceStateName' "shutting-down"
+pattern InstanceStateNameShuttingDown :: InstanceStateName
+pattern InstanceStateNameShuttingDown = InstanceStateName' "shutting-down"
 
-pattern ISNStopped :: InstanceStateName
-pattern ISNStopped = InstanceStateName' "stopped"
+pattern InstanceStateNameStopped :: InstanceStateName
+pattern InstanceStateNameStopped = InstanceStateName' "stopped"
 
-pattern ISNStopping :: InstanceStateName
-pattern ISNStopping = InstanceStateName' "stopping"
+pattern InstanceStateNameStopping :: InstanceStateName
+pattern InstanceStateNameStopping = InstanceStateName' "stopping"
 
-pattern ISNTerminated :: InstanceStateName
-pattern ISNTerminated = InstanceStateName' "terminated"
+pattern InstanceStateNameTerminated :: InstanceStateName
+pattern InstanceStateNameTerminated = InstanceStateName' "terminated"
 
 {-# COMPLETE
-  ISNPending,
-  ISNRunning,
-  ISNShuttingDown,
-  ISNStopped,
-  ISNStopping,
-  ISNTerminated,
+  InstanceStateNamePending,
+  InstanceStateNameRunning,
+  InstanceStateNameShuttingDown,
+  InstanceStateNameStopped,
+  InstanceStateNameStopping,
+  InstanceStateNameTerminated,
   InstanceStateName'
   #-}
 
-instance FromText InstanceStateName where
-  parser = (InstanceStateName' . mk) <$> takeText
+instance Prelude.FromText InstanceStateName where
+  parser = InstanceStateName' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceStateName where
-  toText (InstanceStateName' ci) = original ci
+instance Prelude.ToText InstanceStateName where
+  toText (InstanceStateName' x) = x
 
-instance Hashable InstanceStateName
+instance Prelude.Hashable InstanceStateName
 
-instance NFData InstanceStateName
+instance Prelude.NFData InstanceStateName
 
-instance ToByteString InstanceStateName
+instance Prelude.ToByteString InstanceStateName
 
-instance ToQuery InstanceStateName
+instance Prelude.ToQuery InstanceStateName
 
-instance ToHeader InstanceStateName
+instance Prelude.ToHeader InstanceStateName
 
-instance FromXML InstanceStateName where
-  parseXML = parseXMLText "InstanceStateName"
+instance Prelude.FromXML InstanceStateName where
+  parseXML = Prelude.parseXMLText "InstanceStateName"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.EC2.Types.NetworkInterfaceAttribute
   ( NetworkInterfaceAttribute
       ( ..,
-        Attachment,
-        Description,
-        GroupSet,
-        SourceDestCheck
+        NetworkInterfaceAttributeAttachment,
+        NetworkInterfaceAttributeDescription,
+        NetworkInterfaceAttributeGroupSet,
+        NetworkInterfaceAttributeSourceDestCheck
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkInterfaceAttribute
-  = NetworkInterfaceAttribute'
-      ( CI
-          Text
-      )
+newtype NetworkInterfaceAttribute = NetworkInterfaceAttribute'
+  { fromNetworkInterfaceAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Attachment :: NetworkInterfaceAttribute
-pattern Attachment = NetworkInterfaceAttribute' "attachment"
+pattern NetworkInterfaceAttributeAttachment :: NetworkInterfaceAttribute
+pattern NetworkInterfaceAttributeAttachment = NetworkInterfaceAttribute' "attachment"
 
-pattern Description :: NetworkInterfaceAttribute
-pattern Description = NetworkInterfaceAttribute' "description"
+pattern NetworkInterfaceAttributeDescription :: NetworkInterfaceAttribute
+pattern NetworkInterfaceAttributeDescription = NetworkInterfaceAttribute' "description"
 
-pattern GroupSet :: NetworkInterfaceAttribute
-pattern GroupSet = NetworkInterfaceAttribute' "groupSet"
+pattern NetworkInterfaceAttributeGroupSet :: NetworkInterfaceAttribute
+pattern NetworkInterfaceAttributeGroupSet = NetworkInterfaceAttribute' "groupSet"
 
-pattern SourceDestCheck :: NetworkInterfaceAttribute
-pattern SourceDestCheck = NetworkInterfaceAttribute' "sourceDestCheck"
+pattern NetworkInterfaceAttributeSourceDestCheck :: NetworkInterfaceAttribute
+pattern NetworkInterfaceAttributeSourceDestCheck = NetworkInterfaceAttribute' "sourceDestCheck"
 
 {-# COMPLETE
-  Attachment,
-  Description,
-  GroupSet,
-  SourceDestCheck,
+  NetworkInterfaceAttributeAttachment,
+  NetworkInterfaceAttributeDescription,
+  NetworkInterfaceAttributeGroupSet,
+  NetworkInterfaceAttributeSourceDestCheck,
   NetworkInterfaceAttribute'
   #-}
 
-instance FromText NetworkInterfaceAttribute where
-  parser = (NetworkInterfaceAttribute' . mk) <$> takeText
+instance Prelude.FromText NetworkInterfaceAttribute where
+  parser = NetworkInterfaceAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkInterfaceAttribute where
-  toText (NetworkInterfaceAttribute' ci) = original ci
+instance Prelude.ToText NetworkInterfaceAttribute where
+  toText (NetworkInterfaceAttribute' x) = x
 
-instance Hashable NetworkInterfaceAttribute
+instance Prelude.Hashable NetworkInterfaceAttribute
 
-instance NFData NetworkInterfaceAttribute
+instance Prelude.NFData NetworkInterfaceAttribute
 
-instance ToByteString NetworkInterfaceAttribute
+instance Prelude.ToByteString NetworkInterfaceAttribute
 
-instance ToQuery NetworkInterfaceAttribute
+instance Prelude.ToQuery NetworkInterfaceAttribute
 
-instance ToHeader NetworkInterfaceAttribute
+instance Prelude.ToHeader NetworkInterfaceAttribute

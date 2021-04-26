@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,215 +21,483 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more of your Capacity Reservations. The results describe only the Capacity Reservations in the AWS Region that you're currently using.
---
---
+-- Describes one or more of your Capacity Reservations. The results
+-- describe only the Capacity Reservations in the AWS Region that you\'re
+-- currently using.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeCapacityReservations
   ( -- * Creating a Request
-    describeCapacityReservations,
-    DescribeCapacityReservations,
+    DescribeCapacityReservations (..),
+    newDescribeCapacityReservations,
 
     -- * Request Lenses
-    dcrNextToken,
-    dcrDryRun,
-    dcrMaxResults,
-    dcrCapacityReservationIds,
-    dcrFilters,
+    describeCapacityReservations_nextToken,
+    describeCapacityReservations_dryRun,
+    describeCapacityReservations_maxResults,
+    describeCapacityReservations_capacityReservationIds,
+    describeCapacityReservations_filters,
 
     -- * Destructuring the Response
-    describeCapacityReservationsResponse,
-    DescribeCapacityReservationsResponse,
+    DescribeCapacityReservationsResponse (..),
+    newDescribeCapacityReservationsResponse,
 
     -- * Response Lenses
-    dcrrrsCapacityReservations,
-    dcrrrsNextToken,
-    dcrrrsResponseStatus,
+    describeCapacityReservationsResponse_capacityReservations,
+    describeCapacityReservationsResponse_nextToken,
+    describeCapacityReservationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.CapacityReservation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCapacityReservations' smart constructor.
+-- | /See:/ 'newDescribeCapacityReservations' smart constructor.
 data DescribeCapacityReservations = DescribeCapacityReservations'
-  { _dcrNextToken ::
-      !(Maybe Text),
-    _dcrDryRun ::
-      !(Maybe Bool),
-    _dcrMaxResults ::
-      !(Maybe Nat),
-    _dcrCapacityReservationIds ::
-      !( Maybe
-           [Text]
-       ),
-    _dcrFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return for the request in a single
+    -- page. The remaining results can be seen by sending another request with
+    -- the returned @nextToken@ value. This value can be between 5 and 500. If
+    -- @maxResults@ is given a larger value than 500, you receive an error.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the Capacity Reservation.
+    capacityReservationIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters.
+    --
+    -- -   @instance-type@ - The type of instance for which the Capacity
+    --     Reservation reserves capacity.
+    --
+    -- -   @owner-id@ - The ID of the AWS account that owns the Capacity
+    --     Reservation.
+    --
+    -- -   @availability-zone-id@ - The Availability Zone ID of the Capacity
+    --     Reservation.
+    --
+    -- -   @instance-platform@ - The type of operating system for which the
+    --     Capacity Reservation reserves capacity.
+    --
+    -- -   @availability-zone@ - The Availability Zone ID of the Capacity
+    --     Reservation.
+    --
+    -- -   @tenancy@ - Indicates the tenancy of the Capacity Reservation. A
+    --     Capacity Reservation can have one of the following tenancy settings:
+    --
+    --     -   @default@ - The Capacity Reservation is created on hardware that
+    --         is shared with other AWS accounts.
+    --
+    --     -   @dedicated@ - The Capacity Reservation is created on
+    --         single-tenant hardware that is dedicated to a single AWS
+    --         account.
+    --
+    -- -   @state@ - The current state of the Capacity Reservation. A Capacity
+    --     Reservation can be in one of the following states:
+    --
+    --     -   @active@- The Capacity Reservation is active and the capacity is
+    --         available for your use.
+    --
+    --     -   @expired@ - The Capacity Reservation expired automatically at
+    --         the date and time specified in your request. The reserved
+    --         capacity is no longer available for your use.
+    --
+    --     -   @cancelled@ - The Capacity Reservation was cancelled. The
+    --         reserved capacity is no longer available for your use.
+    --
+    --     -   @pending@ - The Capacity Reservation request was successful but
+    --         the capacity provisioning is still pending.
+    --
+    --     -   @failed@ - The Capacity Reservation request has failed. A
+    --         request might fail due to invalid request parameters, capacity
+    --         constraints, or instance limit constraints. Failed requests are
+    --         retained for 60 minutes.
+    --
+    -- -   @end-date@ - The date and time at which the Capacity Reservation
+    --     expires. When a Capacity Reservation expires, the reserved capacity
+    --     is released and you can no longer launch instances into it. The
+    --     Capacity Reservation\'s state changes to expired when it reaches its
+    --     end date and time.
+    --
+    -- -   @end-date-type@ - Indicates the way in which the Capacity
+    --     Reservation ends. A Capacity Reservation can have one of the
+    --     following end types:
+    --
+    --     -   @unlimited@ - The Capacity Reservation remains active until you
+    --         explicitly cancel it.
+    --
+    --     -   @limited@ - The Capacity Reservation expires automatically at a
+    --         specified date and time.
+    --
+    -- -   @instance-match-criteria@ - Indicates the type of instance launches
+    --     that the Capacity Reservation accepts. The options include:
+    --
+    --     -   @open@ - The Capacity Reservation accepts all instances that
+    --         have matching attributes (instance type, platform, and
+    --         Availability Zone). Instances that have matching attributes
+    --         launch into the Capacity Reservation automatically without
+    --         specifying any additional parameters.
+    --
+    --     -   @targeted@ - The Capacity Reservation only accepts instances
+    --         that have matching attributes (instance type, platform, and
+    --         Availability Zone), and explicitly target the Capacity
+    --         Reservation. This ensures that only permitted instances can use
+    --         the reserved capacity.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCapacityReservations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCapacityReservations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrNextToken' - The token to use to retrieve the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeCapacityReservations_nextToken' - The token to use to retrieve the next page of results.
 --
--- * 'dcrMaxResults' - The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned @nextToken@ value. This value can be between 5 and 500. If @maxResults@ is given a larger value than 500, you receive an error.
+-- 'dryRun', 'describeCapacityReservations_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dcrCapacityReservationIds' - The ID of the Capacity Reservation.
+-- 'maxResults', 'describeCapacityReservations_maxResults' - The maximum number of results to return for the request in a single
+-- page. The remaining results can be seen by sending another request with
+-- the returned @nextToken@ value. This value can be between 5 and 500. If
+-- @maxResults@ is given a larger value than 500, you receive an error.
 --
--- * 'dcrFilters' - One or more filters.     * @instance-type@ - The type of instance for which the Capacity Reservation reserves capacity.     * @owner-id@ - The ID of the AWS account that owns the Capacity Reservation.     * @availability-zone-id@ - The Availability Zone ID of the Capacity Reservation.     * @instance-platform@ - The type of operating system for which the Capacity Reservation reserves capacity.     * @availability-zone@ - The Availability Zone ID of the Capacity Reservation.     * @tenancy@ - Indicates the tenancy of the Capacity Reservation. A Capacity Reservation can have one of the following tenancy settings:     * @default@ - The Capacity Reservation is created on hardware that is shared with other AWS accounts.     * @dedicated@ - The Capacity Reservation is created on single-tenant hardware that is dedicated to a single AWS account.     * @state@ - The current state of the Capacity Reservation. A Capacity Reservation can be in one of the following states:     * @active@ - The Capacity Reservation is active and the capacity is available for your use.     * @expired@ - The Capacity Reservation expired automatically at the date and time specified in your request. The reserved capacity is no longer available for your use.     * @cancelled@ - The Capacity Reservation was cancelled. The reserved capacity is no longer available for your use.     * @pending@ - The Capacity Reservation request was successful but the capacity provisioning is still pending.     * @failed@ - The Capacity Reservation request has failed. A request might fail due to invalid request parameters, capacity constraints, or instance limit constraints. Failed requests are retained for 60 minutes.     * @end-date@ - The date and time at which the Capacity Reservation expires. When a Capacity Reservation expires, the reserved capacity is released and you can no longer launch instances into it. The Capacity Reservation's state changes to expired when it reaches its end date and time.     * @end-date-type@ - Indicates the way in which the Capacity Reservation ends. A Capacity Reservation can have one of the following end types:     * @unlimited@ - The Capacity Reservation remains active until you explicitly cancel it.     * @limited@ - The Capacity Reservation expires automatically at a specified date and time.     * @instance-match-criteria@ - Indicates the type of instance launches that the Capacity Reservation accepts. The options include:     * @open@ - The Capacity Reservation accepts all instances that have matching attributes (instance type, platform, and Availability Zone). Instances that have matching attributes launch into the Capacity Reservation automatically without specifying any additional parameters.     * @targeted@ - The Capacity Reservation only accepts instances that have matching attributes (instance type, platform, and Availability Zone), and explicitly target the Capacity Reservation. This ensures that only permitted instances can use the reserved capacity.
-describeCapacityReservations ::
+-- 'capacityReservationIds', 'describeCapacityReservations_capacityReservationIds' - The ID of the Capacity Reservation.
+--
+-- 'filters', 'describeCapacityReservations_filters' - One or more filters.
+--
+-- -   @instance-type@ - The type of instance for which the Capacity
+--     Reservation reserves capacity.
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the Capacity
+--     Reservation.
+--
+-- -   @availability-zone-id@ - The Availability Zone ID of the Capacity
+--     Reservation.
+--
+-- -   @instance-platform@ - The type of operating system for which the
+--     Capacity Reservation reserves capacity.
+--
+-- -   @availability-zone@ - The Availability Zone ID of the Capacity
+--     Reservation.
+--
+-- -   @tenancy@ - Indicates the tenancy of the Capacity Reservation. A
+--     Capacity Reservation can have one of the following tenancy settings:
+--
+--     -   @default@ - The Capacity Reservation is created on hardware that
+--         is shared with other AWS accounts.
+--
+--     -   @dedicated@ - The Capacity Reservation is created on
+--         single-tenant hardware that is dedicated to a single AWS
+--         account.
+--
+-- -   @state@ - The current state of the Capacity Reservation. A Capacity
+--     Reservation can be in one of the following states:
+--
+--     -   @active@- The Capacity Reservation is active and the capacity is
+--         available for your use.
+--
+--     -   @expired@ - The Capacity Reservation expired automatically at
+--         the date and time specified in your request. The reserved
+--         capacity is no longer available for your use.
+--
+--     -   @cancelled@ - The Capacity Reservation was cancelled. The
+--         reserved capacity is no longer available for your use.
+--
+--     -   @pending@ - The Capacity Reservation request was successful but
+--         the capacity provisioning is still pending.
+--
+--     -   @failed@ - The Capacity Reservation request has failed. A
+--         request might fail due to invalid request parameters, capacity
+--         constraints, or instance limit constraints. Failed requests are
+--         retained for 60 minutes.
+--
+-- -   @end-date@ - The date and time at which the Capacity Reservation
+--     expires. When a Capacity Reservation expires, the reserved capacity
+--     is released and you can no longer launch instances into it. The
+--     Capacity Reservation\'s state changes to expired when it reaches its
+--     end date and time.
+--
+-- -   @end-date-type@ - Indicates the way in which the Capacity
+--     Reservation ends. A Capacity Reservation can have one of the
+--     following end types:
+--
+--     -   @unlimited@ - The Capacity Reservation remains active until you
+--         explicitly cancel it.
+--
+--     -   @limited@ - The Capacity Reservation expires automatically at a
+--         specified date and time.
+--
+-- -   @instance-match-criteria@ - Indicates the type of instance launches
+--     that the Capacity Reservation accepts. The options include:
+--
+--     -   @open@ - The Capacity Reservation accepts all instances that
+--         have matching attributes (instance type, platform, and
+--         Availability Zone). Instances that have matching attributes
+--         launch into the Capacity Reservation automatically without
+--         specifying any additional parameters.
+--
+--     -   @targeted@ - The Capacity Reservation only accepts instances
+--         that have matching attributes (instance type, platform, and
+--         Availability Zone), and explicitly target the Capacity
+--         Reservation. This ensures that only permitted instances can use
+--         the reserved capacity.
+newDescribeCapacityReservations ::
   DescribeCapacityReservations
-describeCapacityReservations =
+newDescribeCapacityReservations =
   DescribeCapacityReservations'
-    { _dcrNextToken =
-        Nothing,
-      _dcrDryRun = Nothing,
-      _dcrMaxResults = Nothing,
-      _dcrCapacityReservationIds = Nothing,
-      _dcrFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      capacityReservationIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token to use to retrieve the next page of results.
-dcrNextToken :: Lens' DescribeCapacityReservations (Maybe Text)
-dcrNextToken = lens _dcrNextToken (\s a -> s {_dcrNextToken = a})
+describeCapacityReservations_nextToken :: Lens.Lens' DescribeCapacityReservations (Prelude.Maybe Prelude.Text)
+describeCapacityReservations_nextToken = Lens.lens (\DescribeCapacityReservations' {nextToken} -> nextToken) (\s@DescribeCapacityReservations' {} a -> s {nextToken = a} :: DescribeCapacityReservations)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dcrDryRun :: Lens' DescribeCapacityReservations (Maybe Bool)
-dcrDryRun = lens _dcrDryRun (\s a -> s {_dcrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeCapacityReservations_dryRun :: Lens.Lens' DescribeCapacityReservations (Prelude.Maybe Prelude.Bool)
+describeCapacityReservations_dryRun = Lens.lens (\DescribeCapacityReservations' {dryRun} -> dryRun) (\s@DescribeCapacityReservations' {} a -> s {dryRun = a} :: DescribeCapacityReservations)
 
--- | The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned @nextToken@ value. This value can be between 5 and 500. If @maxResults@ is given a larger value than 500, you receive an error.
-dcrMaxResults :: Lens' DescribeCapacityReservations (Maybe Natural)
-dcrMaxResults = lens _dcrMaxResults (\s a -> s {_dcrMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return for the request in a single
+-- page. The remaining results can be seen by sending another request with
+-- the returned @nextToken@ value. This value can be between 5 and 500. If
+-- @maxResults@ is given a larger value than 500, you receive an error.
+describeCapacityReservations_maxResults :: Lens.Lens' DescribeCapacityReservations (Prelude.Maybe Prelude.Natural)
+describeCapacityReservations_maxResults = Lens.lens (\DescribeCapacityReservations' {maxResults} -> maxResults) (\s@DescribeCapacityReservations' {} a -> s {maxResults = a} :: DescribeCapacityReservations) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ID of the Capacity Reservation.
-dcrCapacityReservationIds :: Lens' DescribeCapacityReservations [Text]
-dcrCapacityReservationIds = lens _dcrCapacityReservationIds (\s a -> s {_dcrCapacityReservationIds = a}) . _Default . _Coerce
+describeCapacityReservations_capacityReservationIds :: Lens.Lens' DescribeCapacityReservations (Prelude.Maybe [Prelude.Text])
+describeCapacityReservations_capacityReservationIds = Lens.lens (\DescribeCapacityReservations' {capacityReservationIds} -> capacityReservationIds) (\s@DescribeCapacityReservations' {} a -> s {capacityReservationIds = a} :: DescribeCapacityReservations) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters.     * @instance-type@ - The type of instance for which the Capacity Reservation reserves capacity.     * @owner-id@ - The ID of the AWS account that owns the Capacity Reservation.     * @availability-zone-id@ - The Availability Zone ID of the Capacity Reservation.     * @instance-platform@ - The type of operating system for which the Capacity Reservation reserves capacity.     * @availability-zone@ - The Availability Zone ID of the Capacity Reservation.     * @tenancy@ - Indicates the tenancy of the Capacity Reservation. A Capacity Reservation can have one of the following tenancy settings:     * @default@ - The Capacity Reservation is created on hardware that is shared with other AWS accounts.     * @dedicated@ - The Capacity Reservation is created on single-tenant hardware that is dedicated to a single AWS account.     * @state@ - The current state of the Capacity Reservation. A Capacity Reservation can be in one of the following states:     * @active@ - The Capacity Reservation is active and the capacity is available for your use.     * @expired@ - The Capacity Reservation expired automatically at the date and time specified in your request. The reserved capacity is no longer available for your use.     * @cancelled@ - The Capacity Reservation was cancelled. The reserved capacity is no longer available for your use.     * @pending@ - The Capacity Reservation request was successful but the capacity provisioning is still pending.     * @failed@ - The Capacity Reservation request has failed. A request might fail due to invalid request parameters, capacity constraints, or instance limit constraints. Failed requests are retained for 60 minutes.     * @end-date@ - The date and time at which the Capacity Reservation expires. When a Capacity Reservation expires, the reserved capacity is released and you can no longer launch instances into it. The Capacity Reservation's state changes to expired when it reaches its end date and time.     * @end-date-type@ - Indicates the way in which the Capacity Reservation ends. A Capacity Reservation can have one of the following end types:     * @unlimited@ - The Capacity Reservation remains active until you explicitly cancel it.     * @limited@ - The Capacity Reservation expires automatically at a specified date and time.     * @instance-match-criteria@ - Indicates the type of instance launches that the Capacity Reservation accepts. The options include:     * @open@ - The Capacity Reservation accepts all instances that have matching attributes (instance type, platform, and Availability Zone). Instances that have matching attributes launch into the Capacity Reservation automatically without specifying any additional parameters.     * @targeted@ - The Capacity Reservation only accepts instances that have matching attributes (instance type, platform, and Availability Zone), and explicitly target the Capacity Reservation. This ensures that only permitted instances can use the reserved capacity.
-dcrFilters :: Lens' DescribeCapacityReservations [Filter]
-dcrFilters = lens _dcrFilters (\s a -> s {_dcrFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @instance-type@ - The type of instance for which the Capacity
+--     Reservation reserves capacity.
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the Capacity
+--     Reservation.
+--
+-- -   @availability-zone-id@ - The Availability Zone ID of the Capacity
+--     Reservation.
+--
+-- -   @instance-platform@ - The type of operating system for which the
+--     Capacity Reservation reserves capacity.
+--
+-- -   @availability-zone@ - The Availability Zone ID of the Capacity
+--     Reservation.
+--
+-- -   @tenancy@ - Indicates the tenancy of the Capacity Reservation. A
+--     Capacity Reservation can have one of the following tenancy settings:
+--
+--     -   @default@ - The Capacity Reservation is created on hardware that
+--         is shared with other AWS accounts.
+--
+--     -   @dedicated@ - The Capacity Reservation is created on
+--         single-tenant hardware that is dedicated to a single AWS
+--         account.
+--
+-- -   @state@ - The current state of the Capacity Reservation. A Capacity
+--     Reservation can be in one of the following states:
+--
+--     -   @active@- The Capacity Reservation is active and the capacity is
+--         available for your use.
+--
+--     -   @expired@ - The Capacity Reservation expired automatically at
+--         the date and time specified in your request. The reserved
+--         capacity is no longer available for your use.
+--
+--     -   @cancelled@ - The Capacity Reservation was cancelled. The
+--         reserved capacity is no longer available for your use.
+--
+--     -   @pending@ - The Capacity Reservation request was successful but
+--         the capacity provisioning is still pending.
+--
+--     -   @failed@ - The Capacity Reservation request has failed. A
+--         request might fail due to invalid request parameters, capacity
+--         constraints, or instance limit constraints. Failed requests are
+--         retained for 60 minutes.
+--
+-- -   @end-date@ - The date and time at which the Capacity Reservation
+--     expires. When a Capacity Reservation expires, the reserved capacity
+--     is released and you can no longer launch instances into it. The
+--     Capacity Reservation\'s state changes to expired when it reaches its
+--     end date and time.
+--
+-- -   @end-date-type@ - Indicates the way in which the Capacity
+--     Reservation ends. A Capacity Reservation can have one of the
+--     following end types:
+--
+--     -   @unlimited@ - The Capacity Reservation remains active until you
+--         explicitly cancel it.
+--
+--     -   @limited@ - The Capacity Reservation expires automatically at a
+--         specified date and time.
+--
+-- -   @instance-match-criteria@ - Indicates the type of instance launches
+--     that the Capacity Reservation accepts. The options include:
+--
+--     -   @open@ - The Capacity Reservation accepts all instances that
+--         have matching attributes (instance type, platform, and
+--         Availability Zone). Instances that have matching attributes
+--         launch into the Capacity Reservation automatically without
+--         specifying any additional parameters.
+--
+--     -   @targeted@ - The Capacity Reservation only accepts instances
+--         that have matching attributes (instance type, platform, and
+--         Availability Zone), and explicitly target the Capacity
+--         Reservation. This ensures that only permitted instances can use
+--         the reserved capacity.
+describeCapacityReservations_filters :: Lens.Lens' DescribeCapacityReservations (Prelude.Maybe [Filter])
+describeCapacityReservations_filters = Lens.lens (\DescribeCapacityReservations' {filters} -> filters) (\s@DescribeCapacityReservations' {} a -> s {filters = a} :: DescribeCapacityReservations) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeCapacityReservations where
+instance Pager.AWSPager DescribeCapacityReservations where
   page rq rs
-    | stop (rs ^. dcrrrsNextToken) = Nothing
-    | stop (rs ^. dcrrrsCapacityReservations) = Nothing
-    | otherwise =
-      Just $ rq & dcrNextToken .~ rs ^. dcrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeCapacityReservationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeCapacityReservationsResponse_capacityReservations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeCapacityReservations_nextToken
+          Lens..~ rs
+          Lens.^? describeCapacityReservationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeCapacityReservations where
+instance
+  Prelude.AWSRequest
+    DescribeCapacityReservations
+  where
   type
     Rs DescribeCapacityReservations =
       DescribeCapacityReservationsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeCapacityReservationsResponse'
-            <$> ( x .@? "capacityReservationSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "nextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "capacityReservationSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCapacityReservations
+instance
+  Prelude.Hashable
+    DescribeCapacityReservations
 
-instance NFData DescribeCapacityReservations
+instance Prelude.NFData DescribeCapacityReservations
 
-instance ToHeaders DescribeCapacityReservations where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeCapacityReservations
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeCapacityReservations where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCapacityReservations where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCapacityReservations where
+instance Prelude.ToQuery DescribeCapacityReservations where
   toQuery DescribeCapacityReservations' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeCapacityReservations" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dcrNextToken,
-        "DryRun" =: _dcrDryRun,
-        "MaxResults" =: _dcrMaxResults,
-        toQuery
-          ( toQueryList "CapacityReservationId"
-              <$> _dcrCapacityReservationIds
+          Prelude.=: ( "DescribeCapacityReservations" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "CapacityReservationId"
+              Prelude.<$> capacityReservationIds
           ),
-        toQuery (toQueryList "Filter" <$> _dcrFilters)
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeCapacityReservationsResponse' smart constructor.
+-- | /See:/ 'newDescribeCapacityReservationsResponse' smart constructor.
 data DescribeCapacityReservationsResponse = DescribeCapacityReservationsResponse'
-  { _dcrrrsCapacityReservations ::
-      !( Maybe
-           [CapacityReservation]
-       ),
-    _dcrrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dcrrrsResponseStatus ::
-      !Int
+  { -- | Information about the Capacity Reservations.
+    capacityReservations :: Prelude.Maybe [CapacityReservation],
+    -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCapacityReservationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCapacityReservationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrrsCapacityReservations' - Information about the Capacity Reservations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- 'capacityReservations', 'describeCapacityReservationsResponse_capacityReservations' - Information about the Capacity Reservations.
 --
--- * 'dcrrrsResponseStatus' - -- | The response status code.
-describeCapacityReservationsResponse ::
-  -- | 'dcrrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'describeCapacityReservationsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+--
+-- 'httpStatus', 'describeCapacityReservationsResponse_httpStatus' - The response's http status code.
+newDescribeCapacityReservationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCapacityReservationsResponse
-describeCapacityReservationsResponse pResponseStatus_ =
+newDescribeCapacityReservationsResponse pHttpStatus_ =
   DescribeCapacityReservationsResponse'
-    { _dcrrrsCapacityReservations =
-        Nothing,
-      _dcrrrsNextToken = Nothing,
-      _dcrrrsResponseStatus =
-        pResponseStatus_
+    { capacityReservations =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the Capacity Reservations.
-dcrrrsCapacityReservations :: Lens' DescribeCapacityReservationsResponse [CapacityReservation]
-dcrrrsCapacityReservations = lens _dcrrrsCapacityReservations (\s a -> s {_dcrrrsCapacityReservations = a}) . _Default . _Coerce
+describeCapacityReservationsResponse_capacityReservations :: Lens.Lens' DescribeCapacityReservationsResponse (Prelude.Maybe [CapacityReservation])
+describeCapacityReservationsResponse_capacityReservations = Lens.lens (\DescribeCapacityReservationsResponse' {capacityReservations} -> capacityReservations) (\s@DescribeCapacityReservationsResponse' {} a -> s {capacityReservations = a} :: DescribeCapacityReservationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dcrrrsNextToken :: Lens' DescribeCapacityReservationsResponse (Maybe Text)
-dcrrrsNextToken = lens _dcrrrsNextToken (\s a -> s {_dcrrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeCapacityReservationsResponse_nextToken :: Lens.Lens' DescribeCapacityReservationsResponse (Prelude.Maybe Prelude.Text)
+describeCapacityReservationsResponse_nextToken = Lens.lens (\DescribeCapacityReservationsResponse' {nextToken} -> nextToken) (\s@DescribeCapacityReservationsResponse' {} a -> s {nextToken = a} :: DescribeCapacityReservationsResponse)
 
--- | -- | The response status code.
-dcrrrsResponseStatus :: Lens' DescribeCapacityReservationsResponse Int
-dcrrrsResponseStatus = lens _dcrrrsResponseStatus (\s a -> s {_dcrrrsResponseStatus = a})
+-- | The response's http status code.
+describeCapacityReservationsResponse_httpStatus :: Lens.Lens' DescribeCapacityReservationsResponse Prelude.Int
+describeCapacityReservationsResponse_httpStatus = Lens.lens (\DescribeCapacityReservationsResponse' {httpStatus} -> httpStatus) (\s@DescribeCapacityReservationsResponse' {} a -> s {httpStatus = a} :: DescribeCapacityReservationsResponse)
 
-instance NFData DescribeCapacityReservationsResponse
+instance
+  Prelude.NFData
+    DescribeCapacityReservationsResponse

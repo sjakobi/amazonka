@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +21,85 @@ module Network.AWS.EC2.Types.LocalGateway where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a local gateway.
 --
---
---
--- /See:/ 'localGateway' smart constructor.
+-- /See:/ 'newLocalGateway' smart constructor.
 data LocalGateway = LocalGateway'
-  { _lgOwnerId ::
-      !(Maybe Text),
-    _lgOutpostARN :: !(Maybe Text),
-    _lgLocalGatewayId :: !(Maybe Text),
-    _lgState :: !(Maybe Text),
-    _lgTags :: !(Maybe [Tag])
+  { -- | The AWS account ID that owns the local gateway.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Outpost.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the local gateway.
+    localGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the local gateway.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | The tags assigned to the local gateway.
+    tags :: Prelude.Maybe [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LocalGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LocalGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgOwnerId' - The AWS account ID that owns the local gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgOutpostARN' - The Amazon Resource Name (ARN) of the Outpost.
+-- 'ownerId', 'localGateway_ownerId' - The AWS account ID that owns the local gateway.
 --
--- * 'lgLocalGatewayId' - The ID of the local gateway.
+-- 'outpostArn', 'localGateway_outpostArn' - The Amazon Resource Name (ARN) of the Outpost.
 --
--- * 'lgState' - The state of the local gateway.
+-- 'localGatewayId', 'localGateway_localGatewayId' - The ID of the local gateway.
 --
--- * 'lgTags' - The tags assigned to the local gateway.
-localGateway ::
+-- 'state', 'localGateway_state' - The state of the local gateway.
+--
+-- 'tags', 'localGateway_tags' - The tags assigned to the local gateway.
+newLocalGateway ::
   LocalGateway
-localGateway =
+newLocalGateway =
   LocalGateway'
-    { _lgOwnerId = Nothing,
-      _lgOutpostARN = Nothing,
-      _lgLocalGatewayId = Nothing,
-      _lgState = Nothing,
-      _lgTags = Nothing
+    { ownerId = Prelude.Nothing,
+      outpostArn = Prelude.Nothing,
+      localGatewayId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
 -- | The AWS account ID that owns the local gateway.
-lgOwnerId :: Lens' LocalGateway (Maybe Text)
-lgOwnerId = lens _lgOwnerId (\s a -> s {_lgOwnerId = a})
+localGateway_ownerId :: Lens.Lens' LocalGateway (Prelude.Maybe Prelude.Text)
+localGateway_ownerId = Lens.lens (\LocalGateway' {ownerId} -> ownerId) (\s@LocalGateway' {} a -> s {ownerId = a} :: LocalGateway)
 
 -- | The Amazon Resource Name (ARN) of the Outpost.
-lgOutpostARN :: Lens' LocalGateway (Maybe Text)
-lgOutpostARN = lens _lgOutpostARN (\s a -> s {_lgOutpostARN = a})
+localGateway_outpostArn :: Lens.Lens' LocalGateway (Prelude.Maybe Prelude.Text)
+localGateway_outpostArn = Lens.lens (\LocalGateway' {outpostArn} -> outpostArn) (\s@LocalGateway' {} a -> s {outpostArn = a} :: LocalGateway)
 
 -- | The ID of the local gateway.
-lgLocalGatewayId :: Lens' LocalGateway (Maybe Text)
-lgLocalGatewayId = lens _lgLocalGatewayId (\s a -> s {_lgLocalGatewayId = a})
+localGateway_localGatewayId :: Lens.Lens' LocalGateway (Prelude.Maybe Prelude.Text)
+localGateway_localGatewayId = Lens.lens (\LocalGateway' {localGatewayId} -> localGatewayId) (\s@LocalGateway' {} a -> s {localGatewayId = a} :: LocalGateway)
 
 -- | The state of the local gateway.
-lgState :: Lens' LocalGateway (Maybe Text)
-lgState = lens _lgState (\s a -> s {_lgState = a})
+localGateway_state :: Lens.Lens' LocalGateway (Prelude.Maybe Prelude.Text)
+localGateway_state = Lens.lens (\LocalGateway' {state} -> state) (\s@LocalGateway' {} a -> s {state = a} :: LocalGateway)
 
 -- | The tags assigned to the local gateway.
-lgTags :: Lens' LocalGateway [Tag]
-lgTags = lens _lgTags (\s a -> s {_lgTags = a}) . _Default . _Coerce
+localGateway_tags :: Lens.Lens' LocalGateway (Prelude.Maybe [Tag])
+localGateway_tags = Lens.lens (\LocalGateway' {tags} -> tags) (\s@LocalGateway' {} a -> s {tags = a} :: LocalGateway) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML LocalGateway where
+instance Prelude.FromXML LocalGateway where
   parseXML x =
     LocalGateway'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "outpostArn")
-      <*> (x .@? "localGatewayId")
-      <*> (x .@? "state")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "outpostArn")
+      Prelude.<*> (x Prelude..@? "localGatewayId")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable LocalGateway
+instance Prelude.Hashable LocalGateway
 
-instance NFData LocalGateway
+instance Prelude.NFData LocalGateway

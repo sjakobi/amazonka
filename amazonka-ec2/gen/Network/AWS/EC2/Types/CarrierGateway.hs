@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,79 +22,85 @@ module Network.AWS.EC2.Types.CarrierGateway where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.CarrierGatewayState
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a carrier gateway.
 --
---
---
--- /See:/ 'carrierGateway' smart constructor.
+-- /See:/ 'newCarrierGateway' smart constructor.
 data CarrierGateway = CarrierGateway'
-  { _cgOwnerId ::
-      !(Maybe Text),
-    _cgState :: !(Maybe CarrierGatewayState),
-    _cgTags :: !(Maybe [Tag]),
-    _cgCarrierGatewayId :: !(Maybe Text),
-    _cgVPCId :: !(Maybe Text)
+  { -- | The AWS account ID of the owner of the carrier gateway.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the carrier gateway.
+    state :: Prelude.Maybe CarrierGatewayState,
+    -- | The tags assigned to the carrier gateway.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ID of the carrier gateway.
+    carrierGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VPC associated with the carrier gateway.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CarrierGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CarrierGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgOwnerId' - The AWS account ID of the owner of the carrier gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgState' - The state of the carrier gateway.
+-- 'ownerId', 'carrierGateway_ownerId' - The AWS account ID of the owner of the carrier gateway.
 --
--- * 'cgTags' - The tags assigned to the carrier gateway.
+-- 'state', 'carrierGateway_state' - The state of the carrier gateway.
 --
--- * 'cgCarrierGatewayId' - The ID of the carrier gateway.
+-- 'tags', 'carrierGateway_tags' - The tags assigned to the carrier gateway.
 --
--- * 'cgVPCId' - The ID of the VPC associated with the carrier gateway.
-carrierGateway ::
+-- 'carrierGatewayId', 'carrierGateway_carrierGatewayId' - The ID of the carrier gateway.
+--
+-- 'vpcId', 'carrierGateway_vpcId' - The ID of the VPC associated with the carrier gateway.
+newCarrierGateway ::
   CarrierGateway
-carrierGateway =
+newCarrierGateway =
   CarrierGateway'
-    { _cgOwnerId = Nothing,
-      _cgState = Nothing,
-      _cgTags = Nothing,
-      _cgCarrierGatewayId = Nothing,
-      _cgVPCId = Nothing
+    { ownerId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      carrierGatewayId = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
 
 -- | The AWS account ID of the owner of the carrier gateway.
-cgOwnerId :: Lens' CarrierGateway (Maybe Text)
-cgOwnerId = lens _cgOwnerId (\s a -> s {_cgOwnerId = a})
+carrierGateway_ownerId :: Lens.Lens' CarrierGateway (Prelude.Maybe Prelude.Text)
+carrierGateway_ownerId = Lens.lens (\CarrierGateway' {ownerId} -> ownerId) (\s@CarrierGateway' {} a -> s {ownerId = a} :: CarrierGateway)
 
 -- | The state of the carrier gateway.
-cgState :: Lens' CarrierGateway (Maybe CarrierGatewayState)
-cgState = lens _cgState (\s a -> s {_cgState = a})
+carrierGateway_state :: Lens.Lens' CarrierGateway (Prelude.Maybe CarrierGatewayState)
+carrierGateway_state = Lens.lens (\CarrierGateway' {state} -> state) (\s@CarrierGateway' {} a -> s {state = a} :: CarrierGateway)
 
 -- | The tags assigned to the carrier gateway.
-cgTags :: Lens' CarrierGateway [Tag]
-cgTags = lens _cgTags (\s a -> s {_cgTags = a}) . _Default . _Coerce
+carrierGateway_tags :: Lens.Lens' CarrierGateway (Prelude.Maybe [Tag])
+carrierGateway_tags = Lens.lens (\CarrierGateway' {tags} -> tags) (\s@CarrierGateway' {} a -> s {tags = a} :: CarrierGateway) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the carrier gateway.
-cgCarrierGatewayId :: Lens' CarrierGateway (Maybe Text)
-cgCarrierGatewayId = lens _cgCarrierGatewayId (\s a -> s {_cgCarrierGatewayId = a})
+carrierGateway_carrierGatewayId :: Lens.Lens' CarrierGateway (Prelude.Maybe Prelude.Text)
+carrierGateway_carrierGatewayId = Lens.lens (\CarrierGateway' {carrierGatewayId} -> carrierGatewayId) (\s@CarrierGateway' {} a -> s {carrierGatewayId = a} :: CarrierGateway)
 
 -- | The ID of the VPC associated with the carrier gateway.
-cgVPCId :: Lens' CarrierGateway (Maybe Text)
-cgVPCId = lens _cgVPCId (\s a -> s {_cgVPCId = a})
+carrierGateway_vpcId :: Lens.Lens' CarrierGateway (Prelude.Maybe Prelude.Text)
+carrierGateway_vpcId = Lens.lens (\CarrierGateway' {vpcId} -> vpcId) (\s@CarrierGateway' {} a -> s {vpcId = a} :: CarrierGateway)
 
-instance FromXML CarrierGateway where
+instance Prelude.FromXML CarrierGateway where
   parseXML x =
     CarrierGateway'
-      <$> (x .@? "ownerId")
-      <*> (x .@? "state")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "carrierGatewayId")
-      <*> (x .@? "vpcId")
+      Prelude.<$> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "carrierGatewayId")
+      Prelude.<*> (x Prelude..@? "vpcId")
 
-instance Hashable CarrierGateway
+instance Prelude.Hashable CarrierGateway
 
-instance NFData CarrierGateway
+instance Prelude.NFData CarrierGateway

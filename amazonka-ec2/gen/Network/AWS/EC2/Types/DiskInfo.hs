@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +21,63 @@ module Network.AWS.EC2.Types.DiskInfo where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DiskType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the disk.
 --
---
---
--- /See:/ 'diskInfo' smart constructor.
+-- /See:/ 'newDiskInfo' smart constructor.
 data DiskInfo = DiskInfo'
-  { _diSizeInGB ::
-      !(Maybe Integer),
-    _diCount :: !(Maybe Int),
-    _diType :: !(Maybe DiskType)
+  { -- | The size of the disk in GB.
+    sizeInGB :: Prelude.Maybe Prelude.Integer,
+    -- | The number of disks with this configuration.
+    count :: Prelude.Maybe Prelude.Int,
+    -- | The type of disk.
+    type' :: Prelude.Maybe DiskType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiskInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiskInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diSizeInGB' - The size of the disk in GB.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diCount' - The number of disks with this configuration.
+-- 'sizeInGB', 'diskInfo_sizeInGB' - The size of the disk in GB.
 --
--- * 'diType' - The type of disk.
-diskInfo ::
+-- 'count', 'diskInfo_count' - The number of disks with this configuration.
+--
+-- 'type'', 'diskInfo_type' - The type of disk.
+newDiskInfo ::
   DiskInfo
-diskInfo =
+newDiskInfo =
   DiskInfo'
-    { _diSizeInGB = Nothing,
-      _diCount = Nothing,
-      _diType = Nothing
+    { sizeInGB = Prelude.Nothing,
+      count = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The size of the disk in GB.
-diSizeInGB :: Lens' DiskInfo (Maybe Integer)
-diSizeInGB = lens _diSizeInGB (\s a -> s {_diSizeInGB = a})
+diskInfo_sizeInGB :: Lens.Lens' DiskInfo (Prelude.Maybe Prelude.Integer)
+diskInfo_sizeInGB = Lens.lens (\DiskInfo' {sizeInGB} -> sizeInGB) (\s@DiskInfo' {} a -> s {sizeInGB = a} :: DiskInfo)
 
 -- | The number of disks with this configuration.
-diCount :: Lens' DiskInfo (Maybe Int)
-diCount = lens _diCount (\s a -> s {_diCount = a})
+diskInfo_count :: Lens.Lens' DiskInfo (Prelude.Maybe Prelude.Int)
+diskInfo_count = Lens.lens (\DiskInfo' {count} -> count) (\s@DiskInfo' {} a -> s {count = a} :: DiskInfo)
 
 -- | The type of disk.
-diType :: Lens' DiskInfo (Maybe DiskType)
-diType = lens _diType (\s a -> s {_diType = a})
+diskInfo_type :: Lens.Lens' DiskInfo (Prelude.Maybe DiskType)
+diskInfo_type = Lens.lens (\DiskInfo' {type'} -> type') (\s@DiskInfo' {} a -> s {type' = a} :: DiskInfo)
 
-instance FromXML DiskInfo where
+instance Prelude.FromXML DiskInfo where
   parseXML x =
     DiskInfo'
-      <$> (x .@? "sizeInGB")
-      <*> (x .@? "count")
-      <*> (x .@? "type")
+      Prelude.<$> (x Prelude..@? "sizeInGB")
+      Prelude.<*> (x Prelude..@? "count")
+      Prelude.<*> (x Prelude..@? "type")
 
-instance Hashable DiskInfo
+instance Prelude.Hashable DiskInfo
 
-instance NFData DiskInfo
+instance Prelude.NFData DiskInfo

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.PlacementGroupState
   ( PlacementGroupState
       ( ..,
-        PGSAvailable,
-        PGSDeleted,
-        PGSDeleting,
-        PGSPending
+        PlacementGroupStateAvailable,
+        PlacementGroupStateDeleted,
+        PlacementGroupStateDeleting,
+        PlacementGroupStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlacementGroupState
-  = PlacementGroupState'
-      ( CI
-          Text
-      )
+newtype PlacementGroupState = PlacementGroupState'
+  { fromPlacementGroupState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PGSAvailable :: PlacementGroupState
-pattern PGSAvailable = PlacementGroupState' "available"
+pattern PlacementGroupStateAvailable :: PlacementGroupState
+pattern PlacementGroupStateAvailable = PlacementGroupState' "available"
 
-pattern PGSDeleted :: PlacementGroupState
-pattern PGSDeleted = PlacementGroupState' "deleted"
+pattern PlacementGroupStateDeleted :: PlacementGroupState
+pattern PlacementGroupStateDeleted = PlacementGroupState' "deleted"
 
-pattern PGSDeleting :: PlacementGroupState
-pattern PGSDeleting = PlacementGroupState' "deleting"
+pattern PlacementGroupStateDeleting :: PlacementGroupState
+pattern PlacementGroupStateDeleting = PlacementGroupState' "deleting"
 
-pattern PGSPending :: PlacementGroupState
-pattern PGSPending = PlacementGroupState' "pending"
+pattern PlacementGroupStatePending :: PlacementGroupState
+pattern PlacementGroupStatePending = PlacementGroupState' "pending"
 
 {-# COMPLETE
-  PGSAvailable,
-  PGSDeleted,
-  PGSDeleting,
-  PGSPending,
+  PlacementGroupStateAvailable,
+  PlacementGroupStateDeleted,
+  PlacementGroupStateDeleting,
+  PlacementGroupStatePending,
   PlacementGroupState'
   #-}
 
-instance FromText PlacementGroupState where
-  parser = (PlacementGroupState' . mk) <$> takeText
+instance Prelude.FromText PlacementGroupState where
+  parser = PlacementGroupState' Prelude.<$> Prelude.takeText
 
-instance ToText PlacementGroupState where
-  toText (PlacementGroupState' ci) = original ci
+instance Prelude.ToText PlacementGroupState where
+  toText (PlacementGroupState' x) = x
 
-instance Hashable PlacementGroupState
+instance Prelude.Hashable PlacementGroupState
 
-instance NFData PlacementGroupState
+instance Prelude.NFData PlacementGroupState
 
-instance ToByteString PlacementGroupState
+instance Prelude.ToByteString PlacementGroupState
 
-instance ToQuery PlacementGroupState
+instance Prelude.ToQuery PlacementGroupState
 
-instance ToHeader PlacementGroupState
+instance Prelude.ToHeader PlacementGroupState
 
-instance FromXML PlacementGroupState where
-  parseXML = parseXMLText "PlacementGroupState"
+instance Prelude.FromXML PlacementGroupState where
+  parseXML = Prelude.parseXMLText "PlacementGroupState"

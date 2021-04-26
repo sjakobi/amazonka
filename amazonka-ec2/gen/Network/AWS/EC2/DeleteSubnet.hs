@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,92 +21,114 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified subnet. You must terminate all running instances in the subnet before you can delete the subnet.
+-- Deletes the specified subnet. You must terminate all running instances
+-- in the subnet before you can delete the subnet.
 module Network.AWS.EC2.DeleteSubnet
   ( -- * Creating a Request
-    deleteSubnet,
-    DeleteSubnet,
+    DeleteSubnet (..),
+    newDeleteSubnet,
 
     -- * Request Lenses
-    deletesubneteDryRun,
-    deletesubneteSubnetId,
+    deleteSubnet_dryRun,
+    deleteSubnet_subnetId,
 
     -- * Destructuring the Response
-    deleteSubnetResponse,
-    DeleteSubnetResponse,
+    DeleteSubnetResponse (..),
+    newDeleteSubnetResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSubnet' smart constructor.
+-- | /See:/ 'newDeleteSubnet' smart constructor.
 data DeleteSubnet = DeleteSubnet'
-  { _deletesubneteDryRun ::
-      !(Maybe Bool),
-    _deletesubneteSubnetId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSubnet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSubnet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deletesubneteDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deletesubneteSubnetId' - The ID of the subnet.
-deleteSubnet ::
-  -- | 'deletesubneteSubnetId'
-  Text ->
+-- 'dryRun', 'deleteSubnet_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'subnetId', 'deleteSubnet_subnetId' - The ID of the subnet.
+newDeleteSubnet ::
+  -- | 'subnetId'
+  Prelude.Text ->
   DeleteSubnet
-deleteSubnet pSubnetId_ =
+newDeleteSubnet pSubnetId_ =
   DeleteSubnet'
-    { _deletesubneteDryRun = Nothing,
-      _deletesubneteSubnetId = pSubnetId_
+    { dryRun = Prelude.Nothing,
+      subnetId = pSubnetId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-deletesubneteDryRun :: Lens' DeleteSubnet (Maybe Bool)
-deletesubneteDryRun = lens _deletesubneteDryRun (\s a -> s {_deletesubneteDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteSubnet_dryRun :: Lens.Lens' DeleteSubnet (Prelude.Maybe Prelude.Bool)
+deleteSubnet_dryRun = Lens.lens (\DeleteSubnet' {dryRun} -> dryRun) (\s@DeleteSubnet' {} a -> s {dryRun = a} :: DeleteSubnet)
 
 -- | The ID of the subnet.
-deletesubneteSubnetId :: Lens' DeleteSubnet Text
-deletesubneteSubnetId = lens _deletesubneteSubnetId (\s a -> s {_deletesubneteSubnetId = a})
+deleteSubnet_subnetId :: Lens.Lens' DeleteSubnet Prelude.Text
+deleteSubnet_subnetId = Lens.lens (\DeleteSubnet' {subnetId} -> subnetId) (\s@DeleteSubnet' {} a -> s {subnetId = a} :: DeleteSubnet)
 
-instance AWSRequest DeleteSubnet where
+instance Prelude.AWSRequest DeleteSubnet where
   type Rs DeleteSubnet = DeleteSubnetResponse
-  request = postQuery ec2
-  response = receiveNull DeleteSubnetResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull DeleteSubnetResponse'
 
-instance Hashable DeleteSubnet
+instance Prelude.Hashable DeleteSubnet
 
-instance NFData DeleteSubnet
+instance Prelude.NFData DeleteSubnet
 
-instance ToHeaders DeleteSubnet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteSubnet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteSubnet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSubnet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSubnet where
+instance Prelude.ToQuery DeleteSubnet where
   toQuery DeleteSubnet' {..} =
-    mconcat
-      [ "Action" =: ("DeleteSubnet" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _deletesubneteDryRun,
-        "SubnetId" =: _deletesubneteSubnetId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteSubnet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "SubnetId" Prelude.=: subnetId
       ]
 
--- | /See:/ 'deleteSubnetResponse' smart constructor.
+-- | /See:/ 'newDeleteSubnetResponse' smart constructor.
 data DeleteSubnetResponse = DeleteSubnetResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSubnetResponse' with the minimum fields required to make a request.
-deleteSubnetResponse ::
+-- |
+-- Create a value of 'DeleteSubnetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteSubnetResponse ::
   DeleteSubnetResponse
-deleteSubnetResponse = DeleteSubnetResponse'
+newDeleteSubnetResponse = DeleteSubnetResponse'
 
-instance NFData DeleteSubnetResponse
+instance Prelude.NFData DeleteSubnetResponse

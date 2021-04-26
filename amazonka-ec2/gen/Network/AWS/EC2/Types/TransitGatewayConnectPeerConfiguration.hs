@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +21,99 @@ module Network.AWS.EC2.Types.TransitGatewayConnectPeerConfiguration where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ProtocolValue
-import Network.AWS.EC2.Types.TransitGatewayAttachmentBGPConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.EC2.Types.TransitGatewayAttachmentBgpConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the Connect peer details.
 --
---
---
--- /See:/ 'transitGatewayConnectPeerConfiguration' smart constructor.
+-- /See:/ 'newTransitGatewayConnectPeerConfiguration' smart constructor.
 data TransitGatewayConnectPeerConfiguration = TransitGatewayConnectPeerConfiguration'
-  { _tgcpcPeerAddress ::
-      !( Maybe
-           Text
-       ),
-    _tgcpcTransitGatewayAddress ::
-      !( Maybe
-           Text
-       ),
-    _tgcpcBGPConfigurations ::
-      !( Maybe
-           [TransitGatewayAttachmentBGPConfiguration]
-       ),
-    _tgcpcProtocol ::
-      !( Maybe
-           ProtocolValue
-       ),
-    _tgcpcInsideCidrBlocks ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The Connect peer IP address on the appliance side of the tunnel.
+    peerAddress :: Prelude.Maybe Prelude.Text,
+    -- | The Connect peer IP address on the transit gateway side of the tunnel.
+    transitGatewayAddress :: Prelude.Maybe Prelude.Text,
+    -- | The BGP configuration details.
+    bgpConfigurations :: Prelude.Maybe [TransitGatewayAttachmentBgpConfiguration],
+    -- | The tunnel protocol.
+    protocol :: Prelude.Maybe ProtocolValue,
+    -- | The range of interior BGP peer IP addresses.
+    insideCidrBlocks :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGatewayConnectPeerConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGatewayConnectPeerConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgcpcPeerAddress' - The Connect peer IP address on the appliance side of the tunnel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgcpcTransitGatewayAddress' - The Connect peer IP address on the transit gateway side of the tunnel.
+-- 'peerAddress', 'transitGatewayConnectPeerConfiguration_peerAddress' - The Connect peer IP address on the appliance side of the tunnel.
 --
--- * 'tgcpcBGPConfigurations' - The BGP configuration details.
+-- 'transitGatewayAddress', 'transitGatewayConnectPeerConfiguration_transitGatewayAddress' - The Connect peer IP address on the transit gateway side of the tunnel.
 --
--- * 'tgcpcProtocol' - The tunnel protocol.
+-- 'bgpConfigurations', 'transitGatewayConnectPeerConfiguration_bgpConfigurations' - The BGP configuration details.
 --
--- * 'tgcpcInsideCidrBlocks' - The range of interior BGP peer IP addresses.
-transitGatewayConnectPeerConfiguration ::
+-- 'protocol', 'transitGatewayConnectPeerConfiguration_protocol' - The tunnel protocol.
+--
+-- 'insideCidrBlocks', 'transitGatewayConnectPeerConfiguration_insideCidrBlocks' - The range of interior BGP peer IP addresses.
+newTransitGatewayConnectPeerConfiguration ::
   TransitGatewayConnectPeerConfiguration
-transitGatewayConnectPeerConfiguration =
+newTransitGatewayConnectPeerConfiguration =
   TransitGatewayConnectPeerConfiguration'
-    { _tgcpcPeerAddress =
-        Nothing,
-      _tgcpcTransitGatewayAddress =
-        Nothing,
-      _tgcpcBGPConfigurations = Nothing,
-      _tgcpcProtocol = Nothing,
-      _tgcpcInsideCidrBlocks = Nothing
+    { peerAddress =
+        Prelude.Nothing,
+      transitGatewayAddress =
+        Prelude.Nothing,
+      bgpConfigurations = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      insideCidrBlocks = Prelude.Nothing
     }
 
 -- | The Connect peer IP address on the appliance side of the tunnel.
-tgcpcPeerAddress :: Lens' TransitGatewayConnectPeerConfiguration (Maybe Text)
-tgcpcPeerAddress = lens _tgcpcPeerAddress (\s a -> s {_tgcpcPeerAddress = a})
+transitGatewayConnectPeerConfiguration_peerAddress :: Lens.Lens' TransitGatewayConnectPeerConfiguration (Prelude.Maybe Prelude.Text)
+transitGatewayConnectPeerConfiguration_peerAddress = Lens.lens (\TransitGatewayConnectPeerConfiguration' {peerAddress} -> peerAddress) (\s@TransitGatewayConnectPeerConfiguration' {} a -> s {peerAddress = a} :: TransitGatewayConnectPeerConfiguration)
 
 -- | The Connect peer IP address on the transit gateway side of the tunnel.
-tgcpcTransitGatewayAddress :: Lens' TransitGatewayConnectPeerConfiguration (Maybe Text)
-tgcpcTransitGatewayAddress = lens _tgcpcTransitGatewayAddress (\s a -> s {_tgcpcTransitGatewayAddress = a})
+transitGatewayConnectPeerConfiguration_transitGatewayAddress :: Lens.Lens' TransitGatewayConnectPeerConfiguration (Prelude.Maybe Prelude.Text)
+transitGatewayConnectPeerConfiguration_transitGatewayAddress = Lens.lens (\TransitGatewayConnectPeerConfiguration' {transitGatewayAddress} -> transitGatewayAddress) (\s@TransitGatewayConnectPeerConfiguration' {} a -> s {transitGatewayAddress = a} :: TransitGatewayConnectPeerConfiguration)
 
 -- | The BGP configuration details.
-tgcpcBGPConfigurations :: Lens' TransitGatewayConnectPeerConfiguration [TransitGatewayAttachmentBGPConfiguration]
-tgcpcBGPConfigurations = lens _tgcpcBGPConfigurations (\s a -> s {_tgcpcBGPConfigurations = a}) . _Default . _Coerce
+transitGatewayConnectPeerConfiguration_bgpConfigurations :: Lens.Lens' TransitGatewayConnectPeerConfiguration (Prelude.Maybe [TransitGatewayAttachmentBgpConfiguration])
+transitGatewayConnectPeerConfiguration_bgpConfigurations = Lens.lens (\TransitGatewayConnectPeerConfiguration' {bgpConfigurations} -> bgpConfigurations) (\s@TransitGatewayConnectPeerConfiguration' {} a -> s {bgpConfigurations = a} :: TransitGatewayConnectPeerConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tunnel protocol.
-tgcpcProtocol :: Lens' TransitGatewayConnectPeerConfiguration (Maybe ProtocolValue)
-tgcpcProtocol = lens _tgcpcProtocol (\s a -> s {_tgcpcProtocol = a})
+transitGatewayConnectPeerConfiguration_protocol :: Lens.Lens' TransitGatewayConnectPeerConfiguration (Prelude.Maybe ProtocolValue)
+transitGatewayConnectPeerConfiguration_protocol = Lens.lens (\TransitGatewayConnectPeerConfiguration' {protocol} -> protocol) (\s@TransitGatewayConnectPeerConfiguration' {} a -> s {protocol = a} :: TransitGatewayConnectPeerConfiguration)
 
 -- | The range of interior BGP peer IP addresses.
-tgcpcInsideCidrBlocks :: Lens' TransitGatewayConnectPeerConfiguration [Text]
-tgcpcInsideCidrBlocks = lens _tgcpcInsideCidrBlocks (\s a -> s {_tgcpcInsideCidrBlocks = a}) . _Default . _Coerce
+transitGatewayConnectPeerConfiguration_insideCidrBlocks :: Lens.Lens' TransitGatewayConnectPeerConfiguration (Prelude.Maybe [Prelude.Text])
+transitGatewayConnectPeerConfiguration_insideCidrBlocks = Lens.lens (\TransitGatewayConnectPeerConfiguration' {insideCidrBlocks} -> insideCidrBlocks) (\s@TransitGatewayConnectPeerConfiguration' {} a -> s {insideCidrBlocks = a} :: TransitGatewayConnectPeerConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  FromXML
+  Prelude.FromXML
     TransitGatewayConnectPeerConfiguration
   where
   parseXML x =
     TransitGatewayConnectPeerConfiguration'
-      <$> (x .@? "peerAddress")
-      <*> (x .@? "transitGatewayAddress")
-      <*> ( x .@? "bgpConfigurations" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "protocol")
-      <*> ( x .@? "insideCidrBlocks" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "peerAddress")
+      Prelude.<*> (x Prelude..@? "transitGatewayAddress")
+      Prelude.<*> ( x Prelude..@? "bgpConfigurations"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "protocol")
+      Prelude.<*> ( x Prelude..@? "insideCidrBlocks"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
 instance
-  Hashable
+  Prelude.Hashable
     TransitGatewayConnectPeerConfiguration
 
 instance
-  NFData
+  Prelude.NFData
     TransitGatewayConnectPeerConfiguration

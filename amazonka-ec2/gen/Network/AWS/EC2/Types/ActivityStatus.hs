@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.EC2.Types.ActivityStatus
   ( ActivityStatus
       ( ..,
-        ASError',
-        ASFulfilled,
-        ASPendingFulfillment,
-        ASPendingTermination
+        ActivityStatusError,
+        ActivityStatusFulfilled,
+        ActivityStatusPendingFulfillment,
+        ActivityStatusPendingTermination
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActivityStatus = ActivityStatus' (CI Text)
+newtype ActivityStatus = ActivityStatus'
+  { fromActivityStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASError' :: ActivityStatus
-pattern ASError' = ActivityStatus' "error"
+pattern ActivityStatusError :: ActivityStatus
+pattern ActivityStatusError = ActivityStatus' "error"
 
-pattern ASFulfilled :: ActivityStatus
-pattern ASFulfilled = ActivityStatus' "fulfilled"
+pattern ActivityStatusFulfilled :: ActivityStatus
+pattern ActivityStatusFulfilled = ActivityStatus' "fulfilled"
 
-pattern ASPendingFulfillment :: ActivityStatus
-pattern ASPendingFulfillment = ActivityStatus' "pending_fulfillment"
+pattern ActivityStatusPendingFulfillment :: ActivityStatus
+pattern ActivityStatusPendingFulfillment = ActivityStatus' "pending_fulfillment"
 
-pattern ASPendingTermination :: ActivityStatus
-pattern ASPendingTermination = ActivityStatus' "pending_termination"
+pattern ActivityStatusPendingTermination :: ActivityStatus
+pattern ActivityStatusPendingTermination = ActivityStatus' "pending_termination"
 
 {-# COMPLETE
-  ASError',
-  ASFulfilled,
-  ASPendingFulfillment,
-  ASPendingTermination,
+  ActivityStatusError,
+  ActivityStatusFulfilled,
+  ActivityStatusPendingFulfillment,
+  ActivityStatusPendingTermination,
   ActivityStatus'
   #-}
 
-instance FromText ActivityStatus where
-  parser = (ActivityStatus' . mk) <$> takeText
+instance Prelude.FromText ActivityStatus where
+  parser = ActivityStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ActivityStatus where
-  toText (ActivityStatus' ci) = original ci
+instance Prelude.ToText ActivityStatus where
+  toText (ActivityStatus' x) = x
 
-instance Hashable ActivityStatus
+instance Prelude.Hashable ActivityStatus
 
-instance NFData ActivityStatus
+instance Prelude.NFData ActivityStatus
 
-instance ToByteString ActivityStatus
+instance Prelude.ToByteString ActivityStatus
 
-instance ToQuery ActivityStatus
+instance Prelude.ToQuery ActivityStatus
 
-instance ToHeader ActivityStatus
+instance Prelude.ToHeader ActivityStatus
 
-instance FromXML ActivityStatus where
-  parseXML = parseXMLText "ActivityStatus"
+instance Prelude.FromXML ActivityStatus where
+  parseXML = Prelude.parseXMLText "ActivityStatus"

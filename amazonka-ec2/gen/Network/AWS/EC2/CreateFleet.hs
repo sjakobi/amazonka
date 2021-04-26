@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,280 +23,424 @@
 --
 -- Launches an EC2 Fleet.
 --
+-- You can create a single EC2 Fleet that includes multiple launch
+-- specifications that vary by instance type, AMI, Availability Zone, or
+-- subnet.
 --
--- You can create a single EC2 Fleet that includes multiple launch specifications that vary by instance type, AMI, Availability Zone, or subnet.
---
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet.html Launching an EC2 Fleet> in the /Amazon EC2 User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet.html Launching an EC2 Fleet>
+-- in the /Amazon EC2 User Guide/.
 module Network.AWS.EC2.CreateFleet
   ( -- * Creating a Request
-    createFleet,
-    CreateFleet,
+    CreateFleet (..),
+    newCreateFleet,
 
     -- * Request Lenses
-    cfTagSpecifications,
-    cfDryRun,
-    cfOnDemandOptions,
-    cfValidFrom,
-    cfReplaceUnhealthyInstances,
-    cfValidUntil,
-    cfExcessCapacityTerminationPolicy,
-    cfType,
-    cfSpotOptions,
-    cfClientToken,
-    cfTerminateInstancesWithExpiration,
-    cfLaunchTemplateConfigs,
-    cfTargetCapacitySpecification,
+    createFleet_tagSpecifications,
+    createFleet_dryRun,
+    createFleet_onDemandOptions,
+    createFleet_validFrom,
+    createFleet_replaceUnhealthyInstances,
+    createFleet_validUntil,
+    createFleet_excessCapacityTerminationPolicy,
+    createFleet_type,
+    createFleet_spotOptions,
+    createFleet_clientToken,
+    createFleet_terminateInstancesWithExpiration,
+    createFleet_launchTemplateConfigs,
+    createFleet_targetCapacitySpecification,
 
     -- * Destructuring the Response
-    createFleetResponse,
-    CreateFleetResponse,
+    CreateFleetResponse (..),
+    newCreateFleetResponse,
 
     -- * Response Lenses
-    cfrrsFleetId,
-    cfrrsInstances,
-    cfrrsErrors,
-    cfrrsResponseStatus,
+    createFleetResponse_fleetId,
+    createFleetResponse_instances,
+    createFleetResponse_errors,
+    createFleetResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.CreateFleetError
+import Network.AWS.EC2.Types.CreateFleetInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createFleet' smart constructor.
+-- | /See:/ 'newCreateFleet' smart constructor.
 data CreateFleet = CreateFleet'
-  { _cfTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _cfDryRun :: !(Maybe Bool),
-    _cfOnDemandOptions ::
-      !(Maybe OnDemandOptionsRequest),
-    _cfValidFrom :: !(Maybe ISO8601),
-    _cfReplaceUnhealthyInstances :: !(Maybe Bool),
-    _cfValidUntil :: !(Maybe ISO8601),
-    _cfExcessCapacityTerminationPolicy ::
-      !(Maybe FleetExcessCapacityTerminationPolicy),
-    _cfType :: !(Maybe FleetType),
-    _cfSpotOptions :: !(Maybe SpotOptionsRequest),
-    _cfClientToken :: !(Maybe Text),
-    _cfTerminateInstancesWithExpiration ::
-      !(Maybe Bool),
-    _cfLaunchTemplateConfigs ::
-      ![FleetLaunchTemplateConfigRequest],
-    _cfTargetCapacitySpecification ::
-      !TargetCapacitySpecificationRequest
+  { -- | The key-value pair for tagging the EC2 Fleet request on creation. The
+    -- value for @ResourceType@ must be @fleet@, otherwise the fleet request
+    -- fails. To tag instances at launch, specify the tags in the
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template launch template>.
+    -- For information about tagging after launch, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources Tagging your resources>.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Describes the configuration of On-Demand Instances in an EC2 Fleet.
+    onDemandOptions :: Prelude.Maybe OnDemandOptionsRequest,
+    -- | The start date and time of the request, in UTC format (for example,
+    -- /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z). The default is to start fulfilling
+    -- the request immediately.
+    validFrom :: Prelude.Maybe Prelude.ISO8601,
+    -- | Indicates whether EC2 Fleet should replace unhealthy Spot Instances.
+    -- Supported only for fleets of type @maintain@. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks EC2 Fleet health checks>
+    -- in the /Amazon EC2 User Guide/.
+    replaceUnhealthyInstances :: Prelude.Maybe Prelude.Bool,
+    -- | The end date and time of the request, in UTC format (for example,
+    -- /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z). At this point, no new EC2 Fleet
+    -- requests are placed or able to fulfill the request. If no value is
+    -- specified, the request remains until you cancel it.
+    validUntil :: Prelude.Maybe Prelude.ISO8601,
+    -- | Indicates whether running instances should be terminated if the total
+    -- target capacity of the EC2 Fleet is decreased below the current size of
+    -- the EC2 Fleet.
+    excessCapacityTerminationPolicy :: Prelude.Maybe FleetExcessCapacityTerminationPolicy,
+    -- | The type of request. The default value is @maintain@.
+    --
+    -- -   @maintain@ - The EC2 Fleet places an asynchronous request for your
+    --     desired capacity, and continues to maintain your desired Spot
+    --     capacity by replenishing interrupted Spot Instances.
+    --
+    -- -   @request@ - The EC2 Fleet places an asynchronous one-time request
+    --     for your desired capacity, but does submit Spot requests in
+    --     alternative capacity pools if Spot capacity is unavailable, and does
+    --     not maintain Spot capacity if Spot Instances are interrupted.
+    --
+    -- -   @instant@ - The EC2 Fleet places a synchronous one-time request for
+    --     your desired capacity, and returns errors for any instances that
+    --     could not be launched.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#ec2-fleet-request-type EC2 Fleet request types>
+    -- in the /Amazon EC2 User Guide/.
+    type' :: Prelude.Maybe FleetType,
+    -- | Describes the configuration of Spot Instances in an EC2 Fleet.
+    spotOptions :: Prelude.Maybe SpotOptionsRequest,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether running instances should be terminated when the EC2
+    -- Fleet expires.
+    terminateInstancesWithExpiration :: Prelude.Maybe Prelude.Bool,
+    -- | The configuration for the EC2 Fleet.
+    launchTemplateConfigs :: [FleetLaunchTemplateConfigRequest],
+    -- | The number of units to request.
+    targetCapacitySpecification :: TargetCapacitySpecificationRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfTagSpecifications' - The key-value pair for tagging the EC2 Fleet request on creation. The value for @ResourceType@ must be @fleet@ , otherwise the fleet request fails. To tag instances at launch, specify the tags in the <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template launch template> . For information about tagging after launch, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources Tagging your resources> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createFleet_tagSpecifications' - The key-value pair for tagging the EC2 Fleet request on creation. The
+-- value for @ResourceType@ must be @fleet@, otherwise the fleet request
+-- fails. To tag instances at launch, specify the tags in the
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template launch template>.
+-- For information about tagging after launch, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources Tagging your resources>.
 --
--- * 'cfOnDemandOptions' - Describes the configuration of On-Demand Instances in an EC2 Fleet.
+-- 'dryRun', 'createFleet_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'cfValidFrom' - The start date and time of the request, in UTC format (for example, /YYYY/ -/MM/ -/DD/ T/HH/ :/MM/ :/SS/ Z). The default is to start fulfilling the request immediately.
+-- 'onDemandOptions', 'createFleet_onDemandOptions' - Describes the configuration of On-Demand Instances in an EC2 Fleet.
 --
--- * 'cfReplaceUnhealthyInstances' - Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type @maintain@ . For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks EC2 Fleet health checks> in the /Amazon EC2 User Guide/ .
+-- 'validFrom', 'createFleet_validFrom' - The start date and time of the request, in UTC format (for example,
+-- /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z). The default is to start fulfilling
+-- the request immediately.
 --
--- * 'cfValidUntil' - The end date and time of the request, in UTC format (for example, /YYYY/ -/MM/ -/DD/ T/HH/ :/MM/ :/SS/ Z). At this point, no new EC2 Fleet requests are placed or able to fulfill the request. If no value is specified, the request remains until you cancel it.
+-- 'replaceUnhealthyInstances', 'createFleet_replaceUnhealthyInstances' - Indicates whether EC2 Fleet should replace unhealthy Spot Instances.
+-- Supported only for fleets of type @maintain@. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks EC2 Fleet health checks>
+-- in the /Amazon EC2 User Guide/.
 --
--- * 'cfExcessCapacityTerminationPolicy' - Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.
+-- 'validUntil', 'createFleet_validUntil' - The end date and time of the request, in UTC format (for example,
+-- /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z). At this point, no new EC2 Fleet
+-- requests are placed or able to fulfill the request. If no value is
+-- specified, the request remains until you cancel it.
 --
--- * 'cfType' - The type of request. The default value is @maintain@ .     * @maintain@ - The EC2 Fleet places an asynchronous request for your desired capacity, and continues to maintain your desired Spot capacity by replenishing interrupted Spot Instances.     * @request@ - The EC2 Fleet places an asynchronous one-time request for your desired capacity, but does submit Spot requests in alternative capacity pools if Spot capacity is unavailable, and does not maintain Spot capacity if Spot Instances are interrupted.     * @instant@ - The EC2 Fleet places a synchronous one-time request for your desired capacity, and returns errors for any instances that could not be launched. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#ec2-fleet-request-type EC2 Fleet request types> in the /Amazon EC2 User Guide/ .
+-- 'excessCapacityTerminationPolicy', 'createFleet_excessCapacityTerminationPolicy' - Indicates whether running instances should be terminated if the total
+-- target capacity of the EC2 Fleet is decreased below the current size of
+-- the EC2 Fleet.
 --
--- * 'cfSpotOptions' - Describes the configuration of Spot Instances in an EC2 Fleet.
+-- 'type'', 'createFleet_type' - The type of request. The default value is @maintain@.
 --
--- * 'cfClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
+-- -   @maintain@ - The EC2 Fleet places an asynchronous request for your
+--     desired capacity, and continues to maintain your desired Spot
+--     capacity by replenishing interrupted Spot Instances.
 --
--- * 'cfTerminateInstancesWithExpiration' - Indicates whether running instances should be terminated when the EC2 Fleet expires.
+-- -   @request@ - The EC2 Fleet places an asynchronous one-time request
+--     for your desired capacity, but does submit Spot requests in
+--     alternative capacity pools if Spot capacity is unavailable, and does
+--     not maintain Spot capacity if Spot Instances are interrupted.
 --
--- * 'cfLaunchTemplateConfigs' - The configuration for the EC2 Fleet.
+-- -   @instant@ - The EC2 Fleet places a synchronous one-time request for
+--     your desired capacity, and returns errors for any instances that
+--     could not be launched.
 --
--- * 'cfTargetCapacitySpecification' - The number of units to request.
-createFleet ::
-  -- | 'cfTargetCapacitySpecification'
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#ec2-fleet-request-type EC2 Fleet request types>
+-- in the /Amazon EC2 User Guide/.
+--
+-- 'spotOptions', 'createFleet_spotOptions' - Describes the configuration of Spot Instances in an EC2 Fleet.
+--
+-- 'clientToken', 'createFleet_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+--
+-- 'terminateInstancesWithExpiration', 'createFleet_terminateInstancesWithExpiration' - Indicates whether running instances should be terminated when the EC2
+-- Fleet expires.
+--
+-- 'launchTemplateConfigs', 'createFleet_launchTemplateConfigs' - The configuration for the EC2 Fleet.
+--
+-- 'targetCapacitySpecification', 'createFleet_targetCapacitySpecification' - The number of units to request.
+newCreateFleet ::
+  -- | 'targetCapacitySpecification'
   TargetCapacitySpecificationRequest ->
   CreateFleet
-createFleet pTargetCapacitySpecification_ =
+newCreateFleet pTargetCapacitySpecification_ =
   CreateFleet'
-    { _cfTagSpecifications = Nothing,
-      _cfDryRun = Nothing,
-      _cfOnDemandOptions = Nothing,
-      _cfValidFrom = Nothing,
-      _cfReplaceUnhealthyInstances = Nothing,
-      _cfValidUntil = Nothing,
-      _cfExcessCapacityTerminationPolicy = Nothing,
-      _cfType = Nothing,
-      _cfSpotOptions = Nothing,
-      _cfClientToken = Nothing,
-      _cfTerminateInstancesWithExpiration = Nothing,
-      _cfLaunchTemplateConfigs = mempty,
-      _cfTargetCapacitySpecification =
+    { tagSpecifications = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      onDemandOptions = Prelude.Nothing,
+      validFrom = Prelude.Nothing,
+      replaceUnhealthyInstances = Prelude.Nothing,
+      validUntil = Prelude.Nothing,
+      excessCapacityTerminationPolicy = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      spotOptions = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
+      terminateInstancesWithExpiration = Prelude.Nothing,
+      launchTemplateConfigs = Prelude.mempty,
+      targetCapacitySpecification =
         pTargetCapacitySpecification_
     }
 
--- | The key-value pair for tagging the EC2 Fleet request on creation. The value for @ResourceType@ must be @fleet@ , otherwise the fleet request fails. To tag instances at launch, specify the tags in the <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template launch template> . For information about tagging after launch, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources Tagging your resources> .
-cfTagSpecifications :: Lens' CreateFleet [TagSpecification]
-cfTagSpecifications = lens _cfTagSpecifications (\s a -> s {_cfTagSpecifications = a}) . _Default . _Coerce
+-- | The key-value pair for tagging the EC2 Fleet request on creation. The
+-- value for @ResourceType@ must be @fleet@, otherwise the fleet request
+-- fails. To tag instances at launch, specify the tags in the
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template launch template>.
+-- For information about tagging after launch, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources Tagging your resources>.
+createFleet_tagSpecifications :: Lens.Lens' CreateFleet (Prelude.Maybe [TagSpecification])
+createFleet_tagSpecifications = Lens.lens (\CreateFleet' {tagSpecifications} -> tagSpecifications) (\s@CreateFleet' {} a -> s {tagSpecifications = a} :: CreateFleet) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-cfDryRun :: Lens' CreateFleet (Maybe Bool)
-cfDryRun = lens _cfDryRun (\s a -> s {_cfDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createFleet_dryRun :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Bool)
+createFleet_dryRun = Lens.lens (\CreateFleet' {dryRun} -> dryRun) (\s@CreateFleet' {} a -> s {dryRun = a} :: CreateFleet)
 
 -- | Describes the configuration of On-Demand Instances in an EC2 Fleet.
-cfOnDemandOptions :: Lens' CreateFleet (Maybe OnDemandOptionsRequest)
-cfOnDemandOptions = lens _cfOnDemandOptions (\s a -> s {_cfOnDemandOptions = a})
+createFleet_onDemandOptions :: Lens.Lens' CreateFleet (Prelude.Maybe OnDemandOptionsRequest)
+createFleet_onDemandOptions = Lens.lens (\CreateFleet' {onDemandOptions} -> onDemandOptions) (\s@CreateFleet' {} a -> s {onDemandOptions = a} :: CreateFleet)
 
--- | The start date and time of the request, in UTC format (for example, /YYYY/ -/MM/ -/DD/ T/HH/ :/MM/ :/SS/ Z). The default is to start fulfilling the request immediately.
-cfValidFrom :: Lens' CreateFleet (Maybe UTCTime)
-cfValidFrom = lens _cfValidFrom (\s a -> s {_cfValidFrom = a}) . mapping _Time
+-- | The start date and time of the request, in UTC format (for example,
+-- /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z). The default is to start fulfilling
+-- the request immediately.
+createFleet_validFrom :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.UTCTime)
+createFleet_validFrom = Lens.lens (\CreateFleet' {validFrom} -> validFrom) (\s@CreateFleet' {} a -> s {validFrom = a} :: CreateFleet) Prelude.. Lens.mapping Prelude._Time
 
--- | Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type @maintain@ . For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks EC2 Fleet health checks> in the /Amazon EC2 User Guide/ .
-cfReplaceUnhealthyInstances :: Lens' CreateFleet (Maybe Bool)
-cfReplaceUnhealthyInstances = lens _cfReplaceUnhealthyInstances (\s a -> s {_cfReplaceUnhealthyInstances = a})
+-- | Indicates whether EC2 Fleet should replace unhealthy Spot Instances.
+-- Supported only for fleets of type @maintain@. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks EC2 Fleet health checks>
+-- in the /Amazon EC2 User Guide/.
+createFleet_replaceUnhealthyInstances :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Bool)
+createFleet_replaceUnhealthyInstances = Lens.lens (\CreateFleet' {replaceUnhealthyInstances} -> replaceUnhealthyInstances) (\s@CreateFleet' {} a -> s {replaceUnhealthyInstances = a} :: CreateFleet)
 
--- | The end date and time of the request, in UTC format (for example, /YYYY/ -/MM/ -/DD/ T/HH/ :/MM/ :/SS/ Z). At this point, no new EC2 Fleet requests are placed or able to fulfill the request. If no value is specified, the request remains until you cancel it.
-cfValidUntil :: Lens' CreateFleet (Maybe UTCTime)
-cfValidUntil = lens _cfValidUntil (\s a -> s {_cfValidUntil = a}) . mapping _Time
+-- | The end date and time of the request, in UTC format (for example,
+-- /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z). At this point, no new EC2 Fleet
+-- requests are placed or able to fulfill the request. If no value is
+-- specified, the request remains until you cancel it.
+createFleet_validUntil :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.UTCTime)
+createFleet_validUntil = Lens.lens (\CreateFleet' {validUntil} -> validUntil) (\s@CreateFleet' {} a -> s {validUntil = a} :: CreateFleet) Prelude.. Lens.mapping Prelude._Time
 
--- | Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.
-cfExcessCapacityTerminationPolicy :: Lens' CreateFleet (Maybe FleetExcessCapacityTerminationPolicy)
-cfExcessCapacityTerminationPolicy = lens _cfExcessCapacityTerminationPolicy (\s a -> s {_cfExcessCapacityTerminationPolicy = a})
+-- | Indicates whether running instances should be terminated if the total
+-- target capacity of the EC2 Fleet is decreased below the current size of
+-- the EC2 Fleet.
+createFleet_excessCapacityTerminationPolicy :: Lens.Lens' CreateFleet (Prelude.Maybe FleetExcessCapacityTerminationPolicy)
+createFleet_excessCapacityTerminationPolicy = Lens.lens (\CreateFleet' {excessCapacityTerminationPolicy} -> excessCapacityTerminationPolicy) (\s@CreateFleet' {} a -> s {excessCapacityTerminationPolicy = a} :: CreateFleet)
 
--- | The type of request. The default value is @maintain@ .     * @maintain@ - The EC2 Fleet places an asynchronous request for your desired capacity, and continues to maintain your desired Spot capacity by replenishing interrupted Spot Instances.     * @request@ - The EC2 Fleet places an asynchronous one-time request for your desired capacity, but does submit Spot requests in alternative capacity pools if Spot capacity is unavailable, and does not maintain Spot capacity if Spot Instances are interrupted.     * @instant@ - The EC2 Fleet places a synchronous one-time request for your desired capacity, and returns errors for any instances that could not be launched. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#ec2-fleet-request-type EC2 Fleet request types> in the /Amazon EC2 User Guide/ .
-cfType :: Lens' CreateFleet (Maybe FleetType)
-cfType = lens _cfType (\s a -> s {_cfType = a})
+-- | The type of request. The default value is @maintain@.
+--
+-- -   @maintain@ - The EC2 Fleet places an asynchronous request for your
+--     desired capacity, and continues to maintain your desired Spot
+--     capacity by replenishing interrupted Spot Instances.
+--
+-- -   @request@ - The EC2 Fleet places an asynchronous one-time request
+--     for your desired capacity, but does submit Spot requests in
+--     alternative capacity pools if Spot capacity is unavailable, and does
+--     not maintain Spot capacity if Spot Instances are interrupted.
+--
+-- -   @instant@ - The EC2 Fleet places a synchronous one-time request for
+--     your desired capacity, and returns errors for any instances that
+--     could not be launched.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#ec2-fleet-request-type EC2 Fleet request types>
+-- in the /Amazon EC2 User Guide/.
+createFleet_type :: Lens.Lens' CreateFleet (Prelude.Maybe FleetType)
+createFleet_type = Lens.lens (\CreateFleet' {type'} -> type') (\s@CreateFleet' {} a -> s {type' = a} :: CreateFleet)
 
 -- | Describes the configuration of Spot Instances in an EC2 Fleet.
-cfSpotOptions :: Lens' CreateFleet (Maybe SpotOptionsRequest)
-cfSpotOptions = lens _cfSpotOptions (\s a -> s {_cfSpotOptions = a})
+createFleet_spotOptions :: Lens.Lens' CreateFleet (Prelude.Maybe SpotOptionsRequest)
+createFleet_spotOptions = Lens.lens (\CreateFleet' {spotOptions} -> spotOptions) (\s@CreateFleet' {} a -> s {spotOptions = a} :: CreateFleet)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency> .
-cfClientToken :: Lens' CreateFleet (Maybe Text)
-cfClientToken = lens _cfClientToken (\s a -> s {_cfClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html Ensuring Idempotency>.
+createFleet_clientToken :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Text)
+createFleet_clientToken = Lens.lens (\CreateFleet' {clientToken} -> clientToken) (\s@CreateFleet' {} a -> s {clientToken = a} :: CreateFleet)
 
--- | Indicates whether running instances should be terminated when the EC2 Fleet expires.
-cfTerminateInstancesWithExpiration :: Lens' CreateFleet (Maybe Bool)
-cfTerminateInstancesWithExpiration = lens _cfTerminateInstancesWithExpiration (\s a -> s {_cfTerminateInstancesWithExpiration = a})
+-- | Indicates whether running instances should be terminated when the EC2
+-- Fleet expires.
+createFleet_terminateInstancesWithExpiration :: Lens.Lens' CreateFleet (Prelude.Maybe Prelude.Bool)
+createFleet_terminateInstancesWithExpiration = Lens.lens (\CreateFleet' {terminateInstancesWithExpiration} -> terminateInstancesWithExpiration) (\s@CreateFleet' {} a -> s {terminateInstancesWithExpiration = a} :: CreateFleet)
 
 -- | The configuration for the EC2 Fleet.
-cfLaunchTemplateConfigs :: Lens' CreateFleet [FleetLaunchTemplateConfigRequest]
-cfLaunchTemplateConfigs = lens _cfLaunchTemplateConfigs (\s a -> s {_cfLaunchTemplateConfigs = a}) . _Coerce
+createFleet_launchTemplateConfigs :: Lens.Lens' CreateFleet [FleetLaunchTemplateConfigRequest]
+createFleet_launchTemplateConfigs = Lens.lens (\CreateFleet' {launchTemplateConfigs} -> launchTemplateConfigs) (\s@CreateFleet' {} a -> s {launchTemplateConfigs = a} :: CreateFleet) Prelude.. Prelude._Coerce
 
 -- | The number of units to request.
-cfTargetCapacitySpecification :: Lens' CreateFleet TargetCapacitySpecificationRequest
-cfTargetCapacitySpecification = lens _cfTargetCapacitySpecification (\s a -> s {_cfTargetCapacitySpecification = a})
+createFleet_targetCapacitySpecification :: Lens.Lens' CreateFleet TargetCapacitySpecificationRequest
+createFleet_targetCapacitySpecification = Lens.lens (\CreateFleet' {targetCapacitySpecification} -> targetCapacitySpecification) (\s@CreateFleet' {} a -> s {targetCapacitySpecification = a} :: CreateFleet)
 
-instance AWSRequest CreateFleet where
+instance Prelude.AWSRequest CreateFleet where
   type Rs CreateFleet = CreateFleetResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateFleetResponse'
-            <$> (x .@? "fleetId")
-            <*> ( x .@? "fleetInstanceSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> ( x .@? "errorSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "fleetId")
+            Prelude.<*> ( x Prelude..@? "fleetInstanceSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> ( x Prelude..@? "errorSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFleet
+instance Prelude.Hashable CreateFleet
 
-instance NFData CreateFleet
+instance Prelude.NFData CreateFleet
 
-instance ToHeaders CreateFleet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateFleet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateFleet where
-  toPath = const "/"
+instance Prelude.ToPath CreateFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateFleet where
+instance Prelude.ToQuery CreateFleet where
   toQuery CreateFleet' {..} =
-    mconcat
-      [ "Action" =: ("CreateFleet" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _cfTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateFleet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _cfDryRun,
-        "OnDemandOptions" =: _cfOnDemandOptions,
-        "ValidFrom" =: _cfValidFrom,
+        "DryRun" Prelude.=: dryRun,
+        "OnDemandOptions" Prelude.=: onDemandOptions,
+        "ValidFrom" Prelude.=: validFrom,
         "ReplaceUnhealthyInstances"
-          =: _cfReplaceUnhealthyInstances,
-        "ValidUntil" =: _cfValidUntil,
+          Prelude.=: replaceUnhealthyInstances,
+        "ValidUntil" Prelude.=: validUntil,
         "ExcessCapacityTerminationPolicy"
-          =: _cfExcessCapacityTerminationPolicy,
-        "Type" =: _cfType,
-        "SpotOptions" =: _cfSpotOptions,
-        "ClientToken" =: _cfClientToken,
+          Prelude.=: excessCapacityTerminationPolicy,
+        "Type" Prelude.=: type',
+        "SpotOptions" Prelude.=: spotOptions,
+        "ClientToken" Prelude.=: clientToken,
         "TerminateInstancesWithExpiration"
-          =: _cfTerminateInstancesWithExpiration,
-        toQueryList
+          Prelude.=: terminateInstancesWithExpiration,
+        Prelude.toQueryList
           "LaunchTemplateConfigs"
-          _cfLaunchTemplateConfigs,
+          launchTemplateConfigs,
         "TargetCapacitySpecification"
-          =: _cfTargetCapacitySpecification
+          Prelude.=: targetCapacitySpecification
       ]
 
--- | /See:/ 'createFleetResponse' smart constructor.
+-- | /See:/ 'newCreateFleetResponse' smart constructor.
 data CreateFleetResponse = CreateFleetResponse'
-  { _cfrrsFleetId ::
-      !(Maybe Text),
-    _cfrrsInstances ::
-      !(Maybe [CreateFleetInstance]),
-    _cfrrsErrors ::
-      !(Maybe [CreateFleetError]),
-    _cfrrsResponseStatus :: !Int
+  { -- | The ID of the EC2 Fleet.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the instances that were launched by the fleet. Valid
+    -- only when __Type__ is set to @instant@.
+    instances :: Prelude.Maybe [CreateFleetInstance],
+    -- | Information about the instances that could not be launched by the fleet.
+    -- Valid only when __Type__ is set to @instant@.
+    errors :: Prelude.Maybe [CreateFleetError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFleetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFleetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfrrsFleetId' - The ID of the EC2 Fleet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfrrsInstances' - Information about the instances that were launched by the fleet. Valid only when __Type__ is set to @instant@ .
+-- 'fleetId', 'createFleetResponse_fleetId' - The ID of the EC2 Fleet.
 --
--- * 'cfrrsErrors' - Information about the instances that could not be launched by the fleet. Valid only when __Type__ is set to @instant@ .
+-- 'instances', 'createFleetResponse_instances' - Information about the instances that were launched by the fleet. Valid
+-- only when __Type__ is set to @instant@.
 --
--- * 'cfrrsResponseStatus' - -- | The response status code.
-createFleetResponse ::
-  -- | 'cfrrsResponseStatus'
-  Int ->
+-- 'errors', 'createFleetResponse_errors' - Information about the instances that could not be launched by the fleet.
+-- Valid only when __Type__ is set to @instant@.
+--
+-- 'httpStatus', 'createFleetResponse_httpStatus' - The response's http status code.
+newCreateFleetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateFleetResponse
-createFleetResponse pResponseStatus_ =
+newCreateFleetResponse pHttpStatus_ =
   CreateFleetResponse'
-    { _cfrrsFleetId = Nothing,
-      _cfrrsInstances = Nothing,
-      _cfrrsErrors = Nothing,
-      _cfrrsResponseStatus = pResponseStatus_
+    { fleetId = Prelude.Nothing,
+      instances = Prelude.Nothing,
+      errors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the EC2 Fleet.
-cfrrsFleetId :: Lens' CreateFleetResponse (Maybe Text)
-cfrrsFleetId = lens _cfrrsFleetId (\s a -> s {_cfrrsFleetId = a})
+createFleetResponse_fleetId :: Lens.Lens' CreateFleetResponse (Prelude.Maybe Prelude.Text)
+createFleetResponse_fleetId = Lens.lens (\CreateFleetResponse' {fleetId} -> fleetId) (\s@CreateFleetResponse' {} a -> s {fleetId = a} :: CreateFleetResponse)
 
--- | Information about the instances that were launched by the fleet. Valid only when __Type__ is set to @instant@ .
-cfrrsInstances :: Lens' CreateFleetResponse [CreateFleetInstance]
-cfrrsInstances = lens _cfrrsInstances (\s a -> s {_cfrrsInstances = a}) . _Default . _Coerce
+-- | Information about the instances that were launched by the fleet. Valid
+-- only when __Type__ is set to @instant@.
+createFleetResponse_instances :: Lens.Lens' CreateFleetResponse (Prelude.Maybe [CreateFleetInstance])
+createFleetResponse_instances = Lens.lens (\CreateFleetResponse' {instances} -> instances) (\s@CreateFleetResponse' {} a -> s {instances = a} :: CreateFleetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information about the instances that could not be launched by the fleet. Valid only when __Type__ is set to @instant@ .
-cfrrsErrors :: Lens' CreateFleetResponse [CreateFleetError]
-cfrrsErrors = lens _cfrrsErrors (\s a -> s {_cfrrsErrors = a}) . _Default . _Coerce
+-- | Information about the instances that could not be launched by the fleet.
+-- Valid only when __Type__ is set to @instant@.
+createFleetResponse_errors :: Lens.Lens' CreateFleetResponse (Prelude.Maybe [CreateFleetError])
+createFleetResponse_errors = Lens.lens (\CreateFleetResponse' {errors} -> errors) (\s@CreateFleetResponse' {} a -> s {errors = a} :: CreateFleetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-cfrrsResponseStatus :: Lens' CreateFleetResponse Int
-cfrrsResponseStatus = lens _cfrrsResponseStatus (\s a -> s {_cfrrsResponseStatus = a})
+-- | The response's http status code.
+createFleetResponse_httpStatus :: Lens.Lens' CreateFleetResponse Prelude.Int
+createFleetResponse_httpStatus = Lens.lens (\CreateFleetResponse' {httpStatus} -> httpStatus) (\s@CreateFleetResponse' {} a -> s {httpStatus = a} :: CreateFleetResponse)
 
-instance NFData CreateFleetResponse
+instance Prelude.NFData CreateFleetResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.EC2.Types.ProtocolValue
   ( ProtocolValue
       ( ..,
-        Gre
+        ProtocolValueGre
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProtocolValue = ProtocolValue' (CI Text)
+newtype ProtocolValue = ProtocolValue'
+  { fromProtocolValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Gre :: ProtocolValue
-pattern Gre = ProtocolValue' "gre"
+pattern ProtocolValueGre :: ProtocolValue
+pattern ProtocolValueGre = ProtocolValue' "gre"
 
 {-# COMPLETE
-  Gre,
+  ProtocolValueGre,
   ProtocolValue'
   #-}
 
-instance FromText ProtocolValue where
-  parser = (ProtocolValue' . mk) <$> takeText
+instance Prelude.FromText ProtocolValue where
+  parser = ProtocolValue' Prelude.<$> Prelude.takeText
 
-instance ToText ProtocolValue where
-  toText (ProtocolValue' ci) = original ci
+instance Prelude.ToText ProtocolValue where
+  toText (ProtocolValue' x) = x
 
-instance Hashable ProtocolValue
+instance Prelude.Hashable ProtocolValue
 
-instance NFData ProtocolValue
+instance Prelude.NFData ProtocolValue
 
-instance ToByteString ProtocolValue
+instance Prelude.ToByteString ProtocolValue
 
-instance ToQuery ProtocolValue
+instance Prelude.ToQuery ProtocolValue
 
-instance ToHeader ProtocolValue
+instance Prelude.ToHeader ProtocolValue
 
-instance FromXML ProtocolValue where
-  parseXML = parseXMLText "ProtocolValue"
+instance Prelude.FromXML ProtocolValue where
+  parseXML = Prelude.parseXMLText "ProtocolValue"

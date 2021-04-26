@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,68 +20,73 @@
 module Network.AWS.EC2.Types.CoipAddressUsage where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes address usage for a customer-owned address pool.
 --
---
---
--- /See:/ 'coipAddressUsage' smart constructor.
+-- /See:/ 'newCoipAddressUsage' smart constructor.
 data CoipAddressUsage = CoipAddressUsage'
-  { _cauAWSAccountId ::
-      !(Maybe Text),
-    _cauCoIP :: !(Maybe Text),
-    _cauAWSService :: !(Maybe Text),
-    _cauAllocationId :: !(Maybe Text)
+  { -- | The AWS account ID.
+    awsAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The customer-owned IP address.
+    coIp :: Prelude.Maybe Prelude.Text,
+    -- | The AWS service.
+    awsService :: Prelude.Maybe Prelude.Text,
+    -- | The allocation ID of the address.
+    allocationId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CoipAddressUsage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CoipAddressUsage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cauAWSAccountId' - The AWS account ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cauCoIP' - The customer-owned IP address.
+-- 'awsAccountId', 'coipAddressUsage_awsAccountId' - The AWS account ID.
 --
--- * 'cauAWSService' - The AWS service.
+-- 'coIp', 'coipAddressUsage_coIp' - The customer-owned IP address.
 --
--- * 'cauAllocationId' - The allocation ID of the address.
-coipAddressUsage ::
+-- 'awsService', 'coipAddressUsage_awsService' - The AWS service.
+--
+-- 'allocationId', 'coipAddressUsage_allocationId' - The allocation ID of the address.
+newCoipAddressUsage ::
   CoipAddressUsage
-coipAddressUsage =
+newCoipAddressUsage =
   CoipAddressUsage'
-    { _cauAWSAccountId = Nothing,
-      _cauCoIP = Nothing,
-      _cauAWSService = Nothing,
-      _cauAllocationId = Nothing
+    { awsAccountId = Prelude.Nothing,
+      coIp = Prelude.Nothing,
+      awsService = Prelude.Nothing,
+      allocationId = Prelude.Nothing
     }
 
 -- | The AWS account ID.
-cauAWSAccountId :: Lens' CoipAddressUsage (Maybe Text)
-cauAWSAccountId = lens _cauAWSAccountId (\s a -> s {_cauAWSAccountId = a})
+coipAddressUsage_awsAccountId :: Lens.Lens' CoipAddressUsage (Prelude.Maybe Prelude.Text)
+coipAddressUsage_awsAccountId = Lens.lens (\CoipAddressUsage' {awsAccountId} -> awsAccountId) (\s@CoipAddressUsage' {} a -> s {awsAccountId = a} :: CoipAddressUsage)
 
 -- | The customer-owned IP address.
-cauCoIP :: Lens' CoipAddressUsage (Maybe Text)
-cauCoIP = lens _cauCoIP (\s a -> s {_cauCoIP = a})
+coipAddressUsage_coIp :: Lens.Lens' CoipAddressUsage (Prelude.Maybe Prelude.Text)
+coipAddressUsage_coIp = Lens.lens (\CoipAddressUsage' {coIp} -> coIp) (\s@CoipAddressUsage' {} a -> s {coIp = a} :: CoipAddressUsage)
 
 -- | The AWS service.
-cauAWSService :: Lens' CoipAddressUsage (Maybe Text)
-cauAWSService = lens _cauAWSService (\s a -> s {_cauAWSService = a})
+coipAddressUsage_awsService :: Lens.Lens' CoipAddressUsage (Prelude.Maybe Prelude.Text)
+coipAddressUsage_awsService = Lens.lens (\CoipAddressUsage' {awsService} -> awsService) (\s@CoipAddressUsage' {} a -> s {awsService = a} :: CoipAddressUsage)
 
 -- | The allocation ID of the address.
-cauAllocationId :: Lens' CoipAddressUsage (Maybe Text)
-cauAllocationId = lens _cauAllocationId (\s a -> s {_cauAllocationId = a})
+coipAddressUsage_allocationId :: Lens.Lens' CoipAddressUsage (Prelude.Maybe Prelude.Text)
+coipAddressUsage_allocationId = Lens.lens (\CoipAddressUsage' {allocationId} -> allocationId) (\s@CoipAddressUsage' {} a -> s {allocationId = a} :: CoipAddressUsage)
 
-instance FromXML CoipAddressUsage where
+instance Prelude.FromXML CoipAddressUsage where
   parseXML x =
     CoipAddressUsage'
-      <$> (x .@? "awsAccountId")
-      <*> (x .@? "coIp")
-      <*> (x .@? "awsService")
-      <*> (x .@? "allocationId")
+      Prelude.<$> (x Prelude..@? "awsAccountId")
+      Prelude.<*> (x Prelude..@? "coIp")
+      Prelude.<*> (x Prelude..@? "awsService")
+      Prelude.<*> (x Prelude..@? "allocationId")
 
-instance Hashable CoipAddressUsage
+instance Prelude.Hashable CoipAddressUsage
 
-instance NFData CoipAddressUsage
+instance Prelude.NFData CoipAddressUsage

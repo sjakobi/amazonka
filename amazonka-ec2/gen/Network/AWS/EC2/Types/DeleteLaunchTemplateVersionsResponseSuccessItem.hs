@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,84 +20,73 @@
 module Network.AWS.EC2.Types.DeleteLaunchTemplateVersionsResponseSuccessItem where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch template version that was successfully deleted.
 --
---
---
--- /See:/ 'deleteLaunchTemplateVersionsResponseSuccessItem' smart constructor.
+-- /See:/ 'newDeleteLaunchTemplateVersionsResponseSuccessItem' smart constructor.
 data DeleteLaunchTemplateVersionsResponseSuccessItem = DeleteLaunchTemplateVersionsResponseSuccessItem'
-  { _dltvrsiLaunchTemplateId ::
-      !( Maybe
-           Text
-       ),
-    _dltvrsiLaunchTemplateName ::
-      !( Maybe
-           Text
-       ),
-    _dltvrsiVersionNumber ::
-      !( Maybe
-           Integer
-       )
+  { -- | The ID of the launch template.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the launch template.
+    versionNumber :: Prelude.Maybe Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLaunchTemplateVersionsResponseSuccessItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLaunchTemplateVersionsResponseSuccessItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dltvrsiLaunchTemplateId' - The ID of the launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dltvrsiLaunchTemplateName' - The name of the launch template.
+-- 'launchTemplateId', 'deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateId' - The ID of the launch template.
 --
--- * 'dltvrsiVersionNumber' - The version number of the launch template.
-deleteLaunchTemplateVersionsResponseSuccessItem ::
+-- 'launchTemplateName', 'deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName' - The name of the launch template.
+--
+-- 'versionNumber', 'deleteLaunchTemplateVersionsResponseSuccessItem_versionNumber' - The version number of the launch template.
+newDeleteLaunchTemplateVersionsResponseSuccessItem ::
   DeleteLaunchTemplateVersionsResponseSuccessItem
-deleteLaunchTemplateVersionsResponseSuccessItem =
+newDeleteLaunchTemplateVersionsResponseSuccessItem =
   DeleteLaunchTemplateVersionsResponseSuccessItem'
-    { _dltvrsiLaunchTemplateId =
-        Nothing,
-      _dltvrsiLaunchTemplateName =
-        Nothing,
-      _dltvrsiVersionNumber =
-        Nothing
+    { launchTemplateId =
+        Prelude.Nothing,
+      launchTemplateName =
+        Prelude.Nothing,
+      versionNumber =
+        Prelude.Nothing
     }
 
 -- | The ID of the launch template.
-dltvrsiLaunchTemplateId :: Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Maybe Text)
-dltvrsiLaunchTemplateId = lens _dltvrsiLaunchTemplateId (\s a -> s {_dltvrsiLaunchTemplateId = a})
+deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateId :: Lens.Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Prelude.Maybe Prelude.Text)
+deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateId = Lens.lens (\DeleteLaunchTemplateVersionsResponseSuccessItem' {launchTemplateId} -> launchTemplateId) (\s@DeleteLaunchTemplateVersionsResponseSuccessItem' {} a -> s {launchTemplateId = a} :: DeleteLaunchTemplateVersionsResponseSuccessItem)
 
 -- | The name of the launch template.
-dltvrsiLaunchTemplateName :: Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Maybe Text)
-dltvrsiLaunchTemplateName = lens _dltvrsiLaunchTemplateName (\s a -> s {_dltvrsiLaunchTemplateName = a})
+deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName :: Lens.Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Prelude.Maybe Prelude.Text)
+deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName = Lens.lens (\DeleteLaunchTemplateVersionsResponseSuccessItem' {launchTemplateName} -> launchTemplateName) (\s@DeleteLaunchTemplateVersionsResponseSuccessItem' {} a -> s {launchTemplateName = a} :: DeleteLaunchTemplateVersionsResponseSuccessItem)
 
 -- | The version number of the launch template.
-dltvrsiVersionNumber :: Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Maybe Integer)
-dltvrsiVersionNumber = lens _dltvrsiVersionNumber (\s a -> s {_dltvrsiVersionNumber = a})
+deleteLaunchTemplateVersionsResponseSuccessItem_versionNumber :: Lens.Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Prelude.Maybe Prelude.Integer)
+deleteLaunchTemplateVersionsResponseSuccessItem_versionNumber = Lens.lens (\DeleteLaunchTemplateVersionsResponseSuccessItem' {versionNumber} -> versionNumber) (\s@DeleteLaunchTemplateVersionsResponseSuccessItem' {} a -> s {versionNumber = a} :: DeleteLaunchTemplateVersionsResponseSuccessItem)
 
 instance
-  FromXML
+  Prelude.FromXML
     DeleteLaunchTemplateVersionsResponseSuccessItem
   where
   parseXML x =
     DeleteLaunchTemplateVersionsResponseSuccessItem'
-      <$> (x .@? "launchTemplateId")
-        <*> (x .@? "launchTemplateName")
-        <*> (x .@? "versionNumber")
+      Prelude.<$> (x Prelude..@? "launchTemplateId")
+        Prelude.<*> (x Prelude..@? "launchTemplateName")
+        Prelude.<*> (x Prelude..@? "versionNumber")
 
 instance
-  Hashable
+  Prelude.Hashable
     DeleteLaunchTemplateVersionsResponseSuccessItem
 
 instance
-  NFData
+  Prelude.NFData
     DeleteLaunchTemplateVersionsResponseSuccessItem

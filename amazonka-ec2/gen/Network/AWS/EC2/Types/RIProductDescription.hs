@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.RIProductDescription
   ( RIProductDescription
       ( ..,
-        RIDLinuxUnix,
-        RIDLinuxUnixAmazonVPC,
-        RIDWindows,
-        RIDWindowsAmazonVPC
+        RIProductDescriptionLinuxUNIX,
+        RIProductDescriptionLinuxUNIXAmazonVPC,
+        RIProductDescriptionWindows,
+        RIProductDescriptionWindowsAmazonVPC
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RIProductDescription
-  = RIProductDescription'
-      ( CI
-          Text
-      )
+newtype RIProductDescription = RIProductDescription'
+  { fromRIProductDescription ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RIDLinuxUnix :: RIProductDescription
-pattern RIDLinuxUnix = RIProductDescription' "Linux/UNIX"
+pattern RIProductDescriptionLinuxUNIX :: RIProductDescription
+pattern RIProductDescriptionLinuxUNIX = RIProductDescription' "Linux/UNIX"
 
-pattern RIDLinuxUnixAmazonVPC :: RIProductDescription
-pattern RIDLinuxUnixAmazonVPC = RIProductDescription' "Linux/UNIX (Amazon VPC)"
+pattern RIProductDescriptionLinuxUNIXAmazonVPC :: RIProductDescription
+pattern RIProductDescriptionLinuxUNIXAmazonVPC = RIProductDescription' "Linux/UNIX (Amazon VPC)"
 
-pattern RIDWindows :: RIProductDescription
-pattern RIDWindows = RIProductDescription' "Windows"
+pattern RIProductDescriptionWindows :: RIProductDescription
+pattern RIProductDescriptionWindows = RIProductDescription' "Windows"
 
-pattern RIDWindowsAmazonVPC :: RIProductDescription
-pattern RIDWindowsAmazonVPC = RIProductDescription' "Windows (Amazon VPC)"
+pattern RIProductDescriptionWindowsAmazonVPC :: RIProductDescription
+pattern RIProductDescriptionWindowsAmazonVPC = RIProductDescription' "Windows (Amazon VPC)"
 
 {-# COMPLETE
-  RIDLinuxUnix,
-  RIDLinuxUnixAmazonVPC,
-  RIDWindows,
-  RIDWindowsAmazonVPC,
+  RIProductDescriptionLinuxUNIX,
+  RIProductDescriptionLinuxUNIXAmazonVPC,
+  RIProductDescriptionWindows,
+  RIProductDescriptionWindowsAmazonVPC,
   RIProductDescription'
   #-}
 
-instance FromText RIProductDescription where
-  parser = (RIProductDescription' . mk) <$> takeText
+instance Prelude.FromText RIProductDescription where
+  parser = RIProductDescription' Prelude.<$> Prelude.takeText
 
-instance ToText RIProductDescription where
-  toText (RIProductDescription' ci) = original ci
+instance Prelude.ToText RIProductDescription where
+  toText (RIProductDescription' x) = x
 
-instance Hashable RIProductDescription
+instance Prelude.Hashable RIProductDescription
 
-instance NFData RIProductDescription
+instance Prelude.NFData RIProductDescription
 
-instance ToByteString RIProductDescription
+instance Prelude.ToByteString RIProductDescription
 
-instance ToQuery RIProductDescription
+instance Prelude.ToQuery RIProductDescription
 
-instance ToHeader RIProductDescription
+instance Prelude.ToHeader RIProductDescription
 
-instance FromXML RIProductDescription where
-  parseXML = parseXMLText "RIProductDescription"
+instance Prelude.FromXML RIProductDescription where
+  parseXML = Prelude.parseXMLText "RIProductDescription"

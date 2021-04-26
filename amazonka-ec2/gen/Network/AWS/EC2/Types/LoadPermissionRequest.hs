@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +21,54 @@ module Network.AWS.EC2.Types.LoadPermissionRequest where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PermissionGroup
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a load permission.
 --
---
---
--- /See:/ 'loadPermissionRequest' smart constructor.
+-- /See:/ 'newLoadPermissionRequest' smart constructor.
 data LoadPermissionRequest = LoadPermissionRequest'
-  { _lprGroup ::
-      !(Maybe PermissionGroup),
-    _lprUserId :: !(Maybe Text)
+  { -- | The name of the group.
+    group' :: Prelude.Maybe PermissionGroup,
+    -- | The AWS account ID.
+    userId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoadPermissionRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoadPermissionRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprGroup' - The name of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprUserId' - The AWS account ID.
-loadPermissionRequest ::
+-- 'group'', 'loadPermissionRequest_group' - The name of the group.
+--
+-- 'userId', 'loadPermissionRequest_userId' - The AWS account ID.
+newLoadPermissionRequest ::
   LoadPermissionRequest
-loadPermissionRequest =
+newLoadPermissionRequest =
   LoadPermissionRequest'
-    { _lprGroup = Nothing,
-      _lprUserId = Nothing
+    { group' = Prelude.Nothing,
+      userId = Prelude.Nothing
     }
 
 -- | The name of the group.
-lprGroup :: Lens' LoadPermissionRequest (Maybe PermissionGroup)
-lprGroup = lens _lprGroup (\s a -> s {_lprGroup = a})
+loadPermissionRequest_group :: Lens.Lens' LoadPermissionRequest (Prelude.Maybe PermissionGroup)
+loadPermissionRequest_group = Lens.lens (\LoadPermissionRequest' {group'} -> group') (\s@LoadPermissionRequest' {} a -> s {group' = a} :: LoadPermissionRequest)
 
 -- | The AWS account ID.
-lprUserId :: Lens' LoadPermissionRequest (Maybe Text)
-lprUserId = lens _lprUserId (\s a -> s {_lprUserId = a})
+loadPermissionRequest_userId :: Lens.Lens' LoadPermissionRequest (Prelude.Maybe Prelude.Text)
+loadPermissionRequest_userId = Lens.lens (\LoadPermissionRequest' {userId} -> userId) (\s@LoadPermissionRequest' {} a -> s {userId = a} :: LoadPermissionRequest)
 
-instance Hashable LoadPermissionRequest
+instance Prelude.Hashable LoadPermissionRequest
 
-instance NFData LoadPermissionRequest
+instance Prelude.NFData LoadPermissionRequest
 
-instance ToQuery LoadPermissionRequest where
+instance Prelude.ToQuery LoadPermissionRequest where
   toQuery LoadPermissionRequest' {..} =
-    mconcat
-      ["Group" =: _lprGroup, "UserId" =: _lprUserId]
+    Prelude.mconcat
+      [ "Group" Prelude.=: group',
+        "UserId" Prelude.=: userId
+      ]

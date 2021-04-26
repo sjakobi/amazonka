@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +21,108 @@ module Network.AWS.EC2.Types.TargetCapacitySpecification where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DefaultTargetCapacityType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The number of units to request. You can choose to set the target capacity in terms of instances or a performance characteristic that is important to your application workload, such as vCPUs, memory, or I/O. If the request type is @maintain@ , you can specify a target capacity of 0 and add capacity later.
+-- | The number of units to request. You can choose to set the target
+-- capacity in terms of instances or a performance characteristic that is
+-- important to your application workload, such as vCPUs, memory, or I\/O.
+-- If the request type is @maintain@, you can specify a target capacity of
+-- 0 and add capacity later.
 --
+-- You can use the On-Demand Instance @MaxTotalPrice@ parameter, the Spot
+-- Instance @MaxTotalPrice@, or both to ensure that your fleet cost does
+-- not exceed your budget. If you set a maximum price per hour for the
+-- On-Demand Instances and Spot Instances in your request, EC2 Fleet will
+-- launch instances until it reaches the maximum amount that you\'re
+-- willing to pay. When the maximum amount you\'re willing to pay is
+-- reached, the fleet stops launching instances even if it hasn’t met the
+-- target capacity. The @MaxTotalPrice@ parameters are located in
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_OnDemandOptions.html OnDemandOptions>
+-- and
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotOptions SpotOptions>.
 --
--- You can use the On-Demand Instance @MaxTotalPrice@ parameter, the Spot Instance @MaxTotalPrice@ , or both to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand Instances and Spot Instances in your request, EC2 Fleet will launch instances until it reaches the maximum amount that you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching instances even if it hasn’t met the target capacity. The @MaxTotalPrice@ parameters are located in <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_OnDemandOptions.html OnDemandOptions> and <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotOptions SpotOptions> .
---
---
--- /See:/ 'targetCapacitySpecification' smart constructor.
+-- /See:/ 'newTargetCapacitySpecification' smart constructor.
 data TargetCapacitySpecification = TargetCapacitySpecification'
-  { _tcsTotalTargetCapacity ::
-      !(Maybe Int),
-    _tcsDefaultTargetCapacityType ::
-      !( Maybe
-           DefaultTargetCapacityType
-       ),
-    _tcsOnDemandTargetCapacity ::
-      !(Maybe Int),
-    _tcsSpotTargetCapacity ::
-      !(Maybe Int)
+  { -- | The number of units to request, filled using
+    -- @DefaultTargetCapacityType@.
+    totalTargetCapacity :: Prelude.Maybe Prelude.Int,
+    -- | The default @TotalTargetCapacity@, which is either @Spot@ or
+    -- @On-Demand@.
+    defaultTargetCapacityType :: Prelude.Maybe DefaultTargetCapacityType,
+    -- | The number of On-Demand units to request. If you specify a target
+    -- capacity for Spot units, you cannot specify a target capacity for
+    -- On-Demand units.
+    onDemandTargetCapacity :: Prelude.Maybe Prelude.Int,
+    -- | The maximum number of Spot units to launch. If you specify a target
+    -- capacity for On-Demand units, you cannot specify a target capacity for
+    -- Spot units.
+    spotTargetCapacity :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetCapacitySpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetCapacitySpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcsTotalTargetCapacity' - The number of units to request, filled using @DefaultTargetCapacityType@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcsDefaultTargetCapacityType' - The default @TotalTargetCapacity@ , which is either @Spot@ or @On-Demand@ .
+-- 'totalTargetCapacity', 'targetCapacitySpecification_totalTargetCapacity' - The number of units to request, filled using
+-- @DefaultTargetCapacityType@.
 --
--- * 'tcsOnDemandTargetCapacity' - The number of On-Demand units to request. If you specify a target capacity for Spot units, you cannot specify a target capacity for On-Demand units.
+-- 'defaultTargetCapacityType', 'targetCapacitySpecification_defaultTargetCapacityType' - The default @TotalTargetCapacity@, which is either @Spot@ or
+-- @On-Demand@.
 --
--- * 'tcsSpotTargetCapacity' - The maximum number of Spot units to launch. If you specify a target capacity for On-Demand units, you cannot specify a target capacity for Spot units.
-targetCapacitySpecification ::
+-- 'onDemandTargetCapacity', 'targetCapacitySpecification_onDemandTargetCapacity' - The number of On-Demand units to request. If you specify a target
+-- capacity for Spot units, you cannot specify a target capacity for
+-- On-Demand units.
+--
+-- 'spotTargetCapacity', 'targetCapacitySpecification_spotTargetCapacity' - The maximum number of Spot units to launch. If you specify a target
+-- capacity for On-Demand units, you cannot specify a target capacity for
+-- Spot units.
+newTargetCapacitySpecification ::
   TargetCapacitySpecification
-targetCapacitySpecification =
+newTargetCapacitySpecification =
   TargetCapacitySpecification'
-    { _tcsTotalTargetCapacity =
-        Nothing,
-      _tcsDefaultTargetCapacityType = Nothing,
-      _tcsOnDemandTargetCapacity = Nothing,
-      _tcsSpotTargetCapacity = Nothing
+    { totalTargetCapacity =
+        Prelude.Nothing,
+      defaultTargetCapacityType = Prelude.Nothing,
+      onDemandTargetCapacity = Prelude.Nothing,
+      spotTargetCapacity = Prelude.Nothing
     }
 
--- | The number of units to request, filled using @DefaultTargetCapacityType@ .
-tcsTotalTargetCapacity :: Lens' TargetCapacitySpecification (Maybe Int)
-tcsTotalTargetCapacity = lens _tcsTotalTargetCapacity (\s a -> s {_tcsTotalTargetCapacity = a})
+-- | The number of units to request, filled using
+-- @DefaultTargetCapacityType@.
+targetCapacitySpecification_totalTargetCapacity :: Lens.Lens' TargetCapacitySpecification (Prelude.Maybe Prelude.Int)
+targetCapacitySpecification_totalTargetCapacity = Lens.lens (\TargetCapacitySpecification' {totalTargetCapacity} -> totalTargetCapacity) (\s@TargetCapacitySpecification' {} a -> s {totalTargetCapacity = a} :: TargetCapacitySpecification)
 
--- | The default @TotalTargetCapacity@ , which is either @Spot@ or @On-Demand@ .
-tcsDefaultTargetCapacityType :: Lens' TargetCapacitySpecification (Maybe DefaultTargetCapacityType)
-tcsDefaultTargetCapacityType = lens _tcsDefaultTargetCapacityType (\s a -> s {_tcsDefaultTargetCapacityType = a})
+-- | The default @TotalTargetCapacity@, which is either @Spot@ or
+-- @On-Demand@.
+targetCapacitySpecification_defaultTargetCapacityType :: Lens.Lens' TargetCapacitySpecification (Prelude.Maybe DefaultTargetCapacityType)
+targetCapacitySpecification_defaultTargetCapacityType = Lens.lens (\TargetCapacitySpecification' {defaultTargetCapacityType} -> defaultTargetCapacityType) (\s@TargetCapacitySpecification' {} a -> s {defaultTargetCapacityType = a} :: TargetCapacitySpecification)
 
--- | The number of On-Demand units to request. If you specify a target capacity for Spot units, you cannot specify a target capacity for On-Demand units.
-tcsOnDemandTargetCapacity :: Lens' TargetCapacitySpecification (Maybe Int)
-tcsOnDemandTargetCapacity = lens _tcsOnDemandTargetCapacity (\s a -> s {_tcsOnDemandTargetCapacity = a})
+-- | The number of On-Demand units to request. If you specify a target
+-- capacity for Spot units, you cannot specify a target capacity for
+-- On-Demand units.
+targetCapacitySpecification_onDemandTargetCapacity :: Lens.Lens' TargetCapacitySpecification (Prelude.Maybe Prelude.Int)
+targetCapacitySpecification_onDemandTargetCapacity = Lens.lens (\TargetCapacitySpecification' {onDemandTargetCapacity} -> onDemandTargetCapacity) (\s@TargetCapacitySpecification' {} a -> s {onDemandTargetCapacity = a} :: TargetCapacitySpecification)
 
--- | The maximum number of Spot units to launch. If you specify a target capacity for On-Demand units, you cannot specify a target capacity for Spot units.
-tcsSpotTargetCapacity :: Lens' TargetCapacitySpecification (Maybe Int)
-tcsSpotTargetCapacity = lens _tcsSpotTargetCapacity (\s a -> s {_tcsSpotTargetCapacity = a})
+-- | The maximum number of Spot units to launch. If you specify a target
+-- capacity for On-Demand units, you cannot specify a target capacity for
+-- Spot units.
+targetCapacitySpecification_spotTargetCapacity :: Lens.Lens' TargetCapacitySpecification (Prelude.Maybe Prelude.Int)
+targetCapacitySpecification_spotTargetCapacity = Lens.lens (\TargetCapacitySpecification' {spotTargetCapacity} -> spotTargetCapacity) (\s@TargetCapacitySpecification' {} a -> s {spotTargetCapacity = a} :: TargetCapacitySpecification)
 
-instance FromXML TargetCapacitySpecification where
+instance Prelude.FromXML TargetCapacitySpecification where
   parseXML x =
     TargetCapacitySpecification'
-      <$> (x .@? "totalTargetCapacity")
-      <*> (x .@? "defaultTargetCapacityType")
-      <*> (x .@? "onDemandTargetCapacity")
-      <*> (x .@? "spotTargetCapacity")
+      Prelude.<$> (x Prelude..@? "totalTargetCapacity")
+      Prelude.<*> (x Prelude..@? "defaultTargetCapacityType")
+      Prelude.<*> (x Prelude..@? "onDemandTargetCapacity")
+      Prelude.<*> (x Prelude..@? "spotTargetCapacity")
 
-instance Hashable TargetCapacitySpecification
+instance Prelude.Hashable TargetCapacitySpecification
 
-instance NFData TargetCapacitySpecification
+instance Prelude.NFData TargetCapacitySpecification

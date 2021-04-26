@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the console output for the specified instance. For Linux instances, the instance console output displays the exact console output that would normally be displayed on a physical monitor attached to a computer. For Windows instances, the instance console output includes the last three system event log errors.
+-- Gets the console output for the specified instance. For Linux instances,
+-- the instance console output displays the exact console output that would
+-- normally be displayed on a physical monitor attached to a computer. For
+-- Windows instances, the instance console output includes the last three
+-- system event log errors.
 --
+-- By default, the console output returns buffered information that was
+-- posted shortly after an instance transition state (start, stop, reboot,
+-- or terminate). This information is available for at least one hour after
+-- the most recent post. Only the most recent 64 KB of console output is
+-- available.
 --
--- By default, the console output returns buffered information that was posted shortly after an instance transition state (start, stop, reboot, or terminate). This information is available for at least one hour after the most recent post. Only the most recent 64 KB of console output is available.
+-- You can optionally retrieve the latest serial console output at any time
+-- during the instance lifecycle. This option is supported on instance
+-- types that use the Nitro hypervisor.
 --
--- You can optionally retrieve the latest serial console output at any time during the instance lifecycle. This option is supported on instance types that use the Nitro hypervisor.
---
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html#instance-console-console-output Instance console output> in the /Amazon EC2 User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html#instance-console-console-output Instance console output>
+-- in the /Amazon EC2 User Guide/.
 module Network.AWS.EC2.GetConsoleOutput
   ( -- * Creating a Request
-    getConsoleOutput,
-    GetConsoleOutput,
+    GetConsoleOutput (..),
+    newGetConsoleOutput,
 
     -- * Request Lenses
-    gcoDryRun,
-    gcoLatest,
-    gcoInstanceId,
+    getConsoleOutput_dryRun,
+    getConsoleOutput_latest,
+    getConsoleOutput_instanceId,
 
     -- * Destructuring the Response
-    getConsoleOutputResponse,
-    GetConsoleOutputResponse,
+    GetConsoleOutputResponse (..),
+    newGetConsoleOutputResponse,
 
     -- * Response Lenses
-    gcorrsInstanceId,
-    gcorrsOutput,
-    gcorrsTimestamp,
-    gcorrsResponseStatus,
+    getConsoleOutputResponse_instanceId,
+    getConsoleOutputResponse_output,
+    getConsoleOutputResponse_timestamp,
+    getConsoleOutputResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getConsoleOutput' smart constructor.
+-- | /See:/ 'newGetConsoleOutput' smart constructor.
 data GetConsoleOutput = GetConsoleOutput'
-  { _gcoDryRun ::
-      !(Maybe Bool),
-    _gcoLatest :: !(Maybe Bool),
-    _gcoInstanceId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | When enabled, retrieves the latest console output for the instance.
+    --
+    -- Default: disabled (@false@)
+    latest :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConsoleOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConsoleOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcoDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcoLatest' - When enabled, retrieves the latest console output for the instance. Default: disabled (@false@ )
+-- 'dryRun', 'getConsoleOutput_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'gcoInstanceId' - The ID of the instance.
-getConsoleOutput ::
-  -- | 'gcoInstanceId'
-  Text ->
+-- 'latest', 'getConsoleOutput_latest' - When enabled, retrieves the latest console output for the instance.
+--
+-- Default: disabled (@false@)
+--
+-- 'instanceId', 'getConsoleOutput_instanceId' - The ID of the instance.
+newGetConsoleOutput ::
+  -- | 'instanceId'
+  Prelude.Text ->
   GetConsoleOutput
-getConsoleOutput pInstanceId_ =
+newGetConsoleOutput pInstanceId_ =
   GetConsoleOutput'
-    { _gcoDryRun = Nothing,
-      _gcoLatest = Nothing,
-      _gcoInstanceId = pInstanceId_
+    { dryRun = Prelude.Nothing,
+      latest = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-gcoDryRun :: Lens' GetConsoleOutput (Maybe Bool)
-gcoDryRun = lens _gcoDryRun (\s a -> s {_gcoDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+getConsoleOutput_dryRun :: Lens.Lens' GetConsoleOutput (Prelude.Maybe Prelude.Bool)
+getConsoleOutput_dryRun = Lens.lens (\GetConsoleOutput' {dryRun} -> dryRun) (\s@GetConsoleOutput' {} a -> s {dryRun = a} :: GetConsoleOutput)
 
--- | When enabled, retrieves the latest console output for the instance. Default: disabled (@false@ )
-gcoLatest :: Lens' GetConsoleOutput (Maybe Bool)
-gcoLatest = lens _gcoLatest (\s a -> s {_gcoLatest = a})
+-- | When enabled, retrieves the latest console output for the instance.
+--
+-- Default: disabled (@false@)
+getConsoleOutput_latest :: Lens.Lens' GetConsoleOutput (Prelude.Maybe Prelude.Bool)
+getConsoleOutput_latest = Lens.lens (\GetConsoleOutput' {latest} -> latest) (\s@GetConsoleOutput' {} a -> s {latest = a} :: GetConsoleOutput)
 
 -- | The ID of the instance.
-gcoInstanceId :: Lens' GetConsoleOutput Text
-gcoInstanceId = lens _gcoInstanceId (\s a -> s {_gcoInstanceId = a})
+getConsoleOutput_instanceId :: Lens.Lens' GetConsoleOutput Prelude.Text
+getConsoleOutput_instanceId = Lens.lens (\GetConsoleOutput' {instanceId} -> instanceId) (\s@GetConsoleOutput' {} a -> s {instanceId = a} :: GetConsoleOutput)
 
-instance AWSRequest GetConsoleOutput where
+instance Prelude.AWSRequest GetConsoleOutput where
   type Rs GetConsoleOutput = GetConsoleOutputResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetConsoleOutputResponse'
-            <$> (x .@? "instanceId")
-            <*> (x .@? "output")
-            <*> (x .@? "timestamp")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "instanceId")
+            Prelude.<*> (x Prelude..@? "output")
+            Prelude.<*> (x Prelude..@? "timestamp")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConsoleOutput
+instance Prelude.Hashable GetConsoleOutput
 
-instance NFData GetConsoleOutput
+instance Prelude.NFData GetConsoleOutput
 
-instance ToHeaders GetConsoleOutput where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetConsoleOutput where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetConsoleOutput where
-  toPath = const "/"
+instance Prelude.ToPath GetConsoleOutput where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetConsoleOutput where
+instance Prelude.ToQuery GetConsoleOutput where
   toQuery GetConsoleOutput' {..} =
-    mconcat
-      [ "Action" =: ("GetConsoleOutput" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _gcoDryRun,
-        "Latest" =: _gcoLatest,
-        "InstanceId" =: _gcoInstanceId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetConsoleOutput" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "Latest" Prelude.=: latest,
+        "InstanceId" Prelude.=: instanceId
       ]
 
--- | /See:/ 'getConsoleOutputResponse' smart constructor.
+-- | /See:/ 'newGetConsoleOutputResponse' smart constructor.
 data GetConsoleOutputResponse = GetConsoleOutputResponse'
-  { _gcorrsInstanceId ::
-      !(Maybe Text),
-    _gcorrsOutput ::
-      !(Maybe Text),
-    _gcorrsTimestamp ::
-      !(Maybe ISO8601),
-    _gcorrsResponseStatus ::
-      !Int
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The console output, base64-encoded. If you are using a command line
+    -- tool, the tool decodes the output for you.
+    output :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the output was last updated.
+    timestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConsoleOutputResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConsoleOutputResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcorrsInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcorrsOutput' - The console output, base64-encoded. If you are using a command line tool, the tool decodes the output for you.
+-- 'instanceId', 'getConsoleOutputResponse_instanceId' - The ID of the instance.
 --
--- * 'gcorrsTimestamp' - The time at which the output was last updated.
+-- 'output', 'getConsoleOutputResponse_output' - The console output, base64-encoded. If you are using a command line
+-- tool, the tool decodes the output for you.
 --
--- * 'gcorrsResponseStatus' - -- | The response status code.
-getConsoleOutputResponse ::
-  -- | 'gcorrsResponseStatus'
-  Int ->
+-- 'timestamp', 'getConsoleOutputResponse_timestamp' - The time at which the output was last updated.
+--
+-- 'httpStatus', 'getConsoleOutputResponse_httpStatus' - The response's http status code.
+newGetConsoleOutputResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConsoleOutputResponse
-getConsoleOutputResponse pResponseStatus_ =
+newGetConsoleOutputResponse pHttpStatus_ =
   GetConsoleOutputResponse'
-    { _gcorrsInstanceId =
-        Nothing,
-      _gcorrsOutput = Nothing,
-      _gcorrsTimestamp = Nothing,
-      _gcorrsResponseStatus = pResponseStatus_
+    { instanceId =
+        Prelude.Nothing,
+      output = Prelude.Nothing,
+      timestamp = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the instance.
-gcorrsInstanceId :: Lens' GetConsoleOutputResponse (Maybe Text)
-gcorrsInstanceId = lens _gcorrsInstanceId (\s a -> s {_gcorrsInstanceId = a})
+getConsoleOutputResponse_instanceId :: Lens.Lens' GetConsoleOutputResponse (Prelude.Maybe Prelude.Text)
+getConsoleOutputResponse_instanceId = Lens.lens (\GetConsoleOutputResponse' {instanceId} -> instanceId) (\s@GetConsoleOutputResponse' {} a -> s {instanceId = a} :: GetConsoleOutputResponse)
 
--- | The console output, base64-encoded. If you are using a command line tool, the tool decodes the output for you.
-gcorrsOutput :: Lens' GetConsoleOutputResponse (Maybe Text)
-gcorrsOutput = lens _gcorrsOutput (\s a -> s {_gcorrsOutput = a})
+-- | The console output, base64-encoded. If you are using a command line
+-- tool, the tool decodes the output for you.
+getConsoleOutputResponse_output :: Lens.Lens' GetConsoleOutputResponse (Prelude.Maybe Prelude.Text)
+getConsoleOutputResponse_output = Lens.lens (\GetConsoleOutputResponse' {output} -> output) (\s@GetConsoleOutputResponse' {} a -> s {output = a} :: GetConsoleOutputResponse)
 
 -- | The time at which the output was last updated.
-gcorrsTimestamp :: Lens' GetConsoleOutputResponse (Maybe UTCTime)
-gcorrsTimestamp = lens _gcorrsTimestamp (\s a -> s {_gcorrsTimestamp = a}) . mapping _Time
+getConsoleOutputResponse_timestamp :: Lens.Lens' GetConsoleOutputResponse (Prelude.Maybe Prelude.UTCTime)
+getConsoleOutputResponse_timestamp = Lens.lens (\GetConsoleOutputResponse' {timestamp} -> timestamp) (\s@GetConsoleOutputResponse' {} a -> s {timestamp = a} :: GetConsoleOutputResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-gcorrsResponseStatus :: Lens' GetConsoleOutputResponse Int
-gcorrsResponseStatus = lens _gcorrsResponseStatus (\s a -> s {_gcorrsResponseStatus = a})
+-- | The response's http status code.
+getConsoleOutputResponse_httpStatus :: Lens.Lens' GetConsoleOutputResponse Prelude.Int
+getConsoleOutputResponse_httpStatus = Lens.lens (\GetConsoleOutputResponse' {httpStatus} -> httpStatus) (\s@GetConsoleOutputResponse' {} a -> s {httpStatus = a} :: GetConsoleOutputResponse)
 
-instance NFData GetConsoleOutputResponse
+instance Prelude.NFData GetConsoleOutputResponse

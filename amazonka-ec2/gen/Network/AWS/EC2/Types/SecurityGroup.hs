@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,124 +20,136 @@
 module Network.AWS.EC2.Types.SecurityGroup where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.IPPermission
+import Network.AWS.EC2.Types.IpPermission
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a security group
 --
---
---
--- /See:/ 'securityGroup' smart constructor.
+-- /See:/ 'newSecurityGroup' smart constructor.
 data SecurityGroup = SecurityGroup'
-  { _sgIPPermissionsEgress ::
-      !(Maybe [IPPermission]),
-    _sgTags :: !(Maybe [Tag]),
-    _sgIPPermissions :: !(Maybe [IPPermission]),
-    _sgVPCId :: !(Maybe Text),
-    _sgOwnerId :: !Text,
-    _sgGroupId :: !Text,
-    _sgGroupName :: !Text,
-    _sgDescription :: !Text
+  { -- | [VPC only] The outbound rules associated with the security group.
+    ipPermissionsEgress :: Prelude.Maybe [IpPermission],
+    -- | Any tags assigned to the security group.
+    tags :: Prelude.Maybe [Tag],
+    -- | The inbound rules associated with the security group.
+    ipPermissions :: Prelude.Maybe [IpPermission],
+    -- | [VPC only] The ID of the VPC for the security group.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account ID of the owner of the security group.
+    ownerId :: Prelude.Text,
+    -- | The ID of the security group.
+    groupId :: Prelude.Text,
+    -- | The name of the security group.
+    groupName :: Prelude.Text,
+    -- | A description of the security group.
+    description :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgIPPermissionsEgress' - [VPC only] The outbound rules associated with the security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgTags' - Any tags assigned to the security group.
+-- 'ipPermissionsEgress', 'securityGroup_ipPermissionsEgress' - [VPC only] The outbound rules associated with the security group.
 --
--- * 'sgIPPermissions' - The inbound rules associated with the security group.
+-- 'tags', 'securityGroup_tags' - Any tags assigned to the security group.
 --
--- * 'sgVPCId' - [VPC only] The ID of the VPC for the security group.
+-- 'ipPermissions', 'securityGroup_ipPermissions' - The inbound rules associated with the security group.
 --
--- * 'sgOwnerId' - The AWS account ID of the owner of the security group.
+-- 'vpcId', 'securityGroup_vpcId' - [VPC only] The ID of the VPC for the security group.
 --
--- * 'sgGroupId' - The ID of the security group.
+-- 'ownerId', 'securityGroup_ownerId' - The AWS account ID of the owner of the security group.
 --
--- * 'sgGroupName' - The name of the security group.
+-- 'groupId', 'securityGroup_groupId' - The ID of the security group.
 --
--- * 'sgDescription' - A description of the security group.
-securityGroup ::
-  -- | 'sgOwnerId'
-  Text ->
-  -- | 'sgGroupId'
-  Text ->
-  -- | 'sgGroupName'
-  Text ->
-  -- | 'sgDescription'
-  Text ->
+-- 'groupName', 'securityGroup_groupName' - The name of the security group.
+--
+-- 'description', 'securityGroup_description' - A description of the security group.
+newSecurityGroup ::
+  -- | 'ownerId'
+  Prelude.Text ->
+  -- | 'groupId'
+  Prelude.Text ->
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'description'
+  Prelude.Text ->
   SecurityGroup
-securityGroup
+newSecurityGroup
   pOwnerId_
   pGroupId_
   pGroupName_
   pDescription_ =
     SecurityGroup'
-      { _sgIPPermissionsEgress = Nothing,
-        _sgTags = Nothing,
-        _sgIPPermissions = Nothing,
-        _sgVPCId = Nothing,
-        _sgOwnerId = pOwnerId_,
-        _sgGroupId = pGroupId_,
-        _sgGroupName = pGroupName_,
-        _sgDescription = pDescription_
+      { ipPermissionsEgress =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
+        ipPermissions = Prelude.Nothing,
+        vpcId = Prelude.Nothing,
+        ownerId = pOwnerId_,
+        groupId = pGroupId_,
+        groupName = pGroupName_,
+        description = pDescription_
       }
 
 -- | [VPC only] The outbound rules associated with the security group.
-sgIPPermissionsEgress :: Lens' SecurityGroup [IPPermission]
-sgIPPermissionsEgress = lens _sgIPPermissionsEgress (\s a -> s {_sgIPPermissionsEgress = a}) . _Default . _Coerce
+securityGroup_ipPermissionsEgress :: Lens.Lens' SecurityGroup (Prelude.Maybe [IpPermission])
+securityGroup_ipPermissionsEgress = Lens.lens (\SecurityGroup' {ipPermissionsEgress} -> ipPermissionsEgress) (\s@SecurityGroup' {} a -> s {ipPermissionsEgress = a} :: SecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Any tags assigned to the security group.
-sgTags :: Lens' SecurityGroup [Tag]
-sgTags = lens _sgTags (\s a -> s {_sgTags = a}) . _Default . _Coerce
+securityGroup_tags :: Lens.Lens' SecurityGroup (Prelude.Maybe [Tag])
+securityGroup_tags = Lens.lens (\SecurityGroup' {tags} -> tags) (\s@SecurityGroup' {} a -> s {tags = a} :: SecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The inbound rules associated with the security group.
-sgIPPermissions :: Lens' SecurityGroup [IPPermission]
-sgIPPermissions = lens _sgIPPermissions (\s a -> s {_sgIPPermissions = a}) . _Default . _Coerce
+securityGroup_ipPermissions :: Lens.Lens' SecurityGroup (Prelude.Maybe [IpPermission])
+securityGroup_ipPermissions = Lens.lens (\SecurityGroup' {ipPermissions} -> ipPermissions) (\s@SecurityGroup' {} a -> s {ipPermissions = a} :: SecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | [VPC only] The ID of the VPC for the security group.
-sgVPCId :: Lens' SecurityGroup (Maybe Text)
-sgVPCId = lens _sgVPCId (\s a -> s {_sgVPCId = a})
+securityGroup_vpcId :: Lens.Lens' SecurityGroup (Prelude.Maybe Prelude.Text)
+securityGroup_vpcId = Lens.lens (\SecurityGroup' {vpcId} -> vpcId) (\s@SecurityGroup' {} a -> s {vpcId = a} :: SecurityGroup)
 
 -- | The AWS account ID of the owner of the security group.
-sgOwnerId :: Lens' SecurityGroup Text
-sgOwnerId = lens _sgOwnerId (\s a -> s {_sgOwnerId = a})
+securityGroup_ownerId :: Lens.Lens' SecurityGroup Prelude.Text
+securityGroup_ownerId = Lens.lens (\SecurityGroup' {ownerId} -> ownerId) (\s@SecurityGroup' {} a -> s {ownerId = a} :: SecurityGroup)
 
 -- | The ID of the security group.
-sgGroupId :: Lens' SecurityGroup Text
-sgGroupId = lens _sgGroupId (\s a -> s {_sgGroupId = a})
+securityGroup_groupId :: Lens.Lens' SecurityGroup Prelude.Text
+securityGroup_groupId = Lens.lens (\SecurityGroup' {groupId} -> groupId) (\s@SecurityGroup' {} a -> s {groupId = a} :: SecurityGroup)
 
 -- | The name of the security group.
-sgGroupName :: Lens' SecurityGroup Text
-sgGroupName = lens _sgGroupName (\s a -> s {_sgGroupName = a})
+securityGroup_groupName :: Lens.Lens' SecurityGroup Prelude.Text
+securityGroup_groupName = Lens.lens (\SecurityGroup' {groupName} -> groupName) (\s@SecurityGroup' {} a -> s {groupName = a} :: SecurityGroup)
 
 -- | A description of the security group.
-sgDescription :: Lens' SecurityGroup Text
-sgDescription = lens _sgDescription (\s a -> s {_sgDescription = a})
+securityGroup_description :: Lens.Lens' SecurityGroup Prelude.Text
+securityGroup_description = Lens.lens (\SecurityGroup' {description} -> description) (\s@SecurityGroup' {} a -> s {description = a} :: SecurityGroup)
 
-instance FromXML SecurityGroup where
+instance Prelude.FromXML SecurityGroup where
   parseXML x =
     SecurityGroup'
-      <$> ( x .@? "ipPermissionsEgress" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> ( x .@? "ipPermissions" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "vpcId")
-      <*> (x .@ "ownerId")
-      <*> (x .@ "groupId")
-      <*> (x .@ "groupName")
-      <*> (x .@ "groupDescription")
+      Prelude.<$> ( x Prelude..@? "ipPermissionsEgress"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> ( x Prelude..@? "ipPermissions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "vpcId")
+      Prelude.<*> (x Prelude..@ "ownerId")
+      Prelude.<*> (x Prelude..@ "groupId")
+      Prelude.<*> (x Prelude..@ "groupName")
+      Prelude.<*> (x Prelude..@ "groupDescription")
 
-instance Hashable SecurityGroup
+instance Prelude.Hashable SecurityGroup
 
-instance NFData SecurityGroup
+instance Prelude.NFData SecurityGroup

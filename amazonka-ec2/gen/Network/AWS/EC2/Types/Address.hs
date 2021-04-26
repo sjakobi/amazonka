@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,160 +22,190 @@ module Network.AWS.EC2.Types.Address where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DomainType
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an Elastic IP address, or a carrier IP address.
 --
---
---
--- /See:/ 'address' smart constructor.
+-- /See:/ 'newAddress' smart constructor.
 data Address = Address'
-  { _aCustomerOwnedIPv4Pool ::
-      !(Maybe Text),
-    _aInstanceId :: !(Maybe Text),
-    _aDomain :: !(Maybe DomainType),
-    _aCarrierIP :: !(Maybe Text),
-    _aCustomerOwnedIP :: !(Maybe Text),
-    _aNetworkInterfaceOwnerId :: !(Maybe Text),
-    _aAssociationId :: !(Maybe Text),
-    _aTags :: !(Maybe [Tag]),
-    _aNetworkInterfaceId :: !(Maybe Text),
-    _aPublicIPv4Pool :: !(Maybe Text),
-    _aPublicIP :: !(Maybe Text),
-    _aAllocationId :: !(Maybe Text),
-    _aNetworkBorderGroup :: !(Maybe Text),
-    _aPrivateIPAddress :: !(Maybe Text)
+  { -- | The ID of the customer-owned address pool.
+    customerOwnedIpv4Pool :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance that the address is associated with (if any).
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether this Elastic IP address is for use with instances in
+    -- EC2-Classic (@standard@) or instances in a VPC (@vpc@).
+    domain :: Prelude.Maybe DomainType,
+    -- | The carrier IP address associated. This option is only available for
+    -- network interfaces which reside in a subnet in a Wavelength Zone (for
+    -- example an EC2 instance).
+    carrierIp :: Prelude.Maybe Prelude.Text,
+    -- | The customer-owned IP address.
+    customerOwnedIp :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the AWS account that owns the network interface.
+    networkInterfaceOwnerId :: Prelude.Maybe Prelude.Text,
+    -- | The ID representing the association of the address with an instance in a
+    -- VPC.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags assigned to the Elastic IP address.
+    tags :: Prelude.Maybe [Tag],
+    -- | The ID of the network interface.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of an address pool.
+    publicIpv4Pool :: Prelude.Maybe Prelude.Text,
+    -- | The Elastic IP address.
+    publicIp :: Prelude.Maybe Prelude.Text,
+    -- | The ID representing the allocation of the address for use with EC2-VPC.
+    allocationId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the unique set of Availability Zones, Local Zones, or
+    -- Wavelength Zones from which AWS advertises IP addresses.
+    networkBorderGroup :: Prelude.Maybe Prelude.Text,
+    -- | The private IP address associated with the Elastic IP address.
+    privateIpAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Address' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Address' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aCustomerOwnedIPv4Pool' - The ID of the customer-owned address pool.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aInstanceId' - The ID of the instance that the address is associated with (if any).
+-- 'customerOwnedIpv4Pool', 'address_customerOwnedIpv4Pool' - The ID of the customer-owned address pool.
 --
--- * 'aDomain' - Indicates whether this Elastic IP address is for use with instances in EC2-Classic (@standard@ ) or instances in a VPC (@vpc@ ).
+-- 'instanceId', 'address_instanceId' - The ID of the instance that the address is associated with (if any).
 --
--- * 'aCarrierIP' - The carrier IP address associated. This option is only available for network interfaces which reside in a subnet in a Wavelength Zone (for example an EC2 instance).
+-- 'domain', 'address_domain' - Indicates whether this Elastic IP address is for use with instances in
+-- EC2-Classic (@standard@) or instances in a VPC (@vpc@).
 --
--- * 'aCustomerOwnedIP' - The customer-owned IP address.
+-- 'carrierIp', 'address_carrierIp' - The carrier IP address associated. This option is only available for
+-- network interfaces which reside in a subnet in a Wavelength Zone (for
+-- example an EC2 instance).
 --
--- * 'aNetworkInterfaceOwnerId' - The ID of the AWS account that owns the network interface.
+-- 'customerOwnedIp', 'address_customerOwnedIp' - The customer-owned IP address.
 --
--- * 'aAssociationId' - The ID representing the association of the address with an instance in a VPC.
+-- 'networkInterfaceOwnerId', 'address_networkInterfaceOwnerId' - The ID of the AWS account that owns the network interface.
 --
--- * 'aTags' - Any tags assigned to the Elastic IP address.
+-- 'associationId', 'address_associationId' - The ID representing the association of the address with an instance in a
+-- VPC.
 --
--- * 'aNetworkInterfaceId' - The ID of the network interface.
+-- 'tags', 'address_tags' - Any tags assigned to the Elastic IP address.
 --
--- * 'aPublicIPv4Pool' - The ID of an address pool.
+-- 'networkInterfaceId', 'address_networkInterfaceId' - The ID of the network interface.
 --
--- * 'aPublicIP' - The Elastic IP address.
+-- 'publicIpv4Pool', 'address_publicIpv4Pool' - The ID of an address pool.
 --
--- * 'aAllocationId' - The ID representing the allocation of the address for use with EC2-VPC.
+-- 'publicIp', 'address_publicIp' - The Elastic IP address.
 --
--- * 'aNetworkBorderGroup' - The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which AWS advertises IP addresses.
+-- 'allocationId', 'address_allocationId' - The ID representing the allocation of the address for use with EC2-VPC.
 --
--- * 'aPrivateIPAddress' - The private IP address associated with the Elastic IP address.
-address ::
+-- 'networkBorderGroup', 'address_networkBorderGroup' - The name of the unique set of Availability Zones, Local Zones, or
+-- Wavelength Zones from which AWS advertises IP addresses.
+--
+-- 'privateIpAddress', 'address_privateIpAddress' - The private IP address associated with the Elastic IP address.
+newAddress ::
   Address
-address =
+newAddress =
   Address'
-    { _aCustomerOwnedIPv4Pool = Nothing,
-      _aInstanceId = Nothing,
-      _aDomain = Nothing,
-      _aCarrierIP = Nothing,
-      _aCustomerOwnedIP = Nothing,
-      _aNetworkInterfaceOwnerId = Nothing,
-      _aAssociationId = Nothing,
-      _aTags = Nothing,
-      _aNetworkInterfaceId = Nothing,
-      _aPublicIPv4Pool = Nothing,
-      _aPublicIP = Nothing,
-      _aAllocationId = Nothing,
-      _aNetworkBorderGroup = Nothing,
-      _aPrivateIPAddress = Nothing
+    { customerOwnedIpv4Pool = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      domain = Prelude.Nothing,
+      carrierIp = Prelude.Nothing,
+      customerOwnedIp = Prelude.Nothing,
+      networkInterfaceOwnerId = Prelude.Nothing,
+      associationId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      networkInterfaceId = Prelude.Nothing,
+      publicIpv4Pool = Prelude.Nothing,
+      publicIp = Prelude.Nothing,
+      allocationId = Prelude.Nothing,
+      networkBorderGroup = Prelude.Nothing,
+      privateIpAddress = Prelude.Nothing
     }
 
 -- | The ID of the customer-owned address pool.
-aCustomerOwnedIPv4Pool :: Lens' Address (Maybe Text)
-aCustomerOwnedIPv4Pool = lens _aCustomerOwnedIPv4Pool (\s a -> s {_aCustomerOwnedIPv4Pool = a})
+address_customerOwnedIpv4Pool :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_customerOwnedIpv4Pool = Lens.lens (\Address' {customerOwnedIpv4Pool} -> customerOwnedIpv4Pool) (\s@Address' {} a -> s {customerOwnedIpv4Pool = a} :: Address)
 
 -- | The ID of the instance that the address is associated with (if any).
-aInstanceId :: Lens' Address (Maybe Text)
-aInstanceId = lens _aInstanceId (\s a -> s {_aInstanceId = a})
+address_instanceId :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_instanceId = Lens.lens (\Address' {instanceId} -> instanceId) (\s@Address' {} a -> s {instanceId = a} :: Address)
 
--- | Indicates whether this Elastic IP address is for use with instances in EC2-Classic (@standard@ ) or instances in a VPC (@vpc@ ).
-aDomain :: Lens' Address (Maybe DomainType)
-aDomain = lens _aDomain (\s a -> s {_aDomain = a})
+-- | Indicates whether this Elastic IP address is for use with instances in
+-- EC2-Classic (@standard@) or instances in a VPC (@vpc@).
+address_domain :: Lens.Lens' Address (Prelude.Maybe DomainType)
+address_domain = Lens.lens (\Address' {domain} -> domain) (\s@Address' {} a -> s {domain = a} :: Address)
 
--- | The carrier IP address associated. This option is only available for network interfaces which reside in a subnet in a Wavelength Zone (for example an EC2 instance).
-aCarrierIP :: Lens' Address (Maybe Text)
-aCarrierIP = lens _aCarrierIP (\s a -> s {_aCarrierIP = a})
+-- | The carrier IP address associated. This option is only available for
+-- network interfaces which reside in a subnet in a Wavelength Zone (for
+-- example an EC2 instance).
+address_carrierIp :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_carrierIp = Lens.lens (\Address' {carrierIp} -> carrierIp) (\s@Address' {} a -> s {carrierIp = a} :: Address)
 
 -- | The customer-owned IP address.
-aCustomerOwnedIP :: Lens' Address (Maybe Text)
-aCustomerOwnedIP = lens _aCustomerOwnedIP (\s a -> s {_aCustomerOwnedIP = a})
+address_customerOwnedIp :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_customerOwnedIp = Lens.lens (\Address' {customerOwnedIp} -> customerOwnedIp) (\s@Address' {} a -> s {customerOwnedIp = a} :: Address)
 
 -- | The ID of the AWS account that owns the network interface.
-aNetworkInterfaceOwnerId :: Lens' Address (Maybe Text)
-aNetworkInterfaceOwnerId = lens _aNetworkInterfaceOwnerId (\s a -> s {_aNetworkInterfaceOwnerId = a})
+address_networkInterfaceOwnerId :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_networkInterfaceOwnerId = Lens.lens (\Address' {networkInterfaceOwnerId} -> networkInterfaceOwnerId) (\s@Address' {} a -> s {networkInterfaceOwnerId = a} :: Address)
 
--- | The ID representing the association of the address with an instance in a VPC.
-aAssociationId :: Lens' Address (Maybe Text)
-aAssociationId = lens _aAssociationId (\s a -> s {_aAssociationId = a})
+-- | The ID representing the association of the address with an instance in a
+-- VPC.
+address_associationId :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_associationId = Lens.lens (\Address' {associationId} -> associationId) (\s@Address' {} a -> s {associationId = a} :: Address)
 
 -- | Any tags assigned to the Elastic IP address.
-aTags :: Lens' Address [Tag]
-aTags = lens _aTags (\s a -> s {_aTags = a}) . _Default . _Coerce
+address_tags :: Lens.Lens' Address (Prelude.Maybe [Tag])
+address_tags = Lens.lens (\Address' {tags} -> tags) (\s@Address' {} a -> s {tags = a} :: Address) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the network interface.
-aNetworkInterfaceId :: Lens' Address (Maybe Text)
-aNetworkInterfaceId = lens _aNetworkInterfaceId (\s a -> s {_aNetworkInterfaceId = a})
+address_networkInterfaceId :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_networkInterfaceId = Lens.lens (\Address' {networkInterfaceId} -> networkInterfaceId) (\s@Address' {} a -> s {networkInterfaceId = a} :: Address)
 
 -- | The ID of an address pool.
-aPublicIPv4Pool :: Lens' Address (Maybe Text)
-aPublicIPv4Pool = lens _aPublicIPv4Pool (\s a -> s {_aPublicIPv4Pool = a})
+address_publicIpv4Pool :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_publicIpv4Pool = Lens.lens (\Address' {publicIpv4Pool} -> publicIpv4Pool) (\s@Address' {} a -> s {publicIpv4Pool = a} :: Address)
 
 -- | The Elastic IP address.
-aPublicIP :: Lens' Address (Maybe Text)
-aPublicIP = lens _aPublicIP (\s a -> s {_aPublicIP = a})
+address_publicIp :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_publicIp = Lens.lens (\Address' {publicIp} -> publicIp) (\s@Address' {} a -> s {publicIp = a} :: Address)
 
 -- | The ID representing the allocation of the address for use with EC2-VPC.
-aAllocationId :: Lens' Address (Maybe Text)
-aAllocationId = lens _aAllocationId (\s a -> s {_aAllocationId = a})
+address_allocationId :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_allocationId = Lens.lens (\Address' {allocationId} -> allocationId) (\s@Address' {} a -> s {allocationId = a} :: Address)
 
--- | The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which AWS advertises IP addresses.
-aNetworkBorderGroup :: Lens' Address (Maybe Text)
-aNetworkBorderGroup = lens _aNetworkBorderGroup (\s a -> s {_aNetworkBorderGroup = a})
+-- | The name of the unique set of Availability Zones, Local Zones, or
+-- Wavelength Zones from which AWS advertises IP addresses.
+address_networkBorderGroup :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_networkBorderGroup = Lens.lens (\Address' {networkBorderGroup} -> networkBorderGroup) (\s@Address' {} a -> s {networkBorderGroup = a} :: Address)
 
 -- | The private IP address associated with the Elastic IP address.
-aPrivateIPAddress :: Lens' Address (Maybe Text)
-aPrivateIPAddress = lens _aPrivateIPAddress (\s a -> s {_aPrivateIPAddress = a})
+address_privateIpAddress :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_privateIpAddress = Lens.lens (\Address' {privateIpAddress} -> privateIpAddress) (\s@Address' {} a -> s {privateIpAddress = a} :: Address)
 
-instance FromXML Address where
+instance Prelude.FromXML Address where
   parseXML x =
     Address'
-      <$> (x .@? "customerOwnedIpv4Pool")
-      <*> (x .@? "instanceId")
-      <*> (x .@? "domain")
-      <*> (x .@? "carrierIp")
-      <*> (x .@? "customerOwnedIp")
-      <*> (x .@? "networkInterfaceOwnerId")
-      <*> (x .@? "associationId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "networkInterfaceId")
-      <*> (x .@? "publicIpv4Pool")
-      <*> (x .@? "publicIp")
-      <*> (x .@? "allocationId")
-      <*> (x .@? "networkBorderGroup")
-      <*> (x .@? "privateIpAddress")
+      Prelude.<$> (x Prelude..@? "customerOwnedIpv4Pool")
+      Prelude.<*> (x Prelude..@? "instanceId")
+      Prelude.<*> (x Prelude..@? "domain")
+      Prelude.<*> (x Prelude..@? "carrierIp")
+      Prelude.<*> (x Prelude..@? "customerOwnedIp")
+      Prelude.<*> (x Prelude..@? "networkInterfaceOwnerId")
+      Prelude.<*> (x Prelude..@? "associationId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "networkInterfaceId")
+      Prelude.<*> (x Prelude..@? "publicIpv4Pool")
+      Prelude.<*> (x Prelude..@? "publicIp")
+      Prelude.<*> (x Prelude..@? "allocationId")
+      Prelude.<*> (x Prelude..@? "networkBorderGroup")
+      Prelude.<*> (x Prelude..@? "privateIpAddress")
 
-instance Hashable Address
+instance Prelude.Hashable Address
 
-instance NFData Address
+instance Prelude.NFData Address

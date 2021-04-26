@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +19,81 @@
 module Network.AWS.EC2.Types.BundleTaskState
   ( BundleTaskState
       ( ..,
-        BTSBundling,
-        BTSCancelling,
-        BTSComplete,
-        BTSFailed,
-        BTSPending,
-        BTSStoring,
-        BTSWaitingForShutdown
+        BundleTaskStateBundling,
+        BundleTaskStateCancelling,
+        BundleTaskStateComplete,
+        BundleTaskStateFailed,
+        BundleTaskStatePending,
+        BundleTaskStateStoring,
+        BundleTaskStateWaitingForShutdown
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BundleTaskState = BundleTaskState' (CI Text)
+newtype BundleTaskState = BundleTaskState'
+  { fromBundleTaskState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BTSBundling :: BundleTaskState
-pattern BTSBundling = BundleTaskState' "bundling"
+pattern BundleTaskStateBundling :: BundleTaskState
+pattern BundleTaskStateBundling = BundleTaskState' "bundling"
 
-pattern BTSCancelling :: BundleTaskState
-pattern BTSCancelling = BundleTaskState' "cancelling"
+pattern BundleTaskStateCancelling :: BundleTaskState
+pattern BundleTaskStateCancelling = BundleTaskState' "cancelling"
 
-pattern BTSComplete :: BundleTaskState
-pattern BTSComplete = BundleTaskState' "complete"
+pattern BundleTaskStateComplete :: BundleTaskState
+pattern BundleTaskStateComplete = BundleTaskState' "complete"
 
-pattern BTSFailed :: BundleTaskState
-pattern BTSFailed = BundleTaskState' "failed"
+pattern BundleTaskStateFailed :: BundleTaskState
+pattern BundleTaskStateFailed = BundleTaskState' "failed"
 
-pattern BTSPending :: BundleTaskState
-pattern BTSPending = BundleTaskState' "pending"
+pattern BundleTaskStatePending :: BundleTaskState
+pattern BundleTaskStatePending = BundleTaskState' "pending"
 
-pattern BTSStoring :: BundleTaskState
-pattern BTSStoring = BundleTaskState' "storing"
+pattern BundleTaskStateStoring :: BundleTaskState
+pattern BundleTaskStateStoring = BundleTaskState' "storing"
 
-pattern BTSWaitingForShutdown :: BundleTaskState
-pattern BTSWaitingForShutdown = BundleTaskState' "waiting-for-shutdown"
+pattern BundleTaskStateWaitingForShutdown :: BundleTaskState
+pattern BundleTaskStateWaitingForShutdown = BundleTaskState' "waiting-for-shutdown"
 
 {-# COMPLETE
-  BTSBundling,
-  BTSCancelling,
-  BTSComplete,
-  BTSFailed,
-  BTSPending,
-  BTSStoring,
-  BTSWaitingForShutdown,
+  BundleTaskStateBundling,
+  BundleTaskStateCancelling,
+  BundleTaskStateComplete,
+  BundleTaskStateFailed,
+  BundleTaskStatePending,
+  BundleTaskStateStoring,
+  BundleTaskStateWaitingForShutdown,
   BundleTaskState'
   #-}
 
-instance FromText BundleTaskState where
-  parser = (BundleTaskState' . mk) <$> takeText
+instance Prelude.FromText BundleTaskState where
+  parser = BundleTaskState' Prelude.<$> Prelude.takeText
 
-instance ToText BundleTaskState where
-  toText (BundleTaskState' ci) = original ci
+instance Prelude.ToText BundleTaskState where
+  toText (BundleTaskState' x) = x
 
-instance Hashable BundleTaskState
+instance Prelude.Hashable BundleTaskState
 
-instance NFData BundleTaskState
+instance Prelude.NFData BundleTaskState
 
-instance ToByteString BundleTaskState
+instance Prelude.ToByteString BundleTaskState
 
-instance ToQuery BundleTaskState
+instance Prelude.ToQuery BundleTaskState
 
-instance ToHeader BundleTaskState
+instance Prelude.ToHeader BundleTaskState
 
-instance FromXML BundleTaskState where
-  parseXML = parseXMLText "BundleTaskState"
+instance Prelude.FromXML BundleTaskState where
+  parseXML = Prelude.parseXMLText "BundleTaskState"

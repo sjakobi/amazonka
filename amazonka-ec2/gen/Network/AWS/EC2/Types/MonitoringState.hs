@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.EC2.Types.MonitoringState
   ( MonitoringState
       ( ..,
-        MSDisabled,
-        MSDisabling,
-        MSEnabled,
-        MSPending
+        MonitoringStateDisabled,
+        MonitoringStateDisabling,
+        MonitoringStateEnabled,
+        MonitoringStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitoringState = MonitoringState' (CI Text)
+newtype MonitoringState = MonitoringState'
+  { fromMonitoringState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSDisabled :: MonitoringState
-pattern MSDisabled = MonitoringState' "disabled"
+pattern MonitoringStateDisabled :: MonitoringState
+pattern MonitoringStateDisabled = MonitoringState' "disabled"
 
-pattern MSDisabling :: MonitoringState
-pattern MSDisabling = MonitoringState' "disabling"
+pattern MonitoringStateDisabling :: MonitoringState
+pattern MonitoringStateDisabling = MonitoringState' "disabling"
 
-pattern MSEnabled :: MonitoringState
-pattern MSEnabled = MonitoringState' "enabled"
+pattern MonitoringStateEnabled :: MonitoringState
+pattern MonitoringStateEnabled = MonitoringState' "enabled"
 
-pattern MSPending :: MonitoringState
-pattern MSPending = MonitoringState' "pending"
+pattern MonitoringStatePending :: MonitoringState
+pattern MonitoringStatePending = MonitoringState' "pending"
 
 {-# COMPLETE
-  MSDisabled,
-  MSDisabling,
-  MSEnabled,
-  MSPending,
+  MonitoringStateDisabled,
+  MonitoringStateDisabling,
+  MonitoringStateEnabled,
+  MonitoringStatePending,
   MonitoringState'
   #-}
 
-instance FromText MonitoringState where
-  parser = (MonitoringState' . mk) <$> takeText
+instance Prelude.FromText MonitoringState where
+  parser = MonitoringState' Prelude.<$> Prelude.takeText
 
-instance ToText MonitoringState where
-  toText (MonitoringState' ci) = original ci
+instance Prelude.ToText MonitoringState where
+  toText (MonitoringState' x) = x
 
-instance Hashable MonitoringState
+instance Prelude.Hashable MonitoringState
 
-instance NFData MonitoringState
+instance Prelude.NFData MonitoringState
 
-instance ToByteString MonitoringState
+instance Prelude.ToByteString MonitoringState
 
-instance ToQuery MonitoringState
+instance Prelude.ToQuery MonitoringState
 
-instance ToHeader MonitoringState
+instance Prelude.ToHeader MonitoringState
 
-instance FromXML MonitoringState where
-  parseXML = parseXMLText "MonitoringState"
+instance Prelude.FromXML MonitoringState where
+  parseXML = Prelude.parseXMLText "MonitoringState"

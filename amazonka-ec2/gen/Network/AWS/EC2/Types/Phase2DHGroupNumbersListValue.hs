@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,49 @@
 module Network.AWS.EC2.Types.Phase2DHGroupNumbersListValue where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The Diffie-Hellmann group number for phase 2 IKE negotiations.
 --
---
---
--- /See:/ 'phase2DHGroupNumbersListValue' smart constructor.
-newtype Phase2DHGroupNumbersListValue = Phase2DHGroupNumbersListValue'
-  { _pdhgnlvValue ::
-      Maybe
-        Int
+-- /See:/ 'newPhase2DHGroupNumbersListValue' smart constructor.
+data Phase2DHGroupNumbersListValue = Phase2DHGroupNumbersListValue'
+  { -- | The Diffie-Hellmann group number.
+    value :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Phase2DHGroupNumbersListValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Phase2DHGroupNumbersListValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdhgnlvValue' - The Diffie-Hellmann group number.
-phase2DHGroupNumbersListValue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'value', 'phase2DHGroupNumbersListValue_value' - The Diffie-Hellmann group number.
+newPhase2DHGroupNumbersListValue ::
   Phase2DHGroupNumbersListValue
-phase2DHGroupNumbersListValue =
+newPhase2DHGroupNumbersListValue =
   Phase2DHGroupNumbersListValue'
-    { _pdhgnlvValue =
-        Nothing
+    { value =
+        Prelude.Nothing
     }
 
 -- | The Diffie-Hellmann group number.
-pdhgnlvValue :: Lens' Phase2DHGroupNumbersListValue (Maybe Int)
-pdhgnlvValue = lens _pdhgnlvValue (\s a -> s {_pdhgnlvValue = a})
+phase2DHGroupNumbersListValue_value :: Lens.Lens' Phase2DHGroupNumbersListValue (Prelude.Maybe Prelude.Int)
+phase2DHGroupNumbersListValue_value = Lens.lens (\Phase2DHGroupNumbersListValue' {value} -> value) (\s@Phase2DHGroupNumbersListValue' {} a -> s {value = a} :: Phase2DHGroupNumbersListValue)
 
-instance FromXML Phase2DHGroupNumbersListValue where
+instance
+  Prelude.FromXML
+    Phase2DHGroupNumbersListValue
+  where
   parseXML x =
-    Phase2DHGroupNumbersListValue' <$> (x .@? "value")
+    Phase2DHGroupNumbersListValue'
+      Prelude.<$> (x Prelude..@? "value")
 
-instance Hashable Phase2DHGroupNumbersListValue
+instance
+  Prelude.Hashable
+    Phase2DHGroupNumbersListValue
 
-instance NFData Phase2DHGroupNumbersListValue
+instance Prelude.NFData Phase2DHGroupNumbersListValue

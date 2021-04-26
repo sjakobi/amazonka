@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.ApplianceModeSupportValue
   ( ApplianceModeSupportValue
       ( ..,
-        AMSVDisable,
-        AMSVEnable
+        ApplianceModeSupportValueDisable,
+        ApplianceModeSupportValueEnable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApplianceModeSupportValue
-  = ApplianceModeSupportValue'
-      ( CI
-          Text
-      )
+newtype ApplianceModeSupportValue = ApplianceModeSupportValue'
+  { fromApplianceModeSupportValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMSVDisable :: ApplianceModeSupportValue
-pattern AMSVDisable = ApplianceModeSupportValue' "disable"
+pattern ApplianceModeSupportValueDisable :: ApplianceModeSupportValue
+pattern ApplianceModeSupportValueDisable = ApplianceModeSupportValue' "disable"
 
-pattern AMSVEnable :: ApplianceModeSupportValue
-pattern AMSVEnable = ApplianceModeSupportValue' "enable"
+pattern ApplianceModeSupportValueEnable :: ApplianceModeSupportValue
+pattern ApplianceModeSupportValueEnable = ApplianceModeSupportValue' "enable"
 
 {-# COMPLETE
-  AMSVDisable,
-  AMSVEnable,
+  ApplianceModeSupportValueDisable,
+  ApplianceModeSupportValueEnable,
   ApplianceModeSupportValue'
   #-}
 
-instance FromText ApplianceModeSupportValue where
-  parser = (ApplianceModeSupportValue' . mk) <$> takeText
+instance Prelude.FromText ApplianceModeSupportValue where
+  parser = ApplianceModeSupportValue' Prelude.<$> Prelude.takeText
 
-instance ToText ApplianceModeSupportValue where
-  toText (ApplianceModeSupportValue' ci) = original ci
+instance Prelude.ToText ApplianceModeSupportValue where
+  toText (ApplianceModeSupportValue' x) = x
 
-instance Hashable ApplianceModeSupportValue
+instance Prelude.Hashable ApplianceModeSupportValue
 
-instance NFData ApplianceModeSupportValue
+instance Prelude.NFData ApplianceModeSupportValue
 
-instance ToByteString ApplianceModeSupportValue
+instance Prelude.ToByteString ApplianceModeSupportValue
 
-instance ToQuery ApplianceModeSupportValue
+instance Prelude.ToQuery ApplianceModeSupportValue
 
-instance ToHeader ApplianceModeSupportValue
+instance Prelude.ToHeader ApplianceModeSupportValue
 
-instance FromXML ApplianceModeSupportValue where
-  parseXML = parseXMLText "ApplianceModeSupportValue"
+instance Prelude.FromXML ApplianceModeSupportValue where
+  parseXML = Prelude.parseXMLText "ApplianceModeSupportValue"

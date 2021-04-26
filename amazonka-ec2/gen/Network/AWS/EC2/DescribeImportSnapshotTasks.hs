@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,209 +23,246 @@
 --
 -- Describes your import snapshot tasks.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeImportSnapshotTasks
   ( -- * Creating a Request
-    describeImportSnapshotTasks,
-    DescribeImportSnapshotTasks,
+    DescribeImportSnapshotTasks (..),
+    newDescribeImportSnapshotTasks,
 
     -- * Request Lenses
-    distNextToken,
-    distDryRun,
-    distImportTaskIds,
-    distMaxResults,
-    distFilters,
+    describeImportSnapshotTasks_nextToken,
+    describeImportSnapshotTasks_dryRun,
+    describeImportSnapshotTasks_importTaskIds,
+    describeImportSnapshotTasks_maxResults,
+    describeImportSnapshotTasks_filters,
 
     -- * Destructuring the Response
-    describeImportSnapshotTasksResponse,
-    DescribeImportSnapshotTasksResponse,
+    DescribeImportSnapshotTasksResponse (..),
+    newDescribeImportSnapshotTasksResponse,
 
     -- * Response Lenses
-    distrrsImportSnapshotTasks,
-    distrrsNextToken,
-    distrrsResponseStatus,
+    describeImportSnapshotTasksResponse_importSnapshotTasks,
+    describeImportSnapshotTasksResponse_nextToken,
+    describeImportSnapshotTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ImportSnapshotTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeImportSnapshotTasks' smart constructor.
+-- | /See:/ 'newDescribeImportSnapshotTasks' smart constructor.
 data DescribeImportSnapshotTasks = DescribeImportSnapshotTasks'
-  { _distNextToken ::
-      !(Maybe Text),
-    _distDryRun ::
-      !(Maybe Bool),
-    _distImportTaskIds ::
-      !(Maybe [Text]),
-    _distMaxResults ::
-      !(Maybe Int),
-    _distFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | A token that indicates the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | A list of import snapshot task IDs.
+    importTaskIds :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of results to return in a single call. To retrieve
+    -- the remaining results, make another call with the returned @NextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The filters.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImportSnapshotTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImportSnapshotTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'distNextToken' - A token that indicates the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'distDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeImportSnapshotTasks_nextToken' - A token that indicates the next page of results.
 --
--- * 'distImportTaskIds' - A list of import snapshot task IDs.
+-- 'dryRun', 'describeImportSnapshotTasks_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'distMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value.
+-- 'importTaskIds', 'describeImportSnapshotTasks_importTaskIds' - A list of import snapshot task IDs.
 --
--- * 'distFilters' - The filters.
-describeImportSnapshotTasks ::
+-- 'maxResults', 'describeImportSnapshotTasks_maxResults' - The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned @NextToken@
+-- value.
+--
+-- 'filters', 'describeImportSnapshotTasks_filters' - The filters.
+newDescribeImportSnapshotTasks ::
   DescribeImportSnapshotTasks
-describeImportSnapshotTasks =
+newDescribeImportSnapshotTasks =
   DescribeImportSnapshotTasks'
-    { _distNextToken =
-        Nothing,
-      _distDryRun = Nothing,
-      _distImportTaskIds = Nothing,
-      _distMaxResults = Nothing,
-      _distFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      importTaskIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | A token that indicates the next page of results.
-distNextToken :: Lens' DescribeImportSnapshotTasks (Maybe Text)
-distNextToken = lens _distNextToken (\s a -> s {_distNextToken = a})
+describeImportSnapshotTasks_nextToken :: Lens.Lens' DescribeImportSnapshotTasks (Prelude.Maybe Prelude.Text)
+describeImportSnapshotTasks_nextToken = Lens.lens (\DescribeImportSnapshotTasks' {nextToken} -> nextToken) (\s@DescribeImportSnapshotTasks' {} a -> s {nextToken = a} :: DescribeImportSnapshotTasks)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-distDryRun :: Lens' DescribeImportSnapshotTasks (Maybe Bool)
-distDryRun = lens _distDryRun (\s a -> s {_distDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeImportSnapshotTasks_dryRun :: Lens.Lens' DescribeImportSnapshotTasks (Prelude.Maybe Prelude.Bool)
+describeImportSnapshotTasks_dryRun = Lens.lens (\DescribeImportSnapshotTasks' {dryRun} -> dryRun) (\s@DescribeImportSnapshotTasks' {} a -> s {dryRun = a} :: DescribeImportSnapshotTasks)
 
 -- | A list of import snapshot task IDs.
-distImportTaskIds :: Lens' DescribeImportSnapshotTasks [Text]
-distImportTaskIds = lens _distImportTaskIds (\s a -> s {_distImportTaskIds = a}) . _Default . _Coerce
+describeImportSnapshotTasks_importTaskIds :: Lens.Lens' DescribeImportSnapshotTasks (Prelude.Maybe [Prelude.Text])
+describeImportSnapshotTasks_importTaskIds = Lens.lens (\DescribeImportSnapshotTasks' {importTaskIds} -> importTaskIds) (\s@DescribeImportSnapshotTasks' {} a -> s {importTaskIds = a} :: DescribeImportSnapshotTasks) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned @NextToken@ value.
-distMaxResults :: Lens' DescribeImportSnapshotTasks (Maybe Int)
-distMaxResults = lens _distMaxResults (\s a -> s {_distMaxResults = a})
+-- | The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another call with the returned @NextToken@
+-- value.
+describeImportSnapshotTasks_maxResults :: Lens.Lens' DescribeImportSnapshotTasks (Prelude.Maybe Prelude.Int)
+describeImportSnapshotTasks_maxResults = Lens.lens (\DescribeImportSnapshotTasks' {maxResults} -> maxResults) (\s@DescribeImportSnapshotTasks' {} a -> s {maxResults = a} :: DescribeImportSnapshotTasks)
 
 -- | The filters.
-distFilters :: Lens' DescribeImportSnapshotTasks [Filter]
-distFilters = lens _distFilters (\s a -> s {_distFilters = a}) . _Default . _Coerce
+describeImportSnapshotTasks_filters :: Lens.Lens' DescribeImportSnapshotTasks (Prelude.Maybe [Filter])
+describeImportSnapshotTasks_filters = Lens.lens (\DescribeImportSnapshotTasks' {filters} -> filters) (\s@DescribeImportSnapshotTasks' {} a -> s {filters = a} :: DescribeImportSnapshotTasks) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeImportSnapshotTasks where
+instance Pager.AWSPager DescribeImportSnapshotTasks where
   page rq rs
-    | stop (rs ^. distrrsNextToken) = Nothing
-    | stop (rs ^. distrrsImportSnapshotTasks) = Nothing
-    | otherwise =
-      Just $ rq & distNextToken .~ rs ^. distrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeImportSnapshotTasksResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeImportSnapshotTasksResponse_importSnapshotTasks
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeImportSnapshotTasks_nextToken
+          Lens..~ rs
+          Lens.^? describeImportSnapshotTasksResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeImportSnapshotTasks where
+instance
+  Prelude.AWSRequest
+    DescribeImportSnapshotTasks
+  where
   type
     Rs DescribeImportSnapshotTasks =
       DescribeImportSnapshotTasksResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeImportSnapshotTasksResponse'
-            <$> ( x .@? "importSnapshotTaskSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "nextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "importSnapshotTaskSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeImportSnapshotTasks
+instance Prelude.Hashable DescribeImportSnapshotTasks
 
-instance NFData DescribeImportSnapshotTasks
+instance Prelude.NFData DescribeImportSnapshotTasks
 
-instance ToHeaders DescribeImportSnapshotTasks where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeImportSnapshotTasks
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeImportSnapshotTasks where
-  toPath = const "/"
+instance Prelude.ToPath DescribeImportSnapshotTasks where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeImportSnapshotTasks where
+instance Prelude.ToQuery DescribeImportSnapshotTasks where
   toQuery DescribeImportSnapshotTasks' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeImportSnapshotTasks" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _distNextToken,
-        "DryRun" =: _distDryRun,
-        toQuery
-          (toQueryList "ImportTaskId" <$> _distImportTaskIds),
-        "MaxResults" =: _distMaxResults,
-        toQuery (toQueryList "Filters" <$> _distFilters)
+          Prelude.=: ( "DescribeImportSnapshotTasks" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQuery
+          ( Prelude.toQueryList "ImportTaskId"
+              Prelude.<$> importTaskIds
+          ),
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filters" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeImportSnapshotTasksResponse' smart constructor.
+-- | /See:/ 'newDescribeImportSnapshotTasksResponse' smart constructor.
 data DescribeImportSnapshotTasksResponse = DescribeImportSnapshotTasksResponse'
-  { _distrrsImportSnapshotTasks ::
-      !( Maybe
-           [ImportSnapshotTask]
-       ),
-    _distrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _distrrsResponseStatus ::
-      !Int
+  { -- | A list of zero or more import snapshot tasks that are currently active
+    -- or were completed or canceled in the previous 7 days.
+    importSnapshotTasks :: Prelude.Maybe [ImportSnapshotTask],
+    -- | The token to use to get the next page of results. This value is @null@
+    -- when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImportSnapshotTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImportSnapshotTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'distrrsImportSnapshotTasks' - A list of zero or more import snapshot tasks that are currently active or were completed or canceled in the previous 7 days.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'distrrsNextToken' - The token to use to get the next page of results. This value is @null@ when there are no more results to return.
+-- 'importSnapshotTasks', 'describeImportSnapshotTasksResponse_importSnapshotTasks' - A list of zero or more import snapshot tasks that are currently active
+-- or were completed or canceled in the previous 7 days.
 --
--- * 'distrrsResponseStatus' - -- | The response status code.
-describeImportSnapshotTasksResponse ::
-  -- | 'distrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'describeImportSnapshotTasksResponse_nextToken' - The token to use to get the next page of results. This value is @null@
+-- when there are no more results to return.
+--
+-- 'httpStatus', 'describeImportSnapshotTasksResponse_httpStatus' - The response's http status code.
+newDescribeImportSnapshotTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeImportSnapshotTasksResponse
-describeImportSnapshotTasksResponse pResponseStatus_ =
+newDescribeImportSnapshotTasksResponse pHttpStatus_ =
   DescribeImportSnapshotTasksResponse'
-    { _distrrsImportSnapshotTasks =
-        Nothing,
-      _distrrsNextToken = Nothing,
-      _distrrsResponseStatus =
-        pResponseStatus_
+    { importSnapshotTasks =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of zero or more import snapshot tasks that are currently active or were completed or canceled in the previous 7 days.
-distrrsImportSnapshotTasks :: Lens' DescribeImportSnapshotTasksResponse [ImportSnapshotTask]
-distrrsImportSnapshotTasks = lens _distrrsImportSnapshotTasks (\s a -> s {_distrrsImportSnapshotTasks = a}) . _Default . _Coerce
+-- | A list of zero or more import snapshot tasks that are currently active
+-- or were completed or canceled in the previous 7 days.
+describeImportSnapshotTasksResponse_importSnapshotTasks :: Lens.Lens' DescribeImportSnapshotTasksResponse (Prelude.Maybe [ImportSnapshotTask])
+describeImportSnapshotTasksResponse_importSnapshotTasks = Lens.lens (\DescribeImportSnapshotTasksResponse' {importSnapshotTasks} -> importSnapshotTasks) (\s@DescribeImportSnapshotTasksResponse' {} a -> s {importSnapshotTasks = a} :: DescribeImportSnapshotTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to use to get the next page of results. This value is @null@ when there are no more results to return.
-distrrsNextToken :: Lens' DescribeImportSnapshotTasksResponse (Maybe Text)
-distrrsNextToken = lens _distrrsNextToken (\s a -> s {_distrrsNextToken = a})
+-- | The token to use to get the next page of results. This value is @null@
+-- when there are no more results to return.
+describeImportSnapshotTasksResponse_nextToken :: Lens.Lens' DescribeImportSnapshotTasksResponse (Prelude.Maybe Prelude.Text)
+describeImportSnapshotTasksResponse_nextToken = Lens.lens (\DescribeImportSnapshotTasksResponse' {nextToken} -> nextToken) (\s@DescribeImportSnapshotTasksResponse' {} a -> s {nextToken = a} :: DescribeImportSnapshotTasksResponse)
 
--- | -- | The response status code.
-distrrsResponseStatus :: Lens' DescribeImportSnapshotTasksResponse Int
-distrrsResponseStatus = lens _distrrsResponseStatus (\s a -> s {_distrrsResponseStatus = a})
+-- | The response's http status code.
+describeImportSnapshotTasksResponse_httpStatus :: Lens.Lens' DescribeImportSnapshotTasksResponse Prelude.Int
+describeImportSnapshotTasksResponse_httpStatus = Lens.lens (\DescribeImportSnapshotTasksResponse' {httpStatus} -> httpStatus) (\s@DescribeImportSnapshotTasksResponse' {} a -> s {httpStatus = a} :: DescribeImportSnapshotTasksResponse)
 
-instance NFData DescribeImportSnapshotTasksResponse
+instance
+  Prelude.NFData
+    DescribeImportSnapshotTasksResponse

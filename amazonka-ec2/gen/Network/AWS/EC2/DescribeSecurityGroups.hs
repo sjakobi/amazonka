@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,217 +23,518 @@
 --
 -- Describes the specified security groups or all of your security groups.
 --
---
--- A security group is for use with instances either in the EC2-Classic platform or in a specific VPC. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html Amazon EC2 Security Groups> in the /Amazon Elastic Compute Cloud User Guide/ and <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html Security Groups for Your VPC> in the /Amazon Virtual Private Cloud User Guide/ .
---
+-- A security group is for use with instances either in the EC2-Classic
+-- platform or in a specific VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html Amazon EC2 Security Groups>
+-- in the /Amazon Elastic Compute Cloud User Guide/ and
+-- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html Security Groups for Your VPC>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeSecurityGroups
   ( -- * Creating a Request
-    describeSecurityGroups,
-    DescribeSecurityGroups,
+    DescribeSecurityGroups (..),
+    newDescribeSecurityGroups,
 
     -- * Request Lenses
-    dsgNextToken,
-    dsgGroupIds,
-    dsgDryRun,
-    dsgMaxResults,
-    dsgGroupNames,
-    dsgFilters,
+    describeSecurityGroups_nextToken,
+    describeSecurityGroups_groupIds,
+    describeSecurityGroups_dryRun,
+    describeSecurityGroups_maxResults,
+    describeSecurityGroups_groupNames,
+    describeSecurityGroups_filters,
 
     -- * Destructuring the Response
-    describeSecurityGroupsResponse,
-    DescribeSecurityGroupsResponse,
+    DescribeSecurityGroupsResponse (..),
+    newDescribeSecurityGroupsResponse,
 
     -- * Response Lenses
-    dsgrrsNextToken,
-    dsgrrsSecurityGroups,
-    dsgrrsResponseStatus,
+    describeSecurityGroupsResponse_nextToken,
+    describeSecurityGroupsResponse_securityGroups,
+    describeSecurityGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.SecurityGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeSecurityGroups' smart constructor.
+-- | /See:/ 'newDescribeSecurityGroups' smart constructor.
 data DescribeSecurityGroups = DescribeSecurityGroups'
-  { _dsgNextToken ::
-      !(Maybe Text),
-    _dsgGroupIds ::
-      !(Maybe [Text]),
-    _dsgDryRun ::
-      !(Maybe Bool),
-    _dsgMaxResults ::
-      !(Maybe Nat),
-    _dsgGroupNames ::
-      !(Maybe [Text]),
-    _dsgFilters ::
-      !(Maybe [Filter])
+  { -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The IDs of the security groups. Required for security groups in a
+    -- nondefault VPC.
+    --
+    -- Default: Describes all your security groups.
+    groupIds :: Prelude.Maybe [Prelude.Text],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return in a single call. To retrieve
+    -- the remaining results, make another request with the returned
+    -- @NextToken@ value. This value can be between 5 and 1000. If this
+    -- parameter is not specified, then all results are returned.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | [EC2-Classic and default VPC only] The names of the security groups. You
+    -- can specify either the security group name or the security group ID. For
+    -- security groups in a nondefault VPC, use the @group-name@ filter to
+    -- describe security groups by name.
+    --
+    -- Default: Describes all your security groups.
+    groupNames :: Prelude.Maybe [Prelude.Text],
+    -- | The filters. If using multiple filters for rules, the results include
+    -- security groups for which any combination of rules - not necessarily a
+    -- single rule - match all filters.
+    --
+    -- -   @description@ - The description of the security group.
+    --
+    -- -   @egress.ip-permission.cidr@ - An IPv4 CIDR block for an outbound
+    --     security group rule.
+    --
+    -- -   @egress.ip-permission.from-port@ - For an outbound rule, the start
+    --     of port range for the TCP and UDP protocols, or an ICMP type number.
+    --
+    -- -   @egress.ip-permission.group-id@ - The ID of a security group that
+    --     has been referenced in an outbound security group rule.
+    --
+    -- -   @egress.ip-permission.group-name@ - The name of a security group
+    --     that is referenced in an outbound security group rule.
+    --
+    -- -   @egress.ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an
+    --     outbound security group rule.
+    --
+    -- -   @egress.ip-permission.prefix-list-id@ - The ID of a prefix list to
+    --     which a security group rule allows outbound access.
+    --
+    -- -   @egress.ip-permission.protocol@ - The IP protocol for an outbound
+    --     security group rule (@tcp@ | @udp@ | @icmp@, a protocol number, or
+    --     -1 for all protocols).
+    --
+    -- -   @egress.ip-permission.to-port@ - For an outbound rule, the end of
+    --     port range for the TCP and UDP protocols, or an ICMP code.
+    --
+    -- -   @egress.ip-permission.user-id@ - The ID of an AWS account that has
+    --     been referenced in an outbound security group rule.
+    --
+    -- -   @group-id@ - The ID of the security group.
+    --
+    -- -   @group-name@ - The name of the security group.
+    --
+    -- -   @ip-permission.cidr@ - An IPv4 CIDR block for an inbound security
+    --     group rule.
+    --
+    -- -   @ip-permission.from-port@ - For an inbound rule, the start of port
+    --     range for the TCP and UDP protocols, or an ICMP type number.
+    --
+    -- -   @ip-permission.group-id@ - The ID of a security group that has been
+    --     referenced in an inbound security group rule.
+    --
+    -- -   @ip-permission.group-name@ - The name of a security group that is
+    --     referenced in an inbound security group rule.
+    --
+    -- -   @ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an inbound
+    --     security group rule.
+    --
+    -- -   @ip-permission.prefix-list-id@ - The ID of a prefix list from which
+    --     a security group rule allows inbound access.
+    --
+    -- -   @ip-permission.protocol@ - The IP protocol for an inbound security
+    --     group rule (@tcp@ | @udp@ | @icmp@, a protocol number, or -1 for all
+    --     protocols).
+    --
+    -- -   @ip-permission.to-port@ - For an inbound rule, the end of port range
+    --     for the TCP and UDP protocols, or an ICMP code.
+    --
+    -- -   @ip-permission.user-id@ - The ID of an AWS account that has been
+    --     referenced in an inbound security group rule.
+    --
+    -- -   @owner-id@ - The AWS account ID of the owner of the security group.
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
+    --
+    -- -   @vpc-id@ - The ID of the VPC specified when the security group was
+    --     created.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSecurityGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSecurityGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsgNextToken' - The token to request the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsgGroupIds' - The IDs of the security groups. Required for security groups in a nondefault VPC. Default: Describes all your security groups.
+-- 'nextToken', 'describeSecurityGroups_nextToken' - The token to request the next page of results.
 --
--- * 'dsgDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'groupIds', 'describeSecurityGroups_groupIds' - The IDs of the security groups. Required for security groups in a
+-- nondefault VPC.
 --
--- * 'dsgMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another request with the returned @NextToken@ value. This value can be between 5 and 1000. If this parameter is not specified, then all results are returned.
+-- Default: Describes all your security groups.
 --
--- * 'dsgGroupNames' - [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security group name or the security group ID. For security groups in a nondefault VPC, use the @group-name@ filter to describe security groups by name. Default: Describes all your security groups.
+-- 'dryRun', 'describeSecurityGroups_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dsgFilters' - The filters. If using multiple filters for rules, the results include security groups for which any combination of rules - not necessarily a single rule - match all filters.     * @description@ - The description of the security group.     * @egress.ip-permission.cidr@ - An IPv4 CIDR block for an outbound security group rule.     * @egress.ip-permission.from-port@ - For an outbound rule, the start of port range for the TCP and UDP protocols, or an ICMP type number.     * @egress.ip-permission.group-id@ - The ID of a security group that has been referenced in an outbound security group rule.     * @egress.ip-permission.group-name@ - The name of a security group that is referenced in an outbound security group rule.     * @egress.ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an outbound security group rule.     * @egress.ip-permission.prefix-list-id@ - The ID of a prefix list to which a security group rule allows outbound access.     * @egress.ip-permission.protocol@ - The IP protocol for an outbound security group rule (@tcp@ | @udp@ | @icmp@ , a protocol number, or -1 for all protocols).     * @egress.ip-permission.to-port@ - For an outbound rule, the end of port range for the TCP and UDP protocols, or an ICMP code.     * @egress.ip-permission.user-id@ - The ID of an AWS account that has been referenced in an outbound security group rule.     * @group-id@ - The ID of the security group.      * @group-name@ - The name of the security group.     * @ip-permission.cidr@ - An IPv4 CIDR block for an inbound security group rule.     * @ip-permission.from-port@ - For an inbound rule, the start of port range for the TCP and UDP protocols, or an ICMP type number.     * @ip-permission.group-id@ - The ID of a security group that has been referenced in an inbound security group rule.     * @ip-permission.group-name@ - The name of a security group that is referenced in an inbound security group rule.     * @ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an inbound security group rule.     * @ip-permission.prefix-list-id@ - The ID of a prefix list from which a security group rule allows inbound access.     * @ip-permission.protocol@ - The IP protocol for an inbound security group rule (@tcp@ | @udp@ | @icmp@ , a protocol number, or -1 for all protocols).     * @ip-permission.to-port@ - For an inbound rule, the end of port range for the TCP and UDP protocols, or an ICMP code.     * @ip-permission.user-id@ - The ID of an AWS account that has been referenced in an inbound security group rule.     * @owner-id@ - The AWS account ID of the owner of the security group.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC specified when the security group was created.
-describeSecurityGroups ::
+-- 'maxResults', 'describeSecurityGroups_maxResults' - The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another request with the returned
+-- @NextToken@ value. This value can be between 5 and 1000. If this
+-- parameter is not specified, then all results are returned.
+--
+-- 'groupNames', 'describeSecurityGroups_groupNames' - [EC2-Classic and default VPC only] The names of the security groups. You
+-- can specify either the security group name or the security group ID. For
+-- security groups in a nondefault VPC, use the @group-name@ filter to
+-- describe security groups by name.
+--
+-- Default: Describes all your security groups.
+--
+-- 'filters', 'describeSecurityGroups_filters' - The filters. If using multiple filters for rules, the results include
+-- security groups for which any combination of rules - not necessarily a
+-- single rule - match all filters.
+--
+-- -   @description@ - The description of the security group.
+--
+-- -   @egress.ip-permission.cidr@ - An IPv4 CIDR block for an outbound
+--     security group rule.
+--
+-- -   @egress.ip-permission.from-port@ - For an outbound rule, the start
+--     of port range for the TCP and UDP protocols, or an ICMP type number.
+--
+-- -   @egress.ip-permission.group-id@ - The ID of a security group that
+--     has been referenced in an outbound security group rule.
+--
+-- -   @egress.ip-permission.group-name@ - The name of a security group
+--     that is referenced in an outbound security group rule.
+--
+-- -   @egress.ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an
+--     outbound security group rule.
+--
+-- -   @egress.ip-permission.prefix-list-id@ - The ID of a prefix list to
+--     which a security group rule allows outbound access.
+--
+-- -   @egress.ip-permission.protocol@ - The IP protocol for an outbound
+--     security group rule (@tcp@ | @udp@ | @icmp@, a protocol number, or
+--     -1 for all protocols).
+--
+-- -   @egress.ip-permission.to-port@ - For an outbound rule, the end of
+--     port range for the TCP and UDP protocols, or an ICMP code.
+--
+-- -   @egress.ip-permission.user-id@ - The ID of an AWS account that has
+--     been referenced in an outbound security group rule.
+--
+-- -   @group-id@ - The ID of the security group.
+--
+-- -   @group-name@ - The name of the security group.
+--
+-- -   @ip-permission.cidr@ - An IPv4 CIDR block for an inbound security
+--     group rule.
+--
+-- -   @ip-permission.from-port@ - For an inbound rule, the start of port
+--     range for the TCP and UDP protocols, or an ICMP type number.
+--
+-- -   @ip-permission.group-id@ - The ID of a security group that has been
+--     referenced in an inbound security group rule.
+--
+-- -   @ip-permission.group-name@ - The name of a security group that is
+--     referenced in an inbound security group rule.
+--
+-- -   @ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an inbound
+--     security group rule.
+--
+-- -   @ip-permission.prefix-list-id@ - The ID of a prefix list from which
+--     a security group rule allows inbound access.
+--
+-- -   @ip-permission.protocol@ - The IP protocol for an inbound security
+--     group rule (@tcp@ | @udp@ | @icmp@, a protocol number, or -1 for all
+--     protocols).
+--
+-- -   @ip-permission.to-port@ - For an inbound rule, the end of port range
+--     for the TCP and UDP protocols, or an ICMP code.
+--
+-- -   @ip-permission.user-id@ - The ID of an AWS account that has been
+--     referenced in an inbound security group rule.
+--
+-- -   @owner-id@ - The AWS account ID of the owner of the security group.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC specified when the security group was
+--     created.
+newDescribeSecurityGroups ::
   DescribeSecurityGroups
-describeSecurityGroups =
+newDescribeSecurityGroups =
   DescribeSecurityGroups'
-    { _dsgNextToken = Nothing,
-      _dsgGroupIds = Nothing,
-      _dsgDryRun = Nothing,
-      _dsgMaxResults = Nothing,
-      _dsgGroupNames = Nothing,
-      _dsgFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      groupIds = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      groupNames = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token to request the next page of results.
-dsgNextToken :: Lens' DescribeSecurityGroups (Maybe Text)
-dsgNextToken = lens _dsgNextToken (\s a -> s {_dsgNextToken = a})
+describeSecurityGroups_nextToken :: Lens.Lens' DescribeSecurityGroups (Prelude.Maybe Prelude.Text)
+describeSecurityGroups_nextToken = Lens.lens (\DescribeSecurityGroups' {nextToken} -> nextToken) (\s@DescribeSecurityGroups' {} a -> s {nextToken = a} :: DescribeSecurityGroups)
 
--- | The IDs of the security groups. Required for security groups in a nondefault VPC. Default: Describes all your security groups.
-dsgGroupIds :: Lens' DescribeSecurityGroups [Text]
-dsgGroupIds = lens _dsgGroupIds (\s a -> s {_dsgGroupIds = a}) . _Default . _Coerce
+-- | The IDs of the security groups. Required for security groups in a
+-- nondefault VPC.
+--
+-- Default: Describes all your security groups.
+describeSecurityGroups_groupIds :: Lens.Lens' DescribeSecurityGroups (Prelude.Maybe [Prelude.Text])
+describeSecurityGroups_groupIds = Lens.lens (\DescribeSecurityGroups' {groupIds} -> groupIds) (\s@DescribeSecurityGroups' {} a -> s {groupIds = a} :: DescribeSecurityGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dsgDryRun :: Lens' DescribeSecurityGroups (Maybe Bool)
-dsgDryRun = lens _dsgDryRun (\s a -> s {_dsgDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeSecurityGroups_dryRun :: Lens.Lens' DescribeSecurityGroups (Prelude.Maybe Prelude.Bool)
+describeSecurityGroups_dryRun = Lens.lens (\DescribeSecurityGroups' {dryRun} -> dryRun) (\s@DescribeSecurityGroups' {} a -> s {dryRun = a} :: DescribeSecurityGroups)
 
--- | The maximum number of results to return in a single call. To retrieve the remaining results, make another request with the returned @NextToken@ value. This value can be between 5 and 1000. If this parameter is not specified, then all results are returned.
-dsgMaxResults :: Lens' DescribeSecurityGroups (Maybe Natural)
-dsgMaxResults = lens _dsgMaxResults (\s a -> s {_dsgMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in a single call. To retrieve
+-- the remaining results, make another request with the returned
+-- @NextToken@ value. This value can be between 5 and 1000. If this
+-- parameter is not specified, then all results are returned.
+describeSecurityGroups_maxResults :: Lens.Lens' DescribeSecurityGroups (Prelude.Maybe Prelude.Natural)
+describeSecurityGroups_maxResults = Lens.lens (\DescribeSecurityGroups' {maxResults} -> maxResults) (\s@DescribeSecurityGroups' {} a -> s {maxResults = a} :: DescribeSecurityGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security group name or the security group ID. For security groups in a nondefault VPC, use the @group-name@ filter to describe security groups by name. Default: Describes all your security groups.
-dsgGroupNames :: Lens' DescribeSecurityGroups [Text]
-dsgGroupNames = lens _dsgGroupNames (\s a -> s {_dsgGroupNames = a}) . _Default . _Coerce
+-- | [EC2-Classic and default VPC only] The names of the security groups. You
+-- can specify either the security group name or the security group ID. For
+-- security groups in a nondefault VPC, use the @group-name@ filter to
+-- describe security groups by name.
+--
+-- Default: Describes all your security groups.
+describeSecurityGroups_groupNames :: Lens.Lens' DescribeSecurityGroups (Prelude.Maybe [Prelude.Text])
+describeSecurityGroups_groupNames = Lens.lens (\DescribeSecurityGroups' {groupNames} -> groupNames) (\s@DescribeSecurityGroups' {} a -> s {groupNames = a} :: DescribeSecurityGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The filters. If using multiple filters for rules, the results include security groups for which any combination of rules - not necessarily a single rule - match all filters.     * @description@ - The description of the security group.     * @egress.ip-permission.cidr@ - An IPv4 CIDR block for an outbound security group rule.     * @egress.ip-permission.from-port@ - For an outbound rule, the start of port range for the TCP and UDP protocols, or an ICMP type number.     * @egress.ip-permission.group-id@ - The ID of a security group that has been referenced in an outbound security group rule.     * @egress.ip-permission.group-name@ - The name of a security group that is referenced in an outbound security group rule.     * @egress.ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an outbound security group rule.     * @egress.ip-permission.prefix-list-id@ - The ID of a prefix list to which a security group rule allows outbound access.     * @egress.ip-permission.protocol@ - The IP protocol for an outbound security group rule (@tcp@ | @udp@ | @icmp@ , a protocol number, or -1 for all protocols).     * @egress.ip-permission.to-port@ - For an outbound rule, the end of port range for the TCP and UDP protocols, or an ICMP code.     * @egress.ip-permission.user-id@ - The ID of an AWS account that has been referenced in an outbound security group rule.     * @group-id@ - The ID of the security group.      * @group-name@ - The name of the security group.     * @ip-permission.cidr@ - An IPv4 CIDR block for an inbound security group rule.     * @ip-permission.from-port@ - For an inbound rule, the start of port range for the TCP and UDP protocols, or an ICMP type number.     * @ip-permission.group-id@ - The ID of a security group that has been referenced in an inbound security group rule.     * @ip-permission.group-name@ - The name of a security group that is referenced in an inbound security group rule.     * @ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an inbound security group rule.     * @ip-permission.prefix-list-id@ - The ID of a prefix list from which a security group rule allows inbound access.     * @ip-permission.protocol@ - The IP protocol for an inbound security group rule (@tcp@ | @udp@ | @icmp@ , a protocol number, or -1 for all protocols).     * @ip-permission.to-port@ - For an inbound rule, the end of port range for the TCP and UDP protocols, or an ICMP code.     * @ip-permission.user-id@ - The ID of an AWS account that has been referenced in an inbound security group rule.     * @owner-id@ - The AWS account ID of the owner of the security group.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @vpc-id@ - The ID of the VPC specified when the security group was created.
-dsgFilters :: Lens' DescribeSecurityGroups [Filter]
-dsgFilters = lens _dsgFilters (\s a -> s {_dsgFilters = a}) . _Default . _Coerce
+-- | The filters. If using multiple filters for rules, the results include
+-- security groups for which any combination of rules - not necessarily a
+-- single rule - match all filters.
+--
+-- -   @description@ - The description of the security group.
+--
+-- -   @egress.ip-permission.cidr@ - An IPv4 CIDR block for an outbound
+--     security group rule.
+--
+-- -   @egress.ip-permission.from-port@ - For an outbound rule, the start
+--     of port range for the TCP and UDP protocols, or an ICMP type number.
+--
+-- -   @egress.ip-permission.group-id@ - The ID of a security group that
+--     has been referenced in an outbound security group rule.
+--
+-- -   @egress.ip-permission.group-name@ - The name of a security group
+--     that is referenced in an outbound security group rule.
+--
+-- -   @egress.ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an
+--     outbound security group rule.
+--
+-- -   @egress.ip-permission.prefix-list-id@ - The ID of a prefix list to
+--     which a security group rule allows outbound access.
+--
+-- -   @egress.ip-permission.protocol@ - The IP protocol for an outbound
+--     security group rule (@tcp@ | @udp@ | @icmp@, a protocol number, or
+--     -1 for all protocols).
+--
+-- -   @egress.ip-permission.to-port@ - For an outbound rule, the end of
+--     port range for the TCP and UDP protocols, or an ICMP code.
+--
+-- -   @egress.ip-permission.user-id@ - The ID of an AWS account that has
+--     been referenced in an outbound security group rule.
+--
+-- -   @group-id@ - The ID of the security group.
+--
+-- -   @group-name@ - The name of the security group.
+--
+-- -   @ip-permission.cidr@ - An IPv4 CIDR block for an inbound security
+--     group rule.
+--
+-- -   @ip-permission.from-port@ - For an inbound rule, the start of port
+--     range for the TCP and UDP protocols, or an ICMP type number.
+--
+-- -   @ip-permission.group-id@ - The ID of a security group that has been
+--     referenced in an inbound security group rule.
+--
+-- -   @ip-permission.group-name@ - The name of a security group that is
+--     referenced in an inbound security group rule.
+--
+-- -   @ip-permission.ipv6-cidr@ - An IPv6 CIDR block for an inbound
+--     security group rule.
+--
+-- -   @ip-permission.prefix-list-id@ - The ID of a prefix list from which
+--     a security group rule allows inbound access.
+--
+-- -   @ip-permission.protocol@ - The IP protocol for an inbound security
+--     group rule (@tcp@ | @udp@ | @icmp@, a protocol number, or -1 for all
+--     protocols).
+--
+-- -   @ip-permission.to-port@ - For an inbound rule, the end of port range
+--     for the TCP and UDP protocols, or an ICMP code.
+--
+-- -   @ip-permission.user-id@ - The ID of an AWS account that has been
+--     referenced in an inbound security group rule.
+--
+-- -   @owner-id@ - The AWS account ID of the owner of the security group.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @vpc-id@ - The ID of the VPC specified when the security group was
+--     created.
+describeSecurityGroups_filters :: Lens.Lens' DescribeSecurityGroups (Prelude.Maybe [Filter])
+describeSecurityGroups_filters = Lens.lens (\DescribeSecurityGroups' {filters} -> filters) (\s@DescribeSecurityGroups' {} a -> s {filters = a} :: DescribeSecurityGroups) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeSecurityGroups where
+instance Pager.AWSPager DescribeSecurityGroups where
   page rq rs
-    | stop (rs ^. dsgrrsNextToken) = Nothing
-    | stop (rs ^. dsgrrsSecurityGroups) = Nothing
-    | otherwise =
-      Just $ rq & dsgNextToken .~ rs ^. dsgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeSecurityGroupsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSecurityGroupsResponse_securityGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSecurityGroups_nextToken
+          Lens..~ rs
+          Lens.^? describeSecurityGroupsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeSecurityGroups where
+instance Prelude.AWSRequest DescribeSecurityGroups where
   type
     Rs DescribeSecurityGroups =
       DescribeSecurityGroupsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeSecurityGroupsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "securityGroupInfo" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "securityGroupInfo"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSecurityGroups
+instance Prelude.Hashable DescribeSecurityGroups
 
-instance NFData DescribeSecurityGroups
+instance Prelude.NFData DescribeSecurityGroups
 
-instance ToHeaders DescribeSecurityGroups where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSecurityGroups where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSecurityGroups where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSecurityGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSecurityGroups where
+instance Prelude.ToQuery DescribeSecurityGroups where
   toQuery DescribeSecurityGroups' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeSecurityGroups" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dsgNextToken,
-        toQuery (toQueryList "GroupId" <$> _dsgGroupIds),
-        "DryRun" =: _dsgDryRun,
-        "MaxResults" =: _dsgMaxResults,
-        toQuery (toQueryList "GroupName" <$> _dsgGroupNames),
-        toQuery (toQueryList "Filter" <$> _dsgFilters)
+          Prelude.=: ("DescribeSecurityGroups" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        Prelude.toQuery
+          (Prelude.toQueryList "GroupId" Prelude.<$> groupIds),
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "GroupName"
+              Prelude.<$> groupNames
+          ),
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeSecurityGroupsResponse' smart constructor.
+-- | /See:/ 'newDescribeSecurityGroupsResponse' smart constructor.
 data DescribeSecurityGroupsResponse = DescribeSecurityGroupsResponse'
-  { _dsgrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsgrrsSecurityGroups ::
-      !( Maybe
-           [SecurityGroup]
-       ),
-    _dsgrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the security groups.
+    securityGroups :: Prelude.Maybe [SecurityGroup],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSecurityGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSecurityGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsgrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsgrrsSecurityGroups' - Information about the security groups.
+-- 'nextToken', 'describeSecurityGroupsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dsgrrsResponseStatus' - -- | The response status code.
-describeSecurityGroupsResponse ::
-  -- | 'dsgrrsResponseStatus'
-  Int ->
+-- 'securityGroups', 'describeSecurityGroupsResponse_securityGroups' - Information about the security groups.
+--
+-- 'httpStatus', 'describeSecurityGroupsResponse_httpStatus' - The response's http status code.
+newDescribeSecurityGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSecurityGroupsResponse
-describeSecurityGroupsResponse pResponseStatus_ =
+newDescribeSecurityGroupsResponse pHttpStatus_ =
   DescribeSecurityGroupsResponse'
-    { _dsgrrsNextToken =
-        Nothing,
-      _dsgrrsSecurityGroups = Nothing,
-      _dsgrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dsgrrsNextToken :: Lens' DescribeSecurityGroupsResponse (Maybe Text)
-dsgrrsNextToken = lens _dsgrrsNextToken (\s a -> s {_dsgrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeSecurityGroupsResponse_nextToken :: Lens.Lens' DescribeSecurityGroupsResponse (Prelude.Maybe Prelude.Text)
+describeSecurityGroupsResponse_nextToken = Lens.lens (\DescribeSecurityGroupsResponse' {nextToken} -> nextToken) (\s@DescribeSecurityGroupsResponse' {} a -> s {nextToken = a} :: DescribeSecurityGroupsResponse)
 
 -- | Information about the security groups.
-dsgrrsSecurityGroups :: Lens' DescribeSecurityGroupsResponse [SecurityGroup]
-dsgrrsSecurityGroups = lens _dsgrrsSecurityGroups (\s a -> s {_dsgrrsSecurityGroups = a}) . _Default . _Coerce
+describeSecurityGroupsResponse_securityGroups :: Lens.Lens' DescribeSecurityGroupsResponse (Prelude.Maybe [SecurityGroup])
+describeSecurityGroupsResponse_securityGroups = Lens.lens (\DescribeSecurityGroupsResponse' {securityGroups} -> securityGroups) (\s@DescribeSecurityGroupsResponse' {} a -> s {securityGroups = a} :: DescribeSecurityGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsgrrsResponseStatus :: Lens' DescribeSecurityGroupsResponse Int
-dsgrrsResponseStatus = lens _dsgrrsResponseStatus (\s a -> s {_dsgrrsResponseStatus = a})
+-- | The response's http status code.
+describeSecurityGroupsResponse_httpStatus :: Lens.Lens' DescribeSecurityGroupsResponse Prelude.Int
+describeSecurityGroupsResponse_httpStatus = Lens.lens (\DescribeSecurityGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeSecurityGroupsResponse' {} a -> s {httpStatus = a} :: DescribeSecurityGroupsResponse)
 
-instance NFData DescribeSecurityGroupsResponse
+instance
+  Prelude.NFData
+    DescribeSecurityGroupsResponse

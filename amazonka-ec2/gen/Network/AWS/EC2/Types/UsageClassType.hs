@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.UsageClassType
   ( UsageClassType
       ( ..,
-        UCTOnDemand,
-        UCTSpot
+        UsageClassTypeOnDemand,
+        UsageClassTypeSpot
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UsageClassType = UsageClassType' (CI Text)
+newtype UsageClassType = UsageClassType'
+  { fromUsageClassType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UCTOnDemand :: UsageClassType
-pattern UCTOnDemand = UsageClassType' "on-demand"
+pattern UsageClassTypeOnDemand :: UsageClassType
+pattern UsageClassTypeOnDemand = UsageClassType' "on-demand"
 
-pattern UCTSpot :: UsageClassType
-pattern UCTSpot = UsageClassType' "spot"
+pattern UsageClassTypeSpot :: UsageClassType
+pattern UsageClassTypeSpot = UsageClassType' "spot"
 
 {-# COMPLETE
-  UCTOnDemand,
-  UCTSpot,
+  UsageClassTypeOnDemand,
+  UsageClassTypeSpot,
   UsageClassType'
   #-}
 
-instance FromText UsageClassType where
-  parser = (UsageClassType' . mk) <$> takeText
+instance Prelude.FromText UsageClassType where
+  parser = UsageClassType' Prelude.<$> Prelude.takeText
 
-instance ToText UsageClassType where
-  toText (UsageClassType' ci) = original ci
+instance Prelude.ToText UsageClassType where
+  toText (UsageClassType' x) = x
 
-instance Hashable UsageClassType
+instance Prelude.Hashable UsageClassType
 
-instance NFData UsageClassType
+instance Prelude.NFData UsageClassType
 
-instance ToByteString UsageClassType
+instance Prelude.ToByteString UsageClassType
 
-instance ToQuery UsageClassType
+instance Prelude.ToQuery UsageClassType
 
-instance ToHeader UsageClassType
+instance Prelude.ToHeader UsageClassType
 
-instance FromXML UsageClassType where
-  parseXML = parseXMLText "UsageClassType"
+instance Prelude.FromXML UsageClassType where
+  parseXML = Prelude.parseXMLText "UsageClassType"

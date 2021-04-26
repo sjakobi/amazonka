@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,99 +21,105 @@ module Network.AWS.EC2.Types.LaunchTemplate where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a launch template.
 --
---
---
--- /See:/ 'launchTemplate' smart constructor.
+-- /See:/ 'newLaunchTemplate' smart constructor.
 data LaunchTemplate = LaunchTemplate'
-  { _ltLaunchTemplateId ::
-      !(Maybe Text),
-    _ltLaunchTemplateName :: !(Maybe Text),
-    _ltTags :: !(Maybe [Tag]),
-    _ltCreateTime :: !(Maybe ISO8601),
-    _ltCreatedBy :: !(Maybe Text),
-    _ltDefaultVersionNumber ::
-      !(Maybe Integer),
-    _ltLatestVersionNumber ::
-      !(Maybe Integer)
+  { -- | The ID of the launch template.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | The tags for the launch template.
+    tags :: Prelude.Maybe [Tag],
+    -- | The time launch template was created.
+    createTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The principal that created the launch template.
+    createdBy :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the default version of the launch template.
+    defaultVersionNumber :: Prelude.Maybe Prelude.Integer,
+    -- | The version number of the latest version of the launch template.
+    latestVersionNumber :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltLaunchTemplateId' - The ID of the launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltLaunchTemplateName' - The name of the launch template.
+-- 'launchTemplateId', 'launchTemplate_launchTemplateId' - The ID of the launch template.
 --
--- * 'ltTags' - The tags for the launch template.
+-- 'launchTemplateName', 'launchTemplate_launchTemplateName' - The name of the launch template.
 --
--- * 'ltCreateTime' - The time launch template was created.
+-- 'tags', 'launchTemplate_tags' - The tags for the launch template.
 --
--- * 'ltCreatedBy' - The principal that created the launch template.
+-- 'createTime', 'launchTemplate_createTime' - The time launch template was created.
 --
--- * 'ltDefaultVersionNumber' - The version number of the default version of the launch template.
+-- 'createdBy', 'launchTemplate_createdBy' - The principal that created the launch template.
 --
--- * 'ltLatestVersionNumber' - The version number of the latest version of the launch template.
-launchTemplate ::
+-- 'defaultVersionNumber', 'launchTemplate_defaultVersionNumber' - The version number of the default version of the launch template.
+--
+-- 'latestVersionNumber', 'launchTemplate_latestVersionNumber' - The version number of the latest version of the launch template.
+newLaunchTemplate ::
   LaunchTemplate
-launchTemplate =
+newLaunchTemplate =
   LaunchTemplate'
-    { _ltLaunchTemplateId = Nothing,
-      _ltLaunchTemplateName = Nothing,
-      _ltTags = Nothing,
-      _ltCreateTime = Nothing,
-      _ltCreatedBy = Nothing,
-      _ltDefaultVersionNumber = Nothing,
-      _ltLatestVersionNumber = Nothing
+    { launchTemplateId = Prelude.Nothing,
+      launchTemplateName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      defaultVersionNumber = Prelude.Nothing,
+      latestVersionNumber = Prelude.Nothing
     }
 
 -- | The ID of the launch template.
-ltLaunchTemplateId :: Lens' LaunchTemplate (Maybe Text)
-ltLaunchTemplateId = lens _ltLaunchTemplateId (\s a -> s {_ltLaunchTemplateId = a})
+launchTemplate_launchTemplateId :: Lens.Lens' LaunchTemplate (Prelude.Maybe Prelude.Text)
+launchTemplate_launchTemplateId = Lens.lens (\LaunchTemplate' {launchTemplateId} -> launchTemplateId) (\s@LaunchTemplate' {} a -> s {launchTemplateId = a} :: LaunchTemplate)
 
 -- | The name of the launch template.
-ltLaunchTemplateName :: Lens' LaunchTemplate (Maybe Text)
-ltLaunchTemplateName = lens _ltLaunchTemplateName (\s a -> s {_ltLaunchTemplateName = a})
+launchTemplate_launchTemplateName :: Lens.Lens' LaunchTemplate (Prelude.Maybe Prelude.Text)
+launchTemplate_launchTemplateName = Lens.lens (\LaunchTemplate' {launchTemplateName} -> launchTemplateName) (\s@LaunchTemplate' {} a -> s {launchTemplateName = a} :: LaunchTemplate)
 
 -- | The tags for the launch template.
-ltTags :: Lens' LaunchTemplate [Tag]
-ltTags = lens _ltTags (\s a -> s {_ltTags = a}) . _Default . _Coerce
+launchTemplate_tags :: Lens.Lens' LaunchTemplate (Prelude.Maybe [Tag])
+launchTemplate_tags = Lens.lens (\LaunchTemplate' {tags} -> tags) (\s@LaunchTemplate' {} a -> s {tags = a} :: LaunchTemplate) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time launch template was created.
-ltCreateTime :: Lens' LaunchTemplate (Maybe UTCTime)
-ltCreateTime = lens _ltCreateTime (\s a -> s {_ltCreateTime = a}) . mapping _Time
+launchTemplate_createTime :: Lens.Lens' LaunchTemplate (Prelude.Maybe Prelude.UTCTime)
+launchTemplate_createTime = Lens.lens (\LaunchTemplate' {createTime} -> createTime) (\s@LaunchTemplate' {} a -> s {createTime = a} :: LaunchTemplate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The principal that created the launch template.
-ltCreatedBy :: Lens' LaunchTemplate (Maybe Text)
-ltCreatedBy = lens _ltCreatedBy (\s a -> s {_ltCreatedBy = a})
+launchTemplate_createdBy :: Lens.Lens' LaunchTemplate (Prelude.Maybe Prelude.Text)
+launchTemplate_createdBy = Lens.lens (\LaunchTemplate' {createdBy} -> createdBy) (\s@LaunchTemplate' {} a -> s {createdBy = a} :: LaunchTemplate)
 
 -- | The version number of the default version of the launch template.
-ltDefaultVersionNumber :: Lens' LaunchTemplate (Maybe Integer)
-ltDefaultVersionNumber = lens _ltDefaultVersionNumber (\s a -> s {_ltDefaultVersionNumber = a})
+launchTemplate_defaultVersionNumber :: Lens.Lens' LaunchTemplate (Prelude.Maybe Prelude.Integer)
+launchTemplate_defaultVersionNumber = Lens.lens (\LaunchTemplate' {defaultVersionNumber} -> defaultVersionNumber) (\s@LaunchTemplate' {} a -> s {defaultVersionNumber = a} :: LaunchTemplate)
 
 -- | The version number of the latest version of the launch template.
-ltLatestVersionNumber :: Lens' LaunchTemplate (Maybe Integer)
-ltLatestVersionNumber = lens _ltLatestVersionNumber (\s a -> s {_ltLatestVersionNumber = a})
+launchTemplate_latestVersionNumber :: Lens.Lens' LaunchTemplate (Prelude.Maybe Prelude.Integer)
+launchTemplate_latestVersionNumber = Lens.lens (\LaunchTemplate' {latestVersionNumber} -> latestVersionNumber) (\s@LaunchTemplate' {} a -> s {latestVersionNumber = a} :: LaunchTemplate)
 
-instance FromXML LaunchTemplate where
+instance Prelude.FromXML LaunchTemplate where
   parseXML x =
     LaunchTemplate'
-      <$> (x .@? "launchTemplateId")
-      <*> (x .@? "launchTemplateName")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "createTime")
-      <*> (x .@? "createdBy")
-      <*> (x .@? "defaultVersionNumber")
-      <*> (x .@? "latestVersionNumber")
+      Prelude.<$> (x Prelude..@? "launchTemplateId")
+      Prelude.<*> (x Prelude..@? "launchTemplateName")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "createTime")
+      Prelude.<*> (x Prelude..@? "createdBy")
+      Prelude.<*> (x Prelude..@? "defaultVersionNumber")
+      Prelude.<*> (x Prelude..@? "latestVersionNumber")
 
-instance Hashable LaunchTemplate
+instance Prelude.Hashable LaunchTemplate
 
-instance NFData LaunchTemplate
+instance Prelude.NFData LaunchTemplate

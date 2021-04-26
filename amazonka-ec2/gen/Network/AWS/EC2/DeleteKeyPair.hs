@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,107 +21,124 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified key pair, by removing the public key from Amazon EC2.
+-- Deletes the specified key pair, by removing the public key from Amazon
+-- EC2.
 module Network.AWS.EC2.DeleteKeyPair
   ( -- * Creating a Request
-    deleteKeyPair,
-    DeleteKeyPair,
+    DeleteKeyPair (..),
+    newDeleteKeyPair,
 
     -- * Request Lenses
-    dkpDryRun,
-    dkpKeyPairId,
-    dkpKeyName,
+    deleteKeyPair_dryRun,
+    deleteKeyPair_keyPairId,
+    deleteKeyPair_keyName,
 
     -- * Destructuring the Response
-    deleteKeyPairResponse,
-    DeleteKeyPairResponse,
+    DeleteKeyPairResponse (..),
+    newDeleteKeyPairResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteKeyPair' smart constructor.
+-- | /See:/ 'newDeleteKeyPair' smart constructor.
 data DeleteKeyPair = DeleteKeyPair'
-  { _dkpDryRun ::
-      !(Maybe Bool),
-    _dkpKeyPairId :: !(Maybe Text),
-    _dkpKeyName :: !(Maybe Text)
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the key pair.
+    keyPairId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the key pair.
+    keyName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteKeyPair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteKeyPair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dkpDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dkpKeyPairId' - The ID of the key pair.
+-- 'dryRun', 'deleteKeyPair_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dkpKeyName' - The name of the key pair.
-deleteKeyPair ::
+-- 'keyPairId', 'deleteKeyPair_keyPairId' - The ID of the key pair.
+--
+-- 'keyName', 'deleteKeyPair_keyName' - The name of the key pair.
+newDeleteKeyPair ::
   DeleteKeyPair
-deleteKeyPair =
+newDeleteKeyPair =
   DeleteKeyPair'
-    { _dkpDryRun = Nothing,
-      _dkpKeyPairId = Nothing,
-      _dkpKeyName = Nothing
+    { dryRun = Prelude.Nothing,
+      keyPairId = Prelude.Nothing,
+      keyName = Prelude.Nothing
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dkpDryRun :: Lens' DeleteKeyPair (Maybe Bool)
-dkpDryRun = lens _dkpDryRun (\s a -> s {_dkpDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteKeyPair_dryRun :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Bool)
+deleteKeyPair_dryRun = Lens.lens (\DeleteKeyPair' {dryRun} -> dryRun) (\s@DeleteKeyPair' {} a -> s {dryRun = a} :: DeleteKeyPair)
 
 -- | The ID of the key pair.
-dkpKeyPairId :: Lens' DeleteKeyPair (Maybe Text)
-dkpKeyPairId = lens _dkpKeyPairId (\s a -> s {_dkpKeyPairId = a})
+deleteKeyPair_keyPairId :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Text)
+deleteKeyPair_keyPairId = Lens.lens (\DeleteKeyPair' {keyPairId} -> keyPairId) (\s@DeleteKeyPair' {} a -> s {keyPairId = a} :: DeleteKeyPair)
 
 -- | The name of the key pair.
-dkpKeyName :: Lens' DeleteKeyPair (Maybe Text)
-dkpKeyName = lens _dkpKeyName (\s a -> s {_dkpKeyName = a})
+deleteKeyPair_keyName :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Text)
+deleteKeyPair_keyName = Lens.lens (\DeleteKeyPair' {keyName} -> keyName) (\s@DeleteKeyPair' {} a -> s {keyName = a} :: DeleteKeyPair)
 
-instance AWSRequest DeleteKeyPair where
+instance Prelude.AWSRequest DeleteKeyPair where
   type Rs DeleteKeyPair = DeleteKeyPairResponse
-  request = postQuery ec2
-  response = receiveNull DeleteKeyPairResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteKeyPairResponse'
 
-instance Hashable DeleteKeyPair
+instance Prelude.Hashable DeleteKeyPair
 
-instance NFData DeleteKeyPair
+instance Prelude.NFData DeleteKeyPair
 
-instance ToHeaders DeleteKeyPair where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteKeyPair where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteKeyPair where
-  toPath = const "/"
+instance Prelude.ToPath DeleteKeyPair where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteKeyPair where
+instance Prelude.ToQuery DeleteKeyPair where
   toQuery DeleteKeyPair' {..} =
-    mconcat
-      [ "Action" =: ("DeleteKeyPair" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dkpDryRun,
-        "KeyPairId" =: _dkpKeyPairId,
-        "KeyName" =: _dkpKeyName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteKeyPair" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "KeyPairId" Prelude.=: keyPairId,
+        "KeyName" Prelude.=: keyName
       ]
 
--- | /See:/ 'deleteKeyPairResponse' smart constructor.
+-- | /See:/ 'newDeleteKeyPairResponse' smart constructor.
 data DeleteKeyPairResponse = DeleteKeyPairResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteKeyPairResponse' with the minimum fields required to make a request.
-deleteKeyPairResponse ::
+-- |
+-- Create a value of 'DeleteKeyPairResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteKeyPairResponse ::
   DeleteKeyPairResponse
-deleteKeyPairResponse = DeleteKeyPairResponse'
+newDeleteKeyPairResponse = DeleteKeyPairResponse'
 
-instance NFData DeleteKeyPairResponse
+instance Prelude.NFData DeleteKeyPairResponse

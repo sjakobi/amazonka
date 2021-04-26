@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.RouteOrigin
   ( RouteOrigin
       ( ..,
-        CreateRoute,
-        CreateRouteTable,
-        EnableVGWRoutePropagation
+        RouteOriginCreateRoute,
+        RouteOriginCreateRouteTable,
+        RouteOriginEnableVgwRoutePropagation
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RouteOrigin = RouteOrigin' (CI Text)
+newtype RouteOrigin = RouteOrigin'
+  { fromRouteOrigin ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateRoute :: RouteOrigin
-pattern CreateRoute = RouteOrigin' "CreateRoute"
+pattern RouteOriginCreateRoute :: RouteOrigin
+pattern RouteOriginCreateRoute = RouteOrigin' "CreateRoute"
 
-pattern CreateRouteTable :: RouteOrigin
-pattern CreateRouteTable = RouteOrigin' "CreateRouteTable"
+pattern RouteOriginCreateRouteTable :: RouteOrigin
+pattern RouteOriginCreateRouteTable = RouteOrigin' "CreateRouteTable"
 
-pattern EnableVGWRoutePropagation :: RouteOrigin
-pattern EnableVGWRoutePropagation = RouteOrigin' "EnableVgwRoutePropagation"
+pattern RouteOriginEnableVgwRoutePropagation :: RouteOrigin
+pattern RouteOriginEnableVgwRoutePropagation = RouteOrigin' "EnableVgwRoutePropagation"
 
 {-# COMPLETE
-  CreateRoute,
-  CreateRouteTable,
-  EnableVGWRoutePropagation,
+  RouteOriginCreateRoute,
+  RouteOriginCreateRouteTable,
+  RouteOriginEnableVgwRoutePropagation,
   RouteOrigin'
   #-}
 
-instance FromText RouteOrigin where
-  parser = (RouteOrigin' . mk) <$> takeText
+instance Prelude.FromText RouteOrigin where
+  parser = RouteOrigin' Prelude.<$> Prelude.takeText
 
-instance ToText RouteOrigin where
-  toText (RouteOrigin' ci) = original ci
+instance Prelude.ToText RouteOrigin where
+  toText (RouteOrigin' x) = x
 
-instance Hashable RouteOrigin
+instance Prelude.Hashable RouteOrigin
 
-instance NFData RouteOrigin
+instance Prelude.NFData RouteOrigin
 
-instance ToByteString RouteOrigin
+instance Prelude.ToByteString RouteOrigin
 
-instance ToQuery RouteOrigin
+instance Prelude.ToQuery RouteOrigin
 
-instance ToHeader RouteOrigin
+instance Prelude.ToHeader RouteOrigin
 
-instance FromXML RouteOrigin where
-  parseXML = parseXMLText "RouteOrigin"
+instance Prelude.FromXML RouteOrigin where
+  parseXML = Prelude.parseXMLText "RouteOrigin"

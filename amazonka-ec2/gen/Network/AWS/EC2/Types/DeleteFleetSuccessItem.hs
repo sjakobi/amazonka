@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +21,63 @@ module Network.AWS.EC2.Types.DeleteFleetSuccessItem where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.FleetStateCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an EC2 Fleet that was successfully deleted.
 --
---
---
--- /See:/ 'deleteFleetSuccessItem' smart constructor.
+-- /See:/ 'newDeleteFleetSuccessItem' smart constructor.
 data DeleteFleetSuccessItem = DeleteFleetSuccessItem'
-  { _dfsiFleetId ::
-      !(Maybe Text),
-    _dfsiCurrentFleetState ::
-      !(Maybe FleetStateCode),
-    _dfsiPreviousFleetState ::
-      !(Maybe FleetStateCode)
+  { -- | The ID of the EC2 Fleet.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the EC2 Fleet.
+    currentFleetState :: Prelude.Maybe FleetStateCode,
+    -- | The previous state of the EC2 Fleet.
+    previousFleetState :: Prelude.Maybe FleetStateCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFleetSuccessItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFleetSuccessItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsiFleetId' - The ID of the EC2 Fleet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsiCurrentFleetState' - The current state of the EC2 Fleet.
+-- 'fleetId', 'deleteFleetSuccessItem_fleetId' - The ID of the EC2 Fleet.
 --
--- * 'dfsiPreviousFleetState' - The previous state of the EC2 Fleet.
-deleteFleetSuccessItem ::
+-- 'currentFleetState', 'deleteFleetSuccessItem_currentFleetState' - The current state of the EC2 Fleet.
+--
+-- 'previousFleetState', 'deleteFleetSuccessItem_previousFleetState' - The previous state of the EC2 Fleet.
+newDeleteFleetSuccessItem ::
   DeleteFleetSuccessItem
-deleteFleetSuccessItem =
+newDeleteFleetSuccessItem =
   DeleteFleetSuccessItem'
-    { _dfsiFleetId = Nothing,
-      _dfsiCurrentFleetState = Nothing,
-      _dfsiPreviousFleetState = Nothing
+    { fleetId = Prelude.Nothing,
+      currentFleetState = Prelude.Nothing,
+      previousFleetState = Prelude.Nothing
     }
 
 -- | The ID of the EC2 Fleet.
-dfsiFleetId :: Lens' DeleteFleetSuccessItem (Maybe Text)
-dfsiFleetId = lens _dfsiFleetId (\s a -> s {_dfsiFleetId = a})
+deleteFleetSuccessItem_fleetId :: Lens.Lens' DeleteFleetSuccessItem (Prelude.Maybe Prelude.Text)
+deleteFleetSuccessItem_fleetId = Lens.lens (\DeleteFleetSuccessItem' {fleetId} -> fleetId) (\s@DeleteFleetSuccessItem' {} a -> s {fleetId = a} :: DeleteFleetSuccessItem)
 
 -- | The current state of the EC2 Fleet.
-dfsiCurrentFleetState :: Lens' DeleteFleetSuccessItem (Maybe FleetStateCode)
-dfsiCurrentFleetState = lens _dfsiCurrentFleetState (\s a -> s {_dfsiCurrentFleetState = a})
+deleteFleetSuccessItem_currentFleetState :: Lens.Lens' DeleteFleetSuccessItem (Prelude.Maybe FleetStateCode)
+deleteFleetSuccessItem_currentFleetState = Lens.lens (\DeleteFleetSuccessItem' {currentFleetState} -> currentFleetState) (\s@DeleteFleetSuccessItem' {} a -> s {currentFleetState = a} :: DeleteFleetSuccessItem)
 
 -- | The previous state of the EC2 Fleet.
-dfsiPreviousFleetState :: Lens' DeleteFleetSuccessItem (Maybe FleetStateCode)
-dfsiPreviousFleetState = lens _dfsiPreviousFleetState (\s a -> s {_dfsiPreviousFleetState = a})
+deleteFleetSuccessItem_previousFleetState :: Lens.Lens' DeleteFleetSuccessItem (Prelude.Maybe FleetStateCode)
+deleteFleetSuccessItem_previousFleetState = Lens.lens (\DeleteFleetSuccessItem' {previousFleetState} -> previousFleetState) (\s@DeleteFleetSuccessItem' {} a -> s {previousFleetState = a} :: DeleteFleetSuccessItem)
 
-instance FromXML DeleteFleetSuccessItem where
+instance Prelude.FromXML DeleteFleetSuccessItem where
   parseXML x =
     DeleteFleetSuccessItem'
-      <$> (x .@? "fleetId")
-      <*> (x .@? "currentFleetState")
-      <*> (x .@? "previousFleetState")
+      Prelude.<$> (x Prelude..@? "fleetId")
+      Prelude.<*> (x Prelude..@? "currentFleetState")
+      Prelude.<*> (x Prelude..@? "previousFleetState")
 
-instance Hashable DeleteFleetSuccessItem
+instance Prelude.Hashable DeleteFleetSuccessItem
 
-instance NFData DeleteFleetSuccessItem
+instance Prelude.NFData DeleteFleetSuccessItem

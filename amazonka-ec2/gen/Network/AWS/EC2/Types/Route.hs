@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,166 +22,216 @@ module Network.AWS.EC2.Types.Route where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.RouteOrigin
 import Network.AWS.EC2.Types.RouteState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a route in a route table.
 --
---
---
--- /See:/ 'route' smart constructor.
+-- /See:/ 'newRoute' smart constructor.
 data Route = Route'
-  { _rInstanceId :: !(Maybe Text),
-    _rOrigin :: !(Maybe RouteOrigin),
-    _rVPCPeeringConnectionId :: !(Maybe Text),
-    _rDestinationPrefixListId :: !(Maybe Text),
-    _rDestinationIPv6CidrBlock :: !(Maybe Text),
-    _rLocalGatewayId :: !(Maybe Text),
-    _rState :: !(Maybe RouteState),
-    _rEgressOnlyInternetGatewayId :: !(Maybe Text),
-    _rCarrierGatewayId :: !(Maybe Text),
-    _rDestinationCidrBlock :: !(Maybe Text),
-    _rNetworkInterfaceId :: !(Maybe Text),
-    _rNatGatewayId :: !(Maybe Text),
-    _rInstanceOwnerId :: !(Maybe Text),
-    _rGatewayId :: !(Maybe Text),
-    _rTransitGatewayId :: !(Maybe Text)
+  { -- | The ID of a NAT instance in your VPC.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | Describes how the route was created.
+    --
+    -- -   @CreateRouteTable@ - The route was automatically created when the
+    --     route table was created.
+    --
+    -- -   @CreateRoute@ - The route was manually added to the route table.
+    --
+    -- -   @EnableVgwRoutePropagation@ - The route was propagated by route
+    --     propagation.
+    origin :: Prelude.Maybe RouteOrigin,
+    -- | The ID of a VPC peering connection.
+    vpcPeeringConnectionId :: Prelude.Maybe Prelude.Text,
+    -- | The prefix of the AWS service.
+    destinationPrefixListId :: Prelude.Maybe Prelude.Text,
+    -- | The IPv6 CIDR block used for the destination match.
+    destinationIpv6CidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the local gateway.
+    localGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the route. The @blackhole@ state indicates that the
+    -- route\'s target isn\'t available (for example, the specified gateway
+    -- isn\'t attached to the VPC, or the specified NAT instance has been
+    -- terminated).
+    state :: Prelude.Maybe RouteState,
+    -- | The ID of the egress-only internet gateway.
+    egressOnlyInternetGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the carrier gateway.
+    carrierGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The IPv4 CIDR block used for the destination match.
+    destinationCidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the network interface.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a NAT gateway.
+    natGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account ID of the owner of the instance.
+    instanceOwnerId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a gateway attached to your VPC.
+    gatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a transit gateway.
+    transitGatewayId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Route' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Route' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rInstanceId' - The ID of a NAT instance in your VPC.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rOrigin' - Describes how the route was created.     * @CreateRouteTable@ - The route was automatically created when the route table was created.     * @CreateRoute@ - The route was manually added to the route table.     * @EnableVgwRoutePropagation@ - The route was propagated by route propagation.
+-- 'instanceId', 'route_instanceId' - The ID of a NAT instance in your VPC.
 --
--- * 'rVPCPeeringConnectionId' - The ID of a VPC peering connection.
+-- 'origin', 'route_origin' - Describes how the route was created.
 --
--- * 'rDestinationPrefixListId' - The prefix of the AWS service.
+-- -   @CreateRouteTable@ - The route was automatically created when the
+--     route table was created.
 --
--- * 'rDestinationIPv6CidrBlock' - The IPv6 CIDR block used for the destination match.
+-- -   @CreateRoute@ - The route was manually added to the route table.
 --
--- * 'rLocalGatewayId' - The ID of the local gateway.
+-- -   @EnableVgwRoutePropagation@ - The route was propagated by route
+--     propagation.
 --
--- * 'rState' - The state of the route. The @blackhole@ state indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, or the specified NAT instance has been terminated).
+-- 'vpcPeeringConnectionId', 'route_vpcPeeringConnectionId' - The ID of a VPC peering connection.
 --
--- * 'rEgressOnlyInternetGatewayId' - The ID of the egress-only internet gateway.
+-- 'destinationPrefixListId', 'route_destinationPrefixListId' - The prefix of the AWS service.
 --
--- * 'rCarrierGatewayId' - The ID of the carrier gateway.
+-- 'destinationIpv6CidrBlock', 'route_destinationIpv6CidrBlock' - The IPv6 CIDR block used for the destination match.
 --
--- * 'rDestinationCidrBlock' - The IPv4 CIDR block used for the destination match.
+-- 'localGatewayId', 'route_localGatewayId' - The ID of the local gateway.
 --
--- * 'rNetworkInterfaceId' - The ID of the network interface.
+-- 'state', 'route_state' - The state of the route. The @blackhole@ state indicates that the
+-- route\'s target isn\'t available (for example, the specified gateway
+-- isn\'t attached to the VPC, or the specified NAT instance has been
+-- terminated).
 --
--- * 'rNatGatewayId' - The ID of a NAT gateway.
+-- 'egressOnlyInternetGatewayId', 'route_egressOnlyInternetGatewayId' - The ID of the egress-only internet gateway.
 --
--- * 'rInstanceOwnerId' - The AWS account ID of the owner of the instance.
+-- 'carrierGatewayId', 'route_carrierGatewayId' - The ID of the carrier gateway.
 --
--- * 'rGatewayId' - The ID of a gateway attached to your VPC.
+-- 'destinationCidrBlock', 'route_destinationCidrBlock' - The IPv4 CIDR block used for the destination match.
 --
--- * 'rTransitGatewayId' - The ID of a transit gateway.
-route ::
+-- 'networkInterfaceId', 'route_networkInterfaceId' - The ID of the network interface.
+--
+-- 'natGatewayId', 'route_natGatewayId' - The ID of a NAT gateway.
+--
+-- 'instanceOwnerId', 'route_instanceOwnerId' - The AWS account ID of the owner of the instance.
+--
+-- 'gatewayId', 'route_gatewayId' - The ID of a gateway attached to your VPC.
+--
+-- 'transitGatewayId', 'route_transitGatewayId' - The ID of a transit gateway.
+newRoute ::
   Route
-route =
+newRoute =
   Route'
-    { _rInstanceId = Nothing,
-      _rOrigin = Nothing,
-      _rVPCPeeringConnectionId = Nothing,
-      _rDestinationPrefixListId = Nothing,
-      _rDestinationIPv6CidrBlock = Nothing,
-      _rLocalGatewayId = Nothing,
-      _rState = Nothing,
-      _rEgressOnlyInternetGatewayId = Nothing,
-      _rCarrierGatewayId = Nothing,
-      _rDestinationCidrBlock = Nothing,
-      _rNetworkInterfaceId = Nothing,
-      _rNatGatewayId = Nothing,
-      _rInstanceOwnerId = Nothing,
-      _rGatewayId = Nothing,
-      _rTransitGatewayId = Nothing
+    { instanceId = Prelude.Nothing,
+      origin = Prelude.Nothing,
+      vpcPeeringConnectionId = Prelude.Nothing,
+      destinationPrefixListId = Prelude.Nothing,
+      destinationIpv6CidrBlock = Prelude.Nothing,
+      localGatewayId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      egressOnlyInternetGatewayId = Prelude.Nothing,
+      carrierGatewayId = Prelude.Nothing,
+      destinationCidrBlock = Prelude.Nothing,
+      networkInterfaceId = Prelude.Nothing,
+      natGatewayId = Prelude.Nothing,
+      instanceOwnerId = Prelude.Nothing,
+      gatewayId = Prelude.Nothing,
+      transitGatewayId = Prelude.Nothing
     }
 
 -- | The ID of a NAT instance in your VPC.
-rInstanceId :: Lens' Route (Maybe Text)
-rInstanceId = lens _rInstanceId (\s a -> s {_rInstanceId = a})
+route_instanceId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_instanceId = Lens.lens (\Route' {instanceId} -> instanceId) (\s@Route' {} a -> s {instanceId = a} :: Route)
 
--- | Describes how the route was created.     * @CreateRouteTable@ - The route was automatically created when the route table was created.     * @CreateRoute@ - The route was manually added to the route table.     * @EnableVgwRoutePropagation@ - The route was propagated by route propagation.
-rOrigin :: Lens' Route (Maybe RouteOrigin)
-rOrigin = lens _rOrigin (\s a -> s {_rOrigin = a})
+-- | Describes how the route was created.
+--
+-- -   @CreateRouteTable@ - The route was automatically created when the
+--     route table was created.
+--
+-- -   @CreateRoute@ - The route was manually added to the route table.
+--
+-- -   @EnableVgwRoutePropagation@ - The route was propagated by route
+--     propagation.
+route_origin :: Lens.Lens' Route (Prelude.Maybe RouteOrigin)
+route_origin = Lens.lens (\Route' {origin} -> origin) (\s@Route' {} a -> s {origin = a} :: Route)
 
 -- | The ID of a VPC peering connection.
-rVPCPeeringConnectionId :: Lens' Route (Maybe Text)
-rVPCPeeringConnectionId = lens _rVPCPeeringConnectionId (\s a -> s {_rVPCPeeringConnectionId = a})
+route_vpcPeeringConnectionId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_vpcPeeringConnectionId = Lens.lens (\Route' {vpcPeeringConnectionId} -> vpcPeeringConnectionId) (\s@Route' {} a -> s {vpcPeeringConnectionId = a} :: Route)
 
 -- | The prefix of the AWS service.
-rDestinationPrefixListId :: Lens' Route (Maybe Text)
-rDestinationPrefixListId = lens _rDestinationPrefixListId (\s a -> s {_rDestinationPrefixListId = a})
+route_destinationPrefixListId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_destinationPrefixListId = Lens.lens (\Route' {destinationPrefixListId} -> destinationPrefixListId) (\s@Route' {} a -> s {destinationPrefixListId = a} :: Route)
 
 -- | The IPv6 CIDR block used for the destination match.
-rDestinationIPv6CidrBlock :: Lens' Route (Maybe Text)
-rDestinationIPv6CidrBlock = lens _rDestinationIPv6CidrBlock (\s a -> s {_rDestinationIPv6CidrBlock = a})
+route_destinationIpv6CidrBlock :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_destinationIpv6CidrBlock = Lens.lens (\Route' {destinationIpv6CidrBlock} -> destinationIpv6CidrBlock) (\s@Route' {} a -> s {destinationIpv6CidrBlock = a} :: Route)
 
 -- | The ID of the local gateway.
-rLocalGatewayId :: Lens' Route (Maybe Text)
-rLocalGatewayId = lens _rLocalGatewayId (\s a -> s {_rLocalGatewayId = a})
+route_localGatewayId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_localGatewayId = Lens.lens (\Route' {localGatewayId} -> localGatewayId) (\s@Route' {} a -> s {localGatewayId = a} :: Route)
 
--- | The state of the route. The @blackhole@ state indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, or the specified NAT instance has been terminated).
-rState :: Lens' Route (Maybe RouteState)
-rState = lens _rState (\s a -> s {_rState = a})
+-- | The state of the route. The @blackhole@ state indicates that the
+-- route\'s target isn\'t available (for example, the specified gateway
+-- isn\'t attached to the VPC, or the specified NAT instance has been
+-- terminated).
+route_state :: Lens.Lens' Route (Prelude.Maybe RouteState)
+route_state = Lens.lens (\Route' {state} -> state) (\s@Route' {} a -> s {state = a} :: Route)
 
 -- | The ID of the egress-only internet gateway.
-rEgressOnlyInternetGatewayId :: Lens' Route (Maybe Text)
-rEgressOnlyInternetGatewayId = lens _rEgressOnlyInternetGatewayId (\s a -> s {_rEgressOnlyInternetGatewayId = a})
+route_egressOnlyInternetGatewayId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_egressOnlyInternetGatewayId = Lens.lens (\Route' {egressOnlyInternetGatewayId} -> egressOnlyInternetGatewayId) (\s@Route' {} a -> s {egressOnlyInternetGatewayId = a} :: Route)
 
 -- | The ID of the carrier gateway.
-rCarrierGatewayId :: Lens' Route (Maybe Text)
-rCarrierGatewayId = lens _rCarrierGatewayId (\s a -> s {_rCarrierGatewayId = a})
+route_carrierGatewayId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_carrierGatewayId = Lens.lens (\Route' {carrierGatewayId} -> carrierGatewayId) (\s@Route' {} a -> s {carrierGatewayId = a} :: Route)
 
 -- | The IPv4 CIDR block used for the destination match.
-rDestinationCidrBlock :: Lens' Route (Maybe Text)
-rDestinationCidrBlock = lens _rDestinationCidrBlock (\s a -> s {_rDestinationCidrBlock = a})
+route_destinationCidrBlock :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_destinationCidrBlock = Lens.lens (\Route' {destinationCidrBlock} -> destinationCidrBlock) (\s@Route' {} a -> s {destinationCidrBlock = a} :: Route)
 
 -- | The ID of the network interface.
-rNetworkInterfaceId :: Lens' Route (Maybe Text)
-rNetworkInterfaceId = lens _rNetworkInterfaceId (\s a -> s {_rNetworkInterfaceId = a})
+route_networkInterfaceId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_networkInterfaceId = Lens.lens (\Route' {networkInterfaceId} -> networkInterfaceId) (\s@Route' {} a -> s {networkInterfaceId = a} :: Route)
 
 -- | The ID of a NAT gateway.
-rNatGatewayId :: Lens' Route (Maybe Text)
-rNatGatewayId = lens _rNatGatewayId (\s a -> s {_rNatGatewayId = a})
+route_natGatewayId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_natGatewayId = Lens.lens (\Route' {natGatewayId} -> natGatewayId) (\s@Route' {} a -> s {natGatewayId = a} :: Route)
 
 -- | The AWS account ID of the owner of the instance.
-rInstanceOwnerId :: Lens' Route (Maybe Text)
-rInstanceOwnerId = lens _rInstanceOwnerId (\s a -> s {_rInstanceOwnerId = a})
+route_instanceOwnerId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_instanceOwnerId = Lens.lens (\Route' {instanceOwnerId} -> instanceOwnerId) (\s@Route' {} a -> s {instanceOwnerId = a} :: Route)
 
 -- | The ID of a gateway attached to your VPC.
-rGatewayId :: Lens' Route (Maybe Text)
-rGatewayId = lens _rGatewayId (\s a -> s {_rGatewayId = a})
+route_gatewayId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_gatewayId = Lens.lens (\Route' {gatewayId} -> gatewayId) (\s@Route' {} a -> s {gatewayId = a} :: Route)
 
 -- | The ID of a transit gateway.
-rTransitGatewayId :: Lens' Route (Maybe Text)
-rTransitGatewayId = lens _rTransitGatewayId (\s a -> s {_rTransitGatewayId = a})
+route_transitGatewayId :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
+route_transitGatewayId = Lens.lens (\Route' {transitGatewayId} -> transitGatewayId) (\s@Route' {} a -> s {transitGatewayId = a} :: Route)
 
-instance FromXML Route where
+instance Prelude.FromXML Route where
   parseXML x =
     Route'
-      <$> (x .@? "instanceId")
-      <*> (x .@? "origin")
-      <*> (x .@? "vpcPeeringConnectionId")
-      <*> (x .@? "destinationPrefixListId")
-      <*> (x .@? "destinationIpv6CidrBlock")
-      <*> (x .@? "localGatewayId")
-      <*> (x .@? "state")
-      <*> (x .@? "egressOnlyInternetGatewayId")
-      <*> (x .@? "carrierGatewayId")
-      <*> (x .@? "destinationCidrBlock")
-      <*> (x .@? "networkInterfaceId")
-      <*> (x .@? "natGatewayId")
-      <*> (x .@? "instanceOwnerId")
-      <*> (x .@? "gatewayId")
-      <*> (x .@? "transitGatewayId")
+      Prelude.<$> (x Prelude..@? "instanceId")
+      Prelude.<*> (x Prelude..@? "origin")
+      Prelude.<*> (x Prelude..@? "vpcPeeringConnectionId")
+      Prelude.<*> (x Prelude..@? "destinationPrefixListId")
+      Prelude.<*> (x Prelude..@? "destinationIpv6CidrBlock")
+      Prelude.<*> (x Prelude..@? "localGatewayId")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> (x Prelude..@? "egressOnlyInternetGatewayId")
+      Prelude.<*> (x Prelude..@? "carrierGatewayId")
+      Prelude.<*> (x Prelude..@? "destinationCidrBlock")
+      Prelude.<*> (x Prelude..@? "networkInterfaceId")
+      Prelude.<*> (x Prelude..@? "natGatewayId")
+      Prelude.<*> (x Prelude..@? "instanceOwnerId")
+      Prelude.<*> (x Prelude..@? "gatewayId")
+      Prelude.<*> (x Prelude..@? "transitGatewayId")
 
-instance Hashable Route
+instance Prelude.Hashable Route
 
-instance NFData Route
+instance Prelude.NFData Route

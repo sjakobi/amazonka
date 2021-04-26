@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,91 +20,116 @@
 module Network.AWS.EC2.Types.ScheduledInstancesBlockDeviceMapping where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.ScheduledInstancesEBS
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.EC2.Types.ScheduledInstancesEbs
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a block device mapping for a Scheduled Instance.
 --
---
---
--- /See:/ 'scheduledInstancesBlockDeviceMapping' smart constructor.
+-- /See:/ 'newScheduledInstancesBlockDeviceMapping' smart constructor.
 data ScheduledInstancesBlockDeviceMapping = ScheduledInstancesBlockDeviceMapping'
-  { _sibdmEBS ::
-      !( Maybe
-           ScheduledInstancesEBS
-       ),
-    _sibdmNoDevice ::
-      !( Maybe
-           Text
-       ),
-    _sibdmVirtualName ::
-      !( Maybe
-           Text
-       ),
-    _sibdmDeviceName ::
-      !( Maybe
-           Text
-       )
+  { -- | Parameters used to set up EBS volumes automatically when the instance is
+    -- launched.
+    ebs :: Prelude.Maybe ScheduledInstancesEbs,
+    -- | To omit the device from the block device mapping, specify an empty
+    -- string.
+    noDevice :: Prelude.Maybe Prelude.Text,
+    -- | The virtual device name (@ephemeral@N). Instance store volumes are
+    -- numbered starting from 0. An instance type with two available instance
+    -- store volumes can specify mappings for @ephemeral0@ and @ephemeral1@.
+    -- The number of available instance store volumes depends on the instance
+    -- type. After you connect to the instance, you must mount the volume.
+    --
+    -- Constraints: For M3 instances, you must specify instance store volumes
+    -- in the block device mapping for the instance. When you launch an M3
+    -- instance, we ignore any instance store volumes specified in the block
+    -- device mapping for the AMI.
+    virtualName :: Prelude.Maybe Prelude.Text,
+    -- | The device name (for example, @\/dev\/sdh@ or @xvdh@).
+    deviceName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduledInstancesBlockDeviceMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduledInstancesBlockDeviceMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sibdmEBS' - Parameters used to set up EBS volumes automatically when the instance is launched.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sibdmNoDevice' - To omit the device from the block device mapping, specify an empty string.
+-- 'ebs', 'scheduledInstancesBlockDeviceMapping_ebs' - Parameters used to set up EBS volumes automatically when the instance is
+-- launched.
 --
--- * 'sibdmVirtualName' - The virtual device name (@ephemeral@ N). Instance store volumes are numbered starting from 0. An instance type with two available instance store volumes can specify mappings for @ephemeral0@ and @ephemeral1@ . The number of available instance store volumes depends on the instance type. After you connect to the instance, you must mount the volume. Constraints: For M3 instances, you must specify instance store volumes in the block device mapping for the instance. When you launch an M3 instance, we ignore any instance store volumes specified in the block device mapping for the AMI.
+-- 'noDevice', 'scheduledInstancesBlockDeviceMapping_noDevice' - To omit the device from the block device mapping, specify an empty
+-- string.
 --
--- * 'sibdmDeviceName' - The device name (for example, @/dev/sdh@ or @xvdh@ ).
-scheduledInstancesBlockDeviceMapping ::
+-- 'virtualName', 'scheduledInstancesBlockDeviceMapping_virtualName' - The virtual device name (@ephemeral@N). Instance store volumes are
+-- numbered starting from 0. An instance type with two available instance
+-- store volumes can specify mappings for @ephemeral0@ and @ephemeral1@.
+-- The number of available instance store volumes depends on the instance
+-- type. After you connect to the instance, you must mount the volume.
+--
+-- Constraints: For M3 instances, you must specify instance store volumes
+-- in the block device mapping for the instance. When you launch an M3
+-- instance, we ignore any instance store volumes specified in the block
+-- device mapping for the AMI.
+--
+-- 'deviceName', 'scheduledInstancesBlockDeviceMapping_deviceName' - The device name (for example, @\/dev\/sdh@ or @xvdh@).
+newScheduledInstancesBlockDeviceMapping ::
   ScheduledInstancesBlockDeviceMapping
-scheduledInstancesBlockDeviceMapping =
+newScheduledInstancesBlockDeviceMapping =
   ScheduledInstancesBlockDeviceMapping'
-    { _sibdmEBS =
-        Nothing,
-      _sibdmNoDevice = Nothing,
-      _sibdmVirtualName = Nothing,
-      _sibdmDeviceName = Nothing
+    { ebs =
+        Prelude.Nothing,
+      noDevice = Prelude.Nothing,
+      virtualName = Prelude.Nothing,
+      deviceName = Prelude.Nothing
     }
 
--- | Parameters used to set up EBS volumes automatically when the instance is launched.
-sibdmEBS :: Lens' ScheduledInstancesBlockDeviceMapping (Maybe ScheduledInstancesEBS)
-sibdmEBS = lens _sibdmEBS (\s a -> s {_sibdmEBS = a})
+-- | Parameters used to set up EBS volumes automatically when the instance is
+-- launched.
+scheduledInstancesBlockDeviceMapping_ebs :: Lens.Lens' ScheduledInstancesBlockDeviceMapping (Prelude.Maybe ScheduledInstancesEbs)
+scheduledInstancesBlockDeviceMapping_ebs = Lens.lens (\ScheduledInstancesBlockDeviceMapping' {ebs} -> ebs) (\s@ScheduledInstancesBlockDeviceMapping' {} a -> s {ebs = a} :: ScheduledInstancesBlockDeviceMapping)
 
--- | To omit the device from the block device mapping, specify an empty string.
-sibdmNoDevice :: Lens' ScheduledInstancesBlockDeviceMapping (Maybe Text)
-sibdmNoDevice = lens _sibdmNoDevice (\s a -> s {_sibdmNoDevice = a})
+-- | To omit the device from the block device mapping, specify an empty
+-- string.
+scheduledInstancesBlockDeviceMapping_noDevice :: Lens.Lens' ScheduledInstancesBlockDeviceMapping (Prelude.Maybe Prelude.Text)
+scheduledInstancesBlockDeviceMapping_noDevice = Lens.lens (\ScheduledInstancesBlockDeviceMapping' {noDevice} -> noDevice) (\s@ScheduledInstancesBlockDeviceMapping' {} a -> s {noDevice = a} :: ScheduledInstancesBlockDeviceMapping)
 
--- | The virtual device name (@ephemeral@ N). Instance store volumes are numbered starting from 0. An instance type with two available instance store volumes can specify mappings for @ephemeral0@ and @ephemeral1@ . The number of available instance store volumes depends on the instance type. After you connect to the instance, you must mount the volume. Constraints: For M3 instances, you must specify instance store volumes in the block device mapping for the instance. When you launch an M3 instance, we ignore any instance store volumes specified in the block device mapping for the AMI.
-sibdmVirtualName :: Lens' ScheduledInstancesBlockDeviceMapping (Maybe Text)
-sibdmVirtualName = lens _sibdmVirtualName (\s a -> s {_sibdmVirtualName = a})
+-- | The virtual device name (@ephemeral@N). Instance store volumes are
+-- numbered starting from 0. An instance type with two available instance
+-- store volumes can specify mappings for @ephemeral0@ and @ephemeral1@.
+-- The number of available instance store volumes depends on the instance
+-- type. After you connect to the instance, you must mount the volume.
+--
+-- Constraints: For M3 instances, you must specify instance store volumes
+-- in the block device mapping for the instance. When you launch an M3
+-- instance, we ignore any instance store volumes specified in the block
+-- device mapping for the AMI.
+scheduledInstancesBlockDeviceMapping_virtualName :: Lens.Lens' ScheduledInstancesBlockDeviceMapping (Prelude.Maybe Prelude.Text)
+scheduledInstancesBlockDeviceMapping_virtualName = Lens.lens (\ScheduledInstancesBlockDeviceMapping' {virtualName} -> virtualName) (\s@ScheduledInstancesBlockDeviceMapping' {} a -> s {virtualName = a} :: ScheduledInstancesBlockDeviceMapping)
 
--- | The device name (for example, @/dev/sdh@ or @xvdh@ ).
-sibdmDeviceName :: Lens' ScheduledInstancesBlockDeviceMapping (Maybe Text)
-sibdmDeviceName = lens _sibdmDeviceName (\s a -> s {_sibdmDeviceName = a})
+-- | The device name (for example, @\/dev\/sdh@ or @xvdh@).
+scheduledInstancesBlockDeviceMapping_deviceName :: Lens.Lens' ScheduledInstancesBlockDeviceMapping (Prelude.Maybe Prelude.Text)
+scheduledInstancesBlockDeviceMapping_deviceName = Lens.lens (\ScheduledInstancesBlockDeviceMapping' {deviceName} -> deviceName) (\s@ScheduledInstancesBlockDeviceMapping' {} a -> s {deviceName = a} :: ScheduledInstancesBlockDeviceMapping)
 
 instance
-  Hashable
+  Prelude.Hashable
     ScheduledInstancesBlockDeviceMapping
 
-instance NFData ScheduledInstancesBlockDeviceMapping
+instance
+  Prelude.NFData
+    ScheduledInstancesBlockDeviceMapping
 
-instance ToQuery ScheduledInstancesBlockDeviceMapping where
+instance
+  Prelude.ToQuery
+    ScheduledInstancesBlockDeviceMapping
+  where
   toQuery ScheduledInstancesBlockDeviceMapping' {..} =
-    mconcat
-      [ "Ebs" =: _sibdmEBS,
-        "NoDevice" =: _sibdmNoDevice,
-        "VirtualName" =: _sibdmVirtualName,
-        "DeviceName" =: _sibdmDeviceName
+    Prelude.mconcat
+      [ "Ebs" Prelude.=: ebs,
+        "NoDevice" Prelude.=: noDevice,
+        "VirtualName" Prelude.=: virtualName,
+        "DeviceName" Prelude.=: deviceName
       ]

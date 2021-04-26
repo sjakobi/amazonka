@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,241 +24,378 @@
 -- Imports a disk into an EBS snapshot.
 module Network.AWS.EC2.ImportSnapshot
   ( -- * Creating a Request
-    importSnapshot,
-    ImportSnapshot,
+    ImportSnapshot (..),
+    newImportSnapshot,
 
     -- * Request Lenses
-    isTagSpecifications,
-    isDryRun,
-    isEncrypted,
-    isRoleName,
-    isKMSKeyId,
-    isClientData,
-    isDescription,
-    isClientToken,
-    isDiskContainer,
+    importSnapshot_tagSpecifications,
+    importSnapshot_dryRun,
+    importSnapshot_encrypted,
+    importSnapshot_roleName,
+    importSnapshot_kmsKeyId,
+    importSnapshot_clientData,
+    importSnapshot_description,
+    importSnapshot_clientToken,
+    importSnapshot_diskContainer,
 
     -- * Destructuring the Response
-    importSnapshotResponse,
-    ImportSnapshotResponse,
+    ImportSnapshotResponse (..),
+    newImportSnapshotResponse,
 
     -- * Response Lenses
-    isrrsSnapshotTaskDetail,
-    isrrsImportTaskId,
-    isrrsTags,
-    isrrsDescription,
-    isrrsResponseStatus,
+    importSnapshotResponse_snapshotTaskDetail,
+    importSnapshotResponse_importTaskId,
+    importSnapshotResponse_tags,
+    importSnapshotResponse_description,
+    importSnapshotResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.SnapshotTaskDetail
+import Network.AWS.EC2.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'importSnapshot' smart constructor.
+-- | /See:/ 'newImportSnapshot' smart constructor.
 data ImportSnapshot = ImportSnapshot'
-  { _isTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _isDryRun :: !(Maybe Bool),
-    _isEncrypted :: !(Maybe Bool),
-    _isRoleName :: !(Maybe Text),
-    _isKMSKeyId :: !(Maybe Text),
-    _isClientData :: !(Maybe ClientData),
-    _isDescription :: !(Maybe Text),
-    _isClientToken :: !(Maybe Text),
-    _isDiskContainer ::
-      !(Maybe SnapshotDiskContainer)
+  { -- | The tags to apply to the import snapshot task during creation.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the destination snapshot of the imported image should
+    -- be encrypted. The default CMK for EBS is used unless you specify a
+    -- non-default AWS Key Management Service (AWS KMS) CMK using @KmsKeyId@.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html Amazon EBS Encryption>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the role to use when not using the default role,
+    -- \'vmimport\'.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | An identifier for the symmetric AWS Key Management Service (AWS KMS)
+    -- customer master key (CMK) to use when creating the encrypted snapshot.
+    -- This parameter is only required if you want to use a non-default CMK; if
+    -- this parameter is not specified, the default CMK for EBS is used. If a
+    -- @KmsKeyId@ is specified, the @Encrypted@ flag must also be set.
+    --
+    -- The CMK identifier may be provided in any of the following formats:
+    --
+    -- -   Key ID
+    --
+    -- -   Key alias. The alias ARN contains the @arn:aws:kms@ namespace,
+    --     followed by the Region of the CMK, the AWS account ID of the CMK
+    --     owner, the @alias@ namespace, and then the CMK alias. For example,
+    --     arn:aws:kms:/us-east-1/:/012345678910/:alias\//ExampleAlias/.
+    --
+    -- -   ARN using key ID. The ID ARN contains the @arn:aws:kms@ namespace,
+    --     followed by the Region of the CMK, the AWS account ID of the CMK
+    --     owner, the @key@ namespace, and then the CMK ID. For example,
+    --     arn:aws:kms:/us-east-1/:/012345678910/:key\//abcd1234-a123-456a-a12b-a123b4cd56ef/.
+    --
+    -- -   ARN using key alias. The alias ARN contains the @arn:aws:kms@
+    --     namespace, followed by the Region of the CMK, the AWS account ID of
+    --     the CMK owner, the @alias@ namespace, and then the CMK alias. For
+    --     example,
+    --     arn:aws:kms:/us-east-1/:/012345678910/:alias\//ExampleAlias/.
+    --
+    -- AWS parses @KmsKeyId@ asynchronously, meaning that the action you call
+    -- may appear to complete even though you provided an invalid identifier.
+    -- This action will eventually report failure.
+    --
+    -- The specified CMK must exist in the Region that the snapshot is being
+    -- copied to.
+    --
+    -- Amazon EBS does not support asymmetric CMKs.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The client-specific data.
+    clientData :: Prelude.Maybe ClientData,
+    -- | The description string for the import snapshot task.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Token to enable idempotency for VM import requests.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the disk container.
+    diskContainer :: Prelude.Maybe SnapshotDiskContainer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isTagSpecifications' - The tags to apply to the import snapshot task during creation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'importSnapshot_tagSpecifications' - The tags to apply to the import snapshot task during creation.
 --
--- * 'isEncrypted' - Specifies whether the destination snapshot of the imported image should be encrypted. The default CMK for EBS is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK using @KmsKeyId@ . For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html Amazon EBS Encryption> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- 'dryRun', 'importSnapshot_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'isRoleName' - The name of the role to use when not using the default role, 'vmimport'.
+-- 'encrypted', 'importSnapshot_encrypted' - Specifies whether the destination snapshot of the imported image should
+-- be encrypted. The default CMK for EBS is used unless you specify a
+-- non-default AWS Key Management Service (AWS KMS) CMK using @KmsKeyId@.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html Amazon EBS Encryption>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
--- * 'isKMSKeyId' - An identifier for the symmetric AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted snapshot. This parameter is only required if you want to use a non-default CMK; if this parameter is not specified, the default CMK for EBS is used. If a @KmsKeyId@ is specified, the @Encrypted@ flag must also be set.  The CMK identifier may be provided in any of the following formats:      * Key ID     * Key alias. The alias ARN contains the @arn:aws:kms@ namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the @alias@ namespace, and then the CMK alias. For example, arn:aws:kms:/us-east-1/ :/012345678910/ :alias//ExampleAlias/ .     * ARN using key ID. The ID ARN contains the @arn:aws:kms@ namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the @key@ namespace, and then the CMK ID. For example, arn:aws:kms:/us-east-1/ :/012345678910/ :key//abcd1234-a123-456a-a12b-a123b4cd56ef/ .     * ARN using key alias. The alias ARN contains the @arn:aws:kms@ namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the @alias@ namespace, and then the CMK alias. For example, arn:aws:kms:/us-east-1/ :/012345678910/ :alias//ExampleAlias/ .  AWS parses @KmsKeyId@ asynchronously, meaning that the action you call may appear to complete even though you provided an invalid identifier. This action will eventually report failure.  The specified CMK must exist in the Region that the snapshot is being copied to. Amazon EBS does not support asymmetric CMKs.
+-- 'roleName', 'importSnapshot_roleName' - The name of the role to use when not using the default role,
+-- \'vmimport\'.
 --
--- * 'isClientData' - The client-specific data.
+-- 'kmsKeyId', 'importSnapshot_kmsKeyId' - An identifier for the symmetric AWS Key Management Service (AWS KMS)
+-- customer master key (CMK) to use when creating the encrypted snapshot.
+-- This parameter is only required if you want to use a non-default CMK; if
+-- this parameter is not specified, the default CMK for EBS is used. If a
+-- @KmsKeyId@ is specified, the @Encrypted@ flag must also be set.
 --
--- * 'isDescription' - The description string for the import snapshot task.
+-- The CMK identifier may be provided in any of the following formats:
 --
--- * 'isClientToken' - Token to enable idempotency for VM import requests.
+-- -   Key ID
 --
--- * 'isDiskContainer' - Information about the disk container.
-importSnapshot ::
+-- -   Key alias. The alias ARN contains the @arn:aws:kms@ namespace,
+--     followed by the Region of the CMK, the AWS account ID of the CMK
+--     owner, the @alias@ namespace, and then the CMK alias. For example,
+--     arn:aws:kms:/us-east-1/:/012345678910/:alias\//ExampleAlias/.
+--
+-- -   ARN using key ID. The ID ARN contains the @arn:aws:kms@ namespace,
+--     followed by the Region of the CMK, the AWS account ID of the CMK
+--     owner, the @key@ namespace, and then the CMK ID. For example,
+--     arn:aws:kms:/us-east-1/:/012345678910/:key\//abcd1234-a123-456a-a12b-a123b4cd56ef/.
+--
+-- -   ARN using key alias. The alias ARN contains the @arn:aws:kms@
+--     namespace, followed by the Region of the CMK, the AWS account ID of
+--     the CMK owner, the @alias@ namespace, and then the CMK alias. For
+--     example,
+--     arn:aws:kms:/us-east-1/:/012345678910/:alias\//ExampleAlias/.
+--
+-- AWS parses @KmsKeyId@ asynchronously, meaning that the action you call
+-- may appear to complete even though you provided an invalid identifier.
+-- This action will eventually report failure.
+--
+-- The specified CMK must exist in the Region that the snapshot is being
+-- copied to.
+--
+-- Amazon EBS does not support asymmetric CMKs.
+--
+-- 'clientData', 'importSnapshot_clientData' - The client-specific data.
+--
+-- 'description', 'importSnapshot_description' - The description string for the import snapshot task.
+--
+-- 'clientToken', 'importSnapshot_clientToken' - Token to enable idempotency for VM import requests.
+--
+-- 'diskContainer', 'importSnapshot_diskContainer' - Information about the disk container.
+newImportSnapshot ::
   ImportSnapshot
-importSnapshot =
+newImportSnapshot =
   ImportSnapshot'
-    { _isTagSpecifications = Nothing,
-      _isDryRun = Nothing,
-      _isEncrypted = Nothing,
-      _isRoleName = Nothing,
-      _isKMSKeyId = Nothing,
-      _isClientData = Nothing,
-      _isDescription = Nothing,
-      _isClientToken = Nothing,
-      _isDiskContainer = Nothing
+    { tagSpecifications =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      encrypted = Prelude.Nothing,
+      roleName = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      clientData = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
+      diskContainer = Prelude.Nothing
     }
 
 -- | The tags to apply to the import snapshot task during creation.
-isTagSpecifications :: Lens' ImportSnapshot [TagSpecification]
-isTagSpecifications = lens _isTagSpecifications (\s a -> s {_isTagSpecifications = a}) . _Default . _Coerce
+importSnapshot_tagSpecifications :: Lens.Lens' ImportSnapshot (Prelude.Maybe [TagSpecification])
+importSnapshot_tagSpecifications = Lens.lens (\ImportSnapshot' {tagSpecifications} -> tagSpecifications) (\s@ImportSnapshot' {} a -> s {tagSpecifications = a} :: ImportSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-isDryRun :: Lens' ImportSnapshot (Maybe Bool)
-isDryRun = lens _isDryRun (\s a -> s {_isDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+importSnapshot_dryRun :: Lens.Lens' ImportSnapshot (Prelude.Maybe Prelude.Bool)
+importSnapshot_dryRun = Lens.lens (\ImportSnapshot' {dryRun} -> dryRun) (\s@ImportSnapshot' {} a -> s {dryRun = a} :: ImportSnapshot)
 
--- | Specifies whether the destination snapshot of the imported image should be encrypted. The default CMK for EBS is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK using @KmsKeyId@ . For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html Amazon EBS Encryption> in the /Amazon Elastic Compute Cloud User Guide/ .
-isEncrypted :: Lens' ImportSnapshot (Maybe Bool)
-isEncrypted = lens _isEncrypted (\s a -> s {_isEncrypted = a})
+-- | Specifies whether the destination snapshot of the imported image should
+-- be encrypted. The default CMK for EBS is used unless you specify a
+-- non-default AWS Key Management Service (AWS KMS) CMK using @KmsKeyId@.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html Amazon EBS Encryption>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+importSnapshot_encrypted :: Lens.Lens' ImportSnapshot (Prelude.Maybe Prelude.Bool)
+importSnapshot_encrypted = Lens.lens (\ImportSnapshot' {encrypted} -> encrypted) (\s@ImportSnapshot' {} a -> s {encrypted = a} :: ImportSnapshot)
 
--- | The name of the role to use when not using the default role, 'vmimport'.
-isRoleName :: Lens' ImportSnapshot (Maybe Text)
-isRoleName = lens _isRoleName (\s a -> s {_isRoleName = a})
+-- | The name of the role to use when not using the default role,
+-- \'vmimport\'.
+importSnapshot_roleName :: Lens.Lens' ImportSnapshot (Prelude.Maybe Prelude.Text)
+importSnapshot_roleName = Lens.lens (\ImportSnapshot' {roleName} -> roleName) (\s@ImportSnapshot' {} a -> s {roleName = a} :: ImportSnapshot)
 
--- | An identifier for the symmetric AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted snapshot. This parameter is only required if you want to use a non-default CMK; if this parameter is not specified, the default CMK for EBS is used. If a @KmsKeyId@ is specified, the @Encrypted@ flag must also be set.  The CMK identifier may be provided in any of the following formats:      * Key ID     * Key alias. The alias ARN contains the @arn:aws:kms@ namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the @alias@ namespace, and then the CMK alias. For example, arn:aws:kms:/us-east-1/ :/012345678910/ :alias//ExampleAlias/ .     * ARN using key ID. The ID ARN contains the @arn:aws:kms@ namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the @key@ namespace, and then the CMK ID. For example, arn:aws:kms:/us-east-1/ :/012345678910/ :key//abcd1234-a123-456a-a12b-a123b4cd56ef/ .     * ARN using key alias. The alias ARN contains the @arn:aws:kms@ namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the @alias@ namespace, and then the CMK alias. For example, arn:aws:kms:/us-east-1/ :/012345678910/ :alias//ExampleAlias/ .  AWS parses @KmsKeyId@ asynchronously, meaning that the action you call may appear to complete even though you provided an invalid identifier. This action will eventually report failure.  The specified CMK must exist in the Region that the snapshot is being copied to. Amazon EBS does not support asymmetric CMKs.
-isKMSKeyId :: Lens' ImportSnapshot (Maybe Text)
-isKMSKeyId = lens _isKMSKeyId (\s a -> s {_isKMSKeyId = a})
+-- | An identifier for the symmetric AWS Key Management Service (AWS KMS)
+-- customer master key (CMK) to use when creating the encrypted snapshot.
+-- This parameter is only required if you want to use a non-default CMK; if
+-- this parameter is not specified, the default CMK for EBS is used. If a
+-- @KmsKeyId@ is specified, the @Encrypted@ flag must also be set.
+--
+-- The CMK identifier may be provided in any of the following formats:
+--
+-- -   Key ID
+--
+-- -   Key alias. The alias ARN contains the @arn:aws:kms@ namespace,
+--     followed by the Region of the CMK, the AWS account ID of the CMK
+--     owner, the @alias@ namespace, and then the CMK alias. For example,
+--     arn:aws:kms:/us-east-1/:/012345678910/:alias\//ExampleAlias/.
+--
+-- -   ARN using key ID. The ID ARN contains the @arn:aws:kms@ namespace,
+--     followed by the Region of the CMK, the AWS account ID of the CMK
+--     owner, the @key@ namespace, and then the CMK ID. For example,
+--     arn:aws:kms:/us-east-1/:/012345678910/:key\//abcd1234-a123-456a-a12b-a123b4cd56ef/.
+--
+-- -   ARN using key alias. The alias ARN contains the @arn:aws:kms@
+--     namespace, followed by the Region of the CMK, the AWS account ID of
+--     the CMK owner, the @alias@ namespace, and then the CMK alias. For
+--     example,
+--     arn:aws:kms:/us-east-1/:/012345678910/:alias\//ExampleAlias/.
+--
+-- AWS parses @KmsKeyId@ asynchronously, meaning that the action you call
+-- may appear to complete even though you provided an invalid identifier.
+-- This action will eventually report failure.
+--
+-- The specified CMK must exist in the Region that the snapshot is being
+-- copied to.
+--
+-- Amazon EBS does not support asymmetric CMKs.
+importSnapshot_kmsKeyId :: Lens.Lens' ImportSnapshot (Prelude.Maybe Prelude.Text)
+importSnapshot_kmsKeyId = Lens.lens (\ImportSnapshot' {kmsKeyId} -> kmsKeyId) (\s@ImportSnapshot' {} a -> s {kmsKeyId = a} :: ImportSnapshot)
 
 -- | The client-specific data.
-isClientData :: Lens' ImportSnapshot (Maybe ClientData)
-isClientData = lens _isClientData (\s a -> s {_isClientData = a})
+importSnapshot_clientData :: Lens.Lens' ImportSnapshot (Prelude.Maybe ClientData)
+importSnapshot_clientData = Lens.lens (\ImportSnapshot' {clientData} -> clientData) (\s@ImportSnapshot' {} a -> s {clientData = a} :: ImportSnapshot)
 
 -- | The description string for the import snapshot task.
-isDescription :: Lens' ImportSnapshot (Maybe Text)
-isDescription = lens _isDescription (\s a -> s {_isDescription = a})
+importSnapshot_description :: Lens.Lens' ImportSnapshot (Prelude.Maybe Prelude.Text)
+importSnapshot_description = Lens.lens (\ImportSnapshot' {description} -> description) (\s@ImportSnapshot' {} a -> s {description = a} :: ImportSnapshot)
 
 -- | Token to enable idempotency for VM import requests.
-isClientToken :: Lens' ImportSnapshot (Maybe Text)
-isClientToken = lens _isClientToken (\s a -> s {_isClientToken = a})
+importSnapshot_clientToken :: Lens.Lens' ImportSnapshot (Prelude.Maybe Prelude.Text)
+importSnapshot_clientToken = Lens.lens (\ImportSnapshot' {clientToken} -> clientToken) (\s@ImportSnapshot' {} a -> s {clientToken = a} :: ImportSnapshot)
 
 -- | Information about the disk container.
-isDiskContainer :: Lens' ImportSnapshot (Maybe SnapshotDiskContainer)
-isDiskContainer = lens _isDiskContainer (\s a -> s {_isDiskContainer = a})
+importSnapshot_diskContainer :: Lens.Lens' ImportSnapshot (Prelude.Maybe SnapshotDiskContainer)
+importSnapshot_diskContainer = Lens.lens (\ImportSnapshot' {diskContainer} -> diskContainer) (\s@ImportSnapshot' {} a -> s {diskContainer = a} :: ImportSnapshot)
 
-instance AWSRequest ImportSnapshot where
+instance Prelude.AWSRequest ImportSnapshot where
   type Rs ImportSnapshot = ImportSnapshotResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ImportSnapshotResponse'
-            <$> (x .@? "snapshotTaskDetail")
-            <*> (x .@? "importTaskId")
-            <*> ( x .@? "tagSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "snapshotTaskDetail")
+            Prelude.<*> (x Prelude..@? "importTaskId")
+            Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ImportSnapshot
+instance Prelude.Hashable ImportSnapshot
 
-instance NFData ImportSnapshot
+instance Prelude.NFData ImportSnapshot
 
-instance ToHeaders ImportSnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ImportSnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ImportSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath ImportSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery ImportSnapshot where
+instance Prelude.ToQuery ImportSnapshot where
   toQuery ImportSnapshot' {..} =
-    mconcat
-      [ "Action" =: ("ImportSnapshot" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _isTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ImportSnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _isDryRun,
-        "Encrypted" =: _isEncrypted,
-        "RoleName" =: _isRoleName,
-        "KmsKeyId" =: _isKMSKeyId,
-        "ClientData" =: _isClientData,
-        "Description" =: _isDescription,
-        "ClientToken" =: _isClientToken,
-        "DiskContainer" =: _isDiskContainer
+        "DryRun" Prelude.=: dryRun,
+        "Encrypted" Prelude.=: encrypted,
+        "RoleName" Prelude.=: roleName,
+        "KmsKeyId" Prelude.=: kmsKeyId,
+        "ClientData" Prelude.=: clientData,
+        "Description" Prelude.=: description,
+        "ClientToken" Prelude.=: clientToken,
+        "DiskContainer" Prelude.=: diskContainer
       ]
 
--- | /See:/ 'importSnapshotResponse' smart constructor.
+-- | /See:/ 'newImportSnapshotResponse' smart constructor.
 data ImportSnapshotResponse = ImportSnapshotResponse'
-  { _isrrsSnapshotTaskDetail ::
-      !( Maybe
-           SnapshotTaskDetail
-       ),
-    _isrrsImportTaskId ::
-      !(Maybe Text),
-    _isrrsTags ::
-      !(Maybe [Tag]),
-    _isrrsDescription ::
-      !(Maybe Text),
-    _isrrsResponseStatus ::
-      !Int
+  { -- | Information about the import snapshot task.
+    snapshotTaskDetail :: Prelude.Maybe SnapshotTaskDetail,
+    -- | The ID of the import snapshot task.
+    importTaskId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags assigned to the import snapshot task.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the import snapshot task.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isrrsSnapshotTaskDetail' - Information about the import snapshot task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isrrsImportTaskId' - The ID of the import snapshot task.
+-- 'snapshotTaskDetail', 'importSnapshotResponse_snapshotTaskDetail' - Information about the import snapshot task.
 --
--- * 'isrrsTags' - Any tags assigned to the import snapshot task.
+-- 'importTaskId', 'importSnapshotResponse_importTaskId' - The ID of the import snapshot task.
 --
--- * 'isrrsDescription' - A description of the import snapshot task.
+-- 'tags', 'importSnapshotResponse_tags' - Any tags assigned to the import snapshot task.
 --
--- * 'isrrsResponseStatus' - -- | The response status code.
-importSnapshotResponse ::
-  -- | 'isrrsResponseStatus'
-  Int ->
+-- 'description', 'importSnapshotResponse_description' - A description of the import snapshot task.
+--
+-- 'httpStatus', 'importSnapshotResponse_httpStatus' - The response's http status code.
+newImportSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ImportSnapshotResponse
-importSnapshotResponse pResponseStatus_ =
+newImportSnapshotResponse pHttpStatus_ =
   ImportSnapshotResponse'
-    { _isrrsSnapshotTaskDetail =
-        Nothing,
-      _isrrsImportTaskId = Nothing,
-      _isrrsTags = Nothing,
-      _isrrsDescription = Nothing,
-      _isrrsResponseStatus = pResponseStatus_
+    { snapshotTaskDetail =
+        Prelude.Nothing,
+      importTaskId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the import snapshot task.
-isrrsSnapshotTaskDetail :: Lens' ImportSnapshotResponse (Maybe SnapshotTaskDetail)
-isrrsSnapshotTaskDetail = lens _isrrsSnapshotTaskDetail (\s a -> s {_isrrsSnapshotTaskDetail = a})
+importSnapshotResponse_snapshotTaskDetail :: Lens.Lens' ImportSnapshotResponse (Prelude.Maybe SnapshotTaskDetail)
+importSnapshotResponse_snapshotTaskDetail = Lens.lens (\ImportSnapshotResponse' {snapshotTaskDetail} -> snapshotTaskDetail) (\s@ImportSnapshotResponse' {} a -> s {snapshotTaskDetail = a} :: ImportSnapshotResponse)
 
 -- | The ID of the import snapshot task.
-isrrsImportTaskId :: Lens' ImportSnapshotResponse (Maybe Text)
-isrrsImportTaskId = lens _isrrsImportTaskId (\s a -> s {_isrrsImportTaskId = a})
+importSnapshotResponse_importTaskId :: Lens.Lens' ImportSnapshotResponse (Prelude.Maybe Prelude.Text)
+importSnapshotResponse_importTaskId = Lens.lens (\ImportSnapshotResponse' {importTaskId} -> importTaskId) (\s@ImportSnapshotResponse' {} a -> s {importTaskId = a} :: ImportSnapshotResponse)
 
 -- | Any tags assigned to the import snapshot task.
-isrrsTags :: Lens' ImportSnapshotResponse [Tag]
-isrrsTags = lens _isrrsTags (\s a -> s {_isrrsTags = a}) . _Default . _Coerce
+importSnapshotResponse_tags :: Lens.Lens' ImportSnapshotResponse (Prelude.Maybe [Tag])
+importSnapshotResponse_tags = Lens.lens (\ImportSnapshotResponse' {tags} -> tags) (\s@ImportSnapshotResponse' {} a -> s {tags = a} :: ImportSnapshotResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the import snapshot task.
-isrrsDescription :: Lens' ImportSnapshotResponse (Maybe Text)
-isrrsDescription = lens _isrrsDescription (\s a -> s {_isrrsDescription = a})
+importSnapshotResponse_description :: Lens.Lens' ImportSnapshotResponse (Prelude.Maybe Prelude.Text)
+importSnapshotResponse_description = Lens.lens (\ImportSnapshotResponse' {description} -> description) (\s@ImportSnapshotResponse' {} a -> s {description = a} :: ImportSnapshotResponse)
 
--- | -- | The response status code.
-isrrsResponseStatus :: Lens' ImportSnapshotResponse Int
-isrrsResponseStatus = lens _isrrsResponseStatus (\s a -> s {_isrrsResponseStatus = a})
+-- | The response's http status code.
+importSnapshotResponse_httpStatus :: Lens.Lens' ImportSnapshotResponse Prelude.Int
+importSnapshotResponse_httpStatus = Lens.lens (\ImportSnapshotResponse' {httpStatus} -> httpStatus) (\s@ImportSnapshotResponse' {} a -> s {httpStatus = a} :: ImportSnapshotResponse)
 
-instance NFData ImportSnapshotResponse
+instance Prelude.NFData ImportSnapshotResponse

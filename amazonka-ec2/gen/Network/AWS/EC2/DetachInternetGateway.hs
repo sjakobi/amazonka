@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,122 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Detaches an internet gateway from a VPC, disabling connectivity between the internet and the VPC. The VPC must not contain any running instances with Elastic IP addresses or public IPv4 addresses.
+-- Detaches an internet gateway from a VPC, disabling connectivity between
+-- the internet and the VPC. The VPC must not contain any running instances
+-- with Elastic IP addresses or public IPv4 addresses.
 module Network.AWS.EC2.DetachInternetGateway
   ( -- * Creating a Request
-    detachInternetGateway,
-    DetachInternetGateway,
+    DetachInternetGateway (..),
+    newDetachInternetGateway,
 
     -- * Request Lenses
-    detDryRun,
-    detInternetGatewayId,
-    detVPCId,
+    detachInternetGateway_dryRun,
+    detachInternetGateway_internetGatewayId,
+    detachInternetGateway_vpcId,
 
     -- * Destructuring the Response
-    detachInternetGatewayResponse,
-    DetachInternetGatewayResponse,
+    DetachInternetGatewayResponse (..),
+    newDetachInternetGatewayResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detachInternetGateway' smart constructor.
+-- | /See:/ 'newDetachInternetGateway' smart constructor.
 data DetachInternetGateway = DetachInternetGateway'
-  { _detDryRun ::
-      !(Maybe Bool),
-    _detInternetGatewayId ::
-      !Text,
-    _detVPCId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the internet gateway.
+    internetGatewayId :: Prelude.Text,
+    -- | The ID of the VPC.
+    vpcId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachInternetGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetachInternetGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detInternetGatewayId' - The ID of the internet gateway.
+-- 'dryRun', 'detachInternetGateway_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'detVPCId' - The ID of the VPC.
-detachInternetGateway ::
-  -- | 'detInternetGatewayId'
-  Text ->
-  -- | 'detVPCId'
-  Text ->
+-- 'internetGatewayId', 'detachInternetGateway_internetGatewayId' - The ID of the internet gateway.
+--
+-- 'vpcId', 'detachInternetGateway_vpcId' - The ID of the VPC.
+newDetachInternetGateway ::
+  -- | 'internetGatewayId'
+  Prelude.Text ->
+  -- | 'vpcId'
+  Prelude.Text ->
   DetachInternetGateway
-detachInternetGateway pInternetGatewayId_ pVPCId_ =
+newDetachInternetGateway pInternetGatewayId_ pVpcId_ =
   DetachInternetGateway'
-    { _detDryRun = Nothing,
-      _detInternetGatewayId = pInternetGatewayId_,
-      _detVPCId = pVPCId_
+    { dryRun = Prelude.Nothing,
+      internetGatewayId = pInternetGatewayId_,
+      vpcId = pVpcId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-detDryRun :: Lens' DetachInternetGateway (Maybe Bool)
-detDryRun = lens _detDryRun (\s a -> s {_detDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+detachInternetGateway_dryRun :: Lens.Lens' DetachInternetGateway (Prelude.Maybe Prelude.Bool)
+detachInternetGateway_dryRun = Lens.lens (\DetachInternetGateway' {dryRun} -> dryRun) (\s@DetachInternetGateway' {} a -> s {dryRun = a} :: DetachInternetGateway)
 
 -- | The ID of the internet gateway.
-detInternetGatewayId :: Lens' DetachInternetGateway Text
-detInternetGatewayId = lens _detInternetGatewayId (\s a -> s {_detInternetGatewayId = a})
+detachInternetGateway_internetGatewayId :: Lens.Lens' DetachInternetGateway Prelude.Text
+detachInternetGateway_internetGatewayId = Lens.lens (\DetachInternetGateway' {internetGatewayId} -> internetGatewayId) (\s@DetachInternetGateway' {} a -> s {internetGatewayId = a} :: DetachInternetGateway)
 
 -- | The ID of the VPC.
-detVPCId :: Lens' DetachInternetGateway Text
-detVPCId = lens _detVPCId (\s a -> s {_detVPCId = a})
+detachInternetGateway_vpcId :: Lens.Lens' DetachInternetGateway Prelude.Text
+detachInternetGateway_vpcId = Lens.lens (\DetachInternetGateway' {vpcId} -> vpcId) (\s@DetachInternetGateway' {} a -> s {vpcId = a} :: DetachInternetGateway)
 
-instance AWSRequest DetachInternetGateway where
+instance Prelude.AWSRequest DetachInternetGateway where
   type
     Rs DetachInternetGateway =
       DetachInternetGatewayResponse
-  request = postQuery ec2
-  response = receiveNull DetachInternetGatewayResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DetachInternetGatewayResponse'
 
-instance Hashable DetachInternetGateway
+instance Prelude.Hashable DetachInternetGateway
 
-instance NFData DetachInternetGateway
+instance Prelude.NFData DetachInternetGateway
 
-instance ToHeaders DetachInternetGateway where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DetachInternetGateway where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DetachInternetGateway where
-  toPath = const "/"
+instance Prelude.ToPath DetachInternetGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery DetachInternetGateway where
+instance Prelude.ToQuery DetachInternetGateway where
   toQuery DetachInternetGateway' {..} =
-    mconcat
-      [ "Action" =: ("DetachInternetGateway" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _detDryRun,
-        "InternetGatewayId" =: _detInternetGatewayId,
-        "VpcId" =: _detVPCId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DetachInternetGateway" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "InternetGatewayId" Prelude.=: internetGatewayId,
+        "VpcId" Prelude.=: vpcId
       ]
 
--- | /See:/ 'detachInternetGatewayResponse' smart constructor.
+-- | /See:/ 'newDetachInternetGatewayResponse' smart constructor.
 data DetachInternetGatewayResponse = DetachInternetGatewayResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachInternetGatewayResponse' with the minimum fields required to make a request.
-detachInternetGatewayResponse ::
+-- |
+-- Create a value of 'DetachInternetGatewayResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDetachInternetGatewayResponse ::
   DetachInternetGatewayResponse
-detachInternetGatewayResponse =
+newDetachInternetGatewayResponse =
   DetachInternetGatewayResponse'
 
-instance NFData DetachInternetGatewayResponse
+instance Prelude.NFData DetachInternetGatewayResponse

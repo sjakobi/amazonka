@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,226 +23,276 @@
 --
 -- Describes one or more of your paths.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeNetworkInsightsPaths
   ( -- * Creating a Request
-    describeNetworkInsightsPaths,
-    DescribeNetworkInsightsPaths,
+    DescribeNetworkInsightsPaths (..),
+    newDescribeNetworkInsightsPaths,
 
     -- * Request Lenses
-    dnipsNextToken,
-    dnipsDryRun,
-    dnipsMaxResults,
-    dnipsNetworkInsightsPathIds,
-    dnipsFilters,
+    describeNetworkInsightsPaths_nextToken,
+    describeNetworkInsightsPaths_dryRun,
+    describeNetworkInsightsPaths_maxResults,
+    describeNetworkInsightsPaths_networkInsightsPathIds,
+    describeNetworkInsightsPaths_filters,
 
     -- * Destructuring the Response
-    describeNetworkInsightsPathsResponse,
-    DescribeNetworkInsightsPathsResponse,
+    DescribeNetworkInsightsPathsResponse (..),
+    newDescribeNetworkInsightsPathsResponse,
 
     -- * Response Lenses
-    describenetworkinsightspathsresponseersNextToken,
-    describenetworkinsightspathsresponseersNetworkInsightsPaths,
-    describenetworkinsightspathsresponseersResponseStatus,
+    describeNetworkInsightsPathsResponse_nextToken,
+    describeNetworkInsightsPathsResponse_networkInsightsPaths,
+    describeNetworkInsightsPathsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.NetworkInsightsPath
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeNetworkInsightsPaths' smart constructor.
+-- | /See:/ 'newDescribeNetworkInsightsPaths' smart constructor.
 data DescribeNetworkInsightsPaths = DescribeNetworkInsightsPaths'
-  { _dnipsNextToken ::
-      !(Maybe Text),
-    _dnipsDryRun ::
-      !(Maybe Bool),
-    _dnipsMaxResults ::
-      !(Maybe Nat),
-    _dnipsNetworkInsightsPathIds ::
-      !( Maybe
-           [Text]
-       ),
-    _dnipsFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The IDs of the paths.
+    networkInsightsPathIds :: Prelude.Maybe [Prelude.Text],
+    -- | The filters. The following are possible values:
+    --
+    -- -   Destination - The ID of the resource.
+    --
+    -- -   DestinationPort - The destination port.
+    --
+    -- -   Name - The path name.
+    --
+    -- -   Protocol - The protocol.
+    --
+    -- -   Source - The ID of the resource.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNetworkInsightsPaths' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNetworkInsightsPaths' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnipsNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnipsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeNetworkInsightsPaths_nextToken' - The token for the next page of results.
 --
--- * 'dnipsMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeNetworkInsightsPaths_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dnipsNetworkInsightsPathIds' - The IDs of the paths.
+-- 'maxResults', 'describeNetworkInsightsPaths_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dnipsFilters' - The filters. The following are possible values:     * Destination - The ID of the resource.     * DestinationPort - The destination port.     * Name - The path name.     * Protocol - The protocol.     * Source - The ID of the resource.
-describeNetworkInsightsPaths ::
+-- 'networkInsightsPathIds', 'describeNetworkInsightsPaths_networkInsightsPathIds' - The IDs of the paths.
+--
+-- 'filters', 'describeNetworkInsightsPaths_filters' - The filters. The following are possible values:
+--
+-- -   Destination - The ID of the resource.
+--
+-- -   DestinationPort - The destination port.
+--
+-- -   Name - The path name.
+--
+-- -   Protocol - The protocol.
+--
+-- -   Source - The ID of the resource.
+newDescribeNetworkInsightsPaths ::
   DescribeNetworkInsightsPaths
-describeNetworkInsightsPaths =
+newDescribeNetworkInsightsPaths =
   DescribeNetworkInsightsPaths'
-    { _dnipsNextToken =
-        Nothing,
-      _dnipsDryRun = Nothing,
-      _dnipsMaxResults = Nothing,
-      _dnipsNetworkInsightsPathIds = Nothing,
-      _dnipsFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      networkInsightsPathIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dnipsNextToken :: Lens' DescribeNetworkInsightsPaths (Maybe Text)
-dnipsNextToken = lens _dnipsNextToken (\s a -> s {_dnipsNextToken = a})
+describeNetworkInsightsPaths_nextToken :: Lens.Lens' DescribeNetworkInsightsPaths (Prelude.Maybe Prelude.Text)
+describeNetworkInsightsPaths_nextToken = Lens.lens (\DescribeNetworkInsightsPaths' {nextToken} -> nextToken) (\s@DescribeNetworkInsightsPaths' {} a -> s {nextToken = a} :: DescribeNetworkInsightsPaths)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dnipsDryRun :: Lens' DescribeNetworkInsightsPaths (Maybe Bool)
-dnipsDryRun = lens _dnipsDryRun (\s a -> s {_dnipsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeNetworkInsightsPaths_dryRun :: Lens.Lens' DescribeNetworkInsightsPaths (Prelude.Maybe Prelude.Bool)
+describeNetworkInsightsPaths_dryRun = Lens.lens (\DescribeNetworkInsightsPaths' {dryRun} -> dryRun) (\s@DescribeNetworkInsightsPaths' {} a -> s {dryRun = a} :: DescribeNetworkInsightsPaths)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dnipsMaxResults :: Lens' DescribeNetworkInsightsPaths (Maybe Natural)
-dnipsMaxResults = lens _dnipsMaxResults (\s a -> s {_dnipsMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeNetworkInsightsPaths_maxResults :: Lens.Lens' DescribeNetworkInsightsPaths (Prelude.Maybe Prelude.Natural)
+describeNetworkInsightsPaths_maxResults = Lens.lens (\DescribeNetworkInsightsPaths' {maxResults} -> maxResults) (\s@DescribeNetworkInsightsPaths' {} a -> s {maxResults = a} :: DescribeNetworkInsightsPaths) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The IDs of the paths.
-dnipsNetworkInsightsPathIds :: Lens' DescribeNetworkInsightsPaths [Text]
-dnipsNetworkInsightsPathIds = lens _dnipsNetworkInsightsPathIds (\s a -> s {_dnipsNetworkInsightsPathIds = a}) . _Default . _Coerce
+describeNetworkInsightsPaths_networkInsightsPathIds :: Lens.Lens' DescribeNetworkInsightsPaths (Prelude.Maybe [Prelude.Text])
+describeNetworkInsightsPaths_networkInsightsPathIds = Lens.lens (\DescribeNetworkInsightsPaths' {networkInsightsPathIds} -> networkInsightsPathIds) (\s@DescribeNetworkInsightsPaths' {} a -> s {networkInsightsPathIds = a} :: DescribeNetworkInsightsPaths) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The filters. The following are possible values:     * Destination - The ID of the resource.     * DestinationPort - The destination port.     * Name - The path name.     * Protocol - The protocol.     * Source - The ID of the resource.
-dnipsFilters :: Lens' DescribeNetworkInsightsPaths [Filter]
-dnipsFilters = lens _dnipsFilters (\s a -> s {_dnipsFilters = a}) . _Default . _Coerce
+-- | The filters. The following are possible values:
+--
+-- -   Destination - The ID of the resource.
+--
+-- -   DestinationPort - The destination port.
+--
+-- -   Name - The path name.
+--
+-- -   Protocol - The protocol.
+--
+-- -   Source - The ID of the resource.
+describeNetworkInsightsPaths_filters :: Lens.Lens' DescribeNetworkInsightsPaths (Prelude.Maybe [Filter])
+describeNetworkInsightsPaths_filters = Lens.lens (\DescribeNetworkInsightsPaths' {filters} -> filters) (\s@DescribeNetworkInsightsPaths' {} a -> s {filters = a} :: DescribeNetworkInsightsPaths) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeNetworkInsightsPaths where
+instance Pager.AWSPager DescribeNetworkInsightsPaths where
   page rq rs
-    | stop
+    | Pager.stop
         ( rs
-            ^. describenetworkinsightspathsresponseersNextToken
+            Lens.^? describeNetworkInsightsPathsResponse_nextToken
+              Prelude.. Lens._Just
         ) =
-      Nothing
-    | stop
+      Prelude.Nothing
+    | Pager.stop
         ( rs
-            ^. describenetworkinsightspathsresponseersNetworkInsightsPaths
+            Lens.^? describeNetworkInsightsPathsResponse_networkInsightsPaths
+              Prelude.. Lens._Just
         ) =
-      Nothing
-    | otherwise =
-      Just $
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & dnipsNextToken
-          .~ rs
-          ^. describenetworkinsightspathsresponseersNextToken
+          Lens.& describeNetworkInsightsPaths_nextToken
+          Lens..~ rs
+          Lens.^? describeNetworkInsightsPathsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeNetworkInsightsPaths where
+instance
+  Prelude.AWSRequest
+    DescribeNetworkInsightsPaths
+  where
   type
     Rs DescribeNetworkInsightsPaths =
       DescribeNetworkInsightsPathsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeNetworkInsightsPathsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "networkInsightsPathSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "networkInsightsPathSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeNetworkInsightsPaths
+instance
+  Prelude.Hashable
+    DescribeNetworkInsightsPaths
 
-instance NFData DescribeNetworkInsightsPaths
+instance Prelude.NFData DescribeNetworkInsightsPaths
 
-instance ToHeaders DescribeNetworkInsightsPaths where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeNetworkInsightsPaths
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeNetworkInsightsPaths where
-  toPath = const "/"
+instance Prelude.ToPath DescribeNetworkInsightsPaths where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeNetworkInsightsPaths where
+instance Prelude.ToQuery DescribeNetworkInsightsPaths where
   toQuery DescribeNetworkInsightsPaths' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeNetworkInsightsPaths" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dnipsNextToken,
-        "DryRun" =: _dnipsDryRun,
-        "MaxResults" =: _dnipsMaxResults,
-        toQuery
-          ( toQueryList "NetworkInsightsPathId"
-              <$> _dnipsNetworkInsightsPathIds
+          Prelude.=: ( "DescribeNetworkInsightsPaths" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "NetworkInsightsPathId"
+              Prelude.<$> networkInsightsPathIds
           ),
-        toQuery (toQueryList "Filter" <$> _dnipsFilters)
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeNetworkInsightsPathsResponse' smart constructor.
+-- | /See:/ 'newDescribeNetworkInsightsPathsResponse' smart constructor.
 data DescribeNetworkInsightsPathsResponse = DescribeNetworkInsightsPathsResponse'
-  { _describenetworkinsightspathsresponseersNextToken ::
-      !( Maybe
-           Text
-       ),
-    _describenetworkinsightspathsresponseersNetworkInsightsPaths ::
-      !( Maybe
-           [NetworkInsightsPath]
-       ),
-    _describenetworkinsightspathsresponseersResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the paths.
+    networkInsightsPaths :: Prelude.Maybe [NetworkInsightsPath],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNetworkInsightsPathsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNetworkInsightsPathsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'describenetworkinsightspathsresponseersNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'describenetworkinsightspathsresponseersNetworkInsightsPaths' - Information about the paths.
+-- 'nextToken', 'describeNetworkInsightsPathsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'describenetworkinsightspathsresponseersResponseStatus' - -- | The response status code.
-describeNetworkInsightsPathsResponse ::
-  -- | 'describenetworkinsightspathsresponseersResponseStatus'
-  Int ->
+-- 'networkInsightsPaths', 'describeNetworkInsightsPathsResponse_networkInsightsPaths' - Information about the paths.
+--
+-- 'httpStatus', 'describeNetworkInsightsPathsResponse_httpStatus' - The response's http status code.
+newDescribeNetworkInsightsPathsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeNetworkInsightsPathsResponse
-describeNetworkInsightsPathsResponse pResponseStatus_ =
+newDescribeNetworkInsightsPathsResponse pHttpStatus_ =
   DescribeNetworkInsightsPathsResponse'
-    { _describenetworkinsightspathsresponseersNextToken =
-        Nothing,
-      _describenetworkinsightspathsresponseersNetworkInsightsPaths =
-        Nothing,
-      _describenetworkinsightspathsresponseersResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      networkInsightsPaths =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-describenetworkinsightspathsresponseersNextToken :: Lens' DescribeNetworkInsightsPathsResponse (Maybe Text)
-describenetworkinsightspathsresponseersNextToken = lens _describenetworkinsightspathsresponseersNextToken (\s a -> s {_describenetworkinsightspathsresponseersNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeNetworkInsightsPathsResponse_nextToken :: Lens.Lens' DescribeNetworkInsightsPathsResponse (Prelude.Maybe Prelude.Text)
+describeNetworkInsightsPathsResponse_nextToken = Lens.lens (\DescribeNetworkInsightsPathsResponse' {nextToken} -> nextToken) (\s@DescribeNetworkInsightsPathsResponse' {} a -> s {nextToken = a} :: DescribeNetworkInsightsPathsResponse)
 
 -- | Information about the paths.
-describenetworkinsightspathsresponseersNetworkInsightsPaths :: Lens' DescribeNetworkInsightsPathsResponse [NetworkInsightsPath]
-describenetworkinsightspathsresponseersNetworkInsightsPaths = lens _describenetworkinsightspathsresponseersNetworkInsightsPaths (\s a -> s {_describenetworkinsightspathsresponseersNetworkInsightsPaths = a}) . _Default . _Coerce
+describeNetworkInsightsPathsResponse_networkInsightsPaths :: Lens.Lens' DescribeNetworkInsightsPathsResponse (Prelude.Maybe [NetworkInsightsPath])
+describeNetworkInsightsPathsResponse_networkInsightsPaths = Lens.lens (\DescribeNetworkInsightsPathsResponse' {networkInsightsPaths} -> networkInsightsPaths) (\s@DescribeNetworkInsightsPathsResponse' {} a -> s {networkInsightsPaths = a} :: DescribeNetworkInsightsPathsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-describenetworkinsightspathsresponseersResponseStatus :: Lens' DescribeNetworkInsightsPathsResponse Int
-describenetworkinsightspathsresponseersResponseStatus = lens _describenetworkinsightspathsresponseersResponseStatus (\s a -> s {_describenetworkinsightspathsresponseersResponseStatus = a})
+-- | The response's http status code.
+describeNetworkInsightsPathsResponse_httpStatus :: Lens.Lens' DescribeNetworkInsightsPathsResponse Prelude.Int
+describeNetworkInsightsPathsResponse_httpStatus = Lens.lens (\DescribeNetworkInsightsPathsResponse' {httpStatus} -> httpStatus) (\s@DescribeNetworkInsightsPathsResponse' {} a -> s {httpStatus = a} :: DescribeNetworkInsightsPathsResponse)
 
-instance NFData DescribeNetworkInsightsPathsResponse
+instance
+  Prelude.NFData
+    DescribeNetworkInsightsPathsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,178 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve a JPG-format screenshot of a running instance to help with troubleshooting.
---
+-- Retrieve a JPG-format screenshot of a running instance to help with
+-- troubleshooting.
 --
 -- The returned content is Base64-encoded.
 module Network.AWS.EC2.GetConsoleScreenshot
   ( -- * Creating a Request
-    getConsoleScreenshot,
-    GetConsoleScreenshot,
+    GetConsoleScreenshot (..),
+    newGetConsoleScreenshot,
 
     -- * Request Lenses
-    gcsDryRun,
-    gcsWakeUp,
-    gcsInstanceId,
+    getConsoleScreenshot_dryRun,
+    getConsoleScreenshot_wakeUp,
+    getConsoleScreenshot_instanceId,
 
     -- * Destructuring the Response
-    getConsoleScreenshotResponse,
-    GetConsoleScreenshotResponse,
+    GetConsoleScreenshotResponse (..),
+    newGetConsoleScreenshotResponse,
 
     -- * Response Lenses
-    gcsrrsInstanceId,
-    gcsrrsImageData,
-    gcsrrsResponseStatus,
+    getConsoleScreenshotResponse_instanceId,
+    getConsoleScreenshotResponse_imageData,
+    getConsoleScreenshotResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getConsoleScreenshot' smart constructor.
+-- | /See:/ 'newGetConsoleScreenshot' smart constructor.
 data GetConsoleScreenshot = GetConsoleScreenshot'
-  { _gcsDryRun ::
-      !(Maybe Bool),
-    _gcsWakeUp :: !(Maybe Bool),
-    _gcsInstanceId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | When set to @true@, acts as keystroke input and wakes up an instance
+    -- that\'s in standby or \"sleep\" mode.
+    wakeUp :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConsoleScreenshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConsoleScreenshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsWakeUp' - When set to @true@ , acts as keystroke input and wakes up an instance that's in standby or "sleep" mode.
+-- 'dryRun', 'getConsoleScreenshot_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'gcsInstanceId' - The ID of the instance.
-getConsoleScreenshot ::
-  -- | 'gcsInstanceId'
-  Text ->
+-- 'wakeUp', 'getConsoleScreenshot_wakeUp' - When set to @true@, acts as keystroke input and wakes up an instance
+-- that\'s in standby or \"sleep\" mode.
+--
+-- 'instanceId', 'getConsoleScreenshot_instanceId' - The ID of the instance.
+newGetConsoleScreenshot ::
+  -- | 'instanceId'
+  Prelude.Text ->
   GetConsoleScreenshot
-getConsoleScreenshot pInstanceId_ =
+newGetConsoleScreenshot pInstanceId_ =
   GetConsoleScreenshot'
-    { _gcsDryRun = Nothing,
-      _gcsWakeUp = Nothing,
-      _gcsInstanceId = pInstanceId_
+    { dryRun = Prelude.Nothing,
+      wakeUp = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-gcsDryRun :: Lens' GetConsoleScreenshot (Maybe Bool)
-gcsDryRun = lens _gcsDryRun (\s a -> s {_gcsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+getConsoleScreenshot_dryRun :: Lens.Lens' GetConsoleScreenshot (Prelude.Maybe Prelude.Bool)
+getConsoleScreenshot_dryRun = Lens.lens (\GetConsoleScreenshot' {dryRun} -> dryRun) (\s@GetConsoleScreenshot' {} a -> s {dryRun = a} :: GetConsoleScreenshot)
 
--- | When set to @true@ , acts as keystroke input and wakes up an instance that's in standby or "sleep" mode.
-gcsWakeUp :: Lens' GetConsoleScreenshot (Maybe Bool)
-gcsWakeUp = lens _gcsWakeUp (\s a -> s {_gcsWakeUp = a})
+-- | When set to @true@, acts as keystroke input and wakes up an instance
+-- that\'s in standby or \"sleep\" mode.
+getConsoleScreenshot_wakeUp :: Lens.Lens' GetConsoleScreenshot (Prelude.Maybe Prelude.Bool)
+getConsoleScreenshot_wakeUp = Lens.lens (\GetConsoleScreenshot' {wakeUp} -> wakeUp) (\s@GetConsoleScreenshot' {} a -> s {wakeUp = a} :: GetConsoleScreenshot)
 
 -- | The ID of the instance.
-gcsInstanceId :: Lens' GetConsoleScreenshot Text
-gcsInstanceId = lens _gcsInstanceId (\s a -> s {_gcsInstanceId = a})
+getConsoleScreenshot_instanceId :: Lens.Lens' GetConsoleScreenshot Prelude.Text
+getConsoleScreenshot_instanceId = Lens.lens (\GetConsoleScreenshot' {instanceId} -> instanceId) (\s@GetConsoleScreenshot' {} a -> s {instanceId = a} :: GetConsoleScreenshot)
 
-instance AWSRequest GetConsoleScreenshot where
+instance Prelude.AWSRequest GetConsoleScreenshot where
   type
     Rs GetConsoleScreenshot =
       GetConsoleScreenshotResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetConsoleScreenshotResponse'
-            <$> (x .@? "instanceId")
-            <*> (x .@? "imageData")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "instanceId")
+            Prelude.<*> (x Prelude..@? "imageData")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConsoleScreenshot
+instance Prelude.Hashable GetConsoleScreenshot
 
-instance NFData GetConsoleScreenshot
+instance Prelude.NFData GetConsoleScreenshot
 
-instance ToHeaders GetConsoleScreenshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetConsoleScreenshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetConsoleScreenshot where
-  toPath = const "/"
+instance Prelude.ToPath GetConsoleScreenshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetConsoleScreenshot where
+instance Prelude.ToQuery GetConsoleScreenshot where
   toQuery GetConsoleScreenshot' {..} =
-    mconcat
-      [ "Action" =: ("GetConsoleScreenshot" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _gcsDryRun,
-        "WakeUp" =: _gcsWakeUp,
-        "InstanceId" =: _gcsInstanceId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetConsoleScreenshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "WakeUp" Prelude.=: wakeUp,
+        "InstanceId" Prelude.=: instanceId
       ]
 
--- | /See:/ 'getConsoleScreenshotResponse' smart constructor.
+-- | /See:/ 'newGetConsoleScreenshotResponse' smart constructor.
 data GetConsoleScreenshotResponse = GetConsoleScreenshotResponse'
-  { _gcsrrsInstanceId ::
-      !(Maybe Text),
-    _gcsrrsImageData ::
-      !(Maybe Text),
-    _gcsrrsResponseStatus ::
-      !Int
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The data that comprises the image.
+    imageData :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConsoleScreenshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConsoleScreenshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsrrsInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsrrsImageData' - The data that comprises the image.
+-- 'instanceId', 'getConsoleScreenshotResponse_instanceId' - The ID of the instance.
 --
--- * 'gcsrrsResponseStatus' - -- | The response status code.
-getConsoleScreenshotResponse ::
-  -- | 'gcsrrsResponseStatus'
-  Int ->
+-- 'imageData', 'getConsoleScreenshotResponse_imageData' - The data that comprises the image.
+--
+-- 'httpStatus', 'getConsoleScreenshotResponse_httpStatus' - The response's http status code.
+newGetConsoleScreenshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConsoleScreenshotResponse
-getConsoleScreenshotResponse pResponseStatus_ =
+newGetConsoleScreenshotResponse pHttpStatus_ =
   GetConsoleScreenshotResponse'
-    { _gcsrrsInstanceId =
-        Nothing,
-      _gcsrrsImageData = Nothing,
-      _gcsrrsResponseStatus = pResponseStatus_
+    { instanceId =
+        Prelude.Nothing,
+      imageData = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the instance.
-gcsrrsInstanceId :: Lens' GetConsoleScreenshotResponse (Maybe Text)
-gcsrrsInstanceId = lens _gcsrrsInstanceId (\s a -> s {_gcsrrsInstanceId = a})
+getConsoleScreenshotResponse_instanceId :: Lens.Lens' GetConsoleScreenshotResponse (Prelude.Maybe Prelude.Text)
+getConsoleScreenshotResponse_instanceId = Lens.lens (\GetConsoleScreenshotResponse' {instanceId} -> instanceId) (\s@GetConsoleScreenshotResponse' {} a -> s {instanceId = a} :: GetConsoleScreenshotResponse)
 
 -- | The data that comprises the image.
-gcsrrsImageData :: Lens' GetConsoleScreenshotResponse (Maybe Text)
-gcsrrsImageData = lens _gcsrrsImageData (\s a -> s {_gcsrrsImageData = a})
+getConsoleScreenshotResponse_imageData :: Lens.Lens' GetConsoleScreenshotResponse (Prelude.Maybe Prelude.Text)
+getConsoleScreenshotResponse_imageData = Lens.lens (\GetConsoleScreenshotResponse' {imageData} -> imageData) (\s@GetConsoleScreenshotResponse' {} a -> s {imageData = a} :: GetConsoleScreenshotResponse)
 
--- | -- | The response status code.
-gcsrrsResponseStatus :: Lens' GetConsoleScreenshotResponse Int
-gcsrrsResponseStatus = lens _gcsrrsResponseStatus (\s a -> s {_gcsrrsResponseStatus = a})
+-- | The response's http status code.
+getConsoleScreenshotResponse_httpStatus :: Lens.Lens' GetConsoleScreenshotResponse Prelude.Int
+getConsoleScreenshotResponse_httpStatus = Lens.lens (\GetConsoleScreenshotResponse' {httpStatus} -> httpStatus) (\s@GetConsoleScreenshotResponse' {} a -> s {httpStatus = a} :: GetConsoleScreenshotResponse)
 
-instance NFData GetConsoleScreenshotResponse
+instance Prelude.NFData GetConsoleScreenshotResponse

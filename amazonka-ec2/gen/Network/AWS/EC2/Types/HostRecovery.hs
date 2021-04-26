@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.HostRecovery
   ( HostRecovery
       ( ..,
-        HRON,
-        HROff
+        HostRecoveryON,
+        HostRecoveryOff
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HostRecovery = HostRecovery' (CI Text)
+newtype HostRecovery = HostRecovery'
+  { fromHostRecovery ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HRON :: HostRecovery
-pattern HRON = HostRecovery' "on"
+pattern HostRecoveryON :: HostRecovery
+pattern HostRecoveryON = HostRecovery' "on"
 
-pattern HROff :: HostRecovery
-pattern HROff = HostRecovery' "off"
+pattern HostRecoveryOff :: HostRecovery
+pattern HostRecoveryOff = HostRecovery' "off"
 
 {-# COMPLETE
-  HRON,
-  HROff,
+  HostRecoveryON,
+  HostRecoveryOff,
   HostRecovery'
   #-}
 
-instance FromText HostRecovery where
-  parser = (HostRecovery' . mk) <$> takeText
+instance Prelude.FromText HostRecovery where
+  parser = HostRecovery' Prelude.<$> Prelude.takeText
 
-instance ToText HostRecovery where
-  toText (HostRecovery' ci) = original ci
+instance Prelude.ToText HostRecovery where
+  toText (HostRecovery' x) = x
 
-instance Hashable HostRecovery
+instance Prelude.Hashable HostRecovery
 
-instance NFData HostRecovery
+instance Prelude.NFData HostRecovery
 
-instance ToByteString HostRecovery
+instance Prelude.ToByteString HostRecovery
 
-instance ToQuery HostRecovery
+instance Prelude.ToQuery HostRecovery
 
-instance ToHeader HostRecovery
+instance Prelude.ToHeader HostRecovery
 
-instance FromXML HostRecovery where
-  parseXML = parseXMLText "HostRecovery"
+instance Prelude.FromXML HostRecovery where
+  parseXML = Prelude.parseXMLText "HostRecovery"

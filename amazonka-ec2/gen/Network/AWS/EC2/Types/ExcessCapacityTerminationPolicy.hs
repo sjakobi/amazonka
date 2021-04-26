@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.ExcessCapacityTerminationPolicy
   ( ExcessCapacityTerminationPolicy
       ( ..,
-        ECTPDefault,
-        ECTPNoTermination
+        ExcessCapacityTerminationPolicyDefault,
+        ExcessCapacityTerminationPolicyNoTermination
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExcessCapacityTerminationPolicy
-  = ExcessCapacityTerminationPolicy'
-      ( CI
-          Text
-      )
+newtype ExcessCapacityTerminationPolicy = ExcessCapacityTerminationPolicy'
+  { fromExcessCapacityTerminationPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ECTPDefault :: ExcessCapacityTerminationPolicy
-pattern ECTPDefault = ExcessCapacityTerminationPolicy' "default"
+pattern ExcessCapacityTerminationPolicyDefault :: ExcessCapacityTerminationPolicy
+pattern ExcessCapacityTerminationPolicyDefault = ExcessCapacityTerminationPolicy' "default"
 
-pattern ECTPNoTermination :: ExcessCapacityTerminationPolicy
-pattern ECTPNoTermination = ExcessCapacityTerminationPolicy' "noTermination"
+pattern ExcessCapacityTerminationPolicyNoTermination :: ExcessCapacityTerminationPolicy
+pattern ExcessCapacityTerminationPolicyNoTermination = ExcessCapacityTerminationPolicy' "noTermination"
 
 {-# COMPLETE
-  ECTPDefault,
-  ECTPNoTermination,
+  ExcessCapacityTerminationPolicyDefault,
+  ExcessCapacityTerminationPolicyNoTermination,
   ExcessCapacityTerminationPolicy'
   #-}
 
-instance FromText ExcessCapacityTerminationPolicy where
-  parser = (ExcessCapacityTerminationPolicy' . mk) <$> takeText
+instance Prelude.FromText ExcessCapacityTerminationPolicy where
+  parser = ExcessCapacityTerminationPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText ExcessCapacityTerminationPolicy where
-  toText (ExcessCapacityTerminationPolicy' ci) = original ci
+instance Prelude.ToText ExcessCapacityTerminationPolicy where
+  toText (ExcessCapacityTerminationPolicy' x) = x
 
-instance Hashable ExcessCapacityTerminationPolicy
+instance Prelude.Hashable ExcessCapacityTerminationPolicy
 
-instance NFData ExcessCapacityTerminationPolicy
+instance Prelude.NFData ExcessCapacityTerminationPolicy
 
-instance ToByteString ExcessCapacityTerminationPolicy
+instance Prelude.ToByteString ExcessCapacityTerminationPolicy
 
-instance ToQuery ExcessCapacityTerminationPolicy
+instance Prelude.ToQuery ExcessCapacityTerminationPolicy
 
-instance ToHeader ExcessCapacityTerminationPolicy
+instance Prelude.ToHeader ExcessCapacityTerminationPolicy
 
-instance FromXML ExcessCapacityTerminationPolicy where
-  parseXML = parseXMLText "ExcessCapacityTerminationPolicy"
+instance Prelude.FromXML ExcessCapacityTerminationPolicy where
+  parseXML = Prelude.parseXMLText "ExcessCapacityTerminationPolicy"

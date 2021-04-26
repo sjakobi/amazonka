@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels a bundling operation for an instance store-backed Windows instance.
+-- Cancels a bundling operation for an instance store-backed Windows
+-- instance.
 module Network.AWS.EC2.CancelBundleTask
   ( -- * Creating a Request
-    cancelBundleTask,
-    CancelBundleTask,
+    CancelBundleTask (..),
+    newCancelBundleTask,
 
     -- * Request Lenses
-    cbtDryRun,
-    cbtBundleId,
+    cancelBundleTask_dryRun,
+    cancelBundleTask_bundleId,
 
     -- * Destructuring the Response
-    cancelBundleTaskResponse,
-    CancelBundleTaskResponse,
+    CancelBundleTaskResponse (..),
+    newCancelBundleTaskResponse,
 
     -- * Response Lenses
-    cbtrrsBundleTask,
-    cbtrrsResponseStatus,
+    cancelBundleTaskResponse_bundleTask,
+    cancelBundleTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.BundleTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for CancelBundleTask.
 --
---
---
--- /See:/ 'cancelBundleTask' smart constructor.
+-- /See:/ 'newCancelBundleTask' smart constructor.
 data CancelBundleTask = CancelBundleTask'
-  { _cbtDryRun ::
-      !(Maybe Bool),
-    _cbtBundleId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the bundle task.
+    bundleId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelBundleTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelBundleTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbtDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbtBundleId' - The ID of the bundle task.
-cancelBundleTask ::
-  -- | 'cbtBundleId'
-  Text ->
+-- 'dryRun', 'cancelBundleTask_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'bundleId', 'cancelBundleTask_bundleId' - The ID of the bundle task.
+newCancelBundleTask ::
+  -- | 'bundleId'
+  Prelude.Text ->
   CancelBundleTask
-cancelBundleTask pBundleId_ =
+newCancelBundleTask pBundleId_ =
   CancelBundleTask'
-    { _cbtDryRun = Nothing,
-      _cbtBundleId = pBundleId_
+    { dryRun = Prelude.Nothing,
+      bundleId = pBundleId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-cbtDryRun :: Lens' CancelBundleTask (Maybe Bool)
-cbtDryRun = lens _cbtDryRun (\s a -> s {_cbtDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+cancelBundleTask_dryRun :: Lens.Lens' CancelBundleTask (Prelude.Maybe Prelude.Bool)
+cancelBundleTask_dryRun = Lens.lens (\CancelBundleTask' {dryRun} -> dryRun) (\s@CancelBundleTask' {} a -> s {dryRun = a} :: CancelBundleTask)
 
 -- | The ID of the bundle task.
-cbtBundleId :: Lens' CancelBundleTask Text
-cbtBundleId = lens _cbtBundleId (\s a -> s {_cbtBundleId = a})
+cancelBundleTask_bundleId :: Lens.Lens' CancelBundleTask Prelude.Text
+cancelBundleTask_bundleId = Lens.lens (\CancelBundleTask' {bundleId} -> bundleId) (\s@CancelBundleTask' {} a -> s {bundleId = a} :: CancelBundleTask)
 
-instance AWSRequest CancelBundleTask where
+instance Prelude.AWSRequest CancelBundleTask where
   type Rs CancelBundleTask = CancelBundleTaskResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CancelBundleTaskResponse'
-            <$> (x .@? "bundleInstanceTask") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "bundleInstanceTask")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelBundleTask
+instance Prelude.Hashable CancelBundleTask
 
-instance NFData CancelBundleTask
+instance Prelude.NFData CancelBundleTask
 
-instance ToHeaders CancelBundleTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CancelBundleTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CancelBundleTask where
-  toPath = const "/"
+instance Prelude.ToPath CancelBundleTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelBundleTask where
+instance Prelude.ToQuery CancelBundleTask where
   toQuery CancelBundleTask' {..} =
-    mconcat
-      [ "Action" =: ("CancelBundleTask" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _cbtDryRun,
-        "BundleId" =: _cbtBundleId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CancelBundleTask" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "BundleId" Prelude.=: bundleId
       ]
 
 -- | Contains the output of CancelBundleTask.
 --
---
---
--- /See:/ 'cancelBundleTaskResponse' smart constructor.
+-- /See:/ 'newCancelBundleTaskResponse' smart constructor.
 data CancelBundleTaskResponse = CancelBundleTaskResponse'
-  { _cbtrrsBundleTask ::
-      !(Maybe BundleTask),
-    _cbtrrsResponseStatus ::
-      !Int
+  { -- | Information about the bundle task.
+    bundleTask :: Prelude.Maybe BundleTask,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelBundleTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelBundleTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbtrrsBundleTask' - Information about the bundle task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbtrrsResponseStatus' - -- | The response status code.
-cancelBundleTaskResponse ::
-  -- | 'cbtrrsResponseStatus'
-  Int ->
+-- 'bundleTask', 'cancelBundleTaskResponse_bundleTask' - Information about the bundle task.
+--
+-- 'httpStatus', 'cancelBundleTaskResponse_httpStatus' - The response's http status code.
+newCancelBundleTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelBundleTaskResponse
-cancelBundleTaskResponse pResponseStatus_ =
+newCancelBundleTaskResponse pHttpStatus_ =
   CancelBundleTaskResponse'
-    { _cbtrrsBundleTask =
-        Nothing,
-      _cbtrrsResponseStatus = pResponseStatus_
+    { bundleTask =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the bundle task.
-cbtrrsBundleTask :: Lens' CancelBundleTaskResponse (Maybe BundleTask)
-cbtrrsBundleTask = lens _cbtrrsBundleTask (\s a -> s {_cbtrrsBundleTask = a})
+cancelBundleTaskResponse_bundleTask :: Lens.Lens' CancelBundleTaskResponse (Prelude.Maybe BundleTask)
+cancelBundleTaskResponse_bundleTask = Lens.lens (\CancelBundleTaskResponse' {bundleTask} -> bundleTask) (\s@CancelBundleTaskResponse' {} a -> s {bundleTask = a} :: CancelBundleTaskResponse)
 
--- | -- | The response status code.
-cbtrrsResponseStatus :: Lens' CancelBundleTaskResponse Int
-cbtrrsResponseStatus = lens _cbtrrsResponseStatus (\s a -> s {_cbtrrsResponseStatus = a})
+-- | The response's http status code.
+cancelBundleTaskResponse_httpStatus :: Lens.Lens' CancelBundleTaskResponse Prelude.Int
+cancelBundleTaskResponse_httpStatus = Lens.lens (\CancelBundleTaskResponse' {httpStatus} -> httpStatus) (\s@CancelBundleTaskResponse' {} a -> s {httpStatus = a} :: CancelBundleTaskResponse)
 
-instance NFData CancelBundleTaskResponse
+instance Prelude.NFData CancelBundleTaskResponse

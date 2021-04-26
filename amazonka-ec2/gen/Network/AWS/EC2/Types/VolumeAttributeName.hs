@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.EC2.Types.VolumeAttributeName
   ( VolumeAttributeName
       ( ..,
-        VANAutoEnableIO,
-        VANProductCodes
+        VolumeAttributeNameAutoEnableIO,
+        VolumeAttributeNameProductCodes
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VolumeAttributeName
-  = VolumeAttributeName'
-      ( CI
-          Text
-      )
+newtype VolumeAttributeName = VolumeAttributeName'
+  { fromVolumeAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VANAutoEnableIO :: VolumeAttributeName
-pattern VANAutoEnableIO = VolumeAttributeName' "autoEnableIO"
+pattern VolumeAttributeNameAutoEnableIO :: VolumeAttributeName
+pattern VolumeAttributeNameAutoEnableIO = VolumeAttributeName' "autoEnableIO"
 
-pattern VANProductCodes :: VolumeAttributeName
-pattern VANProductCodes = VolumeAttributeName' "productCodes"
+pattern VolumeAttributeNameProductCodes :: VolumeAttributeName
+pattern VolumeAttributeNameProductCodes = VolumeAttributeName' "productCodes"
 
 {-# COMPLETE
-  VANAutoEnableIO,
-  VANProductCodes,
+  VolumeAttributeNameAutoEnableIO,
+  VolumeAttributeNameProductCodes,
   VolumeAttributeName'
   #-}
 
-instance FromText VolumeAttributeName where
-  parser = (VolumeAttributeName' . mk) <$> takeText
+instance Prelude.FromText VolumeAttributeName where
+  parser = VolumeAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeAttributeName where
-  toText (VolumeAttributeName' ci) = original ci
+instance Prelude.ToText VolumeAttributeName where
+  toText (VolumeAttributeName' x) = x
 
-instance Hashable VolumeAttributeName
+instance Prelude.Hashable VolumeAttributeName
 
-instance NFData VolumeAttributeName
+instance Prelude.NFData VolumeAttributeName
 
-instance ToByteString VolumeAttributeName
+instance Prelude.ToByteString VolumeAttributeName
 
-instance ToQuery VolumeAttributeName
+instance Prelude.ToQuery VolumeAttributeName
 
-instance ToHeader VolumeAttributeName
+instance Prelude.ToHeader VolumeAttributeName

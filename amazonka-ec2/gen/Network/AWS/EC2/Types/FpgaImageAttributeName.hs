@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.EC2.Types.FpgaImageAttributeName
   ( FpgaImageAttributeName
       ( ..,
-        FIANDescription,
-        FIANLoadPermission,
-        FIANName,
-        FIANProductCodes
+        FpgaImageAttributeNameDescription,
+        FpgaImageAttributeNameLoadPermission,
+        FpgaImageAttributeNameName,
+        FpgaImageAttributeNameProductCodes
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FpgaImageAttributeName
-  = FpgaImageAttributeName'
-      ( CI
-          Text
-      )
+newtype FpgaImageAttributeName = FpgaImageAttributeName'
+  { fromFpgaImageAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FIANDescription :: FpgaImageAttributeName
-pattern FIANDescription = FpgaImageAttributeName' "description"
+pattern FpgaImageAttributeNameDescription :: FpgaImageAttributeName
+pattern FpgaImageAttributeNameDescription = FpgaImageAttributeName' "description"
 
-pattern FIANLoadPermission :: FpgaImageAttributeName
-pattern FIANLoadPermission = FpgaImageAttributeName' "loadPermission"
+pattern FpgaImageAttributeNameLoadPermission :: FpgaImageAttributeName
+pattern FpgaImageAttributeNameLoadPermission = FpgaImageAttributeName' "loadPermission"
 
-pattern FIANName :: FpgaImageAttributeName
-pattern FIANName = FpgaImageAttributeName' "name"
+pattern FpgaImageAttributeNameName :: FpgaImageAttributeName
+pattern FpgaImageAttributeNameName = FpgaImageAttributeName' "name"
 
-pattern FIANProductCodes :: FpgaImageAttributeName
-pattern FIANProductCodes = FpgaImageAttributeName' "productCodes"
+pattern FpgaImageAttributeNameProductCodes :: FpgaImageAttributeName
+pattern FpgaImageAttributeNameProductCodes = FpgaImageAttributeName' "productCodes"
 
 {-# COMPLETE
-  FIANDescription,
-  FIANLoadPermission,
-  FIANName,
-  FIANProductCodes,
+  FpgaImageAttributeNameDescription,
+  FpgaImageAttributeNameLoadPermission,
+  FpgaImageAttributeNameName,
+  FpgaImageAttributeNameProductCodes,
   FpgaImageAttributeName'
   #-}
 
-instance FromText FpgaImageAttributeName where
-  parser = (FpgaImageAttributeName' . mk) <$> takeText
+instance Prelude.FromText FpgaImageAttributeName where
+  parser = FpgaImageAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText FpgaImageAttributeName where
-  toText (FpgaImageAttributeName' ci) = original ci
+instance Prelude.ToText FpgaImageAttributeName where
+  toText (FpgaImageAttributeName' x) = x
 
-instance Hashable FpgaImageAttributeName
+instance Prelude.Hashable FpgaImageAttributeName
 
-instance NFData FpgaImageAttributeName
+instance Prelude.NFData FpgaImageAttributeName
 
-instance ToByteString FpgaImageAttributeName
+instance Prelude.ToByteString FpgaImageAttributeName
 
-instance ToQuery FpgaImageAttributeName
+instance Prelude.ToQuery FpgaImageAttributeName
 
-instance ToHeader FpgaImageAttributeName
+instance Prelude.ToHeader FpgaImageAttributeName

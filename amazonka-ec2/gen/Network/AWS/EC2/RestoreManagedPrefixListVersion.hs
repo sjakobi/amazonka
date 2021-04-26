@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,203 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restores the entries from a previous version of a managed prefix list to a new version of the prefix list.
+-- Restores the entries from a previous version of a managed prefix list to
+-- a new version of the prefix list.
 module Network.AWS.EC2.RestoreManagedPrefixListVersion
   ( -- * Creating a Request
-    restoreManagedPrefixListVersion,
-    RestoreManagedPrefixListVersion,
+    RestoreManagedPrefixListVersion (..),
+    newRestoreManagedPrefixListVersion,
 
     -- * Request Lenses
-    rmplvDryRun,
-    rmplvPrefixListId,
-    rmplvPreviousVersion,
-    rmplvCurrentVersion,
+    restoreManagedPrefixListVersion_dryRun,
+    restoreManagedPrefixListVersion_prefixListId,
+    restoreManagedPrefixListVersion_previousVersion,
+    restoreManagedPrefixListVersion_currentVersion,
 
     -- * Destructuring the Response
-    restoreManagedPrefixListVersionResponse,
-    RestoreManagedPrefixListVersionResponse,
+    RestoreManagedPrefixListVersionResponse (..),
+    newRestoreManagedPrefixListVersionResponse,
 
     -- * Response Lenses
-    rmplvrrsPrefixList,
-    rmplvrrsResponseStatus,
+    restoreManagedPrefixListVersionResponse_prefixList,
+    restoreManagedPrefixListVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ManagedPrefixList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'restoreManagedPrefixListVersion' smart constructor.
+-- | /See:/ 'newRestoreManagedPrefixListVersion' smart constructor.
 data RestoreManagedPrefixListVersion = RestoreManagedPrefixListVersion'
-  { _rmplvDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _rmplvPrefixListId ::
-      !Text,
-    _rmplvPreviousVersion ::
-      !Integer,
-    _rmplvCurrentVersion ::
-      !Integer
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the prefix list.
+    prefixListId :: Prelude.Text,
+    -- | The version to restore.
+    previousVersion :: Prelude.Integer,
+    -- | The current version number for the prefix list.
+    currentVersion :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreManagedPrefixListVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreManagedPrefixListVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rmplvDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rmplvPrefixListId' - The ID of the prefix list.
+-- 'dryRun', 'restoreManagedPrefixListVersion_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'rmplvPreviousVersion' - The version to restore.
+-- 'prefixListId', 'restoreManagedPrefixListVersion_prefixListId' - The ID of the prefix list.
 --
--- * 'rmplvCurrentVersion' - The current version number for the prefix list.
-restoreManagedPrefixListVersion ::
-  -- | 'rmplvPrefixListId'
-  Text ->
-  -- | 'rmplvPreviousVersion'
-  Integer ->
-  -- | 'rmplvCurrentVersion'
-  Integer ->
+-- 'previousVersion', 'restoreManagedPrefixListVersion_previousVersion' - The version to restore.
+--
+-- 'currentVersion', 'restoreManagedPrefixListVersion_currentVersion' - The current version number for the prefix list.
+newRestoreManagedPrefixListVersion ::
+  -- | 'prefixListId'
+  Prelude.Text ->
+  -- | 'previousVersion'
+  Prelude.Integer ->
+  -- | 'currentVersion'
+  Prelude.Integer ->
   RestoreManagedPrefixListVersion
-restoreManagedPrefixListVersion
+newRestoreManagedPrefixListVersion
   pPrefixListId_
   pPreviousVersion_
   pCurrentVersion_ =
     RestoreManagedPrefixListVersion'
-      { _rmplvDryRun =
-          Nothing,
-        _rmplvPrefixListId = pPrefixListId_,
-        _rmplvPreviousVersion = pPreviousVersion_,
-        _rmplvCurrentVersion = pCurrentVersion_
+      { dryRun =
+          Prelude.Nothing,
+        prefixListId = pPrefixListId_,
+        previousVersion = pPreviousVersion_,
+        currentVersion = pCurrentVersion_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-rmplvDryRun :: Lens' RestoreManagedPrefixListVersion (Maybe Bool)
-rmplvDryRun = lens _rmplvDryRun (\s a -> s {_rmplvDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+restoreManagedPrefixListVersion_dryRun :: Lens.Lens' RestoreManagedPrefixListVersion (Prelude.Maybe Prelude.Bool)
+restoreManagedPrefixListVersion_dryRun = Lens.lens (\RestoreManagedPrefixListVersion' {dryRun} -> dryRun) (\s@RestoreManagedPrefixListVersion' {} a -> s {dryRun = a} :: RestoreManagedPrefixListVersion)
 
 -- | The ID of the prefix list.
-rmplvPrefixListId :: Lens' RestoreManagedPrefixListVersion Text
-rmplvPrefixListId = lens _rmplvPrefixListId (\s a -> s {_rmplvPrefixListId = a})
+restoreManagedPrefixListVersion_prefixListId :: Lens.Lens' RestoreManagedPrefixListVersion Prelude.Text
+restoreManagedPrefixListVersion_prefixListId = Lens.lens (\RestoreManagedPrefixListVersion' {prefixListId} -> prefixListId) (\s@RestoreManagedPrefixListVersion' {} a -> s {prefixListId = a} :: RestoreManagedPrefixListVersion)
 
 -- | The version to restore.
-rmplvPreviousVersion :: Lens' RestoreManagedPrefixListVersion Integer
-rmplvPreviousVersion = lens _rmplvPreviousVersion (\s a -> s {_rmplvPreviousVersion = a})
+restoreManagedPrefixListVersion_previousVersion :: Lens.Lens' RestoreManagedPrefixListVersion Prelude.Integer
+restoreManagedPrefixListVersion_previousVersion = Lens.lens (\RestoreManagedPrefixListVersion' {previousVersion} -> previousVersion) (\s@RestoreManagedPrefixListVersion' {} a -> s {previousVersion = a} :: RestoreManagedPrefixListVersion)
 
 -- | The current version number for the prefix list.
-rmplvCurrentVersion :: Lens' RestoreManagedPrefixListVersion Integer
-rmplvCurrentVersion = lens _rmplvCurrentVersion (\s a -> s {_rmplvCurrentVersion = a})
+restoreManagedPrefixListVersion_currentVersion :: Lens.Lens' RestoreManagedPrefixListVersion Prelude.Integer
+restoreManagedPrefixListVersion_currentVersion = Lens.lens (\RestoreManagedPrefixListVersion' {currentVersion} -> currentVersion) (\s@RestoreManagedPrefixListVersion' {} a -> s {currentVersion = a} :: RestoreManagedPrefixListVersion)
 
-instance AWSRequest RestoreManagedPrefixListVersion where
+instance
+  Prelude.AWSRequest
+    RestoreManagedPrefixListVersion
+  where
   type
     Rs RestoreManagedPrefixListVersion =
       RestoreManagedPrefixListVersionResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           RestoreManagedPrefixListVersionResponse'
-            <$> (x .@? "prefixList") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "prefixList")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RestoreManagedPrefixListVersion
+instance
+  Prelude.Hashable
+    RestoreManagedPrefixListVersion
 
-instance NFData RestoreManagedPrefixListVersion
+instance
+  Prelude.NFData
+    RestoreManagedPrefixListVersion
 
-instance ToHeaders RestoreManagedPrefixListVersion where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    RestoreManagedPrefixListVersion
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RestoreManagedPrefixListVersion where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    RestoreManagedPrefixListVersion
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery RestoreManagedPrefixListVersion where
+instance
+  Prelude.ToQuery
+    RestoreManagedPrefixListVersion
+  where
   toQuery RestoreManagedPrefixListVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RestoreManagedPrefixListVersion" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _rmplvDryRun,
-        "PrefixListId" =: _rmplvPrefixListId,
-        "PreviousVersion" =: _rmplvPreviousVersion,
-        "CurrentVersion" =: _rmplvCurrentVersion
+          Prelude.=: ( "RestoreManagedPrefixListVersion" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "PrefixListId" Prelude.=: prefixListId,
+        "PreviousVersion" Prelude.=: previousVersion,
+        "CurrentVersion" Prelude.=: currentVersion
       ]
 
--- | /See:/ 'restoreManagedPrefixListVersionResponse' smart constructor.
+-- | /See:/ 'newRestoreManagedPrefixListVersionResponse' smart constructor.
 data RestoreManagedPrefixListVersionResponse = RestoreManagedPrefixListVersionResponse'
-  { _rmplvrrsPrefixList ::
-      !( Maybe
-           ManagedPrefixList
-       ),
-    _rmplvrrsResponseStatus ::
-      !Int
+  { -- | Information about the prefix list.
+    prefixList :: Prelude.Maybe ManagedPrefixList,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreManagedPrefixListVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreManagedPrefixListVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rmplvrrsPrefixList' - Information about the prefix list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rmplvrrsResponseStatus' - -- | The response status code.
-restoreManagedPrefixListVersionResponse ::
-  -- | 'rmplvrrsResponseStatus'
-  Int ->
+-- 'prefixList', 'restoreManagedPrefixListVersionResponse_prefixList' - Information about the prefix list.
+--
+-- 'httpStatus', 'restoreManagedPrefixListVersionResponse_httpStatus' - The response's http status code.
+newRestoreManagedPrefixListVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RestoreManagedPrefixListVersionResponse
-restoreManagedPrefixListVersionResponse
-  pResponseStatus_ =
+newRestoreManagedPrefixListVersionResponse
+  pHttpStatus_ =
     RestoreManagedPrefixListVersionResponse'
-      { _rmplvrrsPrefixList =
-          Nothing,
-        _rmplvrrsResponseStatus =
-          pResponseStatus_
+      { prefixList =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the prefix list.
-rmplvrrsPrefixList :: Lens' RestoreManagedPrefixListVersionResponse (Maybe ManagedPrefixList)
-rmplvrrsPrefixList = lens _rmplvrrsPrefixList (\s a -> s {_rmplvrrsPrefixList = a})
+restoreManagedPrefixListVersionResponse_prefixList :: Lens.Lens' RestoreManagedPrefixListVersionResponse (Prelude.Maybe ManagedPrefixList)
+restoreManagedPrefixListVersionResponse_prefixList = Lens.lens (\RestoreManagedPrefixListVersionResponse' {prefixList} -> prefixList) (\s@RestoreManagedPrefixListVersionResponse' {} a -> s {prefixList = a} :: RestoreManagedPrefixListVersionResponse)
 
--- | -- | The response status code.
-rmplvrrsResponseStatus :: Lens' RestoreManagedPrefixListVersionResponse Int
-rmplvrrsResponseStatus = lens _rmplvrrsResponseStatus (\s a -> s {_rmplvrrsResponseStatus = a})
+-- | The response's http status code.
+restoreManagedPrefixListVersionResponse_httpStatus :: Lens.Lens' RestoreManagedPrefixListVersionResponse Prelude.Int
+restoreManagedPrefixListVersionResponse_httpStatus = Lens.lens (\RestoreManagedPrefixListVersionResponse' {httpStatus} -> httpStatus) (\s@RestoreManagedPrefixListVersionResponse' {} a -> s {httpStatus = a} :: RestoreManagedPrefixListVersionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     RestoreManagedPrefixListVersionResponse

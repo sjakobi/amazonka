@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,235 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified export image tasks or all of your export image tasks.
---
---
+-- Describes the specified export image tasks or all of your export image
+-- tasks.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeExportImageTasks
   ( -- * Creating a Request
-    describeExportImageTasks,
-    DescribeExportImageTasks,
+    DescribeExportImageTasks (..),
+    newDescribeExportImageTasks,
 
     -- * Request Lenses
-    deitNextToken,
-    deitDryRun,
-    deitMaxResults,
-    deitExportImageTaskIds,
-    deitFilters,
+    describeExportImageTasks_nextToken,
+    describeExportImageTasks_dryRun,
+    describeExportImageTasks_maxResults,
+    describeExportImageTasks_exportImageTaskIds,
+    describeExportImageTasks_filters,
 
     -- * Destructuring the Response
-    describeExportImageTasksResponse,
-    DescribeExportImageTasksResponse,
+    DescribeExportImageTasksResponse (..),
+    newDescribeExportImageTasksResponse,
 
     -- * Response Lenses
-    deitrrsNextToken,
-    deitrrsExportImageTasks,
-    deitrrsResponseStatus,
+    describeExportImageTasksResponse_nextToken,
+    describeExportImageTasksResponse_exportImageTasks,
+    describeExportImageTasksResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ExportImageTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeExportImageTasks' smart constructor.
+-- | /See:/ 'newDescribeExportImageTasks' smart constructor.
 data DescribeExportImageTasks = DescribeExportImageTasks'
-  { _deitNextToken ::
-      !(Maybe Text),
-    _deitDryRun ::
-      !(Maybe Bool),
-    _deitMaxResults ::
-      !(Maybe Nat),
-    _deitExportImageTaskIds ::
-      !(Maybe [Text]),
-    _deitFilters ::
-      !(Maybe [Filter])
+  { -- | A token that indicates the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The IDs of the export image tasks.
+    exportImageTaskIds :: Prelude.Maybe [Prelude.Text],
+    -- | Filter tasks using the @task-state@ filter and one of the following
+    -- values: @active@, @completed@, @deleting@, or @deleted@.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExportImageTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExportImageTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deitNextToken' - A token that indicates the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deitDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeExportImageTasks_nextToken' - A token that indicates the next page of results.
 --
--- * 'deitMaxResults' - The maximum number of results to return in a single call.
+-- 'dryRun', 'describeExportImageTasks_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'deitExportImageTaskIds' - The IDs of the export image tasks.
+-- 'maxResults', 'describeExportImageTasks_maxResults' - The maximum number of results to return in a single call.
 --
--- * 'deitFilters' - Filter tasks using the @task-state@ filter and one of the following values: @active@ , @completed@ , @deleting@ , or @deleted@ .
-describeExportImageTasks ::
+-- 'exportImageTaskIds', 'describeExportImageTasks_exportImageTaskIds' - The IDs of the export image tasks.
+--
+-- 'filters', 'describeExportImageTasks_filters' - Filter tasks using the @task-state@ filter and one of the following
+-- values: @active@, @completed@, @deleting@, or @deleted@.
+newDescribeExportImageTasks ::
   DescribeExportImageTasks
-describeExportImageTasks =
+newDescribeExportImageTasks =
   DescribeExportImageTasks'
-    { _deitNextToken = Nothing,
-      _deitDryRun = Nothing,
-      _deitMaxResults = Nothing,
-      _deitExportImageTaskIds = Nothing,
-      _deitFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      exportImageTaskIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | A token that indicates the next page of results.
-deitNextToken :: Lens' DescribeExportImageTasks (Maybe Text)
-deitNextToken = lens _deitNextToken (\s a -> s {_deitNextToken = a})
+describeExportImageTasks_nextToken :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Text)
+describeExportImageTasks_nextToken = Lens.lens (\DescribeExportImageTasks' {nextToken} -> nextToken) (\s@DescribeExportImageTasks' {} a -> s {nextToken = a} :: DescribeExportImageTasks)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-deitDryRun :: Lens' DescribeExportImageTasks (Maybe Bool)
-deitDryRun = lens _deitDryRun (\s a -> s {_deitDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeExportImageTasks_dryRun :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Bool)
+describeExportImageTasks_dryRun = Lens.lens (\DescribeExportImageTasks' {dryRun} -> dryRun) (\s@DescribeExportImageTasks' {} a -> s {dryRun = a} :: DescribeExportImageTasks)
 
 -- | The maximum number of results to return in a single call.
-deitMaxResults :: Lens' DescribeExportImageTasks (Maybe Natural)
-deitMaxResults = lens _deitMaxResults (\s a -> s {_deitMaxResults = a}) . mapping _Nat
+describeExportImageTasks_maxResults :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Natural)
+describeExportImageTasks_maxResults = Lens.lens (\DescribeExportImageTasks' {maxResults} -> maxResults) (\s@DescribeExportImageTasks' {} a -> s {maxResults = a} :: DescribeExportImageTasks) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The IDs of the export image tasks.
-deitExportImageTaskIds :: Lens' DescribeExportImageTasks [Text]
-deitExportImageTaskIds = lens _deitExportImageTaskIds (\s a -> s {_deitExportImageTaskIds = a}) . _Default . _Coerce
+describeExportImageTasks_exportImageTaskIds :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe [Prelude.Text])
+describeExportImageTasks_exportImageTaskIds = Lens.lens (\DescribeExportImageTasks' {exportImageTaskIds} -> exportImageTaskIds) (\s@DescribeExportImageTasks' {} a -> s {exportImageTaskIds = a} :: DescribeExportImageTasks) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Filter tasks using the @task-state@ filter and one of the following values: @active@ , @completed@ , @deleting@ , or @deleted@ .
-deitFilters :: Lens' DescribeExportImageTasks [Filter]
-deitFilters = lens _deitFilters (\s a -> s {_deitFilters = a}) . _Default . _Coerce
+-- | Filter tasks using the @task-state@ filter and one of the following
+-- values: @active@, @completed@, @deleting@, or @deleted@.
+describeExportImageTasks_filters :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe [Filter])
+describeExportImageTasks_filters = Lens.lens (\DescribeExportImageTasks' {filters} -> filters) (\s@DescribeExportImageTasks' {} a -> s {filters = a} :: DescribeExportImageTasks) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeExportImageTasks where
+instance Pager.AWSPager DescribeExportImageTasks where
   page rq rs
-    | stop (rs ^. deitrrsNextToken) = Nothing
-    | stop (rs ^. deitrrsExportImageTasks) = Nothing
-    | otherwise =
-      Just $ rq & deitNextToken .~ rs ^. deitrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeExportImageTasksResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeExportImageTasksResponse_exportImageTasks
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeExportImageTasks_nextToken
+          Lens..~ rs
+          Lens.^? describeExportImageTasksResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeExportImageTasks where
+instance Prelude.AWSRequest DescribeExportImageTasks where
   type
     Rs DescribeExportImageTasks =
       DescribeExportImageTasksResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeExportImageTasksResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "exportImageTaskSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "exportImageTaskSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeExportImageTasks
+instance Prelude.Hashable DescribeExportImageTasks
 
-instance NFData DescribeExportImageTasks
+instance Prelude.NFData DescribeExportImageTasks
 
-instance ToHeaders DescribeExportImageTasks where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeExportImageTasks where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeExportImageTasks where
-  toPath = const "/"
+instance Prelude.ToPath DescribeExportImageTasks where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeExportImageTasks where
+instance Prelude.ToQuery DescribeExportImageTasks where
   toQuery DescribeExportImageTasks' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeExportImageTasks" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _deitNextToken,
-        "DryRun" =: _deitDryRun,
-        "MaxResults" =: _deitMaxResults,
-        toQuery
-          ( toQueryList "ExportImageTaskId"
-              <$> _deitExportImageTaskIds
+          Prelude.=: ("DescribeExportImageTasks" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "ExportImageTaskId"
+              Prelude.<$> exportImageTaskIds
           ),
-        toQuery (toQueryList "Filter" <$> _deitFilters)
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeExportImageTasksResponse' smart constructor.
+-- | /See:/ 'newDescribeExportImageTasksResponse' smart constructor.
 data DescribeExportImageTasksResponse = DescribeExportImageTasksResponse'
-  { _deitrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _deitrrsExportImageTasks ::
-      !( Maybe
-           [ExportImageTask]
-       ),
-    _deitrrsResponseStatus ::
-      !Int
+  { -- | The token to use to get the next page of results. This value is @null@
+    -- when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the export image tasks.
+    exportImageTasks :: Prelude.Maybe [ExportImageTask],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExportImageTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExportImageTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deitrrsNextToken' - The token to use to get the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deitrrsExportImageTasks' - Information about the export image tasks.
+-- 'nextToken', 'describeExportImageTasksResponse_nextToken' - The token to use to get the next page of results. This value is @null@
+-- when there are no more results to return.
 --
--- * 'deitrrsResponseStatus' - -- | The response status code.
-describeExportImageTasksResponse ::
-  -- | 'deitrrsResponseStatus'
-  Int ->
+-- 'exportImageTasks', 'describeExportImageTasksResponse_exportImageTasks' - Information about the export image tasks.
+--
+-- 'httpStatus', 'describeExportImageTasksResponse_httpStatus' - The response's http status code.
+newDescribeExportImageTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeExportImageTasksResponse
-describeExportImageTasksResponse pResponseStatus_ =
+newDescribeExportImageTasksResponse pHttpStatus_ =
   DescribeExportImageTasksResponse'
-    { _deitrrsNextToken =
-        Nothing,
-      _deitrrsExportImageTasks = Nothing,
-      _deitrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      exportImageTasks = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to get the next page of results. This value is @null@ when there are no more results to return.
-deitrrsNextToken :: Lens' DescribeExportImageTasksResponse (Maybe Text)
-deitrrsNextToken = lens _deitrrsNextToken (\s a -> s {_deitrrsNextToken = a})
+-- | The token to use to get the next page of results. This value is @null@
+-- when there are no more results to return.
+describeExportImageTasksResponse_nextToken :: Lens.Lens' DescribeExportImageTasksResponse (Prelude.Maybe Prelude.Text)
+describeExportImageTasksResponse_nextToken = Lens.lens (\DescribeExportImageTasksResponse' {nextToken} -> nextToken) (\s@DescribeExportImageTasksResponse' {} a -> s {nextToken = a} :: DescribeExportImageTasksResponse)
 
 -- | Information about the export image tasks.
-deitrrsExportImageTasks :: Lens' DescribeExportImageTasksResponse [ExportImageTask]
-deitrrsExportImageTasks = lens _deitrrsExportImageTasks (\s a -> s {_deitrrsExportImageTasks = a}) . _Default . _Coerce
+describeExportImageTasksResponse_exportImageTasks :: Lens.Lens' DescribeExportImageTasksResponse (Prelude.Maybe [ExportImageTask])
+describeExportImageTasksResponse_exportImageTasks = Lens.lens (\DescribeExportImageTasksResponse' {exportImageTasks} -> exportImageTasks) (\s@DescribeExportImageTasksResponse' {} a -> s {exportImageTasks = a} :: DescribeExportImageTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-deitrrsResponseStatus :: Lens' DescribeExportImageTasksResponse Int
-deitrrsResponseStatus = lens _deitrrsResponseStatus (\s a -> s {_deitrrsResponseStatus = a})
+-- | The response's http status code.
+describeExportImageTasksResponse_httpStatus :: Lens.Lens' DescribeExportImageTasksResponse Prelude.Int
+describeExportImageTasksResponse_httpStatus = Lens.lens (\DescribeExportImageTasksResponse' {httpStatus} -> httpStatus) (\s@DescribeExportImageTasksResponse' {} a -> s {httpStatus = a} :: DescribeExportImageTasksResponse)
 
-instance NFData DescribeExportImageTasksResponse
+instance
+  Prelude.NFData
+    DescribeExportImageTasksResponse

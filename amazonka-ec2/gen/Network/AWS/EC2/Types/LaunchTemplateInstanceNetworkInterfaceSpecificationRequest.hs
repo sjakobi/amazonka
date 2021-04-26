@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,254 +20,287 @@
 module Network.AWS.EC2.Types.LaunchTemplateInstanceNetworkInterfaceSpecificationRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.InstanceIPv6AddressRequest
-import Network.AWS.EC2.Types.PrivateIPAddressSpecification
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.EC2.Types.InstanceIpv6AddressRequest
+import Network.AWS.EC2.Types.PrivateIpAddressSpecification
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The parameters for a network interface.
 --
---
---
--- /See:/ 'launchTemplateInstanceNetworkInterfaceSpecificationRequest' smart constructor.
+-- /See:/ 'newLaunchTemplateInstanceNetworkInterfaceSpecificationRequest' smart constructor.
 data LaunchTemplateInstanceNetworkInterfaceSpecificationRequest = LaunchTemplateInstanceNetworkInterfaceSpecificationRequest'
-  { _ltinisrGroups ::
-      !( Maybe
-           [Text]
-       ),
-    _ltinisrPrivateIPAddresses ::
-      !( Maybe
-           [PrivateIPAddressSpecification]
-       ),
-    _ltinisrIPv6Addresses ::
-      !( Maybe
-           [InstanceIPv6AddressRequest]
-       ),
-    _ltinisrInterfaceType ::
-      !( Maybe
-           Text
-       ),
-    _ltinisrAssociatePublicIPAddress ::
-      !( Maybe
-           Bool
-       ),
-    _ltinisrAssociateCarrierIPAddress ::
-      !( Maybe
-           Bool
-       ),
-    _ltinisrIPv6AddressCount ::
-      !( Maybe
-           Int
-       ),
-    _ltinisrNetworkCardIndex ::
-      !( Maybe
-           Int
-       ),
-    _ltinisrDeleteOnTermination ::
-      !( Maybe
-           Bool
-       ),
-    _ltinisrNetworkInterfaceId ::
-      !( Maybe
-           Text
-       ),
-    _ltinisrSubnetId ::
-      !( Maybe
-           Text
-       ),
-    _ltinisrDescription ::
-      !( Maybe
-           Text
-       ),
-    _ltinisrDeviceIndex ::
-      !( Maybe
-           Int
-       ),
-    _ltinisrSecondaryPrivateIPAddressCount ::
-      !( Maybe
-           Int
-       ),
-    _ltinisrPrivateIPAddress ::
-      !( Maybe
-           Text
-       )
+  { -- | The IDs of one or more security groups.
+    groups :: Prelude.Maybe [Prelude.Text],
+    -- | One or more private IPv4 addresses.
+    privateIpAddresses :: Prelude.Maybe [PrivateIpAddressSpecification],
+    -- | One or more specific IPv6 addresses from the IPv6 CIDR block range of
+    -- your subnet. You can\'t use this option if you\'re specifying a number
+    -- of IPv6 addresses.
+    ipv6Addresses :: Prelude.Maybe [InstanceIpv6AddressRequest],
+    -- | The type of network interface. To create an Elastic Fabric Adapter
+    -- (EFA), specify @efa@. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html Elastic Fabric Adapter>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    --
+    -- If you are not creating an EFA, specify @interface@ or omit this
+    -- parameter.
+    --
+    -- Valid values: @interface@ | @efa@
+    interfaceType :: Prelude.Maybe Prelude.Text,
+    -- | Associates a public IPv4 address with eth0 for a new network interface.
+    associatePublicIpAddress :: Prelude.Maybe Prelude.Bool,
+    -- | Associates a Carrier IP address with eth0 for a new network interface.
+    --
+    -- Use this option when you launch an instance in a Wavelength Zone and
+    -- want to associate a Carrier IP address with the network interface. For
+    -- more information about Carrier IP addresses, see
+    -- <https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip Carrier IP addresses>
+    -- in the /AWS Wavelength Developer Guide/.
+    associateCarrierIpAddress :: Prelude.Maybe Prelude.Bool,
+    -- | The number of IPv6 addresses to assign to a network interface. Amazon
+    -- EC2 automatically selects the IPv6 addresses from the subnet range. You
+    -- can\'t use this option if specifying specific IPv6 addresses.
+    ipv6AddressCount :: Prelude.Maybe Prelude.Int,
+    -- | The index of the network card. Some instance types support multiple
+    -- network cards. The primary network interface must be assigned to network
+    -- card index 0. The default is network card index 0.
+    networkCardIndex :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether the network interface is deleted when the instance is
+    -- terminated.
+    deleteOnTermination :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the network interface.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subnet for the network interface.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | A description for the network interface.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The device index for the network interface attachment.
+    deviceIndex :: Prelude.Maybe Prelude.Int,
+    -- | The number of secondary private IPv4 addresses to assign to a network
+    -- interface.
+    secondaryPrivateIpAddressCount :: Prelude.Maybe Prelude.Int,
+    -- | The primary private IPv4 address of the network interface.
+    privateIpAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltinisrGroups' - The IDs of one or more security groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltinisrPrivateIPAddresses' - One or more private IPv4 addresses.
+-- 'groups', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_groups' - The IDs of one or more security groups.
 --
--- * 'ltinisrIPv6Addresses' - One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if you're specifying a number of IPv6 addresses.
+-- 'privateIpAddresses', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_privateIpAddresses' - One or more private IPv4 addresses.
 --
--- * 'ltinisrInterfaceType' - The type of network interface. To create an Elastic Fabric Adapter (EFA), specify @efa@ . For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html Elastic Fabric Adapter> in the /Amazon Elastic Compute Cloud User Guide/ . If you are not creating an EFA, specify @interface@ or omit this parameter. Valid values: @interface@ | @efa@
+-- 'ipv6Addresses', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_ipv6Addresses' - One or more specific IPv6 addresses from the IPv6 CIDR block range of
+-- your subnet. You can\'t use this option if you\'re specifying a number
+-- of IPv6 addresses.
 --
--- * 'ltinisrAssociatePublicIPAddress' - Associates a public IPv4 address with eth0 for a new network interface.
+-- 'interfaceType', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_interfaceType' - The type of network interface. To create an Elastic Fabric Adapter
+-- (EFA), specify @efa@. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html Elastic Fabric Adapter>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
--- * 'ltinisrAssociateCarrierIPAddress' - Associates a Carrier IP address with eth0 for a new network interface. Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with the network interface. For more information about Carrier IP addresses, see <https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip Carrier IP addresses> in the /AWS Wavelength Developer Guide/ .
+-- If you are not creating an EFA, specify @interface@ or omit this
+-- parameter.
 --
--- * 'ltinisrIPv6AddressCount' - The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+-- Valid values: @interface@ | @efa@
 --
--- * 'ltinisrNetworkCardIndex' - The index of the network card. Some instance types support multiple network cards. The primary network interface must be assigned to network card index 0. The default is network card index 0.
+-- 'associatePublicIpAddress', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_associatePublicIpAddress' - Associates a public IPv4 address with eth0 for a new network interface.
 --
--- * 'ltinisrDeleteOnTermination' - Indicates whether the network interface is deleted when the instance is terminated.
+-- 'associateCarrierIpAddress', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_associateCarrierIpAddress' - Associates a Carrier IP address with eth0 for a new network interface.
 --
--- * 'ltinisrNetworkInterfaceId' - The ID of the network interface.
+-- Use this option when you launch an instance in a Wavelength Zone and
+-- want to associate a Carrier IP address with the network interface. For
+-- more information about Carrier IP addresses, see
+-- <https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip Carrier IP addresses>
+-- in the /AWS Wavelength Developer Guide/.
 --
--- * 'ltinisrSubnetId' - The ID of the subnet for the network interface.
+-- 'ipv6AddressCount', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_ipv6AddressCount' - The number of IPv6 addresses to assign to a network interface. Amazon
+-- EC2 automatically selects the IPv6 addresses from the subnet range. You
+-- can\'t use this option if specifying specific IPv6 addresses.
 --
--- * 'ltinisrDescription' - A description for the network interface.
+-- 'networkCardIndex', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_networkCardIndex' - The index of the network card. Some instance types support multiple
+-- network cards. The primary network interface must be assigned to network
+-- card index 0. The default is network card index 0.
 --
--- * 'ltinisrDeviceIndex' - The device index for the network interface attachment.
+-- 'deleteOnTermination', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_deleteOnTermination' - Indicates whether the network interface is deleted when the instance is
+-- terminated.
 --
--- * 'ltinisrSecondaryPrivateIPAddressCount' - The number of secondary private IPv4 addresses to assign to a network interface.
+-- 'networkInterfaceId', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_networkInterfaceId' - The ID of the network interface.
 --
--- * 'ltinisrPrivateIPAddress' - The primary private IPv4 address of the network interface.
-launchTemplateInstanceNetworkInterfaceSpecificationRequest ::
+-- 'subnetId', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_subnetId' - The ID of the subnet for the network interface.
+--
+-- 'description', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_description' - A description for the network interface.
+--
+-- 'deviceIndex', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_deviceIndex' - The device index for the network interface attachment.
+--
+-- 'secondaryPrivateIpAddressCount', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_secondaryPrivateIpAddressCount' - The number of secondary private IPv4 addresses to assign to a network
+-- interface.
+--
+-- 'privateIpAddress', 'launchTemplateInstanceNetworkInterfaceSpecificationRequest_privateIpAddress' - The primary private IPv4 address of the network interface.
+newLaunchTemplateInstanceNetworkInterfaceSpecificationRequest ::
   LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
-launchTemplateInstanceNetworkInterfaceSpecificationRequest =
+newLaunchTemplateInstanceNetworkInterfaceSpecificationRequest =
   LaunchTemplateInstanceNetworkInterfaceSpecificationRequest'
-    { _ltinisrGroups =
-        Nothing,
-      _ltinisrPrivateIPAddresses =
-        Nothing,
-      _ltinisrIPv6Addresses =
-        Nothing,
-      _ltinisrInterfaceType =
-        Nothing,
-      _ltinisrAssociatePublicIPAddress =
-        Nothing,
-      _ltinisrAssociateCarrierIPAddress =
-        Nothing,
-      _ltinisrIPv6AddressCount =
-        Nothing,
-      _ltinisrNetworkCardIndex =
-        Nothing,
-      _ltinisrDeleteOnTermination =
-        Nothing,
-      _ltinisrNetworkInterfaceId =
-        Nothing,
-      _ltinisrSubnetId =
-        Nothing,
-      _ltinisrDescription =
-        Nothing,
-      _ltinisrDeviceIndex =
-        Nothing,
-      _ltinisrSecondaryPrivateIPAddressCount =
-        Nothing,
-      _ltinisrPrivateIPAddress =
-        Nothing
+    { groups =
+        Prelude.Nothing,
+      privateIpAddresses =
+        Prelude.Nothing,
+      ipv6Addresses =
+        Prelude.Nothing,
+      interfaceType =
+        Prelude.Nothing,
+      associatePublicIpAddress =
+        Prelude.Nothing,
+      associateCarrierIpAddress =
+        Prelude.Nothing,
+      ipv6AddressCount =
+        Prelude.Nothing,
+      networkCardIndex =
+        Prelude.Nothing,
+      deleteOnTermination =
+        Prelude.Nothing,
+      networkInterfaceId =
+        Prelude.Nothing,
+      subnetId =
+        Prelude.Nothing,
+      description =
+        Prelude.Nothing,
+      deviceIndex =
+        Prelude.Nothing,
+      secondaryPrivateIpAddressCount =
+        Prelude.Nothing,
+      privateIpAddress =
+        Prelude.Nothing
     }
 
 -- | The IDs of one or more security groups.
-ltinisrGroups :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest [Text]
-ltinisrGroups = lens _ltinisrGroups (\s a -> s {_ltinisrGroups = a}) . _Default . _Coerce
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_groups :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe [Prelude.Text])
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_groups = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {groups} -> groups) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {groups = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | One or more private IPv4 addresses.
-ltinisrPrivateIPAddresses :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest [PrivateIPAddressSpecification]
-ltinisrPrivateIPAddresses = lens _ltinisrPrivateIPAddresses (\s a -> s {_ltinisrPrivateIPAddresses = a}) . _Default . _Coerce
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_privateIpAddresses :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe [PrivateIpAddressSpecification])
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_privateIpAddresses = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {privateIpAddresses} -> privateIpAddresses) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {privateIpAddresses = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if you're specifying a number of IPv6 addresses.
-ltinisrIPv6Addresses :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest [InstanceIPv6AddressRequest]
-ltinisrIPv6Addresses = lens _ltinisrIPv6Addresses (\s a -> s {_ltinisrIPv6Addresses = a}) . _Default . _Coerce
+-- | One or more specific IPv6 addresses from the IPv6 CIDR block range of
+-- your subnet. You can\'t use this option if you\'re specifying a number
+-- of IPv6 addresses.
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_ipv6Addresses :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe [InstanceIpv6AddressRequest])
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_ipv6Addresses = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {ipv6Addresses} -> ipv6Addresses) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {ipv6Addresses = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The type of network interface. To create an Elastic Fabric Adapter (EFA), specify @efa@ . For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html Elastic Fabric Adapter> in the /Amazon Elastic Compute Cloud User Guide/ . If you are not creating an EFA, specify @interface@ or omit this parameter. Valid values: @interface@ | @efa@
-ltinisrInterfaceType :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Text)
-ltinisrInterfaceType = lens _ltinisrInterfaceType (\s a -> s {_ltinisrInterfaceType = a})
+-- | The type of network interface. To create an Elastic Fabric Adapter
+-- (EFA), specify @efa@. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html Elastic Fabric Adapter>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- If you are not creating an EFA, specify @interface@ or omit this
+-- parameter.
+--
+-- Valid values: @interface@ | @efa@
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_interfaceType :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Text)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_interfaceType = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {interfaceType} -> interfaceType) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {interfaceType = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
 -- | Associates a public IPv4 address with eth0 for a new network interface.
-ltinisrAssociatePublicIPAddress :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Bool)
-ltinisrAssociatePublicIPAddress = lens _ltinisrAssociatePublicIPAddress (\s a -> s {_ltinisrAssociatePublicIPAddress = a})
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_associatePublicIpAddress :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Bool)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_associatePublicIpAddress = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {associatePublicIpAddress} -> associatePublicIpAddress) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {associatePublicIpAddress = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
--- | Associates a Carrier IP address with eth0 for a new network interface. Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with the network interface. For more information about Carrier IP addresses, see <https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip Carrier IP addresses> in the /AWS Wavelength Developer Guide/ .
-ltinisrAssociateCarrierIPAddress :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Bool)
-ltinisrAssociateCarrierIPAddress = lens _ltinisrAssociateCarrierIPAddress (\s a -> s {_ltinisrAssociateCarrierIPAddress = a})
+-- | Associates a Carrier IP address with eth0 for a new network interface.
+--
+-- Use this option when you launch an instance in a Wavelength Zone and
+-- want to associate a Carrier IP address with the network interface. For
+-- more information about Carrier IP addresses, see
+-- <https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip Carrier IP addresses>
+-- in the /AWS Wavelength Developer Guide/.
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_associateCarrierIpAddress :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Bool)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_associateCarrierIpAddress = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {associateCarrierIpAddress} -> associateCarrierIpAddress) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {associateCarrierIpAddress = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
--- | The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
-ltinisrIPv6AddressCount :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Int)
-ltinisrIPv6AddressCount = lens _ltinisrIPv6AddressCount (\s a -> s {_ltinisrIPv6AddressCount = a})
+-- | The number of IPv6 addresses to assign to a network interface. Amazon
+-- EC2 automatically selects the IPv6 addresses from the subnet range. You
+-- can\'t use this option if specifying specific IPv6 addresses.
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_ipv6AddressCount :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Int)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_ipv6AddressCount = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {ipv6AddressCount} -> ipv6AddressCount) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {ipv6AddressCount = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
--- | The index of the network card. Some instance types support multiple network cards. The primary network interface must be assigned to network card index 0. The default is network card index 0.
-ltinisrNetworkCardIndex :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Int)
-ltinisrNetworkCardIndex = lens _ltinisrNetworkCardIndex (\s a -> s {_ltinisrNetworkCardIndex = a})
+-- | The index of the network card. Some instance types support multiple
+-- network cards. The primary network interface must be assigned to network
+-- card index 0. The default is network card index 0.
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_networkCardIndex :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Int)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_networkCardIndex = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {networkCardIndex} -> networkCardIndex) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {networkCardIndex = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
--- | Indicates whether the network interface is deleted when the instance is terminated.
-ltinisrDeleteOnTermination :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Bool)
-ltinisrDeleteOnTermination = lens _ltinisrDeleteOnTermination (\s a -> s {_ltinisrDeleteOnTermination = a})
+-- | Indicates whether the network interface is deleted when the instance is
+-- terminated.
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_deleteOnTermination :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Bool)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_deleteOnTermination = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {deleteOnTermination} -> deleteOnTermination) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {deleteOnTermination = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
 -- | The ID of the network interface.
-ltinisrNetworkInterfaceId :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Text)
-ltinisrNetworkInterfaceId = lens _ltinisrNetworkInterfaceId (\s a -> s {_ltinisrNetworkInterfaceId = a})
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_networkInterfaceId :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Text)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_networkInterfaceId = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {networkInterfaceId} -> networkInterfaceId) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {networkInterfaceId = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
 -- | The ID of the subnet for the network interface.
-ltinisrSubnetId :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Text)
-ltinisrSubnetId = lens _ltinisrSubnetId (\s a -> s {_ltinisrSubnetId = a})
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_subnetId :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Text)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_subnetId = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {subnetId} -> subnetId) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {subnetId = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
 -- | A description for the network interface.
-ltinisrDescription :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Text)
-ltinisrDescription = lens _ltinisrDescription (\s a -> s {_ltinisrDescription = a})
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_description :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Text)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_description = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {description} -> description) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {description = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
 -- | The device index for the network interface attachment.
-ltinisrDeviceIndex :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Int)
-ltinisrDeviceIndex = lens _ltinisrDeviceIndex (\s a -> s {_ltinisrDeviceIndex = a})
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_deviceIndex :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Int)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_deviceIndex = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {deviceIndex} -> deviceIndex) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {deviceIndex = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
--- | The number of secondary private IPv4 addresses to assign to a network interface.
-ltinisrSecondaryPrivateIPAddressCount :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Int)
-ltinisrSecondaryPrivateIPAddressCount = lens _ltinisrSecondaryPrivateIPAddressCount (\s a -> s {_ltinisrSecondaryPrivateIPAddressCount = a})
+-- | The number of secondary private IPv4 addresses to assign to a network
+-- interface.
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_secondaryPrivateIpAddressCount :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Int)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_secondaryPrivateIpAddressCount = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {secondaryPrivateIpAddressCount} -> secondaryPrivateIpAddressCount) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {secondaryPrivateIpAddressCount = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
 -- | The primary private IPv4 address of the network interface.
-ltinisrPrivateIPAddress :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Maybe Text)
-ltinisrPrivateIPAddress = lens _ltinisrPrivateIPAddress (\s a -> s {_ltinisrPrivateIPAddress = a})
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_privateIpAddress :: Lens.Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest (Prelude.Maybe Prelude.Text)
+launchTemplateInstanceNetworkInterfaceSpecificationRequest_privateIpAddress = Lens.lens (\LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {privateIpAddress} -> privateIpAddress) (\s@LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {} a -> s {privateIpAddress = a} :: LaunchTemplateInstanceNetworkInterfaceSpecificationRequest)
 
 instance
-  Hashable
+  Prelude.Hashable
     LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
 
 instance
-  NFData
+  Prelude.NFData
     LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
 
 instance
-  ToQuery
+  Prelude.ToQuery
     LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
   where
   toQuery
     LaunchTemplateInstanceNetworkInterfaceSpecificationRequest' {..} =
-      mconcat
-        [ toQuery
-            (toQueryList "SecurityGroupId" <$> _ltinisrGroups),
-          toQuery
-            ( toQueryList "PrivateIpAddresses"
-                <$> _ltinisrPrivateIPAddresses
+      Prelude.mconcat
+        [ Prelude.toQuery
+            ( Prelude.toQueryList "SecurityGroupId"
+                Prelude.<$> groups
             ),
-          toQuery
-            ( toQueryList "Ipv6Addresses"
-                <$> _ltinisrIPv6Addresses
+          Prelude.toQuery
+            ( Prelude.toQueryList "PrivateIpAddresses"
+                Prelude.<$> privateIpAddresses
             ),
-          "InterfaceType" =: _ltinisrInterfaceType,
+          Prelude.toQuery
+            ( Prelude.toQueryList "Ipv6Addresses"
+                Prelude.<$> ipv6Addresses
+            ),
+          "InterfaceType" Prelude.=: interfaceType,
           "AssociatePublicIpAddress"
-            =: _ltinisrAssociatePublicIPAddress,
+            Prelude.=: associatePublicIpAddress,
           "AssociateCarrierIpAddress"
-            =: _ltinisrAssociateCarrierIPAddress,
-          "Ipv6AddressCount" =: _ltinisrIPv6AddressCount,
-          "NetworkCardIndex" =: _ltinisrNetworkCardIndex,
-          "DeleteOnTermination" =: _ltinisrDeleteOnTermination,
-          "NetworkInterfaceId" =: _ltinisrNetworkInterfaceId,
-          "SubnetId" =: _ltinisrSubnetId,
-          "Description" =: _ltinisrDescription,
-          "DeviceIndex" =: _ltinisrDeviceIndex,
+            Prelude.=: associateCarrierIpAddress,
+          "Ipv6AddressCount" Prelude.=: ipv6AddressCount,
+          "NetworkCardIndex" Prelude.=: networkCardIndex,
+          "DeleteOnTermination" Prelude.=: deleteOnTermination,
+          "NetworkInterfaceId" Prelude.=: networkInterfaceId,
+          "SubnetId" Prelude.=: subnetId,
+          "Description" Prelude.=: description,
+          "DeviceIndex" Prelude.=: deviceIndex,
           "SecondaryPrivateIpAddressCount"
-            =: _ltinisrSecondaryPrivateIPAddressCount,
-          "PrivateIpAddress" =: _ltinisrPrivateIPAddress
+            Prelude.=: secondaryPrivateIpAddressCount,
+          "PrivateIpAddress" Prelude.=: privateIpAddress
         ]

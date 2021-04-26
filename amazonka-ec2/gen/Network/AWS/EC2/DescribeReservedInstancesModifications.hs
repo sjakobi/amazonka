@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,232 +21,344 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the modifications made to your Reserved Instances. If no parameter is specified, information about all your Reserved Instances modification requests is returned. If a modification ID is specified, only information about the specific modification is returned.
+-- Describes the modifications made to your Reserved Instances. If no
+-- parameter is specified, information about all your Reserved Instances
+-- modification requests is returned. If a modification ID is specified,
+-- only information about the specific modification is returned.
 --
---
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html Modifying Reserved Instances> in the /Amazon EC2 User Guide/ .
---
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html Modifying Reserved Instances>
+-- in the /Amazon EC2 User Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeReservedInstancesModifications
   ( -- * Creating a Request
-    describeReservedInstancesModifications,
-    DescribeReservedInstancesModifications,
+    DescribeReservedInstancesModifications (..),
+    newDescribeReservedInstancesModifications,
 
     -- * Request Lenses
-    drimNextToken,
-    drimReservedInstancesModificationIds,
-    drimFilters,
+    describeReservedInstancesModifications_nextToken,
+    describeReservedInstancesModifications_reservedInstancesModificationIds,
+    describeReservedInstancesModifications_filters,
 
     -- * Destructuring the Response
-    describeReservedInstancesModificationsResponse,
-    DescribeReservedInstancesModificationsResponse,
+    DescribeReservedInstancesModificationsResponse (..),
+    newDescribeReservedInstancesModificationsResponse,
 
     -- * Response Lenses
-    drimrrsNextToken,
-    drimrrsReservedInstancesModifications,
-    drimrrsResponseStatus,
+    describeReservedInstancesModificationsResponse_nextToken,
+    describeReservedInstancesModificationsResponse_reservedInstancesModifications,
+    describeReservedInstancesModificationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ReservedInstancesModification
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DescribeReservedInstancesModifications.
 --
---
---
--- /See:/ 'describeReservedInstancesModifications' smart constructor.
+-- /See:/ 'newDescribeReservedInstancesModifications' smart constructor.
 data DescribeReservedInstancesModifications = DescribeReservedInstancesModifications'
-  { _drimNextToken ::
-      !( Maybe
-           Text
-       ),
-    _drimReservedInstancesModificationIds ::
-      !( Maybe
-           [Text]
-       ),
-    _drimFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | IDs for the submitted modification request.
+    reservedInstancesModificationIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters.
+    --
+    -- -   @client-token@ - The idempotency token for the modification request.
+    --
+    -- -   @create-date@ - The time when the modification request was created.
+    --
+    -- -   @effective-date@ - The time when the modification becomes effective.
+    --
+    -- -   @modification-result.reserved-instances-id@ - The ID for the
+    --     Reserved Instances created as part of the modification request. This
+    --     ID is only available when the status of the modification is
+    --     @fulfilled@.
+    --
+    -- -   @modification-result.target-configuration.availability-zone@ - The
+    --     Availability Zone for the new Reserved Instances.
+    --
+    -- -   @modification-result.target-configuration.instance-count @ - The
+    --     number of new Reserved Instances.
+    --
+    -- -   @modification-result.target-configuration.instance-type@ - The
+    --     instance type of the new Reserved Instances.
+    --
+    -- -   @modification-result.target-configuration.platform@ - The network
+    --     platform of the new Reserved Instances (@EC2-Classic@ | @EC2-VPC@).
+    --
+    -- -   @reserved-instances-id@ - The ID of the Reserved Instances modified.
+    --
+    -- -   @reserved-instances-modification-id@ - The ID of the modification
+    --     request.
+    --
+    -- -   @status@ - The status of the Reserved Instances modification request
+    --     (@processing@ | @fulfilled@ | @failed@).
+    --
+    -- -   @status-message@ - The reason for the status.
+    --
+    -- -   @update-date@ - The time when the modification request was last
+    --     updated.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReservedInstancesModifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReservedInstancesModifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drimNextToken' - The token to retrieve the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drimReservedInstancesModificationIds' - IDs for the submitted modification request.
+-- 'nextToken', 'describeReservedInstancesModifications_nextToken' - The token to retrieve the next page of results.
 --
--- * 'drimFilters' - One or more filters.     * @client-token@ - The idempotency token for the modification request.     * @create-date@ - The time when the modification request was created.     * @effective-date@ - The time when the modification becomes effective.     * @modification-result.reserved-instances-id@ - The ID for the Reserved Instances created as part of the modification request. This ID is only available when the status of the modification is @fulfilled@ .     * @modification-result.target-configuration.availability-zone@ - The Availability Zone for the new Reserved Instances.     * @modification-result.target-configuration.instance-count @ - The number of new Reserved Instances.     * @modification-result.target-configuration.instance-type@ - The instance type of the new Reserved Instances.     * @modification-result.target-configuration.platform@ - The network platform of the new Reserved Instances (@EC2-Classic@ | @EC2-VPC@ ).     * @reserved-instances-id@ - The ID of the Reserved Instances modified.     * @reserved-instances-modification-id@ - The ID of the modification request.     * @status@ - The status of the Reserved Instances modification request (@processing@ | @fulfilled@ | @failed@ ).     * @status-message@ - The reason for the status.     * @update-date@ - The time when the modification request was last updated.
-describeReservedInstancesModifications ::
+-- 'reservedInstancesModificationIds', 'describeReservedInstancesModifications_reservedInstancesModificationIds' - IDs for the submitted modification request.
+--
+-- 'filters', 'describeReservedInstancesModifications_filters' - One or more filters.
+--
+-- -   @client-token@ - The idempotency token for the modification request.
+--
+-- -   @create-date@ - The time when the modification request was created.
+--
+-- -   @effective-date@ - The time when the modification becomes effective.
+--
+-- -   @modification-result.reserved-instances-id@ - The ID for the
+--     Reserved Instances created as part of the modification request. This
+--     ID is only available when the status of the modification is
+--     @fulfilled@.
+--
+-- -   @modification-result.target-configuration.availability-zone@ - The
+--     Availability Zone for the new Reserved Instances.
+--
+-- -   @modification-result.target-configuration.instance-count @ - The
+--     number of new Reserved Instances.
+--
+-- -   @modification-result.target-configuration.instance-type@ - The
+--     instance type of the new Reserved Instances.
+--
+-- -   @modification-result.target-configuration.platform@ - The network
+--     platform of the new Reserved Instances (@EC2-Classic@ | @EC2-VPC@).
+--
+-- -   @reserved-instances-id@ - The ID of the Reserved Instances modified.
+--
+-- -   @reserved-instances-modification-id@ - The ID of the modification
+--     request.
+--
+-- -   @status@ - The status of the Reserved Instances modification request
+--     (@processing@ | @fulfilled@ | @failed@).
+--
+-- -   @status-message@ - The reason for the status.
+--
+-- -   @update-date@ - The time when the modification request was last
+--     updated.
+newDescribeReservedInstancesModifications ::
   DescribeReservedInstancesModifications
-describeReservedInstancesModifications =
+newDescribeReservedInstancesModifications =
   DescribeReservedInstancesModifications'
-    { _drimNextToken =
-        Nothing,
-      _drimReservedInstancesModificationIds =
-        Nothing,
-      _drimFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      reservedInstancesModificationIds =
+        Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token to retrieve the next page of results.
-drimNextToken :: Lens' DescribeReservedInstancesModifications (Maybe Text)
-drimNextToken = lens _drimNextToken (\s a -> s {_drimNextToken = a})
+describeReservedInstancesModifications_nextToken :: Lens.Lens' DescribeReservedInstancesModifications (Prelude.Maybe Prelude.Text)
+describeReservedInstancesModifications_nextToken = Lens.lens (\DescribeReservedInstancesModifications' {nextToken} -> nextToken) (\s@DescribeReservedInstancesModifications' {} a -> s {nextToken = a} :: DescribeReservedInstancesModifications)
 
 -- | IDs for the submitted modification request.
-drimReservedInstancesModificationIds :: Lens' DescribeReservedInstancesModifications [Text]
-drimReservedInstancesModificationIds = lens _drimReservedInstancesModificationIds (\s a -> s {_drimReservedInstancesModificationIds = a}) . _Default . _Coerce
+describeReservedInstancesModifications_reservedInstancesModificationIds :: Lens.Lens' DescribeReservedInstancesModifications (Prelude.Maybe [Prelude.Text])
+describeReservedInstancesModifications_reservedInstancesModificationIds = Lens.lens (\DescribeReservedInstancesModifications' {reservedInstancesModificationIds} -> reservedInstancesModificationIds) (\s@DescribeReservedInstancesModifications' {} a -> s {reservedInstancesModificationIds = a} :: DescribeReservedInstancesModifications) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters.     * @client-token@ - The idempotency token for the modification request.     * @create-date@ - The time when the modification request was created.     * @effective-date@ - The time when the modification becomes effective.     * @modification-result.reserved-instances-id@ - The ID for the Reserved Instances created as part of the modification request. This ID is only available when the status of the modification is @fulfilled@ .     * @modification-result.target-configuration.availability-zone@ - The Availability Zone for the new Reserved Instances.     * @modification-result.target-configuration.instance-count @ - The number of new Reserved Instances.     * @modification-result.target-configuration.instance-type@ - The instance type of the new Reserved Instances.     * @modification-result.target-configuration.platform@ - The network platform of the new Reserved Instances (@EC2-Classic@ | @EC2-VPC@ ).     * @reserved-instances-id@ - The ID of the Reserved Instances modified.     * @reserved-instances-modification-id@ - The ID of the modification request.     * @status@ - The status of the Reserved Instances modification request (@processing@ | @fulfilled@ | @failed@ ).     * @status-message@ - The reason for the status.     * @update-date@ - The time when the modification request was last updated.
-drimFilters :: Lens' DescribeReservedInstancesModifications [Filter]
-drimFilters = lens _drimFilters (\s a -> s {_drimFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @client-token@ - The idempotency token for the modification request.
+--
+-- -   @create-date@ - The time when the modification request was created.
+--
+-- -   @effective-date@ - The time when the modification becomes effective.
+--
+-- -   @modification-result.reserved-instances-id@ - The ID for the
+--     Reserved Instances created as part of the modification request. This
+--     ID is only available when the status of the modification is
+--     @fulfilled@.
+--
+-- -   @modification-result.target-configuration.availability-zone@ - The
+--     Availability Zone for the new Reserved Instances.
+--
+-- -   @modification-result.target-configuration.instance-count @ - The
+--     number of new Reserved Instances.
+--
+-- -   @modification-result.target-configuration.instance-type@ - The
+--     instance type of the new Reserved Instances.
+--
+-- -   @modification-result.target-configuration.platform@ - The network
+--     platform of the new Reserved Instances (@EC2-Classic@ | @EC2-VPC@).
+--
+-- -   @reserved-instances-id@ - The ID of the Reserved Instances modified.
+--
+-- -   @reserved-instances-modification-id@ - The ID of the modification
+--     request.
+--
+-- -   @status@ - The status of the Reserved Instances modification request
+--     (@processing@ | @fulfilled@ | @failed@).
+--
+-- -   @status-message@ - The reason for the status.
+--
+-- -   @update-date@ - The time when the modification request was last
+--     updated.
+describeReservedInstancesModifications_filters :: Lens.Lens' DescribeReservedInstancesModifications (Prelude.Maybe [Filter])
+describeReservedInstancesModifications_filters = Lens.lens (\DescribeReservedInstancesModifications' {filters} -> filters) (\s@DescribeReservedInstancesModifications' {} a -> s {filters = a} :: DescribeReservedInstancesModifications) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeReservedInstancesModifications
   where
   page rq rs
-    | stop (rs ^. drimrrsNextToken) = Nothing
-    | stop (rs ^. drimrrsReservedInstancesModifications) =
-      Nothing
-    | otherwise =
-      Just $ rq & drimNextToken .~ rs ^. drimrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeReservedInstancesModificationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeReservedInstancesModificationsResponse_reservedInstancesModifications
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeReservedInstancesModifications_nextToken
+          Lens..~ rs
+            Lens.^? describeReservedInstancesModificationsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeReservedInstancesModifications
   where
   type
     Rs DescribeReservedInstancesModifications =
       DescribeReservedInstancesModificationsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeReservedInstancesModificationsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "reservedInstancesModificationsSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "reservedInstancesModificationsSet"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeReservedInstancesModifications
 
 instance
-  NFData
+  Prelude.NFData
     DescribeReservedInstancesModifications
 
 instance
-  ToHeaders
-    DescribeReservedInstancesModifications
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DescribeReservedInstancesModifications
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DescribeReservedInstancesModifications
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DescribeReservedInstancesModifications
   where
   toQuery DescribeReservedInstancesModifications' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DescribeReservedInstancesModifications" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _drimNextToken,
-        toQuery
-          ( toQueryList "ReservedInstancesModificationId"
-              <$> _drimReservedInstancesModificationIds
+          Prelude.=: ( "DescribeReservedInstancesModifications" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        Prelude.toQuery
+          ( Prelude.toQueryList
+              "ReservedInstancesModificationId"
+              Prelude.<$> reservedInstancesModificationIds
           ),
-        toQuery (toQueryList "Filter" <$> _drimFilters)
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
 -- | Contains the output of DescribeReservedInstancesModifications.
 --
---
---
--- /See:/ 'describeReservedInstancesModificationsResponse' smart constructor.
+-- /See:/ 'newDescribeReservedInstancesModificationsResponse' smart constructor.
 data DescribeReservedInstancesModificationsResponse = DescribeReservedInstancesModificationsResponse'
-  { _drimrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _drimrrsReservedInstancesModifications ::
-      !( Maybe
-           [ReservedInstancesModification]
-       ),
-    _drimrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Reserved Instance modification information.
+    reservedInstancesModifications :: Prelude.Maybe [ReservedInstancesModification],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReservedInstancesModificationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReservedInstancesModificationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drimrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drimrrsReservedInstancesModifications' - The Reserved Instance modification information.
+-- 'nextToken', 'describeReservedInstancesModificationsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'drimrrsResponseStatus' - -- | The response status code.
-describeReservedInstancesModificationsResponse ::
-  -- | 'drimrrsResponseStatus'
-  Int ->
+-- 'reservedInstancesModifications', 'describeReservedInstancesModificationsResponse_reservedInstancesModifications' - The Reserved Instance modification information.
+--
+-- 'httpStatus', 'describeReservedInstancesModificationsResponse_httpStatus' - The response's http status code.
+newDescribeReservedInstancesModificationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeReservedInstancesModificationsResponse
-describeReservedInstancesModificationsResponse
-  pResponseStatus_ =
+newDescribeReservedInstancesModificationsResponse
+  pHttpStatus_ =
     DescribeReservedInstancesModificationsResponse'
-      { _drimrrsNextToken =
-          Nothing,
-        _drimrrsReservedInstancesModifications =
-          Nothing,
-        _drimrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        reservedInstancesModifications =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-drimrrsNextToken :: Lens' DescribeReservedInstancesModificationsResponse (Maybe Text)
-drimrrsNextToken = lens _drimrrsNextToken (\s a -> s {_drimrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeReservedInstancesModificationsResponse_nextToken :: Lens.Lens' DescribeReservedInstancesModificationsResponse (Prelude.Maybe Prelude.Text)
+describeReservedInstancesModificationsResponse_nextToken = Lens.lens (\DescribeReservedInstancesModificationsResponse' {nextToken} -> nextToken) (\s@DescribeReservedInstancesModificationsResponse' {} a -> s {nextToken = a} :: DescribeReservedInstancesModificationsResponse)
 
 -- | The Reserved Instance modification information.
-drimrrsReservedInstancesModifications :: Lens' DescribeReservedInstancesModificationsResponse [ReservedInstancesModification]
-drimrrsReservedInstancesModifications = lens _drimrrsReservedInstancesModifications (\s a -> s {_drimrrsReservedInstancesModifications = a}) . _Default . _Coerce
+describeReservedInstancesModificationsResponse_reservedInstancesModifications :: Lens.Lens' DescribeReservedInstancesModificationsResponse (Prelude.Maybe [ReservedInstancesModification])
+describeReservedInstancesModificationsResponse_reservedInstancesModifications = Lens.lens (\DescribeReservedInstancesModificationsResponse' {reservedInstancesModifications} -> reservedInstancesModifications) (\s@DescribeReservedInstancesModificationsResponse' {} a -> s {reservedInstancesModifications = a} :: DescribeReservedInstancesModificationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drimrrsResponseStatus :: Lens' DescribeReservedInstancesModificationsResponse Int
-drimrrsResponseStatus = lens _drimrrsResponseStatus (\s a -> s {_drimrrsResponseStatus = a})
+-- | The response's http status code.
+describeReservedInstancesModificationsResponse_httpStatus :: Lens.Lens' DescribeReservedInstancesModificationsResponse Prelude.Int
+describeReservedInstancesModificationsResponse_httpStatus = Lens.lens (\DescribeReservedInstancesModificationsResponse' {httpStatus} -> httpStatus) (\s@DescribeReservedInstancesModificationsResponse' {} a -> s {httpStatus = a} :: DescribeReservedInstancesModificationsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeReservedInstancesModificationsResponse

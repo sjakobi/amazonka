@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,103 +19,101 @@
 module Network.AWS.EC2.Types.CapacityReservationInstancePlatform
   ( CapacityReservationInstancePlatform
       ( ..,
-        CRIPLinuxUnix,
-        CRIPLinuxWithSqlServerEnterprise,
-        CRIPLinuxWithSqlServerStandard,
-        CRIPLinuxWithSqlServerWeb,
-        CRIPRedHatEnterpriseLinux,
-        CRIPSuseLinux,
-        CRIPWindows,
-        CRIPWindowsWithSqlServer,
-        CRIPWindowsWithSqlServerEnterprise,
-        CRIPWindowsWithSqlServerStandard,
-        CRIPWindowsWithSqlServerWeb
+        CapacityReservationInstancePlatformLinuxUNIX,
+        CapacityReservationInstancePlatformLinuxWithSQLServerEnterprise,
+        CapacityReservationInstancePlatformLinuxWithSQLServerStandard,
+        CapacityReservationInstancePlatformLinuxWithSQLServerWeb,
+        CapacityReservationInstancePlatformRedHatEnterpriseLinux,
+        CapacityReservationInstancePlatformSUSELinux,
+        CapacityReservationInstancePlatformWindows,
+        CapacityReservationInstancePlatformWindowsWithSQLServer,
+        CapacityReservationInstancePlatformWindowsWithSQLServerEnterprise,
+        CapacityReservationInstancePlatformWindowsWithSQLServerStandard,
+        CapacityReservationInstancePlatformWindowsWithSQLServerWeb
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CapacityReservationInstancePlatform
-  = CapacityReservationInstancePlatform'
-      ( CI
-          Text
-      )
+newtype CapacityReservationInstancePlatform = CapacityReservationInstancePlatform'
+  { fromCapacityReservationInstancePlatform ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CRIPLinuxUnix :: CapacityReservationInstancePlatform
-pattern CRIPLinuxUnix = CapacityReservationInstancePlatform' "Linux/UNIX"
+pattern CapacityReservationInstancePlatformLinuxUNIX :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformLinuxUNIX = CapacityReservationInstancePlatform' "Linux/UNIX"
 
-pattern CRIPLinuxWithSqlServerEnterprise :: CapacityReservationInstancePlatform
-pattern CRIPLinuxWithSqlServerEnterprise = CapacityReservationInstancePlatform' "Linux with SQL Server Enterprise"
+pattern CapacityReservationInstancePlatformLinuxWithSQLServerEnterprise :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformLinuxWithSQLServerEnterprise = CapacityReservationInstancePlatform' "Linux with SQL Server Enterprise"
 
-pattern CRIPLinuxWithSqlServerStandard :: CapacityReservationInstancePlatform
-pattern CRIPLinuxWithSqlServerStandard = CapacityReservationInstancePlatform' "Linux with SQL Server Standard"
+pattern CapacityReservationInstancePlatformLinuxWithSQLServerStandard :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformLinuxWithSQLServerStandard = CapacityReservationInstancePlatform' "Linux with SQL Server Standard"
 
-pattern CRIPLinuxWithSqlServerWeb :: CapacityReservationInstancePlatform
-pattern CRIPLinuxWithSqlServerWeb = CapacityReservationInstancePlatform' "Linux with SQL Server Web"
+pattern CapacityReservationInstancePlatformLinuxWithSQLServerWeb :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformLinuxWithSQLServerWeb = CapacityReservationInstancePlatform' "Linux with SQL Server Web"
 
-pattern CRIPRedHatEnterpriseLinux :: CapacityReservationInstancePlatform
-pattern CRIPRedHatEnterpriseLinux = CapacityReservationInstancePlatform' "Red Hat Enterprise Linux"
+pattern CapacityReservationInstancePlatformRedHatEnterpriseLinux :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformRedHatEnterpriseLinux = CapacityReservationInstancePlatform' "Red Hat Enterprise Linux"
 
-pattern CRIPSuseLinux :: CapacityReservationInstancePlatform
-pattern CRIPSuseLinux = CapacityReservationInstancePlatform' "SUSE Linux"
+pattern CapacityReservationInstancePlatformSUSELinux :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformSUSELinux = CapacityReservationInstancePlatform' "SUSE Linux"
 
-pattern CRIPWindows :: CapacityReservationInstancePlatform
-pattern CRIPWindows = CapacityReservationInstancePlatform' "Windows"
+pattern CapacityReservationInstancePlatformWindows :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformWindows = CapacityReservationInstancePlatform' "Windows"
 
-pattern CRIPWindowsWithSqlServer :: CapacityReservationInstancePlatform
-pattern CRIPWindowsWithSqlServer = CapacityReservationInstancePlatform' "Windows with SQL Server"
+pattern CapacityReservationInstancePlatformWindowsWithSQLServer :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformWindowsWithSQLServer = CapacityReservationInstancePlatform' "Windows with SQL Server"
 
-pattern CRIPWindowsWithSqlServerEnterprise :: CapacityReservationInstancePlatform
-pattern CRIPWindowsWithSqlServerEnterprise = CapacityReservationInstancePlatform' "Windows with SQL Server Enterprise"
+pattern CapacityReservationInstancePlatformWindowsWithSQLServerEnterprise :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformWindowsWithSQLServerEnterprise = CapacityReservationInstancePlatform' "Windows with SQL Server Enterprise"
 
-pattern CRIPWindowsWithSqlServerStandard :: CapacityReservationInstancePlatform
-pattern CRIPWindowsWithSqlServerStandard = CapacityReservationInstancePlatform' "Windows with SQL Server Standard"
+pattern CapacityReservationInstancePlatformWindowsWithSQLServerStandard :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformWindowsWithSQLServerStandard = CapacityReservationInstancePlatform' "Windows with SQL Server Standard"
 
-pattern CRIPWindowsWithSqlServerWeb :: CapacityReservationInstancePlatform
-pattern CRIPWindowsWithSqlServerWeb = CapacityReservationInstancePlatform' "Windows with SQL Server Web"
+pattern CapacityReservationInstancePlatformWindowsWithSQLServerWeb :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatformWindowsWithSQLServerWeb = CapacityReservationInstancePlatform' "Windows with SQL Server Web"
 
 {-# COMPLETE
-  CRIPLinuxUnix,
-  CRIPLinuxWithSqlServerEnterprise,
-  CRIPLinuxWithSqlServerStandard,
-  CRIPLinuxWithSqlServerWeb,
-  CRIPRedHatEnterpriseLinux,
-  CRIPSuseLinux,
-  CRIPWindows,
-  CRIPWindowsWithSqlServer,
-  CRIPWindowsWithSqlServerEnterprise,
-  CRIPWindowsWithSqlServerStandard,
-  CRIPWindowsWithSqlServerWeb,
+  CapacityReservationInstancePlatformLinuxUNIX,
+  CapacityReservationInstancePlatformLinuxWithSQLServerEnterprise,
+  CapacityReservationInstancePlatformLinuxWithSQLServerStandard,
+  CapacityReservationInstancePlatformLinuxWithSQLServerWeb,
+  CapacityReservationInstancePlatformRedHatEnterpriseLinux,
+  CapacityReservationInstancePlatformSUSELinux,
+  CapacityReservationInstancePlatformWindows,
+  CapacityReservationInstancePlatformWindowsWithSQLServer,
+  CapacityReservationInstancePlatformWindowsWithSQLServerEnterprise,
+  CapacityReservationInstancePlatformWindowsWithSQLServerStandard,
+  CapacityReservationInstancePlatformWindowsWithSQLServerWeb,
   CapacityReservationInstancePlatform'
   #-}
 
-instance FromText CapacityReservationInstancePlatform where
-  parser = (CapacityReservationInstancePlatform' . mk) <$> takeText
+instance Prelude.FromText CapacityReservationInstancePlatform where
+  parser = CapacityReservationInstancePlatform' Prelude.<$> Prelude.takeText
 
-instance ToText CapacityReservationInstancePlatform where
-  toText (CapacityReservationInstancePlatform' ci) = original ci
+instance Prelude.ToText CapacityReservationInstancePlatform where
+  toText (CapacityReservationInstancePlatform' x) = x
 
-instance Hashable CapacityReservationInstancePlatform
+instance Prelude.Hashable CapacityReservationInstancePlatform
 
-instance NFData CapacityReservationInstancePlatform
+instance Prelude.NFData CapacityReservationInstancePlatform
 
-instance ToByteString CapacityReservationInstancePlatform
+instance Prelude.ToByteString CapacityReservationInstancePlatform
 
-instance ToQuery CapacityReservationInstancePlatform
+instance Prelude.ToQuery CapacityReservationInstancePlatform
 
-instance ToHeader CapacityReservationInstancePlatform
+instance Prelude.ToHeader CapacityReservationInstancePlatform
 
-instance FromXML CapacityReservationInstancePlatform where
-  parseXML = parseXMLText "CapacityReservationInstancePlatform"
+instance Prelude.FromXML CapacityReservationInstancePlatform where
+  parseXML = Prelude.parseXMLText "CapacityReservationInstancePlatform"

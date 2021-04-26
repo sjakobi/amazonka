@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,45 +20,42 @@
 module Network.AWS.EC2.Types.AvailabilityZoneMessage where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a message about an Availability Zone, Local Zone, or Wavelength Zone.
+-- | Describes a message about an Availability Zone, Local Zone, or
+-- Wavelength Zone.
 --
---
---
--- /See:/ 'availabilityZoneMessage' smart constructor.
-newtype AvailabilityZoneMessage = AvailabilityZoneMessage'
-  { _azmMessage ::
-      Maybe Text
+-- /See:/ 'newAvailabilityZoneMessage' smart constructor.
+data AvailabilityZoneMessage = AvailabilityZoneMessage'
+  { -- | The message about the Availability Zone, Local Zone, or Wavelength Zone.
+    message :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AvailabilityZoneMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AvailabilityZoneMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'azmMessage' - The message about the Availability Zone, Local Zone, or Wavelength Zone.
-availabilityZoneMessage ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'message', 'availabilityZoneMessage_message' - The message about the Availability Zone, Local Zone, or Wavelength Zone.
+newAvailabilityZoneMessage ::
   AvailabilityZoneMessage
-availabilityZoneMessage =
-  AvailabilityZoneMessage' {_azmMessage = Nothing}
+newAvailabilityZoneMessage =
+  AvailabilityZoneMessage' {message = Prelude.Nothing}
 
 -- | The message about the Availability Zone, Local Zone, or Wavelength Zone.
-azmMessage :: Lens' AvailabilityZoneMessage (Maybe Text)
-azmMessage = lens _azmMessage (\s a -> s {_azmMessage = a})
+availabilityZoneMessage_message :: Lens.Lens' AvailabilityZoneMessage (Prelude.Maybe Prelude.Text)
+availabilityZoneMessage_message = Lens.lens (\AvailabilityZoneMessage' {message} -> message) (\s@AvailabilityZoneMessage' {} a -> s {message = a} :: AvailabilityZoneMessage)
 
-instance FromXML AvailabilityZoneMessage where
+instance Prelude.FromXML AvailabilityZoneMessage where
   parseXML x =
-    AvailabilityZoneMessage' <$> (x .@? "message")
+    AvailabilityZoneMessage'
+      Prelude.<$> (x Prelude..@? "message")
 
-instance Hashable AvailabilityZoneMessage
+instance Prelude.Hashable AvailabilityZoneMessage
 
-instance NFData AvailabilityZoneMessage
+instance Prelude.NFData AvailabilityZoneMessage

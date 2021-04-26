@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.LaunchTemplateInstanceMetadataOptionsState
   ( LaunchTemplateInstanceMetadataOptionsState
       ( ..,
-        LTIMOSApplied,
-        LTIMOSPending
+        LaunchTemplateInstanceMetadataOptionsStateApplied,
+        LaunchTemplateInstanceMetadataOptionsStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LaunchTemplateInstanceMetadataOptionsState
-  = LaunchTemplateInstanceMetadataOptionsState'
-      ( CI
-          Text
-      )
+newtype LaunchTemplateInstanceMetadataOptionsState = LaunchTemplateInstanceMetadataOptionsState'
+  { fromLaunchTemplateInstanceMetadataOptionsState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LTIMOSApplied :: LaunchTemplateInstanceMetadataOptionsState
-pattern LTIMOSApplied = LaunchTemplateInstanceMetadataOptionsState' "applied"
+pattern LaunchTemplateInstanceMetadataOptionsStateApplied :: LaunchTemplateInstanceMetadataOptionsState
+pattern LaunchTemplateInstanceMetadataOptionsStateApplied = LaunchTemplateInstanceMetadataOptionsState' "applied"
 
-pattern LTIMOSPending :: LaunchTemplateInstanceMetadataOptionsState
-pattern LTIMOSPending = LaunchTemplateInstanceMetadataOptionsState' "pending"
+pattern LaunchTemplateInstanceMetadataOptionsStatePending :: LaunchTemplateInstanceMetadataOptionsState
+pattern LaunchTemplateInstanceMetadataOptionsStatePending = LaunchTemplateInstanceMetadataOptionsState' "pending"
 
 {-# COMPLETE
-  LTIMOSApplied,
-  LTIMOSPending,
+  LaunchTemplateInstanceMetadataOptionsStateApplied,
+  LaunchTemplateInstanceMetadataOptionsStatePending,
   LaunchTemplateInstanceMetadataOptionsState'
   #-}
 
-instance FromText LaunchTemplateInstanceMetadataOptionsState where
-  parser = (LaunchTemplateInstanceMetadataOptionsState' . mk) <$> takeText
+instance Prelude.FromText LaunchTemplateInstanceMetadataOptionsState where
+  parser = LaunchTemplateInstanceMetadataOptionsState' Prelude.<$> Prelude.takeText
 
-instance ToText LaunchTemplateInstanceMetadataOptionsState where
-  toText (LaunchTemplateInstanceMetadataOptionsState' ci) = original ci
+instance Prelude.ToText LaunchTemplateInstanceMetadataOptionsState where
+  toText (LaunchTemplateInstanceMetadataOptionsState' x) = x
 
-instance Hashable LaunchTemplateInstanceMetadataOptionsState
+instance Prelude.Hashable LaunchTemplateInstanceMetadataOptionsState
 
-instance NFData LaunchTemplateInstanceMetadataOptionsState
+instance Prelude.NFData LaunchTemplateInstanceMetadataOptionsState
 
-instance ToByteString LaunchTemplateInstanceMetadataOptionsState
+instance Prelude.ToByteString LaunchTemplateInstanceMetadataOptionsState
 
-instance ToQuery LaunchTemplateInstanceMetadataOptionsState
+instance Prelude.ToQuery LaunchTemplateInstanceMetadataOptionsState
 
-instance ToHeader LaunchTemplateInstanceMetadataOptionsState
+instance Prelude.ToHeader LaunchTemplateInstanceMetadataOptionsState
 
-instance FromXML LaunchTemplateInstanceMetadataOptionsState where
-  parseXML = parseXMLText "LaunchTemplateInstanceMetadataOptionsState"
+instance Prelude.FromXML LaunchTemplateInstanceMetadataOptionsState where
+  parseXML = Prelude.parseXMLText "LaunchTemplateInstanceMetadataOptionsState"

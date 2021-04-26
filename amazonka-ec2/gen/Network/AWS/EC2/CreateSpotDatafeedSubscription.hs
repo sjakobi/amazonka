@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a data feed for Spot Instances, enabling you to view Spot Instance usage logs. You can create one data feed per AWS account. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-data-feeds.html Spot Instance data feed> in the /Amazon EC2 User Guide for Linux Instances/ .
+-- Creates a data feed for Spot Instances, enabling you to view Spot
+-- Instance usage logs. You can create one data feed per AWS account. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-data-feeds.html Spot Instance data feed>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
 module Network.AWS.EC2.CreateSpotDatafeedSubscription
   ( -- * Creating a Request
-    createSpotDatafeedSubscription,
-    CreateSpotDatafeedSubscription,
+    CreateSpotDatafeedSubscription (..),
+    newCreateSpotDatafeedSubscription,
 
     -- * Request Lenses
-    csdsDryRun,
-    csdsPrefix,
-    csdsBucket,
+    createSpotDatafeedSubscription_dryRun,
+    createSpotDatafeedSubscription_prefix,
+    createSpotDatafeedSubscription_bucket,
 
     -- * Destructuring the Response
-    createSpotDatafeedSubscriptionResponse,
-    CreateSpotDatafeedSubscriptionResponse,
+    CreateSpotDatafeedSubscriptionResponse (..),
+    newCreateSpotDatafeedSubscriptionResponse,
 
     -- * Response Lenses
-    csdsrrsSpotDatafeedSubscription,
-    csdsrrsResponseStatus,
+    createSpotDatafeedSubscriptionResponse_spotDatafeedSubscription,
+    createSpotDatafeedSubscriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.SpotDatafeedSubscription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for CreateSpotDatafeedSubscription.
 --
---
---
--- /See:/ 'createSpotDatafeedSubscription' smart constructor.
+-- /See:/ 'newCreateSpotDatafeedSubscription' smart constructor.
 data CreateSpotDatafeedSubscription = CreateSpotDatafeedSubscription'
-  { _csdsDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _csdsPrefix ::
-      !( Maybe
-           Text
-       ),
-    _csdsBucket ::
-      !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The prefix for the data feed file names.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Amazon S3 bucket in which to store the Spot Instance
+    -- data feed. For more information about bucket names, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules Rules for bucket naming>
+    -- in the /Amazon S3 Developer Guide/.
+    bucket :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSpotDatafeedSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSpotDatafeedSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csdsPrefix' - The prefix for the data feed file names.
+-- 'dryRun', 'createSpotDatafeedSubscription_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'csdsBucket' - The name of the Amazon S3 bucket in which to store the Spot Instance data feed. For more information about bucket names, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules Rules for bucket naming> in the /Amazon S3 Developer Guide/ .
-createSpotDatafeedSubscription ::
-  -- | 'csdsBucket'
-  Text ->
+-- 'prefix', 'createSpotDatafeedSubscription_prefix' - The prefix for the data feed file names.
+--
+-- 'bucket', 'createSpotDatafeedSubscription_bucket' - The name of the Amazon S3 bucket in which to store the Spot Instance
+-- data feed. For more information about bucket names, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules Rules for bucket naming>
+-- in the /Amazon S3 Developer Guide/.
+newCreateSpotDatafeedSubscription ::
+  -- | 'bucket'
+  Prelude.Text ->
   CreateSpotDatafeedSubscription
-createSpotDatafeedSubscription pBucket_ =
+newCreateSpotDatafeedSubscription pBucket_ =
   CreateSpotDatafeedSubscription'
-    { _csdsDryRun =
-        Nothing,
-      _csdsPrefix = Nothing,
-      _csdsBucket = pBucket_
+    { dryRun =
+        Prelude.Nothing,
+      prefix = Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-csdsDryRun :: Lens' CreateSpotDatafeedSubscription (Maybe Bool)
-csdsDryRun = lens _csdsDryRun (\s a -> s {_csdsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createSpotDatafeedSubscription_dryRun :: Lens.Lens' CreateSpotDatafeedSubscription (Prelude.Maybe Prelude.Bool)
+createSpotDatafeedSubscription_dryRun = Lens.lens (\CreateSpotDatafeedSubscription' {dryRun} -> dryRun) (\s@CreateSpotDatafeedSubscription' {} a -> s {dryRun = a} :: CreateSpotDatafeedSubscription)
 
 -- | The prefix for the data feed file names.
-csdsPrefix :: Lens' CreateSpotDatafeedSubscription (Maybe Text)
-csdsPrefix = lens _csdsPrefix (\s a -> s {_csdsPrefix = a})
+createSpotDatafeedSubscription_prefix :: Lens.Lens' CreateSpotDatafeedSubscription (Prelude.Maybe Prelude.Text)
+createSpotDatafeedSubscription_prefix = Lens.lens (\CreateSpotDatafeedSubscription' {prefix} -> prefix) (\s@CreateSpotDatafeedSubscription' {} a -> s {prefix = a} :: CreateSpotDatafeedSubscription)
 
--- | The name of the Amazon S3 bucket in which to store the Spot Instance data feed. For more information about bucket names, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules Rules for bucket naming> in the /Amazon S3 Developer Guide/ .
-csdsBucket :: Lens' CreateSpotDatafeedSubscription Text
-csdsBucket = lens _csdsBucket (\s a -> s {_csdsBucket = a})
+-- | The name of the Amazon S3 bucket in which to store the Spot Instance
+-- data feed. For more information about bucket names, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules Rules for bucket naming>
+-- in the /Amazon S3 Developer Guide/.
+createSpotDatafeedSubscription_bucket :: Lens.Lens' CreateSpotDatafeedSubscription Prelude.Text
+createSpotDatafeedSubscription_bucket = Lens.lens (\CreateSpotDatafeedSubscription' {bucket} -> bucket) (\s@CreateSpotDatafeedSubscription' {} a -> s {bucket = a} :: CreateSpotDatafeedSubscription)
 
-instance AWSRequest CreateSpotDatafeedSubscription where
+instance
+  Prelude.AWSRequest
+    CreateSpotDatafeedSubscription
+  where
   type
     Rs CreateSpotDatafeedSubscription =
       CreateSpotDatafeedSubscriptionResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateSpotDatafeedSubscriptionResponse'
-            <$> (x .@? "spotDatafeedSubscription")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "spotDatafeedSubscription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSpotDatafeedSubscription
+instance
+  Prelude.Hashable
+    CreateSpotDatafeedSubscription
 
-instance NFData CreateSpotDatafeedSubscription
+instance
+  Prelude.NFData
+    CreateSpotDatafeedSubscription
 
-instance ToHeaders CreateSpotDatafeedSubscription where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateSpotDatafeedSubscription
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateSpotDatafeedSubscription where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    CreateSpotDatafeedSubscription
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSpotDatafeedSubscription where
+instance
+  Prelude.ToQuery
+    CreateSpotDatafeedSubscription
+  where
   toQuery CreateSpotDatafeedSubscription' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateSpotDatafeedSubscription" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _csdsDryRun,
-        "Prefix" =: _csdsPrefix,
-        "Bucket" =: _csdsBucket
+          Prelude.=: ( "CreateSpotDatafeedSubscription" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "Prefix" Prelude.=: prefix,
+        "Bucket" Prelude.=: bucket
       ]
 
 -- | Contains the output of CreateSpotDatafeedSubscription.
 --
---
---
--- /See:/ 'createSpotDatafeedSubscriptionResponse' smart constructor.
+-- /See:/ 'newCreateSpotDatafeedSubscriptionResponse' smart constructor.
 data CreateSpotDatafeedSubscriptionResponse = CreateSpotDatafeedSubscriptionResponse'
-  { _csdsrrsSpotDatafeedSubscription ::
-      !( Maybe
-           SpotDatafeedSubscription
-       ),
-    _csdsrrsResponseStatus ::
-      !Int
+  { -- | The Spot Instance data feed subscription.
+    spotDatafeedSubscription :: Prelude.Maybe SpotDatafeedSubscription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSpotDatafeedSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSpotDatafeedSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdsrrsSpotDatafeedSubscription' - The Spot Instance data feed subscription.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csdsrrsResponseStatus' - -- | The response status code.
-createSpotDatafeedSubscriptionResponse ::
-  -- | 'csdsrrsResponseStatus'
-  Int ->
+-- 'spotDatafeedSubscription', 'createSpotDatafeedSubscriptionResponse_spotDatafeedSubscription' - The Spot Instance data feed subscription.
+--
+-- 'httpStatus', 'createSpotDatafeedSubscriptionResponse_httpStatus' - The response's http status code.
+newCreateSpotDatafeedSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSpotDatafeedSubscriptionResponse
-createSpotDatafeedSubscriptionResponse
-  pResponseStatus_ =
+newCreateSpotDatafeedSubscriptionResponse
+  pHttpStatus_ =
     CreateSpotDatafeedSubscriptionResponse'
-      { _csdsrrsSpotDatafeedSubscription =
-          Nothing,
-        _csdsrrsResponseStatus =
-          pResponseStatus_
+      { spotDatafeedSubscription =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The Spot Instance data feed subscription.
-csdsrrsSpotDatafeedSubscription :: Lens' CreateSpotDatafeedSubscriptionResponse (Maybe SpotDatafeedSubscription)
-csdsrrsSpotDatafeedSubscription = lens _csdsrrsSpotDatafeedSubscription (\s a -> s {_csdsrrsSpotDatafeedSubscription = a})
+createSpotDatafeedSubscriptionResponse_spotDatafeedSubscription :: Lens.Lens' CreateSpotDatafeedSubscriptionResponse (Prelude.Maybe SpotDatafeedSubscription)
+createSpotDatafeedSubscriptionResponse_spotDatafeedSubscription = Lens.lens (\CreateSpotDatafeedSubscriptionResponse' {spotDatafeedSubscription} -> spotDatafeedSubscription) (\s@CreateSpotDatafeedSubscriptionResponse' {} a -> s {spotDatafeedSubscription = a} :: CreateSpotDatafeedSubscriptionResponse)
 
--- | -- | The response status code.
-csdsrrsResponseStatus :: Lens' CreateSpotDatafeedSubscriptionResponse Int
-csdsrrsResponseStatus = lens _csdsrrsResponseStatus (\s a -> s {_csdsrrsResponseStatus = a})
+-- | The response's http status code.
+createSpotDatafeedSubscriptionResponse_httpStatus :: Lens.Lens' CreateSpotDatafeedSubscriptionResponse Prelude.Int
+createSpotDatafeedSubscriptionResponse_httpStatus = Lens.lens (\CreateSpotDatafeedSubscriptionResponse' {httpStatus} -> httpStatus) (\s@CreateSpotDatafeedSubscriptionResponse' {} a -> s {httpStatus = a} :: CreateSpotDatafeedSubscriptionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateSpotDatafeedSubscriptionResponse

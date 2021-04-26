@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.AnalysisStatus
   ( AnalysisStatus
       ( ..,
-        ASFailed,
-        ASRunning,
-        ASSucceeded
+        AnalysisStatusFailed,
+        AnalysisStatusRunning,
+        AnalysisStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AnalysisStatus = AnalysisStatus' (CI Text)
+newtype AnalysisStatus = AnalysisStatus'
+  { fromAnalysisStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASFailed :: AnalysisStatus
-pattern ASFailed = AnalysisStatus' "failed"
+pattern AnalysisStatusFailed :: AnalysisStatus
+pattern AnalysisStatusFailed = AnalysisStatus' "failed"
 
-pattern ASRunning :: AnalysisStatus
-pattern ASRunning = AnalysisStatus' "running"
+pattern AnalysisStatusRunning :: AnalysisStatus
+pattern AnalysisStatusRunning = AnalysisStatus' "running"
 
-pattern ASSucceeded :: AnalysisStatus
-pattern ASSucceeded = AnalysisStatus' "succeeded"
+pattern AnalysisStatusSucceeded :: AnalysisStatus
+pattern AnalysisStatusSucceeded = AnalysisStatus' "succeeded"
 
 {-# COMPLETE
-  ASFailed,
-  ASRunning,
-  ASSucceeded,
+  AnalysisStatusFailed,
+  AnalysisStatusRunning,
+  AnalysisStatusSucceeded,
   AnalysisStatus'
   #-}
 
-instance FromText AnalysisStatus where
-  parser = (AnalysisStatus' . mk) <$> takeText
+instance Prelude.FromText AnalysisStatus where
+  parser = AnalysisStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AnalysisStatus where
-  toText (AnalysisStatus' ci) = original ci
+instance Prelude.ToText AnalysisStatus where
+  toText (AnalysisStatus' x) = x
 
-instance Hashable AnalysisStatus
+instance Prelude.Hashable AnalysisStatus
 
-instance NFData AnalysisStatus
+instance Prelude.NFData AnalysisStatus
 
-instance ToByteString AnalysisStatus
+instance Prelude.ToByteString AnalysisStatus
 
-instance ToQuery AnalysisStatus
+instance Prelude.ToQuery AnalysisStatus
 
-instance ToHeader AnalysisStatus
+instance Prelude.ToHeader AnalysisStatus
 
-instance FromXML AnalysisStatus where
-  parseXML = parseXMLText "AnalysisStatus"
+instance Prelude.FromXML AnalysisStatus where
+  parseXML = Prelude.parseXMLText "AnalysisStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,47 +20,54 @@
 module Network.AWS.EC2.Types.ElasticGpuSpecification where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A specification for an Elastic Graphics accelerator.
 --
---
---
--- /See:/ 'elasticGpuSpecification' smart constructor.
-newtype ElasticGpuSpecification = ElasticGpuSpecification'
-  { _egsType ::
-      Text
+-- /See:/ 'newElasticGpuSpecification' smart constructor.
+data ElasticGpuSpecification = ElasticGpuSpecification'
+  { -- | The type of Elastic Graphics accelerator. For more information about the
+    -- values to specify for @Type@, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-graphics.html#elastic-graphics-basics Elastic Graphics Basics>,
+    -- specifically the Elastic Graphics accelerator column, in the /Amazon
+    -- Elastic Compute Cloud User Guide for Windows Instances/.
+    type' :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticGpuSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticGpuSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'egsType' - The type of Elastic Graphics accelerator. For more information about the values to specify for @Type@ , see <https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-graphics.html#elastic-graphics-basics Elastic Graphics Basics> , specifically the Elastic Graphics accelerator column, in the /Amazon Elastic Compute Cloud User Guide for Windows Instances/ .
-elasticGpuSpecification ::
-  -- | 'egsType'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'type'', 'elasticGpuSpecification_type' - The type of Elastic Graphics accelerator. For more information about the
+-- values to specify for @Type@, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-graphics.html#elastic-graphics-basics Elastic Graphics Basics>,
+-- specifically the Elastic Graphics accelerator column, in the /Amazon
+-- Elastic Compute Cloud User Guide for Windows Instances/.
+newElasticGpuSpecification ::
+  -- | 'type''
+  Prelude.Text ->
   ElasticGpuSpecification
-elasticGpuSpecification pType_ =
-  ElasticGpuSpecification' {_egsType = pType_}
+newElasticGpuSpecification pType_ =
+  ElasticGpuSpecification' {type' = pType_}
 
--- | The type of Elastic Graphics accelerator. For more information about the values to specify for @Type@ , see <https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-graphics.html#elastic-graphics-basics Elastic Graphics Basics> , specifically the Elastic Graphics accelerator column, in the /Amazon Elastic Compute Cloud User Guide for Windows Instances/ .
-egsType :: Lens' ElasticGpuSpecification Text
-egsType = lens _egsType (\s a -> s {_egsType = a})
+-- | The type of Elastic Graphics accelerator. For more information about the
+-- values to specify for @Type@, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-graphics.html#elastic-graphics-basics Elastic Graphics Basics>,
+-- specifically the Elastic Graphics accelerator column, in the /Amazon
+-- Elastic Compute Cloud User Guide for Windows Instances/.
+elasticGpuSpecification_type :: Lens.Lens' ElasticGpuSpecification Prelude.Text
+elasticGpuSpecification_type = Lens.lens (\ElasticGpuSpecification' {type'} -> type') (\s@ElasticGpuSpecification' {} a -> s {type' = a} :: ElasticGpuSpecification)
 
-instance Hashable ElasticGpuSpecification
+instance Prelude.Hashable ElasticGpuSpecification
 
-instance NFData ElasticGpuSpecification
+instance Prelude.NFData ElasticGpuSpecification
 
-instance ToQuery ElasticGpuSpecification where
+instance Prelude.ToQuery ElasticGpuSpecification where
   toQuery ElasticGpuSpecification' {..} =
-    mconcat ["Type" =: _egsType]
+    Prelude.mconcat ["Type" Prelude.=: type']

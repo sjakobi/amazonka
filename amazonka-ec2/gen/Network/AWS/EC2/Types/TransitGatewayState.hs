@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.TransitGatewayState
   ( TransitGatewayState
       ( ..,
-        Available,
-        Deleted,
-        Deleting,
-        Modifying,
-        Pending
+        TransitGatewayStateAvailable,
+        TransitGatewayStateDeleted,
+        TransitGatewayStateDeleting,
+        TransitGatewayStateModifying,
+        TransitGatewayStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayState
-  = TransitGatewayState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayState = TransitGatewayState'
+  { fromTransitGatewayState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: TransitGatewayState
-pattern Available = TransitGatewayState' "available"
+pattern TransitGatewayStateAvailable :: TransitGatewayState
+pattern TransitGatewayStateAvailable = TransitGatewayState' "available"
 
-pattern Deleted :: TransitGatewayState
-pattern Deleted = TransitGatewayState' "deleted"
+pattern TransitGatewayStateDeleted :: TransitGatewayState
+pattern TransitGatewayStateDeleted = TransitGatewayState' "deleted"
 
-pattern Deleting :: TransitGatewayState
-pattern Deleting = TransitGatewayState' "deleting"
+pattern TransitGatewayStateDeleting :: TransitGatewayState
+pattern TransitGatewayStateDeleting = TransitGatewayState' "deleting"
 
-pattern Modifying :: TransitGatewayState
-pattern Modifying = TransitGatewayState' "modifying"
+pattern TransitGatewayStateModifying :: TransitGatewayState
+pattern TransitGatewayStateModifying = TransitGatewayState' "modifying"
 
-pattern Pending :: TransitGatewayState
-pattern Pending = TransitGatewayState' "pending"
+pattern TransitGatewayStatePending :: TransitGatewayState
+pattern TransitGatewayStatePending = TransitGatewayState' "pending"
 
 {-# COMPLETE
-  Available,
-  Deleted,
-  Deleting,
-  Modifying,
-  Pending,
+  TransitGatewayStateAvailable,
+  TransitGatewayStateDeleted,
+  TransitGatewayStateDeleting,
+  TransitGatewayStateModifying,
+  TransitGatewayStatePending,
   TransitGatewayState'
   #-}
 
-instance FromText TransitGatewayState where
-  parser = (TransitGatewayState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayState where
+  parser = TransitGatewayState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayState where
-  toText (TransitGatewayState' ci) = original ci
+instance Prelude.ToText TransitGatewayState where
+  toText (TransitGatewayState' x) = x
 
-instance Hashable TransitGatewayState
+instance Prelude.Hashable TransitGatewayState
 
-instance NFData TransitGatewayState
+instance Prelude.NFData TransitGatewayState
 
-instance ToByteString TransitGatewayState
+instance Prelude.ToByteString TransitGatewayState
 
-instance ToQuery TransitGatewayState
+instance Prelude.ToQuery TransitGatewayState
 
-instance ToHeader TransitGatewayState
+instance Prelude.ToHeader TransitGatewayState
 
-instance FromXML TransitGatewayState where
-  parseXML = parseXMLText "TransitGatewayState"
+instance Prelude.FromXML TransitGatewayState where
+  parseXML = Prelude.parseXMLText "TransitGatewayState"

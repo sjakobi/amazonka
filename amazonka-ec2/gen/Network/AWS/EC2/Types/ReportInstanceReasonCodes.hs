@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,90 +19,88 @@
 module Network.AWS.EC2.Types.ReportInstanceReasonCodes
   ( ReportInstanceReasonCodes
       ( ..,
-        InstanceStuckInState,
-        NotAcceptingCredentials,
-        Other,
-        PasswordNotAvailable,
-        PerformanceEBSVolume,
-        PerformanceInstanceStore,
-        PerformanceNetwork,
-        PerformanceOther,
-        Unresponsive
+        ReportInstanceReasonCodesInstanceStuckInState,
+        ReportInstanceReasonCodesNotAcceptingCredentials,
+        ReportInstanceReasonCodesOther,
+        ReportInstanceReasonCodesPasswordNotAvailable,
+        ReportInstanceReasonCodesPerformanceEbsVolume,
+        ReportInstanceReasonCodesPerformanceInstanceStore,
+        ReportInstanceReasonCodesPerformanceNetwork,
+        ReportInstanceReasonCodesPerformanceOther,
+        ReportInstanceReasonCodesUnresponsive
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportInstanceReasonCodes
-  = ReportInstanceReasonCodes'
-      ( CI
-          Text
-      )
+newtype ReportInstanceReasonCodes = ReportInstanceReasonCodes'
+  { fromReportInstanceReasonCodes ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InstanceStuckInState :: ReportInstanceReasonCodes
-pattern InstanceStuckInState = ReportInstanceReasonCodes' "instance-stuck-in-state"
+pattern ReportInstanceReasonCodesInstanceStuckInState :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesInstanceStuckInState = ReportInstanceReasonCodes' "instance-stuck-in-state"
 
-pattern NotAcceptingCredentials :: ReportInstanceReasonCodes
-pattern NotAcceptingCredentials = ReportInstanceReasonCodes' "not-accepting-credentials"
+pattern ReportInstanceReasonCodesNotAcceptingCredentials :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesNotAcceptingCredentials = ReportInstanceReasonCodes' "not-accepting-credentials"
 
-pattern Other :: ReportInstanceReasonCodes
-pattern Other = ReportInstanceReasonCodes' "other"
+pattern ReportInstanceReasonCodesOther :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesOther = ReportInstanceReasonCodes' "other"
 
-pattern PasswordNotAvailable :: ReportInstanceReasonCodes
-pattern PasswordNotAvailable = ReportInstanceReasonCodes' "password-not-available"
+pattern ReportInstanceReasonCodesPasswordNotAvailable :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesPasswordNotAvailable = ReportInstanceReasonCodes' "password-not-available"
 
-pattern PerformanceEBSVolume :: ReportInstanceReasonCodes
-pattern PerformanceEBSVolume = ReportInstanceReasonCodes' "performance-ebs-volume"
+pattern ReportInstanceReasonCodesPerformanceEbsVolume :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesPerformanceEbsVolume = ReportInstanceReasonCodes' "performance-ebs-volume"
 
-pattern PerformanceInstanceStore :: ReportInstanceReasonCodes
-pattern PerformanceInstanceStore = ReportInstanceReasonCodes' "performance-instance-store"
+pattern ReportInstanceReasonCodesPerformanceInstanceStore :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesPerformanceInstanceStore = ReportInstanceReasonCodes' "performance-instance-store"
 
-pattern PerformanceNetwork :: ReportInstanceReasonCodes
-pattern PerformanceNetwork = ReportInstanceReasonCodes' "performance-network"
+pattern ReportInstanceReasonCodesPerformanceNetwork :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesPerformanceNetwork = ReportInstanceReasonCodes' "performance-network"
 
-pattern PerformanceOther :: ReportInstanceReasonCodes
-pattern PerformanceOther = ReportInstanceReasonCodes' "performance-other"
+pattern ReportInstanceReasonCodesPerformanceOther :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesPerformanceOther = ReportInstanceReasonCodes' "performance-other"
 
-pattern Unresponsive :: ReportInstanceReasonCodes
-pattern Unresponsive = ReportInstanceReasonCodes' "unresponsive"
+pattern ReportInstanceReasonCodesUnresponsive :: ReportInstanceReasonCodes
+pattern ReportInstanceReasonCodesUnresponsive = ReportInstanceReasonCodes' "unresponsive"
 
 {-# COMPLETE
-  InstanceStuckInState,
-  NotAcceptingCredentials,
-  Other,
-  PasswordNotAvailable,
-  PerformanceEBSVolume,
-  PerformanceInstanceStore,
-  PerformanceNetwork,
-  PerformanceOther,
-  Unresponsive,
+  ReportInstanceReasonCodesInstanceStuckInState,
+  ReportInstanceReasonCodesNotAcceptingCredentials,
+  ReportInstanceReasonCodesOther,
+  ReportInstanceReasonCodesPasswordNotAvailable,
+  ReportInstanceReasonCodesPerformanceEbsVolume,
+  ReportInstanceReasonCodesPerformanceInstanceStore,
+  ReportInstanceReasonCodesPerformanceNetwork,
+  ReportInstanceReasonCodesPerformanceOther,
+  ReportInstanceReasonCodesUnresponsive,
   ReportInstanceReasonCodes'
   #-}
 
-instance FromText ReportInstanceReasonCodes where
-  parser = (ReportInstanceReasonCodes' . mk) <$> takeText
+instance Prelude.FromText ReportInstanceReasonCodes where
+  parser = ReportInstanceReasonCodes' Prelude.<$> Prelude.takeText
 
-instance ToText ReportInstanceReasonCodes where
-  toText (ReportInstanceReasonCodes' ci) = original ci
+instance Prelude.ToText ReportInstanceReasonCodes where
+  toText (ReportInstanceReasonCodes' x) = x
 
-instance Hashable ReportInstanceReasonCodes
+instance Prelude.Hashable ReportInstanceReasonCodes
 
-instance NFData ReportInstanceReasonCodes
+instance Prelude.NFData ReportInstanceReasonCodes
 
-instance ToByteString ReportInstanceReasonCodes
+instance Prelude.ToByteString ReportInstanceReasonCodes
 
-instance ToQuery ReportInstanceReasonCodes
+instance Prelude.ToQuery ReportInstanceReasonCodes
 
-instance ToHeader ReportInstanceReasonCodes
+instance Prelude.ToHeader ReportInstanceReasonCodes

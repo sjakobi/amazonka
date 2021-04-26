@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,70 +20,72 @@
 module Network.AWS.EC2.Types.LaunchTemplateElasticInferenceAccelerator where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an elastic inference accelerator.
 --
---
---
--- /See:/ 'launchTemplateElasticInferenceAccelerator' smart constructor.
+-- /See:/ 'newLaunchTemplateElasticInferenceAccelerator' smart constructor.
 data LaunchTemplateElasticInferenceAccelerator = LaunchTemplateElasticInferenceAccelerator'
-  { _lteiaCount ::
-      !( Maybe
-           Nat
-       ),
-    _lteiaType ::
-      !Text
+  { -- | The number of elastic inference accelerators to attach to the instance.
+    --
+    -- Default: 1
+    count :: Prelude.Maybe Prelude.Nat,
+    -- | The type of elastic inference accelerator. The possible values are
+    -- eia1.medium, eia1.large, and eia1.xlarge.
+    type' :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateElasticInferenceAccelerator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateElasticInferenceAccelerator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lteiaCount' - The number of elastic inference accelerators to attach to the instance.  Default: 1
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lteiaType' - The type of elastic inference accelerator. The possible values are eia1.medium, eia1.large, and eia1.xlarge.
-launchTemplateElasticInferenceAccelerator ::
-  -- | 'lteiaType'
-  Text ->
+-- 'count', 'launchTemplateElasticInferenceAccelerator_count' - The number of elastic inference accelerators to attach to the instance.
+--
+-- Default: 1
+--
+-- 'type'', 'launchTemplateElasticInferenceAccelerator_type' - The type of elastic inference accelerator. The possible values are
+-- eia1.medium, eia1.large, and eia1.xlarge.
+newLaunchTemplateElasticInferenceAccelerator ::
+  -- | 'type''
+  Prelude.Text ->
   LaunchTemplateElasticInferenceAccelerator
-launchTemplateElasticInferenceAccelerator pType_ =
+newLaunchTemplateElasticInferenceAccelerator pType_ =
   LaunchTemplateElasticInferenceAccelerator'
-    { _lteiaCount =
-        Nothing,
-      _lteiaType = pType_
+    { count =
+        Prelude.Nothing,
+      type' = pType_
     }
 
--- | The number of elastic inference accelerators to attach to the instance.  Default: 1
-lteiaCount :: Lens' LaunchTemplateElasticInferenceAccelerator (Maybe Natural)
-lteiaCount = lens _lteiaCount (\s a -> s {_lteiaCount = a}) . mapping _Nat
+-- | The number of elastic inference accelerators to attach to the instance.
+--
+-- Default: 1
+launchTemplateElasticInferenceAccelerator_count :: Lens.Lens' LaunchTemplateElasticInferenceAccelerator (Prelude.Maybe Prelude.Natural)
+launchTemplateElasticInferenceAccelerator_count = Lens.lens (\LaunchTemplateElasticInferenceAccelerator' {count} -> count) (\s@LaunchTemplateElasticInferenceAccelerator' {} a -> s {count = a} :: LaunchTemplateElasticInferenceAccelerator) Prelude.. Lens.mapping Prelude._Nat
 
--- | The type of elastic inference accelerator. The possible values are eia1.medium, eia1.large, and eia1.xlarge.
-lteiaType :: Lens' LaunchTemplateElasticInferenceAccelerator Text
-lteiaType = lens _lteiaType (\s a -> s {_lteiaType = a})
+-- | The type of elastic inference accelerator. The possible values are
+-- eia1.medium, eia1.large, and eia1.xlarge.
+launchTemplateElasticInferenceAccelerator_type :: Lens.Lens' LaunchTemplateElasticInferenceAccelerator Prelude.Text
+launchTemplateElasticInferenceAccelerator_type = Lens.lens (\LaunchTemplateElasticInferenceAccelerator' {type'} -> type') (\s@LaunchTemplateElasticInferenceAccelerator' {} a -> s {type' = a} :: LaunchTemplateElasticInferenceAccelerator)
 
 instance
-  Hashable
+  Prelude.Hashable
     LaunchTemplateElasticInferenceAccelerator
 
 instance
-  NFData
+  Prelude.NFData
     LaunchTemplateElasticInferenceAccelerator
 
 instance
-  ToQuery
+  Prelude.ToQuery
     LaunchTemplateElasticInferenceAccelerator
   where
   toQuery
     LaunchTemplateElasticInferenceAccelerator' {..} =
-      mconcat
-        ["Count" =: _lteiaCount, "Type" =: _lteiaType]
+      Prelude.mconcat
+        ["Count" Prelude.=: count, "Type" Prelude.=: type']

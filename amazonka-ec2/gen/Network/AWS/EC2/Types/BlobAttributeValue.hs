@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,41 +20,45 @@
 module Network.AWS.EC2.Types.BlobAttributeValue where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'blobAttributeValue' smart constructor.
-newtype BlobAttributeValue = BlobAttributeValue'
-  { _bavValue ::
-      Maybe Base64
+-- | /See:/ 'newBlobAttributeValue' smart constructor.
+data BlobAttributeValue = BlobAttributeValue'
+  { value :: Prelude.Maybe Prelude.Base64
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BlobAttributeValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BlobAttributeValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bavValue' - Undocumented member.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-blobAttributeValue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'value', 'blobAttributeValue_value' - Undocumented member.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+newBlobAttributeValue ::
   BlobAttributeValue
-blobAttributeValue =
-  BlobAttributeValue' {_bavValue = Nothing}
+newBlobAttributeValue =
+  BlobAttributeValue' {value = Prelude.Nothing}
 
--- | Undocumented member.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-bavValue :: Lens' BlobAttributeValue (Maybe ByteString)
-bavValue = lens _bavValue (\s a -> s {_bavValue = a}) . mapping _Base64
+-- | Undocumented member.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+blobAttributeValue_value :: Lens.Lens' BlobAttributeValue (Prelude.Maybe Prelude.ByteString)
+blobAttributeValue_value = Lens.lens (\BlobAttributeValue' {value} -> value) (\s@BlobAttributeValue' {} a -> s {value = a} :: BlobAttributeValue) Prelude.. Lens.mapping Prelude._Base64
 
-instance Hashable BlobAttributeValue
+instance Prelude.Hashable BlobAttributeValue
 
-instance NFData BlobAttributeValue
+instance Prelude.NFData BlobAttributeValue
 
-instance ToQuery BlobAttributeValue where
+instance Prelude.ToQuery BlobAttributeValue where
   toQuery BlobAttributeValue' {..} =
-    mconcat ["Value" =: _bavValue]
+    Prelude.mconcat ["Value" Prelude.=: value]

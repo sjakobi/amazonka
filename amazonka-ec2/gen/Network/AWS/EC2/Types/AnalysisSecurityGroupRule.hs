@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,99 +21,106 @@ module Network.AWS.EC2.Types.AnalysisSecurityGroupRule where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PortRange
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a security group rule.
 --
---
---
--- /See:/ 'analysisSecurityGroupRule' smart constructor.
+-- /See:/ 'newAnalysisSecurityGroupRule' smart constructor.
 data AnalysisSecurityGroupRule = AnalysisSecurityGroupRule'
-  { _asgrSecurityGroupId ::
-      !(Maybe Text),
-    _asgrPortRange ::
-      !(Maybe PortRange),
-    _asgrDirection ::
-      !(Maybe Text),
-    _asgrPrefixListId ::
-      !(Maybe Text),
-    _asgrCidr ::
-      !(Maybe Text),
-    _asgrProtocol ::
-      !(Maybe Text)
+  { -- | The security group ID.
+    securityGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The port range.
+    portRange :: Prelude.Maybe PortRange,
+    -- | The direction. The following are possible values:
+    --
+    -- -   egress
+    --
+    -- -   ingress
+    direction :: Prelude.Maybe Prelude.Text,
+    -- | The prefix list ID.
+    prefixListId :: Prelude.Maybe Prelude.Text,
+    -- | The IPv4 address range, in CIDR notation.
+    cidr :: Prelude.Maybe Prelude.Text,
+    -- | The protocol name.
+    protocol :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnalysisSecurityGroupRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnalysisSecurityGroupRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asgrSecurityGroupId' - The security group ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asgrPortRange' - The port range.
+-- 'securityGroupId', 'analysisSecurityGroupRule_securityGroupId' - The security group ID.
 --
--- * 'asgrDirection' - The direction. The following are possible values:     * egress     * ingress
+-- 'portRange', 'analysisSecurityGroupRule_portRange' - The port range.
 --
--- * 'asgrPrefixListId' - The prefix list ID.
+-- 'direction', 'analysisSecurityGroupRule_direction' - The direction. The following are possible values:
 --
--- * 'asgrCidr' - The IPv4 address range, in CIDR notation.
+-- -   egress
 --
--- * 'asgrProtocol' - The protocol name.
-analysisSecurityGroupRule ::
+-- -   ingress
+--
+-- 'prefixListId', 'analysisSecurityGroupRule_prefixListId' - The prefix list ID.
+--
+-- 'cidr', 'analysisSecurityGroupRule_cidr' - The IPv4 address range, in CIDR notation.
+--
+-- 'protocol', 'analysisSecurityGroupRule_protocol' - The protocol name.
+newAnalysisSecurityGroupRule ::
   AnalysisSecurityGroupRule
-analysisSecurityGroupRule =
+newAnalysisSecurityGroupRule =
   AnalysisSecurityGroupRule'
-    { _asgrSecurityGroupId =
-        Nothing,
-      _asgrPortRange = Nothing,
-      _asgrDirection = Nothing,
-      _asgrPrefixListId = Nothing,
-      _asgrCidr = Nothing,
-      _asgrProtocol = Nothing
+    { securityGroupId =
+        Prelude.Nothing,
+      portRange = Prelude.Nothing,
+      direction = Prelude.Nothing,
+      prefixListId = Prelude.Nothing,
+      cidr = Prelude.Nothing,
+      protocol = Prelude.Nothing
     }
 
 -- | The security group ID.
-asgrSecurityGroupId :: Lens' AnalysisSecurityGroupRule (Maybe Text)
-asgrSecurityGroupId = lens _asgrSecurityGroupId (\s a -> s {_asgrSecurityGroupId = a})
+analysisSecurityGroupRule_securityGroupId :: Lens.Lens' AnalysisSecurityGroupRule (Prelude.Maybe Prelude.Text)
+analysisSecurityGroupRule_securityGroupId = Lens.lens (\AnalysisSecurityGroupRule' {securityGroupId} -> securityGroupId) (\s@AnalysisSecurityGroupRule' {} a -> s {securityGroupId = a} :: AnalysisSecurityGroupRule)
 
 -- | The port range.
-asgrPortRange :: Lens' AnalysisSecurityGroupRule (Maybe PortRange)
-asgrPortRange = lens _asgrPortRange (\s a -> s {_asgrPortRange = a})
+analysisSecurityGroupRule_portRange :: Lens.Lens' AnalysisSecurityGroupRule (Prelude.Maybe PortRange)
+analysisSecurityGroupRule_portRange = Lens.lens (\AnalysisSecurityGroupRule' {portRange} -> portRange) (\s@AnalysisSecurityGroupRule' {} a -> s {portRange = a} :: AnalysisSecurityGroupRule)
 
--- | The direction. The following are possible values:     * egress     * ingress
-asgrDirection :: Lens' AnalysisSecurityGroupRule (Maybe Text)
-asgrDirection = lens _asgrDirection (\s a -> s {_asgrDirection = a})
+-- | The direction. The following are possible values:
+--
+-- -   egress
+--
+-- -   ingress
+analysisSecurityGroupRule_direction :: Lens.Lens' AnalysisSecurityGroupRule (Prelude.Maybe Prelude.Text)
+analysisSecurityGroupRule_direction = Lens.lens (\AnalysisSecurityGroupRule' {direction} -> direction) (\s@AnalysisSecurityGroupRule' {} a -> s {direction = a} :: AnalysisSecurityGroupRule)
 
 -- | The prefix list ID.
-asgrPrefixListId :: Lens' AnalysisSecurityGroupRule (Maybe Text)
-asgrPrefixListId = lens _asgrPrefixListId (\s a -> s {_asgrPrefixListId = a})
+analysisSecurityGroupRule_prefixListId :: Lens.Lens' AnalysisSecurityGroupRule (Prelude.Maybe Prelude.Text)
+analysisSecurityGroupRule_prefixListId = Lens.lens (\AnalysisSecurityGroupRule' {prefixListId} -> prefixListId) (\s@AnalysisSecurityGroupRule' {} a -> s {prefixListId = a} :: AnalysisSecurityGroupRule)
 
 -- | The IPv4 address range, in CIDR notation.
-asgrCidr :: Lens' AnalysisSecurityGroupRule (Maybe Text)
-asgrCidr = lens _asgrCidr (\s a -> s {_asgrCidr = a})
+analysisSecurityGroupRule_cidr :: Lens.Lens' AnalysisSecurityGroupRule (Prelude.Maybe Prelude.Text)
+analysisSecurityGroupRule_cidr = Lens.lens (\AnalysisSecurityGroupRule' {cidr} -> cidr) (\s@AnalysisSecurityGroupRule' {} a -> s {cidr = a} :: AnalysisSecurityGroupRule)
 
 -- | The protocol name.
-asgrProtocol :: Lens' AnalysisSecurityGroupRule (Maybe Text)
-asgrProtocol = lens _asgrProtocol (\s a -> s {_asgrProtocol = a})
+analysisSecurityGroupRule_protocol :: Lens.Lens' AnalysisSecurityGroupRule (Prelude.Maybe Prelude.Text)
+analysisSecurityGroupRule_protocol = Lens.lens (\AnalysisSecurityGroupRule' {protocol} -> protocol) (\s@AnalysisSecurityGroupRule' {} a -> s {protocol = a} :: AnalysisSecurityGroupRule)
 
-instance FromXML AnalysisSecurityGroupRule where
+instance Prelude.FromXML AnalysisSecurityGroupRule where
   parseXML x =
     AnalysisSecurityGroupRule'
-      <$> (x .@? "securityGroupId")
-      <*> (x .@? "portRange")
-      <*> (x .@? "direction")
-      <*> (x .@? "prefixListId")
-      <*> (x .@? "cidr")
-      <*> (x .@? "protocol")
+      Prelude.<$> (x Prelude..@? "securityGroupId")
+      Prelude.<*> (x Prelude..@? "portRange")
+      Prelude.<*> (x Prelude..@? "direction")
+      Prelude.<*> (x Prelude..@? "prefixListId")
+      Prelude.<*> (x Prelude..@? "cidr")
+      Prelude.<*> (x Prelude..@? "protocol")
 
-instance Hashable AnalysisSecurityGroupRule
+instance Prelude.Hashable AnalysisSecurityGroupRule
 
-instance NFData AnalysisSecurityGroupRule
+instance Prelude.NFData AnalysisSecurityGroupRule

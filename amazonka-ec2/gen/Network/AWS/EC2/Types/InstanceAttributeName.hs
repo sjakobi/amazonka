@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,120 +19,118 @@
 module Network.AWS.EC2.Types.InstanceAttributeName
   ( InstanceAttributeName
       ( ..,
-        IBlockDeviceMapping,
-        IDisableAPITermination,
-        IEBSOptimized,
-        IEnaSupport,
-        IEnclaveOptions,
-        IGroupSet,
-        IInstanceInitiatedShutdownBehavior,
-        IInstanceType,
-        IKernel,
-        IProductCodes,
-        IRAMDisk,
-        IRootDeviceName,
-        ISRIOVNetSupport,
-        ISourceDestCheck,
-        IUserData
+        InstanceAttributeNameBlockDeviceMapping,
+        InstanceAttributeNameDisableApiTermination,
+        InstanceAttributeNameEbsOptimized,
+        InstanceAttributeNameEnaSupport,
+        InstanceAttributeNameEnclaveOptions,
+        InstanceAttributeNameGroupSet,
+        InstanceAttributeNameInstanceInitiatedShutdownBehavior,
+        InstanceAttributeNameInstanceType,
+        InstanceAttributeNameKernel,
+        InstanceAttributeNameProductCodes,
+        InstanceAttributeNameRamdisk,
+        InstanceAttributeNameRootDeviceName,
+        InstanceAttributeNameSourceDestCheck,
+        InstanceAttributeNameSriovNetSupport,
+        InstanceAttributeNameUserData
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceAttributeName
-  = InstanceAttributeName'
-      ( CI
-          Text
-      )
+newtype InstanceAttributeName = InstanceAttributeName'
+  { fromInstanceAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IBlockDeviceMapping :: InstanceAttributeName
-pattern IBlockDeviceMapping = InstanceAttributeName' "blockDeviceMapping"
+pattern InstanceAttributeNameBlockDeviceMapping :: InstanceAttributeName
+pattern InstanceAttributeNameBlockDeviceMapping = InstanceAttributeName' "blockDeviceMapping"
 
-pattern IDisableAPITermination :: InstanceAttributeName
-pattern IDisableAPITermination = InstanceAttributeName' "disableApiTermination"
+pattern InstanceAttributeNameDisableApiTermination :: InstanceAttributeName
+pattern InstanceAttributeNameDisableApiTermination = InstanceAttributeName' "disableApiTermination"
 
-pattern IEBSOptimized :: InstanceAttributeName
-pattern IEBSOptimized = InstanceAttributeName' "ebsOptimized"
+pattern InstanceAttributeNameEbsOptimized :: InstanceAttributeName
+pattern InstanceAttributeNameEbsOptimized = InstanceAttributeName' "ebsOptimized"
 
-pattern IEnaSupport :: InstanceAttributeName
-pattern IEnaSupport = InstanceAttributeName' "enaSupport"
+pattern InstanceAttributeNameEnaSupport :: InstanceAttributeName
+pattern InstanceAttributeNameEnaSupport = InstanceAttributeName' "enaSupport"
 
-pattern IEnclaveOptions :: InstanceAttributeName
-pattern IEnclaveOptions = InstanceAttributeName' "enclaveOptions"
+pattern InstanceAttributeNameEnclaveOptions :: InstanceAttributeName
+pattern InstanceAttributeNameEnclaveOptions = InstanceAttributeName' "enclaveOptions"
 
-pattern IGroupSet :: InstanceAttributeName
-pattern IGroupSet = InstanceAttributeName' "groupSet"
+pattern InstanceAttributeNameGroupSet :: InstanceAttributeName
+pattern InstanceAttributeNameGroupSet = InstanceAttributeName' "groupSet"
 
-pattern IInstanceInitiatedShutdownBehavior :: InstanceAttributeName
-pattern IInstanceInitiatedShutdownBehavior = InstanceAttributeName' "instanceInitiatedShutdownBehavior"
+pattern InstanceAttributeNameInstanceInitiatedShutdownBehavior :: InstanceAttributeName
+pattern InstanceAttributeNameInstanceInitiatedShutdownBehavior = InstanceAttributeName' "instanceInitiatedShutdownBehavior"
 
-pattern IInstanceType :: InstanceAttributeName
-pattern IInstanceType = InstanceAttributeName' "instanceType"
+pattern InstanceAttributeNameInstanceType :: InstanceAttributeName
+pattern InstanceAttributeNameInstanceType = InstanceAttributeName' "instanceType"
 
-pattern IKernel :: InstanceAttributeName
-pattern IKernel = InstanceAttributeName' "kernel"
+pattern InstanceAttributeNameKernel :: InstanceAttributeName
+pattern InstanceAttributeNameKernel = InstanceAttributeName' "kernel"
 
-pattern IProductCodes :: InstanceAttributeName
-pattern IProductCodes = InstanceAttributeName' "productCodes"
+pattern InstanceAttributeNameProductCodes :: InstanceAttributeName
+pattern InstanceAttributeNameProductCodes = InstanceAttributeName' "productCodes"
 
-pattern IRAMDisk :: InstanceAttributeName
-pattern IRAMDisk = InstanceAttributeName' "ramdisk"
+pattern InstanceAttributeNameRamdisk :: InstanceAttributeName
+pattern InstanceAttributeNameRamdisk = InstanceAttributeName' "ramdisk"
 
-pattern IRootDeviceName :: InstanceAttributeName
-pattern IRootDeviceName = InstanceAttributeName' "rootDeviceName"
+pattern InstanceAttributeNameRootDeviceName :: InstanceAttributeName
+pattern InstanceAttributeNameRootDeviceName = InstanceAttributeName' "rootDeviceName"
 
-pattern ISRIOVNetSupport :: InstanceAttributeName
-pattern ISRIOVNetSupport = InstanceAttributeName' "sriovNetSupport"
+pattern InstanceAttributeNameSourceDestCheck :: InstanceAttributeName
+pattern InstanceAttributeNameSourceDestCheck = InstanceAttributeName' "sourceDestCheck"
 
-pattern ISourceDestCheck :: InstanceAttributeName
-pattern ISourceDestCheck = InstanceAttributeName' "sourceDestCheck"
+pattern InstanceAttributeNameSriovNetSupport :: InstanceAttributeName
+pattern InstanceAttributeNameSriovNetSupport = InstanceAttributeName' "sriovNetSupport"
 
-pattern IUserData :: InstanceAttributeName
-pattern IUserData = InstanceAttributeName' "userData"
+pattern InstanceAttributeNameUserData :: InstanceAttributeName
+pattern InstanceAttributeNameUserData = InstanceAttributeName' "userData"
 
 {-# COMPLETE
-  IBlockDeviceMapping,
-  IDisableAPITermination,
-  IEBSOptimized,
-  IEnaSupport,
-  IEnclaveOptions,
-  IGroupSet,
-  IInstanceInitiatedShutdownBehavior,
-  IInstanceType,
-  IKernel,
-  IProductCodes,
-  IRAMDisk,
-  IRootDeviceName,
-  ISRIOVNetSupport,
-  ISourceDestCheck,
-  IUserData,
+  InstanceAttributeNameBlockDeviceMapping,
+  InstanceAttributeNameDisableApiTermination,
+  InstanceAttributeNameEbsOptimized,
+  InstanceAttributeNameEnaSupport,
+  InstanceAttributeNameEnclaveOptions,
+  InstanceAttributeNameGroupSet,
+  InstanceAttributeNameInstanceInitiatedShutdownBehavior,
+  InstanceAttributeNameInstanceType,
+  InstanceAttributeNameKernel,
+  InstanceAttributeNameProductCodes,
+  InstanceAttributeNameRamdisk,
+  InstanceAttributeNameRootDeviceName,
+  InstanceAttributeNameSourceDestCheck,
+  InstanceAttributeNameSriovNetSupport,
+  InstanceAttributeNameUserData,
   InstanceAttributeName'
   #-}
 
-instance FromText InstanceAttributeName where
-  parser = (InstanceAttributeName' . mk) <$> takeText
+instance Prelude.FromText InstanceAttributeName where
+  parser = InstanceAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceAttributeName where
-  toText (InstanceAttributeName' ci) = original ci
+instance Prelude.ToText InstanceAttributeName where
+  toText (InstanceAttributeName' x) = x
 
-instance Hashable InstanceAttributeName
+instance Prelude.Hashable InstanceAttributeName
 
-instance NFData InstanceAttributeName
+instance Prelude.NFData InstanceAttributeName
 
-instance ToByteString InstanceAttributeName
+instance Prelude.ToByteString InstanceAttributeName
 
-instance ToQuery InstanceAttributeName
+instance Prelude.ToQuery InstanceAttributeName
 
-instance ToHeader InstanceAttributeName
+instance Prelude.ToHeader InstanceAttributeName

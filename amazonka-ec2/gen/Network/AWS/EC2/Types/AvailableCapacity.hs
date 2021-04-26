@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +21,70 @@ module Network.AWS.EC2.Types.AvailableCapacity where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceCapacity
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The capacity information for instances that can be launched onto the Dedicated Host.
+-- | The capacity information for instances that can be launched onto the
+-- Dedicated Host.
 --
---
---
--- /See:/ 'availableCapacity' smart constructor.
+-- /See:/ 'newAvailableCapacity' smart constructor.
 data AvailableCapacity = AvailableCapacity'
-  { _acAvailableInstanceCapacity ::
-      !(Maybe [InstanceCapacity]),
-    _acAvailableVCPUs :: !(Maybe Int)
+  { -- | The number of instances that can be launched onto the Dedicated Host
+    -- depending on the host\'s available capacity. For Dedicated Hosts that
+    -- support multiple instance types, this parameter represents the number of
+    -- instances for each instance size that is supported on the host.
+    availableInstanceCapacity :: Prelude.Maybe [InstanceCapacity],
+    -- | The number of vCPUs available for launching instances onto the Dedicated
+    -- Host.
+    availableVCpus :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AvailableCapacity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AvailableCapacity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acAvailableInstanceCapacity' - The number of instances that can be launched onto the Dedicated Host depending on the host's available capacity. For Dedicated Hosts that support multiple instance types, this parameter represents the number of instances for each instance size that is supported on the host.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acAvailableVCPUs' - The number of vCPUs available for launching instances onto the Dedicated Host.
-availableCapacity ::
+-- 'availableInstanceCapacity', 'availableCapacity_availableInstanceCapacity' - The number of instances that can be launched onto the Dedicated Host
+-- depending on the host\'s available capacity. For Dedicated Hosts that
+-- support multiple instance types, this parameter represents the number of
+-- instances for each instance size that is supported on the host.
+--
+-- 'availableVCpus', 'availableCapacity_availableVCpus' - The number of vCPUs available for launching instances onto the Dedicated
+-- Host.
+newAvailableCapacity ::
   AvailableCapacity
-availableCapacity =
+newAvailableCapacity =
   AvailableCapacity'
-    { _acAvailableInstanceCapacity =
-        Nothing,
-      _acAvailableVCPUs = Nothing
+    { availableInstanceCapacity =
+        Prelude.Nothing,
+      availableVCpus = Prelude.Nothing
     }
 
--- | The number of instances that can be launched onto the Dedicated Host depending on the host's available capacity. For Dedicated Hosts that support multiple instance types, this parameter represents the number of instances for each instance size that is supported on the host.
-acAvailableInstanceCapacity :: Lens' AvailableCapacity [InstanceCapacity]
-acAvailableInstanceCapacity = lens _acAvailableInstanceCapacity (\s a -> s {_acAvailableInstanceCapacity = a}) . _Default . _Coerce
+-- | The number of instances that can be launched onto the Dedicated Host
+-- depending on the host\'s available capacity. For Dedicated Hosts that
+-- support multiple instance types, this parameter represents the number of
+-- instances for each instance size that is supported on the host.
+availableCapacity_availableInstanceCapacity :: Lens.Lens' AvailableCapacity (Prelude.Maybe [InstanceCapacity])
+availableCapacity_availableInstanceCapacity = Lens.lens (\AvailableCapacity' {availableInstanceCapacity} -> availableInstanceCapacity) (\s@AvailableCapacity' {} a -> s {availableInstanceCapacity = a} :: AvailableCapacity) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of vCPUs available for launching instances onto the Dedicated Host.
-acAvailableVCPUs :: Lens' AvailableCapacity (Maybe Int)
-acAvailableVCPUs = lens _acAvailableVCPUs (\s a -> s {_acAvailableVCPUs = a})
+-- | The number of vCPUs available for launching instances onto the Dedicated
+-- Host.
+availableCapacity_availableVCpus :: Lens.Lens' AvailableCapacity (Prelude.Maybe Prelude.Int)
+availableCapacity_availableVCpus = Lens.lens (\AvailableCapacity' {availableVCpus} -> availableVCpus) (\s@AvailableCapacity' {} a -> s {availableVCpus = a} :: AvailableCapacity)
 
-instance FromXML AvailableCapacity where
+instance Prelude.FromXML AvailableCapacity where
   parseXML x =
     AvailableCapacity'
-      <$> ( x .@? "availableInstanceCapacity" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "availableVCpus")
+      Prelude.<$> ( x Prelude..@? "availableInstanceCapacity"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "availableVCpus")
 
-instance Hashable AvailableCapacity
+instance Prelude.Hashable AvailableCapacity
 
-instance NFData AvailableCapacity
+instance Prelude.NFData AvailableCapacity

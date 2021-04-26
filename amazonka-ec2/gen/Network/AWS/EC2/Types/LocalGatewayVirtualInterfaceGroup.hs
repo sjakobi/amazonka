@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,104 +21,97 @@ module Network.AWS.EC2.Types.LocalGatewayVirtualInterfaceGroup where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a local gateway virtual interface group.
 --
---
---
--- /See:/ 'localGatewayVirtualInterfaceGroup' smart constructor.
+-- /See:/ 'newLocalGatewayVirtualInterfaceGroup' smart constructor.
 data LocalGatewayVirtualInterfaceGroup = LocalGatewayVirtualInterfaceGroup'
-  { _lgvigLocalGatewayVirtualInterfaceIds ::
-      !( Maybe
-           [Text]
-       ),
-    _lgvigOwnerId ::
-      !( Maybe
-           Text
-       ),
-    _lgvigLocalGatewayVirtualInterfaceGroupId ::
-      !( Maybe
-           Text
-       ),
-    _lgvigLocalGatewayId ::
-      !( Maybe
-           Text
-       ),
-    _lgvigTags ::
-      !( Maybe
-           [Tag]
-       )
+  { -- | The IDs of the virtual interfaces.
+    localGatewayVirtualInterfaceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The AWS account ID that owns the local gateway virtual interface group.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the virtual interface group.
+    localGatewayVirtualInterfaceGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the local gateway.
+    localGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The tags assigned to the virtual interface group.
+    tags :: Prelude.Maybe [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LocalGatewayVirtualInterfaceGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LocalGatewayVirtualInterfaceGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgvigLocalGatewayVirtualInterfaceIds' - The IDs of the virtual interfaces.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgvigOwnerId' - The AWS account ID that owns the local gateway virtual interface group.
+-- 'localGatewayVirtualInterfaceIds', 'localGatewayVirtualInterfaceGroup_localGatewayVirtualInterfaceIds' - The IDs of the virtual interfaces.
 --
--- * 'lgvigLocalGatewayVirtualInterfaceGroupId' - The ID of the virtual interface group.
+-- 'ownerId', 'localGatewayVirtualInterfaceGroup_ownerId' - The AWS account ID that owns the local gateway virtual interface group.
 --
--- * 'lgvigLocalGatewayId' - The ID of the local gateway.
+-- 'localGatewayVirtualInterfaceGroupId', 'localGatewayVirtualInterfaceGroup_localGatewayVirtualInterfaceGroupId' - The ID of the virtual interface group.
 --
--- * 'lgvigTags' - The tags assigned to the virtual interface group.
-localGatewayVirtualInterfaceGroup ::
+-- 'localGatewayId', 'localGatewayVirtualInterfaceGroup_localGatewayId' - The ID of the local gateway.
+--
+-- 'tags', 'localGatewayVirtualInterfaceGroup_tags' - The tags assigned to the virtual interface group.
+newLocalGatewayVirtualInterfaceGroup ::
   LocalGatewayVirtualInterfaceGroup
-localGatewayVirtualInterfaceGroup =
+newLocalGatewayVirtualInterfaceGroup =
   LocalGatewayVirtualInterfaceGroup'
-    { _lgvigLocalGatewayVirtualInterfaceIds =
-        Nothing,
-      _lgvigOwnerId = Nothing,
-      _lgvigLocalGatewayVirtualInterfaceGroupId =
-        Nothing,
-      _lgvigLocalGatewayId = Nothing,
-      _lgvigTags = Nothing
+    { localGatewayVirtualInterfaceIds =
+        Prelude.Nothing,
+      ownerId = Prelude.Nothing,
+      localGatewayVirtualInterfaceGroupId =
+        Prelude.Nothing,
+      localGatewayId = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
 -- | The IDs of the virtual interfaces.
-lgvigLocalGatewayVirtualInterfaceIds :: Lens' LocalGatewayVirtualInterfaceGroup [Text]
-lgvigLocalGatewayVirtualInterfaceIds = lens _lgvigLocalGatewayVirtualInterfaceIds (\s a -> s {_lgvigLocalGatewayVirtualInterfaceIds = a}) . _Default . _Coerce
+localGatewayVirtualInterfaceGroup_localGatewayVirtualInterfaceIds :: Lens.Lens' LocalGatewayVirtualInterfaceGroup (Prelude.Maybe [Prelude.Text])
+localGatewayVirtualInterfaceGroup_localGatewayVirtualInterfaceIds = Lens.lens (\LocalGatewayVirtualInterfaceGroup' {localGatewayVirtualInterfaceIds} -> localGatewayVirtualInterfaceIds) (\s@LocalGatewayVirtualInterfaceGroup' {} a -> s {localGatewayVirtualInterfaceIds = a} :: LocalGatewayVirtualInterfaceGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The AWS account ID that owns the local gateway virtual interface group.
-lgvigOwnerId :: Lens' LocalGatewayVirtualInterfaceGroup (Maybe Text)
-lgvigOwnerId = lens _lgvigOwnerId (\s a -> s {_lgvigOwnerId = a})
+localGatewayVirtualInterfaceGroup_ownerId :: Lens.Lens' LocalGatewayVirtualInterfaceGroup (Prelude.Maybe Prelude.Text)
+localGatewayVirtualInterfaceGroup_ownerId = Lens.lens (\LocalGatewayVirtualInterfaceGroup' {ownerId} -> ownerId) (\s@LocalGatewayVirtualInterfaceGroup' {} a -> s {ownerId = a} :: LocalGatewayVirtualInterfaceGroup)
 
 -- | The ID of the virtual interface group.
-lgvigLocalGatewayVirtualInterfaceGroupId :: Lens' LocalGatewayVirtualInterfaceGroup (Maybe Text)
-lgvigLocalGatewayVirtualInterfaceGroupId = lens _lgvigLocalGatewayVirtualInterfaceGroupId (\s a -> s {_lgvigLocalGatewayVirtualInterfaceGroupId = a})
+localGatewayVirtualInterfaceGroup_localGatewayVirtualInterfaceGroupId :: Lens.Lens' LocalGatewayVirtualInterfaceGroup (Prelude.Maybe Prelude.Text)
+localGatewayVirtualInterfaceGroup_localGatewayVirtualInterfaceGroupId = Lens.lens (\LocalGatewayVirtualInterfaceGroup' {localGatewayVirtualInterfaceGroupId} -> localGatewayVirtualInterfaceGroupId) (\s@LocalGatewayVirtualInterfaceGroup' {} a -> s {localGatewayVirtualInterfaceGroupId = a} :: LocalGatewayVirtualInterfaceGroup)
 
 -- | The ID of the local gateway.
-lgvigLocalGatewayId :: Lens' LocalGatewayVirtualInterfaceGroup (Maybe Text)
-lgvigLocalGatewayId = lens _lgvigLocalGatewayId (\s a -> s {_lgvigLocalGatewayId = a})
+localGatewayVirtualInterfaceGroup_localGatewayId :: Lens.Lens' LocalGatewayVirtualInterfaceGroup (Prelude.Maybe Prelude.Text)
+localGatewayVirtualInterfaceGroup_localGatewayId = Lens.lens (\LocalGatewayVirtualInterfaceGroup' {localGatewayId} -> localGatewayId) (\s@LocalGatewayVirtualInterfaceGroup' {} a -> s {localGatewayId = a} :: LocalGatewayVirtualInterfaceGroup)
 
 -- | The tags assigned to the virtual interface group.
-lgvigTags :: Lens' LocalGatewayVirtualInterfaceGroup [Tag]
-lgvigTags = lens _lgvigTags (\s a -> s {_lgvigTags = a}) . _Default . _Coerce
+localGatewayVirtualInterfaceGroup_tags :: Lens.Lens' LocalGatewayVirtualInterfaceGroup (Prelude.Maybe [Tag])
+localGatewayVirtualInterfaceGroup_tags = Lens.lens (\LocalGatewayVirtualInterfaceGroup' {tags} -> tags) (\s@LocalGatewayVirtualInterfaceGroup' {} a -> s {tags = a} :: LocalGatewayVirtualInterfaceGroup) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML LocalGatewayVirtualInterfaceGroup where
+instance
+  Prelude.FromXML
+    LocalGatewayVirtualInterfaceGroup
+  where
   parseXML x =
     LocalGatewayVirtualInterfaceGroup'
-      <$> ( x .@? "localGatewayVirtualInterfaceIdSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "ownerId")
-      <*> (x .@? "localGatewayVirtualInterfaceGroupId")
-      <*> (x .@? "localGatewayId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> ( x Prelude..@? "localGatewayVirtualInterfaceIdSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "ownerId")
+      Prelude.<*> (x Prelude..@? "localGatewayVirtualInterfaceGroupId")
+      Prelude.<*> (x Prelude..@? "localGatewayId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable LocalGatewayVirtualInterfaceGroup
+instance
+  Prelude.Hashable
+    LocalGatewayVirtualInterfaceGroup
 
-instance NFData LocalGatewayVirtualInterfaceGroup
+instance
+  Prelude.NFData
+    LocalGatewayVirtualInterfaceGroup

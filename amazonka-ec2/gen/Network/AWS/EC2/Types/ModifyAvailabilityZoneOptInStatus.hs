@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.EC2.Types.ModifyAvailabilityZoneOptInStatus
   ( ModifyAvailabilityZoneOptInStatus
       ( ..,
-        MAZOISNotOptedIn,
-        MAZOISOptedIn
+        ModifyAvailabilityZoneOptInStatusNotOptedIn,
+        ModifyAvailabilityZoneOptInStatusOptedIn
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModifyAvailabilityZoneOptInStatus
-  = ModifyAvailabilityZoneOptInStatus'
-      ( CI
-          Text
-      )
+newtype ModifyAvailabilityZoneOptInStatus = ModifyAvailabilityZoneOptInStatus'
+  { fromModifyAvailabilityZoneOptInStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MAZOISNotOptedIn :: ModifyAvailabilityZoneOptInStatus
-pattern MAZOISNotOptedIn = ModifyAvailabilityZoneOptInStatus' "not-opted-in"
+pattern ModifyAvailabilityZoneOptInStatusNotOptedIn :: ModifyAvailabilityZoneOptInStatus
+pattern ModifyAvailabilityZoneOptInStatusNotOptedIn = ModifyAvailabilityZoneOptInStatus' "not-opted-in"
 
-pattern MAZOISOptedIn :: ModifyAvailabilityZoneOptInStatus
-pattern MAZOISOptedIn = ModifyAvailabilityZoneOptInStatus' "opted-in"
+pattern ModifyAvailabilityZoneOptInStatusOptedIn :: ModifyAvailabilityZoneOptInStatus
+pattern ModifyAvailabilityZoneOptInStatusOptedIn = ModifyAvailabilityZoneOptInStatus' "opted-in"
 
 {-# COMPLETE
-  MAZOISNotOptedIn,
-  MAZOISOptedIn,
+  ModifyAvailabilityZoneOptInStatusNotOptedIn,
+  ModifyAvailabilityZoneOptInStatusOptedIn,
   ModifyAvailabilityZoneOptInStatus'
   #-}
 
-instance FromText ModifyAvailabilityZoneOptInStatus where
-  parser = (ModifyAvailabilityZoneOptInStatus' . mk) <$> takeText
+instance Prelude.FromText ModifyAvailabilityZoneOptInStatus where
+  parser = ModifyAvailabilityZoneOptInStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ModifyAvailabilityZoneOptInStatus where
-  toText (ModifyAvailabilityZoneOptInStatus' ci) = original ci
+instance Prelude.ToText ModifyAvailabilityZoneOptInStatus where
+  toText (ModifyAvailabilityZoneOptInStatus' x) = x
 
-instance Hashable ModifyAvailabilityZoneOptInStatus
+instance Prelude.Hashable ModifyAvailabilityZoneOptInStatus
 
-instance NFData ModifyAvailabilityZoneOptInStatus
+instance Prelude.NFData ModifyAvailabilityZoneOptInStatus
 
-instance ToByteString ModifyAvailabilityZoneOptInStatus
+instance Prelude.ToByteString ModifyAvailabilityZoneOptInStatus
 
-instance ToQuery ModifyAvailabilityZoneOptInStatus
+instance Prelude.ToQuery ModifyAvailabilityZoneOptInStatus
 
-instance ToHeader ModifyAvailabilityZoneOptInStatus
+instance Prelude.ToHeader ModifyAvailabilityZoneOptInStatus

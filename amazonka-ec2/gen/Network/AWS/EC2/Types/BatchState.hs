@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +19,81 @@
 module Network.AWS.EC2.Types.BatchState
   ( BatchState
       ( ..,
-        BSActive,
-        BSCancelled,
-        BSCancelledRunning,
-        BSCancelledTerminating,
-        BSFailed,
-        BSModifying,
-        BSSubmitted
+        BatchStateActive,
+        BatchStateCancelled,
+        BatchStateCancelledRunning,
+        BatchStateCancelledTerminating,
+        BatchStateFailed,
+        BatchStateModifying,
+        BatchStateSubmitted
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BatchState = BatchState' (CI Text)
+newtype BatchState = BatchState'
+  { fromBatchState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSActive :: BatchState
-pattern BSActive = BatchState' "active"
+pattern BatchStateActive :: BatchState
+pattern BatchStateActive = BatchState' "active"
 
-pattern BSCancelled :: BatchState
-pattern BSCancelled = BatchState' "cancelled"
+pattern BatchStateCancelled :: BatchState
+pattern BatchStateCancelled = BatchState' "cancelled"
 
-pattern BSCancelledRunning :: BatchState
-pattern BSCancelledRunning = BatchState' "cancelled_running"
+pattern BatchStateCancelledRunning :: BatchState
+pattern BatchStateCancelledRunning = BatchState' "cancelled_running"
 
-pattern BSCancelledTerminating :: BatchState
-pattern BSCancelledTerminating = BatchState' "cancelled_terminating"
+pattern BatchStateCancelledTerminating :: BatchState
+pattern BatchStateCancelledTerminating = BatchState' "cancelled_terminating"
 
-pattern BSFailed :: BatchState
-pattern BSFailed = BatchState' "failed"
+pattern BatchStateFailed :: BatchState
+pattern BatchStateFailed = BatchState' "failed"
 
-pattern BSModifying :: BatchState
-pattern BSModifying = BatchState' "modifying"
+pattern BatchStateModifying :: BatchState
+pattern BatchStateModifying = BatchState' "modifying"
 
-pattern BSSubmitted :: BatchState
-pattern BSSubmitted = BatchState' "submitted"
+pattern BatchStateSubmitted :: BatchState
+pattern BatchStateSubmitted = BatchState' "submitted"
 
 {-# COMPLETE
-  BSActive,
-  BSCancelled,
-  BSCancelledRunning,
-  BSCancelledTerminating,
-  BSFailed,
-  BSModifying,
-  BSSubmitted,
+  BatchStateActive,
+  BatchStateCancelled,
+  BatchStateCancelledRunning,
+  BatchStateCancelledTerminating,
+  BatchStateFailed,
+  BatchStateModifying,
+  BatchStateSubmitted,
   BatchState'
   #-}
 
-instance FromText BatchState where
-  parser = (BatchState' . mk) <$> takeText
+instance Prelude.FromText BatchState where
+  parser = BatchState' Prelude.<$> Prelude.takeText
 
-instance ToText BatchState where
-  toText (BatchState' ci) = original ci
+instance Prelude.ToText BatchState where
+  toText (BatchState' x) = x
 
-instance Hashable BatchState
+instance Prelude.Hashable BatchState
 
-instance NFData BatchState
+instance Prelude.NFData BatchState
 
-instance ToByteString BatchState
+instance Prelude.ToByteString BatchState
 
-instance ToQuery BatchState
+instance Prelude.ToQuery BatchState
 
-instance ToHeader BatchState
+instance Prelude.ToHeader BatchState
 
-instance FromXML BatchState where
-  parseXML = parseXMLText "BatchState"
+instance Prelude.FromXML BatchState where
+  parseXML = Prelude.parseXMLText "BatchState"

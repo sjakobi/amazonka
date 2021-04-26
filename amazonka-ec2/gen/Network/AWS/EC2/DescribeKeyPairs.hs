@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,159 +23,232 @@
 --
 -- Describes the specified key pairs or all of your key pairs.
 --
---
--- For more information about key pairs, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html Key Pairs> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- For more information about key pairs, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html Key Pairs>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Network.AWS.EC2.DescribeKeyPairs
   ( -- * Creating a Request
-    describeKeyPairs,
-    DescribeKeyPairs,
+    DescribeKeyPairs (..),
+    newDescribeKeyPairs,
 
     -- * Request Lenses
-    dkpsDryRun,
-    dkpsKeyPairIds,
-    dkpsFilters,
-    dkpsKeyNames,
+    describeKeyPairs_dryRun,
+    describeKeyPairs_keyPairIds,
+    describeKeyPairs_filters,
+    describeKeyPairs_keyNames,
 
     -- * Destructuring the Response
-    describeKeyPairsResponse,
-    DescribeKeyPairsResponse,
+    DescribeKeyPairsResponse (..),
+    newDescribeKeyPairsResponse,
 
     -- * Response Lenses
-    dkprrsKeyPairs,
-    dkprrsResponseStatus,
+    describeKeyPairsResponse_keyPairs,
+    describeKeyPairsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.KeyPairInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeKeyPairs' smart constructor.
+-- | /See:/ 'newDescribeKeyPairs' smart constructor.
 data DescribeKeyPairs = DescribeKeyPairs'
-  { _dkpsDryRun ::
-      !(Maybe Bool),
-    _dkpsKeyPairIds :: !(Maybe [Text]),
-    _dkpsFilters :: !(Maybe [Filter]),
-    _dkpsKeyNames :: !(Maybe [Text])
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the key pairs.
+    keyPairIds :: Prelude.Maybe [Prelude.Text],
+    -- | The filters.
+    --
+    -- -   @key-pair-id@ - The ID of the key pair.
+    --
+    -- -   @fingerprint@ - The fingerprint of the key pair.
+    --
+    -- -   @key-name@ - The name of the key pair.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    filters :: Prelude.Maybe [Filter],
+    -- | The key pair names.
+    --
+    -- Default: Describes all your key pairs.
+    keyNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeKeyPairs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeKeyPairs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dkpsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dkpsKeyPairIds' - The IDs of the key pairs.
+-- 'dryRun', 'describeKeyPairs_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dkpsFilters' - The filters.     * @key-pair-id@ - The ID of the key pair.     * @fingerprint@ - The fingerprint of the key pair.     * @key-name@ - The name of the key pair.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.
+-- 'keyPairIds', 'describeKeyPairs_keyPairIds' - The IDs of the key pairs.
 --
--- * 'dkpsKeyNames' - The key pair names. Default: Describes all your key pairs.
-describeKeyPairs ::
+-- 'filters', 'describeKeyPairs_filters' - The filters.
+--
+-- -   @key-pair-id@ - The ID of the key pair.
+--
+-- -   @fingerprint@ - The fingerprint of the key pair.
+--
+-- -   @key-name@ - The name of the key pair.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- 'keyNames', 'describeKeyPairs_keyNames' - The key pair names.
+--
+-- Default: Describes all your key pairs.
+newDescribeKeyPairs ::
   DescribeKeyPairs
-describeKeyPairs =
+newDescribeKeyPairs =
   DescribeKeyPairs'
-    { _dkpsDryRun = Nothing,
-      _dkpsKeyPairIds = Nothing,
-      _dkpsFilters = Nothing,
-      _dkpsKeyNames = Nothing
+    { dryRun = Prelude.Nothing,
+      keyPairIds = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      keyNames = Prelude.Nothing
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dkpsDryRun :: Lens' DescribeKeyPairs (Maybe Bool)
-dkpsDryRun = lens _dkpsDryRun (\s a -> s {_dkpsDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeKeyPairs_dryRun :: Lens.Lens' DescribeKeyPairs (Prelude.Maybe Prelude.Bool)
+describeKeyPairs_dryRun = Lens.lens (\DescribeKeyPairs' {dryRun} -> dryRun) (\s@DescribeKeyPairs' {} a -> s {dryRun = a} :: DescribeKeyPairs)
 
 -- | The IDs of the key pairs.
-dkpsKeyPairIds :: Lens' DescribeKeyPairs [Text]
-dkpsKeyPairIds = lens _dkpsKeyPairIds (\s a -> s {_dkpsKeyPairIds = a}) . _Default . _Coerce
+describeKeyPairs_keyPairIds :: Lens.Lens' DescribeKeyPairs (Prelude.Maybe [Prelude.Text])
+describeKeyPairs_keyPairIds = Lens.lens (\DescribeKeyPairs' {keyPairIds} -> keyPairIds) (\s@DescribeKeyPairs' {} a -> s {keyPairIds = a} :: DescribeKeyPairs) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The filters.     * @key-pair-id@ - The ID of the key pair.     * @fingerprint@ - The fingerprint of the key pair.     * @key-name@ - The name of the key pair.     * @tag-key@ - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.     * @tag@ :<key> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key @Owner@ and the value @TeamA@ , specify @tag:Owner@ for the filter name and @TeamA@ for the filter value.
-dkpsFilters :: Lens' DescribeKeyPairs [Filter]
-dkpsFilters = lens _dkpsFilters (\s a -> s {_dkpsFilters = a}) . _Default . _Coerce
+-- | The filters.
+--
+-- -   @key-pair-id@ - The ID of the key pair.
+--
+-- -   @fingerprint@ - The fingerprint of the key pair.
+--
+-- -   @key-name@ - The name of the key pair.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+describeKeyPairs_filters :: Lens.Lens' DescribeKeyPairs (Prelude.Maybe [Filter])
+describeKeyPairs_filters = Lens.lens (\DescribeKeyPairs' {filters} -> filters) (\s@DescribeKeyPairs' {} a -> s {filters = a} :: DescribeKeyPairs) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The key pair names. Default: Describes all your key pairs.
-dkpsKeyNames :: Lens' DescribeKeyPairs [Text]
-dkpsKeyNames = lens _dkpsKeyNames (\s a -> s {_dkpsKeyNames = a}) . _Default . _Coerce
+-- | The key pair names.
+--
+-- Default: Describes all your key pairs.
+describeKeyPairs_keyNames :: Lens.Lens' DescribeKeyPairs (Prelude.Maybe [Prelude.Text])
+describeKeyPairs_keyNames = Lens.lens (\DescribeKeyPairs' {keyNames} -> keyNames) (\s@DescribeKeyPairs' {} a -> s {keyNames = a} :: DescribeKeyPairs) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeKeyPairs where
+instance Prelude.AWSRequest DescribeKeyPairs where
   type Rs DescribeKeyPairs = DescribeKeyPairsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeKeyPairsResponse'
-            <$> ( x .@? "keySet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "keySet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeKeyPairs
+instance Prelude.Hashable DescribeKeyPairs
 
-instance NFData DescribeKeyPairs
+instance Prelude.NFData DescribeKeyPairs
 
-instance ToHeaders DescribeKeyPairs where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeKeyPairs where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeKeyPairs where
-  toPath = const "/"
+instance Prelude.ToPath DescribeKeyPairs where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeKeyPairs where
+instance Prelude.ToQuery DescribeKeyPairs where
   toQuery DescribeKeyPairs' {..} =
-    mconcat
-      [ "Action" =: ("DescribeKeyPairs" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dkpsDryRun,
-        toQuery
-          (toQueryList "KeyPairId" <$> _dkpsKeyPairIds),
-        toQuery (toQueryList "Filter" <$> _dkpsFilters),
-        toQuery (toQueryList "KeyName" <$> _dkpsKeyNames)
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeKeyPairs" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        Prelude.toQuery
+          ( Prelude.toQueryList "KeyPairId"
+              Prelude.<$> keyPairIds
+          ),
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        Prelude.toQuery
+          (Prelude.toQueryList "KeyName" Prelude.<$> keyNames)
       ]
 
--- | /See:/ 'describeKeyPairsResponse' smart constructor.
+-- | /See:/ 'newDescribeKeyPairsResponse' smart constructor.
 data DescribeKeyPairsResponse = DescribeKeyPairsResponse'
-  { _dkprrsKeyPairs ::
-      !( Maybe
-           [KeyPairInfo]
-       ),
-    _dkprrsResponseStatus ::
-      !Int
+  { -- | Information about the key pairs.
+    keyPairs :: Prelude.Maybe [KeyPairInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeKeyPairsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeKeyPairsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dkprrsKeyPairs' - Information about the key pairs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dkprrsResponseStatus' - -- | The response status code.
-describeKeyPairsResponse ::
-  -- | 'dkprrsResponseStatus'
-  Int ->
+-- 'keyPairs', 'describeKeyPairsResponse_keyPairs' - Information about the key pairs.
+--
+-- 'httpStatus', 'describeKeyPairsResponse_httpStatus' - The response's http status code.
+newDescribeKeyPairsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeKeyPairsResponse
-describeKeyPairsResponse pResponseStatus_ =
+newDescribeKeyPairsResponse pHttpStatus_ =
   DescribeKeyPairsResponse'
-    { _dkprrsKeyPairs =
-        Nothing,
-      _dkprrsResponseStatus = pResponseStatus_
+    { keyPairs =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the key pairs.
-dkprrsKeyPairs :: Lens' DescribeKeyPairsResponse [KeyPairInfo]
-dkprrsKeyPairs = lens _dkprrsKeyPairs (\s a -> s {_dkprrsKeyPairs = a}) . _Default . _Coerce
+describeKeyPairsResponse_keyPairs :: Lens.Lens' DescribeKeyPairsResponse (Prelude.Maybe [KeyPairInfo])
+describeKeyPairsResponse_keyPairs = Lens.lens (\DescribeKeyPairsResponse' {keyPairs} -> keyPairs) (\s@DescribeKeyPairsResponse' {} a -> s {keyPairs = a} :: DescribeKeyPairsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dkprrsResponseStatus :: Lens' DescribeKeyPairsResponse Int
-dkprrsResponseStatus = lens _dkprrsResponseStatus (\s a -> s {_dkprrsResponseStatus = a})
+-- | The response's http status code.
+describeKeyPairsResponse_httpStatus :: Lens.Lens' DescribeKeyPairsResponse Prelude.Int
+describeKeyPairsResponse_httpStatus = Lens.lens (\DescribeKeyPairsResponse' {httpStatus} -> httpStatus) (\s@DescribeKeyPairsResponse' {} a -> s {httpStatus = a} :: DescribeKeyPairsResponse)
 
-instance NFData DescribeKeyPairsResponse
+instance Prelude.NFData DescribeKeyPairsResponse

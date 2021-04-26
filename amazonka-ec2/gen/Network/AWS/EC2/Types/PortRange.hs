@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,48 +20,58 @@
 module Network.AWS.EC2.Types.PortRange where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a range of ports.
 --
---
---
--- /See:/ 'portRange' smart constructor.
+-- /See:/ 'newPortRange' smart constructor.
 data PortRange = PortRange'
-  { _prTo :: !(Maybe Int),
-    _prFrom :: !(Maybe Int)
+  { -- | The last port in the range.
+    to :: Prelude.Maybe Prelude.Int,
+    -- | The first port in the range.
+    from :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PortRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PortRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prTo' - The last port in the range.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prFrom' - The first port in the range.
-portRange ::
+-- 'to', 'portRange_to' - The last port in the range.
+--
+-- 'from', 'portRange_from' - The first port in the range.
+newPortRange ::
   PortRange
-portRange =
-  PortRange' {_prTo = Nothing, _prFrom = Nothing}
+newPortRange =
+  PortRange'
+    { to = Prelude.Nothing,
+      from = Prelude.Nothing
+    }
 
 -- | The last port in the range.
-prTo :: Lens' PortRange (Maybe Int)
-prTo = lens _prTo (\s a -> s {_prTo = a})
+portRange_to :: Lens.Lens' PortRange (Prelude.Maybe Prelude.Int)
+portRange_to = Lens.lens (\PortRange' {to} -> to) (\s@PortRange' {} a -> s {to = a} :: PortRange)
 
 -- | The first port in the range.
-prFrom :: Lens' PortRange (Maybe Int)
-prFrom = lens _prFrom (\s a -> s {_prFrom = a})
+portRange_from :: Lens.Lens' PortRange (Prelude.Maybe Prelude.Int)
+portRange_from = Lens.lens (\PortRange' {from} -> from) (\s@PortRange' {} a -> s {from = a} :: PortRange)
 
-instance FromXML PortRange where
+instance Prelude.FromXML PortRange where
   parseXML x =
-    PortRange' <$> (x .@? "to") <*> (x .@? "from")
+    PortRange'
+      Prelude.<$> (x Prelude..@? "to")
+      Prelude.<*> (x Prelude..@? "from")
 
-instance Hashable PortRange
+instance Prelude.Hashable PortRange
 
-instance NFData PortRange
+instance Prelude.NFData PortRange
 
-instance ToQuery PortRange where
+instance Prelude.ToQuery PortRange where
   toQuery PortRange' {..} =
-    mconcat ["To" =: _prTo, "From" =: _prFrom]
+    Prelude.mconcat
+      ["To" Prelude.=: to, "From" Prelude.=: from]

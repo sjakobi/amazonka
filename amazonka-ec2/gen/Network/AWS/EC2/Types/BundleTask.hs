@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,63 +23,72 @@ import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.BundleTaskError
 import Network.AWS.EC2.Types.BundleTaskState
 import Network.AWS.EC2.Types.Storage
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a bundle task.
 --
---
---
--- /See:/ 'bundleTask' smart constructor.
+-- /See:/ 'newBundleTask' smart constructor.
 data BundleTask = BundleTask'
-  { _btBundleTaskError ::
-      !(Maybe BundleTaskError),
-    _btBundleId :: !Text,
-    _btInstanceId :: !Text,
-    _btProgress :: !Text,
-    _btStartTime :: !ISO8601,
-    _btState :: !BundleTaskState,
-    _btStorage :: !Storage,
-    _btUpdateTime :: !ISO8601
+  { -- | If the task fails, a description of the error.
+    bundleTaskError :: Prelude.Maybe BundleTaskError,
+    -- | The ID of the bundle task.
+    bundleId :: Prelude.Text,
+    -- | The ID of the instance associated with this bundle task.
+    instanceId :: Prelude.Text,
+    -- | The level of task completion, as a percent (for example, 20%).
+    progress :: Prelude.Text,
+    -- | The time this task started.
+    startTime :: Prelude.ISO8601,
+    -- | The state of the task.
+    state :: BundleTaskState,
+    -- | The Amazon S3 storage locations.
+    storage :: Storage,
+    -- | The time of the most recent update for the task.
+    updateTime :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BundleTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BundleTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'btBundleTaskError' - If the task fails, a description of the error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'btBundleId' - The ID of the bundle task.
+-- 'bundleTaskError', 'bundleTask_bundleTaskError' - If the task fails, a description of the error.
 --
--- * 'btInstanceId' - The ID of the instance associated with this bundle task.
+-- 'bundleId', 'bundleTask_bundleId' - The ID of the bundle task.
 --
--- * 'btProgress' - The level of task completion, as a percent (for example, 20%).
+-- 'instanceId', 'bundleTask_instanceId' - The ID of the instance associated with this bundle task.
 --
--- * 'btStartTime' - The time this task started.
+-- 'progress', 'bundleTask_progress' - The level of task completion, as a percent (for example, 20%).
 --
--- * 'btState' - The state of the task.
+-- 'startTime', 'bundleTask_startTime' - The time this task started.
 --
--- * 'btStorage' - The Amazon S3 storage locations.
+-- 'state', 'bundleTask_state' - The state of the task.
 --
--- * 'btUpdateTime' - The time of the most recent update for the task.
-bundleTask ::
-  -- | 'btBundleId'
-  Text ->
-  -- | 'btInstanceId'
-  Text ->
-  -- | 'btProgress'
-  Text ->
-  -- | 'btStartTime'
-  UTCTime ->
-  -- | 'btState'
+-- 'storage', 'bundleTask_storage' - The Amazon S3 storage locations.
+--
+-- 'updateTime', 'bundleTask_updateTime' - The time of the most recent update for the task.
+newBundleTask ::
+  -- | 'bundleId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'progress'
+  Prelude.Text ->
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'state'
   BundleTaskState ->
-  -- | 'btStorage'
+  -- | 'storage'
   Storage ->
-  -- | 'btUpdateTime'
-  UTCTime ->
+  -- | 'updateTime'
+  Prelude.UTCTime ->
   BundleTask
-bundleTask
+newBundleTask
   pBundleId_
   pInstanceId_
   pProgress_
@@ -84,60 +97,60 @@ bundleTask
   pStorage_
   pUpdateTime_ =
     BundleTask'
-      { _btBundleTaskError = Nothing,
-        _btBundleId = pBundleId_,
-        _btInstanceId = pInstanceId_,
-        _btProgress = pProgress_,
-        _btStartTime = _Time # pStartTime_,
-        _btState = pState_,
-        _btStorage = pStorage_,
-        _btUpdateTime = _Time # pUpdateTime_
+      { bundleTaskError = Prelude.Nothing,
+        bundleId = pBundleId_,
+        instanceId = pInstanceId_,
+        progress = pProgress_,
+        startTime = Prelude._Time Lens.# pStartTime_,
+        state = pState_,
+        storage = pStorage_,
+        updateTime = Prelude._Time Lens.# pUpdateTime_
       }
 
 -- | If the task fails, a description of the error.
-btBundleTaskError :: Lens' BundleTask (Maybe BundleTaskError)
-btBundleTaskError = lens _btBundleTaskError (\s a -> s {_btBundleTaskError = a})
+bundleTask_bundleTaskError :: Lens.Lens' BundleTask (Prelude.Maybe BundleTaskError)
+bundleTask_bundleTaskError = Lens.lens (\BundleTask' {bundleTaskError} -> bundleTaskError) (\s@BundleTask' {} a -> s {bundleTaskError = a} :: BundleTask)
 
 -- | The ID of the bundle task.
-btBundleId :: Lens' BundleTask Text
-btBundleId = lens _btBundleId (\s a -> s {_btBundleId = a})
+bundleTask_bundleId :: Lens.Lens' BundleTask Prelude.Text
+bundleTask_bundleId = Lens.lens (\BundleTask' {bundleId} -> bundleId) (\s@BundleTask' {} a -> s {bundleId = a} :: BundleTask)
 
 -- | The ID of the instance associated with this bundle task.
-btInstanceId :: Lens' BundleTask Text
-btInstanceId = lens _btInstanceId (\s a -> s {_btInstanceId = a})
+bundleTask_instanceId :: Lens.Lens' BundleTask Prelude.Text
+bundleTask_instanceId = Lens.lens (\BundleTask' {instanceId} -> instanceId) (\s@BundleTask' {} a -> s {instanceId = a} :: BundleTask)
 
 -- | The level of task completion, as a percent (for example, 20%).
-btProgress :: Lens' BundleTask Text
-btProgress = lens _btProgress (\s a -> s {_btProgress = a})
+bundleTask_progress :: Lens.Lens' BundleTask Prelude.Text
+bundleTask_progress = Lens.lens (\BundleTask' {progress} -> progress) (\s@BundleTask' {} a -> s {progress = a} :: BundleTask)
 
 -- | The time this task started.
-btStartTime :: Lens' BundleTask UTCTime
-btStartTime = lens _btStartTime (\s a -> s {_btStartTime = a}) . _Time
+bundleTask_startTime :: Lens.Lens' BundleTask Prelude.UTCTime
+bundleTask_startTime = Lens.lens (\BundleTask' {startTime} -> startTime) (\s@BundleTask' {} a -> s {startTime = a} :: BundleTask) Prelude.. Prelude._Time
 
 -- | The state of the task.
-btState :: Lens' BundleTask BundleTaskState
-btState = lens _btState (\s a -> s {_btState = a})
+bundleTask_state :: Lens.Lens' BundleTask BundleTaskState
+bundleTask_state = Lens.lens (\BundleTask' {state} -> state) (\s@BundleTask' {} a -> s {state = a} :: BundleTask)
 
 -- | The Amazon S3 storage locations.
-btStorage :: Lens' BundleTask Storage
-btStorage = lens _btStorage (\s a -> s {_btStorage = a})
+bundleTask_storage :: Lens.Lens' BundleTask Storage
+bundleTask_storage = Lens.lens (\BundleTask' {storage} -> storage) (\s@BundleTask' {} a -> s {storage = a} :: BundleTask)
 
 -- | The time of the most recent update for the task.
-btUpdateTime :: Lens' BundleTask UTCTime
-btUpdateTime = lens _btUpdateTime (\s a -> s {_btUpdateTime = a}) . _Time
+bundleTask_updateTime :: Lens.Lens' BundleTask Prelude.UTCTime
+bundleTask_updateTime = Lens.lens (\BundleTask' {updateTime} -> updateTime) (\s@BundleTask' {} a -> s {updateTime = a} :: BundleTask) Prelude.. Prelude._Time
 
-instance FromXML BundleTask where
+instance Prelude.FromXML BundleTask where
   parseXML x =
     BundleTask'
-      <$> (x .@? "error")
-      <*> (x .@ "bundleId")
-      <*> (x .@ "instanceId")
-      <*> (x .@ "progress")
-      <*> (x .@ "startTime")
-      <*> (x .@ "state")
-      <*> (x .@ "storage")
-      <*> (x .@ "updateTime")
+      Prelude.<$> (x Prelude..@? "error")
+      Prelude.<*> (x Prelude..@ "bundleId")
+      Prelude.<*> (x Prelude..@ "instanceId")
+      Prelude.<*> (x Prelude..@ "progress")
+      Prelude.<*> (x Prelude..@ "startTime")
+      Prelude.<*> (x Prelude..@ "state")
+      Prelude.<*> (x Prelude..@ "storage")
+      Prelude.<*> (x Prelude..@ "updateTime")
 
-instance Hashable BundleTask
+instance Prelude.Hashable BundleTask
 
-instance NFData BundleTask
+instance Prelude.NFData BundleTask

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.EC2.Types.HostTenancy
   ( HostTenancy
       ( ..,
-        HTDedicated,
-        HTHost
+        HostTenancyDedicated,
+        HostTenancyHost
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HostTenancy = HostTenancy' (CI Text)
+newtype HostTenancy = HostTenancy'
+  { fromHostTenancy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTDedicated :: HostTenancy
-pattern HTDedicated = HostTenancy' "dedicated"
+pattern HostTenancyDedicated :: HostTenancy
+pattern HostTenancyDedicated = HostTenancy' "dedicated"
 
-pattern HTHost :: HostTenancy
-pattern HTHost = HostTenancy' "host"
+pattern HostTenancyHost :: HostTenancy
+pattern HostTenancyHost = HostTenancy' "host"
 
 {-# COMPLETE
-  HTDedicated,
-  HTHost,
+  HostTenancyDedicated,
+  HostTenancyHost,
   HostTenancy'
   #-}
 
-instance FromText HostTenancy where
-  parser = (HostTenancy' . mk) <$> takeText
+instance Prelude.FromText HostTenancy where
+  parser = HostTenancy' Prelude.<$> Prelude.takeText
 
-instance ToText HostTenancy where
-  toText (HostTenancy' ci) = original ci
+instance Prelude.ToText HostTenancy where
+  toText (HostTenancy' x) = x
 
-instance Hashable HostTenancy
+instance Prelude.Hashable HostTenancy
 
-instance NFData HostTenancy
+instance Prelude.NFData HostTenancy
 
-instance ToByteString HostTenancy
+instance Prelude.ToByteString HostTenancy
 
-instance ToQuery HostTenancy
+instance Prelude.ToQuery HostTenancy
 
-instance ToHeader HostTenancy
+instance Prelude.ToHeader HostTenancy

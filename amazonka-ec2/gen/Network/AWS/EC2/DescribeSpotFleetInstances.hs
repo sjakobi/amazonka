@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,218 +23,246 @@
 --
 -- Describes the running instances for the specified Spot Fleet.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeSpotFleetInstances
   ( -- * Creating a Request
-    describeSpotFleetInstances,
-    DescribeSpotFleetInstances,
+    DescribeSpotFleetInstances (..),
+    newDescribeSpotFleetInstances,
 
     -- * Request Lenses
-    dsfiNextToken,
-    dsfiDryRun,
-    dsfiMaxResults,
-    dsfiSpotFleetRequestId,
+    describeSpotFleetInstances_nextToken,
+    describeSpotFleetInstances_dryRun,
+    describeSpotFleetInstances_maxResults,
+    describeSpotFleetInstances_spotFleetRequestId,
 
     -- * Destructuring the Response
-    describeSpotFleetInstancesResponse,
-    DescribeSpotFleetInstancesResponse,
+    DescribeSpotFleetInstancesResponse (..),
+    newDescribeSpotFleetInstancesResponse,
 
     -- * Response Lenses
-    dsfirrsNextToken,
-    dsfirrsActiveInstances,
-    dsfirrsSpotFleetRequestId,
-    dsfirrsResponseStatus,
+    describeSpotFleetInstancesResponse_nextToken,
+    describeSpotFleetInstancesResponse_activeInstances,
+    describeSpotFleetInstancesResponse_spotFleetRequestId,
+    describeSpotFleetInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ActiveInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DescribeSpotFleetInstances.
 --
---
---
--- /See:/ 'describeSpotFleetInstances' smart constructor.
+-- /See:/ 'newDescribeSpotFleetInstances' smart constructor.
 data DescribeSpotFleetInstances = DescribeSpotFleetInstances'
-  { _dsfiNextToken ::
-      !(Maybe Text),
-    _dsfiDryRun ::
-      !(Maybe Bool),
-    _dsfiMaxResults ::
-      !(Maybe Nat),
-    _dsfiSpotFleetRequestId ::
-      !Text
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return in a single call. Specify a
+    -- value between 1 and 1000. The default value is 1000. To retrieve the
+    -- remaining results, make another call with the returned @NextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the Spot Fleet request.
+    spotFleetRequestId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSpotFleetInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSpotFleetInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsfiNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsfiDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeSpotFleetInstances_nextToken' - The token for the next set of results.
 --
--- * 'dsfiMaxResults' - The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value is 1000. To retrieve the remaining results, make another call with the returned @NextToken@ value.
+-- 'dryRun', 'describeSpotFleetInstances_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dsfiSpotFleetRequestId' - The ID of the Spot Fleet request.
-describeSpotFleetInstances ::
-  -- | 'dsfiSpotFleetRequestId'
-  Text ->
+-- 'maxResults', 'describeSpotFleetInstances_maxResults' - The maximum number of results to return in a single call. Specify a
+-- value between 1 and 1000. The default value is 1000. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
+--
+-- 'spotFleetRequestId', 'describeSpotFleetInstances_spotFleetRequestId' - The ID of the Spot Fleet request.
+newDescribeSpotFleetInstances ::
+  -- | 'spotFleetRequestId'
+  Prelude.Text ->
   DescribeSpotFleetInstances
-describeSpotFleetInstances pSpotFleetRequestId_ =
+newDescribeSpotFleetInstances pSpotFleetRequestId_ =
   DescribeSpotFleetInstances'
-    { _dsfiNextToken =
-        Nothing,
-      _dsfiDryRun = Nothing,
-      _dsfiMaxResults = Nothing,
-      _dsfiSpotFleetRequestId = pSpotFleetRequestId_
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      spotFleetRequestId = pSpotFleetRequestId_
     }
 
 -- | The token for the next set of results.
-dsfiNextToken :: Lens' DescribeSpotFleetInstances (Maybe Text)
-dsfiNextToken = lens _dsfiNextToken (\s a -> s {_dsfiNextToken = a})
+describeSpotFleetInstances_nextToken :: Lens.Lens' DescribeSpotFleetInstances (Prelude.Maybe Prelude.Text)
+describeSpotFleetInstances_nextToken = Lens.lens (\DescribeSpotFleetInstances' {nextToken} -> nextToken) (\s@DescribeSpotFleetInstances' {} a -> s {nextToken = a} :: DescribeSpotFleetInstances)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dsfiDryRun :: Lens' DescribeSpotFleetInstances (Maybe Bool)
-dsfiDryRun = lens _dsfiDryRun (\s a -> s {_dsfiDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeSpotFleetInstances_dryRun :: Lens.Lens' DescribeSpotFleetInstances (Prelude.Maybe Prelude.Bool)
+describeSpotFleetInstances_dryRun = Lens.lens (\DescribeSpotFleetInstances' {dryRun} -> dryRun) (\s@DescribeSpotFleetInstances' {} a -> s {dryRun = a} :: DescribeSpotFleetInstances)
 
--- | The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value is 1000. To retrieve the remaining results, make another call with the returned @NextToken@ value.
-dsfiMaxResults :: Lens' DescribeSpotFleetInstances (Maybe Natural)
-dsfiMaxResults = lens _dsfiMaxResults (\s a -> s {_dsfiMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in a single call. Specify a
+-- value between 1 and 1000. The default value is 1000. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
+describeSpotFleetInstances_maxResults :: Lens.Lens' DescribeSpotFleetInstances (Prelude.Maybe Prelude.Natural)
+describeSpotFleetInstances_maxResults = Lens.lens (\DescribeSpotFleetInstances' {maxResults} -> maxResults) (\s@DescribeSpotFleetInstances' {} a -> s {maxResults = a} :: DescribeSpotFleetInstances) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ID of the Spot Fleet request.
-dsfiSpotFleetRequestId :: Lens' DescribeSpotFleetInstances Text
-dsfiSpotFleetRequestId = lens _dsfiSpotFleetRequestId (\s a -> s {_dsfiSpotFleetRequestId = a})
+describeSpotFleetInstances_spotFleetRequestId :: Lens.Lens' DescribeSpotFleetInstances Prelude.Text
+describeSpotFleetInstances_spotFleetRequestId = Lens.lens (\DescribeSpotFleetInstances' {spotFleetRequestId} -> spotFleetRequestId) (\s@DescribeSpotFleetInstances' {} a -> s {spotFleetRequestId = a} :: DescribeSpotFleetInstances)
 
-instance AWSPager DescribeSpotFleetInstances where
+instance Pager.AWSPager DescribeSpotFleetInstances where
   page rq rs
-    | stop (rs ^. dsfirrsNextToken) = Nothing
-    | stop (rs ^. dsfirrsActiveInstances) = Nothing
-    | otherwise =
-      Just $ rq & dsfiNextToken .~ rs ^. dsfirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeSpotFleetInstancesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSpotFleetInstancesResponse_activeInstances
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSpotFleetInstances_nextToken
+          Lens..~ rs
+          Lens.^? describeSpotFleetInstancesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeSpotFleetInstances where
+instance
+  Prelude.AWSRequest
+    DescribeSpotFleetInstances
+  where
   type
     Rs DescribeSpotFleetInstances =
       DescribeSpotFleetInstancesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeSpotFleetInstancesResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "activeInstanceSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (x .@? "spotFleetRequestId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "activeInstanceSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (x Prelude..@? "spotFleetRequestId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSpotFleetInstances
+instance Prelude.Hashable DescribeSpotFleetInstances
 
-instance NFData DescribeSpotFleetInstances
+instance Prelude.NFData DescribeSpotFleetInstances
 
-instance ToHeaders DescribeSpotFleetInstances where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSpotFleetInstances where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSpotFleetInstances where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSpotFleetInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSpotFleetInstances where
+instance Prelude.ToQuery DescribeSpotFleetInstances where
   toQuery DescribeSpotFleetInstances' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeSpotFleetInstances" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dsfiNextToken,
-        "DryRun" =: _dsfiDryRun,
-        "MaxResults" =: _dsfiMaxResults,
-        "SpotFleetRequestId" =: _dsfiSpotFleetRequestId
+          Prelude.=: ("DescribeSpotFleetInstances" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        "SpotFleetRequestId" Prelude.=: spotFleetRequestId
       ]
 
 -- | Contains the output of DescribeSpotFleetInstances.
 --
---
---
--- /See:/ 'describeSpotFleetInstancesResponse' smart constructor.
+-- /See:/ 'newDescribeSpotFleetInstancesResponse' smart constructor.
 data DescribeSpotFleetInstancesResponse = DescribeSpotFleetInstancesResponse'
-  { _dsfirrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsfirrsActiveInstances ::
-      !( Maybe
-           [ActiveInstance]
-       ),
-    _dsfirrsSpotFleetRequestId ::
-      !( Maybe
-           Text
-       ),
-    _dsfirrsResponseStatus ::
-      !Int
+  { -- | The token required to retrieve the next set of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The running instances. This list is refreshed periodically and might be
+    -- out of date.
+    activeInstances :: Prelude.Maybe [ActiveInstance],
+    -- | The ID of the Spot Fleet request.
+    spotFleetRequestId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSpotFleetInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSpotFleetInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsfirrsNextToken' - The token required to retrieve the next set of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsfirrsActiveInstances' - The running instances. This list is refreshed periodically and might be out of date.
+-- 'nextToken', 'describeSpotFleetInstancesResponse_nextToken' - The token required to retrieve the next set of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dsfirrsSpotFleetRequestId' - The ID of the Spot Fleet request.
+-- 'activeInstances', 'describeSpotFleetInstancesResponse_activeInstances' - The running instances. This list is refreshed periodically and might be
+-- out of date.
 --
--- * 'dsfirrsResponseStatus' - -- | The response status code.
-describeSpotFleetInstancesResponse ::
-  -- | 'dsfirrsResponseStatus'
-  Int ->
+-- 'spotFleetRequestId', 'describeSpotFleetInstancesResponse_spotFleetRequestId' - The ID of the Spot Fleet request.
+--
+-- 'httpStatus', 'describeSpotFleetInstancesResponse_httpStatus' - The response's http status code.
+newDescribeSpotFleetInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSpotFleetInstancesResponse
-describeSpotFleetInstancesResponse pResponseStatus_ =
+newDescribeSpotFleetInstancesResponse pHttpStatus_ =
   DescribeSpotFleetInstancesResponse'
-    { _dsfirrsNextToken =
-        Nothing,
-      _dsfirrsActiveInstances = Nothing,
-      _dsfirrsSpotFleetRequestId = Nothing,
-      _dsfirrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      activeInstances = Prelude.Nothing,
+      spotFleetRequestId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token required to retrieve the next set of results. This value is @null@ when there are no more results to return.
-dsfirrsNextToken :: Lens' DescribeSpotFleetInstancesResponse (Maybe Text)
-dsfirrsNextToken = lens _dsfirrsNextToken (\s a -> s {_dsfirrsNextToken = a})
+-- | The token required to retrieve the next set of results. This value is
+-- @null@ when there are no more results to return.
+describeSpotFleetInstancesResponse_nextToken :: Lens.Lens' DescribeSpotFleetInstancesResponse (Prelude.Maybe Prelude.Text)
+describeSpotFleetInstancesResponse_nextToken = Lens.lens (\DescribeSpotFleetInstancesResponse' {nextToken} -> nextToken) (\s@DescribeSpotFleetInstancesResponse' {} a -> s {nextToken = a} :: DescribeSpotFleetInstancesResponse)
 
--- | The running instances. This list is refreshed periodically and might be out of date.
-dsfirrsActiveInstances :: Lens' DescribeSpotFleetInstancesResponse [ActiveInstance]
-dsfirrsActiveInstances = lens _dsfirrsActiveInstances (\s a -> s {_dsfirrsActiveInstances = a}) . _Default . _Coerce
+-- | The running instances. This list is refreshed periodically and might be
+-- out of date.
+describeSpotFleetInstancesResponse_activeInstances :: Lens.Lens' DescribeSpotFleetInstancesResponse (Prelude.Maybe [ActiveInstance])
+describeSpotFleetInstancesResponse_activeInstances = Lens.lens (\DescribeSpotFleetInstancesResponse' {activeInstances} -> activeInstances) (\s@DescribeSpotFleetInstancesResponse' {} a -> s {activeInstances = a} :: DescribeSpotFleetInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the Spot Fleet request.
-dsfirrsSpotFleetRequestId :: Lens' DescribeSpotFleetInstancesResponse (Maybe Text)
-dsfirrsSpotFleetRequestId = lens _dsfirrsSpotFleetRequestId (\s a -> s {_dsfirrsSpotFleetRequestId = a})
+describeSpotFleetInstancesResponse_spotFleetRequestId :: Lens.Lens' DescribeSpotFleetInstancesResponse (Prelude.Maybe Prelude.Text)
+describeSpotFleetInstancesResponse_spotFleetRequestId = Lens.lens (\DescribeSpotFleetInstancesResponse' {spotFleetRequestId} -> spotFleetRequestId) (\s@DescribeSpotFleetInstancesResponse' {} a -> s {spotFleetRequestId = a} :: DescribeSpotFleetInstancesResponse)
 
--- | -- | The response status code.
-dsfirrsResponseStatus :: Lens' DescribeSpotFleetInstancesResponse Int
-dsfirrsResponseStatus = lens _dsfirrsResponseStatus (\s a -> s {_dsfirrsResponseStatus = a})
+-- | The response's http status code.
+describeSpotFleetInstancesResponse_httpStatus :: Lens.Lens' DescribeSpotFleetInstancesResponse Prelude.Int
+describeSpotFleetInstancesResponse_httpStatus = Lens.lens (\DescribeSpotFleetInstancesResponse' {httpStatus} -> httpStatus) (\s@DescribeSpotFleetInstancesResponse' {} a -> s {httpStatus = a} :: DescribeSpotFleetInstancesResponse)
 
-instance NFData DescribeSpotFleetInstancesResponse
+instance
+  Prelude.NFData
+    DescribeSpotFleetInstancesResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,97 +20,94 @@
 module Network.AWS.EC2.Types.ElasticInferenceAcceleratorAssociation where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the association between an instance and an elastic inference accelerator.
+-- | Describes the association between an instance and an elastic inference
+-- accelerator.
 --
---
---
--- /See:/ 'elasticInferenceAcceleratorAssociation' smart constructor.
+-- /See:/ 'newElasticInferenceAcceleratorAssociation' smart constructor.
 data ElasticInferenceAcceleratorAssociation = ElasticInferenceAcceleratorAssociation'
-  { _eiaaElasticInferenceAcceleratorAssociationId ::
-      !( Maybe
-           Text
-       ),
-    _eiaaElasticInferenceAcceleratorAssociationState ::
-      !( Maybe
-           Text
-       ),
-    _eiaaElasticInferenceAcceleratorARN ::
-      !( Maybe
-           Text
-       ),
-    _eiaaElasticInferenceAcceleratorAssociationTime ::
-      !( Maybe
-           ISO8601
-       )
+  { -- | The ID of the association.
+    elasticInferenceAcceleratorAssociationId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the elastic inference accelerator.
+    elasticInferenceAcceleratorAssociationState :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the elastic inference accelerator.
+    elasticInferenceAcceleratorArn :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the elastic inference accelerator is associated with
+    -- an instance.
+    elasticInferenceAcceleratorAssociationTime :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticInferenceAcceleratorAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticInferenceAcceleratorAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eiaaElasticInferenceAcceleratorAssociationId' - The ID of the association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eiaaElasticInferenceAcceleratorAssociationState' - The state of the elastic inference accelerator.
+-- 'elasticInferenceAcceleratorAssociationId', 'elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationId' - The ID of the association.
 --
--- * 'eiaaElasticInferenceAcceleratorARN' - The Amazon Resource Name (ARN) of the elastic inference accelerator.
+-- 'elasticInferenceAcceleratorAssociationState', 'elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationState' - The state of the elastic inference accelerator.
 --
--- * 'eiaaElasticInferenceAcceleratorAssociationTime' - The time at which the elastic inference accelerator is associated with an instance.
-elasticInferenceAcceleratorAssociation ::
+-- 'elasticInferenceAcceleratorArn', 'elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorArn' - The Amazon Resource Name (ARN) of the elastic inference accelerator.
+--
+-- 'elasticInferenceAcceleratorAssociationTime', 'elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationTime' - The time at which the elastic inference accelerator is associated with
+-- an instance.
+newElasticInferenceAcceleratorAssociation ::
   ElasticInferenceAcceleratorAssociation
-elasticInferenceAcceleratorAssociation =
+newElasticInferenceAcceleratorAssociation =
   ElasticInferenceAcceleratorAssociation'
-    { _eiaaElasticInferenceAcceleratorAssociationId =
-        Nothing,
-      _eiaaElasticInferenceAcceleratorAssociationState =
-        Nothing,
-      _eiaaElasticInferenceAcceleratorARN =
-        Nothing,
-      _eiaaElasticInferenceAcceleratorAssociationTime =
-        Nothing
+    { elasticInferenceAcceleratorAssociationId =
+        Prelude.Nothing,
+      elasticInferenceAcceleratorAssociationState =
+        Prelude.Nothing,
+      elasticInferenceAcceleratorArn =
+        Prelude.Nothing,
+      elasticInferenceAcceleratorAssociationTime =
+        Prelude.Nothing
     }
 
 -- | The ID of the association.
-eiaaElasticInferenceAcceleratorAssociationId :: Lens' ElasticInferenceAcceleratorAssociation (Maybe Text)
-eiaaElasticInferenceAcceleratorAssociationId = lens _eiaaElasticInferenceAcceleratorAssociationId (\s a -> s {_eiaaElasticInferenceAcceleratorAssociationId = a})
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationId :: Lens.Lens' ElasticInferenceAcceleratorAssociation (Prelude.Maybe Prelude.Text)
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationId = Lens.lens (\ElasticInferenceAcceleratorAssociation' {elasticInferenceAcceleratorAssociationId} -> elasticInferenceAcceleratorAssociationId) (\s@ElasticInferenceAcceleratorAssociation' {} a -> s {elasticInferenceAcceleratorAssociationId = a} :: ElasticInferenceAcceleratorAssociation)
 
 -- | The state of the elastic inference accelerator.
-eiaaElasticInferenceAcceleratorAssociationState :: Lens' ElasticInferenceAcceleratorAssociation (Maybe Text)
-eiaaElasticInferenceAcceleratorAssociationState = lens _eiaaElasticInferenceAcceleratorAssociationState (\s a -> s {_eiaaElasticInferenceAcceleratorAssociationState = a})
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationState :: Lens.Lens' ElasticInferenceAcceleratorAssociation (Prelude.Maybe Prelude.Text)
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationState = Lens.lens (\ElasticInferenceAcceleratorAssociation' {elasticInferenceAcceleratorAssociationState} -> elasticInferenceAcceleratorAssociationState) (\s@ElasticInferenceAcceleratorAssociation' {} a -> s {elasticInferenceAcceleratorAssociationState = a} :: ElasticInferenceAcceleratorAssociation)
 
 -- | The Amazon Resource Name (ARN) of the elastic inference accelerator.
-eiaaElasticInferenceAcceleratorARN :: Lens' ElasticInferenceAcceleratorAssociation (Maybe Text)
-eiaaElasticInferenceAcceleratorARN = lens _eiaaElasticInferenceAcceleratorARN (\s a -> s {_eiaaElasticInferenceAcceleratorARN = a})
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorArn :: Lens.Lens' ElasticInferenceAcceleratorAssociation (Prelude.Maybe Prelude.Text)
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorArn = Lens.lens (\ElasticInferenceAcceleratorAssociation' {elasticInferenceAcceleratorArn} -> elasticInferenceAcceleratorArn) (\s@ElasticInferenceAcceleratorAssociation' {} a -> s {elasticInferenceAcceleratorArn = a} :: ElasticInferenceAcceleratorAssociation)
 
--- | The time at which the elastic inference accelerator is associated with an instance.
-eiaaElasticInferenceAcceleratorAssociationTime :: Lens' ElasticInferenceAcceleratorAssociation (Maybe UTCTime)
-eiaaElasticInferenceAcceleratorAssociationTime = lens _eiaaElasticInferenceAcceleratorAssociationTime (\s a -> s {_eiaaElasticInferenceAcceleratorAssociationTime = a}) . mapping _Time
+-- | The time at which the elastic inference accelerator is associated with
+-- an instance.
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationTime :: Lens.Lens' ElasticInferenceAcceleratorAssociation (Prelude.Maybe Prelude.UTCTime)
+elasticInferenceAcceleratorAssociation_elasticInferenceAcceleratorAssociationTime = Lens.lens (\ElasticInferenceAcceleratorAssociation' {elasticInferenceAcceleratorAssociationTime} -> elasticInferenceAcceleratorAssociationTime) (\s@ElasticInferenceAcceleratorAssociation' {} a -> s {elasticInferenceAcceleratorAssociationTime = a} :: ElasticInferenceAcceleratorAssociation) Prelude.. Lens.mapping Prelude._Time
 
 instance
-  FromXML
+  Prelude.FromXML
     ElasticInferenceAcceleratorAssociation
   where
   parseXML x =
     ElasticInferenceAcceleratorAssociation'
-      <$> (x .@? "elasticInferenceAcceleratorAssociationId")
-      <*> (x .@? "elasticInferenceAcceleratorAssociationState")
-      <*> (x .@? "elasticInferenceAcceleratorArn")
-      <*> (x .@? "elasticInferenceAcceleratorAssociationTime")
+      Prelude.<$> ( x
+                      Prelude..@? "elasticInferenceAcceleratorAssociationId"
+                  )
+      Prelude.<*> ( x
+                      Prelude..@? "elasticInferenceAcceleratorAssociationState"
+                  )
+      Prelude.<*> (x Prelude..@? "elasticInferenceAcceleratorArn")
+      Prelude.<*> ( x
+                      Prelude..@? "elasticInferenceAcceleratorAssociationTime"
+                  )
 
 instance
-  Hashable
+  Prelude.Hashable
     ElasticInferenceAcceleratorAssociation
 
 instance
-  NFData
+  Prelude.NFData
     ElasticInferenceAcceleratorAssociation

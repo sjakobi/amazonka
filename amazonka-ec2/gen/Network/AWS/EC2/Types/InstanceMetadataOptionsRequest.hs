@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,147 @@
 module Network.AWS.EC2.Types.InstanceMetadataOptionsRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.HTTPTokensState
+import Network.AWS.EC2.Types.HttpTokensState
 import Network.AWS.EC2.Types.InstanceMetadataEndpointState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The metadata options for the instance.
 --
---
---
--- /See:/ 'instanceMetadataOptionsRequest' smart constructor.
+-- /See:/ 'newInstanceMetadataOptionsRequest' smart constructor.
 data InstanceMetadataOptionsRequest = InstanceMetadataOptionsRequest'
-  { _iHTTPEndpoint ::
-      !( Maybe
-           InstanceMetadataEndpointState
-       ),
-    _iHTTPPutResponseHopLimit ::
-      !( Maybe
-           Int
-       ),
-    _iHTTPTokens ::
-      !( Maybe
-           HTTPTokensState
-       )
+  { -- | This parameter enables or disables the HTTP metadata endpoint on your
+    -- instances. If the parameter is not specified, the default state is
+    -- @enabled@.
+    --
+    -- If you specify a value of @disabled@, you will not be able to access
+    -- your instance metadata.
+    httpEndpoint :: Prelude.Maybe InstanceMetadataEndpointState,
+    -- | The desired HTTP PUT response hop limit for instance metadata requests.
+    -- The larger the number, the further instance metadata requests can
+    -- travel.
+    --
+    -- Default: 1
+    --
+    -- Possible values: Integers from 1 to 64
+    httpPutResponseHopLimit :: Prelude.Maybe Prelude.Int,
+    -- | The state of token usage for your instance metadata requests. If the
+    -- parameter is not specified in the request, the default state is
+    -- @optional@.
+    --
+    -- If the state is @optional@, you can choose to retrieve instance metadata
+    -- with or without a signed token header on your request. If you retrieve
+    -- the IAM role credentials without a token, the version 1.0 role
+    -- credentials are returned. If you retrieve the IAM role credentials using
+    -- a valid signed token, the version 2.0 role credentials are returned.
+    --
+    -- If the state is @required@, you must send a signed token header with any
+    -- instance metadata retrieval requests. In this state, retrieving the IAM
+    -- role credentials always returns the version 2.0 credentials; the version
+    -- 1.0 credentials are not available.
+    httpTokens :: Prelude.Maybe HttpTokensState
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceMetadataOptionsRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceMetadataOptionsRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iHTTPEndpoint' - This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is @enabled@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iHTTPPutResponseHopLimit' - The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel. Default: 1 Possible values: Integers from 1 to 64
+-- 'httpEndpoint', 'instanceMetadataOptionsRequest_httpEndpoint' - This parameter enables or disables the HTTP metadata endpoint on your
+-- instances. If the parameter is not specified, the default state is
+-- @enabled@.
 --
--- * 'iHTTPTokens' - The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is @optional@ . If the state is @optional@ , you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned. If the state is @required@ , you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credentials always returns the version 2.0 credentials; the version 1.0 credentials are not available.
-instanceMetadataOptionsRequest ::
+-- If you specify a value of @disabled@, you will not be able to access
+-- your instance metadata.
+--
+-- 'httpPutResponseHopLimit', 'instanceMetadataOptionsRequest_httpPutResponseHopLimit' - The desired HTTP PUT response hop limit for instance metadata requests.
+-- The larger the number, the further instance metadata requests can
+-- travel.
+--
+-- Default: 1
+--
+-- Possible values: Integers from 1 to 64
+--
+-- 'httpTokens', 'instanceMetadataOptionsRequest_httpTokens' - The state of token usage for your instance metadata requests. If the
+-- parameter is not specified in the request, the default state is
+-- @optional@.
+--
+-- If the state is @optional@, you can choose to retrieve instance metadata
+-- with or without a signed token header on your request. If you retrieve
+-- the IAM role credentials without a token, the version 1.0 role
+-- credentials are returned. If you retrieve the IAM role credentials using
+-- a valid signed token, the version 2.0 role credentials are returned.
+--
+-- If the state is @required@, you must send a signed token header with any
+-- instance metadata retrieval requests. In this state, retrieving the IAM
+-- role credentials always returns the version 2.0 credentials; the version
+-- 1.0 credentials are not available.
+newInstanceMetadataOptionsRequest ::
   InstanceMetadataOptionsRequest
-instanceMetadataOptionsRequest =
+newInstanceMetadataOptionsRequest =
   InstanceMetadataOptionsRequest'
-    { _iHTTPEndpoint =
-        Nothing,
-      _iHTTPPutResponseHopLimit = Nothing,
-      _iHTTPTokens = Nothing
+    { httpEndpoint =
+        Prelude.Nothing,
+      httpPutResponseHopLimit = Prelude.Nothing,
+      httpTokens = Prelude.Nothing
     }
 
--- | This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is @enabled@ .
-iHTTPEndpoint :: Lens' InstanceMetadataOptionsRequest (Maybe InstanceMetadataEndpointState)
-iHTTPEndpoint = lens _iHTTPEndpoint (\s a -> s {_iHTTPEndpoint = a})
+-- | This parameter enables or disables the HTTP metadata endpoint on your
+-- instances. If the parameter is not specified, the default state is
+-- @enabled@.
+--
+-- If you specify a value of @disabled@, you will not be able to access
+-- your instance metadata.
+instanceMetadataOptionsRequest_httpEndpoint :: Lens.Lens' InstanceMetadataOptionsRequest (Prelude.Maybe InstanceMetadataEndpointState)
+instanceMetadataOptionsRequest_httpEndpoint = Lens.lens (\InstanceMetadataOptionsRequest' {httpEndpoint} -> httpEndpoint) (\s@InstanceMetadataOptionsRequest' {} a -> s {httpEndpoint = a} :: InstanceMetadataOptionsRequest)
 
--- | The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel. Default: 1 Possible values: Integers from 1 to 64
-iHTTPPutResponseHopLimit :: Lens' InstanceMetadataOptionsRequest (Maybe Int)
-iHTTPPutResponseHopLimit = lens _iHTTPPutResponseHopLimit (\s a -> s {_iHTTPPutResponseHopLimit = a})
+-- | The desired HTTP PUT response hop limit for instance metadata requests.
+-- The larger the number, the further instance metadata requests can
+-- travel.
+--
+-- Default: 1
+--
+-- Possible values: Integers from 1 to 64
+instanceMetadataOptionsRequest_httpPutResponseHopLimit :: Lens.Lens' InstanceMetadataOptionsRequest (Prelude.Maybe Prelude.Int)
+instanceMetadataOptionsRequest_httpPutResponseHopLimit = Lens.lens (\InstanceMetadataOptionsRequest' {httpPutResponseHopLimit} -> httpPutResponseHopLimit) (\s@InstanceMetadataOptionsRequest' {} a -> s {httpPutResponseHopLimit = a} :: InstanceMetadataOptionsRequest)
 
--- | The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is @optional@ . If the state is @optional@ , you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned. If the state is @required@ , you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credentials always returns the version 2.0 credentials; the version 1.0 credentials are not available.
-iHTTPTokens :: Lens' InstanceMetadataOptionsRequest (Maybe HTTPTokensState)
-iHTTPTokens = lens _iHTTPTokens (\s a -> s {_iHTTPTokens = a})
+-- | The state of token usage for your instance metadata requests. If the
+-- parameter is not specified in the request, the default state is
+-- @optional@.
+--
+-- If the state is @optional@, you can choose to retrieve instance metadata
+-- with or without a signed token header on your request. If you retrieve
+-- the IAM role credentials without a token, the version 1.0 role
+-- credentials are returned. If you retrieve the IAM role credentials using
+-- a valid signed token, the version 2.0 role credentials are returned.
+--
+-- If the state is @required@, you must send a signed token header with any
+-- instance metadata retrieval requests. In this state, retrieving the IAM
+-- role credentials always returns the version 2.0 credentials; the version
+-- 1.0 credentials are not available.
+instanceMetadataOptionsRequest_httpTokens :: Lens.Lens' InstanceMetadataOptionsRequest (Prelude.Maybe HttpTokensState)
+instanceMetadataOptionsRequest_httpTokens = Lens.lens (\InstanceMetadataOptionsRequest' {httpTokens} -> httpTokens) (\s@InstanceMetadataOptionsRequest' {} a -> s {httpTokens = a} :: InstanceMetadataOptionsRequest)
 
-instance Hashable InstanceMetadataOptionsRequest
+instance
+  Prelude.Hashable
+    InstanceMetadataOptionsRequest
 
-instance NFData InstanceMetadataOptionsRequest
+instance
+  Prelude.NFData
+    InstanceMetadataOptionsRequest
 
-instance ToQuery InstanceMetadataOptionsRequest where
+instance
+  Prelude.ToQuery
+    InstanceMetadataOptionsRequest
+  where
   toQuery InstanceMetadataOptionsRequest' {..} =
-    mconcat
-      [ "HttpEndpoint" =: _iHTTPEndpoint,
+    Prelude.mconcat
+      [ "HttpEndpoint" Prelude.=: httpEndpoint,
         "HttpPutResponseHopLimit"
-          =: _iHTTPPutResponseHopLimit,
-        "HttpTokens" =: _iHTTPTokens
+          Prelude.=: httpPutResponseHopLimit,
+        "HttpTokens" Prelude.=: httpTokens
       ]

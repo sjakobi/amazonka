@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.RouteTableAssociationStateCode
   ( RouteTableAssociationStateCode
       ( ..,
-        RTASCAssociated,
-        RTASCAssociating,
-        RTASCDisassociated,
-        RTASCDisassociating,
-        RTASCFailed
+        RouteTableAssociationStateCodeAssociated,
+        RouteTableAssociationStateCodeAssociating,
+        RouteTableAssociationStateCodeDisassociated,
+        RouteTableAssociationStateCodeDisassociating,
+        RouteTableAssociationStateCodeFailed
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RouteTableAssociationStateCode
-  = RouteTableAssociationStateCode'
-      ( CI
-          Text
-      )
+newtype RouteTableAssociationStateCode = RouteTableAssociationStateCode'
+  { fromRouteTableAssociationStateCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RTASCAssociated :: RouteTableAssociationStateCode
-pattern RTASCAssociated = RouteTableAssociationStateCode' "associated"
+pattern RouteTableAssociationStateCodeAssociated :: RouteTableAssociationStateCode
+pattern RouteTableAssociationStateCodeAssociated = RouteTableAssociationStateCode' "associated"
 
-pattern RTASCAssociating :: RouteTableAssociationStateCode
-pattern RTASCAssociating = RouteTableAssociationStateCode' "associating"
+pattern RouteTableAssociationStateCodeAssociating :: RouteTableAssociationStateCode
+pattern RouteTableAssociationStateCodeAssociating = RouteTableAssociationStateCode' "associating"
 
-pattern RTASCDisassociated :: RouteTableAssociationStateCode
-pattern RTASCDisassociated = RouteTableAssociationStateCode' "disassociated"
+pattern RouteTableAssociationStateCodeDisassociated :: RouteTableAssociationStateCode
+pattern RouteTableAssociationStateCodeDisassociated = RouteTableAssociationStateCode' "disassociated"
 
-pattern RTASCDisassociating :: RouteTableAssociationStateCode
-pattern RTASCDisassociating = RouteTableAssociationStateCode' "disassociating"
+pattern RouteTableAssociationStateCodeDisassociating :: RouteTableAssociationStateCode
+pattern RouteTableAssociationStateCodeDisassociating = RouteTableAssociationStateCode' "disassociating"
 
-pattern RTASCFailed :: RouteTableAssociationStateCode
-pattern RTASCFailed = RouteTableAssociationStateCode' "failed"
+pattern RouteTableAssociationStateCodeFailed :: RouteTableAssociationStateCode
+pattern RouteTableAssociationStateCodeFailed = RouteTableAssociationStateCode' "failed"
 
 {-# COMPLETE
-  RTASCAssociated,
-  RTASCAssociating,
-  RTASCDisassociated,
-  RTASCDisassociating,
-  RTASCFailed,
+  RouteTableAssociationStateCodeAssociated,
+  RouteTableAssociationStateCodeAssociating,
+  RouteTableAssociationStateCodeDisassociated,
+  RouteTableAssociationStateCodeDisassociating,
+  RouteTableAssociationStateCodeFailed,
   RouteTableAssociationStateCode'
   #-}
 
-instance FromText RouteTableAssociationStateCode where
-  parser = (RouteTableAssociationStateCode' . mk) <$> takeText
+instance Prelude.FromText RouteTableAssociationStateCode where
+  parser = RouteTableAssociationStateCode' Prelude.<$> Prelude.takeText
 
-instance ToText RouteTableAssociationStateCode where
-  toText (RouteTableAssociationStateCode' ci) = original ci
+instance Prelude.ToText RouteTableAssociationStateCode where
+  toText (RouteTableAssociationStateCode' x) = x
 
-instance Hashable RouteTableAssociationStateCode
+instance Prelude.Hashable RouteTableAssociationStateCode
 
-instance NFData RouteTableAssociationStateCode
+instance Prelude.NFData RouteTableAssociationStateCode
 
-instance ToByteString RouteTableAssociationStateCode
+instance Prelude.ToByteString RouteTableAssociationStateCode
 
-instance ToQuery RouteTableAssociationStateCode
+instance Prelude.ToQuery RouteTableAssociationStateCode
 
-instance ToHeader RouteTableAssociationStateCode
+instance Prelude.ToHeader RouteTableAssociationStateCode
 
-instance FromXML RouteTableAssociationStateCode where
-  parseXML = parseXMLText "RouteTableAssociationStateCode"
+instance Prelude.FromXML RouteTableAssociationStateCode where
+  parseXML = Prelude.parseXMLText "RouteTableAssociationStateCode"

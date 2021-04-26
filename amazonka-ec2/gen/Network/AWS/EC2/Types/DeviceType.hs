@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.DeviceType
   ( DeviceType
       ( ..,
-        DTEBS,
-        DTInstanceStore
+        DeviceTypeEbs,
+        DeviceTypeInstanceStore
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceType = DeviceType' (CI Text)
+newtype DeviceType = DeviceType'
+  { fromDeviceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DTEBS :: DeviceType
-pattern DTEBS = DeviceType' "ebs"
+pattern DeviceTypeEbs :: DeviceType
+pattern DeviceTypeEbs = DeviceType' "ebs"
 
-pattern DTInstanceStore :: DeviceType
-pattern DTInstanceStore = DeviceType' "instance-store"
+pattern DeviceTypeInstanceStore :: DeviceType
+pattern DeviceTypeInstanceStore = DeviceType' "instance-store"
 
 {-# COMPLETE
-  DTEBS,
-  DTInstanceStore,
+  DeviceTypeEbs,
+  DeviceTypeInstanceStore,
   DeviceType'
   #-}
 
-instance FromText DeviceType where
-  parser = (DeviceType' . mk) <$> takeText
+instance Prelude.FromText DeviceType where
+  parser = DeviceType' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceType where
-  toText (DeviceType' ci) = original ci
+instance Prelude.ToText DeviceType where
+  toText (DeviceType' x) = x
 
-instance Hashable DeviceType
+instance Prelude.Hashable DeviceType
 
-instance NFData DeviceType
+instance Prelude.NFData DeviceType
 
-instance ToByteString DeviceType
+instance Prelude.ToByteString DeviceType
 
-instance ToQuery DeviceType
+instance Prelude.ToQuery DeviceType
 
-instance ToHeader DeviceType
+instance Prelude.ToHeader DeviceType
 
-instance FromXML DeviceType where
-  parseXML = parseXMLText "DeviceType"
+instance Prelude.FromXML DeviceType where
+  parseXML = Prelude.parseXMLText "DeviceType"

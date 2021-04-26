@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.DiskType
   ( DiskType
       ( ..,
-        Hdd,
-        Ssd
+        DiskTypeHdd,
+        DiskTypeSsd
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DiskType = DiskType' (CI Text)
+newtype DiskType = DiskType'
+  { fromDiskType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Hdd :: DiskType
-pattern Hdd = DiskType' "hdd"
+pattern DiskTypeHdd :: DiskType
+pattern DiskTypeHdd = DiskType' "hdd"
 
-pattern Ssd :: DiskType
-pattern Ssd = DiskType' "ssd"
+pattern DiskTypeSsd :: DiskType
+pattern DiskTypeSsd = DiskType' "ssd"
 
 {-# COMPLETE
-  Hdd,
-  Ssd,
+  DiskTypeHdd,
+  DiskTypeSsd,
   DiskType'
   #-}
 
-instance FromText DiskType where
-  parser = (DiskType' . mk) <$> takeText
+instance Prelude.FromText DiskType where
+  parser = DiskType' Prelude.<$> Prelude.takeText
 
-instance ToText DiskType where
-  toText (DiskType' ci) = original ci
+instance Prelude.ToText DiskType where
+  toText (DiskType' x) = x
 
-instance Hashable DiskType
+instance Prelude.Hashable DiskType
 
-instance NFData DiskType
+instance Prelude.NFData DiskType
 
-instance ToByteString DiskType
+instance Prelude.ToByteString DiskType
 
-instance ToQuery DiskType
+instance Prelude.ToQuery DiskType
 
-instance ToHeader DiskType
+instance Prelude.ToHeader DiskType
 
-instance FromXML DiskType where
-  parseXML = parseXMLText "DiskType"
+instance Prelude.FromXML DiskType where
+  parseXML = Prelude.parseXMLText "DiskType"

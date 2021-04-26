@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,93 +22,84 @@ module Network.AWS.EC2.Types.ImportVolumeTaskDetails where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DiskImageDescription
 import Network.AWS.EC2.Types.DiskImageVolumeDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an import volume task.
 --
---
---
--- /See:/ 'importVolumeTaskDetails' smart constructor.
+-- /See:/ 'newImportVolumeTaskDetails' smart constructor.
 data ImportVolumeTaskDetails = ImportVolumeTaskDetails'
-  { _ivtdBytesConverted ::
-      !(Maybe Integer),
-    _ivtdVolume ::
-      !( Maybe
-           DiskImageVolumeDescription
-       ),
-    _ivtdImage ::
-      !( Maybe
-           DiskImageDescription
-       ),
-    _ivtdAvailabilityZone ::
-      !(Maybe Text),
-    _ivtdDescription ::
-      !(Maybe Text)
+  { -- | The number of bytes converted so far.
+    bytesConverted :: Prelude.Maybe Prelude.Integer,
+    -- | The volume.
+    volume :: Prelude.Maybe DiskImageVolumeDescription,
+    -- | The image.
+    image :: Prelude.Maybe DiskImageDescription,
+    -- | The Availability Zone where the resulting volume will reside.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The description you provided when starting the import volume task.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportVolumeTaskDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportVolumeTaskDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ivtdBytesConverted' - The number of bytes converted so far.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ivtdVolume' - The volume.
+-- 'bytesConverted', 'importVolumeTaskDetails_bytesConverted' - The number of bytes converted so far.
 --
--- * 'ivtdImage' - The image.
+-- 'volume', 'importVolumeTaskDetails_volume' - The volume.
 --
--- * 'ivtdAvailabilityZone' - The Availability Zone where the resulting volume will reside.
+-- 'image', 'importVolumeTaskDetails_image' - The image.
 --
--- * 'ivtdDescription' - The description you provided when starting the import volume task.
-importVolumeTaskDetails ::
+-- 'availabilityZone', 'importVolumeTaskDetails_availabilityZone' - The Availability Zone where the resulting volume will reside.
+--
+-- 'description', 'importVolumeTaskDetails_description' - The description you provided when starting the import volume task.
+newImportVolumeTaskDetails ::
   ImportVolumeTaskDetails
-importVolumeTaskDetails =
+newImportVolumeTaskDetails =
   ImportVolumeTaskDetails'
-    { _ivtdBytesConverted =
-        Nothing,
-      _ivtdVolume = Nothing,
-      _ivtdImage = Nothing,
-      _ivtdAvailabilityZone = Nothing,
-      _ivtdDescription = Nothing
+    { bytesConverted =
+        Prelude.Nothing,
+      volume = Prelude.Nothing,
+      image = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The number of bytes converted so far.
-ivtdBytesConverted :: Lens' ImportVolumeTaskDetails (Maybe Integer)
-ivtdBytesConverted = lens _ivtdBytesConverted (\s a -> s {_ivtdBytesConverted = a})
+importVolumeTaskDetails_bytesConverted :: Lens.Lens' ImportVolumeTaskDetails (Prelude.Maybe Prelude.Integer)
+importVolumeTaskDetails_bytesConverted = Lens.lens (\ImportVolumeTaskDetails' {bytesConverted} -> bytesConverted) (\s@ImportVolumeTaskDetails' {} a -> s {bytesConverted = a} :: ImportVolumeTaskDetails)
 
 -- | The volume.
-ivtdVolume :: Lens' ImportVolumeTaskDetails (Maybe DiskImageVolumeDescription)
-ivtdVolume = lens _ivtdVolume (\s a -> s {_ivtdVolume = a})
+importVolumeTaskDetails_volume :: Lens.Lens' ImportVolumeTaskDetails (Prelude.Maybe DiskImageVolumeDescription)
+importVolumeTaskDetails_volume = Lens.lens (\ImportVolumeTaskDetails' {volume} -> volume) (\s@ImportVolumeTaskDetails' {} a -> s {volume = a} :: ImportVolumeTaskDetails)
 
 -- | The image.
-ivtdImage :: Lens' ImportVolumeTaskDetails (Maybe DiskImageDescription)
-ivtdImage = lens _ivtdImage (\s a -> s {_ivtdImage = a})
+importVolumeTaskDetails_image :: Lens.Lens' ImportVolumeTaskDetails (Prelude.Maybe DiskImageDescription)
+importVolumeTaskDetails_image = Lens.lens (\ImportVolumeTaskDetails' {image} -> image) (\s@ImportVolumeTaskDetails' {} a -> s {image = a} :: ImportVolumeTaskDetails)
 
 -- | The Availability Zone where the resulting volume will reside.
-ivtdAvailabilityZone :: Lens' ImportVolumeTaskDetails (Maybe Text)
-ivtdAvailabilityZone = lens _ivtdAvailabilityZone (\s a -> s {_ivtdAvailabilityZone = a})
+importVolumeTaskDetails_availabilityZone :: Lens.Lens' ImportVolumeTaskDetails (Prelude.Maybe Prelude.Text)
+importVolumeTaskDetails_availabilityZone = Lens.lens (\ImportVolumeTaskDetails' {availabilityZone} -> availabilityZone) (\s@ImportVolumeTaskDetails' {} a -> s {availabilityZone = a} :: ImportVolumeTaskDetails)
 
 -- | The description you provided when starting the import volume task.
-ivtdDescription :: Lens' ImportVolumeTaskDetails (Maybe Text)
-ivtdDescription = lens _ivtdDescription (\s a -> s {_ivtdDescription = a})
+importVolumeTaskDetails_description :: Lens.Lens' ImportVolumeTaskDetails (Prelude.Maybe Prelude.Text)
+importVolumeTaskDetails_description = Lens.lens (\ImportVolumeTaskDetails' {description} -> description) (\s@ImportVolumeTaskDetails' {} a -> s {description = a} :: ImportVolumeTaskDetails)
 
-instance FromXML ImportVolumeTaskDetails where
+instance Prelude.FromXML ImportVolumeTaskDetails where
   parseXML x =
     ImportVolumeTaskDetails'
-      <$> (x .@? "bytesConverted")
-      <*> (x .@? "volume")
-      <*> (x .@? "image")
-      <*> (x .@? "availabilityZone")
-      <*> (x .@? "description")
+      Prelude.<$> (x Prelude..@? "bytesConverted")
+      Prelude.<*> (x Prelude..@? "volume")
+      Prelude.<*> (x Prelude..@? "image")
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> (x Prelude..@? "description")
 
-instance Hashable ImportVolumeTaskDetails
+instance Prelude.Hashable ImportVolumeTaskDetails
 
-instance NFData ImportVolumeTaskDetails
+instance Prelude.NFData ImportVolumeTaskDetails

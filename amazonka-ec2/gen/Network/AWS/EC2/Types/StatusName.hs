@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.EC2.Types.StatusName
   ( StatusName
       ( ..,
-        Reachability
+        StatusNameReachability
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StatusName = StatusName' (CI Text)
+newtype StatusName = StatusName'
+  { fromStatusName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Reachability :: StatusName
-pattern Reachability = StatusName' "reachability"
+pattern StatusNameReachability :: StatusName
+pattern StatusNameReachability = StatusName' "reachability"
 
 {-# COMPLETE
-  Reachability,
+  StatusNameReachability,
   StatusName'
   #-}
 
-instance FromText StatusName where
-  parser = (StatusName' . mk) <$> takeText
+instance Prelude.FromText StatusName where
+  parser = StatusName' Prelude.<$> Prelude.takeText
 
-instance ToText StatusName where
-  toText (StatusName' ci) = original ci
+instance Prelude.ToText StatusName where
+  toText (StatusName' x) = x
 
-instance Hashable StatusName
+instance Prelude.Hashable StatusName
 
-instance NFData StatusName
+instance Prelude.NFData StatusName
 
-instance ToByteString StatusName
+instance Prelude.ToByteString StatusName
 
-instance ToQuery StatusName
+instance Prelude.ToQuery StatusName
 
-instance ToHeader StatusName
+instance Prelude.ToHeader StatusName
 
-instance FromXML StatusName where
-  parseXML = parseXMLText "StatusName"
+instance Prelude.FromXML StatusName where
+  parseXML = Prelude.parseXMLText "StatusName"

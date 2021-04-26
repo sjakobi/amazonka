@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,57 @@
 module Network.AWS.EC2.Types.InstanceBlockDeviceMapping where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.EC2.Types.EBSInstanceBlockDevice
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.EC2.Types.EbsInstanceBlockDevice
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a block device mapping.
 --
---
---
--- /See:/ 'instanceBlockDeviceMapping' smart constructor.
+-- /See:/ 'newInstanceBlockDeviceMapping' smart constructor.
 data InstanceBlockDeviceMapping = InstanceBlockDeviceMapping'
-  { _ibdmEBS ::
-      !( Maybe
-           EBSInstanceBlockDevice
-       ),
-    _ibdmDeviceName ::
-      !(Maybe Text)
+  { -- | Parameters used to automatically set up EBS volumes when the instance is
+    -- launched.
+    ebs :: Prelude.Maybe EbsInstanceBlockDevice,
+    -- | The device name (for example, @\/dev\/sdh@ or @xvdh@).
+    deviceName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceBlockDeviceMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceBlockDeviceMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ibdmEBS' - Parameters used to automatically set up EBS volumes when the instance is launched.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ibdmDeviceName' - The device name (for example, @/dev/sdh@ or @xvdh@ ).
-instanceBlockDeviceMapping ::
+-- 'ebs', 'instanceBlockDeviceMapping_ebs' - Parameters used to automatically set up EBS volumes when the instance is
+-- launched.
+--
+-- 'deviceName', 'instanceBlockDeviceMapping_deviceName' - The device name (for example, @\/dev\/sdh@ or @xvdh@).
+newInstanceBlockDeviceMapping ::
   InstanceBlockDeviceMapping
-instanceBlockDeviceMapping =
+newInstanceBlockDeviceMapping =
   InstanceBlockDeviceMapping'
-    { _ibdmEBS = Nothing,
-      _ibdmDeviceName = Nothing
+    { ebs = Prelude.Nothing,
+      deviceName = Prelude.Nothing
     }
 
--- | Parameters used to automatically set up EBS volumes when the instance is launched.
-ibdmEBS :: Lens' InstanceBlockDeviceMapping (Maybe EBSInstanceBlockDevice)
-ibdmEBS = lens _ibdmEBS (\s a -> s {_ibdmEBS = a})
+-- | Parameters used to automatically set up EBS volumes when the instance is
+-- launched.
+instanceBlockDeviceMapping_ebs :: Lens.Lens' InstanceBlockDeviceMapping (Prelude.Maybe EbsInstanceBlockDevice)
+instanceBlockDeviceMapping_ebs = Lens.lens (\InstanceBlockDeviceMapping' {ebs} -> ebs) (\s@InstanceBlockDeviceMapping' {} a -> s {ebs = a} :: InstanceBlockDeviceMapping)
 
--- | The device name (for example, @/dev/sdh@ or @xvdh@ ).
-ibdmDeviceName :: Lens' InstanceBlockDeviceMapping (Maybe Text)
-ibdmDeviceName = lens _ibdmDeviceName (\s a -> s {_ibdmDeviceName = a})
+-- | The device name (for example, @\/dev\/sdh@ or @xvdh@).
+instanceBlockDeviceMapping_deviceName :: Lens.Lens' InstanceBlockDeviceMapping (Prelude.Maybe Prelude.Text)
+instanceBlockDeviceMapping_deviceName = Lens.lens (\InstanceBlockDeviceMapping' {deviceName} -> deviceName) (\s@InstanceBlockDeviceMapping' {} a -> s {deviceName = a} :: InstanceBlockDeviceMapping)
 
-instance FromXML InstanceBlockDeviceMapping where
+instance Prelude.FromXML InstanceBlockDeviceMapping where
   parseXML x =
     InstanceBlockDeviceMapping'
-      <$> (x .@? "ebs") <*> (x .@? "deviceName")
+      Prelude.<$> (x Prelude..@? "ebs")
+      Prelude.<*> (x Prelude..@? "deviceName")
 
-instance Hashable InstanceBlockDeviceMapping
+instance Prelude.Hashable InstanceBlockDeviceMapping
 
-instance NFData InstanceBlockDeviceMapping
+instance Prelude.NFData InstanceBlockDeviceMapping

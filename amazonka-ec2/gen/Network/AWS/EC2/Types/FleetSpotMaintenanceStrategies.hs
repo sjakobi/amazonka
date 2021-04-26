@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +21,55 @@ module Network.AWS.EC2.Types.FleetSpotMaintenanceStrategies where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.FleetSpotCapacityRebalance
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+-- | The strategies for managing your Spot Instances that are at an elevated
+-- risk of being interrupted.
 --
---
---
--- /See:/ 'fleetSpotMaintenanceStrategies' smart constructor.
-newtype FleetSpotMaintenanceStrategies = FleetSpotMaintenanceStrategies'
-  { _fsmsCapacityRebalance ::
-      Maybe
-        FleetSpotCapacityRebalance
+-- /See:/ 'newFleetSpotMaintenanceStrategies' smart constructor.
+data FleetSpotMaintenanceStrategies = FleetSpotMaintenanceStrategies'
+  { -- | The strategy to use when Amazon EC2 emits a signal that your Spot
+    -- Instance is at an elevated risk of being interrupted.
+    capacityRebalance :: Prelude.Maybe FleetSpotCapacityRebalance
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FleetSpotMaintenanceStrategies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FleetSpotMaintenanceStrategies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fsmsCapacityRebalance' - The strategy to use when Amazon EC2 emits a signal that your Spot Instance is at an elevated risk of being interrupted.
-fleetSpotMaintenanceStrategies ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'capacityRebalance', 'fleetSpotMaintenanceStrategies_capacityRebalance' - The strategy to use when Amazon EC2 emits a signal that your Spot
+-- Instance is at an elevated risk of being interrupted.
+newFleetSpotMaintenanceStrategies ::
   FleetSpotMaintenanceStrategies
-fleetSpotMaintenanceStrategies =
+newFleetSpotMaintenanceStrategies =
   FleetSpotMaintenanceStrategies'
-    { _fsmsCapacityRebalance =
-        Nothing
+    { capacityRebalance =
+        Prelude.Nothing
     }
 
--- | The strategy to use when Amazon EC2 emits a signal that your Spot Instance is at an elevated risk of being interrupted.
-fsmsCapacityRebalance :: Lens' FleetSpotMaintenanceStrategies (Maybe FleetSpotCapacityRebalance)
-fsmsCapacityRebalance = lens _fsmsCapacityRebalance (\s a -> s {_fsmsCapacityRebalance = a})
+-- | The strategy to use when Amazon EC2 emits a signal that your Spot
+-- Instance is at an elevated risk of being interrupted.
+fleetSpotMaintenanceStrategies_capacityRebalance :: Lens.Lens' FleetSpotMaintenanceStrategies (Prelude.Maybe FleetSpotCapacityRebalance)
+fleetSpotMaintenanceStrategies_capacityRebalance = Lens.lens (\FleetSpotMaintenanceStrategies' {capacityRebalance} -> capacityRebalance) (\s@FleetSpotMaintenanceStrategies' {} a -> s {capacityRebalance = a} :: FleetSpotMaintenanceStrategies)
 
-instance FromXML FleetSpotMaintenanceStrategies where
+instance
+  Prelude.FromXML
+    FleetSpotMaintenanceStrategies
+  where
   parseXML x =
     FleetSpotMaintenanceStrategies'
-      <$> (x .@? "capacityRebalance")
+      Prelude.<$> (x Prelude..@? "capacityRebalance")
 
-instance Hashable FleetSpotMaintenanceStrategies
+instance
+  Prelude.Hashable
+    FleetSpotMaintenanceStrategies
 
-instance NFData FleetSpotMaintenanceStrategies
+instance
+  Prelude.NFData
+    FleetSpotMaintenanceStrategies

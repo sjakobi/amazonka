@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,194 +23,194 @@
 --
 -- Exports a running or stopped instance to an Amazon S3 bucket.
 --
---
--- For information about the supported operating systems, image formats, and known limitations for the types of instances you can export, see <https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html Exporting an Instance as a VM Using VM Import/Export> in the /VM Import\/Export User Guide/ .
+-- For information about the supported operating systems, image formats,
+-- and known limitations for the types of instances you can export, see
+-- <https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html Exporting an Instance as a VM Using VM Import\/Export>
+-- in the /VM Import\/Export User Guide/.
 module Network.AWS.EC2.CreateInstanceExportTask
   ( -- * Creating a Request
-    createInstanceExportTask,
-    CreateInstanceExportTask,
+    CreateInstanceExportTask (..),
+    newCreateInstanceExportTask,
 
     -- * Request Lenses
-    cietTagSpecifications,
-    cietDescription,
-    cietExportToS3Task,
-    cietInstanceId,
-    cietTargetEnvironment,
+    createInstanceExportTask_tagSpecifications,
+    createInstanceExportTask_description,
+    createInstanceExportTask_exportToS3Task,
+    createInstanceExportTask_instanceId,
+    createInstanceExportTask_targetEnvironment,
 
     -- * Destructuring the Response
-    createInstanceExportTaskResponse,
-    CreateInstanceExportTaskResponse,
+    CreateInstanceExportTaskResponse (..),
+    newCreateInstanceExportTaskResponse,
 
     -- * Response Lenses
-    cietrrsExportTask,
-    cietrrsResponseStatus,
+    createInstanceExportTaskResponse_exportTask,
+    createInstanceExportTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.ExportTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createInstanceExportTask' smart constructor.
+-- | /See:/ 'newCreateInstanceExportTask' smart constructor.
 data CreateInstanceExportTask = CreateInstanceExportTask'
-  { _cietTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _cietDescription ::
-      !(Maybe Text),
-    _cietExportToS3Task ::
-      !ExportToS3TaskSpecification,
-    _cietInstanceId ::
-      !Text,
-    _cietTargetEnvironment ::
-      !ExportEnvironment
+  { -- | The tags to apply to the export instance task during creation.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | A description for the conversion task or the resource being exported.
+    -- The maximum length is 255 characters.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The format and location for an export instance task.
+    exportToS3Task :: ExportToS3TaskSpecification,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Text,
+    -- | The target virtualization environment.
+    targetEnvironment :: ExportEnvironment
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInstanceExportTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInstanceExportTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cietTagSpecifications' - The tags to apply to the export instance task during creation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cietDescription' - A description for the conversion task or the resource being exported. The maximum length is 255 characters.
+-- 'tagSpecifications', 'createInstanceExportTask_tagSpecifications' - The tags to apply to the export instance task during creation.
 --
--- * 'cietExportToS3Task' - The format and location for an export instance task.
+-- 'description', 'createInstanceExportTask_description' - A description for the conversion task or the resource being exported.
+-- The maximum length is 255 characters.
 --
--- * 'cietInstanceId' - The ID of the instance.
+-- 'exportToS3Task', 'createInstanceExportTask_exportToS3Task' - The format and location for an export instance task.
 --
--- * 'cietTargetEnvironment' - The target virtualization environment.
-createInstanceExportTask ::
-  -- | 'cietExportToS3Task'
+-- 'instanceId', 'createInstanceExportTask_instanceId' - The ID of the instance.
+--
+-- 'targetEnvironment', 'createInstanceExportTask_targetEnvironment' - The target virtualization environment.
+newCreateInstanceExportTask ::
+  -- | 'exportToS3Task'
   ExportToS3TaskSpecification ->
-  -- | 'cietInstanceId'
-  Text ->
-  -- | 'cietTargetEnvironment'
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'targetEnvironment'
   ExportEnvironment ->
   CreateInstanceExportTask
-createInstanceExportTask
+newCreateInstanceExportTask
   pExportToS3Task_
   pInstanceId_
   pTargetEnvironment_ =
     CreateInstanceExportTask'
-      { _cietTagSpecifications =
-          Nothing,
-        _cietDescription = Nothing,
-        _cietExportToS3Task = pExportToS3Task_,
-        _cietInstanceId = pInstanceId_,
-        _cietTargetEnvironment = pTargetEnvironment_
+      { tagSpecifications =
+          Prelude.Nothing,
+        description = Prelude.Nothing,
+        exportToS3Task = pExportToS3Task_,
+        instanceId = pInstanceId_,
+        targetEnvironment = pTargetEnvironment_
       }
 
 -- | The tags to apply to the export instance task during creation.
-cietTagSpecifications :: Lens' CreateInstanceExportTask [TagSpecification]
-cietTagSpecifications = lens _cietTagSpecifications (\s a -> s {_cietTagSpecifications = a}) . _Default . _Coerce
+createInstanceExportTask_tagSpecifications :: Lens.Lens' CreateInstanceExportTask (Prelude.Maybe [TagSpecification])
+createInstanceExportTask_tagSpecifications = Lens.lens (\CreateInstanceExportTask' {tagSpecifications} -> tagSpecifications) (\s@CreateInstanceExportTask' {} a -> s {tagSpecifications = a} :: CreateInstanceExportTask) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A description for the conversion task or the resource being exported. The maximum length is 255 characters.
-cietDescription :: Lens' CreateInstanceExportTask (Maybe Text)
-cietDescription = lens _cietDescription (\s a -> s {_cietDescription = a})
+-- | A description for the conversion task or the resource being exported.
+-- The maximum length is 255 characters.
+createInstanceExportTask_description :: Lens.Lens' CreateInstanceExportTask (Prelude.Maybe Prelude.Text)
+createInstanceExportTask_description = Lens.lens (\CreateInstanceExportTask' {description} -> description) (\s@CreateInstanceExportTask' {} a -> s {description = a} :: CreateInstanceExportTask)
 
 -- | The format and location for an export instance task.
-cietExportToS3Task :: Lens' CreateInstanceExportTask ExportToS3TaskSpecification
-cietExportToS3Task = lens _cietExportToS3Task (\s a -> s {_cietExportToS3Task = a})
+createInstanceExportTask_exportToS3Task :: Lens.Lens' CreateInstanceExportTask ExportToS3TaskSpecification
+createInstanceExportTask_exportToS3Task = Lens.lens (\CreateInstanceExportTask' {exportToS3Task} -> exportToS3Task) (\s@CreateInstanceExportTask' {} a -> s {exportToS3Task = a} :: CreateInstanceExportTask)
 
 -- | The ID of the instance.
-cietInstanceId :: Lens' CreateInstanceExportTask Text
-cietInstanceId = lens _cietInstanceId (\s a -> s {_cietInstanceId = a})
+createInstanceExportTask_instanceId :: Lens.Lens' CreateInstanceExportTask Prelude.Text
+createInstanceExportTask_instanceId = Lens.lens (\CreateInstanceExportTask' {instanceId} -> instanceId) (\s@CreateInstanceExportTask' {} a -> s {instanceId = a} :: CreateInstanceExportTask)
 
 -- | The target virtualization environment.
-cietTargetEnvironment :: Lens' CreateInstanceExportTask ExportEnvironment
-cietTargetEnvironment = lens _cietTargetEnvironment (\s a -> s {_cietTargetEnvironment = a})
+createInstanceExportTask_targetEnvironment :: Lens.Lens' CreateInstanceExportTask ExportEnvironment
+createInstanceExportTask_targetEnvironment = Lens.lens (\CreateInstanceExportTask' {targetEnvironment} -> targetEnvironment) (\s@CreateInstanceExportTask' {} a -> s {targetEnvironment = a} :: CreateInstanceExportTask)
 
-instance AWSRequest CreateInstanceExportTask where
+instance Prelude.AWSRequest CreateInstanceExportTask where
   type
     Rs CreateInstanceExportTask =
       CreateInstanceExportTaskResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateInstanceExportTaskResponse'
-            <$> (x .@? "exportTask") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "exportTask")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateInstanceExportTask
+instance Prelude.Hashable CreateInstanceExportTask
 
-instance NFData CreateInstanceExportTask
+instance Prelude.NFData CreateInstanceExportTask
 
-instance ToHeaders CreateInstanceExportTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateInstanceExportTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateInstanceExportTask where
-  toPath = const "/"
+instance Prelude.ToPath CreateInstanceExportTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateInstanceExportTask where
+instance Prelude.ToQuery CreateInstanceExportTask where
   toQuery CreateInstanceExportTask' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateInstanceExportTask" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _cietTagSpecifications
+          Prelude.=: ("CreateInstanceExportTask" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "Description" =: _cietDescription,
-        "ExportToS3" =: _cietExportToS3Task,
-        "InstanceId" =: _cietInstanceId,
-        "TargetEnvironment" =: _cietTargetEnvironment
+        "Description" Prelude.=: description,
+        "ExportToS3" Prelude.=: exportToS3Task,
+        "InstanceId" Prelude.=: instanceId,
+        "TargetEnvironment" Prelude.=: targetEnvironment
       ]
 
--- | /See:/ 'createInstanceExportTaskResponse' smart constructor.
+-- | /See:/ 'newCreateInstanceExportTaskResponse' smart constructor.
 data CreateInstanceExportTaskResponse = CreateInstanceExportTaskResponse'
-  { _cietrrsExportTask ::
-      !( Maybe
-           ExportTask
-       ),
-    _cietrrsResponseStatus ::
-      !Int
+  { -- | Information about the export instance task.
+    exportTask :: Prelude.Maybe ExportTask,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInstanceExportTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInstanceExportTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cietrrsExportTask' - Information about the export instance task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cietrrsResponseStatus' - -- | The response status code.
-createInstanceExportTaskResponse ::
-  -- | 'cietrrsResponseStatus'
-  Int ->
+-- 'exportTask', 'createInstanceExportTaskResponse_exportTask' - Information about the export instance task.
+--
+-- 'httpStatus', 'createInstanceExportTaskResponse_httpStatus' - The response's http status code.
+newCreateInstanceExportTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateInstanceExportTaskResponse
-createInstanceExportTaskResponse pResponseStatus_ =
+newCreateInstanceExportTaskResponse pHttpStatus_ =
   CreateInstanceExportTaskResponse'
-    { _cietrrsExportTask =
-        Nothing,
-      _cietrrsResponseStatus = pResponseStatus_
+    { exportTask =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the export instance task.
-cietrrsExportTask :: Lens' CreateInstanceExportTaskResponse (Maybe ExportTask)
-cietrrsExportTask = lens _cietrrsExportTask (\s a -> s {_cietrrsExportTask = a})
+createInstanceExportTaskResponse_exportTask :: Lens.Lens' CreateInstanceExportTaskResponse (Prelude.Maybe ExportTask)
+createInstanceExportTaskResponse_exportTask = Lens.lens (\CreateInstanceExportTaskResponse' {exportTask} -> exportTask) (\s@CreateInstanceExportTaskResponse' {} a -> s {exportTask = a} :: CreateInstanceExportTaskResponse)
 
--- | -- | The response status code.
-cietrrsResponseStatus :: Lens' CreateInstanceExportTaskResponse Int
-cietrrsResponseStatus = lens _cietrrsResponseStatus (\s a -> s {_cietrrsResponseStatus = a})
+-- | The response's http status code.
+createInstanceExportTaskResponse_httpStatus :: Lens.Lens' CreateInstanceExportTaskResponse Prelude.Int
+createInstanceExportTaskResponse_httpStatus = Lens.lens (\CreateInstanceExportTaskResponse' {httpStatus} -> httpStatus) (\s@CreateInstanceExportTaskResponse' {} a -> s {httpStatus = a} :: CreateInstanceExportTaskResponse)
 
-instance NFData CreateInstanceExportTaskResponse
+instance
+  Prelude.NFData
+    CreateInstanceExportTaskResponse

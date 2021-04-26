@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.DeleteQueuedReservedInstancesErrorCode
   ( DeleteQueuedReservedInstancesErrorCode
       ( ..,
-        ReservedInstancesIdInvalid,
-        ReservedInstancesNotInQueuedState,
-        UnexpectedError
+        DeleteQueuedReservedInstancesErrorCodeReservedInstancesIdInvalid,
+        DeleteQueuedReservedInstancesErrorCodeReservedInstancesNotInQueuedState,
+        DeleteQueuedReservedInstancesErrorCodeUnexpectedError
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeleteQueuedReservedInstancesErrorCode
-  = DeleteQueuedReservedInstancesErrorCode'
-      ( CI
-          Text
-      )
+newtype DeleteQueuedReservedInstancesErrorCode = DeleteQueuedReservedInstancesErrorCode'
+  { fromDeleteQueuedReservedInstancesErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ReservedInstancesIdInvalid :: DeleteQueuedReservedInstancesErrorCode
-pattern ReservedInstancesIdInvalid = DeleteQueuedReservedInstancesErrorCode' "reserved-instances-id-invalid"
+pattern DeleteQueuedReservedInstancesErrorCodeReservedInstancesIdInvalid :: DeleteQueuedReservedInstancesErrorCode
+pattern DeleteQueuedReservedInstancesErrorCodeReservedInstancesIdInvalid = DeleteQueuedReservedInstancesErrorCode' "reserved-instances-id-invalid"
 
-pattern ReservedInstancesNotInQueuedState :: DeleteQueuedReservedInstancesErrorCode
-pattern ReservedInstancesNotInQueuedState = DeleteQueuedReservedInstancesErrorCode' "reserved-instances-not-in-queued-state"
+pattern DeleteQueuedReservedInstancesErrorCodeReservedInstancesNotInQueuedState :: DeleteQueuedReservedInstancesErrorCode
+pattern DeleteQueuedReservedInstancesErrorCodeReservedInstancesNotInQueuedState = DeleteQueuedReservedInstancesErrorCode' "reserved-instances-not-in-queued-state"
 
-pattern UnexpectedError :: DeleteQueuedReservedInstancesErrorCode
-pattern UnexpectedError = DeleteQueuedReservedInstancesErrorCode' "unexpected-error"
+pattern DeleteQueuedReservedInstancesErrorCodeUnexpectedError :: DeleteQueuedReservedInstancesErrorCode
+pattern DeleteQueuedReservedInstancesErrorCodeUnexpectedError = DeleteQueuedReservedInstancesErrorCode' "unexpected-error"
 
 {-# COMPLETE
-  ReservedInstancesIdInvalid,
-  ReservedInstancesNotInQueuedState,
-  UnexpectedError,
+  DeleteQueuedReservedInstancesErrorCodeReservedInstancesIdInvalid,
+  DeleteQueuedReservedInstancesErrorCodeReservedInstancesNotInQueuedState,
+  DeleteQueuedReservedInstancesErrorCodeUnexpectedError,
   DeleteQueuedReservedInstancesErrorCode'
   #-}
 
-instance FromText DeleteQueuedReservedInstancesErrorCode where
-  parser = (DeleteQueuedReservedInstancesErrorCode' . mk) <$> takeText
+instance Prelude.FromText DeleteQueuedReservedInstancesErrorCode where
+  parser = DeleteQueuedReservedInstancesErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText DeleteQueuedReservedInstancesErrorCode where
-  toText (DeleteQueuedReservedInstancesErrorCode' ci) = original ci
+instance Prelude.ToText DeleteQueuedReservedInstancesErrorCode where
+  toText (DeleteQueuedReservedInstancesErrorCode' x) = x
 
-instance Hashable DeleteQueuedReservedInstancesErrorCode
+instance Prelude.Hashable DeleteQueuedReservedInstancesErrorCode
 
-instance NFData DeleteQueuedReservedInstancesErrorCode
+instance Prelude.NFData DeleteQueuedReservedInstancesErrorCode
 
-instance ToByteString DeleteQueuedReservedInstancesErrorCode
+instance Prelude.ToByteString DeleteQueuedReservedInstancesErrorCode
 
-instance ToQuery DeleteQueuedReservedInstancesErrorCode
+instance Prelude.ToQuery DeleteQueuedReservedInstancesErrorCode
 
-instance ToHeader DeleteQueuedReservedInstancesErrorCode
+instance Prelude.ToHeader DeleteQueuedReservedInstancesErrorCode
 
-instance FromXML DeleteQueuedReservedInstancesErrorCode where
-  parseXML = parseXMLText "DeleteQueuedReservedInstancesErrorCode"
+instance Prelude.FromXML DeleteQueuedReservedInstancesErrorCode where
+  parseXML = Prelude.parseXMLText "DeleteQueuedReservedInstancesErrorCode"

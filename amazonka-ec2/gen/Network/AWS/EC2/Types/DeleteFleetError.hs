@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +21,53 @@ module Network.AWS.EC2.Types.DeleteFleetError where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.DeleteFleetErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an EC2 Fleet error.
 --
---
---
--- /See:/ 'deleteFleetError' smart constructor.
+-- /See:/ 'newDeleteFleetError' smart constructor.
 data DeleteFleetError = DeleteFleetError'
-  { _dfeMessage ::
-      !(Maybe Text),
-    _dfeCode ::
-      !(Maybe DeleteFleetErrorCode)
+  { -- | The description for the error code.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    code :: Prelude.Maybe DeleteFleetErrorCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFleetError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFleetError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfeMessage' - The description for the error code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfeCode' - The error code.
-deleteFleetError ::
+-- 'message', 'deleteFleetError_message' - The description for the error code.
+--
+-- 'code', 'deleteFleetError_code' - The error code.
+newDeleteFleetError ::
   DeleteFleetError
-deleteFleetError =
+newDeleteFleetError =
   DeleteFleetError'
-    { _dfeMessage = Nothing,
-      _dfeCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The description for the error code.
-dfeMessage :: Lens' DeleteFleetError (Maybe Text)
-dfeMessage = lens _dfeMessage (\s a -> s {_dfeMessage = a})
+deleteFleetError_message :: Lens.Lens' DeleteFleetError (Prelude.Maybe Prelude.Text)
+deleteFleetError_message = Lens.lens (\DeleteFleetError' {message} -> message) (\s@DeleteFleetError' {} a -> s {message = a} :: DeleteFleetError)
 
 -- | The error code.
-dfeCode :: Lens' DeleteFleetError (Maybe DeleteFleetErrorCode)
-dfeCode = lens _dfeCode (\s a -> s {_dfeCode = a})
+deleteFleetError_code :: Lens.Lens' DeleteFleetError (Prelude.Maybe DeleteFleetErrorCode)
+deleteFleetError_code = Lens.lens (\DeleteFleetError' {code} -> code) (\s@DeleteFleetError' {} a -> s {code = a} :: DeleteFleetError)
 
-instance FromXML DeleteFleetError where
+instance Prelude.FromXML DeleteFleetError where
   parseXML x =
     DeleteFleetError'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
-instance Hashable DeleteFleetError
+instance Prelude.Hashable DeleteFleetError
 
-instance NFData DeleteFleetError
+instance Prelude.NFData DeleteFleetError

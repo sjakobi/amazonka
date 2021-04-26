@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,51 +20,51 @@
 module Network.AWS.EC2.Types.Phase1DHGroupNumbersRequestListValue where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies a Diffie-Hellman group number for the VPN tunnel for phase 1 IKE negotiations.
+-- | Specifies a Diffie-Hellman group number for the VPN tunnel for phase 1
+-- IKE negotiations.
 --
---
---
--- /See:/ 'phase1DHGroupNumbersRequestListValue' smart constructor.
-newtype Phase1DHGroupNumbersRequestListValue = Phase1DHGroupNumbersRequestListValue'
-  { _pdhgnrlvdValue ::
-      Maybe
-        Int
+-- /See:/ 'newPhase1DHGroupNumbersRequestListValue' smart constructor.
+data Phase1DHGroupNumbersRequestListValue = Phase1DHGroupNumbersRequestListValue'
+  { -- | The Diffie-Hellmann group number.
+    value :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Phase1DHGroupNumbersRequestListValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Phase1DHGroupNumbersRequestListValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdhgnrlvdValue' - The Diffie-Hellmann group number.
-phase1DHGroupNumbersRequestListValue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'value', 'phase1DHGroupNumbersRequestListValue_value' - The Diffie-Hellmann group number.
+newPhase1DHGroupNumbersRequestListValue ::
   Phase1DHGroupNumbersRequestListValue
-phase1DHGroupNumbersRequestListValue =
+newPhase1DHGroupNumbersRequestListValue =
   Phase1DHGroupNumbersRequestListValue'
-    { _pdhgnrlvdValue =
-        Nothing
+    { value =
+        Prelude.Nothing
     }
 
 -- | The Diffie-Hellmann group number.
-pdhgnrlvdValue :: Lens' Phase1DHGroupNumbersRequestListValue (Maybe Int)
-pdhgnrlvdValue = lens _pdhgnrlvdValue (\s a -> s {_pdhgnrlvdValue = a})
+phase1DHGroupNumbersRequestListValue_value :: Lens.Lens' Phase1DHGroupNumbersRequestListValue (Prelude.Maybe Prelude.Int)
+phase1DHGroupNumbersRequestListValue_value = Lens.lens (\Phase1DHGroupNumbersRequestListValue' {value} -> value) (\s@Phase1DHGroupNumbersRequestListValue' {} a -> s {value = a} :: Phase1DHGroupNumbersRequestListValue)
 
 instance
-  Hashable
+  Prelude.Hashable
     Phase1DHGroupNumbersRequestListValue
 
-instance NFData Phase1DHGroupNumbersRequestListValue
+instance
+  Prelude.NFData
+    Phase1DHGroupNumbersRequestListValue
 
-instance ToQuery Phase1DHGroupNumbersRequestListValue where
+instance
+  Prelude.ToQuery
+    Phase1DHGroupNumbersRequestListValue
+  where
   toQuery Phase1DHGroupNumbersRequestListValue' {..} =
-    mconcat ["Value" =: _pdhgnrlvdValue]
+    Prelude.mconcat ["Value" Prelude.=: value]

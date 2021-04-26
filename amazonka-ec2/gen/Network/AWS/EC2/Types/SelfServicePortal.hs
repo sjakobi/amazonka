@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.EC2.Types.SelfServicePortal
   ( SelfServicePortal
       ( ..,
-        SSPDisabled,
-        SSPEnabled
+        SelfServicePortalDisabled,
+        SelfServicePortalEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SelfServicePortal = SelfServicePortal' (CI Text)
+newtype SelfServicePortal = SelfServicePortal'
+  { fromSelfServicePortal ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSPDisabled :: SelfServicePortal
-pattern SSPDisabled = SelfServicePortal' "disabled"
+pattern SelfServicePortalDisabled :: SelfServicePortal
+pattern SelfServicePortalDisabled = SelfServicePortal' "disabled"
 
-pattern SSPEnabled :: SelfServicePortal
-pattern SSPEnabled = SelfServicePortal' "enabled"
+pattern SelfServicePortalEnabled :: SelfServicePortal
+pattern SelfServicePortalEnabled = SelfServicePortal' "enabled"
 
 {-# COMPLETE
-  SSPDisabled,
-  SSPEnabled,
+  SelfServicePortalDisabled,
+  SelfServicePortalEnabled,
   SelfServicePortal'
   #-}
 
-instance FromText SelfServicePortal where
-  parser = (SelfServicePortal' . mk) <$> takeText
+instance Prelude.FromText SelfServicePortal where
+  parser = SelfServicePortal' Prelude.<$> Prelude.takeText
 
-instance ToText SelfServicePortal where
-  toText (SelfServicePortal' ci) = original ci
+instance Prelude.ToText SelfServicePortal where
+  toText (SelfServicePortal' x) = x
 
-instance Hashable SelfServicePortal
+instance Prelude.Hashable SelfServicePortal
 
-instance NFData SelfServicePortal
+instance Prelude.NFData SelfServicePortal
 
-instance ToByteString SelfServicePortal
+instance Prelude.ToByteString SelfServicePortal
 
-instance ToQuery SelfServicePortal
+instance Prelude.ToQuery SelfServicePortal
 
-instance ToHeader SelfServicePortal
+instance Prelude.ToHeader SelfServicePortal

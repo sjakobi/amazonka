@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,241 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a 2048-bit RSA key pair with the specified name. Amazon EC2 stores the public key and displays the private key for you to save to a file. The private key is returned as an unencrypted PEM encoded PKCS#1 private key. If a key with the specified name already exists, Amazon EC2 returns an error.
---
+-- Creates a 2048-bit RSA key pair with the specified name. Amazon EC2
+-- stores the public key and displays the private key for you to save to a
+-- file. The private key is returned as an unencrypted PEM encoded PKCS#1
+-- private key. If a key with the specified name already exists, Amazon EC2
+-- returns an error.
 --
 -- You can have up to five thousand key pairs per Region.
 --
--- The key pair returned to you is available only in the Region in which you create it. If you prefer, you can create your own key pair using a third-party tool and upload it to any Region using 'ImportKeyPair' .
+-- The key pair returned to you is available only in the Region in which
+-- you create it. If you prefer, you can create your own key pair using a
+-- third-party tool and upload it to any Region using ImportKeyPair.
 --
--- For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html Key Pairs> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html Key Pairs>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Network.AWS.EC2.CreateKeyPair
   ( -- * Creating a Request
-    createKeyPair,
-    CreateKeyPair,
+    CreateKeyPair (..),
+    newCreateKeyPair,
 
     -- * Request Lenses
-    ckpTagSpecifications,
-    ckpDryRun,
-    ckpKeyName,
+    createKeyPair_tagSpecifications,
+    createKeyPair_dryRun,
+    createKeyPair_keyName,
 
     -- * Destructuring the Response
-    createKeyPairResponse,
-    CreateKeyPairResponse,
+    CreateKeyPairResponse (..),
+    newCreateKeyPairResponse,
 
     -- * Response Lenses
-    ckprrsKeyPairId,
-    ckprrsTags,
-    ckprrsResponseStatus,
-    ckprrsKeyName,
-    ckprrsKeyFingerprint,
-    ckprrsKeyMaterial,
+    createKeyPairResponse_keyPairId,
+    createKeyPairResponse_tags,
+    createKeyPairResponse_httpStatus,
+    createKeyPairResponse_keyName,
+    createKeyPairResponse_keyFingerprint,
+    createKeyPairResponse_keyMaterial,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createKeyPair' smart constructor.
+-- | /See:/ 'newCreateKeyPair' smart constructor.
 data CreateKeyPair = CreateKeyPair'
-  { _ckpTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _ckpDryRun :: !(Maybe Bool),
-    _ckpKeyName :: !Text
+  { -- | The tags to apply to the new key pair.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | A unique name for the key pair.
+    --
+    -- Constraints: Up to 255 ASCII characters
+    keyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateKeyPair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateKeyPair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ckpTagSpecifications' - The tags to apply to the new key pair.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ckpDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createKeyPair_tagSpecifications' - The tags to apply to the new key pair.
 --
--- * 'ckpKeyName' - A unique name for the key pair. Constraints: Up to 255 ASCII characters
-createKeyPair ::
-  -- | 'ckpKeyName'
-  Text ->
+-- 'dryRun', 'createKeyPair_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'keyName', 'createKeyPair_keyName' - A unique name for the key pair.
+--
+-- Constraints: Up to 255 ASCII characters
+newCreateKeyPair ::
+  -- | 'keyName'
+  Prelude.Text ->
   CreateKeyPair
-createKeyPair pKeyName_ =
+newCreateKeyPair pKeyName_ =
   CreateKeyPair'
-    { _ckpTagSpecifications = Nothing,
-      _ckpDryRun = Nothing,
-      _ckpKeyName = pKeyName_
+    { tagSpecifications = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      keyName = pKeyName_
     }
 
 -- | The tags to apply to the new key pair.
-ckpTagSpecifications :: Lens' CreateKeyPair [TagSpecification]
-ckpTagSpecifications = lens _ckpTagSpecifications (\s a -> s {_ckpTagSpecifications = a}) . _Default . _Coerce
+createKeyPair_tagSpecifications :: Lens.Lens' CreateKeyPair (Prelude.Maybe [TagSpecification])
+createKeyPair_tagSpecifications = Lens.lens (\CreateKeyPair' {tagSpecifications} -> tagSpecifications) (\s@CreateKeyPair' {} a -> s {tagSpecifications = a} :: CreateKeyPair) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ckpDryRun :: Lens' CreateKeyPair (Maybe Bool)
-ckpDryRun = lens _ckpDryRun (\s a -> s {_ckpDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createKeyPair_dryRun :: Lens.Lens' CreateKeyPair (Prelude.Maybe Prelude.Bool)
+createKeyPair_dryRun = Lens.lens (\CreateKeyPair' {dryRun} -> dryRun) (\s@CreateKeyPair' {} a -> s {dryRun = a} :: CreateKeyPair)
 
--- | A unique name for the key pair. Constraints: Up to 255 ASCII characters
-ckpKeyName :: Lens' CreateKeyPair Text
-ckpKeyName = lens _ckpKeyName (\s a -> s {_ckpKeyName = a})
+-- | A unique name for the key pair.
+--
+-- Constraints: Up to 255 ASCII characters
+createKeyPair_keyName :: Lens.Lens' CreateKeyPair Prelude.Text
+createKeyPair_keyName = Lens.lens (\CreateKeyPair' {keyName} -> keyName) (\s@CreateKeyPair' {} a -> s {keyName = a} :: CreateKeyPair)
 
-instance AWSRequest CreateKeyPair where
+instance Prelude.AWSRequest CreateKeyPair where
   type Rs CreateKeyPair = CreateKeyPairResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateKeyPairResponse'
-            <$> (x .@? "keyPairId")
-            <*> ( x .@? "tagSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
-            <*> (x .@ "keyName")
-            <*> (x .@ "keyFingerprint")
-            <*> (x .@ "keyMaterial")
+            Prelude.<$> (x Prelude..@? "keyPairId")
+            Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "keyName")
+            Prelude.<*> (x Prelude..@ "keyFingerprint")
+            Prelude.<*> (x Prelude..@ "keyMaterial")
       )
 
-instance Hashable CreateKeyPair
+instance Prelude.Hashable CreateKeyPair
 
-instance NFData CreateKeyPair
+instance Prelude.NFData CreateKeyPair
 
-instance ToHeaders CreateKeyPair where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateKeyPair where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateKeyPair where
-  toPath = const "/"
+instance Prelude.ToPath CreateKeyPair where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateKeyPair where
+instance Prelude.ToQuery CreateKeyPair where
   toQuery CreateKeyPair' {..} =
-    mconcat
-      [ "Action" =: ("CreateKeyPair" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _ckpTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateKeyPair" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _ckpDryRun,
-        "KeyName" =: _ckpKeyName
+        "DryRun" Prelude.=: dryRun,
+        "KeyName" Prelude.=: keyName
       ]
 
 -- | Describes a key pair.
 --
---
---
--- /See:/ 'createKeyPairResponse' smart constructor.
+-- /See:/ 'newCreateKeyPairResponse' smart constructor.
 data CreateKeyPairResponse = CreateKeyPairResponse'
-  { _ckprrsKeyPairId ::
-      !(Maybe Text),
-    _ckprrsTags ::
-      !(Maybe [Tag]),
-    _ckprrsResponseStatus ::
-      !Int,
-    _ckprrsKeyName :: !Text,
-    _ckprrsKeyFingerprint ::
-      !Text,
-    _ckprrsKeyMaterial ::
-      !(Sensitive Text)
+  { -- | The ID of the key pair.
+    keyPairId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags applied to the key pair.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The name of the key pair.
+    keyName :: Prelude.Text,
+    -- | The SHA-1 digest of the DER encoded private key.
+    keyFingerprint :: Prelude.Text,
+    -- | An unencrypted PEM encoded RSA private key.
+    keyMaterial :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateKeyPairResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateKeyPairResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ckprrsKeyPairId' - The ID of the key pair.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ckprrsTags' - Any tags applied to the key pair.
+-- 'keyPairId', 'createKeyPairResponse_keyPairId' - The ID of the key pair.
 --
--- * 'ckprrsResponseStatus' - -- | The response status code.
+-- 'tags', 'createKeyPairResponse_tags' - Any tags applied to the key pair.
 --
--- * 'ckprrsKeyName' - The name of the key pair.
+-- 'httpStatus', 'createKeyPairResponse_httpStatus' - The response's http status code.
 --
--- * 'ckprrsKeyFingerprint' - The SHA-1 digest of the DER encoded private key.
+-- 'keyName', 'createKeyPairResponse_keyName' - The name of the key pair.
 --
--- * 'ckprrsKeyMaterial' - An unencrypted PEM encoded RSA private key.
-createKeyPairResponse ::
-  -- | 'ckprrsResponseStatus'
-  Int ->
-  -- | 'ckprrsKeyName'
-  Text ->
-  -- | 'ckprrsKeyFingerprint'
-  Text ->
-  -- | 'ckprrsKeyMaterial'
-  Text ->
+-- 'keyFingerprint', 'createKeyPairResponse_keyFingerprint' - The SHA-1 digest of the DER encoded private key.
+--
+-- 'keyMaterial', 'createKeyPairResponse_keyMaterial' - An unencrypted PEM encoded RSA private key.
+newCreateKeyPairResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'keyName'
+  Prelude.Text ->
+  -- | 'keyFingerprint'
+  Prelude.Text ->
+  -- | 'keyMaterial'
+  Prelude.Text ->
   CreateKeyPairResponse
-createKeyPairResponse
-  pResponseStatus_
+newCreateKeyPairResponse
+  pHttpStatus_
   pKeyName_
   pKeyFingerprint_
   pKeyMaterial_ =
     CreateKeyPairResponse'
-      { _ckprrsKeyPairId = Nothing,
-        _ckprrsTags = Nothing,
-        _ckprrsResponseStatus = pResponseStatus_,
-        _ckprrsKeyName = pKeyName_,
-        _ckprrsKeyFingerprint = pKeyFingerprint_,
-        _ckprrsKeyMaterial = _Sensitive # pKeyMaterial_
+      { keyPairId = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        keyName = pKeyName_,
+        keyFingerprint = pKeyFingerprint_,
+        keyMaterial =
+          Prelude._Sensitive Lens.# pKeyMaterial_
       }
 
 -- | The ID of the key pair.
-ckprrsKeyPairId :: Lens' CreateKeyPairResponse (Maybe Text)
-ckprrsKeyPairId = lens _ckprrsKeyPairId (\s a -> s {_ckprrsKeyPairId = a})
+createKeyPairResponse_keyPairId :: Lens.Lens' CreateKeyPairResponse (Prelude.Maybe Prelude.Text)
+createKeyPairResponse_keyPairId = Lens.lens (\CreateKeyPairResponse' {keyPairId} -> keyPairId) (\s@CreateKeyPairResponse' {} a -> s {keyPairId = a} :: CreateKeyPairResponse)
 
 -- | Any tags applied to the key pair.
-ckprrsTags :: Lens' CreateKeyPairResponse [Tag]
-ckprrsTags = lens _ckprrsTags (\s a -> s {_ckprrsTags = a}) . _Default . _Coerce
+createKeyPairResponse_tags :: Lens.Lens' CreateKeyPairResponse (Prelude.Maybe [Tag])
+createKeyPairResponse_tags = Lens.lens (\CreateKeyPairResponse' {tags} -> tags) (\s@CreateKeyPairResponse' {} a -> s {tags = a} :: CreateKeyPairResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ckprrsResponseStatus :: Lens' CreateKeyPairResponse Int
-ckprrsResponseStatus = lens _ckprrsResponseStatus (\s a -> s {_ckprrsResponseStatus = a})
+-- | The response's http status code.
+createKeyPairResponse_httpStatus :: Lens.Lens' CreateKeyPairResponse Prelude.Int
+createKeyPairResponse_httpStatus = Lens.lens (\CreateKeyPairResponse' {httpStatus} -> httpStatus) (\s@CreateKeyPairResponse' {} a -> s {httpStatus = a} :: CreateKeyPairResponse)
 
 -- | The name of the key pair.
-ckprrsKeyName :: Lens' CreateKeyPairResponse Text
-ckprrsKeyName = lens _ckprrsKeyName (\s a -> s {_ckprrsKeyName = a})
+createKeyPairResponse_keyName :: Lens.Lens' CreateKeyPairResponse Prelude.Text
+createKeyPairResponse_keyName = Lens.lens (\CreateKeyPairResponse' {keyName} -> keyName) (\s@CreateKeyPairResponse' {} a -> s {keyName = a} :: CreateKeyPairResponse)
 
 -- | The SHA-1 digest of the DER encoded private key.
-ckprrsKeyFingerprint :: Lens' CreateKeyPairResponse Text
-ckprrsKeyFingerprint = lens _ckprrsKeyFingerprint (\s a -> s {_ckprrsKeyFingerprint = a})
+createKeyPairResponse_keyFingerprint :: Lens.Lens' CreateKeyPairResponse Prelude.Text
+createKeyPairResponse_keyFingerprint = Lens.lens (\CreateKeyPairResponse' {keyFingerprint} -> keyFingerprint) (\s@CreateKeyPairResponse' {} a -> s {keyFingerprint = a} :: CreateKeyPairResponse)
 
 -- | An unencrypted PEM encoded RSA private key.
-ckprrsKeyMaterial :: Lens' CreateKeyPairResponse Text
-ckprrsKeyMaterial = lens _ckprrsKeyMaterial (\s a -> s {_ckprrsKeyMaterial = a}) . _Sensitive
+createKeyPairResponse_keyMaterial :: Lens.Lens' CreateKeyPairResponse Prelude.Text
+createKeyPairResponse_keyMaterial = Lens.lens (\CreateKeyPairResponse' {keyMaterial} -> keyMaterial) (\s@CreateKeyPairResponse' {} a -> s {keyMaterial = a} :: CreateKeyPairResponse) Prelude.. Prelude._Sensitive
 
-instance NFData CreateKeyPairResponse
+instance Prelude.NFData CreateKeyPairResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.EndDateType
   ( EndDateType
       ( ..,
-        Limited,
-        Unlimited
+        EndDateTypeLimited,
+        EndDateTypeUnlimited
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EndDateType = EndDateType' (CI Text)
+newtype EndDateType = EndDateType'
+  { fromEndDateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Limited :: EndDateType
-pattern Limited = EndDateType' "limited"
+pattern EndDateTypeLimited :: EndDateType
+pattern EndDateTypeLimited = EndDateType' "limited"
 
-pattern Unlimited :: EndDateType
-pattern Unlimited = EndDateType' "unlimited"
+pattern EndDateTypeUnlimited :: EndDateType
+pattern EndDateTypeUnlimited = EndDateType' "unlimited"
 
 {-# COMPLETE
-  Limited,
-  Unlimited,
+  EndDateTypeLimited,
+  EndDateTypeUnlimited,
   EndDateType'
   #-}
 
-instance FromText EndDateType where
-  parser = (EndDateType' . mk) <$> takeText
+instance Prelude.FromText EndDateType where
+  parser = EndDateType' Prelude.<$> Prelude.takeText
 
-instance ToText EndDateType where
-  toText (EndDateType' ci) = original ci
+instance Prelude.ToText EndDateType where
+  toText (EndDateType' x) = x
 
-instance Hashable EndDateType
+instance Prelude.Hashable EndDateType
 
-instance NFData EndDateType
+instance Prelude.NFData EndDateType
 
-instance ToByteString EndDateType
+instance Prelude.ToByteString EndDateType
 
-instance ToQuery EndDateType
+instance Prelude.ToQuery EndDateType
 
-instance ToHeader EndDateType
+instance Prelude.ToHeader EndDateType
 
-instance FromXML EndDateType where
-  parseXML = parseXMLText "EndDateType"
+instance Prelude.FromXML EndDateType where
+  parseXML = Prelude.parseXMLText "EndDateType"

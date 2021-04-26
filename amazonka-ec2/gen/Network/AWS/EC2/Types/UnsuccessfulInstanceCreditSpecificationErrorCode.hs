@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.UnsuccessfulInstanceCreditSpecificationErrorCode
   ( UnsuccessfulInstanceCreditSpecificationErrorCode
       ( ..,
-        IncorrectInstanceState,
-        InstanceCreditSpecification_NotSupported,
-        InvalidInstanceId_Malformed,
-        InvalidInstanceId_NotFound
+        UnsuccessfulInstanceCreditSpecificationErrorCodeIncorrectInstanceState,
+        UnsuccessfulInstanceCreditSpecificationErrorCodeInstanceCreditSpecification_NotSupported,
+        UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_Malformed,
+        UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_NotFound
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UnsuccessfulInstanceCreditSpecificationErrorCode
-  = UnsuccessfulInstanceCreditSpecificationErrorCode'
-      ( CI
-          Text
-      )
+newtype UnsuccessfulInstanceCreditSpecificationErrorCode = UnsuccessfulInstanceCreditSpecificationErrorCode'
+  { fromUnsuccessfulInstanceCreditSpecificationErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IncorrectInstanceState :: UnsuccessfulInstanceCreditSpecificationErrorCode
-pattern IncorrectInstanceState = UnsuccessfulInstanceCreditSpecificationErrorCode' "IncorrectInstanceState"
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeIncorrectInstanceState :: UnsuccessfulInstanceCreditSpecificationErrorCode
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeIncorrectInstanceState = UnsuccessfulInstanceCreditSpecificationErrorCode' "IncorrectInstanceState"
 
-pattern InstanceCreditSpecification_NotSupported :: UnsuccessfulInstanceCreditSpecificationErrorCode
-pattern InstanceCreditSpecification_NotSupported = UnsuccessfulInstanceCreditSpecificationErrorCode' "InstanceCreditSpecification.NotSupported"
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeInstanceCreditSpecification_NotSupported :: UnsuccessfulInstanceCreditSpecificationErrorCode
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeInstanceCreditSpecification_NotSupported = UnsuccessfulInstanceCreditSpecificationErrorCode' "InstanceCreditSpecification.NotSupported"
 
-pattern InvalidInstanceId_Malformed :: UnsuccessfulInstanceCreditSpecificationErrorCode
-pattern InvalidInstanceId_Malformed = UnsuccessfulInstanceCreditSpecificationErrorCode' "InvalidInstanceID.Malformed"
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_Malformed :: UnsuccessfulInstanceCreditSpecificationErrorCode
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_Malformed = UnsuccessfulInstanceCreditSpecificationErrorCode' "InvalidInstanceID.Malformed"
 
-pattern InvalidInstanceId_NotFound :: UnsuccessfulInstanceCreditSpecificationErrorCode
-pattern InvalidInstanceId_NotFound = UnsuccessfulInstanceCreditSpecificationErrorCode' "InvalidInstanceID.NotFound"
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_NotFound :: UnsuccessfulInstanceCreditSpecificationErrorCode
+pattern UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_NotFound = UnsuccessfulInstanceCreditSpecificationErrorCode' "InvalidInstanceID.NotFound"
 
 {-# COMPLETE
-  IncorrectInstanceState,
-  InstanceCreditSpecification_NotSupported,
-  InvalidInstanceId_Malformed,
-  InvalidInstanceId_NotFound,
+  UnsuccessfulInstanceCreditSpecificationErrorCodeIncorrectInstanceState,
+  UnsuccessfulInstanceCreditSpecificationErrorCodeInstanceCreditSpecification_NotSupported,
+  UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_Malformed,
+  UnsuccessfulInstanceCreditSpecificationErrorCodeInvalidInstanceID_NotFound,
   UnsuccessfulInstanceCreditSpecificationErrorCode'
   #-}
 
-instance FromText UnsuccessfulInstanceCreditSpecificationErrorCode where
-  parser = (UnsuccessfulInstanceCreditSpecificationErrorCode' . mk) <$> takeText
+instance Prelude.FromText UnsuccessfulInstanceCreditSpecificationErrorCode where
+  parser = UnsuccessfulInstanceCreditSpecificationErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText UnsuccessfulInstanceCreditSpecificationErrorCode where
-  toText (UnsuccessfulInstanceCreditSpecificationErrorCode' ci) = original ci
+instance Prelude.ToText UnsuccessfulInstanceCreditSpecificationErrorCode where
+  toText (UnsuccessfulInstanceCreditSpecificationErrorCode' x) = x
 
-instance Hashable UnsuccessfulInstanceCreditSpecificationErrorCode
+instance Prelude.Hashable UnsuccessfulInstanceCreditSpecificationErrorCode
 
-instance NFData UnsuccessfulInstanceCreditSpecificationErrorCode
+instance Prelude.NFData UnsuccessfulInstanceCreditSpecificationErrorCode
 
-instance ToByteString UnsuccessfulInstanceCreditSpecificationErrorCode
+instance Prelude.ToByteString UnsuccessfulInstanceCreditSpecificationErrorCode
 
-instance ToQuery UnsuccessfulInstanceCreditSpecificationErrorCode
+instance Prelude.ToQuery UnsuccessfulInstanceCreditSpecificationErrorCode
 
-instance ToHeader UnsuccessfulInstanceCreditSpecificationErrorCode
+instance Prelude.ToHeader UnsuccessfulInstanceCreditSpecificationErrorCode
 
-instance FromXML UnsuccessfulInstanceCreditSpecificationErrorCode where
-  parseXML = parseXMLText "UnsuccessfulInstanceCreditSpecificationErrorCode"
+instance Prelude.FromXML UnsuccessfulInstanceCreditSpecificationErrorCode where
+  parseXML = Prelude.parseXMLText "UnsuccessfulInstanceCreditSpecificationErrorCode"

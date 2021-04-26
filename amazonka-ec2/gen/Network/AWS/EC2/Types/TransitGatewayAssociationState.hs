@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.TransitGatewayAssociationState
   ( TransitGatewayAssociationState
       ( ..,
-        TGASAssociated,
-        TGASAssociating,
-        TGASDisassociated,
-        TGASDisassociating
+        TransitGatewayAssociationStateAssociated,
+        TransitGatewayAssociationStateAssociating,
+        TransitGatewayAssociationStateDisassociated,
+        TransitGatewayAssociationStateDisassociating
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayAssociationState
-  = TransitGatewayAssociationState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayAssociationState = TransitGatewayAssociationState'
+  { fromTransitGatewayAssociationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGASAssociated :: TransitGatewayAssociationState
-pattern TGASAssociated = TransitGatewayAssociationState' "associated"
+pattern TransitGatewayAssociationStateAssociated :: TransitGatewayAssociationState
+pattern TransitGatewayAssociationStateAssociated = TransitGatewayAssociationState' "associated"
 
-pattern TGASAssociating :: TransitGatewayAssociationState
-pattern TGASAssociating = TransitGatewayAssociationState' "associating"
+pattern TransitGatewayAssociationStateAssociating :: TransitGatewayAssociationState
+pattern TransitGatewayAssociationStateAssociating = TransitGatewayAssociationState' "associating"
 
-pattern TGASDisassociated :: TransitGatewayAssociationState
-pattern TGASDisassociated = TransitGatewayAssociationState' "disassociated"
+pattern TransitGatewayAssociationStateDisassociated :: TransitGatewayAssociationState
+pattern TransitGatewayAssociationStateDisassociated = TransitGatewayAssociationState' "disassociated"
 
-pattern TGASDisassociating :: TransitGatewayAssociationState
-pattern TGASDisassociating = TransitGatewayAssociationState' "disassociating"
+pattern TransitGatewayAssociationStateDisassociating :: TransitGatewayAssociationState
+pattern TransitGatewayAssociationStateDisassociating = TransitGatewayAssociationState' "disassociating"
 
 {-# COMPLETE
-  TGASAssociated,
-  TGASAssociating,
-  TGASDisassociated,
-  TGASDisassociating,
+  TransitGatewayAssociationStateAssociated,
+  TransitGatewayAssociationStateAssociating,
+  TransitGatewayAssociationStateDisassociated,
+  TransitGatewayAssociationStateDisassociating,
   TransitGatewayAssociationState'
   #-}
 
-instance FromText TransitGatewayAssociationState where
-  parser = (TransitGatewayAssociationState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayAssociationState where
+  parser = TransitGatewayAssociationState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayAssociationState where
-  toText (TransitGatewayAssociationState' ci) = original ci
+instance Prelude.ToText TransitGatewayAssociationState where
+  toText (TransitGatewayAssociationState' x) = x
 
-instance Hashable TransitGatewayAssociationState
+instance Prelude.Hashable TransitGatewayAssociationState
 
-instance NFData TransitGatewayAssociationState
+instance Prelude.NFData TransitGatewayAssociationState
 
-instance ToByteString TransitGatewayAssociationState
+instance Prelude.ToByteString TransitGatewayAssociationState
 
-instance ToQuery TransitGatewayAssociationState
+instance Prelude.ToQuery TransitGatewayAssociationState
 
-instance ToHeader TransitGatewayAssociationState
+instance Prelude.ToHeader TransitGatewayAssociationState
 
-instance FromXML TransitGatewayAssociationState where
-  parseXML = parseXMLText "TransitGatewayAssociationState"
+instance Prelude.FromXML TransitGatewayAssociationState where
+  parseXML = Prelude.parseXMLText "TransitGatewayAssociationState"

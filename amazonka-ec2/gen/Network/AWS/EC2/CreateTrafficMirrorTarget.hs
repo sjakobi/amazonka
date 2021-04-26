@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,216 +23,235 @@
 --
 -- Creates a target for your Traffic Mirror session.
 --
+-- A Traffic Mirror target is the destination for mirrored traffic. The
+-- Traffic Mirror source and the Traffic Mirror target (monitoring
+-- appliances) can be in the same VPC, or in different VPCs connected via
+-- VPC peering or a transit gateway.
 --
--- A Traffic Mirror target is the destination for mirrored traffic. The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in different VPCs connected via VPC peering or a transit gateway.
+-- A Traffic Mirror target can be a network interface, or a Network Load
+-- Balancer.
 --
--- A Traffic Mirror target can be a network interface, or a Network Load Balancer.
---
--- To use the target in a Traffic Mirror session, use <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorSession.htm CreateTrafficMirrorSession> .
+-- To use the target in a Traffic Mirror session, use
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorSession.htm CreateTrafficMirrorSession>.
 module Network.AWS.EC2.CreateTrafficMirrorTarget
   ( -- * Creating a Request
-    createTrafficMirrorTarget,
-    CreateTrafficMirrorTarget,
+    CreateTrafficMirrorTarget (..),
+    newCreateTrafficMirrorTarget,
 
     -- * Request Lenses
-    ctmtTagSpecifications,
-    ctmtNetworkLoadBalancerARN,
-    ctmtDryRun,
-    ctmtNetworkInterfaceId,
-    ctmtDescription,
-    ctmtClientToken,
+    createTrafficMirrorTarget_tagSpecifications,
+    createTrafficMirrorTarget_networkLoadBalancerArn,
+    createTrafficMirrorTarget_dryRun,
+    createTrafficMirrorTarget_networkInterfaceId,
+    createTrafficMirrorTarget_description,
+    createTrafficMirrorTarget_clientToken,
 
     -- * Destructuring the Response
-    createTrafficMirrorTargetResponse,
-    CreateTrafficMirrorTargetResponse,
+    CreateTrafficMirrorTargetResponse (..),
+    newCreateTrafficMirrorTargetResponse,
 
     -- * Response Lenses
-    ctmtrrsTrafficMirrorTarget,
-    ctmtrrsClientToken,
-    ctmtrrsResponseStatus,
+    createTrafficMirrorTargetResponse_trafficMirrorTarget,
+    createTrafficMirrorTargetResponse_clientToken,
+    createTrafficMirrorTargetResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TrafficMirrorTarget
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTrafficMirrorTarget' smart constructor.
+-- | /See:/ 'newCreateTrafficMirrorTarget' smart constructor.
 data CreateTrafficMirrorTarget = CreateTrafficMirrorTarget'
-  { _ctmtTagSpecifications ::
-      !( Maybe
-           [TagSpecification]
-       ),
-    _ctmtNetworkLoadBalancerARN ::
-      !(Maybe Text),
-    _ctmtDryRun ::
-      !(Maybe Bool),
-    _ctmtNetworkInterfaceId ::
-      !(Maybe Text),
-    _ctmtDescription ::
-      !(Maybe Text),
-    _ctmtClientToken ::
-      !(Maybe Text)
+  { -- | The tags to assign to the Traffic Mirror target.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | The Amazon Resource Name (ARN) of the Network Load Balancer that is
+    -- associated with the target.
+    networkLoadBalancerArn :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The network interface ID that is associated with the target.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The description of the Traffic Mirror target.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrafficMirrorTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrafficMirrorTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctmtTagSpecifications' - The tags to assign to the Traffic Mirror target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctmtNetworkLoadBalancerARN' - The Amazon Resource Name (ARN) of the Network Load Balancer that is associated with the target.
+-- 'tagSpecifications', 'createTrafficMirrorTarget_tagSpecifications' - The tags to assign to the Traffic Mirror target.
 --
--- * 'ctmtDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'networkLoadBalancerArn', 'createTrafficMirrorTarget_networkLoadBalancerArn' - The Amazon Resource Name (ARN) of the Network Load Balancer that is
+-- associated with the target.
 --
--- * 'ctmtNetworkInterfaceId' - The network interface ID that is associated with the target.
+-- 'dryRun', 'createTrafficMirrorTarget_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'ctmtDescription' - The description of the Traffic Mirror target.
+-- 'networkInterfaceId', 'createTrafficMirrorTarget_networkInterfaceId' - The network interface ID that is associated with the target.
 --
--- * 'ctmtClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-createTrafficMirrorTarget ::
+-- 'description', 'createTrafficMirrorTarget_description' - The description of the Traffic Mirror target.
+--
+-- 'clientToken', 'createTrafficMirrorTarget_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+newCreateTrafficMirrorTarget ::
   CreateTrafficMirrorTarget
-createTrafficMirrorTarget =
+newCreateTrafficMirrorTarget =
   CreateTrafficMirrorTarget'
-    { _ctmtTagSpecifications =
-        Nothing,
-      _ctmtNetworkLoadBalancerARN = Nothing,
-      _ctmtDryRun = Nothing,
-      _ctmtNetworkInterfaceId = Nothing,
-      _ctmtDescription = Nothing,
-      _ctmtClientToken = Nothing
+    { tagSpecifications =
+        Prelude.Nothing,
+      networkLoadBalancerArn = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      networkInterfaceId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clientToken = Prelude.Nothing
     }
 
 -- | The tags to assign to the Traffic Mirror target.
-ctmtTagSpecifications :: Lens' CreateTrafficMirrorTarget [TagSpecification]
-ctmtTagSpecifications = lens _ctmtTagSpecifications (\s a -> s {_ctmtTagSpecifications = a}) . _Default . _Coerce
+createTrafficMirrorTarget_tagSpecifications :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe [TagSpecification])
+createTrafficMirrorTarget_tagSpecifications = Lens.lens (\CreateTrafficMirrorTarget' {tagSpecifications} -> tagSpecifications) (\s@CreateTrafficMirrorTarget' {} a -> s {tagSpecifications = a} :: CreateTrafficMirrorTarget) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of the Network Load Balancer that is associated with the target.
-ctmtNetworkLoadBalancerARN :: Lens' CreateTrafficMirrorTarget (Maybe Text)
-ctmtNetworkLoadBalancerARN = lens _ctmtNetworkLoadBalancerARN (\s a -> s {_ctmtNetworkLoadBalancerARN = a})
+-- | The Amazon Resource Name (ARN) of the Network Load Balancer that is
+-- associated with the target.
+createTrafficMirrorTarget_networkLoadBalancerArn :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
+createTrafficMirrorTarget_networkLoadBalancerArn = Lens.lens (\CreateTrafficMirrorTarget' {networkLoadBalancerArn} -> networkLoadBalancerArn) (\s@CreateTrafficMirrorTarget' {} a -> s {networkLoadBalancerArn = a} :: CreateTrafficMirrorTarget)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-ctmtDryRun :: Lens' CreateTrafficMirrorTarget (Maybe Bool)
-ctmtDryRun = lens _ctmtDryRun (\s a -> s {_ctmtDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTrafficMirrorTarget_dryRun :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Bool)
+createTrafficMirrorTarget_dryRun = Lens.lens (\CreateTrafficMirrorTarget' {dryRun} -> dryRun) (\s@CreateTrafficMirrorTarget' {} a -> s {dryRun = a} :: CreateTrafficMirrorTarget)
 
 -- | The network interface ID that is associated with the target.
-ctmtNetworkInterfaceId :: Lens' CreateTrafficMirrorTarget (Maybe Text)
-ctmtNetworkInterfaceId = lens _ctmtNetworkInterfaceId (\s a -> s {_ctmtNetworkInterfaceId = a})
+createTrafficMirrorTarget_networkInterfaceId :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
+createTrafficMirrorTarget_networkInterfaceId = Lens.lens (\CreateTrafficMirrorTarget' {networkInterfaceId} -> networkInterfaceId) (\s@CreateTrafficMirrorTarget' {} a -> s {networkInterfaceId = a} :: CreateTrafficMirrorTarget)
 
 -- | The description of the Traffic Mirror target.
-ctmtDescription :: Lens' CreateTrafficMirrorTarget (Maybe Text)
-ctmtDescription = lens _ctmtDescription (\s a -> s {_ctmtDescription = a})
+createTrafficMirrorTarget_description :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
+createTrafficMirrorTarget_description = Lens.lens (\CreateTrafficMirrorTarget' {description} -> description) (\s@CreateTrafficMirrorTarget' {} a -> s {description = a} :: CreateTrafficMirrorTarget)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-ctmtClientToken :: Lens' CreateTrafficMirrorTarget (Maybe Text)
-ctmtClientToken = lens _ctmtClientToken (\s a -> s {_ctmtClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+createTrafficMirrorTarget_clientToken :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
+createTrafficMirrorTarget_clientToken = Lens.lens (\CreateTrafficMirrorTarget' {clientToken} -> clientToken) (\s@CreateTrafficMirrorTarget' {} a -> s {clientToken = a} :: CreateTrafficMirrorTarget)
 
-instance AWSRequest CreateTrafficMirrorTarget where
+instance Prelude.AWSRequest CreateTrafficMirrorTarget where
   type
     Rs CreateTrafficMirrorTarget =
       CreateTrafficMirrorTargetResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateTrafficMirrorTargetResponse'
-            <$> (x .@? "trafficMirrorTarget")
-            <*> (x .@? "clientToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "trafficMirrorTarget")
+            Prelude.<*> (x Prelude..@? "clientToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTrafficMirrorTarget
+instance Prelude.Hashable CreateTrafficMirrorTarget
 
-instance NFData CreateTrafficMirrorTarget
+instance Prelude.NFData CreateTrafficMirrorTarget
 
-instance ToHeaders CreateTrafficMirrorTarget where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateTrafficMirrorTarget where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateTrafficMirrorTarget where
-  toPath = const "/"
+instance Prelude.ToPath CreateTrafficMirrorTarget where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTrafficMirrorTarget where
+instance Prelude.ToQuery CreateTrafficMirrorTarget where
   toQuery CreateTrafficMirrorTarget' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateTrafficMirrorTarget" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _ctmtTagSpecifications
+          Prelude.=: ("CreateTrafficMirrorTarget" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
         "NetworkLoadBalancerArn"
-          =: _ctmtNetworkLoadBalancerARN,
-        "DryRun" =: _ctmtDryRun,
-        "NetworkInterfaceId" =: _ctmtNetworkInterfaceId,
-        "Description" =: _ctmtDescription,
-        "ClientToken" =: _ctmtClientToken
+          Prelude.=: networkLoadBalancerArn,
+        "DryRun" Prelude.=: dryRun,
+        "NetworkInterfaceId" Prelude.=: networkInterfaceId,
+        "Description" Prelude.=: description,
+        "ClientToken" Prelude.=: clientToken
       ]
 
--- | /See:/ 'createTrafficMirrorTargetResponse' smart constructor.
+-- | /See:/ 'newCreateTrafficMirrorTargetResponse' smart constructor.
 data CreateTrafficMirrorTargetResponse = CreateTrafficMirrorTargetResponse'
-  { _ctmtrrsTrafficMirrorTarget ::
-      !( Maybe
-           TrafficMirrorTarget
-       ),
-    _ctmtrrsClientToken ::
-      !( Maybe
-           Text
-       ),
-    _ctmtrrsResponseStatus ::
-      !Int
+  { -- | Information about the Traffic Mirror target.
+    trafficMirrorTarget :: Prelude.Maybe TrafficMirrorTarget,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrafficMirrorTargetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrafficMirrorTargetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctmtrrsTrafficMirrorTarget' - Information about the Traffic Mirror target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctmtrrsClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
+-- 'trafficMirrorTarget', 'createTrafficMirrorTargetResponse_trafficMirrorTarget' - Information about the Traffic Mirror target.
 --
--- * 'ctmtrrsResponseStatus' - -- | The response status code.
-createTrafficMirrorTargetResponse ::
-  -- | 'ctmtrrsResponseStatus'
-  Int ->
+-- 'clientToken', 'createTrafficMirrorTargetResponse_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+--
+-- 'httpStatus', 'createTrafficMirrorTargetResponse_httpStatus' - The response's http status code.
+newCreateTrafficMirrorTargetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTrafficMirrorTargetResponse
-createTrafficMirrorTargetResponse pResponseStatus_ =
+newCreateTrafficMirrorTargetResponse pHttpStatus_ =
   CreateTrafficMirrorTargetResponse'
-    { _ctmtrrsTrafficMirrorTarget =
-        Nothing,
-      _ctmtrrsClientToken = Nothing,
-      _ctmtrrsResponseStatus =
-        pResponseStatus_
+    { trafficMirrorTarget =
+        Prelude.Nothing,
+      clientToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the Traffic Mirror target.
-ctmtrrsTrafficMirrorTarget :: Lens' CreateTrafficMirrorTargetResponse (Maybe TrafficMirrorTarget)
-ctmtrrsTrafficMirrorTarget = lens _ctmtrrsTrafficMirrorTarget (\s a -> s {_ctmtrrsTrafficMirrorTarget = a})
+createTrafficMirrorTargetResponse_trafficMirrorTarget :: Lens.Lens' CreateTrafficMirrorTargetResponse (Prelude.Maybe TrafficMirrorTarget)
+createTrafficMirrorTargetResponse_trafficMirrorTarget = Lens.lens (\CreateTrafficMirrorTargetResponse' {trafficMirrorTarget} -> trafficMirrorTarget) (\s@CreateTrafficMirrorTargetResponse' {} a -> s {trafficMirrorTarget = a} :: CreateTrafficMirrorTargetResponse)
 
--- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency> .
-ctmtrrsClientToken :: Lens' CreateTrafficMirrorTargetResponse (Maybe Text)
-ctmtrrsClientToken = lens _ctmtrrsClientToken (\s a -> s {_ctmtrrsClientToken = a})
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to Ensure Idempotency>.
+createTrafficMirrorTargetResponse_clientToken :: Lens.Lens' CreateTrafficMirrorTargetResponse (Prelude.Maybe Prelude.Text)
+createTrafficMirrorTargetResponse_clientToken = Lens.lens (\CreateTrafficMirrorTargetResponse' {clientToken} -> clientToken) (\s@CreateTrafficMirrorTargetResponse' {} a -> s {clientToken = a} :: CreateTrafficMirrorTargetResponse)
 
--- | -- | The response status code.
-ctmtrrsResponseStatus :: Lens' CreateTrafficMirrorTargetResponse Int
-ctmtrrsResponseStatus = lens _ctmtrrsResponseStatus (\s a -> s {_ctmtrrsResponseStatus = a})
+-- | The response's http status code.
+createTrafficMirrorTargetResponse_httpStatus :: Lens.Lens' CreateTrafficMirrorTargetResponse Prelude.Int
+createTrafficMirrorTargetResponse_httpStatus = Lens.lens (\CreateTrafficMirrorTargetResponse' {httpStatus} -> httpStatus) (\s@CreateTrafficMirrorTargetResponse' {} a -> s {httpStatus = a} :: CreateTrafficMirrorTargetResponse)
 
-instance NFData CreateTrafficMirrorTargetResponse
+instance
+  Prelude.NFData
+    CreateTrafficMirrorTargetResponse

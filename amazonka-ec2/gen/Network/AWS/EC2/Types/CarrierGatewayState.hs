@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.CarrierGatewayState
   ( CarrierGatewayState
       ( ..,
-        CGSAvailable,
-        CGSDeleted,
-        CGSDeleting,
-        CGSPending
+        CarrierGatewayStateAvailable,
+        CarrierGatewayStateDeleted,
+        CarrierGatewayStateDeleting,
+        CarrierGatewayStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CarrierGatewayState
-  = CarrierGatewayState'
-      ( CI
-          Text
-      )
+newtype CarrierGatewayState = CarrierGatewayState'
+  { fromCarrierGatewayState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CGSAvailable :: CarrierGatewayState
-pattern CGSAvailable = CarrierGatewayState' "available"
+pattern CarrierGatewayStateAvailable :: CarrierGatewayState
+pattern CarrierGatewayStateAvailable = CarrierGatewayState' "available"
 
-pattern CGSDeleted :: CarrierGatewayState
-pattern CGSDeleted = CarrierGatewayState' "deleted"
+pattern CarrierGatewayStateDeleted :: CarrierGatewayState
+pattern CarrierGatewayStateDeleted = CarrierGatewayState' "deleted"
 
-pattern CGSDeleting :: CarrierGatewayState
-pattern CGSDeleting = CarrierGatewayState' "deleting"
+pattern CarrierGatewayStateDeleting :: CarrierGatewayState
+pattern CarrierGatewayStateDeleting = CarrierGatewayState' "deleting"
 
-pattern CGSPending :: CarrierGatewayState
-pattern CGSPending = CarrierGatewayState' "pending"
+pattern CarrierGatewayStatePending :: CarrierGatewayState
+pattern CarrierGatewayStatePending = CarrierGatewayState' "pending"
 
 {-# COMPLETE
-  CGSAvailable,
-  CGSDeleted,
-  CGSDeleting,
-  CGSPending,
+  CarrierGatewayStateAvailable,
+  CarrierGatewayStateDeleted,
+  CarrierGatewayStateDeleting,
+  CarrierGatewayStatePending,
   CarrierGatewayState'
   #-}
 
-instance FromText CarrierGatewayState where
-  parser = (CarrierGatewayState' . mk) <$> takeText
+instance Prelude.FromText CarrierGatewayState where
+  parser = CarrierGatewayState' Prelude.<$> Prelude.takeText
 
-instance ToText CarrierGatewayState where
-  toText (CarrierGatewayState' ci) = original ci
+instance Prelude.ToText CarrierGatewayState where
+  toText (CarrierGatewayState' x) = x
 
-instance Hashable CarrierGatewayState
+instance Prelude.Hashable CarrierGatewayState
 
-instance NFData CarrierGatewayState
+instance Prelude.NFData CarrierGatewayState
 
-instance ToByteString CarrierGatewayState
+instance Prelude.ToByteString CarrierGatewayState
 
-instance ToQuery CarrierGatewayState
+instance Prelude.ToQuery CarrierGatewayState
 
-instance ToHeader CarrierGatewayState
+instance Prelude.ToHeader CarrierGatewayState
 
-instance FromXML CarrierGatewayState where
-  parseXML = parseXMLText "CarrierGatewayState"
+instance Prelude.FromXML CarrierGatewayState where
+  parseXML = Prelude.parseXMLText "CarrierGatewayState"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.DatafeedSubscriptionState
   ( DatafeedSubscriptionState
       ( ..,
-        DSSActive,
-        DSSInactive
+        DatafeedSubscriptionStateActive,
+        DatafeedSubscriptionStateInactive
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DatafeedSubscriptionState
-  = DatafeedSubscriptionState'
-      ( CI
-          Text
-      )
+newtype DatafeedSubscriptionState = DatafeedSubscriptionState'
+  { fromDatafeedSubscriptionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSSActive :: DatafeedSubscriptionState
-pattern DSSActive = DatafeedSubscriptionState' "Active"
+pattern DatafeedSubscriptionStateActive :: DatafeedSubscriptionState
+pattern DatafeedSubscriptionStateActive = DatafeedSubscriptionState' "Active"
 
-pattern DSSInactive :: DatafeedSubscriptionState
-pattern DSSInactive = DatafeedSubscriptionState' "Inactive"
+pattern DatafeedSubscriptionStateInactive :: DatafeedSubscriptionState
+pattern DatafeedSubscriptionStateInactive = DatafeedSubscriptionState' "Inactive"
 
 {-# COMPLETE
-  DSSActive,
-  DSSInactive,
+  DatafeedSubscriptionStateActive,
+  DatafeedSubscriptionStateInactive,
   DatafeedSubscriptionState'
   #-}
 
-instance FromText DatafeedSubscriptionState where
-  parser = (DatafeedSubscriptionState' . mk) <$> takeText
+instance Prelude.FromText DatafeedSubscriptionState where
+  parser = DatafeedSubscriptionState' Prelude.<$> Prelude.takeText
 
-instance ToText DatafeedSubscriptionState where
-  toText (DatafeedSubscriptionState' ci) = original ci
+instance Prelude.ToText DatafeedSubscriptionState where
+  toText (DatafeedSubscriptionState' x) = x
 
-instance Hashable DatafeedSubscriptionState
+instance Prelude.Hashable DatafeedSubscriptionState
 
-instance NFData DatafeedSubscriptionState
+instance Prelude.NFData DatafeedSubscriptionState
 
-instance ToByteString DatafeedSubscriptionState
+instance Prelude.ToByteString DatafeedSubscriptionState
 
-instance ToQuery DatafeedSubscriptionState
+instance Prelude.ToQuery DatafeedSubscriptionState
 
-instance ToHeader DatafeedSubscriptionState
+instance Prelude.ToHeader DatafeedSubscriptionState
 
-instance FromXML DatafeedSubscriptionState where
-  parseXML = parseXMLText "DatafeedSubscriptionState"
+instance Prelude.FromXML DatafeedSubscriptionState where
+  parseXML = Prelude.parseXMLText "DatafeedSubscriptionState"

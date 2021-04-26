@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,343 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more transit gateways. By default, all transit gateways are described. Alternatively, you can filter the results.
---
---
+-- Describes one or more transit gateways. By default, all transit gateways
+-- are described. Alternatively, you can filter the results.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeTransitGateways
   ( -- * Creating a Request
-    describeTransitGateways,
-    DescribeTransitGateways,
+    DescribeTransitGateways (..),
+    newDescribeTransitGateways,
 
     -- * Request Lenses
-    dtgNextToken,
-    dtgDryRun,
-    dtgMaxResults,
-    dtgTransitGatewayIds,
-    dtgFilters,
+    describeTransitGateways_nextToken,
+    describeTransitGateways_dryRun,
+    describeTransitGateways_maxResults,
+    describeTransitGateways_transitGatewayIds,
+    describeTransitGateways_filters,
 
     -- * Destructuring the Response
-    describeTransitGatewaysResponse,
-    DescribeTransitGatewaysResponse,
+    DescribeTransitGatewaysResponse (..),
+    newDescribeTransitGatewaysResponse,
 
     -- * Response Lenses
-    dtgrtrsNextToken,
-    dtgrtrsTransitGateways,
-    dtgrtrsResponseStatus,
+    describeTransitGatewaysResponse_nextToken,
+    describeTransitGatewaysResponse_transitGateways,
+    describeTransitGatewaysResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTransitGateways' smart constructor.
+-- | /See:/ 'newDescribeTransitGateways' smart constructor.
 data DescribeTransitGateways = DescribeTransitGateways'
-  { _dtgNextToken ::
-      !(Maybe Text),
-    _dtgDryRun ::
-      !(Maybe Bool),
-    _dtgMaxResults ::
-      !(Maybe Nat),
-    _dtgTransitGatewayIds ::
-      !(Maybe [Text]),
-    _dtgFilters ::
-      !(Maybe [Filter])
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The IDs of the transit gateways.
+    transitGatewayIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @options.propagation-default-route-table-id@ - The ID of the default
+    --     propagation route table.
+    --
+    -- -   @options.amazon-side-asn@ - The private ASN for the Amazon side of a
+    --     BGP session.
+    --
+    -- -   @options.association-default-route-table-id@ - The ID of the default
+    --     association route table.
+    --
+    -- -   @options.auto-accept-shared-attachments@ - Indicates whether there
+    --     is automatic acceptance of attachment requests (@enable@ |
+    --     @disable@).
+    --
+    -- -   @options.default-route-table-association@ - Indicates whether
+    --     resource attachments are automatically associated with the default
+    --     association route table (@enable@ | @disable@).
+    --
+    -- -   @options.default-route-table-propagation@ - Indicates whether
+    --     resource attachments automatically propagate routes to the default
+    --     propagation route table (@enable@ | @disable@).
+    --
+    -- -   @options.dns-support@ - Indicates whether DNS support is enabled
+    --     (@enable@ | @disable@).
+    --
+    -- -   @options.vpn-ecmp-support@ - Indicates whether Equal Cost Multipath
+    --     Protocol support is enabled (@enable@ | @disable@).
+    --
+    -- -   @owner-id@ - The ID of the AWS account that owns the transit
+    --     gateway.
+    --
+    -- -   @state@ - The state of the transit gateway (@available@ | @deleted@
+    --     | @deleting@ | @modifying@ | @pending@).
+    --
+    -- -   @transit-gateway-id@ - The ID of the transit gateway.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTransitGateways' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTransitGateways' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeTransitGateways_nextToken' - The token for the next page of results.
 --
--- * 'dtgMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeTransitGateways_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dtgTransitGatewayIds' - The IDs of the transit gateways.
+-- 'maxResults', 'describeTransitGateways_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dtgFilters' - One or more filters. The possible values are:     * @options.propagation-default-route-table-id@ - The ID of the default propagation route table.     * @options.amazon-side-asn@ - The private ASN for the Amazon side of a BGP session.     * @options.association-default-route-table-id@ - The ID of the default association route table.     * @options.auto-accept-shared-attachments@ - Indicates whether there is automatic acceptance of attachment requests (@enable@ | @disable@ ).     * @options.default-route-table-association@ - Indicates whether resource attachments are automatically associated with the default association route table (@enable@ | @disable@ ).     * @options.default-route-table-propagation@ - Indicates whether resource attachments automatically propagate routes to the default propagation route table (@enable@ | @disable@ ).     * @options.dns-support@ - Indicates whether DNS support is enabled (@enable@ | @disable@ ).     * @options.vpn-ecmp-support@ - Indicates whether Equal Cost Multipath Protocol support is enabled (@enable@ | @disable@ ).     * @owner-id@ - The ID of the AWS account that owns the transit gateway.     * @state@ - The state of the transit gateway (@available@ | @deleted@ | @deleting@ | @modifying@ | @pending@ ).     * @transit-gateway-id@ - The ID of the transit gateway.
-describeTransitGateways ::
+-- 'transitGatewayIds', 'describeTransitGateways_transitGatewayIds' - The IDs of the transit gateways.
+--
+-- 'filters', 'describeTransitGateways_filters' - One or more filters. The possible values are:
+--
+-- -   @options.propagation-default-route-table-id@ - The ID of the default
+--     propagation route table.
+--
+-- -   @options.amazon-side-asn@ - The private ASN for the Amazon side of a
+--     BGP session.
+--
+-- -   @options.association-default-route-table-id@ - The ID of the default
+--     association route table.
+--
+-- -   @options.auto-accept-shared-attachments@ - Indicates whether there
+--     is automatic acceptance of attachment requests (@enable@ |
+--     @disable@).
+--
+-- -   @options.default-route-table-association@ - Indicates whether
+--     resource attachments are automatically associated with the default
+--     association route table (@enable@ | @disable@).
+--
+-- -   @options.default-route-table-propagation@ - Indicates whether
+--     resource attachments automatically propagate routes to the default
+--     propagation route table (@enable@ | @disable@).
+--
+-- -   @options.dns-support@ - Indicates whether DNS support is enabled
+--     (@enable@ | @disable@).
+--
+-- -   @options.vpn-ecmp-support@ - Indicates whether Equal Cost Multipath
+--     Protocol support is enabled (@enable@ | @disable@).
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the transit
+--     gateway.
+--
+-- -   @state@ - The state of the transit gateway (@available@ | @deleted@
+--     | @deleting@ | @modifying@ | @pending@).
+--
+-- -   @transit-gateway-id@ - The ID of the transit gateway.
+newDescribeTransitGateways ::
   DescribeTransitGateways
-describeTransitGateways =
+newDescribeTransitGateways =
   DescribeTransitGateways'
-    { _dtgNextToken = Nothing,
-      _dtgDryRun = Nothing,
-      _dtgMaxResults = Nothing,
-      _dtgTransitGatewayIds = Nothing,
-      _dtgFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      transitGatewayIds = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dtgNextToken :: Lens' DescribeTransitGateways (Maybe Text)
-dtgNextToken = lens _dtgNextToken (\s a -> s {_dtgNextToken = a})
+describeTransitGateways_nextToken :: Lens.Lens' DescribeTransitGateways (Prelude.Maybe Prelude.Text)
+describeTransitGateways_nextToken = Lens.lens (\DescribeTransitGateways' {nextToken} -> nextToken) (\s@DescribeTransitGateways' {} a -> s {nextToken = a} :: DescribeTransitGateways)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dtgDryRun :: Lens' DescribeTransitGateways (Maybe Bool)
-dtgDryRun = lens _dtgDryRun (\s a -> s {_dtgDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeTransitGateways_dryRun :: Lens.Lens' DescribeTransitGateways (Prelude.Maybe Prelude.Bool)
+describeTransitGateways_dryRun = Lens.lens (\DescribeTransitGateways' {dryRun} -> dryRun) (\s@DescribeTransitGateways' {} a -> s {dryRun = a} :: DescribeTransitGateways)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dtgMaxResults :: Lens' DescribeTransitGateways (Maybe Natural)
-dtgMaxResults = lens _dtgMaxResults (\s a -> s {_dtgMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeTransitGateways_maxResults :: Lens.Lens' DescribeTransitGateways (Prelude.Maybe Prelude.Natural)
+describeTransitGateways_maxResults = Lens.lens (\DescribeTransitGateways' {maxResults} -> maxResults) (\s@DescribeTransitGateways' {} a -> s {maxResults = a} :: DescribeTransitGateways) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The IDs of the transit gateways.
-dtgTransitGatewayIds :: Lens' DescribeTransitGateways [Text]
-dtgTransitGatewayIds = lens _dtgTransitGatewayIds (\s a -> s {_dtgTransitGatewayIds = a}) . _Default . _Coerce
+describeTransitGateways_transitGatewayIds :: Lens.Lens' DescribeTransitGateways (Prelude.Maybe [Prelude.Text])
+describeTransitGateways_transitGatewayIds = Lens.lens (\DescribeTransitGateways' {transitGatewayIds} -> transitGatewayIds) (\s@DescribeTransitGateways' {} a -> s {transitGatewayIds = a} :: DescribeTransitGateways) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more filters. The possible values are:     * @options.propagation-default-route-table-id@ - The ID of the default propagation route table.     * @options.amazon-side-asn@ - The private ASN for the Amazon side of a BGP session.     * @options.association-default-route-table-id@ - The ID of the default association route table.     * @options.auto-accept-shared-attachments@ - Indicates whether there is automatic acceptance of attachment requests (@enable@ | @disable@ ).     * @options.default-route-table-association@ - Indicates whether resource attachments are automatically associated with the default association route table (@enable@ | @disable@ ).     * @options.default-route-table-propagation@ - Indicates whether resource attachments automatically propagate routes to the default propagation route table (@enable@ | @disable@ ).     * @options.dns-support@ - Indicates whether DNS support is enabled (@enable@ | @disable@ ).     * @options.vpn-ecmp-support@ - Indicates whether Equal Cost Multipath Protocol support is enabled (@enable@ | @disable@ ).     * @owner-id@ - The ID of the AWS account that owns the transit gateway.     * @state@ - The state of the transit gateway (@available@ | @deleted@ | @deleting@ | @modifying@ | @pending@ ).     * @transit-gateway-id@ - The ID of the transit gateway.
-dtgFilters :: Lens' DescribeTransitGateways [Filter]
-dtgFilters = lens _dtgFilters (\s a -> s {_dtgFilters = a}) . _Default . _Coerce
+-- | One or more filters. The possible values are:
+--
+-- -   @options.propagation-default-route-table-id@ - The ID of the default
+--     propagation route table.
+--
+-- -   @options.amazon-side-asn@ - The private ASN for the Amazon side of a
+--     BGP session.
+--
+-- -   @options.association-default-route-table-id@ - The ID of the default
+--     association route table.
+--
+-- -   @options.auto-accept-shared-attachments@ - Indicates whether there
+--     is automatic acceptance of attachment requests (@enable@ |
+--     @disable@).
+--
+-- -   @options.default-route-table-association@ - Indicates whether
+--     resource attachments are automatically associated with the default
+--     association route table (@enable@ | @disable@).
+--
+-- -   @options.default-route-table-propagation@ - Indicates whether
+--     resource attachments automatically propagate routes to the default
+--     propagation route table (@enable@ | @disable@).
+--
+-- -   @options.dns-support@ - Indicates whether DNS support is enabled
+--     (@enable@ | @disable@).
+--
+-- -   @options.vpn-ecmp-support@ - Indicates whether Equal Cost Multipath
+--     Protocol support is enabled (@enable@ | @disable@).
+--
+-- -   @owner-id@ - The ID of the AWS account that owns the transit
+--     gateway.
+--
+-- -   @state@ - The state of the transit gateway (@available@ | @deleted@
+--     | @deleting@ | @modifying@ | @pending@).
+--
+-- -   @transit-gateway-id@ - The ID of the transit gateway.
+describeTransitGateways_filters :: Lens.Lens' DescribeTransitGateways (Prelude.Maybe [Filter])
+describeTransitGateways_filters = Lens.lens (\DescribeTransitGateways' {filters} -> filters) (\s@DescribeTransitGateways' {} a -> s {filters = a} :: DescribeTransitGateways) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeTransitGateways where
+instance Pager.AWSPager DescribeTransitGateways where
   page rq rs
-    | stop (rs ^. dtgrtrsNextToken) = Nothing
-    | stop (rs ^. dtgrtrsTransitGateways) = Nothing
-    | otherwise =
-      Just $ rq & dtgNextToken .~ rs ^. dtgrtrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewaysResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTransitGatewaysResponse_transitGateways
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeTransitGateways_nextToken
+          Lens..~ rs
+          Lens.^? describeTransitGatewaysResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeTransitGateways where
+instance Prelude.AWSRequest DescribeTransitGateways where
   type
     Rs DescribeTransitGateways =
       DescribeTransitGatewaysResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeTransitGatewaysResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "transitGatewaySet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "transitGatewaySet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTransitGateways
+instance Prelude.Hashable DescribeTransitGateways
 
-instance NFData DescribeTransitGateways
+instance Prelude.NFData DescribeTransitGateways
 
-instance ToHeaders DescribeTransitGateways where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeTransitGateways where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeTransitGateways where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTransitGateways where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTransitGateways where
+instance Prelude.ToQuery DescribeTransitGateways where
   toQuery DescribeTransitGateways' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeTransitGateways" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _dtgNextToken,
-        "DryRun" =: _dtgDryRun,
-        "MaxResults" =: _dtgMaxResults,
-        toQuery
-          ( toQueryList "TransitGatewayIds"
-              <$> _dtgTransitGatewayIds
+          Prelude.=: ("DescribeTransitGateways" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          ( Prelude.toQueryList "TransitGatewayIds"
+              Prelude.<$> transitGatewayIds
           ),
-        toQuery (toQueryList "Filter" <$> _dtgFilters)
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
       ]
 
--- | /See:/ 'describeTransitGatewaysResponse' smart constructor.
+-- | /See:/ 'newDescribeTransitGatewaysResponse' smart constructor.
 data DescribeTransitGatewaysResponse = DescribeTransitGatewaysResponse'
-  { _dtgrtrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dtgrtrsTransitGateways ::
-      !( Maybe
-           [TransitGateway]
-       ),
-    _dtgrtrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the transit gateways.
+    transitGateways :: Prelude.Maybe [TransitGateway],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTransitGatewaysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTransitGatewaysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrtrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrtrsTransitGateways' - Information about the transit gateways.
+-- 'nextToken', 'describeTransitGatewaysResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dtgrtrsResponseStatus' - -- | The response status code.
-describeTransitGatewaysResponse ::
-  -- | 'dtgrtrsResponseStatus'
-  Int ->
+-- 'transitGateways', 'describeTransitGatewaysResponse_transitGateways' - Information about the transit gateways.
+--
+-- 'httpStatus', 'describeTransitGatewaysResponse_httpStatus' - The response's http status code.
+newDescribeTransitGatewaysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTransitGatewaysResponse
-describeTransitGatewaysResponse pResponseStatus_ =
+newDescribeTransitGatewaysResponse pHttpStatus_ =
   DescribeTransitGatewaysResponse'
-    { _dtgrtrsNextToken =
-        Nothing,
-      _dtgrtrsTransitGateways = Nothing,
-      _dtgrtrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      transitGateways = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dtgrtrsNextToken :: Lens' DescribeTransitGatewaysResponse (Maybe Text)
-dtgrtrsNextToken = lens _dtgrtrsNextToken (\s a -> s {_dtgrtrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeTransitGatewaysResponse_nextToken :: Lens.Lens' DescribeTransitGatewaysResponse (Prelude.Maybe Prelude.Text)
+describeTransitGatewaysResponse_nextToken = Lens.lens (\DescribeTransitGatewaysResponse' {nextToken} -> nextToken) (\s@DescribeTransitGatewaysResponse' {} a -> s {nextToken = a} :: DescribeTransitGatewaysResponse)
 
 -- | Information about the transit gateways.
-dtgrtrsTransitGateways :: Lens' DescribeTransitGatewaysResponse [TransitGateway]
-dtgrtrsTransitGateways = lens _dtgrtrsTransitGateways (\s a -> s {_dtgrtrsTransitGateways = a}) . _Default . _Coerce
+describeTransitGatewaysResponse_transitGateways :: Lens.Lens' DescribeTransitGatewaysResponse (Prelude.Maybe [TransitGateway])
+describeTransitGatewaysResponse_transitGateways = Lens.lens (\DescribeTransitGatewaysResponse' {transitGateways} -> transitGateways) (\s@DescribeTransitGatewaysResponse' {} a -> s {transitGateways = a} :: DescribeTransitGatewaysResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtgrtrsResponseStatus :: Lens' DescribeTransitGatewaysResponse Int
-dtgrtrsResponseStatus = lens _dtgrtrsResponseStatus (\s a -> s {_dtgrtrsResponseStatus = a})
+-- | The response's http status code.
+describeTransitGatewaysResponse_httpStatus :: Lens.Lens' DescribeTransitGatewaysResponse Prelude.Int
+describeTransitGatewaysResponse_httpStatus = Lens.lens (\DescribeTransitGatewaysResponse' {httpStatus} -> httpStatus) (\s@DescribeTransitGatewaysResponse' {} a -> s {httpStatus = a} :: DescribeTransitGatewaysResponse)
 
-instance NFData DescribeTransitGatewaysResponse
+instance
+  Prelude.NFData
+    DescribeTransitGatewaysResponse

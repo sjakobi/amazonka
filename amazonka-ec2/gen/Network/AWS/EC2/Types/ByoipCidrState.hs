@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,84 +19,86 @@
 module Network.AWS.EC2.Types.ByoipCidrState
   ( ByoipCidrState
       ( ..,
-        Advertised,
-        Deprovisioned,
-        FailedDeprovision,
-        FailedProvision,
-        PendingDeprovision,
-        PendingProvision,
-        Provisioned,
-        ProvisionedNotPubliclyAdvertisable
+        ByoipCidrStateAdvertised,
+        ByoipCidrStateDeprovisioned,
+        ByoipCidrStateFailedDeprovision,
+        ByoipCidrStateFailedProvision,
+        ByoipCidrStatePendingDeprovision,
+        ByoipCidrStatePendingProvision,
+        ByoipCidrStateProvisioned,
+        ByoipCidrStateProvisionedNotPubliclyAdvertisable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ByoipCidrState = ByoipCidrState' (CI Text)
+newtype ByoipCidrState = ByoipCidrState'
+  { fromByoipCidrState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Advertised :: ByoipCidrState
-pattern Advertised = ByoipCidrState' "advertised"
+pattern ByoipCidrStateAdvertised :: ByoipCidrState
+pattern ByoipCidrStateAdvertised = ByoipCidrState' "advertised"
 
-pattern Deprovisioned :: ByoipCidrState
-pattern Deprovisioned = ByoipCidrState' "deprovisioned"
+pattern ByoipCidrStateDeprovisioned :: ByoipCidrState
+pattern ByoipCidrStateDeprovisioned = ByoipCidrState' "deprovisioned"
 
-pattern FailedDeprovision :: ByoipCidrState
-pattern FailedDeprovision = ByoipCidrState' "failed-deprovision"
+pattern ByoipCidrStateFailedDeprovision :: ByoipCidrState
+pattern ByoipCidrStateFailedDeprovision = ByoipCidrState' "failed-deprovision"
 
-pattern FailedProvision :: ByoipCidrState
-pattern FailedProvision = ByoipCidrState' "failed-provision"
+pattern ByoipCidrStateFailedProvision :: ByoipCidrState
+pattern ByoipCidrStateFailedProvision = ByoipCidrState' "failed-provision"
 
-pattern PendingDeprovision :: ByoipCidrState
-pattern PendingDeprovision = ByoipCidrState' "pending-deprovision"
+pattern ByoipCidrStatePendingDeprovision :: ByoipCidrState
+pattern ByoipCidrStatePendingDeprovision = ByoipCidrState' "pending-deprovision"
 
-pattern PendingProvision :: ByoipCidrState
-pattern PendingProvision = ByoipCidrState' "pending-provision"
+pattern ByoipCidrStatePendingProvision :: ByoipCidrState
+pattern ByoipCidrStatePendingProvision = ByoipCidrState' "pending-provision"
 
-pattern Provisioned :: ByoipCidrState
-pattern Provisioned = ByoipCidrState' "provisioned"
+pattern ByoipCidrStateProvisioned :: ByoipCidrState
+pattern ByoipCidrStateProvisioned = ByoipCidrState' "provisioned"
 
-pattern ProvisionedNotPubliclyAdvertisable :: ByoipCidrState
-pattern ProvisionedNotPubliclyAdvertisable = ByoipCidrState' "provisioned-not-publicly-advertisable"
+pattern ByoipCidrStateProvisionedNotPubliclyAdvertisable :: ByoipCidrState
+pattern ByoipCidrStateProvisionedNotPubliclyAdvertisable = ByoipCidrState' "provisioned-not-publicly-advertisable"
 
 {-# COMPLETE
-  Advertised,
-  Deprovisioned,
-  FailedDeprovision,
-  FailedProvision,
-  PendingDeprovision,
-  PendingProvision,
-  Provisioned,
-  ProvisionedNotPubliclyAdvertisable,
+  ByoipCidrStateAdvertised,
+  ByoipCidrStateDeprovisioned,
+  ByoipCidrStateFailedDeprovision,
+  ByoipCidrStateFailedProvision,
+  ByoipCidrStatePendingDeprovision,
+  ByoipCidrStatePendingProvision,
+  ByoipCidrStateProvisioned,
+  ByoipCidrStateProvisionedNotPubliclyAdvertisable,
   ByoipCidrState'
   #-}
 
-instance FromText ByoipCidrState where
-  parser = (ByoipCidrState' . mk) <$> takeText
+instance Prelude.FromText ByoipCidrState where
+  parser = ByoipCidrState' Prelude.<$> Prelude.takeText
 
-instance ToText ByoipCidrState where
-  toText (ByoipCidrState' ci) = original ci
+instance Prelude.ToText ByoipCidrState where
+  toText (ByoipCidrState' x) = x
 
-instance Hashable ByoipCidrState
+instance Prelude.Hashable ByoipCidrState
 
-instance NFData ByoipCidrState
+instance Prelude.NFData ByoipCidrState
 
-instance ToByteString ByoipCidrState
+instance Prelude.ToByteString ByoipCidrState
 
-instance ToQuery ByoipCidrState
+instance Prelude.ToQuery ByoipCidrState
 
-instance ToHeader ByoipCidrState
+instance Prelude.ToHeader ByoipCidrState
 
-instance FromXML ByoipCidrState where
-  parseXML = parseXMLText "ByoipCidrState"
+instance Prelude.FromXML ByoipCidrState where
+  parseXML = Prelude.parseXMLText "ByoipCidrState"

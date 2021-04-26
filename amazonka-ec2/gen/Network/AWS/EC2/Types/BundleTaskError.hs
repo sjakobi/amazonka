@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,53 @@
 module Network.AWS.EC2.Types.BundleTaskError where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an error for 'BundleInstance' .
+-- | Describes an error for BundleInstance.
 --
---
---
--- /See:/ 'bundleTaskError' smart constructor.
+-- /See:/ 'newBundleTaskError' smart constructor.
 data BundleTaskError = BundleTaskError'
-  { _bteMessage ::
-      !(Maybe Text),
-    _bteCode :: !(Maybe Text)
+  { -- | The error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code.
+    code :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BundleTaskError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BundleTaskError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bteMessage' - The error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bteCode' - The error code.
-bundleTaskError ::
+-- 'message', 'bundleTaskError_message' - The error message.
+--
+-- 'code', 'bundleTaskError_code' - The error code.
+newBundleTaskError ::
   BundleTaskError
-bundleTaskError =
+newBundleTaskError =
   BundleTaskError'
-    { _bteMessage = Nothing,
-      _bteCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The error message.
-bteMessage :: Lens' BundleTaskError (Maybe Text)
-bteMessage = lens _bteMessage (\s a -> s {_bteMessage = a})
+bundleTaskError_message :: Lens.Lens' BundleTaskError (Prelude.Maybe Prelude.Text)
+bundleTaskError_message = Lens.lens (\BundleTaskError' {message} -> message) (\s@BundleTaskError' {} a -> s {message = a} :: BundleTaskError)
 
 -- | The error code.
-bteCode :: Lens' BundleTaskError (Maybe Text)
-bteCode = lens _bteCode (\s a -> s {_bteCode = a})
+bundleTaskError_code :: Lens.Lens' BundleTaskError (Prelude.Maybe Prelude.Text)
+bundleTaskError_code = Lens.lens (\BundleTaskError' {code} -> code) (\s@BundleTaskError' {} a -> s {code = a} :: BundleTaskError)
 
-instance FromXML BundleTaskError where
+instance Prelude.FromXML BundleTaskError where
   parseXML x =
     BundleTaskError'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
-instance Hashable BundleTaskError
+instance Prelude.Hashable BundleTaskError
 
-instance NFData BundleTaskError
+instance Prelude.NFData BundleTaskError

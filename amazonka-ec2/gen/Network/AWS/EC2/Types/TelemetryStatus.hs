@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.TelemetryStatus
   ( TelemetryStatus
       ( ..,
-        TSDown,
-        TSUP
+        TelemetryStatusDOWN,
+        TelemetryStatusUP
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TelemetryStatus = TelemetryStatus' (CI Text)
+newtype TelemetryStatus = TelemetryStatus'
+  { fromTelemetryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSDown :: TelemetryStatus
-pattern TSDown = TelemetryStatus' "DOWN"
+pattern TelemetryStatusDOWN :: TelemetryStatus
+pattern TelemetryStatusDOWN = TelemetryStatus' "DOWN"
 
-pattern TSUP :: TelemetryStatus
-pattern TSUP = TelemetryStatus' "UP"
+pattern TelemetryStatusUP :: TelemetryStatus
+pattern TelemetryStatusUP = TelemetryStatus' "UP"
 
 {-# COMPLETE
-  TSDown,
-  TSUP,
+  TelemetryStatusDOWN,
+  TelemetryStatusUP,
   TelemetryStatus'
   #-}
 
-instance FromText TelemetryStatus where
-  parser = (TelemetryStatus' . mk) <$> takeText
+instance Prelude.FromText TelemetryStatus where
+  parser = TelemetryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TelemetryStatus where
-  toText (TelemetryStatus' ci) = original ci
+instance Prelude.ToText TelemetryStatus where
+  toText (TelemetryStatus' x) = x
 
-instance Hashable TelemetryStatus
+instance Prelude.Hashable TelemetryStatus
 
-instance NFData TelemetryStatus
+instance Prelude.NFData TelemetryStatus
 
-instance ToByteString TelemetryStatus
+instance Prelude.ToByteString TelemetryStatus
 
-instance ToQuery TelemetryStatus
+instance Prelude.ToQuery TelemetryStatus
 
-instance ToHeader TelemetryStatus
+instance Prelude.ToHeader TelemetryStatus
 
-instance FromXML TelemetryStatus where
-  parseXML = parseXMLText "TelemetryStatus"
+instance Prelude.FromXML TelemetryStatus where
+  parseXML = Prelude.parseXMLText "TelemetryStatus"

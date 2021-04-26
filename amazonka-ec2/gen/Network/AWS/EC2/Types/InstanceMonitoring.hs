@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +21,53 @@ module Network.AWS.EC2.Types.InstanceMonitoring where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.Monitoring
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the monitoring of an instance.
 --
---
---
--- /See:/ 'instanceMonitoring' smart constructor.
+-- /See:/ 'newInstanceMonitoring' smart constructor.
 data InstanceMonitoring = InstanceMonitoring'
-  { _imInstanceId ::
-      !(Maybe Text),
-    _imMonitoring ::
-      !(Maybe Monitoring)
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The monitoring for the instance.
+    monitoring :: Prelude.Maybe Monitoring
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceMonitoring' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceMonitoring' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'imInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'imMonitoring' - The monitoring for the instance.
-instanceMonitoring ::
+-- 'instanceId', 'instanceMonitoring_instanceId' - The ID of the instance.
+--
+-- 'monitoring', 'instanceMonitoring_monitoring' - The monitoring for the instance.
+newInstanceMonitoring ::
   InstanceMonitoring
-instanceMonitoring =
+newInstanceMonitoring =
   InstanceMonitoring'
-    { _imInstanceId = Nothing,
-      _imMonitoring = Nothing
+    { instanceId = Prelude.Nothing,
+      monitoring = Prelude.Nothing
     }
 
 -- | The ID of the instance.
-imInstanceId :: Lens' InstanceMonitoring (Maybe Text)
-imInstanceId = lens _imInstanceId (\s a -> s {_imInstanceId = a})
+instanceMonitoring_instanceId :: Lens.Lens' InstanceMonitoring (Prelude.Maybe Prelude.Text)
+instanceMonitoring_instanceId = Lens.lens (\InstanceMonitoring' {instanceId} -> instanceId) (\s@InstanceMonitoring' {} a -> s {instanceId = a} :: InstanceMonitoring)
 
 -- | The monitoring for the instance.
-imMonitoring :: Lens' InstanceMonitoring (Maybe Monitoring)
-imMonitoring = lens _imMonitoring (\s a -> s {_imMonitoring = a})
+instanceMonitoring_monitoring :: Lens.Lens' InstanceMonitoring (Prelude.Maybe Monitoring)
+instanceMonitoring_monitoring = Lens.lens (\InstanceMonitoring' {monitoring} -> monitoring) (\s@InstanceMonitoring' {} a -> s {monitoring = a} :: InstanceMonitoring)
 
-instance FromXML InstanceMonitoring where
+instance Prelude.FromXML InstanceMonitoring where
   parseXML x =
     InstanceMonitoring'
-      <$> (x .@? "instanceId") <*> (x .@? "monitoring")
+      Prelude.<$> (x Prelude..@? "instanceId")
+      Prelude.<*> (x Prelude..@? "monitoring")
 
-instance Hashable InstanceMonitoring
+instance Prelude.Hashable InstanceMonitoring
 
-instance NFData InstanceMonitoring
+instance Prelude.NFData InstanceMonitoring

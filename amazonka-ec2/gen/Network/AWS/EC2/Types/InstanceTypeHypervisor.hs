@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.InstanceTypeHypervisor
   ( InstanceTypeHypervisor
       ( ..,
-        Nitro,
-        Xen
+        InstanceTypeHypervisorNitro,
+        InstanceTypeHypervisorXen
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceTypeHypervisor
-  = InstanceTypeHypervisor'
-      ( CI
-          Text
-      )
+newtype InstanceTypeHypervisor = InstanceTypeHypervisor'
+  { fromInstanceTypeHypervisor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Nitro :: InstanceTypeHypervisor
-pattern Nitro = InstanceTypeHypervisor' "nitro"
+pattern InstanceTypeHypervisorNitro :: InstanceTypeHypervisor
+pattern InstanceTypeHypervisorNitro = InstanceTypeHypervisor' "nitro"
 
-pattern Xen :: InstanceTypeHypervisor
-pattern Xen = InstanceTypeHypervisor' "xen"
+pattern InstanceTypeHypervisorXen :: InstanceTypeHypervisor
+pattern InstanceTypeHypervisorXen = InstanceTypeHypervisor' "xen"
 
 {-# COMPLETE
-  Nitro,
-  Xen,
+  InstanceTypeHypervisorNitro,
+  InstanceTypeHypervisorXen,
   InstanceTypeHypervisor'
   #-}
 
-instance FromText InstanceTypeHypervisor where
-  parser = (InstanceTypeHypervisor' . mk) <$> takeText
+instance Prelude.FromText InstanceTypeHypervisor where
+  parser = InstanceTypeHypervisor' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceTypeHypervisor where
-  toText (InstanceTypeHypervisor' ci) = original ci
+instance Prelude.ToText InstanceTypeHypervisor where
+  toText (InstanceTypeHypervisor' x) = x
 
-instance Hashable InstanceTypeHypervisor
+instance Prelude.Hashable InstanceTypeHypervisor
 
-instance NFData InstanceTypeHypervisor
+instance Prelude.NFData InstanceTypeHypervisor
 
-instance ToByteString InstanceTypeHypervisor
+instance Prelude.ToByteString InstanceTypeHypervisor
 
-instance ToQuery InstanceTypeHypervisor
+instance Prelude.ToQuery InstanceTypeHypervisor
 
-instance ToHeader InstanceTypeHypervisor
+instance Prelude.ToHeader InstanceTypeHypervisor
 
-instance FromXML InstanceTypeHypervisor where
-  parseXML = parseXMLText "InstanceTypeHypervisor"
+instance Prelude.FromXML InstanceTypeHypervisor where
+  parseXML = Prelude.parseXMLText "InstanceTypeHypervisor"

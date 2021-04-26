@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +19,81 @@
 module Network.AWS.EC2.Types.TransitGatewayMulitcastDomainAssociationState
   ( TransitGatewayMulitcastDomainAssociationState
       ( ..,
-        TGMDASAssociated,
-        TGMDASAssociating,
-        TGMDASDisassociated,
-        TGMDASDisassociating,
-        TGMDASFailed,
-        TGMDASPendingAcceptance,
-        TGMDASRejected
+        TransitGatewayMulitcastDomainAssociationStateAssociated,
+        TransitGatewayMulitcastDomainAssociationStateAssociating,
+        TransitGatewayMulitcastDomainAssociationStateDisassociated,
+        TransitGatewayMulitcastDomainAssociationStateDisassociating,
+        TransitGatewayMulitcastDomainAssociationStateFailed,
+        TransitGatewayMulitcastDomainAssociationStatePendingAcceptance,
+        TransitGatewayMulitcastDomainAssociationStateRejected
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayMulitcastDomainAssociationState
-  = TransitGatewayMulitcastDomainAssociationState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayMulitcastDomainAssociationState = TransitGatewayMulitcastDomainAssociationState'
+  { fromTransitGatewayMulitcastDomainAssociationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGMDASAssociated :: TransitGatewayMulitcastDomainAssociationState
-pattern TGMDASAssociated = TransitGatewayMulitcastDomainAssociationState' "associated"
+pattern TransitGatewayMulitcastDomainAssociationStateAssociated :: TransitGatewayMulitcastDomainAssociationState
+pattern TransitGatewayMulitcastDomainAssociationStateAssociated = TransitGatewayMulitcastDomainAssociationState' "associated"
 
-pattern TGMDASAssociating :: TransitGatewayMulitcastDomainAssociationState
-pattern TGMDASAssociating = TransitGatewayMulitcastDomainAssociationState' "associating"
+pattern TransitGatewayMulitcastDomainAssociationStateAssociating :: TransitGatewayMulitcastDomainAssociationState
+pattern TransitGatewayMulitcastDomainAssociationStateAssociating = TransitGatewayMulitcastDomainAssociationState' "associating"
 
-pattern TGMDASDisassociated :: TransitGatewayMulitcastDomainAssociationState
-pattern TGMDASDisassociated = TransitGatewayMulitcastDomainAssociationState' "disassociated"
+pattern TransitGatewayMulitcastDomainAssociationStateDisassociated :: TransitGatewayMulitcastDomainAssociationState
+pattern TransitGatewayMulitcastDomainAssociationStateDisassociated = TransitGatewayMulitcastDomainAssociationState' "disassociated"
 
-pattern TGMDASDisassociating :: TransitGatewayMulitcastDomainAssociationState
-pattern TGMDASDisassociating = TransitGatewayMulitcastDomainAssociationState' "disassociating"
+pattern TransitGatewayMulitcastDomainAssociationStateDisassociating :: TransitGatewayMulitcastDomainAssociationState
+pattern TransitGatewayMulitcastDomainAssociationStateDisassociating = TransitGatewayMulitcastDomainAssociationState' "disassociating"
 
-pattern TGMDASFailed :: TransitGatewayMulitcastDomainAssociationState
-pattern TGMDASFailed = TransitGatewayMulitcastDomainAssociationState' "failed"
+pattern TransitGatewayMulitcastDomainAssociationStateFailed :: TransitGatewayMulitcastDomainAssociationState
+pattern TransitGatewayMulitcastDomainAssociationStateFailed = TransitGatewayMulitcastDomainAssociationState' "failed"
 
-pattern TGMDASPendingAcceptance :: TransitGatewayMulitcastDomainAssociationState
-pattern TGMDASPendingAcceptance = TransitGatewayMulitcastDomainAssociationState' "pendingAcceptance"
+pattern TransitGatewayMulitcastDomainAssociationStatePendingAcceptance :: TransitGatewayMulitcastDomainAssociationState
+pattern TransitGatewayMulitcastDomainAssociationStatePendingAcceptance = TransitGatewayMulitcastDomainAssociationState' "pendingAcceptance"
 
-pattern TGMDASRejected :: TransitGatewayMulitcastDomainAssociationState
-pattern TGMDASRejected = TransitGatewayMulitcastDomainAssociationState' "rejected"
+pattern TransitGatewayMulitcastDomainAssociationStateRejected :: TransitGatewayMulitcastDomainAssociationState
+pattern TransitGatewayMulitcastDomainAssociationStateRejected = TransitGatewayMulitcastDomainAssociationState' "rejected"
 
 {-# COMPLETE
-  TGMDASAssociated,
-  TGMDASAssociating,
-  TGMDASDisassociated,
-  TGMDASDisassociating,
-  TGMDASFailed,
-  TGMDASPendingAcceptance,
-  TGMDASRejected,
+  TransitGatewayMulitcastDomainAssociationStateAssociated,
+  TransitGatewayMulitcastDomainAssociationStateAssociating,
+  TransitGatewayMulitcastDomainAssociationStateDisassociated,
+  TransitGatewayMulitcastDomainAssociationStateDisassociating,
+  TransitGatewayMulitcastDomainAssociationStateFailed,
+  TransitGatewayMulitcastDomainAssociationStatePendingAcceptance,
+  TransitGatewayMulitcastDomainAssociationStateRejected,
   TransitGatewayMulitcastDomainAssociationState'
   #-}
 
-instance FromText TransitGatewayMulitcastDomainAssociationState where
-  parser = (TransitGatewayMulitcastDomainAssociationState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayMulitcastDomainAssociationState where
+  parser = TransitGatewayMulitcastDomainAssociationState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayMulitcastDomainAssociationState where
-  toText (TransitGatewayMulitcastDomainAssociationState' ci) = original ci
+instance Prelude.ToText TransitGatewayMulitcastDomainAssociationState where
+  toText (TransitGatewayMulitcastDomainAssociationState' x) = x
 
-instance Hashable TransitGatewayMulitcastDomainAssociationState
+instance Prelude.Hashable TransitGatewayMulitcastDomainAssociationState
 
-instance NFData TransitGatewayMulitcastDomainAssociationState
+instance Prelude.NFData TransitGatewayMulitcastDomainAssociationState
 
-instance ToByteString TransitGatewayMulitcastDomainAssociationState
+instance Prelude.ToByteString TransitGatewayMulitcastDomainAssociationState
 
-instance ToQuery TransitGatewayMulitcastDomainAssociationState
+instance Prelude.ToQuery TransitGatewayMulitcastDomainAssociationState
 
-instance ToHeader TransitGatewayMulitcastDomainAssociationState
+instance Prelude.ToHeader TransitGatewayMulitcastDomainAssociationState
 
-instance FromXML TransitGatewayMulitcastDomainAssociationState where
-  parseXML = parseXMLText "TransitGatewayMulitcastDomainAssociationState"
+instance Prelude.FromXML TransitGatewayMulitcastDomainAssociationState where
+  parseXML = Prelude.parseXMLText "TransitGatewayMulitcastDomainAssociationState"

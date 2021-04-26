@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +21,78 @@ module Network.AWS.EC2.Types.FpgaImageState where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.FpgaImageStateCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the state of the bitstream generation process for an Amazon FPGA image (AFI).
+-- | Describes the state of the bitstream generation process for an Amazon
+-- FPGA image (AFI).
 --
---
---
--- /See:/ 'fpgaImageState' smart constructor.
+-- /See:/ 'newFpgaImageState' smart constructor.
 data FpgaImageState = FpgaImageState'
-  { _fisMessage ::
-      !(Maybe Text),
-    _fisCode :: !(Maybe FpgaImageStateCode)
+  { -- | If the state is @failed@, this is the error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The state. The following are the possible values:
+    --
+    -- -   @pending@ - AFI bitstream generation is in progress.
+    --
+    -- -   @available@ - The AFI is available for use.
+    --
+    -- -   @failed@ - AFI bitstream generation failed.
+    --
+    -- -   @unavailable@ - The AFI is no longer available for use.
+    code :: Prelude.Maybe FpgaImageStateCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FpgaImageState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FpgaImageState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fisMessage' - If the state is @failed@ , this is the error message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fisCode' - The state. The following are the possible values:     * @pending@ - AFI bitstream generation is in progress.     * @available@ - The AFI is available for use.     * @failed@ - AFI bitstream generation failed.     * @unavailable@ - The AFI is no longer available for use.
-fpgaImageState ::
+-- 'message', 'fpgaImageState_message' - If the state is @failed@, this is the error message.
+--
+-- 'code', 'fpgaImageState_code' - The state. The following are the possible values:
+--
+-- -   @pending@ - AFI bitstream generation is in progress.
+--
+-- -   @available@ - The AFI is available for use.
+--
+-- -   @failed@ - AFI bitstream generation failed.
+--
+-- -   @unavailable@ - The AFI is no longer available for use.
+newFpgaImageState ::
   FpgaImageState
-fpgaImageState =
+newFpgaImageState =
   FpgaImageState'
-    { _fisMessage = Nothing,
-      _fisCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
--- | If the state is @failed@ , this is the error message.
-fisMessage :: Lens' FpgaImageState (Maybe Text)
-fisMessage = lens _fisMessage (\s a -> s {_fisMessage = a})
+-- | If the state is @failed@, this is the error message.
+fpgaImageState_message :: Lens.Lens' FpgaImageState (Prelude.Maybe Prelude.Text)
+fpgaImageState_message = Lens.lens (\FpgaImageState' {message} -> message) (\s@FpgaImageState' {} a -> s {message = a} :: FpgaImageState)
 
--- | The state. The following are the possible values:     * @pending@ - AFI bitstream generation is in progress.     * @available@ - The AFI is available for use.     * @failed@ - AFI bitstream generation failed.     * @unavailable@ - The AFI is no longer available for use.
-fisCode :: Lens' FpgaImageState (Maybe FpgaImageStateCode)
-fisCode = lens _fisCode (\s a -> s {_fisCode = a})
+-- | The state. The following are the possible values:
+--
+-- -   @pending@ - AFI bitstream generation is in progress.
+--
+-- -   @available@ - The AFI is available for use.
+--
+-- -   @failed@ - AFI bitstream generation failed.
+--
+-- -   @unavailable@ - The AFI is no longer available for use.
+fpgaImageState_code :: Lens.Lens' FpgaImageState (Prelude.Maybe FpgaImageStateCode)
+fpgaImageState_code = Lens.lens (\FpgaImageState' {code} -> code) (\s@FpgaImageState' {} a -> s {code = a} :: FpgaImageState)
 
-instance FromXML FpgaImageState where
+instance Prelude.FromXML FpgaImageState where
   parseXML x =
     FpgaImageState'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
-instance Hashable FpgaImageState
+instance Prelude.Hashable FpgaImageState
 
-instance NFData FpgaImageState
+instance Prelude.NFData FpgaImageState

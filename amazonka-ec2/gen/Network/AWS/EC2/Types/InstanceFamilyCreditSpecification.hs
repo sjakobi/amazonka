@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,65 @@ module Network.AWS.EC2.Types.InstanceFamilyCreditSpecification where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.UnlimitedSupportedInstanceFamily
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the default credit option for CPU usage of a burstable performance instance family.
+-- | Describes the default credit option for CPU usage of a burstable
+-- performance instance family.
 --
---
---
--- /See:/ 'instanceFamilyCreditSpecification' smart constructor.
+-- /See:/ 'newInstanceFamilyCreditSpecification' smart constructor.
 data InstanceFamilyCreditSpecification = InstanceFamilyCreditSpecification'
-  { _ifcsInstanceFamily ::
-      !( Maybe
-           UnlimitedSupportedInstanceFamily
-       ),
-    _ifcsCPUCredits ::
-      !( Maybe
-           Text
-       )
+  { -- | The instance family.
+    instanceFamily :: Prelude.Maybe UnlimitedSupportedInstanceFamily,
+    -- | The default credit option for CPU usage of the instance family. Valid
+    -- values are @standard@ and @unlimited@.
+    cpuCredits :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceFamilyCreditSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceFamilyCreditSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifcsInstanceFamily' - The instance family.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifcsCPUCredits' - The default credit option for CPU usage of the instance family. Valid values are @standard@ and @unlimited@ .
-instanceFamilyCreditSpecification ::
+-- 'instanceFamily', 'instanceFamilyCreditSpecification_instanceFamily' - The instance family.
+--
+-- 'cpuCredits', 'instanceFamilyCreditSpecification_cpuCredits' - The default credit option for CPU usage of the instance family. Valid
+-- values are @standard@ and @unlimited@.
+newInstanceFamilyCreditSpecification ::
   InstanceFamilyCreditSpecification
-instanceFamilyCreditSpecification =
+newInstanceFamilyCreditSpecification =
   InstanceFamilyCreditSpecification'
-    { _ifcsInstanceFamily =
-        Nothing,
-      _ifcsCPUCredits = Nothing
+    { instanceFamily =
+        Prelude.Nothing,
+      cpuCredits = Prelude.Nothing
     }
 
 -- | The instance family.
-ifcsInstanceFamily :: Lens' InstanceFamilyCreditSpecification (Maybe UnlimitedSupportedInstanceFamily)
-ifcsInstanceFamily = lens _ifcsInstanceFamily (\s a -> s {_ifcsInstanceFamily = a})
+instanceFamilyCreditSpecification_instanceFamily :: Lens.Lens' InstanceFamilyCreditSpecification (Prelude.Maybe UnlimitedSupportedInstanceFamily)
+instanceFamilyCreditSpecification_instanceFamily = Lens.lens (\InstanceFamilyCreditSpecification' {instanceFamily} -> instanceFamily) (\s@InstanceFamilyCreditSpecification' {} a -> s {instanceFamily = a} :: InstanceFamilyCreditSpecification)
 
--- | The default credit option for CPU usage of the instance family. Valid values are @standard@ and @unlimited@ .
-ifcsCPUCredits :: Lens' InstanceFamilyCreditSpecification (Maybe Text)
-ifcsCPUCredits = lens _ifcsCPUCredits (\s a -> s {_ifcsCPUCredits = a})
+-- | The default credit option for CPU usage of the instance family. Valid
+-- values are @standard@ and @unlimited@.
+instanceFamilyCreditSpecification_cpuCredits :: Lens.Lens' InstanceFamilyCreditSpecification (Prelude.Maybe Prelude.Text)
+instanceFamilyCreditSpecification_cpuCredits = Lens.lens (\InstanceFamilyCreditSpecification' {cpuCredits} -> cpuCredits) (\s@InstanceFamilyCreditSpecification' {} a -> s {cpuCredits = a} :: InstanceFamilyCreditSpecification)
 
-instance FromXML InstanceFamilyCreditSpecification where
+instance
+  Prelude.FromXML
+    InstanceFamilyCreditSpecification
+  where
   parseXML x =
     InstanceFamilyCreditSpecification'
-      <$> (x .@? "instanceFamily") <*> (x .@? "cpuCredits")
+      Prelude.<$> (x Prelude..@? "instanceFamily")
+      Prelude.<*> (x Prelude..@? "cpuCredits")
 
-instance Hashable InstanceFamilyCreditSpecification
+instance
+  Prelude.Hashable
+    InstanceFamilyCreditSpecification
 
-instance NFData InstanceFamilyCreditSpecification
+instance
+  Prelude.NFData
+    InstanceFamilyCreditSpecification

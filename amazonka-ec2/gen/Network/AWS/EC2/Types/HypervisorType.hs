@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.HypervisorType
   ( HypervisorType
       ( ..,
-        HTOvm,
-        HTXen
+        HypervisorTypeOvm,
+        HypervisorTypeXen
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HypervisorType = HypervisorType' (CI Text)
+newtype HypervisorType = HypervisorType'
+  { fromHypervisorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTOvm :: HypervisorType
-pattern HTOvm = HypervisorType' "ovm"
+pattern HypervisorTypeOvm :: HypervisorType
+pattern HypervisorTypeOvm = HypervisorType' "ovm"
 
-pattern HTXen :: HypervisorType
-pattern HTXen = HypervisorType' "xen"
+pattern HypervisorTypeXen :: HypervisorType
+pattern HypervisorTypeXen = HypervisorType' "xen"
 
 {-# COMPLETE
-  HTOvm,
-  HTXen,
+  HypervisorTypeOvm,
+  HypervisorTypeXen,
   HypervisorType'
   #-}
 
-instance FromText HypervisorType where
-  parser = (HypervisorType' . mk) <$> takeText
+instance Prelude.FromText HypervisorType where
+  parser = HypervisorType' Prelude.<$> Prelude.takeText
 
-instance ToText HypervisorType where
-  toText (HypervisorType' ci) = original ci
+instance Prelude.ToText HypervisorType where
+  toText (HypervisorType' x) = x
 
-instance Hashable HypervisorType
+instance Prelude.Hashable HypervisorType
 
-instance NFData HypervisorType
+instance Prelude.NFData HypervisorType
 
-instance ToByteString HypervisorType
+instance Prelude.ToByteString HypervisorType
 
-instance ToQuery HypervisorType
+instance Prelude.ToQuery HypervisorType
 
-instance ToHeader HypervisorType
+instance Prelude.ToHeader HypervisorType
 
-instance FromXML HypervisorType where
-  parseXML = parseXMLText "HypervisorType"
+instance Prelude.FromXML HypervisorType where
+  parseXML = Prelude.parseXMLText "HypervisorType"

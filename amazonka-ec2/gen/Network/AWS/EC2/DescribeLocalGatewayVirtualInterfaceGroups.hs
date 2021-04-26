@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,251 +23,286 @@
 --
 -- Describes the specified local gateway virtual interface groups.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeLocalGatewayVirtualInterfaceGroups
   ( -- * Creating a Request
-    describeLocalGatewayVirtualInterfaceGroups,
-    DescribeLocalGatewayVirtualInterfaceGroups,
+    DescribeLocalGatewayVirtualInterfaceGroups (..),
+    newDescribeLocalGatewayVirtualInterfaceGroups,
 
     -- * Request Lenses
-    dlgvigNextToken,
-    dlgvigDryRun,
-    dlgvigMaxResults,
-    dlgvigFilters,
-    dlgvigLocalGatewayVirtualInterfaceGroupIds,
+    describeLocalGatewayVirtualInterfaceGroups_nextToken,
+    describeLocalGatewayVirtualInterfaceGroups_dryRun,
+    describeLocalGatewayVirtualInterfaceGroups_maxResults,
+    describeLocalGatewayVirtualInterfaceGroups_filters,
+    describeLocalGatewayVirtualInterfaceGroups_localGatewayVirtualInterfaceGroupIds,
 
     -- * Destructuring the Response
-    describeLocalGatewayVirtualInterfaceGroupsResponse,
-    DescribeLocalGatewayVirtualInterfaceGroupsResponse,
+    DescribeLocalGatewayVirtualInterfaceGroupsResponse (..),
+    newDescribeLocalGatewayVirtualInterfaceGroupsResponse,
 
     -- * Response Lenses
-    dlgvigrrsNextToken,
-    dlgvigrrsLocalGatewayVirtualInterfaceGroups,
-    dlgvigrrsResponseStatus,
+    describeLocalGatewayVirtualInterfaceGroupsResponse_nextToken,
+    describeLocalGatewayVirtualInterfaceGroupsResponse_localGatewayVirtualInterfaceGroups,
+    describeLocalGatewayVirtualInterfaceGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.LocalGatewayVirtualInterfaceGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLocalGatewayVirtualInterfaceGroups' smart constructor.
+-- | /See:/ 'newDescribeLocalGatewayVirtualInterfaceGroups' smart constructor.
 data DescribeLocalGatewayVirtualInterfaceGroups = DescribeLocalGatewayVirtualInterfaceGroups'
-  { _dlgvigNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dlgvigDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _dlgvigMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dlgvigFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _dlgvigLocalGatewayVirtualInterfaceGroupIds ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters.
+    --
+    -- -   @local-gateway-id@ - The ID of a local gateway.
+    --
+    -- -   @local-gateway-virtual-interface-id@ - The ID of the virtual
+    --     interface.
+    --
+    -- -   @local-gateway-virtual-interface-group-id@ - The ID of the virtual
+    --     interface group.
+    filters :: Prelude.Maybe [Filter],
+    -- | The IDs of the virtual interface groups.
+    localGatewayVirtualInterfaceGroupIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLocalGatewayVirtualInterfaceGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLocalGatewayVirtualInterfaceGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlgvigNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlgvigDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeLocalGatewayVirtualInterfaceGroups_nextToken' - The token for the next page of results.
 --
--- * 'dlgvigMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeLocalGatewayVirtualInterfaceGroups_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dlgvigFilters' - One or more filters.     * @local-gateway-id@ - The ID of a local gateway.     * @local-gateway-virtual-interface-id@ - The ID of the virtual interface.     * @local-gateway-virtual-interface-group-id@ - The ID of the virtual interface group.
+-- 'maxResults', 'describeLocalGatewayVirtualInterfaceGroups_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'dlgvigLocalGatewayVirtualInterfaceGroupIds' - The IDs of the virtual interface groups.
-describeLocalGatewayVirtualInterfaceGroups ::
+-- 'filters', 'describeLocalGatewayVirtualInterfaceGroups_filters' - One or more filters.
+--
+-- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-virtual-interface-id@ - The ID of the virtual
+--     interface.
+--
+-- -   @local-gateway-virtual-interface-group-id@ - The ID of the virtual
+--     interface group.
+--
+-- 'localGatewayVirtualInterfaceGroupIds', 'describeLocalGatewayVirtualInterfaceGroups_localGatewayVirtualInterfaceGroupIds' - The IDs of the virtual interface groups.
+newDescribeLocalGatewayVirtualInterfaceGroups ::
   DescribeLocalGatewayVirtualInterfaceGroups
-describeLocalGatewayVirtualInterfaceGroups =
+newDescribeLocalGatewayVirtualInterfaceGroups =
   DescribeLocalGatewayVirtualInterfaceGroups'
-    { _dlgvigNextToken =
-        Nothing,
-      _dlgvigDryRun = Nothing,
-      _dlgvigMaxResults = Nothing,
-      _dlgvigFilters = Nothing,
-      _dlgvigLocalGatewayVirtualInterfaceGroupIds =
-        Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      localGatewayVirtualInterfaceGroupIds =
+        Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-dlgvigNextToken :: Lens' DescribeLocalGatewayVirtualInterfaceGroups (Maybe Text)
-dlgvigNextToken = lens _dlgvigNextToken (\s a -> s {_dlgvigNextToken = a})
+describeLocalGatewayVirtualInterfaceGroups_nextToken :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroups (Prelude.Maybe Prelude.Text)
+describeLocalGatewayVirtualInterfaceGroups_nextToken = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroups' {nextToken} -> nextToken) (\s@DescribeLocalGatewayVirtualInterfaceGroups' {} a -> s {nextToken = a} :: DescribeLocalGatewayVirtualInterfaceGroups)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dlgvigDryRun :: Lens' DescribeLocalGatewayVirtualInterfaceGroups (Maybe Bool)
-dlgvigDryRun = lens _dlgvigDryRun (\s a -> s {_dlgvigDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeLocalGatewayVirtualInterfaceGroups_dryRun :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroups (Prelude.Maybe Prelude.Bool)
+describeLocalGatewayVirtualInterfaceGroups_dryRun = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroups' {dryRun} -> dryRun) (\s@DescribeLocalGatewayVirtualInterfaceGroups' {} a -> s {dryRun = a} :: DescribeLocalGatewayVirtualInterfaceGroups)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-dlgvigMaxResults :: Lens' DescribeLocalGatewayVirtualInterfaceGroups (Maybe Natural)
-dlgvigMaxResults = lens _dlgvigMaxResults (\s a -> s {_dlgvigMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeLocalGatewayVirtualInterfaceGroups_maxResults :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroups (Prelude.Maybe Prelude.Natural)
+describeLocalGatewayVirtualInterfaceGroups_maxResults = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroups' {maxResults} -> maxResults) (\s@DescribeLocalGatewayVirtualInterfaceGroups' {} a -> s {maxResults = a} :: DescribeLocalGatewayVirtualInterfaceGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters.     * @local-gateway-id@ - The ID of a local gateway.     * @local-gateway-virtual-interface-id@ - The ID of the virtual interface.     * @local-gateway-virtual-interface-group-id@ - The ID of the virtual interface group.
-dlgvigFilters :: Lens' DescribeLocalGatewayVirtualInterfaceGroups [Filter]
-dlgvigFilters = lens _dlgvigFilters (\s a -> s {_dlgvigFilters = a}) . _Default . _Coerce
+-- | One or more filters.
+--
+-- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-virtual-interface-id@ - The ID of the virtual
+--     interface.
+--
+-- -   @local-gateway-virtual-interface-group-id@ - The ID of the virtual
+--     interface group.
+describeLocalGatewayVirtualInterfaceGroups_filters :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroups (Prelude.Maybe [Filter])
+describeLocalGatewayVirtualInterfaceGroups_filters = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroups' {filters} -> filters) (\s@DescribeLocalGatewayVirtualInterfaceGroups' {} a -> s {filters = a} :: DescribeLocalGatewayVirtualInterfaceGroups) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The IDs of the virtual interface groups.
-dlgvigLocalGatewayVirtualInterfaceGroupIds :: Lens' DescribeLocalGatewayVirtualInterfaceGroups [Text]
-dlgvigLocalGatewayVirtualInterfaceGroupIds = lens _dlgvigLocalGatewayVirtualInterfaceGroupIds (\s a -> s {_dlgvigLocalGatewayVirtualInterfaceGroupIds = a}) . _Default . _Coerce
+describeLocalGatewayVirtualInterfaceGroups_localGatewayVirtualInterfaceGroupIds :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroups (Prelude.Maybe [Prelude.Text])
+describeLocalGatewayVirtualInterfaceGroups_localGatewayVirtualInterfaceGroupIds = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroups' {localGatewayVirtualInterfaceGroupIds} -> localGatewayVirtualInterfaceGroupIds) (\s@DescribeLocalGatewayVirtualInterfaceGroups' {} a -> s {localGatewayVirtualInterfaceGroupIds = a} :: DescribeLocalGatewayVirtualInterfaceGroups) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeLocalGatewayVirtualInterfaceGroups
   where
   page rq rs
-    | stop (rs ^. dlgvigrrsNextToken) = Nothing
-    | stop
-        (rs ^. dlgvigrrsLocalGatewayVirtualInterfaceGroups) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? describeLocalGatewayVirtualInterfaceGroupsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeLocalGatewayVirtualInterfaceGroupsResponse_localGatewayVirtualInterfaceGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & dlgvigNextToken .~ rs ^. dlgvigrrsNextToken
+          Lens.& describeLocalGatewayVirtualInterfaceGroups_nextToken
+          Lens..~ rs
+            Lens.^? describeLocalGatewayVirtualInterfaceGroupsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeLocalGatewayVirtualInterfaceGroups
   where
   type
     Rs DescribeLocalGatewayVirtualInterfaceGroups =
       DescribeLocalGatewayVirtualInterfaceGroupsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeLocalGatewayVirtualInterfaceGroupsResponse'
-            <$> (x .@? "nextToken")
-              <*> ( x .@? "localGatewayVirtualInterfaceGroupSet"
-                      .!@ mempty
-                      >>= may (parseXMLList "item")
-                  )
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "localGatewayVirtualInterfaceGroupSet"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeLocalGatewayVirtualInterfaceGroups
 
 instance
-  NFData
+  Prelude.NFData
     DescribeLocalGatewayVirtualInterfaceGroups
 
 instance
-  ToHeaders
-    DescribeLocalGatewayVirtualInterfaceGroups
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DescribeLocalGatewayVirtualInterfaceGroups
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DescribeLocalGatewayVirtualInterfaceGroups
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DescribeLocalGatewayVirtualInterfaceGroups
   where
   toQuery
     DescribeLocalGatewayVirtualInterfaceGroups' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "DescribeLocalGatewayVirtualInterfaceGroups" ::
-                   ByteString
-               ),
-          "Version" =: ("2016-11-15" :: ByteString),
-          "NextToken" =: _dlgvigNextToken,
-          "DryRun" =: _dlgvigDryRun,
-          "MaxResults" =: _dlgvigMaxResults,
-          toQuery (toQueryList "Filter" <$> _dlgvigFilters),
-          toQuery
-            ( toQueryList "LocalGatewayVirtualInterfaceGroupId"
-                <$> _dlgvigLocalGatewayVirtualInterfaceGroupIds
+            Prelude.=: ( "DescribeLocalGatewayVirtualInterfaceGroups" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+          "NextToken" Prelude.=: nextToken,
+          "DryRun" Prelude.=: dryRun,
+          "MaxResults" Prelude.=: maxResults,
+          Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+          Prelude.toQuery
+            ( Prelude.toQueryList
+                "LocalGatewayVirtualInterfaceGroupId"
+                Prelude.<$> localGatewayVirtualInterfaceGroupIds
             )
         ]
 
--- | /See:/ 'describeLocalGatewayVirtualInterfaceGroupsResponse' smart constructor.
+-- | /See:/ 'newDescribeLocalGatewayVirtualInterfaceGroupsResponse' smart constructor.
 data DescribeLocalGatewayVirtualInterfaceGroupsResponse = DescribeLocalGatewayVirtualInterfaceGroupsResponse'
-  { _dlgvigrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dlgvigrrsLocalGatewayVirtualInterfaceGroups ::
-      !( Maybe
-           [LocalGatewayVirtualInterfaceGroup]
-       ),
-    _dlgvigrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The virtual interface groups.
+    localGatewayVirtualInterfaceGroups :: Prelude.Maybe [LocalGatewayVirtualInterfaceGroup],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLocalGatewayVirtualInterfaceGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLocalGatewayVirtualInterfaceGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlgvigrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlgvigrrsLocalGatewayVirtualInterfaceGroups' - The virtual interface groups.
+-- 'nextToken', 'describeLocalGatewayVirtualInterfaceGroupsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dlgvigrrsResponseStatus' - -- | The response status code.
-describeLocalGatewayVirtualInterfaceGroupsResponse ::
-  -- | 'dlgvigrrsResponseStatus'
-  Int ->
+-- 'localGatewayVirtualInterfaceGroups', 'describeLocalGatewayVirtualInterfaceGroupsResponse_localGatewayVirtualInterfaceGroups' - The virtual interface groups.
+--
+-- 'httpStatus', 'describeLocalGatewayVirtualInterfaceGroupsResponse_httpStatus' - The response's http status code.
+newDescribeLocalGatewayVirtualInterfaceGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLocalGatewayVirtualInterfaceGroupsResponse
-describeLocalGatewayVirtualInterfaceGroupsResponse
-  pResponseStatus_ =
+newDescribeLocalGatewayVirtualInterfaceGroupsResponse
+  pHttpStatus_ =
     DescribeLocalGatewayVirtualInterfaceGroupsResponse'
-      { _dlgvigrrsNextToken =
-          Nothing,
-        _dlgvigrrsLocalGatewayVirtualInterfaceGroups =
-          Nothing,
-        _dlgvigrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        localGatewayVirtualInterfaceGroups =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dlgvigrrsNextToken :: Lens' DescribeLocalGatewayVirtualInterfaceGroupsResponse (Maybe Text)
-dlgvigrrsNextToken = lens _dlgvigrrsNextToken (\s a -> s {_dlgvigrrsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeLocalGatewayVirtualInterfaceGroupsResponse_nextToken :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroupsResponse (Prelude.Maybe Prelude.Text)
+describeLocalGatewayVirtualInterfaceGroupsResponse_nextToken = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroupsResponse' {nextToken} -> nextToken) (\s@DescribeLocalGatewayVirtualInterfaceGroupsResponse' {} a -> s {nextToken = a} :: DescribeLocalGatewayVirtualInterfaceGroupsResponse)
 
 -- | The virtual interface groups.
-dlgvigrrsLocalGatewayVirtualInterfaceGroups :: Lens' DescribeLocalGatewayVirtualInterfaceGroupsResponse [LocalGatewayVirtualInterfaceGroup]
-dlgvigrrsLocalGatewayVirtualInterfaceGroups = lens _dlgvigrrsLocalGatewayVirtualInterfaceGroups (\s a -> s {_dlgvigrrsLocalGatewayVirtualInterfaceGroups = a}) . _Default . _Coerce
+describeLocalGatewayVirtualInterfaceGroupsResponse_localGatewayVirtualInterfaceGroups :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroupsResponse (Prelude.Maybe [LocalGatewayVirtualInterfaceGroup])
+describeLocalGatewayVirtualInterfaceGroupsResponse_localGatewayVirtualInterfaceGroups = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroupsResponse' {localGatewayVirtualInterfaceGroups} -> localGatewayVirtualInterfaceGroups) (\s@DescribeLocalGatewayVirtualInterfaceGroupsResponse' {} a -> s {localGatewayVirtualInterfaceGroups = a} :: DescribeLocalGatewayVirtualInterfaceGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dlgvigrrsResponseStatus :: Lens' DescribeLocalGatewayVirtualInterfaceGroupsResponse Int
-dlgvigrrsResponseStatus = lens _dlgvigrrsResponseStatus (\s a -> s {_dlgvigrrsResponseStatus = a})
+-- | The response's http status code.
+describeLocalGatewayVirtualInterfaceGroupsResponse_httpStatus :: Lens.Lens' DescribeLocalGatewayVirtualInterfaceGroupsResponse Prelude.Int
+describeLocalGatewayVirtualInterfaceGroupsResponse_httpStatus = Lens.lens (\DescribeLocalGatewayVirtualInterfaceGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeLocalGatewayVirtualInterfaceGroupsResponse' {} a -> s {httpStatus = a} :: DescribeLocalGatewayVirtualInterfaceGroupsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeLocalGatewayVirtualInterfaceGroupsResponse

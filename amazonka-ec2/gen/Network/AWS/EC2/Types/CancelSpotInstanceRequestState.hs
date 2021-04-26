@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.CancelSpotInstanceRequestState
   ( CancelSpotInstanceRequestState
       ( ..,
-        CSIRSActive,
-        CSIRSCancelled,
-        CSIRSClosed,
-        CSIRSCompleted,
-        CSIRSOpen
+        CancelSpotInstanceRequestStateActive,
+        CancelSpotInstanceRequestStateCancelled,
+        CancelSpotInstanceRequestStateClosed,
+        CancelSpotInstanceRequestStateCompleted,
+        CancelSpotInstanceRequestStateOpen
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CancelSpotInstanceRequestState
-  = CancelSpotInstanceRequestState'
-      ( CI
-          Text
-      )
+newtype CancelSpotInstanceRequestState = CancelSpotInstanceRequestState'
+  { fromCancelSpotInstanceRequestState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSIRSActive :: CancelSpotInstanceRequestState
-pattern CSIRSActive = CancelSpotInstanceRequestState' "active"
+pattern CancelSpotInstanceRequestStateActive :: CancelSpotInstanceRequestState
+pattern CancelSpotInstanceRequestStateActive = CancelSpotInstanceRequestState' "active"
 
-pattern CSIRSCancelled :: CancelSpotInstanceRequestState
-pattern CSIRSCancelled = CancelSpotInstanceRequestState' "cancelled"
+pattern CancelSpotInstanceRequestStateCancelled :: CancelSpotInstanceRequestState
+pattern CancelSpotInstanceRequestStateCancelled = CancelSpotInstanceRequestState' "cancelled"
 
-pattern CSIRSClosed :: CancelSpotInstanceRequestState
-pattern CSIRSClosed = CancelSpotInstanceRequestState' "closed"
+pattern CancelSpotInstanceRequestStateClosed :: CancelSpotInstanceRequestState
+pattern CancelSpotInstanceRequestStateClosed = CancelSpotInstanceRequestState' "closed"
 
-pattern CSIRSCompleted :: CancelSpotInstanceRequestState
-pattern CSIRSCompleted = CancelSpotInstanceRequestState' "completed"
+pattern CancelSpotInstanceRequestStateCompleted :: CancelSpotInstanceRequestState
+pattern CancelSpotInstanceRequestStateCompleted = CancelSpotInstanceRequestState' "completed"
 
-pattern CSIRSOpen :: CancelSpotInstanceRequestState
-pattern CSIRSOpen = CancelSpotInstanceRequestState' "open"
+pattern CancelSpotInstanceRequestStateOpen :: CancelSpotInstanceRequestState
+pattern CancelSpotInstanceRequestStateOpen = CancelSpotInstanceRequestState' "open"
 
 {-# COMPLETE
-  CSIRSActive,
-  CSIRSCancelled,
-  CSIRSClosed,
-  CSIRSCompleted,
-  CSIRSOpen,
+  CancelSpotInstanceRequestStateActive,
+  CancelSpotInstanceRequestStateCancelled,
+  CancelSpotInstanceRequestStateClosed,
+  CancelSpotInstanceRequestStateCompleted,
+  CancelSpotInstanceRequestStateOpen,
   CancelSpotInstanceRequestState'
   #-}
 
-instance FromText CancelSpotInstanceRequestState where
-  parser = (CancelSpotInstanceRequestState' . mk) <$> takeText
+instance Prelude.FromText CancelSpotInstanceRequestState where
+  parser = CancelSpotInstanceRequestState' Prelude.<$> Prelude.takeText
 
-instance ToText CancelSpotInstanceRequestState where
-  toText (CancelSpotInstanceRequestState' ci) = original ci
+instance Prelude.ToText CancelSpotInstanceRequestState where
+  toText (CancelSpotInstanceRequestState' x) = x
 
-instance Hashable CancelSpotInstanceRequestState
+instance Prelude.Hashable CancelSpotInstanceRequestState
 
-instance NFData CancelSpotInstanceRequestState
+instance Prelude.NFData CancelSpotInstanceRequestState
 
-instance ToByteString CancelSpotInstanceRequestState
+instance Prelude.ToByteString CancelSpotInstanceRequestState
 
-instance ToQuery CancelSpotInstanceRequestState
+instance Prelude.ToQuery CancelSpotInstanceRequestState
 
-instance ToHeader CancelSpotInstanceRequestState
+instance Prelude.ToHeader CancelSpotInstanceRequestState
 
-instance FromXML CancelSpotInstanceRequestState where
-  parseXML = parseXMLText "CancelSpotInstanceRequestState"
+instance Prelude.FromXML CancelSpotInstanceRequestState where
+  parseXML = Prelude.parseXMLText "CancelSpotInstanceRequestState"

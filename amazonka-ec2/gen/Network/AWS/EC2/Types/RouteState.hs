@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.RouteState
   ( RouteState
       ( ..,
-        RActive,
-        RBlackhole
+        RouteStateActive,
+        RouteStateBlackhole
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RouteState = RouteState' (CI Text)
+newtype RouteState = RouteState'
+  { fromRouteState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RActive :: RouteState
-pattern RActive = RouteState' "active"
+pattern RouteStateActive :: RouteState
+pattern RouteStateActive = RouteState' "active"
 
-pattern RBlackhole :: RouteState
-pattern RBlackhole = RouteState' "blackhole"
+pattern RouteStateBlackhole :: RouteState
+pattern RouteStateBlackhole = RouteState' "blackhole"
 
 {-# COMPLETE
-  RActive,
-  RBlackhole,
+  RouteStateActive,
+  RouteStateBlackhole,
   RouteState'
   #-}
 
-instance FromText RouteState where
-  parser = (RouteState' . mk) <$> takeText
+instance Prelude.FromText RouteState where
+  parser = RouteState' Prelude.<$> Prelude.takeText
 
-instance ToText RouteState where
-  toText (RouteState' ci) = original ci
+instance Prelude.ToText RouteState where
+  toText (RouteState' x) = x
 
-instance Hashable RouteState
+instance Prelude.Hashable RouteState
 
-instance NFData RouteState
+instance Prelude.NFData RouteState
 
-instance ToByteString RouteState
+instance Prelude.ToByteString RouteState
 
-instance ToQuery RouteState
+instance Prelude.ToQuery RouteState
 
-instance ToHeader RouteState
+instance Prelude.ToHeader RouteState
 
-instance FromXML RouteState where
-  parseXML = parseXMLText "RouteState"
+instance Prelude.FromXML RouteState where
+  parseXML = Prelude.parseXMLText "RouteState"

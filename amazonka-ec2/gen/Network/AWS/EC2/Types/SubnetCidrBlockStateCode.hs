@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,76 @@
 module Network.AWS.EC2.Types.SubnetCidrBlockStateCode
   ( SubnetCidrBlockStateCode
       ( ..,
-        SCBSCAssociated,
-        SCBSCAssociating,
-        SCBSCDisassociated,
-        SCBSCDisassociating,
-        SCBSCFailed,
-        SCBSCFailing
+        SubnetCidrBlockStateCodeAssociated,
+        SubnetCidrBlockStateCodeAssociating,
+        SubnetCidrBlockStateCodeDisassociated,
+        SubnetCidrBlockStateCodeDisassociating,
+        SubnetCidrBlockStateCodeFailed,
+        SubnetCidrBlockStateCodeFailing
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SubnetCidrBlockStateCode
-  = SubnetCidrBlockStateCode'
-      ( CI
-          Text
-      )
+newtype SubnetCidrBlockStateCode = SubnetCidrBlockStateCode'
+  { fromSubnetCidrBlockStateCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SCBSCAssociated :: SubnetCidrBlockStateCode
-pattern SCBSCAssociated = SubnetCidrBlockStateCode' "associated"
+pattern SubnetCidrBlockStateCodeAssociated :: SubnetCidrBlockStateCode
+pattern SubnetCidrBlockStateCodeAssociated = SubnetCidrBlockStateCode' "associated"
 
-pattern SCBSCAssociating :: SubnetCidrBlockStateCode
-pattern SCBSCAssociating = SubnetCidrBlockStateCode' "associating"
+pattern SubnetCidrBlockStateCodeAssociating :: SubnetCidrBlockStateCode
+pattern SubnetCidrBlockStateCodeAssociating = SubnetCidrBlockStateCode' "associating"
 
-pattern SCBSCDisassociated :: SubnetCidrBlockStateCode
-pattern SCBSCDisassociated = SubnetCidrBlockStateCode' "disassociated"
+pattern SubnetCidrBlockStateCodeDisassociated :: SubnetCidrBlockStateCode
+pattern SubnetCidrBlockStateCodeDisassociated = SubnetCidrBlockStateCode' "disassociated"
 
-pattern SCBSCDisassociating :: SubnetCidrBlockStateCode
-pattern SCBSCDisassociating = SubnetCidrBlockStateCode' "disassociating"
+pattern SubnetCidrBlockStateCodeDisassociating :: SubnetCidrBlockStateCode
+pattern SubnetCidrBlockStateCodeDisassociating = SubnetCidrBlockStateCode' "disassociating"
 
-pattern SCBSCFailed :: SubnetCidrBlockStateCode
-pattern SCBSCFailed = SubnetCidrBlockStateCode' "failed"
+pattern SubnetCidrBlockStateCodeFailed :: SubnetCidrBlockStateCode
+pattern SubnetCidrBlockStateCodeFailed = SubnetCidrBlockStateCode' "failed"
 
-pattern SCBSCFailing :: SubnetCidrBlockStateCode
-pattern SCBSCFailing = SubnetCidrBlockStateCode' "failing"
+pattern SubnetCidrBlockStateCodeFailing :: SubnetCidrBlockStateCode
+pattern SubnetCidrBlockStateCodeFailing = SubnetCidrBlockStateCode' "failing"
 
 {-# COMPLETE
-  SCBSCAssociated,
-  SCBSCAssociating,
-  SCBSCDisassociated,
-  SCBSCDisassociating,
-  SCBSCFailed,
-  SCBSCFailing,
+  SubnetCidrBlockStateCodeAssociated,
+  SubnetCidrBlockStateCodeAssociating,
+  SubnetCidrBlockStateCodeDisassociated,
+  SubnetCidrBlockStateCodeDisassociating,
+  SubnetCidrBlockStateCodeFailed,
+  SubnetCidrBlockStateCodeFailing,
   SubnetCidrBlockStateCode'
   #-}
 
-instance FromText SubnetCidrBlockStateCode where
-  parser = (SubnetCidrBlockStateCode' . mk) <$> takeText
+instance Prelude.FromText SubnetCidrBlockStateCode where
+  parser = SubnetCidrBlockStateCode' Prelude.<$> Prelude.takeText
 
-instance ToText SubnetCidrBlockStateCode where
-  toText (SubnetCidrBlockStateCode' ci) = original ci
+instance Prelude.ToText SubnetCidrBlockStateCode where
+  toText (SubnetCidrBlockStateCode' x) = x
 
-instance Hashable SubnetCidrBlockStateCode
+instance Prelude.Hashable SubnetCidrBlockStateCode
 
-instance NFData SubnetCidrBlockStateCode
+instance Prelude.NFData SubnetCidrBlockStateCode
 
-instance ToByteString SubnetCidrBlockStateCode
+instance Prelude.ToByteString SubnetCidrBlockStateCode
 
-instance ToQuery SubnetCidrBlockStateCode
+instance Prelude.ToQuery SubnetCidrBlockStateCode
 
-instance ToHeader SubnetCidrBlockStateCode
+instance Prelude.ToHeader SubnetCidrBlockStateCode
 
-instance FromXML SubnetCidrBlockStateCode where
-  parseXML = parseXMLText "SubnetCidrBlockStateCode"
+instance Prelude.FromXML SubnetCidrBlockStateCode where
+  parseXML = Prelude.parseXMLText "SubnetCidrBlockStateCode"

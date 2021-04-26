@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.EC2.Types.DiskImageFormat
   ( DiskImageFormat
       ( ..,
-        Raw,
-        VHD,
-        VMDK
+        DiskImageFormatRAW,
+        DiskImageFormatVHD,
+        DiskImageFormatVMDK
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DiskImageFormat = DiskImageFormat' (CI Text)
+newtype DiskImageFormat = DiskImageFormat'
+  { fromDiskImageFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Raw :: DiskImageFormat
-pattern Raw = DiskImageFormat' "RAW"
+pattern DiskImageFormatRAW :: DiskImageFormat
+pattern DiskImageFormatRAW = DiskImageFormat' "RAW"
 
-pattern VHD :: DiskImageFormat
-pattern VHD = DiskImageFormat' "VHD"
+pattern DiskImageFormatVHD :: DiskImageFormat
+pattern DiskImageFormatVHD = DiskImageFormat' "VHD"
 
-pattern VMDK :: DiskImageFormat
-pattern VMDK = DiskImageFormat' "VMDK"
+pattern DiskImageFormatVMDK :: DiskImageFormat
+pattern DiskImageFormatVMDK = DiskImageFormat' "VMDK"
 
 {-# COMPLETE
-  Raw,
-  VHD,
-  VMDK,
+  DiskImageFormatRAW,
+  DiskImageFormatVHD,
+  DiskImageFormatVMDK,
   DiskImageFormat'
   #-}
 
-instance FromText DiskImageFormat where
-  parser = (DiskImageFormat' . mk) <$> takeText
+instance Prelude.FromText DiskImageFormat where
+  parser = DiskImageFormat' Prelude.<$> Prelude.takeText
 
-instance ToText DiskImageFormat where
-  toText (DiskImageFormat' ci) = original ci
+instance Prelude.ToText DiskImageFormat where
+  toText (DiskImageFormat' x) = x
 
-instance Hashable DiskImageFormat
+instance Prelude.Hashable DiskImageFormat
 
-instance NFData DiskImageFormat
+instance Prelude.NFData DiskImageFormat
 
-instance ToByteString DiskImageFormat
+instance Prelude.ToByteString DiskImageFormat
 
-instance ToQuery DiskImageFormat
+instance Prelude.ToQuery DiskImageFormat
 
-instance ToHeader DiskImageFormat
+instance Prelude.ToHeader DiskImageFormat
 
-instance FromXML DiskImageFormat where
-  parseXML = parseXMLText "DiskImageFormat"
+instance Prelude.FromXML DiskImageFormat where
+  parseXML = Prelude.parseXMLText "DiskImageFormat"

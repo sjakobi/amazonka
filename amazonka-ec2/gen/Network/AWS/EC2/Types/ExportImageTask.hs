@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,107 +22,118 @@ module Network.AWS.EC2.Types.ExportImageTask where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ExportTaskS3Location
 import Network.AWS.EC2.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an export image task.
 --
---
---
--- /See:/ 'exportImageTask' smart constructor.
+-- /See:/ 'newExportImageTask' smart constructor.
 data ExportImageTask = ExportImageTask'
-  { _eitStatusMessage ::
-      !(Maybe Text),
-    _eitStatus :: !(Maybe Text),
-    _eitImageId :: !(Maybe Text),
-    _eitTags :: !(Maybe [Tag]),
-    _eitS3ExportLocation ::
-      !(Maybe ExportTaskS3Location),
-    _eitDescription :: !(Maybe Text),
-    _eitExportImageTaskId :: !(Maybe Text),
-    _eitProgress :: !(Maybe Text)
+  { -- | The status message for the export image task.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status of the export image task. The possible values are @active@,
+    -- @completed@, @deleting@, and @deleted@.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the image.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags assigned to the export image task.
+    tags :: Prelude.Maybe [Tag],
+    -- | Information about the destination Amazon S3 bucket.
+    s3ExportLocation :: Prelude.Maybe ExportTaskS3Location,
+    -- | A description of the image being exported.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the export image task.
+    exportImageTaskId :: Prelude.Maybe Prelude.Text,
+    -- | The percent complete of the export image task.
+    progress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportImageTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportImageTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eitStatusMessage' - The status message for the export image task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eitStatus' - The status of the export image task. The possible values are @active@ , @completed@ , @deleting@ , and @deleted@ .
+-- 'statusMessage', 'exportImageTask_statusMessage' - The status message for the export image task.
 --
--- * 'eitImageId' - The ID of the image.
+-- 'status', 'exportImageTask_status' - The status of the export image task. The possible values are @active@,
+-- @completed@, @deleting@, and @deleted@.
 --
--- * 'eitTags' - Any tags assigned to the export image task.
+-- 'imageId', 'exportImageTask_imageId' - The ID of the image.
 --
--- * 'eitS3ExportLocation' - Information about the destination Amazon S3 bucket.
+-- 'tags', 'exportImageTask_tags' - Any tags assigned to the export image task.
 --
--- * 'eitDescription' - A description of the image being exported.
+-- 's3ExportLocation', 'exportImageTask_s3ExportLocation' - Information about the destination Amazon S3 bucket.
 --
--- * 'eitExportImageTaskId' - The ID of the export image task.
+-- 'description', 'exportImageTask_description' - A description of the image being exported.
 --
--- * 'eitProgress' - The percent complete of the export image task.
-exportImageTask ::
+-- 'exportImageTaskId', 'exportImageTask_exportImageTaskId' - The ID of the export image task.
+--
+-- 'progress', 'exportImageTask_progress' - The percent complete of the export image task.
+newExportImageTask ::
   ExportImageTask
-exportImageTask =
+newExportImageTask =
   ExportImageTask'
-    { _eitStatusMessage = Nothing,
-      _eitStatus = Nothing,
-      _eitImageId = Nothing,
-      _eitTags = Nothing,
-      _eitS3ExportLocation = Nothing,
-      _eitDescription = Nothing,
-      _eitExportImageTaskId = Nothing,
-      _eitProgress = Nothing
+    { statusMessage = Prelude.Nothing,
+      status = Prelude.Nothing,
+      imageId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      s3ExportLocation = Prelude.Nothing,
+      description = Prelude.Nothing,
+      exportImageTaskId = Prelude.Nothing,
+      progress = Prelude.Nothing
     }
 
 -- | The status message for the export image task.
-eitStatusMessage :: Lens' ExportImageTask (Maybe Text)
-eitStatusMessage = lens _eitStatusMessage (\s a -> s {_eitStatusMessage = a})
+exportImageTask_statusMessage :: Lens.Lens' ExportImageTask (Prelude.Maybe Prelude.Text)
+exportImageTask_statusMessage = Lens.lens (\ExportImageTask' {statusMessage} -> statusMessage) (\s@ExportImageTask' {} a -> s {statusMessage = a} :: ExportImageTask)
 
--- | The status of the export image task. The possible values are @active@ , @completed@ , @deleting@ , and @deleted@ .
-eitStatus :: Lens' ExportImageTask (Maybe Text)
-eitStatus = lens _eitStatus (\s a -> s {_eitStatus = a})
+-- | The status of the export image task. The possible values are @active@,
+-- @completed@, @deleting@, and @deleted@.
+exportImageTask_status :: Lens.Lens' ExportImageTask (Prelude.Maybe Prelude.Text)
+exportImageTask_status = Lens.lens (\ExportImageTask' {status} -> status) (\s@ExportImageTask' {} a -> s {status = a} :: ExportImageTask)
 
 -- | The ID of the image.
-eitImageId :: Lens' ExportImageTask (Maybe Text)
-eitImageId = lens _eitImageId (\s a -> s {_eitImageId = a})
+exportImageTask_imageId :: Lens.Lens' ExportImageTask (Prelude.Maybe Prelude.Text)
+exportImageTask_imageId = Lens.lens (\ExportImageTask' {imageId} -> imageId) (\s@ExportImageTask' {} a -> s {imageId = a} :: ExportImageTask)
 
 -- | Any tags assigned to the export image task.
-eitTags :: Lens' ExportImageTask [Tag]
-eitTags = lens _eitTags (\s a -> s {_eitTags = a}) . _Default . _Coerce
+exportImageTask_tags :: Lens.Lens' ExportImageTask (Prelude.Maybe [Tag])
+exportImageTask_tags = Lens.lens (\ExportImageTask' {tags} -> tags) (\s@ExportImageTask' {} a -> s {tags = a} :: ExportImageTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the destination Amazon S3 bucket.
-eitS3ExportLocation :: Lens' ExportImageTask (Maybe ExportTaskS3Location)
-eitS3ExportLocation = lens _eitS3ExportLocation (\s a -> s {_eitS3ExportLocation = a})
+exportImageTask_s3ExportLocation :: Lens.Lens' ExportImageTask (Prelude.Maybe ExportTaskS3Location)
+exportImageTask_s3ExportLocation = Lens.lens (\ExportImageTask' {s3ExportLocation} -> s3ExportLocation) (\s@ExportImageTask' {} a -> s {s3ExportLocation = a} :: ExportImageTask)
 
 -- | A description of the image being exported.
-eitDescription :: Lens' ExportImageTask (Maybe Text)
-eitDescription = lens _eitDescription (\s a -> s {_eitDescription = a})
+exportImageTask_description :: Lens.Lens' ExportImageTask (Prelude.Maybe Prelude.Text)
+exportImageTask_description = Lens.lens (\ExportImageTask' {description} -> description) (\s@ExportImageTask' {} a -> s {description = a} :: ExportImageTask)
 
 -- | The ID of the export image task.
-eitExportImageTaskId :: Lens' ExportImageTask (Maybe Text)
-eitExportImageTaskId = lens _eitExportImageTaskId (\s a -> s {_eitExportImageTaskId = a})
+exportImageTask_exportImageTaskId :: Lens.Lens' ExportImageTask (Prelude.Maybe Prelude.Text)
+exportImageTask_exportImageTaskId = Lens.lens (\ExportImageTask' {exportImageTaskId} -> exportImageTaskId) (\s@ExportImageTask' {} a -> s {exportImageTaskId = a} :: ExportImageTask)
 
 -- | The percent complete of the export image task.
-eitProgress :: Lens' ExportImageTask (Maybe Text)
-eitProgress = lens _eitProgress (\s a -> s {_eitProgress = a})
+exportImageTask_progress :: Lens.Lens' ExportImageTask (Prelude.Maybe Prelude.Text)
+exportImageTask_progress = Lens.lens (\ExportImageTask' {progress} -> progress) (\s@ExportImageTask' {} a -> s {progress = a} :: ExportImageTask)
 
-instance FromXML ExportImageTask where
+instance Prelude.FromXML ExportImageTask where
   parseXML x =
     ExportImageTask'
-      <$> (x .@? "statusMessage")
-      <*> (x .@? "status")
-      <*> (x .@? "imageId")
-      <*> ( x .@? "tagSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "s3ExportLocation")
-      <*> (x .@? "description")
-      <*> (x .@? "exportImageTaskId")
-      <*> (x .@? "progress")
+      Prelude.<$> (x Prelude..@? "statusMessage")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "imageId")
+      Prelude.<*> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "s3ExportLocation")
+      Prelude.<*> (x Prelude..@? "description")
+      Prelude.<*> (x Prelude..@? "exportImageTaskId")
+      Prelude.<*> (x Prelude..@? "progress")
 
-instance Hashable ExportImageTask
+instance Prelude.Hashable ExportImageTask
 
-instance NFData ExportImageTask
+instance Prelude.NFData ExportImageTask

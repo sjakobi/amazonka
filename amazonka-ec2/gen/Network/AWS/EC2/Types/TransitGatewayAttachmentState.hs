@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,113 +19,111 @@
 module Network.AWS.EC2.Types.TransitGatewayAttachmentState
   ( TransitGatewayAttachmentState
       ( ..,
-        TGASAvailable,
-        TGASDeleted,
-        TGASDeleting,
-        TGASFailed,
-        TGASFailing,
-        TGASInitiating,
-        TGASInitiatingRequest,
-        TGASModifying,
-        TGASPending,
-        TGASPendingAcceptance,
-        TGASRejected,
-        TGASRejecting,
-        TGASRollingBack
+        TransitGatewayAttachmentStateAvailable,
+        TransitGatewayAttachmentStateDeleted,
+        TransitGatewayAttachmentStateDeleting,
+        TransitGatewayAttachmentStateFailed,
+        TransitGatewayAttachmentStateFailing,
+        TransitGatewayAttachmentStateInitiating,
+        TransitGatewayAttachmentStateInitiatingRequest,
+        TransitGatewayAttachmentStateModifying,
+        TransitGatewayAttachmentStatePending,
+        TransitGatewayAttachmentStatePendingAcceptance,
+        TransitGatewayAttachmentStateRejected,
+        TransitGatewayAttachmentStateRejecting,
+        TransitGatewayAttachmentStateRollingBack
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayAttachmentState
-  = TransitGatewayAttachmentState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayAttachmentState = TransitGatewayAttachmentState'
+  { fromTransitGatewayAttachmentState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGASAvailable :: TransitGatewayAttachmentState
-pattern TGASAvailable = TransitGatewayAttachmentState' "available"
+pattern TransitGatewayAttachmentStateAvailable :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateAvailable = TransitGatewayAttachmentState' "available"
 
-pattern TGASDeleted :: TransitGatewayAttachmentState
-pattern TGASDeleted = TransitGatewayAttachmentState' "deleted"
+pattern TransitGatewayAttachmentStateDeleted :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateDeleted = TransitGatewayAttachmentState' "deleted"
 
-pattern TGASDeleting :: TransitGatewayAttachmentState
-pattern TGASDeleting = TransitGatewayAttachmentState' "deleting"
+pattern TransitGatewayAttachmentStateDeleting :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateDeleting = TransitGatewayAttachmentState' "deleting"
 
-pattern TGASFailed :: TransitGatewayAttachmentState
-pattern TGASFailed = TransitGatewayAttachmentState' "failed"
+pattern TransitGatewayAttachmentStateFailed :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateFailed = TransitGatewayAttachmentState' "failed"
 
-pattern TGASFailing :: TransitGatewayAttachmentState
-pattern TGASFailing = TransitGatewayAttachmentState' "failing"
+pattern TransitGatewayAttachmentStateFailing :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateFailing = TransitGatewayAttachmentState' "failing"
 
-pattern TGASInitiating :: TransitGatewayAttachmentState
-pattern TGASInitiating = TransitGatewayAttachmentState' "initiating"
+pattern TransitGatewayAttachmentStateInitiating :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateInitiating = TransitGatewayAttachmentState' "initiating"
 
-pattern TGASInitiatingRequest :: TransitGatewayAttachmentState
-pattern TGASInitiatingRequest = TransitGatewayAttachmentState' "initiatingRequest"
+pattern TransitGatewayAttachmentStateInitiatingRequest :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateInitiatingRequest = TransitGatewayAttachmentState' "initiatingRequest"
 
-pattern TGASModifying :: TransitGatewayAttachmentState
-pattern TGASModifying = TransitGatewayAttachmentState' "modifying"
+pattern TransitGatewayAttachmentStateModifying :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateModifying = TransitGatewayAttachmentState' "modifying"
 
-pattern TGASPending :: TransitGatewayAttachmentState
-pattern TGASPending = TransitGatewayAttachmentState' "pending"
+pattern TransitGatewayAttachmentStatePending :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStatePending = TransitGatewayAttachmentState' "pending"
 
-pattern TGASPendingAcceptance :: TransitGatewayAttachmentState
-pattern TGASPendingAcceptance = TransitGatewayAttachmentState' "pendingAcceptance"
+pattern TransitGatewayAttachmentStatePendingAcceptance :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStatePendingAcceptance = TransitGatewayAttachmentState' "pendingAcceptance"
 
-pattern TGASRejected :: TransitGatewayAttachmentState
-pattern TGASRejected = TransitGatewayAttachmentState' "rejected"
+pattern TransitGatewayAttachmentStateRejected :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateRejected = TransitGatewayAttachmentState' "rejected"
 
-pattern TGASRejecting :: TransitGatewayAttachmentState
-pattern TGASRejecting = TransitGatewayAttachmentState' "rejecting"
+pattern TransitGatewayAttachmentStateRejecting :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateRejecting = TransitGatewayAttachmentState' "rejecting"
 
-pattern TGASRollingBack :: TransitGatewayAttachmentState
-pattern TGASRollingBack = TransitGatewayAttachmentState' "rollingBack"
+pattern TransitGatewayAttachmentStateRollingBack :: TransitGatewayAttachmentState
+pattern TransitGatewayAttachmentStateRollingBack = TransitGatewayAttachmentState' "rollingBack"
 
 {-# COMPLETE
-  TGASAvailable,
-  TGASDeleted,
-  TGASDeleting,
-  TGASFailed,
-  TGASFailing,
-  TGASInitiating,
-  TGASInitiatingRequest,
-  TGASModifying,
-  TGASPending,
-  TGASPendingAcceptance,
-  TGASRejected,
-  TGASRejecting,
-  TGASRollingBack,
+  TransitGatewayAttachmentStateAvailable,
+  TransitGatewayAttachmentStateDeleted,
+  TransitGatewayAttachmentStateDeleting,
+  TransitGatewayAttachmentStateFailed,
+  TransitGatewayAttachmentStateFailing,
+  TransitGatewayAttachmentStateInitiating,
+  TransitGatewayAttachmentStateInitiatingRequest,
+  TransitGatewayAttachmentStateModifying,
+  TransitGatewayAttachmentStatePending,
+  TransitGatewayAttachmentStatePendingAcceptance,
+  TransitGatewayAttachmentStateRejected,
+  TransitGatewayAttachmentStateRejecting,
+  TransitGatewayAttachmentStateRollingBack,
   TransitGatewayAttachmentState'
   #-}
 
-instance FromText TransitGatewayAttachmentState where
-  parser = (TransitGatewayAttachmentState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayAttachmentState where
+  parser = TransitGatewayAttachmentState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayAttachmentState where
-  toText (TransitGatewayAttachmentState' ci) = original ci
+instance Prelude.ToText TransitGatewayAttachmentState where
+  toText (TransitGatewayAttachmentState' x) = x
 
-instance Hashable TransitGatewayAttachmentState
+instance Prelude.Hashable TransitGatewayAttachmentState
 
-instance NFData TransitGatewayAttachmentState
+instance Prelude.NFData TransitGatewayAttachmentState
 
-instance ToByteString TransitGatewayAttachmentState
+instance Prelude.ToByteString TransitGatewayAttachmentState
 
-instance ToQuery TransitGatewayAttachmentState
+instance Prelude.ToQuery TransitGatewayAttachmentState
 
-instance ToHeader TransitGatewayAttachmentState
+instance Prelude.ToHeader TransitGatewayAttachmentState
 
-instance FromXML TransitGatewayAttachmentState where
-  parseXML = parseXMLText "TransitGatewayAttachmentState"
+instance Prelude.FromXML TransitGatewayAttachmentState where
+  parseXML = Prelude.parseXMLText "TransitGatewayAttachmentState"

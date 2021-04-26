@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.NetworkInterfacePermissionStateCode
   ( NetworkInterfacePermissionStateCode
       ( ..,
-        NIPSCGranted,
-        NIPSCPending,
-        NIPSCRevoked,
-        NIPSCRevoking
+        NetworkInterfacePermissionStateCodeGranted,
+        NetworkInterfacePermissionStateCodePending,
+        NetworkInterfacePermissionStateCodeRevoked,
+        NetworkInterfacePermissionStateCodeRevoking
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkInterfacePermissionStateCode
-  = NetworkInterfacePermissionStateCode'
-      ( CI
-          Text
-      )
+newtype NetworkInterfacePermissionStateCode = NetworkInterfacePermissionStateCode'
+  { fromNetworkInterfacePermissionStateCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NIPSCGranted :: NetworkInterfacePermissionStateCode
-pattern NIPSCGranted = NetworkInterfacePermissionStateCode' "granted"
+pattern NetworkInterfacePermissionStateCodeGranted :: NetworkInterfacePermissionStateCode
+pattern NetworkInterfacePermissionStateCodeGranted = NetworkInterfacePermissionStateCode' "granted"
 
-pattern NIPSCPending :: NetworkInterfacePermissionStateCode
-pattern NIPSCPending = NetworkInterfacePermissionStateCode' "pending"
+pattern NetworkInterfacePermissionStateCodePending :: NetworkInterfacePermissionStateCode
+pattern NetworkInterfacePermissionStateCodePending = NetworkInterfacePermissionStateCode' "pending"
 
-pattern NIPSCRevoked :: NetworkInterfacePermissionStateCode
-pattern NIPSCRevoked = NetworkInterfacePermissionStateCode' "revoked"
+pattern NetworkInterfacePermissionStateCodeRevoked :: NetworkInterfacePermissionStateCode
+pattern NetworkInterfacePermissionStateCodeRevoked = NetworkInterfacePermissionStateCode' "revoked"
 
-pattern NIPSCRevoking :: NetworkInterfacePermissionStateCode
-pattern NIPSCRevoking = NetworkInterfacePermissionStateCode' "revoking"
+pattern NetworkInterfacePermissionStateCodeRevoking :: NetworkInterfacePermissionStateCode
+pattern NetworkInterfacePermissionStateCodeRevoking = NetworkInterfacePermissionStateCode' "revoking"
 
 {-# COMPLETE
-  NIPSCGranted,
-  NIPSCPending,
-  NIPSCRevoked,
-  NIPSCRevoking,
+  NetworkInterfacePermissionStateCodeGranted,
+  NetworkInterfacePermissionStateCodePending,
+  NetworkInterfacePermissionStateCodeRevoked,
+  NetworkInterfacePermissionStateCodeRevoking,
   NetworkInterfacePermissionStateCode'
   #-}
 
-instance FromText NetworkInterfacePermissionStateCode where
-  parser = (NetworkInterfacePermissionStateCode' . mk) <$> takeText
+instance Prelude.FromText NetworkInterfacePermissionStateCode where
+  parser = NetworkInterfacePermissionStateCode' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkInterfacePermissionStateCode where
-  toText (NetworkInterfacePermissionStateCode' ci) = original ci
+instance Prelude.ToText NetworkInterfacePermissionStateCode where
+  toText (NetworkInterfacePermissionStateCode' x) = x
 
-instance Hashable NetworkInterfacePermissionStateCode
+instance Prelude.Hashable NetworkInterfacePermissionStateCode
 
-instance NFData NetworkInterfacePermissionStateCode
+instance Prelude.NFData NetworkInterfacePermissionStateCode
 
-instance ToByteString NetworkInterfacePermissionStateCode
+instance Prelude.ToByteString NetworkInterfacePermissionStateCode
 
-instance ToQuery NetworkInterfacePermissionStateCode
+instance Prelude.ToQuery NetworkInterfacePermissionStateCode
 
-instance ToHeader NetworkInterfacePermissionStateCode
+instance Prelude.ToHeader NetworkInterfacePermissionStateCode
 
-instance FromXML NetworkInterfacePermissionStateCode where
-  parseXML = parseXMLText "NetworkInterfacePermissionStateCode"
+instance Prelude.FromXML NetworkInterfacePermissionStateCode where
+  parseXML = Prelude.parseXMLText "NetworkInterfacePermissionStateCode"

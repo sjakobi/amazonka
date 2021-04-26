@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,99 +21,117 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified route table. You must disassociate the route table from any subnets before you can delete it. You can't delete the main route table.
+-- Deletes the specified route table. You must disassociate the route table
+-- from any subnets before you can delete it. You can\'t delete the main
+-- route table.
 module Network.AWS.EC2.DeleteRouteTable
   ( -- * Creating a Request
-    deleteRouteTable,
-    DeleteRouteTable,
+    DeleteRouteTable (..),
+    newDeleteRouteTable,
 
     -- * Request Lenses
-    drtrDryRun,
-    drtrRouteTableId,
+    deleteRouteTable_dryRun,
+    deleteRouteTable_routeTableId,
 
     -- * Destructuring the Response
-    deleteRouteTableResponse,
-    DeleteRouteTableResponse,
+    DeleteRouteTableResponse (..),
+    newDeleteRouteTableResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRouteTable' smart constructor.
+-- | /See:/ 'newDeleteRouteTable' smart constructor.
 data DeleteRouteTable = DeleteRouteTable'
-  { _drtrDryRun ::
-      !(Maybe Bool),
-    _drtrRouteTableId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the route table.
+    routeTableId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRouteTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRouteTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drtrDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drtrRouteTableId' - The ID of the route table.
-deleteRouteTable ::
-  -- | 'drtrRouteTableId'
-  Text ->
+-- 'dryRun', 'deleteRouteTable_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'routeTableId', 'deleteRouteTable_routeTableId' - The ID of the route table.
+newDeleteRouteTable ::
+  -- | 'routeTableId'
+  Prelude.Text ->
   DeleteRouteTable
-deleteRouteTable pRouteTableId_ =
+newDeleteRouteTable pRouteTableId_ =
   DeleteRouteTable'
-    { _drtrDryRun = Nothing,
-      _drtrRouteTableId = pRouteTableId_
+    { dryRun = Prelude.Nothing,
+      routeTableId = pRouteTableId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-drtrDryRun :: Lens' DeleteRouteTable (Maybe Bool)
-drtrDryRun = lens _drtrDryRun (\s a -> s {_drtrDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteRouteTable_dryRun :: Lens.Lens' DeleteRouteTable (Prelude.Maybe Prelude.Bool)
+deleteRouteTable_dryRun = Lens.lens (\DeleteRouteTable' {dryRun} -> dryRun) (\s@DeleteRouteTable' {} a -> s {dryRun = a} :: DeleteRouteTable)
 
 -- | The ID of the route table.
-drtrRouteTableId :: Lens' DeleteRouteTable Text
-drtrRouteTableId = lens _drtrRouteTableId (\s a -> s {_drtrRouteTableId = a})
+deleteRouteTable_routeTableId :: Lens.Lens' DeleteRouteTable Prelude.Text
+deleteRouteTable_routeTableId = Lens.lens (\DeleteRouteTable' {routeTableId} -> routeTableId) (\s@DeleteRouteTable' {} a -> s {routeTableId = a} :: DeleteRouteTable)
 
-instance AWSRequest DeleteRouteTable where
+instance Prelude.AWSRequest DeleteRouteTable where
   type Rs DeleteRouteTable = DeleteRouteTableResponse
-  request = postQuery ec2
-  response = receiveNull DeleteRouteTableResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteRouteTableResponse'
 
-instance Hashable DeleteRouteTable
+instance Prelude.Hashable DeleteRouteTable
 
-instance NFData DeleteRouteTable
+instance Prelude.NFData DeleteRouteTable
 
-instance ToHeaders DeleteRouteTable where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteRouteTable where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteRouteTable where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRouteTable where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRouteTable where
+instance Prelude.ToQuery DeleteRouteTable where
   toQuery DeleteRouteTable' {..} =
-    mconcat
-      [ "Action" =: ("DeleteRouteTable" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _drtrDryRun,
-        "RouteTableId" =: _drtrRouteTableId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteRouteTable" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "RouteTableId" Prelude.=: routeTableId
       ]
 
--- | /See:/ 'deleteRouteTableResponse' smart constructor.
+-- | /See:/ 'newDeleteRouteTableResponse' smart constructor.
 data DeleteRouteTableResponse = DeleteRouteTableResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRouteTableResponse' with the minimum fields required to make a request.
-deleteRouteTableResponse ::
+-- |
+-- Create a value of 'DeleteRouteTableResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteRouteTableResponse ::
   DeleteRouteTableResponse
-deleteRouteTableResponse = DeleteRouteTableResponse'
+newDeleteRouteTableResponse =
+  DeleteRouteTableResponse'
 
-instance NFData DeleteRouteTableResponse
+instance Prelude.NFData DeleteRouteTableResponse

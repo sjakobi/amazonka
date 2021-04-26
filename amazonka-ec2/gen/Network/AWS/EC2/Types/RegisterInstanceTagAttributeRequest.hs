@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,73 @@
 module Network.AWS.EC2.Types.RegisterInstanceTagAttributeRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the tag keys to register for the current Region. You can either specify individual tag keys or register all tag keys in the current Region. You must specify either @IncludeAllTagsOfInstance@ or @InstanceTagKeys@ in the request
+-- | Information about the tag keys to register for the current Region. You
+-- can either specify individual tag keys or register all tag keys in the
+-- current Region. You must specify either @IncludeAllTagsOfInstance@ or
+-- @InstanceTagKeys@ in the request
 --
---
---
--- /See:/ 'registerInstanceTagAttributeRequest' smart constructor.
+-- /See:/ 'newRegisterInstanceTagAttributeRequest' smart constructor.
 data RegisterInstanceTagAttributeRequest = RegisterInstanceTagAttributeRequest'
-  { _ritarInstanceTagKeys ::
-      !( Maybe
-           [Text]
-       ),
-    _ritarIncludeAllTagsOfInstance ::
-      !( Maybe
-           Bool
-       )
+  { -- | The tag keys to register.
+    instanceTagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | Indicates whether to register all tag keys in the current Region.
+    -- Specify @true@ to register all tag keys.
+    includeAllTagsOfInstance :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterInstanceTagAttributeRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterInstanceTagAttributeRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ritarInstanceTagKeys' - The tag keys to register.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ritarIncludeAllTagsOfInstance' - Indicates whether to register all tag keys in the current Region. Specify @true@ to register all tag keys.
-registerInstanceTagAttributeRequest ::
+-- 'instanceTagKeys', 'registerInstanceTagAttributeRequest_instanceTagKeys' - The tag keys to register.
+--
+-- 'includeAllTagsOfInstance', 'registerInstanceTagAttributeRequest_includeAllTagsOfInstance' - Indicates whether to register all tag keys in the current Region.
+-- Specify @true@ to register all tag keys.
+newRegisterInstanceTagAttributeRequest ::
   RegisterInstanceTagAttributeRequest
-registerInstanceTagAttributeRequest =
+newRegisterInstanceTagAttributeRequest =
   RegisterInstanceTagAttributeRequest'
-    { _ritarInstanceTagKeys =
-        Nothing,
-      _ritarIncludeAllTagsOfInstance =
-        Nothing
+    { instanceTagKeys =
+        Prelude.Nothing,
+      includeAllTagsOfInstance =
+        Prelude.Nothing
     }
 
 -- | The tag keys to register.
-ritarInstanceTagKeys :: Lens' RegisterInstanceTagAttributeRequest [Text]
-ritarInstanceTagKeys = lens _ritarInstanceTagKeys (\s a -> s {_ritarInstanceTagKeys = a}) . _Default . _Coerce
+registerInstanceTagAttributeRequest_instanceTagKeys :: Lens.Lens' RegisterInstanceTagAttributeRequest (Prelude.Maybe [Prelude.Text])
+registerInstanceTagAttributeRequest_instanceTagKeys = Lens.lens (\RegisterInstanceTagAttributeRequest' {instanceTagKeys} -> instanceTagKeys) (\s@RegisterInstanceTagAttributeRequest' {} a -> s {instanceTagKeys = a} :: RegisterInstanceTagAttributeRequest) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates whether to register all tag keys in the current Region. Specify @true@ to register all tag keys.
-ritarIncludeAllTagsOfInstance :: Lens' RegisterInstanceTagAttributeRequest (Maybe Bool)
-ritarIncludeAllTagsOfInstance = lens _ritarIncludeAllTagsOfInstance (\s a -> s {_ritarIncludeAllTagsOfInstance = a})
+-- | Indicates whether to register all tag keys in the current Region.
+-- Specify @true@ to register all tag keys.
+registerInstanceTagAttributeRequest_includeAllTagsOfInstance :: Lens.Lens' RegisterInstanceTagAttributeRequest (Prelude.Maybe Prelude.Bool)
+registerInstanceTagAttributeRequest_includeAllTagsOfInstance = Lens.lens (\RegisterInstanceTagAttributeRequest' {includeAllTagsOfInstance} -> includeAllTagsOfInstance) (\s@RegisterInstanceTagAttributeRequest' {} a -> s {includeAllTagsOfInstance = a} :: RegisterInstanceTagAttributeRequest)
 
-instance Hashable RegisterInstanceTagAttributeRequest
+instance
+  Prelude.Hashable
+    RegisterInstanceTagAttributeRequest
 
-instance NFData RegisterInstanceTagAttributeRequest
+instance
+  Prelude.NFData
+    RegisterInstanceTagAttributeRequest
 
-instance ToQuery RegisterInstanceTagAttributeRequest where
+instance
+  Prelude.ToQuery
+    RegisterInstanceTagAttributeRequest
+  where
   toQuery RegisterInstanceTagAttributeRequest' {..} =
-    mconcat
-      [ toQuery
-          ( toQueryList "InstanceTagKey"
-              <$> _ritarInstanceTagKeys
+    Prelude.mconcat
+      [ Prelude.toQuery
+          ( Prelude.toQueryList "InstanceTagKey"
+              Prelude.<$> instanceTagKeys
           ),
         "IncludeAllTagsOfInstance"
-          =: _ritarIncludeAllTagsOfInstance
+          Prelude.=: includeAllTagsOfInstance
       ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +21,90 @@ module Network.AWS.EC2.Types.FleetSpotCapacityRebalanceRequest where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.FleetReplacementStrategy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Spot Instance replacement strategy to use when Amazon EC2 emits a signal that your Spot Instance is at an elevated risk of being interrupted. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#ec2-fleet-capacity-rebalance Capacity rebalancing> in the /Amazon EC2 User Guide/ .
+-- | The Spot Instance replacement strategy to use when Amazon EC2 emits a
+-- signal that your Spot Instance is at an elevated risk of being
+-- interrupted. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-configuration-strategies.html#ec2-fleet-capacity-rebalance Capacity rebalancing>
+-- in the /Amazon EC2 User Guide/.
 --
---
---
--- /See:/ 'fleetSpotCapacityRebalanceRequest' smart constructor.
-newtype FleetSpotCapacityRebalanceRequest = FleetSpotCapacityRebalanceRequest'
-  { _fscrrReplacementStrategy ::
-      Maybe
-        FleetReplacementStrategy
+-- /See:/ 'newFleetSpotCapacityRebalanceRequest' smart constructor.
+data FleetSpotCapacityRebalanceRequest = FleetSpotCapacityRebalanceRequest'
+  { -- | The replacement strategy to use. Only available for fleets of type
+    -- @maintain@.
+    --
+    -- To allow EC2 Fleet to launch a replacement Spot Instance when an
+    -- instance rebalance notification is emitted for an existing Spot Instance
+    -- in the fleet, specify @launch@. You must specify a value, otherwise you
+    -- get an error.
+    --
+    -- When a replacement instance is launched, the instance marked for
+    -- rebalance is not automatically terminated. You can terminate it, or you
+    -- can leave it running. You are charged for all instances while they are
+    -- running.
+    replacementStrategy :: Prelude.Maybe FleetReplacementStrategy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FleetSpotCapacityRebalanceRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FleetSpotCapacityRebalanceRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fscrrReplacementStrategy' - The replacement strategy to use. Only available for fleets of type @maintain@ . To allow EC2 Fleet to launch a replacement Spot Instance when an instance rebalance notification is emitted for an existing Spot Instance in the fleet, specify @launch@ . You must specify a value, otherwise you get an error.
-fleetSpotCapacityRebalanceRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'replacementStrategy', 'fleetSpotCapacityRebalanceRequest_replacementStrategy' - The replacement strategy to use. Only available for fleets of type
+-- @maintain@.
+--
+-- To allow EC2 Fleet to launch a replacement Spot Instance when an
+-- instance rebalance notification is emitted for an existing Spot Instance
+-- in the fleet, specify @launch@. You must specify a value, otherwise you
+-- get an error.
+--
+-- When a replacement instance is launched, the instance marked for
+-- rebalance is not automatically terminated. You can terminate it, or you
+-- can leave it running. You are charged for all instances while they are
+-- running.
+newFleetSpotCapacityRebalanceRequest ::
   FleetSpotCapacityRebalanceRequest
-fleetSpotCapacityRebalanceRequest =
+newFleetSpotCapacityRebalanceRequest =
   FleetSpotCapacityRebalanceRequest'
-    { _fscrrReplacementStrategy =
-        Nothing
+    { replacementStrategy =
+        Prelude.Nothing
     }
 
--- | The replacement strategy to use. Only available for fleets of type @maintain@ . To allow EC2 Fleet to launch a replacement Spot Instance when an instance rebalance notification is emitted for an existing Spot Instance in the fleet, specify @launch@ . You must specify a value, otherwise you get an error.
-fscrrReplacementStrategy :: Lens' FleetSpotCapacityRebalanceRequest (Maybe FleetReplacementStrategy)
-fscrrReplacementStrategy = lens _fscrrReplacementStrategy (\s a -> s {_fscrrReplacementStrategy = a})
+-- | The replacement strategy to use. Only available for fleets of type
+-- @maintain@.
+--
+-- To allow EC2 Fleet to launch a replacement Spot Instance when an
+-- instance rebalance notification is emitted for an existing Spot Instance
+-- in the fleet, specify @launch@. You must specify a value, otherwise you
+-- get an error.
+--
+-- When a replacement instance is launched, the instance marked for
+-- rebalance is not automatically terminated. You can terminate it, or you
+-- can leave it running. You are charged for all instances while they are
+-- running.
+fleetSpotCapacityRebalanceRequest_replacementStrategy :: Lens.Lens' FleetSpotCapacityRebalanceRequest (Prelude.Maybe FleetReplacementStrategy)
+fleetSpotCapacityRebalanceRequest_replacementStrategy = Lens.lens (\FleetSpotCapacityRebalanceRequest' {replacementStrategy} -> replacementStrategy) (\s@FleetSpotCapacityRebalanceRequest' {} a -> s {replacementStrategy = a} :: FleetSpotCapacityRebalanceRequest)
 
-instance Hashable FleetSpotCapacityRebalanceRequest
+instance
+  Prelude.Hashable
+    FleetSpotCapacityRebalanceRequest
 
-instance NFData FleetSpotCapacityRebalanceRequest
+instance
+  Prelude.NFData
+    FleetSpotCapacityRebalanceRequest
 
-instance ToQuery FleetSpotCapacityRebalanceRequest where
+instance
+  Prelude.ToQuery
+    FleetSpotCapacityRebalanceRequest
+  where
   toQuery FleetSpotCapacityRebalanceRequest' {..} =
-    mconcat
-      ["ReplacementStrategy" =: _fscrrReplacementStrategy]
+    Prelude.mconcat
+      [ "ReplacementStrategy"
+          Prelude.=: replacementStrategy
+      ]

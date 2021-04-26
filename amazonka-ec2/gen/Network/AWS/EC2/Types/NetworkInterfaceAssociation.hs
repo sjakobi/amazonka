@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,109 +20,115 @@
 module Network.AWS.EC2.Types.NetworkInterfaceAssociation where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes association information for an Elastic IP address (IPv4 only), or a Carrier IP address (for a network interface which resides in a subnet in a Wavelength Zone).
+-- | Describes association information for an Elastic IP address (IPv4 only),
+-- or a Carrier IP address (for a network interface which resides in a
+-- subnet in a Wavelength Zone).
 --
---
---
--- /See:/ 'networkInterfaceAssociation' smart constructor.
+-- /See:/ 'newNetworkInterfaceAssociation' smart constructor.
 data NetworkInterfaceAssociation = NetworkInterfaceAssociation'
-  { _niaIPOwnerId ::
-      !(Maybe Text),
-    _niaCarrierIP ::
-      !(Maybe Text),
-    _niaCustomerOwnedIP ::
-      !(Maybe Text),
-    _niaPublicDNSName ::
-      !(Maybe Text),
-    _niaAssociationId ::
-      !(Maybe Text),
-    _niaPublicIP ::
-      !(Maybe Text),
-    _niaAllocationId ::
-      !(Maybe Text)
+  { -- | The ID of the Elastic IP address owner.
+    ipOwnerId :: Prelude.Maybe Prelude.Text,
+    -- | The carrier IP address associated with the network interface.
+    --
+    -- This option is only available when the network interface is in a subnet
+    -- which is associated with a Wavelength Zone.
+    carrierIp :: Prelude.Maybe Prelude.Text,
+    -- | The customer-owned IP address associated with the network interface.
+    customerOwnedIp :: Prelude.Maybe Prelude.Text,
+    -- | The public DNS name.
+    publicDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The association ID.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The address of the Elastic IP address bound to the network interface.
+    publicIp :: Prelude.Maybe Prelude.Text,
+    -- | The allocation ID.
+    allocationId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkInterfaceAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkInterfaceAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'niaIPOwnerId' - The ID of the Elastic IP address owner.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'niaCarrierIP' - The carrier IP address associated with the network interface. This option is only available when the network interface is in a subnet which is associated with a Wavelength Zone.
+-- 'ipOwnerId', 'networkInterfaceAssociation_ipOwnerId' - The ID of the Elastic IP address owner.
 --
--- * 'niaCustomerOwnedIP' - The customer-owned IP address associated with the network interface.
+-- 'carrierIp', 'networkInterfaceAssociation_carrierIp' - The carrier IP address associated with the network interface.
 --
--- * 'niaPublicDNSName' - The public DNS name.
+-- This option is only available when the network interface is in a subnet
+-- which is associated with a Wavelength Zone.
 --
--- * 'niaAssociationId' - The association ID.
+-- 'customerOwnedIp', 'networkInterfaceAssociation_customerOwnedIp' - The customer-owned IP address associated with the network interface.
 --
--- * 'niaPublicIP' - The address of the Elastic IP address bound to the network interface.
+-- 'publicDnsName', 'networkInterfaceAssociation_publicDnsName' - The public DNS name.
 --
--- * 'niaAllocationId' - The allocation ID.
-networkInterfaceAssociation ::
+-- 'associationId', 'networkInterfaceAssociation_associationId' - The association ID.
+--
+-- 'publicIp', 'networkInterfaceAssociation_publicIp' - The address of the Elastic IP address bound to the network interface.
+--
+-- 'allocationId', 'networkInterfaceAssociation_allocationId' - The allocation ID.
+newNetworkInterfaceAssociation ::
   NetworkInterfaceAssociation
-networkInterfaceAssociation =
+newNetworkInterfaceAssociation =
   NetworkInterfaceAssociation'
-    { _niaIPOwnerId =
-        Nothing,
-      _niaCarrierIP = Nothing,
-      _niaCustomerOwnedIP = Nothing,
-      _niaPublicDNSName = Nothing,
-      _niaAssociationId = Nothing,
-      _niaPublicIP = Nothing,
-      _niaAllocationId = Nothing
+    { ipOwnerId =
+        Prelude.Nothing,
+      carrierIp = Prelude.Nothing,
+      customerOwnedIp = Prelude.Nothing,
+      publicDnsName = Prelude.Nothing,
+      associationId = Prelude.Nothing,
+      publicIp = Prelude.Nothing,
+      allocationId = Prelude.Nothing
     }
 
 -- | The ID of the Elastic IP address owner.
-niaIPOwnerId :: Lens' NetworkInterfaceAssociation (Maybe Text)
-niaIPOwnerId = lens _niaIPOwnerId (\s a -> s {_niaIPOwnerId = a})
+networkInterfaceAssociation_ipOwnerId :: Lens.Lens' NetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+networkInterfaceAssociation_ipOwnerId = Lens.lens (\NetworkInterfaceAssociation' {ipOwnerId} -> ipOwnerId) (\s@NetworkInterfaceAssociation' {} a -> s {ipOwnerId = a} :: NetworkInterfaceAssociation)
 
--- | The carrier IP address associated with the network interface. This option is only available when the network interface is in a subnet which is associated with a Wavelength Zone.
-niaCarrierIP :: Lens' NetworkInterfaceAssociation (Maybe Text)
-niaCarrierIP = lens _niaCarrierIP (\s a -> s {_niaCarrierIP = a})
+-- | The carrier IP address associated with the network interface.
+--
+-- This option is only available when the network interface is in a subnet
+-- which is associated with a Wavelength Zone.
+networkInterfaceAssociation_carrierIp :: Lens.Lens' NetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+networkInterfaceAssociation_carrierIp = Lens.lens (\NetworkInterfaceAssociation' {carrierIp} -> carrierIp) (\s@NetworkInterfaceAssociation' {} a -> s {carrierIp = a} :: NetworkInterfaceAssociation)
 
 -- | The customer-owned IP address associated with the network interface.
-niaCustomerOwnedIP :: Lens' NetworkInterfaceAssociation (Maybe Text)
-niaCustomerOwnedIP = lens _niaCustomerOwnedIP (\s a -> s {_niaCustomerOwnedIP = a})
+networkInterfaceAssociation_customerOwnedIp :: Lens.Lens' NetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+networkInterfaceAssociation_customerOwnedIp = Lens.lens (\NetworkInterfaceAssociation' {customerOwnedIp} -> customerOwnedIp) (\s@NetworkInterfaceAssociation' {} a -> s {customerOwnedIp = a} :: NetworkInterfaceAssociation)
 
 -- | The public DNS name.
-niaPublicDNSName :: Lens' NetworkInterfaceAssociation (Maybe Text)
-niaPublicDNSName = lens _niaPublicDNSName (\s a -> s {_niaPublicDNSName = a})
+networkInterfaceAssociation_publicDnsName :: Lens.Lens' NetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+networkInterfaceAssociation_publicDnsName = Lens.lens (\NetworkInterfaceAssociation' {publicDnsName} -> publicDnsName) (\s@NetworkInterfaceAssociation' {} a -> s {publicDnsName = a} :: NetworkInterfaceAssociation)
 
 -- | The association ID.
-niaAssociationId :: Lens' NetworkInterfaceAssociation (Maybe Text)
-niaAssociationId = lens _niaAssociationId (\s a -> s {_niaAssociationId = a})
+networkInterfaceAssociation_associationId :: Lens.Lens' NetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+networkInterfaceAssociation_associationId = Lens.lens (\NetworkInterfaceAssociation' {associationId} -> associationId) (\s@NetworkInterfaceAssociation' {} a -> s {associationId = a} :: NetworkInterfaceAssociation)
 
 -- | The address of the Elastic IP address bound to the network interface.
-niaPublicIP :: Lens' NetworkInterfaceAssociation (Maybe Text)
-niaPublicIP = lens _niaPublicIP (\s a -> s {_niaPublicIP = a})
+networkInterfaceAssociation_publicIp :: Lens.Lens' NetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+networkInterfaceAssociation_publicIp = Lens.lens (\NetworkInterfaceAssociation' {publicIp} -> publicIp) (\s@NetworkInterfaceAssociation' {} a -> s {publicIp = a} :: NetworkInterfaceAssociation)
 
 -- | The allocation ID.
-niaAllocationId :: Lens' NetworkInterfaceAssociation (Maybe Text)
-niaAllocationId = lens _niaAllocationId (\s a -> s {_niaAllocationId = a})
+networkInterfaceAssociation_allocationId :: Lens.Lens' NetworkInterfaceAssociation (Prelude.Maybe Prelude.Text)
+networkInterfaceAssociation_allocationId = Lens.lens (\NetworkInterfaceAssociation' {allocationId} -> allocationId) (\s@NetworkInterfaceAssociation' {} a -> s {allocationId = a} :: NetworkInterfaceAssociation)
 
-instance FromXML NetworkInterfaceAssociation where
+instance Prelude.FromXML NetworkInterfaceAssociation where
   parseXML x =
     NetworkInterfaceAssociation'
-      <$> (x .@? "ipOwnerId")
-      <*> (x .@? "carrierIp")
-      <*> (x .@? "customerOwnedIp")
-      <*> (x .@? "publicDnsName")
-      <*> (x .@? "associationId")
-      <*> (x .@? "publicIp")
-      <*> (x .@? "allocationId")
+      Prelude.<$> (x Prelude..@? "ipOwnerId")
+      Prelude.<*> (x Prelude..@? "carrierIp")
+      Prelude.<*> (x Prelude..@? "customerOwnedIp")
+      Prelude.<*> (x Prelude..@? "publicDnsName")
+      Prelude.<*> (x Prelude..@? "associationId")
+      Prelude.<*> (x Prelude..@? "publicIp")
+      Prelude.<*> (x Prelude..@? "allocationId")
 
-instance Hashable NetworkInterfaceAssociation
+instance Prelude.Hashable NetworkInterfaceAssociation
 
-instance NFData NetworkInterfaceAssociation
+instance Prelude.NFData NetworkInterfaceAssociation

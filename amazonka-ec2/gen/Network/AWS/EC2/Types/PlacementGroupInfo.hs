@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +21,47 @@ module Network.AWS.EC2.Types.PlacementGroupInfo where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.PlacementGroupStrategy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the placement group support of the instance type.
 --
---
---
--- /See:/ 'placementGroupInfo' smart constructor.
-newtype PlacementGroupInfo = PlacementGroupInfo'
-  { _pgiSupportedStrategies ::
-      Maybe [PlacementGroupStrategy]
+-- /See:/ 'newPlacementGroupInfo' smart constructor.
+data PlacementGroupInfo = PlacementGroupInfo'
+  { -- | The supported placement group types.
+    supportedStrategies :: Prelude.Maybe [PlacementGroupStrategy]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlacementGroupInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlacementGroupInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgiSupportedStrategies' - The supported placement group types.
-placementGroupInfo ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'supportedStrategies', 'placementGroupInfo_supportedStrategies' - The supported placement group types.
+newPlacementGroupInfo ::
   PlacementGroupInfo
-placementGroupInfo =
+newPlacementGroupInfo =
   PlacementGroupInfo'
-    { _pgiSupportedStrategies =
-        Nothing
+    { supportedStrategies =
+        Prelude.Nothing
     }
 
 -- | The supported placement group types.
-pgiSupportedStrategies :: Lens' PlacementGroupInfo [PlacementGroupStrategy]
-pgiSupportedStrategies = lens _pgiSupportedStrategies (\s a -> s {_pgiSupportedStrategies = a}) . _Default . _Coerce
+placementGroupInfo_supportedStrategies :: Lens.Lens' PlacementGroupInfo (Prelude.Maybe [PlacementGroupStrategy])
+placementGroupInfo_supportedStrategies = Lens.lens (\PlacementGroupInfo' {supportedStrategies} -> supportedStrategies) (\s@PlacementGroupInfo' {} a -> s {supportedStrategies = a} :: PlacementGroupInfo) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML PlacementGroupInfo where
+instance Prelude.FromXML PlacementGroupInfo where
   parseXML x =
     PlacementGroupInfo'
-      <$> ( x .@? "supportedStrategies" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> ( x Prelude..@? "supportedStrategies"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable PlacementGroupInfo
+instance Prelude.Hashable PlacementGroupInfo
 
-instance NFData PlacementGroupInfo
+instance Prelude.NFData PlacementGroupInfo

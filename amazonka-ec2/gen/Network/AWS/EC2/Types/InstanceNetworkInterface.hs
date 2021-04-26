@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,221 +21,221 @@ module Network.AWS.EC2.Types.InstanceNetworkInterface where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.GroupIdentifier
-import Network.AWS.EC2.Types.InstanceIPv6Address
+import Network.AWS.EC2.Types.InstanceIpv6Address
 import Network.AWS.EC2.Types.InstanceNetworkInterfaceAssociation
 import Network.AWS.EC2.Types.InstanceNetworkInterfaceAttachment
-import Network.AWS.EC2.Types.InstancePrivateIPAddress
+import Network.AWS.EC2.Types.InstancePrivateIpAddress
 import Network.AWS.EC2.Types.NetworkInterfaceStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a network interface.
 --
---
---
--- /See:/ 'instanceNetworkInterface' smart constructor.
+-- /See:/ 'newInstanceNetworkInterface' smart constructor.
 data InstanceNetworkInterface = InstanceNetworkInterface'
-  { _iniGroups ::
-      !( Maybe
-           [GroupIdentifier]
-       ),
-    _iniStatus ::
-      !( Maybe
-           NetworkInterfaceStatus
-       ),
-    _iniOwnerId ::
-      !(Maybe Text),
-    _iniPrivateIPAddresses ::
-      !( Maybe
-           [InstancePrivateIPAddress]
-       ),
-    _iniAttachment ::
-      !( Maybe
-           InstanceNetworkInterfaceAttachment
-       ),
-    _iniMACAddress ::
-      !(Maybe Text),
-    _iniAssociation ::
-      !( Maybe
-           InstanceNetworkInterfaceAssociation
-       ),
-    _iniIPv6Addresses ::
-      !( Maybe
-           [InstanceIPv6Address]
-       ),
-    _iniInterfaceType ::
-      !(Maybe Text),
-    _iniSourceDestCheck ::
-      !(Maybe Bool),
-    _iniNetworkInterfaceId ::
-      !(Maybe Text),
-    _iniSubnetId ::
-      !(Maybe Text),
-    _iniDescription ::
-      !(Maybe Text),
-    _iniPrivateDNSName ::
-      !(Maybe Text),
-    _iniVPCId ::
-      !(Maybe Text),
-    _iniPrivateIPAddress ::
-      !(Maybe Text)
+  { -- | One or more security groups.
+    groups :: Prelude.Maybe [GroupIdentifier],
+    -- | The status of the network interface.
+    status :: Prelude.Maybe NetworkInterfaceStatus,
+    -- | The ID of the AWS account that created the network interface.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | One or more private IPv4 addresses associated with the network
+    -- interface.
+    privateIpAddresses :: Prelude.Maybe [InstancePrivateIpAddress],
+    -- | The network interface attachment.
+    attachment :: Prelude.Maybe InstanceNetworkInterfaceAttachment,
+    -- | The MAC address.
+    macAddress :: Prelude.Maybe Prelude.Text,
+    -- | The association information for an Elastic IPv4 associated with the
+    -- network interface.
+    association :: Prelude.Maybe InstanceNetworkInterfaceAssociation,
+    -- | One or more IPv6 addresses associated with the network interface.
+    ipv6Addresses :: Prelude.Maybe [InstanceIpv6Address],
+    -- | Describes the type of network interface.
+    --
+    -- Valid values: @interface@ | @efa@
+    interfaceType :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether to validate network traffic to or from this network
+    -- interface.
+    sourceDestCheck :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the network interface.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | The description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The private DNS name.
+    privateDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VPC.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The IPv4 address of the network interface within the subnet.
+    privateIpAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceNetworkInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceNetworkInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iniGroups' - One or more security groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iniStatus' - The status of the network interface.
+-- 'groups', 'instanceNetworkInterface_groups' - One or more security groups.
 --
--- * 'iniOwnerId' - The ID of the AWS account that created the network interface.
+-- 'status', 'instanceNetworkInterface_status' - The status of the network interface.
 --
--- * 'iniPrivateIPAddresses' - One or more private IPv4 addresses associated with the network interface.
+-- 'ownerId', 'instanceNetworkInterface_ownerId' - The ID of the AWS account that created the network interface.
 --
--- * 'iniAttachment' - The network interface attachment.
+-- 'privateIpAddresses', 'instanceNetworkInterface_privateIpAddresses' - One or more private IPv4 addresses associated with the network
+-- interface.
 --
--- * 'iniMACAddress' - The MAC address.
+-- 'attachment', 'instanceNetworkInterface_attachment' - The network interface attachment.
 --
--- * 'iniAssociation' - The association information for an Elastic IPv4 associated with the network interface.
+-- 'macAddress', 'instanceNetworkInterface_macAddress' - The MAC address.
 --
--- * 'iniIPv6Addresses' - One or more IPv6 addresses associated with the network interface.
+-- 'association', 'instanceNetworkInterface_association' - The association information for an Elastic IPv4 associated with the
+-- network interface.
 --
--- * 'iniInterfaceType' - Describes the type of network interface. Valid values: @interface@ | @efa@
+-- 'ipv6Addresses', 'instanceNetworkInterface_ipv6Addresses' - One or more IPv6 addresses associated with the network interface.
 --
--- * 'iniSourceDestCheck' - Indicates whether to validate network traffic to or from this network interface.
+-- 'interfaceType', 'instanceNetworkInterface_interfaceType' - Describes the type of network interface.
 --
--- * 'iniNetworkInterfaceId' - The ID of the network interface.
+-- Valid values: @interface@ | @efa@
 --
--- * 'iniSubnetId' - The ID of the subnet.
+-- 'sourceDestCheck', 'instanceNetworkInterface_sourceDestCheck' - Indicates whether to validate network traffic to or from this network
+-- interface.
 --
--- * 'iniDescription' - The description.
+-- 'networkInterfaceId', 'instanceNetworkInterface_networkInterfaceId' - The ID of the network interface.
 --
--- * 'iniPrivateDNSName' - The private DNS name.
+-- 'subnetId', 'instanceNetworkInterface_subnetId' - The ID of the subnet.
 --
--- * 'iniVPCId' - The ID of the VPC.
+-- 'description', 'instanceNetworkInterface_description' - The description.
 --
--- * 'iniPrivateIPAddress' - The IPv4 address of the network interface within the subnet.
-instanceNetworkInterface ::
+-- 'privateDnsName', 'instanceNetworkInterface_privateDnsName' - The private DNS name.
+--
+-- 'vpcId', 'instanceNetworkInterface_vpcId' - The ID of the VPC.
+--
+-- 'privateIpAddress', 'instanceNetworkInterface_privateIpAddress' - The IPv4 address of the network interface within the subnet.
+newInstanceNetworkInterface ::
   InstanceNetworkInterface
-instanceNetworkInterface =
+newInstanceNetworkInterface =
   InstanceNetworkInterface'
-    { _iniGroups = Nothing,
-      _iniStatus = Nothing,
-      _iniOwnerId = Nothing,
-      _iniPrivateIPAddresses = Nothing,
-      _iniAttachment = Nothing,
-      _iniMACAddress = Nothing,
-      _iniAssociation = Nothing,
-      _iniIPv6Addresses = Nothing,
-      _iniInterfaceType = Nothing,
-      _iniSourceDestCheck = Nothing,
-      _iniNetworkInterfaceId = Nothing,
-      _iniSubnetId = Nothing,
-      _iniDescription = Nothing,
-      _iniPrivateDNSName = Nothing,
-      _iniVPCId = Nothing,
-      _iniPrivateIPAddress = Nothing
+    { groups = Prelude.Nothing,
+      status = Prelude.Nothing,
+      ownerId = Prelude.Nothing,
+      privateIpAddresses = Prelude.Nothing,
+      attachment = Prelude.Nothing,
+      macAddress = Prelude.Nothing,
+      association = Prelude.Nothing,
+      ipv6Addresses = Prelude.Nothing,
+      interfaceType = Prelude.Nothing,
+      sourceDestCheck = Prelude.Nothing,
+      networkInterfaceId = Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      privateDnsName = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      privateIpAddress = Prelude.Nothing
     }
 
 -- | One or more security groups.
-iniGroups :: Lens' InstanceNetworkInterface [GroupIdentifier]
-iniGroups = lens _iniGroups (\s a -> s {_iniGroups = a}) . _Default . _Coerce
+instanceNetworkInterface_groups :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe [GroupIdentifier])
+instanceNetworkInterface_groups = Lens.lens (\InstanceNetworkInterface' {groups} -> groups) (\s@InstanceNetworkInterface' {} a -> s {groups = a} :: InstanceNetworkInterface) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The status of the network interface.
-iniStatus :: Lens' InstanceNetworkInterface (Maybe NetworkInterfaceStatus)
-iniStatus = lens _iniStatus (\s a -> s {_iniStatus = a})
+instanceNetworkInterface_status :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe NetworkInterfaceStatus)
+instanceNetworkInterface_status = Lens.lens (\InstanceNetworkInterface' {status} -> status) (\s@InstanceNetworkInterface' {} a -> s {status = a} :: InstanceNetworkInterface)
 
 -- | The ID of the AWS account that created the network interface.
-iniOwnerId :: Lens' InstanceNetworkInterface (Maybe Text)
-iniOwnerId = lens _iniOwnerId (\s a -> s {_iniOwnerId = a})
+instanceNetworkInterface_ownerId :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_ownerId = Lens.lens (\InstanceNetworkInterface' {ownerId} -> ownerId) (\s@InstanceNetworkInterface' {} a -> s {ownerId = a} :: InstanceNetworkInterface)
 
--- | One or more private IPv4 addresses associated with the network interface.
-iniPrivateIPAddresses :: Lens' InstanceNetworkInterface [InstancePrivateIPAddress]
-iniPrivateIPAddresses = lens _iniPrivateIPAddresses (\s a -> s {_iniPrivateIPAddresses = a}) . _Default . _Coerce
+-- | One or more private IPv4 addresses associated with the network
+-- interface.
+instanceNetworkInterface_privateIpAddresses :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe [InstancePrivateIpAddress])
+instanceNetworkInterface_privateIpAddresses = Lens.lens (\InstanceNetworkInterface' {privateIpAddresses} -> privateIpAddresses) (\s@InstanceNetworkInterface' {} a -> s {privateIpAddresses = a} :: InstanceNetworkInterface) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The network interface attachment.
-iniAttachment :: Lens' InstanceNetworkInterface (Maybe InstanceNetworkInterfaceAttachment)
-iniAttachment = lens _iniAttachment (\s a -> s {_iniAttachment = a})
+instanceNetworkInterface_attachment :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe InstanceNetworkInterfaceAttachment)
+instanceNetworkInterface_attachment = Lens.lens (\InstanceNetworkInterface' {attachment} -> attachment) (\s@InstanceNetworkInterface' {} a -> s {attachment = a} :: InstanceNetworkInterface)
 
 -- | The MAC address.
-iniMACAddress :: Lens' InstanceNetworkInterface (Maybe Text)
-iniMACAddress = lens _iniMACAddress (\s a -> s {_iniMACAddress = a})
+instanceNetworkInterface_macAddress :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_macAddress = Lens.lens (\InstanceNetworkInterface' {macAddress} -> macAddress) (\s@InstanceNetworkInterface' {} a -> s {macAddress = a} :: InstanceNetworkInterface)
 
--- | The association information for an Elastic IPv4 associated with the network interface.
-iniAssociation :: Lens' InstanceNetworkInterface (Maybe InstanceNetworkInterfaceAssociation)
-iniAssociation = lens _iniAssociation (\s a -> s {_iniAssociation = a})
+-- | The association information for an Elastic IPv4 associated with the
+-- network interface.
+instanceNetworkInterface_association :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe InstanceNetworkInterfaceAssociation)
+instanceNetworkInterface_association = Lens.lens (\InstanceNetworkInterface' {association} -> association) (\s@InstanceNetworkInterface' {} a -> s {association = a} :: InstanceNetworkInterface)
 
 -- | One or more IPv6 addresses associated with the network interface.
-iniIPv6Addresses :: Lens' InstanceNetworkInterface [InstanceIPv6Address]
-iniIPv6Addresses = lens _iniIPv6Addresses (\s a -> s {_iniIPv6Addresses = a}) . _Default . _Coerce
+instanceNetworkInterface_ipv6Addresses :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe [InstanceIpv6Address])
+instanceNetworkInterface_ipv6Addresses = Lens.lens (\InstanceNetworkInterface' {ipv6Addresses} -> ipv6Addresses) (\s@InstanceNetworkInterface' {} a -> s {ipv6Addresses = a} :: InstanceNetworkInterface) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Describes the type of network interface. Valid values: @interface@ | @efa@
-iniInterfaceType :: Lens' InstanceNetworkInterface (Maybe Text)
-iniInterfaceType = lens _iniInterfaceType (\s a -> s {_iniInterfaceType = a})
+-- | Describes the type of network interface.
+--
+-- Valid values: @interface@ | @efa@
+instanceNetworkInterface_interfaceType :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_interfaceType = Lens.lens (\InstanceNetworkInterface' {interfaceType} -> interfaceType) (\s@InstanceNetworkInterface' {} a -> s {interfaceType = a} :: InstanceNetworkInterface)
 
--- | Indicates whether to validate network traffic to or from this network interface.
-iniSourceDestCheck :: Lens' InstanceNetworkInterface (Maybe Bool)
-iniSourceDestCheck = lens _iniSourceDestCheck (\s a -> s {_iniSourceDestCheck = a})
+-- | Indicates whether to validate network traffic to or from this network
+-- interface.
+instanceNetworkInterface_sourceDestCheck :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Bool)
+instanceNetworkInterface_sourceDestCheck = Lens.lens (\InstanceNetworkInterface' {sourceDestCheck} -> sourceDestCheck) (\s@InstanceNetworkInterface' {} a -> s {sourceDestCheck = a} :: InstanceNetworkInterface)
 
 -- | The ID of the network interface.
-iniNetworkInterfaceId :: Lens' InstanceNetworkInterface (Maybe Text)
-iniNetworkInterfaceId = lens _iniNetworkInterfaceId (\s a -> s {_iniNetworkInterfaceId = a})
+instanceNetworkInterface_networkInterfaceId :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_networkInterfaceId = Lens.lens (\InstanceNetworkInterface' {networkInterfaceId} -> networkInterfaceId) (\s@InstanceNetworkInterface' {} a -> s {networkInterfaceId = a} :: InstanceNetworkInterface)
 
 -- | The ID of the subnet.
-iniSubnetId :: Lens' InstanceNetworkInterface (Maybe Text)
-iniSubnetId = lens _iniSubnetId (\s a -> s {_iniSubnetId = a})
+instanceNetworkInterface_subnetId :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_subnetId = Lens.lens (\InstanceNetworkInterface' {subnetId} -> subnetId) (\s@InstanceNetworkInterface' {} a -> s {subnetId = a} :: InstanceNetworkInterface)
 
 -- | The description.
-iniDescription :: Lens' InstanceNetworkInterface (Maybe Text)
-iniDescription = lens _iniDescription (\s a -> s {_iniDescription = a})
+instanceNetworkInterface_description :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_description = Lens.lens (\InstanceNetworkInterface' {description} -> description) (\s@InstanceNetworkInterface' {} a -> s {description = a} :: InstanceNetworkInterface)
 
 -- | The private DNS name.
-iniPrivateDNSName :: Lens' InstanceNetworkInterface (Maybe Text)
-iniPrivateDNSName = lens _iniPrivateDNSName (\s a -> s {_iniPrivateDNSName = a})
+instanceNetworkInterface_privateDnsName :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_privateDnsName = Lens.lens (\InstanceNetworkInterface' {privateDnsName} -> privateDnsName) (\s@InstanceNetworkInterface' {} a -> s {privateDnsName = a} :: InstanceNetworkInterface)
 
 -- | The ID of the VPC.
-iniVPCId :: Lens' InstanceNetworkInterface (Maybe Text)
-iniVPCId = lens _iniVPCId (\s a -> s {_iniVPCId = a})
+instanceNetworkInterface_vpcId :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_vpcId = Lens.lens (\InstanceNetworkInterface' {vpcId} -> vpcId) (\s@InstanceNetworkInterface' {} a -> s {vpcId = a} :: InstanceNetworkInterface)
 
 -- | The IPv4 address of the network interface within the subnet.
-iniPrivateIPAddress :: Lens' InstanceNetworkInterface (Maybe Text)
-iniPrivateIPAddress = lens _iniPrivateIPAddress (\s a -> s {_iniPrivateIPAddress = a})
+instanceNetworkInterface_privateIpAddress :: Lens.Lens' InstanceNetworkInterface (Prelude.Maybe Prelude.Text)
+instanceNetworkInterface_privateIpAddress = Lens.lens (\InstanceNetworkInterface' {privateIpAddress} -> privateIpAddress) (\s@InstanceNetworkInterface' {} a -> s {privateIpAddress = a} :: InstanceNetworkInterface)
 
-instance FromXML InstanceNetworkInterface where
+instance Prelude.FromXML InstanceNetworkInterface where
   parseXML x =
     InstanceNetworkInterface'
-      <$> ( x .@? "groupSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "status")
-      <*> (x .@? "ownerId")
-      <*> ( x .@? "privateIpAddressesSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "attachment")
-      <*> (x .@? "macAddress")
-      <*> (x .@? "association")
-      <*> ( x .@? "ipv6AddressesSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "interfaceType")
-      <*> (x .@? "sourceDestCheck")
-      <*> (x .@? "networkInterfaceId")
-      <*> (x .@? "subnetId")
-      <*> (x .@? "description")
-      <*> (x .@? "privateDnsName")
-      <*> (x .@? "vpcId")
-      <*> (x .@? "privateIpAddress")
+      Prelude.<$> ( x Prelude..@? "groupSet" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> (x Prelude..@? "ownerId")
+      Prelude.<*> ( x Prelude..@? "privateIpAddressesSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "attachment")
+      Prelude.<*> (x Prelude..@? "macAddress")
+      Prelude.<*> (x Prelude..@? "association")
+      Prelude.<*> ( x Prelude..@? "ipv6AddressesSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "interfaceType")
+      Prelude.<*> (x Prelude..@? "sourceDestCheck")
+      Prelude.<*> (x Prelude..@? "networkInterfaceId")
+      Prelude.<*> (x Prelude..@? "subnetId")
+      Prelude.<*> (x Prelude..@? "description")
+      Prelude.<*> (x Prelude..@? "privateDnsName")
+      Prelude.<*> (x Prelude..@? "vpcId")
+      Prelude.<*> (x Prelude..@? "privateIpAddress")
 
-instance Hashable InstanceNetworkInterface
+instance Prelude.Hashable InstanceNetworkInterface
 
-instance NFData InstanceNetworkInterface
+instance Prelude.NFData InstanceNetworkInterface

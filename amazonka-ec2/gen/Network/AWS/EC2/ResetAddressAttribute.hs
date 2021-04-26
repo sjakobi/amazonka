@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Resets the attribute of the specified IP address. For requirements, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#Using_Elastic_Addressing_Reverse_DNS Using reverse DNS for email applications> .
+-- Resets the attribute of the specified IP address. For requirements, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#Using_Elastic_Addressing_Reverse_DNS Using reverse DNS for email applications>.
 module Network.AWS.EC2.ResetAddressAttribute
   ( -- * Creating a Request
-    resetAddressAttribute,
-    ResetAddressAttribute,
+    ResetAddressAttribute (..),
+    newResetAddressAttribute,
 
     -- * Request Lenses
-    raaDryRun,
-    raaAllocationId,
-    raaAttribute,
+    resetAddressAttribute_dryRun,
+    resetAddressAttribute_allocationId,
+    resetAddressAttribute_attribute,
 
     -- * Destructuring the Response
-    resetAddressAttributeResponse,
-    ResetAddressAttributeResponse,
+    ResetAddressAttributeResponse (..),
+    newResetAddressAttributeResponse,
 
     -- * Response Lenses
-    raarrsAddress,
-    raarrsResponseStatus,
+    resetAddressAttributeResponse_address,
+    resetAddressAttributeResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.AddressAttribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resetAddressAttribute' smart constructor.
+-- | /See:/ 'newResetAddressAttribute' smart constructor.
 data ResetAddressAttribute = ResetAddressAttribute'
-  { _raaDryRun ::
-      !(Maybe Bool),
-    _raaAllocationId :: !Text,
-    _raaAttribute ::
-      !AddressAttributeName
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | [EC2-VPC] The allocation ID.
+    allocationId :: Prelude.Text,
+    -- | The attribute of the IP address.
+    attribute :: AddressAttributeName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetAddressAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetAddressAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'raaAllocationId' - [EC2-VPC] The allocation ID.
+-- 'dryRun', 'resetAddressAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'raaAttribute' - The attribute of the IP address.
-resetAddressAttribute ::
-  -- | 'raaAllocationId'
-  Text ->
-  -- | 'raaAttribute'
+-- 'allocationId', 'resetAddressAttribute_allocationId' - [EC2-VPC] The allocation ID.
+--
+-- 'attribute', 'resetAddressAttribute_attribute' - The attribute of the IP address.
+newResetAddressAttribute ::
+  -- | 'allocationId'
+  Prelude.Text ->
+  -- | 'attribute'
   AddressAttributeName ->
   ResetAddressAttribute
-resetAddressAttribute pAllocationId_ pAttribute_ =
+newResetAddressAttribute pAllocationId_ pAttribute_ =
   ResetAddressAttribute'
-    { _raaDryRun = Nothing,
-      _raaAllocationId = pAllocationId_,
-      _raaAttribute = pAttribute_
+    { dryRun = Prelude.Nothing,
+      allocationId = pAllocationId_,
+      attribute = pAttribute_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-raaDryRun :: Lens' ResetAddressAttribute (Maybe Bool)
-raaDryRun = lens _raaDryRun (\s a -> s {_raaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+resetAddressAttribute_dryRun :: Lens.Lens' ResetAddressAttribute (Prelude.Maybe Prelude.Bool)
+resetAddressAttribute_dryRun = Lens.lens (\ResetAddressAttribute' {dryRun} -> dryRun) (\s@ResetAddressAttribute' {} a -> s {dryRun = a} :: ResetAddressAttribute)
 
 -- | [EC2-VPC] The allocation ID.
-raaAllocationId :: Lens' ResetAddressAttribute Text
-raaAllocationId = lens _raaAllocationId (\s a -> s {_raaAllocationId = a})
+resetAddressAttribute_allocationId :: Lens.Lens' ResetAddressAttribute Prelude.Text
+resetAddressAttribute_allocationId = Lens.lens (\ResetAddressAttribute' {allocationId} -> allocationId) (\s@ResetAddressAttribute' {} a -> s {allocationId = a} :: ResetAddressAttribute)
 
 -- | The attribute of the IP address.
-raaAttribute :: Lens' ResetAddressAttribute AddressAttributeName
-raaAttribute = lens _raaAttribute (\s a -> s {_raaAttribute = a})
+resetAddressAttribute_attribute :: Lens.Lens' ResetAddressAttribute AddressAttributeName
+resetAddressAttribute_attribute = Lens.lens (\ResetAddressAttribute' {attribute} -> attribute) (\s@ResetAddressAttribute' {} a -> s {attribute = a} :: ResetAddressAttribute)
 
-instance AWSRequest ResetAddressAttribute where
+instance Prelude.AWSRequest ResetAddressAttribute where
   type
     Rs ResetAddressAttribute =
       ResetAddressAttributeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ResetAddressAttributeResponse'
-            <$> (x .@? "address") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "address")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResetAddressAttribute
+instance Prelude.Hashable ResetAddressAttribute
 
-instance NFData ResetAddressAttribute
+instance Prelude.NFData ResetAddressAttribute
 
-instance ToHeaders ResetAddressAttribute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ResetAddressAttribute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ResetAddressAttribute where
-  toPath = const "/"
+instance Prelude.ToPath ResetAddressAttribute where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResetAddressAttribute where
+instance Prelude.ToQuery ResetAddressAttribute where
   toQuery ResetAddressAttribute' {..} =
-    mconcat
-      [ "Action" =: ("ResetAddressAttribute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _raaDryRun,
-        "AllocationId" =: _raaAllocationId,
-        "Attribute" =: _raaAttribute
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ResetAddressAttribute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "AllocationId" Prelude.=: allocationId,
+        "Attribute" Prelude.=: attribute
       ]
 
--- | /See:/ 'resetAddressAttributeResponse' smart constructor.
+-- | /See:/ 'newResetAddressAttributeResponse' smart constructor.
 data ResetAddressAttributeResponse = ResetAddressAttributeResponse'
-  { _raarrsAddress ::
-      !( Maybe
-           AddressAttribute
-       ),
-    _raarrsResponseStatus ::
-      !Int
+  { -- | Information about the IP address.
+    address :: Prelude.Maybe AddressAttribute,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetAddressAttributeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetAddressAttributeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raarrsAddress' - Information about the IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'raarrsResponseStatus' - -- | The response status code.
-resetAddressAttributeResponse ::
-  -- | 'raarrsResponseStatus'
-  Int ->
+-- 'address', 'resetAddressAttributeResponse_address' - Information about the IP address.
+--
+-- 'httpStatus', 'resetAddressAttributeResponse_httpStatus' - The response's http status code.
+newResetAddressAttributeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResetAddressAttributeResponse
-resetAddressAttributeResponse pResponseStatus_ =
+newResetAddressAttributeResponse pHttpStatus_ =
   ResetAddressAttributeResponse'
-    { _raarrsAddress =
-        Nothing,
-      _raarrsResponseStatus = pResponseStatus_
+    { address =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the IP address.
-raarrsAddress :: Lens' ResetAddressAttributeResponse (Maybe AddressAttribute)
-raarrsAddress = lens _raarrsAddress (\s a -> s {_raarrsAddress = a})
+resetAddressAttributeResponse_address :: Lens.Lens' ResetAddressAttributeResponse (Prelude.Maybe AddressAttribute)
+resetAddressAttributeResponse_address = Lens.lens (\ResetAddressAttributeResponse' {address} -> address) (\s@ResetAddressAttributeResponse' {} a -> s {address = a} :: ResetAddressAttributeResponse)
 
--- | -- | The response status code.
-raarrsResponseStatus :: Lens' ResetAddressAttributeResponse Int
-raarrsResponseStatus = lens _raarrsResponseStatus (\s a -> s {_raarrsResponseStatus = a})
+-- | The response's http status code.
+resetAddressAttributeResponse_httpStatus :: Lens.Lens' ResetAddressAttributeResponse Prelude.Int
+resetAddressAttributeResponse_httpStatus = Lens.lens (\ResetAddressAttributeResponse' {httpStatus} -> httpStatus) (\s@ResetAddressAttributeResponse' {} a -> s {httpStatus = a} :: ResetAddressAttributeResponse)
 
-instance NFData ResetAddressAttributeResponse
+instance Prelude.NFData ResetAddressAttributeResponse

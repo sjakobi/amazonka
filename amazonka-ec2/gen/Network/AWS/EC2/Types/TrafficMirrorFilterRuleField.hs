@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.EC2.Types.TrafficMirrorFilterRuleField
   ( TrafficMirrorFilterRuleField
       ( ..,
-        TMFRFDescription,
-        TMFRFDestinationPortRange,
-        TMFRFProtocol,
-        TMFRFSourcePortRange
+        TrafficMirrorFilterRuleFieldDescription,
+        TrafficMirrorFilterRuleFieldDestinationPortRange,
+        TrafficMirrorFilterRuleFieldProtocol,
+        TrafficMirrorFilterRuleFieldSourcePortRange
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficMirrorFilterRuleField
-  = TrafficMirrorFilterRuleField'
-      ( CI
-          Text
-      )
+newtype TrafficMirrorFilterRuleField = TrafficMirrorFilterRuleField'
+  { fromTrafficMirrorFilterRuleField ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TMFRFDescription :: TrafficMirrorFilterRuleField
-pattern TMFRFDescription = TrafficMirrorFilterRuleField' "description"
+pattern TrafficMirrorFilterRuleFieldDescription :: TrafficMirrorFilterRuleField
+pattern TrafficMirrorFilterRuleFieldDescription = TrafficMirrorFilterRuleField' "description"
 
-pattern TMFRFDestinationPortRange :: TrafficMirrorFilterRuleField
-pattern TMFRFDestinationPortRange = TrafficMirrorFilterRuleField' "destination-port-range"
+pattern TrafficMirrorFilterRuleFieldDestinationPortRange :: TrafficMirrorFilterRuleField
+pattern TrafficMirrorFilterRuleFieldDestinationPortRange = TrafficMirrorFilterRuleField' "destination-port-range"
 
-pattern TMFRFProtocol :: TrafficMirrorFilterRuleField
-pattern TMFRFProtocol = TrafficMirrorFilterRuleField' "protocol"
+pattern TrafficMirrorFilterRuleFieldProtocol :: TrafficMirrorFilterRuleField
+pattern TrafficMirrorFilterRuleFieldProtocol = TrafficMirrorFilterRuleField' "protocol"
 
-pattern TMFRFSourcePortRange :: TrafficMirrorFilterRuleField
-pattern TMFRFSourcePortRange = TrafficMirrorFilterRuleField' "source-port-range"
+pattern TrafficMirrorFilterRuleFieldSourcePortRange :: TrafficMirrorFilterRuleField
+pattern TrafficMirrorFilterRuleFieldSourcePortRange = TrafficMirrorFilterRuleField' "source-port-range"
 
 {-# COMPLETE
-  TMFRFDescription,
-  TMFRFDestinationPortRange,
-  TMFRFProtocol,
-  TMFRFSourcePortRange,
+  TrafficMirrorFilterRuleFieldDescription,
+  TrafficMirrorFilterRuleFieldDestinationPortRange,
+  TrafficMirrorFilterRuleFieldProtocol,
+  TrafficMirrorFilterRuleFieldSourcePortRange,
   TrafficMirrorFilterRuleField'
   #-}
 
-instance FromText TrafficMirrorFilterRuleField where
-  parser = (TrafficMirrorFilterRuleField' . mk) <$> takeText
+instance Prelude.FromText TrafficMirrorFilterRuleField where
+  parser = TrafficMirrorFilterRuleField' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficMirrorFilterRuleField where
-  toText (TrafficMirrorFilterRuleField' ci) = original ci
+instance Prelude.ToText TrafficMirrorFilterRuleField where
+  toText (TrafficMirrorFilterRuleField' x) = x
 
-instance Hashable TrafficMirrorFilterRuleField
+instance Prelude.Hashable TrafficMirrorFilterRuleField
 
-instance NFData TrafficMirrorFilterRuleField
+instance Prelude.NFData TrafficMirrorFilterRuleField
 
-instance ToByteString TrafficMirrorFilterRuleField
+instance Prelude.ToByteString TrafficMirrorFilterRuleField
 
-instance ToQuery TrafficMirrorFilterRuleField
+instance Prelude.ToQuery TrafficMirrorFilterRuleField
 
-instance ToHeader TrafficMirrorFilterRuleField
+instance Prelude.ToHeader TrafficMirrorFilterRuleField

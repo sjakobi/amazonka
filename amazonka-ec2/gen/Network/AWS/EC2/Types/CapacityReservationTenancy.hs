@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.CapacityReservationTenancy
   ( CapacityReservationTenancy
       ( ..,
-        CRTDedicated,
-        CRTDefault
+        CapacityReservationTenancyDedicated,
+        CapacityReservationTenancyDefault
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CapacityReservationTenancy
-  = CapacityReservationTenancy'
-      ( CI
-          Text
-      )
+newtype CapacityReservationTenancy = CapacityReservationTenancy'
+  { fromCapacityReservationTenancy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CRTDedicated :: CapacityReservationTenancy
-pattern CRTDedicated = CapacityReservationTenancy' "dedicated"
+pattern CapacityReservationTenancyDedicated :: CapacityReservationTenancy
+pattern CapacityReservationTenancyDedicated = CapacityReservationTenancy' "dedicated"
 
-pattern CRTDefault :: CapacityReservationTenancy
-pattern CRTDefault = CapacityReservationTenancy' "default"
+pattern CapacityReservationTenancyDefault :: CapacityReservationTenancy
+pattern CapacityReservationTenancyDefault = CapacityReservationTenancy' "default"
 
 {-# COMPLETE
-  CRTDedicated,
-  CRTDefault,
+  CapacityReservationTenancyDedicated,
+  CapacityReservationTenancyDefault,
   CapacityReservationTenancy'
   #-}
 
-instance FromText CapacityReservationTenancy where
-  parser = (CapacityReservationTenancy' . mk) <$> takeText
+instance Prelude.FromText CapacityReservationTenancy where
+  parser = CapacityReservationTenancy' Prelude.<$> Prelude.takeText
 
-instance ToText CapacityReservationTenancy where
-  toText (CapacityReservationTenancy' ci) = original ci
+instance Prelude.ToText CapacityReservationTenancy where
+  toText (CapacityReservationTenancy' x) = x
 
-instance Hashable CapacityReservationTenancy
+instance Prelude.Hashable CapacityReservationTenancy
 
-instance NFData CapacityReservationTenancy
+instance Prelude.NFData CapacityReservationTenancy
 
-instance ToByteString CapacityReservationTenancy
+instance Prelude.ToByteString CapacityReservationTenancy
 
-instance ToQuery CapacityReservationTenancy
+instance Prelude.ToQuery CapacityReservationTenancy
 
-instance ToHeader CapacityReservationTenancy
+instance Prelude.ToHeader CapacityReservationTenancy
 
-instance FromXML CapacityReservationTenancy where
-  parseXML = parseXMLText "CapacityReservationTenancy"
+instance Prelude.FromXML CapacityReservationTenancy where
+  parseXML = Prelude.parseXMLText "CapacityReservationTenancy"

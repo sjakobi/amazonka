@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.InstanceLifecycle
   ( InstanceLifecycle
       ( ..,
-        ILOnDemand,
-        ILSpot
+        InstanceLifecycleOnDemand,
+        InstanceLifecycleSpot
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceLifecycle = InstanceLifecycle' (CI Text)
+newtype InstanceLifecycle = InstanceLifecycle'
+  { fromInstanceLifecycle ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ILOnDemand :: InstanceLifecycle
-pattern ILOnDemand = InstanceLifecycle' "on-demand"
+pattern InstanceLifecycleOnDemand :: InstanceLifecycle
+pattern InstanceLifecycleOnDemand = InstanceLifecycle' "on-demand"
 
-pattern ILSpot :: InstanceLifecycle
-pattern ILSpot = InstanceLifecycle' "spot"
+pattern InstanceLifecycleSpot :: InstanceLifecycle
+pattern InstanceLifecycleSpot = InstanceLifecycle' "spot"
 
 {-# COMPLETE
-  ILOnDemand,
-  ILSpot,
+  InstanceLifecycleOnDemand,
+  InstanceLifecycleSpot,
   InstanceLifecycle'
   #-}
 
-instance FromText InstanceLifecycle where
-  parser = (InstanceLifecycle' . mk) <$> takeText
+instance Prelude.FromText InstanceLifecycle where
+  parser = InstanceLifecycle' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceLifecycle where
-  toText (InstanceLifecycle' ci) = original ci
+instance Prelude.ToText InstanceLifecycle where
+  toText (InstanceLifecycle' x) = x
 
-instance Hashable InstanceLifecycle
+instance Prelude.Hashable InstanceLifecycle
 
-instance NFData InstanceLifecycle
+instance Prelude.NFData InstanceLifecycle
 
-instance ToByteString InstanceLifecycle
+instance Prelude.ToByteString InstanceLifecycle
 
-instance ToQuery InstanceLifecycle
+instance Prelude.ToQuery InstanceLifecycle
 
-instance ToHeader InstanceLifecycle
+instance Prelude.ToHeader InstanceLifecycle
 
-instance FromXML InstanceLifecycle where
-  parseXML = parseXMLText "InstanceLifecycle"
+instance Prelude.FromXML InstanceLifecycle where
+  parseXML = Prelude.parseXMLText "InstanceLifecycle"

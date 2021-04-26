@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.EC2.Types.VolumeStatusInfoStatus
   ( VolumeStatusInfoStatus
       ( ..,
-        VSISImpaired,
-        VSISInsufficientData,
-        VSISOK
+        VolumeStatusInfoStatusImpaired,
+        VolumeStatusInfoStatusInsufficientData,
+        VolumeStatusInfoStatusOK
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VolumeStatusInfoStatus
-  = VolumeStatusInfoStatus'
-      ( CI
-          Text
-      )
+newtype VolumeStatusInfoStatus = VolumeStatusInfoStatus'
+  { fromVolumeStatusInfoStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VSISImpaired :: VolumeStatusInfoStatus
-pattern VSISImpaired = VolumeStatusInfoStatus' "impaired"
+pattern VolumeStatusInfoStatusImpaired :: VolumeStatusInfoStatus
+pattern VolumeStatusInfoStatusImpaired = VolumeStatusInfoStatus' "impaired"
 
-pattern VSISInsufficientData :: VolumeStatusInfoStatus
-pattern VSISInsufficientData = VolumeStatusInfoStatus' "insufficient-data"
+pattern VolumeStatusInfoStatusInsufficientData :: VolumeStatusInfoStatus
+pattern VolumeStatusInfoStatusInsufficientData = VolumeStatusInfoStatus' "insufficient-data"
 
-pattern VSISOK :: VolumeStatusInfoStatus
-pattern VSISOK = VolumeStatusInfoStatus' "ok"
+pattern VolumeStatusInfoStatusOK :: VolumeStatusInfoStatus
+pattern VolumeStatusInfoStatusOK = VolumeStatusInfoStatus' "ok"
 
 {-# COMPLETE
-  VSISImpaired,
-  VSISInsufficientData,
-  VSISOK,
+  VolumeStatusInfoStatusImpaired,
+  VolumeStatusInfoStatusInsufficientData,
+  VolumeStatusInfoStatusOK,
   VolumeStatusInfoStatus'
   #-}
 
-instance FromText VolumeStatusInfoStatus where
-  parser = (VolumeStatusInfoStatus' . mk) <$> takeText
+instance Prelude.FromText VolumeStatusInfoStatus where
+  parser = VolumeStatusInfoStatus' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeStatusInfoStatus where
-  toText (VolumeStatusInfoStatus' ci) = original ci
+instance Prelude.ToText VolumeStatusInfoStatus where
+  toText (VolumeStatusInfoStatus' x) = x
 
-instance Hashable VolumeStatusInfoStatus
+instance Prelude.Hashable VolumeStatusInfoStatus
 
-instance NFData VolumeStatusInfoStatus
+instance Prelude.NFData VolumeStatusInfoStatus
 
-instance ToByteString VolumeStatusInfoStatus
+instance Prelude.ToByteString VolumeStatusInfoStatus
 
-instance ToQuery VolumeStatusInfoStatus
+instance Prelude.ToQuery VolumeStatusInfoStatus
 
-instance ToHeader VolumeStatusInfoStatus
+instance Prelude.ToHeader VolumeStatusInfoStatus
 
-instance FromXML VolumeStatusInfoStatus where
-  parseXML = parseXMLText "VolumeStatusInfoStatus"
+instance Prelude.FromXML VolumeStatusInfoStatus where
+  parseXML = Prelude.parseXMLText "VolumeStatusInfoStatus"

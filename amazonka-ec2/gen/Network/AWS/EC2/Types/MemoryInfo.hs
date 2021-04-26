@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,36 +20,40 @@
 module Network.AWS.EC2.Types.MemoryInfo where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the memory for the instance type.
 --
---
---
--- /See:/ 'memoryInfo' smart constructor.
-newtype MemoryInfo = MemoryInfo'
-  { _miSizeInMiB ::
-      Maybe Integer
+-- /See:/ 'newMemoryInfo' smart constructor.
+data MemoryInfo = MemoryInfo'
+  { -- | The size of the memory, in MiB.
+    sizeInMiB :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MemoryInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MemoryInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'miSizeInMiB' - The size of the memory, in MiB.
-memoryInfo ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sizeInMiB', 'memoryInfo_sizeInMiB' - The size of the memory, in MiB.
+newMemoryInfo ::
   MemoryInfo
-memoryInfo = MemoryInfo' {_miSizeInMiB = Nothing}
+newMemoryInfo =
+  MemoryInfo' {sizeInMiB = Prelude.Nothing}
 
 -- | The size of the memory, in MiB.
-miSizeInMiB :: Lens' MemoryInfo (Maybe Integer)
-miSizeInMiB = lens _miSizeInMiB (\s a -> s {_miSizeInMiB = a})
+memoryInfo_sizeInMiB :: Lens.Lens' MemoryInfo (Prelude.Maybe Prelude.Integer)
+memoryInfo_sizeInMiB = Lens.lens (\MemoryInfo' {sizeInMiB} -> sizeInMiB) (\s@MemoryInfo' {} a -> s {sizeInMiB = a} :: MemoryInfo)
 
-instance FromXML MemoryInfo where
-  parseXML x = MemoryInfo' <$> (x .@? "sizeInMiB")
+instance Prelude.FromXML MemoryInfo where
+  parseXML x =
+    MemoryInfo' Prelude.<$> (x Prelude..@? "sizeInMiB")
 
-instance Hashable MemoryInfo
+instance Prelude.Hashable MemoryInfo
 
-instance NFData MemoryInfo
+instance Prelude.NFData MemoryInfo

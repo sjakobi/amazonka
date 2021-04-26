@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,254 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Submits feedback about the status of an instance. The instance must be in the @running@ state. If your experience with the instance differs from the instance status returned by 'DescribeInstanceStatus' , use 'ReportInstanceStatus' to report your experience with the instance. Amazon EC2 collects this information to improve the accuracy of status checks.
+-- Submits feedback about the status of an instance. The instance must be
+-- in the @running@ state. If your experience with the instance differs
+-- from the instance status returned by DescribeInstanceStatus, use
+-- ReportInstanceStatus to report your experience with the instance. Amazon
+-- EC2 collects this information to improve the accuracy of status checks.
 --
---
--- Use of this action does not change the value returned by 'DescribeInstanceStatus' .
+-- Use of this action does not change the value returned by
+-- DescribeInstanceStatus.
 module Network.AWS.EC2.ReportInstanceStatus
   ( -- * Creating a Request
-    reportInstanceStatus,
-    ReportInstanceStatus,
+    ReportInstanceStatus (..),
+    newReportInstanceStatus,
 
     -- * Request Lenses
-    risDryRun,
-    risStartTime,
-    risEndTime,
-    risDescription,
-    risInstances,
-    risReasonCodes,
-    risStatus,
+    reportInstanceStatus_dryRun,
+    reportInstanceStatus_startTime,
+    reportInstanceStatus_endTime,
+    reportInstanceStatus_description,
+    reportInstanceStatus_instances,
+    reportInstanceStatus_reasonCodes,
+    reportInstanceStatus_status,
 
     -- * Destructuring the Response
-    reportInstanceStatusResponse,
-    ReportInstanceStatusResponse,
+    ReportInstanceStatusResponse (..),
+    newReportInstanceStatusResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'reportInstanceStatus' smart constructor.
+-- | /See:/ 'newReportInstanceStatus' smart constructor.
 data ReportInstanceStatus = ReportInstanceStatus'
-  { _risDryRun ::
-      !(Maybe Bool),
-    _risStartTime ::
-      !(Maybe ISO8601),
-    _risEndTime ::
-      !(Maybe ISO8601),
-    _risDescription ::
-      !(Maybe Text),
-    _risInstances :: ![Text],
-    _risReasonCodes ::
-      ![ReportInstanceReasonCodes],
-    _risStatus ::
-      !ReportStatusType
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The time at which the reported instance health state began.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The time at which the reported instance health state ended.
+    endTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Descriptive text about the health state of your instance.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The instances.
+    instances :: [Prelude.Text],
+    -- | The reason codes that describe the health state of your instance.
+    --
+    -- -   @instance-stuck-in-state@: My instance is stuck in a state.
+    --
+    -- -   @unresponsive@: My instance is unresponsive.
+    --
+    -- -   @not-accepting-credentials@: My instance is not accepting my
+    --     credentials.
+    --
+    -- -   @password-not-available@: A password is not available for my
+    --     instance.
+    --
+    -- -   @performance-network@: My instance is experiencing performance
+    --     problems that I believe are network related.
+    --
+    -- -   @performance-instance-store@: My instance is experiencing
+    --     performance problems that I believe are related to the instance
+    --     stores.
+    --
+    -- -   @performance-ebs-volume@: My instance is experiencing performance
+    --     problems that I believe are related to an EBS volume.
+    --
+    -- -   @performance-other@: My instance is experiencing performance
+    --     problems.
+    --
+    -- -   @other@: [explain using the description parameter]
+    reasonCodes :: [ReportInstanceReasonCodes],
+    -- | The status of all instances listed.
+    status :: ReportStatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReportInstanceStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReportInstanceStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'risDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'risStartTime' - The time at which the reported instance health state began.
+-- 'dryRun', 'reportInstanceStatus_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'risEndTime' - The time at which the reported instance health state ended.
+-- 'startTime', 'reportInstanceStatus_startTime' - The time at which the reported instance health state began.
 --
--- * 'risDescription' - Descriptive text about the health state of your instance.
+-- 'endTime', 'reportInstanceStatus_endTime' - The time at which the reported instance health state ended.
 --
--- * 'risInstances' - The instances.
+-- 'description', 'reportInstanceStatus_description' - Descriptive text about the health state of your instance.
 --
--- * 'risReasonCodes' - The reason codes that describe the health state of your instance.     * @instance-stuck-in-state@ : My instance is stuck in a state.     * @unresponsive@ : My instance is unresponsive.     * @not-accepting-credentials@ : My instance is not accepting my credentials.     * @password-not-available@ : A password is not available for my instance.     * @performance-network@ : My instance is experiencing performance problems that I believe are network related.     * @performance-instance-store@ : My instance is experiencing performance problems that I believe are related to the instance stores.     * @performance-ebs-volume@ : My instance is experiencing performance problems that I believe are related to an EBS volume.     * @performance-other@ : My instance is experiencing performance problems.     * @other@ : [explain using the description parameter]
+-- 'instances', 'reportInstanceStatus_instances' - The instances.
 --
--- * 'risStatus' - The status of all instances listed.
-reportInstanceStatus ::
-  -- | 'risStatus'
+-- 'reasonCodes', 'reportInstanceStatus_reasonCodes' - The reason codes that describe the health state of your instance.
+--
+-- -   @instance-stuck-in-state@: My instance is stuck in a state.
+--
+-- -   @unresponsive@: My instance is unresponsive.
+--
+-- -   @not-accepting-credentials@: My instance is not accepting my
+--     credentials.
+--
+-- -   @password-not-available@: A password is not available for my
+--     instance.
+--
+-- -   @performance-network@: My instance is experiencing performance
+--     problems that I believe are network related.
+--
+-- -   @performance-instance-store@: My instance is experiencing
+--     performance problems that I believe are related to the instance
+--     stores.
+--
+-- -   @performance-ebs-volume@: My instance is experiencing performance
+--     problems that I believe are related to an EBS volume.
+--
+-- -   @performance-other@: My instance is experiencing performance
+--     problems.
+--
+-- -   @other@: [explain using the description parameter]
+--
+-- 'status', 'reportInstanceStatus_status' - The status of all instances listed.
+newReportInstanceStatus ::
+  -- | 'status'
   ReportStatusType ->
   ReportInstanceStatus
-reportInstanceStatus pStatus_ =
+newReportInstanceStatus pStatus_ =
   ReportInstanceStatus'
-    { _risDryRun = Nothing,
-      _risStartTime = Nothing,
-      _risEndTime = Nothing,
-      _risDescription = Nothing,
-      _risInstances = mempty,
-      _risReasonCodes = mempty,
-      _risStatus = pStatus_
+    { dryRun = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      description = Prelude.Nothing,
+      instances = Prelude.mempty,
+      reasonCodes = Prelude.mempty,
+      status = pStatus_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-risDryRun :: Lens' ReportInstanceStatus (Maybe Bool)
-risDryRun = lens _risDryRun (\s a -> s {_risDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+reportInstanceStatus_dryRun :: Lens.Lens' ReportInstanceStatus (Prelude.Maybe Prelude.Bool)
+reportInstanceStatus_dryRun = Lens.lens (\ReportInstanceStatus' {dryRun} -> dryRun) (\s@ReportInstanceStatus' {} a -> s {dryRun = a} :: ReportInstanceStatus)
 
 -- | The time at which the reported instance health state began.
-risStartTime :: Lens' ReportInstanceStatus (Maybe UTCTime)
-risStartTime = lens _risStartTime (\s a -> s {_risStartTime = a}) . mapping _Time
+reportInstanceStatus_startTime :: Lens.Lens' ReportInstanceStatus (Prelude.Maybe Prelude.UTCTime)
+reportInstanceStatus_startTime = Lens.lens (\ReportInstanceStatus' {startTime} -> startTime) (\s@ReportInstanceStatus' {} a -> s {startTime = a} :: ReportInstanceStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time at which the reported instance health state ended.
-risEndTime :: Lens' ReportInstanceStatus (Maybe UTCTime)
-risEndTime = lens _risEndTime (\s a -> s {_risEndTime = a}) . mapping _Time
+reportInstanceStatus_endTime :: Lens.Lens' ReportInstanceStatus (Prelude.Maybe Prelude.UTCTime)
+reportInstanceStatus_endTime = Lens.lens (\ReportInstanceStatus' {endTime} -> endTime) (\s@ReportInstanceStatus' {} a -> s {endTime = a} :: ReportInstanceStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | Descriptive text about the health state of your instance.
-risDescription :: Lens' ReportInstanceStatus (Maybe Text)
-risDescription = lens _risDescription (\s a -> s {_risDescription = a})
+reportInstanceStatus_description :: Lens.Lens' ReportInstanceStatus (Prelude.Maybe Prelude.Text)
+reportInstanceStatus_description = Lens.lens (\ReportInstanceStatus' {description} -> description) (\s@ReportInstanceStatus' {} a -> s {description = a} :: ReportInstanceStatus)
 
 -- | The instances.
-risInstances :: Lens' ReportInstanceStatus [Text]
-risInstances = lens _risInstances (\s a -> s {_risInstances = a}) . _Coerce
+reportInstanceStatus_instances :: Lens.Lens' ReportInstanceStatus [Prelude.Text]
+reportInstanceStatus_instances = Lens.lens (\ReportInstanceStatus' {instances} -> instances) (\s@ReportInstanceStatus' {} a -> s {instances = a} :: ReportInstanceStatus) Prelude.. Prelude._Coerce
 
--- | The reason codes that describe the health state of your instance.     * @instance-stuck-in-state@ : My instance is stuck in a state.     * @unresponsive@ : My instance is unresponsive.     * @not-accepting-credentials@ : My instance is not accepting my credentials.     * @password-not-available@ : A password is not available for my instance.     * @performance-network@ : My instance is experiencing performance problems that I believe are network related.     * @performance-instance-store@ : My instance is experiencing performance problems that I believe are related to the instance stores.     * @performance-ebs-volume@ : My instance is experiencing performance problems that I believe are related to an EBS volume.     * @performance-other@ : My instance is experiencing performance problems.     * @other@ : [explain using the description parameter]
-risReasonCodes :: Lens' ReportInstanceStatus [ReportInstanceReasonCodes]
-risReasonCodes = lens _risReasonCodes (\s a -> s {_risReasonCodes = a}) . _Coerce
+-- | The reason codes that describe the health state of your instance.
+--
+-- -   @instance-stuck-in-state@: My instance is stuck in a state.
+--
+-- -   @unresponsive@: My instance is unresponsive.
+--
+-- -   @not-accepting-credentials@: My instance is not accepting my
+--     credentials.
+--
+-- -   @password-not-available@: A password is not available for my
+--     instance.
+--
+-- -   @performance-network@: My instance is experiencing performance
+--     problems that I believe are network related.
+--
+-- -   @performance-instance-store@: My instance is experiencing
+--     performance problems that I believe are related to the instance
+--     stores.
+--
+-- -   @performance-ebs-volume@: My instance is experiencing performance
+--     problems that I believe are related to an EBS volume.
+--
+-- -   @performance-other@: My instance is experiencing performance
+--     problems.
+--
+-- -   @other@: [explain using the description parameter]
+reportInstanceStatus_reasonCodes :: Lens.Lens' ReportInstanceStatus [ReportInstanceReasonCodes]
+reportInstanceStatus_reasonCodes = Lens.lens (\ReportInstanceStatus' {reasonCodes} -> reasonCodes) (\s@ReportInstanceStatus' {} a -> s {reasonCodes = a} :: ReportInstanceStatus) Prelude.. Prelude._Coerce
 
 -- | The status of all instances listed.
-risStatus :: Lens' ReportInstanceStatus ReportStatusType
-risStatus = lens _risStatus (\s a -> s {_risStatus = a})
+reportInstanceStatus_status :: Lens.Lens' ReportInstanceStatus ReportStatusType
+reportInstanceStatus_status = Lens.lens (\ReportInstanceStatus' {status} -> status) (\s@ReportInstanceStatus' {} a -> s {status = a} :: ReportInstanceStatus)
 
-instance AWSRequest ReportInstanceStatus where
+instance Prelude.AWSRequest ReportInstanceStatus where
   type
     Rs ReportInstanceStatus =
       ReportInstanceStatusResponse
-  request = postQuery ec2
-  response = receiveNull ReportInstanceStatusResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull ReportInstanceStatusResponse'
 
-instance Hashable ReportInstanceStatus
+instance Prelude.Hashable ReportInstanceStatus
 
-instance NFData ReportInstanceStatus
+instance Prelude.NFData ReportInstanceStatus
 
-instance ToHeaders ReportInstanceStatus where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ReportInstanceStatus where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ReportInstanceStatus where
-  toPath = const "/"
+instance Prelude.ToPath ReportInstanceStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery ReportInstanceStatus where
+instance Prelude.ToQuery ReportInstanceStatus where
   toQuery ReportInstanceStatus' {..} =
-    mconcat
-      [ "Action" =: ("ReportInstanceStatus" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _risDryRun,
-        "StartTime" =: _risStartTime,
-        "EndTime" =: _risEndTime,
-        "Description" =: _risDescription,
-        toQueryList "InstanceId" _risInstances,
-        toQueryList "ReasonCode" _risReasonCodes,
-        "Status" =: _risStatus
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ReportInstanceStatus" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "StartTime" Prelude.=: startTime,
+        "EndTime" Prelude.=: endTime,
+        "Description" Prelude.=: description,
+        Prelude.toQueryList "InstanceId" instances,
+        Prelude.toQueryList "ReasonCode" reasonCodes,
+        "Status" Prelude.=: status
       ]
 
--- | /See:/ 'reportInstanceStatusResponse' smart constructor.
+-- | /See:/ 'newReportInstanceStatusResponse' smart constructor.
 data ReportInstanceStatusResponse = ReportInstanceStatusResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReportInstanceStatusResponse' with the minimum fields required to make a request.
-reportInstanceStatusResponse ::
+-- |
+-- Create a value of 'ReportInstanceStatusResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newReportInstanceStatusResponse ::
   ReportInstanceStatusResponse
-reportInstanceStatusResponse =
+newReportInstanceStatusResponse =
   ReportInstanceStatusResponse'
 
-instance NFData ReportInstanceStatusResponse
+instance Prelude.NFData ReportInstanceStatusResponse

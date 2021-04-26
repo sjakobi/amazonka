@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.VolumeAttachmentState
   ( VolumeAttachmentState
       ( ..,
-        VAttached,
-        VAttaching,
-        VBusy,
-        VDetached,
-        VDetaching
+        VolumeAttachmentStateVAttached,
+        VolumeAttachmentStateVAttaching,
+        VolumeAttachmentStateVBusy,
+        VolumeAttachmentStateVDetached,
+        VolumeAttachmentStateVDetaching
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VolumeAttachmentState
-  = VolumeAttachmentState'
-      ( CI
-          Text
-      )
+newtype VolumeAttachmentState = VolumeAttachmentState'
+  { fromVolumeAttachmentState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VAttached :: VolumeAttachmentState
-pattern VAttached = VolumeAttachmentState' "attached"
+pattern VolumeAttachmentStateVAttached :: VolumeAttachmentState
+pattern VolumeAttachmentStateVAttached = VolumeAttachmentState' "attached"
 
-pattern VAttaching :: VolumeAttachmentState
-pattern VAttaching = VolumeAttachmentState' "attaching"
+pattern VolumeAttachmentStateVAttaching :: VolumeAttachmentState
+pattern VolumeAttachmentStateVAttaching = VolumeAttachmentState' "attaching"
 
-pattern VBusy :: VolumeAttachmentState
-pattern VBusy = VolumeAttachmentState' "busy"
+pattern VolumeAttachmentStateVBusy :: VolumeAttachmentState
+pattern VolumeAttachmentStateVBusy = VolumeAttachmentState' "busy"
 
-pattern VDetached :: VolumeAttachmentState
-pattern VDetached = VolumeAttachmentState' "detached"
+pattern VolumeAttachmentStateVDetached :: VolumeAttachmentState
+pattern VolumeAttachmentStateVDetached = VolumeAttachmentState' "detached"
 
-pattern VDetaching :: VolumeAttachmentState
-pattern VDetaching = VolumeAttachmentState' "detaching"
+pattern VolumeAttachmentStateVDetaching :: VolumeAttachmentState
+pattern VolumeAttachmentStateVDetaching = VolumeAttachmentState' "detaching"
 
 {-# COMPLETE
-  VAttached,
-  VAttaching,
-  VBusy,
-  VDetached,
-  VDetaching,
+  VolumeAttachmentStateVAttached,
+  VolumeAttachmentStateVAttaching,
+  VolumeAttachmentStateVBusy,
+  VolumeAttachmentStateVDetached,
+  VolumeAttachmentStateVDetaching,
   VolumeAttachmentState'
   #-}
 
-instance FromText VolumeAttachmentState where
-  parser = (VolumeAttachmentState' . mk) <$> takeText
+instance Prelude.FromText VolumeAttachmentState where
+  parser = VolumeAttachmentState' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeAttachmentState where
-  toText (VolumeAttachmentState' ci) = original ci
+instance Prelude.ToText VolumeAttachmentState where
+  toText (VolumeAttachmentState' x) = x
 
-instance Hashable VolumeAttachmentState
+instance Prelude.Hashable VolumeAttachmentState
 
-instance NFData VolumeAttachmentState
+instance Prelude.NFData VolumeAttachmentState
 
-instance ToByteString VolumeAttachmentState
+instance Prelude.ToByteString VolumeAttachmentState
 
-instance ToQuery VolumeAttachmentState
+instance Prelude.ToQuery VolumeAttachmentState
 
-instance ToHeader VolumeAttachmentState
+instance Prelude.ToHeader VolumeAttachmentState
 
-instance FromXML VolumeAttachmentState where
-  parseXML = parseXMLText "VolumeAttachmentState"
+instance Prelude.FromXML VolumeAttachmentState where
+  parseXML = Prelude.parseXMLText "VolumeAttachmentState"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.EC2.Types.EventCode
   ( EventCode
       ( ..,
-        InstanceReboot,
-        InstanceRetirement,
-        InstanceStop,
-        SystemMaintenance,
-        SystemReboot
+        EventCodeInstanceReboot,
+        EventCodeInstanceRetirement,
+        EventCodeInstanceStop,
+        EventCodeSystemMaintenance,
+        EventCodeSystemReboot
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventCode = EventCode' (CI Text)
+newtype EventCode = EventCode'
+  { fromEventCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InstanceReboot :: EventCode
-pattern InstanceReboot = EventCode' "instance-reboot"
+pattern EventCodeInstanceReboot :: EventCode
+pattern EventCodeInstanceReboot = EventCode' "instance-reboot"
 
-pattern InstanceRetirement :: EventCode
-pattern InstanceRetirement = EventCode' "instance-retirement"
+pattern EventCodeInstanceRetirement :: EventCode
+pattern EventCodeInstanceRetirement = EventCode' "instance-retirement"
 
-pattern InstanceStop :: EventCode
-pattern InstanceStop = EventCode' "instance-stop"
+pattern EventCodeInstanceStop :: EventCode
+pattern EventCodeInstanceStop = EventCode' "instance-stop"
 
-pattern SystemMaintenance :: EventCode
-pattern SystemMaintenance = EventCode' "system-maintenance"
+pattern EventCodeSystemMaintenance :: EventCode
+pattern EventCodeSystemMaintenance = EventCode' "system-maintenance"
 
-pattern SystemReboot :: EventCode
-pattern SystemReboot = EventCode' "system-reboot"
+pattern EventCodeSystemReboot :: EventCode
+pattern EventCodeSystemReboot = EventCode' "system-reboot"
 
 {-# COMPLETE
-  InstanceReboot,
-  InstanceRetirement,
-  InstanceStop,
-  SystemMaintenance,
-  SystemReboot,
+  EventCodeInstanceReboot,
+  EventCodeInstanceRetirement,
+  EventCodeInstanceStop,
+  EventCodeSystemMaintenance,
+  EventCodeSystemReboot,
   EventCode'
   #-}
 
-instance FromText EventCode where
-  parser = (EventCode' . mk) <$> takeText
+instance Prelude.FromText EventCode where
+  parser = EventCode' Prelude.<$> Prelude.takeText
 
-instance ToText EventCode where
-  toText (EventCode' ci) = original ci
+instance Prelude.ToText EventCode where
+  toText (EventCode' x) = x
 
-instance Hashable EventCode
+instance Prelude.Hashable EventCode
 
-instance NFData EventCode
+instance Prelude.NFData EventCode
 
-instance ToByteString EventCode
+instance Prelude.ToByteString EventCode
 
-instance ToQuery EventCode
+instance Prelude.ToQuery EventCode
 
-instance ToHeader EventCode
+instance Prelude.ToHeader EventCode
 
-instance FromXML EventCode where
-  parseXML = parseXMLText "EventCode"
+instance Prelude.FromXML EventCode where
+  parseXML = Prelude.parseXMLText "EventCode"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.TransitGatewayRouteState
   ( TransitGatewayRouteState
       ( ..,
-        TGRSActive,
-        TGRSBlackhole,
-        TGRSDeleted,
-        TGRSDeleting,
-        TGRSPending
+        TransitGatewayRouteStateActive,
+        TransitGatewayRouteStateBlackhole,
+        TransitGatewayRouteStateDeleted,
+        TransitGatewayRouteStateDeleting,
+        TransitGatewayRouteStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayRouteState
-  = TransitGatewayRouteState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayRouteState = TransitGatewayRouteState'
+  { fromTransitGatewayRouteState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGRSActive :: TransitGatewayRouteState
-pattern TGRSActive = TransitGatewayRouteState' "active"
+pattern TransitGatewayRouteStateActive :: TransitGatewayRouteState
+pattern TransitGatewayRouteStateActive = TransitGatewayRouteState' "active"
 
-pattern TGRSBlackhole :: TransitGatewayRouteState
-pattern TGRSBlackhole = TransitGatewayRouteState' "blackhole"
+pattern TransitGatewayRouteStateBlackhole :: TransitGatewayRouteState
+pattern TransitGatewayRouteStateBlackhole = TransitGatewayRouteState' "blackhole"
 
-pattern TGRSDeleted :: TransitGatewayRouteState
-pattern TGRSDeleted = TransitGatewayRouteState' "deleted"
+pattern TransitGatewayRouteStateDeleted :: TransitGatewayRouteState
+pattern TransitGatewayRouteStateDeleted = TransitGatewayRouteState' "deleted"
 
-pattern TGRSDeleting :: TransitGatewayRouteState
-pattern TGRSDeleting = TransitGatewayRouteState' "deleting"
+pattern TransitGatewayRouteStateDeleting :: TransitGatewayRouteState
+pattern TransitGatewayRouteStateDeleting = TransitGatewayRouteState' "deleting"
 
-pattern TGRSPending :: TransitGatewayRouteState
-pattern TGRSPending = TransitGatewayRouteState' "pending"
+pattern TransitGatewayRouteStatePending :: TransitGatewayRouteState
+pattern TransitGatewayRouteStatePending = TransitGatewayRouteState' "pending"
 
 {-# COMPLETE
-  TGRSActive,
-  TGRSBlackhole,
-  TGRSDeleted,
-  TGRSDeleting,
-  TGRSPending,
+  TransitGatewayRouteStateActive,
+  TransitGatewayRouteStateBlackhole,
+  TransitGatewayRouteStateDeleted,
+  TransitGatewayRouteStateDeleting,
+  TransitGatewayRouteStatePending,
   TransitGatewayRouteState'
   #-}
 
-instance FromText TransitGatewayRouteState where
-  parser = (TransitGatewayRouteState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayRouteState where
+  parser = TransitGatewayRouteState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayRouteState where
-  toText (TransitGatewayRouteState' ci) = original ci
+instance Prelude.ToText TransitGatewayRouteState where
+  toText (TransitGatewayRouteState' x) = x
 
-instance Hashable TransitGatewayRouteState
+instance Prelude.Hashable TransitGatewayRouteState
 
-instance NFData TransitGatewayRouteState
+instance Prelude.NFData TransitGatewayRouteState
 
-instance ToByteString TransitGatewayRouteState
+instance Prelude.ToByteString TransitGatewayRouteState
 
-instance ToQuery TransitGatewayRouteState
+instance Prelude.ToQuery TransitGatewayRouteState
 
-instance ToHeader TransitGatewayRouteState
+instance Prelude.ToHeader TransitGatewayRouteState
 
-instance FromXML TransitGatewayRouteState where
-  parseXML = parseXMLText "TransitGatewayRouteState"
+instance Prelude.FromXML TransitGatewayRouteState where
+  parseXML = Prelude.parseXMLText "TransitGatewayRouteState"

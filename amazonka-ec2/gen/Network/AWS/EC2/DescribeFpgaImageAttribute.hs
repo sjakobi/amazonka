@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified attribute of the specified Amazon FPGA Image (AFI).
+-- Describes the specified attribute of the specified Amazon FPGA Image
+-- (AFI).
 module Network.AWS.EC2.DescribeFpgaImageAttribute
   ( -- * Creating a Request
-    describeFpgaImageAttribute,
-    DescribeFpgaImageAttribute,
+    DescribeFpgaImageAttribute (..),
+    newDescribeFpgaImageAttribute,
 
     -- * Request Lenses
-    dfiaDryRun,
-    dfiaFpgaImageId,
-    dfiaAttribute,
+    describeFpgaImageAttribute_dryRun,
+    describeFpgaImageAttribute_fpgaImageId,
+    describeFpgaImageAttribute_attribute,
 
     -- * Destructuring the Response
-    describeFpgaImageAttributeResponse,
-    DescribeFpgaImageAttributeResponse,
+    DescribeFpgaImageAttributeResponse (..),
+    newDescribeFpgaImageAttributeResponse,
 
     -- * Response Lenses
-    dfiarrsFpgaImageAttribute,
-    dfiarrsResponseStatus,
+    describeFpgaImageAttributeResponse_fpgaImageAttribute,
+    describeFpgaImageAttributeResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.FpgaImageAttribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeFpgaImageAttribute' smart constructor.
+-- | /See:/ 'newDescribeFpgaImageAttribute' smart constructor.
 data DescribeFpgaImageAttribute = DescribeFpgaImageAttribute'
-  { _dfiaDryRun ::
-      !(Maybe Bool),
-    _dfiaFpgaImageId ::
-      !Text,
-    _dfiaAttribute ::
-      !FpgaImageAttributeName
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the AFI.
+    fpgaImageId :: Prelude.Text,
+    -- | The AFI attribute.
+    attribute :: FpgaImageAttributeName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFpgaImageAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFpgaImageAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfiaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfiaFpgaImageId' - The ID of the AFI.
+-- 'dryRun', 'describeFpgaImageAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'dfiaAttribute' - The AFI attribute.
-describeFpgaImageAttribute ::
-  -- | 'dfiaFpgaImageId'
-  Text ->
-  -- | 'dfiaAttribute'
+-- 'fpgaImageId', 'describeFpgaImageAttribute_fpgaImageId' - The ID of the AFI.
+--
+-- 'attribute', 'describeFpgaImageAttribute_attribute' - The AFI attribute.
+newDescribeFpgaImageAttribute ::
+  -- | 'fpgaImageId'
+  Prelude.Text ->
+  -- | 'attribute'
   FpgaImageAttributeName ->
   DescribeFpgaImageAttribute
-describeFpgaImageAttribute pFpgaImageId_ pAttribute_ =
-  DescribeFpgaImageAttribute'
-    { _dfiaDryRun = Nothing,
-      _dfiaFpgaImageId = pFpgaImageId_,
-      _dfiaAttribute = pAttribute_
-    }
+newDescribeFpgaImageAttribute
+  pFpgaImageId_
+  pAttribute_ =
+    DescribeFpgaImageAttribute'
+      { dryRun =
+          Prelude.Nothing,
+        fpgaImageId = pFpgaImageId_,
+        attribute = pAttribute_
+      }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-dfiaDryRun :: Lens' DescribeFpgaImageAttribute (Maybe Bool)
-dfiaDryRun = lens _dfiaDryRun (\s a -> s {_dfiaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFpgaImageAttribute_dryRun :: Lens.Lens' DescribeFpgaImageAttribute (Prelude.Maybe Prelude.Bool)
+describeFpgaImageAttribute_dryRun = Lens.lens (\DescribeFpgaImageAttribute' {dryRun} -> dryRun) (\s@DescribeFpgaImageAttribute' {} a -> s {dryRun = a} :: DescribeFpgaImageAttribute)
 
 -- | The ID of the AFI.
-dfiaFpgaImageId :: Lens' DescribeFpgaImageAttribute Text
-dfiaFpgaImageId = lens _dfiaFpgaImageId (\s a -> s {_dfiaFpgaImageId = a})
+describeFpgaImageAttribute_fpgaImageId :: Lens.Lens' DescribeFpgaImageAttribute Prelude.Text
+describeFpgaImageAttribute_fpgaImageId = Lens.lens (\DescribeFpgaImageAttribute' {fpgaImageId} -> fpgaImageId) (\s@DescribeFpgaImageAttribute' {} a -> s {fpgaImageId = a} :: DescribeFpgaImageAttribute)
 
 -- | The AFI attribute.
-dfiaAttribute :: Lens' DescribeFpgaImageAttribute FpgaImageAttributeName
-dfiaAttribute = lens _dfiaAttribute (\s a -> s {_dfiaAttribute = a})
+describeFpgaImageAttribute_attribute :: Lens.Lens' DescribeFpgaImageAttribute FpgaImageAttributeName
+describeFpgaImageAttribute_attribute = Lens.lens (\DescribeFpgaImageAttribute' {attribute} -> attribute) (\s@DescribeFpgaImageAttribute' {} a -> s {attribute = a} :: DescribeFpgaImageAttribute)
 
-instance AWSRequest DescribeFpgaImageAttribute where
+instance
+  Prelude.AWSRequest
+    DescribeFpgaImageAttribute
+  where
   type
     Rs DescribeFpgaImageAttribute =
       DescribeFpgaImageAttributeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeFpgaImageAttributeResponse'
-            <$> (x .@? "fpgaImageAttribute") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "fpgaImageAttribute")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFpgaImageAttribute
+instance Prelude.Hashable DescribeFpgaImageAttribute
 
-instance NFData DescribeFpgaImageAttribute
+instance Prelude.NFData DescribeFpgaImageAttribute
 
-instance ToHeaders DescribeFpgaImageAttribute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeFpgaImageAttribute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeFpgaImageAttribute where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFpgaImageAttribute where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFpgaImageAttribute where
+instance Prelude.ToQuery DescribeFpgaImageAttribute where
   toQuery DescribeFpgaImageAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeFpgaImageAttribute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _dfiaDryRun,
-        "FpgaImageId" =: _dfiaFpgaImageId,
-        "Attribute" =: _dfiaAttribute
+          Prelude.=: ("DescribeFpgaImageAttribute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "FpgaImageId" Prelude.=: fpgaImageId,
+        "Attribute" Prelude.=: attribute
       ]
 
--- | /See:/ 'describeFpgaImageAttributeResponse' smart constructor.
+-- | /See:/ 'newDescribeFpgaImageAttributeResponse' smart constructor.
 data DescribeFpgaImageAttributeResponse = DescribeFpgaImageAttributeResponse'
-  { _dfiarrsFpgaImageAttribute ::
-      !( Maybe
-           FpgaImageAttribute
-       ),
-    _dfiarrsResponseStatus ::
-      !Int
+  { -- | Information about the attribute.
+    fpgaImageAttribute :: Prelude.Maybe FpgaImageAttribute,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFpgaImageAttributeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFpgaImageAttributeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfiarrsFpgaImageAttribute' - Information about the attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfiarrsResponseStatus' - -- | The response status code.
-describeFpgaImageAttributeResponse ::
-  -- | 'dfiarrsResponseStatus'
-  Int ->
+-- 'fpgaImageAttribute', 'describeFpgaImageAttributeResponse_fpgaImageAttribute' - Information about the attribute.
+--
+-- 'httpStatus', 'describeFpgaImageAttributeResponse_httpStatus' - The response's http status code.
+newDescribeFpgaImageAttributeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFpgaImageAttributeResponse
-describeFpgaImageAttributeResponse pResponseStatus_ =
+newDescribeFpgaImageAttributeResponse pHttpStatus_ =
   DescribeFpgaImageAttributeResponse'
-    { _dfiarrsFpgaImageAttribute =
-        Nothing,
-      _dfiarrsResponseStatus =
-        pResponseStatus_
+    { fpgaImageAttribute =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the attribute.
-dfiarrsFpgaImageAttribute :: Lens' DescribeFpgaImageAttributeResponse (Maybe FpgaImageAttribute)
-dfiarrsFpgaImageAttribute = lens _dfiarrsFpgaImageAttribute (\s a -> s {_dfiarrsFpgaImageAttribute = a})
+describeFpgaImageAttributeResponse_fpgaImageAttribute :: Lens.Lens' DescribeFpgaImageAttributeResponse (Prelude.Maybe FpgaImageAttribute)
+describeFpgaImageAttributeResponse_fpgaImageAttribute = Lens.lens (\DescribeFpgaImageAttributeResponse' {fpgaImageAttribute} -> fpgaImageAttribute) (\s@DescribeFpgaImageAttributeResponse' {} a -> s {fpgaImageAttribute = a} :: DescribeFpgaImageAttributeResponse)
 
--- | -- | The response status code.
-dfiarrsResponseStatus :: Lens' DescribeFpgaImageAttributeResponse Int
-dfiarrsResponseStatus = lens _dfiarrsResponseStatus (\s a -> s {_dfiarrsResponseStatus = a})
+-- | The response's http status code.
+describeFpgaImageAttributeResponse_httpStatus :: Lens.Lens' DescribeFpgaImageAttributeResponse Prelude.Int
+describeFpgaImageAttributeResponse_httpStatus = Lens.lens (\DescribeFpgaImageAttributeResponse' {httpStatus} -> httpStatus) (\s@DescribeFpgaImageAttributeResponse' {} a -> s {httpStatus = a} :: DescribeFpgaImageAttributeResponse)
 
-instance NFData DescribeFpgaImageAttributeResponse
+instance
+  Prelude.NFData
+    DescribeFpgaImageAttributeResponse

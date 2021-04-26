@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,45 +20,53 @@
 module Network.AWS.EC2.Types.LastError where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The last error that occurred for a VPC endpoint.
 --
---
---
--- /See:/ 'lastError' smart constructor.
+-- /See:/ 'newLastError' smart constructor.
 data LastError = LastError'
-  { _leMessage ::
-      !(Maybe Text),
-    _leCode :: !(Maybe Text)
+  { -- | The error message for the VPC endpoint error.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The error code for the VPC endpoint error.
+    code :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LastError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LastError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'leMessage' - The error message for the VPC endpoint error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'leCode' - The error code for the VPC endpoint error.
-lastError ::
+-- 'message', 'lastError_message' - The error message for the VPC endpoint error.
+--
+-- 'code', 'lastError_code' - The error code for the VPC endpoint error.
+newLastError ::
   LastError
-lastError =
-  LastError' {_leMessage = Nothing, _leCode = Nothing}
+newLastError =
+  LastError'
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
+    }
 
 -- | The error message for the VPC endpoint error.
-leMessage :: Lens' LastError (Maybe Text)
-leMessage = lens _leMessage (\s a -> s {_leMessage = a})
+lastError_message :: Lens.Lens' LastError (Prelude.Maybe Prelude.Text)
+lastError_message = Lens.lens (\LastError' {message} -> message) (\s@LastError' {} a -> s {message = a} :: LastError)
 
 -- | The error code for the VPC endpoint error.
-leCode :: Lens' LastError (Maybe Text)
-leCode = lens _leCode (\s a -> s {_leCode = a})
+lastError_code :: Lens.Lens' LastError (Prelude.Maybe Prelude.Text)
+lastError_code = Lens.lens (\LastError' {code} -> code) (\s@LastError' {} a -> s {code = a} :: LastError)
 
-instance FromXML LastError where
+instance Prelude.FromXML LastError where
   parseXML x =
-    LastError' <$> (x .@? "message") <*> (x .@? "code")
+    LastError'
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
-instance Hashable LastError
+instance Prelude.Hashable LastError
 
-instance NFData LastError
+instance Prelude.NFData LastError

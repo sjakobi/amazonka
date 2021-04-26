@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +21,103 @@ module Network.AWS.EC2.Types.TargetNetwork where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.AssociationStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a target network associated with a Client VPN endpoint.
 --
---
---
--- /See:/ 'targetNetwork' smart constructor.
+-- /See:/ 'newTargetNetwork' smart constructor.
 data TargetNetwork = TargetNetwork'
-  { _tnClientVPNEndpointId ::
-      !(Maybe Text),
-    _tnStatus :: !(Maybe AssociationStatus),
-    _tnSecurityGroups :: !(Maybe [Text]),
-    _tnAssociationId :: !(Maybe Text),
-    _tnVPCId :: !(Maybe Text),
-    _tnTargetNetworkId :: !(Maybe Text)
+  { -- | The ID of the Client VPN endpoint with which the target network is
+    -- associated.
+    clientVpnEndpointId :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the target network association.
+    status :: Prelude.Maybe AssociationStatus,
+    -- | The IDs of the security groups applied to the target network
+    -- association.
+    securityGroups :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the association.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VPC in which the target network (subnet) is located.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subnet specified as the target network.
+    targetNetworkId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetNetwork' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetNetwork' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tnClientVPNEndpointId' - The ID of the Client VPN endpoint with which the target network is associated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tnStatus' - The current state of the target network association.
+-- 'clientVpnEndpointId', 'targetNetwork_clientVpnEndpointId' - The ID of the Client VPN endpoint with which the target network is
+-- associated.
 --
--- * 'tnSecurityGroups' - The IDs of the security groups applied to the target network association.
+-- 'status', 'targetNetwork_status' - The current state of the target network association.
 --
--- * 'tnAssociationId' - The ID of the association.
+-- 'securityGroups', 'targetNetwork_securityGroups' - The IDs of the security groups applied to the target network
+-- association.
 --
--- * 'tnVPCId' - The ID of the VPC in which the target network (subnet) is located.
+-- 'associationId', 'targetNetwork_associationId' - The ID of the association.
 --
--- * 'tnTargetNetworkId' - The ID of the subnet specified as the target network.
-targetNetwork ::
+-- 'vpcId', 'targetNetwork_vpcId' - The ID of the VPC in which the target network (subnet) is located.
+--
+-- 'targetNetworkId', 'targetNetwork_targetNetworkId' - The ID of the subnet specified as the target network.
+newTargetNetwork ::
   TargetNetwork
-targetNetwork =
+newTargetNetwork =
   TargetNetwork'
-    { _tnClientVPNEndpointId = Nothing,
-      _tnStatus = Nothing,
-      _tnSecurityGroups = Nothing,
-      _tnAssociationId = Nothing,
-      _tnVPCId = Nothing,
-      _tnTargetNetworkId = Nothing
+    { clientVpnEndpointId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      associationId = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      targetNetworkId = Prelude.Nothing
     }
 
--- | The ID of the Client VPN endpoint with which the target network is associated.
-tnClientVPNEndpointId :: Lens' TargetNetwork (Maybe Text)
-tnClientVPNEndpointId = lens _tnClientVPNEndpointId (\s a -> s {_tnClientVPNEndpointId = a})
+-- | The ID of the Client VPN endpoint with which the target network is
+-- associated.
+targetNetwork_clientVpnEndpointId :: Lens.Lens' TargetNetwork (Prelude.Maybe Prelude.Text)
+targetNetwork_clientVpnEndpointId = Lens.lens (\TargetNetwork' {clientVpnEndpointId} -> clientVpnEndpointId) (\s@TargetNetwork' {} a -> s {clientVpnEndpointId = a} :: TargetNetwork)
 
 -- | The current state of the target network association.
-tnStatus :: Lens' TargetNetwork (Maybe AssociationStatus)
-tnStatus = lens _tnStatus (\s a -> s {_tnStatus = a})
+targetNetwork_status :: Lens.Lens' TargetNetwork (Prelude.Maybe AssociationStatus)
+targetNetwork_status = Lens.lens (\TargetNetwork' {status} -> status) (\s@TargetNetwork' {} a -> s {status = a} :: TargetNetwork)
 
--- | The IDs of the security groups applied to the target network association.
-tnSecurityGroups :: Lens' TargetNetwork [Text]
-tnSecurityGroups = lens _tnSecurityGroups (\s a -> s {_tnSecurityGroups = a}) . _Default . _Coerce
+-- | The IDs of the security groups applied to the target network
+-- association.
+targetNetwork_securityGroups :: Lens.Lens' TargetNetwork (Prelude.Maybe [Prelude.Text])
+targetNetwork_securityGroups = Lens.lens (\TargetNetwork' {securityGroups} -> securityGroups) (\s@TargetNetwork' {} a -> s {securityGroups = a} :: TargetNetwork) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the association.
-tnAssociationId :: Lens' TargetNetwork (Maybe Text)
-tnAssociationId = lens _tnAssociationId (\s a -> s {_tnAssociationId = a})
+targetNetwork_associationId :: Lens.Lens' TargetNetwork (Prelude.Maybe Prelude.Text)
+targetNetwork_associationId = Lens.lens (\TargetNetwork' {associationId} -> associationId) (\s@TargetNetwork' {} a -> s {associationId = a} :: TargetNetwork)
 
 -- | The ID of the VPC in which the target network (subnet) is located.
-tnVPCId :: Lens' TargetNetwork (Maybe Text)
-tnVPCId = lens _tnVPCId (\s a -> s {_tnVPCId = a})
+targetNetwork_vpcId :: Lens.Lens' TargetNetwork (Prelude.Maybe Prelude.Text)
+targetNetwork_vpcId = Lens.lens (\TargetNetwork' {vpcId} -> vpcId) (\s@TargetNetwork' {} a -> s {vpcId = a} :: TargetNetwork)
 
 -- | The ID of the subnet specified as the target network.
-tnTargetNetworkId :: Lens' TargetNetwork (Maybe Text)
-tnTargetNetworkId = lens _tnTargetNetworkId (\s a -> s {_tnTargetNetworkId = a})
+targetNetwork_targetNetworkId :: Lens.Lens' TargetNetwork (Prelude.Maybe Prelude.Text)
+targetNetwork_targetNetworkId = Lens.lens (\TargetNetwork' {targetNetworkId} -> targetNetworkId) (\s@TargetNetwork' {} a -> s {targetNetworkId = a} :: TargetNetwork)
 
-instance FromXML TargetNetwork where
+instance Prelude.FromXML TargetNetwork where
   parseXML x =
     TargetNetwork'
-      <$> (x .@? "clientVpnEndpointId")
-      <*> (x .@? "status")
-      <*> ( x .@? "securityGroups" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "associationId")
-      <*> (x .@? "vpcId")
-      <*> (x .@? "targetNetworkId")
+      Prelude.<$> (x Prelude..@? "clientVpnEndpointId")
+      Prelude.<*> (x Prelude..@? "status")
+      Prelude.<*> ( x Prelude..@? "securityGroups"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "associationId")
+      Prelude.<*> (x Prelude..@? "vpcId")
+      Prelude.<*> (x Prelude..@? "targetNetworkId")
 
-instance Hashable TargetNetwork
+instance Prelude.Hashable TargetNetwork
 
-instance NFData TargetNetwork
+instance Prelude.NFData TargetNetwork

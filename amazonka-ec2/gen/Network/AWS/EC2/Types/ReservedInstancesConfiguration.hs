@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,109 +22,117 @@ module Network.AWS.EC2.Types.ReservedInstancesConfiguration where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.InstanceType
 import Network.AWS.EC2.Types.Scope
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the configuration settings for the modified Reserved Instances.
+-- | Describes the configuration settings for the modified Reserved
+-- Instances.
 --
---
---
--- /See:/ 'reservedInstancesConfiguration' smart constructor.
+-- /See:/ 'newReservedInstancesConfiguration' smart constructor.
 data ReservedInstancesConfiguration = ReservedInstancesConfiguration'
-  { _ricPlatform ::
-      !( Maybe
-           Text
-       ),
-    _ricInstanceType ::
-      !( Maybe
-           InstanceType
-       ),
-    _ricScope ::
-      !( Maybe
-           Scope
-       ),
-    _ricAvailabilityZone ::
-      !( Maybe
-           Text
-       ),
-    _ricInstanceCount ::
-      !( Maybe
-           Int
-       )
+  { -- | The network platform of the modified Reserved Instances, which is either
+    -- EC2-Classic or EC2-VPC.
+    platform :: Prelude.Maybe Prelude.Text,
+    -- | The instance type for the modified Reserved Instances.
+    instanceType :: Prelude.Maybe InstanceType,
+    -- | Whether the Reserved Instance is applied to instances in a Region or
+    -- instances in a specific Availability Zone.
+    scope :: Prelude.Maybe Scope,
+    -- | The Availability Zone for the modified Reserved Instances.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The number of modified Reserved Instances.
+    --
+    -- This is a required field for a request.
+    instanceCount :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedInstancesConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedInstancesConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ricPlatform' - The network platform of the modified Reserved Instances, which is either EC2-Classic or EC2-VPC.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ricInstanceType' - The instance type for the modified Reserved Instances.
+-- 'platform', 'reservedInstancesConfiguration_platform' - The network platform of the modified Reserved Instances, which is either
+-- EC2-Classic or EC2-VPC.
 --
--- * 'ricScope' - Whether the Reserved Instance is applied to instances in a Region or instances in a specific Availability Zone.
+-- 'instanceType', 'reservedInstancesConfiguration_instanceType' - The instance type for the modified Reserved Instances.
 --
--- * 'ricAvailabilityZone' - The Availability Zone for the modified Reserved Instances.
+-- 'scope', 'reservedInstancesConfiguration_scope' - Whether the Reserved Instance is applied to instances in a Region or
+-- instances in a specific Availability Zone.
 --
--- * 'ricInstanceCount' - The number of modified Reserved Instances.
-reservedInstancesConfiguration ::
+-- 'availabilityZone', 'reservedInstancesConfiguration_availabilityZone' - The Availability Zone for the modified Reserved Instances.
+--
+-- 'instanceCount', 'reservedInstancesConfiguration_instanceCount' - The number of modified Reserved Instances.
+--
+-- This is a required field for a request.
+newReservedInstancesConfiguration ::
   ReservedInstancesConfiguration
-reservedInstancesConfiguration =
+newReservedInstancesConfiguration =
   ReservedInstancesConfiguration'
-    { _ricPlatform =
-        Nothing,
-      _ricInstanceType = Nothing,
-      _ricScope = Nothing,
-      _ricAvailabilityZone = Nothing,
-      _ricInstanceCount = Nothing
+    { platform =
+        Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      scope = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      instanceCount = Prelude.Nothing
     }
 
--- | The network platform of the modified Reserved Instances, which is either EC2-Classic or EC2-VPC.
-ricPlatform :: Lens' ReservedInstancesConfiguration (Maybe Text)
-ricPlatform = lens _ricPlatform (\s a -> s {_ricPlatform = a})
+-- | The network platform of the modified Reserved Instances, which is either
+-- EC2-Classic or EC2-VPC.
+reservedInstancesConfiguration_platform :: Lens.Lens' ReservedInstancesConfiguration (Prelude.Maybe Prelude.Text)
+reservedInstancesConfiguration_platform = Lens.lens (\ReservedInstancesConfiguration' {platform} -> platform) (\s@ReservedInstancesConfiguration' {} a -> s {platform = a} :: ReservedInstancesConfiguration)
 
 -- | The instance type for the modified Reserved Instances.
-ricInstanceType :: Lens' ReservedInstancesConfiguration (Maybe InstanceType)
-ricInstanceType = lens _ricInstanceType (\s a -> s {_ricInstanceType = a})
+reservedInstancesConfiguration_instanceType :: Lens.Lens' ReservedInstancesConfiguration (Prelude.Maybe InstanceType)
+reservedInstancesConfiguration_instanceType = Lens.lens (\ReservedInstancesConfiguration' {instanceType} -> instanceType) (\s@ReservedInstancesConfiguration' {} a -> s {instanceType = a} :: ReservedInstancesConfiguration)
 
--- | Whether the Reserved Instance is applied to instances in a Region or instances in a specific Availability Zone.
-ricScope :: Lens' ReservedInstancesConfiguration (Maybe Scope)
-ricScope = lens _ricScope (\s a -> s {_ricScope = a})
+-- | Whether the Reserved Instance is applied to instances in a Region or
+-- instances in a specific Availability Zone.
+reservedInstancesConfiguration_scope :: Lens.Lens' ReservedInstancesConfiguration (Prelude.Maybe Scope)
+reservedInstancesConfiguration_scope = Lens.lens (\ReservedInstancesConfiguration' {scope} -> scope) (\s@ReservedInstancesConfiguration' {} a -> s {scope = a} :: ReservedInstancesConfiguration)
 
 -- | The Availability Zone for the modified Reserved Instances.
-ricAvailabilityZone :: Lens' ReservedInstancesConfiguration (Maybe Text)
-ricAvailabilityZone = lens _ricAvailabilityZone (\s a -> s {_ricAvailabilityZone = a})
+reservedInstancesConfiguration_availabilityZone :: Lens.Lens' ReservedInstancesConfiguration (Prelude.Maybe Prelude.Text)
+reservedInstancesConfiguration_availabilityZone = Lens.lens (\ReservedInstancesConfiguration' {availabilityZone} -> availabilityZone) (\s@ReservedInstancesConfiguration' {} a -> s {availabilityZone = a} :: ReservedInstancesConfiguration)
 
 -- | The number of modified Reserved Instances.
-ricInstanceCount :: Lens' ReservedInstancesConfiguration (Maybe Int)
-ricInstanceCount = lens _ricInstanceCount (\s a -> s {_ricInstanceCount = a})
+--
+-- This is a required field for a request.
+reservedInstancesConfiguration_instanceCount :: Lens.Lens' ReservedInstancesConfiguration (Prelude.Maybe Prelude.Int)
+reservedInstancesConfiguration_instanceCount = Lens.lens (\ReservedInstancesConfiguration' {instanceCount} -> instanceCount) (\s@ReservedInstancesConfiguration' {} a -> s {instanceCount = a} :: ReservedInstancesConfiguration)
 
-instance FromXML ReservedInstancesConfiguration where
+instance
+  Prelude.FromXML
+    ReservedInstancesConfiguration
+  where
   parseXML x =
     ReservedInstancesConfiguration'
-      <$> (x .@? "platform")
-      <*> (x .@? "instanceType")
-      <*> (x .@? "scope")
-      <*> (x .@? "availabilityZone")
-      <*> (x .@? "instanceCount")
+      Prelude.<$> (x Prelude..@? "platform")
+      Prelude.<*> (x Prelude..@? "instanceType")
+      Prelude.<*> (x Prelude..@? "scope")
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> (x Prelude..@? "instanceCount")
 
-instance Hashable ReservedInstancesConfiguration
+instance
+  Prelude.Hashable
+    ReservedInstancesConfiguration
 
-instance NFData ReservedInstancesConfiguration
+instance
+  Prelude.NFData
+    ReservedInstancesConfiguration
 
-instance ToQuery ReservedInstancesConfiguration where
+instance
+  Prelude.ToQuery
+    ReservedInstancesConfiguration
+  where
   toQuery ReservedInstancesConfiguration' {..} =
-    mconcat
-      [ "Platform" =: _ricPlatform,
-        "InstanceType" =: _ricInstanceType,
-        "Scope" =: _ricScope,
-        "AvailabilityZone" =: _ricAvailabilityZone,
-        "InstanceCount" =: _ricInstanceCount
+    Prelude.mconcat
+      [ "Platform" Prelude.=: platform,
+        "InstanceType" Prelude.=: instanceType,
+        "Scope" Prelude.=: scope,
+        "AvailabilityZone" Prelude.=: availabilityZone,
+        "InstanceCount" Prelude.=: instanceCount
       ]

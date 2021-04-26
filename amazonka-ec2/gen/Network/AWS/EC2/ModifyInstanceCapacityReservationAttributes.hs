@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,191 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the Capacity Reservation settings for a stopped instance. Use this action to configure an instance to target a specific Capacity Reservation, run in any @open@ Capacity Reservation with matching attributes, or run On-Demand Instance capacity.
+-- Modifies the Capacity Reservation settings for a stopped instance. Use
+-- this action to configure an instance to target a specific Capacity
+-- Reservation, run in any @open@ Capacity Reservation with matching
+-- attributes, or run On-Demand Instance capacity.
 module Network.AWS.EC2.ModifyInstanceCapacityReservationAttributes
   ( -- * Creating a Request
-    modifyInstanceCapacityReservationAttributes,
-    ModifyInstanceCapacityReservationAttributes,
+    ModifyInstanceCapacityReservationAttributes (..),
+    newModifyInstanceCapacityReservationAttributes,
 
     -- * Request Lenses
-    micraDryRun,
-    micraInstanceId,
-    micraCapacityReservationSpecification,
+    modifyInstanceCapacityReservationAttributes_dryRun,
+    modifyInstanceCapacityReservationAttributes_instanceId,
+    modifyInstanceCapacityReservationAttributes_capacityReservationSpecification,
 
     -- * Destructuring the Response
-    modifyInstanceCapacityReservationAttributesResponse,
-    ModifyInstanceCapacityReservationAttributesResponse,
+    ModifyInstanceCapacityReservationAttributesResponse (..),
+    newModifyInstanceCapacityReservationAttributesResponse,
 
     -- * Response Lenses
-    micrarrsReturn,
-    micrarrsResponseStatus,
+    modifyInstanceCapacityReservationAttributesResponse_return,
+    modifyInstanceCapacityReservationAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyInstanceCapacityReservationAttributes' smart constructor.
+-- | /See:/ 'newModifyInstanceCapacityReservationAttributes' smart constructor.
 data ModifyInstanceCapacityReservationAttributes = ModifyInstanceCapacityReservationAttributes'
-  { _micraDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _micraInstanceId ::
-      !Text,
-    _micraCapacityReservationSpecification ::
-      !CapacityReservationSpecification
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the instance to be modified.
+    instanceId :: Prelude.Text,
+    -- | Information about the Capacity Reservation targeting option.
+    capacityReservationSpecification :: CapacityReservationSpecification
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceCapacityReservationAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceCapacityReservationAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'micraDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'micraInstanceId' - The ID of the instance to be modified.
+-- 'dryRun', 'modifyInstanceCapacityReservationAttributes_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'micraCapacityReservationSpecification' - Information about the Capacity Reservation targeting option.
-modifyInstanceCapacityReservationAttributes ::
-  -- | 'micraInstanceId'
-  Text ->
-  -- | 'micraCapacityReservationSpecification'
+-- 'instanceId', 'modifyInstanceCapacityReservationAttributes_instanceId' - The ID of the instance to be modified.
+--
+-- 'capacityReservationSpecification', 'modifyInstanceCapacityReservationAttributes_capacityReservationSpecification' - Information about the Capacity Reservation targeting option.
+newModifyInstanceCapacityReservationAttributes ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'capacityReservationSpecification'
   CapacityReservationSpecification ->
   ModifyInstanceCapacityReservationAttributes
-modifyInstanceCapacityReservationAttributes
+newModifyInstanceCapacityReservationAttributes
   pInstanceId_
   pCapacityReservationSpecification_ =
     ModifyInstanceCapacityReservationAttributes'
-      { _micraDryRun =
-          Nothing,
-        _micraInstanceId =
-          pInstanceId_,
-        _micraCapacityReservationSpecification =
+      { dryRun =
+          Prelude.Nothing,
+        instanceId = pInstanceId_,
+        capacityReservationSpecification =
           pCapacityReservationSpecification_
       }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-micraDryRun :: Lens' ModifyInstanceCapacityReservationAttributes (Maybe Bool)
-micraDryRun = lens _micraDryRun (\s a -> s {_micraDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyInstanceCapacityReservationAttributes_dryRun :: Lens.Lens' ModifyInstanceCapacityReservationAttributes (Prelude.Maybe Prelude.Bool)
+modifyInstanceCapacityReservationAttributes_dryRun = Lens.lens (\ModifyInstanceCapacityReservationAttributes' {dryRun} -> dryRun) (\s@ModifyInstanceCapacityReservationAttributes' {} a -> s {dryRun = a} :: ModifyInstanceCapacityReservationAttributes)
 
 -- | The ID of the instance to be modified.
-micraInstanceId :: Lens' ModifyInstanceCapacityReservationAttributes Text
-micraInstanceId = lens _micraInstanceId (\s a -> s {_micraInstanceId = a})
+modifyInstanceCapacityReservationAttributes_instanceId :: Lens.Lens' ModifyInstanceCapacityReservationAttributes Prelude.Text
+modifyInstanceCapacityReservationAttributes_instanceId = Lens.lens (\ModifyInstanceCapacityReservationAttributes' {instanceId} -> instanceId) (\s@ModifyInstanceCapacityReservationAttributes' {} a -> s {instanceId = a} :: ModifyInstanceCapacityReservationAttributes)
 
 -- | Information about the Capacity Reservation targeting option.
-micraCapacityReservationSpecification :: Lens' ModifyInstanceCapacityReservationAttributes CapacityReservationSpecification
-micraCapacityReservationSpecification = lens _micraCapacityReservationSpecification (\s a -> s {_micraCapacityReservationSpecification = a})
+modifyInstanceCapacityReservationAttributes_capacityReservationSpecification :: Lens.Lens' ModifyInstanceCapacityReservationAttributes CapacityReservationSpecification
+modifyInstanceCapacityReservationAttributes_capacityReservationSpecification = Lens.lens (\ModifyInstanceCapacityReservationAttributes' {capacityReservationSpecification} -> capacityReservationSpecification) (\s@ModifyInstanceCapacityReservationAttributes' {} a -> s {capacityReservationSpecification = a} :: ModifyInstanceCapacityReservationAttributes)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     ModifyInstanceCapacityReservationAttributes
   where
   type
     Rs ModifyInstanceCapacityReservationAttributes =
       ModifyInstanceCapacityReservationAttributesResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ModifyInstanceCapacityReservationAttributesResponse'
-            <$> (x .@? "return") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "return")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ModifyInstanceCapacityReservationAttributes
 
 instance
-  NFData
+  Prelude.NFData
     ModifyInstanceCapacityReservationAttributes
 
 instance
-  ToHeaders
-    ModifyInstanceCapacityReservationAttributes
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     ModifyInstanceCapacityReservationAttributes
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    ModifyInstanceCapacityReservationAttributes
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     ModifyInstanceCapacityReservationAttributes
   where
   toQuery
     ModifyInstanceCapacityReservationAttributes' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "ModifyInstanceCapacityReservationAttributes" ::
-                   ByteString
-               ),
-          "Version" =: ("2016-11-15" :: ByteString),
-          "DryRun" =: _micraDryRun,
-          "InstanceId" =: _micraInstanceId,
+            Prelude.=: ( "ModifyInstanceCapacityReservationAttributes" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Prelude.=: dryRun,
+          "InstanceId" Prelude.=: instanceId,
           "CapacityReservationSpecification"
-            =: _micraCapacityReservationSpecification
+            Prelude.=: capacityReservationSpecification
         ]
 
--- | /See:/ 'modifyInstanceCapacityReservationAttributesResponse' smart constructor.
+-- | /See:/ 'newModifyInstanceCapacityReservationAttributesResponse' smart constructor.
 data ModifyInstanceCapacityReservationAttributesResponse = ModifyInstanceCapacityReservationAttributesResponse'
-  { _micrarrsReturn ::
-      !( Maybe
-           Bool
-       ),
-    _micrarrsResponseStatus ::
-      !Int
+  { -- | Returns @true@ if the request succeeds; otherwise, it returns an error.
+    return' :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceCapacityReservationAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceCapacityReservationAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'micrarrsReturn' - Returns @true@ if the request succeeds; otherwise, it returns an error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'micrarrsResponseStatus' - -- | The response status code.
-modifyInstanceCapacityReservationAttributesResponse ::
-  -- | 'micrarrsResponseStatus'
-  Int ->
+-- 'return'', 'modifyInstanceCapacityReservationAttributesResponse_return' - Returns @true@ if the request succeeds; otherwise, it returns an error.
+--
+-- 'httpStatus', 'modifyInstanceCapacityReservationAttributesResponse_httpStatus' - The response's http status code.
+newModifyInstanceCapacityReservationAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyInstanceCapacityReservationAttributesResponse
-modifyInstanceCapacityReservationAttributesResponse
-  pResponseStatus_ =
+newModifyInstanceCapacityReservationAttributesResponse
+  pHttpStatus_ =
     ModifyInstanceCapacityReservationAttributesResponse'
-      { _micrarrsReturn =
-          Nothing,
-        _micrarrsResponseStatus =
-          pResponseStatus_
+      { return' =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Returns @true@ if the request succeeds; otherwise, it returns an error.
-micrarrsReturn :: Lens' ModifyInstanceCapacityReservationAttributesResponse (Maybe Bool)
-micrarrsReturn = lens _micrarrsReturn (\s a -> s {_micrarrsReturn = a})
+modifyInstanceCapacityReservationAttributesResponse_return :: Lens.Lens' ModifyInstanceCapacityReservationAttributesResponse (Prelude.Maybe Prelude.Bool)
+modifyInstanceCapacityReservationAttributesResponse_return = Lens.lens (\ModifyInstanceCapacityReservationAttributesResponse' {return'} -> return') (\s@ModifyInstanceCapacityReservationAttributesResponse' {} a -> s {return' = a} :: ModifyInstanceCapacityReservationAttributesResponse)
 
--- | -- | The response status code.
-micrarrsResponseStatus :: Lens' ModifyInstanceCapacityReservationAttributesResponse Int
-micrarrsResponseStatus = lens _micrarrsResponseStatus (\s a -> s {_micrarrsResponseStatus = a})
+-- | The response's http status code.
+modifyInstanceCapacityReservationAttributesResponse_httpStatus :: Lens.Lens' ModifyInstanceCapacityReservationAttributesResponse Prelude.Int
+modifyInstanceCapacityReservationAttributesResponse_httpStatus = Lens.lens (\ModifyInstanceCapacityReservationAttributesResponse' {httpStatus} -> httpStatus) (\s@ModifyInstanceCapacityReservationAttributesResponse' {} a -> s {httpStatus = a} :: ModifyInstanceCapacityReservationAttributesResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ModifyInstanceCapacityReservationAttributesResponse

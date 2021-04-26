@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,99 +21,115 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables I/O operations for a volume that had I/O operations disabled because the data on the volume was potentially inconsistent.
+-- Enables I\/O operations for a volume that had I\/O operations disabled
+-- because the data on the volume was potentially inconsistent.
 module Network.AWS.EC2.EnableVolumeIO
   ( -- * Creating a Request
-    enableVolumeIO,
-    EnableVolumeIO,
+    EnableVolumeIO (..),
+    newEnableVolumeIO,
 
     -- * Request Lenses
-    evioDryRun,
-    evioVolumeId,
+    enableVolumeIO_dryRun,
+    enableVolumeIO_volumeId,
 
     -- * Destructuring the Response
-    enableVolumeIOResponse,
-    EnableVolumeIOResponse,
+    EnableVolumeIOResponse (..),
+    newEnableVolumeIOResponse,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableVolumeIO' smart constructor.
+-- | /See:/ 'newEnableVolumeIO' smart constructor.
 data EnableVolumeIO = EnableVolumeIO'
-  { _evioDryRun ::
-      !(Maybe Bool),
-    _evioVolumeId :: !Text
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the volume.
+    volumeId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableVolumeIO' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableVolumeIO' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'evioDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'evioVolumeId' - The ID of the volume.
-enableVolumeIO ::
-  -- | 'evioVolumeId'
-  Text ->
+-- 'dryRun', 'enableVolumeIO_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'volumeId', 'enableVolumeIO_volumeId' - The ID of the volume.
+newEnableVolumeIO ::
+  -- | 'volumeId'
+  Prelude.Text ->
   EnableVolumeIO
-enableVolumeIO pVolumeId_ =
+newEnableVolumeIO pVolumeId_ =
   EnableVolumeIO'
-    { _evioDryRun = Nothing,
-      _evioVolumeId = pVolumeId_
+    { dryRun = Prelude.Nothing,
+      volumeId = pVolumeId_
     }
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-evioDryRun :: Lens' EnableVolumeIO (Maybe Bool)
-evioDryRun = lens _evioDryRun (\s a -> s {_evioDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+enableVolumeIO_dryRun :: Lens.Lens' EnableVolumeIO (Prelude.Maybe Prelude.Bool)
+enableVolumeIO_dryRun = Lens.lens (\EnableVolumeIO' {dryRun} -> dryRun) (\s@EnableVolumeIO' {} a -> s {dryRun = a} :: EnableVolumeIO)
 
 -- | The ID of the volume.
-evioVolumeId :: Lens' EnableVolumeIO Text
-evioVolumeId = lens _evioVolumeId (\s a -> s {_evioVolumeId = a})
+enableVolumeIO_volumeId :: Lens.Lens' EnableVolumeIO Prelude.Text
+enableVolumeIO_volumeId = Lens.lens (\EnableVolumeIO' {volumeId} -> volumeId) (\s@EnableVolumeIO' {} a -> s {volumeId = a} :: EnableVolumeIO)
 
-instance AWSRequest EnableVolumeIO where
+instance Prelude.AWSRequest EnableVolumeIO where
   type Rs EnableVolumeIO = EnableVolumeIOResponse
-  request = postQuery ec2
-  response = receiveNull EnableVolumeIOResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull EnableVolumeIOResponse'
 
-instance Hashable EnableVolumeIO
+instance Prelude.Hashable EnableVolumeIO
 
-instance NFData EnableVolumeIO
+instance Prelude.NFData EnableVolumeIO
 
-instance ToHeaders EnableVolumeIO where
-  toHeaders = const mempty
+instance Prelude.ToHeaders EnableVolumeIO where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath EnableVolumeIO where
-  toPath = const "/"
+instance Prelude.ToPath EnableVolumeIO where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableVolumeIO where
+instance Prelude.ToQuery EnableVolumeIO where
   toQuery EnableVolumeIO' {..} =
-    mconcat
-      [ "Action" =: ("EnableVolumeIO" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "DryRun" =: _evioDryRun,
-        "VolumeId" =: _evioVolumeId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("EnableVolumeIO" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Prelude.=: dryRun,
+        "VolumeId" Prelude.=: volumeId
       ]
 
--- | /See:/ 'enableVolumeIOResponse' smart constructor.
+-- | /See:/ 'newEnableVolumeIOResponse' smart constructor.
 data EnableVolumeIOResponse = EnableVolumeIOResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableVolumeIOResponse' with the minimum fields required to make a request.
-enableVolumeIOResponse ::
+-- |
+-- Create a value of 'EnableVolumeIOResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableVolumeIOResponse ::
   EnableVolumeIOResponse
-enableVolumeIOResponse = EnableVolumeIOResponse'
+newEnableVolumeIOResponse = EnableVolumeIOResponse'
 
-instance NFData EnableVolumeIOResponse
+instance Prelude.NFData EnableVolumeIOResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.LocalGatewayRouteType
   ( LocalGatewayRouteType
       ( ..,
-        LGRTPropagated,
-        LGRTStatic
+        LocalGatewayRouteTypePropagated,
+        LocalGatewayRouteTypeStatic
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LocalGatewayRouteType
-  = LocalGatewayRouteType'
-      ( CI
-          Text
-      )
+newtype LocalGatewayRouteType = LocalGatewayRouteType'
+  { fromLocalGatewayRouteType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LGRTPropagated :: LocalGatewayRouteType
-pattern LGRTPropagated = LocalGatewayRouteType' "propagated"
+pattern LocalGatewayRouteTypePropagated :: LocalGatewayRouteType
+pattern LocalGatewayRouteTypePropagated = LocalGatewayRouteType' "propagated"
 
-pattern LGRTStatic :: LocalGatewayRouteType
-pattern LGRTStatic = LocalGatewayRouteType' "static"
+pattern LocalGatewayRouteTypeStatic :: LocalGatewayRouteType
+pattern LocalGatewayRouteTypeStatic = LocalGatewayRouteType' "static"
 
 {-# COMPLETE
-  LGRTPropagated,
-  LGRTStatic,
+  LocalGatewayRouteTypePropagated,
+  LocalGatewayRouteTypeStatic,
   LocalGatewayRouteType'
   #-}
 
-instance FromText LocalGatewayRouteType where
-  parser = (LocalGatewayRouteType' . mk) <$> takeText
+instance Prelude.FromText LocalGatewayRouteType where
+  parser = LocalGatewayRouteType' Prelude.<$> Prelude.takeText
 
-instance ToText LocalGatewayRouteType where
-  toText (LocalGatewayRouteType' ci) = original ci
+instance Prelude.ToText LocalGatewayRouteType where
+  toText (LocalGatewayRouteType' x) = x
 
-instance Hashable LocalGatewayRouteType
+instance Prelude.Hashable LocalGatewayRouteType
 
-instance NFData LocalGatewayRouteType
+instance Prelude.NFData LocalGatewayRouteType
 
-instance ToByteString LocalGatewayRouteType
+instance Prelude.ToByteString LocalGatewayRouteType
 
-instance ToQuery LocalGatewayRouteType
+instance Prelude.ToQuery LocalGatewayRouteType
 
-instance ToHeader LocalGatewayRouteType
+instance Prelude.ToHeader LocalGatewayRouteType
 
-instance FromXML LocalGatewayRouteType where
-  parseXML = parseXMLText "LocalGatewayRouteType"
+instance Prelude.FromXML LocalGatewayRouteType where
+  parseXML = Prelude.parseXMLText "LocalGatewayRouteType"

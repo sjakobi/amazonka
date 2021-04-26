@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,93 +22,87 @@ module Network.AWS.EC2.Types.TransitGatewayPropagation where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.TransitGatewayAttachmentResourceType
 import Network.AWS.EC2.Types.TransitGatewayPropagationState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes route propagation.
 --
---
---
--- /See:/ 'transitGatewayPropagation' smart constructor.
+-- /See:/ 'newTransitGatewayPropagation' smart constructor.
 data TransitGatewayPropagation = TransitGatewayPropagation'
-  { _tgpResourceId ::
-      !(Maybe Text),
-    _tgpResourceType ::
-      !( Maybe
-           TransitGatewayAttachmentResourceType
-       ),
-    _tgpState ::
-      !( Maybe
-           TransitGatewayPropagationState
-       ),
-    _tgpTransitGatewayAttachmentId ::
-      !(Maybe Text),
-    _tgpTransitGatewayRouteTableId ::
-      !(Maybe Text)
+  { -- | The ID of the resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The resource type. Note that the @tgw-peering@ resource type has been
+    -- deprecated.
+    resourceType :: Prelude.Maybe TransitGatewayAttachmentResourceType,
+    -- | The state.
+    state :: Prelude.Maybe TransitGatewayPropagationState,
+    -- | The ID of the attachment.
+    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway route table.
+    transitGatewayRouteTableId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransitGatewayPropagation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransitGatewayPropagation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgpResourceId' - The ID of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgpResourceType' - The resource type. Note that the @tgw-peering@ resource type has been deprecated.
+-- 'resourceId', 'transitGatewayPropagation_resourceId' - The ID of the resource.
 --
--- * 'tgpState' - The state.
+-- 'resourceType', 'transitGatewayPropagation_resourceType' - The resource type. Note that the @tgw-peering@ resource type has been
+-- deprecated.
 --
--- * 'tgpTransitGatewayAttachmentId' - The ID of the attachment.
+-- 'state', 'transitGatewayPropagation_state' - The state.
 --
--- * 'tgpTransitGatewayRouteTableId' - The ID of the transit gateway route table.
-transitGatewayPropagation ::
+-- 'transitGatewayAttachmentId', 'transitGatewayPropagation_transitGatewayAttachmentId' - The ID of the attachment.
+--
+-- 'transitGatewayRouteTableId', 'transitGatewayPropagation_transitGatewayRouteTableId' - The ID of the transit gateway route table.
+newTransitGatewayPropagation ::
   TransitGatewayPropagation
-transitGatewayPropagation =
+newTransitGatewayPropagation =
   TransitGatewayPropagation'
-    { _tgpResourceId =
-        Nothing,
-      _tgpResourceType = Nothing,
-      _tgpState = Nothing,
-      _tgpTransitGatewayAttachmentId = Nothing,
-      _tgpTransitGatewayRouteTableId = Nothing
+    { resourceId =
+        Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      state = Prelude.Nothing,
+      transitGatewayAttachmentId = Prelude.Nothing,
+      transitGatewayRouteTableId = Prelude.Nothing
     }
 
 -- | The ID of the resource.
-tgpResourceId :: Lens' TransitGatewayPropagation (Maybe Text)
-tgpResourceId = lens _tgpResourceId (\s a -> s {_tgpResourceId = a})
+transitGatewayPropagation_resourceId :: Lens.Lens' TransitGatewayPropagation (Prelude.Maybe Prelude.Text)
+transitGatewayPropagation_resourceId = Lens.lens (\TransitGatewayPropagation' {resourceId} -> resourceId) (\s@TransitGatewayPropagation' {} a -> s {resourceId = a} :: TransitGatewayPropagation)
 
--- | The resource type. Note that the @tgw-peering@ resource type has been deprecated.
-tgpResourceType :: Lens' TransitGatewayPropagation (Maybe TransitGatewayAttachmentResourceType)
-tgpResourceType = lens _tgpResourceType (\s a -> s {_tgpResourceType = a})
+-- | The resource type. Note that the @tgw-peering@ resource type has been
+-- deprecated.
+transitGatewayPropagation_resourceType :: Lens.Lens' TransitGatewayPropagation (Prelude.Maybe TransitGatewayAttachmentResourceType)
+transitGatewayPropagation_resourceType = Lens.lens (\TransitGatewayPropagation' {resourceType} -> resourceType) (\s@TransitGatewayPropagation' {} a -> s {resourceType = a} :: TransitGatewayPropagation)
 
 -- | The state.
-tgpState :: Lens' TransitGatewayPropagation (Maybe TransitGatewayPropagationState)
-tgpState = lens _tgpState (\s a -> s {_tgpState = a})
+transitGatewayPropagation_state :: Lens.Lens' TransitGatewayPropagation (Prelude.Maybe TransitGatewayPropagationState)
+transitGatewayPropagation_state = Lens.lens (\TransitGatewayPropagation' {state} -> state) (\s@TransitGatewayPropagation' {} a -> s {state = a} :: TransitGatewayPropagation)
 
 -- | The ID of the attachment.
-tgpTransitGatewayAttachmentId :: Lens' TransitGatewayPropagation (Maybe Text)
-tgpTransitGatewayAttachmentId = lens _tgpTransitGatewayAttachmentId (\s a -> s {_tgpTransitGatewayAttachmentId = a})
+transitGatewayPropagation_transitGatewayAttachmentId :: Lens.Lens' TransitGatewayPropagation (Prelude.Maybe Prelude.Text)
+transitGatewayPropagation_transitGatewayAttachmentId = Lens.lens (\TransitGatewayPropagation' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@TransitGatewayPropagation' {} a -> s {transitGatewayAttachmentId = a} :: TransitGatewayPropagation)
 
 -- | The ID of the transit gateway route table.
-tgpTransitGatewayRouteTableId :: Lens' TransitGatewayPropagation (Maybe Text)
-tgpTransitGatewayRouteTableId = lens _tgpTransitGatewayRouteTableId (\s a -> s {_tgpTransitGatewayRouteTableId = a})
+transitGatewayPropagation_transitGatewayRouteTableId :: Lens.Lens' TransitGatewayPropagation (Prelude.Maybe Prelude.Text)
+transitGatewayPropagation_transitGatewayRouteTableId = Lens.lens (\TransitGatewayPropagation' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@TransitGatewayPropagation' {} a -> s {transitGatewayRouteTableId = a} :: TransitGatewayPropagation)
 
-instance FromXML TransitGatewayPropagation where
+instance Prelude.FromXML TransitGatewayPropagation where
   parseXML x =
     TransitGatewayPropagation'
-      <$> (x .@? "resourceId")
-      <*> (x .@? "resourceType")
-      <*> (x .@? "state")
-      <*> (x .@? "transitGatewayAttachmentId")
-      <*> (x .@? "transitGatewayRouteTableId")
+      Prelude.<$> (x Prelude..@? "resourceId")
+      Prelude.<*> (x Prelude..@? "resourceType")
+      Prelude.<*> (x Prelude..@? "state")
+      Prelude.<*> (x Prelude..@? "transitGatewayAttachmentId")
+      Prelude.<*> (x Prelude..@? "transitGatewayRouteTableId")
 
-instance Hashable TransitGatewayPropagation
+instance Prelude.Hashable TransitGatewayPropagation
 
-instance NFData TransitGatewayPropagation
+instance Prelude.NFData TransitGatewayPropagation

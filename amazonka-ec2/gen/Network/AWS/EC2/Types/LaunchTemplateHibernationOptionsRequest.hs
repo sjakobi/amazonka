@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,56 +20,62 @@
 module Network.AWS.EC2.Types.LaunchTemplateHibernationOptionsRequest where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether the instance is configured for hibernation. This parameter is valid only if the instance meets the <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites hibernation prerequisites> .
+-- | Indicates whether the instance is configured for hibernation. This
+-- parameter is valid only if the instance meets the
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites hibernation prerequisites>.
 --
---
---
--- /See:/ 'launchTemplateHibernationOptionsRequest' smart constructor.
-newtype LaunchTemplateHibernationOptionsRequest = LaunchTemplateHibernationOptionsRequest'
-  { _lthorConfigured ::
-      Maybe
-        Bool
+-- /See:/ 'newLaunchTemplateHibernationOptionsRequest' smart constructor.
+data LaunchTemplateHibernationOptionsRequest = LaunchTemplateHibernationOptionsRequest'
+  { -- | If you set this parameter to @true@, the instance is enabled for
+    -- hibernation.
+    --
+    -- Default: @false@
+    configured :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateHibernationOptionsRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateHibernationOptionsRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lthorConfigured' - If you set this parameter to @true@ , the instance is enabled for hibernation. Default: @false@
-launchTemplateHibernationOptionsRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'configured', 'launchTemplateHibernationOptionsRequest_configured' - If you set this parameter to @true@, the instance is enabled for
+-- hibernation.
+--
+-- Default: @false@
+newLaunchTemplateHibernationOptionsRequest ::
   LaunchTemplateHibernationOptionsRequest
-launchTemplateHibernationOptionsRequest =
+newLaunchTemplateHibernationOptionsRequest =
   LaunchTemplateHibernationOptionsRequest'
-    { _lthorConfigured =
-        Nothing
+    { configured =
+        Prelude.Nothing
     }
 
--- | If you set this parameter to @true@ , the instance is enabled for hibernation. Default: @false@
-lthorConfigured :: Lens' LaunchTemplateHibernationOptionsRequest (Maybe Bool)
-lthorConfigured = lens _lthorConfigured (\s a -> s {_lthorConfigured = a})
+-- | If you set this parameter to @true@, the instance is enabled for
+-- hibernation.
+--
+-- Default: @false@
+launchTemplateHibernationOptionsRequest_configured :: Lens.Lens' LaunchTemplateHibernationOptionsRequest (Prelude.Maybe Prelude.Bool)
+launchTemplateHibernationOptionsRequest_configured = Lens.lens (\LaunchTemplateHibernationOptionsRequest' {configured} -> configured) (\s@LaunchTemplateHibernationOptionsRequest' {} a -> s {configured = a} :: LaunchTemplateHibernationOptionsRequest)
 
 instance
-  Hashable
+  Prelude.Hashable
     LaunchTemplateHibernationOptionsRequest
 
 instance
-  NFData
+  Prelude.NFData
     LaunchTemplateHibernationOptionsRequest
 
 instance
-  ToQuery
+  Prelude.ToQuery
     LaunchTemplateHibernationOptionsRequest
   where
   toQuery LaunchTemplateHibernationOptionsRequest' {..} =
-    mconcat ["Configured" =: _lthorConfigured]
+    Prelude.mconcat
+      ["Configured" Prelude.=: configured]

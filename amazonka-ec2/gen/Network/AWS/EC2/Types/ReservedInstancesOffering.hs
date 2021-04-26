@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -25,207 +29,217 @@ import Network.AWS.EC2.Types.RIProductDescription
 import Network.AWS.EC2.Types.RecurringCharge
 import Network.AWS.EC2.Types.Scope
 import Network.AWS.EC2.Types.Tenancy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Reserved Instance offering.
 --
---
---
--- /See:/ 'reservedInstancesOffering' smart constructor.
+-- /See:/ 'newReservedInstancesOffering' smart constructor.
 data ReservedInstancesOffering = ReservedInstancesOffering'
-  { _rioInstanceType ::
-      !( Maybe
-           InstanceType
-       ),
-    _rioDuration ::
-      !(Maybe Integer),
-    _rioInstanceTenancy ::
-      !(Maybe Tenancy),
-    _rioReservedInstancesOfferingId ::
-      !(Maybe Text),
-    _rioCurrencyCode ::
-      !( Maybe
-           CurrencyCodeValues
-       ),
-    _rioScope ::
-      !(Maybe Scope),
-    _rioAvailabilityZone ::
-      !(Maybe Text),
-    _rioMarketplace ::
-      !(Maybe Bool),
-    _rioOfferingClass ::
-      !( Maybe
-           OfferingClassType
-       ),
-    _rioFixedPrice ::
-      !(Maybe Double),
-    _rioUsagePrice ::
-      !(Maybe Double),
-    _rioOfferingType ::
-      !( Maybe
-           OfferingTypeValues
-       ),
-    _rioRecurringCharges ::
-      !( Maybe
-           [RecurringCharge]
-       ),
-    _rioProductDescription ::
-      !( Maybe
-           RIProductDescription
-       ),
-    _rioPricingDetails ::
-      !( Maybe
-           [PricingDetail]
-       )
+  { -- | The instance type on which the Reserved Instance can be used.
+    instanceType :: Prelude.Maybe InstanceType,
+    -- | The duration of the Reserved Instance, in seconds.
+    duration :: Prelude.Maybe Prelude.Integer,
+    -- | The tenancy of the instance.
+    instanceTenancy :: Prelude.Maybe Tenancy,
+    -- | The ID of the Reserved Instance offering. This is the offering ID used
+    -- in GetReservedInstancesExchangeQuote to confirm that an exchange can be
+    -- made.
+    reservedInstancesOfferingId :: Prelude.Maybe Prelude.Text,
+    -- | The currency of the Reserved Instance offering you are purchasing. It\'s
+    -- specified using ISO 4217 standard currency codes. At this time, the only
+    -- supported currency is @USD@.
+    currencyCode :: Prelude.Maybe CurrencyCodeValues,
+    -- | Whether the Reserved Instance is applied to instances in a Region or an
+    -- Availability Zone.
+    scope :: Prelude.Maybe Scope,
+    -- | The Availability Zone in which the Reserved Instance can be used.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the offering is available through the Reserved
+    -- Instance Marketplace (resale) or AWS. If it\'s a Reserved Instance
+    -- Marketplace offering, this is @true@.
+    marketplace :: Prelude.Maybe Prelude.Bool,
+    -- | If @convertible@ it can be exchanged for Reserved Instances of the same
+    -- or higher monetary value, with different configurations. If @standard@,
+    -- it is not possible to perform an exchange.
+    offeringClass :: Prelude.Maybe OfferingClassType,
+    -- | The purchase price of the Reserved Instance.
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | The usage price of the Reserved Instance, per hour.
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | The Reserved Instance offering type.
+    offeringType :: Prelude.Maybe OfferingTypeValues,
+    -- | The recurring charge tag assigned to the resource.
+    recurringCharges :: Prelude.Maybe [RecurringCharge],
+    -- | The Reserved Instance product platform description.
+    productDescription :: Prelude.Maybe RIProductDescription,
+    -- | The pricing details of the Reserved Instance offering.
+    pricingDetails :: Prelude.Maybe [PricingDetail]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedInstancesOffering' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedInstancesOffering' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rioInstanceType' - The instance type on which the Reserved Instance can be used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rioDuration' - The duration of the Reserved Instance, in seconds.
+-- 'instanceType', 'reservedInstancesOffering_instanceType' - The instance type on which the Reserved Instance can be used.
 --
--- * 'rioInstanceTenancy' - The tenancy of the instance.
+-- 'duration', 'reservedInstancesOffering_duration' - The duration of the Reserved Instance, in seconds.
 --
--- * 'rioReservedInstancesOfferingId' - The ID of the Reserved Instance offering. This is the offering ID used in 'GetReservedInstancesExchangeQuote' to confirm that an exchange can be made.
+-- 'instanceTenancy', 'reservedInstancesOffering_instanceTenancy' - The tenancy of the instance.
 --
--- * 'rioCurrencyCode' - The currency of the Reserved Instance offering you are purchasing. It's specified using ISO 4217 standard currency codes. At this time, the only supported currency is @USD@ .
+-- 'reservedInstancesOfferingId', 'reservedInstancesOffering_reservedInstancesOfferingId' - The ID of the Reserved Instance offering. This is the offering ID used
+-- in GetReservedInstancesExchangeQuote to confirm that an exchange can be
+-- made.
 --
--- * 'rioScope' - Whether the Reserved Instance is applied to instances in a Region or an Availability Zone.
+-- 'currencyCode', 'reservedInstancesOffering_currencyCode' - The currency of the Reserved Instance offering you are purchasing. It\'s
+-- specified using ISO 4217 standard currency codes. At this time, the only
+-- supported currency is @USD@.
 --
--- * 'rioAvailabilityZone' - The Availability Zone in which the Reserved Instance can be used.
+-- 'scope', 'reservedInstancesOffering_scope' - Whether the Reserved Instance is applied to instances in a Region or an
+-- Availability Zone.
 --
--- * 'rioMarketplace' - Indicates whether the offering is available through the Reserved Instance Marketplace (resale) or AWS. If it's a Reserved Instance Marketplace offering, this is @true@ .
+-- 'availabilityZone', 'reservedInstancesOffering_availabilityZone' - The Availability Zone in which the Reserved Instance can be used.
 --
--- * 'rioOfferingClass' - If @convertible@ it can be exchanged for Reserved Instances of the same or higher monetary value, with different configurations. If @standard@ , it is not possible to perform an exchange.
+-- 'marketplace', 'reservedInstancesOffering_marketplace' - Indicates whether the offering is available through the Reserved
+-- Instance Marketplace (resale) or AWS. If it\'s a Reserved Instance
+-- Marketplace offering, this is @true@.
 --
--- * 'rioFixedPrice' - The purchase price of the Reserved Instance.
+-- 'offeringClass', 'reservedInstancesOffering_offeringClass' - If @convertible@ it can be exchanged for Reserved Instances of the same
+-- or higher monetary value, with different configurations. If @standard@,
+-- it is not possible to perform an exchange.
 --
--- * 'rioUsagePrice' - The usage price of the Reserved Instance, per hour.
+-- 'fixedPrice', 'reservedInstancesOffering_fixedPrice' - The purchase price of the Reserved Instance.
 --
--- * 'rioOfferingType' - The Reserved Instance offering type.
+-- 'usagePrice', 'reservedInstancesOffering_usagePrice' - The usage price of the Reserved Instance, per hour.
 --
--- * 'rioRecurringCharges' - The recurring charge tag assigned to the resource.
+-- 'offeringType', 'reservedInstancesOffering_offeringType' - The Reserved Instance offering type.
 --
--- * 'rioProductDescription' - The Reserved Instance product platform description.
+-- 'recurringCharges', 'reservedInstancesOffering_recurringCharges' - The recurring charge tag assigned to the resource.
 --
--- * 'rioPricingDetails' - The pricing details of the Reserved Instance offering.
-reservedInstancesOffering ::
+-- 'productDescription', 'reservedInstancesOffering_productDescription' - The Reserved Instance product platform description.
+--
+-- 'pricingDetails', 'reservedInstancesOffering_pricingDetails' - The pricing details of the Reserved Instance offering.
+newReservedInstancesOffering ::
   ReservedInstancesOffering
-reservedInstancesOffering =
+newReservedInstancesOffering =
   ReservedInstancesOffering'
-    { _rioInstanceType =
-        Nothing,
-      _rioDuration = Nothing,
-      _rioInstanceTenancy = Nothing,
-      _rioReservedInstancesOfferingId = Nothing,
-      _rioCurrencyCode = Nothing,
-      _rioScope = Nothing,
-      _rioAvailabilityZone = Nothing,
-      _rioMarketplace = Nothing,
-      _rioOfferingClass = Nothing,
-      _rioFixedPrice = Nothing,
-      _rioUsagePrice = Nothing,
-      _rioOfferingType = Nothing,
-      _rioRecurringCharges = Nothing,
-      _rioProductDescription = Nothing,
-      _rioPricingDetails = Nothing
+    { instanceType =
+        Prelude.Nothing,
+      duration = Prelude.Nothing,
+      instanceTenancy = Prelude.Nothing,
+      reservedInstancesOfferingId = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      scope = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      marketplace = Prelude.Nothing,
+      offeringClass = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      recurringCharges = Prelude.Nothing,
+      productDescription = Prelude.Nothing,
+      pricingDetails = Prelude.Nothing
     }
 
 -- | The instance type on which the Reserved Instance can be used.
-rioInstanceType :: Lens' ReservedInstancesOffering (Maybe InstanceType)
-rioInstanceType = lens _rioInstanceType (\s a -> s {_rioInstanceType = a})
+reservedInstancesOffering_instanceType :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe InstanceType)
+reservedInstancesOffering_instanceType = Lens.lens (\ReservedInstancesOffering' {instanceType} -> instanceType) (\s@ReservedInstancesOffering' {} a -> s {instanceType = a} :: ReservedInstancesOffering)
 
 -- | The duration of the Reserved Instance, in seconds.
-rioDuration :: Lens' ReservedInstancesOffering (Maybe Integer)
-rioDuration = lens _rioDuration (\s a -> s {_rioDuration = a})
+reservedInstancesOffering_duration :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Prelude.Integer)
+reservedInstancesOffering_duration = Lens.lens (\ReservedInstancesOffering' {duration} -> duration) (\s@ReservedInstancesOffering' {} a -> s {duration = a} :: ReservedInstancesOffering)
 
 -- | The tenancy of the instance.
-rioInstanceTenancy :: Lens' ReservedInstancesOffering (Maybe Tenancy)
-rioInstanceTenancy = lens _rioInstanceTenancy (\s a -> s {_rioInstanceTenancy = a})
+reservedInstancesOffering_instanceTenancy :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Tenancy)
+reservedInstancesOffering_instanceTenancy = Lens.lens (\ReservedInstancesOffering' {instanceTenancy} -> instanceTenancy) (\s@ReservedInstancesOffering' {} a -> s {instanceTenancy = a} :: ReservedInstancesOffering)
 
--- | The ID of the Reserved Instance offering. This is the offering ID used in 'GetReservedInstancesExchangeQuote' to confirm that an exchange can be made.
-rioReservedInstancesOfferingId :: Lens' ReservedInstancesOffering (Maybe Text)
-rioReservedInstancesOfferingId = lens _rioReservedInstancesOfferingId (\s a -> s {_rioReservedInstancesOfferingId = a})
+-- | The ID of the Reserved Instance offering. This is the offering ID used
+-- in GetReservedInstancesExchangeQuote to confirm that an exchange can be
+-- made.
+reservedInstancesOffering_reservedInstancesOfferingId :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Prelude.Text)
+reservedInstancesOffering_reservedInstancesOfferingId = Lens.lens (\ReservedInstancesOffering' {reservedInstancesOfferingId} -> reservedInstancesOfferingId) (\s@ReservedInstancesOffering' {} a -> s {reservedInstancesOfferingId = a} :: ReservedInstancesOffering)
 
--- | The currency of the Reserved Instance offering you are purchasing. It's specified using ISO 4217 standard currency codes. At this time, the only supported currency is @USD@ .
-rioCurrencyCode :: Lens' ReservedInstancesOffering (Maybe CurrencyCodeValues)
-rioCurrencyCode = lens _rioCurrencyCode (\s a -> s {_rioCurrencyCode = a})
+-- | The currency of the Reserved Instance offering you are purchasing. It\'s
+-- specified using ISO 4217 standard currency codes. At this time, the only
+-- supported currency is @USD@.
+reservedInstancesOffering_currencyCode :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe CurrencyCodeValues)
+reservedInstancesOffering_currencyCode = Lens.lens (\ReservedInstancesOffering' {currencyCode} -> currencyCode) (\s@ReservedInstancesOffering' {} a -> s {currencyCode = a} :: ReservedInstancesOffering)
 
--- | Whether the Reserved Instance is applied to instances in a Region or an Availability Zone.
-rioScope :: Lens' ReservedInstancesOffering (Maybe Scope)
-rioScope = lens _rioScope (\s a -> s {_rioScope = a})
+-- | Whether the Reserved Instance is applied to instances in a Region or an
+-- Availability Zone.
+reservedInstancesOffering_scope :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Scope)
+reservedInstancesOffering_scope = Lens.lens (\ReservedInstancesOffering' {scope} -> scope) (\s@ReservedInstancesOffering' {} a -> s {scope = a} :: ReservedInstancesOffering)
 
 -- | The Availability Zone in which the Reserved Instance can be used.
-rioAvailabilityZone :: Lens' ReservedInstancesOffering (Maybe Text)
-rioAvailabilityZone = lens _rioAvailabilityZone (\s a -> s {_rioAvailabilityZone = a})
+reservedInstancesOffering_availabilityZone :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Prelude.Text)
+reservedInstancesOffering_availabilityZone = Lens.lens (\ReservedInstancesOffering' {availabilityZone} -> availabilityZone) (\s@ReservedInstancesOffering' {} a -> s {availabilityZone = a} :: ReservedInstancesOffering)
 
--- | Indicates whether the offering is available through the Reserved Instance Marketplace (resale) or AWS. If it's a Reserved Instance Marketplace offering, this is @true@ .
-rioMarketplace :: Lens' ReservedInstancesOffering (Maybe Bool)
-rioMarketplace = lens _rioMarketplace (\s a -> s {_rioMarketplace = a})
+-- | Indicates whether the offering is available through the Reserved
+-- Instance Marketplace (resale) or AWS. If it\'s a Reserved Instance
+-- Marketplace offering, this is @true@.
+reservedInstancesOffering_marketplace :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Prelude.Bool)
+reservedInstancesOffering_marketplace = Lens.lens (\ReservedInstancesOffering' {marketplace} -> marketplace) (\s@ReservedInstancesOffering' {} a -> s {marketplace = a} :: ReservedInstancesOffering)
 
--- | If @convertible@ it can be exchanged for Reserved Instances of the same or higher monetary value, with different configurations. If @standard@ , it is not possible to perform an exchange.
-rioOfferingClass :: Lens' ReservedInstancesOffering (Maybe OfferingClassType)
-rioOfferingClass = lens _rioOfferingClass (\s a -> s {_rioOfferingClass = a})
+-- | If @convertible@ it can be exchanged for Reserved Instances of the same
+-- or higher monetary value, with different configurations. If @standard@,
+-- it is not possible to perform an exchange.
+reservedInstancesOffering_offeringClass :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe OfferingClassType)
+reservedInstancesOffering_offeringClass = Lens.lens (\ReservedInstancesOffering' {offeringClass} -> offeringClass) (\s@ReservedInstancesOffering' {} a -> s {offeringClass = a} :: ReservedInstancesOffering)
 
 -- | The purchase price of the Reserved Instance.
-rioFixedPrice :: Lens' ReservedInstancesOffering (Maybe Double)
-rioFixedPrice = lens _rioFixedPrice (\s a -> s {_rioFixedPrice = a})
+reservedInstancesOffering_fixedPrice :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Prelude.Double)
+reservedInstancesOffering_fixedPrice = Lens.lens (\ReservedInstancesOffering' {fixedPrice} -> fixedPrice) (\s@ReservedInstancesOffering' {} a -> s {fixedPrice = a} :: ReservedInstancesOffering)
 
 -- | The usage price of the Reserved Instance, per hour.
-rioUsagePrice :: Lens' ReservedInstancesOffering (Maybe Double)
-rioUsagePrice = lens _rioUsagePrice (\s a -> s {_rioUsagePrice = a})
+reservedInstancesOffering_usagePrice :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe Prelude.Double)
+reservedInstancesOffering_usagePrice = Lens.lens (\ReservedInstancesOffering' {usagePrice} -> usagePrice) (\s@ReservedInstancesOffering' {} a -> s {usagePrice = a} :: ReservedInstancesOffering)
 
 -- | The Reserved Instance offering type.
-rioOfferingType :: Lens' ReservedInstancesOffering (Maybe OfferingTypeValues)
-rioOfferingType = lens _rioOfferingType (\s a -> s {_rioOfferingType = a})
+reservedInstancesOffering_offeringType :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe OfferingTypeValues)
+reservedInstancesOffering_offeringType = Lens.lens (\ReservedInstancesOffering' {offeringType} -> offeringType) (\s@ReservedInstancesOffering' {} a -> s {offeringType = a} :: ReservedInstancesOffering)
 
 -- | The recurring charge tag assigned to the resource.
-rioRecurringCharges :: Lens' ReservedInstancesOffering [RecurringCharge]
-rioRecurringCharges = lens _rioRecurringCharges (\s a -> s {_rioRecurringCharges = a}) . _Default . _Coerce
+reservedInstancesOffering_recurringCharges :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe [RecurringCharge])
+reservedInstancesOffering_recurringCharges = Lens.lens (\ReservedInstancesOffering' {recurringCharges} -> recurringCharges) (\s@ReservedInstancesOffering' {} a -> s {recurringCharges = a} :: ReservedInstancesOffering) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Reserved Instance product platform description.
-rioProductDescription :: Lens' ReservedInstancesOffering (Maybe RIProductDescription)
-rioProductDescription = lens _rioProductDescription (\s a -> s {_rioProductDescription = a})
+reservedInstancesOffering_productDescription :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe RIProductDescription)
+reservedInstancesOffering_productDescription = Lens.lens (\ReservedInstancesOffering' {productDescription} -> productDescription) (\s@ReservedInstancesOffering' {} a -> s {productDescription = a} :: ReservedInstancesOffering)
 
 -- | The pricing details of the Reserved Instance offering.
-rioPricingDetails :: Lens' ReservedInstancesOffering [PricingDetail]
-rioPricingDetails = lens _rioPricingDetails (\s a -> s {_rioPricingDetails = a}) . _Default . _Coerce
+reservedInstancesOffering_pricingDetails :: Lens.Lens' ReservedInstancesOffering (Prelude.Maybe [PricingDetail])
+reservedInstancesOffering_pricingDetails = Lens.lens (\ReservedInstancesOffering' {pricingDetails} -> pricingDetails) (\s@ReservedInstancesOffering' {} a -> s {pricingDetails = a} :: ReservedInstancesOffering) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML ReservedInstancesOffering where
+instance Prelude.FromXML ReservedInstancesOffering where
   parseXML x =
     ReservedInstancesOffering'
-      <$> (x .@? "instanceType")
-      <*> (x .@? "duration")
-      <*> (x .@? "instanceTenancy")
-      <*> (x .@? "reservedInstancesOfferingId")
-      <*> (x .@? "currencyCode")
-      <*> (x .@? "scope")
-      <*> (x .@? "availabilityZone")
-      <*> (x .@? "marketplace")
-      <*> (x .@? "offeringClass")
-      <*> (x .@? "fixedPrice")
-      <*> (x .@? "usagePrice")
-      <*> (x .@? "offeringType")
-      <*> ( x .@? "recurringCharges" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
-      <*> (x .@? "productDescription")
-      <*> ( x .@? "pricingDetailsSet" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "instanceType")
+      Prelude.<*> (x Prelude..@? "duration")
+      Prelude.<*> (x Prelude..@? "instanceTenancy")
+      Prelude.<*> (x Prelude..@? "reservedInstancesOfferingId")
+      Prelude.<*> (x Prelude..@? "currencyCode")
+      Prelude.<*> (x Prelude..@? "scope")
+      Prelude.<*> (x Prelude..@? "availabilityZone")
+      Prelude.<*> (x Prelude..@? "marketplace")
+      Prelude.<*> (x Prelude..@? "offeringClass")
+      Prelude.<*> (x Prelude..@? "fixedPrice")
+      Prelude.<*> (x Prelude..@? "usagePrice")
+      Prelude.<*> (x Prelude..@? "offeringType")
+      Prelude.<*> ( x Prelude..@? "recurringCharges"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
+      Prelude.<*> (x Prelude..@? "productDescription")
+      Prelude.<*> ( x Prelude..@? "pricingDetailsSet"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable ReservedInstancesOffering
+instance Prelude.Hashable ReservedInstancesOffering
 
-instance NFData ReservedInstancesOffering
+instance Prelude.NFData ReservedInstancesOffering

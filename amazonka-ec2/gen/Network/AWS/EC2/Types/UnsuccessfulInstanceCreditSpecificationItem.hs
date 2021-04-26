@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +21,65 @@ module Network.AWS.EC2.Types.UnsuccessfulInstanceCreditSpecificationItem where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.UnsuccessfulInstanceCreditSpecificationItemError
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the burstable performance instance whose credit option for CPU usage was not modified.
+-- | Describes the burstable performance instance whose credit option for CPU
+-- usage was not modified.
 --
---
---
--- /See:/ 'unsuccessfulInstanceCreditSpecificationItem' smart constructor.
+-- /See:/ 'newUnsuccessfulInstanceCreditSpecificationItem' smart constructor.
 data UnsuccessfulInstanceCreditSpecificationItem = UnsuccessfulInstanceCreditSpecificationItem'
-  { _uicsiInstanceId ::
-      !( Maybe
-           Text
-       ),
-    _uicsiError ::
-      !( Maybe
-           UnsuccessfulInstanceCreditSpecificationItemError
-       )
+  { -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The applicable error for the burstable performance instance whose credit
+    -- option for CPU usage was not modified.
+    error :: Prelude.Maybe UnsuccessfulInstanceCreditSpecificationItemError
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnsuccessfulInstanceCreditSpecificationItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnsuccessfulInstanceCreditSpecificationItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uicsiInstanceId' - The ID of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uicsiError' - The applicable error for the burstable performance instance whose credit option for CPU usage was not modified.
-unsuccessfulInstanceCreditSpecificationItem ::
+-- 'instanceId', 'unsuccessfulInstanceCreditSpecificationItem_instanceId' - The ID of the instance.
+--
+-- 'error', 'unsuccessfulInstanceCreditSpecificationItem_error' - The applicable error for the burstable performance instance whose credit
+-- option for CPU usage was not modified.
+newUnsuccessfulInstanceCreditSpecificationItem ::
   UnsuccessfulInstanceCreditSpecificationItem
-unsuccessfulInstanceCreditSpecificationItem =
+newUnsuccessfulInstanceCreditSpecificationItem =
   UnsuccessfulInstanceCreditSpecificationItem'
-    { _uicsiInstanceId =
-        Nothing,
-      _uicsiError = Nothing
+    { instanceId =
+        Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | The ID of the instance.
-uicsiInstanceId :: Lens' UnsuccessfulInstanceCreditSpecificationItem (Maybe Text)
-uicsiInstanceId = lens _uicsiInstanceId (\s a -> s {_uicsiInstanceId = a})
+unsuccessfulInstanceCreditSpecificationItem_instanceId :: Lens.Lens' UnsuccessfulInstanceCreditSpecificationItem (Prelude.Maybe Prelude.Text)
+unsuccessfulInstanceCreditSpecificationItem_instanceId = Lens.lens (\UnsuccessfulInstanceCreditSpecificationItem' {instanceId} -> instanceId) (\s@UnsuccessfulInstanceCreditSpecificationItem' {} a -> s {instanceId = a} :: UnsuccessfulInstanceCreditSpecificationItem)
 
--- | The applicable error for the burstable performance instance whose credit option for CPU usage was not modified.
-uicsiError :: Lens' UnsuccessfulInstanceCreditSpecificationItem (Maybe UnsuccessfulInstanceCreditSpecificationItemError)
-uicsiError = lens _uicsiError (\s a -> s {_uicsiError = a})
+-- | The applicable error for the burstable performance instance whose credit
+-- option for CPU usage was not modified.
+unsuccessfulInstanceCreditSpecificationItem_error :: Lens.Lens' UnsuccessfulInstanceCreditSpecificationItem (Prelude.Maybe UnsuccessfulInstanceCreditSpecificationItemError)
+unsuccessfulInstanceCreditSpecificationItem_error = Lens.lens (\UnsuccessfulInstanceCreditSpecificationItem' {error} -> error) (\s@UnsuccessfulInstanceCreditSpecificationItem' {} a -> s {error = a} :: UnsuccessfulInstanceCreditSpecificationItem)
 
 instance
-  FromXML
+  Prelude.FromXML
     UnsuccessfulInstanceCreditSpecificationItem
   where
   parseXML x =
     UnsuccessfulInstanceCreditSpecificationItem'
-      <$> (x .@? "instanceId") <*> (x .@? "error")
+      Prelude.<$> (x Prelude..@? "instanceId")
+        Prelude.<*> (x Prelude..@? "error")
 
 instance
-  Hashable
+  Prelude.Hashable
     UnsuccessfulInstanceCreditSpecificationItem
 
 instance
-  NFData
+  Prelude.NFData
     UnsuccessfulInstanceCreditSpecificationItem

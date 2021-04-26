@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.EC2.Types.FastSnapshotRestoreStateCode
   ( FastSnapshotRestoreStateCode
       ( ..,
-        FSRSCDisabled,
-        FSRSCDisabling,
-        FSRSCEnabled,
-        FSRSCEnabling,
-        FSRSCOptimizing
+        FastSnapshotRestoreStateCodeDisabled,
+        FastSnapshotRestoreStateCodeDisabling,
+        FastSnapshotRestoreStateCodeEnabled,
+        FastSnapshotRestoreStateCodeEnabling,
+        FastSnapshotRestoreStateCodeOptimizing
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FastSnapshotRestoreStateCode
-  = FastSnapshotRestoreStateCode'
-      ( CI
-          Text
-      )
+newtype FastSnapshotRestoreStateCode = FastSnapshotRestoreStateCode'
+  { fromFastSnapshotRestoreStateCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FSRSCDisabled :: FastSnapshotRestoreStateCode
-pattern FSRSCDisabled = FastSnapshotRestoreStateCode' "disabled"
+pattern FastSnapshotRestoreStateCodeDisabled :: FastSnapshotRestoreStateCode
+pattern FastSnapshotRestoreStateCodeDisabled = FastSnapshotRestoreStateCode' "disabled"
 
-pattern FSRSCDisabling :: FastSnapshotRestoreStateCode
-pattern FSRSCDisabling = FastSnapshotRestoreStateCode' "disabling"
+pattern FastSnapshotRestoreStateCodeDisabling :: FastSnapshotRestoreStateCode
+pattern FastSnapshotRestoreStateCodeDisabling = FastSnapshotRestoreStateCode' "disabling"
 
-pattern FSRSCEnabled :: FastSnapshotRestoreStateCode
-pattern FSRSCEnabled = FastSnapshotRestoreStateCode' "enabled"
+pattern FastSnapshotRestoreStateCodeEnabled :: FastSnapshotRestoreStateCode
+pattern FastSnapshotRestoreStateCodeEnabled = FastSnapshotRestoreStateCode' "enabled"
 
-pattern FSRSCEnabling :: FastSnapshotRestoreStateCode
-pattern FSRSCEnabling = FastSnapshotRestoreStateCode' "enabling"
+pattern FastSnapshotRestoreStateCodeEnabling :: FastSnapshotRestoreStateCode
+pattern FastSnapshotRestoreStateCodeEnabling = FastSnapshotRestoreStateCode' "enabling"
 
-pattern FSRSCOptimizing :: FastSnapshotRestoreStateCode
-pattern FSRSCOptimizing = FastSnapshotRestoreStateCode' "optimizing"
+pattern FastSnapshotRestoreStateCodeOptimizing :: FastSnapshotRestoreStateCode
+pattern FastSnapshotRestoreStateCodeOptimizing = FastSnapshotRestoreStateCode' "optimizing"
 
 {-# COMPLETE
-  FSRSCDisabled,
-  FSRSCDisabling,
-  FSRSCEnabled,
-  FSRSCEnabling,
-  FSRSCOptimizing,
+  FastSnapshotRestoreStateCodeDisabled,
+  FastSnapshotRestoreStateCodeDisabling,
+  FastSnapshotRestoreStateCodeEnabled,
+  FastSnapshotRestoreStateCodeEnabling,
+  FastSnapshotRestoreStateCodeOptimizing,
   FastSnapshotRestoreStateCode'
   #-}
 
-instance FromText FastSnapshotRestoreStateCode where
-  parser = (FastSnapshotRestoreStateCode' . mk) <$> takeText
+instance Prelude.FromText FastSnapshotRestoreStateCode where
+  parser = FastSnapshotRestoreStateCode' Prelude.<$> Prelude.takeText
 
-instance ToText FastSnapshotRestoreStateCode where
-  toText (FastSnapshotRestoreStateCode' ci) = original ci
+instance Prelude.ToText FastSnapshotRestoreStateCode where
+  toText (FastSnapshotRestoreStateCode' x) = x
 
-instance Hashable FastSnapshotRestoreStateCode
+instance Prelude.Hashable FastSnapshotRestoreStateCode
 
-instance NFData FastSnapshotRestoreStateCode
+instance Prelude.NFData FastSnapshotRestoreStateCode
 
-instance ToByteString FastSnapshotRestoreStateCode
+instance Prelude.ToByteString FastSnapshotRestoreStateCode
 
-instance ToQuery FastSnapshotRestoreStateCode
+instance Prelude.ToQuery FastSnapshotRestoreStateCode
 
-instance ToHeader FastSnapshotRestoreStateCode
+instance Prelude.ToHeader FastSnapshotRestoreStateCode
 
-instance FromXML FastSnapshotRestoreStateCode where
-  parseXML = parseXMLText "FastSnapshotRestoreStateCode"
+instance Prelude.FromXML FastSnapshotRestoreStateCode where
+  parseXML = Prelude.parseXMLText "FastSnapshotRestoreStateCode"

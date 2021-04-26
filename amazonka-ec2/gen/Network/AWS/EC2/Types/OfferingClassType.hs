@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.EC2.Types.OfferingClassType
   ( OfferingClassType
       ( ..,
-        OCTConvertible,
-        OCTStandard
+        OfferingClassTypeConvertible,
+        OfferingClassTypeStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OfferingClassType = OfferingClassType' (CI Text)
+newtype OfferingClassType = OfferingClassType'
+  { fromOfferingClassType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OCTConvertible :: OfferingClassType
-pattern OCTConvertible = OfferingClassType' "convertible"
+pattern OfferingClassTypeConvertible :: OfferingClassType
+pattern OfferingClassTypeConvertible = OfferingClassType' "convertible"
 
-pattern OCTStandard :: OfferingClassType
-pattern OCTStandard = OfferingClassType' "standard"
+pattern OfferingClassTypeStandard :: OfferingClassType
+pattern OfferingClassTypeStandard = OfferingClassType' "standard"
 
 {-# COMPLETE
-  OCTConvertible,
-  OCTStandard,
+  OfferingClassTypeConvertible,
+  OfferingClassTypeStandard,
   OfferingClassType'
   #-}
 
-instance FromText OfferingClassType where
-  parser = (OfferingClassType' . mk) <$> takeText
+instance Prelude.FromText OfferingClassType where
+  parser = OfferingClassType' Prelude.<$> Prelude.takeText
 
-instance ToText OfferingClassType where
-  toText (OfferingClassType' ci) = original ci
+instance Prelude.ToText OfferingClassType where
+  toText (OfferingClassType' x) = x
 
-instance Hashable OfferingClassType
+instance Prelude.Hashable OfferingClassType
 
-instance NFData OfferingClassType
+instance Prelude.NFData OfferingClassType
 
-instance ToByteString OfferingClassType
+instance Prelude.ToByteString OfferingClassType
 
-instance ToQuery OfferingClassType
+instance Prelude.ToQuery OfferingClassType
 
-instance ToHeader OfferingClassType
+instance Prelude.ToHeader OfferingClassType
 
-instance FromXML OfferingClassType where
-  parseXML = parseXMLText "OfferingClassType"
+instance Prelude.FromXML OfferingClassType where
+  parseXML = Prelude.parseXMLText "OfferingClassType"

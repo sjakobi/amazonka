@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,211 +21,241 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the attributes of the specified Elastic IP addresses. For requirements, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#Using_Elastic_Addressing_Reverse_DNS Using reverse DNS for email applications> .
---
---
+-- Describes the attributes of the specified Elastic IP addresses. For
+-- requirements, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#Using_Elastic_Addressing_Reverse_DNS Using reverse DNS for email applications>.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.DescribeAddressesAttribute
   ( -- * Creating a Request
-    describeAddressesAttribute,
-    DescribeAddressesAttribute,
+    DescribeAddressesAttribute (..),
+    newDescribeAddressesAttribute,
 
     -- * Request Lenses
-    daaaNextToken,
-    daaaDryRun,
-    daaaMaxResults,
-    daaaAttribute,
-    daaaAllocationIds,
+    describeAddressesAttribute_nextToken,
+    describeAddressesAttribute_dryRun,
+    describeAddressesAttribute_maxResults,
+    describeAddressesAttribute_attribute,
+    describeAddressesAttribute_allocationIds,
 
     -- * Destructuring the Response
-    describeAddressesAttributeResponse,
-    DescribeAddressesAttributeResponse,
+    DescribeAddressesAttributeResponse (..),
+    newDescribeAddressesAttributeResponse,
 
     -- * Response Lenses
-    daararsNextToken,
-    daararsAddresses,
-    daararsResponseStatus,
+    describeAddressesAttributeResponse_nextToken,
+    describeAddressesAttributeResponse_addresses,
+    describeAddressesAttributeResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.AddressAttribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAddressesAttribute' smart constructor.
+-- | /See:/ 'newDescribeAddressesAttribute' smart constructor.
 data DescribeAddressesAttribute = DescribeAddressesAttribute'
-  { _daaaNextToken ::
-      !(Maybe Text),
-    _daaaDryRun ::
-      !(Maybe Bool),
-    _daaaMaxResults ::
-      !(Maybe Nat),
-    _daaaAttribute ::
-      !( Maybe
-           AddressAttributeName
-       ),
-    _daaaAllocationIds ::
-      !(Maybe [Text])
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The attribute of the IP address.
+    attribute :: Prelude.Maybe AddressAttributeName,
+    -- | [EC2-VPC] The allocation IDs.
+    allocationIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAddressesAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAddressesAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daaaNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daaaDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'describeAddressesAttribute_nextToken' - The token for the next page of results.
 --
--- * 'daaaMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'dryRun', 'describeAddressesAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'daaaAttribute' - The attribute of the IP address.
+-- 'maxResults', 'describeAddressesAttribute_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
 --
--- * 'daaaAllocationIds' - [EC2-VPC] The allocation IDs.
-describeAddressesAttribute ::
+-- 'attribute', 'describeAddressesAttribute_attribute' - The attribute of the IP address.
+--
+-- 'allocationIds', 'describeAddressesAttribute_allocationIds' - [EC2-VPC] The allocation IDs.
+newDescribeAddressesAttribute ::
   DescribeAddressesAttribute
-describeAddressesAttribute =
+newDescribeAddressesAttribute =
   DescribeAddressesAttribute'
-    { _daaaNextToken =
-        Nothing,
-      _daaaDryRun = Nothing,
-      _daaaMaxResults = Nothing,
-      _daaaAttribute = Nothing,
-      _daaaAllocationIds = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      attribute = Prelude.Nothing,
+      allocationIds = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-daaaNextToken :: Lens' DescribeAddressesAttribute (Maybe Text)
-daaaNextToken = lens _daaaNextToken (\s a -> s {_daaaNextToken = a})
+describeAddressesAttribute_nextToken :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe Prelude.Text)
+describeAddressesAttribute_nextToken = Lens.lens (\DescribeAddressesAttribute' {nextToken} -> nextToken) (\s@DescribeAddressesAttribute' {} a -> s {nextToken = a} :: DescribeAddressesAttribute)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-daaaDryRun :: Lens' DescribeAddressesAttribute (Maybe Bool)
-daaaDryRun = lens _daaaDryRun (\s a -> s {_daaaDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeAddressesAttribute_dryRun :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe Prelude.Bool)
+describeAddressesAttribute_dryRun = Lens.lens (\DescribeAddressesAttribute' {dryRun} -> dryRun) (\s@DescribeAddressesAttribute' {} a -> s {dryRun = a} :: DescribeAddressesAttribute)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-daaaMaxResults :: Lens' DescribeAddressesAttribute (Maybe Natural)
-daaaMaxResults = lens _daaaMaxResults (\s a -> s {_daaaMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeAddressesAttribute_maxResults :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe Prelude.Natural)
+describeAddressesAttribute_maxResults = Lens.lens (\DescribeAddressesAttribute' {maxResults} -> maxResults) (\s@DescribeAddressesAttribute' {} a -> s {maxResults = a} :: DescribeAddressesAttribute) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The attribute of the IP address.
-daaaAttribute :: Lens' DescribeAddressesAttribute (Maybe AddressAttributeName)
-daaaAttribute = lens _daaaAttribute (\s a -> s {_daaaAttribute = a})
+describeAddressesAttribute_attribute :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe AddressAttributeName)
+describeAddressesAttribute_attribute = Lens.lens (\DescribeAddressesAttribute' {attribute} -> attribute) (\s@DescribeAddressesAttribute' {} a -> s {attribute = a} :: DescribeAddressesAttribute)
 
 -- | [EC2-VPC] The allocation IDs.
-daaaAllocationIds :: Lens' DescribeAddressesAttribute [Text]
-daaaAllocationIds = lens _daaaAllocationIds (\s a -> s {_daaaAllocationIds = a}) . _Default . _Coerce
+describeAddressesAttribute_allocationIds :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe [Prelude.Text])
+describeAddressesAttribute_allocationIds = Lens.lens (\DescribeAddressesAttribute' {allocationIds} -> allocationIds) (\s@DescribeAddressesAttribute' {} a -> s {allocationIds = a} :: DescribeAddressesAttribute) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeAddressesAttribute where
+instance Pager.AWSPager DescribeAddressesAttribute where
   page rq rs
-    | stop (rs ^. daararsNextToken) = Nothing
-    | stop (rs ^. daararsAddresses) = Nothing
-    | otherwise =
-      Just $ rq & daaaNextToken .~ rs ^. daararsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeAddressesAttributeResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeAddressesAttributeResponse_addresses
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeAddressesAttribute_nextToken
+          Lens..~ rs
+          Lens.^? describeAddressesAttributeResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeAddressesAttribute where
+instance
+  Prelude.AWSRequest
+    DescribeAddressesAttribute
+  where
   type
     Rs DescribeAddressesAttribute =
       DescribeAddressesAttributeResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           DescribeAddressesAttributeResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "addressSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "addressSet"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAddressesAttribute
+instance Prelude.Hashable DescribeAddressesAttribute
 
-instance NFData DescribeAddressesAttribute
+instance Prelude.NFData DescribeAddressesAttribute
 
-instance ToHeaders DescribeAddressesAttribute where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAddressesAttribute where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAddressesAttribute where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAddressesAttribute where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAddressesAttribute where
+instance Prelude.ToQuery DescribeAddressesAttribute where
   toQuery DescribeAddressesAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeAddressesAttribute" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _daaaNextToken,
-        "DryRun" =: _daaaDryRun,
-        "MaxResults" =: _daaaMaxResults,
-        "Attribute" =: _daaaAttribute,
-        toQuery
-          (toQueryList "AllocationId" <$> _daaaAllocationIds)
+          Prelude.=: ("DescribeAddressesAttribute" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "MaxResults" Prelude.=: maxResults,
+        "Attribute" Prelude.=: attribute,
+        Prelude.toQuery
+          ( Prelude.toQueryList "AllocationId"
+              Prelude.<$> allocationIds
+          )
       ]
 
--- | /See:/ 'describeAddressesAttributeResponse' smart constructor.
+-- | /See:/ 'newDescribeAddressesAttributeResponse' smart constructor.
 data DescribeAddressesAttributeResponse = DescribeAddressesAttributeResponse'
-  { _daararsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _daararsAddresses ::
-      !( Maybe
-           [AddressAttribute]
-       ),
-    _daararsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the IP addresses.
+    addresses :: Prelude.Maybe [AddressAttribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAddressesAttributeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAddressesAttributeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daararsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daararsAddresses' - Information about the IP addresses.
+-- 'nextToken', 'describeAddressesAttributeResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'daararsResponseStatus' - -- | The response status code.
-describeAddressesAttributeResponse ::
-  -- | 'daararsResponseStatus'
-  Int ->
+-- 'addresses', 'describeAddressesAttributeResponse_addresses' - Information about the IP addresses.
+--
+-- 'httpStatus', 'describeAddressesAttributeResponse_httpStatus' - The response's http status code.
+newDescribeAddressesAttributeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAddressesAttributeResponse
-describeAddressesAttributeResponse pResponseStatus_ =
+newDescribeAddressesAttributeResponse pHttpStatus_ =
   DescribeAddressesAttributeResponse'
-    { _daararsNextToken =
-        Nothing,
-      _daararsAddresses = Nothing,
-      _daararsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      addresses = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-daararsNextToken :: Lens' DescribeAddressesAttributeResponse (Maybe Text)
-daararsNextToken = lens _daararsNextToken (\s a -> s {_daararsNextToken = a})
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeAddressesAttributeResponse_nextToken :: Lens.Lens' DescribeAddressesAttributeResponse (Prelude.Maybe Prelude.Text)
+describeAddressesAttributeResponse_nextToken = Lens.lens (\DescribeAddressesAttributeResponse' {nextToken} -> nextToken) (\s@DescribeAddressesAttributeResponse' {} a -> s {nextToken = a} :: DescribeAddressesAttributeResponse)
 
 -- | Information about the IP addresses.
-daararsAddresses :: Lens' DescribeAddressesAttributeResponse [AddressAttribute]
-daararsAddresses = lens _daararsAddresses (\s a -> s {_daararsAddresses = a}) . _Default . _Coerce
+describeAddressesAttributeResponse_addresses :: Lens.Lens' DescribeAddressesAttributeResponse (Prelude.Maybe [AddressAttribute])
+describeAddressesAttributeResponse_addresses = Lens.lens (\DescribeAddressesAttributeResponse' {addresses} -> addresses) (\s@DescribeAddressesAttributeResponse' {} a -> s {addresses = a} :: DescribeAddressesAttributeResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-daararsResponseStatus :: Lens' DescribeAddressesAttributeResponse Int
-daararsResponseStatus = lens _daararsResponseStatus (\s a -> s {_daararsResponseStatus = a})
+-- | The response's http status code.
+describeAddressesAttributeResponse_httpStatus :: Lens.Lens' DescribeAddressesAttributeResponse Prelude.Int
+describeAddressesAttributeResponse_httpStatus = Lens.lens (\DescribeAddressesAttributeResponse' {httpStatus} -> httpStatus) (\s@DescribeAddressesAttributeResponse' {} a -> s {httpStatus = a} :: DescribeAddressesAttributeResponse)
 
-instance NFData DescribeAddressesAttributeResponse
+instance
+  Prelude.NFData
+    DescribeAddressesAttributeResponse

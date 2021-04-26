@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +21,64 @@ module Network.AWS.EC2.Types.ClientCertificateRevocationListStatus where
 
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.ClientCertificateRevocationListStatusCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the state of a client certificate revocation list.
 --
---
---
--- /See:/ 'clientCertificateRevocationListStatus' smart constructor.
+-- /See:/ 'newClientCertificateRevocationListStatus' smart constructor.
 data ClientCertificateRevocationListStatus = ClientCertificateRevocationListStatus'
-  { _ccrlsMessage ::
-      !( Maybe
-           Text
-       ),
-    _ccrlsCode ::
-      !( Maybe
-           ClientCertificateRevocationListStatusCode
-       )
+  { -- | A message about the status of the client certificate revocation list, if
+    -- applicable.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The state of the client certificate revocation list.
+    code :: Prelude.Maybe ClientCertificateRevocationListStatusCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClientCertificateRevocationListStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClientCertificateRevocationListStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrlsMessage' - A message about the status of the client certificate revocation list, if applicable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrlsCode' - The state of the client certificate revocation list.
-clientCertificateRevocationListStatus ::
+-- 'message', 'clientCertificateRevocationListStatus_message' - A message about the status of the client certificate revocation list, if
+-- applicable.
+--
+-- 'code', 'clientCertificateRevocationListStatus_code' - The state of the client certificate revocation list.
+newClientCertificateRevocationListStatus ::
   ClientCertificateRevocationListStatus
-clientCertificateRevocationListStatus =
+newClientCertificateRevocationListStatus =
   ClientCertificateRevocationListStatus'
-    { _ccrlsMessage =
-        Nothing,
-      _ccrlsCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
--- | A message about the status of the client certificate revocation list, if applicable.
-ccrlsMessage :: Lens' ClientCertificateRevocationListStatus (Maybe Text)
-ccrlsMessage = lens _ccrlsMessage (\s a -> s {_ccrlsMessage = a})
+-- | A message about the status of the client certificate revocation list, if
+-- applicable.
+clientCertificateRevocationListStatus_message :: Lens.Lens' ClientCertificateRevocationListStatus (Prelude.Maybe Prelude.Text)
+clientCertificateRevocationListStatus_message = Lens.lens (\ClientCertificateRevocationListStatus' {message} -> message) (\s@ClientCertificateRevocationListStatus' {} a -> s {message = a} :: ClientCertificateRevocationListStatus)
 
 -- | The state of the client certificate revocation list.
-ccrlsCode :: Lens' ClientCertificateRevocationListStatus (Maybe ClientCertificateRevocationListStatusCode)
-ccrlsCode = lens _ccrlsCode (\s a -> s {_ccrlsCode = a})
+clientCertificateRevocationListStatus_code :: Lens.Lens' ClientCertificateRevocationListStatus (Prelude.Maybe ClientCertificateRevocationListStatusCode)
+clientCertificateRevocationListStatus_code = Lens.lens (\ClientCertificateRevocationListStatus' {code} -> code) (\s@ClientCertificateRevocationListStatus' {} a -> s {code = a} :: ClientCertificateRevocationListStatus)
 
 instance
-  FromXML
+  Prelude.FromXML
     ClientCertificateRevocationListStatus
   where
   parseXML x =
     ClientCertificateRevocationListStatus'
-      <$> (x .@? "message") <*> (x .@? "code")
+      Prelude.<$> (x Prelude..@? "message")
+      Prelude.<*> (x Prelude..@? "code")
 
 instance
-  Hashable
+  Prelude.Hashable
     ClientCertificateRevocationListStatus
 
-instance NFData ClientCertificateRevocationListStatus
+instance
+  Prelude.NFData
+    ClientCertificateRevocationListStatus

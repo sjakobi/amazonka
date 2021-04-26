@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,45 +20,41 @@
 module Network.AWS.EC2.Types.IKEVersionsListValue where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The internet key exchange (IKE) version permitted for the VPN tunnel.
 --
---
---
--- /See:/ 'iKEVersionsListValue' smart constructor.
-newtype IKEVersionsListValue = IKEVersionsListValue'
-  { _ikevlvValue ::
-      Maybe Text
+-- /See:/ 'newIKEVersionsListValue' smart constructor.
+data IKEVersionsListValue = IKEVersionsListValue'
+  { -- | The IKE version.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IKEVersionsListValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IKEVersionsListValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ikevlvValue' - The IKE version.
-iKEVersionsListValue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'value', 'iKEVersionsListValue_value' - The IKE version.
+newIKEVersionsListValue ::
   IKEVersionsListValue
-iKEVersionsListValue =
-  IKEVersionsListValue' {_ikevlvValue = Nothing}
+newIKEVersionsListValue =
+  IKEVersionsListValue' {value = Prelude.Nothing}
 
 -- | The IKE version.
-ikevlvValue :: Lens' IKEVersionsListValue (Maybe Text)
-ikevlvValue = lens _ikevlvValue (\s a -> s {_ikevlvValue = a})
+iKEVersionsListValue_value :: Lens.Lens' IKEVersionsListValue (Prelude.Maybe Prelude.Text)
+iKEVersionsListValue_value = Lens.lens (\IKEVersionsListValue' {value} -> value) (\s@IKEVersionsListValue' {} a -> s {value = a} :: IKEVersionsListValue)
 
-instance FromXML IKEVersionsListValue where
+instance Prelude.FromXML IKEVersionsListValue where
   parseXML x =
-    IKEVersionsListValue' <$> (x .@? "value")
+    IKEVersionsListValue'
+      Prelude.<$> (x Prelude..@? "value")
 
-instance Hashable IKEVersionsListValue
+instance Prelude.Hashable IKEVersionsListValue
 
-instance NFData IKEVersionsListValue
+instance Prelude.NFData IKEVersionsListValue

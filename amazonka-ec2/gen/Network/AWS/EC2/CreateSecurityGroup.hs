@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,198 +23,272 @@
 --
 -- Creates a security group.
 --
+-- A security group acts as a virtual firewall for your instance to control
+-- inbound and outbound traffic. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html Amazon EC2 Security Groups>
+-- in the /Amazon Elastic Compute Cloud User Guide/ and
+-- <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html Security Groups for Your VPC>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 --
--- A security group acts as a virtual firewall for your instance to control inbound and outbound traffic. For more information, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html Amazon EC2 Security Groups> in the /Amazon Elastic Compute Cloud User Guide/ and <https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html Security Groups for Your VPC> in the /Amazon Virtual Private Cloud User Guide/ .
+-- When you create a security group, you specify a friendly name of your
+-- choice. You can have a security group for use in EC2-Classic with the
+-- same name as a security group for use in a VPC. However, you can\'t have
+-- two security groups for use in EC2-Classic with the same name or two
+-- security groups for use in a VPC with the same name.
 --
--- When you create a security group, you specify a friendly name of your choice. You can have a security group for use in EC2-Classic with the same name as a security group for use in a VPC. However, you can't have two security groups for use in EC2-Classic with the same name or two security groups for use in a VPC with the same name.
+-- You have a default security group for use in EC2-Classic and a default
+-- security group for use in your VPC. If you don\'t specify a security
+-- group when you launch an instance, the instance is launched into the
+-- appropriate default security group. A default security group includes a
+-- default rule that grants instances unrestricted network access to each
+-- other.
 --
--- You have a default security group for use in EC2-Classic and a default security group for use in your VPC. If you don't specify a security group when you launch an instance, the instance is launched into the appropriate default security group. A default security group includes a default rule that grants instances unrestricted network access to each other.
+-- You can add or remove rules from your security groups using
+-- AuthorizeSecurityGroupIngress, AuthorizeSecurityGroupEgress,
+-- RevokeSecurityGroupIngress, and RevokeSecurityGroupEgress.
 --
--- You can add or remove rules from your security groups using 'AuthorizeSecurityGroupIngress' , 'AuthorizeSecurityGroupEgress' , 'RevokeSecurityGroupIngress' , and 'RevokeSecurityGroupEgress' .
---
--- For more information about VPC security group limits, see <https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html Amazon VPC Limits> .
+-- For more information about VPC security group limits, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html Amazon VPC Limits>.
 module Network.AWS.EC2.CreateSecurityGroup
   ( -- * Creating a Request
-    createSecurityGroup,
-    CreateSecurityGroup,
+    CreateSecurityGroup (..),
+    newCreateSecurityGroup,
 
     -- * Request Lenses
-    csgTagSpecifications,
-    csgDryRun,
-    csgVPCId,
-    csgDescription,
-    csgGroupName,
+    createSecurityGroup_tagSpecifications,
+    createSecurityGroup_dryRun,
+    createSecurityGroup_vpcId,
+    createSecurityGroup_description,
+    createSecurityGroup_groupName,
 
     -- * Destructuring the Response
-    createSecurityGroupResponse,
-    CreateSecurityGroupResponse,
+    CreateSecurityGroupResponse (..),
+    newCreateSecurityGroupResponse,
 
     -- * Response Lenses
-    csgrrsTags,
-    csgrrsResponseStatus,
-    csgrrsGroupId,
+    createSecurityGroupResponse_tags,
+    createSecurityGroupResponse_httpStatus,
+    createSecurityGroupResponse_groupId,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSecurityGroup' smart constructor.
+-- | /See:/ 'newCreateSecurityGroup' smart constructor.
 data CreateSecurityGroup = CreateSecurityGroup'
-  { _csgTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _csgDryRun :: !(Maybe Bool),
-    _csgVPCId :: !(Maybe Text),
-    _csgDescription :: !Text,
-    _csgGroupName :: !Text
+  { -- | The tags to assign to the security group.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | A description for the security group. This is informational only.
+    --
+    -- Constraints: Up to 255 characters in length
+    --
+    -- Constraints for EC2-Classic: ASCII characters
+    --
+    -- Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
+    -- ._-:\/()#,\@[]+=&;{}!$*
+    description :: Prelude.Text,
+    -- | The name of the security group.
+    --
+    -- Constraints: Up to 255 characters in length. Cannot start with @sg-@.
+    --
+    -- Constraints for EC2-Classic: ASCII characters
+    --
+    -- Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
+    -- ._-:\/()#,\@[]+=&;{}!$*
+    groupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csgTagSpecifications' - The tags to assign to the security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csgDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createSecurityGroup_tagSpecifications' - The tags to assign to the security group.
 --
--- * 'csgVPCId' - [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
+-- 'dryRun', 'createSecurityGroup_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'csgDescription' - A description for the security group. This is informational only. Constraints: Up to 255 characters in length Constraints for EC2-Classic: ASCII characters Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&;{}!$*
+-- 'vpcId', 'createSecurityGroup_vpcId' - [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
 --
--- * 'csgGroupName' - The name of the security group. Constraints: Up to 255 characters in length. Cannot start with @sg-@ . Constraints for EC2-Classic: ASCII characters Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&;{}!$*
-createSecurityGroup ::
-  -- | 'csgDescription'
-  Text ->
-  -- | 'csgGroupName'
-  Text ->
+-- 'description', 'createSecurityGroup_description' - A description for the security group. This is informational only.
+--
+-- Constraints: Up to 255 characters in length
+--
+-- Constraints for EC2-Classic: ASCII characters
+--
+-- Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
+-- ._-:\/()#,\@[]+=&;{}!$*
+--
+-- 'groupName', 'createSecurityGroup_groupName' - The name of the security group.
+--
+-- Constraints: Up to 255 characters in length. Cannot start with @sg-@.
+--
+-- Constraints for EC2-Classic: ASCII characters
+--
+-- Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
+-- ._-:\/()#,\@[]+=&;{}!$*
+newCreateSecurityGroup ::
+  -- | 'description'
+  Prelude.Text ->
+  -- | 'groupName'
+  Prelude.Text ->
   CreateSecurityGroup
-createSecurityGroup pDescription_ pGroupName_ =
+newCreateSecurityGroup pDescription_ pGroupName_ =
   CreateSecurityGroup'
-    { _csgTagSpecifications =
-        Nothing,
-      _csgDryRun = Nothing,
-      _csgVPCId = Nothing,
-      _csgDescription = pDescription_,
-      _csgGroupName = pGroupName_
+    { tagSpecifications =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      description = pDescription_,
+      groupName = pGroupName_
     }
 
 -- | The tags to assign to the security group.
-csgTagSpecifications :: Lens' CreateSecurityGroup [TagSpecification]
-csgTagSpecifications = lens _csgTagSpecifications (\s a -> s {_csgTagSpecifications = a}) . _Default . _Coerce
+createSecurityGroup_tagSpecifications :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe [TagSpecification])
+createSecurityGroup_tagSpecifications = Lens.lens (\CreateSecurityGroup' {tagSpecifications} -> tagSpecifications) (\s@CreateSecurityGroup' {} a -> s {tagSpecifications = a} :: CreateSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-csgDryRun :: Lens' CreateSecurityGroup (Maybe Bool)
-csgDryRun = lens _csgDryRun (\s a -> s {_csgDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createSecurityGroup_dryRun :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe Prelude.Bool)
+createSecurityGroup_dryRun = Lens.lens (\CreateSecurityGroup' {dryRun} -> dryRun) (\s@CreateSecurityGroup' {} a -> s {dryRun = a} :: CreateSecurityGroup)
 
 -- | [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
-csgVPCId :: Lens' CreateSecurityGroup (Maybe Text)
-csgVPCId = lens _csgVPCId (\s a -> s {_csgVPCId = a})
+createSecurityGroup_vpcId :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe Prelude.Text)
+createSecurityGroup_vpcId = Lens.lens (\CreateSecurityGroup' {vpcId} -> vpcId) (\s@CreateSecurityGroup' {} a -> s {vpcId = a} :: CreateSecurityGroup)
 
--- | A description for the security group. This is informational only. Constraints: Up to 255 characters in length Constraints for EC2-Classic: ASCII characters Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&;{}!$*
-csgDescription :: Lens' CreateSecurityGroup Text
-csgDescription = lens _csgDescription (\s a -> s {_csgDescription = a})
+-- | A description for the security group. This is informational only.
+--
+-- Constraints: Up to 255 characters in length
+--
+-- Constraints for EC2-Classic: ASCII characters
+--
+-- Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
+-- ._-:\/()#,\@[]+=&;{}!$*
+createSecurityGroup_description :: Lens.Lens' CreateSecurityGroup Prelude.Text
+createSecurityGroup_description = Lens.lens (\CreateSecurityGroup' {description} -> description) (\s@CreateSecurityGroup' {} a -> s {description = a} :: CreateSecurityGroup)
 
--- | The name of the security group. Constraints: Up to 255 characters in length. Cannot start with @sg-@ . Constraints for EC2-Classic: ASCII characters Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&;{}!$*
-csgGroupName :: Lens' CreateSecurityGroup Text
-csgGroupName = lens _csgGroupName (\s a -> s {_csgGroupName = a})
+-- | The name of the security group.
+--
+-- Constraints: Up to 255 characters in length. Cannot start with @sg-@.
+--
+-- Constraints for EC2-Classic: ASCII characters
+--
+-- Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
+-- ._-:\/()#,\@[]+=&;{}!$*
+createSecurityGroup_groupName :: Lens.Lens' CreateSecurityGroup Prelude.Text
+createSecurityGroup_groupName = Lens.lens (\CreateSecurityGroup' {groupName} -> groupName) (\s@CreateSecurityGroup' {} a -> s {groupName = a} :: CreateSecurityGroup)
 
-instance AWSRequest CreateSecurityGroup where
+instance Prelude.AWSRequest CreateSecurityGroup where
   type
     Rs CreateSecurityGroup =
       CreateSecurityGroupResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateSecurityGroupResponse'
-            <$> ( x .@? "tagSet" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
-            <*> (x .@ "groupId")
+            Prelude.<$> ( x Prelude..@? "tagSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "groupId")
       )
 
-instance Hashable CreateSecurityGroup
+instance Prelude.Hashable CreateSecurityGroup
 
-instance NFData CreateSecurityGroup
+instance Prelude.NFData CreateSecurityGroup
 
-instance ToHeaders CreateSecurityGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateSecurityGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateSecurityGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateSecurityGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSecurityGroup where
+instance Prelude.ToQuery CreateSecurityGroup where
   toQuery CreateSecurityGroup' {..} =
-    mconcat
-      [ "Action" =: ("CreateSecurityGroup" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _csgTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateSecurityGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _csgDryRun,
-        "VpcId" =: _csgVPCId,
-        "GroupDescription" =: _csgDescription,
-        "GroupName" =: _csgGroupName
+        "DryRun" Prelude.=: dryRun,
+        "VpcId" Prelude.=: vpcId,
+        "GroupDescription" Prelude.=: description,
+        "GroupName" Prelude.=: groupName
       ]
 
--- | /See:/ 'createSecurityGroupResponse' smart constructor.
+-- | /See:/ 'newCreateSecurityGroupResponse' smart constructor.
 data CreateSecurityGroupResponse = CreateSecurityGroupResponse'
-  { _csgrrsTags ::
-      !(Maybe [Tag]),
-    _csgrrsResponseStatus ::
-      !Int,
-    _csgrrsGroupId ::
-      !Text
+  { -- | The tags assigned to the security group.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the security group.
+    groupId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSecurityGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSecurityGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csgrrsTags' - The tags assigned to the security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csgrrsResponseStatus' - -- | The response status code.
+-- 'tags', 'createSecurityGroupResponse_tags' - The tags assigned to the security group.
 --
--- * 'csgrrsGroupId' - The ID of the security group.
-createSecurityGroupResponse ::
-  -- | 'csgrrsResponseStatus'
-  Int ->
-  -- | 'csgrrsGroupId'
-  Text ->
+-- 'httpStatus', 'createSecurityGroupResponse_httpStatus' - The response's http status code.
+--
+-- 'groupId', 'createSecurityGroupResponse_groupId' - The ID of the security group.
+newCreateSecurityGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'groupId'
+  Prelude.Text ->
   CreateSecurityGroupResponse
-createSecurityGroupResponse
-  pResponseStatus_
-  pGroupId_ =
-    CreateSecurityGroupResponse'
-      { _csgrrsTags = Nothing,
-        _csgrrsResponseStatus = pResponseStatus_,
-        _csgrrsGroupId = pGroupId_
-      }
+newCreateSecurityGroupResponse pHttpStatus_ pGroupId_ =
+  CreateSecurityGroupResponse'
+    { tags =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      groupId = pGroupId_
+    }
 
 -- | The tags assigned to the security group.
-csgrrsTags :: Lens' CreateSecurityGroupResponse [Tag]
-csgrrsTags = lens _csgrrsTags (\s a -> s {_csgrrsTags = a}) . _Default . _Coerce
+createSecurityGroupResponse_tags :: Lens.Lens' CreateSecurityGroupResponse (Prelude.Maybe [Tag])
+createSecurityGroupResponse_tags = Lens.lens (\CreateSecurityGroupResponse' {tags} -> tags) (\s@CreateSecurityGroupResponse' {} a -> s {tags = a} :: CreateSecurityGroupResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-csgrrsResponseStatus :: Lens' CreateSecurityGroupResponse Int
-csgrrsResponseStatus = lens _csgrrsResponseStatus (\s a -> s {_csgrrsResponseStatus = a})
+-- | The response's http status code.
+createSecurityGroupResponse_httpStatus :: Lens.Lens' CreateSecurityGroupResponse Prelude.Int
+createSecurityGroupResponse_httpStatus = Lens.lens (\CreateSecurityGroupResponse' {httpStatus} -> httpStatus) (\s@CreateSecurityGroupResponse' {} a -> s {httpStatus = a} :: CreateSecurityGroupResponse)
 
 -- | The ID of the security group.
-csgrrsGroupId :: Lens' CreateSecurityGroupResponse Text
-csgrrsGroupId = lens _csgrrsGroupId (\s a -> s {_csgrrsGroupId = a})
+createSecurityGroupResponse_groupId :: Lens.Lens' CreateSecurityGroupResponse Prelude.Text
+createSecurityGroupResponse_groupId = Lens.lens (\CreateSecurityGroupResponse' {groupId} -> groupId) (\s@CreateSecurityGroupResponse' {} a -> s {groupId = a} :: CreateSecurityGroupResponse)
 
-instance NFData CreateSecurityGroupResponse
+instance Prelude.NFData CreateSecurityGroupResponse

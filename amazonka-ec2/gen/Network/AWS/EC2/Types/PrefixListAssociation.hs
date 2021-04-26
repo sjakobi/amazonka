@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,54 @@
 module Network.AWS.EC2.Types.PrefixListAssociation where
 
 import Network.AWS.EC2.Internal
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the resource with which a prefix list is associated.
 --
---
---
--- /See:/ 'prefixListAssociation' smart constructor.
+-- /See:/ 'newPrefixListAssociation' smart constructor.
 data PrefixListAssociation = PrefixListAssociation'
-  { _plaResourceId ::
-      !(Maybe Text),
-    _plaResourceOwner ::
-      !(Maybe Text)
+  { -- | The ID of the resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The owner of the resource.
+    resourceOwner :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PrefixListAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PrefixListAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plaResourceId' - The ID of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plaResourceOwner' - The owner of the resource.
-prefixListAssociation ::
+-- 'resourceId', 'prefixListAssociation_resourceId' - The ID of the resource.
+--
+-- 'resourceOwner', 'prefixListAssociation_resourceOwner' - The owner of the resource.
+newPrefixListAssociation ::
   PrefixListAssociation
-prefixListAssociation =
+newPrefixListAssociation =
   PrefixListAssociation'
-    { _plaResourceId = Nothing,
-      _plaResourceOwner = Nothing
+    { resourceId =
+        Prelude.Nothing,
+      resourceOwner = Prelude.Nothing
     }
 
 -- | The ID of the resource.
-plaResourceId :: Lens' PrefixListAssociation (Maybe Text)
-plaResourceId = lens _plaResourceId (\s a -> s {_plaResourceId = a})
+prefixListAssociation_resourceId :: Lens.Lens' PrefixListAssociation (Prelude.Maybe Prelude.Text)
+prefixListAssociation_resourceId = Lens.lens (\PrefixListAssociation' {resourceId} -> resourceId) (\s@PrefixListAssociation' {} a -> s {resourceId = a} :: PrefixListAssociation)
 
 -- | The owner of the resource.
-plaResourceOwner :: Lens' PrefixListAssociation (Maybe Text)
-plaResourceOwner = lens _plaResourceOwner (\s a -> s {_plaResourceOwner = a})
+prefixListAssociation_resourceOwner :: Lens.Lens' PrefixListAssociation (Prelude.Maybe Prelude.Text)
+prefixListAssociation_resourceOwner = Lens.lens (\PrefixListAssociation' {resourceOwner} -> resourceOwner) (\s@PrefixListAssociation' {} a -> s {resourceOwner = a} :: PrefixListAssociation)
 
-instance FromXML PrefixListAssociation where
+instance Prelude.FromXML PrefixListAssociation where
   parseXML x =
     PrefixListAssociation'
-      <$> (x .@? "resourceId") <*> (x .@? "resourceOwner")
+      Prelude.<$> (x Prelude..@? "resourceId")
+      Prelude.<*> (x Prelude..@? "resourceOwner")
 
-instance Hashable PrefixListAssociation
+instance Prelude.Hashable PrefixListAssociation
 
-instance NFData PrefixListAssociation
+instance Prelude.NFData PrefixListAssociation

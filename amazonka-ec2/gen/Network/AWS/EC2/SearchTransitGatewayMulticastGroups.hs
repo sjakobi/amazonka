@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,232 +21,338 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Searches one or more transit gateway multicast groups and returns the group membership information.
---
---
+-- Searches one or more transit gateway multicast groups and returns the
+-- group membership information.
 --
 -- This operation returns paginated results.
 module Network.AWS.EC2.SearchTransitGatewayMulticastGroups
   ( -- * Creating a Request
-    searchTransitGatewayMulticastGroups,
-    SearchTransitGatewayMulticastGroups,
+    SearchTransitGatewayMulticastGroups (..),
+    newSearchTransitGatewayMulticastGroups,
 
     -- * Request Lenses
-    stgmgNextToken,
-    stgmgDryRun,
-    stgmgTransitGatewayMulticastDomainId,
-    stgmgMaxResults,
-    stgmgFilters,
+    searchTransitGatewayMulticastGroups_nextToken,
+    searchTransitGatewayMulticastGroups_dryRun,
+    searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId,
+    searchTransitGatewayMulticastGroups_maxResults,
+    searchTransitGatewayMulticastGroups_filters,
 
     -- * Destructuring the Response
-    searchTransitGatewayMulticastGroupsResponse,
-    SearchTransitGatewayMulticastGroupsResponse,
+    SearchTransitGatewayMulticastGroupsResponse (..),
+    newSearchTransitGatewayMulticastGroupsResponse,
 
     -- * Response Lenses
-    stgmgrrsNextToken,
-    stgmgrrsMulticastGroups,
-    stgmgrrsResponseStatus,
+    searchTransitGatewayMulticastGroupsResponse_nextToken,
+    searchTransitGatewayMulticastGroupsResponse_multicastGroups,
+    searchTransitGatewayMulticastGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.TransitGatewayMulticastGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'searchTransitGatewayMulticastGroups' smart constructor.
+-- | /See:/ 'newSearchTransitGatewayMulticastGroups' smart constructor.
 data SearchTransitGatewayMulticastGroups = SearchTransitGatewayMulticastGroups'
-  { _stgmgNextToken ::
-      !( Maybe
-           Text
-       ),
-    _stgmgDryRun ::
-      !( Maybe
-           Bool
-       ),
-    _stgmgTransitGatewayMulticastDomainId ::
-      !( Maybe
-           Text
-       ),
-    _stgmgMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _stgmgFilters ::
-      !( Maybe
-           [Filter]
-       )
+  { -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the transit gateway multicast domain.
+    transitGatewayMulticastDomainId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @group-ip-address@ - The IP address of the transit gateway multicast
+    --     group.
+    --
+    -- -   @is-group-member@ - The resource is a group member. Valid values are
+    --     @true@ | @false@.
+    --
+    -- -   @is-group-source@ - The resource is a group source. Valid values are
+    --     @true@ | @false@.
+    --
+    -- -   @member-type@ - The member type. Valid values are @igmp@ | @static@.
+    --
+    -- -   @resource-id@ - The ID of the resource.
+    --
+    -- -   @resource-type@ - The type of resource. Valid values are @vpc@ |
+    --     @vpn@ | @direct-connect-gateway@ | @tgw-peering@.
+    --
+    -- -   @source-type@ - The source type. Valid values are @igmp@ | @static@.
+    --
+    -- -   @state@ - The state of the subnet association. Valid values are
+    --     @associated@ | @associated@ | @disassociated@ | @disassociating@.
+    --
+    -- -   @subnet-id@ - The ID of the subnet.
+    --
+    -- -   @transit-gateway-attachment-id@ - The id of the transit gateway
+    --     attachment.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchTransitGatewayMulticastGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchTransitGatewayMulticastGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stgmgNextToken' - The token for the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stgmgDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'nextToken', 'searchTransitGatewayMulticastGroups_nextToken' - The token for the next page of results.
 --
--- * 'stgmgTransitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
+-- 'dryRun', 'searchTransitGatewayMulticastGroups_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'stgmgMaxResults' - The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
+-- 'transitGatewayMulticastDomainId', 'searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
 --
--- * 'stgmgFilters' - One or more filters. The possible values are:     * @group-ip-address@ - The IP address of the transit gateway multicast group.     * @is-group-member@ - The resource is a group member. Valid values are @true@ | @false@ .     * @is-group-source@ - The resource is a group source. Valid values are @true@ | @false@ .     * @member-type@ - The member type. Valid values are @igmp@ | @static@ .     * @resource-id@ - The ID of the resource.     * @resource-type@ - The type of resource. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @tgw-peering@ .     * @source-type@ - The source type. Valid values are @igmp@ | @static@ .     * @state@ - The state of the subnet association. Valid values are @associated@ | @associated@ | @disassociated@ | @disassociating@ .     * @subnet-id@ - The ID of the subnet.     * @transit-gateway-attachment-id@ - The id of the transit gateway attachment.
-searchTransitGatewayMulticastGroups ::
+-- 'maxResults', 'searchTransitGatewayMulticastGroups_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
+-- 'filters', 'searchTransitGatewayMulticastGroups_filters' - One or more filters. The possible values are:
+--
+-- -   @group-ip-address@ - The IP address of the transit gateway multicast
+--     group.
+--
+-- -   @is-group-member@ - The resource is a group member. Valid values are
+--     @true@ | @false@.
+--
+-- -   @is-group-source@ - The resource is a group source. Valid values are
+--     @true@ | @false@.
+--
+-- -   @member-type@ - The member type. Valid values are @igmp@ | @static@.
+--
+-- -   @resource-id@ - The ID of the resource.
+--
+-- -   @resource-type@ - The type of resource. Valid values are @vpc@ |
+--     @vpn@ | @direct-connect-gateway@ | @tgw-peering@.
+--
+-- -   @source-type@ - The source type. Valid values are @igmp@ | @static@.
+--
+-- -   @state@ - The state of the subnet association. Valid values are
+--     @associated@ | @associated@ | @disassociated@ | @disassociating@.
+--
+-- -   @subnet-id@ - The ID of the subnet.
+--
+-- -   @transit-gateway-attachment-id@ - The id of the transit gateway
+--     attachment.
+newSearchTransitGatewayMulticastGroups ::
   SearchTransitGatewayMulticastGroups
-searchTransitGatewayMulticastGroups =
+newSearchTransitGatewayMulticastGroups =
   SearchTransitGatewayMulticastGroups'
-    { _stgmgNextToken =
-        Nothing,
-      _stgmgDryRun = Nothing,
-      _stgmgTransitGatewayMulticastDomainId =
-        Nothing,
-      _stgmgMaxResults = Nothing,
-      _stgmgFilters = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      transitGatewayMulticastDomainId =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | The token for the next page of results.
-stgmgNextToken :: Lens' SearchTransitGatewayMulticastGroups (Maybe Text)
-stgmgNextToken = lens _stgmgNextToken (\s a -> s {_stgmgNextToken = a})
+searchTransitGatewayMulticastGroups_nextToken :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Text)
+searchTransitGatewayMulticastGroups_nextToken = Lens.lens (\SearchTransitGatewayMulticastGroups' {nextToken} -> nextToken) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {nextToken = a} :: SearchTransitGatewayMulticastGroups)
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-stgmgDryRun :: Lens' SearchTransitGatewayMulticastGroups (Maybe Bool)
-stgmgDryRun = lens _stgmgDryRun (\s a -> s {_stgmgDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+searchTransitGatewayMulticastGroups_dryRun :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Bool)
+searchTransitGatewayMulticastGroups_dryRun = Lens.lens (\SearchTransitGatewayMulticastGroups' {dryRun} -> dryRun) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {dryRun = a} :: SearchTransitGatewayMulticastGroups)
 
 -- | The ID of the transit gateway multicast domain.
-stgmgTransitGatewayMulticastDomainId :: Lens' SearchTransitGatewayMulticastGroups (Maybe Text)
-stgmgTransitGatewayMulticastDomainId = lens _stgmgTransitGatewayMulticastDomainId (\s a -> s {_stgmgTransitGatewayMulticastDomainId = a})
+searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Text)
+searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId = Lens.lens (\SearchTransitGatewayMulticastGroups' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {transitGatewayMulticastDomainId = a} :: SearchTransitGatewayMulticastGroups)
 
--- | The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned @nextToken@ value.
-stgmgMaxResults :: Lens' SearchTransitGatewayMulticastGroups (Maybe Natural)
-stgmgMaxResults = lens _stgmgMaxResults (\s a -> s {_stgmgMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+searchTransitGatewayMulticastGroups_maxResults :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Natural)
+searchTransitGatewayMulticastGroups_maxResults = Lens.lens (\SearchTransitGatewayMulticastGroups' {maxResults} -> maxResults) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {maxResults = a} :: SearchTransitGatewayMulticastGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | One or more filters. The possible values are:     * @group-ip-address@ - The IP address of the transit gateway multicast group.     * @is-group-member@ - The resource is a group member. Valid values are @true@ | @false@ .     * @is-group-source@ - The resource is a group source. Valid values are @true@ | @false@ .     * @member-type@ - The member type. Valid values are @igmp@ | @static@ .     * @resource-id@ - The ID of the resource.     * @resource-type@ - The type of resource. Valid values are @vpc@ | @vpn@ | @direct-connect-gateway@ | @tgw-peering@ .     * @source-type@ - The source type. Valid values are @igmp@ | @static@ .     * @state@ - The state of the subnet association. Valid values are @associated@ | @associated@ | @disassociated@ | @disassociating@ .     * @subnet-id@ - The ID of the subnet.     * @transit-gateway-attachment-id@ - The id of the transit gateway attachment.
-stgmgFilters :: Lens' SearchTransitGatewayMulticastGroups [Filter]
-stgmgFilters = lens _stgmgFilters (\s a -> s {_stgmgFilters = a}) . _Default . _Coerce
-
-instance AWSPager SearchTransitGatewayMulticastGroups where
-  page rq rs
-    | stop (rs ^. stgmgrrsNextToken) = Nothing
-    | stop (rs ^. stgmgrrsMulticastGroups) = Nothing
-    | otherwise =
-      Just $ rq & stgmgNextToken .~ rs ^. stgmgrrsNextToken
+-- | One or more filters. The possible values are:
+--
+-- -   @group-ip-address@ - The IP address of the transit gateway multicast
+--     group.
+--
+-- -   @is-group-member@ - The resource is a group member. Valid values are
+--     @true@ | @false@.
+--
+-- -   @is-group-source@ - The resource is a group source. Valid values are
+--     @true@ | @false@.
+--
+-- -   @member-type@ - The member type. Valid values are @igmp@ | @static@.
+--
+-- -   @resource-id@ - The ID of the resource.
+--
+-- -   @resource-type@ - The type of resource. Valid values are @vpc@ |
+--     @vpn@ | @direct-connect-gateway@ | @tgw-peering@.
+--
+-- -   @source-type@ - The source type. Valid values are @igmp@ | @static@.
+--
+-- -   @state@ - The state of the subnet association. Valid values are
+--     @associated@ | @associated@ | @disassociated@ | @disassociating@.
+--
+-- -   @subnet-id@ - The ID of the subnet.
+--
+-- -   @transit-gateway-attachment-id@ - The id of the transit gateway
+--     attachment.
+searchTransitGatewayMulticastGroups_filters :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe [Filter])
+searchTransitGatewayMulticastGroups_filters = Lens.lens (\SearchTransitGatewayMulticastGroups' {filters} -> filters) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {filters = a} :: SearchTransitGatewayMulticastGroups) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  AWSRequest
+  Pager.AWSPager
+    SearchTransitGatewayMulticastGroups
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? searchTransitGatewayMulticastGroupsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? searchTransitGatewayMulticastGroupsResponse_multicastGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& searchTransitGatewayMulticastGroups_nextToken
+          Lens..~ rs
+          Lens.^? searchTransitGatewayMulticastGroupsResponse_nextToken
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
     SearchTransitGatewayMulticastGroups
   where
   type
     Rs SearchTransitGatewayMulticastGroups =
       SearchTransitGatewayMulticastGroupsResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           SearchTransitGatewayMulticastGroupsResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "multicastGroups" .!@ mempty
-                    >>= may (parseXMLList "item")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+              Prelude.<*> ( x Prelude..@? "multicastGroups"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchTransitGatewayMulticastGroups
-
-instance NFData SearchTransitGatewayMulticastGroups
+instance
+  Prelude.Hashable
+    SearchTransitGatewayMulticastGroups
 
 instance
-  ToHeaders
+  Prelude.NFData
+    SearchTransitGatewayMulticastGroups
+
+instance
+  Prelude.ToHeaders
     SearchTransitGatewayMulticastGroups
   where
-  toHeaders = const mempty
-
-instance ToPath SearchTransitGatewayMulticastGroups where
-  toPath = const "/"
-
-instance ToQuery SearchTransitGatewayMulticastGroups where
-  toQuery SearchTransitGatewayMulticastGroups' {..} =
-    mconcat
-      [ "Action"
-          =: ( "SearchTransitGatewayMulticastGroups" ::
-                 ByteString
-             ),
-        "Version" =: ("2016-11-15" :: ByteString),
-        "NextToken" =: _stgmgNextToken,
-        "DryRun" =: _stgmgDryRun,
-        "TransitGatewayMulticastDomainId"
-          =: _stgmgTransitGatewayMulticastDomainId,
-        "MaxResults" =: _stgmgMaxResults,
-        toQuery (toQueryList "Filter" <$> _stgmgFilters)
-      ]
-
--- | /See:/ 'searchTransitGatewayMulticastGroupsResponse' smart constructor.
-data SearchTransitGatewayMulticastGroupsResponse = SearchTransitGatewayMulticastGroupsResponse'
-  { _stgmgrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _stgmgrrsMulticastGroups ::
-      !( Maybe
-           [TransitGatewayMulticastGroup]
-       ),
-    _stgmgrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'SearchTransitGatewayMulticastGroupsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'stgmgrrsNextToken' - The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
---
--- * 'stgmgrrsMulticastGroups' - Information about the transit gateway multicast group.
---
--- * 'stgmgrrsResponseStatus' - -- | The response status code.
-searchTransitGatewayMulticastGroupsResponse ::
-  -- | 'stgmgrrsResponseStatus'
-  Int ->
-  SearchTransitGatewayMulticastGroupsResponse
-searchTransitGatewayMulticastGroupsResponse
-  pResponseStatus_ =
-    SearchTransitGatewayMulticastGroupsResponse'
-      { _stgmgrrsNextToken =
-          Nothing,
-        _stgmgrrsMulticastGroups =
-          Nothing,
-        _stgmgrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token to use to retrieve the next page of results. This value is @null@ when there are no more results to return.
-stgmgrrsNextToken :: Lens' SearchTransitGatewayMulticastGroupsResponse (Maybe Text)
-stgmgrrsNextToken = lens _stgmgrrsNextToken (\s a -> s {_stgmgrrsNextToken = a})
-
--- | Information about the transit gateway multicast group.
-stgmgrrsMulticastGroups :: Lens' SearchTransitGatewayMulticastGroupsResponse [TransitGatewayMulticastGroup]
-stgmgrrsMulticastGroups = lens _stgmgrrsMulticastGroups (\s a -> s {_stgmgrrsMulticastGroups = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-stgmgrrsResponseStatus :: Lens' SearchTransitGatewayMulticastGroupsResponse Int
-stgmgrrsResponseStatus = lens _stgmgrrsResponseStatus (\s a -> s {_stgmgrrsResponseStatus = a})
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  NFData
+  Prelude.ToPath
+    SearchTransitGatewayMulticastGroups
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    SearchTransitGatewayMulticastGroups
+  where
+  toQuery SearchTransitGatewayMulticastGroups' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "SearchTransitGatewayMulticastGroups" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "DryRun" Prelude.=: dryRun,
+        "TransitGatewayMulticastDomainId"
+          Prelude.=: transitGatewayMulticastDomainId,
+        "MaxResults" Prelude.=: maxResults,
+        Prelude.toQuery
+          (Prelude.toQueryList "Filter" Prelude.<$> filters)
+      ]
+
+-- | /See:/ 'newSearchTransitGatewayMulticastGroupsResponse' smart constructor.
+data SearchTransitGatewayMulticastGroupsResponse = SearchTransitGatewayMulticastGroupsResponse'
+  { -- | The token to use to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the transit gateway multicast group.
+    multicastGroups :: Prelude.Maybe [TransitGatewayMulticastGroup],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'SearchTransitGatewayMulticastGroupsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'searchTransitGatewayMulticastGroupsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+--
+-- 'multicastGroups', 'searchTransitGatewayMulticastGroupsResponse_multicastGroups' - Information about the transit gateway multicast group.
+--
+-- 'httpStatus', 'searchTransitGatewayMulticastGroupsResponse_httpStatus' - The response's http status code.
+newSearchTransitGatewayMulticastGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  SearchTransitGatewayMulticastGroupsResponse
+newSearchTransitGatewayMulticastGroupsResponse
+  pHttpStatus_ =
+    SearchTransitGatewayMulticastGroupsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        multicastGroups =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token to use to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+searchTransitGatewayMulticastGroupsResponse_nextToken :: Lens.Lens' SearchTransitGatewayMulticastGroupsResponse (Prelude.Maybe Prelude.Text)
+searchTransitGatewayMulticastGroupsResponse_nextToken = Lens.lens (\SearchTransitGatewayMulticastGroupsResponse' {nextToken} -> nextToken) (\s@SearchTransitGatewayMulticastGroupsResponse' {} a -> s {nextToken = a} :: SearchTransitGatewayMulticastGroupsResponse)
+
+-- | Information about the transit gateway multicast group.
+searchTransitGatewayMulticastGroupsResponse_multicastGroups :: Lens.Lens' SearchTransitGatewayMulticastGroupsResponse (Prelude.Maybe [TransitGatewayMulticastGroup])
+searchTransitGatewayMulticastGroupsResponse_multicastGroups = Lens.lens (\SearchTransitGatewayMulticastGroupsResponse' {multicastGroups} -> multicastGroups) (\s@SearchTransitGatewayMulticastGroupsResponse' {} a -> s {multicastGroups = a} :: SearchTransitGatewayMulticastGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+searchTransitGatewayMulticastGroupsResponse_httpStatus :: Lens.Lens' SearchTransitGatewayMulticastGroupsResponse Prelude.Int
+searchTransitGatewayMulticastGroupsResponse_httpStatus = Lens.lens (\SearchTransitGatewayMulticastGroupsResponse' {httpStatus} -> httpStatus) (\s@SearchTransitGatewayMulticastGroupsResponse' {} a -> s {httpStatus = a} :: SearchTransitGatewayMulticastGroupsResponse)
+
+instance
+  Prelude.NFData
     SearchTransitGatewayMulticastGroupsResponse

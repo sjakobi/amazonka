@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.EC2.Types.TrafficMirrorRuleAction
   ( TrafficMirrorRuleAction
       ( ..,
-        Accept,
-        Reject
+        TrafficMirrorRuleActionAccept,
+        TrafficMirrorRuleActionReject
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficMirrorRuleAction
-  = TrafficMirrorRuleAction'
-      ( CI
-          Text
-      )
+newtype TrafficMirrorRuleAction = TrafficMirrorRuleAction'
+  { fromTrafficMirrorRuleAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Accept :: TrafficMirrorRuleAction
-pattern Accept = TrafficMirrorRuleAction' "accept"
+pattern TrafficMirrorRuleActionAccept :: TrafficMirrorRuleAction
+pattern TrafficMirrorRuleActionAccept = TrafficMirrorRuleAction' "accept"
 
-pattern Reject :: TrafficMirrorRuleAction
-pattern Reject = TrafficMirrorRuleAction' "reject"
+pattern TrafficMirrorRuleActionReject :: TrafficMirrorRuleAction
+pattern TrafficMirrorRuleActionReject = TrafficMirrorRuleAction' "reject"
 
 {-# COMPLETE
-  Accept,
-  Reject,
+  TrafficMirrorRuleActionAccept,
+  TrafficMirrorRuleActionReject,
   TrafficMirrorRuleAction'
   #-}
 
-instance FromText TrafficMirrorRuleAction where
-  parser = (TrafficMirrorRuleAction' . mk) <$> takeText
+instance Prelude.FromText TrafficMirrorRuleAction where
+  parser = TrafficMirrorRuleAction' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficMirrorRuleAction where
-  toText (TrafficMirrorRuleAction' ci) = original ci
+instance Prelude.ToText TrafficMirrorRuleAction where
+  toText (TrafficMirrorRuleAction' x) = x
 
-instance Hashable TrafficMirrorRuleAction
+instance Prelude.Hashable TrafficMirrorRuleAction
 
-instance NFData TrafficMirrorRuleAction
+instance Prelude.NFData TrafficMirrorRuleAction
 
-instance ToByteString TrafficMirrorRuleAction
+instance Prelude.ToByteString TrafficMirrorRuleAction
 
-instance ToQuery TrafficMirrorRuleAction
+instance Prelude.ToQuery TrafficMirrorRuleAction
 
-instance ToHeader TrafficMirrorRuleAction
+instance Prelude.ToHeader TrafficMirrorRuleAction
 
-instance FromXML TrafficMirrorRuleAction where
-  parseXML = parseXMLText "TrafficMirrorRuleAction"
+instance Prelude.FromXML TrafficMirrorRuleAction where
+  parseXML = Prelude.parseXMLText "TrafficMirrorRuleAction"

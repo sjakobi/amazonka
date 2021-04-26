@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.EC2.Types.SnapshotAttributeName
   ( SnapshotAttributeName
       ( ..,
-        CreateVolumePermission,
-        ProductCodes
+        SnapshotAttributeNameCreateVolumePermission,
+        SnapshotAttributeNameProductCodes
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SnapshotAttributeName
-  = SnapshotAttributeName'
-      ( CI
-          Text
-      )
+newtype SnapshotAttributeName = SnapshotAttributeName'
+  { fromSnapshotAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateVolumePermission :: SnapshotAttributeName
-pattern CreateVolumePermission = SnapshotAttributeName' "createVolumePermission"
+pattern SnapshotAttributeNameCreateVolumePermission :: SnapshotAttributeName
+pattern SnapshotAttributeNameCreateVolumePermission = SnapshotAttributeName' "createVolumePermission"
 
-pattern ProductCodes :: SnapshotAttributeName
-pattern ProductCodes = SnapshotAttributeName' "productCodes"
+pattern SnapshotAttributeNameProductCodes :: SnapshotAttributeName
+pattern SnapshotAttributeNameProductCodes = SnapshotAttributeName' "productCodes"
 
 {-# COMPLETE
-  CreateVolumePermission,
-  ProductCodes,
+  SnapshotAttributeNameCreateVolumePermission,
+  SnapshotAttributeNameProductCodes,
   SnapshotAttributeName'
   #-}
 
-instance FromText SnapshotAttributeName where
-  parser = (SnapshotAttributeName' . mk) <$> takeText
+instance Prelude.FromText SnapshotAttributeName where
+  parser = SnapshotAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText SnapshotAttributeName where
-  toText (SnapshotAttributeName' ci) = original ci
+instance Prelude.ToText SnapshotAttributeName where
+  toText (SnapshotAttributeName' x) = x
 
-instance Hashable SnapshotAttributeName
+instance Prelude.Hashable SnapshotAttributeName
 
-instance NFData SnapshotAttributeName
+instance Prelude.NFData SnapshotAttributeName
 
-instance ToByteString SnapshotAttributeName
+instance Prelude.ToByteString SnapshotAttributeName
 
-instance ToQuery SnapshotAttributeName
+instance Prelude.ToQuery SnapshotAttributeName
 
-instance ToHeader SnapshotAttributeName
+instance Prelude.ToHeader SnapshotAttributeName

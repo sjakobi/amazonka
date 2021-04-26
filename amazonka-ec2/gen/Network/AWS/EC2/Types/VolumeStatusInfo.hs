@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,53 +22,55 @@ module Network.AWS.EC2.Types.VolumeStatusInfo where
 import Network.AWS.EC2.Internal
 import Network.AWS.EC2.Types.VolumeStatusDetails
 import Network.AWS.EC2.Types.VolumeStatusInfoStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the status of a volume.
 --
---
---
--- /See:/ 'volumeStatusInfo' smart constructor.
+-- /See:/ 'newVolumeStatusInfo' smart constructor.
 data VolumeStatusInfo = VolumeStatusInfo'
-  { _vsiStatus ::
-      !(Maybe VolumeStatusInfoStatus),
-    _vsiDetails ::
-      !(Maybe [VolumeStatusDetails])
+  { -- | The status of the volume.
+    status :: Prelude.Maybe VolumeStatusInfoStatus,
+    -- | The details of the volume status.
+    details :: Prelude.Maybe [VolumeStatusDetails]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VolumeStatusInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VolumeStatusInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vsiStatus' - The status of the volume.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vsiDetails' - The details of the volume status.
-volumeStatusInfo ::
+-- 'status', 'volumeStatusInfo_status' - The status of the volume.
+--
+-- 'details', 'volumeStatusInfo_details' - The details of the volume status.
+newVolumeStatusInfo ::
   VolumeStatusInfo
-volumeStatusInfo =
+newVolumeStatusInfo =
   VolumeStatusInfo'
-    { _vsiStatus = Nothing,
-      _vsiDetails = Nothing
+    { status = Prelude.Nothing,
+      details = Prelude.Nothing
     }
 
 -- | The status of the volume.
-vsiStatus :: Lens' VolumeStatusInfo (Maybe VolumeStatusInfoStatus)
-vsiStatus = lens _vsiStatus (\s a -> s {_vsiStatus = a})
+volumeStatusInfo_status :: Lens.Lens' VolumeStatusInfo (Prelude.Maybe VolumeStatusInfoStatus)
+volumeStatusInfo_status = Lens.lens (\VolumeStatusInfo' {status} -> status) (\s@VolumeStatusInfo' {} a -> s {status = a} :: VolumeStatusInfo)
 
 -- | The details of the volume status.
-vsiDetails :: Lens' VolumeStatusInfo [VolumeStatusDetails]
-vsiDetails = lens _vsiDetails (\s a -> s {_vsiDetails = a}) . _Default . _Coerce
+volumeStatusInfo_details :: Lens.Lens' VolumeStatusInfo (Prelude.Maybe [VolumeStatusDetails])
+volumeStatusInfo_details = Lens.lens (\VolumeStatusInfo' {details} -> details) (\s@VolumeStatusInfo' {} a -> s {details = a} :: VolumeStatusInfo) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML VolumeStatusInfo where
+instance Prelude.FromXML VolumeStatusInfo where
   parseXML x =
     VolumeStatusInfo'
-      <$> (x .@? "status")
-      <*> ( x .@? "details" .!@ mempty
-              >>= may (parseXMLList "item")
-          )
+      Prelude.<$> (x Prelude..@? "status")
+      Prelude.<*> ( x Prelude..@? "details" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "item")
+                  )
 
-instance Hashable VolumeStatusInfo
+instance Prelude.Hashable VolumeStatusInfo
 
-instance NFData VolumeStatusInfo
+instance Prelude.NFData VolumeStatusInfo

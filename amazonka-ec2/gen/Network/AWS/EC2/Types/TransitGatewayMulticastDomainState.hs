@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.TransitGatewayMulticastDomainState
   ( TransitGatewayMulticastDomainState
       ( ..,
-        TGMDSAvailable,
-        TGMDSDeleted,
-        TGMDSDeleting,
-        TGMDSPending
+        TransitGatewayMulticastDomainStateAvailable,
+        TransitGatewayMulticastDomainStateDeleted,
+        TransitGatewayMulticastDomainStateDeleting,
+        TransitGatewayMulticastDomainStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransitGatewayMulticastDomainState
-  = TransitGatewayMulticastDomainState'
-      ( CI
-          Text
-      )
+newtype TransitGatewayMulticastDomainState = TransitGatewayMulticastDomainState'
+  { fromTransitGatewayMulticastDomainState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGMDSAvailable :: TransitGatewayMulticastDomainState
-pattern TGMDSAvailable = TransitGatewayMulticastDomainState' "available"
+pattern TransitGatewayMulticastDomainStateAvailable :: TransitGatewayMulticastDomainState
+pattern TransitGatewayMulticastDomainStateAvailable = TransitGatewayMulticastDomainState' "available"
 
-pattern TGMDSDeleted :: TransitGatewayMulticastDomainState
-pattern TGMDSDeleted = TransitGatewayMulticastDomainState' "deleted"
+pattern TransitGatewayMulticastDomainStateDeleted :: TransitGatewayMulticastDomainState
+pattern TransitGatewayMulticastDomainStateDeleted = TransitGatewayMulticastDomainState' "deleted"
 
-pattern TGMDSDeleting :: TransitGatewayMulticastDomainState
-pattern TGMDSDeleting = TransitGatewayMulticastDomainState' "deleting"
+pattern TransitGatewayMulticastDomainStateDeleting :: TransitGatewayMulticastDomainState
+pattern TransitGatewayMulticastDomainStateDeleting = TransitGatewayMulticastDomainState' "deleting"
 
-pattern TGMDSPending :: TransitGatewayMulticastDomainState
-pattern TGMDSPending = TransitGatewayMulticastDomainState' "pending"
+pattern TransitGatewayMulticastDomainStatePending :: TransitGatewayMulticastDomainState
+pattern TransitGatewayMulticastDomainStatePending = TransitGatewayMulticastDomainState' "pending"
 
 {-# COMPLETE
-  TGMDSAvailable,
-  TGMDSDeleted,
-  TGMDSDeleting,
-  TGMDSPending,
+  TransitGatewayMulticastDomainStateAvailable,
+  TransitGatewayMulticastDomainStateDeleted,
+  TransitGatewayMulticastDomainStateDeleting,
+  TransitGatewayMulticastDomainStatePending,
   TransitGatewayMulticastDomainState'
   #-}
 
-instance FromText TransitGatewayMulticastDomainState where
-  parser = (TransitGatewayMulticastDomainState' . mk) <$> takeText
+instance Prelude.FromText TransitGatewayMulticastDomainState where
+  parser = TransitGatewayMulticastDomainState' Prelude.<$> Prelude.takeText
 
-instance ToText TransitGatewayMulticastDomainState where
-  toText (TransitGatewayMulticastDomainState' ci) = original ci
+instance Prelude.ToText TransitGatewayMulticastDomainState where
+  toText (TransitGatewayMulticastDomainState' x) = x
 
-instance Hashable TransitGatewayMulticastDomainState
+instance Prelude.Hashable TransitGatewayMulticastDomainState
 
-instance NFData TransitGatewayMulticastDomainState
+instance Prelude.NFData TransitGatewayMulticastDomainState
 
-instance ToByteString TransitGatewayMulticastDomainState
+instance Prelude.ToByteString TransitGatewayMulticastDomainState
 
-instance ToQuery TransitGatewayMulticastDomainState
+instance Prelude.ToQuery TransitGatewayMulticastDomainState
 
-instance ToHeader TransitGatewayMulticastDomainState
+instance Prelude.ToHeader TransitGatewayMulticastDomainState
 
-instance FromXML TransitGatewayMulticastDomainState where
-  parseXML = parseXMLText "TransitGatewayMulticastDomainState"
+instance Prelude.FromXML TransitGatewayMulticastDomainState where
+  parseXML = Prelude.parseXMLText "TransitGatewayMulticastDomainState"

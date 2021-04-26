@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.EC2.Types.FpgaImageStateCode
   ( FpgaImageStateCode
       ( ..,
-        FISCAvailable,
-        FISCFailed,
-        FISCPending,
-        FISCUnavailable
+        FpgaImageStateCodeAvailable,
+        FpgaImageStateCodeFailed,
+        FpgaImageStateCodePending,
+        FpgaImageStateCodeUnavailable
       ),
   )
 where
 
-import Data.CaseInsensitive
 import Network.AWS.EC2.Internal
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FpgaImageStateCode
-  = FpgaImageStateCode'
-      ( CI
-          Text
-      )
+newtype FpgaImageStateCode = FpgaImageStateCode'
+  { fromFpgaImageStateCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FISCAvailable :: FpgaImageStateCode
-pattern FISCAvailable = FpgaImageStateCode' "available"
+pattern FpgaImageStateCodeAvailable :: FpgaImageStateCode
+pattern FpgaImageStateCodeAvailable = FpgaImageStateCode' "available"
 
-pattern FISCFailed :: FpgaImageStateCode
-pattern FISCFailed = FpgaImageStateCode' "failed"
+pattern FpgaImageStateCodeFailed :: FpgaImageStateCode
+pattern FpgaImageStateCodeFailed = FpgaImageStateCode' "failed"
 
-pattern FISCPending :: FpgaImageStateCode
-pattern FISCPending = FpgaImageStateCode' "pending"
+pattern FpgaImageStateCodePending :: FpgaImageStateCode
+pattern FpgaImageStateCodePending = FpgaImageStateCode' "pending"
 
-pattern FISCUnavailable :: FpgaImageStateCode
-pattern FISCUnavailable = FpgaImageStateCode' "unavailable"
+pattern FpgaImageStateCodeUnavailable :: FpgaImageStateCode
+pattern FpgaImageStateCodeUnavailable = FpgaImageStateCode' "unavailable"
 
 {-# COMPLETE
-  FISCAvailable,
-  FISCFailed,
-  FISCPending,
-  FISCUnavailable,
+  FpgaImageStateCodeAvailable,
+  FpgaImageStateCodeFailed,
+  FpgaImageStateCodePending,
+  FpgaImageStateCodeUnavailable,
   FpgaImageStateCode'
   #-}
 
-instance FromText FpgaImageStateCode where
-  parser = (FpgaImageStateCode' . mk) <$> takeText
+instance Prelude.FromText FpgaImageStateCode where
+  parser = FpgaImageStateCode' Prelude.<$> Prelude.takeText
 
-instance ToText FpgaImageStateCode where
-  toText (FpgaImageStateCode' ci) = original ci
+instance Prelude.ToText FpgaImageStateCode where
+  toText (FpgaImageStateCode' x) = x
 
-instance Hashable FpgaImageStateCode
+instance Prelude.Hashable FpgaImageStateCode
 
-instance NFData FpgaImageStateCode
+instance Prelude.NFData FpgaImageStateCode
 
-instance ToByteString FpgaImageStateCode
+instance Prelude.ToByteString FpgaImageStateCode
 
-instance ToQuery FpgaImageStateCode
+instance Prelude.ToQuery FpgaImageStateCode
 
-instance ToHeader FpgaImageStateCode
+instance Prelude.ToHeader FpgaImageStateCode
 
-instance FromXML FpgaImageStateCode where
-  parseXML = parseXMLText "FpgaImageStateCode"
+instance Prelude.FromXML FpgaImageStateCode where
+  parseXML = Prelude.parseXMLText "FpgaImageStateCode"

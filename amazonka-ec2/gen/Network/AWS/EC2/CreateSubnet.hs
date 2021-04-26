@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,201 +23,292 @@
 --
 -- Creates a subnet in a specified VPC.
 --
+-- You must specify an IPv4 CIDR block for the subnet. After you create a
+-- subnet, you can\'t change its CIDR block. The allowed block size is
+-- between a \/16 netmask (65,536 IP addresses) and \/28 netmask (16 IP
+-- addresses). The CIDR block must not overlap with the CIDR block of an
+-- existing subnet in the VPC.
 --
--- You must specify an IPv4 CIDR block for the subnet. After you create a subnet, you can't change its CIDR block. The allowed block size is between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses). The CIDR block must not overlap with the CIDR block of an existing subnet in the VPC.
+-- If you\'ve associated an IPv6 CIDR block with your VPC, you can create a
+-- subnet with an IPv6 CIDR block that uses a \/64 prefix length.
 --
--- If you've associated an IPv6 CIDR block with your VPC, you can create a subnet with an IPv6 CIDR block that uses a /64 prefix length.
+-- AWS reserves both the first four and the last IPv4 address in each
+-- subnet\'s CIDR block. They\'re not available for use.
 --
--- /Important:/ AWS reserves both the first four and the last IPv4 address in each subnet's CIDR block. They're not available for use.
+-- If you add more than one subnet to a VPC, they\'re set up in a star
+-- topology with a logical router in the middle.
 --
--- If you add more than one subnet to a VPC, they're set up in a star topology with a logical router in the middle.
+-- When you stop an instance in a subnet, it retains its private IPv4
+-- address. It\'s therefore possible to have a subnet with no running
+-- instances (they\'re all stopped), but no remaining IP addresses
+-- available.
 --
--- When you stop an instance in a subnet, it retains its private IPv4 address. It's therefore possible to have a subnet with no running instances (they're all stopped), but no remaining IP addresses available.
---
--- For more information about subnets, see <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html Your VPC and Subnets> in the /Amazon Virtual Private Cloud User Guide/ .
+-- For more information about subnets, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html Your VPC and Subnets>
+-- in the /Amazon Virtual Private Cloud User Guide/.
 module Network.AWS.EC2.CreateSubnet
   ( -- * Creating a Request
-    createSubnet,
-    CreateSubnet,
+    CreateSubnet (..),
+    newCreateSubnet,
 
     -- * Request Lenses
-    creTagSpecifications,
-    creDryRun,
-    creOutpostARN,
-    creAvailabilityZoneId,
-    creAvailabilityZone,
-    creIPv6CidrBlock,
-    creCidrBlock,
-    creVPCId,
+    createSubnet_tagSpecifications,
+    createSubnet_dryRun,
+    createSubnet_outpostArn,
+    createSubnet_availabilityZoneId,
+    createSubnet_availabilityZone,
+    createSubnet_ipv6CidrBlock,
+    createSubnet_cidrBlock,
+    createSubnet_vpcId,
 
     -- * Destructuring the Response
-    createSubnetResponse,
-    CreateSubnetResponse,
+    CreateSubnetResponse (..),
+    newCreateSubnetResponse,
 
     -- * Response Lenses
-    crersSubnet,
-    crersResponseStatus,
+    createSubnetResponse_subnet,
+    createSubnetResponse_httpStatus,
   )
 where
 
 import Network.AWS.EC2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EC2.Types.Subnet
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSubnet' smart constructor.
+-- | /See:/ 'newCreateSubnet' smart constructor.
 data CreateSubnet = CreateSubnet'
-  { _creTagSpecifications ::
-      !(Maybe [TagSpecification]),
-    _creDryRun :: !(Maybe Bool),
-    _creOutpostARN :: !(Maybe Text),
-    _creAvailabilityZoneId :: !(Maybe Text),
-    _creAvailabilityZone :: !(Maybe Text),
-    _creIPv6CidrBlock :: !(Maybe Text),
-    _creCidrBlock :: !Text,
-    _creVPCId :: !Text
+  { -- | The tags to assign to the subnet.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the Outpost. If you specify an Outpost
+    -- ARN, you must also specify the Availability Zone of the Outpost subnet.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The AZ ID or the Local Zone ID of the subnet.
+    availabilityZoneId :: Prelude.Maybe Prelude.Text,
+    -- | The Availability Zone or Local Zone for the subnet.
+    --
+    -- Default: AWS selects one for you. If you create more than one subnet in
+    -- your VPC, we do not necessarily select a different zone for each subnet.
+    --
+    -- To create a subnet in a Local Zone, set this value to the Local Zone ID,
+    -- for example @us-west-2-lax-1a@. For information about the Regions that
+    -- support Local Zones, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions Available Regions>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    --
+    -- To create a subnet in an Outpost, set this value to the Availability
+    -- Zone for the Outpost and specify the Outpost ARN.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The IPv6 network range for the subnet, in CIDR notation. The subnet size
+    -- must use a \/64 prefix length.
+    ipv6CidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The IPv4 network range for the subnet, in CIDR notation. For example,
+    -- @10.0.0.0\/24@. We modify the specified CIDR block to its canonical
+    -- form; for example, if you specify @100.68.0.18\/18@, we modify it to
+    -- @100.68.0.0\/18@.
+    cidrBlock :: Prelude.Text,
+    -- | The ID of the VPC.
+    vpcId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubnet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubnet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'creTagSpecifications' - The tags to assign to the subnet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'creDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- 'tagSpecifications', 'createSubnet_tagSpecifications' - The tags to assign to the subnet.
 --
--- * 'creOutpostARN' - The Amazon Resource Name (ARN) of the Outpost. If you specify an Outpost ARN, you must also specify the Availability Zone of the Outpost subnet.
+-- 'dryRun', 'createSubnet_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
--- * 'creAvailabilityZoneId' - The AZ ID or the Local Zone ID of the subnet.
+-- 'outpostArn', 'createSubnet_outpostArn' - The Amazon Resource Name (ARN) of the Outpost. If you specify an Outpost
+-- ARN, you must also specify the Availability Zone of the Outpost subnet.
 --
--- * 'creAvailabilityZone' - The Availability Zone or Local Zone for the subnet. Default: AWS selects one for you. If you create more than one subnet in your VPC, we do not necessarily select a different zone for each subnet. To create a subnet in a Local Zone, set this value to the Local Zone ID, for example @us-west-2-lax-1a@ . For information about the Regions that support Local Zones, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions Available Regions> in the /Amazon Elastic Compute Cloud User Guide/ . To create a subnet in an Outpost, set this value to the Availability Zone for the Outpost and specify the Outpost ARN.
+-- 'availabilityZoneId', 'createSubnet_availabilityZoneId' - The AZ ID or the Local Zone ID of the subnet.
 --
--- * 'creIPv6CidrBlock' - The IPv6 network range for the subnet, in CIDR notation. The subnet size must use a /64 prefix length.
+-- 'availabilityZone', 'createSubnet_availabilityZone' - The Availability Zone or Local Zone for the subnet.
 --
--- * 'creCidrBlock' - The IPv4 network range for the subnet, in CIDR notation. For example, @10.0.0.0/24@ . We modify the specified CIDR block to its canonical form; for example, if you specify @100.68.0.18/18@ , we modify it to @100.68.0.0/18@ .
+-- Default: AWS selects one for you. If you create more than one subnet in
+-- your VPC, we do not necessarily select a different zone for each subnet.
 --
--- * 'creVPCId' - The ID of the VPC.
-createSubnet ::
-  -- | 'creCidrBlock'
-  Text ->
-  -- | 'creVPCId'
-  Text ->
+-- To create a subnet in a Local Zone, set this value to the Local Zone ID,
+-- for example @us-west-2-lax-1a@. For information about the Regions that
+-- support Local Zones, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions Available Regions>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- To create a subnet in an Outpost, set this value to the Availability
+-- Zone for the Outpost and specify the Outpost ARN.
+--
+-- 'ipv6CidrBlock', 'createSubnet_ipv6CidrBlock' - The IPv6 network range for the subnet, in CIDR notation. The subnet size
+-- must use a \/64 prefix length.
+--
+-- 'cidrBlock', 'createSubnet_cidrBlock' - The IPv4 network range for the subnet, in CIDR notation. For example,
+-- @10.0.0.0\/24@. We modify the specified CIDR block to its canonical
+-- form; for example, if you specify @100.68.0.18\/18@, we modify it to
+-- @100.68.0.0\/18@.
+--
+-- 'vpcId', 'createSubnet_vpcId' - The ID of the VPC.
+newCreateSubnet ::
+  -- | 'cidrBlock'
+  Prelude.Text ->
+  -- | 'vpcId'
+  Prelude.Text ->
   CreateSubnet
-createSubnet pCidrBlock_ pVPCId_ =
+newCreateSubnet pCidrBlock_ pVpcId_ =
   CreateSubnet'
-    { _creTagSpecifications = Nothing,
-      _creDryRun = Nothing,
-      _creOutpostARN = Nothing,
-      _creAvailabilityZoneId = Nothing,
-      _creAvailabilityZone = Nothing,
-      _creIPv6CidrBlock = Nothing,
-      _creCidrBlock = pCidrBlock_,
-      _creVPCId = pVPCId_
+    { tagSpecifications = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      outpostArn = Prelude.Nothing,
+      availabilityZoneId = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      ipv6CidrBlock = Prelude.Nothing,
+      cidrBlock = pCidrBlock_,
+      vpcId = pVpcId_
     }
 
 -- | The tags to assign to the subnet.
-creTagSpecifications :: Lens' CreateSubnet [TagSpecification]
-creTagSpecifications = lens _creTagSpecifications (\s a -> s {_creTagSpecifications = a}) . _Default . _Coerce
+createSubnet_tagSpecifications :: Lens.Lens' CreateSubnet (Prelude.Maybe [TagSpecification])
+createSubnet_tagSpecifications = Lens.lens (\CreateSubnet' {tagSpecifications} -> tagSpecifications) (\s@CreateSubnet' {} a -> s {tagSpecifications = a} :: CreateSubnet) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-creDryRun :: Lens' CreateSubnet (Maybe Bool)
-creDryRun = lens _creDryRun (\s a -> s {_creDryRun = a})
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createSubnet_dryRun :: Lens.Lens' CreateSubnet (Prelude.Maybe Prelude.Bool)
+createSubnet_dryRun = Lens.lens (\CreateSubnet' {dryRun} -> dryRun) (\s@CreateSubnet' {} a -> s {dryRun = a} :: CreateSubnet)
 
--- | The Amazon Resource Name (ARN) of the Outpost. If you specify an Outpost ARN, you must also specify the Availability Zone of the Outpost subnet.
-creOutpostARN :: Lens' CreateSubnet (Maybe Text)
-creOutpostARN = lens _creOutpostARN (\s a -> s {_creOutpostARN = a})
+-- | The Amazon Resource Name (ARN) of the Outpost. If you specify an Outpost
+-- ARN, you must also specify the Availability Zone of the Outpost subnet.
+createSubnet_outpostArn :: Lens.Lens' CreateSubnet (Prelude.Maybe Prelude.Text)
+createSubnet_outpostArn = Lens.lens (\CreateSubnet' {outpostArn} -> outpostArn) (\s@CreateSubnet' {} a -> s {outpostArn = a} :: CreateSubnet)
 
 -- | The AZ ID or the Local Zone ID of the subnet.
-creAvailabilityZoneId :: Lens' CreateSubnet (Maybe Text)
-creAvailabilityZoneId = lens _creAvailabilityZoneId (\s a -> s {_creAvailabilityZoneId = a})
+createSubnet_availabilityZoneId :: Lens.Lens' CreateSubnet (Prelude.Maybe Prelude.Text)
+createSubnet_availabilityZoneId = Lens.lens (\CreateSubnet' {availabilityZoneId} -> availabilityZoneId) (\s@CreateSubnet' {} a -> s {availabilityZoneId = a} :: CreateSubnet)
 
--- | The Availability Zone or Local Zone for the subnet. Default: AWS selects one for you. If you create more than one subnet in your VPC, we do not necessarily select a different zone for each subnet. To create a subnet in a Local Zone, set this value to the Local Zone ID, for example @us-west-2-lax-1a@ . For information about the Regions that support Local Zones, see <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions Available Regions> in the /Amazon Elastic Compute Cloud User Guide/ . To create a subnet in an Outpost, set this value to the Availability Zone for the Outpost and specify the Outpost ARN.
-creAvailabilityZone :: Lens' CreateSubnet (Maybe Text)
-creAvailabilityZone = lens _creAvailabilityZone (\s a -> s {_creAvailabilityZone = a})
+-- | The Availability Zone or Local Zone for the subnet.
+--
+-- Default: AWS selects one for you. If you create more than one subnet in
+-- your VPC, we do not necessarily select a different zone for each subnet.
+--
+-- To create a subnet in a Local Zone, set this value to the Local Zone ID,
+-- for example @us-west-2-lax-1a@. For information about the Regions that
+-- support Local Zones, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions Available Regions>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- To create a subnet in an Outpost, set this value to the Availability
+-- Zone for the Outpost and specify the Outpost ARN.
+createSubnet_availabilityZone :: Lens.Lens' CreateSubnet (Prelude.Maybe Prelude.Text)
+createSubnet_availabilityZone = Lens.lens (\CreateSubnet' {availabilityZone} -> availabilityZone) (\s@CreateSubnet' {} a -> s {availabilityZone = a} :: CreateSubnet)
 
--- | The IPv6 network range for the subnet, in CIDR notation. The subnet size must use a /64 prefix length.
-creIPv6CidrBlock :: Lens' CreateSubnet (Maybe Text)
-creIPv6CidrBlock = lens _creIPv6CidrBlock (\s a -> s {_creIPv6CidrBlock = a})
+-- | The IPv6 network range for the subnet, in CIDR notation. The subnet size
+-- must use a \/64 prefix length.
+createSubnet_ipv6CidrBlock :: Lens.Lens' CreateSubnet (Prelude.Maybe Prelude.Text)
+createSubnet_ipv6CidrBlock = Lens.lens (\CreateSubnet' {ipv6CidrBlock} -> ipv6CidrBlock) (\s@CreateSubnet' {} a -> s {ipv6CidrBlock = a} :: CreateSubnet)
 
--- | The IPv4 network range for the subnet, in CIDR notation. For example, @10.0.0.0/24@ . We modify the specified CIDR block to its canonical form; for example, if you specify @100.68.0.18/18@ , we modify it to @100.68.0.0/18@ .
-creCidrBlock :: Lens' CreateSubnet Text
-creCidrBlock = lens _creCidrBlock (\s a -> s {_creCidrBlock = a})
+-- | The IPv4 network range for the subnet, in CIDR notation. For example,
+-- @10.0.0.0\/24@. We modify the specified CIDR block to its canonical
+-- form; for example, if you specify @100.68.0.18\/18@, we modify it to
+-- @100.68.0.0\/18@.
+createSubnet_cidrBlock :: Lens.Lens' CreateSubnet Prelude.Text
+createSubnet_cidrBlock = Lens.lens (\CreateSubnet' {cidrBlock} -> cidrBlock) (\s@CreateSubnet' {} a -> s {cidrBlock = a} :: CreateSubnet)
 
 -- | The ID of the VPC.
-creVPCId :: Lens' CreateSubnet Text
-creVPCId = lens _creVPCId (\s a -> s {_creVPCId = a})
+createSubnet_vpcId :: Lens.Lens' CreateSubnet Prelude.Text
+createSubnet_vpcId = Lens.lens (\CreateSubnet' {vpcId} -> vpcId) (\s@CreateSubnet' {} a -> s {vpcId = a} :: CreateSubnet)
 
-instance AWSRequest CreateSubnet where
+instance Prelude.AWSRequest CreateSubnet where
   type Rs CreateSubnet = CreateSubnetResponse
-  request = postQuery ec2
+  request = Request.postQuery defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateSubnetResponse'
-            <$> (x .@? "subnet") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "subnet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSubnet
+instance Prelude.Hashable CreateSubnet
 
-instance NFData CreateSubnet
+instance Prelude.NFData CreateSubnet
 
-instance ToHeaders CreateSubnet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateSubnet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateSubnet where
-  toPath = const "/"
+instance Prelude.ToPath CreateSubnet where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSubnet where
+instance Prelude.ToQuery CreateSubnet where
   toQuery CreateSubnet' {..} =
-    mconcat
-      [ "Action" =: ("CreateSubnet" :: ByteString),
-        "Version" =: ("2016-11-15" :: ByteString),
-        toQuery
-          ( toQueryList "TagSpecification"
-              <$> _creTagSpecifications
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateSubnet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2016-11-15" :: Prelude.ByteString),
+        Prelude.toQuery
+          ( Prelude.toQueryList "TagSpecification"
+              Prelude.<$> tagSpecifications
           ),
-        "DryRun" =: _creDryRun,
-        "OutpostArn" =: _creOutpostARN,
-        "AvailabilityZoneId" =: _creAvailabilityZoneId,
-        "AvailabilityZone" =: _creAvailabilityZone,
-        "Ipv6CidrBlock" =: _creIPv6CidrBlock,
-        "CidrBlock" =: _creCidrBlock,
-        "VpcId" =: _creVPCId
+        "DryRun" Prelude.=: dryRun,
+        "OutpostArn" Prelude.=: outpostArn,
+        "AvailabilityZoneId" Prelude.=: availabilityZoneId,
+        "AvailabilityZone" Prelude.=: availabilityZone,
+        "Ipv6CidrBlock" Prelude.=: ipv6CidrBlock,
+        "CidrBlock" Prelude.=: cidrBlock,
+        "VpcId" Prelude.=: vpcId
       ]
 
--- | /See:/ 'createSubnetResponse' smart constructor.
+-- | /See:/ 'newCreateSubnetResponse' smart constructor.
 data CreateSubnetResponse = CreateSubnetResponse'
-  { _crersSubnet ::
-      !(Maybe Subnet),
-    _crersResponseStatus :: !Int
+  { -- | Information about the subnet.
+    subnet :: Prelude.Maybe Subnet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubnetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubnetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crersSubnet' - Information about the subnet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crersResponseStatus' - -- | The response status code.
-createSubnetResponse ::
-  -- | 'crersResponseStatus'
-  Int ->
+-- 'subnet', 'createSubnetResponse_subnet' - Information about the subnet.
+--
+-- 'httpStatus', 'createSubnetResponse_httpStatus' - The response's http status code.
+newCreateSubnetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSubnetResponse
-createSubnetResponse pResponseStatus_ =
+newCreateSubnetResponse pHttpStatus_ =
   CreateSubnetResponse'
-    { _crersSubnet = Nothing,
-      _crersResponseStatus = pResponseStatus_
+    { subnet = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the subnet.
-crersSubnet :: Lens' CreateSubnetResponse (Maybe Subnet)
-crersSubnet = lens _crersSubnet (\s a -> s {_crersSubnet = a})
+createSubnetResponse_subnet :: Lens.Lens' CreateSubnetResponse (Prelude.Maybe Subnet)
+createSubnetResponse_subnet = Lens.lens (\CreateSubnetResponse' {subnet} -> subnet) (\s@CreateSubnetResponse' {} a -> s {subnet = a} :: CreateSubnetResponse)
 
--- | -- | The response status code.
-crersResponseStatus :: Lens' CreateSubnetResponse Int
-crersResponseStatus = lens _crersResponseStatus (\s a -> s {_crersResponseStatus = a})
+-- | The response's http status code.
+createSubnetResponse_httpStatus :: Lens.Lens' CreateSubnetResponse Prelude.Int
+createSubnetResponse_httpStatus = Lens.lens (\CreateSubnetResponse' {httpStatus} -> httpStatus) (\s@CreateSubnetResponse' {} a -> s {httpStatus = a} :: CreateSubnetResponse)
 
-instance NFData CreateSubnetResponse
+instance Prelude.NFData CreateSubnetResponse
