@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTJobsData.Types
   ( -- * Service Configuration
-    ioTJobsData,
+    defaultService,
 
     -- * Errors
     _TerminalStateException,
@@ -27,35 +30,15 @@ module Network.AWS.IoTJobsData.Types
 
     -- * JobExecution
     JobExecution (..),
-    jobExecution,
-    jeStartedAt,
-    jeStatus,
-    jeStatusDetails,
-    jeThingName,
-    jeQueuedAt,
-    jeVersionNumber,
-    jeExecutionNumber,
-    jeJobDocument,
-    jeApproximateSecondsBeforeTimedOut,
-    jeLastUpdatedAt,
-    jeJobId,
+    newJobExecution,
 
     -- * JobExecutionState
     JobExecutionState (..),
-    jobExecutionState,
-    jesStatus,
-    jesStatusDetails,
-    jesVersionNumber,
+    newJobExecutionState,
 
     -- * JobExecutionSummary
     JobExecutionSummary (..),
-    jobExecutionSummary,
-    jStartedAt,
-    jQueuedAt,
-    jVersionNumber,
-    jExecutionNumber,
-    jLastUpdatedAt,
-    jJobId,
+    newJobExecutionSummary,
   )
 where
 
@@ -63,113 +46,138 @@ import Network.AWS.IoTJobsData.Types.JobExecution
 import Network.AWS.IoTJobsData.Types.JobExecutionState
 import Network.AWS.IoTJobsData.Types.JobExecutionStatus
 import Network.AWS.IoTJobsData.Types.JobExecutionSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-09-29@ of the Amazon IoT Jobs Data Plane SDK configuration.
-ioTJobsData :: Service
-ioTJobsData =
-  Service
-    { _svcAbbrev = "IoTJobsData",
-      _svcSigner = v4,
-      _svcPrefix = "data.jobs.iot",
-      _svcVersion = "2017-09-29",
-      _svcEndpoint = defaultEndpoint ioTJobsData,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "IoTJobsData",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "IoTJobsData",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "data.jobs.iot",
+      Prelude._svcVersion = "2017-09-29",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "IoTJobsData",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The job is in a terminal state.
-_TerminalStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_TerminalStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TerminalStateException =
-  _MatchServiceError
-    ioTJobsData
+  Prelude._MatchServiceError
+    defaultService
     "TerminalStateException"
-    . hasStatus 410
+    Prelude.. Prelude.hasStatus 410
 
 -- | The certificate is invalid.
-_CertificateValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_CertificateValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CertificateValidationException =
-  _MatchServiceError
-    ioTJobsData
+  Prelude._MatchServiceError
+    defaultService
     "CertificateValidationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The service is temporarily unavailable.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    ioTJobsData
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
-    . hasStatus 503
+    Prelude.. Prelude.hasStatus 503
 
 -- | The rate exceeds the limit.
-_ThrottlingException :: AsError a => Getting (First ServiceError) a ServiceError
+_ThrottlingException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ThrottlingException =
-  _MatchServiceError
-    ioTJobsData
+  Prelude._MatchServiceError
+    defaultService
     "ThrottlingException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
--- | The contents of the request were invalid. For example, this code is returned when an UpdateJobExecution request contains invalid status details. The message contains details about the error.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The contents of the request were invalid. For example, this code is
+-- returned when an UpdateJobExecution request contains invalid status
+-- details. The message contains details about the error.
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError
-    ioTJobsData
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | An update attempted to change the job execution to a state that is invalid because of the job execution's current state (for example, an attempt to change a request in state SUCCESS to state IN_PROGRESS). In this case, the body of the error message also contains the executionState field.
-_InvalidStateTransitionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An update attempted to change the job execution to a state that is
+-- invalid because of the job execution\'s current state (for example, an
+-- attempt to change a request in state SUCCESS to state IN_PROGRESS). In
+-- this case, the body of the error message also contains the
+-- executionState field.
+_InvalidStateTransitionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidStateTransitionException =
-  _MatchServiceError
-    ioTJobsData
+  Prelude._MatchServiceError
+    defaultService
     "InvalidStateTransitionException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The specified resource does not exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    ioTJobsData
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404

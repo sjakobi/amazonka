@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,138 @@
 -- Gets the list of all jobs for a thing that are not in a terminal status.
 module Network.AWS.IoTJobsData.GetPendingJobExecutions
   ( -- * Creating a Request
-    getPendingJobExecutions,
-    GetPendingJobExecutions,
+    GetPendingJobExecutions (..),
+    newGetPendingJobExecutions,
 
     -- * Request Lenses
-    gpjeThingName,
+    getPendingJobExecutions_thingName,
 
     -- * Destructuring the Response
-    getPendingJobExecutionsResponse,
-    GetPendingJobExecutionsResponse,
+    GetPendingJobExecutionsResponse (..),
+    newGetPendingJobExecutionsResponse,
 
     -- * Response Lenses
-    gpjerrsInProgressJobs,
-    gpjerrsQueuedJobs,
-    gpjerrsResponseStatus,
+    getPendingJobExecutionsResponse_inProgressJobs,
+    getPendingJobExecutionsResponse_queuedJobs,
+    getPendingJobExecutionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTJobsData.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoTJobsData.Types.JobExecutionSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPendingJobExecutions' smart constructor.
-newtype GetPendingJobExecutions = GetPendingJobExecutions'
-  { _gpjeThingName ::
-      Text
+-- | /See:/ 'newGetPendingJobExecutions' smart constructor.
+data GetPendingJobExecutions = GetPendingJobExecutions'
+  { -- | The name of the thing that is executing the job.
+    thingName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPendingJobExecutions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPendingJobExecutions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpjeThingName' - The name of the thing that is executing the job.
-getPendingJobExecutions ::
-  -- | 'gpjeThingName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'thingName', 'getPendingJobExecutions_thingName' - The name of the thing that is executing the job.
+newGetPendingJobExecutions ::
+  -- | 'thingName'
+  Prelude.Text ->
   GetPendingJobExecutions
-getPendingJobExecutions pThingName_ =
-  GetPendingJobExecutions'
-    { _gpjeThingName =
-        pThingName_
-    }
+newGetPendingJobExecutions pThingName_ =
+  GetPendingJobExecutions' {thingName = pThingName_}
 
 -- | The name of the thing that is executing the job.
-gpjeThingName :: Lens' GetPendingJobExecutions Text
-gpjeThingName = lens _gpjeThingName (\s a -> s {_gpjeThingName = a})
+getPendingJobExecutions_thingName :: Lens.Lens' GetPendingJobExecutions Prelude.Text
+getPendingJobExecutions_thingName = Lens.lens (\GetPendingJobExecutions' {thingName} -> thingName) (\s@GetPendingJobExecutions' {} a -> s {thingName = a} :: GetPendingJobExecutions)
 
-instance AWSRequest GetPendingJobExecutions where
+instance Prelude.AWSRequest GetPendingJobExecutions where
   type
     Rs GetPendingJobExecutions =
       GetPendingJobExecutionsResponse
-  request = get ioTJobsData
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPendingJobExecutionsResponse'
-            <$> (x .?> "inProgressJobs" .!@ mempty)
-            <*> (x .?> "queuedJobs" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "inProgressJobs"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "queuedJobs"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPendingJobExecutions
+instance Prelude.Hashable GetPendingJobExecutions
 
-instance NFData GetPendingJobExecutions
+instance Prelude.NFData GetPendingJobExecutions
 
-instance ToHeaders GetPendingJobExecutions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetPendingJobExecutions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetPendingJobExecutions where
+instance Prelude.ToPath GetPendingJobExecutions where
   toPath GetPendingJobExecutions' {..} =
-    mconcat ["/things/", toBS _gpjeThingName, "/jobs"]
+    Prelude.mconcat
+      ["/things/", Prelude.toBS thingName, "/jobs"]
 
-instance ToQuery GetPendingJobExecutions where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPendingJobExecutions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getPendingJobExecutionsResponse' smart constructor.
+-- | /See:/ 'newGetPendingJobExecutionsResponse' smart constructor.
 data GetPendingJobExecutionsResponse = GetPendingJobExecutionsResponse'
-  { _gpjerrsInProgressJobs ::
-      !( Maybe
-           [JobExecutionSummary]
-       ),
-    _gpjerrsQueuedJobs ::
-      !( Maybe
-           [JobExecutionSummary]
-       ),
-    _gpjerrsResponseStatus ::
-      !Int
+  { -- | A list of JobExecutionSummary objects with status IN_PROGRESS.
+    inProgressJobs :: Prelude.Maybe [JobExecutionSummary],
+    -- | A list of JobExecutionSummary objects with status QUEUED.
+    queuedJobs :: Prelude.Maybe [JobExecutionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPendingJobExecutionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPendingJobExecutionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpjerrsInProgressJobs' - A list of JobExecutionSummary objects with status IN_PROGRESS.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpjerrsQueuedJobs' - A list of JobExecutionSummary objects with status QUEUED.
+-- 'inProgressJobs', 'getPendingJobExecutionsResponse_inProgressJobs' - A list of JobExecutionSummary objects with status IN_PROGRESS.
 --
--- * 'gpjerrsResponseStatus' - -- | The response status code.
-getPendingJobExecutionsResponse ::
-  -- | 'gpjerrsResponseStatus'
-  Int ->
+-- 'queuedJobs', 'getPendingJobExecutionsResponse_queuedJobs' - A list of JobExecutionSummary objects with status QUEUED.
+--
+-- 'httpStatus', 'getPendingJobExecutionsResponse_httpStatus' - The response's http status code.
+newGetPendingJobExecutionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPendingJobExecutionsResponse
-getPendingJobExecutionsResponse pResponseStatus_ =
+newGetPendingJobExecutionsResponse pHttpStatus_ =
   GetPendingJobExecutionsResponse'
-    { _gpjerrsInProgressJobs =
-        Nothing,
-      _gpjerrsQueuedJobs = Nothing,
-      _gpjerrsResponseStatus = pResponseStatus_
+    { inProgressJobs =
+        Prelude.Nothing,
+      queuedJobs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of JobExecutionSummary objects with status IN_PROGRESS.
-gpjerrsInProgressJobs :: Lens' GetPendingJobExecutionsResponse [JobExecutionSummary]
-gpjerrsInProgressJobs = lens _gpjerrsInProgressJobs (\s a -> s {_gpjerrsInProgressJobs = a}) . _Default . _Coerce
+getPendingJobExecutionsResponse_inProgressJobs :: Lens.Lens' GetPendingJobExecutionsResponse (Prelude.Maybe [JobExecutionSummary])
+getPendingJobExecutionsResponse_inProgressJobs = Lens.lens (\GetPendingJobExecutionsResponse' {inProgressJobs} -> inProgressJobs) (\s@GetPendingJobExecutionsResponse' {} a -> s {inProgressJobs = a} :: GetPendingJobExecutionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of JobExecutionSummary objects with status QUEUED.
-gpjerrsQueuedJobs :: Lens' GetPendingJobExecutionsResponse [JobExecutionSummary]
-gpjerrsQueuedJobs = lens _gpjerrsQueuedJobs (\s a -> s {_gpjerrsQueuedJobs = a}) . _Default . _Coerce
+getPendingJobExecutionsResponse_queuedJobs :: Lens.Lens' GetPendingJobExecutionsResponse (Prelude.Maybe [JobExecutionSummary])
+getPendingJobExecutionsResponse_queuedJobs = Lens.lens (\GetPendingJobExecutionsResponse' {queuedJobs} -> queuedJobs) (\s@GetPendingJobExecutionsResponse' {} a -> s {queuedJobs = a} :: GetPendingJobExecutionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gpjerrsResponseStatus :: Lens' GetPendingJobExecutionsResponse Int
-gpjerrsResponseStatus = lens _gpjerrsResponseStatus (\s a -> s {_gpjerrsResponseStatus = a})
+-- | The response's http status code.
+getPendingJobExecutionsResponse_httpStatus :: Lens.Lens' GetPendingJobExecutionsResponse Prelude.Int
+getPendingJobExecutionsResponse_httpStatus = Lens.lens (\GetPendingJobExecutionsResponse' {httpStatus} -> httpStatus) (\s@GetPendingJobExecutionsResponse' {} a -> s {httpStatus = a} :: GetPendingJobExecutionsResponse)
 
-instance NFData GetPendingJobExecutionsResponse
+instance
+  Prelude.NFData
+    GetPendingJobExecutionsResponse

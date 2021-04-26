@@ -11,15 +11,27 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS IoT Jobs is a service that allows you to define a set of jobs — remote operations that are sent to and executed on one or more devices connected to AWS IoT. For example, you can define a job that instructs a set of devices to download and install application or firmware updates, reboot, rotate certificates, or perform remote troubleshooting operations.
+-- AWS IoT Jobs is a service that allows you to define a set of jobs —
+-- remote operations that are sent to and executed on one or more devices
+-- connected to AWS IoT. For example, you can define a job that instructs a
+-- set of devices to download and install application or firmware updates,
+-- reboot, rotate certificates, or perform remote troubleshooting
+-- operations.
 --
+-- To create a job, you make a job document which is a description of the
+-- remote operations to be performed, and you specify a list of targets
+-- that should perform the operations. The targets can be individual
+-- things, thing groups or both.
 --
--- To create a job, you make a job document which is a description of the remote operations to be performed, and you specify a list of targets that should perform the operations. The targets can be individual things, thing groups or both.
---
--- AWS IoT Jobs sends a message to inform the targets that a job is available. The target starts the execution of the job by downloading the job document, performing the operations it specifies, and reporting its progress to AWS IoT. The Jobs service provides commands to track the progress of a job on a specific target and for all the targets of the job
+-- AWS IoT Jobs sends a message to inform the targets that a job is
+-- available. The target starts the execution of the job by downloading the
+-- job document, performing the operations it specifies, and reporting its
+-- progress to AWS IoT. The Jobs service provides commands to track the
+-- progress of a job on a specific target and for all the targets of the
+-- job
 module Network.AWS.IoTJobsData
   ( -- * Service Configuration
-    ioTJobsData,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -52,16 +64,28 @@ module Network.AWS.IoTJobsData
     -- $operations
 
     -- ** GetPendingJobExecutions
-    module Network.AWS.IoTJobsData.GetPendingJobExecutions,
+    GetPendingJobExecutions (GetPendingJobExecutions'),
+    newGetPendingJobExecutions,
+    GetPendingJobExecutionsResponse (GetPendingJobExecutionsResponse'),
+    newGetPendingJobExecutionsResponse,
 
     -- ** UpdateJobExecution
-    module Network.AWS.IoTJobsData.UpdateJobExecution,
+    UpdateJobExecution (UpdateJobExecution'),
+    newUpdateJobExecution,
+    UpdateJobExecutionResponse (UpdateJobExecutionResponse'),
+    newUpdateJobExecutionResponse,
 
     -- ** DescribeJobExecution
-    module Network.AWS.IoTJobsData.DescribeJobExecution,
+    DescribeJobExecution (DescribeJobExecution'),
+    newDescribeJobExecution,
+    DescribeJobExecutionResponse (DescribeJobExecutionResponse'),
+    newDescribeJobExecutionResponse,
 
     -- ** StartNextPendingJobExecution
-    module Network.AWS.IoTJobsData.StartNextPendingJobExecution,
+    StartNextPendingJobExecution (StartNextPendingJobExecution'),
+    newStartNextPendingJobExecution,
+    StartNextPendingJobExecutionResponse (StartNextPendingJobExecutionResponse'),
+    newStartNextPendingJobExecutionResponse,
 
     -- * Types
 
@@ -69,41 +93,22 @@ module Network.AWS.IoTJobsData
     JobExecutionStatus (..),
 
     -- ** JobExecution
-    JobExecution,
-    jobExecution,
-    jeStartedAt,
-    jeStatus,
-    jeStatusDetails,
-    jeThingName,
-    jeQueuedAt,
-    jeVersionNumber,
-    jeExecutionNumber,
-    jeJobDocument,
-    jeApproximateSecondsBeforeTimedOut,
-    jeLastUpdatedAt,
-    jeJobId,
+    JobExecution (JobExecution'),
+    newJobExecution,
 
     -- ** JobExecutionState
-    JobExecutionState,
-    jobExecutionState,
-    jesStatus,
-    jesStatusDetails,
-    jesVersionNumber,
+    JobExecutionState (JobExecutionState'),
+    newJobExecutionState,
 
     -- ** JobExecutionSummary
-    JobExecutionSummary,
-    jobExecutionSummary,
-    jStartedAt,
-    jQueuedAt,
-    jVersionNumber,
-    jExecutionNumber,
-    jLastUpdatedAt,
-    jJobId,
+    JobExecutionSummary (JobExecutionSummary'),
+    newJobExecutionSummary,
   )
 where
 
 import Network.AWS.IoTJobsData.DescribeJobExecution
 import Network.AWS.IoTJobsData.GetPendingJobExecutions
+import Network.AWS.IoTJobsData.Lens
 import Network.AWS.IoTJobsData.StartNextPendingJobExecution
 import Network.AWS.IoTJobsData.Types
 import Network.AWS.IoTJobsData.UpdateJobExecution

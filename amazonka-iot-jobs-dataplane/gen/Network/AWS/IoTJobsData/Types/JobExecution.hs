@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,136 +20,179 @@
 module Network.AWS.IoTJobsData.Types.JobExecution where
 
 import Network.AWS.IoTJobsData.Types.JobExecutionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains data about a job execution.
 --
---
---
--- /See:/ 'jobExecution' smart constructor.
+-- /See:/ 'newJobExecution' smart constructor.
 data JobExecution = JobExecution'
-  { _jeStartedAt ::
-      !(Maybe Integer),
-    _jeStatus :: !(Maybe JobExecutionStatus),
-    _jeStatusDetails :: !(Maybe (Map Text Text)),
-    _jeThingName :: !(Maybe Text),
-    _jeQueuedAt :: !(Maybe Integer),
-    _jeVersionNumber :: !(Maybe Integer),
-    _jeExecutionNumber :: !(Maybe Integer),
-    _jeJobDocument :: !(Maybe Text),
-    _jeApproximateSecondsBeforeTimedOut ::
-      !(Maybe Integer),
-    _jeLastUpdatedAt :: !(Maybe Integer),
-    _jeJobId :: !(Maybe Text)
+  { -- | The time, in milliseconds since the epoch, when the job execution was
+    -- started.
+    startedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The status of the job execution. Can be one of: \"QUEUED\",
+    -- \"IN_PROGRESS\", \"FAILED\", \"SUCCESS\", \"CANCELED\", \"REJECTED\", or
+    -- \"REMOVED\".
+    status :: Prelude.Maybe JobExecutionStatus,
+    -- | A collection of name\/value pairs that describe the status of the job
+    -- execution.
+    statusDetails :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the thing that is executing the job.
+    thingName :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the job execution was
+    -- enqueued.
+    queuedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The version of the job execution. Job execution versions are incremented
+    -- each time they are updated by a device.
+    versionNumber :: Prelude.Maybe Prelude.Integer,
+    -- | A number that identifies a particular job execution on a particular
+    -- device. It can be used later in commands that return or update job
+    -- execution information.
+    executionNumber :: Prelude.Maybe Prelude.Integer,
+    -- | The content of the job document.
+    jobDocument :: Prelude.Maybe Prelude.Text,
+    -- | The estimated number of seconds that remain before the job execution
+    -- status will be changed to @TIMED_OUT@.
+    approximateSecondsBeforeTimedOut :: Prelude.Maybe Prelude.Integer,
+    -- | The time, in milliseconds since the epoch, when the job execution was
+    -- last updated.
+    lastUpdatedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The unique identifier you assigned to this job when it was created.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jeStartedAt' - The time, in milliseconds since the epoch, when the job execution was started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jeStatus' - The status of the job execution. Can be one of: "QUEUED", "IN_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "REJECTED", or "REMOVED".
+-- 'startedAt', 'jobExecution_startedAt' - The time, in milliseconds since the epoch, when the job execution was
+-- started.
 --
--- * 'jeStatusDetails' - A collection of name/value pairs that describe the status of the job execution.
+-- 'status', 'jobExecution_status' - The status of the job execution. Can be one of: \"QUEUED\",
+-- \"IN_PROGRESS\", \"FAILED\", \"SUCCESS\", \"CANCELED\", \"REJECTED\", or
+-- \"REMOVED\".
 --
--- * 'jeThingName' - The name of the thing that is executing the job.
+-- 'statusDetails', 'jobExecution_statusDetails' - A collection of name\/value pairs that describe the status of the job
+-- execution.
 --
--- * 'jeQueuedAt' - The time, in milliseconds since the epoch, when the job execution was enqueued.
+-- 'thingName', 'jobExecution_thingName' - The name of the thing that is executing the job.
 --
--- * 'jeVersionNumber' - The version of the job execution. Job execution versions are incremented each time they are updated by a device.
+-- 'queuedAt', 'jobExecution_queuedAt' - The time, in milliseconds since the epoch, when the job execution was
+-- enqueued.
 --
--- * 'jeExecutionNumber' - A number that identifies a particular job execution on a particular device. It can be used later in commands that return or update job execution information.
+-- 'versionNumber', 'jobExecution_versionNumber' - The version of the job execution. Job execution versions are incremented
+-- each time they are updated by a device.
 --
--- * 'jeJobDocument' - The content of the job document.
+-- 'executionNumber', 'jobExecution_executionNumber' - A number that identifies a particular job execution on a particular
+-- device. It can be used later in commands that return or update job
+-- execution information.
 --
--- * 'jeApproximateSecondsBeforeTimedOut' - The estimated number of seconds that remain before the job execution status will be changed to @TIMED_OUT@ .
+-- 'jobDocument', 'jobExecution_jobDocument' - The content of the job document.
 --
--- * 'jeLastUpdatedAt' - The time, in milliseconds since the epoch, when the job execution was last updated.
+-- 'approximateSecondsBeforeTimedOut', 'jobExecution_approximateSecondsBeforeTimedOut' - The estimated number of seconds that remain before the job execution
+-- status will be changed to @TIMED_OUT@.
 --
--- * 'jeJobId' - The unique identifier you assigned to this job when it was created.
-jobExecution ::
+-- 'lastUpdatedAt', 'jobExecution_lastUpdatedAt' - The time, in milliseconds since the epoch, when the job execution was
+-- last updated.
+--
+-- 'jobId', 'jobExecution_jobId' - The unique identifier you assigned to this job when it was created.
+newJobExecution ::
   JobExecution
-jobExecution =
+newJobExecution =
   JobExecution'
-    { _jeStartedAt = Nothing,
-      _jeStatus = Nothing,
-      _jeStatusDetails = Nothing,
-      _jeThingName = Nothing,
-      _jeQueuedAt = Nothing,
-      _jeVersionNumber = Nothing,
-      _jeExecutionNumber = Nothing,
-      _jeJobDocument = Nothing,
-      _jeApproximateSecondsBeforeTimedOut = Nothing,
-      _jeLastUpdatedAt = Nothing,
-      _jeJobId = Nothing
+    { startedAt = Prelude.Nothing,
+      status = Prelude.Nothing,
+      statusDetails = Prelude.Nothing,
+      thingName = Prelude.Nothing,
+      queuedAt = Prelude.Nothing,
+      versionNumber = Prelude.Nothing,
+      executionNumber = Prelude.Nothing,
+      jobDocument = Prelude.Nothing,
+      approximateSecondsBeforeTimedOut = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
--- | The time, in milliseconds since the epoch, when the job execution was started.
-jeStartedAt :: Lens' JobExecution (Maybe Integer)
-jeStartedAt = lens _jeStartedAt (\s a -> s {_jeStartedAt = a})
+-- | The time, in milliseconds since the epoch, when the job execution was
+-- started.
+jobExecution_startedAt :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Integer)
+jobExecution_startedAt = Lens.lens (\JobExecution' {startedAt} -> startedAt) (\s@JobExecution' {} a -> s {startedAt = a} :: JobExecution)
 
--- | The status of the job execution. Can be one of: "QUEUED", "IN_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "REJECTED", or "REMOVED".
-jeStatus :: Lens' JobExecution (Maybe JobExecutionStatus)
-jeStatus = lens _jeStatus (\s a -> s {_jeStatus = a})
+-- | The status of the job execution. Can be one of: \"QUEUED\",
+-- \"IN_PROGRESS\", \"FAILED\", \"SUCCESS\", \"CANCELED\", \"REJECTED\", or
+-- \"REMOVED\".
+jobExecution_status :: Lens.Lens' JobExecution (Prelude.Maybe JobExecutionStatus)
+jobExecution_status = Lens.lens (\JobExecution' {status} -> status) (\s@JobExecution' {} a -> s {status = a} :: JobExecution)
 
--- | A collection of name/value pairs that describe the status of the job execution.
-jeStatusDetails :: Lens' JobExecution (HashMap Text Text)
-jeStatusDetails = lens _jeStatusDetails (\s a -> s {_jeStatusDetails = a}) . _Default . _Map
+-- | A collection of name\/value pairs that describe the status of the job
+-- execution.
+jobExecution_statusDetails :: Lens.Lens' JobExecution (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+jobExecution_statusDetails = Lens.lens (\JobExecution' {statusDetails} -> statusDetails) (\s@JobExecution' {} a -> s {statusDetails = a} :: JobExecution) Prelude.. Lens.mapping Prelude._Map
 
 -- | The name of the thing that is executing the job.
-jeThingName :: Lens' JobExecution (Maybe Text)
-jeThingName = lens _jeThingName (\s a -> s {_jeThingName = a})
+jobExecution_thingName :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Text)
+jobExecution_thingName = Lens.lens (\JobExecution' {thingName} -> thingName) (\s@JobExecution' {} a -> s {thingName = a} :: JobExecution)
 
--- | The time, in milliseconds since the epoch, when the job execution was enqueued.
-jeQueuedAt :: Lens' JobExecution (Maybe Integer)
-jeQueuedAt = lens _jeQueuedAt (\s a -> s {_jeQueuedAt = a})
+-- | The time, in milliseconds since the epoch, when the job execution was
+-- enqueued.
+jobExecution_queuedAt :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Integer)
+jobExecution_queuedAt = Lens.lens (\JobExecution' {queuedAt} -> queuedAt) (\s@JobExecution' {} a -> s {queuedAt = a} :: JobExecution)
 
--- | The version of the job execution. Job execution versions are incremented each time they are updated by a device.
-jeVersionNumber :: Lens' JobExecution (Maybe Integer)
-jeVersionNumber = lens _jeVersionNumber (\s a -> s {_jeVersionNumber = a})
+-- | The version of the job execution. Job execution versions are incremented
+-- each time they are updated by a device.
+jobExecution_versionNumber :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Integer)
+jobExecution_versionNumber = Lens.lens (\JobExecution' {versionNumber} -> versionNumber) (\s@JobExecution' {} a -> s {versionNumber = a} :: JobExecution)
 
--- | A number that identifies a particular job execution on a particular device. It can be used later in commands that return or update job execution information.
-jeExecutionNumber :: Lens' JobExecution (Maybe Integer)
-jeExecutionNumber = lens _jeExecutionNumber (\s a -> s {_jeExecutionNumber = a})
+-- | A number that identifies a particular job execution on a particular
+-- device. It can be used later in commands that return or update job
+-- execution information.
+jobExecution_executionNumber :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Integer)
+jobExecution_executionNumber = Lens.lens (\JobExecution' {executionNumber} -> executionNumber) (\s@JobExecution' {} a -> s {executionNumber = a} :: JobExecution)
 
 -- | The content of the job document.
-jeJobDocument :: Lens' JobExecution (Maybe Text)
-jeJobDocument = lens _jeJobDocument (\s a -> s {_jeJobDocument = a})
+jobExecution_jobDocument :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Text)
+jobExecution_jobDocument = Lens.lens (\JobExecution' {jobDocument} -> jobDocument) (\s@JobExecution' {} a -> s {jobDocument = a} :: JobExecution)
 
--- | The estimated number of seconds that remain before the job execution status will be changed to @TIMED_OUT@ .
-jeApproximateSecondsBeforeTimedOut :: Lens' JobExecution (Maybe Integer)
-jeApproximateSecondsBeforeTimedOut = lens _jeApproximateSecondsBeforeTimedOut (\s a -> s {_jeApproximateSecondsBeforeTimedOut = a})
+-- | The estimated number of seconds that remain before the job execution
+-- status will be changed to @TIMED_OUT@.
+jobExecution_approximateSecondsBeforeTimedOut :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Integer)
+jobExecution_approximateSecondsBeforeTimedOut = Lens.lens (\JobExecution' {approximateSecondsBeforeTimedOut} -> approximateSecondsBeforeTimedOut) (\s@JobExecution' {} a -> s {approximateSecondsBeforeTimedOut = a} :: JobExecution)
 
--- | The time, in milliseconds since the epoch, when the job execution was last updated.
-jeLastUpdatedAt :: Lens' JobExecution (Maybe Integer)
-jeLastUpdatedAt = lens _jeLastUpdatedAt (\s a -> s {_jeLastUpdatedAt = a})
+-- | The time, in milliseconds since the epoch, when the job execution was
+-- last updated.
+jobExecution_lastUpdatedAt :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Integer)
+jobExecution_lastUpdatedAt = Lens.lens (\JobExecution' {lastUpdatedAt} -> lastUpdatedAt) (\s@JobExecution' {} a -> s {lastUpdatedAt = a} :: JobExecution)
 
 -- | The unique identifier you assigned to this job when it was created.
-jeJobId :: Lens' JobExecution (Maybe Text)
-jeJobId = lens _jeJobId (\s a -> s {_jeJobId = a})
+jobExecution_jobId :: Lens.Lens' JobExecution (Prelude.Maybe Prelude.Text)
+jobExecution_jobId = Lens.lens (\JobExecution' {jobId} -> jobId) (\s@JobExecution' {} a -> s {jobId = a} :: JobExecution)
 
-instance FromJSON JobExecution where
+instance Prelude.FromJSON JobExecution where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobExecution"
       ( \x ->
           JobExecution'
-            <$> (x .:? "startedAt")
-            <*> (x .:? "status")
-            <*> (x .:? "statusDetails" .!= mempty)
-            <*> (x .:? "thingName")
-            <*> (x .:? "queuedAt")
-            <*> (x .:? "versionNumber")
-            <*> (x .:? "executionNumber")
-            <*> (x .:? "jobDocument")
-            <*> (x .:? "approximateSecondsBeforeTimedOut")
-            <*> (x .:? "lastUpdatedAt")
-            <*> (x .:? "jobId")
+            Prelude.<$> (x Prelude..:? "startedAt")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> ( x Prelude..:? "statusDetails"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "thingName")
+            Prelude.<*> (x Prelude..:? "queuedAt")
+            Prelude.<*> (x Prelude..:? "versionNumber")
+            Prelude.<*> (x Prelude..:? "executionNumber")
+            Prelude.<*> (x Prelude..:? "jobDocument")
+            Prelude.<*> (x Prelude..:? "approximateSecondsBeforeTimedOut")
+            Prelude.<*> (x Prelude..:? "lastUpdatedAt")
+            Prelude.<*> (x Prelude..:? "jobId")
       )
 
-instance Hashable JobExecution
+instance Prelude.Hashable JobExecution
 
-instance NFData JobExecution
+instance Prelude.NFData JobExecution

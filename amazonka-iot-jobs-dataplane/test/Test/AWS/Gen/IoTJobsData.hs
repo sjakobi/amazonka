@@ -28,31 +28,31 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestGetPendingJobExecutions $
---             getPendingJobExecutions
+--             newGetPendingJobExecutions
 --
 --         , requestUpdateJobExecution $
---             updateJobExecution
+--             newUpdateJobExecution
 --
 --         , requestDescribeJobExecution $
---             describeJobExecution
+--             newDescribeJobExecution
 --
 --         , requestStartNextPendingJobExecution $
---             startNextPendingJobExecution
+--             newStartNextPendingJobExecution
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseGetPendingJobExecutions $
---             getPendingJobExecutionsResponse
+--             newGetPendingJobExecutionsResponse
 --
 --         , responseUpdateJobExecution $
---             updateJobExecutionResponse
+--             newUpdateJobExecutionResponse
 --
 --         , responseDescribeJobExecution $
---             describeJobExecutionResponse
+--             newDescribeJobExecutionResponse
 --
 --         , responseStartNextPendingJobExecution $
---             startNextPendingJobExecutionResponse
+--             newStartNextPendingJobExecutionResponse
 --
 --           ]
 --     ]
@@ -90,7 +90,7 @@ responseGetPendingJobExecutions =
   res
     "GetPendingJobExecutionsResponse"
     "fixture/GetPendingJobExecutionsResponse.proto"
-    ioTJobsData
+    defaultService
     (Proxy :: Proxy GetPendingJobExecutions)
 
 responseUpdateJobExecution :: UpdateJobExecutionResponse -> TestTree
@@ -98,7 +98,7 @@ responseUpdateJobExecution =
   res
     "UpdateJobExecutionResponse"
     "fixture/UpdateJobExecutionResponse.proto"
-    ioTJobsData
+    defaultService
     (Proxy :: Proxy UpdateJobExecution)
 
 responseDescribeJobExecution :: DescribeJobExecutionResponse -> TestTree
@@ -106,7 +106,7 @@ responseDescribeJobExecution =
   res
     "DescribeJobExecutionResponse"
     "fixture/DescribeJobExecutionResponse.proto"
-    ioTJobsData
+    defaultService
     (Proxy :: Proxy DescribeJobExecution)
 
 responseStartNextPendingJobExecution :: StartNextPendingJobExecutionResponse -> TestTree
@@ -114,5 +114,5 @@ responseStartNextPendingJobExecution =
   res
     "StartNextPendingJobExecutionResponse"
     "fixture/StartNextPendingJobExecutionResponse.proto"
-    ioTJobsData
+    defaultService
     (Proxy :: Proxy StartNextPendingJobExecution)

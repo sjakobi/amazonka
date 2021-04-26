@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,93 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTJobsData.Types.JobExecutionSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains a subset of information about a job execution.
 --
---
---
--- /See:/ 'jobExecutionSummary' smart constructor.
+-- /See:/ 'newJobExecutionSummary' smart constructor.
 data JobExecutionSummary = JobExecutionSummary'
-  { _jStartedAt ::
-      !(Maybe Integer),
-    _jQueuedAt :: !(Maybe Integer),
-    _jVersionNumber ::
-      !(Maybe Integer),
-    _jExecutionNumber ::
-      !(Maybe Integer),
-    _jLastUpdatedAt ::
-      !(Maybe Integer),
-    _jJobId :: !(Maybe Text)
+  { -- | The time, in milliseconds since the epoch, when the job execution
+    -- started.
+    startedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The time, in milliseconds since the epoch, when the job execution was
+    -- enqueued.
+    queuedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The version of the job execution. Job execution versions are incremented
+    -- each time AWS IoT Jobs receives an update from a device.
+    versionNumber :: Prelude.Maybe Prelude.Integer,
+    -- | A number that identifies a particular job execution on a particular
+    -- device.
+    executionNumber :: Prelude.Maybe Prelude.Integer,
+    -- | The time, in milliseconds since the epoch, when the job execution was
+    -- last updated.
+    lastUpdatedAt :: Prelude.Maybe Prelude.Integer,
+    -- | The unique identifier you assigned to this job when it was created.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobExecutionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobExecutionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jStartedAt' - The time, in milliseconds since the epoch, when the job execution started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jQueuedAt' - The time, in milliseconds since the epoch, when the job execution was enqueued.
+-- 'startedAt', 'jobExecutionSummary_startedAt' - The time, in milliseconds since the epoch, when the job execution
+-- started.
 --
--- * 'jVersionNumber' - The version of the job execution. Job execution versions are incremented each time AWS IoT Jobs receives an update from a device.
+-- 'queuedAt', 'jobExecutionSummary_queuedAt' - The time, in milliseconds since the epoch, when the job execution was
+-- enqueued.
 --
--- * 'jExecutionNumber' - A number that identifies a particular job execution on a particular device.
+-- 'versionNumber', 'jobExecutionSummary_versionNumber' - The version of the job execution. Job execution versions are incremented
+-- each time AWS IoT Jobs receives an update from a device.
 --
--- * 'jLastUpdatedAt' - The time, in milliseconds since the epoch, when the job execution was last updated.
+-- 'executionNumber', 'jobExecutionSummary_executionNumber' - A number that identifies a particular job execution on a particular
+-- device.
 --
--- * 'jJobId' - The unique identifier you assigned to this job when it was created.
-jobExecutionSummary ::
+-- 'lastUpdatedAt', 'jobExecutionSummary_lastUpdatedAt' - The time, in milliseconds since the epoch, when the job execution was
+-- last updated.
+--
+-- 'jobId', 'jobExecutionSummary_jobId' - The unique identifier you assigned to this job when it was created.
+newJobExecutionSummary ::
   JobExecutionSummary
-jobExecutionSummary =
+newJobExecutionSummary =
   JobExecutionSummary'
-    { _jStartedAt = Nothing,
-      _jQueuedAt = Nothing,
-      _jVersionNumber = Nothing,
-      _jExecutionNumber = Nothing,
-      _jLastUpdatedAt = Nothing,
-      _jJobId = Nothing
+    { startedAt = Prelude.Nothing,
+      queuedAt = Prelude.Nothing,
+      versionNumber = Prelude.Nothing,
+      executionNumber = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
--- | The time, in milliseconds since the epoch, when the job execution started.
-jStartedAt :: Lens' JobExecutionSummary (Maybe Integer)
-jStartedAt = lens _jStartedAt (\s a -> s {_jStartedAt = a})
+-- | The time, in milliseconds since the epoch, when the job execution
+-- started.
+jobExecutionSummary_startedAt :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.Integer)
+jobExecutionSummary_startedAt = Lens.lens (\JobExecutionSummary' {startedAt} -> startedAt) (\s@JobExecutionSummary' {} a -> s {startedAt = a} :: JobExecutionSummary)
 
--- | The time, in milliseconds since the epoch, when the job execution was enqueued.
-jQueuedAt :: Lens' JobExecutionSummary (Maybe Integer)
-jQueuedAt = lens _jQueuedAt (\s a -> s {_jQueuedAt = a})
+-- | The time, in milliseconds since the epoch, when the job execution was
+-- enqueued.
+jobExecutionSummary_queuedAt :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.Integer)
+jobExecutionSummary_queuedAt = Lens.lens (\JobExecutionSummary' {queuedAt} -> queuedAt) (\s@JobExecutionSummary' {} a -> s {queuedAt = a} :: JobExecutionSummary)
 
--- | The version of the job execution. Job execution versions are incremented each time AWS IoT Jobs receives an update from a device.
-jVersionNumber :: Lens' JobExecutionSummary (Maybe Integer)
-jVersionNumber = lens _jVersionNumber (\s a -> s {_jVersionNumber = a})
+-- | The version of the job execution. Job execution versions are incremented
+-- each time AWS IoT Jobs receives an update from a device.
+jobExecutionSummary_versionNumber :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.Integer)
+jobExecutionSummary_versionNumber = Lens.lens (\JobExecutionSummary' {versionNumber} -> versionNumber) (\s@JobExecutionSummary' {} a -> s {versionNumber = a} :: JobExecutionSummary)
 
--- | A number that identifies a particular job execution on a particular device.
-jExecutionNumber :: Lens' JobExecutionSummary (Maybe Integer)
-jExecutionNumber = lens _jExecutionNumber (\s a -> s {_jExecutionNumber = a})
+-- | A number that identifies a particular job execution on a particular
+-- device.
+jobExecutionSummary_executionNumber :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.Integer)
+jobExecutionSummary_executionNumber = Lens.lens (\JobExecutionSummary' {executionNumber} -> executionNumber) (\s@JobExecutionSummary' {} a -> s {executionNumber = a} :: JobExecutionSummary)
 
--- | The time, in milliseconds since the epoch, when the job execution was last updated.
-jLastUpdatedAt :: Lens' JobExecutionSummary (Maybe Integer)
-jLastUpdatedAt = lens _jLastUpdatedAt (\s a -> s {_jLastUpdatedAt = a})
+-- | The time, in milliseconds since the epoch, when the job execution was
+-- last updated.
+jobExecutionSummary_lastUpdatedAt :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.Integer)
+jobExecutionSummary_lastUpdatedAt = Lens.lens (\JobExecutionSummary' {lastUpdatedAt} -> lastUpdatedAt) (\s@JobExecutionSummary' {} a -> s {lastUpdatedAt = a} :: JobExecutionSummary)
 
 -- | The unique identifier you assigned to this job when it was created.
-jJobId :: Lens' JobExecutionSummary (Maybe Text)
-jJobId = lens _jJobId (\s a -> s {_jJobId = a})
+jobExecutionSummary_jobId :: Lens.Lens' JobExecutionSummary (Prelude.Maybe Prelude.Text)
+jobExecutionSummary_jobId = Lens.lens (\JobExecutionSummary' {jobId} -> jobId) (\s@JobExecutionSummary' {} a -> s {jobId = a} :: JobExecutionSummary)
 
-instance FromJSON JobExecutionSummary where
+instance Prelude.FromJSON JobExecutionSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobExecutionSummary"
       ( \x ->
           JobExecutionSummary'
-            <$> (x .:? "startedAt")
-            <*> (x .:? "queuedAt")
-            <*> (x .:? "versionNumber")
-            <*> (x .:? "executionNumber")
-            <*> (x .:? "lastUpdatedAt")
-            <*> (x .:? "jobId")
+            Prelude.<$> (x Prelude..:? "startedAt")
+            Prelude.<*> (x Prelude..:? "queuedAt")
+            Prelude.<*> (x Prelude..:? "versionNumber")
+            Prelude.<*> (x Prelude..:? "executionNumber")
+            Prelude.<*> (x Prelude..:? "lastUpdatedAt")
+            Prelude.<*> (x Prelude..:? "jobId")
       )
 
-instance Hashable JobExecutionSummary
+instance Prelude.Hashable JobExecutionSummary
 
-instance NFData JobExecutionSummary
+instance Prelude.NFData JobExecutionSummary
