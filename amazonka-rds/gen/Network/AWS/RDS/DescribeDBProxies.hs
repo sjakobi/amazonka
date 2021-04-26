@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,178 +23,234 @@
 --
 -- Returns information about DB proxies.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeDBProxies
   ( -- * Creating a Request
-    describeDBProxies,
-    DescribeDBProxies,
+    DescribeDBProxies (..),
+    newDescribeDBProxies,
 
     -- * Request Lenses
-    ddpFilters,
-    ddpDBProxyName,
-    ddpMarker,
-    ddpMaxRecords,
+    describeDBProxies_filters,
+    describeDBProxies_dBProxyName,
+    describeDBProxies_marker,
+    describeDBProxies_maxRecords,
 
     -- * Destructuring the Response
-    describeDBProxiesResponse,
-    DescribeDBProxiesResponse,
+    DescribeDBProxiesResponse (..),
+    newDescribeDBProxiesResponse,
 
     -- * Response Lenses
-    ddbprrsDBProxies,
-    ddbprrsMarker,
-    ddbprrsResponseStatus,
+    describeDBProxiesResponse_dBProxies,
+    describeDBProxiesResponse_marker,
+    describeDBProxiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBProxy
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeDBProxies' smart constructor.
+-- | /See:/ 'newDescribeDBProxies' smart constructor.
 data DescribeDBProxies = DescribeDBProxies'
-  { _ddpFilters ::
-      !(Maybe [Filter]),
-    _ddpDBProxyName :: !(Maybe Text),
-    _ddpMarker :: !(Maybe Text),
-    _ddpMaxRecords :: !(Maybe Nat)
+  { -- | This parameter is not currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | The name of the DB proxy.
+    dBProxyName :: Prelude.Maybe Prelude.Text,
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that the remaining
+    -- results can be retrieved.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBProxies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBProxies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddpFilters' - This parameter is not currently supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddpDBProxyName' - The name of the DB proxy.
+-- 'filters', 'describeDBProxies_filters' - This parameter is not currently supported.
 --
--- * 'ddpMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'dBProxyName', 'describeDBProxies_dBProxyName' - The name of the DB proxy.
 --
--- * 'ddpMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
-describeDBProxies ::
+-- 'marker', 'describeDBProxies_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeDBProxies_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+newDescribeDBProxies ::
   DescribeDBProxies
-describeDBProxies =
+newDescribeDBProxies =
   DescribeDBProxies'
-    { _ddpFilters = Nothing,
-      _ddpDBProxyName = Nothing,
-      _ddpMarker = Nothing,
-      _ddpMaxRecords = Nothing
+    { filters = Prelude.Nothing,
+      dBProxyName = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | This parameter is not currently supported.
-ddpFilters :: Lens' DescribeDBProxies [Filter]
-ddpFilters = lens _ddpFilters (\s a -> s {_ddpFilters = a}) . _Default . _Coerce
+describeDBProxies_filters :: Lens.Lens' DescribeDBProxies (Prelude.Maybe [Filter])
+describeDBProxies_filters = Lens.lens (\DescribeDBProxies' {filters} -> filters) (\s@DescribeDBProxies' {} a -> s {filters = a} :: DescribeDBProxies) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the DB proxy.
-ddpDBProxyName :: Lens' DescribeDBProxies (Maybe Text)
-ddpDBProxyName = lens _ddpDBProxyName (\s a -> s {_ddpDBProxyName = a})
+describeDBProxies_dBProxyName :: Lens.Lens' DescribeDBProxies (Prelude.Maybe Prelude.Text)
+describeDBProxies_dBProxyName = Lens.lens (\DescribeDBProxies' {dBProxyName} -> dBProxyName) (\s@DescribeDBProxies' {} a -> s {dBProxyName = a} :: DescribeDBProxies)
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddpMarker :: Lens' DescribeDBProxies (Maybe Text)
-ddpMarker = lens _ddpMarker (\s a -> s {_ddpMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeDBProxies_marker :: Lens.Lens' DescribeDBProxies (Prelude.Maybe Prelude.Text)
+describeDBProxies_marker = Lens.lens (\DescribeDBProxies' {marker} -> marker) (\s@DescribeDBProxies' {} a -> s {marker = a} :: DescribeDBProxies)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
-ddpMaxRecords :: Lens' DescribeDBProxies (Maybe Natural)
-ddpMaxRecords = lens _ddpMaxRecords (\s a -> s {_ddpMaxRecords = a}) . mapping _Nat
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeDBProxies_maxRecords :: Lens.Lens' DescribeDBProxies (Prelude.Maybe Prelude.Natural)
+describeDBProxies_maxRecords = Lens.lens (\DescribeDBProxies' {maxRecords} -> maxRecords) (\s@DescribeDBProxies' {} a -> s {maxRecords = a} :: DescribeDBProxies) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeDBProxies where
+instance Pager.AWSPager DescribeDBProxies where
   page rq rs
-    | stop (rs ^. ddbprrsMarker) = Nothing
-    | stop (rs ^. ddbprrsDBProxies) = Nothing
-    | otherwise =
-      Just $ rq & ddpMarker .~ rs ^. ddbprrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBProxiesResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBProxiesResponse_dBProxies
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeDBProxies_marker
+          Lens..~ rs
+          Lens.^? describeDBProxiesResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest DescribeDBProxies where
+instance Prelude.AWSRequest DescribeDBProxies where
   type Rs DescribeDBProxies = DescribeDBProxiesResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeDBProxiesResult"
       ( \s h x ->
           DescribeDBProxiesResponse'
-            <$> ( x .@? "DBProxies" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "DBProxies" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDBProxies
+instance Prelude.Hashable DescribeDBProxies
 
-instance NFData DescribeDBProxies
+instance Prelude.NFData DescribeDBProxies
 
-instance ToHeaders DescribeDBProxies where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeDBProxies where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDBProxies where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDBProxies where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDBProxies where
+instance Prelude.ToQuery DescribeDBProxies where
   toQuery DescribeDBProxies' {..} =
-    mconcat
-      [ "Action" =: ("DescribeDBProxies" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeDBProxies" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          =: toQuery (toQueryList "Filter" <$> _ddpFilters),
-        "DBProxyName" =: _ddpDBProxyName,
-        "Marker" =: _ddpMarker,
-        "MaxRecords" =: _ddpMaxRecords
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "DBProxyName" Prelude.=: dBProxyName,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'describeDBProxiesResponse' smart constructor.
+-- | /See:/ 'newDescribeDBProxiesResponse' smart constructor.
 data DescribeDBProxiesResponse = DescribeDBProxiesResponse'
-  { _ddbprrsDBProxies ::
-      !(Maybe [DBProxy]),
-    _ddbprrsMarker ::
-      !(Maybe Text),
-    _ddbprrsResponseStatus ::
-      !Int
+  { -- | A return value representing an arbitrary number of @DBProxy@ data
+    -- structures.
+    dBProxies :: Prelude.Maybe [DBProxy],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBProxiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBProxiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbprrsDBProxies' - A return value representing an arbitrary number of @DBProxy@ data structures.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbprrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'dBProxies', 'describeDBProxiesResponse_dBProxies' - A return value representing an arbitrary number of @DBProxy@ data
+-- structures.
 --
--- * 'ddbprrsResponseStatus' - -- | The response status code.
-describeDBProxiesResponse ::
-  -- | 'ddbprrsResponseStatus'
-  Int ->
+-- 'marker', 'describeDBProxiesResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeDBProxiesResponse_httpStatus' - The response's http status code.
+newDescribeDBProxiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDBProxiesResponse
-describeDBProxiesResponse pResponseStatus_ =
+newDescribeDBProxiesResponse pHttpStatus_ =
   DescribeDBProxiesResponse'
-    { _ddbprrsDBProxies =
-        Nothing,
-      _ddbprrsMarker = Nothing,
-      _ddbprrsResponseStatus = pResponseStatus_
+    { dBProxies =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A return value representing an arbitrary number of @DBProxy@ data structures.
-ddbprrsDBProxies :: Lens' DescribeDBProxiesResponse [DBProxy]
-ddbprrsDBProxies = lens _ddbprrsDBProxies (\s a -> s {_ddbprrsDBProxies = a}) . _Default . _Coerce
+-- | A return value representing an arbitrary number of @DBProxy@ data
+-- structures.
+describeDBProxiesResponse_dBProxies :: Lens.Lens' DescribeDBProxiesResponse (Prelude.Maybe [DBProxy])
+describeDBProxiesResponse_dBProxies = Lens.lens (\DescribeDBProxiesResponse' {dBProxies} -> dBProxies) (\s@DescribeDBProxiesResponse' {} a -> s {dBProxies = a} :: DescribeDBProxiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddbprrsMarker :: Lens' DescribeDBProxiesResponse (Maybe Text)
-ddbprrsMarker = lens _ddbprrsMarker (\s a -> s {_ddbprrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeDBProxiesResponse_marker :: Lens.Lens' DescribeDBProxiesResponse (Prelude.Maybe Prelude.Text)
+describeDBProxiesResponse_marker = Lens.lens (\DescribeDBProxiesResponse' {marker} -> marker) (\s@DescribeDBProxiesResponse' {} a -> s {marker = a} :: DescribeDBProxiesResponse)
 
--- | -- | The response status code.
-ddbprrsResponseStatus :: Lens' DescribeDBProxiesResponse Int
-ddbprrsResponseStatus = lens _ddbprrsResponseStatus (\s a -> s {_ddbprrsResponseStatus = a})
+-- | The response's http status code.
+describeDBProxiesResponse_httpStatus :: Lens.Lens' DescribeDBProxiesResponse Prelude.Int
+describeDBProxiesResponse_httpStatus = Lens.lens (\DescribeDBProxiesResponse' {httpStatus} -> httpStatus) (\s@DescribeDBProxiesResponse' {} a -> s {httpStatus = a} :: DescribeDBProxiesResponse)
 
-instance NFData DescribeDBProxiesResponse
+instance Prelude.NFData DescribeDBProxiesResponse

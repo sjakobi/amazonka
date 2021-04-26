@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBSecurityGroupMembership where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | This data type is used as a response element in the following actions:
 --
+-- -   @ModifyDBInstance@
 --
---     * @ModifyDBInstance@
+-- -   @RebootDBInstance@
 --
---     * @RebootDBInstance@
+-- -   @RestoreDBInstanceFromDBSnapshot@
 --
---     * @RestoreDBInstanceFromDBSnapshot@
+-- -   @RestoreDBInstanceToPointInTime@
 --
---     * @RestoreDBInstanceToPointInTime@
---
---
---
---
--- /See:/ 'dbSecurityGroupMembership' smart constructor.
+-- /See:/ 'newDBSecurityGroupMembership' smart constructor.
 data DBSecurityGroupMembership = DBSecurityGroupMembership'
-  { _dsgmStatus ::
-      !(Maybe Text),
-    _dsgmDBSecurityGroupName ::
-      !(Maybe Text)
+  { -- | The status of the DB security group.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB security group.
+    dBSecurityGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBSecurityGroupMembership' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBSecurityGroupMembership' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsgmStatus' - The status of the DB security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsgmDBSecurityGroupName' - The name of the DB security group.
-dbSecurityGroupMembership ::
+-- 'status', 'dBSecurityGroupMembership_status' - The status of the DB security group.
+--
+-- 'dBSecurityGroupName', 'dBSecurityGroupMembership_dBSecurityGroupName' - The name of the DB security group.
+newDBSecurityGroupMembership ::
   DBSecurityGroupMembership
-dbSecurityGroupMembership =
+newDBSecurityGroupMembership =
   DBSecurityGroupMembership'
-    { _dsgmStatus = Nothing,
-      _dsgmDBSecurityGroupName = Nothing
+    { status =
+        Prelude.Nothing,
+      dBSecurityGroupName = Prelude.Nothing
     }
 
 -- | The status of the DB security group.
-dsgmStatus :: Lens' DBSecurityGroupMembership (Maybe Text)
-dsgmStatus = lens _dsgmStatus (\s a -> s {_dsgmStatus = a})
+dBSecurityGroupMembership_status :: Lens.Lens' DBSecurityGroupMembership (Prelude.Maybe Prelude.Text)
+dBSecurityGroupMembership_status = Lens.lens (\DBSecurityGroupMembership' {status} -> status) (\s@DBSecurityGroupMembership' {} a -> s {status = a} :: DBSecurityGroupMembership)
 
 -- | The name of the DB security group.
-dsgmDBSecurityGroupName :: Lens' DBSecurityGroupMembership (Maybe Text)
-dsgmDBSecurityGroupName = lens _dsgmDBSecurityGroupName (\s a -> s {_dsgmDBSecurityGroupName = a})
+dBSecurityGroupMembership_dBSecurityGroupName :: Lens.Lens' DBSecurityGroupMembership (Prelude.Maybe Prelude.Text)
+dBSecurityGroupMembership_dBSecurityGroupName = Lens.lens (\DBSecurityGroupMembership' {dBSecurityGroupName} -> dBSecurityGroupName) (\s@DBSecurityGroupMembership' {} a -> s {dBSecurityGroupName = a} :: DBSecurityGroupMembership)
 
-instance FromXML DBSecurityGroupMembership where
+instance Prelude.FromXML DBSecurityGroupMembership where
   parseXML x =
     DBSecurityGroupMembership'
-      <$> (x .@? "Status") <*> (x .@? "DBSecurityGroupName")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "DBSecurityGroupName")
 
-instance Hashable DBSecurityGroupMembership
+instance Prelude.Hashable DBSecurityGroupMembership
 
-instance NFData DBSecurityGroupMembership
+instance Prelude.NFData DBSecurityGroupMembership

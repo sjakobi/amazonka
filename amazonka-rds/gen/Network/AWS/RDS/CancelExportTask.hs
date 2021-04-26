@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,92 +21,102 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels an export task in progress that is exporting a snapshot to Amazon S3. Any data that has already been written to the S3 bucket isn't removed.
+-- Cancels an export task in progress that is exporting a snapshot to
+-- Amazon S3. Any data that has already been written to the S3 bucket
+-- isn\'t removed.
 module Network.AWS.RDS.CancelExportTask
   ( -- * Creating a Request
-    cancelExportTask,
-    CancelExportTask,
+    CancelExportTask (..),
+    newCancelExportTask,
 
     -- * Request Lenses
-    cetExportTaskIdentifier,
+    cancelExportTask_exportTaskIdentifier,
 
     -- * Destructuring the Response
-    exportTask,
-    ExportTask,
+    ExportTask (..),
+    newExportTask,
 
     -- * Response Lenses
-    etTaskEndTime,
-    etIAMRoleARN,
-    etStatus,
-    etTotalExtractedDataInGB,
-    etWarningMessage,
-    etSnapshotTime,
-    etS3Bucket,
-    etExportOnly,
-    etKMSKeyId,
-    etFailureCause,
-    etPercentProgress,
-    etSourceARN,
-    etS3Prefix,
-    etTaskStartTime,
-    etExportTaskIdentifier,
+    exportTask_taskEndTime,
+    exportTask_iamRoleArn,
+    exportTask_status,
+    exportTask_totalExtractedDataInGB,
+    exportTask_warningMessage,
+    exportTask_snapshotTime,
+    exportTask_s3Bucket,
+    exportTask_exportOnly,
+    exportTask_kmsKeyId,
+    exportTask_failureCause,
+    exportTask_percentProgress,
+    exportTask_sourceArn,
+    exportTask_s3Prefix,
+    exportTask_taskStartTime,
+    exportTask_exportTaskIdentifier,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.ExportTask
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'cancelExportTask' smart constructor.
-newtype CancelExportTask = CancelExportTask'
-  { _cetExportTaskIdentifier ::
-      Text
+-- | /See:/ 'newCancelExportTask' smart constructor.
+data CancelExportTask = CancelExportTask'
+  { -- | The identifier of the snapshot export task to cancel.
+    exportTaskIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelExportTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelExportTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cetExportTaskIdentifier' - The identifier of the snapshot export task to cancel.
-cancelExportTask ::
-  -- | 'cetExportTaskIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'exportTaskIdentifier', 'cancelExportTask_exportTaskIdentifier' - The identifier of the snapshot export task to cancel.
+newCancelExportTask ::
+  -- | 'exportTaskIdentifier'
+  Prelude.Text ->
   CancelExportTask
-cancelExportTask pExportTaskIdentifier_ =
+newCancelExportTask pExportTaskIdentifier_ =
   CancelExportTask'
-    { _cetExportTaskIdentifier =
+    { exportTaskIdentifier =
         pExportTaskIdentifier_
     }
 
 -- | The identifier of the snapshot export task to cancel.
-cetExportTaskIdentifier :: Lens' CancelExportTask Text
-cetExportTaskIdentifier = lens _cetExportTaskIdentifier (\s a -> s {_cetExportTaskIdentifier = a})
+cancelExportTask_exportTaskIdentifier :: Lens.Lens' CancelExportTask Prelude.Text
+cancelExportTask_exportTaskIdentifier = Lens.lens (\CancelExportTask' {exportTaskIdentifier} -> exportTaskIdentifier) (\s@CancelExportTask' {} a -> s {exportTaskIdentifier = a} :: CancelExportTask)
 
-instance AWSRequest CancelExportTask where
+instance Prelude.AWSRequest CancelExportTask where
   type Rs CancelExportTask = ExportTask
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CancelExportTaskResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable CancelExportTask
+instance Prelude.Hashable CancelExportTask
 
-instance NFData CancelExportTask
+instance Prelude.NFData CancelExportTask
 
-instance ToHeaders CancelExportTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CancelExportTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CancelExportTask where
-  toPath = const "/"
+instance Prelude.ToPath CancelExportTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelExportTask where
+instance Prelude.ToQuery CancelExportTask where
   toQuery CancelExportTask' {..} =
-    mconcat
-      [ "Action" =: ("CancelExportTask" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "ExportTaskIdentifier" =: _cetExportTaskIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CancelExportTask" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "ExportTaskIdentifier"
+          Prelude.=: exportTaskIdentifier
       ]

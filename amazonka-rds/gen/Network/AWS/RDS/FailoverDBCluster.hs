@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,146 +23,183 @@
 --
 -- Forces a failover for a DB cluster.
 --
+-- A failover for a DB cluster promotes one of the Aurora Replicas
+-- (read-only instances) in the DB cluster to be the primary instance (the
+-- cluster writer).
 --
--- A failover for a DB cluster promotes one of the Aurora Replicas (read-only instances) in the DB cluster to be the primary instance (the cluster writer).
+-- Amazon Aurora will automatically fail over to an Aurora Replica, if one
+-- exists, when the primary instance fails. You can force a failover when
+-- you want to simulate a failure of a primary instance for testing.
+-- Because each instance in a DB cluster has its own endpoint address, you
+-- will need to clean up and re-establish any existing connections that use
+-- those endpoint addresses when the failover is complete.
 --
--- Amazon Aurora will automatically fail over to an Aurora Replica, if one exists, when the primary instance fails. You can force a failover when you want to simulate a failure of a primary instance for testing. Because each instance in a DB cluster has its own endpoint address, you will need to clean up and re-establish any existing connections that use those endpoint addresses when the failover is complete.
+-- For more information on Amazon Aurora, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide./
 --
--- For more information on Amazon Aurora, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?> in the /Amazon Aurora User Guide./
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.FailoverDBCluster
   ( -- * Creating a Request
-    failoverDBCluster,
-    FailoverDBCluster,
+    FailoverDBCluster (..),
+    newFailoverDBCluster,
 
     -- * Request Lenses
-    fdcTargetDBInstanceIdentifier,
-    fdcDBClusterIdentifier,
+    failoverDBCluster_targetDBInstanceIdentifier,
+    failoverDBCluster_dBClusterIdentifier,
 
     -- * Destructuring the Response
-    failoverDBClusterResponse,
-    FailoverDBClusterResponse,
+    FailoverDBClusterResponse (..),
+    newFailoverDBClusterResponse,
 
     -- * Response Lenses
-    fdcrrsDBCluster,
-    fdcrrsResponseStatus,
+    failoverDBClusterResponse_dBCluster,
+    failoverDBClusterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBCluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'failoverDBCluster' smart constructor.
+-- /See:/ 'newFailoverDBCluster' smart constructor.
 data FailoverDBCluster = FailoverDBCluster'
-  { _fdcTargetDBInstanceIdentifier ::
-      !(Maybe Text),
-    _fdcDBClusterIdentifier :: !Text
+  { -- | The name of the instance to promote to the primary instance.
+    --
+    -- You must specify the instance identifier for an Aurora Replica in the DB
+    -- cluster. For example, @mydbcluster-replica1@.
+    targetDBInstanceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A DB cluster identifier to force a failover for. This parameter isn\'t
+    -- case-sensitive.
+    --
+    -- Constraints:
+    --
+    -- -   Must match the identifier of an existing DBCluster.
+    dBClusterIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailoverDBCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailoverDBCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdcTargetDBInstanceIdentifier' - The name of the instance to promote to the primary instance. You must specify the instance identifier for an Aurora Replica in the DB cluster. For example, @mydbcluster-replica1@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdcDBClusterIdentifier' - A DB cluster identifier to force a failover for. This parameter isn't case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster.
-failoverDBCluster ::
-  -- | 'fdcDBClusterIdentifier'
-  Text ->
+-- 'targetDBInstanceIdentifier', 'failoverDBCluster_targetDBInstanceIdentifier' - The name of the instance to promote to the primary instance.
+--
+-- You must specify the instance identifier for an Aurora Replica in the DB
+-- cluster. For example, @mydbcluster-replica1@.
+--
+-- 'dBClusterIdentifier', 'failoverDBCluster_dBClusterIdentifier' - A DB cluster identifier to force a failover for. This parameter isn\'t
+-- case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing DBCluster.
+newFailoverDBCluster ::
+  -- | 'dBClusterIdentifier'
+  Prelude.Text ->
   FailoverDBCluster
-failoverDBCluster pDBClusterIdentifier_ =
+newFailoverDBCluster pDBClusterIdentifier_ =
   FailoverDBCluster'
-    { _fdcTargetDBInstanceIdentifier =
-        Nothing,
-      _fdcDBClusterIdentifier = pDBClusterIdentifier_
+    { targetDBInstanceIdentifier =
+        Prelude.Nothing,
+      dBClusterIdentifier = pDBClusterIdentifier_
     }
 
--- | The name of the instance to promote to the primary instance. You must specify the instance identifier for an Aurora Replica in the DB cluster. For example, @mydbcluster-replica1@ .
-fdcTargetDBInstanceIdentifier :: Lens' FailoverDBCluster (Maybe Text)
-fdcTargetDBInstanceIdentifier = lens _fdcTargetDBInstanceIdentifier (\s a -> s {_fdcTargetDBInstanceIdentifier = a})
+-- | The name of the instance to promote to the primary instance.
+--
+-- You must specify the instance identifier for an Aurora Replica in the DB
+-- cluster. For example, @mydbcluster-replica1@.
+failoverDBCluster_targetDBInstanceIdentifier :: Lens.Lens' FailoverDBCluster (Prelude.Maybe Prelude.Text)
+failoverDBCluster_targetDBInstanceIdentifier = Lens.lens (\FailoverDBCluster' {targetDBInstanceIdentifier} -> targetDBInstanceIdentifier) (\s@FailoverDBCluster' {} a -> s {targetDBInstanceIdentifier = a} :: FailoverDBCluster)
 
--- | A DB cluster identifier to force a failover for. This parameter isn't case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster.
-fdcDBClusterIdentifier :: Lens' FailoverDBCluster Text
-fdcDBClusterIdentifier = lens _fdcDBClusterIdentifier (\s a -> s {_fdcDBClusterIdentifier = a})
+-- | A DB cluster identifier to force a failover for. This parameter isn\'t
+-- case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing DBCluster.
+failoverDBCluster_dBClusterIdentifier :: Lens.Lens' FailoverDBCluster Prelude.Text
+failoverDBCluster_dBClusterIdentifier = Lens.lens (\FailoverDBCluster' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@FailoverDBCluster' {} a -> s {dBClusterIdentifier = a} :: FailoverDBCluster)
 
-instance AWSRequest FailoverDBCluster where
+instance Prelude.AWSRequest FailoverDBCluster where
   type Rs FailoverDBCluster = FailoverDBClusterResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "FailoverDBClusterResult"
       ( \s h x ->
           FailoverDBClusterResponse'
-            <$> (x .@? "DBCluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBCluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable FailoverDBCluster
+instance Prelude.Hashable FailoverDBCluster
 
-instance NFData FailoverDBCluster
+instance Prelude.NFData FailoverDBCluster
 
-instance ToHeaders FailoverDBCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders FailoverDBCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath FailoverDBCluster where
-  toPath = const "/"
+instance Prelude.ToPath FailoverDBCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery FailoverDBCluster where
+instance Prelude.ToQuery FailoverDBCluster where
   toQuery FailoverDBCluster' {..} =
-    mconcat
-      [ "Action" =: ("FailoverDBCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("FailoverDBCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "TargetDBInstanceIdentifier"
-          =: _fdcTargetDBInstanceIdentifier,
-        "DBClusterIdentifier" =: _fdcDBClusterIdentifier
+          Prelude.=: targetDBInstanceIdentifier,
+        "DBClusterIdentifier" Prelude.=: dBClusterIdentifier
       ]
 
--- | /See:/ 'failoverDBClusterResponse' smart constructor.
+-- | /See:/ 'newFailoverDBClusterResponse' smart constructor.
 data FailoverDBClusterResponse = FailoverDBClusterResponse'
-  { _fdcrrsDBCluster ::
-      !(Maybe DBCluster),
-    _fdcrrsResponseStatus ::
-      !Int
+  { dBCluster :: Prelude.Maybe DBCluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailoverDBClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailoverDBClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdcrrsDBCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdcrrsResponseStatus' - -- | The response status code.
-failoverDBClusterResponse ::
-  -- | 'fdcrrsResponseStatus'
-  Int ->
+-- 'dBCluster', 'failoverDBClusterResponse_dBCluster' - Undocumented member.
+--
+-- 'httpStatus', 'failoverDBClusterResponse_httpStatus' - The response's http status code.
+newFailoverDBClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   FailoverDBClusterResponse
-failoverDBClusterResponse pResponseStatus_ =
+newFailoverDBClusterResponse pHttpStatus_ =
   FailoverDBClusterResponse'
-    { _fdcrrsDBCluster =
-        Nothing,
-      _fdcrrsResponseStatus = pResponseStatus_
+    { dBCluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-fdcrrsDBCluster :: Lens' FailoverDBClusterResponse (Maybe DBCluster)
-fdcrrsDBCluster = lens _fdcrrsDBCluster (\s a -> s {_fdcrrsDBCluster = a})
+failoverDBClusterResponse_dBCluster :: Lens.Lens' FailoverDBClusterResponse (Prelude.Maybe DBCluster)
+failoverDBClusterResponse_dBCluster = Lens.lens (\FailoverDBClusterResponse' {dBCluster} -> dBCluster) (\s@FailoverDBClusterResponse' {} a -> s {dBCluster = a} :: FailoverDBClusterResponse)
 
--- | -- | The response status code.
-fdcrrsResponseStatus :: Lens' FailoverDBClusterResponse Int
-fdcrrsResponseStatus = lens _fdcrrsResponseStatus (\s a -> s {_fdcrrsResponseStatus = a})
+-- | The response's http status code.
+failoverDBClusterResponse_httpStatus :: Lens.Lens' FailoverDBClusterResponse Prelude.Int
+failoverDBClusterResponse_httpStatus = Lens.lens (\FailoverDBClusterResponse' {httpStatus} -> httpStatus) (\s@FailoverDBClusterResponse' {} a -> s {httpStatus = a} :: FailoverDBClusterResponse)
 
-instance NFData FailoverDBClusterResponse
+instance Prelude.NFData FailoverDBClusterResponse

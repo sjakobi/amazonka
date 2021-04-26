@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.SourceRegion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains an AWS Region name as the result of a successful call to the @DescribeSourceRegions@ action.
+-- | Contains an AWS Region name as the result of a successful call to the
+-- @DescribeSourceRegions@ action.
 --
---
---
--- /See:/ 'sourceRegion' smart constructor.
+-- /See:/ 'newSourceRegion' smart constructor.
 data SourceRegion = SourceRegion'
-  { _srRegionName ::
-      !(Maybe Text),
-    _srStatus :: !(Maybe Text),
-    _srSupportsDBInstanceAutomatedBackupsReplication ::
-      !(Maybe Bool),
-    _srEndpoint :: !(Maybe Text)
+  { -- | The name of the source AWS Region.
+    regionName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the source AWS Region.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | Whether the source AWS Region supports replicating automated backups to
+    -- the current AWS Region.
+    supportsDBInstanceAutomatedBackupsReplication :: Prelude.Maybe Prelude.Bool,
+    -- | The endpoint for the source AWS Region endpoint.
+    endpoint :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceRegion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceRegion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srRegionName' - The name of the source AWS Region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srStatus' - The status of the source AWS Region.
+-- 'regionName', 'sourceRegion_regionName' - The name of the source AWS Region.
 --
--- * 'srSupportsDBInstanceAutomatedBackupsReplication' - Whether the source AWS Region supports replicating automated backups to the current AWS Region.
+-- 'status', 'sourceRegion_status' - The status of the source AWS Region.
 --
--- * 'srEndpoint' - The endpoint for the source AWS Region endpoint.
-sourceRegion ::
+-- 'supportsDBInstanceAutomatedBackupsReplication', 'sourceRegion_supportsDBInstanceAutomatedBackupsReplication' - Whether the source AWS Region supports replicating automated backups to
+-- the current AWS Region.
+--
+-- 'endpoint', 'sourceRegion_endpoint' - The endpoint for the source AWS Region endpoint.
+newSourceRegion ::
   SourceRegion
-sourceRegion =
+newSourceRegion =
   SourceRegion'
-    { _srRegionName = Nothing,
-      _srStatus = Nothing,
-      _srSupportsDBInstanceAutomatedBackupsReplication =
-        Nothing,
-      _srEndpoint = Nothing
+    { regionName = Prelude.Nothing,
+      status = Prelude.Nothing,
+      supportsDBInstanceAutomatedBackupsReplication =
+        Prelude.Nothing,
+      endpoint = Prelude.Nothing
     }
 
 -- | The name of the source AWS Region.
-srRegionName :: Lens' SourceRegion (Maybe Text)
-srRegionName = lens _srRegionName (\s a -> s {_srRegionName = a})
+sourceRegion_regionName :: Lens.Lens' SourceRegion (Prelude.Maybe Prelude.Text)
+sourceRegion_regionName = Lens.lens (\SourceRegion' {regionName} -> regionName) (\s@SourceRegion' {} a -> s {regionName = a} :: SourceRegion)
 
 -- | The status of the source AWS Region.
-srStatus :: Lens' SourceRegion (Maybe Text)
-srStatus = lens _srStatus (\s a -> s {_srStatus = a})
+sourceRegion_status :: Lens.Lens' SourceRegion (Prelude.Maybe Prelude.Text)
+sourceRegion_status = Lens.lens (\SourceRegion' {status} -> status) (\s@SourceRegion' {} a -> s {status = a} :: SourceRegion)
 
--- | Whether the source AWS Region supports replicating automated backups to the current AWS Region.
-srSupportsDBInstanceAutomatedBackupsReplication :: Lens' SourceRegion (Maybe Bool)
-srSupportsDBInstanceAutomatedBackupsReplication = lens _srSupportsDBInstanceAutomatedBackupsReplication (\s a -> s {_srSupportsDBInstanceAutomatedBackupsReplication = a})
+-- | Whether the source AWS Region supports replicating automated backups to
+-- the current AWS Region.
+sourceRegion_supportsDBInstanceAutomatedBackupsReplication :: Lens.Lens' SourceRegion (Prelude.Maybe Prelude.Bool)
+sourceRegion_supportsDBInstanceAutomatedBackupsReplication = Lens.lens (\SourceRegion' {supportsDBInstanceAutomatedBackupsReplication} -> supportsDBInstanceAutomatedBackupsReplication) (\s@SourceRegion' {} a -> s {supportsDBInstanceAutomatedBackupsReplication = a} :: SourceRegion)
 
 -- | The endpoint for the source AWS Region endpoint.
-srEndpoint :: Lens' SourceRegion (Maybe Text)
-srEndpoint = lens _srEndpoint (\s a -> s {_srEndpoint = a})
+sourceRegion_endpoint :: Lens.Lens' SourceRegion (Prelude.Maybe Prelude.Text)
+sourceRegion_endpoint = Lens.lens (\SourceRegion' {endpoint} -> endpoint) (\s@SourceRegion' {} a -> s {endpoint = a} :: SourceRegion)
 
-instance FromXML SourceRegion where
+instance Prelude.FromXML SourceRegion where
   parseXML x =
     SourceRegion'
-      <$> (x .@? "RegionName")
-      <*> (x .@? "Status")
-      <*> ( x
-              .@? "SupportsDBInstanceAutomatedBackupsReplication"
-          )
-      <*> (x .@? "Endpoint")
+      Prelude.<$> (x Prelude..@? "RegionName")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> ( x
+                      Prelude..@? "SupportsDBInstanceAutomatedBackupsReplication"
+                  )
+      Prelude.<*> (x Prelude..@? "Endpoint")
 
-instance Hashable SourceRegion
+instance Prelude.Hashable SourceRegion
 
-instance NFData SourceRegion
+instance Prelude.NFData SourceRegion

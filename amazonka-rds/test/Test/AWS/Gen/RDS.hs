@@ -28,805 +28,805 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestResetDBClusterParameterGroup $
---             resetDBClusterParameterGroup
+--             newResetDBClusterParameterGroup
 --
 --         , requestStopDBInstance $
---             stopDBInstance
+--             newStopDBInstance
 --
 --         , requestModifyDBInstance $
---             modifyDBInstance
+--             newModifyDBInstance
 --
 --         , requestDescribeEventCategories $
---             describeEventCategories
+--             newDescribeEventCategories
 --
 --         , requestStartDBInstance $
---             startDBInstance
+--             newStartDBInstance
 --
 --         , requestCopyDBClusterParameterGroup $
---             copyDBClusterParameterGroup
+--             newCopyDBClusterParameterGroup
 --
 --         , requestDescribeExportTasks $
---             describeExportTasks
+--             newDescribeExportTasks
 --
 --         , requestCopyDBSnapshot $
---             copyDBSnapshot
+--             newCopyDBSnapshot
 --
 --         , requestPromoteReadReplica $
---             promoteReadReplica
+--             newPromoteReadReplica
 --
 --         , requestDescribeDBSnapshots $
---             describeDBSnapshots
+--             newDescribeDBSnapshots
 --
 --         , requestModifyDBCluster $
---             modifyDBCluster
+--             newModifyDBCluster
 --
 --         , requestModifyOptionGroup $
---             modifyOptionGroup
+--             newModifyOptionGroup
 --
 --         , requestStopDBCluster $
---             stopDBCluster
+--             newStopDBCluster
 --
 --         , requestCreateDBClusterSnapshot $
---             createDBClusterSnapshot
+--             newCreateDBClusterSnapshot
 --
 --         , requestDescribeDBClusterParameterGroups $
---             describeDBClusterParameterGroups
+--             newDescribeDBClusterParameterGroups
 --
 --         , requestDescribeDBEngineVersions $
---             describeDBEngineVersions
+--             newDescribeDBEngineVersions
 --
 --         , requestStartDBCluster $
---             startDBCluster
+--             newStartDBCluster
 --
 --         , requestDescribeOptionGroupOptions $
---             describeOptionGroupOptions
+--             newDescribeOptionGroupOptions
 --
 --         , requestDeleteInstallationMedia $
---             deleteInstallationMedia
+--             newDeleteInstallationMedia
 --
 --         , requestCopyOptionGroup $
---             copyOptionGroup
+--             newCopyOptionGroup
 --
 --         , requestDescribeDBInstanceAutomatedBackups $
---             describeDBInstanceAutomatedBackups
+--             newDescribeDBInstanceAutomatedBackups
 --
 --         , requestModifyGlobalCluster $
---             modifyGlobalCluster
+--             newModifyGlobalCluster
 --
 --         , requestDescribeDBProxies $
---             describeDBProxies
+--             newDescribeDBProxies
 --
 --         , requestRestoreDBClusterToPointInTime $
---             restoreDBClusterToPointInTime
+--             newRestoreDBClusterToPointInTime
 --
 --         , requestStopActivityStream $
---             stopActivityStream
+--             newStopActivityStream
 --
 --         , requestCreateDBInstanceReadReplica $
---             createDBInstanceReadReplica
+--             newCreateDBInstanceReadReplica
 --
 --         , requestDescribeValidDBInstanceModifications $
---             describeValidDBInstanceModifications
+--             newDescribeValidDBInstanceModifications
 --
 --         , requestStartExportTask $
---             startExportTask
+--             newStartExportTask
 --
 --         , requestDescribeDBParameters $
---             describeDBParameters
+--             newDescribeDBParameters
 --
 --         , requestDescribeDBInstances $
---             describeDBInstances
+--             newDescribeDBInstances
 --
 --         , requestDescribeEventSubscriptions $
---             describeEventSubscriptions
+--             newDescribeEventSubscriptions
 --
---         , requestRestoreDBInstanceFromS3 $
---             restoreDBInstanceFromS3
+--         , requestRestoreDBInstanceFromS $
+--             newRestoreDBInstanceFromS
 --
 --         , requestStartActivityStream $
---             startActivityStream
+--             newStartActivityStream
 --
 --         , requestDescribeDBClusterEndpoints $
---             describeDBClusterEndpoints
+--             newDescribeDBClusterEndpoints
 --
 --         , requestModifyCertificates $
---             modifyCertificates
+--             newModifyCertificates
 --
 --         , requestDescribeDBClusterSnapshots $
---             describeDBClusterSnapshots
+--             newDescribeDBClusterSnapshots
 --
 --         , requestDeleteDBClusterEndpoint $
---             deleteDBClusterEndpoint
+--             newDeleteDBClusterEndpoint
 --
 --         , requestModifyDBSnapshotAttribute $
---             modifyDBSnapshotAttribute
+--             newModifyDBSnapshotAttribute
 --
 --         , requestDescribeReservedDBInstancesOfferings $
---             describeReservedDBInstancesOfferings
+--             newDescribeReservedDBInstancesOfferings
 --
 --         , requestDeleteDBInstance $
---             deleteDBInstance
+--             newDeleteDBInstance
 --
 --         , requestRebootDBInstance $
---             rebootDBInstance
+--             newRebootDBInstance
 --
 --         , requestDeleteEventSubscription $
---             deleteEventSubscription
+--             newDeleteEventSubscription
 --
 --         , requestDescribeDBParameterGroups $
---             describeDBParameterGroups
+--             newDescribeDBParameterGroups
 --
 --         , requestDeleteDBInstanceAutomatedBackup $
---             deleteDBInstanceAutomatedBackup
+--             newDeleteDBInstanceAutomatedBackup
 --
 --         , requestDescribeDBClusterBacktracks $
---             describeDBClusterBacktracks
+--             newDescribeDBClusterBacktracks
 --
 --         , requestCreateDBClusterParameterGroup $
---             createDBClusterParameterGroup
+--             newCreateDBClusterParameterGroup
 --
 --         , requestCreateDBProxy $
---             createDBProxy
+--             newCreateDBProxy
 --
 --         , requestDescribeDBClusterParameters $
---             describeDBClusterParameters
+--             newDescribeDBClusterParameters
 --
 --         , requestDeleteDBSubnetGroup $
---             deleteDBSubnetGroup
+--             newDeleteDBSubnetGroup
 --
 --         , requestDescribeAccountAttributes $
---             describeAccountAttributes
+--             newDescribeAccountAttributes
 --
 --         , requestRemoveTagsFromResource $
---             removeTagsFromResource
+--             newRemoveTagsFromResource
 --
 --         , requestCreateDBSecurityGroup $
---             createDBSecurityGroup
+--             newCreateDBSecurityGroup
 --
 --         , requestDescribeCertificates $
---             describeCertificates
+--             newDescribeCertificates
 --
 --         , requestCreateDBInstance $
---             createDBInstance
+--             newCreateDBInstance
 --
 --         , requestRemoveRoleFromDBInstance $
---             removeRoleFromDBInstance
+--             newRemoveRoleFromDBInstance
 --
 --         , requestDescribeEngineDefaultClusterParameters $
---             describeEngineDefaultClusterParameters
+--             newDescribeEngineDefaultClusterParameters
 --
 --         , requestStartDBInstanceAutomatedBackupsReplication $
---             startDBInstanceAutomatedBackupsReplication
+--             newStartDBInstanceAutomatedBackupsReplication
 --
 --         , requestCreateOptionGroup $
---             createOptionGroup
+--             newCreateOptionGroup
 --
 --         , requestCreateCustomAvailabilityZone $
---             createCustomAvailabilityZone
+--             newCreateCustomAvailabilityZone
 --
 --         , requestStopDBInstanceAutomatedBackupsReplication $
---             stopDBInstanceAutomatedBackupsReplication
+--             newStopDBInstanceAutomatedBackupsReplication
 --
 --         , requestFailoverDBCluster $
---             failoverDBCluster
+--             newFailoverDBCluster
 --
 --         , requestRemoveRoleFromDBCluster $
---             removeRoleFromDBCluster
+--             newRemoveRoleFromDBCluster
 --
 --         , requestDescribeDBSnapshotAttributes $
---             describeDBSnapshotAttributes
+--             newDescribeDBSnapshotAttributes
 --
 --         , requestCreateDBCluster $
---             createDBCluster
+--             newCreateDBCluster
 --
 --         , requestApplyPendingMaintenanceAction $
---             applyPendingMaintenanceAction
+--             newApplyPendingMaintenanceAction
 --
 --         , requestBacktrackDBCluster $
---             backtrackDBCluster
+--             newBacktrackDBCluster
 --
 --         , requestDescribeReservedDBInstances $
---             describeReservedDBInstances
+--             newDescribeReservedDBInstances
 --
 --         , requestDeleteDBCluster $
---             deleteDBCluster
+--             newDeleteDBCluster
 --
 --         , requestDeleteOptionGroup $
---             deleteOptionGroup
+--             newDeleteOptionGroup
 --
 --         , requestDescribePendingMaintenanceActions $
---             describePendingMaintenanceActions
+--             newDescribePendingMaintenanceActions
 --
 --         , requestDescribeDBProxyTargetGroups $
---             describeDBProxyTargetGroups
+--             newDescribeDBProxyTargetGroups
 --
 --         , requestModifyDBClusterParameterGroup $
---             modifyDBClusterParameterGroup
+--             newModifyDBClusterParameterGroup
 --
 --         , requestDescribeDBClusterSnapshotAttributes $
---             describeDBClusterSnapshotAttributes
+--             newDescribeDBClusterSnapshotAttributes
 --
 --         , requestDescribeOptionGroups $
---             describeOptionGroups
+--             newDescribeOptionGroups
 --
 --         , requestDescribeDBClusters $
---             describeDBClusters
+--             newDescribeDBClusters
 --
 --         , requestDescribeEvents $
---             describeEvents
+--             newDescribeEvents
 --
 --         , requestModifyDBProxy $
---             modifyDBProxy
+--             newModifyDBProxy
 --
 --         , requestDescribeDBLogFiles $
---             describeDBLogFiles
+--             newDescribeDBLogFiles
 --
---         , requestRestoreDBClusterFromS3 $
---             restoreDBClusterFromS3
+--         , requestRestoreDBClusterFromS $
+--             newRestoreDBClusterFromS
 --
 --         , requestCancelExportTask $
---             cancelExportTask
+--             newCancelExportTask
 --
 --         , requestDescribeGlobalClusters $
---             describeGlobalClusters
+--             newDescribeGlobalClusters
 --
 --         , requestAddSourceIdentifierToSubscription $
---             addSourceIdentifierToSubscription
+--             newAddSourceIdentifierToSubscription
 --
 --         , requestModifyEventSubscription $
---             modifyEventSubscription
+--             newModifyEventSubscription
 --
 --         , requestModifyDBClusterEndpoint $
---             modifyDBClusterEndpoint
+--             newModifyDBClusterEndpoint
 --
 --         , requestModifyDBClusterSnapshotAttribute $
---             modifyDBClusterSnapshotAttribute
+--             newModifyDBClusterSnapshotAttribute
 --
 --         , requestDescribeDBSubnetGroups $
---             describeDBSubnetGroups
+--             newDescribeDBSubnetGroups
 --
 --         , requestModifyDBProxyTargetGroup $
---             modifyDBProxyTargetGroup
+--             newModifyDBProxyTargetGroup
 --
 --         , requestCreateDBParameterGroup $
---             createDBParameterGroup
+--             newCreateDBParameterGroup
 --
 --         , requestDeleteDBClusterSnapshot $
---             deleteDBClusterSnapshot
+--             newDeleteDBClusterSnapshot
 --
 --         , requestRemoveFromGlobalCluster $
---             removeFromGlobalCluster
+--             newRemoveFromGlobalCluster
 --
 --         , requestDescribeDBSecurityGroups $
---             describeDBSecurityGroups
+--             newDescribeDBSecurityGroups
 --
 --         , requestAddTagsToResource $
---             addTagsToResource
+--             newAddTagsToResource
 --
 --         , requestRegisterDBProxyTargets $
---             registerDBProxyTargets
+--             newRegisterDBProxyTargets
 --
 --         , requestDownloadDBLogFilePortion $
---             downloadDBLogFilePortion
+--             newDownloadDBLogFilePortion
 --
 --         , requestModifyCurrentDBClusterCapacity $
---             modifyCurrentDBClusterCapacity
+--             newModifyCurrentDBClusterCapacity
 --
 --         , requestAddRoleToDBInstance $
---             addRoleToDBInstance
+--             newAddRoleToDBInstance
 --
 --         , requestDeleteDBParameterGroup $
---             deleteDBParameterGroup
+--             newDeleteDBParameterGroup
 --
 --         , requestCreateDBSnapshot $
---             createDBSnapshot
+--             newCreateDBSnapshot
 --
 --         , requestCreateDBSubnetGroup $
---             createDBSubnetGroup
+--             newCreateDBSubnetGroup
 --
 --         , requestDescribeOrderableDBInstanceOptions $
---             describeOrderableDBInstanceOptions
+--             newDescribeOrderableDBInstanceOptions
 --
 --         , requestDeleteDBSecurityGroup $
---             deleteDBSecurityGroup
+--             newDeleteDBSecurityGroup
 --
 --         , requestRestoreDBClusterFromSnapshot $
---             restoreDBClusterFromSnapshot
+--             newRestoreDBClusterFromSnapshot
 --
 --         , requestRestoreDBInstanceFromDBSnapshot $
---             restoreDBInstanceFromDBSnapshot
+--             newRestoreDBInstanceFromDBSnapshot
 --
 --         , requestCreateDBClusterEndpoint $
---             createDBClusterEndpoint
+--             newCreateDBClusterEndpoint
 --
 --         , requestCreateEventSubscription $
---             createEventSubscription
+--             newCreateEventSubscription
 --
 --         , requestDeleteDBSnapshot $
---             deleteDBSnapshot
+--             newDeleteDBSnapshot
 --
 --         , requestDeleteDBClusterParameterGroup $
---             deleteDBClusterParameterGroup
+--             newDeleteDBClusterParameterGroup
 --
 --         , requestDescribeSourceRegions $
---             describeSourceRegions
+--             newDescribeSourceRegions
 --
 --         , requestPurchaseReservedDBInstancesOffering $
---             purchaseReservedDBInstancesOffering
+--             newPurchaseReservedDBInstancesOffering
 --
 --         , requestAuthorizeDBSecurityGroupIngress $
---             authorizeDBSecurityGroupIngress
+--             newAuthorizeDBSecurityGroupIngress
 --
 --         , requestDeleteDBProxy $
---             deleteDBProxy
+--             newDeleteDBProxy
 --
 --         , requestRevokeDBSecurityGroupIngress $
---             revokeDBSecurityGroupIngress
+--             newRevokeDBSecurityGroupIngress
 --
 --         , requestModifyDBParameterGroup $
---             modifyDBParameterGroup
+--             newModifyDBParameterGroup
 --
 --         , requestDeregisterDBProxyTargets $
---             deregisterDBProxyTargets
+--             newDeregisterDBProxyTargets
 --
 --         , requestDeleteGlobalCluster $
---             deleteGlobalCluster
+--             newDeleteGlobalCluster
 --
 --         , requestPromoteReadReplicaDBCluster $
---             promoteReadReplicaDBCluster
+--             newPromoteReadReplicaDBCluster
 --
 --         , requestCreateGlobalCluster $
---             createGlobalCluster
+--             newCreateGlobalCluster
 --
 --         , requestResetDBParameterGroup $
---             resetDBParameterGroup
+--             newResetDBParameterGroup
 --
 --         , requestDescribeDBProxyTargets $
---             describeDBProxyTargets
+--             newDescribeDBProxyTargets
 --
 --         , requestImportInstallationMedia $
---             importInstallationMedia
+--             newImportInstallationMedia
 --
 --         , requestDeleteCustomAvailabilityZone $
---             deleteCustomAvailabilityZone
+--             newDeleteCustomAvailabilityZone
 --
 --         , requestFailoverGlobalCluster $
---             failoverGlobalCluster
+--             newFailoverGlobalCluster
 --
 --         , requestRemoveSourceIdentifierFromSubscription $
---             removeSourceIdentifierFromSubscription
+--             newRemoveSourceIdentifierFromSubscription
 --
 --         , requestCopyDBClusterSnapshot $
---             copyDBClusterSnapshot
+--             newCopyDBClusterSnapshot
 --
 --         , requestDescribeInstallationMedia $
---             describeInstallationMedia
+--             newDescribeInstallationMedia
 --
 --         , requestCopyDBParameterGroup $
---             copyDBParameterGroup
+--             newCopyDBParameterGroup
 --
 --         , requestRestoreDBInstanceToPointInTime $
---             restoreDBInstanceToPointInTime
+--             newRestoreDBInstanceToPointInTime
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestModifyDBSnapshot $
---             modifyDBSnapshot
+--             newModifyDBSnapshot
 --
 --         , requestModifyDBSubnetGroup $
---             modifyDBSubnetGroup
+--             newModifyDBSubnetGroup
 --
 --         , requestDescribeEngineDefaultParameters $
---             describeEngineDefaultParameters
+--             newDescribeEngineDefaultParameters
 --
 --         , requestDescribeCustomAvailabilityZones $
---             describeCustomAvailabilityZones
+--             newDescribeCustomAvailabilityZones
 --
 --         , requestAddRoleToDBCluster $
---             addRoleToDBCluster
+--             newAddRoleToDBCluster
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseResetDBClusterParameterGroup $
---             dbClusterParameterGroupNameMessage
+--             newDBClusterParameterGroupNameMessage
 --
 --         , responseStopDBInstance $
---             stopDBInstanceResponse
+--             newStopDBInstanceResponse
 --
 --         , responseModifyDBInstance $
---             modifyDBInstanceResponse
+--             newModifyDBInstanceResponse
 --
 --         , responseDescribeEventCategories $
---             describeEventCategoriesResponse
+--             newDescribeEventCategoriesResponse
 --
 --         , responseStartDBInstance $
---             startDBInstanceResponse
+--             newStartDBInstanceResponse
 --
 --         , responseCopyDBClusterParameterGroup $
---             copyDBClusterParameterGroupResponse
+--             newCopyDBClusterParameterGroupResponse
 --
 --         , responseDescribeExportTasks $
---             describeExportTasksResponse
+--             newDescribeExportTasksResponse
 --
 --         , responseCopyDBSnapshot $
---             copyDBSnapshotResponse
+--             newCopyDBSnapshotResponse
 --
 --         , responsePromoteReadReplica $
---             promoteReadReplicaResponse
+--             newPromoteReadReplicaResponse
 --
 --         , responseDescribeDBSnapshots $
---             describeDBSnapshotsResponse
+--             newDescribeDBSnapshotsResponse
 --
 --         , responseModifyDBCluster $
---             modifyDBClusterResponse
+--             newModifyDBClusterResponse
 --
 --         , responseModifyOptionGroup $
---             modifyOptionGroupResponse
+--             newModifyOptionGroupResponse
 --
 --         , responseStopDBCluster $
---             stopDBClusterResponse
+--             newStopDBClusterResponse
 --
 --         , responseCreateDBClusterSnapshot $
---             createDBClusterSnapshotResponse
+--             newCreateDBClusterSnapshotResponse
 --
 --         , responseDescribeDBClusterParameterGroups $
---             describeDBClusterParameterGroupsResponse
+--             newDescribeDBClusterParameterGroupsResponse
 --
 --         , responseDescribeDBEngineVersions $
---             describeDBEngineVersionsResponse
+--             newDescribeDBEngineVersionsResponse
 --
 --         , responseStartDBCluster $
---             startDBClusterResponse
+--             newStartDBClusterResponse
 --
 --         , responseDescribeOptionGroupOptions $
---             describeOptionGroupOptionsResponse
+--             newDescribeOptionGroupOptionsResponse
 --
 --         , responseDeleteInstallationMedia $
---             installationMedia
+--             newInstallationMedia
 --
 --         , responseCopyOptionGroup $
---             copyOptionGroupResponse
+--             newCopyOptionGroupResponse
 --
 --         , responseDescribeDBInstanceAutomatedBackups $
---             describeDBInstanceAutomatedBackupsResponse
+--             newDescribeDBInstanceAutomatedBackupsResponse
 --
 --         , responseModifyGlobalCluster $
---             modifyGlobalClusterResponse
+--             newModifyGlobalClusterResponse
 --
 --         , responseDescribeDBProxies $
---             describeDBProxiesResponse
+--             newDescribeDBProxiesResponse
 --
 --         , responseRestoreDBClusterToPointInTime $
---             restoreDBClusterToPointInTimeResponse
+--             newRestoreDBClusterToPointInTimeResponse
 --
 --         , responseStopActivityStream $
---             stopActivityStreamResponse
+--             newStopActivityStreamResponse
 --
 --         , responseCreateDBInstanceReadReplica $
---             createDBInstanceReadReplicaResponse
+--             newCreateDBInstanceReadReplicaResponse
 --
 --         , responseDescribeValidDBInstanceModifications $
---             describeValidDBInstanceModificationsResponse
+--             newDescribeValidDBInstanceModificationsResponse
 --
 --         , responseStartExportTask $
---             exportTask
+--             newExportTask
 --
 --         , responseDescribeDBParameters $
---             describeDBParametersResponse
+--             newDescribeDBParametersResponse
 --
 --         , responseDescribeDBInstances $
---             describeDBInstancesResponse
+--             newDescribeDBInstancesResponse
 --
 --         , responseDescribeEventSubscriptions $
---             describeEventSubscriptionsResponse
+--             newDescribeEventSubscriptionsResponse
 --
---         , responseRestoreDBInstanceFromS3 $
---             restoreDBInstanceFromS3Response
+--         , responseRestoreDBInstanceFromS $
+--             newRestoreDBInstanceFromSResponse
 --
 --         , responseStartActivityStream $
---             startActivityStreamResponse
+--             newStartActivityStreamResponse
 --
 --         , responseDescribeDBClusterEndpoints $
---             describeDBClusterEndpointsResponse
+--             newDescribeDBClusterEndpointsResponse
 --
 --         , responseModifyCertificates $
---             modifyCertificatesResponse
+--             newModifyCertificatesResponse
 --
 --         , responseDescribeDBClusterSnapshots $
---             describeDBClusterSnapshotsResponse
+--             newDescribeDBClusterSnapshotsResponse
 --
 --         , responseDeleteDBClusterEndpoint $
---             dbClusterEndpoint
+--             newDBClusterEndpoint
 --
 --         , responseModifyDBSnapshotAttribute $
---             modifyDBSnapshotAttributeResponse
+--             newModifyDBSnapshotAttributeResponse
 --
 --         , responseDescribeReservedDBInstancesOfferings $
---             describeReservedDBInstancesOfferingsResponse
+--             newDescribeReservedDBInstancesOfferingsResponse
 --
 --         , responseDeleteDBInstance $
---             deleteDBInstanceResponse
+--             newDeleteDBInstanceResponse
 --
 --         , responseRebootDBInstance $
---             rebootDBInstanceResponse
+--             newRebootDBInstanceResponse
 --
 --         , responseDeleteEventSubscription $
---             deleteEventSubscriptionResponse
+--             newDeleteEventSubscriptionResponse
 --
 --         , responseDescribeDBParameterGroups $
---             describeDBParameterGroupsResponse
+--             newDescribeDBParameterGroupsResponse
 --
 --         , responseDeleteDBInstanceAutomatedBackup $
---             deleteDBInstanceAutomatedBackupResponse
+--             newDeleteDBInstanceAutomatedBackupResponse
 --
 --         , responseDescribeDBClusterBacktracks $
---             describeDBClusterBacktracksResponse
+--             newDescribeDBClusterBacktracksResponse
 --
 --         , responseCreateDBClusterParameterGroup $
---             createDBClusterParameterGroupResponse
+--             newCreateDBClusterParameterGroupResponse
 --
 --         , responseCreateDBProxy $
---             createDBProxyResponse
+--             newCreateDBProxyResponse
 --
 --         , responseDescribeDBClusterParameters $
---             describeDBClusterParametersResponse
+--             newDescribeDBClusterParametersResponse
 --
 --         , responseDeleteDBSubnetGroup $
---             deleteDBSubnetGroupResponse
+--             newDeleteDBSubnetGroupResponse
 --
 --         , responseDescribeAccountAttributes $
---             describeAccountAttributesResponse
+--             newDescribeAccountAttributesResponse
 --
 --         , responseRemoveTagsFromResource $
---             removeTagsFromResourceResponse
+--             newRemoveTagsFromResourceResponse
 --
 --         , responseCreateDBSecurityGroup $
---             createDBSecurityGroupResponse
+--             newCreateDBSecurityGroupResponse
 --
 --         , responseDescribeCertificates $
---             describeCertificatesResponse
+--             newDescribeCertificatesResponse
 --
 --         , responseCreateDBInstance $
---             createDBInstanceResponse
+--             newCreateDBInstanceResponse
 --
 --         , responseRemoveRoleFromDBInstance $
---             removeRoleFromDBInstanceResponse
+--             newRemoveRoleFromDBInstanceResponse
 --
 --         , responseDescribeEngineDefaultClusterParameters $
---             describeEngineDefaultClusterParametersResponse
+--             newDescribeEngineDefaultClusterParametersResponse
 --
 --         , responseStartDBInstanceAutomatedBackupsReplication $
---             startDBInstanceAutomatedBackupsReplicationResponse
+--             newStartDBInstanceAutomatedBackupsReplicationResponse
 --
 --         , responseCreateOptionGroup $
---             createOptionGroupResponse
+--             newCreateOptionGroupResponse
 --
 --         , responseCreateCustomAvailabilityZone $
---             createCustomAvailabilityZoneResponse
+--             newCreateCustomAvailabilityZoneResponse
 --
 --         , responseStopDBInstanceAutomatedBackupsReplication $
---             stopDBInstanceAutomatedBackupsReplicationResponse
+--             newStopDBInstanceAutomatedBackupsReplicationResponse
 --
 --         , responseFailoverDBCluster $
---             failoverDBClusterResponse
+--             newFailoverDBClusterResponse
 --
 --         , responseRemoveRoleFromDBCluster $
---             removeRoleFromDBClusterResponse
+--             newRemoveRoleFromDBClusterResponse
 --
 --         , responseDescribeDBSnapshotAttributes $
---             describeDBSnapshotAttributesResponse
+--             newDescribeDBSnapshotAttributesResponse
 --
 --         , responseCreateDBCluster $
---             createDBClusterResponse
+--             newCreateDBClusterResponse
 --
 --         , responseApplyPendingMaintenanceAction $
---             applyPendingMaintenanceActionResponse
+--             newApplyPendingMaintenanceActionResponse
 --
 --         , responseBacktrackDBCluster $
---             dbClusterBacktrack
+--             newDBClusterBacktrack
 --
 --         , responseDescribeReservedDBInstances $
---             describeReservedDBInstancesResponse
+--             newDescribeReservedDBInstancesResponse
 --
 --         , responseDeleteDBCluster $
---             deleteDBClusterResponse
+--             newDeleteDBClusterResponse
 --
 --         , responseDeleteOptionGroup $
---             deleteOptionGroupResponse
+--             newDeleteOptionGroupResponse
 --
 --         , responseDescribePendingMaintenanceActions $
---             describePendingMaintenanceActionsResponse
+--             newDescribePendingMaintenanceActionsResponse
 --
 --         , responseDescribeDBProxyTargetGroups $
---             describeDBProxyTargetGroupsResponse
+--             newDescribeDBProxyTargetGroupsResponse
 --
 --         , responseModifyDBClusterParameterGroup $
---             dbClusterParameterGroupNameMessage
+--             newDBClusterParameterGroupNameMessage
 --
 --         , responseDescribeDBClusterSnapshotAttributes $
---             describeDBClusterSnapshotAttributesResponse
+--             newDescribeDBClusterSnapshotAttributesResponse
 --
 --         , responseDescribeOptionGroups $
---             describeOptionGroupsResponse
+--             newDescribeOptionGroupsResponse
 --
 --         , responseDescribeDBClusters $
---             describeDBClustersResponse
+--             newDescribeDBClustersResponse
 --
 --         , responseDescribeEvents $
---             describeEventsResponse
+--             newDescribeEventsResponse
 --
 --         , responseModifyDBProxy $
---             modifyDBProxyResponse
+--             newModifyDBProxyResponse
 --
 --         , responseDescribeDBLogFiles $
---             describeDBLogFilesResponse
+--             newDescribeDBLogFilesResponse
 --
---         , responseRestoreDBClusterFromS3 $
---             restoreDBClusterFromS3Response
+--         , responseRestoreDBClusterFromS $
+--             newRestoreDBClusterFromSResponse
 --
 --         , responseCancelExportTask $
---             exportTask
+--             newExportTask
 --
 --         , responseDescribeGlobalClusters $
---             describeGlobalClustersResponse
+--             newDescribeGlobalClustersResponse
 --
 --         , responseAddSourceIdentifierToSubscription $
---             addSourceIdentifierToSubscriptionResponse
+--             newAddSourceIdentifierToSubscriptionResponse
 --
 --         , responseModifyEventSubscription $
---             modifyEventSubscriptionResponse
+--             newModifyEventSubscriptionResponse
 --
 --         , responseModifyDBClusterEndpoint $
---             dbClusterEndpoint
+--             newDBClusterEndpoint
 --
 --         , responseModifyDBClusterSnapshotAttribute $
---             modifyDBClusterSnapshotAttributeResponse
+--             newModifyDBClusterSnapshotAttributeResponse
 --
 --         , responseDescribeDBSubnetGroups $
---             describeDBSubnetGroupsResponse
+--             newDescribeDBSubnetGroupsResponse
 --
 --         , responseModifyDBProxyTargetGroup $
---             modifyDBProxyTargetGroupResponse
+--             newModifyDBProxyTargetGroupResponse
 --
 --         , responseCreateDBParameterGroup $
---             createDBParameterGroupResponse
+--             newCreateDBParameterGroupResponse
 --
 --         , responseDeleteDBClusterSnapshot $
---             deleteDBClusterSnapshotResponse
+--             newDeleteDBClusterSnapshotResponse
 --
 --         , responseRemoveFromGlobalCluster $
---             removeFromGlobalClusterResponse
+--             newRemoveFromGlobalClusterResponse
 --
 --         , responseDescribeDBSecurityGroups $
---             describeDBSecurityGroupsResponse
+--             newDescribeDBSecurityGroupsResponse
 --
 --         , responseAddTagsToResource $
---             addTagsToResourceResponse
+--             newAddTagsToResourceResponse
 --
 --         , responseRegisterDBProxyTargets $
---             registerDBProxyTargetsResponse
+--             newRegisterDBProxyTargetsResponse
 --
 --         , responseDownloadDBLogFilePortion $
---             downloadDBLogFilePortionResponse
+--             newDownloadDBLogFilePortionResponse
 --
 --         , responseModifyCurrentDBClusterCapacity $
---             modifyCurrentDBClusterCapacityResponse
+--             newModifyCurrentDBClusterCapacityResponse
 --
 --         , responseAddRoleToDBInstance $
---             addRoleToDBInstanceResponse
+--             newAddRoleToDBInstanceResponse
 --
 --         , responseDeleteDBParameterGroup $
---             deleteDBParameterGroupResponse
+--             newDeleteDBParameterGroupResponse
 --
 --         , responseCreateDBSnapshot $
---             createDBSnapshotResponse
+--             newCreateDBSnapshotResponse
 --
 --         , responseCreateDBSubnetGroup $
---             createDBSubnetGroupResponse
+--             newCreateDBSubnetGroupResponse
 --
 --         , responseDescribeOrderableDBInstanceOptions $
---             describeOrderableDBInstanceOptionsResponse
+--             newDescribeOrderableDBInstanceOptionsResponse
 --
 --         , responseDeleteDBSecurityGroup $
---             deleteDBSecurityGroupResponse
+--             newDeleteDBSecurityGroupResponse
 --
 --         , responseRestoreDBClusterFromSnapshot $
---             restoreDBClusterFromSnapshotResponse
+--             newRestoreDBClusterFromSnapshotResponse
 --
 --         , responseRestoreDBInstanceFromDBSnapshot $
---             restoreDBInstanceFromDBSnapshotResponse
+--             newRestoreDBInstanceFromDBSnapshotResponse
 --
 --         , responseCreateDBClusterEndpoint $
---             dbClusterEndpoint
+--             newDBClusterEndpoint
 --
 --         , responseCreateEventSubscription $
---             createEventSubscriptionResponse
+--             newCreateEventSubscriptionResponse
 --
 --         , responseDeleteDBSnapshot $
---             deleteDBSnapshotResponse
+--             newDeleteDBSnapshotResponse
 --
 --         , responseDeleteDBClusterParameterGroup $
---             deleteDBClusterParameterGroupResponse
+--             newDeleteDBClusterParameterGroupResponse
 --
 --         , responseDescribeSourceRegions $
---             describeSourceRegionsResponse
+--             newDescribeSourceRegionsResponse
 --
 --         , responsePurchaseReservedDBInstancesOffering $
---             purchaseReservedDBInstancesOfferingResponse
+--             newPurchaseReservedDBInstancesOfferingResponse
 --
 --         , responseAuthorizeDBSecurityGroupIngress $
---             authorizeDBSecurityGroupIngressResponse
+--             newAuthorizeDBSecurityGroupIngressResponse
 --
 --         , responseDeleteDBProxy $
---             deleteDBProxyResponse
+--             newDeleteDBProxyResponse
 --
 --         , responseRevokeDBSecurityGroupIngress $
---             revokeDBSecurityGroupIngressResponse
+--             newRevokeDBSecurityGroupIngressResponse
 --
 --         , responseModifyDBParameterGroup $
---             dbParameterGroupNameMessage
+--             newDBParameterGroupNameMessage
 --
 --         , responseDeregisterDBProxyTargets $
---             deregisterDBProxyTargetsResponse
+--             newDeregisterDBProxyTargetsResponse
 --
 --         , responseDeleteGlobalCluster $
---             deleteGlobalClusterResponse
+--             newDeleteGlobalClusterResponse
 --
 --         , responsePromoteReadReplicaDBCluster $
---             promoteReadReplicaDBClusterResponse
+--             newPromoteReadReplicaDBClusterResponse
 --
 --         , responseCreateGlobalCluster $
---             createGlobalClusterResponse
+--             newCreateGlobalClusterResponse
 --
 --         , responseResetDBParameterGroup $
---             dbParameterGroupNameMessage
+--             newDBParameterGroupNameMessage
 --
 --         , responseDescribeDBProxyTargets $
---             describeDBProxyTargetsResponse
+--             newDescribeDBProxyTargetsResponse
 --
 --         , responseImportInstallationMedia $
---             installationMedia
+--             newInstallationMedia
 --
 --         , responseDeleteCustomAvailabilityZone $
---             deleteCustomAvailabilityZoneResponse
+--             newDeleteCustomAvailabilityZoneResponse
 --
 --         , responseFailoverGlobalCluster $
---             failoverGlobalClusterResponse
+--             newFailoverGlobalClusterResponse
 --
 --         , responseRemoveSourceIdentifierFromSubscription $
---             removeSourceIdentifierFromSubscriptionResponse
+--             newRemoveSourceIdentifierFromSubscriptionResponse
 --
 --         , responseCopyDBClusterSnapshot $
---             copyDBClusterSnapshotResponse
+--             newCopyDBClusterSnapshotResponse
 --
 --         , responseDescribeInstallationMedia $
---             describeInstallationMediaResponse
+--             newDescribeInstallationMediaResponse
 --
 --         , responseCopyDBParameterGroup $
---             copyDBParameterGroupResponse
+--             newCopyDBParameterGroupResponse
 --
 --         , responseRestoreDBInstanceToPointInTime $
---             restoreDBInstanceToPointInTimeResponse
+--             newRestoreDBInstanceToPointInTimeResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseModifyDBSnapshot $
---             modifyDBSnapshotResponse
+--             newModifyDBSnapshotResponse
 --
 --         , responseModifyDBSubnetGroup $
---             modifyDBSubnetGroupResponse
+--             newModifyDBSubnetGroupResponse
 --
 --         , responseDescribeEngineDefaultParameters $
---             describeEngineDefaultParametersResponse
+--             newDescribeEngineDefaultParametersResponse
 --
 --         , responseDescribeCustomAvailabilityZones $
---             describeCustomAvailabilityZonesResponse
+--             newDescribeCustomAvailabilityZonesResponse
 --
 --         , responseAddRoleToDBCluster $
---             addRoleToDBClusterResponse
+--             newAddRoleToDBClusterResponse
 --
 --           ]
 --     ]
@@ -1019,11 +1019,11 @@ requestDescribeEventSubscriptions =
     "DescribeEventSubscriptions"
     "fixture/DescribeEventSubscriptions.yaml"
 
-requestRestoreDBInstanceFromS3 :: RestoreDBInstanceFromS3 -> TestTree
-requestRestoreDBInstanceFromS3 =
+requestRestoreDBInstanceFromS :: RestoreDBInstanceFromS -> TestTree
+requestRestoreDBInstanceFromS =
   req
-    "RestoreDBInstanceFromS3"
-    "fixture/RestoreDBInstanceFromS3.yaml"
+    "RestoreDBInstanceFromS"
+    "fixture/RestoreDBInstanceFromS.yaml"
 
 requestStartActivityStream :: StartActivityStream -> TestTree
 requestStartActivityStream =
@@ -1301,11 +1301,11 @@ requestDescribeDBLogFiles =
     "DescribeDBLogFiles"
     "fixture/DescribeDBLogFiles.yaml"
 
-requestRestoreDBClusterFromS3 :: RestoreDBClusterFromS3 -> TestTree
-requestRestoreDBClusterFromS3 =
+requestRestoreDBClusterFromS :: RestoreDBClusterFromS -> TestTree
+requestRestoreDBClusterFromS =
   req
-    "RestoreDBClusterFromS3"
-    "fixture/RestoreDBClusterFromS3.yaml"
+    "RestoreDBClusterFromS"
+    "fixture/RestoreDBClusterFromS.yaml"
 
 requestCancelExportTask :: CancelExportTask -> TestTree
 requestCancelExportTask =
@@ -1638,7 +1638,7 @@ responseResetDBClusterParameterGroup =
   res
     "ResetDBClusterParameterGroupResponse"
     "fixture/ResetDBClusterParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ResetDBClusterParameterGroup)
 
 responseStopDBInstance :: StopDBInstanceResponse -> TestTree
@@ -1646,7 +1646,7 @@ responseStopDBInstance =
   res
     "StopDBInstanceResponse"
     "fixture/StopDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StopDBInstance)
 
 responseModifyDBInstance :: ModifyDBInstanceResponse -> TestTree
@@ -1654,7 +1654,7 @@ responseModifyDBInstance =
   res
     "ModifyDBInstanceResponse"
     "fixture/ModifyDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBInstance)
 
 responseDescribeEventCategories :: DescribeEventCategoriesResponse -> TestTree
@@ -1662,7 +1662,7 @@ responseDescribeEventCategories =
   res
     "DescribeEventCategoriesResponse"
     "fixture/DescribeEventCategoriesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeEventCategories)
 
 responseStartDBInstance :: StartDBInstanceResponse -> TestTree
@@ -1670,7 +1670,7 @@ responseStartDBInstance =
   res
     "StartDBInstanceResponse"
     "fixture/StartDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StartDBInstance)
 
 responseCopyDBClusterParameterGroup :: CopyDBClusterParameterGroupResponse -> TestTree
@@ -1678,7 +1678,7 @@ responseCopyDBClusterParameterGroup =
   res
     "CopyDBClusterParameterGroupResponse"
     "fixture/CopyDBClusterParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CopyDBClusterParameterGroup)
 
 responseDescribeExportTasks :: DescribeExportTasksResponse -> TestTree
@@ -1686,7 +1686,7 @@ responseDescribeExportTasks =
   res
     "DescribeExportTasksResponse"
     "fixture/DescribeExportTasksResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeExportTasks)
 
 responseCopyDBSnapshot :: CopyDBSnapshotResponse -> TestTree
@@ -1694,7 +1694,7 @@ responseCopyDBSnapshot =
   res
     "CopyDBSnapshotResponse"
     "fixture/CopyDBSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CopyDBSnapshot)
 
 responsePromoteReadReplica :: PromoteReadReplicaResponse -> TestTree
@@ -1702,7 +1702,7 @@ responsePromoteReadReplica =
   res
     "PromoteReadReplicaResponse"
     "fixture/PromoteReadReplicaResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy PromoteReadReplica)
 
 responseDescribeDBSnapshots :: DescribeDBSnapshotsResponse -> TestTree
@@ -1710,7 +1710,7 @@ responseDescribeDBSnapshots =
   res
     "DescribeDBSnapshotsResponse"
     "fixture/DescribeDBSnapshotsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBSnapshots)
 
 responseModifyDBCluster :: ModifyDBClusterResponse -> TestTree
@@ -1718,7 +1718,7 @@ responseModifyDBCluster =
   res
     "ModifyDBClusterResponse"
     "fixture/ModifyDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBCluster)
 
 responseModifyOptionGroup :: ModifyOptionGroupResponse -> TestTree
@@ -1726,7 +1726,7 @@ responseModifyOptionGroup =
   res
     "ModifyOptionGroupResponse"
     "fixture/ModifyOptionGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyOptionGroup)
 
 responseStopDBCluster :: StopDBClusterResponse -> TestTree
@@ -1734,7 +1734,7 @@ responseStopDBCluster =
   res
     "StopDBClusterResponse"
     "fixture/StopDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StopDBCluster)
 
 responseCreateDBClusterSnapshot :: CreateDBClusterSnapshotResponse -> TestTree
@@ -1742,7 +1742,7 @@ responseCreateDBClusterSnapshot =
   res
     "CreateDBClusterSnapshotResponse"
     "fixture/CreateDBClusterSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBClusterSnapshot)
 
 responseDescribeDBClusterParameterGroups :: DescribeDBClusterParameterGroupsResponse -> TestTree
@@ -1750,7 +1750,7 @@ responseDescribeDBClusterParameterGroups =
   res
     "DescribeDBClusterParameterGroupsResponse"
     "fixture/DescribeDBClusterParameterGroupsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBClusterParameterGroups)
 
 responseDescribeDBEngineVersions :: DescribeDBEngineVersionsResponse -> TestTree
@@ -1758,7 +1758,7 @@ responseDescribeDBEngineVersions =
   res
     "DescribeDBEngineVersionsResponse"
     "fixture/DescribeDBEngineVersionsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBEngineVersions)
 
 responseStartDBCluster :: StartDBClusterResponse -> TestTree
@@ -1766,7 +1766,7 @@ responseStartDBCluster =
   res
     "StartDBClusterResponse"
     "fixture/StartDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StartDBCluster)
 
 responseDescribeOptionGroupOptions :: DescribeOptionGroupOptionsResponse -> TestTree
@@ -1774,7 +1774,7 @@ responseDescribeOptionGroupOptions =
   res
     "DescribeOptionGroupOptionsResponse"
     "fixture/DescribeOptionGroupOptionsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeOptionGroupOptions)
 
 responseDeleteInstallationMedia :: InstallationMedia -> TestTree
@@ -1782,7 +1782,7 @@ responseDeleteInstallationMedia =
   res
     "DeleteInstallationMediaResponse"
     "fixture/DeleteInstallationMediaResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteInstallationMedia)
 
 responseCopyOptionGroup :: CopyOptionGroupResponse -> TestTree
@@ -1790,7 +1790,7 @@ responseCopyOptionGroup =
   res
     "CopyOptionGroupResponse"
     "fixture/CopyOptionGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CopyOptionGroup)
 
 responseDescribeDBInstanceAutomatedBackups :: DescribeDBInstanceAutomatedBackupsResponse -> TestTree
@@ -1798,7 +1798,7 @@ responseDescribeDBInstanceAutomatedBackups =
   res
     "DescribeDBInstanceAutomatedBackupsResponse"
     "fixture/DescribeDBInstanceAutomatedBackupsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBInstanceAutomatedBackups)
 
 responseModifyGlobalCluster :: ModifyGlobalClusterResponse -> TestTree
@@ -1806,7 +1806,7 @@ responseModifyGlobalCluster =
   res
     "ModifyGlobalClusterResponse"
     "fixture/ModifyGlobalClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyGlobalCluster)
 
 responseDescribeDBProxies :: DescribeDBProxiesResponse -> TestTree
@@ -1814,7 +1814,7 @@ responseDescribeDBProxies =
   res
     "DescribeDBProxiesResponse"
     "fixture/DescribeDBProxiesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBProxies)
 
 responseRestoreDBClusterToPointInTime :: RestoreDBClusterToPointInTimeResponse -> TestTree
@@ -1822,7 +1822,7 @@ responseRestoreDBClusterToPointInTime =
   res
     "RestoreDBClusterToPointInTimeResponse"
     "fixture/RestoreDBClusterToPointInTimeResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RestoreDBClusterToPointInTime)
 
 responseStopActivityStream :: StopActivityStreamResponse -> TestTree
@@ -1830,7 +1830,7 @@ responseStopActivityStream =
   res
     "StopActivityStreamResponse"
     "fixture/StopActivityStreamResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StopActivityStream)
 
 responseCreateDBInstanceReadReplica :: CreateDBInstanceReadReplicaResponse -> TestTree
@@ -1838,7 +1838,7 @@ responseCreateDBInstanceReadReplica =
   res
     "CreateDBInstanceReadReplicaResponse"
     "fixture/CreateDBInstanceReadReplicaResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBInstanceReadReplica)
 
 responseDescribeValidDBInstanceModifications :: DescribeValidDBInstanceModificationsResponse -> TestTree
@@ -1846,7 +1846,7 @@ responseDescribeValidDBInstanceModifications =
   res
     "DescribeValidDBInstanceModificationsResponse"
     "fixture/DescribeValidDBInstanceModificationsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeValidDBInstanceModifications)
 
 responseStartExportTask :: ExportTask -> TestTree
@@ -1854,7 +1854,7 @@ responseStartExportTask =
   res
     "StartExportTaskResponse"
     "fixture/StartExportTaskResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StartExportTask)
 
 responseDescribeDBParameters :: DescribeDBParametersResponse -> TestTree
@@ -1862,7 +1862,7 @@ responseDescribeDBParameters =
   res
     "DescribeDBParametersResponse"
     "fixture/DescribeDBParametersResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBParameters)
 
 responseDescribeDBInstances :: DescribeDBInstancesResponse -> TestTree
@@ -1870,7 +1870,7 @@ responseDescribeDBInstances =
   res
     "DescribeDBInstancesResponse"
     "fixture/DescribeDBInstancesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBInstances)
 
 responseDescribeEventSubscriptions :: DescribeEventSubscriptionsResponse -> TestTree
@@ -1878,23 +1878,23 @@ responseDescribeEventSubscriptions =
   res
     "DescribeEventSubscriptionsResponse"
     "fixture/DescribeEventSubscriptionsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeEventSubscriptions)
 
-responseRestoreDBInstanceFromS3 :: RestoreDBInstanceFromS3Response -> TestTree
-responseRestoreDBInstanceFromS3 =
+responseRestoreDBInstanceFromS :: RestoreDBInstanceFromSResponse -> TestTree
+responseRestoreDBInstanceFromS =
   res
-    "RestoreDBInstanceFromS3Response"
-    "fixture/RestoreDBInstanceFromS3Response.proto"
-    rds
-    (Proxy :: Proxy RestoreDBInstanceFromS3)
+    "RestoreDBInstanceFromSResponse"
+    "fixture/RestoreDBInstanceFromSResponse.proto"
+    defaultService
+    (Proxy :: Proxy RestoreDBInstanceFromS)
 
 responseStartActivityStream :: StartActivityStreamResponse -> TestTree
 responseStartActivityStream =
   res
     "StartActivityStreamResponse"
     "fixture/StartActivityStreamResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StartActivityStream)
 
 responseDescribeDBClusterEndpoints :: DescribeDBClusterEndpointsResponse -> TestTree
@@ -1902,7 +1902,7 @@ responseDescribeDBClusterEndpoints =
   res
     "DescribeDBClusterEndpointsResponse"
     "fixture/DescribeDBClusterEndpointsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBClusterEndpoints)
 
 responseModifyCertificates :: ModifyCertificatesResponse -> TestTree
@@ -1910,7 +1910,7 @@ responseModifyCertificates =
   res
     "ModifyCertificatesResponse"
     "fixture/ModifyCertificatesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyCertificates)
 
 responseDescribeDBClusterSnapshots :: DescribeDBClusterSnapshotsResponse -> TestTree
@@ -1918,7 +1918,7 @@ responseDescribeDBClusterSnapshots =
   res
     "DescribeDBClusterSnapshotsResponse"
     "fixture/DescribeDBClusterSnapshotsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBClusterSnapshots)
 
 responseDeleteDBClusterEndpoint :: DBClusterEndpoint -> TestTree
@@ -1926,7 +1926,7 @@ responseDeleteDBClusterEndpoint =
   res
     "DeleteDBClusterEndpointResponse"
     "fixture/DeleteDBClusterEndpointResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBClusterEndpoint)
 
 responseModifyDBSnapshotAttribute :: ModifyDBSnapshotAttributeResponse -> TestTree
@@ -1934,7 +1934,7 @@ responseModifyDBSnapshotAttribute =
   res
     "ModifyDBSnapshotAttributeResponse"
     "fixture/ModifyDBSnapshotAttributeResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBSnapshotAttribute)
 
 responseDescribeReservedDBInstancesOfferings :: DescribeReservedDBInstancesOfferingsResponse -> TestTree
@@ -1942,7 +1942,7 @@ responseDescribeReservedDBInstancesOfferings =
   res
     "DescribeReservedDBInstancesOfferingsResponse"
     "fixture/DescribeReservedDBInstancesOfferingsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeReservedDBInstancesOfferings)
 
 responseDeleteDBInstance :: DeleteDBInstanceResponse -> TestTree
@@ -1950,7 +1950,7 @@ responseDeleteDBInstance =
   res
     "DeleteDBInstanceResponse"
     "fixture/DeleteDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBInstance)
 
 responseRebootDBInstance :: RebootDBInstanceResponse -> TestTree
@@ -1958,7 +1958,7 @@ responseRebootDBInstance =
   res
     "RebootDBInstanceResponse"
     "fixture/RebootDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RebootDBInstance)
 
 responseDeleteEventSubscription :: DeleteEventSubscriptionResponse -> TestTree
@@ -1966,7 +1966,7 @@ responseDeleteEventSubscription =
   res
     "DeleteEventSubscriptionResponse"
     "fixture/DeleteEventSubscriptionResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteEventSubscription)
 
 responseDescribeDBParameterGroups :: DescribeDBParameterGroupsResponse -> TestTree
@@ -1974,7 +1974,7 @@ responseDescribeDBParameterGroups =
   res
     "DescribeDBParameterGroupsResponse"
     "fixture/DescribeDBParameterGroupsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBParameterGroups)
 
 responseDeleteDBInstanceAutomatedBackup :: DeleteDBInstanceAutomatedBackupResponse -> TestTree
@@ -1982,7 +1982,7 @@ responseDeleteDBInstanceAutomatedBackup =
   res
     "DeleteDBInstanceAutomatedBackupResponse"
     "fixture/DeleteDBInstanceAutomatedBackupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBInstanceAutomatedBackup)
 
 responseDescribeDBClusterBacktracks :: DescribeDBClusterBacktracksResponse -> TestTree
@@ -1990,7 +1990,7 @@ responseDescribeDBClusterBacktracks =
   res
     "DescribeDBClusterBacktracksResponse"
     "fixture/DescribeDBClusterBacktracksResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBClusterBacktracks)
 
 responseCreateDBClusterParameterGroup :: CreateDBClusterParameterGroupResponse -> TestTree
@@ -1998,7 +1998,7 @@ responseCreateDBClusterParameterGroup =
   res
     "CreateDBClusterParameterGroupResponse"
     "fixture/CreateDBClusterParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBClusterParameterGroup)
 
 responseCreateDBProxy :: CreateDBProxyResponse -> TestTree
@@ -2006,7 +2006,7 @@ responseCreateDBProxy =
   res
     "CreateDBProxyResponse"
     "fixture/CreateDBProxyResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBProxy)
 
 responseDescribeDBClusterParameters :: DescribeDBClusterParametersResponse -> TestTree
@@ -2014,7 +2014,7 @@ responseDescribeDBClusterParameters =
   res
     "DescribeDBClusterParametersResponse"
     "fixture/DescribeDBClusterParametersResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBClusterParameters)
 
 responseDeleteDBSubnetGroup :: DeleteDBSubnetGroupResponse -> TestTree
@@ -2022,7 +2022,7 @@ responseDeleteDBSubnetGroup =
   res
     "DeleteDBSubnetGroupResponse"
     "fixture/DeleteDBSubnetGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBSubnetGroup)
 
 responseDescribeAccountAttributes :: DescribeAccountAttributesResponse -> TestTree
@@ -2030,7 +2030,7 @@ responseDescribeAccountAttributes =
   res
     "DescribeAccountAttributesResponse"
     "fixture/DescribeAccountAttributesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeAccountAttributes)
 
 responseRemoveTagsFromResource :: RemoveTagsFromResourceResponse -> TestTree
@@ -2038,7 +2038,7 @@ responseRemoveTagsFromResource =
   res
     "RemoveTagsFromResourceResponse"
     "fixture/RemoveTagsFromResourceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RemoveTagsFromResource)
 
 responseCreateDBSecurityGroup :: CreateDBSecurityGroupResponse -> TestTree
@@ -2046,7 +2046,7 @@ responseCreateDBSecurityGroup =
   res
     "CreateDBSecurityGroupResponse"
     "fixture/CreateDBSecurityGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBSecurityGroup)
 
 responseDescribeCertificates :: DescribeCertificatesResponse -> TestTree
@@ -2054,7 +2054,7 @@ responseDescribeCertificates =
   res
     "DescribeCertificatesResponse"
     "fixture/DescribeCertificatesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeCertificates)
 
 responseCreateDBInstance :: CreateDBInstanceResponse -> TestTree
@@ -2062,7 +2062,7 @@ responseCreateDBInstance =
   res
     "CreateDBInstanceResponse"
     "fixture/CreateDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBInstance)
 
 responseRemoveRoleFromDBInstance :: RemoveRoleFromDBInstanceResponse -> TestTree
@@ -2070,7 +2070,7 @@ responseRemoveRoleFromDBInstance =
   res
     "RemoveRoleFromDBInstanceResponse"
     "fixture/RemoveRoleFromDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RemoveRoleFromDBInstance)
 
 responseDescribeEngineDefaultClusterParameters :: DescribeEngineDefaultClusterParametersResponse -> TestTree
@@ -2078,7 +2078,7 @@ responseDescribeEngineDefaultClusterParameters =
   res
     "DescribeEngineDefaultClusterParametersResponse"
     "fixture/DescribeEngineDefaultClusterParametersResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeEngineDefaultClusterParameters)
 
 responseStartDBInstanceAutomatedBackupsReplication :: StartDBInstanceAutomatedBackupsReplicationResponse -> TestTree
@@ -2086,7 +2086,7 @@ responseStartDBInstanceAutomatedBackupsReplication =
   res
     "StartDBInstanceAutomatedBackupsReplicationResponse"
     "fixture/StartDBInstanceAutomatedBackupsReplicationResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StartDBInstanceAutomatedBackupsReplication)
 
 responseCreateOptionGroup :: CreateOptionGroupResponse -> TestTree
@@ -2094,7 +2094,7 @@ responseCreateOptionGroup =
   res
     "CreateOptionGroupResponse"
     "fixture/CreateOptionGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateOptionGroup)
 
 responseCreateCustomAvailabilityZone :: CreateCustomAvailabilityZoneResponse -> TestTree
@@ -2102,7 +2102,7 @@ responseCreateCustomAvailabilityZone =
   res
     "CreateCustomAvailabilityZoneResponse"
     "fixture/CreateCustomAvailabilityZoneResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateCustomAvailabilityZone)
 
 responseStopDBInstanceAutomatedBackupsReplication :: StopDBInstanceAutomatedBackupsReplicationResponse -> TestTree
@@ -2110,7 +2110,7 @@ responseStopDBInstanceAutomatedBackupsReplication =
   res
     "StopDBInstanceAutomatedBackupsReplicationResponse"
     "fixture/StopDBInstanceAutomatedBackupsReplicationResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy StopDBInstanceAutomatedBackupsReplication)
 
 responseFailoverDBCluster :: FailoverDBClusterResponse -> TestTree
@@ -2118,7 +2118,7 @@ responseFailoverDBCluster =
   res
     "FailoverDBClusterResponse"
     "fixture/FailoverDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy FailoverDBCluster)
 
 responseRemoveRoleFromDBCluster :: RemoveRoleFromDBClusterResponse -> TestTree
@@ -2126,7 +2126,7 @@ responseRemoveRoleFromDBCluster =
   res
     "RemoveRoleFromDBClusterResponse"
     "fixture/RemoveRoleFromDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RemoveRoleFromDBCluster)
 
 responseDescribeDBSnapshotAttributes :: DescribeDBSnapshotAttributesResponse -> TestTree
@@ -2134,7 +2134,7 @@ responseDescribeDBSnapshotAttributes =
   res
     "DescribeDBSnapshotAttributesResponse"
     "fixture/DescribeDBSnapshotAttributesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBSnapshotAttributes)
 
 responseCreateDBCluster :: CreateDBClusterResponse -> TestTree
@@ -2142,7 +2142,7 @@ responseCreateDBCluster =
   res
     "CreateDBClusterResponse"
     "fixture/CreateDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBCluster)
 
 responseApplyPendingMaintenanceAction :: ApplyPendingMaintenanceActionResponse -> TestTree
@@ -2150,7 +2150,7 @@ responseApplyPendingMaintenanceAction =
   res
     "ApplyPendingMaintenanceActionResponse"
     "fixture/ApplyPendingMaintenanceActionResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ApplyPendingMaintenanceAction)
 
 responseBacktrackDBCluster :: DBClusterBacktrack -> TestTree
@@ -2158,7 +2158,7 @@ responseBacktrackDBCluster =
   res
     "BacktrackDBClusterResponse"
     "fixture/BacktrackDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy BacktrackDBCluster)
 
 responseDescribeReservedDBInstances :: DescribeReservedDBInstancesResponse -> TestTree
@@ -2166,7 +2166,7 @@ responseDescribeReservedDBInstances =
   res
     "DescribeReservedDBInstancesResponse"
     "fixture/DescribeReservedDBInstancesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeReservedDBInstances)
 
 responseDeleteDBCluster :: DeleteDBClusterResponse -> TestTree
@@ -2174,7 +2174,7 @@ responseDeleteDBCluster =
   res
     "DeleteDBClusterResponse"
     "fixture/DeleteDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBCluster)
 
 responseDeleteOptionGroup :: DeleteOptionGroupResponse -> TestTree
@@ -2182,7 +2182,7 @@ responseDeleteOptionGroup =
   res
     "DeleteOptionGroupResponse"
     "fixture/DeleteOptionGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteOptionGroup)
 
 responseDescribePendingMaintenanceActions :: DescribePendingMaintenanceActionsResponse -> TestTree
@@ -2190,7 +2190,7 @@ responseDescribePendingMaintenanceActions =
   res
     "DescribePendingMaintenanceActionsResponse"
     "fixture/DescribePendingMaintenanceActionsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribePendingMaintenanceActions)
 
 responseDescribeDBProxyTargetGroups :: DescribeDBProxyTargetGroupsResponse -> TestTree
@@ -2198,7 +2198,7 @@ responseDescribeDBProxyTargetGroups =
   res
     "DescribeDBProxyTargetGroupsResponse"
     "fixture/DescribeDBProxyTargetGroupsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBProxyTargetGroups)
 
 responseModifyDBClusterParameterGroup :: DBClusterParameterGroupNameMessage -> TestTree
@@ -2206,7 +2206,7 @@ responseModifyDBClusterParameterGroup =
   res
     "ModifyDBClusterParameterGroupResponse"
     "fixture/ModifyDBClusterParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBClusterParameterGroup)
 
 responseDescribeDBClusterSnapshotAttributes :: DescribeDBClusterSnapshotAttributesResponse -> TestTree
@@ -2214,7 +2214,7 @@ responseDescribeDBClusterSnapshotAttributes =
   res
     "DescribeDBClusterSnapshotAttributesResponse"
     "fixture/DescribeDBClusterSnapshotAttributesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBClusterSnapshotAttributes)
 
 responseDescribeOptionGroups :: DescribeOptionGroupsResponse -> TestTree
@@ -2222,7 +2222,7 @@ responseDescribeOptionGroups =
   res
     "DescribeOptionGroupsResponse"
     "fixture/DescribeOptionGroupsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeOptionGroups)
 
 responseDescribeDBClusters :: DescribeDBClustersResponse -> TestTree
@@ -2230,7 +2230,7 @@ responseDescribeDBClusters =
   res
     "DescribeDBClustersResponse"
     "fixture/DescribeDBClustersResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBClusters)
 
 responseDescribeEvents :: DescribeEventsResponse -> TestTree
@@ -2238,7 +2238,7 @@ responseDescribeEvents =
   res
     "DescribeEventsResponse"
     "fixture/DescribeEventsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeEvents)
 
 responseModifyDBProxy :: ModifyDBProxyResponse -> TestTree
@@ -2246,7 +2246,7 @@ responseModifyDBProxy =
   res
     "ModifyDBProxyResponse"
     "fixture/ModifyDBProxyResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBProxy)
 
 responseDescribeDBLogFiles :: DescribeDBLogFilesResponse -> TestTree
@@ -2254,23 +2254,23 @@ responseDescribeDBLogFiles =
   res
     "DescribeDBLogFilesResponse"
     "fixture/DescribeDBLogFilesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBLogFiles)
 
-responseRestoreDBClusterFromS3 :: RestoreDBClusterFromS3Response -> TestTree
-responseRestoreDBClusterFromS3 =
+responseRestoreDBClusterFromS :: RestoreDBClusterFromSResponse -> TestTree
+responseRestoreDBClusterFromS =
   res
-    "RestoreDBClusterFromS3Response"
-    "fixture/RestoreDBClusterFromS3Response.proto"
-    rds
-    (Proxy :: Proxy RestoreDBClusterFromS3)
+    "RestoreDBClusterFromSResponse"
+    "fixture/RestoreDBClusterFromSResponse.proto"
+    defaultService
+    (Proxy :: Proxy RestoreDBClusterFromS)
 
 responseCancelExportTask :: ExportTask -> TestTree
 responseCancelExportTask =
   res
     "CancelExportTaskResponse"
     "fixture/CancelExportTaskResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CancelExportTask)
 
 responseDescribeGlobalClusters :: DescribeGlobalClustersResponse -> TestTree
@@ -2278,7 +2278,7 @@ responseDescribeGlobalClusters =
   res
     "DescribeGlobalClustersResponse"
     "fixture/DescribeGlobalClustersResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeGlobalClusters)
 
 responseAddSourceIdentifierToSubscription :: AddSourceIdentifierToSubscriptionResponse -> TestTree
@@ -2286,7 +2286,7 @@ responseAddSourceIdentifierToSubscription =
   res
     "AddSourceIdentifierToSubscriptionResponse"
     "fixture/AddSourceIdentifierToSubscriptionResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy AddSourceIdentifierToSubscription)
 
 responseModifyEventSubscription :: ModifyEventSubscriptionResponse -> TestTree
@@ -2294,7 +2294,7 @@ responseModifyEventSubscription =
   res
     "ModifyEventSubscriptionResponse"
     "fixture/ModifyEventSubscriptionResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyEventSubscription)
 
 responseModifyDBClusterEndpoint :: DBClusterEndpoint -> TestTree
@@ -2302,7 +2302,7 @@ responseModifyDBClusterEndpoint =
   res
     "ModifyDBClusterEndpointResponse"
     "fixture/ModifyDBClusterEndpointResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBClusterEndpoint)
 
 responseModifyDBClusterSnapshotAttribute :: ModifyDBClusterSnapshotAttributeResponse -> TestTree
@@ -2310,7 +2310,7 @@ responseModifyDBClusterSnapshotAttribute =
   res
     "ModifyDBClusterSnapshotAttributeResponse"
     "fixture/ModifyDBClusterSnapshotAttributeResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBClusterSnapshotAttribute)
 
 responseDescribeDBSubnetGroups :: DescribeDBSubnetGroupsResponse -> TestTree
@@ -2318,7 +2318,7 @@ responseDescribeDBSubnetGroups =
   res
     "DescribeDBSubnetGroupsResponse"
     "fixture/DescribeDBSubnetGroupsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBSubnetGroups)
 
 responseModifyDBProxyTargetGroup :: ModifyDBProxyTargetGroupResponse -> TestTree
@@ -2326,7 +2326,7 @@ responseModifyDBProxyTargetGroup =
   res
     "ModifyDBProxyTargetGroupResponse"
     "fixture/ModifyDBProxyTargetGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBProxyTargetGroup)
 
 responseCreateDBParameterGroup :: CreateDBParameterGroupResponse -> TestTree
@@ -2334,7 +2334,7 @@ responseCreateDBParameterGroup =
   res
     "CreateDBParameterGroupResponse"
     "fixture/CreateDBParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBParameterGroup)
 
 responseDeleteDBClusterSnapshot :: DeleteDBClusterSnapshotResponse -> TestTree
@@ -2342,7 +2342,7 @@ responseDeleteDBClusterSnapshot =
   res
     "DeleteDBClusterSnapshotResponse"
     "fixture/DeleteDBClusterSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBClusterSnapshot)
 
 responseRemoveFromGlobalCluster :: RemoveFromGlobalClusterResponse -> TestTree
@@ -2350,7 +2350,7 @@ responseRemoveFromGlobalCluster =
   res
     "RemoveFromGlobalClusterResponse"
     "fixture/RemoveFromGlobalClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RemoveFromGlobalCluster)
 
 responseDescribeDBSecurityGroups :: DescribeDBSecurityGroupsResponse -> TestTree
@@ -2358,7 +2358,7 @@ responseDescribeDBSecurityGroups =
   res
     "DescribeDBSecurityGroupsResponse"
     "fixture/DescribeDBSecurityGroupsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBSecurityGroups)
 
 responseAddTagsToResource :: AddTagsToResourceResponse -> TestTree
@@ -2366,7 +2366,7 @@ responseAddTagsToResource =
   res
     "AddTagsToResourceResponse"
     "fixture/AddTagsToResourceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy AddTagsToResource)
 
 responseRegisterDBProxyTargets :: RegisterDBProxyTargetsResponse -> TestTree
@@ -2374,7 +2374,7 @@ responseRegisterDBProxyTargets =
   res
     "RegisterDBProxyTargetsResponse"
     "fixture/RegisterDBProxyTargetsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RegisterDBProxyTargets)
 
 responseDownloadDBLogFilePortion :: DownloadDBLogFilePortionResponse -> TestTree
@@ -2382,7 +2382,7 @@ responseDownloadDBLogFilePortion =
   res
     "DownloadDBLogFilePortionResponse"
     "fixture/DownloadDBLogFilePortionResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DownloadDBLogFilePortion)
 
 responseModifyCurrentDBClusterCapacity :: ModifyCurrentDBClusterCapacityResponse -> TestTree
@@ -2390,7 +2390,7 @@ responseModifyCurrentDBClusterCapacity =
   res
     "ModifyCurrentDBClusterCapacityResponse"
     "fixture/ModifyCurrentDBClusterCapacityResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyCurrentDBClusterCapacity)
 
 responseAddRoleToDBInstance :: AddRoleToDBInstanceResponse -> TestTree
@@ -2398,7 +2398,7 @@ responseAddRoleToDBInstance =
   res
     "AddRoleToDBInstanceResponse"
     "fixture/AddRoleToDBInstanceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy AddRoleToDBInstance)
 
 responseDeleteDBParameterGroup :: DeleteDBParameterGroupResponse -> TestTree
@@ -2406,7 +2406,7 @@ responseDeleteDBParameterGroup =
   res
     "DeleteDBParameterGroupResponse"
     "fixture/DeleteDBParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBParameterGroup)
 
 responseCreateDBSnapshot :: CreateDBSnapshotResponse -> TestTree
@@ -2414,7 +2414,7 @@ responseCreateDBSnapshot =
   res
     "CreateDBSnapshotResponse"
     "fixture/CreateDBSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBSnapshot)
 
 responseCreateDBSubnetGroup :: CreateDBSubnetGroupResponse -> TestTree
@@ -2422,7 +2422,7 @@ responseCreateDBSubnetGroup =
   res
     "CreateDBSubnetGroupResponse"
     "fixture/CreateDBSubnetGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBSubnetGroup)
 
 responseDescribeOrderableDBInstanceOptions :: DescribeOrderableDBInstanceOptionsResponse -> TestTree
@@ -2430,7 +2430,7 @@ responseDescribeOrderableDBInstanceOptions =
   res
     "DescribeOrderableDBInstanceOptionsResponse"
     "fixture/DescribeOrderableDBInstanceOptionsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeOrderableDBInstanceOptions)
 
 responseDeleteDBSecurityGroup :: DeleteDBSecurityGroupResponse -> TestTree
@@ -2438,7 +2438,7 @@ responseDeleteDBSecurityGroup =
   res
     "DeleteDBSecurityGroupResponse"
     "fixture/DeleteDBSecurityGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBSecurityGroup)
 
 responseRestoreDBClusterFromSnapshot :: RestoreDBClusterFromSnapshotResponse -> TestTree
@@ -2446,7 +2446,7 @@ responseRestoreDBClusterFromSnapshot =
   res
     "RestoreDBClusterFromSnapshotResponse"
     "fixture/RestoreDBClusterFromSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RestoreDBClusterFromSnapshot)
 
 responseRestoreDBInstanceFromDBSnapshot :: RestoreDBInstanceFromDBSnapshotResponse -> TestTree
@@ -2454,7 +2454,7 @@ responseRestoreDBInstanceFromDBSnapshot =
   res
     "RestoreDBInstanceFromDBSnapshotResponse"
     "fixture/RestoreDBInstanceFromDBSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RestoreDBInstanceFromDBSnapshot)
 
 responseCreateDBClusterEndpoint :: DBClusterEndpoint -> TestTree
@@ -2462,7 +2462,7 @@ responseCreateDBClusterEndpoint =
   res
     "CreateDBClusterEndpointResponse"
     "fixture/CreateDBClusterEndpointResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateDBClusterEndpoint)
 
 responseCreateEventSubscription :: CreateEventSubscriptionResponse -> TestTree
@@ -2470,7 +2470,7 @@ responseCreateEventSubscription =
   res
     "CreateEventSubscriptionResponse"
     "fixture/CreateEventSubscriptionResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateEventSubscription)
 
 responseDeleteDBSnapshot :: DeleteDBSnapshotResponse -> TestTree
@@ -2478,7 +2478,7 @@ responseDeleteDBSnapshot =
   res
     "DeleteDBSnapshotResponse"
     "fixture/DeleteDBSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBSnapshot)
 
 responseDeleteDBClusterParameterGroup :: DeleteDBClusterParameterGroupResponse -> TestTree
@@ -2486,7 +2486,7 @@ responseDeleteDBClusterParameterGroup =
   res
     "DeleteDBClusterParameterGroupResponse"
     "fixture/DeleteDBClusterParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBClusterParameterGroup)
 
 responseDescribeSourceRegions :: DescribeSourceRegionsResponse -> TestTree
@@ -2494,7 +2494,7 @@ responseDescribeSourceRegions =
   res
     "DescribeSourceRegionsResponse"
     "fixture/DescribeSourceRegionsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeSourceRegions)
 
 responsePurchaseReservedDBInstancesOffering :: PurchaseReservedDBInstancesOfferingResponse -> TestTree
@@ -2502,7 +2502,7 @@ responsePurchaseReservedDBInstancesOffering =
   res
     "PurchaseReservedDBInstancesOfferingResponse"
     "fixture/PurchaseReservedDBInstancesOfferingResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy PurchaseReservedDBInstancesOffering)
 
 responseAuthorizeDBSecurityGroupIngress :: AuthorizeDBSecurityGroupIngressResponse -> TestTree
@@ -2510,7 +2510,7 @@ responseAuthorizeDBSecurityGroupIngress =
   res
     "AuthorizeDBSecurityGroupIngressResponse"
     "fixture/AuthorizeDBSecurityGroupIngressResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy AuthorizeDBSecurityGroupIngress)
 
 responseDeleteDBProxy :: DeleteDBProxyResponse -> TestTree
@@ -2518,7 +2518,7 @@ responseDeleteDBProxy =
   res
     "DeleteDBProxyResponse"
     "fixture/DeleteDBProxyResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteDBProxy)
 
 responseRevokeDBSecurityGroupIngress :: RevokeDBSecurityGroupIngressResponse -> TestTree
@@ -2526,7 +2526,7 @@ responseRevokeDBSecurityGroupIngress =
   res
     "RevokeDBSecurityGroupIngressResponse"
     "fixture/RevokeDBSecurityGroupIngressResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RevokeDBSecurityGroupIngress)
 
 responseModifyDBParameterGroup :: DBParameterGroupNameMessage -> TestTree
@@ -2534,7 +2534,7 @@ responseModifyDBParameterGroup =
   res
     "ModifyDBParameterGroupResponse"
     "fixture/ModifyDBParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBParameterGroup)
 
 responseDeregisterDBProxyTargets :: DeregisterDBProxyTargetsResponse -> TestTree
@@ -2542,7 +2542,7 @@ responseDeregisterDBProxyTargets =
   res
     "DeregisterDBProxyTargetsResponse"
     "fixture/DeregisterDBProxyTargetsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeregisterDBProxyTargets)
 
 responseDeleteGlobalCluster :: DeleteGlobalClusterResponse -> TestTree
@@ -2550,7 +2550,7 @@ responseDeleteGlobalCluster =
   res
     "DeleteGlobalClusterResponse"
     "fixture/DeleteGlobalClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteGlobalCluster)
 
 responsePromoteReadReplicaDBCluster :: PromoteReadReplicaDBClusterResponse -> TestTree
@@ -2558,7 +2558,7 @@ responsePromoteReadReplicaDBCluster =
   res
     "PromoteReadReplicaDBClusterResponse"
     "fixture/PromoteReadReplicaDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy PromoteReadReplicaDBCluster)
 
 responseCreateGlobalCluster :: CreateGlobalClusterResponse -> TestTree
@@ -2566,7 +2566,7 @@ responseCreateGlobalCluster =
   res
     "CreateGlobalClusterResponse"
     "fixture/CreateGlobalClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CreateGlobalCluster)
 
 responseResetDBParameterGroup :: DBParameterGroupNameMessage -> TestTree
@@ -2574,7 +2574,7 @@ responseResetDBParameterGroup =
   res
     "ResetDBParameterGroupResponse"
     "fixture/ResetDBParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ResetDBParameterGroup)
 
 responseDescribeDBProxyTargets :: DescribeDBProxyTargetsResponse -> TestTree
@@ -2582,7 +2582,7 @@ responseDescribeDBProxyTargets =
   res
     "DescribeDBProxyTargetsResponse"
     "fixture/DescribeDBProxyTargetsResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeDBProxyTargets)
 
 responseImportInstallationMedia :: InstallationMedia -> TestTree
@@ -2590,7 +2590,7 @@ responseImportInstallationMedia =
   res
     "ImportInstallationMediaResponse"
     "fixture/ImportInstallationMediaResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ImportInstallationMedia)
 
 responseDeleteCustomAvailabilityZone :: DeleteCustomAvailabilityZoneResponse -> TestTree
@@ -2598,7 +2598,7 @@ responseDeleteCustomAvailabilityZone =
   res
     "DeleteCustomAvailabilityZoneResponse"
     "fixture/DeleteCustomAvailabilityZoneResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DeleteCustomAvailabilityZone)
 
 responseFailoverGlobalCluster :: FailoverGlobalClusterResponse -> TestTree
@@ -2606,7 +2606,7 @@ responseFailoverGlobalCluster =
   res
     "FailoverGlobalClusterResponse"
     "fixture/FailoverGlobalClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy FailoverGlobalCluster)
 
 responseRemoveSourceIdentifierFromSubscription :: RemoveSourceIdentifierFromSubscriptionResponse -> TestTree
@@ -2614,7 +2614,7 @@ responseRemoveSourceIdentifierFromSubscription =
   res
     "RemoveSourceIdentifierFromSubscriptionResponse"
     "fixture/RemoveSourceIdentifierFromSubscriptionResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RemoveSourceIdentifierFromSubscription)
 
 responseCopyDBClusterSnapshot :: CopyDBClusterSnapshotResponse -> TestTree
@@ -2622,7 +2622,7 @@ responseCopyDBClusterSnapshot =
   res
     "CopyDBClusterSnapshotResponse"
     "fixture/CopyDBClusterSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CopyDBClusterSnapshot)
 
 responseDescribeInstallationMedia :: DescribeInstallationMediaResponse -> TestTree
@@ -2630,7 +2630,7 @@ responseDescribeInstallationMedia =
   res
     "DescribeInstallationMediaResponse"
     "fixture/DescribeInstallationMediaResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeInstallationMedia)
 
 responseCopyDBParameterGroup :: CopyDBParameterGroupResponse -> TestTree
@@ -2638,7 +2638,7 @@ responseCopyDBParameterGroup =
   res
     "CopyDBParameterGroupResponse"
     "fixture/CopyDBParameterGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy CopyDBParameterGroup)
 
 responseRestoreDBInstanceToPointInTime :: RestoreDBInstanceToPointInTimeResponse -> TestTree
@@ -2646,7 +2646,7 @@ responseRestoreDBInstanceToPointInTime =
   res
     "RestoreDBInstanceToPointInTimeResponse"
     "fixture/RestoreDBInstanceToPointInTimeResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy RestoreDBInstanceToPointInTime)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -2654,7 +2654,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseModifyDBSnapshot :: ModifyDBSnapshotResponse -> TestTree
@@ -2662,7 +2662,7 @@ responseModifyDBSnapshot =
   res
     "ModifyDBSnapshotResponse"
     "fixture/ModifyDBSnapshotResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBSnapshot)
 
 responseModifyDBSubnetGroup :: ModifyDBSubnetGroupResponse -> TestTree
@@ -2670,7 +2670,7 @@ responseModifyDBSubnetGroup =
   res
     "ModifyDBSubnetGroupResponse"
     "fixture/ModifyDBSubnetGroupResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy ModifyDBSubnetGroup)
 
 responseDescribeEngineDefaultParameters :: DescribeEngineDefaultParametersResponse -> TestTree
@@ -2678,7 +2678,7 @@ responseDescribeEngineDefaultParameters =
   res
     "DescribeEngineDefaultParametersResponse"
     "fixture/DescribeEngineDefaultParametersResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeEngineDefaultParameters)
 
 responseDescribeCustomAvailabilityZones :: DescribeCustomAvailabilityZonesResponse -> TestTree
@@ -2686,7 +2686,7 @@ responseDescribeCustomAvailabilityZones =
   res
     "DescribeCustomAvailabilityZonesResponse"
     "fixture/DescribeCustomAvailabilityZonesResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy DescribeCustomAvailabilityZones)
 
 responseAddRoleToDBCluster :: AddRoleToDBClusterResponse -> TestTree
@@ -2694,5 +2694,5 @@ responseAddRoleToDBCluster =
   res
     "AddRoleToDBClusterResponse"
     "fixture/AddRoleToDBClusterResponse.proto"
-    rds
+    defaultService
     (Proxy :: Proxy AddRoleToDBCluster)

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,129 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified DB parameter group. The DB parameter group to be deleted can't be associated with any DB instances.
+-- Deletes a specified DB parameter group. The DB parameter group to be
+-- deleted can\'t be associated with any DB instances.
 module Network.AWS.RDS.DeleteDBParameterGroup
   ( -- * Creating a Request
-    deleteDBParameterGroup,
-    DeleteDBParameterGroup,
+    DeleteDBParameterGroup (..),
+    newDeleteDBParameterGroup,
 
     -- * Request Lenses
-    ddbpgDBParameterGroupName,
+    deleteDBParameterGroup_dBParameterGroupName,
 
     -- * Destructuring the Response
-    deleteDBParameterGroupResponse,
-    DeleteDBParameterGroupResponse,
+    DeleteDBParameterGroupResponse (..),
+    newDeleteDBParameterGroupResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteDBParameterGroup' smart constructor.
-newtype DeleteDBParameterGroup = DeleteDBParameterGroup'
-  { _ddbpgDBParameterGroupName ::
-      Text
+-- /See:/ 'newDeleteDBParameterGroup' smart constructor.
+data DeleteDBParameterGroup = DeleteDBParameterGroup'
+  { -- | The name of the DB parameter group.
+    --
+    -- Constraints:
+    --
+    -- -   Must be the name of an existing DB parameter group
+    --
+    -- -   You can\'t delete a default DB parameter group
+    --
+    -- -   Can\'t be associated with any DB instances
+    dBParameterGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbpgDBParameterGroupName' - The name of the DB parameter group. Constraints:     * Must be the name of an existing DB parameter group     * You can't delete a default DB parameter group     * Can't be associated with any DB instances
-deleteDBParameterGroup ::
-  -- | 'ddbpgDBParameterGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBParameterGroupName', 'deleteDBParameterGroup_dBParameterGroupName' - The name of the DB parameter group.
+--
+-- Constraints:
+--
+-- -   Must be the name of an existing DB parameter group
+--
+-- -   You can\'t delete a default DB parameter group
+--
+-- -   Can\'t be associated with any DB instances
+newDeleteDBParameterGroup ::
+  -- | 'dBParameterGroupName'
+  Prelude.Text ->
   DeleteDBParameterGroup
-deleteDBParameterGroup pDBParameterGroupName_ =
+newDeleteDBParameterGroup pDBParameterGroupName_ =
   DeleteDBParameterGroup'
-    { _ddbpgDBParameterGroupName =
+    { dBParameterGroupName =
         pDBParameterGroupName_
     }
 
--- | The name of the DB parameter group. Constraints:     * Must be the name of an existing DB parameter group     * You can't delete a default DB parameter group     * Can't be associated with any DB instances
-ddbpgDBParameterGroupName :: Lens' DeleteDBParameterGroup Text
-ddbpgDBParameterGroupName = lens _ddbpgDBParameterGroupName (\s a -> s {_ddbpgDBParameterGroupName = a})
+-- | The name of the DB parameter group.
+--
+-- Constraints:
+--
+-- -   Must be the name of an existing DB parameter group
+--
+-- -   You can\'t delete a default DB parameter group
+--
+-- -   Can\'t be associated with any DB instances
+deleteDBParameterGroup_dBParameterGroupName :: Lens.Lens' DeleteDBParameterGroup Prelude.Text
+deleteDBParameterGroup_dBParameterGroupName = Lens.lens (\DeleteDBParameterGroup' {dBParameterGroupName} -> dBParameterGroupName) (\s@DeleteDBParameterGroup' {} a -> s {dBParameterGroupName = a} :: DeleteDBParameterGroup)
 
-instance AWSRequest DeleteDBParameterGroup where
+instance Prelude.AWSRequest DeleteDBParameterGroup where
   type
     Rs DeleteDBParameterGroup =
       DeleteDBParameterGroupResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteDBParameterGroupResponse'
+    Response.receiveNull
+      DeleteDBParameterGroupResponse'
 
-instance Hashable DeleteDBParameterGroup
+instance Prelude.Hashable DeleteDBParameterGroup
 
-instance NFData DeleteDBParameterGroup
+instance Prelude.NFData DeleteDBParameterGroup
 
-instance ToHeaders DeleteDBParameterGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDBParameterGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDBParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDBParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDBParameterGroup where
+instance Prelude.ToQuery DeleteDBParameterGroup where
   toQuery DeleteDBParameterGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteDBParameterGroup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBParameterGroupName" =: _ddbpgDBParameterGroupName
+          Prelude.=: ("DeleteDBParameterGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBParameterGroupName"
+          Prelude.=: dBParameterGroupName
       ]
 
--- | /See:/ 'deleteDBParameterGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteDBParameterGroupResponse' smart constructor.
 data DeleteDBParameterGroupResponse = DeleteDBParameterGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBParameterGroupResponse' with the minimum fields required to make a request.
-deleteDBParameterGroupResponse ::
+-- |
+-- Create a value of 'DeleteDBParameterGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteDBParameterGroupResponse ::
   DeleteDBParameterGroupResponse
-deleteDBParameterGroupResponse =
+newDeleteDBParameterGroupResponse =
   DeleteDBParameterGroupResponse'
 
-instance NFData DeleteDBParameterGroupResponse
+instance
+  Prelude.NFData
+    DeleteDBParameterGroupResponse

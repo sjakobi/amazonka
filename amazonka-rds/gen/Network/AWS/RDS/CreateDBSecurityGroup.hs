@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,206 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new DB security group. DB security groups control access to a DB instance.
+-- Creates a new DB security group. DB security groups control access to a
+-- DB instance.
+--
+-- A DB security group controls access to EC2-Classic DB instances that are
+-- not in a VPC.
 module Network.AWS.RDS.CreateDBSecurityGroup
   ( -- * Creating a Request
-    createDBSecurityGroup,
-    CreateDBSecurityGroup,
+    CreateDBSecurityGroup (..),
+    newCreateDBSecurityGroup,
 
     -- * Request Lenses
-    cdsgTags,
-    cdsgDBSecurityGroupName,
-    cdsgDBSecurityGroupDescription,
+    createDBSecurityGroup_tags,
+    createDBSecurityGroup_dBSecurityGroupName,
+    createDBSecurityGroup_dBSecurityGroupDescription,
 
     -- * Destructuring the Response
-    createDBSecurityGroupResponse,
-    CreateDBSecurityGroupResponse,
+    CreateDBSecurityGroupResponse (..),
+    newCreateDBSecurityGroupResponse,
 
     -- * Response Lenses
-    cdsgrrsDBSecurityGroup,
-    cdsgrrsResponseStatus,
+    createDBSecurityGroupResponse_dBSecurityGroup,
+    createDBSecurityGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBSecurityGroup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'createDBSecurityGroup' smart constructor.
+-- /See:/ 'newCreateDBSecurityGroup' smart constructor.
 data CreateDBSecurityGroup = CreateDBSecurityGroup'
-  { _cdsgTags ::
-      !(Maybe [Tag]),
-    _cdsgDBSecurityGroupName ::
-      !Text,
-    _cdsgDBSecurityGroupDescription ::
-      !Text
+  { -- | Tags to assign to the DB security group.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name for the DB security group. This value is stored as a lowercase
+    -- string.
+    --
+    -- Constraints:
+    --
+    -- -   Must be 1 to 255 letters, numbers, or hyphens.
+    --
+    -- -   First character must be a letter
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens
+    --
+    -- -   Must not be \"Default\"
+    --
+    -- Example: @mysecuritygroup@
+    dBSecurityGroupName :: Prelude.Text,
+    -- | The description for the DB security group.
+    dBSecurityGroupDescription :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdsgTags' - Tags to assign to the DB security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdsgDBSecurityGroupName' - The name for the DB security group. This value is stored as a lowercase string. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens     * Must not be "Default" Example: @mysecuritygroup@
+-- 'tags', 'createDBSecurityGroup_tags' - Tags to assign to the DB security group.
 --
--- * 'cdsgDBSecurityGroupDescription' - The description for the DB security group.
-createDBSecurityGroup ::
-  -- | 'cdsgDBSecurityGroupName'
-  Text ->
-  -- | 'cdsgDBSecurityGroupDescription'
-  Text ->
+-- 'dBSecurityGroupName', 'createDBSecurityGroup_dBSecurityGroupName' - The name for the DB security group. This value is stored as a lowercase
+-- string.
+--
+-- Constraints:
+--
+-- -   Must be 1 to 255 letters, numbers, or hyphens.
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- -   Must not be \"Default\"
+--
+-- Example: @mysecuritygroup@
+--
+-- 'dBSecurityGroupDescription', 'createDBSecurityGroup_dBSecurityGroupDescription' - The description for the DB security group.
+newCreateDBSecurityGroup ::
+  -- | 'dBSecurityGroupName'
+  Prelude.Text ->
+  -- | 'dBSecurityGroupDescription'
+  Prelude.Text ->
   CreateDBSecurityGroup
-createDBSecurityGroup
+newCreateDBSecurityGroup
   pDBSecurityGroupName_
   pDBSecurityGroupDescription_ =
     CreateDBSecurityGroup'
-      { _cdsgTags = Nothing,
-        _cdsgDBSecurityGroupName = pDBSecurityGroupName_,
-        _cdsgDBSecurityGroupDescription =
+      { tags = Prelude.Nothing,
+        dBSecurityGroupName = pDBSecurityGroupName_,
+        dBSecurityGroupDescription =
           pDBSecurityGroupDescription_
       }
 
 -- | Tags to assign to the DB security group.
-cdsgTags :: Lens' CreateDBSecurityGroup [Tag]
-cdsgTags = lens _cdsgTags (\s a -> s {_cdsgTags = a}) . _Default . _Coerce
+createDBSecurityGroup_tags :: Lens.Lens' CreateDBSecurityGroup (Prelude.Maybe [Tag])
+createDBSecurityGroup_tags = Lens.lens (\CreateDBSecurityGroup' {tags} -> tags) (\s@CreateDBSecurityGroup' {} a -> s {tags = a} :: CreateDBSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name for the DB security group. This value is stored as a lowercase string. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens     * Must not be "Default" Example: @mysecuritygroup@
-cdsgDBSecurityGroupName :: Lens' CreateDBSecurityGroup Text
-cdsgDBSecurityGroupName = lens _cdsgDBSecurityGroupName (\s a -> s {_cdsgDBSecurityGroupName = a})
+-- | The name for the DB security group. This value is stored as a lowercase
+-- string.
+--
+-- Constraints:
+--
+-- -   Must be 1 to 255 letters, numbers, or hyphens.
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- -   Must not be \"Default\"
+--
+-- Example: @mysecuritygroup@
+createDBSecurityGroup_dBSecurityGroupName :: Lens.Lens' CreateDBSecurityGroup Prelude.Text
+createDBSecurityGroup_dBSecurityGroupName = Lens.lens (\CreateDBSecurityGroup' {dBSecurityGroupName} -> dBSecurityGroupName) (\s@CreateDBSecurityGroup' {} a -> s {dBSecurityGroupName = a} :: CreateDBSecurityGroup)
 
 -- | The description for the DB security group.
-cdsgDBSecurityGroupDescription :: Lens' CreateDBSecurityGroup Text
-cdsgDBSecurityGroupDescription = lens _cdsgDBSecurityGroupDescription (\s a -> s {_cdsgDBSecurityGroupDescription = a})
+createDBSecurityGroup_dBSecurityGroupDescription :: Lens.Lens' CreateDBSecurityGroup Prelude.Text
+createDBSecurityGroup_dBSecurityGroupDescription = Lens.lens (\CreateDBSecurityGroup' {dBSecurityGroupDescription} -> dBSecurityGroupDescription) (\s@CreateDBSecurityGroup' {} a -> s {dBSecurityGroupDescription = a} :: CreateDBSecurityGroup)
 
-instance AWSRequest CreateDBSecurityGroup where
+instance Prelude.AWSRequest CreateDBSecurityGroup where
   type
     Rs CreateDBSecurityGroup =
       CreateDBSecurityGroupResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateDBSecurityGroupResult"
       ( \s h x ->
           CreateDBSecurityGroupResponse'
-            <$> (x .@? "DBSecurityGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBSecurityGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDBSecurityGroup
+instance Prelude.Hashable CreateDBSecurityGroup
 
-instance NFData CreateDBSecurityGroup
+instance Prelude.NFData CreateDBSecurityGroup
 
-instance ToHeaders CreateDBSecurityGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDBSecurityGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateDBSecurityGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateDBSecurityGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDBSecurityGroup where
+instance Prelude.ToQuery CreateDBSecurityGroup where
   toQuery CreateDBSecurityGroup' {..} =
-    mconcat
-      [ "Action" =: ("CreateDBSecurityGroup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "Tags" =: toQuery (toQueryList "Tag" <$> _cdsgTags),
-        "DBSecurityGroupName" =: _cdsgDBSecurityGroupName,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateDBSecurityGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
+        "DBSecurityGroupName" Prelude.=: dBSecurityGroupName,
         "DBSecurityGroupDescription"
-          =: _cdsgDBSecurityGroupDescription
+          Prelude.=: dBSecurityGroupDescription
       ]
 
--- | /See:/ 'createDBSecurityGroupResponse' smart constructor.
+-- | /See:/ 'newCreateDBSecurityGroupResponse' smart constructor.
 data CreateDBSecurityGroupResponse = CreateDBSecurityGroupResponse'
-  { _cdsgrrsDBSecurityGroup ::
-      !( Maybe
-           DBSecurityGroup
-       ),
-    _cdsgrrsResponseStatus ::
-      !Int
+  { dBSecurityGroup :: Prelude.Maybe DBSecurityGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBSecurityGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBSecurityGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdsgrrsDBSecurityGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdsgrrsResponseStatus' - -- | The response status code.
-createDBSecurityGroupResponse ::
-  -- | 'cdsgrrsResponseStatus'
-  Int ->
+-- 'dBSecurityGroup', 'createDBSecurityGroupResponse_dBSecurityGroup' - Undocumented member.
+--
+-- 'httpStatus', 'createDBSecurityGroupResponse_httpStatus' - The response's http status code.
+newCreateDBSecurityGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDBSecurityGroupResponse
-createDBSecurityGroupResponse pResponseStatus_ =
+newCreateDBSecurityGroupResponse pHttpStatus_ =
   CreateDBSecurityGroupResponse'
-    { _cdsgrrsDBSecurityGroup =
-        Nothing,
-      _cdsgrrsResponseStatus = pResponseStatus_
+    { dBSecurityGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cdsgrrsDBSecurityGroup :: Lens' CreateDBSecurityGroupResponse (Maybe DBSecurityGroup)
-cdsgrrsDBSecurityGroup = lens _cdsgrrsDBSecurityGroup (\s a -> s {_cdsgrrsDBSecurityGroup = a})
+createDBSecurityGroupResponse_dBSecurityGroup :: Lens.Lens' CreateDBSecurityGroupResponse (Prelude.Maybe DBSecurityGroup)
+createDBSecurityGroupResponse_dBSecurityGroup = Lens.lens (\CreateDBSecurityGroupResponse' {dBSecurityGroup} -> dBSecurityGroup) (\s@CreateDBSecurityGroupResponse' {} a -> s {dBSecurityGroup = a} :: CreateDBSecurityGroupResponse)
 
--- | -- | The response status code.
-cdsgrrsResponseStatus :: Lens' CreateDBSecurityGroupResponse Int
-cdsgrrsResponseStatus = lens _cdsgrrsResponseStatus (\s a -> s {_cdsgrrsResponseStatus = a})
+-- | The response's http status code.
+createDBSecurityGroupResponse_httpStatus :: Lens.Lens' CreateDBSecurityGroupResponse Prelude.Int
+createDBSecurityGroupResponse_httpStatus = Lens.lens (\CreateDBSecurityGroupResponse' {httpStatus} -> httpStatus) (\s@CreateDBSecurityGroupResponse' {} a -> s {httpStatus = a} :: CreateDBSecurityGroupResponse)
 
-instance NFData CreateDBSecurityGroupResponse
+instance Prelude.NFData CreateDBSecurityGroupResponse

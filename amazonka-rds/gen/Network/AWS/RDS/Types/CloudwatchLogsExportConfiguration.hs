@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.CloudwatchLogsExportConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB instance or DB cluster.
+-- | The configuration setting for the log types to be enabled for export to
+-- CloudWatch Logs for a specific DB instance or DB cluster.
 --
+-- The @EnableLogTypes@ and @DisableLogTypes@ arrays determine which logs
+-- will be exported (or not exported) to CloudWatch Logs. The values within
+-- these arrays depend on the DB engine being used.
 --
--- The @EnableLogTypes@ and @DisableLogTypes@ arrays determine which logs will be exported (or not exported) to CloudWatch Logs. The values within these arrays depend on the DB engine being used.
+-- For more information about exporting CloudWatch Logs for Amazon RDS DB
+-- instances, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon RDS User Guide/.
 --
--- For more information about exporting CloudWatch Logs for Amazon RDS DB instances, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs > in the /Amazon RDS User Guide/ .
+-- For more information about exporting CloudWatch Logs for Amazon Aurora
+-- DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon Aurora User Guide/.
 --
--- For more information about exporting CloudWatch Logs for Amazon Aurora DB clusters, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs> in the /Amazon Aurora User Guide/ .
---
---
--- /See:/ 'cloudwatchLogsExportConfiguration' smart constructor.
+-- /See:/ 'newCloudwatchLogsExportConfiguration' smart constructor.
 data CloudwatchLogsExportConfiguration = CloudwatchLogsExportConfiguration'
-  { _clecEnableLogTypes ::
-      !( Maybe
-           [Text]
-       ),
-    _clecDisableLogTypes ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The list of log types to enable.
+    enableLogTypes :: Prelude.Maybe [Prelude.Text],
+    -- | The list of log types to disable.
+    disableLogTypes :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudwatchLogsExportConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudwatchLogsExportConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clecEnableLogTypes' - The list of log types to enable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clecDisableLogTypes' - The list of log types to disable.
-cloudwatchLogsExportConfiguration ::
+-- 'enableLogTypes', 'cloudwatchLogsExportConfiguration_enableLogTypes' - The list of log types to enable.
+--
+-- 'disableLogTypes', 'cloudwatchLogsExportConfiguration_disableLogTypes' - The list of log types to disable.
+newCloudwatchLogsExportConfiguration ::
   CloudwatchLogsExportConfiguration
-cloudwatchLogsExportConfiguration =
+newCloudwatchLogsExportConfiguration =
   CloudwatchLogsExportConfiguration'
-    { _clecEnableLogTypes =
-        Nothing,
-      _clecDisableLogTypes = Nothing
+    { enableLogTypes =
+        Prelude.Nothing,
+      disableLogTypes = Prelude.Nothing
     }
 
 -- | The list of log types to enable.
-clecEnableLogTypes :: Lens' CloudwatchLogsExportConfiguration [Text]
-clecEnableLogTypes = lens _clecEnableLogTypes (\s a -> s {_clecEnableLogTypes = a}) . _Default . _Coerce
+cloudwatchLogsExportConfiguration_enableLogTypes :: Lens.Lens' CloudwatchLogsExportConfiguration (Prelude.Maybe [Prelude.Text])
+cloudwatchLogsExportConfiguration_enableLogTypes = Lens.lens (\CloudwatchLogsExportConfiguration' {enableLogTypes} -> enableLogTypes) (\s@CloudwatchLogsExportConfiguration' {} a -> s {enableLogTypes = a} :: CloudwatchLogsExportConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The list of log types to disable.
-clecDisableLogTypes :: Lens' CloudwatchLogsExportConfiguration [Text]
-clecDisableLogTypes = lens _clecDisableLogTypes (\s a -> s {_clecDisableLogTypes = a}) . _Default . _Coerce
+cloudwatchLogsExportConfiguration_disableLogTypes :: Lens.Lens' CloudwatchLogsExportConfiguration (Prelude.Maybe [Prelude.Text])
+cloudwatchLogsExportConfiguration_disableLogTypes = Lens.lens (\CloudwatchLogsExportConfiguration' {disableLogTypes} -> disableLogTypes) (\s@CloudwatchLogsExportConfiguration' {} a -> s {disableLogTypes = a} :: CloudwatchLogsExportConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable CloudwatchLogsExportConfiguration
+instance
+  Prelude.Hashable
+    CloudwatchLogsExportConfiguration
 
-instance NFData CloudwatchLogsExportConfiguration
+instance
+  Prelude.NFData
+    CloudwatchLogsExportConfiguration
 
-instance ToQuery CloudwatchLogsExportConfiguration where
+instance
+  Prelude.ToQuery
+    CloudwatchLogsExportConfiguration
+  where
   toQuery CloudwatchLogsExportConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "EnableLogTypes"
-          =: toQuery
-            (toQueryList "member" <$> _clecEnableLogTypes),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> enableLogTypes
+            ),
         "DisableLogTypes"
-          =: toQuery
-            (toQueryList "member" <$> _clecDisableLogTypes)
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> disableLogTypes
+            )
       ]

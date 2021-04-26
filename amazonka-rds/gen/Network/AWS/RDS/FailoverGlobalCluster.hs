@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates the failover process for an Aurora global database ('GlobalCluster' ).
+-- Initiates the failover process for an Aurora global database
+-- (GlobalCluster).
 --
+-- A failover for an Aurora global database promotes one of secondary
+-- read-only DB clusters to be the primary DB cluster and demotes the
+-- primary DB cluster to being a secondary (read-only) DB cluster. In other
+-- words, the role of the current primary DB cluster and the selected
+-- (target) DB cluster are switched. The selected secondary DB cluster
+-- assumes full read\/write capabilities for the Aurora global database.
 --
--- A failover for an Aurora global database promotes one of secondary read-only DB clusters to be the primary DB cluster and demotes the primary DB cluster to being a secondary (read-only) DB cluster. In other words, the role of the current primary DB cluster and the selected (target) DB cluster are switched. The selected secondary DB cluster assumes full read/write capabilities for the Aurora global database.
+-- For more information about failing over an Amazon Aurora global
+-- database, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.managed-failover Managed planned failover for Amazon Aurora global databases>
+-- in the /Amazon Aurora User Guide./
 --
--- For more information about failing over an Amazon Aurora global database, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.managed-failover Managed planned failover for Amazon Aurora global databases> in the /Amazon Aurora User Guide./
+-- This action applies to GlobalCluster (Aurora global databases) only. Use
+-- this action only on healthy Aurora global databases with running Aurora
+-- DB clusters and no Region-wide outages, to test disaster recovery
+-- scenarios or to reconfigure your Aurora global database topology.
 module Network.AWS.RDS.FailoverGlobalCluster
   ( -- * Creating a Request
-    failoverGlobalCluster,
-    FailoverGlobalCluster,
+    FailoverGlobalCluster (..),
+    newFailoverGlobalCluster,
 
     -- * Request Lenses
-    fgcGlobalClusterIdentifier,
-    fgcTargetDBClusterIdentifier,
+    failoverGlobalCluster_globalClusterIdentifier,
+    failoverGlobalCluster_targetDbClusterIdentifier,
 
     -- * Destructuring the Response
-    failoverGlobalClusterResponse,
-    FailoverGlobalClusterResponse,
+    FailoverGlobalClusterResponse (..),
+    newFailoverGlobalClusterResponse,
 
     -- * Response Lenses
-    fgcrrsGlobalCluster,
-    fgcrrsResponseStatus,
+    failoverGlobalClusterResponse_globalCluster,
+    failoverGlobalClusterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.GlobalCluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'failoverGlobalCluster' smart constructor.
+-- | /See:/ 'newFailoverGlobalCluster' smart constructor.
 data FailoverGlobalCluster = FailoverGlobalCluster'
-  { _fgcGlobalClusterIdentifier ::
-      !Text,
-    _fgcTargetDBClusterIdentifier ::
-      !Text
+  { -- | Identifier of the Aurora global database (GlobalCluster) that should be
+    -- failed over. The identifier is the unique key assigned by the user when
+    -- the Aurora global database was created. In other words, it\'s the name
+    -- of the Aurora global database that you want to fail over.
+    --
+    -- Constraints:
+    --
+    -- -   Must match the identifier of an existing GlobalCluster (Aurora
+    --     global database).
+    globalClusterIdentifier :: Prelude.Text,
+    -- | Identifier of the secondary Aurora DB cluster that you want to promote
+    -- to primary for the Aurora global database (GlobalCluster.) Use the
+    -- Amazon Resource Name (ARN) for the identifier so that Aurora can locate
+    -- the cluster in its AWS Region.
+    targetDbClusterIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailoverGlobalCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailoverGlobalCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fgcGlobalClusterIdentifier' - Identifier of the Aurora global database ('GlobalCluster' ) that should be failed over. The identifier is the unique key assigned by the user when the Aurora global database was created. In other words, it's the name of the Aurora global database that you want to fail over.  Constraints:     * Must match the identifier of an existing 'GlobalCluster' (Aurora global database).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fgcTargetDBClusterIdentifier' - Identifier of the secondary Aurora DB cluster that you want to promote to primary for the Aurora global database ('GlobalCluster' .) Use the Amazon Resource Name (ARN) for the identifier so that Aurora can locate the cluster in its AWS Region.
-failoverGlobalCluster ::
-  -- | 'fgcGlobalClusterIdentifier'
-  Text ->
-  -- | 'fgcTargetDBClusterIdentifier'
-  Text ->
+-- 'globalClusterIdentifier', 'failoverGlobalCluster_globalClusterIdentifier' - Identifier of the Aurora global database (GlobalCluster) that should be
+-- failed over. The identifier is the unique key assigned by the user when
+-- the Aurora global database was created. In other words, it\'s the name
+-- of the Aurora global database that you want to fail over.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing GlobalCluster (Aurora
+--     global database).
+--
+-- 'targetDbClusterIdentifier', 'failoverGlobalCluster_targetDbClusterIdentifier' - Identifier of the secondary Aurora DB cluster that you want to promote
+-- to primary for the Aurora global database (GlobalCluster.) Use the
+-- Amazon Resource Name (ARN) for the identifier so that Aurora can locate
+-- the cluster in its AWS Region.
+newFailoverGlobalCluster ::
+  -- | 'globalClusterIdentifier'
+  Prelude.Text ->
+  -- | 'targetDbClusterIdentifier'
+  Prelude.Text ->
   FailoverGlobalCluster
-failoverGlobalCluster
+newFailoverGlobalCluster
   pGlobalClusterIdentifier_
-  pTargetDBClusterIdentifier_ =
+  pTargetDbClusterIdentifier_ =
     FailoverGlobalCluster'
-      { _fgcGlobalClusterIdentifier =
+      { globalClusterIdentifier =
           pGlobalClusterIdentifier_,
-        _fgcTargetDBClusterIdentifier =
-          pTargetDBClusterIdentifier_
+        targetDbClusterIdentifier =
+          pTargetDbClusterIdentifier_
       }
 
--- | Identifier of the Aurora global database ('GlobalCluster' ) that should be failed over. The identifier is the unique key assigned by the user when the Aurora global database was created. In other words, it's the name of the Aurora global database that you want to fail over.  Constraints:     * Must match the identifier of an existing 'GlobalCluster' (Aurora global database).
-fgcGlobalClusterIdentifier :: Lens' FailoverGlobalCluster Text
-fgcGlobalClusterIdentifier = lens _fgcGlobalClusterIdentifier (\s a -> s {_fgcGlobalClusterIdentifier = a})
+-- | Identifier of the Aurora global database (GlobalCluster) that should be
+-- failed over. The identifier is the unique key assigned by the user when
+-- the Aurora global database was created. In other words, it\'s the name
+-- of the Aurora global database that you want to fail over.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing GlobalCluster (Aurora
+--     global database).
+failoverGlobalCluster_globalClusterIdentifier :: Lens.Lens' FailoverGlobalCluster Prelude.Text
+failoverGlobalCluster_globalClusterIdentifier = Lens.lens (\FailoverGlobalCluster' {globalClusterIdentifier} -> globalClusterIdentifier) (\s@FailoverGlobalCluster' {} a -> s {globalClusterIdentifier = a} :: FailoverGlobalCluster)
 
--- | Identifier of the secondary Aurora DB cluster that you want to promote to primary for the Aurora global database ('GlobalCluster' .) Use the Amazon Resource Name (ARN) for the identifier so that Aurora can locate the cluster in its AWS Region.
-fgcTargetDBClusterIdentifier :: Lens' FailoverGlobalCluster Text
-fgcTargetDBClusterIdentifier = lens _fgcTargetDBClusterIdentifier (\s a -> s {_fgcTargetDBClusterIdentifier = a})
+-- | Identifier of the secondary Aurora DB cluster that you want to promote
+-- to primary for the Aurora global database (GlobalCluster.) Use the
+-- Amazon Resource Name (ARN) for the identifier so that Aurora can locate
+-- the cluster in its AWS Region.
+failoverGlobalCluster_targetDbClusterIdentifier :: Lens.Lens' FailoverGlobalCluster Prelude.Text
+failoverGlobalCluster_targetDbClusterIdentifier = Lens.lens (\FailoverGlobalCluster' {targetDbClusterIdentifier} -> targetDbClusterIdentifier) (\s@FailoverGlobalCluster' {} a -> s {targetDbClusterIdentifier = a} :: FailoverGlobalCluster)
 
-instance AWSRequest FailoverGlobalCluster where
+instance Prelude.AWSRequest FailoverGlobalCluster where
   type
     Rs FailoverGlobalCluster =
       FailoverGlobalClusterResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "FailoverGlobalClusterResult"
       ( \s h x ->
           FailoverGlobalClusterResponse'
-            <$> (x .@? "GlobalCluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalCluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable FailoverGlobalCluster
+instance Prelude.Hashable FailoverGlobalCluster
 
-instance NFData FailoverGlobalCluster
+instance Prelude.NFData FailoverGlobalCluster
 
-instance ToHeaders FailoverGlobalCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders FailoverGlobalCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath FailoverGlobalCluster where
-  toPath = const "/"
+instance Prelude.ToPath FailoverGlobalCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery FailoverGlobalCluster where
+instance Prelude.ToQuery FailoverGlobalCluster where
   toQuery FailoverGlobalCluster' {..} =
-    mconcat
-      [ "Action" =: ("FailoverGlobalCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("FailoverGlobalCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "GlobalClusterIdentifier"
-          =: _fgcGlobalClusterIdentifier,
+          Prelude.=: globalClusterIdentifier,
         "TargetDbClusterIdentifier"
-          =: _fgcTargetDBClusterIdentifier
+          Prelude.=: targetDbClusterIdentifier
       ]
 
--- | /See:/ 'failoverGlobalClusterResponse' smart constructor.
+-- | /See:/ 'newFailoverGlobalClusterResponse' smart constructor.
 data FailoverGlobalClusterResponse = FailoverGlobalClusterResponse'
-  { _fgcrrsGlobalCluster ::
-      !( Maybe
-           GlobalCluster
-       ),
-    _fgcrrsResponseStatus ::
-      !Int
+  { globalCluster :: Prelude.Maybe GlobalCluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailoverGlobalClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailoverGlobalClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fgcrrsGlobalCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fgcrrsResponseStatus' - -- | The response status code.
-failoverGlobalClusterResponse ::
-  -- | 'fgcrrsResponseStatus'
-  Int ->
+-- 'globalCluster', 'failoverGlobalClusterResponse_globalCluster' - Undocumented member.
+--
+-- 'httpStatus', 'failoverGlobalClusterResponse_httpStatus' - The response's http status code.
+newFailoverGlobalClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   FailoverGlobalClusterResponse
-failoverGlobalClusterResponse pResponseStatus_ =
+newFailoverGlobalClusterResponse pHttpStatus_ =
   FailoverGlobalClusterResponse'
-    { _fgcrrsGlobalCluster =
-        Nothing,
-      _fgcrrsResponseStatus = pResponseStatus_
+    { globalCluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-fgcrrsGlobalCluster :: Lens' FailoverGlobalClusterResponse (Maybe GlobalCluster)
-fgcrrsGlobalCluster = lens _fgcrrsGlobalCluster (\s a -> s {_fgcrrsGlobalCluster = a})
+failoverGlobalClusterResponse_globalCluster :: Lens.Lens' FailoverGlobalClusterResponse (Prelude.Maybe GlobalCluster)
+failoverGlobalClusterResponse_globalCluster = Lens.lens (\FailoverGlobalClusterResponse' {globalCluster} -> globalCluster) (\s@FailoverGlobalClusterResponse' {} a -> s {globalCluster = a} :: FailoverGlobalClusterResponse)
 
--- | -- | The response status code.
-fgcrrsResponseStatus :: Lens' FailoverGlobalClusterResponse Int
-fgcrrsResponseStatus = lens _fgcrrsResponseStatus (\s a -> s {_fgcrrsResponseStatus = a})
+-- | The response's http status code.
+failoverGlobalClusterResponse_httpStatus :: Lens.Lens' FailoverGlobalClusterResponse Prelude.Int
+failoverGlobalClusterResponse_httpStatus = Lens.lens (\FailoverGlobalClusterResponse' {httpStatus} -> httpStatus) (\s@FailoverGlobalClusterResponse' {} a -> s {httpStatus = a} :: FailoverGlobalClusterResponse)
 
-instance NFData FailoverGlobalClusterResponse
+instance Prelude.NFData FailoverGlobalClusterResponse

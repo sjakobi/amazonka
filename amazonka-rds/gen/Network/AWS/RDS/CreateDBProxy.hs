@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,218 +24,296 @@
 -- Creates a new DB proxy.
 module Network.AWS.RDS.CreateDBProxy
   ( -- * Creating a Request
-    createDBProxy,
-    CreateDBProxy,
+    CreateDBProxy (..),
+    newCreateDBProxy,
 
     -- * Request Lenses
-    cdpIdleClientTimeout,
-    cdpVPCSecurityGroupIds,
-    cdpDebugLogging,
-    cdpTags,
-    cdpRequireTLS,
-    cdpDBProxyName,
-    cdpEngineFamily,
-    cdpAuth,
-    cdpRoleARN,
-    cdpVPCSubnetIds,
+    createDBProxy_idleClientTimeout,
+    createDBProxy_vpcSecurityGroupIds,
+    createDBProxy_debugLogging,
+    createDBProxy_tags,
+    createDBProxy_requireTLS,
+    createDBProxy_dBProxyName,
+    createDBProxy_engineFamily,
+    createDBProxy_auth,
+    createDBProxy_roleArn,
+    createDBProxy_vpcSubnetIds,
 
     -- * Destructuring the Response
-    createDBProxyResponse,
-    CreateDBProxyResponse,
+    CreateDBProxyResponse (..),
+    newCreateDBProxyResponse,
 
     -- * Response Lenses
-    cdprrsDBProxy,
-    cdprrsResponseStatus,
+    createDBProxyResponse_dBProxy,
+    createDBProxyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBProxy
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDBProxy' smart constructor.
+-- | /See:/ 'newCreateDBProxy' smart constructor.
 data CreateDBProxy = CreateDBProxy'
-  { _cdpIdleClientTimeout ::
-      !(Maybe Int),
-    _cdpVPCSecurityGroupIds :: !(Maybe [Text]),
-    _cdpDebugLogging :: !(Maybe Bool),
-    _cdpTags :: !(Maybe [Tag]),
-    _cdpRequireTLS :: !(Maybe Bool),
-    _cdpDBProxyName :: !Text,
-    _cdpEngineFamily :: !EngineFamily,
-    _cdpAuth :: ![UserAuthConfig],
-    _cdpRoleARN :: !Text,
-    _cdpVPCSubnetIds :: ![Text]
+  { -- | The number of seconds that a connection to the proxy can be inactive
+    -- before the proxy disconnects it. You can set this value higher or lower
+    -- than the connection timeout limit for the associated database.
+    idleClientTimeout :: Prelude.Maybe Prelude.Int,
+    -- | One or more VPC security group IDs to associate with the new proxy.
+    vpcSecurityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | Whether the proxy includes detailed information about SQL statements in
+    -- its logs. This information helps you to debug issues involving SQL
+    -- behavior or the performance and scalability of the proxy connections.
+    -- The debug information includes the text of SQL statements that you
+    -- submit through the proxy. Thus, only enable this setting when needed for
+    -- debugging, and only when you have security measures in place to
+    -- safeguard any sensitive information that appears in the logs.
+    debugLogging :: Prelude.Maybe Prelude.Bool,
+    -- | An optional set of key-value pairs to associate arbitrary data of your
+    -- choosing with the proxy.
+    tags :: Prelude.Maybe [Tag],
+    -- | A Boolean parameter that specifies whether Transport Layer Security
+    -- (TLS) encryption is required for connections to the proxy. By enabling
+    -- this setting, you can enforce encrypted TLS connections to the proxy.
+    requireTLS :: Prelude.Maybe Prelude.Bool,
+    -- | The identifier for the proxy. This name must be unique for all proxies
+    -- owned by your AWS account in the specified AWS Region. An identifier
+    -- must begin with a letter and must contain only ASCII letters, digits,
+    -- and hyphens; it can\'t end with a hyphen or contain two consecutive
+    -- hyphens.
+    dBProxyName :: Prelude.Text,
+    -- | The kinds of databases that the proxy can connect to. This value
+    -- determines which database network protocol the proxy recognizes when it
+    -- interprets network traffic to and from the database. The engine family
+    -- applies to MySQL and PostgreSQL for both RDS and Aurora.
+    engineFamily :: EngineFamily,
+    -- | The authorization mechanism that the proxy uses.
+    auth :: [UserAuthConfig],
+    -- | The Amazon Resource Name (ARN) of the IAM role that the proxy uses to
+    -- access secrets in AWS Secrets Manager.
+    roleArn :: Prelude.Text,
+    -- | One or more VPC subnet IDs to associate with the new proxy.
+    vpcSubnetIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBProxy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBProxy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdpIdleClientTimeout' - The number of seconds that a connection to the proxy can be inactive before the proxy disconnects it. You can set this value higher or lower than the connection timeout limit for the associated database.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdpVPCSecurityGroupIds' - One or more VPC security group IDs to associate with the new proxy.
+-- 'idleClientTimeout', 'createDBProxy_idleClientTimeout' - The number of seconds that a connection to the proxy can be inactive
+-- before the proxy disconnects it. You can set this value higher or lower
+-- than the connection timeout limit for the associated database.
 --
--- * 'cdpDebugLogging' - Whether the proxy includes detailed information about SQL statements in its logs. This information helps you to debug issues involving SQL behavior or the performance and scalability of the proxy connections. The debug information includes the text of SQL statements that you submit through the proxy. Thus, only enable this setting when needed for debugging, and only when you have security measures in place to safeguard any sensitive information that appears in the logs.
+-- 'vpcSecurityGroupIds', 'createDBProxy_vpcSecurityGroupIds' - One or more VPC security group IDs to associate with the new proxy.
 --
--- * 'cdpTags' - An optional set of key-value pairs to associate arbitrary data of your choosing with the proxy.
+-- 'debugLogging', 'createDBProxy_debugLogging' - Whether the proxy includes detailed information about SQL statements in
+-- its logs. This information helps you to debug issues involving SQL
+-- behavior or the performance and scalability of the proxy connections.
+-- The debug information includes the text of SQL statements that you
+-- submit through the proxy. Thus, only enable this setting when needed for
+-- debugging, and only when you have security measures in place to
+-- safeguard any sensitive information that appears in the logs.
 --
--- * 'cdpRequireTLS' - A Boolean parameter that specifies whether Transport Layer Security (TLS) encryption is required for connections to the proxy. By enabling this setting, you can enforce encrypted TLS connections to the proxy.
+-- 'tags', 'createDBProxy_tags' - An optional set of key-value pairs to associate arbitrary data of your
+-- choosing with the proxy.
 --
--- * 'cdpDBProxyName' - The identifier for the proxy. This name must be unique for all proxies owned by your AWS account in the specified AWS Region. An identifier must begin with a letter and must contain only ASCII letters, digits, and hyphens; it can't end with a hyphen or contain two consecutive hyphens.
+-- 'requireTLS', 'createDBProxy_requireTLS' - A Boolean parameter that specifies whether Transport Layer Security
+-- (TLS) encryption is required for connections to the proxy. By enabling
+-- this setting, you can enforce encrypted TLS connections to the proxy.
 --
--- * 'cdpEngineFamily' - The kinds of databases that the proxy can connect to. This value determines which database network protocol the proxy recognizes when it interprets network traffic to and from the database. The engine family applies to MySQL and PostgreSQL for both RDS and Aurora.
+-- 'dBProxyName', 'createDBProxy_dBProxyName' - The identifier for the proxy. This name must be unique for all proxies
+-- owned by your AWS account in the specified AWS Region. An identifier
+-- must begin with a letter and must contain only ASCII letters, digits,
+-- and hyphens; it can\'t end with a hyphen or contain two consecutive
+-- hyphens.
 --
--- * 'cdpAuth' - The authorization mechanism that the proxy uses.
+-- 'engineFamily', 'createDBProxy_engineFamily' - The kinds of databases that the proxy can connect to. This value
+-- determines which database network protocol the proxy recognizes when it
+-- interprets network traffic to and from the database. The engine family
+-- applies to MySQL and PostgreSQL for both RDS and Aurora.
 --
--- * 'cdpRoleARN' - The Amazon Resource Name (ARN) of the IAM role that the proxy uses to access secrets in AWS Secrets Manager.
+-- 'auth', 'createDBProxy_auth' - The authorization mechanism that the proxy uses.
 --
--- * 'cdpVPCSubnetIds' - One or more VPC subnet IDs to associate with the new proxy.
-createDBProxy ::
-  -- | 'cdpDBProxyName'
-  Text ->
-  -- | 'cdpEngineFamily'
+-- 'roleArn', 'createDBProxy_roleArn' - The Amazon Resource Name (ARN) of the IAM role that the proxy uses to
+-- access secrets in AWS Secrets Manager.
+--
+-- 'vpcSubnetIds', 'createDBProxy_vpcSubnetIds' - One or more VPC subnet IDs to associate with the new proxy.
+newCreateDBProxy ::
+  -- | 'dBProxyName'
+  Prelude.Text ->
+  -- | 'engineFamily'
   EngineFamily ->
-  -- | 'cdpRoleARN'
-  Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CreateDBProxy
-createDBProxy pDBProxyName_ pEngineFamily_ pRoleARN_ =
-  CreateDBProxy'
-    { _cdpIdleClientTimeout = Nothing,
-      _cdpVPCSecurityGroupIds = Nothing,
-      _cdpDebugLogging = Nothing,
-      _cdpTags = Nothing,
-      _cdpRequireTLS = Nothing,
-      _cdpDBProxyName = pDBProxyName_,
-      _cdpEngineFamily = pEngineFamily_,
-      _cdpAuth = mempty,
-      _cdpRoleARN = pRoleARN_,
-      _cdpVPCSubnetIds = mempty
-    }
+newCreateDBProxy
+  pDBProxyName_
+  pEngineFamily_
+  pRoleArn_ =
+    CreateDBProxy'
+      { idleClientTimeout = Prelude.Nothing,
+        vpcSecurityGroupIds = Prelude.Nothing,
+        debugLogging = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        requireTLS = Prelude.Nothing,
+        dBProxyName = pDBProxyName_,
+        engineFamily = pEngineFamily_,
+        auth = Prelude.mempty,
+        roleArn = pRoleArn_,
+        vpcSubnetIds = Prelude.mempty
+      }
 
--- | The number of seconds that a connection to the proxy can be inactive before the proxy disconnects it. You can set this value higher or lower than the connection timeout limit for the associated database.
-cdpIdleClientTimeout :: Lens' CreateDBProxy (Maybe Int)
-cdpIdleClientTimeout = lens _cdpIdleClientTimeout (\s a -> s {_cdpIdleClientTimeout = a})
+-- | The number of seconds that a connection to the proxy can be inactive
+-- before the proxy disconnects it. You can set this value higher or lower
+-- than the connection timeout limit for the associated database.
+createDBProxy_idleClientTimeout :: Lens.Lens' CreateDBProxy (Prelude.Maybe Prelude.Int)
+createDBProxy_idleClientTimeout = Lens.lens (\CreateDBProxy' {idleClientTimeout} -> idleClientTimeout) (\s@CreateDBProxy' {} a -> s {idleClientTimeout = a} :: CreateDBProxy)
 
 -- | One or more VPC security group IDs to associate with the new proxy.
-cdpVPCSecurityGroupIds :: Lens' CreateDBProxy [Text]
-cdpVPCSecurityGroupIds = lens _cdpVPCSecurityGroupIds (\s a -> s {_cdpVPCSecurityGroupIds = a}) . _Default . _Coerce
+createDBProxy_vpcSecurityGroupIds :: Lens.Lens' CreateDBProxy (Prelude.Maybe [Prelude.Text])
+createDBProxy_vpcSecurityGroupIds = Lens.lens (\CreateDBProxy' {vpcSecurityGroupIds} -> vpcSecurityGroupIds) (\s@CreateDBProxy' {} a -> s {vpcSecurityGroupIds = a} :: CreateDBProxy) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Whether the proxy includes detailed information about SQL statements in its logs. This information helps you to debug issues involving SQL behavior or the performance and scalability of the proxy connections. The debug information includes the text of SQL statements that you submit through the proxy. Thus, only enable this setting when needed for debugging, and only when you have security measures in place to safeguard any sensitive information that appears in the logs.
-cdpDebugLogging :: Lens' CreateDBProxy (Maybe Bool)
-cdpDebugLogging = lens _cdpDebugLogging (\s a -> s {_cdpDebugLogging = a})
+-- | Whether the proxy includes detailed information about SQL statements in
+-- its logs. This information helps you to debug issues involving SQL
+-- behavior or the performance and scalability of the proxy connections.
+-- The debug information includes the text of SQL statements that you
+-- submit through the proxy. Thus, only enable this setting when needed for
+-- debugging, and only when you have security measures in place to
+-- safeguard any sensitive information that appears in the logs.
+createDBProxy_debugLogging :: Lens.Lens' CreateDBProxy (Prelude.Maybe Prelude.Bool)
+createDBProxy_debugLogging = Lens.lens (\CreateDBProxy' {debugLogging} -> debugLogging) (\s@CreateDBProxy' {} a -> s {debugLogging = a} :: CreateDBProxy)
 
--- | An optional set of key-value pairs to associate arbitrary data of your choosing with the proxy.
-cdpTags :: Lens' CreateDBProxy [Tag]
-cdpTags = lens _cdpTags (\s a -> s {_cdpTags = a}) . _Default . _Coerce
+-- | An optional set of key-value pairs to associate arbitrary data of your
+-- choosing with the proxy.
+createDBProxy_tags :: Lens.Lens' CreateDBProxy (Prelude.Maybe [Tag])
+createDBProxy_tags = Lens.lens (\CreateDBProxy' {tags} -> tags) (\s@CreateDBProxy' {} a -> s {tags = a} :: CreateDBProxy) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A Boolean parameter that specifies whether Transport Layer Security (TLS) encryption is required for connections to the proxy. By enabling this setting, you can enforce encrypted TLS connections to the proxy.
-cdpRequireTLS :: Lens' CreateDBProxy (Maybe Bool)
-cdpRequireTLS = lens _cdpRequireTLS (\s a -> s {_cdpRequireTLS = a})
+-- | A Boolean parameter that specifies whether Transport Layer Security
+-- (TLS) encryption is required for connections to the proxy. By enabling
+-- this setting, you can enforce encrypted TLS connections to the proxy.
+createDBProxy_requireTLS :: Lens.Lens' CreateDBProxy (Prelude.Maybe Prelude.Bool)
+createDBProxy_requireTLS = Lens.lens (\CreateDBProxy' {requireTLS} -> requireTLS) (\s@CreateDBProxy' {} a -> s {requireTLS = a} :: CreateDBProxy)
 
--- | The identifier for the proxy. This name must be unique for all proxies owned by your AWS account in the specified AWS Region. An identifier must begin with a letter and must contain only ASCII letters, digits, and hyphens; it can't end with a hyphen or contain two consecutive hyphens.
-cdpDBProxyName :: Lens' CreateDBProxy Text
-cdpDBProxyName = lens _cdpDBProxyName (\s a -> s {_cdpDBProxyName = a})
+-- | The identifier for the proxy. This name must be unique for all proxies
+-- owned by your AWS account in the specified AWS Region. An identifier
+-- must begin with a letter and must contain only ASCII letters, digits,
+-- and hyphens; it can\'t end with a hyphen or contain two consecutive
+-- hyphens.
+createDBProxy_dBProxyName :: Lens.Lens' CreateDBProxy Prelude.Text
+createDBProxy_dBProxyName = Lens.lens (\CreateDBProxy' {dBProxyName} -> dBProxyName) (\s@CreateDBProxy' {} a -> s {dBProxyName = a} :: CreateDBProxy)
 
--- | The kinds of databases that the proxy can connect to. This value determines which database network protocol the proxy recognizes when it interprets network traffic to and from the database. The engine family applies to MySQL and PostgreSQL for both RDS and Aurora.
-cdpEngineFamily :: Lens' CreateDBProxy EngineFamily
-cdpEngineFamily = lens _cdpEngineFamily (\s a -> s {_cdpEngineFamily = a})
+-- | The kinds of databases that the proxy can connect to. This value
+-- determines which database network protocol the proxy recognizes when it
+-- interprets network traffic to and from the database. The engine family
+-- applies to MySQL and PostgreSQL for both RDS and Aurora.
+createDBProxy_engineFamily :: Lens.Lens' CreateDBProxy EngineFamily
+createDBProxy_engineFamily = Lens.lens (\CreateDBProxy' {engineFamily} -> engineFamily) (\s@CreateDBProxy' {} a -> s {engineFamily = a} :: CreateDBProxy)
 
 -- | The authorization mechanism that the proxy uses.
-cdpAuth :: Lens' CreateDBProxy [UserAuthConfig]
-cdpAuth = lens _cdpAuth (\s a -> s {_cdpAuth = a}) . _Coerce
+createDBProxy_auth :: Lens.Lens' CreateDBProxy [UserAuthConfig]
+createDBProxy_auth = Lens.lens (\CreateDBProxy' {auth} -> auth) (\s@CreateDBProxy' {} a -> s {auth = a} :: CreateDBProxy) Prelude.. Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of the IAM role that the proxy uses to access secrets in AWS Secrets Manager.
-cdpRoleARN :: Lens' CreateDBProxy Text
-cdpRoleARN = lens _cdpRoleARN (\s a -> s {_cdpRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role that the proxy uses to
+-- access secrets in AWS Secrets Manager.
+createDBProxy_roleArn :: Lens.Lens' CreateDBProxy Prelude.Text
+createDBProxy_roleArn = Lens.lens (\CreateDBProxy' {roleArn} -> roleArn) (\s@CreateDBProxy' {} a -> s {roleArn = a} :: CreateDBProxy)
 
 -- | One or more VPC subnet IDs to associate with the new proxy.
-cdpVPCSubnetIds :: Lens' CreateDBProxy [Text]
-cdpVPCSubnetIds = lens _cdpVPCSubnetIds (\s a -> s {_cdpVPCSubnetIds = a}) . _Coerce
+createDBProxy_vpcSubnetIds :: Lens.Lens' CreateDBProxy [Prelude.Text]
+createDBProxy_vpcSubnetIds = Lens.lens (\CreateDBProxy' {vpcSubnetIds} -> vpcSubnetIds) (\s@CreateDBProxy' {} a -> s {vpcSubnetIds = a} :: CreateDBProxy) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateDBProxy where
+instance Prelude.AWSRequest CreateDBProxy where
   type Rs CreateDBProxy = CreateDBProxyResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateDBProxyResult"
       ( \s h x ->
           CreateDBProxyResponse'
-            <$> (x .@? "DBProxy") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBProxy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDBProxy
+instance Prelude.Hashable CreateDBProxy
 
-instance NFData CreateDBProxy
+instance Prelude.NFData CreateDBProxy
 
-instance ToHeaders CreateDBProxy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDBProxy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateDBProxy where
-  toPath = const "/"
+instance Prelude.ToPath CreateDBProxy where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDBProxy where
+instance Prelude.ToQuery CreateDBProxy where
   toQuery CreateDBProxy' {..} =
-    mconcat
-      [ "Action" =: ("CreateDBProxy" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "IdleClientTimeout" =: _cdpIdleClientTimeout,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateDBProxy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "IdleClientTimeout" Prelude.=: idleClientTimeout,
         "VpcSecurityGroupIds"
-          =: toQuery
-            (toQueryList "member" <$> _cdpVPCSecurityGroupIds),
-        "DebugLogging" =: _cdpDebugLogging,
-        "Tags" =: toQuery (toQueryList "Tag" <$> _cdpTags),
-        "RequireTLS" =: _cdpRequireTLS,
-        "DBProxyName" =: _cdpDBProxyName,
-        "EngineFamily" =: _cdpEngineFamily,
-        "Auth" =: toQueryList "member" _cdpAuth,
-        "RoleArn" =: _cdpRoleARN,
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> vpcSecurityGroupIds
+            ),
+        "DebugLogging" Prelude.=: debugLogging,
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
+        "RequireTLS" Prelude.=: requireTLS,
+        "DBProxyName" Prelude.=: dBProxyName,
+        "EngineFamily" Prelude.=: engineFamily,
+        "Auth" Prelude.=: Prelude.toQueryList "member" auth,
+        "RoleArn" Prelude.=: roleArn,
         "VpcSubnetIds"
-          =: toQueryList "member" _cdpVPCSubnetIds
+          Prelude.=: Prelude.toQueryList "member" vpcSubnetIds
       ]
 
--- | /See:/ 'createDBProxyResponse' smart constructor.
+-- | /See:/ 'newCreateDBProxyResponse' smart constructor.
 data CreateDBProxyResponse = CreateDBProxyResponse'
-  { _cdprrsDBProxy ::
-      !(Maybe DBProxy),
-    _cdprrsResponseStatus ::
-      !Int
+  { -- | The @DBProxy@ structure corresponding to the new proxy.
+    dBProxy :: Prelude.Maybe DBProxy,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBProxyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBProxyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdprrsDBProxy' - The @DBProxy@ structure corresponding to the new proxy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdprrsResponseStatus' - -- | The response status code.
-createDBProxyResponse ::
-  -- | 'cdprrsResponseStatus'
-  Int ->
+-- 'dBProxy', 'createDBProxyResponse_dBProxy' - The @DBProxy@ structure corresponding to the new proxy.
+--
+-- 'httpStatus', 'createDBProxyResponse_httpStatus' - The response's http status code.
+newCreateDBProxyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDBProxyResponse
-createDBProxyResponse pResponseStatus_ =
+newCreateDBProxyResponse pHttpStatus_ =
   CreateDBProxyResponse'
-    { _cdprrsDBProxy = Nothing,
-      _cdprrsResponseStatus = pResponseStatus_
+    { dBProxy = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The @DBProxy@ structure corresponding to the new proxy.
-cdprrsDBProxy :: Lens' CreateDBProxyResponse (Maybe DBProxy)
-cdprrsDBProxy = lens _cdprrsDBProxy (\s a -> s {_cdprrsDBProxy = a})
+createDBProxyResponse_dBProxy :: Lens.Lens' CreateDBProxyResponse (Prelude.Maybe DBProxy)
+createDBProxyResponse_dBProxy = Lens.lens (\CreateDBProxyResponse' {dBProxy} -> dBProxy) (\s@CreateDBProxyResponse' {} a -> s {dBProxy = a} :: CreateDBProxyResponse)
 
--- | -- | The response status code.
-cdprrsResponseStatus :: Lens' CreateDBProxyResponse Int
-cdprrsResponseStatus = lens _cdprrsResponseStatus (\s a -> s {_cdprrsResponseStatus = a})
+-- | The response's http status code.
+createDBProxyResponse_httpStatus :: Lens.Lens' CreateDBProxyResponse Prelude.Int
+createDBProxyResponse_httpStatus = Lens.lens (\CreateDBProxyResponse' {httpStatus} -> httpStatus) (\s@CreateDBProxyResponse' {} a -> s {httpStatus = a} :: CreateDBProxyResponse)
 
-instance NFData CreateDBProxyResponse
+instance Prelude.NFData CreateDBProxyResponse

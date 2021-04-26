@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,121 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.FailoverState where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.FailoverStatus
 
--- | Contains the state of scheduled or in-process failover operations on an Aurora global database ('GlobalCluster' ). This Data type is empty unless a failover operation is scheduled or is currently underway on the Aurora global database.
+-- | Contains the state of scheduled or in-process failover operations on an
+-- Aurora global database (GlobalCluster). This Data type is empty unless a
+-- failover operation is scheduled or is currently underway on the Aurora
+-- global database.
 --
---
---
--- /See:/ 'failoverState' smart constructor.
+-- /See:/ 'newFailoverState' smart constructor.
 data FailoverState = FailoverState'
-  { _fsStatus ::
-      !(Maybe FailoverStatus),
-    _fsToDBClusterARN :: !(Maybe Text),
-    _fsFromDBClusterARN :: !(Maybe Text)
+  { -- | The current status of the Aurora global database (GlobalCluster).
+    -- Possible values are as follows:
+    --
+    -- -   pending – A request to fail over the Aurora global database
+    --     (GlobalCluster) has been received by the service. The
+    --     @GlobalCluster@\'s primary DB cluster and the specified secondary DB
+    --     cluster are being verified before the failover process can start.
+    --
+    -- -   failing-over – This status covers the range of Aurora internal
+    --     operations that take place during the failover process, such as
+    --     demoting the primary Aurora DB cluster, promoting the secondary
+    --     Aurora DB, and synchronizing replicas.
+    --
+    -- -   cancelling – The request to fail over the Aurora global database
+    --     (GlobalCluster) was cancelled and the primary Aurora DB cluster and
+    --     the selected secondary Aurora DB cluster are returning to their
+    --     previous states.
+    status :: Prelude.Maybe FailoverStatus,
+    -- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+    -- currently being promoted, and which is associated with this state.
+    toDbClusterArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+    -- currently being demoted, and which is associated with this state.
+    fromDbClusterArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailoverState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailoverState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fsStatus' - The current status of the Aurora global database ('GlobalCluster' ). Possible values are as follows:      * pending  A request to fail over the Aurora global database ('GlobalCluster' ) has been received by the service. The @GlobalCluster@ 's primary DB cluster and the specified secondary DB cluster are being verified before the failover process can start.     * failing-over  This status covers the range of Aurora internal operations that take place during the failover process, such as demoting the primary Aurora DB cluster, promoting the secondary Aurora DB, and synchronizing replicas.      * cancelling  The request to fail over the Aurora global database ('GlobalCluster' ) was cancelled and the primary Aurora DB cluster and the selected secondary Aurora DB cluster are returning to their previous states.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fsToDBClusterARN' - The Amazon Resource Name (ARN) of the Aurora DB cluster that is currently being promoted, and which is associated with this state.
+-- 'status', 'failoverState_status' - The current status of the Aurora global database (GlobalCluster).
+-- Possible values are as follows:
 --
--- * 'fsFromDBClusterARN' - The Amazon Resource Name (ARN) of the Aurora DB cluster that is currently being demoted, and which is associated with this state.
-failoverState ::
+-- -   pending – A request to fail over the Aurora global database
+--     (GlobalCluster) has been received by the service. The
+--     @GlobalCluster@\'s primary DB cluster and the specified secondary DB
+--     cluster are being verified before the failover process can start.
+--
+-- -   failing-over – This status covers the range of Aurora internal
+--     operations that take place during the failover process, such as
+--     demoting the primary Aurora DB cluster, promoting the secondary
+--     Aurora DB, and synchronizing replicas.
+--
+-- -   cancelling – The request to fail over the Aurora global database
+--     (GlobalCluster) was cancelled and the primary Aurora DB cluster and
+--     the selected secondary Aurora DB cluster are returning to their
+--     previous states.
+--
+-- 'toDbClusterArn', 'failoverState_toDbClusterArn' - The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+-- currently being promoted, and which is associated with this state.
+--
+-- 'fromDbClusterArn', 'failoverState_fromDbClusterArn' - The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+-- currently being demoted, and which is associated with this state.
+newFailoverState ::
   FailoverState
-failoverState =
+newFailoverState =
   FailoverState'
-    { _fsStatus = Nothing,
-      _fsToDBClusterARN = Nothing,
-      _fsFromDBClusterARN = Nothing
+    { status = Prelude.Nothing,
+      toDbClusterArn = Prelude.Nothing,
+      fromDbClusterArn = Prelude.Nothing
     }
 
--- | The current status of the Aurora global database ('GlobalCluster' ). Possible values are as follows:      * pending  A request to fail over the Aurora global database ('GlobalCluster' ) has been received by the service. The @GlobalCluster@ 's primary DB cluster and the specified secondary DB cluster are being verified before the failover process can start.     * failing-over  This status covers the range of Aurora internal operations that take place during the failover process, such as demoting the primary Aurora DB cluster, promoting the secondary Aurora DB, and synchronizing replicas.      * cancelling  The request to fail over the Aurora global database ('GlobalCluster' ) was cancelled and the primary Aurora DB cluster and the selected secondary Aurora DB cluster are returning to their previous states.
-fsStatus :: Lens' FailoverState (Maybe FailoverStatus)
-fsStatus = lens _fsStatus (\s a -> s {_fsStatus = a})
+-- | The current status of the Aurora global database (GlobalCluster).
+-- Possible values are as follows:
+--
+-- -   pending – A request to fail over the Aurora global database
+--     (GlobalCluster) has been received by the service. The
+--     @GlobalCluster@\'s primary DB cluster and the specified secondary DB
+--     cluster are being verified before the failover process can start.
+--
+-- -   failing-over – This status covers the range of Aurora internal
+--     operations that take place during the failover process, such as
+--     demoting the primary Aurora DB cluster, promoting the secondary
+--     Aurora DB, and synchronizing replicas.
+--
+-- -   cancelling – The request to fail over the Aurora global database
+--     (GlobalCluster) was cancelled and the primary Aurora DB cluster and
+--     the selected secondary Aurora DB cluster are returning to their
+--     previous states.
+failoverState_status :: Lens.Lens' FailoverState (Prelude.Maybe FailoverStatus)
+failoverState_status = Lens.lens (\FailoverState' {status} -> status) (\s@FailoverState' {} a -> s {status = a} :: FailoverState)
 
--- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is currently being promoted, and which is associated with this state.
-fsToDBClusterARN :: Lens' FailoverState (Maybe Text)
-fsToDBClusterARN = lens _fsToDBClusterARN (\s a -> s {_fsToDBClusterARN = a})
+-- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+-- currently being promoted, and which is associated with this state.
+failoverState_toDbClusterArn :: Lens.Lens' FailoverState (Prelude.Maybe Prelude.Text)
+failoverState_toDbClusterArn = Lens.lens (\FailoverState' {toDbClusterArn} -> toDbClusterArn) (\s@FailoverState' {} a -> s {toDbClusterArn = a} :: FailoverState)
 
--- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is currently being demoted, and which is associated with this state.
-fsFromDBClusterARN :: Lens' FailoverState (Maybe Text)
-fsFromDBClusterARN = lens _fsFromDBClusterARN (\s a -> s {_fsFromDBClusterARN = a})
+-- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+-- currently being demoted, and which is associated with this state.
+failoverState_fromDbClusterArn :: Lens.Lens' FailoverState (Prelude.Maybe Prelude.Text)
+failoverState_fromDbClusterArn = Lens.lens (\FailoverState' {fromDbClusterArn} -> fromDbClusterArn) (\s@FailoverState' {} a -> s {fromDbClusterArn = a} :: FailoverState)
 
-instance FromXML FailoverState where
+instance Prelude.FromXML FailoverState where
   parseXML x =
     FailoverState'
-      <$> (x .@? "Status")
-      <*> (x .@? "ToDbClusterArn")
-      <*> (x .@? "FromDbClusterArn")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "ToDbClusterArn")
+      Prelude.<*> (x Prelude..@? "FromDbClusterArn")
 
-instance Hashable FailoverState
+instance Prelude.Hashable FailoverState
 
-instance NFData FailoverState
+instance Prelude.NFData FailoverState

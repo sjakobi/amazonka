@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.EngineDefaults where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.Parameter
 
--- | Contains the result of a successful invocation of the @DescribeEngineDefaultParameters@ action.
+-- | Contains the result of a successful invocation of the
+-- @DescribeEngineDefaultParameters@ action.
 --
---
---
--- /See:/ 'engineDefaults' smart constructor.
+-- /See:/ 'newEngineDefaults' smart constructor.
 data EngineDefaults = EngineDefaults'
-  { _edDBParameterGroupFamily ::
-      !(Maybe Text),
-    _edParameters :: !(Maybe [Parameter]),
-    _edMarker :: !(Maybe Text)
+  { -- | Specifies the name of the DB parameter group family that the engine
+    -- default parameters apply to.
+    dBParameterGroupFamily :: Prelude.Maybe Prelude.Text,
+    -- | Contains a list of engine default parameters.
+    parameters :: Prelude.Maybe [Parameter],
+    -- | An optional pagination token provided by a previous EngineDefaults
+    -- request. If this parameter is specified, the response includes only
+    -- records beyond the marker, up to the value specified by @MaxRecords@ .
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EngineDefaults' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EngineDefaults' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edDBParameterGroupFamily' - Specifies the name of the DB parameter group family that the engine default parameters apply to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edParameters' - Contains a list of engine default parameters.
+-- 'dBParameterGroupFamily', 'engineDefaults_dBParameterGroupFamily' - Specifies the name of the DB parameter group family that the engine
+-- default parameters apply to.
 --
--- * 'edMarker' - An optional pagination token provided by a previous EngineDefaults request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-engineDefaults ::
+-- 'parameters', 'engineDefaults_parameters' - Contains a list of engine default parameters.
+--
+-- 'marker', 'engineDefaults_marker' - An optional pagination token provided by a previous EngineDefaults
+-- request. If this parameter is specified, the response includes only
+-- records beyond the marker, up to the value specified by @MaxRecords@ .
+newEngineDefaults ::
   EngineDefaults
-engineDefaults =
+newEngineDefaults =
   EngineDefaults'
-    { _edDBParameterGroupFamily =
-        Nothing,
-      _edParameters = Nothing,
-      _edMarker = Nothing
+    { dBParameterGroupFamily =
+        Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | Specifies the name of the DB parameter group family that the engine default parameters apply to.
-edDBParameterGroupFamily :: Lens' EngineDefaults (Maybe Text)
-edDBParameterGroupFamily = lens _edDBParameterGroupFamily (\s a -> s {_edDBParameterGroupFamily = a})
+-- | Specifies the name of the DB parameter group family that the engine
+-- default parameters apply to.
+engineDefaults_dBParameterGroupFamily :: Lens.Lens' EngineDefaults (Prelude.Maybe Prelude.Text)
+engineDefaults_dBParameterGroupFamily = Lens.lens (\EngineDefaults' {dBParameterGroupFamily} -> dBParameterGroupFamily) (\s@EngineDefaults' {} a -> s {dBParameterGroupFamily = a} :: EngineDefaults)
 
 -- | Contains a list of engine default parameters.
-edParameters :: Lens' EngineDefaults [Parameter]
-edParameters = lens _edParameters (\s a -> s {_edParameters = a}) . _Default . _Coerce
+engineDefaults_parameters :: Lens.Lens' EngineDefaults (Prelude.Maybe [Parameter])
+engineDefaults_parameters = Lens.lens (\EngineDefaults' {parameters} -> parameters) (\s@EngineDefaults' {} a -> s {parameters = a} :: EngineDefaults) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous EngineDefaults request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-edMarker :: Lens' EngineDefaults (Maybe Text)
-edMarker = lens _edMarker (\s a -> s {_edMarker = a})
+-- | An optional pagination token provided by a previous EngineDefaults
+-- request. If this parameter is specified, the response includes only
+-- records beyond the marker, up to the value specified by @MaxRecords@ .
+engineDefaults_marker :: Lens.Lens' EngineDefaults (Prelude.Maybe Prelude.Text)
+engineDefaults_marker = Lens.lens (\EngineDefaults' {marker} -> marker) (\s@EngineDefaults' {} a -> s {marker = a} :: EngineDefaults)
 
-instance FromXML EngineDefaults where
+instance Prelude.FromXML EngineDefaults where
   parseXML x =
     EngineDefaults'
-      <$> (x .@? "DBParameterGroupFamily")
-      <*> ( x .@? "Parameters" .!@ mempty
-              >>= may (parseXMLList "Parameter")
-          )
-      <*> (x .@? "Marker")
+      Prelude.<$> (x Prelude..@? "DBParameterGroupFamily")
+      Prelude.<*> ( x Prelude..@? "Parameters"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Parameter")
+                  )
+      Prelude.<*> (x Prelude..@? "Marker")
 
-instance Hashable EngineDefaults
+instance Prelude.Hashable EngineDefaults
 
-instance NFData EngineDefaults
+instance Prelude.NFData EngineDefaults

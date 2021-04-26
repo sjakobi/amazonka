@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.RDS.Types.ReplicaMode
   ( ReplicaMode
       ( ..,
-        Mounted,
-        OpenReadOnly
+        ReplicaModeMounted,
+        ReplicaModeOpenReadOnly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplicaMode = ReplicaMode' (CI Text)
+newtype ReplicaMode = ReplicaMode'
+  { fromReplicaMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Mounted :: ReplicaMode
-pattern Mounted = ReplicaMode' "mounted"
+pattern ReplicaModeMounted :: ReplicaMode
+pattern ReplicaModeMounted = ReplicaMode' "mounted"
 
-pattern OpenReadOnly :: ReplicaMode
-pattern OpenReadOnly = ReplicaMode' "open-read-only"
+pattern ReplicaModeOpenReadOnly :: ReplicaMode
+pattern ReplicaModeOpenReadOnly = ReplicaMode' "open-read-only"
 
 {-# COMPLETE
-  Mounted,
-  OpenReadOnly,
+  ReplicaModeMounted,
+  ReplicaModeOpenReadOnly,
   ReplicaMode'
   #-}
 
-instance FromText ReplicaMode where
-  parser = (ReplicaMode' . mk) <$> takeText
+instance Prelude.FromText ReplicaMode where
+  parser = ReplicaMode' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicaMode where
-  toText (ReplicaMode' ci) = original ci
+instance Prelude.ToText ReplicaMode where
+  toText (ReplicaMode' x) = x
 
-instance Hashable ReplicaMode
+instance Prelude.Hashable ReplicaMode
 
-instance NFData ReplicaMode
+instance Prelude.NFData ReplicaMode
 
-instance ToByteString ReplicaMode
+instance Prelude.ToByteString ReplicaMode
 
-instance ToQuery ReplicaMode
+instance Prelude.ToQuery ReplicaMode
 
-instance ToHeader ReplicaMode
+instance Prelude.ToHeader ReplicaMode
 
-instance FromXML ReplicaMode where
-  parseXML = parseXMLText "ReplicaMode"
+instance Prelude.FromXML ReplicaMode where
+  parseXML = Prelude.parseXMLText "ReplicaMode"

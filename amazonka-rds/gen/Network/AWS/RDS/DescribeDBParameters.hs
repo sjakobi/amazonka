@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,201 +23,279 @@
 --
 -- Returns the detailed parameter list for a particular DB parameter group.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeDBParameters
   ( -- * Creating a Request
-    describeDBParameters,
-    DescribeDBParameters,
+    DescribeDBParameters (..),
+    newDescribeDBParameters,
 
     -- * Request Lenses
-    ddbpSource,
-    ddbpFilters,
-    ddbpMarker,
-    ddbpMaxRecords,
-    ddbpDBParameterGroupName,
+    describeDBParameters_source,
+    describeDBParameters_filters,
+    describeDBParameters_marker,
+    describeDBParameters_maxRecords,
+    describeDBParameters_dBParameterGroupName,
 
     -- * Destructuring the Response
-    describeDBParametersResponse,
-    DescribeDBParametersResponse,
+    DescribeDBParametersResponse (..),
+    newDescribeDBParametersResponse,
 
     -- * Response Lenses
-    ddprrsParameters,
-    ddprrsMarker,
-    ddprrsResponseStatus,
+    describeDBParametersResponse_parameters,
+    describeDBParametersResponse_marker,
+    describeDBParametersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.Parameter
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeDBParameters' smart constructor.
+-- | /See:/ 'newDescribeDBParameters' smart constructor.
 data DescribeDBParameters = DescribeDBParameters'
-  { _ddbpSource ::
-      !(Maybe Text),
-    _ddbpFilters ::
-      !(Maybe [Filter]),
-    _ddbpMarker :: !(Maybe Text),
-    _ddbpMaxRecords ::
-      !(Maybe Int),
-    _ddbpDBParameterGroupName ::
-      !Text
+  { -- | The parameter types to return.
+    --
+    -- Default: All parameter types returned
+    --
+    -- Valid Values: @user | system | engine-default@
+    source :: Prelude.Maybe Prelude.Text,
+    -- | This parameter isn\'t currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | An optional pagination token provided by a previous
+    -- @DescribeDBParameters@ request. If this parameter is specified, the
+    -- response includes only records beyond the marker, up to the value
+    -- specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that you can retrieve the
+    -- remaining results.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The name of a specific DB parameter group to return details for.
+    --
+    -- Constraints:
+    --
+    -- -   If supplied, must match the name of an existing DBParameterGroup.
+    dBParameterGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbpSource' - The parameter types to return. Default: All parameter types returned Valid Values: @user | system | engine-default@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbpFilters' - This parameter isn't currently supported.
+-- 'source', 'describeDBParameters_source' - The parameter types to return.
 --
--- * 'ddbpMarker' - An optional pagination token provided by a previous @DescribeDBParameters@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- Default: All parameter types returned
 --
--- * 'ddbpMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
+-- Valid Values: @user | system | engine-default@
 --
--- * 'ddbpDBParameterGroupName' - The name of a specific DB parameter group to return details for. Constraints:     * If supplied, must match the name of an existing DBParameterGroup.
-describeDBParameters ::
-  -- | 'ddbpDBParameterGroupName'
-  Text ->
+-- 'filters', 'describeDBParameters_filters' - This parameter isn\'t currently supported.
+--
+-- 'marker', 'describeDBParameters_marker' - An optional pagination token provided by a previous
+-- @DescribeDBParameters@ request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeDBParameters_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+--
+-- 'dBParameterGroupName', 'describeDBParameters_dBParameterGroupName' - The name of a specific DB parameter group to return details for.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the name of an existing DBParameterGroup.
+newDescribeDBParameters ::
+  -- | 'dBParameterGroupName'
+  Prelude.Text ->
   DescribeDBParameters
-describeDBParameters pDBParameterGroupName_ =
+newDescribeDBParameters pDBParameterGroupName_ =
   DescribeDBParameters'
-    { _ddbpSource = Nothing,
-      _ddbpFilters = Nothing,
-      _ddbpMarker = Nothing,
-      _ddbpMaxRecords = Nothing,
-      _ddbpDBParameterGroupName = pDBParameterGroupName_
+    { source = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      dBParameterGroupName = pDBParameterGroupName_
     }
 
--- | The parameter types to return. Default: All parameter types returned Valid Values: @user | system | engine-default@
-ddbpSource :: Lens' DescribeDBParameters (Maybe Text)
-ddbpSource = lens _ddbpSource (\s a -> s {_ddbpSource = a})
+-- | The parameter types to return.
+--
+-- Default: All parameter types returned
+--
+-- Valid Values: @user | system | engine-default@
+describeDBParameters_source :: Lens.Lens' DescribeDBParameters (Prelude.Maybe Prelude.Text)
+describeDBParameters_source = Lens.lens (\DescribeDBParameters' {source} -> source) (\s@DescribeDBParameters' {} a -> s {source = a} :: DescribeDBParameters)
 
--- | This parameter isn't currently supported.
-ddbpFilters :: Lens' DescribeDBParameters [Filter]
-ddbpFilters = lens _ddbpFilters (\s a -> s {_ddbpFilters = a}) . _Default . _Coerce
+-- | This parameter isn\'t currently supported.
+describeDBParameters_filters :: Lens.Lens' DescribeDBParameters (Prelude.Maybe [Filter])
+describeDBParameters_filters = Lens.lens (\DescribeDBParameters' {filters} -> filters) (\s@DescribeDBParameters' {} a -> s {filters = a} :: DescribeDBParameters) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous @DescribeDBParameters@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddbpMarker :: Lens' DescribeDBParameters (Maybe Text)
-ddbpMarker = lens _ddbpMarker (\s a -> s {_ddbpMarker = a})
+-- | An optional pagination token provided by a previous
+-- @DescribeDBParameters@ request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+describeDBParameters_marker :: Lens.Lens' DescribeDBParameters (Prelude.Maybe Prelude.Text)
+describeDBParameters_marker = Lens.lens (\DescribeDBParameters' {marker} -> marker) (\s@DescribeDBParameters' {} a -> s {marker = a} :: DescribeDBParameters)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-ddbpMaxRecords :: Lens' DescribeDBParameters (Maybe Int)
-ddbpMaxRecords = lens _ddbpMaxRecords (\s a -> s {_ddbpMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeDBParameters_maxRecords :: Lens.Lens' DescribeDBParameters (Prelude.Maybe Prelude.Int)
+describeDBParameters_maxRecords = Lens.lens (\DescribeDBParameters' {maxRecords} -> maxRecords) (\s@DescribeDBParameters' {} a -> s {maxRecords = a} :: DescribeDBParameters)
 
--- | The name of a specific DB parameter group to return details for. Constraints:     * If supplied, must match the name of an existing DBParameterGroup.
-ddbpDBParameterGroupName :: Lens' DescribeDBParameters Text
-ddbpDBParameterGroupName = lens _ddbpDBParameterGroupName (\s a -> s {_ddbpDBParameterGroupName = a})
+-- | The name of a specific DB parameter group to return details for.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the name of an existing DBParameterGroup.
+describeDBParameters_dBParameterGroupName :: Lens.Lens' DescribeDBParameters Prelude.Text
+describeDBParameters_dBParameterGroupName = Lens.lens (\DescribeDBParameters' {dBParameterGroupName} -> dBParameterGroupName) (\s@DescribeDBParameters' {} a -> s {dBParameterGroupName = a} :: DescribeDBParameters)
 
-instance AWSPager DescribeDBParameters where
+instance Pager.AWSPager DescribeDBParameters where
   page rq rs
-    | stop (rs ^. ddprrsMarker) = Nothing
-    | stop (rs ^. ddprrsParameters) = Nothing
-    | otherwise =
-      Just $ rq & ddbpMarker .~ rs ^. ddprrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBParametersResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBParametersResponse_parameters
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeDBParameters_marker
+          Lens..~ rs
+          Lens.^? describeDBParametersResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeDBParameters where
+instance Prelude.AWSRequest DescribeDBParameters where
   type
     Rs DescribeDBParameters =
       DescribeDBParametersResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeDBParametersResult"
       ( \s h x ->
           DescribeDBParametersResponse'
-            <$> ( x .@? "Parameters" .!@ mempty
-                    >>= may (parseXMLList "Parameter")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Parameters"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "Parameter")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDBParameters
+instance Prelude.Hashable DescribeDBParameters
 
-instance NFData DescribeDBParameters
+instance Prelude.NFData DescribeDBParameters
 
-instance ToHeaders DescribeDBParameters where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeDBParameters where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDBParameters where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDBParameters where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDBParameters where
+instance Prelude.ToQuery DescribeDBParameters where
   toQuery DescribeDBParameters' {..} =
-    mconcat
-      [ "Action" =: ("DescribeDBParameters" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "Source" =: _ddbpSource,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeDBParameters" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "Source" Prelude.=: source,
         "Filters"
-          =: toQuery (toQueryList "Filter" <$> _ddbpFilters),
-        "Marker" =: _ddbpMarker,
-        "MaxRecords" =: _ddbpMaxRecords,
-        "DBParameterGroupName" =: _ddbpDBParameterGroupName
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords,
+        "DBParameterGroupName"
+          Prelude.=: dBParameterGroupName
       ]
 
--- | Contains the result of a successful invocation of the @DescribeDBParameters@ action.
+-- | Contains the result of a successful invocation of the
+-- @DescribeDBParameters@ action.
 --
---
---
--- /See:/ 'describeDBParametersResponse' smart constructor.
+-- /See:/ 'newDescribeDBParametersResponse' smart constructor.
 data DescribeDBParametersResponse = DescribeDBParametersResponse'
-  { _ddprrsParameters ::
-      !( Maybe
-           [Parameter]
-       ),
-    _ddprrsMarker ::
-      !(Maybe Text),
-    _ddprrsResponseStatus ::
-      !Int
+  { -- | A list of @Parameter@ values.
+    parameters :: Prelude.Maybe [Parameter],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBParametersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBParametersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddprrsParameters' - A list of @Parameter@ values.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddprrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'parameters', 'describeDBParametersResponse_parameters' - A list of @Parameter@ values.
 --
--- * 'ddprrsResponseStatus' - -- | The response status code.
-describeDBParametersResponse ::
-  -- | 'ddprrsResponseStatus'
-  Int ->
+-- 'marker', 'describeDBParametersResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeDBParametersResponse_httpStatus' - The response's http status code.
+newDescribeDBParametersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDBParametersResponse
-describeDBParametersResponse pResponseStatus_ =
+newDescribeDBParametersResponse pHttpStatus_ =
   DescribeDBParametersResponse'
-    { _ddprrsParameters =
-        Nothing,
-      _ddprrsMarker = Nothing,
-      _ddprrsResponseStatus = pResponseStatus_
+    { parameters =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of @Parameter@ values.
-ddprrsParameters :: Lens' DescribeDBParametersResponse [Parameter]
-ddprrsParameters = lens _ddprrsParameters (\s a -> s {_ddprrsParameters = a}) . _Default . _Coerce
+describeDBParametersResponse_parameters :: Lens.Lens' DescribeDBParametersResponse (Prelude.Maybe [Parameter])
+describeDBParametersResponse_parameters = Lens.lens (\DescribeDBParametersResponse' {parameters} -> parameters) (\s@DescribeDBParametersResponse' {} a -> s {parameters = a} :: DescribeDBParametersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddprrsMarker :: Lens' DescribeDBParametersResponse (Maybe Text)
-ddprrsMarker = lens _ddprrsMarker (\s a -> s {_ddprrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeDBParametersResponse_marker :: Lens.Lens' DescribeDBParametersResponse (Prelude.Maybe Prelude.Text)
+describeDBParametersResponse_marker = Lens.lens (\DescribeDBParametersResponse' {marker} -> marker) (\s@DescribeDBParametersResponse' {} a -> s {marker = a} :: DescribeDBParametersResponse)
 
--- | -- | The response status code.
-ddprrsResponseStatus :: Lens' DescribeDBParametersResponse Int
-ddprrsResponseStatus = lens _ddprrsResponseStatus (\s a -> s {_ddprrsResponseStatus = a})
+-- | The response's http status code.
+describeDBParametersResponse_httpStatus :: Lens.Lens' DescribeDBParametersResponse Prelude.Int
+describeDBParametersResponse_httpStatus = Lens.lens (\DescribeDBParametersResponse' {httpStatus} -> httpStatus) (\s@DescribeDBParametersResponse' {} a -> s {httpStatus = a} :: DescribeDBParametersResponse)
 
-instance NFData DescribeDBParametersResponse
+instance Prelude.NFData DescribeDBParametersResponse

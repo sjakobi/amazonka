@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,93 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.ProcessorFeature where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the processor features of a DB instance class.
 --
+-- To specify the number of CPU cores, use the @coreCount@ feature name for
+-- the @Name@ parameter. To specify the number of threads per core, use the
+-- @threadsPerCore@ feature name for the @Name@ parameter.
 --
--- To specify the number of CPU cores, use the @coreCount@ feature name for the @Name@ parameter. To specify the number of threads per core, use the @threadsPerCore@ feature name for the @Name@ parameter.
+-- You can set the processor features of the DB instance class for a DB
+-- instance when you call one of the following actions:
 --
--- You can set the processor features of the DB instance class for a DB instance when you call one of the following actions:
+-- -   @CreateDBInstance@
 --
---     * @CreateDBInstance@
+-- -   @ModifyDBInstance@
 --
---     * @ModifyDBInstance@
+-- -   @RestoreDBInstanceFromDBSnapshot@
 --
---     * @RestoreDBInstanceFromDBSnapshot@
+-- -   @RestoreDBInstanceFromS3@
 --
---     * @RestoreDBInstanceFromS3@
+-- -   @RestoreDBInstanceToPointInTime@
 --
---     * @RestoreDBInstanceToPointInTime@
+-- You can view the valid processor values for a particular instance class
+-- by calling the @DescribeOrderableDBInstanceOptions@ action and
+-- specifying the instance class for the @DBInstanceClass@ parameter.
 --
+-- In addition, you can use the following actions for DB instance class
+-- processor information:
 --
+-- -   @DescribeDBInstances@
 --
--- You can view the valid processor values for a particular instance class by calling the @DescribeOrderableDBInstanceOptions@ action and specifying the instance class for the @DBInstanceClass@ parameter.
+-- -   @DescribeDBSnapshots@
 --
--- In addition, you can use the following actions for DB instance class processor information:
+-- -   @DescribeValidDBInstanceModifications@
 --
---     * @DescribeDBInstances@
+-- If you call @DescribeDBInstances@, @ProcessorFeature@ returns non-null
+-- values only if the following conditions are met:
 --
---     * @DescribeDBSnapshots@
+-- -   You are accessing an Oracle DB instance.
 --
---     * @DescribeValidDBInstanceModifications@
+-- -   Your Oracle DB instance class supports configuring the number of CPU
+--     cores and threads per core.
 --
+-- -   The current number CPU cores and threads is set to a non-default
+--     value.
 --
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor Configuring the Processor of the DB Instance Class>
+-- in the /Amazon RDS User Guide./
 --
--- If you call @DescribeDBInstances@ , @ProcessorFeature@ returns non-null values only if the following conditions are met:
---
---     * You are accessing an Oracle DB instance.
---
---     * Your Oracle DB instance class supports configuring the number of CPU cores and threads per core.
---
---     * The current number CPU cores and threads is set to a non-default value.
---
---
---
--- For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor Configuring the Processor of the DB Instance Class> in the /Amazon RDS User Guide. /
---
---
--- /See:/ 'processorFeature' smart constructor.
+-- /See:/ 'newProcessorFeature' smart constructor.
 data ProcessorFeature = ProcessorFeature'
-  { _pfName ::
-      !(Maybe Text),
-    _pfValue :: !(Maybe Text)
+  { -- | The name of the processor feature. Valid names are @coreCount@ and
+    -- @threadsPerCore@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of a processor feature name.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessorFeature' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessorFeature' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pfName' - The name of the processor feature. Valid names are @coreCount@ and @threadsPerCore@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pfValue' - The value of a processor feature name.
-processorFeature ::
+-- 'name', 'processorFeature_name' - The name of the processor feature. Valid names are @coreCount@ and
+-- @threadsPerCore@.
+--
+-- 'value', 'processorFeature_value' - The value of a processor feature name.
+newProcessorFeature ::
   ProcessorFeature
-processorFeature =
+newProcessorFeature =
   ProcessorFeature'
-    { _pfName = Nothing,
-      _pfValue = Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
--- | The name of the processor feature. Valid names are @coreCount@ and @threadsPerCore@ .
-pfName :: Lens' ProcessorFeature (Maybe Text)
-pfName = lens _pfName (\s a -> s {_pfName = a})
+-- | The name of the processor feature. Valid names are @coreCount@ and
+-- @threadsPerCore@.
+processorFeature_name :: Lens.Lens' ProcessorFeature (Prelude.Maybe Prelude.Text)
+processorFeature_name = Lens.lens (\ProcessorFeature' {name} -> name) (\s@ProcessorFeature' {} a -> s {name = a} :: ProcessorFeature)
 
 -- | The value of a processor feature name.
-pfValue :: Lens' ProcessorFeature (Maybe Text)
-pfValue = lens _pfValue (\s a -> s {_pfValue = a})
+processorFeature_value :: Lens.Lens' ProcessorFeature (Prelude.Maybe Prelude.Text)
+processorFeature_value = Lens.lens (\ProcessorFeature' {value} -> value) (\s@ProcessorFeature' {} a -> s {value = a} :: ProcessorFeature)
 
-instance FromXML ProcessorFeature where
+instance Prelude.FromXML ProcessorFeature where
   parseXML x =
     ProcessorFeature'
-      <$> (x .@? "Name") <*> (x .@? "Value")
+      Prelude.<$> (x Prelude..@? "Name")
+      Prelude.<*> (x Prelude..@? "Value")
 
-instance Hashable ProcessorFeature
+instance Prelude.Hashable ProcessorFeature
 
-instance NFData ProcessorFeature
+instance Prelude.NFData ProcessorFeature
 
-instance ToQuery ProcessorFeature where
+instance Prelude.ToQuery ProcessorFeature where
   toQuery ProcessorFeature' {..} =
-    mconcat ["Name" =: _pfName, "Value" =: _pfValue]
+    Prelude.mconcat
+      ["Name" Prelude.=: name, "Value" Prelude.=: value]

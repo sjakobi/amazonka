@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,106 +19,132 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.UpgradeTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The version of the database engine that a DB instance can be upgraded to.
+-- | The version of the database engine that a DB instance can be upgraded
+-- to.
 --
---
---
--- /See:/ 'upgradeTarget' smart constructor.
+-- /See:/ 'newUpgradeTarget' smart constructor.
 data UpgradeTarget = UpgradeTarget'
-  { _utAutoUpgrade ::
-      !(Maybe Bool),
-    _utSupportedEngineModes :: !(Maybe [Text]),
-    _utEngineVersion :: !(Maybe Text),
-    _utSupportsGlobalDatabases :: !(Maybe Bool),
-    _utEngine :: !(Maybe Text),
-    _utDescription :: !(Maybe Text),
-    _utIsMajorVersionUpgrade :: !(Maybe Bool),
-    _utSupportsParallelQuery :: !(Maybe Bool)
+  { -- | A value that indicates whether the target version is applied to any
+    -- source DB instances that have @AutoMinorVersionUpgrade@ set to true.
+    autoUpgrade :: Prelude.Maybe Prelude.Bool,
+    -- | A list of the supported DB engine modes for the target engine version.
+    supportedEngineModes :: Prelude.Maybe [Prelude.Text],
+    -- | The version number of the upgrade target database engine.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether you can use Aurora global databases with
+    -- the target engine version.
+    supportsGlobalDatabases :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the upgrade target database engine.
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | The version of the database engine that a DB instance can be upgraded
+    -- to.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether upgrading to the target version requires
+    -- upgrading the major version of the database engine.
+    isMajorVersionUpgrade :: Prelude.Maybe Prelude.Bool,
+    -- | A value that indicates whether you can use Aurora parallel query with
+    -- the target engine version.
+    supportsParallelQuery :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpgradeTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpgradeTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utAutoUpgrade' - A value that indicates whether the target version is applied to any source DB instances that have @AutoMinorVersionUpgrade@ set to true.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utSupportedEngineModes' - A list of the supported DB engine modes for the target engine version.
+-- 'autoUpgrade', 'upgradeTarget_autoUpgrade' - A value that indicates whether the target version is applied to any
+-- source DB instances that have @AutoMinorVersionUpgrade@ set to true.
 --
--- * 'utEngineVersion' - The version number of the upgrade target database engine.
+-- 'supportedEngineModes', 'upgradeTarget_supportedEngineModes' - A list of the supported DB engine modes for the target engine version.
 --
--- * 'utSupportsGlobalDatabases' - A value that indicates whether you can use Aurora global databases with the target engine version.
+-- 'engineVersion', 'upgradeTarget_engineVersion' - The version number of the upgrade target database engine.
 --
--- * 'utEngine' - The name of the upgrade target database engine.
+-- 'supportsGlobalDatabases', 'upgradeTarget_supportsGlobalDatabases' - A value that indicates whether you can use Aurora global databases with
+-- the target engine version.
 --
--- * 'utDescription' - The version of the database engine that a DB instance can be upgraded to.
+-- 'engine', 'upgradeTarget_engine' - The name of the upgrade target database engine.
 --
--- * 'utIsMajorVersionUpgrade' - A value that indicates whether upgrading to the target version requires upgrading the major version of the database engine.
+-- 'description', 'upgradeTarget_description' - The version of the database engine that a DB instance can be upgraded
+-- to.
 --
--- * 'utSupportsParallelQuery' - A value that indicates whether you can use Aurora parallel query with the target engine version.
-upgradeTarget ::
+-- 'isMajorVersionUpgrade', 'upgradeTarget_isMajorVersionUpgrade' - A value that indicates whether upgrading to the target version requires
+-- upgrading the major version of the database engine.
+--
+-- 'supportsParallelQuery', 'upgradeTarget_supportsParallelQuery' - A value that indicates whether you can use Aurora parallel query with
+-- the target engine version.
+newUpgradeTarget ::
   UpgradeTarget
-upgradeTarget =
+newUpgradeTarget =
   UpgradeTarget'
-    { _utAutoUpgrade = Nothing,
-      _utSupportedEngineModes = Nothing,
-      _utEngineVersion = Nothing,
-      _utSupportsGlobalDatabases = Nothing,
-      _utEngine = Nothing,
-      _utDescription = Nothing,
-      _utIsMajorVersionUpgrade = Nothing,
-      _utSupportsParallelQuery = Nothing
+    { autoUpgrade = Prelude.Nothing,
+      supportedEngineModes = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      supportsGlobalDatabases = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      description = Prelude.Nothing,
+      isMajorVersionUpgrade = Prelude.Nothing,
+      supportsParallelQuery = Prelude.Nothing
     }
 
--- | A value that indicates whether the target version is applied to any source DB instances that have @AutoMinorVersionUpgrade@ set to true.
-utAutoUpgrade :: Lens' UpgradeTarget (Maybe Bool)
-utAutoUpgrade = lens _utAutoUpgrade (\s a -> s {_utAutoUpgrade = a})
+-- | A value that indicates whether the target version is applied to any
+-- source DB instances that have @AutoMinorVersionUpgrade@ set to true.
+upgradeTarget_autoUpgrade :: Lens.Lens' UpgradeTarget (Prelude.Maybe Prelude.Bool)
+upgradeTarget_autoUpgrade = Lens.lens (\UpgradeTarget' {autoUpgrade} -> autoUpgrade) (\s@UpgradeTarget' {} a -> s {autoUpgrade = a} :: UpgradeTarget)
 
 -- | A list of the supported DB engine modes for the target engine version.
-utSupportedEngineModes :: Lens' UpgradeTarget [Text]
-utSupportedEngineModes = lens _utSupportedEngineModes (\s a -> s {_utSupportedEngineModes = a}) . _Default . _Coerce
+upgradeTarget_supportedEngineModes :: Lens.Lens' UpgradeTarget (Prelude.Maybe [Prelude.Text])
+upgradeTarget_supportedEngineModes = Lens.lens (\UpgradeTarget' {supportedEngineModes} -> supportedEngineModes) (\s@UpgradeTarget' {} a -> s {supportedEngineModes = a} :: UpgradeTarget) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The version number of the upgrade target database engine.
-utEngineVersion :: Lens' UpgradeTarget (Maybe Text)
-utEngineVersion = lens _utEngineVersion (\s a -> s {_utEngineVersion = a})
+upgradeTarget_engineVersion :: Lens.Lens' UpgradeTarget (Prelude.Maybe Prelude.Text)
+upgradeTarget_engineVersion = Lens.lens (\UpgradeTarget' {engineVersion} -> engineVersion) (\s@UpgradeTarget' {} a -> s {engineVersion = a} :: UpgradeTarget)
 
--- | A value that indicates whether you can use Aurora global databases with the target engine version.
-utSupportsGlobalDatabases :: Lens' UpgradeTarget (Maybe Bool)
-utSupportsGlobalDatabases = lens _utSupportsGlobalDatabases (\s a -> s {_utSupportsGlobalDatabases = a})
+-- | A value that indicates whether you can use Aurora global databases with
+-- the target engine version.
+upgradeTarget_supportsGlobalDatabases :: Lens.Lens' UpgradeTarget (Prelude.Maybe Prelude.Bool)
+upgradeTarget_supportsGlobalDatabases = Lens.lens (\UpgradeTarget' {supportsGlobalDatabases} -> supportsGlobalDatabases) (\s@UpgradeTarget' {} a -> s {supportsGlobalDatabases = a} :: UpgradeTarget)
 
 -- | The name of the upgrade target database engine.
-utEngine :: Lens' UpgradeTarget (Maybe Text)
-utEngine = lens _utEngine (\s a -> s {_utEngine = a})
+upgradeTarget_engine :: Lens.Lens' UpgradeTarget (Prelude.Maybe Prelude.Text)
+upgradeTarget_engine = Lens.lens (\UpgradeTarget' {engine} -> engine) (\s@UpgradeTarget' {} a -> s {engine = a} :: UpgradeTarget)
 
--- | The version of the database engine that a DB instance can be upgraded to.
-utDescription :: Lens' UpgradeTarget (Maybe Text)
-utDescription = lens _utDescription (\s a -> s {_utDescription = a})
+-- | The version of the database engine that a DB instance can be upgraded
+-- to.
+upgradeTarget_description :: Lens.Lens' UpgradeTarget (Prelude.Maybe Prelude.Text)
+upgradeTarget_description = Lens.lens (\UpgradeTarget' {description} -> description) (\s@UpgradeTarget' {} a -> s {description = a} :: UpgradeTarget)
 
--- | A value that indicates whether upgrading to the target version requires upgrading the major version of the database engine.
-utIsMajorVersionUpgrade :: Lens' UpgradeTarget (Maybe Bool)
-utIsMajorVersionUpgrade = lens _utIsMajorVersionUpgrade (\s a -> s {_utIsMajorVersionUpgrade = a})
+-- | A value that indicates whether upgrading to the target version requires
+-- upgrading the major version of the database engine.
+upgradeTarget_isMajorVersionUpgrade :: Lens.Lens' UpgradeTarget (Prelude.Maybe Prelude.Bool)
+upgradeTarget_isMajorVersionUpgrade = Lens.lens (\UpgradeTarget' {isMajorVersionUpgrade} -> isMajorVersionUpgrade) (\s@UpgradeTarget' {} a -> s {isMajorVersionUpgrade = a} :: UpgradeTarget)
 
--- | A value that indicates whether you can use Aurora parallel query with the target engine version.
-utSupportsParallelQuery :: Lens' UpgradeTarget (Maybe Bool)
-utSupportsParallelQuery = lens _utSupportsParallelQuery (\s a -> s {_utSupportsParallelQuery = a})
+-- | A value that indicates whether you can use Aurora parallel query with
+-- the target engine version.
+upgradeTarget_supportsParallelQuery :: Lens.Lens' UpgradeTarget (Prelude.Maybe Prelude.Bool)
+upgradeTarget_supportsParallelQuery = Lens.lens (\UpgradeTarget' {supportsParallelQuery} -> supportsParallelQuery) (\s@UpgradeTarget' {} a -> s {supportsParallelQuery = a} :: UpgradeTarget)
 
-instance FromXML UpgradeTarget where
+instance Prelude.FromXML UpgradeTarget where
   parseXML x =
     UpgradeTarget'
-      <$> (x .@? "AutoUpgrade")
-      <*> ( x .@? "SupportedEngineModes" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "SupportsGlobalDatabases")
-      <*> (x .@? "Engine")
-      <*> (x .@? "Description")
-      <*> (x .@? "IsMajorVersionUpgrade")
-      <*> (x .@? "SupportsParallelQuery")
+      Prelude.<$> (x Prelude..@? "AutoUpgrade")
+      Prelude.<*> ( x Prelude..@? "SupportedEngineModes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "SupportsGlobalDatabases")
+      Prelude.<*> (x Prelude..@? "Engine")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "IsMajorVersionUpgrade")
+      Prelude.<*> (x Prelude..@? "SupportsParallelQuery")
 
-instance Hashable UpgradeTarget
+instance Prelude.Hashable UpgradeTarget
 
-instance NFData UpgradeTarget
+instance Prelude.NFData UpgradeTarget

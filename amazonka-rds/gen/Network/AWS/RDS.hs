@@ -11,36 +11,60 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Relational Database Service__
+-- Amazon Relational Database Service
 --
+-- Amazon Relational Database Service (Amazon RDS) is a web service that
+-- makes it easier to set up, operate, and scale a relational database in
+-- the cloud. It provides cost-efficient, resizeable capacity for an
+-- industry-standard relational database and manages common database
+-- administration tasks, freeing up developers to focus on what makes their
+-- applications and businesses unique.
 --
+-- Amazon RDS gives you access to the capabilities of a MySQL, MariaDB,
+-- PostgreSQL, Microsoft SQL Server, Oracle, or Amazon Aurora database
+-- server. These capabilities mean that the code, applications, and tools
+-- you already use today with your existing databases work with Amazon RDS
+-- without modification. Amazon RDS automatically backs up your database
+-- and maintains the database software that powers your DB instance. Amazon
+-- RDS is flexible: you can scale your DB instance\'s compute resources and
+-- storage capacity to meet your application\'s demand. As with all Amazon
+-- Web Services, there are no up-front investments, and you pay only for
+-- the resources you use.
 --
--- Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud. It provides cost-efficient, resizeable capacity for an industry-standard relational database and manages common database administration tasks, freeing up developers to focus on what makes their applications and businesses unique.
---
--- Amazon RDS gives you access to the capabilities of a MySQL, MariaDB, PostgreSQL, Microsoft SQL Server, Oracle, or Amazon Aurora database server. These capabilities mean that the code, applications, and tools you already use today with your existing databases work with Amazon RDS without modification. Amazon RDS automatically backs up your database and maintains the database software that powers your DB instance. Amazon RDS is flexible: you can scale your DB instance's compute resources and storage capacity to meet your application's demand. As with all Amazon Web Services, there are no up-front investments, and you pay only for the resources you use.
---
--- This interface reference for Amazon RDS contains documentation for a programming or command line interface you can use to manage Amazon RDS. Amazon RDS is asynchronous, which means that some interfaces might require techniques such as polling or callback functions to determine when a command has been applied. In this reference, the parameter descriptions indicate whether a command is applied immediately, on the next instance reboot, or during the maintenance window. The reference structure is as follows, and we list following some related topics from the user guide.
+-- This interface reference for Amazon RDS contains documentation for a
+-- programming or command line interface you can use to manage Amazon RDS.
+-- Amazon RDS is asynchronous, which means that some interfaces might
+-- require techniques such as polling or callback functions to determine
+-- when a command has been applied. In this reference, the parameter
+-- descriptions indicate whether a command is applied immediately, on the
+-- next instance reboot, or during the maintenance window. The reference
+-- structure is as follows, and we list following some related topics from
+-- the user guide.
 --
 -- __Amazon RDS API Reference__
 --
---     * For the alphabetical list of API actions, see <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Operations.html API Actions> .
+-- -   For the alphabetical list of API actions, see
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Operations.html API Actions>.
 --
---     * For the alphabetical list of data types, see <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Types.html Data Types> .
+-- -   For the alphabetical list of data types, see
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Types.html Data Types>.
 --
---     * For a list of common query parameters, see <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonParameters.html Common Parameters> .
+-- -   For a list of common query parameters, see
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonParameters.html Common Parameters>.
 --
---     * For descriptions of the error codes, see <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonErrors.html Common Errors> .
---
---
+-- -   For descriptions of the error codes, see
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonErrors.html Common Errors>.
 --
 -- __Amazon RDS User Guide__
 --
---     * For a summary of the Amazon RDS interfaces, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces Available RDS Interfaces> .
+-- -   For a summary of the Amazon RDS interfaces, see
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces Available RDS Interfaces>.
 --
---     * For more information about how to use the Query API, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Using_the_Query_API.html Using the Query API> .
+-- -   For more information about how to use the Query API, see
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Using_the_Query_API.html Using the Query API>.
 module Network.AWS.RDS
   ( -- * Service Configuration
-    rds,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -60,8 +84,8 @@ module Network.AWS.RDS
     -- ** InvalidVPCNetworkStateFault
     _InvalidVPCNetworkStateFault,
 
-    -- ** ProvisionedIOPSNotAvailableInAZFault
-    _ProvisionedIOPSNotAvailableInAZFault,
+    -- ** ProvisionedIopsNotAvailableInAZFault
+    _ProvisionedIopsNotAvailableInAZFault,
 
     -- ** DBClusterRoleQuotaExceededFault
     _DBClusterRoleQuotaExceededFault,
@@ -123,8 +147,8 @@ module Network.AWS.RDS
     -- ** ResourceNotFoundFault
     _ResourceNotFoundFault,
 
-    -- ** SNSTopicARNNotFoundFault
-    _SNSTopicARNNotFoundFault,
+    -- ** SNSTopicArnNotFoundFault
+    _SNSTopicArnNotFoundFault,
 
     -- ** InvalidRestoreFault
     _InvalidRestoreFault,
@@ -165,8 +189,8 @@ module Network.AWS.RDS
     -- ** StorageTypeNotSupportedFault
     _StorageTypeNotSupportedFault,
 
-    -- ** IAMRoleNotFoundFault
-    _IAMRoleNotFoundFault,
+    -- ** IamRoleNotFoundFault
+    _IamRoleNotFoundFault,
 
     -- ** EventSubscriptionQuotaExceededFault
     _EventSubscriptionQuotaExceededFault,
@@ -210,8 +234,8 @@ module Network.AWS.RDS
     -- ** BackupPolicyNotFoundFault
     _BackupPolicyNotFoundFault,
 
-    -- ** IAMRoleMissingPermissionsFault
-    _IAMRoleMissingPermissionsFault,
+    -- ** IamRoleMissingPermissionsFault
+    _IamRoleMissingPermissionsFault,
 
     -- ** DBProxyTargetAlreadyRegisteredFault
     _DBProxyTargetAlreadyRegisteredFault,
@@ -388,427 +412,826 @@ module Network.AWS.RDS
     -- $waiters
 
     -- ** DBSnapshotDeleted
-    dbSnapshotDeleted,
+    newDBSnapshotDeleted,
 
     -- ** DBSnapshotCompleted
-    dbSnapshotCompleted,
+    newDBSnapshotCompleted,
 
     -- ** DBInstanceAvailable
-    dbInstanceAvailable,
+    newDBInstanceAvailable,
 
     -- ** DBSnapshotAvailable
-    dbSnapshotAvailable,
+    newDBSnapshotAvailable,
 
     -- ** DBClusterSnapshotDeleted
-    dbClusterSnapshotDeleted,
+    newDBClusterSnapshotDeleted,
 
     -- ** DBInstanceDeleted
-    dbInstanceDeleted,
+    newDBInstanceDeleted,
 
     -- ** DBClusterSnapshotAvailable
-    dbClusterSnapshotAvailable,
+    newDBClusterSnapshotAvailable,
 
     -- * Operations
     -- $operations
 
     -- ** ResetDBClusterParameterGroup
-    module Network.AWS.RDS.ResetDBClusterParameterGroup,
+    ResetDBClusterParameterGroup (ResetDBClusterParameterGroup'),
+    newResetDBClusterParameterGroup,
+    DBClusterParameterGroupNameMessage (DBClusterParameterGroupNameMessage'),
+    newDBClusterParameterGroupNameMessage,
 
     -- ** StopDBInstance
-    module Network.AWS.RDS.StopDBInstance,
+    StopDBInstance (StopDBInstance'),
+    newStopDBInstance,
+    StopDBInstanceResponse (StopDBInstanceResponse'),
+    newStopDBInstanceResponse,
 
     -- ** ModifyDBInstance
-    module Network.AWS.RDS.ModifyDBInstance,
+    ModifyDBInstance (ModifyDBInstance'),
+    newModifyDBInstance,
+    ModifyDBInstanceResponse (ModifyDBInstanceResponse'),
+    newModifyDBInstanceResponse,
 
     -- ** DescribeEventCategories
-    module Network.AWS.RDS.DescribeEventCategories,
+    DescribeEventCategories (DescribeEventCategories'),
+    newDescribeEventCategories,
+    DescribeEventCategoriesResponse (DescribeEventCategoriesResponse'),
+    newDescribeEventCategoriesResponse,
 
     -- ** StartDBInstance
-    module Network.AWS.RDS.StartDBInstance,
+    StartDBInstance (StartDBInstance'),
+    newStartDBInstance,
+    StartDBInstanceResponse (StartDBInstanceResponse'),
+    newStartDBInstanceResponse,
 
     -- ** CopyDBClusterParameterGroup
-    module Network.AWS.RDS.CopyDBClusterParameterGroup,
+    CopyDBClusterParameterGroup (CopyDBClusterParameterGroup'),
+    newCopyDBClusterParameterGroup,
+    CopyDBClusterParameterGroupResponse (CopyDBClusterParameterGroupResponse'),
+    newCopyDBClusterParameterGroupResponse,
 
     -- ** DescribeExportTasks (Paginated)
-    module Network.AWS.RDS.DescribeExportTasks,
+    DescribeExportTasks (DescribeExportTasks'),
+    newDescribeExportTasks,
+    DescribeExportTasksResponse (DescribeExportTasksResponse'),
+    newDescribeExportTasksResponse,
 
     -- ** CopyDBSnapshot
-    module Network.AWS.RDS.CopyDBSnapshot,
+    CopyDBSnapshot (CopyDBSnapshot'),
+    newCopyDBSnapshot,
+    CopyDBSnapshotResponse (CopyDBSnapshotResponse'),
+    newCopyDBSnapshotResponse,
 
     -- ** PromoteReadReplica
-    module Network.AWS.RDS.PromoteReadReplica,
+    PromoteReadReplica (PromoteReadReplica'),
+    newPromoteReadReplica,
+    PromoteReadReplicaResponse (PromoteReadReplicaResponse'),
+    newPromoteReadReplicaResponse,
 
     -- ** DescribeDBSnapshots (Paginated)
-    module Network.AWS.RDS.DescribeDBSnapshots,
+    DescribeDBSnapshots (DescribeDBSnapshots'),
+    newDescribeDBSnapshots,
+    DescribeDBSnapshotsResponse (DescribeDBSnapshotsResponse'),
+    newDescribeDBSnapshotsResponse,
 
     -- ** ModifyDBCluster
-    module Network.AWS.RDS.ModifyDBCluster,
+    ModifyDBCluster (ModifyDBCluster'),
+    newModifyDBCluster,
+    ModifyDBClusterResponse (ModifyDBClusterResponse'),
+    newModifyDBClusterResponse,
 
     -- ** ModifyOptionGroup
-    module Network.AWS.RDS.ModifyOptionGroup,
+    ModifyOptionGroup (ModifyOptionGroup'),
+    newModifyOptionGroup,
+    ModifyOptionGroupResponse (ModifyOptionGroupResponse'),
+    newModifyOptionGroupResponse,
 
     -- ** StopDBCluster
-    module Network.AWS.RDS.StopDBCluster,
+    StopDBCluster (StopDBCluster'),
+    newStopDBCluster,
+    StopDBClusterResponse (StopDBClusterResponse'),
+    newStopDBClusterResponse,
 
     -- ** CreateDBClusterSnapshot
-    module Network.AWS.RDS.CreateDBClusterSnapshot,
+    CreateDBClusterSnapshot (CreateDBClusterSnapshot'),
+    newCreateDBClusterSnapshot,
+    CreateDBClusterSnapshotResponse (CreateDBClusterSnapshotResponse'),
+    newCreateDBClusterSnapshotResponse,
 
     -- ** DescribeDBClusterParameterGroups (Paginated)
-    module Network.AWS.RDS.DescribeDBClusterParameterGroups,
+    DescribeDBClusterParameterGroups (DescribeDBClusterParameterGroups'),
+    newDescribeDBClusterParameterGroups,
+    DescribeDBClusterParameterGroupsResponse (DescribeDBClusterParameterGroupsResponse'),
+    newDescribeDBClusterParameterGroupsResponse,
 
     -- ** DescribeDBEngineVersions (Paginated)
-    module Network.AWS.RDS.DescribeDBEngineVersions,
+    DescribeDBEngineVersions (DescribeDBEngineVersions'),
+    newDescribeDBEngineVersions,
+    DescribeDBEngineVersionsResponse (DescribeDBEngineVersionsResponse'),
+    newDescribeDBEngineVersionsResponse,
 
     -- ** StartDBCluster
-    module Network.AWS.RDS.StartDBCluster,
+    StartDBCluster (StartDBCluster'),
+    newStartDBCluster,
+    StartDBClusterResponse (StartDBClusterResponse'),
+    newStartDBClusterResponse,
 
     -- ** DescribeOptionGroupOptions (Paginated)
-    module Network.AWS.RDS.DescribeOptionGroupOptions,
+    DescribeOptionGroupOptions (DescribeOptionGroupOptions'),
+    newDescribeOptionGroupOptions,
+    DescribeOptionGroupOptionsResponse (DescribeOptionGroupOptionsResponse'),
+    newDescribeOptionGroupOptionsResponse,
 
     -- ** DeleteInstallationMedia
-    module Network.AWS.RDS.DeleteInstallationMedia,
+    DeleteInstallationMedia (DeleteInstallationMedia'),
+    newDeleteInstallationMedia,
+    InstallationMedia (InstallationMedia'),
+    newInstallationMedia,
 
     -- ** CopyOptionGroup
-    module Network.AWS.RDS.CopyOptionGroup,
+    CopyOptionGroup (CopyOptionGroup'),
+    newCopyOptionGroup,
+    CopyOptionGroupResponse (CopyOptionGroupResponse'),
+    newCopyOptionGroupResponse,
 
     -- ** DescribeDBInstanceAutomatedBackups (Paginated)
-    module Network.AWS.RDS.DescribeDBInstanceAutomatedBackups,
+    DescribeDBInstanceAutomatedBackups (DescribeDBInstanceAutomatedBackups'),
+    newDescribeDBInstanceAutomatedBackups,
+    DescribeDBInstanceAutomatedBackupsResponse (DescribeDBInstanceAutomatedBackupsResponse'),
+    newDescribeDBInstanceAutomatedBackupsResponse,
 
     -- ** ModifyGlobalCluster
-    module Network.AWS.RDS.ModifyGlobalCluster,
+    ModifyGlobalCluster (ModifyGlobalCluster'),
+    newModifyGlobalCluster,
+    ModifyGlobalClusterResponse (ModifyGlobalClusterResponse'),
+    newModifyGlobalClusterResponse,
 
     -- ** DescribeDBProxies (Paginated)
-    module Network.AWS.RDS.DescribeDBProxies,
+    DescribeDBProxies (DescribeDBProxies'),
+    newDescribeDBProxies,
+    DescribeDBProxiesResponse (DescribeDBProxiesResponse'),
+    newDescribeDBProxiesResponse,
 
     -- ** RestoreDBClusterToPointInTime
-    module Network.AWS.RDS.RestoreDBClusterToPointInTime,
+    RestoreDBClusterToPointInTime (RestoreDBClusterToPointInTime'),
+    newRestoreDBClusterToPointInTime,
+    RestoreDBClusterToPointInTimeResponse (RestoreDBClusterToPointInTimeResponse'),
+    newRestoreDBClusterToPointInTimeResponse,
 
     -- ** StopActivityStream
-    module Network.AWS.RDS.StopActivityStream,
+    StopActivityStream (StopActivityStream'),
+    newStopActivityStream,
+    StopActivityStreamResponse (StopActivityStreamResponse'),
+    newStopActivityStreamResponse,
 
     -- ** CreateDBInstanceReadReplica
-    module Network.AWS.RDS.CreateDBInstanceReadReplica,
+    CreateDBInstanceReadReplica (CreateDBInstanceReadReplica'),
+    newCreateDBInstanceReadReplica,
+    CreateDBInstanceReadReplicaResponse (CreateDBInstanceReadReplicaResponse'),
+    newCreateDBInstanceReadReplicaResponse,
 
     -- ** DescribeValidDBInstanceModifications
-    module Network.AWS.RDS.DescribeValidDBInstanceModifications,
+    DescribeValidDBInstanceModifications (DescribeValidDBInstanceModifications'),
+    newDescribeValidDBInstanceModifications,
+    DescribeValidDBInstanceModificationsResponse (DescribeValidDBInstanceModificationsResponse'),
+    newDescribeValidDBInstanceModificationsResponse,
 
     -- ** StartExportTask
-    module Network.AWS.RDS.StartExportTask,
+    StartExportTask (StartExportTask'),
+    newStartExportTask,
+    ExportTask (ExportTask'),
+    newExportTask,
 
     -- ** DescribeDBParameters (Paginated)
-    module Network.AWS.RDS.DescribeDBParameters,
+    DescribeDBParameters (DescribeDBParameters'),
+    newDescribeDBParameters,
+    DescribeDBParametersResponse (DescribeDBParametersResponse'),
+    newDescribeDBParametersResponse,
 
     -- ** DescribeDBInstances (Paginated)
-    module Network.AWS.RDS.DescribeDBInstances,
+    DescribeDBInstances (DescribeDBInstances'),
+    newDescribeDBInstances,
+    DescribeDBInstancesResponse (DescribeDBInstancesResponse'),
+    newDescribeDBInstancesResponse,
 
     -- ** DescribeEventSubscriptions (Paginated)
-    module Network.AWS.RDS.DescribeEventSubscriptions,
+    DescribeEventSubscriptions (DescribeEventSubscriptions'),
+    newDescribeEventSubscriptions,
+    DescribeEventSubscriptionsResponse (DescribeEventSubscriptionsResponse'),
+    newDescribeEventSubscriptionsResponse,
 
-    -- ** RestoreDBInstanceFromS3
-    module Network.AWS.RDS.RestoreDBInstanceFromS3,
+    -- ** RestoreDBInstanceFromS
+    RestoreDBInstanceFromS (RestoreDBInstanceFromS'),
+    newRestoreDBInstanceFromS,
+    RestoreDBInstanceFromSResponse (RestoreDBInstanceFromSResponse'),
+    newRestoreDBInstanceFromSResponse,
 
     -- ** StartActivityStream
-    module Network.AWS.RDS.StartActivityStream,
+    StartActivityStream (StartActivityStream'),
+    newStartActivityStream,
+    StartActivityStreamResponse (StartActivityStreamResponse'),
+    newStartActivityStreamResponse,
 
     -- ** DescribeDBClusterEndpoints (Paginated)
-    module Network.AWS.RDS.DescribeDBClusterEndpoints,
+    DescribeDBClusterEndpoints (DescribeDBClusterEndpoints'),
+    newDescribeDBClusterEndpoints,
+    DescribeDBClusterEndpointsResponse (DescribeDBClusterEndpointsResponse'),
+    newDescribeDBClusterEndpointsResponse,
 
     -- ** ModifyCertificates
-    module Network.AWS.RDS.ModifyCertificates,
+    ModifyCertificates (ModifyCertificates'),
+    newModifyCertificates,
+    ModifyCertificatesResponse (ModifyCertificatesResponse'),
+    newModifyCertificatesResponse,
 
     -- ** DescribeDBClusterSnapshots (Paginated)
-    module Network.AWS.RDS.DescribeDBClusterSnapshots,
+    DescribeDBClusterSnapshots (DescribeDBClusterSnapshots'),
+    newDescribeDBClusterSnapshots,
+    DescribeDBClusterSnapshotsResponse (DescribeDBClusterSnapshotsResponse'),
+    newDescribeDBClusterSnapshotsResponse,
 
     -- ** DeleteDBClusterEndpoint
-    module Network.AWS.RDS.DeleteDBClusterEndpoint,
+    DeleteDBClusterEndpoint (DeleteDBClusterEndpoint'),
+    newDeleteDBClusterEndpoint,
+    DBClusterEndpoint (DBClusterEndpoint'),
+    newDBClusterEndpoint,
 
     -- ** ModifyDBSnapshotAttribute
-    module Network.AWS.RDS.ModifyDBSnapshotAttribute,
+    ModifyDBSnapshotAttribute (ModifyDBSnapshotAttribute'),
+    newModifyDBSnapshotAttribute,
+    ModifyDBSnapshotAttributeResponse (ModifyDBSnapshotAttributeResponse'),
+    newModifyDBSnapshotAttributeResponse,
 
     -- ** DescribeReservedDBInstancesOfferings (Paginated)
-    module Network.AWS.RDS.DescribeReservedDBInstancesOfferings,
+    DescribeReservedDBInstancesOfferings (DescribeReservedDBInstancesOfferings'),
+    newDescribeReservedDBInstancesOfferings,
+    DescribeReservedDBInstancesOfferingsResponse (DescribeReservedDBInstancesOfferingsResponse'),
+    newDescribeReservedDBInstancesOfferingsResponse,
 
     -- ** DeleteDBInstance
-    module Network.AWS.RDS.DeleteDBInstance,
+    DeleteDBInstance (DeleteDBInstance'),
+    newDeleteDBInstance,
+    DeleteDBInstanceResponse (DeleteDBInstanceResponse'),
+    newDeleteDBInstanceResponse,
 
     -- ** RebootDBInstance
-    module Network.AWS.RDS.RebootDBInstance,
+    RebootDBInstance (RebootDBInstance'),
+    newRebootDBInstance,
+    RebootDBInstanceResponse (RebootDBInstanceResponse'),
+    newRebootDBInstanceResponse,
 
     -- ** DeleteEventSubscription
-    module Network.AWS.RDS.DeleteEventSubscription,
+    DeleteEventSubscription (DeleteEventSubscription'),
+    newDeleteEventSubscription,
+    DeleteEventSubscriptionResponse (DeleteEventSubscriptionResponse'),
+    newDeleteEventSubscriptionResponse,
 
     -- ** DescribeDBParameterGroups (Paginated)
-    module Network.AWS.RDS.DescribeDBParameterGroups,
+    DescribeDBParameterGroups (DescribeDBParameterGroups'),
+    newDescribeDBParameterGroups,
+    DescribeDBParameterGroupsResponse (DescribeDBParameterGroupsResponse'),
+    newDescribeDBParameterGroupsResponse,
 
     -- ** DeleteDBInstanceAutomatedBackup
-    module Network.AWS.RDS.DeleteDBInstanceAutomatedBackup,
+    DeleteDBInstanceAutomatedBackup (DeleteDBInstanceAutomatedBackup'),
+    newDeleteDBInstanceAutomatedBackup,
+    DeleteDBInstanceAutomatedBackupResponse (DeleteDBInstanceAutomatedBackupResponse'),
+    newDeleteDBInstanceAutomatedBackupResponse,
 
     -- ** DescribeDBClusterBacktracks (Paginated)
-    module Network.AWS.RDS.DescribeDBClusterBacktracks,
+    DescribeDBClusterBacktracks (DescribeDBClusterBacktracks'),
+    newDescribeDBClusterBacktracks,
+    DescribeDBClusterBacktracksResponse (DescribeDBClusterBacktracksResponse'),
+    newDescribeDBClusterBacktracksResponse,
 
     -- ** CreateDBClusterParameterGroup
-    module Network.AWS.RDS.CreateDBClusterParameterGroup,
+    CreateDBClusterParameterGroup (CreateDBClusterParameterGroup'),
+    newCreateDBClusterParameterGroup,
+    CreateDBClusterParameterGroupResponse (CreateDBClusterParameterGroupResponse'),
+    newCreateDBClusterParameterGroupResponse,
 
     -- ** CreateDBProxy
-    module Network.AWS.RDS.CreateDBProxy,
+    CreateDBProxy (CreateDBProxy'),
+    newCreateDBProxy,
+    CreateDBProxyResponse (CreateDBProxyResponse'),
+    newCreateDBProxyResponse,
 
     -- ** DescribeDBClusterParameters (Paginated)
-    module Network.AWS.RDS.DescribeDBClusterParameters,
+    DescribeDBClusterParameters (DescribeDBClusterParameters'),
+    newDescribeDBClusterParameters,
+    DescribeDBClusterParametersResponse (DescribeDBClusterParametersResponse'),
+    newDescribeDBClusterParametersResponse,
 
     -- ** DeleteDBSubnetGroup
-    module Network.AWS.RDS.DeleteDBSubnetGroup,
+    DeleteDBSubnetGroup (DeleteDBSubnetGroup'),
+    newDeleteDBSubnetGroup,
+    DeleteDBSubnetGroupResponse (DeleteDBSubnetGroupResponse'),
+    newDeleteDBSubnetGroupResponse,
 
     -- ** DescribeAccountAttributes
-    module Network.AWS.RDS.DescribeAccountAttributes,
+    DescribeAccountAttributes (DescribeAccountAttributes'),
+    newDescribeAccountAttributes,
+    DescribeAccountAttributesResponse (DescribeAccountAttributesResponse'),
+    newDescribeAccountAttributesResponse,
 
     -- ** RemoveTagsFromResource
-    module Network.AWS.RDS.RemoveTagsFromResource,
+    RemoveTagsFromResource (RemoveTagsFromResource'),
+    newRemoveTagsFromResource,
+    RemoveTagsFromResourceResponse (RemoveTagsFromResourceResponse'),
+    newRemoveTagsFromResourceResponse,
 
     -- ** CreateDBSecurityGroup
-    module Network.AWS.RDS.CreateDBSecurityGroup,
+    CreateDBSecurityGroup (CreateDBSecurityGroup'),
+    newCreateDBSecurityGroup,
+    CreateDBSecurityGroupResponse (CreateDBSecurityGroupResponse'),
+    newCreateDBSecurityGroupResponse,
 
     -- ** DescribeCertificates (Paginated)
-    module Network.AWS.RDS.DescribeCertificates,
+    DescribeCertificates (DescribeCertificates'),
+    newDescribeCertificates,
+    DescribeCertificatesResponse (DescribeCertificatesResponse'),
+    newDescribeCertificatesResponse,
 
     -- ** CreateDBInstance
-    module Network.AWS.RDS.CreateDBInstance,
+    CreateDBInstance (CreateDBInstance'),
+    newCreateDBInstance,
+    CreateDBInstanceResponse (CreateDBInstanceResponse'),
+    newCreateDBInstanceResponse,
 
     -- ** RemoveRoleFromDBInstance
-    module Network.AWS.RDS.RemoveRoleFromDBInstance,
+    RemoveRoleFromDBInstance (RemoveRoleFromDBInstance'),
+    newRemoveRoleFromDBInstance,
+    RemoveRoleFromDBInstanceResponse (RemoveRoleFromDBInstanceResponse'),
+    newRemoveRoleFromDBInstanceResponse,
 
     -- ** DescribeEngineDefaultClusterParameters (Paginated)
-    module Network.AWS.RDS.DescribeEngineDefaultClusterParameters,
+    DescribeEngineDefaultClusterParameters (DescribeEngineDefaultClusterParameters'),
+    newDescribeEngineDefaultClusterParameters,
+    DescribeEngineDefaultClusterParametersResponse (DescribeEngineDefaultClusterParametersResponse'),
+    newDescribeEngineDefaultClusterParametersResponse,
 
     -- ** StartDBInstanceAutomatedBackupsReplication
-    module Network.AWS.RDS.StartDBInstanceAutomatedBackupsReplication,
+    StartDBInstanceAutomatedBackupsReplication (StartDBInstanceAutomatedBackupsReplication'),
+    newStartDBInstanceAutomatedBackupsReplication,
+    StartDBInstanceAutomatedBackupsReplicationResponse (StartDBInstanceAutomatedBackupsReplicationResponse'),
+    newStartDBInstanceAutomatedBackupsReplicationResponse,
 
     -- ** CreateOptionGroup
-    module Network.AWS.RDS.CreateOptionGroup,
+    CreateOptionGroup (CreateOptionGroup'),
+    newCreateOptionGroup,
+    CreateOptionGroupResponse (CreateOptionGroupResponse'),
+    newCreateOptionGroupResponse,
 
     -- ** CreateCustomAvailabilityZone
-    module Network.AWS.RDS.CreateCustomAvailabilityZone,
+    CreateCustomAvailabilityZone (CreateCustomAvailabilityZone'),
+    newCreateCustomAvailabilityZone,
+    CreateCustomAvailabilityZoneResponse (CreateCustomAvailabilityZoneResponse'),
+    newCreateCustomAvailabilityZoneResponse,
 
     -- ** StopDBInstanceAutomatedBackupsReplication
-    module Network.AWS.RDS.StopDBInstanceAutomatedBackupsReplication,
+    StopDBInstanceAutomatedBackupsReplication (StopDBInstanceAutomatedBackupsReplication'),
+    newStopDBInstanceAutomatedBackupsReplication,
+    StopDBInstanceAutomatedBackupsReplicationResponse (StopDBInstanceAutomatedBackupsReplicationResponse'),
+    newStopDBInstanceAutomatedBackupsReplicationResponse,
 
     -- ** FailoverDBCluster
-    module Network.AWS.RDS.FailoverDBCluster,
+    FailoverDBCluster (FailoverDBCluster'),
+    newFailoverDBCluster,
+    FailoverDBClusterResponse (FailoverDBClusterResponse'),
+    newFailoverDBClusterResponse,
 
     -- ** RemoveRoleFromDBCluster
-    module Network.AWS.RDS.RemoveRoleFromDBCluster,
+    RemoveRoleFromDBCluster (RemoveRoleFromDBCluster'),
+    newRemoveRoleFromDBCluster,
+    RemoveRoleFromDBClusterResponse (RemoveRoleFromDBClusterResponse'),
+    newRemoveRoleFromDBClusterResponse,
 
     -- ** DescribeDBSnapshotAttributes
-    module Network.AWS.RDS.DescribeDBSnapshotAttributes,
+    DescribeDBSnapshotAttributes (DescribeDBSnapshotAttributes'),
+    newDescribeDBSnapshotAttributes,
+    DescribeDBSnapshotAttributesResponse (DescribeDBSnapshotAttributesResponse'),
+    newDescribeDBSnapshotAttributesResponse,
 
     -- ** CreateDBCluster
-    module Network.AWS.RDS.CreateDBCluster,
+    CreateDBCluster (CreateDBCluster'),
+    newCreateDBCluster,
+    CreateDBClusterResponse (CreateDBClusterResponse'),
+    newCreateDBClusterResponse,
 
     -- ** ApplyPendingMaintenanceAction
-    module Network.AWS.RDS.ApplyPendingMaintenanceAction,
+    ApplyPendingMaintenanceAction (ApplyPendingMaintenanceAction'),
+    newApplyPendingMaintenanceAction,
+    ApplyPendingMaintenanceActionResponse (ApplyPendingMaintenanceActionResponse'),
+    newApplyPendingMaintenanceActionResponse,
 
     -- ** BacktrackDBCluster
-    module Network.AWS.RDS.BacktrackDBCluster,
+    BacktrackDBCluster (BacktrackDBCluster'),
+    newBacktrackDBCluster,
+    DBClusterBacktrack (DBClusterBacktrack'),
+    newDBClusterBacktrack,
 
     -- ** DescribeReservedDBInstances (Paginated)
-    module Network.AWS.RDS.DescribeReservedDBInstances,
+    DescribeReservedDBInstances (DescribeReservedDBInstances'),
+    newDescribeReservedDBInstances,
+    DescribeReservedDBInstancesResponse (DescribeReservedDBInstancesResponse'),
+    newDescribeReservedDBInstancesResponse,
 
     -- ** DeleteDBCluster
-    module Network.AWS.RDS.DeleteDBCluster,
+    DeleteDBCluster (DeleteDBCluster'),
+    newDeleteDBCluster,
+    DeleteDBClusterResponse (DeleteDBClusterResponse'),
+    newDeleteDBClusterResponse,
 
     -- ** DeleteOptionGroup
-    module Network.AWS.RDS.DeleteOptionGroup,
+    DeleteOptionGroup (DeleteOptionGroup'),
+    newDeleteOptionGroup,
+    DeleteOptionGroupResponse (DeleteOptionGroupResponse'),
+    newDeleteOptionGroupResponse,
 
     -- ** DescribePendingMaintenanceActions (Paginated)
-    module Network.AWS.RDS.DescribePendingMaintenanceActions,
+    DescribePendingMaintenanceActions (DescribePendingMaintenanceActions'),
+    newDescribePendingMaintenanceActions,
+    DescribePendingMaintenanceActionsResponse (DescribePendingMaintenanceActionsResponse'),
+    newDescribePendingMaintenanceActionsResponse,
 
     -- ** DescribeDBProxyTargetGroups (Paginated)
-    module Network.AWS.RDS.DescribeDBProxyTargetGroups,
+    DescribeDBProxyTargetGroups (DescribeDBProxyTargetGroups'),
+    newDescribeDBProxyTargetGroups,
+    DescribeDBProxyTargetGroupsResponse (DescribeDBProxyTargetGroupsResponse'),
+    newDescribeDBProxyTargetGroupsResponse,
 
     -- ** ModifyDBClusterParameterGroup
-    module Network.AWS.RDS.ModifyDBClusterParameterGroup,
+    ModifyDBClusterParameterGroup (ModifyDBClusterParameterGroup'),
+    newModifyDBClusterParameterGroup,
+    DBClusterParameterGroupNameMessage (DBClusterParameterGroupNameMessage'),
+    newDBClusterParameterGroupNameMessage,
 
     -- ** DescribeDBClusterSnapshotAttributes
-    module Network.AWS.RDS.DescribeDBClusterSnapshotAttributes,
+    DescribeDBClusterSnapshotAttributes (DescribeDBClusterSnapshotAttributes'),
+    newDescribeDBClusterSnapshotAttributes,
+    DescribeDBClusterSnapshotAttributesResponse (DescribeDBClusterSnapshotAttributesResponse'),
+    newDescribeDBClusterSnapshotAttributesResponse,
 
     -- ** DescribeOptionGroups (Paginated)
-    module Network.AWS.RDS.DescribeOptionGroups,
+    DescribeOptionGroups (DescribeOptionGroups'),
+    newDescribeOptionGroups,
+    DescribeOptionGroupsResponse (DescribeOptionGroupsResponse'),
+    newDescribeOptionGroupsResponse,
 
     -- ** DescribeDBClusters (Paginated)
-    module Network.AWS.RDS.DescribeDBClusters,
+    DescribeDBClusters (DescribeDBClusters'),
+    newDescribeDBClusters,
+    DescribeDBClustersResponse (DescribeDBClustersResponse'),
+    newDescribeDBClustersResponse,
 
     -- ** DescribeEvents (Paginated)
-    module Network.AWS.RDS.DescribeEvents,
+    DescribeEvents (DescribeEvents'),
+    newDescribeEvents,
+    DescribeEventsResponse (DescribeEventsResponse'),
+    newDescribeEventsResponse,
 
     -- ** ModifyDBProxy
-    module Network.AWS.RDS.ModifyDBProxy,
+    ModifyDBProxy (ModifyDBProxy'),
+    newModifyDBProxy,
+    ModifyDBProxyResponse (ModifyDBProxyResponse'),
+    newModifyDBProxyResponse,
 
     -- ** DescribeDBLogFiles (Paginated)
-    module Network.AWS.RDS.DescribeDBLogFiles,
+    DescribeDBLogFiles (DescribeDBLogFiles'),
+    newDescribeDBLogFiles,
+    DescribeDBLogFilesResponse (DescribeDBLogFilesResponse'),
+    newDescribeDBLogFilesResponse,
 
-    -- ** RestoreDBClusterFromS3
-    module Network.AWS.RDS.RestoreDBClusterFromS3,
+    -- ** RestoreDBClusterFromS
+    RestoreDBClusterFromS (RestoreDBClusterFromS'),
+    newRestoreDBClusterFromS,
+    RestoreDBClusterFromSResponse (RestoreDBClusterFromSResponse'),
+    newRestoreDBClusterFromSResponse,
 
     -- ** CancelExportTask
-    module Network.AWS.RDS.CancelExportTask,
+    CancelExportTask (CancelExportTask'),
+    newCancelExportTask,
+    ExportTask (ExportTask'),
+    newExportTask,
 
     -- ** DescribeGlobalClusters (Paginated)
-    module Network.AWS.RDS.DescribeGlobalClusters,
+    DescribeGlobalClusters (DescribeGlobalClusters'),
+    newDescribeGlobalClusters,
+    DescribeGlobalClustersResponse (DescribeGlobalClustersResponse'),
+    newDescribeGlobalClustersResponse,
 
     -- ** AddSourceIdentifierToSubscription
-    module Network.AWS.RDS.AddSourceIdentifierToSubscription,
+    AddSourceIdentifierToSubscription (AddSourceIdentifierToSubscription'),
+    newAddSourceIdentifierToSubscription,
+    AddSourceIdentifierToSubscriptionResponse (AddSourceIdentifierToSubscriptionResponse'),
+    newAddSourceIdentifierToSubscriptionResponse,
 
     -- ** ModifyEventSubscription
-    module Network.AWS.RDS.ModifyEventSubscription,
+    ModifyEventSubscription (ModifyEventSubscription'),
+    newModifyEventSubscription,
+    ModifyEventSubscriptionResponse (ModifyEventSubscriptionResponse'),
+    newModifyEventSubscriptionResponse,
 
     -- ** ModifyDBClusterEndpoint
-    module Network.AWS.RDS.ModifyDBClusterEndpoint,
+    ModifyDBClusterEndpoint (ModifyDBClusterEndpoint'),
+    newModifyDBClusterEndpoint,
+    DBClusterEndpoint (DBClusterEndpoint'),
+    newDBClusterEndpoint,
 
     -- ** ModifyDBClusterSnapshotAttribute
-    module Network.AWS.RDS.ModifyDBClusterSnapshotAttribute,
+    ModifyDBClusterSnapshotAttribute (ModifyDBClusterSnapshotAttribute'),
+    newModifyDBClusterSnapshotAttribute,
+    ModifyDBClusterSnapshotAttributeResponse (ModifyDBClusterSnapshotAttributeResponse'),
+    newModifyDBClusterSnapshotAttributeResponse,
 
     -- ** DescribeDBSubnetGroups (Paginated)
-    module Network.AWS.RDS.DescribeDBSubnetGroups,
+    DescribeDBSubnetGroups (DescribeDBSubnetGroups'),
+    newDescribeDBSubnetGroups,
+    DescribeDBSubnetGroupsResponse (DescribeDBSubnetGroupsResponse'),
+    newDescribeDBSubnetGroupsResponse,
 
     -- ** ModifyDBProxyTargetGroup
-    module Network.AWS.RDS.ModifyDBProxyTargetGroup,
+    ModifyDBProxyTargetGroup (ModifyDBProxyTargetGroup'),
+    newModifyDBProxyTargetGroup,
+    ModifyDBProxyTargetGroupResponse (ModifyDBProxyTargetGroupResponse'),
+    newModifyDBProxyTargetGroupResponse,
 
     -- ** CreateDBParameterGroup
-    module Network.AWS.RDS.CreateDBParameterGroup,
+    CreateDBParameterGroup (CreateDBParameterGroup'),
+    newCreateDBParameterGroup,
+    CreateDBParameterGroupResponse (CreateDBParameterGroupResponse'),
+    newCreateDBParameterGroupResponse,
 
     -- ** DeleteDBClusterSnapshot
-    module Network.AWS.RDS.DeleteDBClusterSnapshot,
+    DeleteDBClusterSnapshot (DeleteDBClusterSnapshot'),
+    newDeleteDBClusterSnapshot,
+    DeleteDBClusterSnapshotResponse (DeleteDBClusterSnapshotResponse'),
+    newDeleteDBClusterSnapshotResponse,
 
     -- ** RemoveFromGlobalCluster
-    module Network.AWS.RDS.RemoveFromGlobalCluster,
+    RemoveFromGlobalCluster (RemoveFromGlobalCluster'),
+    newRemoveFromGlobalCluster,
+    RemoveFromGlobalClusterResponse (RemoveFromGlobalClusterResponse'),
+    newRemoveFromGlobalClusterResponse,
 
     -- ** DescribeDBSecurityGroups (Paginated)
-    module Network.AWS.RDS.DescribeDBSecurityGroups,
+    DescribeDBSecurityGroups (DescribeDBSecurityGroups'),
+    newDescribeDBSecurityGroups,
+    DescribeDBSecurityGroupsResponse (DescribeDBSecurityGroupsResponse'),
+    newDescribeDBSecurityGroupsResponse,
 
     -- ** AddTagsToResource
-    module Network.AWS.RDS.AddTagsToResource,
+    AddTagsToResource (AddTagsToResource'),
+    newAddTagsToResource,
+    AddTagsToResourceResponse (AddTagsToResourceResponse'),
+    newAddTagsToResourceResponse,
 
     -- ** RegisterDBProxyTargets
-    module Network.AWS.RDS.RegisterDBProxyTargets,
+    RegisterDBProxyTargets (RegisterDBProxyTargets'),
+    newRegisterDBProxyTargets,
+    RegisterDBProxyTargetsResponse (RegisterDBProxyTargetsResponse'),
+    newRegisterDBProxyTargetsResponse,
 
     -- ** DownloadDBLogFilePortion (Paginated)
-    module Network.AWS.RDS.DownloadDBLogFilePortion,
+    DownloadDBLogFilePortion (DownloadDBLogFilePortion'),
+    newDownloadDBLogFilePortion,
+    DownloadDBLogFilePortionResponse (DownloadDBLogFilePortionResponse'),
+    newDownloadDBLogFilePortionResponse,
 
     -- ** ModifyCurrentDBClusterCapacity
-    module Network.AWS.RDS.ModifyCurrentDBClusterCapacity,
+    ModifyCurrentDBClusterCapacity (ModifyCurrentDBClusterCapacity'),
+    newModifyCurrentDBClusterCapacity,
+    ModifyCurrentDBClusterCapacityResponse (ModifyCurrentDBClusterCapacityResponse'),
+    newModifyCurrentDBClusterCapacityResponse,
 
     -- ** AddRoleToDBInstance
-    module Network.AWS.RDS.AddRoleToDBInstance,
+    AddRoleToDBInstance (AddRoleToDBInstance'),
+    newAddRoleToDBInstance,
+    AddRoleToDBInstanceResponse (AddRoleToDBInstanceResponse'),
+    newAddRoleToDBInstanceResponse,
 
     -- ** DeleteDBParameterGroup
-    module Network.AWS.RDS.DeleteDBParameterGroup,
+    DeleteDBParameterGroup (DeleteDBParameterGroup'),
+    newDeleteDBParameterGroup,
+    DeleteDBParameterGroupResponse (DeleteDBParameterGroupResponse'),
+    newDeleteDBParameterGroupResponse,
 
     -- ** CreateDBSnapshot
-    module Network.AWS.RDS.CreateDBSnapshot,
+    CreateDBSnapshot (CreateDBSnapshot'),
+    newCreateDBSnapshot,
+    CreateDBSnapshotResponse (CreateDBSnapshotResponse'),
+    newCreateDBSnapshotResponse,
 
     -- ** CreateDBSubnetGroup
-    module Network.AWS.RDS.CreateDBSubnetGroup,
+    CreateDBSubnetGroup (CreateDBSubnetGroup'),
+    newCreateDBSubnetGroup,
+    CreateDBSubnetGroupResponse (CreateDBSubnetGroupResponse'),
+    newCreateDBSubnetGroupResponse,
 
     -- ** DescribeOrderableDBInstanceOptions (Paginated)
-    module Network.AWS.RDS.DescribeOrderableDBInstanceOptions,
+    DescribeOrderableDBInstanceOptions (DescribeOrderableDBInstanceOptions'),
+    newDescribeOrderableDBInstanceOptions,
+    DescribeOrderableDBInstanceOptionsResponse (DescribeOrderableDBInstanceOptionsResponse'),
+    newDescribeOrderableDBInstanceOptionsResponse,
 
     -- ** DeleteDBSecurityGroup
-    module Network.AWS.RDS.DeleteDBSecurityGroup,
+    DeleteDBSecurityGroup (DeleteDBSecurityGroup'),
+    newDeleteDBSecurityGroup,
+    DeleteDBSecurityGroupResponse (DeleteDBSecurityGroupResponse'),
+    newDeleteDBSecurityGroupResponse,
 
     -- ** RestoreDBClusterFromSnapshot
-    module Network.AWS.RDS.RestoreDBClusterFromSnapshot,
+    RestoreDBClusterFromSnapshot (RestoreDBClusterFromSnapshot'),
+    newRestoreDBClusterFromSnapshot,
+    RestoreDBClusterFromSnapshotResponse (RestoreDBClusterFromSnapshotResponse'),
+    newRestoreDBClusterFromSnapshotResponse,
 
     -- ** RestoreDBInstanceFromDBSnapshot
-    module Network.AWS.RDS.RestoreDBInstanceFromDBSnapshot,
+    RestoreDBInstanceFromDBSnapshot (RestoreDBInstanceFromDBSnapshot'),
+    newRestoreDBInstanceFromDBSnapshot,
+    RestoreDBInstanceFromDBSnapshotResponse (RestoreDBInstanceFromDBSnapshotResponse'),
+    newRestoreDBInstanceFromDBSnapshotResponse,
 
     -- ** CreateDBClusterEndpoint
-    module Network.AWS.RDS.CreateDBClusterEndpoint,
+    CreateDBClusterEndpoint (CreateDBClusterEndpoint'),
+    newCreateDBClusterEndpoint,
+    DBClusterEndpoint (DBClusterEndpoint'),
+    newDBClusterEndpoint,
 
     -- ** CreateEventSubscription
-    module Network.AWS.RDS.CreateEventSubscription,
+    CreateEventSubscription (CreateEventSubscription'),
+    newCreateEventSubscription,
+    CreateEventSubscriptionResponse (CreateEventSubscriptionResponse'),
+    newCreateEventSubscriptionResponse,
 
     -- ** DeleteDBSnapshot
-    module Network.AWS.RDS.DeleteDBSnapshot,
+    DeleteDBSnapshot (DeleteDBSnapshot'),
+    newDeleteDBSnapshot,
+    DeleteDBSnapshotResponse (DeleteDBSnapshotResponse'),
+    newDeleteDBSnapshotResponse,
 
     -- ** DeleteDBClusterParameterGroup
-    module Network.AWS.RDS.DeleteDBClusterParameterGroup,
+    DeleteDBClusterParameterGroup (DeleteDBClusterParameterGroup'),
+    newDeleteDBClusterParameterGroup,
+    DeleteDBClusterParameterGroupResponse (DeleteDBClusterParameterGroupResponse'),
+    newDeleteDBClusterParameterGroupResponse,
 
     -- ** DescribeSourceRegions (Paginated)
-    module Network.AWS.RDS.DescribeSourceRegions,
+    DescribeSourceRegions (DescribeSourceRegions'),
+    newDescribeSourceRegions,
+    DescribeSourceRegionsResponse (DescribeSourceRegionsResponse'),
+    newDescribeSourceRegionsResponse,
 
     -- ** PurchaseReservedDBInstancesOffering
-    module Network.AWS.RDS.PurchaseReservedDBInstancesOffering,
+    PurchaseReservedDBInstancesOffering (PurchaseReservedDBInstancesOffering'),
+    newPurchaseReservedDBInstancesOffering,
+    PurchaseReservedDBInstancesOfferingResponse (PurchaseReservedDBInstancesOfferingResponse'),
+    newPurchaseReservedDBInstancesOfferingResponse,
 
     -- ** AuthorizeDBSecurityGroupIngress
-    module Network.AWS.RDS.AuthorizeDBSecurityGroupIngress,
+    AuthorizeDBSecurityGroupIngress (AuthorizeDBSecurityGroupIngress'),
+    newAuthorizeDBSecurityGroupIngress,
+    AuthorizeDBSecurityGroupIngressResponse (AuthorizeDBSecurityGroupIngressResponse'),
+    newAuthorizeDBSecurityGroupIngressResponse,
 
     -- ** DeleteDBProxy
-    module Network.AWS.RDS.DeleteDBProxy,
+    DeleteDBProxy (DeleteDBProxy'),
+    newDeleteDBProxy,
+    DeleteDBProxyResponse (DeleteDBProxyResponse'),
+    newDeleteDBProxyResponse,
 
     -- ** RevokeDBSecurityGroupIngress
-    module Network.AWS.RDS.RevokeDBSecurityGroupIngress,
+    RevokeDBSecurityGroupIngress (RevokeDBSecurityGroupIngress'),
+    newRevokeDBSecurityGroupIngress,
+    RevokeDBSecurityGroupIngressResponse (RevokeDBSecurityGroupIngressResponse'),
+    newRevokeDBSecurityGroupIngressResponse,
 
     -- ** ModifyDBParameterGroup
-    module Network.AWS.RDS.ModifyDBParameterGroup,
+    ModifyDBParameterGroup (ModifyDBParameterGroup'),
+    newModifyDBParameterGroup,
+    DBParameterGroupNameMessage (DBParameterGroupNameMessage'),
+    newDBParameterGroupNameMessage,
 
     -- ** DeregisterDBProxyTargets
-    module Network.AWS.RDS.DeregisterDBProxyTargets,
+    DeregisterDBProxyTargets (DeregisterDBProxyTargets'),
+    newDeregisterDBProxyTargets,
+    DeregisterDBProxyTargetsResponse (DeregisterDBProxyTargetsResponse'),
+    newDeregisterDBProxyTargetsResponse,
 
     -- ** DeleteGlobalCluster
-    module Network.AWS.RDS.DeleteGlobalCluster,
+    DeleteGlobalCluster (DeleteGlobalCluster'),
+    newDeleteGlobalCluster,
+    DeleteGlobalClusterResponse (DeleteGlobalClusterResponse'),
+    newDeleteGlobalClusterResponse,
 
     -- ** PromoteReadReplicaDBCluster
-    module Network.AWS.RDS.PromoteReadReplicaDBCluster,
+    PromoteReadReplicaDBCluster (PromoteReadReplicaDBCluster'),
+    newPromoteReadReplicaDBCluster,
+    PromoteReadReplicaDBClusterResponse (PromoteReadReplicaDBClusterResponse'),
+    newPromoteReadReplicaDBClusterResponse,
 
     -- ** CreateGlobalCluster
-    module Network.AWS.RDS.CreateGlobalCluster,
+    CreateGlobalCluster (CreateGlobalCluster'),
+    newCreateGlobalCluster,
+    CreateGlobalClusterResponse (CreateGlobalClusterResponse'),
+    newCreateGlobalClusterResponse,
 
     -- ** ResetDBParameterGroup
-    module Network.AWS.RDS.ResetDBParameterGroup,
+    ResetDBParameterGroup (ResetDBParameterGroup'),
+    newResetDBParameterGroup,
+    DBParameterGroupNameMessage (DBParameterGroupNameMessage'),
+    newDBParameterGroupNameMessage,
 
     -- ** DescribeDBProxyTargets (Paginated)
-    module Network.AWS.RDS.DescribeDBProxyTargets,
+    DescribeDBProxyTargets (DescribeDBProxyTargets'),
+    newDescribeDBProxyTargets,
+    DescribeDBProxyTargetsResponse (DescribeDBProxyTargetsResponse'),
+    newDescribeDBProxyTargetsResponse,
 
     -- ** ImportInstallationMedia
-    module Network.AWS.RDS.ImportInstallationMedia,
+    ImportInstallationMedia (ImportInstallationMedia'),
+    newImportInstallationMedia,
+    InstallationMedia (InstallationMedia'),
+    newInstallationMedia,
 
     -- ** DeleteCustomAvailabilityZone
-    module Network.AWS.RDS.DeleteCustomAvailabilityZone,
+    DeleteCustomAvailabilityZone (DeleteCustomAvailabilityZone'),
+    newDeleteCustomAvailabilityZone,
+    DeleteCustomAvailabilityZoneResponse (DeleteCustomAvailabilityZoneResponse'),
+    newDeleteCustomAvailabilityZoneResponse,
 
     -- ** FailoverGlobalCluster
-    module Network.AWS.RDS.FailoverGlobalCluster,
+    FailoverGlobalCluster (FailoverGlobalCluster'),
+    newFailoverGlobalCluster,
+    FailoverGlobalClusterResponse (FailoverGlobalClusterResponse'),
+    newFailoverGlobalClusterResponse,
 
     -- ** RemoveSourceIdentifierFromSubscription
-    module Network.AWS.RDS.RemoveSourceIdentifierFromSubscription,
+    RemoveSourceIdentifierFromSubscription (RemoveSourceIdentifierFromSubscription'),
+    newRemoveSourceIdentifierFromSubscription,
+    RemoveSourceIdentifierFromSubscriptionResponse (RemoveSourceIdentifierFromSubscriptionResponse'),
+    newRemoveSourceIdentifierFromSubscriptionResponse,
 
     -- ** CopyDBClusterSnapshot
-    module Network.AWS.RDS.CopyDBClusterSnapshot,
+    CopyDBClusterSnapshot (CopyDBClusterSnapshot'),
+    newCopyDBClusterSnapshot,
+    CopyDBClusterSnapshotResponse (CopyDBClusterSnapshotResponse'),
+    newCopyDBClusterSnapshotResponse,
 
     -- ** DescribeInstallationMedia (Paginated)
-    module Network.AWS.RDS.DescribeInstallationMedia,
+    DescribeInstallationMedia (DescribeInstallationMedia'),
+    newDescribeInstallationMedia,
+    DescribeInstallationMediaResponse (DescribeInstallationMediaResponse'),
+    newDescribeInstallationMediaResponse,
 
     -- ** CopyDBParameterGroup
-    module Network.AWS.RDS.CopyDBParameterGroup,
+    CopyDBParameterGroup (CopyDBParameterGroup'),
+    newCopyDBParameterGroup,
+    CopyDBParameterGroupResponse (CopyDBParameterGroupResponse'),
+    newCopyDBParameterGroupResponse,
 
     -- ** RestoreDBInstanceToPointInTime
-    module Network.AWS.RDS.RestoreDBInstanceToPointInTime,
+    RestoreDBInstanceToPointInTime (RestoreDBInstanceToPointInTime'),
+    newRestoreDBInstanceToPointInTime,
+    RestoreDBInstanceToPointInTimeResponse (RestoreDBInstanceToPointInTimeResponse'),
+    newRestoreDBInstanceToPointInTimeResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.RDS.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** ModifyDBSnapshot
-    module Network.AWS.RDS.ModifyDBSnapshot,
+    ModifyDBSnapshot (ModifyDBSnapshot'),
+    newModifyDBSnapshot,
+    ModifyDBSnapshotResponse (ModifyDBSnapshotResponse'),
+    newModifyDBSnapshotResponse,
 
     -- ** ModifyDBSubnetGroup
-    module Network.AWS.RDS.ModifyDBSubnetGroup,
+    ModifyDBSubnetGroup (ModifyDBSubnetGroup'),
+    newModifyDBSubnetGroup,
+    ModifyDBSubnetGroupResponse (ModifyDBSubnetGroupResponse'),
+    newModifyDBSubnetGroupResponse,
 
     -- ** DescribeEngineDefaultParameters (Paginated)
-    module Network.AWS.RDS.DescribeEngineDefaultParameters,
+    DescribeEngineDefaultParameters (DescribeEngineDefaultParameters'),
+    newDescribeEngineDefaultParameters,
+    DescribeEngineDefaultParametersResponse (DescribeEngineDefaultParametersResponse'),
+    newDescribeEngineDefaultParametersResponse,
 
     -- ** DescribeCustomAvailabilityZones (Paginated)
-    module Network.AWS.RDS.DescribeCustomAvailabilityZones,
+    DescribeCustomAvailabilityZones (DescribeCustomAvailabilityZones'),
+    newDescribeCustomAvailabilityZones,
+    DescribeCustomAvailabilityZonesResponse (DescribeCustomAvailabilityZonesResponse'),
+    newDescribeCustomAvailabilityZonesResponse,
 
     -- ** AddRoleToDBCluster
-    module Network.AWS.RDS.AddRoleToDBCluster,
+    AddRoleToDBCluster (AddRoleToDBCluster'),
+    newAddRoleToDBCluster,
+    AddRoleToDBClusterResponse (AddRoleToDBClusterResponse'),
+    newAddRoleToDBClusterResponse,
 
     -- * Types
 
@@ -855,1024 +1278,372 @@ module Network.AWS.RDS
     WriteForwardingStatus (..),
 
     -- ** AccountQuota
-    AccountQuota,
-    accountQuota,
-    aqUsed,
-    aqAccountQuotaName,
-    aqMax,
+    AccountQuota (AccountQuota'),
+    newAccountQuota,
 
     -- ** AvailabilityZone
-    AvailabilityZone,
-    availabilityZone,
-    azName,
+    AvailabilityZone (AvailabilityZone'),
+    newAvailabilityZone,
 
     -- ** AvailableProcessorFeature
-    AvailableProcessorFeature,
-    availableProcessorFeature,
-    apfAllowedValues,
-    apfName,
-    apfDefaultValue,
+    AvailableProcessorFeature (AvailableProcessorFeature'),
+    newAvailableProcessorFeature,
 
     -- ** Certificate
-    Certificate,
-    certificate,
-    cCertificateIdentifier,
-    cValidFrom,
-    cCustomerOverride,
-    cCertificateARN,
-    cCertificateType,
-    cThumbprint,
-    cCustomerOverrideValidTill,
-    cValidTill,
+    Certificate (Certificate'),
+    newCertificate,
 
     -- ** CharacterSet
-    CharacterSet,
-    characterSet,
-    csCharacterSetName,
-    csCharacterSetDescription,
+    CharacterSet (CharacterSet'),
+    newCharacterSet,
 
     -- ** CloudwatchLogsExportConfiguration
-    CloudwatchLogsExportConfiguration,
-    cloudwatchLogsExportConfiguration,
-    clecEnableLogTypes,
-    clecDisableLogTypes,
+    CloudwatchLogsExportConfiguration (CloudwatchLogsExportConfiguration'),
+    newCloudwatchLogsExportConfiguration,
 
     -- ** ClusterPendingModifiedValues
-    ClusterPendingModifiedValues,
-    clusterPendingModifiedValues,
-    cpmvMasterUserPassword,
-    cpmvPendingCloudwatchLogsExports,
-    cpmvDBClusterIdentifier,
-    cpmvEngineVersion,
-    cpmvIAMDatabaseAuthenticationEnabled,
+    ClusterPendingModifiedValues (ClusterPendingModifiedValues'),
+    newClusterPendingModifiedValues,
 
     -- ** ConnectionPoolConfiguration
-    ConnectionPoolConfiguration,
-    connectionPoolConfiguration,
-    cpcSessionPinningFilters,
-    cpcMaxIdleConnectionsPercent,
-    cpcConnectionBorrowTimeout,
-    cpcInitQuery,
-    cpcMaxConnectionsPercent,
+    ConnectionPoolConfiguration (ConnectionPoolConfiguration'),
+    newConnectionPoolConfiguration,
 
     -- ** ConnectionPoolConfigurationInfo
-    ConnectionPoolConfigurationInfo,
-    connectionPoolConfigurationInfo,
-    cpciSessionPinningFilters,
-    cpciMaxIdleConnectionsPercent,
-    cpciConnectionBorrowTimeout,
-    cpciInitQuery,
-    cpciMaxConnectionsPercent,
+    ConnectionPoolConfigurationInfo (ConnectionPoolConfigurationInfo'),
+    newConnectionPoolConfigurationInfo,
 
     -- ** CustomAvailabilityZone
-    CustomAvailabilityZone,
-    customAvailabilityZone,
-    cazCustomAvailabilityZoneId,
-    cazCustomAvailabilityZoneName,
-    cazVPNDetails,
-    cazCustomAvailabilityZoneStatus,
+    CustomAvailabilityZone (CustomAvailabilityZone'),
+    newCustomAvailabilityZone,
 
     -- ** DBCluster
-    DBCluster,
-    dbCluster,
-    dcBackupRetentionPeriod,
-    dcDeletionProtection,
-    dcStorageEncrypted,
-    dcAssociatedRoles,
-    dcVPCSecurityGroups,
-    dcPreferredBackupWindow,
-    dcDBClusterMembers,
-    dcStatus,
-    dcBacktrackConsumedChangeRecords,
-    dcCrossAccountClone,
-    dcAvailabilityZones,
-    dcGlobalWriteForwardingStatus,
-    dcDBClusterOptionGroupMemberships,
-    dcCloneGroupId,
-    dcLatestRestorableTime,
-    dcDBClusterARN,
-    dcDomainMemberships,
-    dcActivityStreamKMSKeyId,
-    dcReaderEndpoint,
-    dcHTTPEndpointEnabled,
-    dcClusterCreateTime,
-    dcEarliestRestorableTime,
-    dcEngineMode,
-    dcActivityStreamStatus,
-    dcEnabledCloudwatchLogsExports,
-    dcHostedZoneId,
-    dcDBSubnetGroup,
-    dcReadReplicaIdentifiers,
-    dcMasterUsername,
-    dcMultiAZ,
-    dcKMSKeyId,
-    dcDBClusterIdentifier,
-    dcCapacity,
-    dcEngineVersion,
-    dcPreferredMaintenanceWindow,
-    dcCharacterSetName,
-    dcPort,
-    dcPercentProgress,
-    dcEngine,
-    dcPendingModifiedValues,
-    dcDBClusterResourceId,
-    dcCopyTagsToSnapshot,
-    dcCustomEndpoints,
-    dcEndpoint,
-    dcScalingConfigurationInfo,
-    dcEarliestBacktrackTime,
-    dcTagList,
-    dcAllocatedStorage,
-    dcBacktrackWindow,
-    dcIAMDatabaseAuthenticationEnabled,
-    dcGlobalWriteForwardingRequested,
-    dcDBClusterParameterGroup,
-    dcReplicationSourceIdentifier,
-    dcDatabaseName,
-    dcActivityStreamKinesisStreamName,
-    dcActivityStreamMode,
+    DBCluster (DBCluster'),
+    newDBCluster,
 
     -- ** DBClusterBacktrack
-    DBClusterBacktrack,
-    dbClusterBacktrack,
-    dcbStatus,
-    dcbBacktrackIdentifier,
-    dcbBacktrackTo,
-    dcbDBClusterIdentifier,
-    dcbBacktrackRequestCreationTime,
-    dcbBacktrackedFrom,
+    DBClusterBacktrack (DBClusterBacktrack'),
+    newDBClusterBacktrack,
 
     -- ** DBClusterEndpoint
-    DBClusterEndpoint,
-    dbClusterEndpoint,
-    dceDBClusterEndpointIdentifier,
-    dceStatus,
-    dceExcludedMembers,
-    dceEndpointType,
-    dceCustomEndpointType,
-    dceDBClusterEndpointARN,
-    dceDBClusterIdentifier,
-    dceDBClusterEndpointResourceIdentifier,
-    dceEndpoint,
-    dceStaticMembers,
+    DBClusterEndpoint (DBClusterEndpoint'),
+    newDBClusterEndpoint,
 
     -- ** DBClusterMember
-    DBClusterMember,
-    dbClusterMember,
-    dcmIsClusterWriter,
-    dcmDBInstanceIdentifier,
-    dcmPromotionTier,
-    dcmDBClusterParameterGroupStatus,
+    DBClusterMember (DBClusterMember'),
+    newDBClusterMember,
 
     -- ** DBClusterOptionGroupStatus
-    DBClusterOptionGroupStatus,
-    dbClusterOptionGroupStatus,
-    dcogsStatus,
-    dcogsDBClusterOptionGroupName,
+    DBClusterOptionGroupStatus (DBClusterOptionGroupStatus'),
+    newDBClusterOptionGroupStatus,
 
     -- ** DBClusterParameterGroup
-    DBClusterParameterGroup,
-    dbClusterParameterGroup,
-    dcpgDBClusterParameterGroupARN,
-    dcpgDBParameterGroupFamily,
-    dcpgDescription,
-    dcpgDBClusterParameterGroupName,
+    DBClusterParameterGroup (DBClusterParameterGroup'),
+    newDBClusterParameterGroup,
 
     -- ** DBClusterParameterGroupNameMessage
-    DBClusterParameterGroupNameMessage,
-    dbClusterParameterGroupNameMessage,
-    dcpgnmDBClusterParameterGroupName,
+    DBClusterParameterGroupNameMessage (DBClusterParameterGroupNameMessage'),
+    newDBClusterParameterGroupNameMessage,
 
     -- ** DBClusterRole
-    DBClusterRole,
-    dbClusterRole,
-    dcrStatus,
-    dcrRoleARN,
-    dcrFeatureName,
+    DBClusterRole (DBClusterRole'),
+    newDBClusterRole,
 
     -- ** DBClusterSnapshot
-    DBClusterSnapshot,
-    dbClusterSnapshot,
-    dcsStorageEncrypted,
-    dcsStatus,
-    dcsAvailabilityZones,
-    dcsClusterCreateTime,
-    dcsSnapshotCreateTime,
-    dcsEngineMode,
-    dcsMasterUsername,
-    dcsKMSKeyId,
-    dcsDBClusterIdentifier,
-    dcsEngineVersion,
-    dcsSnapshotType,
-    dcsLicenseModel,
-    dcsPort,
-    dcsPercentProgress,
-    dcsEngine,
-    dcsDBClusterSnapshotIdentifier,
-    dcsSourceDBClusterSnapshotARN,
-    dcsTagList,
-    dcsVPCId,
-    dcsAllocatedStorage,
-    dcsIAMDatabaseAuthenticationEnabled,
-    dcsDBClusterSnapshotARN,
+    DBClusterSnapshot (DBClusterSnapshot'),
+    newDBClusterSnapshot,
 
     -- ** DBClusterSnapshotAttribute
-    DBClusterSnapshotAttribute,
-    dbClusterSnapshotAttribute,
-    dcsaAttributeName,
-    dcsaAttributeValues,
+    DBClusterSnapshotAttribute (DBClusterSnapshotAttribute'),
+    newDBClusterSnapshotAttribute,
 
     -- ** DBClusterSnapshotAttributesResult
-    DBClusterSnapshotAttributesResult,
-    dbClusterSnapshotAttributesResult,
-    dcsarDBClusterSnapshotAttributes,
-    dcsarDBClusterSnapshotIdentifier,
+    DBClusterSnapshotAttributesResult (DBClusterSnapshotAttributesResult'),
+    newDBClusterSnapshotAttributesResult,
 
     -- ** DBEngineVersion
-    DBEngineVersion,
-    dbEngineVersion,
-    devStatus,
-    devDBEngineVersionDescription,
-    devDBEngineDescription,
-    devSupportedTimezones,
-    devSupportedEngineModes,
-    devSupportedNcharCharacterSets,
-    devValidUpgradeTarget,
-    devEngineVersion,
-    devSupportsGlobalDatabases,
-    devExportableLogTypes,
-    devSupportedCharacterSets,
-    devSupportsReadReplica,
-    devDBParameterGroupFamily,
-    devEngine,
-    devSupportedFeatureNames,
-    devSupportsLogExportsToCloudwatchLogs,
-    devDefaultCharacterSet,
-    devSupportsParallelQuery,
+    DBEngineVersion (DBEngineVersion'),
+    newDBEngineVersion,
 
     -- ** DBInstance
-    DBInstance,
-    dbInstance,
-    diBackupRetentionPeriod,
-    diDeletionProtection,
-    diStorageEncrypted,
-    diAssociatedRoles,
-    diVPCSecurityGroups,
-    diPreferredBackupWindow,
-    diCACertificateIdentifier,
-    diDBSecurityGroups,
-    diMaxAllocatedStorage,
-    diStatusInfos,
-    diStorageType,
-    diLatestRestorableTime,
-    diDomainMemberships,
-    diDBInstancePort,
-    diMonitoringInterval,
-    diDBParameterGroups,
-    diInstanceCreateTime,
-    diDBiResourceId,
-    diOptionGroupMemberships,
-    diListenerEndpoint,
-    diMonitoringRoleARN,
-    diEnabledCloudwatchLogsExports,
-    diDBSubnetGroup,
-    diNcharCharacterSetName,
-    diMasterUsername,
-    diMultiAZ,
-    diPubliclyAccessible,
-    diPerformanceInsightsKMSKeyId,
-    diKMSKeyId,
-    diAvailabilityZone,
-    diDBClusterIdentifier,
-    diCustomerOwnedIPEnabled,
-    diEngineVersion,
-    diPreferredMaintenanceWindow,
-    diCharacterSetName,
-    diPerformanceInsightsRetentionPeriod,
-    diLicenseModel,
-    diDBInstanceIdentifier,
-    diPromotionTier,
-    diProcessorFeatures,
-    diAWSBackupRecoveryPointARN,
-    diDBInstanceClass,
-    diDBName,
-    diEngine,
-    diReadReplicaDBClusterIdentifiers,
-    diPendingModifiedValues,
-    diTDECredentialARN,
-    diTimezone,
-    diDBInstanceStatus,
-    diDBInstanceAutomatedBackupsReplications,
-    diCopyTagsToSnapshot,
-    diReadReplicaSourceDBInstanceIdentifier,
-    diReplicaMode,
-    diEndpoint,
-    diTagList,
-    diPerformanceInsightsEnabled,
-    diAllocatedStorage,
-    diIAMDatabaseAuthenticationEnabled,
-    diSecondaryAvailabilityZone,
-    diIOPS,
-    diEnhancedMonitoringResourceARN,
-    diReadReplicaDBInstanceIdentifiers,
-    diAutoMinorVersionUpgrade,
-    diDBInstanceARN,
+    DBInstance (DBInstance'),
+    newDBInstance,
 
     -- ** DBInstanceAutomatedBackup
-    DBInstanceAutomatedBackup,
-    dbInstanceAutomatedBackup,
-    diabBackupRetentionPeriod,
-    diabStatus,
-    diabDBInstanceAutomatedBackupsARN,
-    diabStorageType,
-    diabEncrypted,
-    diabOptionGroupName,
-    diabInstanceCreateTime,
-    diabDBiResourceId,
-    diabMasterUsername,
-    diabKMSKeyId,
-    diabAvailabilityZone,
-    diabEngineVersion,
-    diabRestoreWindow,
-    diabLicenseModel,
-    diabDBInstanceIdentifier,
-    diabPort,
-    diabEngine,
-    diabTDECredentialARN,
-    diabTimezone,
-    diabDBInstanceAutomatedBackupsReplications,
-    diabRegion,
-    diabVPCId,
-    diabAllocatedStorage,
-    diabIAMDatabaseAuthenticationEnabled,
-    diabIOPS,
-    diabDBInstanceARN,
+    DBInstanceAutomatedBackup (DBInstanceAutomatedBackup'),
+    newDBInstanceAutomatedBackup,
 
     -- ** DBInstanceAutomatedBackupsReplication
-    DBInstanceAutomatedBackupsReplication,
-    dbInstanceAutomatedBackupsReplication,
-    diabrDBInstanceAutomatedBackupsARN,
+    DBInstanceAutomatedBackupsReplication (DBInstanceAutomatedBackupsReplication'),
+    newDBInstanceAutomatedBackupsReplication,
 
     -- ** DBInstanceRole
-    DBInstanceRole,
-    dbInstanceRole,
-    dirStatus,
-    dirRoleARN,
-    dirFeatureName,
+    DBInstanceRole (DBInstanceRole'),
+    newDBInstanceRole,
 
     -- ** DBInstanceStatusInfo
-    DBInstanceStatusInfo,
-    dbInstanceStatusInfo,
-    disiStatus,
-    disiMessage,
-    disiNormal,
-    disiStatusType,
+    DBInstanceStatusInfo (DBInstanceStatusInfo'),
+    newDBInstanceStatusInfo,
 
     -- ** DBParameterGroup
-    DBParameterGroup,
-    dbParameterGroup,
-    dpgDBParameterGroupARN,
-    dpgDBParameterGroupName,
-    dpgDBParameterGroupFamily,
-    dpgDescription,
+    DBParameterGroup (DBParameterGroup'),
+    newDBParameterGroup,
 
     -- ** DBParameterGroupNameMessage
-    DBParameterGroupNameMessage,
-    dbParameterGroupNameMessage,
-    dpgnmDBParameterGroupName,
+    DBParameterGroupNameMessage (DBParameterGroupNameMessage'),
+    newDBParameterGroupNameMessage,
 
     -- ** DBParameterGroupStatus
-    DBParameterGroupStatus,
-    dbParameterGroupStatus,
-    dpgsDBParameterGroupName,
-    dpgsParameterApplyStatus,
+    DBParameterGroupStatus (DBParameterGroupStatus'),
+    newDBParameterGroupStatus,
 
     -- ** DBProxy
-    DBProxy,
-    dbProxy,
-    dpDBProxyARN,
-    dpStatus,
-    dpCreatedDate,
-    dpRoleARN,
-    dpIdleClientTimeout,
-    dpVPCSubnetIds,
-    dpAuth,
-    dpEngineFamily,
-    dpVPCSecurityGroupIds,
-    dpDebugLogging,
-    dpUpdatedDate,
-    dpRequireTLS,
-    dpEndpoint,
-    dpDBProxyName,
+    DBProxy (DBProxy'),
+    newDBProxy,
 
     -- ** DBProxyTarget
-    DBProxyTarget,
-    dbProxyTarget,
-    dptTrackedClusterId,
-    dptRDSResourceId,
-    dptTargetARN,
-    dptPort,
-    dptEndpoint,
-    dptType,
-    dptTargetHealth,
+    DBProxyTarget (DBProxyTarget'),
+    newDBProxyTarget,
 
     -- ** DBProxyTargetGroup
-    DBProxyTargetGroup,
-    dbProxyTargetGroup,
-    dptgStatus,
-    dptgCreatedDate,
-    dptgIsDefault,
-    dptgTargetGroupName,
-    dptgTargetGroupARN,
-    dptgConnectionPoolConfig,
-    dptgUpdatedDate,
-    dptgDBProxyName,
+    DBProxyTargetGroup (DBProxyTargetGroup'),
+    newDBProxyTargetGroup,
 
     -- ** DBSecurityGroup
-    DBSecurityGroup,
-    dbSecurityGroup,
-    dbsgOwnerId,
-    dbsgDBSecurityGroupName,
-    dbsgIPRanges,
-    dbsgDBSecurityGroupDescription,
-    dbsgEC2SecurityGroups,
-    dbsgVPCId,
-    dbsgDBSecurityGroupARN,
+    DBSecurityGroup (DBSecurityGroup'),
+    newDBSecurityGroup,
 
     -- ** DBSecurityGroupMembership
-    DBSecurityGroupMembership,
-    dbSecurityGroupMembership,
-    dsgmStatus,
-    dsgmDBSecurityGroupName,
+    DBSecurityGroupMembership (DBSecurityGroupMembership'),
+    newDBSecurityGroupMembership,
 
     -- ** DBSnapshot
-    DBSnapshot,
-    dbSnapshot,
-    dsStatus,
-    dsStorageType,
-    dsDBSnapshotIdentifier,
-    dsEncrypted,
-    dsOptionGroupName,
-    dsInstanceCreateTime,
-    dsDBiResourceId,
-    dsSnapshotCreateTime,
-    dsMasterUsername,
-    dsKMSKeyId,
-    dsAvailabilityZone,
-    dsDBSnapshotARN,
-    dsEngineVersion,
-    dsSnapshotType,
-    dsSourceDBSnapshotIdentifier,
-    dsLicenseModel,
-    dsDBInstanceIdentifier,
-    dsProcessorFeatures,
-    dsPort,
-    dsPercentProgress,
-    dsEngine,
-    dsTDECredentialARN,
-    dsTimezone,
-    dsTagList,
-    dsVPCId,
-    dsAllocatedStorage,
-    dsSourceRegion,
-    dsIAMDatabaseAuthenticationEnabled,
-    dsIOPS,
+    DBSnapshot (DBSnapshot'),
+    newDBSnapshot,
 
     -- ** DBSnapshotAttribute
-    DBSnapshotAttribute,
-    dbSnapshotAttribute,
-    dsaAttributeName,
-    dsaAttributeValues,
+    DBSnapshotAttribute (DBSnapshotAttribute'),
+    newDBSnapshotAttribute,
 
     -- ** DBSnapshotAttributesResult
-    DBSnapshotAttributesResult,
-    dbSnapshotAttributesResult,
-    dsarDBSnapshotIdentifier,
-    dsarDBSnapshotAttributes,
+    DBSnapshotAttributesResult (DBSnapshotAttributesResult'),
+    newDBSnapshotAttributesResult,
 
     -- ** DBSubnetGroup
-    DBSubnetGroup,
-    dbSubnetGroup,
-    dsgSubnetGroupStatus,
-    dsgDBSubnetGroupName,
-    dsgDBSubnetGroupARN,
-    dsgDBSubnetGroupDescription,
-    dsgSubnets,
-    dsgVPCId,
+    DBSubnetGroup (DBSubnetGroup'),
+    newDBSubnetGroup,
 
     -- ** DescribeDBLogFilesDetails
-    DescribeDBLogFilesDetails,
-    describeDBLogFilesDetails,
-    ddlfdLastWritten,
-    ddlfdLogFileName,
-    ddlfdSize,
+    DescribeDBLogFilesDetails (DescribeDBLogFilesDetails'),
+    newDescribeDBLogFilesDetails,
 
     -- ** DomainMembership
-    DomainMembership,
-    domainMembership,
-    dmStatus,
-    dmDomain,
-    dmIAMRoleName,
-    dmFQDN,
+    DomainMembership (DomainMembership'),
+    newDomainMembership,
 
     -- ** DoubleRange
-    DoubleRange,
-    doubleRange,
-    drTo,
-    drFrom,
+    DoubleRange (DoubleRange'),
+    newDoubleRange,
 
     -- ** EC2SecurityGroup
-    EC2SecurityGroup,
-    ec2SecurityGroup,
-    esgStatus,
-    esgEC2SecurityGroupOwnerId,
-    esgEC2SecurityGroupId,
-    esgEC2SecurityGroupName,
+    EC2SecurityGroup (EC2SecurityGroup'),
+    newEC2SecurityGroup,
 
     -- ** Endpoint
-    Endpoint,
-    endpoint,
-    eAddress,
-    eHostedZoneId,
-    ePort,
+    Endpoint (Endpoint'),
+    newEndpoint,
 
     -- ** EngineDefaults
-    EngineDefaults,
-    engineDefaults,
-    edDBParameterGroupFamily,
-    edParameters,
-    edMarker,
+    EngineDefaults (EngineDefaults'),
+    newEngineDefaults,
 
     -- ** Event
-    Event,
-    event,
-    eMessage,
-    eEventCategories,
-    eDate,
-    eSourceIdentifier,
-    eSourceARN,
-    eSourceType,
+    Event (Event'),
+    newEvent,
 
     -- ** EventCategoriesMap
-    EventCategoriesMap,
-    eventCategoriesMap,
-    ecmEventCategories,
-    ecmSourceType,
+    EventCategoriesMap (EventCategoriesMap'),
+    newEventCategoriesMap,
 
     -- ** EventSubscription
-    EventSubscription,
-    eventSubscription,
-    esCustSubscriptionId,
-    esStatus,
-    esSourceIdsList,
-    esEventCategoriesList,
-    esEnabled,
-    esEventSubscriptionARN,
-    esSubscriptionCreationTime,
-    esCustomerAWSId,
-    esSourceType,
-    esSNSTopicARN,
+    EventSubscription (EventSubscription'),
+    newEventSubscription,
 
     -- ** ExportTask
-    ExportTask,
-    exportTask,
-    etTaskEndTime,
-    etIAMRoleARN,
-    etStatus,
-    etTotalExtractedDataInGB,
-    etWarningMessage,
-    etSnapshotTime,
-    etS3Bucket,
-    etExportOnly,
-    etKMSKeyId,
-    etFailureCause,
-    etPercentProgress,
-    etSourceARN,
-    etS3Prefix,
-    etTaskStartTime,
-    etExportTaskIdentifier,
+    ExportTask (ExportTask'),
+    newExportTask,
 
     -- ** FailoverState
-    FailoverState,
-    failoverState,
-    fsStatus,
-    fsToDBClusterARN,
-    fsFromDBClusterARN,
+    FailoverState (FailoverState'),
+    newFailoverState,
 
     -- ** Filter
-    Filter,
-    filter',
-    fName,
-    fValues,
+    Filter (Filter'),
+    newFilter,
 
     -- ** GlobalCluster
-    GlobalCluster,
-    globalCluster,
-    gcDeletionProtection,
-    gcStorageEncrypted,
-    gcStatus,
-    gcFailoverState,
-    gcEngineVersion,
-    gcGlobalClusterARN,
-    gcEngine,
-    gcGlobalClusterResourceId,
-    gcGlobalClusterMembers,
-    gcGlobalClusterIdentifier,
-    gcDatabaseName,
+    GlobalCluster (GlobalCluster'),
+    newGlobalCluster,
 
     -- ** GlobalClusterMember
-    GlobalClusterMember,
-    globalClusterMember,
-    gcmGlobalWriteForwardingStatus,
-    gcmDBClusterARN,
-    gcmReaders,
-    gcmIsWriter,
+    GlobalClusterMember (GlobalClusterMember'),
+    newGlobalClusterMember,
 
     -- ** IPRange
-    IPRange,
-    ipRange,
-    irStatus,
-    irCIdRIP,
+    IPRange (IPRange'),
+    newIPRange,
 
     -- ** InstallationMedia
-    InstallationMedia,
-    installationMedia,
-    imStatus,
-    imCustomAvailabilityZoneId,
-    imInstallationMediaId,
-    imEngineVersion,
-    imOSInstallationMediaPath,
-    imFailureCause,
-    imEngine,
-    imEngineInstallationMediaPath,
+    InstallationMedia (InstallationMedia'),
+    newInstallationMedia,
 
     -- ** InstallationMediaFailureCause
-    InstallationMediaFailureCause,
-    installationMediaFailureCause,
-    imfcMessage,
+    InstallationMediaFailureCause (InstallationMediaFailureCause'),
+    newInstallationMediaFailureCause,
 
     -- ** MinimumEngineVersionPerAllowedValue
-    MinimumEngineVersionPerAllowedValue,
-    minimumEngineVersionPerAllowedValue,
-    mevpavAllowedValue,
-    mevpavMinimumEngineVersion,
+    MinimumEngineVersionPerAllowedValue (MinimumEngineVersionPerAllowedValue'),
+    newMinimumEngineVersionPerAllowedValue,
 
     -- ** Option
-    Option,
-    option,
-    oOptionName,
-    oOptionVersion,
-    oDBSecurityGroupMemberships,
-    oOptionDescription,
-    oPort,
-    oOptionSettings,
-    oPersistent,
-    oVPCSecurityGroupMemberships,
-    oPermanent,
+    Option (Option'),
+    newOption,
 
     -- ** OptionConfiguration
-    OptionConfiguration,
-    optionConfiguration,
-    ocOptionVersion,
-    ocDBSecurityGroupMemberships,
-    ocPort,
-    ocOptionSettings,
-    ocVPCSecurityGroupMemberships,
-    ocOptionName,
+    OptionConfiguration (OptionConfiguration'),
+    newOptionConfiguration,
 
     -- ** OptionGroup
-    OptionGroup,
-    optionGroup,
-    ogEngineName,
-    ogOptionGroupARN,
-    ogAllowsVPCAndNonVPCInstanceMemberships,
-    ogOptionGroupName,
-    ogOptions,
-    ogOptionGroupDescription,
-    ogMajorEngineVersion,
-    ogVPCId,
+    OptionGroup (OptionGroup'),
+    newOptionGroup,
 
     -- ** OptionGroupMembership
-    OptionGroupMembership,
-    optionGroupMembership,
-    ogmStatus,
-    ogmOptionGroupName,
+    OptionGroupMembership (OptionGroupMembership'),
+    newOptionGroupMembership,
 
     -- ** OptionGroupOption
-    OptionGroupOption,
-    optionGroupOption,
-    ogoOptionsConflictsWith,
-    ogoVPCOnly,
-    ogoEngineName,
-    ogoOptionGroupOptionVersions,
-    ogoDefaultPort,
-    ogoRequiresAutoMinorEngineVersionUpgrade,
-    ogoOptionGroupOptionSettings,
-    ogoMajorEngineVersion,
-    ogoName,
-    ogoMinimumRequiredMinorEngineVersion,
-    ogoOptionsDependedOn,
-    ogoDescription,
-    ogoPortRequired,
-    ogoPersistent,
-    ogoPermanent,
-    ogoSupportsOptionVersionDowngrade,
+    OptionGroupOption (OptionGroupOption'),
+    newOptionGroupOption,
 
     -- ** OptionGroupOptionSetting
-    OptionGroupOptionSetting,
-    optionGroupOptionSetting,
-    ogosMinimumEngineVersionPerAllowedValue,
-    ogosAllowedValues,
-    ogosApplyType,
-    ogosSettingName,
-    ogosIsRequired,
-    ogosSettingDescription,
-    ogosIsModifiable,
-    ogosDefaultValue,
+    OptionGroupOptionSetting (OptionGroupOptionSetting'),
+    newOptionGroupOptionSetting,
 
     -- ** OptionSetting
-    OptionSetting,
-    optionSetting,
-    osIsCollection,
-    osAllowedValues,
-    osName,
-    osApplyType,
-    osDescription,
-    osValue,
-    osDataType,
-    osIsModifiable,
-    osDefaultValue,
+    OptionSetting (OptionSetting'),
+    newOptionSetting,
 
     -- ** OptionVersion
-    OptionVersion,
-    optionVersion,
-    ovIsDefault,
-    ovVersion,
+    OptionVersion (OptionVersion'),
+    newOptionVersion,
 
     -- ** OrderableDBInstanceOption
-    OrderableDBInstanceOption,
-    orderableDBInstanceOption,
-    odioMinIOPSPerDBInstance,
-    odioAvailabilityZones,
-    odioSupportsKerberosAuthentication,
-    odioSupportsIOPS,
-    odioStorageType,
-    odioSupportsEnhancedMonitoring,
-    odioAvailableProcessorFeatures,
-    odioMaxStorageSize,
-    odioSupportedEngineModes,
-    odioMaxIOPSPerGib,
-    odioSupportsStorageEncryption,
-    odioMultiAZCapable,
-    odioSupportsStorageAutoscaling,
-    odioEngineVersion,
-    odioMinIOPSPerGib,
-    odioSupportsIAMDatabaseAuthentication,
-    odioLicenseModel,
-    odioSupportsGlobalDatabases,
-    odioSupportsPerformanceInsights,
-    odioMaxIOPSPerDBInstance,
-    odioDBInstanceClass,
-    odioOutpostCapable,
-    odioEngine,
-    odioMinStorageSize,
-    odioAvailabilityZoneGroup,
-    odioVPC,
-    odioReadReplicaCapable,
+    OrderableDBInstanceOption (OrderableDBInstanceOption'),
+    newOrderableDBInstanceOption,
 
     -- ** Outpost
-    Outpost,
-    outpost,
-    oARN,
+    Outpost (Outpost'),
+    newOutpost,
 
     -- ** Parameter
-    Parameter,
-    parameter,
-    pAllowedValues,
-    pSupportedEngineModes,
-    pSource,
-    pParameterValue,
-    pApplyType,
-    pParameterName,
-    pDescription,
-    pApplyMethod,
-    pDataType,
-    pIsModifiable,
-    pMinimumEngineVersion,
+    Parameter (Parameter'),
+    newParameter,
 
     -- ** PendingCloudwatchLogsExports
-    PendingCloudwatchLogsExports,
-    pendingCloudwatchLogsExports,
-    pcleLogTypesToDisable,
-    pcleLogTypesToEnable,
+    PendingCloudwatchLogsExports (PendingCloudwatchLogsExports'),
+    newPendingCloudwatchLogsExports,
 
     -- ** PendingMaintenanceAction
-    PendingMaintenanceAction,
-    pendingMaintenanceAction,
-    pmaForcedApplyDate,
-    pmaOptInStatus,
-    pmaAutoAppliedAfterDate,
-    pmaCurrentApplyDate,
-    pmaAction,
-    pmaDescription,
+    PendingMaintenanceAction (PendingMaintenanceAction'),
+    newPendingMaintenanceAction,
 
     -- ** PendingModifiedValues
-    PendingModifiedValues,
-    pendingModifiedValues,
-    pmvBackupRetentionPeriod,
-    pmvCACertificateIdentifier,
-    pmvStorageType,
-    pmvDBSubnetGroupName,
-    pmvMasterUserPassword,
-    pmvMultiAZ,
-    pmvPendingCloudwatchLogsExports,
-    pmvEngineVersion,
-    pmvLicenseModel,
-    pmvDBInstanceIdentifier,
-    pmvProcessorFeatures,
-    pmvPort,
-    pmvDBInstanceClass,
-    pmvAllocatedStorage,
-    pmvIAMDatabaseAuthenticationEnabled,
-    pmvIOPS,
+    PendingModifiedValues (PendingModifiedValues'),
+    newPendingModifiedValues,
 
     -- ** ProcessorFeature
-    ProcessorFeature,
-    processorFeature,
-    pfName,
-    pfValue,
+    ProcessorFeature (ProcessorFeature'),
+    newProcessorFeature,
 
     -- ** Range
-    Range,
-    range,
-    rTo,
-    rFrom,
-    rStep,
+    Range (Range'),
+    newRange,
 
     -- ** RecurringCharge
-    RecurringCharge,
-    recurringCharge,
-    rcRecurringChargeFrequency,
-    rcRecurringChargeAmount,
+    RecurringCharge (RecurringCharge'),
+    newRecurringCharge,
 
     -- ** ReservedDBInstance
-    ReservedDBInstance,
-    reservedDBInstance,
-    rdiDuration,
-    rdiReservedDBInstanceARN,
-    rdiStartTime,
-    rdiCurrencyCode,
-    rdiMultiAZ,
-    rdiState,
-    rdiDBInstanceCount,
-    rdiDBInstanceClass,
-    rdiReservedDBInstanceId,
-    rdiFixedPrice,
-    rdiLeaseId,
-    rdiUsagePrice,
-    rdiOfferingType,
-    rdiRecurringCharges,
-    rdiProductDescription,
-    rdiReservedDBInstancesOfferingId,
+    ReservedDBInstance (ReservedDBInstance'),
+    newReservedDBInstance,
 
     -- ** ReservedDBInstancesOffering
-    ReservedDBInstancesOffering,
-    reservedDBInstancesOffering,
-    rdioDuration,
-    rdioCurrencyCode,
-    rdioMultiAZ,
-    rdioDBInstanceClass,
-    rdioFixedPrice,
-    rdioUsagePrice,
-    rdioOfferingType,
-    rdioRecurringCharges,
-    rdioProductDescription,
-    rdioReservedDBInstancesOfferingId,
+    ReservedDBInstancesOffering (ReservedDBInstancesOffering'),
+    newReservedDBInstancesOffering,
 
     -- ** ResourcePendingMaintenanceActions
-    ResourcePendingMaintenanceActions,
-    resourcePendingMaintenanceActions,
-    rpmaPendingMaintenanceActionDetails,
-    rpmaResourceIdentifier,
+    ResourcePendingMaintenanceActions (ResourcePendingMaintenanceActions'),
+    newResourcePendingMaintenanceActions,
 
     -- ** RestoreWindow
-    RestoreWindow,
-    restoreWindow,
-    rwEarliestTime,
-    rwLatestTime,
+    RestoreWindow (RestoreWindow'),
+    newRestoreWindow,
 
     -- ** ScalingConfiguration
-    ScalingConfiguration,
-    scalingConfiguration,
-    scMaxCapacity,
-    scAutoPause,
-    scTimeoutAction,
-    scSecondsUntilAutoPause,
-    scMinCapacity,
+    ScalingConfiguration (ScalingConfiguration'),
+    newScalingConfiguration,
 
     -- ** ScalingConfigurationInfo
-    ScalingConfigurationInfo,
-    scalingConfigurationInfo,
-    sciMaxCapacity,
-    sciAutoPause,
-    sciTimeoutAction,
-    sciSecondsUntilAutoPause,
-    sciMinCapacity,
+    ScalingConfigurationInfo (ScalingConfigurationInfo'),
+    newScalingConfigurationInfo,
 
     -- ** SourceRegion
-    SourceRegion,
-    sourceRegion,
-    srRegionName,
-    srStatus,
-    srSupportsDBInstanceAutomatedBackupsReplication,
-    srEndpoint,
+    SourceRegion (SourceRegion'),
+    newSourceRegion,
 
     -- ** Subnet
-    Subnet,
-    subnet,
-    sSubnetStatus,
-    sSubnetIdentifier,
-    sSubnetAvailabilityZone,
-    sSubnetOutpost,
+    Subnet (Subnet'),
+    newSubnet,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TargetHealth
-    TargetHealth,
-    targetHealth,
-    thState,
-    thReason,
-    thDescription,
+    TargetHealth (TargetHealth'),
+    newTargetHealth,
 
     -- ** Timezone
-    Timezone,
-    timezone,
-    tTimezoneName,
+    Timezone (Timezone'),
+    newTimezone,
 
     -- ** UpgradeTarget
-    UpgradeTarget,
-    upgradeTarget,
-    utAutoUpgrade,
-    utSupportedEngineModes,
-    utEngineVersion,
-    utSupportsGlobalDatabases,
-    utEngine,
-    utDescription,
-    utIsMajorVersionUpgrade,
-    utSupportsParallelQuery,
+    UpgradeTarget (UpgradeTarget'),
+    newUpgradeTarget,
 
     -- ** UserAuthConfig
-    UserAuthConfig,
-    userAuthConfig,
-    uacSecretARN,
-    uacIAMAuth,
-    uacAuthScheme,
-    uacUserName,
-    uacDescription,
+    UserAuthConfig (UserAuthConfig'),
+    newUserAuthConfig,
 
     -- ** UserAuthConfigInfo
-    UserAuthConfigInfo,
-    userAuthConfigInfo,
-    uaciSecretARN,
-    uaciIAMAuth,
-    uaciAuthScheme,
-    uaciUserName,
-    uaciDescription,
-
-    -- ** VPCSecurityGroupMembership
-    VPCSecurityGroupMembership,
-    vpcSecurityGroupMembership,
-    vsgmStatus,
-    vsgmVPCSecurityGroupId,
-
-    -- ** VPNDetails
-    VPNDetails,
-    vpnDetails,
-    vdVPNTunnelOriginatorIP,
-    vdVPNId,
-    vdVPNName,
-    vdVPNState,
-    vdVPNGatewayIP,
-    vdVPNPSK,
+    UserAuthConfigInfo (UserAuthConfigInfo'),
+    newUserAuthConfigInfo,
 
     -- ** ValidDBInstanceModificationsMessage
-    ValidDBInstanceModificationsMessage,
-    validDBInstanceModificationsMessage,
-    vdimmValidProcessorFeatures,
-    vdimmStorage,
+    ValidDBInstanceModificationsMessage (ValidDBInstanceModificationsMessage'),
+    newValidDBInstanceModificationsMessage,
 
     -- ** ValidStorageOptions
-    ValidStorageOptions,
-    validStorageOptions,
-    vsoStorageType,
-    vsoProvisionedIOPS,
-    vsoSupportsStorageAutoscaling,
-    vsoStorageSize,
-    vsoIOPSToStorageRatio,
+    ValidStorageOptions (ValidStorageOptions'),
+    newValidStorageOptions,
+
+    -- ** VpcSecurityGroupMembership
+    VpcSecurityGroupMembership (VpcSecurityGroupMembership'),
+    newVpcSecurityGroupMembership,
+
+    -- ** VpnDetails
+    VpnDetails (VpnDetails'),
+    newVpnDetails,
   )
 where
 
@@ -1964,6 +1735,7 @@ import Network.AWS.RDS.DownloadDBLogFilePortion
 import Network.AWS.RDS.FailoverDBCluster
 import Network.AWS.RDS.FailoverGlobalCluster
 import Network.AWS.RDS.ImportInstallationMedia
+import Network.AWS.RDS.Lens
 import Network.AWS.RDS.ListTagsForResource
 import Network.AWS.RDS.ModifyCertificates
 import Network.AWS.RDS.ModifyCurrentDBClusterCapacity
@@ -1993,11 +1765,11 @@ import Network.AWS.RDS.RemoveSourceIdentifierFromSubscription
 import Network.AWS.RDS.RemoveTagsFromResource
 import Network.AWS.RDS.ResetDBClusterParameterGroup
 import Network.AWS.RDS.ResetDBParameterGroup
-import Network.AWS.RDS.RestoreDBClusterFromS3
+import Network.AWS.RDS.RestoreDBClusterFromS
 import Network.AWS.RDS.RestoreDBClusterFromSnapshot
 import Network.AWS.RDS.RestoreDBClusterToPointInTime
 import Network.AWS.RDS.RestoreDBInstanceFromDBSnapshot
-import Network.AWS.RDS.RestoreDBInstanceFromS3
+import Network.AWS.RDS.RestoreDBInstanceFromS
 import Network.AWS.RDS.RestoreDBInstanceToPointInTime
 import Network.AWS.RDS.RevokeDBSecurityGroupIngress
 import Network.AWS.RDS.StartActivityStream

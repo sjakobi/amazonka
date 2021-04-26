@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,224 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a snapshot of a DB cluster. For more information on Amazon Aurora, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?> in the /Amazon Aurora User Guide./
+-- Creates a snapshot of a DB cluster. For more information on Amazon
+-- Aurora, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide./
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.CreateDBClusterSnapshot
   ( -- * Creating a Request
-    createDBClusterSnapshot,
-    CreateDBClusterSnapshot,
+    CreateDBClusterSnapshot (..),
+    newCreateDBClusterSnapshot,
 
     -- * Request Lenses
-    cdcsTags,
-    cdcsDBClusterSnapshotIdentifier,
-    cdcsDBClusterIdentifier,
+    createDBClusterSnapshot_tags,
+    createDBClusterSnapshot_dBClusterSnapshotIdentifier,
+    createDBClusterSnapshot_dBClusterIdentifier,
 
     -- * Destructuring the Response
-    createDBClusterSnapshotResponse,
-    CreateDBClusterSnapshotResponse,
+    CreateDBClusterSnapshotResponse (..),
+    newCreateDBClusterSnapshotResponse,
 
     -- * Response Lenses
-    cdcsrrsDBClusterSnapshot,
-    cdcsrrsResponseStatus,
+    createDBClusterSnapshotResponse_dBClusterSnapshot,
+    createDBClusterSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBClusterSnapshot
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'createDBClusterSnapshot' smart constructor.
+-- /See:/ 'newCreateDBClusterSnapshot' smart constructor.
 data CreateDBClusterSnapshot = CreateDBClusterSnapshot'
-  { _cdcsTags ::
-      !(Maybe [Tag]),
-    _cdcsDBClusterSnapshotIdentifier ::
-      !Text,
-    _cdcsDBClusterIdentifier ::
-      !Text
+  { -- | The tags to be assigned to the DB cluster snapshot.
+    tags :: Prelude.Maybe [Tag],
+    -- | The identifier of the DB cluster snapshot. This parameter is stored as a
+    -- lowercase string.
+    --
+    -- Constraints:
+    --
+    -- -   Must contain from 1 to 63 letters, numbers, or hyphens.
+    --
+    -- -   First character must be a letter.
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+    --
+    -- Example: @my-cluster1-snapshot1@
+    dBClusterSnapshotIdentifier :: Prelude.Text,
+    -- | The identifier of the DB cluster to create a snapshot for. This
+    -- parameter isn\'t case-sensitive.
+    --
+    -- Constraints:
+    --
+    -- -   Must match the identifier of an existing DBCluster.
+    --
+    -- Example: @my-cluster1@
+    dBClusterIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBClusterSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBClusterSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcsTags' - The tags to be assigned to the DB cluster snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcsDBClusterSnapshotIdentifier' - The identifier of the DB cluster snapshot. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1-snapshot1@
+-- 'tags', 'createDBClusterSnapshot_tags' - The tags to be assigned to the DB cluster snapshot.
 --
--- * 'cdcsDBClusterIdentifier' - The identifier of the DB cluster to create a snapshot for. This parameter isn't case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster. Example: @my-cluster1@
-createDBClusterSnapshot ::
-  -- | 'cdcsDBClusterSnapshotIdentifier'
-  Text ->
-  -- | 'cdcsDBClusterIdentifier'
-  Text ->
+-- 'dBClusterSnapshotIdentifier', 'createDBClusterSnapshot_dBClusterSnapshotIdentifier' - The identifier of the DB cluster snapshot. This parameter is stored as a
+-- lowercase string.
+--
+-- Constraints:
+--
+-- -   Must contain from 1 to 63 letters, numbers, or hyphens.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+--
+-- Example: @my-cluster1-snapshot1@
+--
+-- 'dBClusterIdentifier', 'createDBClusterSnapshot_dBClusterIdentifier' - The identifier of the DB cluster to create a snapshot for. This
+-- parameter isn\'t case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing DBCluster.
+--
+-- Example: @my-cluster1@
+newCreateDBClusterSnapshot ::
+  -- | 'dBClusterSnapshotIdentifier'
+  Prelude.Text ->
+  -- | 'dBClusterIdentifier'
+  Prelude.Text ->
   CreateDBClusterSnapshot
-createDBClusterSnapshot
+newCreateDBClusterSnapshot
   pDBClusterSnapshotIdentifier_
   pDBClusterIdentifier_ =
     CreateDBClusterSnapshot'
-      { _cdcsTags = Nothing,
-        _cdcsDBClusterSnapshotIdentifier =
+      { tags = Prelude.Nothing,
+        dBClusterSnapshotIdentifier =
           pDBClusterSnapshotIdentifier_,
-        _cdcsDBClusterIdentifier = pDBClusterIdentifier_
+        dBClusterIdentifier = pDBClusterIdentifier_
       }
 
 -- | The tags to be assigned to the DB cluster snapshot.
-cdcsTags :: Lens' CreateDBClusterSnapshot [Tag]
-cdcsTags = lens _cdcsTags (\s a -> s {_cdcsTags = a}) . _Default . _Coerce
+createDBClusterSnapshot_tags :: Lens.Lens' CreateDBClusterSnapshot (Prelude.Maybe [Tag])
+createDBClusterSnapshot_tags = Lens.lens (\CreateDBClusterSnapshot' {tags} -> tags) (\s@CreateDBClusterSnapshot' {} a -> s {tags = a} :: CreateDBClusterSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The identifier of the DB cluster snapshot. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1-snapshot1@
-cdcsDBClusterSnapshotIdentifier :: Lens' CreateDBClusterSnapshot Text
-cdcsDBClusterSnapshotIdentifier = lens _cdcsDBClusterSnapshotIdentifier (\s a -> s {_cdcsDBClusterSnapshotIdentifier = a})
+-- | The identifier of the DB cluster snapshot. This parameter is stored as a
+-- lowercase string.
+--
+-- Constraints:
+--
+-- -   Must contain from 1 to 63 letters, numbers, or hyphens.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+--
+-- Example: @my-cluster1-snapshot1@
+createDBClusterSnapshot_dBClusterSnapshotIdentifier :: Lens.Lens' CreateDBClusterSnapshot Prelude.Text
+createDBClusterSnapshot_dBClusterSnapshotIdentifier = Lens.lens (\CreateDBClusterSnapshot' {dBClusterSnapshotIdentifier} -> dBClusterSnapshotIdentifier) (\s@CreateDBClusterSnapshot' {} a -> s {dBClusterSnapshotIdentifier = a} :: CreateDBClusterSnapshot)
 
--- | The identifier of the DB cluster to create a snapshot for. This parameter isn't case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster. Example: @my-cluster1@
-cdcsDBClusterIdentifier :: Lens' CreateDBClusterSnapshot Text
-cdcsDBClusterIdentifier = lens _cdcsDBClusterIdentifier (\s a -> s {_cdcsDBClusterIdentifier = a})
+-- | The identifier of the DB cluster to create a snapshot for. This
+-- parameter isn\'t case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing DBCluster.
+--
+-- Example: @my-cluster1@
+createDBClusterSnapshot_dBClusterIdentifier :: Lens.Lens' CreateDBClusterSnapshot Prelude.Text
+createDBClusterSnapshot_dBClusterIdentifier = Lens.lens (\CreateDBClusterSnapshot' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@CreateDBClusterSnapshot' {} a -> s {dBClusterIdentifier = a} :: CreateDBClusterSnapshot)
 
-instance AWSRequest CreateDBClusterSnapshot where
+instance Prelude.AWSRequest CreateDBClusterSnapshot where
   type
     Rs CreateDBClusterSnapshot =
       CreateDBClusterSnapshotResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateDBClusterSnapshotResult"
       ( \s h x ->
           CreateDBClusterSnapshotResponse'
-            <$> (x .@? "DBClusterSnapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBClusterSnapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDBClusterSnapshot
+instance Prelude.Hashable CreateDBClusterSnapshot
 
-instance NFData CreateDBClusterSnapshot
+instance Prelude.NFData CreateDBClusterSnapshot
 
-instance ToHeaders CreateDBClusterSnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDBClusterSnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateDBClusterSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CreateDBClusterSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDBClusterSnapshot where
+instance Prelude.ToQuery CreateDBClusterSnapshot where
   toQuery CreateDBClusterSnapshot' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateDBClusterSnapshot" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "Tags" =: toQuery (toQueryList "Tag" <$> _cdcsTags),
+          Prelude.=: ("CreateDBClusterSnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
         "DBClusterSnapshotIdentifier"
-          =: _cdcsDBClusterSnapshotIdentifier,
-        "DBClusterIdentifier" =: _cdcsDBClusterIdentifier
+          Prelude.=: dBClusterSnapshotIdentifier,
+        "DBClusterIdentifier" Prelude.=: dBClusterIdentifier
       ]
 
--- | /See:/ 'createDBClusterSnapshotResponse' smart constructor.
+-- | /See:/ 'newCreateDBClusterSnapshotResponse' smart constructor.
 data CreateDBClusterSnapshotResponse = CreateDBClusterSnapshotResponse'
-  { _cdcsrrsDBClusterSnapshot ::
-      !( Maybe
-           DBClusterSnapshot
-       ),
-    _cdcsrrsResponseStatus ::
-      !Int
+  { dBClusterSnapshot :: Prelude.Maybe DBClusterSnapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBClusterSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBClusterSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcsrrsDBClusterSnapshot' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcsrrsResponseStatus' - -- | The response status code.
-createDBClusterSnapshotResponse ::
-  -- | 'cdcsrrsResponseStatus'
-  Int ->
+-- 'dBClusterSnapshot', 'createDBClusterSnapshotResponse_dBClusterSnapshot' - Undocumented member.
+--
+-- 'httpStatus', 'createDBClusterSnapshotResponse_httpStatus' - The response's http status code.
+newCreateDBClusterSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDBClusterSnapshotResponse
-createDBClusterSnapshotResponse pResponseStatus_ =
+newCreateDBClusterSnapshotResponse pHttpStatus_ =
   CreateDBClusterSnapshotResponse'
-    { _cdcsrrsDBClusterSnapshot =
-        Nothing,
-      _cdcsrrsResponseStatus = pResponseStatus_
+    { dBClusterSnapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cdcsrrsDBClusterSnapshot :: Lens' CreateDBClusterSnapshotResponse (Maybe DBClusterSnapshot)
-cdcsrrsDBClusterSnapshot = lens _cdcsrrsDBClusterSnapshot (\s a -> s {_cdcsrrsDBClusterSnapshot = a})
+createDBClusterSnapshotResponse_dBClusterSnapshot :: Lens.Lens' CreateDBClusterSnapshotResponse (Prelude.Maybe DBClusterSnapshot)
+createDBClusterSnapshotResponse_dBClusterSnapshot = Lens.lens (\CreateDBClusterSnapshotResponse' {dBClusterSnapshot} -> dBClusterSnapshot) (\s@CreateDBClusterSnapshotResponse' {} a -> s {dBClusterSnapshot = a} :: CreateDBClusterSnapshotResponse)
 
--- | -- | The response status code.
-cdcsrrsResponseStatus :: Lens' CreateDBClusterSnapshotResponse Int
-cdcsrrsResponseStatus = lens _cdcsrrsResponseStatus (\s a -> s {_cdcsrrsResponseStatus = a})
+-- | The response's http status code.
+createDBClusterSnapshotResponse_httpStatus :: Lens.Lens' CreateDBClusterSnapshotResponse Prelude.Int
+createDBClusterSnapshotResponse_httpStatus = Lens.lens (\CreateDBClusterSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateDBClusterSnapshotResponse' {} a -> s {httpStatus = a} :: CreateDBClusterSnapshotResponse)
 
-instance NFData CreateDBClusterSnapshotResponse
+instance
+  Prelude.NFData
+    CreateDBClusterSnapshotResponse

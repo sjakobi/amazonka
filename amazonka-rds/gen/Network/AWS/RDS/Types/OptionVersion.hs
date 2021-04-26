@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.OptionVersion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The version for an option. Option group option versions are returned by the @DescribeOptionGroupOptions@ action.
+-- | The version for an option. Option group option versions are returned by
+-- the @DescribeOptionGroupOptions@ action.
 --
---
---
--- /See:/ 'optionVersion' smart constructor.
+-- /See:/ 'newOptionVersion' smart constructor.
 data OptionVersion = OptionVersion'
-  { _ovIsDefault ::
-      !(Maybe Bool),
-    _ovVersion :: !(Maybe Text)
+  { -- | True if the version is the default version of the option, and otherwise
+    -- false.
+    isDefault :: Prelude.Maybe Prelude.Bool,
+    -- | The version of the option.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OptionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OptionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ovIsDefault' - True if the version is the default version of the option, and otherwise false.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ovVersion' - The version of the option.
-optionVersion ::
+-- 'isDefault', 'optionVersion_isDefault' - True if the version is the default version of the option, and otherwise
+-- false.
+--
+-- 'version', 'optionVersion_version' - The version of the option.
+newOptionVersion ::
   OptionVersion
-optionVersion =
+newOptionVersion =
   OptionVersion'
-    { _ovIsDefault = Nothing,
-      _ovVersion = Nothing
+    { isDefault = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
--- | True if the version is the default version of the option, and otherwise false.
-ovIsDefault :: Lens' OptionVersion (Maybe Bool)
-ovIsDefault = lens _ovIsDefault (\s a -> s {_ovIsDefault = a})
+-- | True if the version is the default version of the option, and otherwise
+-- false.
+optionVersion_isDefault :: Lens.Lens' OptionVersion (Prelude.Maybe Prelude.Bool)
+optionVersion_isDefault = Lens.lens (\OptionVersion' {isDefault} -> isDefault) (\s@OptionVersion' {} a -> s {isDefault = a} :: OptionVersion)
 
 -- | The version of the option.
-ovVersion :: Lens' OptionVersion (Maybe Text)
-ovVersion = lens _ovVersion (\s a -> s {_ovVersion = a})
+optionVersion_version :: Lens.Lens' OptionVersion (Prelude.Maybe Prelude.Text)
+optionVersion_version = Lens.lens (\OptionVersion' {version} -> version) (\s@OptionVersion' {} a -> s {version = a} :: OptionVersion)
 
-instance FromXML OptionVersion where
+instance Prelude.FromXML OptionVersion where
   parseXML x =
     OptionVersion'
-      <$> (x .@? "IsDefault") <*> (x .@? "Version")
+      Prelude.<$> (x Prelude..@? "IsDefault")
+      Prelude.<*> (x Prelude..@? "Version")
 
-instance Hashable OptionVersion
+instance Prelude.Hashable OptionVersion
 
-instance NFData OptionVersion
+instance Prelude.NFData OptionVersion

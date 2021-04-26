@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an Amazon Aurora DB cluster that was stopped using the AWS console, the stop-db-cluster AWS CLI command, or the StopDBCluster action.
+-- Starts an Amazon Aurora DB cluster that was stopped using the AWS
+-- console, the stop-db-cluster AWS CLI command, or the StopDBCluster
+-- action.
 --
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html Stopping and Starting an Aurora Cluster>
+-- in the /Amazon Aurora User Guide./
 --
--- For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html Stopping and Starting an Aurora Cluster> in the /Amazon Aurora User Guide./
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.StartDBCluster
   ( -- * Creating a Request
-    startDBCluster,
-    StartDBCluster,
+    StartDBCluster (..),
+    newStartDBCluster,
 
     -- * Request Lenses
-    sdbcDBClusterIdentifier,
+    startDBCluster_dBClusterIdentifier,
 
     -- * Destructuring the Response
-    startDBClusterResponse,
-    StartDBClusterResponse,
+    StartDBClusterResponse (..),
+    newStartDBClusterResponse,
 
     -- * Response Lenses
-    sdcrrsDBCluster,
-    sdcrrsResponseStatus,
+    startDBClusterResponse_dBCluster,
+    startDBClusterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBCluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDBCluster' smart constructor.
-newtype StartDBCluster = StartDBCluster'
-  { _sdbcDBClusterIdentifier ::
-      Text
+-- | /See:/ 'newStartDBCluster' smart constructor.
+data StartDBCluster = StartDBCluster'
+  { -- | The DB cluster identifier of the Amazon Aurora DB cluster to be started.
+    -- This parameter is stored as a lowercase string.
+    dBClusterIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDBCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDBCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdbcDBClusterIdentifier' - The DB cluster identifier of the Amazon Aurora DB cluster to be started. This parameter is stored as a lowercase string.
-startDBCluster ::
-  -- | 'sdbcDBClusterIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBClusterIdentifier', 'startDBCluster_dBClusterIdentifier' - The DB cluster identifier of the Amazon Aurora DB cluster to be started.
+-- This parameter is stored as a lowercase string.
+newStartDBCluster ::
+  -- | 'dBClusterIdentifier'
+  Prelude.Text ->
   StartDBCluster
-startDBCluster pDBClusterIdentifier_ =
+newStartDBCluster pDBClusterIdentifier_ =
   StartDBCluster'
-    { _sdbcDBClusterIdentifier =
+    { dBClusterIdentifier =
         pDBClusterIdentifier_
     }
 
--- | The DB cluster identifier of the Amazon Aurora DB cluster to be started. This parameter is stored as a lowercase string.
-sdbcDBClusterIdentifier :: Lens' StartDBCluster Text
-sdbcDBClusterIdentifier = lens _sdbcDBClusterIdentifier (\s a -> s {_sdbcDBClusterIdentifier = a})
+-- | The DB cluster identifier of the Amazon Aurora DB cluster to be started.
+-- This parameter is stored as a lowercase string.
+startDBCluster_dBClusterIdentifier :: Lens.Lens' StartDBCluster Prelude.Text
+startDBCluster_dBClusterIdentifier = Lens.lens (\StartDBCluster' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@StartDBCluster' {} a -> s {dBClusterIdentifier = a} :: StartDBCluster)
 
-instance AWSRequest StartDBCluster where
+instance Prelude.AWSRequest StartDBCluster where
   type Rs StartDBCluster = StartDBClusterResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StartDBClusterResult"
       ( \s h x ->
           StartDBClusterResponse'
-            <$> (x .@? "DBCluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBCluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartDBCluster
+instance Prelude.Hashable StartDBCluster
 
-instance NFData StartDBCluster
+instance Prelude.NFData StartDBCluster
 
-instance ToHeaders StartDBCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartDBCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StartDBCluster where
-  toPath = const "/"
+instance Prelude.ToPath StartDBCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartDBCluster where
+instance Prelude.ToQuery StartDBCluster where
   toQuery StartDBCluster' {..} =
-    mconcat
-      [ "Action" =: ("StartDBCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBClusterIdentifier" =: _sdbcDBClusterIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("StartDBCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBClusterIdentifier" Prelude.=: dBClusterIdentifier
       ]
 
--- | /See:/ 'startDBClusterResponse' smart constructor.
+-- | /See:/ 'newStartDBClusterResponse' smart constructor.
 data StartDBClusterResponse = StartDBClusterResponse'
-  { _sdcrrsDBCluster ::
-      !(Maybe DBCluster),
-    _sdcrrsResponseStatus ::
-      !Int
+  { dBCluster :: Prelude.Maybe DBCluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDBClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDBClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdcrrsDBCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdcrrsResponseStatus' - -- | The response status code.
-startDBClusterResponse ::
-  -- | 'sdcrrsResponseStatus'
-  Int ->
+-- 'dBCluster', 'startDBClusterResponse_dBCluster' - Undocumented member.
+--
+-- 'httpStatus', 'startDBClusterResponse_httpStatus' - The response's http status code.
+newStartDBClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartDBClusterResponse
-startDBClusterResponse pResponseStatus_ =
+newStartDBClusterResponse pHttpStatus_ =
   StartDBClusterResponse'
-    { _sdcrrsDBCluster = Nothing,
-      _sdcrrsResponseStatus = pResponseStatus_
+    { dBCluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-sdcrrsDBCluster :: Lens' StartDBClusterResponse (Maybe DBCluster)
-sdcrrsDBCluster = lens _sdcrrsDBCluster (\s a -> s {_sdcrrsDBCluster = a})
+startDBClusterResponse_dBCluster :: Lens.Lens' StartDBClusterResponse (Prelude.Maybe DBCluster)
+startDBClusterResponse_dBCluster = Lens.lens (\StartDBClusterResponse' {dBCluster} -> dBCluster) (\s@StartDBClusterResponse' {} a -> s {dBCluster = a} :: StartDBClusterResponse)
 
--- | -- | The response status code.
-sdcrrsResponseStatus :: Lens' StartDBClusterResponse Int
-sdcrrsResponseStatus = lens _sdcrrsResponseStatus (\s a -> s {_sdcrrsResponseStatus = a})
+-- | The response's http status code.
+startDBClusterResponse_httpStatus :: Lens.Lens' StartDBClusterResponse Prelude.Int
+startDBClusterResponse_httpStatus = Lens.lens (\StartDBClusterResponse' {httpStatus} -> httpStatus) (\s@StartDBClusterResponse' {} a -> s {httpStatus = a} :: StartDBClusterResponse)
 
-instance NFData StartDBClusterResponse
+instance Prelude.NFData StartDBClusterResponse

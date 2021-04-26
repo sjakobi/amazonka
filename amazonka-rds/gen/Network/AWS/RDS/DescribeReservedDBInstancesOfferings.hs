@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,297 +23,365 @@
 --
 -- Lists available reserved DB instance offerings.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeReservedDBInstancesOfferings
   ( -- * Creating a Request
-    describeReservedDBInstancesOfferings,
-    DescribeReservedDBInstancesOfferings,
+    DescribeReservedDBInstancesOfferings (..),
+    newDescribeReservedDBInstancesOfferings,
 
     -- * Request Lenses
-    drdioDuration,
-    drdioMultiAZ,
-    drdioDBInstanceClass,
-    drdioFilters,
-    drdioOfferingType,
-    drdioProductDescription,
-    drdioReservedDBInstancesOfferingId,
-    drdioMarker,
-    drdioMaxRecords,
+    describeReservedDBInstancesOfferings_duration,
+    describeReservedDBInstancesOfferings_multiAZ,
+    describeReservedDBInstancesOfferings_dBInstanceClass,
+    describeReservedDBInstancesOfferings_filters,
+    describeReservedDBInstancesOfferings_offeringType,
+    describeReservedDBInstancesOfferings_productDescription,
+    describeReservedDBInstancesOfferings_reservedDBInstancesOfferingId,
+    describeReservedDBInstancesOfferings_marker,
+    describeReservedDBInstancesOfferings_maxRecords,
 
     -- * Destructuring the Response
-    describeReservedDBInstancesOfferingsResponse,
-    DescribeReservedDBInstancesOfferingsResponse,
+    DescribeReservedDBInstancesOfferingsResponse (..),
+    newDescribeReservedDBInstancesOfferingsResponse,
 
     -- * Response Lenses
-    drdiorrsReservedDBInstancesOfferings,
-    drdiorrsMarker,
-    drdiorrsResponseStatus,
+    describeReservedDBInstancesOfferingsResponse_reservedDBInstancesOfferings,
+    describeReservedDBInstancesOfferingsResponse_marker,
+    describeReservedDBInstancesOfferingsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.ReservedDBInstancesOffering
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeReservedDBInstancesOfferings' smart constructor.
+-- /See:/ 'newDescribeReservedDBInstancesOfferings' smart constructor.
 data DescribeReservedDBInstancesOfferings = DescribeReservedDBInstancesOfferings'
-  { _drdioDuration ::
-      !( Maybe
-           Text
-       ),
-    _drdioMultiAZ ::
-      !( Maybe
-           Bool
-       ),
-    _drdioDBInstanceClass ::
-      !( Maybe
-           Text
-       ),
-    _drdioFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _drdioOfferingType ::
-      !( Maybe
-           Text
-       ),
-    _drdioProductDescription ::
-      !( Maybe
-           Text
-       ),
-    _drdioReservedDBInstancesOfferingId ::
-      !( Maybe
-           Text
-       ),
-    _drdioMarker ::
-      !( Maybe
-           Text
-       ),
-    _drdioMaxRecords ::
-      !( Maybe
-           Int
-       )
+  { -- | Duration filter value, specified in years or seconds. Specify this
+    -- parameter to show only reservations for this duration.
+    --
+    -- Valid Values: @1 | 3 | 31536000 | 94608000@
+    duration :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to show only those reservations that
+    -- support Multi-AZ.
+    multiAZ :: Prelude.Maybe Prelude.Bool,
+    -- | The DB instance class filter value. Specify this parameter to show only
+    -- the available offerings matching the specified DB instance class.
+    dBInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | This parameter isn\'t currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | The offering type filter value. Specify this parameter to show only the
+    -- available offerings matching the specified offering type.
+    --
+    -- Valid Values: @\"Partial Upfront\" | \"All Upfront\" | \"No Upfront\" @
+    offeringType :: Prelude.Maybe Prelude.Text,
+    -- | Product description filter value. Specify this parameter to show only
+    -- the available offerings that contain the specified product description.
+    --
+    -- The results show offerings that partially match the filter value.
+    productDescription :: Prelude.Maybe Prelude.Text,
+    -- | The offering identifier filter value. Specify this parameter to show
+    -- only the available offering that matches the specified reservation
+    -- identifier.
+    --
+    -- Example: @438012d3-4052-4cc7-b2e3-8d3372e0e706@
+    reservedDBInstancesOfferingId :: Prelude.Maybe Prelude.Text,
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more than
+    -- the @MaxRecords@ value is available, a pagination token called a marker
+    -- is included in the response so you can retrieve the remaining results.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReservedDBInstancesOfferings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReservedDBInstancesOfferings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drdioDuration' - Duration filter value, specified in years or seconds. Specify this parameter to show only reservations for this duration. Valid Values: @1 | 3 | 31536000 | 94608000@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drdioMultiAZ' - A value that indicates whether to show only those reservations that support Multi-AZ.
+-- 'duration', 'describeReservedDBInstancesOfferings_duration' - Duration filter value, specified in years or seconds. Specify this
+-- parameter to show only reservations for this duration.
 --
--- * 'drdioDBInstanceClass' - The DB instance class filter value. Specify this parameter to show only the available offerings matching the specified DB instance class.
+-- Valid Values: @1 | 3 | 31536000 | 94608000@
 --
--- * 'drdioFilters' - This parameter isn't currently supported.
+-- 'multiAZ', 'describeReservedDBInstancesOfferings_multiAZ' - A value that indicates whether to show only those reservations that
+-- support Multi-AZ.
 --
--- * 'drdioOfferingType' - The offering type filter value. Specify this parameter to show only the available offerings matching the specified offering type. Valid Values: @"Partial Upfront" | "All Upfront" | "No Upfront" @
+-- 'dBInstanceClass', 'describeReservedDBInstancesOfferings_dBInstanceClass' - The DB instance class filter value. Specify this parameter to show only
+-- the available offerings matching the specified DB instance class.
 --
--- * 'drdioProductDescription' - Product description filter value. Specify this parameter to show only the available offerings that contain the specified product description.
+-- 'filters', 'describeReservedDBInstancesOfferings_filters' - This parameter isn\'t currently supported.
 --
--- * 'drdioReservedDBInstancesOfferingId' - The offering identifier filter value. Specify this parameter to show only the available offering that matches the specified reservation identifier. Example: @438012d3-4052-4cc7-b2e3-8d3372e0e706@
+-- 'offeringType', 'describeReservedDBInstancesOfferings_offeringType' - The offering type filter value. Specify this parameter to show only the
+-- available offerings matching the specified offering type.
 --
--- * 'drdioMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- Valid Values: @\"Partial Upfront\" | \"All Upfront\" | \"No Upfront\" @
 --
--- * 'drdioMaxRecords' - The maximum number of records to include in the response. If more than the @MaxRecords@ value is available, a pagination token called a marker is included in the response so you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-describeReservedDBInstancesOfferings ::
+-- 'productDescription', 'describeReservedDBInstancesOfferings_productDescription' - Product description filter value. Specify this parameter to show only
+-- the available offerings that contain the specified product description.
+--
+-- The results show offerings that partially match the filter value.
+--
+-- 'reservedDBInstancesOfferingId', 'describeReservedDBInstancesOfferings_reservedDBInstancesOfferingId' - The offering identifier filter value. Specify this parameter to show
+-- only the available offering that matches the specified reservation
+-- identifier.
+--
+-- Example: @438012d3-4052-4cc7-b2e3-8d3372e0e706@
+--
+-- 'marker', 'describeReservedDBInstancesOfferings_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeReservedDBInstancesOfferings_maxRecords' - The maximum number of records to include in the response. If more than
+-- the @MaxRecords@ value is available, a pagination token called a marker
+-- is included in the response so you can retrieve the remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+newDescribeReservedDBInstancesOfferings ::
   DescribeReservedDBInstancesOfferings
-describeReservedDBInstancesOfferings =
+newDescribeReservedDBInstancesOfferings =
   DescribeReservedDBInstancesOfferings'
-    { _drdioDuration =
-        Nothing,
-      _drdioMultiAZ = Nothing,
-      _drdioDBInstanceClass = Nothing,
-      _drdioFilters = Nothing,
-      _drdioOfferingType = Nothing,
-      _drdioProductDescription = Nothing,
-      _drdioReservedDBInstancesOfferingId =
-        Nothing,
-      _drdioMarker = Nothing,
-      _drdioMaxRecords = Nothing
+    { duration =
+        Prelude.Nothing,
+      multiAZ = Prelude.Nothing,
+      dBInstanceClass = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      productDescription = Prelude.Nothing,
+      reservedDBInstancesOfferingId =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | Duration filter value, specified in years or seconds. Specify this parameter to show only reservations for this duration. Valid Values: @1 | 3 | 31536000 | 94608000@
-drdioDuration :: Lens' DescribeReservedDBInstancesOfferings (Maybe Text)
-drdioDuration = lens _drdioDuration (\s a -> s {_drdioDuration = a})
+-- | Duration filter value, specified in years or seconds. Specify this
+-- parameter to show only reservations for this duration.
+--
+-- Valid Values: @1 | 3 | 31536000 | 94608000@
+describeReservedDBInstancesOfferings_duration :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedDBInstancesOfferings_duration = Lens.lens (\DescribeReservedDBInstancesOfferings' {duration} -> duration) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {duration = a} :: DescribeReservedDBInstancesOfferings)
 
--- | A value that indicates whether to show only those reservations that support Multi-AZ.
-drdioMultiAZ :: Lens' DescribeReservedDBInstancesOfferings (Maybe Bool)
-drdioMultiAZ = lens _drdioMultiAZ (\s a -> s {_drdioMultiAZ = a})
+-- | A value that indicates whether to show only those reservations that
+-- support Multi-AZ.
+describeReservedDBInstancesOfferings_multiAZ :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Bool)
+describeReservedDBInstancesOfferings_multiAZ = Lens.lens (\DescribeReservedDBInstancesOfferings' {multiAZ} -> multiAZ) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {multiAZ = a} :: DescribeReservedDBInstancesOfferings)
 
--- | The DB instance class filter value. Specify this parameter to show only the available offerings matching the specified DB instance class.
-drdioDBInstanceClass :: Lens' DescribeReservedDBInstancesOfferings (Maybe Text)
-drdioDBInstanceClass = lens _drdioDBInstanceClass (\s a -> s {_drdioDBInstanceClass = a})
+-- | The DB instance class filter value. Specify this parameter to show only
+-- the available offerings matching the specified DB instance class.
+describeReservedDBInstancesOfferings_dBInstanceClass :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedDBInstancesOfferings_dBInstanceClass = Lens.lens (\DescribeReservedDBInstancesOfferings' {dBInstanceClass} -> dBInstanceClass) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {dBInstanceClass = a} :: DescribeReservedDBInstancesOfferings)
 
--- | This parameter isn't currently supported.
-drdioFilters :: Lens' DescribeReservedDBInstancesOfferings [Filter]
-drdioFilters = lens _drdioFilters (\s a -> s {_drdioFilters = a}) . _Default . _Coerce
+-- | This parameter isn\'t currently supported.
+describeReservedDBInstancesOfferings_filters :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe [Filter])
+describeReservedDBInstancesOfferings_filters = Lens.lens (\DescribeReservedDBInstancesOfferings' {filters} -> filters) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {filters = a} :: DescribeReservedDBInstancesOfferings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The offering type filter value. Specify this parameter to show only the available offerings matching the specified offering type. Valid Values: @"Partial Upfront" | "All Upfront" | "No Upfront" @
-drdioOfferingType :: Lens' DescribeReservedDBInstancesOfferings (Maybe Text)
-drdioOfferingType = lens _drdioOfferingType (\s a -> s {_drdioOfferingType = a})
+-- | The offering type filter value. Specify this parameter to show only the
+-- available offerings matching the specified offering type.
+--
+-- Valid Values: @\"Partial Upfront\" | \"All Upfront\" | \"No Upfront\" @
+describeReservedDBInstancesOfferings_offeringType :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedDBInstancesOfferings_offeringType = Lens.lens (\DescribeReservedDBInstancesOfferings' {offeringType} -> offeringType) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {offeringType = a} :: DescribeReservedDBInstancesOfferings)
 
--- | Product description filter value. Specify this parameter to show only the available offerings that contain the specified product description.
-drdioProductDescription :: Lens' DescribeReservedDBInstancesOfferings (Maybe Text)
-drdioProductDescription = lens _drdioProductDescription (\s a -> s {_drdioProductDescription = a})
+-- | Product description filter value. Specify this parameter to show only
+-- the available offerings that contain the specified product description.
+--
+-- The results show offerings that partially match the filter value.
+describeReservedDBInstancesOfferings_productDescription :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedDBInstancesOfferings_productDescription = Lens.lens (\DescribeReservedDBInstancesOfferings' {productDescription} -> productDescription) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {productDescription = a} :: DescribeReservedDBInstancesOfferings)
 
--- | The offering identifier filter value. Specify this parameter to show only the available offering that matches the specified reservation identifier. Example: @438012d3-4052-4cc7-b2e3-8d3372e0e706@
-drdioReservedDBInstancesOfferingId :: Lens' DescribeReservedDBInstancesOfferings (Maybe Text)
-drdioReservedDBInstancesOfferingId = lens _drdioReservedDBInstancesOfferingId (\s a -> s {_drdioReservedDBInstancesOfferingId = a})
+-- | The offering identifier filter value. Specify this parameter to show
+-- only the available offering that matches the specified reservation
+-- identifier.
+--
+-- Example: @438012d3-4052-4cc7-b2e3-8d3372e0e706@
+describeReservedDBInstancesOfferings_reservedDBInstancesOfferingId :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedDBInstancesOfferings_reservedDBInstancesOfferingId = Lens.lens (\DescribeReservedDBInstancesOfferings' {reservedDBInstancesOfferingId} -> reservedDBInstancesOfferingId) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {reservedDBInstancesOfferingId = a} :: DescribeReservedDBInstancesOfferings)
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-drdioMarker :: Lens' DescribeReservedDBInstancesOfferings (Maybe Text)
-drdioMarker = lens _drdioMarker (\s a -> s {_drdioMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeReservedDBInstancesOfferings_marker :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedDBInstancesOfferings_marker = Lens.lens (\DescribeReservedDBInstancesOfferings' {marker} -> marker) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {marker = a} :: DescribeReservedDBInstancesOfferings)
 
--- | The maximum number of records to include in the response. If more than the @MaxRecords@ value is available, a pagination token called a marker is included in the response so you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-drdioMaxRecords :: Lens' DescribeReservedDBInstancesOfferings (Maybe Int)
-drdioMaxRecords = lens _drdioMaxRecords (\s a -> s {_drdioMaxRecords = a})
+-- | The maximum number of records to include in the response. If more than
+-- the @MaxRecords@ value is available, a pagination token called a marker
+-- is included in the response so you can retrieve the remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeReservedDBInstancesOfferings_maxRecords :: Lens.Lens' DescribeReservedDBInstancesOfferings (Prelude.Maybe Prelude.Int)
+describeReservedDBInstancesOfferings_maxRecords = Lens.lens (\DescribeReservedDBInstancesOfferings' {maxRecords} -> maxRecords) (\s@DescribeReservedDBInstancesOfferings' {} a -> s {maxRecords = a} :: DescribeReservedDBInstancesOfferings)
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeReservedDBInstancesOfferings
   where
   page rq rs
-    | stop (rs ^. drdiorrsMarker) = Nothing
-    | stop (rs ^. drdiorrsReservedDBInstancesOfferings) =
-      Nothing
-    | otherwise =
-      Just $ rq & drdioMarker .~ rs ^. drdiorrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeReservedDBInstancesOfferingsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeReservedDBInstancesOfferingsResponse_reservedDBInstancesOfferings
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeReservedDBInstancesOfferings_marker
+          Lens..~ rs
+          Lens.^? describeReservedDBInstancesOfferingsResponse_marker
+            Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeReservedDBInstancesOfferings
   where
   type
     Rs DescribeReservedDBInstancesOfferings =
       DescribeReservedDBInstancesOfferingsResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeReservedDBInstancesOfferingsResult"
       ( \s h x ->
           DescribeReservedDBInstancesOfferingsResponse'
-            <$> ( x .@? "ReservedDBInstancesOfferings" .!@ mempty
-                    >>= may (parseXMLList "ReservedDBInstancesOffering")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "ReservedDBInstancesOfferings"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "ReservedDBInstancesOffering")
+                        )
+              Prelude.<*> (x Prelude..@? "Marker")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeReservedDBInstancesOfferings
-
-instance NFData DescribeReservedDBInstancesOfferings
 
 instance
-  ToHeaders
+  Prelude.NFData
+    DescribeReservedDBInstancesOfferings
+
+instance
+  Prelude.ToHeaders
     DescribeReservedDBInstancesOfferings
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeReservedDBInstancesOfferings where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeReservedDBInstancesOfferings
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeReservedDBInstancesOfferings where
+instance
+  Prelude.ToQuery
+    DescribeReservedDBInstancesOfferings
+  where
   toQuery DescribeReservedDBInstancesOfferings' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DescribeReservedDBInstancesOfferings" ::
-                 ByteString
-             ),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "Duration" =: _drdioDuration,
-        "MultiAZ" =: _drdioMultiAZ,
-        "DBInstanceClass" =: _drdioDBInstanceClass,
+          Prelude.=: ( "DescribeReservedDBInstancesOfferings" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "Duration" Prelude.=: duration,
+        "MultiAZ" Prelude.=: multiAZ,
+        "DBInstanceClass" Prelude.=: dBInstanceClass,
         "Filters"
-          =: toQuery (toQueryList "Filter" <$> _drdioFilters),
-        "OfferingType" =: _drdioOfferingType,
-        "ProductDescription" =: _drdioProductDescription,
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "OfferingType" Prelude.=: offeringType,
+        "ProductDescription" Prelude.=: productDescription,
         "ReservedDBInstancesOfferingId"
-          =: _drdioReservedDBInstancesOfferingId,
-        "Marker" =: _drdioMarker,
-        "MaxRecords" =: _drdioMaxRecords
+          Prelude.=: reservedDBInstancesOfferingId,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | Contains the result of a successful invocation of the @DescribeReservedDBInstancesOfferings@ action.
+-- | Contains the result of a successful invocation of the
+-- @DescribeReservedDBInstancesOfferings@ action.
 --
---
---
--- /See:/ 'describeReservedDBInstancesOfferingsResponse' smart constructor.
+-- /See:/ 'newDescribeReservedDBInstancesOfferingsResponse' smart constructor.
 data DescribeReservedDBInstancesOfferingsResponse = DescribeReservedDBInstancesOfferingsResponse'
-  { _drdiorrsReservedDBInstancesOfferings ::
-      !( Maybe
-           [ReservedDBInstancesOffering]
-       ),
-    _drdiorrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _drdiorrsResponseStatus ::
-      !Int
+  { -- | A list of reserved DB instance offerings.
+    reservedDBInstancesOfferings :: Prelude.Maybe [ReservedDBInstancesOffering],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReservedDBInstancesOfferingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReservedDBInstancesOfferingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drdiorrsReservedDBInstancesOfferings' - A list of reserved DB instance offerings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drdiorrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'reservedDBInstancesOfferings', 'describeReservedDBInstancesOfferingsResponse_reservedDBInstancesOfferings' - A list of reserved DB instance offerings.
 --
--- * 'drdiorrsResponseStatus' - -- | The response status code.
-describeReservedDBInstancesOfferingsResponse ::
-  -- | 'drdiorrsResponseStatus'
-  Int ->
+-- 'marker', 'describeReservedDBInstancesOfferingsResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeReservedDBInstancesOfferingsResponse_httpStatus' - The response's http status code.
+newDescribeReservedDBInstancesOfferingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeReservedDBInstancesOfferingsResponse
-describeReservedDBInstancesOfferingsResponse
-  pResponseStatus_ =
+newDescribeReservedDBInstancesOfferingsResponse
+  pHttpStatus_ =
     DescribeReservedDBInstancesOfferingsResponse'
-      { _drdiorrsReservedDBInstancesOfferings =
-          Nothing,
-        _drdiorrsMarker = Nothing,
-        _drdiorrsResponseStatus =
-          pResponseStatus_
+      { reservedDBInstancesOfferings =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list of reserved DB instance offerings.
-drdiorrsReservedDBInstancesOfferings :: Lens' DescribeReservedDBInstancesOfferingsResponse [ReservedDBInstancesOffering]
-drdiorrsReservedDBInstancesOfferings = lens _drdiorrsReservedDBInstancesOfferings (\s a -> s {_drdiorrsReservedDBInstancesOfferings = a}) . _Default . _Coerce
+describeReservedDBInstancesOfferingsResponse_reservedDBInstancesOfferings :: Lens.Lens' DescribeReservedDBInstancesOfferingsResponse (Prelude.Maybe [ReservedDBInstancesOffering])
+describeReservedDBInstancesOfferingsResponse_reservedDBInstancesOfferings = Lens.lens (\DescribeReservedDBInstancesOfferingsResponse' {reservedDBInstancesOfferings} -> reservedDBInstancesOfferings) (\s@DescribeReservedDBInstancesOfferingsResponse' {} a -> s {reservedDBInstancesOfferings = a} :: DescribeReservedDBInstancesOfferingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-drdiorrsMarker :: Lens' DescribeReservedDBInstancesOfferingsResponse (Maybe Text)
-drdiorrsMarker = lens _drdiorrsMarker (\s a -> s {_drdiorrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeReservedDBInstancesOfferingsResponse_marker :: Lens.Lens' DescribeReservedDBInstancesOfferingsResponse (Prelude.Maybe Prelude.Text)
+describeReservedDBInstancesOfferingsResponse_marker = Lens.lens (\DescribeReservedDBInstancesOfferingsResponse' {marker} -> marker) (\s@DescribeReservedDBInstancesOfferingsResponse' {} a -> s {marker = a} :: DescribeReservedDBInstancesOfferingsResponse)
 
--- | -- | The response status code.
-drdiorrsResponseStatus :: Lens' DescribeReservedDBInstancesOfferingsResponse Int
-drdiorrsResponseStatus = lens _drdiorrsResponseStatus (\s a -> s {_drdiorrsResponseStatus = a})
+-- | The response's http status code.
+describeReservedDBInstancesOfferingsResponse_httpStatus :: Lens.Lens' DescribeReservedDBInstancesOfferingsResponse Prelude.Int
+describeReservedDBInstancesOfferingsResponse_httpStatus = Lens.lens (\DescribeReservedDBInstancesOfferingsResponse' {httpStatus} -> httpStatus) (\s@DescribeReservedDBInstancesOfferingsResponse' {} a -> s {httpStatus = a} :: DescribeReservedDBInstancesOfferingsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeReservedDBInstancesOfferingsResponse

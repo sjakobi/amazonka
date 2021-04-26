@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBClusterParameterGroupNameMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- |
 --
---
---
--- /See:/ 'dbClusterParameterGroupNameMessage' smart constructor.
-newtype DBClusterParameterGroupNameMessage = DBClusterParameterGroupNameMessage'
-  { _dcpgnmDBClusterParameterGroupName ::
-      Maybe
-        Text
+-- /See:/ 'newDBClusterParameterGroupNameMessage' smart constructor.
+data DBClusterParameterGroupNameMessage = DBClusterParameterGroupNameMessage'
+  { -- | The name of the DB cluster parameter group.
+    --
+    -- Constraints:
+    --
+    -- -   Must be 1 to 255 letters or numbers.
+    --
+    -- -   First character must be a letter
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens
+    --
+    -- This value is stored as a lowercase string.
+    dBClusterParameterGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBClusterParameterGroupNameMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBClusterParameterGroupNameMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpgnmDBClusterParameterGroupName' - The name of the DB cluster parameter group. Constraints:     * Must be 1 to 255 letters or numbers.     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens
-dbClusterParameterGroupNameMessage ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBClusterParameterGroupName', 'dBClusterParameterGroupNameMessage_dBClusterParameterGroupName' - The name of the DB cluster parameter group.
+--
+-- Constraints:
+--
+-- -   Must be 1 to 255 letters or numbers.
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- This value is stored as a lowercase string.
+newDBClusterParameterGroupNameMessage ::
   DBClusterParameterGroupNameMessage
-dbClusterParameterGroupNameMessage =
+newDBClusterParameterGroupNameMessage =
   DBClusterParameterGroupNameMessage'
-    { _dcpgnmDBClusterParameterGroupName =
-        Nothing
+    { dBClusterParameterGroupName =
+        Prelude.Nothing
     }
 
--- | The name of the DB cluster parameter group. Constraints:     * Must be 1 to 255 letters or numbers.     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens
-dcpgnmDBClusterParameterGroupName :: Lens' DBClusterParameterGroupNameMessage (Maybe Text)
-dcpgnmDBClusterParameterGroupName = lens _dcpgnmDBClusterParameterGroupName (\s a -> s {_dcpgnmDBClusterParameterGroupName = a})
+-- | The name of the DB cluster parameter group.
+--
+-- Constraints:
+--
+-- -   Must be 1 to 255 letters or numbers.
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- This value is stored as a lowercase string.
+dBClusterParameterGroupNameMessage_dBClusterParameterGroupName :: Lens.Lens' DBClusterParameterGroupNameMessage (Prelude.Maybe Prelude.Text)
+dBClusterParameterGroupNameMessage_dBClusterParameterGroupName = Lens.lens (\DBClusterParameterGroupNameMessage' {dBClusterParameterGroupName} -> dBClusterParameterGroupName) (\s@DBClusterParameterGroupNameMessage' {} a -> s {dBClusterParameterGroupName = a} :: DBClusterParameterGroupNameMessage)
 
-instance FromXML DBClusterParameterGroupNameMessage where
+instance
+  Prelude.FromXML
+    DBClusterParameterGroupNameMessage
+  where
   parseXML x =
     DBClusterParameterGroupNameMessage'
-      <$> (x .@? "DBClusterParameterGroupName")
+      Prelude.<$> (x Prelude..@? "DBClusterParameterGroupName")
 
-instance Hashable DBClusterParameterGroupNameMessage
+instance
+  Prelude.Hashable
+    DBClusterParameterGroupNameMessage
 
-instance NFData DBClusterParameterGroupNameMessage
+instance
+  Prelude.NFData
+    DBClusterParameterGroupNameMessage

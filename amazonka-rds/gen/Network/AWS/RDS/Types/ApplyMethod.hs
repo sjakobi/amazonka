@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.RDS.Types.ApplyMethod
   ( ApplyMethod
       ( ..,
-        Immediate,
-        PendingReboot
+        ApplyMethodImmediate,
+        ApplyMethodPendingReboot
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApplyMethod = ApplyMethod' (CI Text)
+newtype ApplyMethod = ApplyMethod'
+  { fromApplyMethod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Immediate :: ApplyMethod
-pattern Immediate = ApplyMethod' "immediate"
+pattern ApplyMethodImmediate :: ApplyMethod
+pattern ApplyMethodImmediate = ApplyMethod' "immediate"
 
-pattern PendingReboot :: ApplyMethod
-pattern PendingReboot = ApplyMethod' "pending-reboot"
+pattern ApplyMethodPendingReboot :: ApplyMethod
+pattern ApplyMethodPendingReboot = ApplyMethod' "pending-reboot"
 
 {-# COMPLETE
-  Immediate,
-  PendingReboot,
+  ApplyMethodImmediate,
+  ApplyMethodPendingReboot,
   ApplyMethod'
   #-}
 
-instance FromText ApplyMethod where
-  parser = (ApplyMethod' . mk) <$> takeText
+instance Prelude.FromText ApplyMethod where
+  parser = ApplyMethod' Prelude.<$> Prelude.takeText
 
-instance ToText ApplyMethod where
-  toText (ApplyMethod' ci) = original ci
+instance Prelude.ToText ApplyMethod where
+  toText (ApplyMethod' x) = x
 
-instance Hashable ApplyMethod
+instance Prelude.Hashable ApplyMethod
 
-instance NFData ApplyMethod
+instance Prelude.NFData ApplyMethod
 
-instance ToByteString ApplyMethod
+instance Prelude.ToByteString ApplyMethod
 
-instance ToQuery ApplyMethod
+instance Prelude.ToQuery ApplyMethod
 
-instance ToHeader ApplyMethod
+instance Prelude.ToHeader ApplyMethod
 
-instance FromXML ApplyMethod where
-  parseXML = parseXMLText "ApplyMethod"
+instance Prelude.FromXML ApplyMethod where
+  parseXML = Prelude.parseXMLText "ApplyMethod"

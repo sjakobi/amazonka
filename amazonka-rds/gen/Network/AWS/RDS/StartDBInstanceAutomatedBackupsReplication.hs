@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,205 +23,223 @@
 --
 -- Enables replication of automated backups to a different AWS Region.
 --
---
--- For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html Replicating Automated Backups to Another AWS Region> in the /Amazon RDS User Guide./
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html Replicating Automated Backups to Another AWS Region>
+-- in the /Amazon RDS User Guide./
 module Network.AWS.RDS.StartDBInstanceAutomatedBackupsReplication
   ( -- * Creating a Request
-    startDBInstanceAutomatedBackupsReplication,
-    StartDBInstanceAutomatedBackupsReplication,
+    StartDBInstanceAutomatedBackupsReplication (..),
+    newStartDBInstanceAutomatedBackupsReplication,
 
     -- * Request Lenses
-    sdiabrBackupRetentionPeriod,
-    sdiabrKMSKeyId,
-    sdiabrPreSignedURL,
-    sdiabrSourceDBInstanceARN,
+    startDBInstanceAutomatedBackupsReplication_backupRetentionPeriod,
+    startDBInstanceAutomatedBackupsReplication_kmsKeyId,
+    startDBInstanceAutomatedBackupsReplication_preSignedUrl,
+    startDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn,
 
     -- * Destructuring the Response
-    startDBInstanceAutomatedBackupsReplicationResponse,
-    StartDBInstanceAutomatedBackupsReplicationResponse,
+    StartDBInstanceAutomatedBackupsReplicationResponse (..),
+    newStartDBInstanceAutomatedBackupsReplicationResponse,
 
     -- * Response Lenses
-    sdbiabrrrsDBInstanceAutomatedBackup,
-    sdbiabrrrsResponseStatus,
+    startDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup,
+    startDBInstanceAutomatedBackupsReplicationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstanceAutomatedBackup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDBInstanceAutomatedBackupsReplication' smart constructor.
+-- | /See:/ 'newStartDBInstanceAutomatedBackupsReplication' smart constructor.
 data StartDBInstanceAutomatedBackupsReplication = StartDBInstanceAutomatedBackupsReplication'
-  { _sdiabrBackupRetentionPeriod ::
-      !( Maybe
-           Int
-       ),
-    _sdiabrKMSKeyId ::
-      !( Maybe
-           Text
-       ),
-    _sdiabrPreSignedURL ::
-      !( Maybe
-           Text
-       ),
-    _sdiabrSourceDBInstanceARN ::
-      !Text
+  { -- | The retention period for the replicated automated backups.
+    backupRetentionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | The AWS KMS key identifier for encryption of the replicated automated
+    -- backups. The KMS key ID is the Amazon Resource Name (ARN) for the KMS
+    -- encryption key in the destination AWS Region, for example,
+    -- @arn:aws:kms:us-east-1:123456789012:key\/AKIAIOSFODNN7EXAMPLE@.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | A URL that contains a Signature Version 4 signed request for the
+    -- StartDBInstanceAutomatedBackupsReplication action to be called in the
+    -- AWS Region of the source DB instance. The presigned URL must be a valid
+    -- request for the StartDBInstanceAutomatedBackupsReplication API action
+    -- that can be executed in the AWS Region that contains the source DB
+    -- instance.
+    preSignedUrl :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the source DB instance for the
+    -- replicated automated backups, for example,
+    -- @arn:aws:rds:us-west-2:123456789012:db:mydatabase@.
+    sourceDBInstanceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDBInstanceAutomatedBackupsReplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDBInstanceAutomatedBackupsReplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdiabrBackupRetentionPeriod' - The retention period for the replicated automated backups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdiabrKMSKeyId' - The AWS KMS key identifier for encryption of the replicated automated backups. The KMS key ID is the Amazon Resource Name (ARN) for the KMS encryption key in the destination AWS Region, for example, @arn:aws:kms:us-east-1:123456789012:key/AKIAIOSFODNN7EXAMPLE@ .
+-- 'backupRetentionPeriod', 'startDBInstanceAutomatedBackupsReplication_backupRetentionPeriod' - The retention period for the replicated automated backups.
 --
--- * 'sdiabrPreSignedURL' - A URL that contains a Signature Version 4 signed request for the StartDBInstanceAutomatedBackupsReplication action to be called in the AWS Region of the source DB instance. The presigned URL must be a valid request for the StartDBInstanceAutomatedBackupsReplication API action that can be executed in the AWS Region that contains the source DB instance.
+-- 'kmsKeyId', 'startDBInstanceAutomatedBackupsReplication_kmsKeyId' - The AWS KMS key identifier for encryption of the replicated automated
+-- backups. The KMS key ID is the Amazon Resource Name (ARN) for the KMS
+-- encryption key in the destination AWS Region, for example,
+-- @arn:aws:kms:us-east-1:123456789012:key\/AKIAIOSFODNN7EXAMPLE@.
 --
--- * 'sdiabrSourceDBInstanceARN' - The Amazon Resource Name (ARN) of the source DB instance for the replicated automated backups, for example, @arn:aws:rds:us-west-2:123456789012:db:mydatabase@ .
-startDBInstanceAutomatedBackupsReplication ::
-  -- | 'sdiabrSourceDBInstanceARN'
-  Text ->
+-- 'preSignedUrl', 'startDBInstanceAutomatedBackupsReplication_preSignedUrl' - A URL that contains a Signature Version 4 signed request for the
+-- StartDBInstanceAutomatedBackupsReplication action to be called in the
+-- AWS Region of the source DB instance. The presigned URL must be a valid
+-- request for the StartDBInstanceAutomatedBackupsReplication API action
+-- that can be executed in the AWS Region that contains the source DB
+-- instance.
+--
+-- 'sourceDBInstanceArn', 'startDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn' - The Amazon Resource Name (ARN) of the source DB instance for the
+-- replicated automated backups, for example,
+-- @arn:aws:rds:us-west-2:123456789012:db:mydatabase@.
+newStartDBInstanceAutomatedBackupsReplication ::
+  -- | 'sourceDBInstanceArn'
+  Prelude.Text ->
   StartDBInstanceAutomatedBackupsReplication
-startDBInstanceAutomatedBackupsReplication
-  pSourceDBInstanceARN_ =
+newStartDBInstanceAutomatedBackupsReplication
+  pSourceDBInstanceArn_ =
     StartDBInstanceAutomatedBackupsReplication'
-      { _sdiabrBackupRetentionPeriod =
-          Nothing,
-        _sdiabrKMSKeyId = Nothing,
-        _sdiabrPreSignedURL = Nothing,
-        _sdiabrSourceDBInstanceARN =
-          pSourceDBInstanceARN_
+      { backupRetentionPeriod =
+          Prelude.Nothing,
+        kmsKeyId = Prelude.Nothing,
+        preSignedUrl = Prelude.Nothing,
+        sourceDBInstanceArn =
+          pSourceDBInstanceArn_
       }
 
 -- | The retention period for the replicated automated backups.
-sdiabrBackupRetentionPeriod :: Lens' StartDBInstanceAutomatedBackupsReplication (Maybe Int)
-sdiabrBackupRetentionPeriod = lens _sdiabrBackupRetentionPeriod (\s a -> s {_sdiabrBackupRetentionPeriod = a})
+startDBInstanceAutomatedBackupsReplication_backupRetentionPeriod :: Lens.Lens' StartDBInstanceAutomatedBackupsReplication (Prelude.Maybe Prelude.Int)
+startDBInstanceAutomatedBackupsReplication_backupRetentionPeriod = Lens.lens (\StartDBInstanceAutomatedBackupsReplication' {backupRetentionPeriod} -> backupRetentionPeriod) (\s@StartDBInstanceAutomatedBackupsReplication' {} a -> s {backupRetentionPeriod = a} :: StartDBInstanceAutomatedBackupsReplication)
 
--- | The AWS KMS key identifier for encryption of the replicated automated backups. The KMS key ID is the Amazon Resource Name (ARN) for the KMS encryption key in the destination AWS Region, for example, @arn:aws:kms:us-east-1:123456789012:key/AKIAIOSFODNN7EXAMPLE@ .
-sdiabrKMSKeyId :: Lens' StartDBInstanceAutomatedBackupsReplication (Maybe Text)
-sdiabrKMSKeyId = lens _sdiabrKMSKeyId (\s a -> s {_sdiabrKMSKeyId = a})
+-- | The AWS KMS key identifier for encryption of the replicated automated
+-- backups. The KMS key ID is the Amazon Resource Name (ARN) for the KMS
+-- encryption key in the destination AWS Region, for example,
+-- @arn:aws:kms:us-east-1:123456789012:key\/AKIAIOSFODNN7EXAMPLE@.
+startDBInstanceAutomatedBackupsReplication_kmsKeyId :: Lens.Lens' StartDBInstanceAutomatedBackupsReplication (Prelude.Maybe Prelude.Text)
+startDBInstanceAutomatedBackupsReplication_kmsKeyId = Lens.lens (\StartDBInstanceAutomatedBackupsReplication' {kmsKeyId} -> kmsKeyId) (\s@StartDBInstanceAutomatedBackupsReplication' {} a -> s {kmsKeyId = a} :: StartDBInstanceAutomatedBackupsReplication)
 
--- | A URL that contains a Signature Version 4 signed request for the StartDBInstanceAutomatedBackupsReplication action to be called in the AWS Region of the source DB instance. The presigned URL must be a valid request for the StartDBInstanceAutomatedBackupsReplication API action that can be executed in the AWS Region that contains the source DB instance.
-sdiabrPreSignedURL :: Lens' StartDBInstanceAutomatedBackupsReplication (Maybe Text)
-sdiabrPreSignedURL = lens _sdiabrPreSignedURL (\s a -> s {_sdiabrPreSignedURL = a})
+-- | A URL that contains a Signature Version 4 signed request for the
+-- StartDBInstanceAutomatedBackupsReplication action to be called in the
+-- AWS Region of the source DB instance. The presigned URL must be a valid
+-- request for the StartDBInstanceAutomatedBackupsReplication API action
+-- that can be executed in the AWS Region that contains the source DB
+-- instance.
+startDBInstanceAutomatedBackupsReplication_preSignedUrl :: Lens.Lens' StartDBInstanceAutomatedBackupsReplication (Prelude.Maybe Prelude.Text)
+startDBInstanceAutomatedBackupsReplication_preSignedUrl = Lens.lens (\StartDBInstanceAutomatedBackupsReplication' {preSignedUrl} -> preSignedUrl) (\s@StartDBInstanceAutomatedBackupsReplication' {} a -> s {preSignedUrl = a} :: StartDBInstanceAutomatedBackupsReplication)
 
--- | The Amazon Resource Name (ARN) of the source DB instance for the replicated automated backups, for example, @arn:aws:rds:us-west-2:123456789012:db:mydatabase@ .
-sdiabrSourceDBInstanceARN :: Lens' StartDBInstanceAutomatedBackupsReplication Text
-sdiabrSourceDBInstanceARN = lens _sdiabrSourceDBInstanceARN (\s a -> s {_sdiabrSourceDBInstanceARN = a})
+-- | The Amazon Resource Name (ARN) of the source DB instance for the
+-- replicated automated backups, for example,
+-- @arn:aws:rds:us-west-2:123456789012:db:mydatabase@.
+startDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn :: Lens.Lens' StartDBInstanceAutomatedBackupsReplication Prelude.Text
+startDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn = Lens.lens (\StartDBInstanceAutomatedBackupsReplication' {sourceDBInstanceArn} -> sourceDBInstanceArn) (\s@StartDBInstanceAutomatedBackupsReplication' {} a -> s {sourceDBInstanceArn = a} :: StartDBInstanceAutomatedBackupsReplication)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     StartDBInstanceAutomatedBackupsReplication
   where
   type
     Rs StartDBInstanceAutomatedBackupsReplication =
       StartDBInstanceAutomatedBackupsReplicationResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StartDBInstanceAutomatedBackupsReplicationResult"
       ( \s h x ->
           StartDBInstanceAutomatedBackupsReplicationResponse'
-            <$> (x .@? "DBInstanceAutomatedBackup")
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBInstanceAutomatedBackup")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     StartDBInstanceAutomatedBackupsReplication
 
 instance
-  NFData
+  Prelude.NFData
     StartDBInstanceAutomatedBackupsReplication
 
 instance
-  ToHeaders
-    StartDBInstanceAutomatedBackupsReplication
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     StartDBInstanceAutomatedBackupsReplication
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    StartDBInstanceAutomatedBackupsReplication
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     StartDBInstanceAutomatedBackupsReplication
   where
   toQuery
     StartDBInstanceAutomatedBackupsReplication' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "StartDBInstanceAutomatedBackupsReplication" ::
-                   ByteString
-               ),
-          "Version" =: ("2014-10-31" :: ByteString),
+            Prelude.=: ( "StartDBInstanceAutomatedBackupsReplication" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2014-10-31" :: Prelude.ByteString),
           "BackupRetentionPeriod"
-            =: _sdiabrBackupRetentionPeriod,
-          "KmsKeyId" =: _sdiabrKMSKeyId,
-          "PreSignedUrl" =: _sdiabrPreSignedURL,
-          "SourceDBInstanceArn" =: _sdiabrSourceDBInstanceARN
+            Prelude.=: backupRetentionPeriod,
+          "KmsKeyId" Prelude.=: kmsKeyId,
+          "PreSignedUrl" Prelude.=: preSignedUrl,
+          "SourceDBInstanceArn" Prelude.=: sourceDBInstanceArn
         ]
 
--- | /See:/ 'startDBInstanceAutomatedBackupsReplicationResponse' smart constructor.
+-- | /See:/ 'newStartDBInstanceAutomatedBackupsReplicationResponse' smart constructor.
 data StartDBInstanceAutomatedBackupsReplicationResponse = StartDBInstanceAutomatedBackupsReplicationResponse'
-  { _sdbiabrrrsDBInstanceAutomatedBackup ::
-      !( Maybe
-           DBInstanceAutomatedBackup
-       ),
-    _sdbiabrrrsResponseStatus ::
-      !Int
+  { dBInstanceAutomatedBackup :: Prelude.Maybe DBInstanceAutomatedBackup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDBInstanceAutomatedBackupsReplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDBInstanceAutomatedBackupsReplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdbiabrrrsDBInstanceAutomatedBackup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdbiabrrrsResponseStatus' - -- | The response status code.
-startDBInstanceAutomatedBackupsReplicationResponse ::
-  -- | 'sdbiabrrrsResponseStatus'
-  Int ->
+-- 'dBInstanceAutomatedBackup', 'startDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup' - Undocumented member.
+--
+-- 'httpStatus', 'startDBInstanceAutomatedBackupsReplicationResponse_httpStatus' - The response's http status code.
+newStartDBInstanceAutomatedBackupsReplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartDBInstanceAutomatedBackupsReplicationResponse
-startDBInstanceAutomatedBackupsReplicationResponse
-  pResponseStatus_ =
+newStartDBInstanceAutomatedBackupsReplicationResponse
+  pHttpStatus_ =
     StartDBInstanceAutomatedBackupsReplicationResponse'
-      { _sdbiabrrrsDBInstanceAutomatedBackup =
-          Nothing,
-        _sdbiabrrrsResponseStatus =
-          pResponseStatus_
+      { dBInstanceAutomatedBackup =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Undocumented member.
-sdbiabrrrsDBInstanceAutomatedBackup :: Lens' StartDBInstanceAutomatedBackupsReplicationResponse (Maybe DBInstanceAutomatedBackup)
-sdbiabrrrsDBInstanceAutomatedBackup = lens _sdbiabrrrsDBInstanceAutomatedBackup (\s a -> s {_sdbiabrrrsDBInstanceAutomatedBackup = a})
+startDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup :: Lens.Lens' StartDBInstanceAutomatedBackupsReplicationResponse (Prelude.Maybe DBInstanceAutomatedBackup)
+startDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup = Lens.lens (\StartDBInstanceAutomatedBackupsReplicationResponse' {dBInstanceAutomatedBackup} -> dBInstanceAutomatedBackup) (\s@StartDBInstanceAutomatedBackupsReplicationResponse' {} a -> s {dBInstanceAutomatedBackup = a} :: StartDBInstanceAutomatedBackupsReplicationResponse)
 
--- | -- | The response status code.
-sdbiabrrrsResponseStatus :: Lens' StartDBInstanceAutomatedBackupsReplicationResponse Int
-sdbiabrrrsResponseStatus = lens _sdbiabrrrsResponseStatus (\s a -> s {_sdbiabrrrsResponseStatus = a})
+-- | The response's http status code.
+startDBInstanceAutomatedBackupsReplicationResponse_httpStatus :: Lens.Lens' StartDBInstanceAutomatedBackupsReplicationResponse Prelude.Int
+startDBInstanceAutomatedBackupsReplicationResponse_httpStatus = Lens.lens (\StartDBInstanceAutomatedBackupsReplicationResponse' {httpStatus} -> httpStatus) (\s@StartDBInstanceAutomatedBackupsReplicationResponse' {} a -> s {httpStatus = a} :: StartDBInstanceAutomatedBackupsReplicationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     StartDBInstanceAutomatedBackupsReplicationResponse

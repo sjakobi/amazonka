@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,138 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates an Identity and Access Management (IAM) role from an Amazon Aurora DB cluster. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf> in the /Amazon Aurora User Guide/ .
+-- Associates an Identity and Access Management (IAM) role from an Amazon
+-- Aurora DB cluster. For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf>
+-- in the /Amazon Aurora User Guide/.
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.AddRoleToDBCluster
   ( -- * Creating a Request
-    addRoleToDBCluster,
-    AddRoleToDBCluster,
+    AddRoleToDBCluster (..),
+    newAddRoleToDBCluster,
 
     -- * Request Lenses
-    artdcFeatureName,
-    artdcDBClusterIdentifier,
-    artdcRoleARN,
+    addRoleToDBCluster_featureName,
+    addRoleToDBCluster_dBClusterIdentifier,
+    addRoleToDBCluster_roleArn,
 
     -- * Destructuring the Response
-    addRoleToDBClusterResponse,
-    AddRoleToDBClusterResponse,
+    AddRoleToDBClusterResponse (..),
+    newAddRoleToDBClusterResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addRoleToDBCluster' smart constructor.
+-- | /See:/ 'newAddRoleToDBCluster' smart constructor.
 data AddRoleToDBCluster = AddRoleToDBCluster'
-  { _artdcFeatureName ::
-      !(Maybe Text),
-    _artdcDBClusterIdentifier ::
-      !Text,
-    _artdcRoleARN :: !Text
+  { -- | The name of the feature for the DB cluster that the IAM role is to be
+    -- associated with. For the list of supported feature names, see
+    -- DBEngineVersion.
+    featureName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB cluster to associate the IAM role with.
+    dBClusterIdentifier :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role to associate with the
+    -- Aurora DB cluster, for example,
+    -- @arn:aws:iam::123456789012:role\/AuroraAccessRole@.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddRoleToDBCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddRoleToDBCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'artdcFeatureName' - The name of the feature for the DB cluster that the IAM role is to be associated with. For the list of supported feature names, see 'DBEngineVersion' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'artdcDBClusterIdentifier' - The name of the DB cluster to associate the IAM role with.
+-- 'featureName', 'addRoleToDBCluster_featureName' - The name of the feature for the DB cluster that the IAM role is to be
+-- associated with. For the list of supported feature names, see
+-- DBEngineVersion.
 --
--- * 'artdcRoleARN' - The Amazon Resource Name (ARN) of the IAM role to associate with the Aurora DB cluster, for example, @arn:aws:iam::123456789012:role/AuroraAccessRole@ .
-addRoleToDBCluster ::
-  -- | 'artdcDBClusterIdentifier'
-  Text ->
-  -- | 'artdcRoleARN'
-  Text ->
+-- 'dBClusterIdentifier', 'addRoleToDBCluster_dBClusterIdentifier' - The name of the DB cluster to associate the IAM role with.
+--
+-- 'roleArn', 'addRoleToDBCluster_roleArn' - The Amazon Resource Name (ARN) of the IAM role to associate with the
+-- Aurora DB cluster, for example,
+-- @arn:aws:iam::123456789012:role\/AuroraAccessRole@.
+newAddRoleToDBCluster ::
+  -- | 'dBClusterIdentifier'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   AddRoleToDBCluster
-addRoleToDBCluster pDBClusterIdentifier_ pRoleARN_ =
+newAddRoleToDBCluster pDBClusterIdentifier_ pRoleArn_ =
   AddRoleToDBCluster'
-    { _artdcFeatureName = Nothing,
-      _artdcDBClusterIdentifier = pDBClusterIdentifier_,
-      _artdcRoleARN = pRoleARN_
+    { featureName = Prelude.Nothing,
+      dBClusterIdentifier = pDBClusterIdentifier_,
+      roleArn = pRoleArn_
     }
 
--- | The name of the feature for the DB cluster that the IAM role is to be associated with. For the list of supported feature names, see 'DBEngineVersion' .
-artdcFeatureName :: Lens' AddRoleToDBCluster (Maybe Text)
-artdcFeatureName = lens _artdcFeatureName (\s a -> s {_artdcFeatureName = a})
+-- | The name of the feature for the DB cluster that the IAM role is to be
+-- associated with. For the list of supported feature names, see
+-- DBEngineVersion.
+addRoleToDBCluster_featureName :: Lens.Lens' AddRoleToDBCluster (Prelude.Maybe Prelude.Text)
+addRoleToDBCluster_featureName = Lens.lens (\AddRoleToDBCluster' {featureName} -> featureName) (\s@AddRoleToDBCluster' {} a -> s {featureName = a} :: AddRoleToDBCluster)
 
 -- | The name of the DB cluster to associate the IAM role with.
-artdcDBClusterIdentifier :: Lens' AddRoleToDBCluster Text
-artdcDBClusterIdentifier = lens _artdcDBClusterIdentifier (\s a -> s {_artdcDBClusterIdentifier = a})
+addRoleToDBCluster_dBClusterIdentifier :: Lens.Lens' AddRoleToDBCluster Prelude.Text
+addRoleToDBCluster_dBClusterIdentifier = Lens.lens (\AddRoleToDBCluster' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@AddRoleToDBCluster' {} a -> s {dBClusterIdentifier = a} :: AddRoleToDBCluster)
 
--- | The Amazon Resource Name (ARN) of the IAM role to associate with the Aurora DB cluster, for example, @arn:aws:iam::123456789012:role/AuroraAccessRole@ .
-artdcRoleARN :: Lens' AddRoleToDBCluster Text
-artdcRoleARN = lens _artdcRoleARN (\s a -> s {_artdcRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role to associate with the
+-- Aurora DB cluster, for example,
+-- @arn:aws:iam::123456789012:role\/AuroraAccessRole@.
+addRoleToDBCluster_roleArn :: Lens.Lens' AddRoleToDBCluster Prelude.Text
+addRoleToDBCluster_roleArn = Lens.lens (\AddRoleToDBCluster' {roleArn} -> roleArn) (\s@AddRoleToDBCluster' {} a -> s {roleArn = a} :: AddRoleToDBCluster)
 
-instance AWSRequest AddRoleToDBCluster where
+instance Prelude.AWSRequest AddRoleToDBCluster where
   type
     Rs AddRoleToDBCluster =
       AddRoleToDBClusterResponse
-  request = postQuery rds
-  response = receiveNull AddRoleToDBClusterResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull AddRoleToDBClusterResponse'
 
-instance Hashable AddRoleToDBCluster
+instance Prelude.Hashable AddRoleToDBCluster
 
-instance NFData AddRoleToDBCluster
+instance Prelude.NFData AddRoleToDBCluster
 
-instance ToHeaders AddRoleToDBCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AddRoleToDBCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AddRoleToDBCluster where
-  toPath = const "/"
+instance Prelude.ToPath AddRoleToDBCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddRoleToDBCluster where
+instance Prelude.ToQuery AddRoleToDBCluster where
   toQuery AddRoleToDBCluster' {..} =
-    mconcat
-      [ "Action" =: ("AddRoleToDBCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "FeatureName" =: _artdcFeatureName,
-        "DBClusterIdentifier" =: _artdcDBClusterIdentifier,
-        "RoleArn" =: _artdcRoleARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("AddRoleToDBCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "FeatureName" Prelude.=: featureName,
+        "DBClusterIdentifier" Prelude.=: dBClusterIdentifier,
+        "RoleArn" Prelude.=: roleArn
       ]
 
--- | /See:/ 'addRoleToDBClusterResponse' smart constructor.
+-- | /See:/ 'newAddRoleToDBClusterResponse' smart constructor.
 data AddRoleToDBClusterResponse = AddRoleToDBClusterResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddRoleToDBClusterResponse' with the minimum fields required to make a request.
-addRoleToDBClusterResponse ::
+-- |
+-- Create a value of 'AddRoleToDBClusterResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAddRoleToDBClusterResponse ::
   AddRoleToDBClusterResponse
-addRoleToDBClusterResponse =
+newAddRoleToDBClusterResponse =
   AddRoleToDBClusterResponse'
 
-instance NFData AddRoleToDBClusterResponse
+instance Prelude.NFData AddRoleToDBClusterResponse

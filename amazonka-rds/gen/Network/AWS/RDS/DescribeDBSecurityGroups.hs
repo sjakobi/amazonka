@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,207 +21,250 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of @DBSecurityGroup@ descriptions. If a @DBSecurityGroupName@ is specified, the list will contain only the descriptions of the specified DB security group.
---
---
+-- Returns a list of @DBSecurityGroup@ descriptions. If a
+-- @DBSecurityGroupName@ is specified, the list will contain only the
+-- descriptions of the specified DB security group.
 --
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeDBSecurityGroups
   ( -- * Creating a Request
-    describeDBSecurityGroups,
-    DescribeDBSecurityGroups,
+    DescribeDBSecurityGroups (..),
+    newDescribeDBSecurityGroups,
 
     -- * Request Lenses
-    ddsgDBSecurityGroupName,
-    ddsgFilters,
-    ddsgMarker,
-    ddsgMaxRecords,
+    describeDBSecurityGroups_dBSecurityGroupName,
+    describeDBSecurityGroups_filters,
+    describeDBSecurityGroups_marker,
+    describeDBSecurityGroups_maxRecords,
 
     -- * Destructuring the Response
-    describeDBSecurityGroupsResponse,
-    DescribeDBSecurityGroupsResponse,
+    DescribeDBSecurityGroupsResponse (..),
+    newDescribeDBSecurityGroupsResponse,
 
     -- * Response Lenses
-    ddbsgrrsDBSecurityGroups,
-    ddbsgrrsMarker,
-    ddbsgrrsResponseStatus,
+    describeDBSecurityGroupsResponse_dBSecurityGroups,
+    describeDBSecurityGroupsResponse_marker,
+    describeDBSecurityGroupsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBSecurityGroup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeDBSecurityGroups' smart constructor.
+-- /See:/ 'newDescribeDBSecurityGroups' smart constructor.
 data DescribeDBSecurityGroups = DescribeDBSecurityGroups'
-  { _ddsgDBSecurityGroupName ::
-      !(Maybe Text),
-    _ddsgFilters ::
-      !(Maybe [Filter]),
-    _ddsgMarker ::
-      !(Maybe Text),
-    _ddsgMaxRecords ::
-      !(Maybe Int)
+  { -- | The name of the DB security group to return details for.
+    dBSecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | This parameter isn\'t currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | An optional pagination token provided by a previous
+    -- @DescribeDBSecurityGroups@ request. If this parameter is specified, the
+    -- response includes only records beyond the marker, up to the value
+    -- specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that you can retrieve the
+    -- remaining results.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBSecurityGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBSecurityGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddsgDBSecurityGroupName' - The name of the DB security group to return details for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddsgFilters' - This parameter isn't currently supported.
+-- 'dBSecurityGroupName', 'describeDBSecurityGroups_dBSecurityGroupName' - The name of the DB security group to return details for.
 --
--- * 'ddsgMarker' - An optional pagination token provided by a previous @DescribeDBSecurityGroups@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'filters', 'describeDBSecurityGroups_filters' - This parameter isn\'t currently supported.
 --
--- * 'ddsgMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-describeDBSecurityGroups ::
+-- 'marker', 'describeDBSecurityGroups_marker' - An optional pagination token provided by a previous
+-- @DescribeDBSecurityGroups@ request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeDBSecurityGroups_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+newDescribeDBSecurityGroups ::
   DescribeDBSecurityGroups
-describeDBSecurityGroups =
+newDescribeDBSecurityGroups =
   DescribeDBSecurityGroups'
-    { _ddsgDBSecurityGroupName =
-        Nothing,
-      _ddsgFilters = Nothing,
-      _ddsgMarker = Nothing,
-      _ddsgMaxRecords = Nothing
+    { dBSecurityGroupName =
+        Prelude.Nothing,
+      filters = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The name of the DB security group to return details for.
-ddsgDBSecurityGroupName :: Lens' DescribeDBSecurityGroups (Maybe Text)
-ddsgDBSecurityGroupName = lens _ddsgDBSecurityGroupName (\s a -> s {_ddsgDBSecurityGroupName = a})
+describeDBSecurityGroups_dBSecurityGroupName :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe Prelude.Text)
+describeDBSecurityGroups_dBSecurityGroupName = Lens.lens (\DescribeDBSecurityGroups' {dBSecurityGroupName} -> dBSecurityGroupName) (\s@DescribeDBSecurityGroups' {} a -> s {dBSecurityGroupName = a} :: DescribeDBSecurityGroups)
 
--- | This parameter isn't currently supported.
-ddsgFilters :: Lens' DescribeDBSecurityGroups [Filter]
-ddsgFilters = lens _ddsgFilters (\s a -> s {_ddsgFilters = a}) . _Default . _Coerce
+-- | This parameter isn\'t currently supported.
+describeDBSecurityGroups_filters :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe [Filter])
+describeDBSecurityGroups_filters = Lens.lens (\DescribeDBSecurityGroups' {filters} -> filters) (\s@DescribeDBSecurityGroups' {} a -> s {filters = a} :: DescribeDBSecurityGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous @DescribeDBSecurityGroups@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddsgMarker :: Lens' DescribeDBSecurityGroups (Maybe Text)
-ddsgMarker = lens _ddsgMarker (\s a -> s {_ddsgMarker = a})
+-- | An optional pagination token provided by a previous
+-- @DescribeDBSecurityGroups@ request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+describeDBSecurityGroups_marker :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe Prelude.Text)
+describeDBSecurityGroups_marker = Lens.lens (\DescribeDBSecurityGroups' {marker} -> marker) (\s@DescribeDBSecurityGroups' {} a -> s {marker = a} :: DescribeDBSecurityGroups)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-ddsgMaxRecords :: Lens' DescribeDBSecurityGroups (Maybe Int)
-ddsgMaxRecords = lens _ddsgMaxRecords (\s a -> s {_ddsgMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeDBSecurityGroups_maxRecords :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe Prelude.Int)
+describeDBSecurityGroups_maxRecords = Lens.lens (\DescribeDBSecurityGroups' {maxRecords} -> maxRecords) (\s@DescribeDBSecurityGroups' {} a -> s {maxRecords = a} :: DescribeDBSecurityGroups)
 
-instance AWSPager DescribeDBSecurityGroups where
+instance Pager.AWSPager DescribeDBSecurityGroups where
   page rq rs
-    | stop (rs ^. ddbsgrrsMarker) = Nothing
-    | stop (rs ^. ddbsgrrsDBSecurityGroups) = Nothing
-    | otherwise =
-      Just $ rq & ddsgMarker .~ rs ^. ddbsgrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBSecurityGroupsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBSecurityGroupsResponse_dBSecurityGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeDBSecurityGroups_marker
+          Lens..~ rs
+          Lens.^? describeDBSecurityGroupsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeDBSecurityGroups where
+instance Prelude.AWSRequest DescribeDBSecurityGroups where
   type
     Rs DescribeDBSecurityGroups =
       DescribeDBSecurityGroupsResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeDBSecurityGroupsResult"
       ( \s h x ->
           DescribeDBSecurityGroupsResponse'
-            <$> ( x .@? "DBSecurityGroups" .!@ mempty
-                    >>= may (parseXMLList "DBSecurityGroup")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "DBSecurityGroups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "DBSecurityGroup")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDBSecurityGroups
+instance Prelude.Hashable DescribeDBSecurityGroups
 
-instance NFData DescribeDBSecurityGroups
+instance Prelude.NFData DescribeDBSecurityGroups
 
-instance ToHeaders DescribeDBSecurityGroups where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeDBSecurityGroups where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDBSecurityGroups where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDBSecurityGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDBSecurityGroups where
+instance Prelude.ToQuery DescribeDBSecurityGroups where
   toQuery DescribeDBSecurityGroups' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeDBSecurityGroups" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBSecurityGroupName" =: _ddsgDBSecurityGroupName,
+          Prelude.=: ("DescribeDBSecurityGroups" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSecurityGroupName" Prelude.=: dBSecurityGroupName,
         "Filters"
-          =: toQuery (toQueryList "Filter" <$> _ddsgFilters),
-        "Marker" =: _ddsgMarker,
-        "MaxRecords" =: _ddsgMaxRecords
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | Contains the result of a successful invocation of the @DescribeDBSecurityGroups@ action.
+-- | Contains the result of a successful invocation of the
+-- @DescribeDBSecurityGroups@ action.
 --
---
---
--- /See:/ 'describeDBSecurityGroupsResponse' smart constructor.
+-- /See:/ 'newDescribeDBSecurityGroupsResponse' smart constructor.
 data DescribeDBSecurityGroupsResponse = DescribeDBSecurityGroupsResponse'
-  { _ddbsgrrsDBSecurityGroups ::
-      !( Maybe
-           [DBSecurityGroup]
-       ),
-    _ddbsgrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _ddbsgrrsResponseStatus ::
-      !Int
+  { -- | A list of @DBSecurityGroup@ instances.
+    dBSecurityGroups :: Prelude.Maybe [DBSecurityGroup],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBSecurityGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBSecurityGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbsgrrsDBSecurityGroups' - A list of @DBSecurityGroup@ instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbsgrrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'dBSecurityGroups', 'describeDBSecurityGroupsResponse_dBSecurityGroups' - A list of @DBSecurityGroup@ instances.
 --
--- * 'ddbsgrrsResponseStatus' - -- | The response status code.
-describeDBSecurityGroupsResponse ::
-  -- | 'ddbsgrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeDBSecurityGroupsResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeDBSecurityGroupsResponse_httpStatus' - The response's http status code.
+newDescribeDBSecurityGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDBSecurityGroupsResponse
-describeDBSecurityGroupsResponse pResponseStatus_ =
+newDescribeDBSecurityGroupsResponse pHttpStatus_ =
   DescribeDBSecurityGroupsResponse'
-    { _ddbsgrrsDBSecurityGroups =
-        Nothing,
-      _ddbsgrrsMarker = Nothing,
-      _ddbsgrrsResponseStatus =
-        pResponseStatus_
+    { dBSecurityGroups =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of @DBSecurityGroup@ instances.
-ddbsgrrsDBSecurityGroups :: Lens' DescribeDBSecurityGroupsResponse [DBSecurityGroup]
-ddbsgrrsDBSecurityGroups = lens _ddbsgrrsDBSecurityGroups (\s a -> s {_ddbsgrrsDBSecurityGroups = a}) . _Default . _Coerce
+describeDBSecurityGroupsResponse_dBSecurityGroups :: Lens.Lens' DescribeDBSecurityGroupsResponse (Prelude.Maybe [DBSecurityGroup])
+describeDBSecurityGroupsResponse_dBSecurityGroups = Lens.lens (\DescribeDBSecurityGroupsResponse' {dBSecurityGroups} -> dBSecurityGroups) (\s@DescribeDBSecurityGroupsResponse' {} a -> s {dBSecurityGroups = a} :: DescribeDBSecurityGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddbsgrrsMarker :: Lens' DescribeDBSecurityGroupsResponse (Maybe Text)
-ddbsgrrsMarker = lens _ddbsgrrsMarker (\s a -> s {_ddbsgrrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeDBSecurityGroupsResponse_marker :: Lens.Lens' DescribeDBSecurityGroupsResponse (Prelude.Maybe Prelude.Text)
+describeDBSecurityGroupsResponse_marker = Lens.lens (\DescribeDBSecurityGroupsResponse' {marker} -> marker) (\s@DescribeDBSecurityGroupsResponse' {} a -> s {marker = a} :: DescribeDBSecurityGroupsResponse)
 
--- | -- | The response status code.
-ddbsgrrsResponseStatus :: Lens' DescribeDBSecurityGroupsResponse Int
-ddbsgrrsResponseStatus = lens _ddbsgrrsResponseStatus (\s a -> s {_ddbsgrrsResponseStatus = a})
+-- | The response's http status code.
+describeDBSecurityGroupsResponse_httpStatus :: Lens.Lens' DescribeDBSecurityGroupsResponse Prelude.Int
+describeDBSecurityGroupsResponse_httpStatus = Lens.lens (\DescribeDBSecurityGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeDBSecurityGroupsResponse' {} a -> s {httpStatus = a} :: DescribeDBSecurityGroupsResponse)
 
-instance NFData DescribeDBSecurityGroupsResponse
+instance
+  Prelude.NFData
+    DescribeDBSecurityGroupsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,323 +19,345 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.OrderableDBInstanceOption where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.AvailabilityZone
 import Network.AWS.RDS.Types.AvailableProcessorFeature
 
 -- | Contains a list of available options for a DB instance.
 --
+-- This data type is used as a response element in the
+-- @DescribeOrderableDBInstanceOptions@ action.
 --
--- This data type is used as a response element in the @DescribeOrderableDBInstanceOptions@ action.
---
---
--- /See:/ 'orderableDBInstanceOption' smart constructor.
+-- /See:/ 'newOrderableDBInstanceOption' smart constructor.
 data OrderableDBInstanceOption = OrderableDBInstanceOption'
-  { _odioMinIOPSPerDBInstance ::
-      !(Maybe Int),
-    _odioAvailabilityZones ::
-      !( Maybe
-           [AvailabilityZone]
-       ),
-    _odioSupportsKerberosAuthentication ::
-      !(Maybe Bool),
-    _odioSupportsIOPS ::
-      !(Maybe Bool),
-    _odioStorageType ::
-      !(Maybe Text),
-    _odioSupportsEnhancedMonitoring ::
-      !(Maybe Bool),
-    _odioAvailableProcessorFeatures ::
-      !( Maybe
-           [AvailableProcessorFeature]
-       ),
-    _odioMaxStorageSize ::
-      !(Maybe Int),
-    _odioSupportedEngineModes ::
-      !(Maybe [Text]),
-    _odioMaxIOPSPerGib ::
-      !(Maybe Double),
-    _odioSupportsStorageEncryption ::
-      !(Maybe Bool),
-    _odioMultiAZCapable ::
-      !(Maybe Bool),
-    _odioSupportsStorageAutoscaling ::
-      !(Maybe Bool),
-    _odioEngineVersion ::
-      !(Maybe Text),
-    _odioMinIOPSPerGib ::
-      !(Maybe Double),
-    _odioSupportsIAMDatabaseAuthentication ::
-      !(Maybe Bool),
-    _odioLicenseModel ::
-      !(Maybe Text),
-    _odioSupportsGlobalDatabases ::
-      !(Maybe Bool),
-    _odioSupportsPerformanceInsights ::
-      !(Maybe Bool),
-    _odioMaxIOPSPerDBInstance ::
-      !(Maybe Int),
-    _odioDBInstanceClass ::
-      !(Maybe Text),
-    _odioOutpostCapable ::
-      !(Maybe Bool),
-    _odioEngine ::
-      !(Maybe Text),
-    _odioMinStorageSize ::
-      !(Maybe Int),
-    _odioAvailabilityZoneGroup ::
-      !(Maybe Text),
-    _odioVPC ::
-      !(Maybe Bool),
-    _odioReadReplicaCapable ::
-      !(Maybe Bool)
+  { -- | Minimum total provisioned IOPS for a DB instance.
+    minIopsPerDbInstance :: Prelude.Maybe Prelude.Int,
+    -- | A list of Availability Zones for a DB instance.
+    availabilityZones :: Prelude.Maybe [AvailabilityZone],
+    -- | Whether a DB instance supports Kerberos Authentication.
+    supportsKerberosAuthentication :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether a DB instance supports provisioned IOPS.
+    supportsIops :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates the storage type for a DB instance.
+    storageType :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether a DB instance supports Enhanced Monitoring at
+    -- intervals from 1 to 60 seconds.
+    supportsEnhancedMonitoring :: Prelude.Maybe Prelude.Bool,
+    -- | A list of the available processor features for the DB instance class of
+    -- a DB instance.
+    availableProcessorFeatures :: Prelude.Maybe [AvailableProcessorFeature],
+    -- | Maximum storage size for a DB instance.
+    maxStorageSize :: Prelude.Maybe Prelude.Int,
+    -- | A list of the supported DB engine modes.
+    supportedEngineModes :: Prelude.Maybe [Prelude.Text],
+    -- | Maximum provisioned IOPS per GiB for a DB instance.
+    maxIopsPerGib :: Prelude.Maybe Prelude.Double,
+    -- | Indicates whether a DB instance supports encrypted storage.
+    supportsStorageEncryption :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether a DB instance is Multi-AZ capable.
+    multiAZCapable :: Prelude.Maybe Prelude.Bool,
+    -- | Whether Amazon RDS can automatically scale storage for DB instances that
+    -- use the specified DB instance class.
+    supportsStorageAutoscaling :: Prelude.Maybe Prelude.Bool,
+    -- | The engine version of a DB instance.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | Minimum provisioned IOPS per GiB for a DB instance.
+    minIopsPerGib :: Prelude.Maybe Prelude.Double,
+    -- | Indicates whether a DB instance supports IAM database authentication.
+    supportsIAMDatabaseAuthentication :: Prelude.Maybe Prelude.Bool,
+    -- | The license model for a DB instance.
+    licenseModel :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether you can use Aurora global databases with
+    -- a specific combination of other DB engine attributes.
+    supportsGlobalDatabases :: Prelude.Maybe Prelude.Bool,
+    -- | True if a DB instance supports Performance Insights, otherwise false.
+    supportsPerformanceInsights :: Prelude.Maybe Prelude.Bool,
+    -- | Maximum total provisioned IOPS for a DB instance.
+    maxIopsPerDbInstance :: Prelude.Maybe Prelude.Int,
+    -- | The DB instance class for a DB instance.
+    dBInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | Whether a DB instance supports RDS on Outposts.
+    --
+    -- For more information about RDS on Outposts, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html Amazon RDS on AWS Outposts>
+    -- in the /Amazon RDS User Guide./
+    outpostCapable :: Prelude.Maybe Prelude.Bool,
+    -- | The engine type of a DB instance.
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | Minimum storage size for a DB instance.
+    minStorageSize :: Prelude.Maybe Prelude.Int,
+    -- | The Availability Zone group for a DB instance.
+    availabilityZoneGroup :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether a DB instance is in a VPC.
+    vpc :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether a DB instance can have a read replica.
+    readReplicaCapable :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OrderableDBInstanceOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OrderableDBInstanceOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'odioMinIOPSPerDBInstance' - Minimum total provisioned IOPS for a DB instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'odioAvailabilityZones' - A list of Availability Zones for a DB instance.
+-- 'minIopsPerDbInstance', 'orderableDBInstanceOption_minIopsPerDbInstance' - Minimum total provisioned IOPS for a DB instance.
 --
--- * 'odioSupportsKerberosAuthentication' - Whether a DB instance supports Kerberos Authentication.
+-- 'availabilityZones', 'orderableDBInstanceOption_availabilityZones' - A list of Availability Zones for a DB instance.
 --
--- * 'odioSupportsIOPS' - Indicates whether a DB instance supports provisioned IOPS.
+-- 'supportsKerberosAuthentication', 'orderableDBInstanceOption_supportsKerberosAuthentication' - Whether a DB instance supports Kerberos Authentication.
 --
--- * 'odioStorageType' - Indicates the storage type for a DB instance.
+-- 'supportsIops', 'orderableDBInstanceOption_supportsIops' - Indicates whether a DB instance supports provisioned IOPS.
 --
--- * 'odioSupportsEnhancedMonitoring' - Indicates whether a DB instance supports Enhanced Monitoring at intervals from 1 to 60 seconds.
+-- 'storageType', 'orderableDBInstanceOption_storageType' - Indicates the storage type for a DB instance.
 --
--- * 'odioAvailableProcessorFeatures' - A list of the available processor features for the DB instance class of a DB instance.
+-- 'supportsEnhancedMonitoring', 'orderableDBInstanceOption_supportsEnhancedMonitoring' - Indicates whether a DB instance supports Enhanced Monitoring at
+-- intervals from 1 to 60 seconds.
 --
--- * 'odioMaxStorageSize' - Maximum storage size for a DB instance.
+-- 'availableProcessorFeatures', 'orderableDBInstanceOption_availableProcessorFeatures' - A list of the available processor features for the DB instance class of
+-- a DB instance.
 --
--- * 'odioSupportedEngineModes' - A list of the supported DB engine modes.
+-- 'maxStorageSize', 'orderableDBInstanceOption_maxStorageSize' - Maximum storage size for a DB instance.
 --
--- * 'odioMaxIOPSPerGib' - Maximum provisioned IOPS per GiB for a DB instance.
+-- 'supportedEngineModes', 'orderableDBInstanceOption_supportedEngineModes' - A list of the supported DB engine modes.
 --
--- * 'odioSupportsStorageEncryption' - Indicates whether a DB instance supports encrypted storage.
+-- 'maxIopsPerGib', 'orderableDBInstanceOption_maxIopsPerGib' - Maximum provisioned IOPS per GiB for a DB instance.
 --
--- * 'odioMultiAZCapable' - Indicates whether a DB instance is Multi-AZ capable.
+-- 'supportsStorageEncryption', 'orderableDBInstanceOption_supportsStorageEncryption' - Indicates whether a DB instance supports encrypted storage.
 --
--- * 'odioSupportsStorageAutoscaling' - Whether Amazon RDS can automatically scale storage for DB instances that use the specified DB instance class.
+-- 'multiAZCapable', 'orderableDBInstanceOption_multiAZCapable' - Indicates whether a DB instance is Multi-AZ capable.
 --
--- * 'odioEngineVersion' - The engine version of a DB instance.
+-- 'supportsStorageAutoscaling', 'orderableDBInstanceOption_supportsStorageAutoscaling' - Whether Amazon RDS can automatically scale storage for DB instances that
+-- use the specified DB instance class.
 --
--- * 'odioMinIOPSPerGib' - Minimum provisioned IOPS per GiB for a DB instance.
+-- 'engineVersion', 'orderableDBInstanceOption_engineVersion' - The engine version of a DB instance.
 --
--- * 'odioSupportsIAMDatabaseAuthentication' - Indicates whether a DB instance supports IAM database authentication.
+-- 'minIopsPerGib', 'orderableDBInstanceOption_minIopsPerGib' - Minimum provisioned IOPS per GiB for a DB instance.
 --
--- * 'odioLicenseModel' - The license model for a DB instance.
+-- 'supportsIAMDatabaseAuthentication', 'orderableDBInstanceOption_supportsIAMDatabaseAuthentication' - Indicates whether a DB instance supports IAM database authentication.
 --
--- * 'odioSupportsGlobalDatabases' - A value that indicates whether you can use Aurora global databases with a specific combination of other DB engine attributes.
+-- 'licenseModel', 'orderableDBInstanceOption_licenseModel' - The license model for a DB instance.
 --
--- * 'odioSupportsPerformanceInsights' - True if a DB instance supports Performance Insights, otherwise false.
+-- 'supportsGlobalDatabases', 'orderableDBInstanceOption_supportsGlobalDatabases' - A value that indicates whether you can use Aurora global databases with
+-- a specific combination of other DB engine attributes.
 --
--- * 'odioMaxIOPSPerDBInstance' - Maximum total provisioned IOPS for a DB instance.
+-- 'supportsPerformanceInsights', 'orderableDBInstanceOption_supportsPerformanceInsights' - True if a DB instance supports Performance Insights, otherwise false.
 --
--- * 'odioDBInstanceClass' - The DB instance class for a DB instance.
+-- 'maxIopsPerDbInstance', 'orderableDBInstanceOption_maxIopsPerDbInstance' - Maximum total provisioned IOPS for a DB instance.
 --
--- * 'odioOutpostCapable' - Whether a DB instance supports RDS on Outposts. For more information about RDS on Outposts, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html Amazon RDS on AWS Outposts> in the /Amazon RDS User Guide./
+-- 'dBInstanceClass', 'orderableDBInstanceOption_dBInstanceClass' - The DB instance class for a DB instance.
 --
--- * 'odioEngine' - The engine type of a DB instance.
+-- 'outpostCapable', 'orderableDBInstanceOption_outpostCapable' - Whether a DB instance supports RDS on Outposts.
 --
--- * 'odioMinStorageSize' - Minimum storage size for a DB instance.
+-- For more information about RDS on Outposts, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html Amazon RDS on AWS Outposts>
+-- in the /Amazon RDS User Guide./
 --
--- * 'odioAvailabilityZoneGroup' - The Availability Zone group for a DB instance.
+-- 'engine', 'orderableDBInstanceOption_engine' - The engine type of a DB instance.
 --
--- * 'odioVPC' - Indicates whether a DB instance is in a VPC.
+-- 'minStorageSize', 'orderableDBInstanceOption_minStorageSize' - Minimum storage size for a DB instance.
 --
--- * 'odioReadReplicaCapable' - Indicates whether a DB instance can have a read replica.
-orderableDBInstanceOption ::
+-- 'availabilityZoneGroup', 'orderableDBInstanceOption_availabilityZoneGroup' - The Availability Zone group for a DB instance.
+--
+-- 'vpc', 'orderableDBInstanceOption_vpc' - Indicates whether a DB instance is in a VPC.
+--
+-- 'readReplicaCapable', 'orderableDBInstanceOption_readReplicaCapable' - Indicates whether a DB instance can have a read replica.
+newOrderableDBInstanceOption ::
   OrderableDBInstanceOption
-orderableDBInstanceOption =
+newOrderableDBInstanceOption =
   OrderableDBInstanceOption'
-    { _odioMinIOPSPerDBInstance =
-        Nothing,
-      _odioAvailabilityZones = Nothing,
-      _odioSupportsKerberosAuthentication = Nothing,
-      _odioSupportsIOPS = Nothing,
-      _odioStorageType = Nothing,
-      _odioSupportsEnhancedMonitoring = Nothing,
-      _odioAvailableProcessorFeatures = Nothing,
-      _odioMaxStorageSize = Nothing,
-      _odioSupportedEngineModes = Nothing,
-      _odioMaxIOPSPerGib = Nothing,
-      _odioSupportsStorageEncryption = Nothing,
-      _odioMultiAZCapable = Nothing,
-      _odioSupportsStorageAutoscaling = Nothing,
-      _odioEngineVersion = Nothing,
-      _odioMinIOPSPerGib = Nothing,
-      _odioSupportsIAMDatabaseAuthentication = Nothing,
-      _odioLicenseModel = Nothing,
-      _odioSupportsGlobalDatabases = Nothing,
-      _odioSupportsPerformanceInsights = Nothing,
-      _odioMaxIOPSPerDBInstance = Nothing,
-      _odioDBInstanceClass = Nothing,
-      _odioOutpostCapable = Nothing,
-      _odioEngine = Nothing,
-      _odioMinStorageSize = Nothing,
-      _odioAvailabilityZoneGroup = Nothing,
-      _odioVPC = Nothing,
-      _odioReadReplicaCapable = Nothing
+    { minIopsPerDbInstance =
+        Prelude.Nothing,
+      availabilityZones = Prelude.Nothing,
+      supportsKerberosAuthentication = Prelude.Nothing,
+      supportsIops = Prelude.Nothing,
+      storageType = Prelude.Nothing,
+      supportsEnhancedMonitoring = Prelude.Nothing,
+      availableProcessorFeatures = Prelude.Nothing,
+      maxStorageSize = Prelude.Nothing,
+      supportedEngineModes = Prelude.Nothing,
+      maxIopsPerGib = Prelude.Nothing,
+      supportsStorageEncryption = Prelude.Nothing,
+      multiAZCapable = Prelude.Nothing,
+      supportsStorageAutoscaling = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      minIopsPerGib = Prelude.Nothing,
+      supportsIAMDatabaseAuthentication =
+        Prelude.Nothing,
+      licenseModel = Prelude.Nothing,
+      supportsGlobalDatabases = Prelude.Nothing,
+      supportsPerformanceInsights = Prelude.Nothing,
+      maxIopsPerDbInstance = Prelude.Nothing,
+      dBInstanceClass = Prelude.Nothing,
+      outpostCapable = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      minStorageSize = Prelude.Nothing,
+      availabilityZoneGroup = Prelude.Nothing,
+      vpc = Prelude.Nothing,
+      readReplicaCapable = Prelude.Nothing
     }
 
 -- | Minimum total provisioned IOPS for a DB instance.
-odioMinIOPSPerDBInstance :: Lens' OrderableDBInstanceOption (Maybe Int)
-odioMinIOPSPerDBInstance = lens _odioMinIOPSPerDBInstance (\s a -> s {_odioMinIOPSPerDBInstance = a})
+orderableDBInstanceOption_minIopsPerDbInstance :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Int)
+orderableDBInstanceOption_minIopsPerDbInstance = Lens.lens (\OrderableDBInstanceOption' {minIopsPerDbInstance} -> minIopsPerDbInstance) (\s@OrderableDBInstanceOption' {} a -> s {minIopsPerDbInstance = a} :: OrderableDBInstanceOption)
 
 -- | A list of Availability Zones for a DB instance.
-odioAvailabilityZones :: Lens' OrderableDBInstanceOption [AvailabilityZone]
-odioAvailabilityZones = lens _odioAvailabilityZones (\s a -> s {_odioAvailabilityZones = a}) . _Default . _Coerce
+orderableDBInstanceOption_availabilityZones :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe [AvailabilityZone])
+orderableDBInstanceOption_availabilityZones = Lens.lens (\OrderableDBInstanceOption' {availabilityZones} -> availabilityZones) (\s@OrderableDBInstanceOption' {} a -> s {availabilityZones = a} :: OrderableDBInstanceOption) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Whether a DB instance supports Kerberos Authentication.
-odioSupportsKerberosAuthentication :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsKerberosAuthentication = lens _odioSupportsKerberosAuthentication (\s a -> s {_odioSupportsKerberosAuthentication = a})
+orderableDBInstanceOption_supportsKerberosAuthentication :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsKerberosAuthentication = Lens.lens (\OrderableDBInstanceOption' {supportsKerberosAuthentication} -> supportsKerberosAuthentication) (\s@OrderableDBInstanceOption' {} a -> s {supportsKerberosAuthentication = a} :: OrderableDBInstanceOption)
 
 -- | Indicates whether a DB instance supports provisioned IOPS.
-odioSupportsIOPS :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsIOPS = lens _odioSupportsIOPS (\s a -> s {_odioSupportsIOPS = a})
+orderableDBInstanceOption_supportsIops :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsIops = Lens.lens (\OrderableDBInstanceOption' {supportsIops} -> supportsIops) (\s@OrderableDBInstanceOption' {} a -> s {supportsIops = a} :: OrderableDBInstanceOption)
 
 -- | Indicates the storage type for a DB instance.
-odioStorageType :: Lens' OrderableDBInstanceOption (Maybe Text)
-odioStorageType = lens _odioStorageType (\s a -> s {_odioStorageType = a})
+orderableDBInstanceOption_storageType :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Text)
+orderableDBInstanceOption_storageType = Lens.lens (\OrderableDBInstanceOption' {storageType} -> storageType) (\s@OrderableDBInstanceOption' {} a -> s {storageType = a} :: OrderableDBInstanceOption)
 
--- | Indicates whether a DB instance supports Enhanced Monitoring at intervals from 1 to 60 seconds.
-odioSupportsEnhancedMonitoring :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsEnhancedMonitoring = lens _odioSupportsEnhancedMonitoring (\s a -> s {_odioSupportsEnhancedMonitoring = a})
+-- | Indicates whether a DB instance supports Enhanced Monitoring at
+-- intervals from 1 to 60 seconds.
+orderableDBInstanceOption_supportsEnhancedMonitoring :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsEnhancedMonitoring = Lens.lens (\OrderableDBInstanceOption' {supportsEnhancedMonitoring} -> supportsEnhancedMonitoring) (\s@OrderableDBInstanceOption' {} a -> s {supportsEnhancedMonitoring = a} :: OrderableDBInstanceOption)
 
--- | A list of the available processor features for the DB instance class of a DB instance.
-odioAvailableProcessorFeatures :: Lens' OrderableDBInstanceOption [AvailableProcessorFeature]
-odioAvailableProcessorFeatures = lens _odioAvailableProcessorFeatures (\s a -> s {_odioAvailableProcessorFeatures = a}) . _Default . _Coerce
+-- | A list of the available processor features for the DB instance class of
+-- a DB instance.
+orderableDBInstanceOption_availableProcessorFeatures :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe [AvailableProcessorFeature])
+orderableDBInstanceOption_availableProcessorFeatures = Lens.lens (\OrderableDBInstanceOption' {availableProcessorFeatures} -> availableProcessorFeatures) (\s@OrderableDBInstanceOption' {} a -> s {availableProcessorFeatures = a} :: OrderableDBInstanceOption) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Maximum storage size for a DB instance.
-odioMaxStorageSize :: Lens' OrderableDBInstanceOption (Maybe Int)
-odioMaxStorageSize = lens _odioMaxStorageSize (\s a -> s {_odioMaxStorageSize = a})
+orderableDBInstanceOption_maxStorageSize :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Int)
+orderableDBInstanceOption_maxStorageSize = Lens.lens (\OrderableDBInstanceOption' {maxStorageSize} -> maxStorageSize) (\s@OrderableDBInstanceOption' {} a -> s {maxStorageSize = a} :: OrderableDBInstanceOption)
 
 -- | A list of the supported DB engine modes.
-odioSupportedEngineModes :: Lens' OrderableDBInstanceOption [Text]
-odioSupportedEngineModes = lens _odioSupportedEngineModes (\s a -> s {_odioSupportedEngineModes = a}) . _Default . _Coerce
+orderableDBInstanceOption_supportedEngineModes :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe [Prelude.Text])
+orderableDBInstanceOption_supportedEngineModes = Lens.lens (\OrderableDBInstanceOption' {supportedEngineModes} -> supportedEngineModes) (\s@OrderableDBInstanceOption' {} a -> s {supportedEngineModes = a} :: OrderableDBInstanceOption) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Maximum provisioned IOPS per GiB for a DB instance.
-odioMaxIOPSPerGib :: Lens' OrderableDBInstanceOption (Maybe Double)
-odioMaxIOPSPerGib = lens _odioMaxIOPSPerGib (\s a -> s {_odioMaxIOPSPerGib = a})
+orderableDBInstanceOption_maxIopsPerGib :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Double)
+orderableDBInstanceOption_maxIopsPerGib = Lens.lens (\OrderableDBInstanceOption' {maxIopsPerGib} -> maxIopsPerGib) (\s@OrderableDBInstanceOption' {} a -> s {maxIopsPerGib = a} :: OrderableDBInstanceOption)
 
 -- | Indicates whether a DB instance supports encrypted storage.
-odioSupportsStorageEncryption :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsStorageEncryption = lens _odioSupportsStorageEncryption (\s a -> s {_odioSupportsStorageEncryption = a})
+orderableDBInstanceOption_supportsStorageEncryption :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsStorageEncryption = Lens.lens (\OrderableDBInstanceOption' {supportsStorageEncryption} -> supportsStorageEncryption) (\s@OrderableDBInstanceOption' {} a -> s {supportsStorageEncryption = a} :: OrderableDBInstanceOption)
 
 -- | Indicates whether a DB instance is Multi-AZ capable.
-odioMultiAZCapable :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioMultiAZCapable = lens _odioMultiAZCapable (\s a -> s {_odioMultiAZCapable = a})
+orderableDBInstanceOption_multiAZCapable :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_multiAZCapable = Lens.lens (\OrderableDBInstanceOption' {multiAZCapable} -> multiAZCapable) (\s@OrderableDBInstanceOption' {} a -> s {multiAZCapable = a} :: OrderableDBInstanceOption)
 
--- | Whether Amazon RDS can automatically scale storage for DB instances that use the specified DB instance class.
-odioSupportsStorageAutoscaling :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsStorageAutoscaling = lens _odioSupportsStorageAutoscaling (\s a -> s {_odioSupportsStorageAutoscaling = a})
+-- | Whether Amazon RDS can automatically scale storage for DB instances that
+-- use the specified DB instance class.
+orderableDBInstanceOption_supportsStorageAutoscaling :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsStorageAutoscaling = Lens.lens (\OrderableDBInstanceOption' {supportsStorageAutoscaling} -> supportsStorageAutoscaling) (\s@OrderableDBInstanceOption' {} a -> s {supportsStorageAutoscaling = a} :: OrderableDBInstanceOption)
 
 -- | The engine version of a DB instance.
-odioEngineVersion :: Lens' OrderableDBInstanceOption (Maybe Text)
-odioEngineVersion = lens _odioEngineVersion (\s a -> s {_odioEngineVersion = a})
+orderableDBInstanceOption_engineVersion :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Text)
+orderableDBInstanceOption_engineVersion = Lens.lens (\OrderableDBInstanceOption' {engineVersion} -> engineVersion) (\s@OrderableDBInstanceOption' {} a -> s {engineVersion = a} :: OrderableDBInstanceOption)
 
 -- | Minimum provisioned IOPS per GiB for a DB instance.
-odioMinIOPSPerGib :: Lens' OrderableDBInstanceOption (Maybe Double)
-odioMinIOPSPerGib = lens _odioMinIOPSPerGib (\s a -> s {_odioMinIOPSPerGib = a})
+orderableDBInstanceOption_minIopsPerGib :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Double)
+orderableDBInstanceOption_minIopsPerGib = Lens.lens (\OrderableDBInstanceOption' {minIopsPerGib} -> minIopsPerGib) (\s@OrderableDBInstanceOption' {} a -> s {minIopsPerGib = a} :: OrderableDBInstanceOption)
 
 -- | Indicates whether a DB instance supports IAM database authentication.
-odioSupportsIAMDatabaseAuthentication :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsIAMDatabaseAuthentication = lens _odioSupportsIAMDatabaseAuthentication (\s a -> s {_odioSupportsIAMDatabaseAuthentication = a})
+orderableDBInstanceOption_supportsIAMDatabaseAuthentication :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsIAMDatabaseAuthentication = Lens.lens (\OrderableDBInstanceOption' {supportsIAMDatabaseAuthentication} -> supportsIAMDatabaseAuthentication) (\s@OrderableDBInstanceOption' {} a -> s {supportsIAMDatabaseAuthentication = a} :: OrderableDBInstanceOption)
 
 -- | The license model for a DB instance.
-odioLicenseModel :: Lens' OrderableDBInstanceOption (Maybe Text)
-odioLicenseModel = lens _odioLicenseModel (\s a -> s {_odioLicenseModel = a})
+orderableDBInstanceOption_licenseModel :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Text)
+orderableDBInstanceOption_licenseModel = Lens.lens (\OrderableDBInstanceOption' {licenseModel} -> licenseModel) (\s@OrderableDBInstanceOption' {} a -> s {licenseModel = a} :: OrderableDBInstanceOption)
 
--- | A value that indicates whether you can use Aurora global databases with a specific combination of other DB engine attributes.
-odioSupportsGlobalDatabases :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsGlobalDatabases = lens _odioSupportsGlobalDatabases (\s a -> s {_odioSupportsGlobalDatabases = a})
+-- | A value that indicates whether you can use Aurora global databases with
+-- a specific combination of other DB engine attributes.
+orderableDBInstanceOption_supportsGlobalDatabases :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsGlobalDatabases = Lens.lens (\OrderableDBInstanceOption' {supportsGlobalDatabases} -> supportsGlobalDatabases) (\s@OrderableDBInstanceOption' {} a -> s {supportsGlobalDatabases = a} :: OrderableDBInstanceOption)
 
 -- | True if a DB instance supports Performance Insights, otherwise false.
-odioSupportsPerformanceInsights :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioSupportsPerformanceInsights = lens _odioSupportsPerformanceInsights (\s a -> s {_odioSupportsPerformanceInsights = a})
+orderableDBInstanceOption_supportsPerformanceInsights :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_supportsPerformanceInsights = Lens.lens (\OrderableDBInstanceOption' {supportsPerformanceInsights} -> supportsPerformanceInsights) (\s@OrderableDBInstanceOption' {} a -> s {supportsPerformanceInsights = a} :: OrderableDBInstanceOption)
 
 -- | Maximum total provisioned IOPS for a DB instance.
-odioMaxIOPSPerDBInstance :: Lens' OrderableDBInstanceOption (Maybe Int)
-odioMaxIOPSPerDBInstance = lens _odioMaxIOPSPerDBInstance (\s a -> s {_odioMaxIOPSPerDBInstance = a})
+orderableDBInstanceOption_maxIopsPerDbInstance :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Int)
+orderableDBInstanceOption_maxIopsPerDbInstance = Lens.lens (\OrderableDBInstanceOption' {maxIopsPerDbInstance} -> maxIopsPerDbInstance) (\s@OrderableDBInstanceOption' {} a -> s {maxIopsPerDbInstance = a} :: OrderableDBInstanceOption)
 
 -- | The DB instance class for a DB instance.
-odioDBInstanceClass :: Lens' OrderableDBInstanceOption (Maybe Text)
-odioDBInstanceClass = lens _odioDBInstanceClass (\s a -> s {_odioDBInstanceClass = a})
+orderableDBInstanceOption_dBInstanceClass :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Text)
+orderableDBInstanceOption_dBInstanceClass = Lens.lens (\OrderableDBInstanceOption' {dBInstanceClass} -> dBInstanceClass) (\s@OrderableDBInstanceOption' {} a -> s {dBInstanceClass = a} :: OrderableDBInstanceOption)
 
--- | Whether a DB instance supports RDS on Outposts. For more information about RDS on Outposts, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html Amazon RDS on AWS Outposts> in the /Amazon RDS User Guide./
-odioOutpostCapable :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioOutpostCapable = lens _odioOutpostCapable (\s a -> s {_odioOutpostCapable = a})
+-- | Whether a DB instance supports RDS on Outposts.
+--
+-- For more information about RDS on Outposts, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html Amazon RDS on AWS Outposts>
+-- in the /Amazon RDS User Guide./
+orderableDBInstanceOption_outpostCapable :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_outpostCapable = Lens.lens (\OrderableDBInstanceOption' {outpostCapable} -> outpostCapable) (\s@OrderableDBInstanceOption' {} a -> s {outpostCapable = a} :: OrderableDBInstanceOption)
 
 -- | The engine type of a DB instance.
-odioEngine :: Lens' OrderableDBInstanceOption (Maybe Text)
-odioEngine = lens _odioEngine (\s a -> s {_odioEngine = a})
+orderableDBInstanceOption_engine :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Text)
+orderableDBInstanceOption_engine = Lens.lens (\OrderableDBInstanceOption' {engine} -> engine) (\s@OrderableDBInstanceOption' {} a -> s {engine = a} :: OrderableDBInstanceOption)
 
 -- | Minimum storage size for a DB instance.
-odioMinStorageSize :: Lens' OrderableDBInstanceOption (Maybe Int)
-odioMinStorageSize = lens _odioMinStorageSize (\s a -> s {_odioMinStorageSize = a})
+orderableDBInstanceOption_minStorageSize :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Int)
+orderableDBInstanceOption_minStorageSize = Lens.lens (\OrderableDBInstanceOption' {minStorageSize} -> minStorageSize) (\s@OrderableDBInstanceOption' {} a -> s {minStorageSize = a} :: OrderableDBInstanceOption)
 
 -- | The Availability Zone group for a DB instance.
-odioAvailabilityZoneGroup :: Lens' OrderableDBInstanceOption (Maybe Text)
-odioAvailabilityZoneGroup = lens _odioAvailabilityZoneGroup (\s a -> s {_odioAvailabilityZoneGroup = a})
+orderableDBInstanceOption_availabilityZoneGroup :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Text)
+orderableDBInstanceOption_availabilityZoneGroup = Lens.lens (\OrderableDBInstanceOption' {availabilityZoneGroup} -> availabilityZoneGroup) (\s@OrderableDBInstanceOption' {} a -> s {availabilityZoneGroup = a} :: OrderableDBInstanceOption)
 
 -- | Indicates whether a DB instance is in a VPC.
-odioVPC :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioVPC = lens _odioVPC (\s a -> s {_odioVPC = a})
+orderableDBInstanceOption_vpc :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_vpc = Lens.lens (\OrderableDBInstanceOption' {vpc} -> vpc) (\s@OrderableDBInstanceOption' {} a -> s {vpc = a} :: OrderableDBInstanceOption)
 
 -- | Indicates whether a DB instance can have a read replica.
-odioReadReplicaCapable :: Lens' OrderableDBInstanceOption (Maybe Bool)
-odioReadReplicaCapable = lens _odioReadReplicaCapable (\s a -> s {_odioReadReplicaCapable = a})
+orderableDBInstanceOption_readReplicaCapable :: Lens.Lens' OrderableDBInstanceOption (Prelude.Maybe Prelude.Bool)
+orderableDBInstanceOption_readReplicaCapable = Lens.lens (\OrderableDBInstanceOption' {readReplicaCapable} -> readReplicaCapable) (\s@OrderableDBInstanceOption' {} a -> s {readReplicaCapable = a} :: OrderableDBInstanceOption)
 
-instance FromXML OrderableDBInstanceOption where
+instance Prelude.FromXML OrderableDBInstanceOption where
   parseXML x =
     OrderableDBInstanceOption'
-      <$> (x .@? "MinIopsPerDbInstance")
-      <*> ( x .@? "AvailabilityZones" .!@ mempty
-              >>= may (parseXMLList "AvailabilityZone")
-          )
-      <*> (x .@? "SupportsKerberosAuthentication")
-      <*> (x .@? "SupportsIops")
-      <*> (x .@? "StorageType")
-      <*> (x .@? "SupportsEnhancedMonitoring")
-      <*> ( x .@? "AvailableProcessorFeatures" .!@ mempty
-              >>= may (parseXMLList "AvailableProcessorFeature")
-          )
-      <*> (x .@? "MaxStorageSize")
-      <*> ( x .@? "SupportedEngineModes" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "MaxIopsPerGib")
-      <*> (x .@? "SupportsStorageEncryption")
-      <*> (x .@? "MultiAZCapable")
-      <*> (x .@? "SupportsStorageAutoscaling")
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "MinIopsPerGib")
-      <*> (x .@? "SupportsIAMDatabaseAuthentication")
-      <*> (x .@? "LicenseModel")
-      <*> (x .@? "SupportsGlobalDatabases")
-      <*> (x .@? "SupportsPerformanceInsights")
-      <*> (x .@? "MaxIopsPerDbInstance")
-      <*> (x .@? "DBInstanceClass")
-      <*> (x .@? "OutpostCapable")
-      <*> (x .@? "Engine")
-      <*> (x .@? "MinStorageSize")
-      <*> (x .@? "AvailabilityZoneGroup")
-      <*> (x .@? "Vpc")
-      <*> (x .@? "ReadReplicaCapable")
+      Prelude.<$> (x Prelude..@? "MinIopsPerDbInstance")
+      Prelude.<*> ( x Prelude..@? "AvailabilityZones"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AvailabilityZone")
+                  )
+      Prelude.<*> (x Prelude..@? "SupportsKerberosAuthentication")
+      Prelude.<*> (x Prelude..@? "SupportsIops")
+      Prelude.<*> (x Prelude..@? "StorageType")
+      Prelude.<*> (x Prelude..@? "SupportsEnhancedMonitoring")
+      Prelude.<*> ( x Prelude..@? "AvailableProcessorFeatures"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AvailableProcessorFeature")
+                  )
+      Prelude.<*> (x Prelude..@? "MaxStorageSize")
+      Prelude.<*> ( x Prelude..@? "SupportedEngineModes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "MaxIopsPerGib")
+      Prelude.<*> (x Prelude..@? "SupportsStorageEncryption")
+      Prelude.<*> (x Prelude..@? "MultiAZCapable")
+      Prelude.<*> (x Prelude..@? "SupportsStorageAutoscaling")
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "MinIopsPerGib")
+      Prelude.<*> (x Prelude..@? "SupportsIAMDatabaseAuthentication")
+      Prelude.<*> (x Prelude..@? "LicenseModel")
+      Prelude.<*> (x Prelude..@? "SupportsGlobalDatabases")
+      Prelude.<*> (x Prelude..@? "SupportsPerformanceInsights")
+      Prelude.<*> (x Prelude..@? "MaxIopsPerDbInstance")
+      Prelude.<*> (x Prelude..@? "DBInstanceClass")
+      Prelude.<*> (x Prelude..@? "OutpostCapable")
+      Prelude.<*> (x Prelude..@? "Engine")
+      Prelude.<*> (x Prelude..@? "MinStorageSize")
+      Prelude.<*> (x Prelude..@? "AvailabilityZoneGroup")
+      Prelude.<*> (x Prelude..@? "Vpc")
+      Prelude.<*> (x Prelude..@? "ReadReplicaCapable")
 
-instance Hashable OrderableDBInstanceOption
+instance Prelude.Hashable OrderableDBInstanceOption
 
-instance NFData OrderableDBInstanceOption
+instance Prelude.NFData OrderableDBInstanceOption

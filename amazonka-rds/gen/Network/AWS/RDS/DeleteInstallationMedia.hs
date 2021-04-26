@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,93 +21,94 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the installation medium for a DB engine that requires an on-premises customer provided license, such as Microsoft SQL Server.
+-- Deletes the installation medium for a DB engine that requires an
+-- on-premises customer provided license, such as Microsoft SQL Server.
 module Network.AWS.RDS.DeleteInstallationMedia
   ( -- * Creating a Request
-    deleteInstallationMedia,
-    DeleteInstallationMedia,
+    DeleteInstallationMedia (..),
+    newDeleteInstallationMedia,
 
     -- * Request Lenses
-    dimInstallationMediaId,
+    deleteInstallationMedia_installationMediaId,
 
     -- * Destructuring the Response
-    installationMedia,
-    InstallationMedia,
+    InstallationMedia (..),
+    newInstallationMedia,
 
     -- * Response Lenses
-    imStatus,
-    imCustomAvailabilityZoneId,
-    imInstallationMediaId,
-    imEngineVersion,
-    imOSInstallationMediaPath,
-    imFailureCause,
-    imEngine,
-    imEngineInstallationMediaPath,
+    installationMedia_status,
+    installationMedia_customAvailabilityZoneId,
+    installationMedia_installationMediaId,
+    installationMedia_engineVersion,
+    installationMedia_oSInstallationMediaPath,
+    installationMedia_failureCause,
+    installationMedia_engine,
+    installationMedia_engineInstallationMediaPath,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.InstallationMedia
+import Network.AWS.RDS.Types.InstallationMediaFailureCause
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteInstallationMedia' smart constructor.
-newtype DeleteInstallationMedia = DeleteInstallationMedia'
-  { _dimInstallationMediaId ::
-      Text
+-- | /See:/ 'newDeleteInstallationMedia' smart constructor.
+data DeleteInstallationMedia = DeleteInstallationMedia'
+  { -- | The installation medium ID.
+    installationMediaId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInstallationMedia' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInstallationMedia' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dimInstallationMediaId' - The installation medium ID.
-deleteInstallationMedia ::
-  -- | 'dimInstallationMediaId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'installationMediaId', 'deleteInstallationMedia_installationMediaId' - The installation medium ID.
+newDeleteInstallationMedia ::
+  -- | 'installationMediaId'
+  Prelude.Text ->
   DeleteInstallationMedia
-deleteInstallationMedia pInstallationMediaId_ =
+newDeleteInstallationMedia pInstallationMediaId_ =
   DeleteInstallationMedia'
-    { _dimInstallationMediaId =
+    { installationMediaId =
         pInstallationMediaId_
     }
 
 -- | The installation medium ID.
-dimInstallationMediaId :: Lens' DeleteInstallationMedia Text
-dimInstallationMediaId = lens _dimInstallationMediaId (\s a -> s {_dimInstallationMediaId = a})
+deleteInstallationMedia_installationMediaId :: Lens.Lens' DeleteInstallationMedia Prelude.Text
+deleteInstallationMedia_installationMediaId = Lens.lens (\DeleteInstallationMedia' {installationMediaId} -> installationMediaId) (\s@DeleteInstallationMedia' {} a -> s {installationMediaId = a} :: DeleteInstallationMedia)
 
-instance AWSRequest DeleteInstallationMedia where
+instance Prelude.AWSRequest DeleteInstallationMedia where
   type Rs DeleteInstallationMedia = InstallationMedia
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteInstallationMediaResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable DeleteInstallationMedia
+instance Prelude.Hashable DeleteInstallationMedia
 
-instance NFData DeleteInstallationMedia
+instance Prelude.NFData DeleteInstallationMedia
 
-instance ToHeaders DeleteInstallationMedia where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteInstallationMedia where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteInstallationMedia where
-  toPath = const "/"
+instance Prelude.ToPath DeleteInstallationMedia where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteInstallationMedia where
+instance Prelude.ToQuery DeleteInstallationMedia where
   toQuery DeleteInstallationMedia' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteInstallationMedia" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "InstallationMediaId" =: _dimInstallationMediaId
+          Prelude.=: ("DeleteInstallationMedia" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "InstallationMediaId" Prelude.=: installationMediaId
       ]

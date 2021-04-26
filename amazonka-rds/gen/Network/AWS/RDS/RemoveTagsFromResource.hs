@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,117 +23,126 @@
 --
 -- Removes metadata tags from an Amazon RDS resource.
 --
---
--- For an overview on tagging an Amazon RDS resource, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html Tagging Amazon RDS Resources> in the /Amazon RDS User Guide./
+-- For an overview on tagging an Amazon RDS resource, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html Tagging Amazon RDS Resources>
+-- in the /Amazon RDS User Guide./
 module Network.AWS.RDS.RemoveTagsFromResource
   ( -- * Creating a Request
-    removeTagsFromResource,
-    RemoveTagsFromResource,
+    RemoveTagsFromResource (..),
+    newRemoveTagsFromResource,
 
     -- * Request Lenses
-    rtfrResourceName,
-    rtfrTagKeys,
+    removeTagsFromResource_resourceName,
+    removeTagsFromResource_tagKeys,
 
     -- * Destructuring the Response
-    removeTagsFromResourceResponse,
-    RemoveTagsFromResourceResponse,
+    RemoveTagsFromResourceResponse (..),
+    newRemoveTagsFromResourceResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'removeTagsFromResource' smart constructor.
+-- /See:/ 'newRemoveTagsFromResource' smart constructor.
 data RemoveTagsFromResource = RemoveTagsFromResource'
-  { _rtfrResourceName ::
-      !Text,
-    _rtfrTagKeys :: ![Text]
+  { -- | The Amazon RDS resource that the tags are removed from. This value is an
+    -- Amazon Resource Name (ARN). For information about creating an ARN, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS>
+    -- in the /Amazon RDS User Guide./
+    resourceName :: Prelude.Text,
+    -- | The tag key (name) of the tag to be removed.
+    tagKeys :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTagsFromResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTagsFromResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtfrResourceName' - The Amazon RDS resource that the tags are removed from. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS> in the /Amazon RDS User Guide./
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtfrTagKeys' - The tag key (name) of the tag to be removed.
-removeTagsFromResource ::
-  -- | 'rtfrResourceName'
-  Text ->
+-- 'resourceName', 'removeTagsFromResource_resourceName' - The Amazon RDS resource that the tags are removed from. This value is an
+-- Amazon Resource Name (ARN). For information about creating an ARN, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS>
+-- in the /Amazon RDS User Guide./
+--
+-- 'tagKeys', 'removeTagsFromResource_tagKeys' - The tag key (name) of the tag to be removed.
+newRemoveTagsFromResource ::
+  -- | 'resourceName'
+  Prelude.Text ->
   RemoveTagsFromResource
-removeTagsFromResource pResourceName_ =
+newRemoveTagsFromResource pResourceName_ =
   RemoveTagsFromResource'
-    { _rtfrResourceName =
+    { resourceName =
         pResourceName_,
-      _rtfrTagKeys = mempty
+      tagKeys = Prelude.mempty
     }
 
--- | The Amazon RDS resource that the tags are removed from. This value is an Amazon Resource Name (ARN). For information about creating an ARN, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS> in the /Amazon RDS User Guide./
-rtfrResourceName :: Lens' RemoveTagsFromResource Text
-rtfrResourceName = lens _rtfrResourceName (\s a -> s {_rtfrResourceName = a})
+-- | The Amazon RDS resource that the tags are removed from. This value is an
+-- Amazon Resource Name (ARN). For information about creating an ARN, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS>
+-- in the /Amazon RDS User Guide./
+removeTagsFromResource_resourceName :: Lens.Lens' RemoveTagsFromResource Prelude.Text
+removeTagsFromResource_resourceName = Lens.lens (\RemoveTagsFromResource' {resourceName} -> resourceName) (\s@RemoveTagsFromResource' {} a -> s {resourceName = a} :: RemoveTagsFromResource)
 
 -- | The tag key (name) of the tag to be removed.
-rtfrTagKeys :: Lens' RemoveTagsFromResource [Text]
-rtfrTagKeys = lens _rtfrTagKeys (\s a -> s {_rtfrTagKeys = a}) . _Coerce
+removeTagsFromResource_tagKeys :: Lens.Lens' RemoveTagsFromResource [Prelude.Text]
+removeTagsFromResource_tagKeys = Lens.lens (\RemoveTagsFromResource' {tagKeys} -> tagKeys) (\s@RemoveTagsFromResource' {} a -> s {tagKeys = a} :: RemoveTagsFromResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest RemoveTagsFromResource where
+instance Prelude.AWSRequest RemoveTagsFromResource where
   type
     Rs RemoveTagsFromResource =
       RemoveTagsFromResourceResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveNull RemoveTagsFromResourceResponse'
+    Response.receiveNull
+      RemoveTagsFromResourceResponse'
 
-instance Hashable RemoveTagsFromResource
+instance Prelude.Hashable RemoveTagsFromResource
 
-instance NFData RemoveTagsFromResource
+instance Prelude.NFData RemoveTagsFromResource
 
-instance ToHeaders RemoveTagsFromResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RemoveTagsFromResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RemoveTagsFromResource where
-  toPath = const "/"
+instance Prelude.ToPath RemoveTagsFromResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveTagsFromResource where
+instance Prelude.ToQuery RemoveTagsFromResource where
   toQuery RemoveTagsFromResource' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RemoveTagsFromResource" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "ResourceName" =: _rtfrResourceName,
-        "TagKeys" =: toQueryList "member" _rtfrTagKeys
+          Prelude.=: ("RemoveTagsFromResource" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "ResourceName" Prelude.=: resourceName,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]
 
--- | /See:/ 'removeTagsFromResourceResponse' smart constructor.
+-- | /See:/ 'newRemoveTagsFromResourceResponse' smart constructor.
 data RemoveTagsFromResourceResponse = RemoveTagsFromResourceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTagsFromResourceResponse' with the minimum fields required to make a request.
-removeTagsFromResourceResponse ::
+-- |
+-- Create a value of 'RemoveTagsFromResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRemoveTagsFromResourceResponse ::
   RemoveTagsFromResourceResponse
-removeTagsFromResourceResponse =
+newRemoveTagsFromResourceResponse =
   RemoveTagsFromResourceResponse'
 
-instance NFData RemoveTagsFromResourceResponse
+instance
+  Prelude.NFData
+    RemoveTagsFromResourceResponse

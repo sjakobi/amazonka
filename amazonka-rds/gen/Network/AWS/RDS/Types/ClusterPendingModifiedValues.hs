@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,93 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.ClusterPendingModifiedValues where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.PendingCloudwatchLogsExports
 
--- | This data type is used as a response element in the @ModifyDBCluster@ operation and contains changes that will be applied during the next maintenance window.
+-- | This data type is used as a response element in the @ModifyDBCluster@
+-- operation and contains changes that will be applied during the next
+-- maintenance window.
 --
---
---
--- /See:/ 'clusterPendingModifiedValues' smart constructor.
+-- /See:/ 'newClusterPendingModifiedValues' smart constructor.
 data ClusterPendingModifiedValues = ClusterPendingModifiedValues'
-  { _cpmvMasterUserPassword ::
-      !(Maybe Text),
-    _cpmvPendingCloudwatchLogsExports ::
-      !( Maybe
-           PendingCloudwatchLogsExports
-       ),
-    _cpmvDBClusterIdentifier ::
-      !(Maybe Text),
-    _cpmvEngineVersion ::
-      !(Maybe Text),
-    _cpmvIAMDatabaseAuthenticationEnabled ::
-      !(Maybe Bool)
+  { -- | The master credentials for the DB cluster.
+    masterUserPassword :: Prelude.Maybe Prelude.Text,
+    pendingCloudwatchLogsExports :: Prelude.Maybe PendingCloudwatchLogsExports,
+    -- | The DBClusterIdentifier value for the DB cluster.
+    dBClusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The database engine version.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether mapping of AWS Identity and Access
+    -- Management (IAM) accounts to database accounts is enabled.
+    iAMDatabaseAuthenticationEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterPendingModifiedValues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterPendingModifiedValues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpmvMasterUserPassword' - The master credentials for the DB cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpmvPendingCloudwatchLogsExports' - Undocumented member.
+-- 'masterUserPassword', 'clusterPendingModifiedValues_masterUserPassword' - The master credentials for the DB cluster.
 --
--- * 'cpmvDBClusterIdentifier' - The DBClusterIdentifier value for the DB cluster.
+-- 'pendingCloudwatchLogsExports', 'clusterPendingModifiedValues_pendingCloudwatchLogsExports' - Undocumented member.
 --
--- * 'cpmvEngineVersion' - The database engine version.
+-- 'dBClusterIdentifier', 'clusterPendingModifiedValues_dBClusterIdentifier' - The DBClusterIdentifier value for the DB cluster.
 --
--- * 'cpmvIAMDatabaseAuthenticationEnabled' - A value that indicates whether mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled.
-clusterPendingModifiedValues ::
+-- 'engineVersion', 'clusterPendingModifiedValues_engineVersion' - The database engine version.
+--
+-- 'iAMDatabaseAuthenticationEnabled', 'clusterPendingModifiedValues_iAMDatabaseAuthenticationEnabled' - A value that indicates whether mapping of AWS Identity and Access
+-- Management (IAM) accounts to database accounts is enabled.
+newClusterPendingModifiedValues ::
   ClusterPendingModifiedValues
-clusterPendingModifiedValues =
+newClusterPendingModifiedValues =
   ClusterPendingModifiedValues'
-    { _cpmvMasterUserPassword =
-        Nothing,
-      _cpmvPendingCloudwatchLogsExports = Nothing,
-      _cpmvDBClusterIdentifier = Nothing,
-      _cpmvEngineVersion = Nothing,
-      _cpmvIAMDatabaseAuthenticationEnabled =
-        Nothing
+    { masterUserPassword =
+        Prelude.Nothing,
+      pendingCloudwatchLogsExports =
+        Prelude.Nothing,
+      dBClusterIdentifier = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      iAMDatabaseAuthenticationEnabled =
+        Prelude.Nothing
     }
 
 -- | The master credentials for the DB cluster.
-cpmvMasterUserPassword :: Lens' ClusterPendingModifiedValues (Maybe Text)
-cpmvMasterUserPassword = lens _cpmvMasterUserPassword (\s a -> s {_cpmvMasterUserPassword = a})
+clusterPendingModifiedValues_masterUserPassword :: Lens.Lens' ClusterPendingModifiedValues (Prelude.Maybe Prelude.Text)
+clusterPendingModifiedValues_masterUserPassword = Lens.lens (\ClusterPendingModifiedValues' {masterUserPassword} -> masterUserPassword) (\s@ClusterPendingModifiedValues' {} a -> s {masterUserPassword = a} :: ClusterPendingModifiedValues)
 
 -- | Undocumented member.
-cpmvPendingCloudwatchLogsExports :: Lens' ClusterPendingModifiedValues (Maybe PendingCloudwatchLogsExports)
-cpmvPendingCloudwatchLogsExports = lens _cpmvPendingCloudwatchLogsExports (\s a -> s {_cpmvPendingCloudwatchLogsExports = a})
+clusterPendingModifiedValues_pendingCloudwatchLogsExports :: Lens.Lens' ClusterPendingModifiedValues (Prelude.Maybe PendingCloudwatchLogsExports)
+clusterPendingModifiedValues_pendingCloudwatchLogsExports = Lens.lens (\ClusterPendingModifiedValues' {pendingCloudwatchLogsExports} -> pendingCloudwatchLogsExports) (\s@ClusterPendingModifiedValues' {} a -> s {pendingCloudwatchLogsExports = a} :: ClusterPendingModifiedValues)
 
 -- | The DBClusterIdentifier value for the DB cluster.
-cpmvDBClusterIdentifier :: Lens' ClusterPendingModifiedValues (Maybe Text)
-cpmvDBClusterIdentifier = lens _cpmvDBClusterIdentifier (\s a -> s {_cpmvDBClusterIdentifier = a})
+clusterPendingModifiedValues_dBClusterIdentifier :: Lens.Lens' ClusterPendingModifiedValues (Prelude.Maybe Prelude.Text)
+clusterPendingModifiedValues_dBClusterIdentifier = Lens.lens (\ClusterPendingModifiedValues' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@ClusterPendingModifiedValues' {} a -> s {dBClusterIdentifier = a} :: ClusterPendingModifiedValues)
 
 -- | The database engine version.
-cpmvEngineVersion :: Lens' ClusterPendingModifiedValues (Maybe Text)
-cpmvEngineVersion = lens _cpmvEngineVersion (\s a -> s {_cpmvEngineVersion = a})
+clusterPendingModifiedValues_engineVersion :: Lens.Lens' ClusterPendingModifiedValues (Prelude.Maybe Prelude.Text)
+clusterPendingModifiedValues_engineVersion = Lens.lens (\ClusterPendingModifiedValues' {engineVersion} -> engineVersion) (\s@ClusterPendingModifiedValues' {} a -> s {engineVersion = a} :: ClusterPendingModifiedValues)
 
--- | A value that indicates whether mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled.
-cpmvIAMDatabaseAuthenticationEnabled :: Lens' ClusterPendingModifiedValues (Maybe Bool)
-cpmvIAMDatabaseAuthenticationEnabled = lens _cpmvIAMDatabaseAuthenticationEnabled (\s a -> s {_cpmvIAMDatabaseAuthenticationEnabled = a})
+-- | A value that indicates whether mapping of AWS Identity and Access
+-- Management (IAM) accounts to database accounts is enabled.
+clusterPendingModifiedValues_iAMDatabaseAuthenticationEnabled :: Lens.Lens' ClusterPendingModifiedValues (Prelude.Maybe Prelude.Bool)
+clusterPendingModifiedValues_iAMDatabaseAuthenticationEnabled = Lens.lens (\ClusterPendingModifiedValues' {iAMDatabaseAuthenticationEnabled} -> iAMDatabaseAuthenticationEnabled) (\s@ClusterPendingModifiedValues' {} a -> s {iAMDatabaseAuthenticationEnabled = a} :: ClusterPendingModifiedValues)
 
-instance FromXML ClusterPendingModifiedValues where
+instance Prelude.FromXML ClusterPendingModifiedValues where
   parseXML x =
     ClusterPendingModifiedValues'
-      <$> (x .@? "MasterUserPassword")
-      <*> (x .@? "PendingCloudwatchLogsExports")
-      <*> (x .@? "DBClusterIdentifier")
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "IAMDatabaseAuthenticationEnabled")
+      Prelude.<$> (x Prelude..@? "MasterUserPassword")
+      Prelude.<*> (x Prelude..@? "PendingCloudwatchLogsExports")
+      Prelude.<*> (x Prelude..@? "DBClusterIdentifier")
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "IAMDatabaseAuthenticationEnabled")
 
-instance Hashable ClusterPendingModifiedValues
+instance
+  Prelude.Hashable
+    ClusterPendingModifiedValues
 
-instance NFData ClusterPendingModifiedValues
+instance Prelude.NFData ClusterPendingModifiedValues

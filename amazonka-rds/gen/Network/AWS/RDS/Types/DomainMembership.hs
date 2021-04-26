@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DomainMembership where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An Active Directory Domain membership record associated with the DB instance or cluster.
+-- | An Active Directory Domain membership record associated with the DB
+-- instance or cluster.
 --
---
---
--- /See:/ 'domainMembership' smart constructor.
+-- /See:/ 'newDomainMembership' smart constructor.
 data DomainMembership = DomainMembership'
-  { _dmStatus ::
-      !(Maybe Text),
-    _dmDomain :: !(Maybe Text),
-    _dmIAMRoleName :: !(Maybe Text),
-    _dmFQDN :: !(Maybe Text)
+  { -- | The status of the Active Directory Domain membership for the DB instance
+    -- or cluster. Values include joined, pending-join, failed, and so on.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the Active Directory Domain.
+    domain :: Prelude.Maybe Prelude.Text,
+    -- | The name of the IAM role to be used when making API calls to the
+    -- Directory Service.
+    iAMRoleName :: Prelude.Maybe Prelude.Text,
+    -- | The fully qualified domain name of the Active Directory Domain.
+    fQDN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainMembership' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainMembership' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmStatus' - The status of the Active Directory Domain membership for the DB instance or cluster. Values include joined, pending-join, failed, and so on.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmDomain' - The identifier of the Active Directory Domain.
+-- 'status', 'domainMembership_status' - The status of the Active Directory Domain membership for the DB instance
+-- or cluster. Values include joined, pending-join, failed, and so on.
 --
--- * 'dmIAMRoleName' - The name of the IAM role to be used when making API calls to the Directory Service.
+-- 'domain', 'domainMembership_domain' - The identifier of the Active Directory Domain.
 --
--- * 'dmFQDN' - The fully qualified domain name of the Active Directory Domain.
-domainMembership ::
+-- 'iAMRoleName', 'domainMembership_iAMRoleName' - The name of the IAM role to be used when making API calls to the
+-- Directory Service.
+--
+-- 'fQDN', 'domainMembership_fQDN' - The fully qualified domain name of the Active Directory Domain.
+newDomainMembership ::
   DomainMembership
-domainMembership =
+newDomainMembership =
   DomainMembership'
-    { _dmStatus = Nothing,
-      _dmDomain = Nothing,
-      _dmIAMRoleName = Nothing,
-      _dmFQDN = Nothing
+    { status = Prelude.Nothing,
+      domain = Prelude.Nothing,
+      iAMRoleName = Prelude.Nothing,
+      fQDN = Prelude.Nothing
     }
 
--- | The status of the Active Directory Domain membership for the DB instance or cluster. Values include joined, pending-join, failed, and so on.
-dmStatus :: Lens' DomainMembership (Maybe Text)
-dmStatus = lens _dmStatus (\s a -> s {_dmStatus = a})
+-- | The status of the Active Directory Domain membership for the DB instance
+-- or cluster. Values include joined, pending-join, failed, and so on.
+domainMembership_status :: Lens.Lens' DomainMembership (Prelude.Maybe Prelude.Text)
+domainMembership_status = Lens.lens (\DomainMembership' {status} -> status) (\s@DomainMembership' {} a -> s {status = a} :: DomainMembership)
 
 -- | The identifier of the Active Directory Domain.
-dmDomain :: Lens' DomainMembership (Maybe Text)
-dmDomain = lens _dmDomain (\s a -> s {_dmDomain = a})
+domainMembership_domain :: Lens.Lens' DomainMembership (Prelude.Maybe Prelude.Text)
+domainMembership_domain = Lens.lens (\DomainMembership' {domain} -> domain) (\s@DomainMembership' {} a -> s {domain = a} :: DomainMembership)
 
--- | The name of the IAM role to be used when making API calls to the Directory Service.
-dmIAMRoleName :: Lens' DomainMembership (Maybe Text)
-dmIAMRoleName = lens _dmIAMRoleName (\s a -> s {_dmIAMRoleName = a})
+-- | The name of the IAM role to be used when making API calls to the
+-- Directory Service.
+domainMembership_iAMRoleName :: Lens.Lens' DomainMembership (Prelude.Maybe Prelude.Text)
+domainMembership_iAMRoleName = Lens.lens (\DomainMembership' {iAMRoleName} -> iAMRoleName) (\s@DomainMembership' {} a -> s {iAMRoleName = a} :: DomainMembership)
 
 -- | The fully qualified domain name of the Active Directory Domain.
-dmFQDN :: Lens' DomainMembership (Maybe Text)
-dmFQDN = lens _dmFQDN (\s a -> s {_dmFQDN = a})
+domainMembership_fQDN :: Lens.Lens' DomainMembership (Prelude.Maybe Prelude.Text)
+domainMembership_fQDN = Lens.lens (\DomainMembership' {fQDN} -> fQDN) (\s@DomainMembership' {} a -> s {fQDN = a} :: DomainMembership)
 
-instance FromXML DomainMembership where
+instance Prelude.FromXML DomainMembership where
   parseXML x =
     DomainMembership'
-      <$> (x .@? "Status")
-      <*> (x .@? "Domain")
-      <*> (x .@? "IAMRoleName")
-      <*> (x .@? "FQDN")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "Domain")
+      Prelude.<*> (x Prelude..@? "IAMRoleName")
+      Prelude.<*> (x Prelude..@? "FQDN")
 
-instance Hashable DomainMembership
+instance Prelude.Hashable DomainMembership
 
-instance NFData DomainMembership
+instance Prelude.NFData DomainMembership

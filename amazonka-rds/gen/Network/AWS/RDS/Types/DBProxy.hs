@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,168 +19,252 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBProxy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.DBProxyStatus
 import Network.AWS.RDS.Types.UserAuthConfigInfo
 
 -- | The data structure representing a proxy managed by the RDS Proxy.
 --
+-- This data type is used as a response element in the @DescribeDBProxies@
+-- action.
 --
--- This data type is used as a response element in the @DescribeDBProxies@ action.
---
---
--- /See:/ 'dbProxy' smart constructor.
+-- /See:/ 'newDBProxy' smart constructor.
 data DBProxy = DBProxy'
-  { _dpDBProxyARN ::
-      !(Maybe Text),
-    _dpStatus :: !(Maybe DBProxyStatus),
-    _dpCreatedDate :: !(Maybe ISO8601),
-    _dpRoleARN :: !(Maybe Text),
-    _dpIdleClientTimeout :: !(Maybe Int),
-    _dpVPCSubnetIds :: !(Maybe [Text]),
-    _dpAuth :: !(Maybe [UserAuthConfigInfo]),
-    _dpEngineFamily :: !(Maybe Text),
-    _dpVPCSecurityGroupIds :: !(Maybe [Text]),
-    _dpDebugLogging :: !(Maybe Bool),
-    _dpUpdatedDate :: !(Maybe ISO8601),
-    _dpRequireTLS :: !(Maybe Bool),
-    _dpEndpoint :: !(Maybe Text),
-    _dpDBProxyName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) for the proxy.
+    dBProxyArn :: Prelude.Maybe Prelude.Text,
+    -- | The current status of this proxy. A status of @available@ means the
+    -- proxy is ready to handle requests. Other values indicate that you must
+    -- wait for the proxy to be ready, or take some action to resolve an issue.
+    status :: Prelude.Maybe DBProxyStatus,
+    -- | The date and time when the proxy was first created.
+    createdDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The Amazon Resource Name (ARN) for the IAM role that the proxy uses to
+    -- access Amazon Secrets Manager.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The number of seconds a connection to the proxy can have no activity
+    -- before the proxy drops the client connection. The proxy keeps the
+    -- underlying database connection open and puts it back into the connection
+    -- pool for reuse by later connection requests.
+    --
+    -- Default: 1800 (30 minutes)
+    --
+    -- Constraints: 1 to 28,800
+    idleClientTimeout :: Prelude.Maybe Prelude.Int,
+    -- | The EC2 subnet IDs for the proxy.
+    vpcSubnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | One or more data structures specifying the authorization mechanism to
+    -- connect to the associated RDS DB instance or Aurora DB cluster.
+    auth :: Prelude.Maybe [UserAuthConfigInfo],
+    -- | The engine family applies to MySQL and PostgreSQL for both RDS and
+    -- Aurora.
+    engineFamily :: Prelude.Maybe Prelude.Text,
+    -- | Provides a list of VPC security groups that the proxy belongs to.
+    vpcSecurityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | Whether the proxy includes detailed information about SQL statements in
+    -- its logs. This information helps you to debug issues involving SQL
+    -- behavior or the performance and scalability of the proxy connections.
+    -- The debug information includes the text of SQL statements that you
+    -- submit through the proxy. Thus, only enable this setting when needed for
+    -- debugging, and only when you have security measures in place to
+    -- safeguard any sensitive information that appears in the logs.
+    debugLogging :: Prelude.Maybe Prelude.Bool,
+    -- | The date and time when the proxy was last updated.
+    updatedDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | Indicates whether Transport Layer Security (TLS) encryption is required
+    -- for connections to the proxy.
+    requireTLS :: Prelude.Maybe Prelude.Bool,
+    -- | The endpoint that you can use to connect to the proxy. You include the
+    -- endpoint value in the connection string for a database client
+    -- application.
+    endpoint :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the proxy. This name must be unique for all proxies
+    -- owned by your AWS account in the specified AWS Region.
+    dBProxyName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBProxy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBProxy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpDBProxyARN' - The Amazon Resource Name (ARN) for the proxy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpStatus' - The current status of this proxy. A status of @available@ means the proxy is ready to handle requests. Other values indicate that you must wait for the proxy to be ready, or take some action to resolve an issue.
+-- 'dBProxyArn', 'dBProxy_dBProxyArn' - The Amazon Resource Name (ARN) for the proxy.
 --
--- * 'dpCreatedDate' - The date and time when the proxy was first created.
+-- 'status', 'dBProxy_status' - The current status of this proxy. A status of @available@ means the
+-- proxy is ready to handle requests. Other values indicate that you must
+-- wait for the proxy to be ready, or take some action to resolve an issue.
 --
--- * 'dpRoleARN' - The Amazon Resource Name (ARN) for the IAM role that the proxy uses to access Amazon Secrets Manager.
+-- 'createdDate', 'dBProxy_createdDate' - The date and time when the proxy was first created.
 --
--- * 'dpIdleClientTimeout' - The number of seconds a connection to the proxy can have no activity before the proxy drops the client connection. The proxy keeps the underlying database connection open and puts it back into the connection pool for reuse by later connection requests. Default: 1800 (30 minutes) Constraints: 1 to 28,800
+-- 'roleArn', 'dBProxy_roleArn' - The Amazon Resource Name (ARN) for the IAM role that the proxy uses to
+-- access Amazon Secrets Manager.
 --
--- * 'dpVPCSubnetIds' - The EC2 subnet IDs for the proxy.
+-- 'idleClientTimeout', 'dBProxy_idleClientTimeout' - The number of seconds a connection to the proxy can have no activity
+-- before the proxy drops the client connection. The proxy keeps the
+-- underlying database connection open and puts it back into the connection
+-- pool for reuse by later connection requests.
 --
--- * 'dpAuth' - One or more data structures specifying the authorization mechanism to connect to the associated RDS DB instance or Aurora DB cluster.
+-- Default: 1800 (30 minutes)
 --
--- * 'dpEngineFamily' - The engine family applies to MySQL and PostgreSQL for both RDS and Aurora.
+-- Constraints: 1 to 28,800
 --
--- * 'dpVPCSecurityGroupIds' - Provides a list of VPC security groups that the proxy belongs to.
+-- 'vpcSubnetIds', 'dBProxy_vpcSubnetIds' - The EC2 subnet IDs for the proxy.
 --
--- * 'dpDebugLogging' - Whether the proxy includes detailed information about SQL statements in its logs. This information helps you to debug issues involving SQL behavior or the performance and scalability of the proxy connections. The debug information includes the text of SQL statements that you submit through the proxy. Thus, only enable this setting when needed for debugging, and only when you have security measures in place to safeguard any sensitive information that appears in the logs.
+-- 'auth', 'dBProxy_auth' - One or more data structures specifying the authorization mechanism to
+-- connect to the associated RDS DB instance or Aurora DB cluster.
 --
--- * 'dpUpdatedDate' - The date and time when the proxy was last updated.
+-- 'engineFamily', 'dBProxy_engineFamily' - The engine family applies to MySQL and PostgreSQL for both RDS and
+-- Aurora.
 --
--- * 'dpRequireTLS' - Indicates whether Transport Layer Security (TLS) encryption is required for connections to the proxy.
+-- 'vpcSecurityGroupIds', 'dBProxy_vpcSecurityGroupIds' - Provides a list of VPC security groups that the proxy belongs to.
 --
--- * 'dpEndpoint' - The endpoint that you can use to connect to the proxy. You include the endpoint value in the connection string for a database client application.
+-- 'debugLogging', 'dBProxy_debugLogging' - Whether the proxy includes detailed information about SQL statements in
+-- its logs. This information helps you to debug issues involving SQL
+-- behavior or the performance and scalability of the proxy connections.
+-- The debug information includes the text of SQL statements that you
+-- submit through the proxy. Thus, only enable this setting when needed for
+-- debugging, and only when you have security measures in place to
+-- safeguard any sensitive information that appears in the logs.
 --
--- * 'dpDBProxyName' - The identifier for the proxy. This name must be unique for all proxies owned by your AWS account in the specified AWS Region.
-dbProxy ::
+-- 'updatedDate', 'dBProxy_updatedDate' - The date and time when the proxy was last updated.
+--
+-- 'requireTLS', 'dBProxy_requireTLS' - Indicates whether Transport Layer Security (TLS) encryption is required
+-- for connections to the proxy.
+--
+-- 'endpoint', 'dBProxy_endpoint' - The endpoint that you can use to connect to the proxy. You include the
+-- endpoint value in the connection string for a database client
+-- application.
+--
+-- 'dBProxyName', 'dBProxy_dBProxyName' - The identifier for the proxy. This name must be unique for all proxies
+-- owned by your AWS account in the specified AWS Region.
+newDBProxy ::
   DBProxy
-dbProxy =
+newDBProxy =
   DBProxy'
-    { _dpDBProxyARN = Nothing,
-      _dpStatus = Nothing,
-      _dpCreatedDate = Nothing,
-      _dpRoleARN = Nothing,
-      _dpIdleClientTimeout = Nothing,
-      _dpVPCSubnetIds = Nothing,
-      _dpAuth = Nothing,
-      _dpEngineFamily = Nothing,
-      _dpVPCSecurityGroupIds = Nothing,
-      _dpDebugLogging = Nothing,
-      _dpUpdatedDate = Nothing,
-      _dpRequireTLS = Nothing,
-      _dpEndpoint = Nothing,
-      _dpDBProxyName = Nothing
+    { dBProxyArn = Prelude.Nothing,
+      status = Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      idleClientTimeout = Prelude.Nothing,
+      vpcSubnetIds = Prelude.Nothing,
+      auth = Prelude.Nothing,
+      engineFamily = Prelude.Nothing,
+      vpcSecurityGroupIds = Prelude.Nothing,
+      debugLogging = Prelude.Nothing,
+      updatedDate = Prelude.Nothing,
+      requireTLS = Prelude.Nothing,
+      endpoint = Prelude.Nothing,
+      dBProxyName = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) for the proxy.
-dpDBProxyARN :: Lens' DBProxy (Maybe Text)
-dpDBProxyARN = lens _dpDBProxyARN (\s a -> s {_dpDBProxyARN = a})
+dBProxy_dBProxyArn :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Text)
+dBProxy_dBProxyArn = Lens.lens (\DBProxy' {dBProxyArn} -> dBProxyArn) (\s@DBProxy' {} a -> s {dBProxyArn = a} :: DBProxy)
 
--- | The current status of this proxy. A status of @available@ means the proxy is ready to handle requests. Other values indicate that you must wait for the proxy to be ready, or take some action to resolve an issue.
-dpStatus :: Lens' DBProxy (Maybe DBProxyStatus)
-dpStatus = lens _dpStatus (\s a -> s {_dpStatus = a})
+-- | The current status of this proxy. A status of @available@ means the
+-- proxy is ready to handle requests. Other values indicate that you must
+-- wait for the proxy to be ready, or take some action to resolve an issue.
+dBProxy_status :: Lens.Lens' DBProxy (Prelude.Maybe DBProxyStatus)
+dBProxy_status = Lens.lens (\DBProxy' {status} -> status) (\s@DBProxy' {} a -> s {status = a} :: DBProxy)
 
 -- | The date and time when the proxy was first created.
-dpCreatedDate :: Lens' DBProxy (Maybe UTCTime)
-dpCreatedDate = lens _dpCreatedDate (\s a -> s {_dpCreatedDate = a}) . mapping _Time
+dBProxy_createdDate :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.UTCTime)
+dBProxy_createdDate = Lens.lens (\DBProxy' {createdDate} -> createdDate) (\s@DBProxy' {} a -> s {createdDate = a} :: DBProxy) Prelude.. Lens.mapping Prelude._Time
 
--- | The Amazon Resource Name (ARN) for the IAM role that the proxy uses to access Amazon Secrets Manager.
-dpRoleARN :: Lens' DBProxy (Maybe Text)
-dpRoleARN = lens _dpRoleARN (\s a -> s {_dpRoleARN = a})
+-- | The Amazon Resource Name (ARN) for the IAM role that the proxy uses to
+-- access Amazon Secrets Manager.
+dBProxy_roleArn :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Text)
+dBProxy_roleArn = Lens.lens (\DBProxy' {roleArn} -> roleArn) (\s@DBProxy' {} a -> s {roleArn = a} :: DBProxy)
 
--- | The number of seconds a connection to the proxy can have no activity before the proxy drops the client connection. The proxy keeps the underlying database connection open and puts it back into the connection pool for reuse by later connection requests. Default: 1800 (30 minutes) Constraints: 1 to 28,800
-dpIdleClientTimeout :: Lens' DBProxy (Maybe Int)
-dpIdleClientTimeout = lens _dpIdleClientTimeout (\s a -> s {_dpIdleClientTimeout = a})
+-- | The number of seconds a connection to the proxy can have no activity
+-- before the proxy drops the client connection. The proxy keeps the
+-- underlying database connection open and puts it back into the connection
+-- pool for reuse by later connection requests.
+--
+-- Default: 1800 (30 minutes)
+--
+-- Constraints: 1 to 28,800
+dBProxy_idleClientTimeout :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Int)
+dBProxy_idleClientTimeout = Lens.lens (\DBProxy' {idleClientTimeout} -> idleClientTimeout) (\s@DBProxy' {} a -> s {idleClientTimeout = a} :: DBProxy)
 
 -- | The EC2 subnet IDs for the proxy.
-dpVPCSubnetIds :: Lens' DBProxy [Text]
-dpVPCSubnetIds = lens _dpVPCSubnetIds (\s a -> s {_dpVPCSubnetIds = a}) . _Default . _Coerce
+dBProxy_vpcSubnetIds :: Lens.Lens' DBProxy (Prelude.Maybe [Prelude.Text])
+dBProxy_vpcSubnetIds = Lens.lens (\DBProxy' {vpcSubnetIds} -> vpcSubnetIds) (\s@DBProxy' {} a -> s {vpcSubnetIds = a} :: DBProxy) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more data structures specifying the authorization mechanism to connect to the associated RDS DB instance or Aurora DB cluster.
-dpAuth :: Lens' DBProxy [UserAuthConfigInfo]
-dpAuth = lens _dpAuth (\s a -> s {_dpAuth = a}) . _Default . _Coerce
+-- | One or more data structures specifying the authorization mechanism to
+-- connect to the associated RDS DB instance or Aurora DB cluster.
+dBProxy_auth :: Lens.Lens' DBProxy (Prelude.Maybe [UserAuthConfigInfo])
+dBProxy_auth = Lens.lens (\DBProxy' {auth} -> auth) (\s@DBProxy' {} a -> s {auth = a} :: DBProxy) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The engine family applies to MySQL and PostgreSQL for both RDS and Aurora.
-dpEngineFamily :: Lens' DBProxy (Maybe Text)
-dpEngineFamily = lens _dpEngineFamily (\s a -> s {_dpEngineFamily = a})
+-- | The engine family applies to MySQL and PostgreSQL for both RDS and
+-- Aurora.
+dBProxy_engineFamily :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Text)
+dBProxy_engineFamily = Lens.lens (\DBProxy' {engineFamily} -> engineFamily) (\s@DBProxy' {} a -> s {engineFamily = a} :: DBProxy)
 
 -- | Provides a list of VPC security groups that the proxy belongs to.
-dpVPCSecurityGroupIds :: Lens' DBProxy [Text]
-dpVPCSecurityGroupIds = lens _dpVPCSecurityGroupIds (\s a -> s {_dpVPCSecurityGroupIds = a}) . _Default . _Coerce
+dBProxy_vpcSecurityGroupIds :: Lens.Lens' DBProxy (Prelude.Maybe [Prelude.Text])
+dBProxy_vpcSecurityGroupIds = Lens.lens (\DBProxy' {vpcSecurityGroupIds} -> vpcSecurityGroupIds) (\s@DBProxy' {} a -> s {vpcSecurityGroupIds = a} :: DBProxy) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Whether the proxy includes detailed information about SQL statements in its logs. This information helps you to debug issues involving SQL behavior or the performance and scalability of the proxy connections. The debug information includes the text of SQL statements that you submit through the proxy. Thus, only enable this setting when needed for debugging, and only when you have security measures in place to safeguard any sensitive information that appears in the logs.
-dpDebugLogging :: Lens' DBProxy (Maybe Bool)
-dpDebugLogging = lens _dpDebugLogging (\s a -> s {_dpDebugLogging = a})
+-- | Whether the proxy includes detailed information about SQL statements in
+-- its logs. This information helps you to debug issues involving SQL
+-- behavior or the performance and scalability of the proxy connections.
+-- The debug information includes the text of SQL statements that you
+-- submit through the proxy. Thus, only enable this setting when needed for
+-- debugging, and only when you have security measures in place to
+-- safeguard any sensitive information that appears in the logs.
+dBProxy_debugLogging :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Bool)
+dBProxy_debugLogging = Lens.lens (\DBProxy' {debugLogging} -> debugLogging) (\s@DBProxy' {} a -> s {debugLogging = a} :: DBProxy)
 
 -- | The date and time when the proxy was last updated.
-dpUpdatedDate :: Lens' DBProxy (Maybe UTCTime)
-dpUpdatedDate = lens _dpUpdatedDate (\s a -> s {_dpUpdatedDate = a}) . mapping _Time
+dBProxy_updatedDate :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.UTCTime)
+dBProxy_updatedDate = Lens.lens (\DBProxy' {updatedDate} -> updatedDate) (\s@DBProxy' {} a -> s {updatedDate = a} :: DBProxy) Prelude.. Lens.mapping Prelude._Time
 
--- | Indicates whether Transport Layer Security (TLS) encryption is required for connections to the proxy.
-dpRequireTLS :: Lens' DBProxy (Maybe Bool)
-dpRequireTLS = lens _dpRequireTLS (\s a -> s {_dpRequireTLS = a})
+-- | Indicates whether Transport Layer Security (TLS) encryption is required
+-- for connections to the proxy.
+dBProxy_requireTLS :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Bool)
+dBProxy_requireTLS = Lens.lens (\DBProxy' {requireTLS} -> requireTLS) (\s@DBProxy' {} a -> s {requireTLS = a} :: DBProxy)
 
--- | The endpoint that you can use to connect to the proxy. You include the endpoint value in the connection string for a database client application.
-dpEndpoint :: Lens' DBProxy (Maybe Text)
-dpEndpoint = lens _dpEndpoint (\s a -> s {_dpEndpoint = a})
+-- | The endpoint that you can use to connect to the proxy. You include the
+-- endpoint value in the connection string for a database client
+-- application.
+dBProxy_endpoint :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Text)
+dBProxy_endpoint = Lens.lens (\DBProxy' {endpoint} -> endpoint) (\s@DBProxy' {} a -> s {endpoint = a} :: DBProxy)
 
--- | The identifier for the proxy. This name must be unique for all proxies owned by your AWS account in the specified AWS Region.
-dpDBProxyName :: Lens' DBProxy (Maybe Text)
-dpDBProxyName = lens _dpDBProxyName (\s a -> s {_dpDBProxyName = a})
+-- | The identifier for the proxy. This name must be unique for all proxies
+-- owned by your AWS account in the specified AWS Region.
+dBProxy_dBProxyName :: Lens.Lens' DBProxy (Prelude.Maybe Prelude.Text)
+dBProxy_dBProxyName = Lens.lens (\DBProxy' {dBProxyName} -> dBProxyName) (\s@DBProxy' {} a -> s {dBProxyName = a} :: DBProxy)
 
-instance FromXML DBProxy where
+instance Prelude.FromXML DBProxy where
   parseXML x =
     DBProxy'
-      <$> (x .@? "DBProxyArn")
-      <*> (x .@? "Status")
-      <*> (x .@? "CreatedDate")
-      <*> (x .@? "RoleArn")
-      <*> (x .@? "IdleClientTimeout")
-      <*> ( x .@? "VpcSubnetIds" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "Auth" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "EngineFamily")
-      <*> ( x .@? "VpcSecurityGroupIds" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "DebugLogging")
-      <*> (x .@? "UpdatedDate")
-      <*> (x .@? "RequireTLS")
-      <*> (x .@? "Endpoint")
-      <*> (x .@? "DBProxyName")
+      Prelude.<$> (x Prelude..@? "DBProxyArn")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "CreatedDate")
+      Prelude.<*> (x Prelude..@? "RoleArn")
+      Prelude.<*> (x Prelude..@? "IdleClientTimeout")
+      Prelude.<*> ( x Prelude..@? "VpcSubnetIds"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "Auth" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "EngineFamily")
+      Prelude.<*> ( x Prelude..@? "VpcSecurityGroupIds"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "DebugLogging")
+      Prelude.<*> (x Prelude..@? "UpdatedDate")
+      Prelude.<*> (x Prelude..@? "RequireTLS")
+      Prelude.<*> (x Prelude..@? "Endpoint")
+      Prelude.<*> (x Prelude..@? "DBProxyName")
 
-instance Hashable DBProxy
+instance Prelude.Hashable DBProxy
 
-instance NFData DBProxy
+instance Prelude.NFData DBProxy

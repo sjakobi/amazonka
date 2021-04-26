@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,210 +21,248 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts a database activity stream to monitor activity on the database. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html Database Activity Streams> in the /Amazon Aurora User Guide/ .
+-- Starts a database activity stream to monitor activity on the database.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html Database Activity Streams>
+-- in the /Amazon Aurora User Guide/.
 module Network.AWS.RDS.StartActivityStream
   ( -- * Creating a Request
-    startActivityStream,
-    StartActivityStream,
+    StartActivityStream (..),
+    newStartActivityStream,
 
     -- * Request Lenses
-    sApplyImmediately,
-    sResourceARN,
-    sMode,
-    sKMSKeyId,
+    startActivityStream_applyImmediately,
+    startActivityStream_resourceArn,
+    startActivityStream_mode,
+    startActivityStream_kmsKeyId,
 
     -- * Destructuring the Response
-    startActivityStreamResponse,
-    StartActivityStreamResponse,
+    StartActivityStreamResponse (..),
+    newStartActivityStreamResponse,
 
     -- * Response Lenses
-    sasrrsStatus,
-    sasrrsMode,
-    sasrrsKMSKeyId,
-    sasrrsKinesisStreamName,
-    sasrrsApplyImmediately,
-    sasrrsResponseStatus,
+    startActivityStreamResponse_status,
+    startActivityStreamResponse_mode,
+    startActivityStreamResponse_kmsKeyId,
+    startActivityStreamResponse_kinesisStreamName,
+    startActivityStreamResponse_applyImmediately,
+    startActivityStreamResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.ActivityStreamMode
+import Network.AWS.RDS.Types.ActivityStreamStatus
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startActivityStream' smart constructor.
+-- | /See:/ 'newStartActivityStream' smart constructor.
 data StartActivityStream = StartActivityStream'
-  { _sApplyImmediately ::
-      !(Maybe Bool),
-    _sResourceARN :: !Text,
-    _sMode :: !ActivityStreamMode,
-    _sKMSKeyId :: !Text
+  { -- | Specifies whether or not the database activity stream is to start as
+    -- soon as possible, regardless of the maintenance window for the database.
+    applyImmediately :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the DB cluster, for example,
+    -- @arn:aws:rds:us-east-1:12345667890:cluster:das-cluster@.
+    resourceArn :: Prelude.Text,
+    -- | Specifies the mode of the database activity stream. Database events such
+    -- as a change or access generate an activity stream event. The database
+    -- session can handle these events either synchronously or asynchronously.
+    mode :: ActivityStreamMode,
+    -- | The AWS KMS key identifier for encrypting messages in the database
+    -- activity stream. The AWS KMS key identifier is the key ARN, key ID,
+    -- alias ARN, or alias name for the AWS KMS customer master key (CMK).
+    kmsKeyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartActivityStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartActivityStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sApplyImmediately' - Specifies whether or not the database activity stream is to start as soon as possible, regardless of the maintenance window for the database.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sResourceARN' - The Amazon Resource Name (ARN) of the DB cluster, for example, @arn:aws:rds:us-east-1:12345667890:cluster:das-cluster@ .
+-- 'applyImmediately', 'startActivityStream_applyImmediately' - Specifies whether or not the database activity stream is to start as
+-- soon as possible, regardless of the maintenance window for the database.
 --
--- * 'sMode' - Specifies the mode of the database activity stream. Database events such as a change or access generate an activity stream event. The database session can handle these events either synchronously or asynchronously.
+-- 'resourceArn', 'startActivityStream_resourceArn' - The Amazon Resource Name (ARN) of the DB cluster, for example,
+-- @arn:aws:rds:us-east-1:12345667890:cluster:das-cluster@.
 --
--- * 'sKMSKeyId' - The AWS KMS key identifier for encrypting messages in the database activity stream. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK).
-startActivityStream ::
-  -- | 'sResourceARN'
-  Text ->
-  -- | 'sMode'
+-- 'mode', 'startActivityStream_mode' - Specifies the mode of the database activity stream. Database events such
+-- as a change or access generate an activity stream event. The database
+-- session can handle these events either synchronously or asynchronously.
+--
+-- 'kmsKeyId', 'startActivityStream_kmsKeyId' - The AWS KMS key identifier for encrypting messages in the database
+-- activity stream. The AWS KMS key identifier is the key ARN, key ID,
+-- alias ARN, or alias name for the AWS KMS customer master key (CMK).
+newStartActivityStream ::
+  -- | 'resourceArn'
+  Prelude.Text ->
+  -- | 'mode'
   ActivityStreamMode ->
-  -- | 'sKMSKeyId'
-  Text ->
+  -- | 'kmsKeyId'
+  Prelude.Text ->
   StartActivityStream
-startActivityStream pResourceARN_ pMode_ pKMSKeyId_ =
-  StartActivityStream'
-    { _sApplyImmediately = Nothing,
-      _sResourceARN = pResourceARN_,
-      _sMode = pMode_,
-      _sKMSKeyId = pKMSKeyId_
-    }
+newStartActivityStream
+  pResourceArn_
+  pMode_
+  pKmsKeyId_ =
+    StartActivityStream'
+      { applyImmediately =
+          Prelude.Nothing,
+        resourceArn = pResourceArn_,
+        mode = pMode_,
+        kmsKeyId = pKmsKeyId_
+      }
 
--- | Specifies whether or not the database activity stream is to start as soon as possible, regardless of the maintenance window for the database.
-sApplyImmediately :: Lens' StartActivityStream (Maybe Bool)
-sApplyImmediately = lens _sApplyImmediately (\s a -> s {_sApplyImmediately = a})
+-- | Specifies whether or not the database activity stream is to start as
+-- soon as possible, regardless of the maintenance window for the database.
+startActivityStream_applyImmediately :: Lens.Lens' StartActivityStream (Prelude.Maybe Prelude.Bool)
+startActivityStream_applyImmediately = Lens.lens (\StartActivityStream' {applyImmediately} -> applyImmediately) (\s@StartActivityStream' {} a -> s {applyImmediately = a} :: StartActivityStream)
 
--- | The Amazon Resource Name (ARN) of the DB cluster, for example, @arn:aws:rds:us-east-1:12345667890:cluster:das-cluster@ .
-sResourceARN :: Lens' StartActivityStream Text
-sResourceARN = lens _sResourceARN (\s a -> s {_sResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the DB cluster, for example,
+-- @arn:aws:rds:us-east-1:12345667890:cluster:das-cluster@.
+startActivityStream_resourceArn :: Lens.Lens' StartActivityStream Prelude.Text
+startActivityStream_resourceArn = Lens.lens (\StartActivityStream' {resourceArn} -> resourceArn) (\s@StartActivityStream' {} a -> s {resourceArn = a} :: StartActivityStream)
 
--- | Specifies the mode of the database activity stream. Database events such as a change or access generate an activity stream event. The database session can handle these events either synchronously or asynchronously.
-sMode :: Lens' StartActivityStream ActivityStreamMode
-sMode = lens _sMode (\s a -> s {_sMode = a})
+-- | Specifies the mode of the database activity stream. Database events such
+-- as a change or access generate an activity stream event. The database
+-- session can handle these events either synchronously or asynchronously.
+startActivityStream_mode :: Lens.Lens' StartActivityStream ActivityStreamMode
+startActivityStream_mode = Lens.lens (\StartActivityStream' {mode} -> mode) (\s@StartActivityStream' {} a -> s {mode = a} :: StartActivityStream)
 
--- | The AWS KMS key identifier for encrypting messages in the database activity stream. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK).
-sKMSKeyId :: Lens' StartActivityStream Text
-sKMSKeyId = lens _sKMSKeyId (\s a -> s {_sKMSKeyId = a})
+-- | The AWS KMS key identifier for encrypting messages in the database
+-- activity stream. The AWS KMS key identifier is the key ARN, key ID,
+-- alias ARN, or alias name for the AWS KMS customer master key (CMK).
+startActivityStream_kmsKeyId :: Lens.Lens' StartActivityStream Prelude.Text
+startActivityStream_kmsKeyId = Lens.lens (\StartActivityStream' {kmsKeyId} -> kmsKeyId) (\s@StartActivityStream' {} a -> s {kmsKeyId = a} :: StartActivityStream)
 
-instance AWSRequest StartActivityStream where
+instance Prelude.AWSRequest StartActivityStream where
   type
     Rs StartActivityStream =
       StartActivityStreamResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StartActivityStreamResult"
       ( \s h x ->
           StartActivityStreamResponse'
-            <$> (x .@? "Status")
-            <*> (x .@? "Mode")
-            <*> (x .@? "KmsKeyId")
-            <*> (x .@? "KinesisStreamName")
-            <*> (x .@? "ApplyImmediately")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Status")
+            Prelude.<*> (x Prelude..@? "Mode")
+            Prelude.<*> (x Prelude..@? "KmsKeyId")
+            Prelude.<*> (x Prelude..@? "KinesisStreamName")
+            Prelude.<*> (x Prelude..@? "ApplyImmediately")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartActivityStream
+instance Prelude.Hashable StartActivityStream
 
-instance NFData StartActivityStream
+instance Prelude.NFData StartActivityStream
 
-instance ToHeaders StartActivityStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartActivityStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StartActivityStream where
-  toPath = const "/"
+instance Prelude.ToPath StartActivityStream where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartActivityStream where
+instance Prelude.ToQuery StartActivityStream where
   toQuery StartActivityStream' {..} =
-    mconcat
-      [ "Action" =: ("StartActivityStream" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "ApplyImmediately" =: _sApplyImmediately,
-        "ResourceArn" =: _sResourceARN,
-        "Mode" =: _sMode,
-        "KmsKeyId" =: _sKMSKeyId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("StartActivityStream" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "ApplyImmediately" Prelude.=: applyImmediately,
+        "ResourceArn" Prelude.=: resourceArn,
+        "Mode" Prelude.=: mode,
+        "KmsKeyId" Prelude.=: kmsKeyId
       ]
 
--- | /See:/ 'startActivityStreamResponse' smart constructor.
+-- | /See:/ 'newStartActivityStreamResponse' smart constructor.
 data StartActivityStreamResponse = StartActivityStreamResponse'
-  { _sasrrsStatus ::
-      !( Maybe
-           ActivityStreamStatus
-       ),
-    _sasrrsMode ::
-      !( Maybe
-           ActivityStreamMode
-       ),
-    _sasrrsKMSKeyId ::
-      !(Maybe Text),
-    _sasrrsKinesisStreamName ::
-      !(Maybe Text),
-    _sasrrsApplyImmediately ::
-      !(Maybe Bool),
-    _sasrrsResponseStatus ::
-      !Int
+  { -- | The status of the database activity stream.
+    status :: Prelude.Maybe ActivityStreamStatus,
+    -- | The mode of the database activity stream.
+    mode :: Prelude.Maybe ActivityStreamMode,
+    -- | The AWS KMS key identifier for encryption of messages in the database
+    -- activity stream.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Amazon Kinesis data stream to be used for the database
+    -- activity stream.
+    kinesisStreamName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether or not the database activity stream will start as soon
+    -- as possible, regardless of the maintenance window for the database.
+    applyImmediately :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartActivityStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartActivityStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sasrrsStatus' - The status of the database activity stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sasrrsMode' - The mode of the database activity stream.
+-- 'status', 'startActivityStreamResponse_status' - The status of the database activity stream.
 --
--- * 'sasrrsKMSKeyId' - The AWS KMS key identifier for encryption of messages in the database activity stream.
+-- 'mode', 'startActivityStreamResponse_mode' - The mode of the database activity stream.
 --
--- * 'sasrrsKinesisStreamName' - The name of the Amazon Kinesis data stream to be used for the database activity stream.
+-- 'kmsKeyId', 'startActivityStreamResponse_kmsKeyId' - The AWS KMS key identifier for encryption of messages in the database
+-- activity stream.
 --
--- * 'sasrrsApplyImmediately' - Indicates whether or not the database activity stream will start as soon as possible, regardless of the maintenance window for the database.
+-- 'kinesisStreamName', 'startActivityStreamResponse_kinesisStreamName' - The name of the Amazon Kinesis data stream to be used for the database
+-- activity stream.
 --
--- * 'sasrrsResponseStatus' - -- | The response status code.
-startActivityStreamResponse ::
-  -- | 'sasrrsResponseStatus'
-  Int ->
+-- 'applyImmediately', 'startActivityStreamResponse_applyImmediately' - Indicates whether or not the database activity stream will start as soon
+-- as possible, regardless of the maintenance window for the database.
+--
+-- 'httpStatus', 'startActivityStreamResponse_httpStatus' - The response's http status code.
+newStartActivityStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartActivityStreamResponse
-startActivityStreamResponse pResponseStatus_ =
+newStartActivityStreamResponse pHttpStatus_ =
   StartActivityStreamResponse'
-    { _sasrrsStatus =
-        Nothing,
-      _sasrrsMode = Nothing,
-      _sasrrsKMSKeyId = Nothing,
-      _sasrrsKinesisStreamName = Nothing,
-      _sasrrsApplyImmediately = Nothing,
-      _sasrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      mode = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      kinesisStreamName = Prelude.Nothing,
+      applyImmediately = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the database activity stream.
-sasrrsStatus :: Lens' StartActivityStreamResponse (Maybe ActivityStreamStatus)
-sasrrsStatus = lens _sasrrsStatus (\s a -> s {_sasrrsStatus = a})
+startActivityStreamResponse_status :: Lens.Lens' StartActivityStreamResponse (Prelude.Maybe ActivityStreamStatus)
+startActivityStreamResponse_status = Lens.lens (\StartActivityStreamResponse' {status} -> status) (\s@StartActivityStreamResponse' {} a -> s {status = a} :: StartActivityStreamResponse)
 
 -- | The mode of the database activity stream.
-sasrrsMode :: Lens' StartActivityStreamResponse (Maybe ActivityStreamMode)
-sasrrsMode = lens _sasrrsMode (\s a -> s {_sasrrsMode = a})
+startActivityStreamResponse_mode :: Lens.Lens' StartActivityStreamResponse (Prelude.Maybe ActivityStreamMode)
+startActivityStreamResponse_mode = Lens.lens (\StartActivityStreamResponse' {mode} -> mode) (\s@StartActivityStreamResponse' {} a -> s {mode = a} :: StartActivityStreamResponse)
 
--- | The AWS KMS key identifier for encryption of messages in the database activity stream.
-sasrrsKMSKeyId :: Lens' StartActivityStreamResponse (Maybe Text)
-sasrrsKMSKeyId = lens _sasrrsKMSKeyId (\s a -> s {_sasrrsKMSKeyId = a})
+-- | The AWS KMS key identifier for encryption of messages in the database
+-- activity stream.
+startActivityStreamResponse_kmsKeyId :: Lens.Lens' StartActivityStreamResponse (Prelude.Maybe Prelude.Text)
+startActivityStreamResponse_kmsKeyId = Lens.lens (\StartActivityStreamResponse' {kmsKeyId} -> kmsKeyId) (\s@StartActivityStreamResponse' {} a -> s {kmsKeyId = a} :: StartActivityStreamResponse)
 
--- | The name of the Amazon Kinesis data stream to be used for the database activity stream.
-sasrrsKinesisStreamName :: Lens' StartActivityStreamResponse (Maybe Text)
-sasrrsKinesisStreamName = lens _sasrrsKinesisStreamName (\s a -> s {_sasrrsKinesisStreamName = a})
+-- | The name of the Amazon Kinesis data stream to be used for the database
+-- activity stream.
+startActivityStreamResponse_kinesisStreamName :: Lens.Lens' StartActivityStreamResponse (Prelude.Maybe Prelude.Text)
+startActivityStreamResponse_kinesisStreamName = Lens.lens (\StartActivityStreamResponse' {kinesisStreamName} -> kinesisStreamName) (\s@StartActivityStreamResponse' {} a -> s {kinesisStreamName = a} :: StartActivityStreamResponse)
 
--- | Indicates whether or not the database activity stream will start as soon as possible, regardless of the maintenance window for the database.
-sasrrsApplyImmediately :: Lens' StartActivityStreamResponse (Maybe Bool)
-sasrrsApplyImmediately = lens _sasrrsApplyImmediately (\s a -> s {_sasrrsApplyImmediately = a})
+-- | Indicates whether or not the database activity stream will start as soon
+-- as possible, regardless of the maintenance window for the database.
+startActivityStreamResponse_applyImmediately :: Lens.Lens' StartActivityStreamResponse (Prelude.Maybe Prelude.Bool)
+startActivityStreamResponse_applyImmediately = Lens.lens (\StartActivityStreamResponse' {applyImmediately} -> applyImmediately) (\s@StartActivityStreamResponse' {} a -> s {applyImmediately = a} :: StartActivityStreamResponse)
 
--- | -- | The response status code.
-sasrrsResponseStatus :: Lens' StartActivityStreamResponse Int
-sasrrsResponseStatus = lens _sasrrsResponseStatus (\s a -> s {_sasrrsResponseStatus = a})
+-- | The response's http status code.
+startActivityStreamResponse_httpStatus :: Lens.Lens' StartActivityStreamResponse Prelude.Int
+startActivityStreamResponse_httpStatus = Lens.lens (\StartActivityStreamResponse' {httpStatus} -> httpStatus) (\s@StartActivityStreamResponse' {} a -> s {httpStatus = a} :: StartActivityStreamResponse)
 
-instance NFData StartActivityStreamResponse
+instance Prelude.NFData StartActivityStreamResponse

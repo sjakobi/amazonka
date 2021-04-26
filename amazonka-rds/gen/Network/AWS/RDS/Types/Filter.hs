@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.Filter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A filter name and value pair that is used to return a more specific list of results from a describe operation. Filters can be used to match a set of resources by specific criteria, such as IDs. The filters supported by a describe operation are documented with the describe operation.
+-- | A filter name and value pair that is used to return a more specific list
+-- of results from a describe operation. Filters can be used to match a set
+-- of resources by specific criteria, such as IDs. The filters supported by
+-- a describe operation are documented with the describe operation.
 --
+-- Currently, wildcards are not supported in filters.
 --
 -- The following actions can be filtered:
 --
---     * @DescribeDBClusterBacktracks@
+-- -   @DescribeDBClusterBacktracks@
 --
---     * @DescribeDBClusterEndpoints@
+-- -   @DescribeDBClusterEndpoints@
 --
---     * @DescribeDBClusters@
+-- -   @DescribeDBClusters@
 --
---     * @DescribeDBInstances@
+-- -   @DescribeDBInstances@
 --
---     * @DescribePendingMaintenanceActions@
+-- -   @DescribePendingMaintenanceActions@
 --
---
---
---
--- /See:/ 'filter'' smart constructor.
+-- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { _fName :: !Text,
-    _fValues :: ![Text]
+  { -- | The name of the filter. Filter names are case-sensitive.
+    name :: Prelude.Text,
+    -- | One or more filter values. Filter values are case-sensitive.
+    values :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Filter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Filter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fName' - The name of the filter. Filter names are case-sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fValues' - One or more filter values. Filter values are case-sensitive.
-filter' ::
-  -- | 'fName'
-  Text ->
+-- 'name', 'filter_name' - The name of the filter. Filter names are case-sensitive.
+--
+-- 'values', 'filter_values' - One or more filter values. Filter values are case-sensitive.
+newFilter ::
+  -- | 'name'
+  Prelude.Text ->
   Filter
-filter' pName_ =
-  Filter' {_fName = pName_, _fValues = mempty}
+newFilter pName_ =
+  Filter' {name = pName_, values = Prelude.mempty}
 
 -- | The name of the filter. Filter names are case-sensitive.
-fName :: Lens' Filter Text
-fName = lens _fName (\s a -> s {_fName = a})
+filter_name :: Lens.Lens' Filter Prelude.Text
+filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
 -- | One or more filter values. Filter values are case-sensitive.
-fValues :: Lens' Filter [Text]
-fValues = lens _fValues (\s a -> s {_fValues = a}) . _Coerce
+filter_values :: Lens.Lens' Filter [Prelude.Text]
+filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Prelude._Coerce
 
-instance Hashable Filter
+instance Prelude.Hashable Filter
 
-instance NFData Filter
+instance Prelude.NFData Filter
 
-instance ToQuery Filter where
+instance Prelude.ToQuery Filter where
   toQuery Filter' {..} =
-    mconcat
-      [ "Name" =: _fName,
-        "Values" =: toQueryList "Value" _fValues
+    Prelude.mconcat
+      [ "Name" Prelude.=: name,
+        "Values"
+          Prelude.=: Prelude.toQueryList "Value" values
       ]

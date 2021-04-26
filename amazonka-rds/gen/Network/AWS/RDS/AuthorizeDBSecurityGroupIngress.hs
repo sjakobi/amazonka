@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,203 +21,248 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables ingress to a DBSecurityGroup using one of two forms of authorization. First, EC2 or VPC security groups can be added to the DBSecurityGroup if the application using the database is running on EC2 or VPC instances. Second, IP ranges are available if the application accessing your database is running on the Internet. Required parameters for this API are one of CIDR range, EC2SecurityGroupId for VPC, or (EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId for non-VPC).
+-- Enables ingress to a DBSecurityGroup using one of two forms of
+-- authorization. First, EC2 or VPC security groups can be added to the
+-- DBSecurityGroup if the application using the database is running on EC2
+-- or VPC instances. Second, IP ranges are available if the application
+-- accessing your database is running on the Internet. Required parameters
+-- for this API are one of CIDR range, EC2SecurityGroupId for VPC, or
+-- (EC2SecurityGroupOwnerId and either EC2SecurityGroupName or
+-- EC2SecurityGroupId for non-VPC).
 --
+-- You can\'t authorize ingress from an EC2 security group in one AWS
+-- Region to an Amazon RDS DB instance in another. You can\'t authorize
+-- ingress from a VPC security group in one VPC to an Amazon RDS DB
+-- instance in another.
 --
--- For an overview of CIDR ranges, go to the <http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing Wikipedia Tutorial> .
+-- For an overview of CIDR ranges, go to the
+-- <http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing Wikipedia Tutorial>.
 module Network.AWS.RDS.AuthorizeDBSecurityGroupIngress
   ( -- * Creating a Request
-    authorizeDBSecurityGroupIngress,
-    AuthorizeDBSecurityGroupIngress,
+    AuthorizeDBSecurityGroupIngress (..),
+    newAuthorizeDBSecurityGroupIngress,
 
     -- * Request Lenses
-    adsgiCIdRIP,
-    adsgiEC2SecurityGroupOwnerId,
-    adsgiEC2SecurityGroupId,
-    adsgiEC2SecurityGroupName,
-    adsgiDBSecurityGroupName,
+    authorizeDBSecurityGroupIngress_cIDRIP,
+    authorizeDBSecurityGroupIngress_eC2SecurityGroupOwnerId,
+    authorizeDBSecurityGroupIngress_eC2SecurityGroupId,
+    authorizeDBSecurityGroupIngress_eC2SecurityGroupName,
+    authorizeDBSecurityGroupIngress_dBSecurityGroupName,
 
     -- * Destructuring the Response
-    authorizeDBSecurityGroupIngressResponse,
-    AuthorizeDBSecurityGroupIngressResponse,
+    AuthorizeDBSecurityGroupIngressResponse (..),
+    newAuthorizeDBSecurityGroupIngressResponse,
 
     -- * Response Lenses
-    adsgirrsDBSecurityGroup,
-    adsgirrsResponseStatus,
+    authorizeDBSecurityGroupIngressResponse_dBSecurityGroup,
+    authorizeDBSecurityGroupIngressResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBSecurityGroup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'authorizeDBSecurityGroupIngress' smart constructor.
+-- /See:/ 'newAuthorizeDBSecurityGroupIngress' smart constructor.
 data AuthorizeDBSecurityGroupIngress = AuthorizeDBSecurityGroupIngress'
-  { _adsgiCIdRIP ::
-      !( Maybe
-           Text
-       ),
-    _adsgiEC2SecurityGroupOwnerId ::
-      !( Maybe
-           Text
-       ),
-    _adsgiEC2SecurityGroupId ::
-      !( Maybe
-           Text
-       ),
-    _adsgiEC2SecurityGroupName ::
-      !( Maybe
-           Text
-       ),
-    _adsgiDBSecurityGroupName ::
-      !Text
+  { -- | The IP range to authorize.
+    cIDRIP :: Prelude.Maybe Prelude.Text,
+    -- | AWS account number of the owner of the EC2 security group specified in
+    -- the @EC2SecurityGroupName@ parameter. The AWS access key ID isn\'t an
+    -- acceptable value. For VPC DB security groups, @EC2SecurityGroupId@ must
+    -- be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either
+    -- @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
+    eC2SecurityGroupOwnerId :: Prelude.Maybe Prelude.Text,
+    -- | Id of the EC2 security group to authorize. For VPC DB security groups,
+    -- @EC2SecurityGroupId@ must be provided. Otherwise,
+    -- @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or
+    -- @EC2SecurityGroupId@ must be provided.
+    eC2SecurityGroupId :: Prelude.Maybe Prelude.Text,
+    -- | Name of the EC2 security group to authorize. For VPC DB security groups,
+    -- @EC2SecurityGroupId@ must be provided. Otherwise,
+    -- @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or
+    -- @EC2SecurityGroupId@ must be provided.
+    eC2SecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB security group to add authorization to.
+    dBSecurityGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthorizeDBSecurityGroupIngress' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthorizeDBSecurityGroupIngress' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adsgiCIdRIP' - The IP range to authorize.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adsgiEC2SecurityGroupOwnerId' - AWS account number of the owner of the EC2 security group specified in the @EC2SecurityGroupName@ parameter. The AWS access key ID isn't an acceptable value. For VPC DB security groups, @EC2SecurityGroupId@ must be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
+-- 'cIDRIP', 'authorizeDBSecurityGroupIngress_cIDRIP' - The IP range to authorize.
 --
--- * 'adsgiEC2SecurityGroupId' - Id of the EC2 security group to authorize. For VPC DB security groups, @EC2SecurityGroupId@ must be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
+-- 'eC2SecurityGroupOwnerId', 'authorizeDBSecurityGroupIngress_eC2SecurityGroupOwnerId' - AWS account number of the owner of the EC2 security group specified in
+-- the @EC2SecurityGroupName@ parameter. The AWS access key ID isn\'t an
+-- acceptable value. For VPC DB security groups, @EC2SecurityGroupId@ must
+-- be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either
+-- @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
 --
--- * 'adsgiEC2SecurityGroupName' - Name of the EC2 security group to authorize. For VPC DB security groups, @EC2SecurityGroupId@ must be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
+-- 'eC2SecurityGroupId', 'authorizeDBSecurityGroupIngress_eC2SecurityGroupId' - Id of the EC2 security group to authorize. For VPC DB security groups,
+-- @EC2SecurityGroupId@ must be provided. Otherwise,
+-- @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or
+-- @EC2SecurityGroupId@ must be provided.
 --
--- * 'adsgiDBSecurityGroupName' - The name of the DB security group to add authorization to.
-authorizeDBSecurityGroupIngress ::
-  -- | 'adsgiDBSecurityGroupName'
-  Text ->
+-- 'eC2SecurityGroupName', 'authorizeDBSecurityGroupIngress_eC2SecurityGroupName' - Name of the EC2 security group to authorize. For VPC DB security groups,
+-- @EC2SecurityGroupId@ must be provided. Otherwise,
+-- @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or
+-- @EC2SecurityGroupId@ must be provided.
+--
+-- 'dBSecurityGroupName', 'authorizeDBSecurityGroupIngress_dBSecurityGroupName' - The name of the DB security group to add authorization to.
+newAuthorizeDBSecurityGroupIngress ::
+  -- | 'dBSecurityGroupName'
+  Prelude.Text ->
   AuthorizeDBSecurityGroupIngress
-authorizeDBSecurityGroupIngress pDBSecurityGroupName_ =
-  AuthorizeDBSecurityGroupIngress'
-    { _adsgiCIdRIP =
-        Nothing,
-      _adsgiEC2SecurityGroupOwnerId = Nothing,
-      _adsgiEC2SecurityGroupId = Nothing,
-      _adsgiEC2SecurityGroupName = Nothing,
-      _adsgiDBSecurityGroupName =
-        pDBSecurityGroupName_
-    }
+newAuthorizeDBSecurityGroupIngress
+  pDBSecurityGroupName_ =
+    AuthorizeDBSecurityGroupIngress'
+      { cIDRIP =
+          Prelude.Nothing,
+        eC2SecurityGroupOwnerId = Prelude.Nothing,
+        eC2SecurityGroupId = Prelude.Nothing,
+        eC2SecurityGroupName = Prelude.Nothing,
+        dBSecurityGroupName =
+          pDBSecurityGroupName_
+      }
 
 -- | The IP range to authorize.
-adsgiCIdRIP :: Lens' AuthorizeDBSecurityGroupIngress (Maybe Text)
-adsgiCIdRIP = lens _adsgiCIdRIP (\s a -> s {_adsgiCIdRIP = a})
+authorizeDBSecurityGroupIngress_cIDRIP :: Lens.Lens' AuthorizeDBSecurityGroupIngress (Prelude.Maybe Prelude.Text)
+authorizeDBSecurityGroupIngress_cIDRIP = Lens.lens (\AuthorizeDBSecurityGroupIngress' {cIDRIP} -> cIDRIP) (\s@AuthorizeDBSecurityGroupIngress' {} a -> s {cIDRIP = a} :: AuthorizeDBSecurityGroupIngress)
 
--- | AWS account number of the owner of the EC2 security group specified in the @EC2SecurityGroupName@ parameter. The AWS access key ID isn't an acceptable value. For VPC DB security groups, @EC2SecurityGroupId@ must be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
-adsgiEC2SecurityGroupOwnerId :: Lens' AuthorizeDBSecurityGroupIngress (Maybe Text)
-adsgiEC2SecurityGroupOwnerId = lens _adsgiEC2SecurityGroupOwnerId (\s a -> s {_adsgiEC2SecurityGroupOwnerId = a})
+-- | AWS account number of the owner of the EC2 security group specified in
+-- the @EC2SecurityGroupName@ parameter. The AWS access key ID isn\'t an
+-- acceptable value. For VPC DB security groups, @EC2SecurityGroupId@ must
+-- be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either
+-- @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
+authorizeDBSecurityGroupIngress_eC2SecurityGroupOwnerId :: Lens.Lens' AuthorizeDBSecurityGroupIngress (Prelude.Maybe Prelude.Text)
+authorizeDBSecurityGroupIngress_eC2SecurityGroupOwnerId = Lens.lens (\AuthorizeDBSecurityGroupIngress' {eC2SecurityGroupOwnerId} -> eC2SecurityGroupOwnerId) (\s@AuthorizeDBSecurityGroupIngress' {} a -> s {eC2SecurityGroupOwnerId = a} :: AuthorizeDBSecurityGroupIngress)
 
--- | Id of the EC2 security group to authorize. For VPC DB security groups, @EC2SecurityGroupId@ must be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
-adsgiEC2SecurityGroupId :: Lens' AuthorizeDBSecurityGroupIngress (Maybe Text)
-adsgiEC2SecurityGroupId = lens _adsgiEC2SecurityGroupId (\s a -> s {_adsgiEC2SecurityGroupId = a})
+-- | Id of the EC2 security group to authorize. For VPC DB security groups,
+-- @EC2SecurityGroupId@ must be provided. Otherwise,
+-- @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or
+-- @EC2SecurityGroupId@ must be provided.
+authorizeDBSecurityGroupIngress_eC2SecurityGroupId :: Lens.Lens' AuthorizeDBSecurityGroupIngress (Prelude.Maybe Prelude.Text)
+authorizeDBSecurityGroupIngress_eC2SecurityGroupId = Lens.lens (\AuthorizeDBSecurityGroupIngress' {eC2SecurityGroupId} -> eC2SecurityGroupId) (\s@AuthorizeDBSecurityGroupIngress' {} a -> s {eC2SecurityGroupId = a} :: AuthorizeDBSecurityGroupIngress)
 
--- | Name of the EC2 security group to authorize. For VPC DB security groups, @EC2SecurityGroupId@ must be provided. Otherwise, @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or @EC2SecurityGroupId@ must be provided.
-adsgiEC2SecurityGroupName :: Lens' AuthorizeDBSecurityGroupIngress (Maybe Text)
-adsgiEC2SecurityGroupName = lens _adsgiEC2SecurityGroupName (\s a -> s {_adsgiEC2SecurityGroupName = a})
+-- | Name of the EC2 security group to authorize. For VPC DB security groups,
+-- @EC2SecurityGroupId@ must be provided. Otherwise,
+-- @EC2SecurityGroupOwnerId@ and either @EC2SecurityGroupName@ or
+-- @EC2SecurityGroupId@ must be provided.
+authorizeDBSecurityGroupIngress_eC2SecurityGroupName :: Lens.Lens' AuthorizeDBSecurityGroupIngress (Prelude.Maybe Prelude.Text)
+authorizeDBSecurityGroupIngress_eC2SecurityGroupName = Lens.lens (\AuthorizeDBSecurityGroupIngress' {eC2SecurityGroupName} -> eC2SecurityGroupName) (\s@AuthorizeDBSecurityGroupIngress' {} a -> s {eC2SecurityGroupName = a} :: AuthorizeDBSecurityGroupIngress)
 
 -- | The name of the DB security group to add authorization to.
-adsgiDBSecurityGroupName :: Lens' AuthorizeDBSecurityGroupIngress Text
-adsgiDBSecurityGroupName = lens _adsgiDBSecurityGroupName (\s a -> s {_adsgiDBSecurityGroupName = a})
+authorizeDBSecurityGroupIngress_dBSecurityGroupName :: Lens.Lens' AuthorizeDBSecurityGroupIngress Prelude.Text
+authorizeDBSecurityGroupIngress_dBSecurityGroupName = Lens.lens (\AuthorizeDBSecurityGroupIngress' {dBSecurityGroupName} -> dBSecurityGroupName) (\s@AuthorizeDBSecurityGroupIngress' {} a -> s {dBSecurityGroupName = a} :: AuthorizeDBSecurityGroupIngress)
 
-instance AWSRequest AuthorizeDBSecurityGroupIngress where
+instance
+  Prelude.AWSRequest
+    AuthorizeDBSecurityGroupIngress
+  where
   type
     Rs AuthorizeDBSecurityGroupIngress =
       AuthorizeDBSecurityGroupIngressResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "AuthorizeDBSecurityGroupIngressResult"
       ( \s h x ->
           AuthorizeDBSecurityGroupIngressResponse'
-            <$> (x .@? "DBSecurityGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBSecurityGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AuthorizeDBSecurityGroupIngress
+instance
+  Prelude.Hashable
+    AuthorizeDBSecurityGroupIngress
 
-instance NFData AuthorizeDBSecurityGroupIngress
+instance
+  Prelude.NFData
+    AuthorizeDBSecurityGroupIngress
 
-instance ToHeaders AuthorizeDBSecurityGroupIngress where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    AuthorizeDBSecurityGroupIngress
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AuthorizeDBSecurityGroupIngress where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    AuthorizeDBSecurityGroupIngress
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery AuthorizeDBSecurityGroupIngress where
+instance
+  Prelude.ToQuery
+    AuthorizeDBSecurityGroupIngress
+  where
   toQuery AuthorizeDBSecurityGroupIngress' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("AuthorizeDBSecurityGroupIngress" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "CIDRIP" =: _adsgiCIdRIP,
+          Prelude.=: ( "AuthorizeDBSecurityGroupIngress" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "CIDRIP" Prelude.=: cIDRIP,
         "EC2SecurityGroupOwnerId"
-          =: _adsgiEC2SecurityGroupOwnerId,
-        "EC2SecurityGroupId" =: _adsgiEC2SecurityGroupId,
-        "EC2SecurityGroupName" =: _adsgiEC2SecurityGroupName,
-        "DBSecurityGroupName" =: _adsgiDBSecurityGroupName
+          Prelude.=: eC2SecurityGroupOwnerId,
+        "EC2SecurityGroupId" Prelude.=: eC2SecurityGroupId,
+        "EC2SecurityGroupName"
+          Prelude.=: eC2SecurityGroupName,
+        "DBSecurityGroupName" Prelude.=: dBSecurityGroupName
       ]
 
--- | /See:/ 'authorizeDBSecurityGroupIngressResponse' smart constructor.
+-- | /See:/ 'newAuthorizeDBSecurityGroupIngressResponse' smart constructor.
 data AuthorizeDBSecurityGroupIngressResponse = AuthorizeDBSecurityGroupIngressResponse'
-  { _adsgirrsDBSecurityGroup ::
-      !( Maybe
-           DBSecurityGroup
-       ),
-    _adsgirrsResponseStatus ::
-      !Int
+  { dBSecurityGroup :: Prelude.Maybe DBSecurityGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AuthorizeDBSecurityGroupIngressResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AuthorizeDBSecurityGroupIngressResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adsgirrsDBSecurityGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adsgirrsResponseStatus' - -- | The response status code.
-authorizeDBSecurityGroupIngressResponse ::
-  -- | 'adsgirrsResponseStatus'
-  Int ->
+-- 'dBSecurityGroup', 'authorizeDBSecurityGroupIngressResponse_dBSecurityGroup' - Undocumented member.
+--
+-- 'httpStatus', 'authorizeDBSecurityGroupIngressResponse_httpStatus' - The response's http status code.
+newAuthorizeDBSecurityGroupIngressResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AuthorizeDBSecurityGroupIngressResponse
-authorizeDBSecurityGroupIngressResponse
-  pResponseStatus_ =
+newAuthorizeDBSecurityGroupIngressResponse
+  pHttpStatus_ =
     AuthorizeDBSecurityGroupIngressResponse'
-      { _adsgirrsDBSecurityGroup =
-          Nothing,
-        _adsgirrsResponseStatus =
-          pResponseStatus_
+      { dBSecurityGroup =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-adsgirrsDBSecurityGroup :: Lens' AuthorizeDBSecurityGroupIngressResponse (Maybe DBSecurityGroup)
-adsgirrsDBSecurityGroup = lens _adsgirrsDBSecurityGroup (\s a -> s {_adsgirrsDBSecurityGroup = a})
+authorizeDBSecurityGroupIngressResponse_dBSecurityGroup :: Lens.Lens' AuthorizeDBSecurityGroupIngressResponse (Prelude.Maybe DBSecurityGroup)
+authorizeDBSecurityGroupIngressResponse_dBSecurityGroup = Lens.lens (\AuthorizeDBSecurityGroupIngressResponse' {dBSecurityGroup} -> dBSecurityGroup) (\s@AuthorizeDBSecurityGroupIngressResponse' {} a -> s {dBSecurityGroup = a} :: AuthorizeDBSecurityGroupIngressResponse)
 
--- | -- | The response status code.
-adsgirrsResponseStatus :: Lens' AuthorizeDBSecurityGroupIngressResponse Int
-adsgirrsResponseStatus = lens _adsgirrsResponseStatus (\s a -> s {_adsgirrsResponseStatus = a})
+-- | The response's http status code.
+authorizeDBSecurityGroupIngressResponse_httpStatus :: Lens.Lens' AuthorizeDBSecurityGroupIngressResponse Prelude.Int
+authorizeDBSecurityGroupIngressResponse_httpStatus = Lens.lens (\AuthorizeDBSecurityGroupIngressResponse' {httpStatus} -> httpStatus) (\s@AuthorizeDBSecurityGroupIngressResponse' {} a -> s {httpStatus = a} :: AuthorizeDBSecurityGroupIngressResponse)
 
 instance
-  NFData
+  Prelude.NFData
     AuthorizeDBSecurityGroupIngressResponse

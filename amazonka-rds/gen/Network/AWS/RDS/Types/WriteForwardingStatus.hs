@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.RDS.Types.WriteForwardingStatus
   ( WriteForwardingStatus
       ( ..,
-        WFSDisabled,
-        WFSDisabling,
-        WFSEnabled,
-        WFSEnabling,
-        WFSUnknown
+        WriteForwardingStatusDisabled,
+        WriteForwardingStatusDisabling,
+        WriteForwardingStatusEnabled,
+        WriteForwardingStatusEnabling,
+        WriteForwardingStatusUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WriteForwardingStatus
-  = WriteForwardingStatus'
-      ( CI
-          Text
-      )
+newtype WriteForwardingStatus = WriteForwardingStatus'
+  { fromWriteForwardingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern WFSDisabled :: WriteForwardingStatus
-pattern WFSDisabled = WriteForwardingStatus' "disabled"
+pattern WriteForwardingStatusDisabled :: WriteForwardingStatus
+pattern WriteForwardingStatusDisabled = WriteForwardingStatus' "disabled"
 
-pattern WFSDisabling :: WriteForwardingStatus
-pattern WFSDisabling = WriteForwardingStatus' "disabling"
+pattern WriteForwardingStatusDisabling :: WriteForwardingStatus
+pattern WriteForwardingStatusDisabling = WriteForwardingStatus' "disabling"
 
-pattern WFSEnabled :: WriteForwardingStatus
-pattern WFSEnabled = WriteForwardingStatus' "enabled"
+pattern WriteForwardingStatusEnabled :: WriteForwardingStatus
+pattern WriteForwardingStatusEnabled = WriteForwardingStatus' "enabled"
 
-pattern WFSEnabling :: WriteForwardingStatus
-pattern WFSEnabling = WriteForwardingStatus' "enabling"
+pattern WriteForwardingStatusEnabling :: WriteForwardingStatus
+pattern WriteForwardingStatusEnabling = WriteForwardingStatus' "enabling"
 
-pattern WFSUnknown :: WriteForwardingStatus
-pattern WFSUnknown = WriteForwardingStatus' "unknown"
+pattern WriteForwardingStatusUnknown :: WriteForwardingStatus
+pattern WriteForwardingStatusUnknown = WriteForwardingStatus' "unknown"
 
 {-# COMPLETE
-  WFSDisabled,
-  WFSDisabling,
-  WFSEnabled,
-  WFSEnabling,
-  WFSUnknown,
+  WriteForwardingStatusDisabled,
+  WriteForwardingStatusDisabling,
+  WriteForwardingStatusEnabled,
+  WriteForwardingStatusEnabling,
+  WriteForwardingStatusUnknown,
   WriteForwardingStatus'
   #-}
 
-instance FromText WriteForwardingStatus where
-  parser = (WriteForwardingStatus' . mk) <$> takeText
+instance Prelude.FromText WriteForwardingStatus where
+  parser = WriteForwardingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText WriteForwardingStatus where
-  toText (WriteForwardingStatus' ci) = original ci
+instance Prelude.ToText WriteForwardingStatus where
+  toText (WriteForwardingStatus' x) = x
 
-instance Hashable WriteForwardingStatus
+instance Prelude.Hashable WriteForwardingStatus
 
-instance NFData WriteForwardingStatus
+instance Prelude.NFData WriteForwardingStatus
 
-instance ToByteString WriteForwardingStatus
+instance Prelude.ToByteString WriteForwardingStatus
 
-instance ToQuery WriteForwardingStatus
+instance Prelude.ToQuery WriteForwardingStatus
 
-instance ToHeader WriteForwardingStatus
+instance Prelude.ToHeader WriteForwardingStatus
 
-instance FromXML WriteForwardingStatus where
-  parseXML = parseXMLText "WriteForwardingStatus"
+instance Prelude.FromXML WriteForwardingStatus where
+  parseXML = Prelude.parseXMLText "WriteForwardingStatus"

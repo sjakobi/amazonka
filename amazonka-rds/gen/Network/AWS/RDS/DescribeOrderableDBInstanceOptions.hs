@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,288 +21,450 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of orderable DB instance options for the specified engine.
---
---
+-- Returns a list of orderable DB instance options for the specified
+-- engine.
 --
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeOrderableDBInstanceOptions
   ( -- * Creating a Request
-    describeOrderableDBInstanceOptions,
-    DescribeOrderableDBInstanceOptions,
+    DescribeOrderableDBInstanceOptions (..),
+    newDescribeOrderableDBInstanceOptions,
 
     -- * Request Lenses
-    dodioEngineVersion,
-    dodioLicenseModel,
-    dodioDBInstanceClass,
-    dodioFilters,
-    dodioAvailabilityZoneGroup,
-    dodioVPC,
-    dodioMarker,
-    dodioMaxRecords,
-    dodioEngine,
+    describeOrderableDBInstanceOptions_engineVersion,
+    describeOrderableDBInstanceOptions_licenseModel,
+    describeOrderableDBInstanceOptions_dBInstanceClass,
+    describeOrderableDBInstanceOptions_filters,
+    describeOrderableDBInstanceOptions_availabilityZoneGroup,
+    describeOrderableDBInstanceOptions_vpc,
+    describeOrderableDBInstanceOptions_marker,
+    describeOrderableDBInstanceOptions_maxRecords,
+    describeOrderableDBInstanceOptions_engine,
 
     -- * Destructuring the Response
-    describeOrderableDBInstanceOptionsResponse,
-    DescribeOrderableDBInstanceOptionsResponse,
+    DescribeOrderableDBInstanceOptionsResponse (..),
+    newDescribeOrderableDBInstanceOptionsResponse,
 
     -- * Response Lenses
-    dodiorrsOrderableDBInstanceOptions,
-    dodiorrsMarker,
-    dodiorrsResponseStatus,
+    describeOrderableDBInstanceOptionsResponse_orderableDBInstanceOptions,
+    describeOrderableDBInstanceOptionsResponse_marker,
+    describeOrderableDBInstanceOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.OrderableDBInstanceOption
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeOrderableDBInstanceOptions' smart constructor.
+-- /See:/ 'newDescribeOrderableDBInstanceOptions' smart constructor.
 data DescribeOrderableDBInstanceOptions = DescribeOrderableDBInstanceOptions'
-  { _dodioEngineVersion ::
-      !( Maybe
-           Text
-       ),
-    _dodioLicenseModel ::
-      !( Maybe
-           Text
-       ),
-    _dodioDBInstanceClass ::
-      !( Maybe
-           Text
-       ),
-    _dodioFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _dodioAvailabilityZoneGroup ::
-      !( Maybe
-           Text
-       ),
-    _dodioVPC ::
-      !( Maybe
-           Bool
-       ),
-    _dodioMarker ::
-      !( Maybe
-           Text
-       ),
-    _dodioMaxRecords ::
-      !( Maybe
-           Int
-       ),
-    _dodioEngine ::
-      !Text
+  { -- | The engine version filter value. Specify this parameter to show only the
+    -- available offerings matching the specified engine version.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The license model filter value. Specify this parameter to show only the
+    -- available offerings matching the specified license model.
+    licenseModel :: Prelude.Maybe Prelude.Text,
+    -- | The DB instance class filter value. Specify this parameter to show only
+    -- the available offerings matching the specified DB instance class.
+    dBInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | This parameter isn\'t currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | The Availability Zone group associated with a Local Zone. Specify this
+    -- parameter to retrieve available offerings for the Local Zones in the
+    -- group.
+    --
+    -- Omit this parameter to show the available offerings in the specified AWS
+    -- Region.
+    availabilityZoneGroup :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to show only VPC or non-VPC offerings.
+    vpc :: Prelude.Maybe Prelude.Bool,
+    -- | An optional pagination token provided by a previous
+    -- DescribeOrderableDBInstanceOptions request. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@ .
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that you can retrieve the
+    -- remaining results.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The name of the engine to retrieve DB instance options for.
+    --
+    -- Valid Values:
+    --
+    -- -   @aurora@ (for MySQL 5.6-compatible Aurora)
+    --
+    -- -   @aurora-mysql@ (for MySQL 5.7-compatible Aurora)
+    --
+    -- -   @aurora-postgresql@
+    --
+    -- -   @mariadb@
+    --
+    -- -   @mysql@
+    --
+    -- -   @oracle-ee@
+    --
+    -- -   @oracle-se2@
+    --
+    -- -   @oracle-se1@
+    --
+    -- -   @oracle-se@
+    --
+    -- -   @postgres@
+    --
+    -- -   @sqlserver-ee@
+    --
+    -- -   @sqlserver-se@
+    --
+    -- -   @sqlserver-ex@
+    --
+    -- -   @sqlserver-web@
+    engine :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOrderableDBInstanceOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOrderableDBInstanceOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dodioEngineVersion' - The engine version filter value. Specify this parameter to show only the available offerings matching the specified engine version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dodioLicenseModel' - The license model filter value. Specify this parameter to show only the available offerings matching the specified license model.
+-- 'engineVersion', 'describeOrderableDBInstanceOptions_engineVersion' - The engine version filter value. Specify this parameter to show only the
+-- available offerings matching the specified engine version.
 --
--- * 'dodioDBInstanceClass' - The DB instance class filter value. Specify this parameter to show only the available offerings matching the specified DB instance class.
+-- 'licenseModel', 'describeOrderableDBInstanceOptions_licenseModel' - The license model filter value. Specify this parameter to show only the
+-- available offerings matching the specified license model.
 --
--- * 'dodioFilters' - This parameter isn't currently supported.
+-- 'dBInstanceClass', 'describeOrderableDBInstanceOptions_dBInstanceClass' - The DB instance class filter value. Specify this parameter to show only
+-- the available offerings matching the specified DB instance class.
 --
--- * 'dodioAvailabilityZoneGroup' - The Availability Zone group associated with a Local Zone. Specify this parameter to retrieve available offerings for the Local Zones in the group. Omit this parameter to show the available offerings in the specified AWS Region.
+-- 'filters', 'describeOrderableDBInstanceOptions_filters' - This parameter isn\'t currently supported.
 --
--- * 'dodioVPC' - A value that indicates whether to show only VPC or non-VPC offerings.
+-- 'availabilityZoneGroup', 'describeOrderableDBInstanceOptions_availabilityZoneGroup' - The Availability Zone group associated with a Local Zone. Specify this
+-- parameter to retrieve available offerings for the Local Zones in the
+-- group.
 --
--- * 'dodioMarker' - An optional pagination token provided by a previous DescribeOrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- Omit this parameter to show the available offerings in the specified AWS
+-- Region.
 --
--- * 'dodioMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
+-- 'vpc', 'describeOrderableDBInstanceOptions_vpc' - A value that indicates whether to show only VPC or non-VPC offerings.
 --
--- * 'dodioEngine' - The name of the engine to retrieve DB instance options for. Valid Values:      * @aurora@ (for MySQL 5.6-compatible Aurora)     * @aurora-mysql@ (for MySQL 5.7-compatible Aurora)     * @aurora-postgresql@      * @mariadb@      * @mysql@      * @oracle-ee@      * @oracle-se2@      * @oracle-se1@      * @oracle-se@      * @postgres@      * @sqlserver-ee@      * @sqlserver-se@      * @sqlserver-ex@      * @sqlserver-web@
-describeOrderableDBInstanceOptions ::
-  -- | 'dodioEngine'
-  Text ->
+-- 'marker', 'describeOrderableDBInstanceOptions_marker' - An optional pagination token provided by a previous
+-- DescribeOrderableDBInstanceOptions request. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@ .
+--
+-- 'maxRecords', 'describeOrderableDBInstanceOptions_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+--
+-- 'engine', 'describeOrderableDBInstanceOptions_engine' - The name of the engine to retrieve DB instance options for.
+--
+-- Valid Values:
+--
+-- -   @aurora@ (for MySQL 5.6-compatible Aurora)
+--
+-- -   @aurora-mysql@ (for MySQL 5.7-compatible Aurora)
+--
+-- -   @aurora-postgresql@
+--
+-- -   @mariadb@
+--
+-- -   @mysql@
+--
+-- -   @oracle-ee@
+--
+-- -   @oracle-se2@
+--
+-- -   @oracle-se1@
+--
+-- -   @oracle-se@
+--
+-- -   @postgres@
+--
+-- -   @sqlserver-ee@
+--
+-- -   @sqlserver-se@
+--
+-- -   @sqlserver-ex@
+--
+-- -   @sqlserver-web@
+newDescribeOrderableDBInstanceOptions ::
+  -- | 'engine'
+  Prelude.Text ->
   DescribeOrderableDBInstanceOptions
-describeOrderableDBInstanceOptions pEngine_ =
+newDescribeOrderableDBInstanceOptions pEngine_ =
   DescribeOrderableDBInstanceOptions'
-    { _dodioEngineVersion =
-        Nothing,
-      _dodioLicenseModel = Nothing,
-      _dodioDBInstanceClass = Nothing,
-      _dodioFilters = Nothing,
-      _dodioAvailabilityZoneGroup = Nothing,
-      _dodioVPC = Nothing,
-      _dodioMarker = Nothing,
-      _dodioMaxRecords = Nothing,
-      _dodioEngine = pEngine_
+    { engineVersion =
+        Prelude.Nothing,
+      licenseModel = Prelude.Nothing,
+      dBInstanceClass = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      availabilityZoneGroup = Prelude.Nothing,
+      vpc = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      engine = pEngine_
     }
 
--- | The engine version filter value. Specify this parameter to show only the available offerings matching the specified engine version.
-dodioEngineVersion :: Lens' DescribeOrderableDBInstanceOptions (Maybe Text)
-dodioEngineVersion = lens _dodioEngineVersion (\s a -> s {_dodioEngineVersion = a})
+-- | The engine version filter value. Specify this parameter to show only the
+-- available offerings matching the specified engine version.
+describeOrderableDBInstanceOptions_engineVersion :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe Prelude.Text)
+describeOrderableDBInstanceOptions_engineVersion = Lens.lens (\DescribeOrderableDBInstanceOptions' {engineVersion} -> engineVersion) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {engineVersion = a} :: DescribeOrderableDBInstanceOptions)
 
--- | The license model filter value. Specify this parameter to show only the available offerings matching the specified license model.
-dodioLicenseModel :: Lens' DescribeOrderableDBInstanceOptions (Maybe Text)
-dodioLicenseModel = lens _dodioLicenseModel (\s a -> s {_dodioLicenseModel = a})
+-- | The license model filter value. Specify this parameter to show only the
+-- available offerings matching the specified license model.
+describeOrderableDBInstanceOptions_licenseModel :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe Prelude.Text)
+describeOrderableDBInstanceOptions_licenseModel = Lens.lens (\DescribeOrderableDBInstanceOptions' {licenseModel} -> licenseModel) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {licenseModel = a} :: DescribeOrderableDBInstanceOptions)
 
--- | The DB instance class filter value. Specify this parameter to show only the available offerings matching the specified DB instance class.
-dodioDBInstanceClass :: Lens' DescribeOrderableDBInstanceOptions (Maybe Text)
-dodioDBInstanceClass = lens _dodioDBInstanceClass (\s a -> s {_dodioDBInstanceClass = a})
+-- | The DB instance class filter value. Specify this parameter to show only
+-- the available offerings matching the specified DB instance class.
+describeOrderableDBInstanceOptions_dBInstanceClass :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe Prelude.Text)
+describeOrderableDBInstanceOptions_dBInstanceClass = Lens.lens (\DescribeOrderableDBInstanceOptions' {dBInstanceClass} -> dBInstanceClass) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {dBInstanceClass = a} :: DescribeOrderableDBInstanceOptions)
 
--- | This parameter isn't currently supported.
-dodioFilters :: Lens' DescribeOrderableDBInstanceOptions [Filter]
-dodioFilters = lens _dodioFilters (\s a -> s {_dodioFilters = a}) . _Default . _Coerce
+-- | This parameter isn\'t currently supported.
+describeOrderableDBInstanceOptions_filters :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe [Filter])
+describeOrderableDBInstanceOptions_filters = Lens.lens (\DescribeOrderableDBInstanceOptions' {filters} -> filters) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {filters = a} :: DescribeOrderableDBInstanceOptions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Availability Zone group associated with a Local Zone. Specify this parameter to retrieve available offerings for the Local Zones in the group. Omit this parameter to show the available offerings in the specified AWS Region.
-dodioAvailabilityZoneGroup :: Lens' DescribeOrderableDBInstanceOptions (Maybe Text)
-dodioAvailabilityZoneGroup = lens _dodioAvailabilityZoneGroup (\s a -> s {_dodioAvailabilityZoneGroup = a})
+-- | The Availability Zone group associated with a Local Zone. Specify this
+-- parameter to retrieve available offerings for the Local Zones in the
+-- group.
+--
+-- Omit this parameter to show the available offerings in the specified AWS
+-- Region.
+describeOrderableDBInstanceOptions_availabilityZoneGroup :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe Prelude.Text)
+describeOrderableDBInstanceOptions_availabilityZoneGroup = Lens.lens (\DescribeOrderableDBInstanceOptions' {availabilityZoneGroup} -> availabilityZoneGroup) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {availabilityZoneGroup = a} :: DescribeOrderableDBInstanceOptions)
 
 -- | A value that indicates whether to show only VPC or non-VPC offerings.
-dodioVPC :: Lens' DescribeOrderableDBInstanceOptions (Maybe Bool)
-dodioVPC = lens _dodioVPC (\s a -> s {_dodioVPC = a})
+describeOrderableDBInstanceOptions_vpc :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe Prelude.Bool)
+describeOrderableDBInstanceOptions_vpc = Lens.lens (\DescribeOrderableDBInstanceOptions' {vpc} -> vpc) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {vpc = a} :: DescribeOrderableDBInstanceOptions)
 
--- | An optional pagination token provided by a previous DescribeOrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dodioMarker :: Lens' DescribeOrderableDBInstanceOptions (Maybe Text)
-dodioMarker = lens _dodioMarker (\s a -> s {_dodioMarker = a})
+-- | An optional pagination token provided by a previous
+-- DescribeOrderableDBInstanceOptions request. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@ .
+describeOrderableDBInstanceOptions_marker :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe Prelude.Text)
+describeOrderableDBInstanceOptions_marker = Lens.lens (\DescribeOrderableDBInstanceOptions' {marker} -> marker) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {marker = a} :: DescribeOrderableDBInstanceOptions)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-dodioMaxRecords :: Lens' DescribeOrderableDBInstanceOptions (Maybe Int)
-dodioMaxRecords = lens _dodioMaxRecords (\s a -> s {_dodioMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeOrderableDBInstanceOptions_maxRecords :: Lens.Lens' DescribeOrderableDBInstanceOptions (Prelude.Maybe Prelude.Int)
+describeOrderableDBInstanceOptions_maxRecords = Lens.lens (\DescribeOrderableDBInstanceOptions' {maxRecords} -> maxRecords) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {maxRecords = a} :: DescribeOrderableDBInstanceOptions)
 
--- | The name of the engine to retrieve DB instance options for. Valid Values:      * @aurora@ (for MySQL 5.6-compatible Aurora)     * @aurora-mysql@ (for MySQL 5.7-compatible Aurora)     * @aurora-postgresql@      * @mariadb@      * @mysql@      * @oracle-ee@      * @oracle-se2@      * @oracle-se1@      * @oracle-se@      * @postgres@      * @sqlserver-ee@      * @sqlserver-se@      * @sqlserver-ex@      * @sqlserver-web@
-dodioEngine :: Lens' DescribeOrderableDBInstanceOptions Text
-dodioEngine = lens _dodioEngine (\s a -> s {_dodioEngine = a})
-
-instance AWSPager DescribeOrderableDBInstanceOptions where
-  page rq rs
-    | stop (rs ^. dodiorrsMarker) = Nothing
-    | stop (rs ^. dodiorrsOrderableDBInstanceOptions) =
-      Nothing
-    | otherwise =
-      Just $ rq & dodioMarker .~ rs ^. dodiorrsMarker
+-- | The name of the engine to retrieve DB instance options for.
+--
+-- Valid Values:
+--
+-- -   @aurora@ (for MySQL 5.6-compatible Aurora)
+--
+-- -   @aurora-mysql@ (for MySQL 5.7-compatible Aurora)
+--
+-- -   @aurora-postgresql@
+--
+-- -   @mariadb@
+--
+-- -   @mysql@
+--
+-- -   @oracle-ee@
+--
+-- -   @oracle-se2@
+--
+-- -   @oracle-se1@
+--
+-- -   @oracle-se@
+--
+-- -   @postgres@
+--
+-- -   @sqlserver-ee@
+--
+-- -   @sqlserver-se@
+--
+-- -   @sqlserver-ex@
+--
+-- -   @sqlserver-web@
+describeOrderableDBInstanceOptions_engine :: Lens.Lens' DescribeOrderableDBInstanceOptions Prelude.Text
+describeOrderableDBInstanceOptions_engine = Lens.lens (\DescribeOrderableDBInstanceOptions' {engine} -> engine) (\s@DescribeOrderableDBInstanceOptions' {} a -> s {engine = a} :: DescribeOrderableDBInstanceOptions)
 
 instance
-  AWSRequest
+  Pager.AWSPager
+    DescribeOrderableDBInstanceOptions
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? describeOrderableDBInstanceOptionsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeOrderableDBInstanceOptionsResponse_orderableDBInstanceOptions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeOrderableDBInstanceOptions_marker
+          Lens..~ rs
+          Lens.^? describeOrderableDBInstanceOptionsResponse_marker
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
     DescribeOrderableDBInstanceOptions
   where
   type
     Rs DescribeOrderableDBInstanceOptions =
       DescribeOrderableDBInstanceOptionsResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeOrderableDBInstanceOptionsResult"
       ( \s h x ->
           DescribeOrderableDBInstanceOptionsResponse'
-            <$> ( x .@? "OrderableDBInstanceOptions" .!@ mempty
-                    >>= may (parseXMLList "OrderableDBInstanceOption")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "OrderableDBInstanceOptions"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "OrderableDBInstanceOption")
+                        )
+              Prelude.<*> (x Prelude..@? "Marker")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeOrderableDBInstanceOptions
-
-instance NFData DescribeOrderableDBInstanceOptions
-
-instance ToHeaders DescribeOrderableDBInstanceOptions where
-  toHeaders = const mempty
-
-instance ToPath DescribeOrderableDBInstanceOptions where
-  toPath = const "/"
-
-instance ToQuery DescribeOrderableDBInstanceOptions where
-  toQuery DescribeOrderableDBInstanceOptions' {..} =
-    mconcat
-      [ "Action"
-          =: ("DescribeOrderableDBInstanceOptions" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "EngineVersion" =: _dodioEngineVersion,
-        "LicenseModel" =: _dodioLicenseModel,
-        "DBInstanceClass" =: _dodioDBInstanceClass,
-        "Filters"
-          =: toQuery (toQueryList "Filter" <$> _dodioFilters),
-        "AvailabilityZoneGroup"
-          =: _dodioAvailabilityZoneGroup,
-        "Vpc" =: _dodioVPC,
-        "Marker" =: _dodioMarker,
-        "MaxRecords" =: _dodioMaxRecords,
-        "Engine" =: _dodioEngine
-      ]
-
--- | Contains the result of a successful invocation of the @DescribeOrderableDBInstanceOptions@ action.
---
---
---
--- /See:/ 'describeOrderableDBInstanceOptionsResponse' smart constructor.
-data DescribeOrderableDBInstanceOptionsResponse = DescribeOrderableDBInstanceOptionsResponse'
-  { _dodiorrsOrderableDBInstanceOptions ::
-      !( Maybe
-           [OrderableDBInstanceOption]
-       ),
-    _dodiorrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dodiorrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeOrderableDBInstanceOptionsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dodiorrsOrderableDBInstanceOptions' - An @OrderableDBInstanceOption@ structure containing information about orderable options for the DB instance.
---
--- * 'dodiorrsMarker' - An optional pagination token provided by a previous OrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
---
--- * 'dodiorrsResponseStatus' - -- | The response status code.
-describeOrderableDBInstanceOptionsResponse ::
-  -- | 'dodiorrsResponseStatus'
-  Int ->
-  DescribeOrderableDBInstanceOptionsResponse
-describeOrderableDBInstanceOptionsResponse
-  pResponseStatus_ =
-    DescribeOrderableDBInstanceOptionsResponse'
-      { _dodiorrsOrderableDBInstanceOptions =
-          Nothing,
-        _dodiorrsMarker = Nothing,
-        _dodiorrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | An @OrderableDBInstanceOption@ structure containing information about orderable options for the DB instance.
-dodiorrsOrderableDBInstanceOptions :: Lens' DescribeOrderableDBInstanceOptionsResponse [OrderableDBInstanceOption]
-dodiorrsOrderableDBInstanceOptions = lens _dodiorrsOrderableDBInstanceOptions (\s a -> s {_dodiorrsOrderableDBInstanceOptions = a}) . _Default . _Coerce
-
--- | An optional pagination token provided by a previous OrderableDBInstanceOptions request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dodiorrsMarker :: Lens' DescribeOrderableDBInstanceOptionsResponse (Maybe Text)
-dodiorrsMarker = lens _dodiorrsMarker (\s a -> s {_dodiorrsMarker = a})
-
--- | -- | The response status code.
-dodiorrsResponseStatus :: Lens' DescribeOrderableDBInstanceOptionsResponse Int
-dodiorrsResponseStatus = lens _dodiorrsResponseStatus (\s a -> s {_dodiorrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DescribeOrderableDBInstanceOptions
 
 instance
-  NFData
+  Prelude.NFData
+    DescribeOrderableDBInstanceOptions
+
+instance
+  Prelude.ToHeaders
+    DescribeOrderableDBInstanceOptions
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DescribeOrderableDBInstanceOptions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeOrderableDBInstanceOptions
+  where
+  toQuery DescribeOrderableDBInstanceOptions' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "DescribeOrderableDBInstanceOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "EngineVersion" Prelude.=: engineVersion,
+        "LicenseModel" Prelude.=: licenseModel,
+        "DBInstanceClass" Prelude.=: dBInstanceClass,
+        "Filters"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "AvailabilityZoneGroup"
+          Prelude.=: availabilityZoneGroup,
+        "Vpc" Prelude.=: vpc,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords,
+        "Engine" Prelude.=: engine
+      ]
+
+-- | Contains the result of a successful invocation of the
+-- @DescribeOrderableDBInstanceOptions@ action.
+--
+-- /See:/ 'newDescribeOrderableDBInstanceOptionsResponse' smart constructor.
+data DescribeOrderableDBInstanceOptionsResponse = DescribeOrderableDBInstanceOptionsResponse'
+  { -- | An @OrderableDBInstanceOption@ structure containing information about
+    -- orderable options for the DB instance.
+    orderableDBInstanceOptions :: Prelude.Maybe [OrderableDBInstanceOption],
+    -- | An optional pagination token provided by a previous
+    -- OrderableDBInstanceOptions request. If this parameter is specified, the
+    -- response includes only records beyond the marker, up to the value
+    -- specified by @MaxRecords@ .
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeOrderableDBInstanceOptionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'orderableDBInstanceOptions', 'describeOrderableDBInstanceOptionsResponse_orderableDBInstanceOptions' - An @OrderableDBInstanceOption@ structure containing information about
+-- orderable options for the DB instance.
+--
+-- 'marker', 'describeOrderableDBInstanceOptionsResponse_marker' - An optional pagination token provided by a previous
+-- OrderableDBInstanceOptions request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@ .
+--
+-- 'httpStatus', 'describeOrderableDBInstanceOptionsResponse_httpStatus' - The response's http status code.
+newDescribeOrderableDBInstanceOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeOrderableDBInstanceOptionsResponse
+newDescribeOrderableDBInstanceOptionsResponse
+  pHttpStatus_ =
+    DescribeOrderableDBInstanceOptionsResponse'
+      { orderableDBInstanceOptions =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | An @OrderableDBInstanceOption@ structure containing information about
+-- orderable options for the DB instance.
+describeOrderableDBInstanceOptionsResponse_orderableDBInstanceOptions :: Lens.Lens' DescribeOrderableDBInstanceOptionsResponse (Prelude.Maybe [OrderableDBInstanceOption])
+describeOrderableDBInstanceOptionsResponse_orderableDBInstanceOptions = Lens.lens (\DescribeOrderableDBInstanceOptionsResponse' {orderableDBInstanceOptions} -> orderableDBInstanceOptions) (\s@DescribeOrderableDBInstanceOptionsResponse' {} a -> s {orderableDBInstanceOptions = a} :: DescribeOrderableDBInstanceOptionsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | An optional pagination token provided by a previous
+-- OrderableDBInstanceOptions request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@ .
+describeOrderableDBInstanceOptionsResponse_marker :: Lens.Lens' DescribeOrderableDBInstanceOptionsResponse (Prelude.Maybe Prelude.Text)
+describeOrderableDBInstanceOptionsResponse_marker = Lens.lens (\DescribeOrderableDBInstanceOptionsResponse' {marker} -> marker) (\s@DescribeOrderableDBInstanceOptionsResponse' {} a -> s {marker = a} :: DescribeOrderableDBInstanceOptionsResponse)
+
+-- | The response's http status code.
+describeOrderableDBInstanceOptionsResponse_httpStatus :: Lens.Lens' DescribeOrderableDBInstanceOptionsResponse Prelude.Int
+describeOrderableDBInstanceOptionsResponse_httpStatus = Lens.lens (\DescribeOrderableDBInstanceOptionsResponse' {httpStatus} -> httpStatus) (\s@DescribeOrderableDBInstanceOptionsResponse' {} a -> s {httpStatus = a} :: DescribeOrderableDBInstanceOptionsResponse)
+
+instance
+  Prelude.NFData
     DescribeOrderableDBInstanceOptionsResponse

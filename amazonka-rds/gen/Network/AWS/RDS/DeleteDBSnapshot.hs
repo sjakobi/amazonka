@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a DB snapshot. If the snapshot is being copied, the copy operation is terminated.
+-- Deletes a DB snapshot. If the snapshot is being copied, the copy
+-- operation is terminated.
+--
+-- The DB snapshot must be in the @available@ state to be deleted.
 module Network.AWS.RDS.DeleteDBSnapshot
   ( -- * Creating a Request
-    deleteDBSnapshot,
-    DeleteDBSnapshot,
+    DeleteDBSnapshot (..),
+    newDeleteDBSnapshot,
 
     -- * Request Lenses
-    ddbsDBSnapshotIdentifier,
+    deleteDBSnapshot_dBSnapshotIdentifier,
 
     -- * Destructuring the Response
-    deleteDBSnapshotResponse,
-    DeleteDBSnapshotResponse,
+    DeleteDBSnapshotResponse (..),
+    newDeleteDBSnapshotResponse,
 
     -- * Response Lenses
-    ddbsrrsDBSnapshot,
-    ddbsrrsResponseStatus,
+    deleteDBSnapshotResponse_dBSnapshot,
+    deleteDBSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBSnapshot
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteDBSnapshot' smart constructor.
-newtype DeleteDBSnapshot = DeleteDBSnapshot'
-  { _ddbsDBSnapshotIdentifier ::
-      Text
+-- /See:/ 'newDeleteDBSnapshot' smart constructor.
+data DeleteDBSnapshot = DeleteDBSnapshot'
+  { -- | The DB snapshot identifier.
+    --
+    -- Constraints: Must be the name of an existing DB snapshot in the
+    -- @available@ state.
+    dBSnapshotIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbsDBSnapshotIdentifier' - The DB snapshot identifier. Constraints: Must be the name of an existing DB snapshot in the @available@ state.
-deleteDBSnapshot ::
-  -- | 'ddbsDBSnapshotIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBSnapshotIdentifier', 'deleteDBSnapshot_dBSnapshotIdentifier' - The DB snapshot identifier.
+--
+-- Constraints: Must be the name of an existing DB snapshot in the
+-- @available@ state.
+newDeleteDBSnapshot ::
+  -- | 'dBSnapshotIdentifier'
+  Prelude.Text ->
   DeleteDBSnapshot
-deleteDBSnapshot pDBSnapshotIdentifier_ =
+newDeleteDBSnapshot pDBSnapshotIdentifier_ =
   DeleteDBSnapshot'
-    { _ddbsDBSnapshotIdentifier =
+    { dBSnapshotIdentifier =
         pDBSnapshotIdentifier_
     }
 
--- | The DB snapshot identifier. Constraints: Must be the name of an existing DB snapshot in the @available@ state.
-ddbsDBSnapshotIdentifier :: Lens' DeleteDBSnapshot Text
-ddbsDBSnapshotIdentifier = lens _ddbsDBSnapshotIdentifier (\s a -> s {_ddbsDBSnapshotIdentifier = a})
+-- | The DB snapshot identifier.
+--
+-- Constraints: Must be the name of an existing DB snapshot in the
+-- @available@ state.
+deleteDBSnapshot_dBSnapshotIdentifier :: Lens.Lens' DeleteDBSnapshot Prelude.Text
+deleteDBSnapshot_dBSnapshotIdentifier = Lens.lens (\DeleteDBSnapshot' {dBSnapshotIdentifier} -> dBSnapshotIdentifier) (\s@DeleteDBSnapshot' {} a -> s {dBSnapshotIdentifier = a} :: DeleteDBSnapshot)
 
-instance AWSRequest DeleteDBSnapshot where
+instance Prelude.AWSRequest DeleteDBSnapshot where
   type Rs DeleteDBSnapshot = DeleteDBSnapshotResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteDBSnapshotResult"
       ( \s h x ->
           DeleteDBSnapshotResponse'
-            <$> (x .@? "DBSnapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBSnapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDBSnapshot
+instance Prelude.Hashable DeleteDBSnapshot
 
-instance NFData DeleteDBSnapshot
+instance Prelude.NFData DeleteDBSnapshot
 
-instance ToHeaders DeleteDBSnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDBSnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDBSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDBSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDBSnapshot where
+instance Prelude.ToQuery DeleteDBSnapshot where
   toQuery DeleteDBSnapshot' {..} =
-    mconcat
-      [ "Action" =: ("DeleteDBSnapshot" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBSnapshotIdentifier" =: _ddbsDBSnapshotIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteDBSnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSnapshotIdentifier"
+          Prelude.=: dBSnapshotIdentifier
       ]
 
--- | /See:/ 'deleteDBSnapshotResponse' smart constructor.
+-- | /See:/ 'newDeleteDBSnapshotResponse' smart constructor.
 data DeleteDBSnapshotResponse = DeleteDBSnapshotResponse'
-  { _ddbsrrsDBSnapshot ::
-      !(Maybe DBSnapshot),
-    _ddbsrrsResponseStatus ::
-      !Int
+  { dBSnapshot :: Prelude.Maybe DBSnapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbsrrsDBSnapshot' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbsrrsResponseStatus' - -- | The response status code.
-deleteDBSnapshotResponse ::
-  -- | 'ddbsrrsResponseStatus'
-  Int ->
+-- 'dBSnapshot', 'deleteDBSnapshotResponse_dBSnapshot' - Undocumented member.
+--
+-- 'httpStatus', 'deleteDBSnapshotResponse_httpStatus' - The response's http status code.
+newDeleteDBSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDBSnapshotResponse
-deleteDBSnapshotResponse pResponseStatus_ =
+newDeleteDBSnapshotResponse pHttpStatus_ =
   DeleteDBSnapshotResponse'
-    { _ddbsrrsDBSnapshot =
-        Nothing,
-      _ddbsrrsResponseStatus = pResponseStatus_
+    { dBSnapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ddbsrrsDBSnapshot :: Lens' DeleteDBSnapshotResponse (Maybe DBSnapshot)
-ddbsrrsDBSnapshot = lens _ddbsrrsDBSnapshot (\s a -> s {_ddbsrrsDBSnapshot = a})
+deleteDBSnapshotResponse_dBSnapshot :: Lens.Lens' DeleteDBSnapshotResponse (Prelude.Maybe DBSnapshot)
+deleteDBSnapshotResponse_dBSnapshot = Lens.lens (\DeleteDBSnapshotResponse' {dBSnapshot} -> dBSnapshot) (\s@DeleteDBSnapshotResponse' {} a -> s {dBSnapshot = a} :: DeleteDBSnapshotResponse)
 
--- | -- | The response status code.
-ddbsrrsResponseStatus :: Lens' DeleteDBSnapshotResponse Int
-ddbsrrsResponseStatus = lens _ddbsrrsResponseStatus (\s a -> s {_ddbsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDBSnapshotResponse_httpStatus :: Lens.Lens' DeleteDBSnapshotResponse Prelude.Int
+deleteDBSnapshotResponse_httpStatus = Lens.lens (\DeleteDBSnapshotResponse' {httpStatus} -> httpStatus) (\s@DeleteDBSnapshotResponse' {} a -> s {httpStatus = a} :: DeleteDBSnapshotResponse)
 
-instance NFData DeleteDBSnapshotResponse
+instance Prelude.NFData DeleteDBSnapshotResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.ValidDBInstanceModificationsMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.AvailableProcessorFeature
 import Network.AWS.RDS.Types.ValidStorageOptions
 
--- | Information about valid modifications that you can make to your DB instance. Contains the result of a successful call to the @DescribeValidDBInstanceModifications@ action. You can use this information when you call @ModifyDBInstance@ .
+-- | Information about valid modifications that you can make to your DB
+-- instance. Contains the result of a successful call to the
+-- @DescribeValidDBInstanceModifications@ action. You can use this
+-- information when you call @ModifyDBInstance@.
 --
---
---
--- /See:/ 'validDBInstanceModificationsMessage' smart constructor.
+-- /See:/ 'newValidDBInstanceModificationsMessage' smart constructor.
 data ValidDBInstanceModificationsMessage = ValidDBInstanceModificationsMessage'
-  { _vdimmValidProcessorFeatures ::
-      !( Maybe
-           [AvailableProcessorFeature]
-       ),
-    _vdimmStorage ::
-      !( Maybe
-           [ValidStorageOptions]
-       )
+  { -- | Valid processor features for your DB instance.
+    validProcessorFeatures :: Prelude.Maybe [AvailableProcessorFeature],
+    -- | Valid storage options for your DB instance.
+    storage :: Prelude.Maybe [ValidStorageOptions]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidDBInstanceModificationsMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidDBInstanceModificationsMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vdimmValidProcessorFeatures' - Valid processor features for your DB instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vdimmStorage' - Valid storage options for your DB instance.
-validDBInstanceModificationsMessage ::
+-- 'validProcessorFeatures', 'validDBInstanceModificationsMessage_validProcessorFeatures' - Valid processor features for your DB instance.
+--
+-- 'storage', 'validDBInstanceModificationsMessage_storage' - Valid storage options for your DB instance.
+newValidDBInstanceModificationsMessage ::
   ValidDBInstanceModificationsMessage
-validDBInstanceModificationsMessage =
+newValidDBInstanceModificationsMessage =
   ValidDBInstanceModificationsMessage'
-    { _vdimmValidProcessorFeatures =
-        Nothing,
-      _vdimmStorage = Nothing
+    { validProcessorFeatures =
+        Prelude.Nothing,
+      storage = Prelude.Nothing
     }
 
 -- | Valid processor features for your DB instance.
-vdimmValidProcessorFeatures :: Lens' ValidDBInstanceModificationsMessage [AvailableProcessorFeature]
-vdimmValidProcessorFeatures = lens _vdimmValidProcessorFeatures (\s a -> s {_vdimmValidProcessorFeatures = a}) . _Default . _Coerce
+validDBInstanceModificationsMessage_validProcessorFeatures :: Lens.Lens' ValidDBInstanceModificationsMessage (Prelude.Maybe [AvailableProcessorFeature])
+validDBInstanceModificationsMessage_validProcessorFeatures = Lens.lens (\ValidDBInstanceModificationsMessage' {validProcessorFeatures} -> validProcessorFeatures) (\s@ValidDBInstanceModificationsMessage' {} a -> s {validProcessorFeatures = a} :: ValidDBInstanceModificationsMessage) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Valid storage options for your DB instance.
-vdimmStorage :: Lens' ValidDBInstanceModificationsMessage [ValidStorageOptions]
-vdimmStorage = lens _vdimmStorage (\s a -> s {_vdimmStorage = a}) . _Default . _Coerce
+validDBInstanceModificationsMessage_storage :: Lens.Lens' ValidDBInstanceModificationsMessage (Prelude.Maybe [ValidStorageOptions])
+validDBInstanceModificationsMessage_storage = Lens.lens (\ValidDBInstanceModificationsMessage' {storage} -> storage) (\s@ValidDBInstanceModificationsMessage' {} a -> s {storage = a} :: ValidDBInstanceModificationsMessage) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML ValidDBInstanceModificationsMessage where
+instance
+  Prelude.FromXML
+    ValidDBInstanceModificationsMessage
+  where
   parseXML x =
     ValidDBInstanceModificationsMessage'
-      <$> ( x .@? "ValidProcessorFeatures" .!@ mempty
-              >>= may (parseXMLList "AvailableProcessorFeature")
-          )
-      <*> ( x .@? "Storage" .!@ mempty
-              >>= may (parseXMLList "ValidStorageOptions")
-          )
+      Prelude.<$> ( x Prelude..@? "ValidProcessorFeatures"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AvailableProcessorFeature")
+                  )
+      Prelude.<*> ( x Prelude..@? "Storage" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "ValidStorageOptions")
+                  )
 
-instance Hashable ValidDBInstanceModificationsMessage
+instance
+  Prelude.Hashable
+    ValidDBInstanceModificationsMessage
 
-instance NFData ValidDBInstanceModificationsMessage
+instance
+  Prelude.NFData
+    ValidDBInstanceModificationsMessage

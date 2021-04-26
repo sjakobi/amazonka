@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.Endpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type represents the information you need to connect to an Amazon RDS DB instance. This data type is used as a response element in the following actions:
+-- | This data type represents the information you need to connect to an
+-- Amazon RDS DB instance. This data type is used as a response element in
+-- the following actions:
 --
+-- -   @CreateDBInstance@
 --
---     * @CreateDBInstance@
+-- -   @DescribeDBInstances@
 --
---     * @DescribeDBInstances@
+-- -   @DeleteDBInstance@
 --
---     * @DeleteDBInstance@
+-- For the data structure that represents Amazon Aurora DB cluster
+-- endpoints, see @DBClusterEndpoint@.
 --
---
---
--- For the data structure that represents Amazon Aurora DB cluster endpoints, see @DBClusterEndpoint@ .
---
---
--- /See:/ 'endpoint' smart constructor.
+-- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
-  { _eAddress :: !(Maybe Text),
-    _eHostedZoneId :: !(Maybe Text),
-    _ePort :: !(Maybe Int)
+  { -- | Specifies the DNS address of the DB instance.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the ID that Amazon Route 53 assigns when you create a hosted
+    -- zone.
+    hostedZoneId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the port that the database engine is listening on.
+    port :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Endpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Endpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eAddress' - Specifies the DNS address of the DB instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eHostedZoneId' - Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.
+-- 'address', 'endpoint_address' - Specifies the DNS address of the DB instance.
 --
--- * 'ePort' - Specifies the port that the database engine is listening on.
-endpoint ::
+-- 'hostedZoneId', 'endpoint_hostedZoneId' - Specifies the ID that Amazon Route 53 assigns when you create a hosted
+-- zone.
+--
+-- 'port', 'endpoint_port' - Specifies the port that the database engine is listening on.
+newEndpoint ::
   Endpoint
-endpoint =
+newEndpoint =
   Endpoint'
-    { _eAddress = Nothing,
-      _eHostedZoneId = Nothing,
-      _ePort = Nothing
+    { address = Prelude.Nothing,
+      hostedZoneId = Prelude.Nothing,
+      port = Prelude.Nothing
     }
 
 -- | Specifies the DNS address of the DB instance.
-eAddress :: Lens' Endpoint (Maybe Text)
-eAddress = lens _eAddress (\s a -> s {_eAddress = a})
+endpoint_address :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_address = Lens.lens (\Endpoint' {address} -> address) (\s@Endpoint' {} a -> s {address = a} :: Endpoint)
 
--- | Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.
-eHostedZoneId :: Lens' Endpoint (Maybe Text)
-eHostedZoneId = lens _eHostedZoneId (\s a -> s {_eHostedZoneId = a})
+-- | Specifies the ID that Amazon Route 53 assigns when you create a hosted
+-- zone.
+endpoint_hostedZoneId :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_hostedZoneId = Lens.lens (\Endpoint' {hostedZoneId} -> hostedZoneId) (\s@Endpoint' {} a -> s {hostedZoneId = a} :: Endpoint)
 
 -- | Specifies the port that the database engine is listening on.
-ePort :: Lens' Endpoint (Maybe Int)
-ePort = lens _ePort (\s a -> s {_ePort = a})
+endpoint_port :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Int)
+endpoint_port = Lens.lens (\Endpoint' {port} -> port) (\s@Endpoint' {} a -> s {port = a} :: Endpoint)
 
-instance FromXML Endpoint where
+instance Prelude.FromXML Endpoint where
   parseXML x =
     Endpoint'
-      <$> (x .@? "Address")
-      <*> (x .@? "HostedZoneId")
-      <*> (x .@? "Port")
+      Prelude.<$> (x Prelude..@? "Address")
+      Prelude.<*> (x Prelude..@? "HostedZoneId")
+      Prelude.<*> (x Prelude..@? "Port")
 
-instance Hashable Endpoint
+instance Prelude.Hashable Endpoint
 
-instance NFData Endpoint
+instance Prelude.NFData Endpoint

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBInstanceRole where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an AWS Identity and Access Management (IAM) role that is associated with a DB instance.
+-- | Describes an AWS Identity and Access Management (IAM) role that is
+-- associated with a DB instance.
 --
---
---
--- /See:/ 'dbInstanceRole' smart constructor.
+-- /See:/ 'newDBInstanceRole' smart constructor.
 data DBInstanceRole = DBInstanceRole'
-  { _dirStatus ::
-      !(Maybe Text),
-    _dirRoleARN :: !(Maybe Text),
-    _dirFeatureName :: !(Maybe Text)
+  { -- | Describes the state of association between the IAM role and the DB
+    -- instance. The Status property returns one of the following values:
+    --
+    -- -   @ACTIVE@ - the IAM role ARN is associated with the DB instance and
+    --     can be used to access other AWS services on your behalf.
+    --
+    -- -   @PENDING@ - the IAM role ARN is being associated with the DB
+    --     instance.
+    --
+    -- -   @INVALID@ - the IAM role ARN is associated with the DB instance, but
+    --     the DB instance is unable to assume the IAM role in order to access
+    --     other AWS services on your behalf.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role that is associated with
+    -- the DB instance.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the feature associated with the AWS Identity and Access
+    -- Management (IAM) role. For the list of supported feature names, see
+    -- @DBEngineVersion@.
+    featureName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBInstanceRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBInstanceRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirStatus' - Describes the state of association between the IAM role and the DB instance. The Status property returns one of the following values:     * @ACTIVE@ - the IAM role ARN is associated with the DB instance and can be used to access other AWS services on your behalf.     * @PENDING@ - the IAM role ARN is being associated with the DB instance.     * @INVALID@ - the IAM role ARN is associated with the DB instance, but the DB instance is unable to assume the IAM role in order to access other AWS services on your behalf.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirRoleARN' - The Amazon Resource Name (ARN) of the IAM role that is associated with the DB instance.
+-- 'status', 'dBInstanceRole_status' - Describes the state of association between the IAM role and the DB
+-- instance. The Status property returns one of the following values:
 --
--- * 'dirFeatureName' - The name of the feature associated with the AWS Identity and Access Management (IAM) role. For the list of supported feature names, see @DBEngineVersion@ .
-dbInstanceRole ::
+-- -   @ACTIVE@ - the IAM role ARN is associated with the DB instance and
+--     can be used to access other AWS services on your behalf.
+--
+-- -   @PENDING@ - the IAM role ARN is being associated with the DB
+--     instance.
+--
+-- -   @INVALID@ - the IAM role ARN is associated with the DB instance, but
+--     the DB instance is unable to assume the IAM role in order to access
+--     other AWS services on your behalf.
+--
+-- 'roleArn', 'dBInstanceRole_roleArn' - The Amazon Resource Name (ARN) of the IAM role that is associated with
+-- the DB instance.
+--
+-- 'featureName', 'dBInstanceRole_featureName' - The name of the feature associated with the AWS Identity and Access
+-- Management (IAM) role. For the list of supported feature names, see
+-- @DBEngineVersion@.
+newDBInstanceRole ::
   DBInstanceRole
-dbInstanceRole =
+newDBInstanceRole =
   DBInstanceRole'
-    { _dirStatus = Nothing,
-      _dirRoleARN = Nothing,
-      _dirFeatureName = Nothing
+    { status = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      featureName = Prelude.Nothing
     }
 
--- | Describes the state of association between the IAM role and the DB instance. The Status property returns one of the following values:     * @ACTIVE@ - the IAM role ARN is associated with the DB instance and can be used to access other AWS services on your behalf.     * @PENDING@ - the IAM role ARN is being associated with the DB instance.     * @INVALID@ - the IAM role ARN is associated with the DB instance, but the DB instance is unable to assume the IAM role in order to access other AWS services on your behalf.
-dirStatus :: Lens' DBInstanceRole (Maybe Text)
-dirStatus = lens _dirStatus (\s a -> s {_dirStatus = a})
+-- | Describes the state of association between the IAM role and the DB
+-- instance. The Status property returns one of the following values:
+--
+-- -   @ACTIVE@ - the IAM role ARN is associated with the DB instance and
+--     can be used to access other AWS services on your behalf.
+--
+-- -   @PENDING@ - the IAM role ARN is being associated with the DB
+--     instance.
+--
+-- -   @INVALID@ - the IAM role ARN is associated with the DB instance, but
+--     the DB instance is unable to assume the IAM role in order to access
+--     other AWS services on your behalf.
+dBInstanceRole_status :: Lens.Lens' DBInstanceRole (Prelude.Maybe Prelude.Text)
+dBInstanceRole_status = Lens.lens (\DBInstanceRole' {status} -> status) (\s@DBInstanceRole' {} a -> s {status = a} :: DBInstanceRole)
 
--- | The Amazon Resource Name (ARN) of the IAM role that is associated with the DB instance.
-dirRoleARN :: Lens' DBInstanceRole (Maybe Text)
-dirRoleARN = lens _dirRoleARN (\s a -> s {_dirRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role that is associated with
+-- the DB instance.
+dBInstanceRole_roleArn :: Lens.Lens' DBInstanceRole (Prelude.Maybe Prelude.Text)
+dBInstanceRole_roleArn = Lens.lens (\DBInstanceRole' {roleArn} -> roleArn) (\s@DBInstanceRole' {} a -> s {roleArn = a} :: DBInstanceRole)
 
--- | The name of the feature associated with the AWS Identity and Access Management (IAM) role. For the list of supported feature names, see @DBEngineVersion@ .
-dirFeatureName :: Lens' DBInstanceRole (Maybe Text)
-dirFeatureName = lens _dirFeatureName (\s a -> s {_dirFeatureName = a})
+-- | The name of the feature associated with the AWS Identity and Access
+-- Management (IAM) role. For the list of supported feature names, see
+-- @DBEngineVersion@.
+dBInstanceRole_featureName :: Lens.Lens' DBInstanceRole (Prelude.Maybe Prelude.Text)
+dBInstanceRole_featureName = Lens.lens (\DBInstanceRole' {featureName} -> featureName) (\s@DBInstanceRole' {} a -> s {featureName = a} :: DBInstanceRole)
 
-instance FromXML DBInstanceRole where
+instance Prelude.FromXML DBInstanceRole where
   parseXML x =
     DBInstanceRole'
-      <$> (x .@? "Status")
-      <*> (x .@? "RoleArn")
-      <*> (x .@? "FeatureName")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "RoleArn")
+      Prelude.<*> (x Prelude..@? "FeatureName")
 
-instance Hashable DBInstanceRole
+instance Prelude.Hashable DBInstanceRole
 
-instance NFData DBInstanceRole
+instance Prelude.NFData DBInstanceRole

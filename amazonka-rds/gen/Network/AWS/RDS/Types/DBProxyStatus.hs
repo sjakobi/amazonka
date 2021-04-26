@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.RDS.Types.DBProxyStatus
   ( DBProxyStatus
       ( ..,
-        Available,
-        Creating,
-        Deleting,
-        IncompatibleNetwork,
-        InsufficientResourceLimits,
-        Modifying,
-        Reactivating,
-        Suspended,
-        Suspending
+        DBProxyStatusAvailable,
+        DBProxyStatusCreating,
+        DBProxyStatusDeleting,
+        DBProxyStatusIncompatibleNetwork,
+        DBProxyStatusInsufficientResourceLimits,
+        DBProxyStatusModifying,
+        DBProxyStatusReactivating,
+        DBProxyStatusSuspended,
+        DBProxyStatusSuspending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DBProxyStatus = DBProxyStatus' (CI Text)
+newtype DBProxyStatus = DBProxyStatus'
+  { fromDBProxyStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: DBProxyStatus
-pattern Available = DBProxyStatus' "available"
+pattern DBProxyStatusAvailable :: DBProxyStatus
+pattern DBProxyStatusAvailable = DBProxyStatus' "available"
 
-pattern Creating :: DBProxyStatus
-pattern Creating = DBProxyStatus' "creating"
+pattern DBProxyStatusCreating :: DBProxyStatus
+pattern DBProxyStatusCreating = DBProxyStatus' "creating"
 
-pattern Deleting :: DBProxyStatus
-pattern Deleting = DBProxyStatus' "deleting"
+pattern DBProxyStatusDeleting :: DBProxyStatus
+pattern DBProxyStatusDeleting = DBProxyStatus' "deleting"
 
-pattern IncompatibleNetwork :: DBProxyStatus
-pattern IncompatibleNetwork = DBProxyStatus' "incompatible-network"
+pattern DBProxyStatusIncompatibleNetwork :: DBProxyStatus
+pattern DBProxyStatusIncompatibleNetwork = DBProxyStatus' "incompatible-network"
 
-pattern InsufficientResourceLimits :: DBProxyStatus
-pattern InsufficientResourceLimits = DBProxyStatus' "insufficient-resource-limits"
+pattern DBProxyStatusInsufficientResourceLimits :: DBProxyStatus
+pattern DBProxyStatusInsufficientResourceLimits = DBProxyStatus' "insufficient-resource-limits"
 
-pattern Modifying :: DBProxyStatus
-pattern Modifying = DBProxyStatus' "modifying"
+pattern DBProxyStatusModifying :: DBProxyStatus
+pattern DBProxyStatusModifying = DBProxyStatus' "modifying"
 
-pattern Reactivating :: DBProxyStatus
-pattern Reactivating = DBProxyStatus' "reactivating"
+pattern DBProxyStatusReactivating :: DBProxyStatus
+pattern DBProxyStatusReactivating = DBProxyStatus' "reactivating"
 
-pattern Suspended :: DBProxyStatus
-pattern Suspended = DBProxyStatus' "suspended"
+pattern DBProxyStatusSuspended :: DBProxyStatus
+pattern DBProxyStatusSuspended = DBProxyStatus' "suspended"
 
-pattern Suspending :: DBProxyStatus
-pattern Suspending = DBProxyStatus' "suspending"
+pattern DBProxyStatusSuspending :: DBProxyStatus
+pattern DBProxyStatusSuspending = DBProxyStatus' "suspending"
 
 {-# COMPLETE
-  Available,
-  Creating,
-  Deleting,
-  IncompatibleNetwork,
-  InsufficientResourceLimits,
-  Modifying,
-  Reactivating,
-  Suspended,
-  Suspending,
+  DBProxyStatusAvailable,
+  DBProxyStatusCreating,
+  DBProxyStatusDeleting,
+  DBProxyStatusIncompatibleNetwork,
+  DBProxyStatusInsufficientResourceLimits,
+  DBProxyStatusModifying,
+  DBProxyStatusReactivating,
+  DBProxyStatusSuspended,
+  DBProxyStatusSuspending,
   DBProxyStatus'
   #-}
 
-instance FromText DBProxyStatus where
-  parser = (DBProxyStatus' . mk) <$> takeText
+instance Prelude.FromText DBProxyStatus where
+  parser = DBProxyStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DBProxyStatus where
-  toText (DBProxyStatus' ci) = original ci
+instance Prelude.ToText DBProxyStatus where
+  toText (DBProxyStatus' x) = x
 
-instance Hashable DBProxyStatus
+instance Prelude.Hashable DBProxyStatus
 
-instance NFData DBProxyStatus
+instance Prelude.NFData DBProxyStatus
 
-instance ToByteString DBProxyStatus
+instance Prelude.ToByteString DBProxyStatus
 
-instance ToQuery DBProxyStatus
+instance Prelude.ToQuery DBProxyStatus
 
-instance ToHeader DBProxyStatus
+instance Prelude.ToHeader DBProxyStatus
 
-instance FromXML DBProxyStatus where
-  parseXML = parseXMLText "DBProxyStatus"
+instance Prelude.FromXML DBProxyStatus where
+  parseXML = Prelude.parseXMLText "DBProxyStatus"

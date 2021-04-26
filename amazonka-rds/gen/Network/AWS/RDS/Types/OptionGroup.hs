@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,108 +19,143 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.OptionGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.Option
 
 -- |
 --
---
---
--- /See:/ 'optionGroup' smart constructor.
+-- /See:/ 'newOptionGroup' smart constructor.
 data OptionGroup = OptionGroup'
-  { _ogEngineName ::
-      !(Maybe Text),
-    _ogOptionGroupARN :: !(Maybe Text),
-    _ogAllowsVPCAndNonVPCInstanceMemberships ::
-      !(Maybe Bool),
-    _ogOptionGroupName :: !(Maybe Text),
-    _ogOptions :: !(Maybe [Option]),
-    _ogOptionGroupDescription :: !(Maybe Text),
-    _ogMajorEngineVersion :: !(Maybe Text),
-    _ogVPCId :: !(Maybe Text)
+  { -- | Indicates the name of the engine that this option group can be applied
+    -- to.
+    engineName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the option group.
+    optionGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether this option group can be applied to both VPC and
+    -- non-VPC instances. The value @true@ indicates the option group can be
+    -- applied to both VPC and non-VPC instances.
+    allowsVpcAndNonVpcInstanceMemberships :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the name of the option group.
+    optionGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates what options are available in the option group.
+    options :: Prelude.Maybe [Option],
+    -- | Provides a description of the option group.
+    optionGroupDescription :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the major engine version associated with this option group.
+    majorEngineVersion :: Prelude.Maybe Prelude.Text,
+    -- | If __AllowsVpcAndNonVpcInstanceMemberships__ is @false@, this field is
+    -- blank. If __AllowsVpcAndNonVpcInstanceMemberships__ is @true@ and this
+    -- field is blank, then this option group can be applied to both VPC and
+    -- non-VPC instances. If this field contains a value, then this option
+    -- group can only be applied to instances that are in the VPC indicated by
+    -- this field.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OptionGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OptionGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ogEngineName' - Indicates the name of the engine that this option group can be applied to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ogOptionGroupARN' - The Amazon Resource Name (ARN) for the option group.
+-- 'engineName', 'optionGroup_engineName' - Indicates the name of the engine that this option group can be applied
+-- to.
 --
--- * 'ogAllowsVPCAndNonVPCInstanceMemberships' - Indicates whether this option group can be applied to both VPC and non-VPC instances. The value @true@ indicates the option group can be applied to both VPC and non-VPC instances.
+-- 'optionGroupArn', 'optionGroup_optionGroupArn' - The Amazon Resource Name (ARN) for the option group.
 --
--- * 'ogOptionGroupName' - Specifies the name of the option group.
+-- 'allowsVpcAndNonVpcInstanceMemberships', 'optionGroup_allowsVpcAndNonVpcInstanceMemberships' - Indicates whether this option group can be applied to both VPC and
+-- non-VPC instances. The value @true@ indicates the option group can be
+-- applied to both VPC and non-VPC instances.
 --
--- * 'ogOptions' - Indicates what options are available in the option group.
+-- 'optionGroupName', 'optionGroup_optionGroupName' - Specifies the name of the option group.
 --
--- * 'ogOptionGroupDescription' - Provides a description of the option group.
+-- 'options', 'optionGroup_options' - Indicates what options are available in the option group.
 --
--- * 'ogMajorEngineVersion' - Indicates the major engine version associated with this option group.
+-- 'optionGroupDescription', 'optionGroup_optionGroupDescription' - Provides a description of the option group.
 --
--- * 'ogVPCId' - If __AllowsVpcAndNonVpcInstanceMemberships__ is @false@ , this field is blank. If __AllowsVpcAndNonVpcInstanceMemberships__ is @true@ and this field is blank, then this option group can be applied to both VPC and non-VPC instances. If this field contains a value, then this option group can only be applied to instances that are in the VPC indicated by this field.
-optionGroup ::
+-- 'majorEngineVersion', 'optionGroup_majorEngineVersion' - Indicates the major engine version associated with this option group.
+--
+-- 'vpcId', 'optionGroup_vpcId' - If __AllowsVpcAndNonVpcInstanceMemberships__ is @false@, this field is
+-- blank. If __AllowsVpcAndNonVpcInstanceMemberships__ is @true@ and this
+-- field is blank, then this option group can be applied to both VPC and
+-- non-VPC instances. If this field contains a value, then this option
+-- group can only be applied to instances that are in the VPC indicated by
+-- this field.
+newOptionGroup ::
   OptionGroup
-optionGroup =
+newOptionGroup =
   OptionGroup'
-    { _ogEngineName = Nothing,
-      _ogOptionGroupARN = Nothing,
-      _ogAllowsVPCAndNonVPCInstanceMemberships = Nothing,
-      _ogOptionGroupName = Nothing,
-      _ogOptions = Nothing,
-      _ogOptionGroupDescription = Nothing,
-      _ogMajorEngineVersion = Nothing,
-      _ogVPCId = Nothing
+    { engineName = Prelude.Nothing,
+      optionGroupArn = Prelude.Nothing,
+      allowsVpcAndNonVpcInstanceMemberships =
+        Prelude.Nothing,
+      optionGroupName = Prelude.Nothing,
+      options = Prelude.Nothing,
+      optionGroupDescription = Prelude.Nothing,
+      majorEngineVersion = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
 
--- | Indicates the name of the engine that this option group can be applied to.
-ogEngineName :: Lens' OptionGroup (Maybe Text)
-ogEngineName = lens _ogEngineName (\s a -> s {_ogEngineName = a})
+-- | Indicates the name of the engine that this option group can be applied
+-- to.
+optionGroup_engineName :: Lens.Lens' OptionGroup (Prelude.Maybe Prelude.Text)
+optionGroup_engineName = Lens.lens (\OptionGroup' {engineName} -> engineName) (\s@OptionGroup' {} a -> s {engineName = a} :: OptionGroup)
 
 -- | The Amazon Resource Name (ARN) for the option group.
-ogOptionGroupARN :: Lens' OptionGroup (Maybe Text)
-ogOptionGroupARN = lens _ogOptionGroupARN (\s a -> s {_ogOptionGroupARN = a})
+optionGroup_optionGroupArn :: Lens.Lens' OptionGroup (Prelude.Maybe Prelude.Text)
+optionGroup_optionGroupArn = Lens.lens (\OptionGroup' {optionGroupArn} -> optionGroupArn) (\s@OptionGroup' {} a -> s {optionGroupArn = a} :: OptionGroup)
 
--- | Indicates whether this option group can be applied to both VPC and non-VPC instances. The value @true@ indicates the option group can be applied to both VPC and non-VPC instances.
-ogAllowsVPCAndNonVPCInstanceMemberships :: Lens' OptionGroup (Maybe Bool)
-ogAllowsVPCAndNonVPCInstanceMemberships = lens _ogAllowsVPCAndNonVPCInstanceMemberships (\s a -> s {_ogAllowsVPCAndNonVPCInstanceMemberships = a})
+-- | Indicates whether this option group can be applied to both VPC and
+-- non-VPC instances. The value @true@ indicates the option group can be
+-- applied to both VPC and non-VPC instances.
+optionGroup_allowsVpcAndNonVpcInstanceMemberships :: Lens.Lens' OptionGroup (Prelude.Maybe Prelude.Bool)
+optionGroup_allowsVpcAndNonVpcInstanceMemberships = Lens.lens (\OptionGroup' {allowsVpcAndNonVpcInstanceMemberships} -> allowsVpcAndNonVpcInstanceMemberships) (\s@OptionGroup' {} a -> s {allowsVpcAndNonVpcInstanceMemberships = a} :: OptionGroup)
 
 -- | Specifies the name of the option group.
-ogOptionGroupName :: Lens' OptionGroup (Maybe Text)
-ogOptionGroupName = lens _ogOptionGroupName (\s a -> s {_ogOptionGroupName = a})
+optionGroup_optionGroupName :: Lens.Lens' OptionGroup (Prelude.Maybe Prelude.Text)
+optionGroup_optionGroupName = Lens.lens (\OptionGroup' {optionGroupName} -> optionGroupName) (\s@OptionGroup' {} a -> s {optionGroupName = a} :: OptionGroup)
 
 -- | Indicates what options are available in the option group.
-ogOptions :: Lens' OptionGroup [Option]
-ogOptions = lens _ogOptions (\s a -> s {_ogOptions = a}) . _Default . _Coerce
+optionGroup_options :: Lens.Lens' OptionGroup (Prelude.Maybe [Option])
+optionGroup_options = Lens.lens (\OptionGroup' {options} -> options) (\s@OptionGroup' {} a -> s {options = a} :: OptionGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Provides a description of the option group.
-ogOptionGroupDescription :: Lens' OptionGroup (Maybe Text)
-ogOptionGroupDescription = lens _ogOptionGroupDescription (\s a -> s {_ogOptionGroupDescription = a})
+optionGroup_optionGroupDescription :: Lens.Lens' OptionGroup (Prelude.Maybe Prelude.Text)
+optionGroup_optionGroupDescription = Lens.lens (\OptionGroup' {optionGroupDescription} -> optionGroupDescription) (\s@OptionGroup' {} a -> s {optionGroupDescription = a} :: OptionGroup)
 
 -- | Indicates the major engine version associated with this option group.
-ogMajorEngineVersion :: Lens' OptionGroup (Maybe Text)
-ogMajorEngineVersion = lens _ogMajorEngineVersion (\s a -> s {_ogMajorEngineVersion = a})
+optionGroup_majorEngineVersion :: Lens.Lens' OptionGroup (Prelude.Maybe Prelude.Text)
+optionGroup_majorEngineVersion = Lens.lens (\OptionGroup' {majorEngineVersion} -> majorEngineVersion) (\s@OptionGroup' {} a -> s {majorEngineVersion = a} :: OptionGroup)
 
--- | If __AllowsVpcAndNonVpcInstanceMemberships__ is @false@ , this field is blank. If __AllowsVpcAndNonVpcInstanceMemberships__ is @true@ and this field is blank, then this option group can be applied to both VPC and non-VPC instances. If this field contains a value, then this option group can only be applied to instances that are in the VPC indicated by this field.
-ogVPCId :: Lens' OptionGroup (Maybe Text)
-ogVPCId = lens _ogVPCId (\s a -> s {_ogVPCId = a})
+-- | If __AllowsVpcAndNonVpcInstanceMemberships__ is @false@, this field is
+-- blank. If __AllowsVpcAndNonVpcInstanceMemberships__ is @true@ and this
+-- field is blank, then this option group can be applied to both VPC and
+-- non-VPC instances. If this field contains a value, then this option
+-- group can only be applied to instances that are in the VPC indicated by
+-- this field.
+optionGroup_vpcId :: Lens.Lens' OptionGroup (Prelude.Maybe Prelude.Text)
+optionGroup_vpcId = Lens.lens (\OptionGroup' {vpcId} -> vpcId) (\s@OptionGroup' {} a -> s {vpcId = a} :: OptionGroup)
 
-instance FromXML OptionGroup where
+instance Prelude.FromXML OptionGroup where
   parseXML x =
     OptionGroup'
-      <$> (x .@? "EngineName")
-      <*> (x .@? "OptionGroupArn")
-      <*> (x .@? "AllowsVpcAndNonVpcInstanceMemberships")
-      <*> (x .@? "OptionGroupName")
-      <*> ( x .@? "Options" .!@ mempty
-              >>= may (parseXMLList "Option")
-          )
-      <*> (x .@? "OptionGroupDescription")
-      <*> (x .@? "MajorEngineVersion")
-      <*> (x .@? "VpcId")
+      Prelude.<$> (x Prelude..@? "EngineName")
+      Prelude.<*> (x Prelude..@? "OptionGroupArn")
+      Prelude.<*> ( x
+                      Prelude..@? "AllowsVpcAndNonVpcInstanceMemberships"
+                  )
+      Prelude.<*> (x Prelude..@? "OptionGroupName")
+      Prelude.<*> ( x Prelude..@? "Options" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Option")
+                  )
+      Prelude.<*> (x Prelude..@? "OptionGroupDescription")
+      Prelude.<*> (x Prelude..@? "MajorEngineVersion")
+      Prelude.<*> (x Prelude..@? "VpcId")
 
-instance Hashable OptionGroup
+instance Prelude.Hashable OptionGroup
 
-instance NFData OptionGroup
+instance Prelude.NFData OptionGroup

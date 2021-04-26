@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,203 +19,219 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.PendingModifiedValues where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.PendingCloudwatchLogsExports
 import Network.AWS.RDS.Types.ProcessorFeature
 
--- | This data type is used as a response element in the @ModifyDBInstance@ operation and contains changes that will be applied during the next maintenance window.
+-- | This data type is used as a response element in the @ModifyDBInstance@
+-- operation and contains changes that will be applied during the next
+-- maintenance window.
 --
---
---
--- /See:/ 'pendingModifiedValues' smart constructor.
+-- /See:/ 'newPendingModifiedValues' smart constructor.
 data PendingModifiedValues = PendingModifiedValues'
-  { _pmvBackupRetentionPeriod ::
-      !(Maybe Int),
-    _pmvCACertificateIdentifier ::
-      !(Maybe Text),
-    _pmvStorageType ::
-      !(Maybe Text),
-    _pmvDBSubnetGroupName ::
-      !(Maybe Text),
-    _pmvMasterUserPassword ::
-      !(Maybe Text),
-    _pmvMultiAZ ::
-      !(Maybe Bool),
-    _pmvPendingCloudwatchLogsExports ::
-      !( Maybe
-           PendingCloudwatchLogsExports
-       ),
-    _pmvEngineVersion ::
-      !(Maybe Text),
-    _pmvLicenseModel ::
-      !(Maybe Text),
-    _pmvDBInstanceIdentifier ::
-      !(Maybe Text),
-    _pmvProcessorFeatures ::
-      !(Maybe [ProcessorFeature]),
-    _pmvPort :: !(Maybe Int),
-    _pmvDBInstanceClass ::
-      !(Maybe Text),
-    _pmvAllocatedStorage ::
-      !(Maybe Int),
-    _pmvIAMDatabaseAuthenticationEnabled ::
-      !(Maybe Bool),
-    _pmvIOPS :: !(Maybe Int)
+  { -- | The number of days for which automated backups are retained.
+    backupRetentionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | The identifier of the CA certificate for the DB instance.
+    cACertificateIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The storage type of the DB instance.
+    storageType :: Prelude.Maybe Prelude.Text,
+    -- | The DB subnet group for the DB instance.
+    dBSubnetGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The master credentials for the DB instance.
+    masterUserPassword :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates that the Single-AZ DB instance will change to a
+    -- Multi-AZ deployment.
+    multiAZ :: Prelude.Maybe Prelude.Bool,
+    pendingCloudwatchLogsExports :: Prelude.Maybe PendingCloudwatchLogsExports,
+    -- | The database engine version.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The license model for the DB instance.
+    --
+    -- Valid values: @license-included@ | @bring-your-own-license@ |
+    -- @general-public-license@
+    licenseModel :: Prelude.Maybe Prelude.Text,
+    -- | The database identifier for the DB instance.
+    dBInstanceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The number of CPU cores and the number of threads per core for the DB
+    -- instance class of the DB instance.
+    processorFeatures :: Prelude.Maybe [ProcessorFeature],
+    -- | The port for the DB instance.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The name of the compute and memory capacity class for the DB instance.
+    dBInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | The allocated storage size for the DB instance specified in gibibytes .
+    allocatedStorage :: Prelude.Maybe Prelude.Int,
+    -- | Whether mapping of AWS Identity and Access Management (IAM) accounts to
+    -- database accounts is enabled.
+    iAMDatabaseAuthenticationEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The Provisioned IOPS value for the DB instance.
+    iops :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PendingModifiedValues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PendingModifiedValues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmvBackupRetentionPeriod' - The number of days for which automated backups are retained.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmvCACertificateIdentifier' - The identifier of the CA certificate for the DB instance.
+-- 'backupRetentionPeriod', 'pendingModifiedValues_backupRetentionPeriod' - The number of days for which automated backups are retained.
 --
--- * 'pmvStorageType' - The storage type of the DB instance.
+-- 'cACertificateIdentifier', 'pendingModifiedValues_cACertificateIdentifier' - The identifier of the CA certificate for the DB instance.
 --
--- * 'pmvDBSubnetGroupName' - The DB subnet group for the DB instance.
+-- 'storageType', 'pendingModifiedValues_storageType' - The storage type of the DB instance.
 --
--- * 'pmvMasterUserPassword' - The master credentials for the DB instance.
+-- 'dBSubnetGroupName', 'pendingModifiedValues_dBSubnetGroupName' - The DB subnet group for the DB instance.
 --
--- * 'pmvMultiAZ' - A value that indicates that the Single-AZ DB instance will change to a Multi-AZ deployment.
+-- 'masterUserPassword', 'pendingModifiedValues_masterUserPassword' - The master credentials for the DB instance.
 --
--- * 'pmvPendingCloudwatchLogsExports' - Undocumented member.
+-- 'multiAZ', 'pendingModifiedValues_multiAZ' - A value that indicates that the Single-AZ DB instance will change to a
+-- Multi-AZ deployment.
 --
--- * 'pmvEngineVersion' - The database engine version.
+-- 'pendingCloudwatchLogsExports', 'pendingModifiedValues_pendingCloudwatchLogsExports' - Undocumented member.
 --
--- * 'pmvLicenseModel' - The license model for the DB instance. Valid values: @license-included@ | @bring-your-own-license@ | @general-public-license@
+-- 'engineVersion', 'pendingModifiedValues_engineVersion' - The database engine version.
 --
--- * 'pmvDBInstanceIdentifier' - The database identifier for the DB instance.
+-- 'licenseModel', 'pendingModifiedValues_licenseModel' - The license model for the DB instance.
 --
--- * 'pmvProcessorFeatures' - The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+-- Valid values: @license-included@ | @bring-your-own-license@ |
+-- @general-public-license@
 --
--- * 'pmvPort' - The port for the DB instance.
+-- 'dBInstanceIdentifier', 'pendingModifiedValues_dBInstanceIdentifier' - The database identifier for the DB instance.
 --
--- * 'pmvDBInstanceClass' - The name of the compute and memory capacity class for the DB instance.
+-- 'processorFeatures', 'pendingModifiedValues_processorFeatures' - The number of CPU cores and the number of threads per core for the DB
+-- instance class of the DB instance.
 --
--- * 'pmvAllocatedStorage' - The allocated storage size for the DB instance specified in gibibytes .
+-- 'port', 'pendingModifiedValues_port' - The port for the DB instance.
 --
--- * 'pmvIAMDatabaseAuthenticationEnabled' - Whether mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled.
+-- 'dBInstanceClass', 'pendingModifiedValues_dBInstanceClass' - The name of the compute and memory capacity class for the DB instance.
 --
--- * 'pmvIOPS' - The Provisioned IOPS value for the DB instance.
-pendingModifiedValues ::
+-- 'allocatedStorage', 'pendingModifiedValues_allocatedStorage' - The allocated storage size for the DB instance specified in gibibytes .
+--
+-- 'iAMDatabaseAuthenticationEnabled', 'pendingModifiedValues_iAMDatabaseAuthenticationEnabled' - Whether mapping of AWS Identity and Access Management (IAM) accounts to
+-- database accounts is enabled.
+--
+-- 'iops', 'pendingModifiedValues_iops' - The Provisioned IOPS value for the DB instance.
+newPendingModifiedValues ::
   PendingModifiedValues
-pendingModifiedValues =
+newPendingModifiedValues =
   PendingModifiedValues'
-    { _pmvBackupRetentionPeriod =
-        Nothing,
-      _pmvCACertificateIdentifier = Nothing,
-      _pmvStorageType = Nothing,
-      _pmvDBSubnetGroupName = Nothing,
-      _pmvMasterUserPassword = Nothing,
-      _pmvMultiAZ = Nothing,
-      _pmvPendingCloudwatchLogsExports = Nothing,
-      _pmvEngineVersion = Nothing,
-      _pmvLicenseModel = Nothing,
-      _pmvDBInstanceIdentifier = Nothing,
-      _pmvProcessorFeatures = Nothing,
-      _pmvPort = Nothing,
-      _pmvDBInstanceClass = Nothing,
-      _pmvAllocatedStorage = Nothing,
-      _pmvIAMDatabaseAuthenticationEnabled = Nothing,
-      _pmvIOPS = Nothing
+    { backupRetentionPeriod =
+        Prelude.Nothing,
+      cACertificateIdentifier = Prelude.Nothing,
+      storageType = Prelude.Nothing,
+      dBSubnetGroupName = Prelude.Nothing,
+      masterUserPassword = Prelude.Nothing,
+      multiAZ = Prelude.Nothing,
+      pendingCloudwatchLogsExports = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      licenseModel = Prelude.Nothing,
+      dBInstanceIdentifier = Prelude.Nothing,
+      processorFeatures = Prelude.Nothing,
+      port = Prelude.Nothing,
+      dBInstanceClass = Prelude.Nothing,
+      allocatedStorage = Prelude.Nothing,
+      iAMDatabaseAuthenticationEnabled = Prelude.Nothing,
+      iops = Prelude.Nothing
     }
 
 -- | The number of days for which automated backups are retained.
-pmvBackupRetentionPeriod :: Lens' PendingModifiedValues (Maybe Int)
-pmvBackupRetentionPeriod = lens _pmvBackupRetentionPeriod (\s a -> s {_pmvBackupRetentionPeriod = a})
+pendingModifiedValues_backupRetentionPeriod :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Int)
+pendingModifiedValues_backupRetentionPeriod = Lens.lens (\PendingModifiedValues' {backupRetentionPeriod} -> backupRetentionPeriod) (\s@PendingModifiedValues' {} a -> s {backupRetentionPeriod = a} :: PendingModifiedValues)
 
 -- | The identifier of the CA certificate for the DB instance.
-pmvCACertificateIdentifier :: Lens' PendingModifiedValues (Maybe Text)
-pmvCACertificateIdentifier = lens _pmvCACertificateIdentifier (\s a -> s {_pmvCACertificateIdentifier = a})
+pendingModifiedValues_cACertificateIdentifier :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_cACertificateIdentifier = Lens.lens (\PendingModifiedValues' {cACertificateIdentifier} -> cACertificateIdentifier) (\s@PendingModifiedValues' {} a -> s {cACertificateIdentifier = a} :: PendingModifiedValues)
 
 -- | The storage type of the DB instance.
-pmvStorageType :: Lens' PendingModifiedValues (Maybe Text)
-pmvStorageType = lens _pmvStorageType (\s a -> s {_pmvStorageType = a})
+pendingModifiedValues_storageType :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_storageType = Lens.lens (\PendingModifiedValues' {storageType} -> storageType) (\s@PendingModifiedValues' {} a -> s {storageType = a} :: PendingModifiedValues)
 
 -- | The DB subnet group for the DB instance.
-pmvDBSubnetGroupName :: Lens' PendingModifiedValues (Maybe Text)
-pmvDBSubnetGroupName = lens _pmvDBSubnetGroupName (\s a -> s {_pmvDBSubnetGroupName = a})
+pendingModifiedValues_dBSubnetGroupName :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_dBSubnetGroupName = Lens.lens (\PendingModifiedValues' {dBSubnetGroupName} -> dBSubnetGroupName) (\s@PendingModifiedValues' {} a -> s {dBSubnetGroupName = a} :: PendingModifiedValues)
 
 -- | The master credentials for the DB instance.
-pmvMasterUserPassword :: Lens' PendingModifiedValues (Maybe Text)
-pmvMasterUserPassword = lens _pmvMasterUserPassword (\s a -> s {_pmvMasterUserPassword = a})
+pendingModifiedValues_masterUserPassword :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_masterUserPassword = Lens.lens (\PendingModifiedValues' {masterUserPassword} -> masterUserPassword) (\s@PendingModifiedValues' {} a -> s {masterUserPassword = a} :: PendingModifiedValues)
 
--- | A value that indicates that the Single-AZ DB instance will change to a Multi-AZ deployment.
-pmvMultiAZ :: Lens' PendingModifiedValues (Maybe Bool)
-pmvMultiAZ = lens _pmvMultiAZ (\s a -> s {_pmvMultiAZ = a})
+-- | A value that indicates that the Single-AZ DB instance will change to a
+-- Multi-AZ deployment.
+pendingModifiedValues_multiAZ :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Bool)
+pendingModifiedValues_multiAZ = Lens.lens (\PendingModifiedValues' {multiAZ} -> multiAZ) (\s@PendingModifiedValues' {} a -> s {multiAZ = a} :: PendingModifiedValues)
 
 -- | Undocumented member.
-pmvPendingCloudwatchLogsExports :: Lens' PendingModifiedValues (Maybe PendingCloudwatchLogsExports)
-pmvPendingCloudwatchLogsExports = lens _pmvPendingCloudwatchLogsExports (\s a -> s {_pmvPendingCloudwatchLogsExports = a})
+pendingModifiedValues_pendingCloudwatchLogsExports :: Lens.Lens' PendingModifiedValues (Prelude.Maybe PendingCloudwatchLogsExports)
+pendingModifiedValues_pendingCloudwatchLogsExports = Lens.lens (\PendingModifiedValues' {pendingCloudwatchLogsExports} -> pendingCloudwatchLogsExports) (\s@PendingModifiedValues' {} a -> s {pendingCloudwatchLogsExports = a} :: PendingModifiedValues)
 
 -- | The database engine version.
-pmvEngineVersion :: Lens' PendingModifiedValues (Maybe Text)
-pmvEngineVersion = lens _pmvEngineVersion (\s a -> s {_pmvEngineVersion = a})
+pendingModifiedValues_engineVersion :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_engineVersion = Lens.lens (\PendingModifiedValues' {engineVersion} -> engineVersion) (\s@PendingModifiedValues' {} a -> s {engineVersion = a} :: PendingModifiedValues)
 
--- | The license model for the DB instance. Valid values: @license-included@ | @bring-your-own-license@ | @general-public-license@
-pmvLicenseModel :: Lens' PendingModifiedValues (Maybe Text)
-pmvLicenseModel = lens _pmvLicenseModel (\s a -> s {_pmvLicenseModel = a})
+-- | The license model for the DB instance.
+--
+-- Valid values: @license-included@ | @bring-your-own-license@ |
+-- @general-public-license@
+pendingModifiedValues_licenseModel :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_licenseModel = Lens.lens (\PendingModifiedValues' {licenseModel} -> licenseModel) (\s@PendingModifiedValues' {} a -> s {licenseModel = a} :: PendingModifiedValues)
 
 -- | The database identifier for the DB instance.
-pmvDBInstanceIdentifier :: Lens' PendingModifiedValues (Maybe Text)
-pmvDBInstanceIdentifier = lens _pmvDBInstanceIdentifier (\s a -> s {_pmvDBInstanceIdentifier = a})
+pendingModifiedValues_dBInstanceIdentifier :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_dBInstanceIdentifier = Lens.lens (\PendingModifiedValues' {dBInstanceIdentifier} -> dBInstanceIdentifier) (\s@PendingModifiedValues' {} a -> s {dBInstanceIdentifier = a} :: PendingModifiedValues)
 
--- | The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
-pmvProcessorFeatures :: Lens' PendingModifiedValues [ProcessorFeature]
-pmvProcessorFeatures = lens _pmvProcessorFeatures (\s a -> s {_pmvProcessorFeatures = a}) . _Default . _Coerce
+-- | The number of CPU cores and the number of threads per core for the DB
+-- instance class of the DB instance.
+pendingModifiedValues_processorFeatures :: Lens.Lens' PendingModifiedValues (Prelude.Maybe [ProcessorFeature])
+pendingModifiedValues_processorFeatures = Lens.lens (\PendingModifiedValues' {processorFeatures} -> processorFeatures) (\s@PendingModifiedValues' {} a -> s {processorFeatures = a} :: PendingModifiedValues) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The port for the DB instance.
-pmvPort :: Lens' PendingModifiedValues (Maybe Int)
-pmvPort = lens _pmvPort (\s a -> s {_pmvPort = a})
+pendingModifiedValues_port :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Int)
+pendingModifiedValues_port = Lens.lens (\PendingModifiedValues' {port} -> port) (\s@PendingModifiedValues' {} a -> s {port = a} :: PendingModifiedValues)
 
 -- | The name of the compute and memory capacity class for the DB instance.
-pmvDBInstanceClass :: Lens' PendingModifiedValues (Maybe Text)
-pmvDBInstanceClass = lens _pmvDBInstanceClass (\s a -> s {_pmvDBInstanceClass = a})
+pendingModifiedValues_dBInstanceClass :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Text)
+pendingModifiedValues_dBInstanceClass = Lens.lens (\PendingModifiedValues' {dBInstanceClass} -> dBInstanceClass) (\s@PendingModifiedValues' {} a -> s {dBInstanceClass = a} :: PendingModifiedValues)
 
 -- | The allocated storage size for the DB instance specified in gibibytes .
-pmvAllocatedStorage :: Lens' PendingModifiedValues (Maybe Int)
-pmvAllocatedStorage = lens _pmvAllocatedStorage (\s a -> s {_pmvAllocatedStorage = a})
+pendingModifiedValues_allocatedStorage :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Int)
+pendingModifiedValues_allocatedStorage = Lens.lens (\PendingModifiedValues' {allocatedStorage} -> allocatedStorage) (\s@PendingModifiedValues' {} a -> s {allocatedStorage = a} :: PendingModifiedValues)
 
--- | Whether mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled.
-pmvIAMDatabaseAuthenticationEnabled :: Lens' PendingModifiedValues (Maybe Bool)
-pmvIAMDatabaseAuthenticationEnabled = lens _pmvIAMDatabaseAuthenticationEnabled (\s a -> s {_pmvIAMDatabaseAuthenticationEnabled = a})
+-- | Whether mapping of AWS Identity and Access Management (IAM) accounts to
+-- database accounts is enabled.
+pendingModifiedValues_iAMDatabaseAuthenticationEnabled :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Bool)
+pendingModifiedValues_iAMDatabaseAuthenticationEnabled = Lens.lens (\PendingModifiedValues' {iAMDatabaseAuthenticationEnabled} -> iAMDatabaseAuthenticationEnabled) (\s@PendingModifiedValues' {} a -> s {iAMDatabaseAuthenticationEnabled = a} :: PendingModifiedValues)
 
 -- | The Provisioned IOPS value for the DB instance.
-pmvIOPS :: Lens' PendingModifiedValues (Maybe Int)
-pmvIOPS = lens _pmvIOPS (\s a -> s {_pmvIOPS = a})
+pendingModifiedValues_iops :: Lens.Lens' PendingModifiedValues (Prelude.Maybe Prelude.Int)
+pendingModifiedValues_iops = Lens.lens (\PendingModifiedValues' {iops} -> iops) (\s@PendingModifiedValues' {} a -> s {iops = a} :: PendingModifiedValues)
 
-instance FromXML PendingModifiedValues where
+instance Prelude.FromXML PendingModifiedValues where
   parseXML x =
     PendingModifiedValues'
-      <$> (x .@? "BackupRetentionPeriod")
-      <*> (x .@? "CACertificateIdentifier")
-      <*> (x .@? "StorageType")
-      <*> (x .@? "DBSubnetGroupName")
-      <*> (x .@? "MasterUserPassword")
-      <*> (x .@? "MultiAZ")
-      <*> (x .@? "PendingCloudwatchLogsExports")
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "LicenseModel")
-      <*> (x .@? "DBInstanceIdentifier")
-      <*> ( x .@? "ProcessorFeatures" .!@ mempty
-              >>= may (parseXMLList "ProcessorFeature")
-          )
-      <*> (x .@? "Port")
-      <*> (x .@? "DBInstanceClass")
-      <*> (x .@? "AllocatedStorage")
-      <*> (x .@? "IAMDatabaseAuthenticationEnabled")
-      <*> (x .@? "Iops")
+      Prelude.<$> (x Prelude..@? "BackupRetentionPeriod")
+      Prelude.<*> (x Prelude..@? "CACertificateIdentifier")
+      Prelude.<*> (x Prelude..@? "StorageType")
+      Prelude.<*> (x Prelude..@? "DBSubnetGroupName")
+      Prelude.<*> (x Prelude..@? "MasterUserPassword")
+      Prelude.<*> (x Prelude..@? "MultiAZ")
+      Prelude.<*> (x Prelude..@? "PendingCloudwatchLogsExports")
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "LicenseModel")
+      Prelude.<*> (x Prelude..@? "DBInstanceIdentifier")
+      Prelude.<*> ( x Prelude..@? "ProcessorFeatures"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "ProcessorFeature")
+                  )
+      Prelude.<*> (x Prelude..@? "Port")
+      Prelude.<*> (x Prelude..@? "DBInstanceClass")
+      Prelude.<*> (x Prelude..@? "AllocatedStorage")
+      Prelude.<*> (x Prelude..@? "IAMDatabaseAuthenticationEnabled")
+      Prelude.<*> (x Prelude..@? "Iops")
 
-instance Hashable PendingModifiedValues
+instance Prelude.Hashable PendingModifiedValues
 
-instance NFData PendingModifiedValues
+instance Prelude.NFData PendingModifiedValues

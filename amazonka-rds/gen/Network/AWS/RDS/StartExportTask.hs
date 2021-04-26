@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,309 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an export of a snapshot to Amazon S3. The provided IAM role must have access to the S3 bucket.
+-- Starts an export of a snapshot to Amazon S3. The provided IAM role must
+-- have access to the S3 bucket.
 module Network.AWS.RDS.StartExportTask
   ( -- * Creating a Request
-    startExportTask,
-    StartExportTask,
+    StartExportTask (..),
+    newStartExportTask,
 
     -- * Request Lenses
-    setExportOnly,
-    setS3Prefix,
-    setExportTaskIdentifier,
-    setSourceARN,
-    setS3BucketName,
-    setIAMRoleARN,
-    setKMSKeyId,
+    startExportTask_exportOnly,
+    startExportTask_s3Prefix,
+    startExportTask_exportTaskIdentifier,
+    startExportTask_sourceArn,
+    startExportTask_s3BucketName,
+    startExportTask_iamRoleArn,
+    startExportTask_kmsKeyId,
 
     -- * Destructuring the Response
-    exportTask,
-    ExportTask,
+    ExportTask (..),
+    newExportTask,
 
     -- * Response Lenses
-    etTaskEndTime,
-    etIAMRoleARN,
-    etStatus,
-    etTotalExtractedDataInGB,
-    etWarningMessage,
-    etSnapshotTime,
-    etS3Bucket,
-    etExportOnly,
-    etKMSKeyId,
-    etFailureCause,
-    etPercentProgress,
-    etSourceARN,
-    etS3Prefix,
-    etTaskStartTime,
-    etExportTaskIdentifier,
+    exportTask_taskEndTime,
+    exportTask_iamRoleArn,
+    exportTask_status,
+    exportTask_totalExtractedDataInGB,
+    exportTask_warningMessage,
+    exportTask_snapshotTime,
+    exportTask_s3Bucket,
+    exportTask_exportOnly,
+    exportTask_kmsKeyId,
+    exportTask_failureCause,
+    exportTask_percentProgress,
+    exportTask_sourceArn,
+    exportTask_s3Prefix,
+    exportTask_taskStartTime,
+    exportTask_exportTaskIdentifier,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.ExportTask
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startExportTask' smart constructor.
+-- | /See:/ 'newStartExportTask' smart constructor.
 data StartExportTask = StartExportTask'
-  { _setExportOnly ::
-      !(Maybe [Text]),
-    _setS3Prefix :: !(Maybe Text),
-    _setExportTaskIdentifier :: !Text,
-    _setSourceARN :: !Text,
-    _setS3BucketName :: !Text,
-    _setIAMRoleARN :: !Text,
-    _setKMSKeyId :: !Text
+  { -- | The data to be exported from the snapshot. If this parameter is not
+    -- provided, all the snapshot data is exported. Valid values are the
+    -- following:
+    --
+    -- -   @database@ - Export all the data from a specified database.
+    --
+    -- -   @database.table@ /table-name/ - Export a table of the snapshot. This
+    --     format is valid only for RDS for MySQL, RDS for MariaDB, and Aurora
+    --     MySQL.
+    --
+    -- -   @database.schema@ /schema-name/ - Export a database schema of the
+    --     snapshot. This format is valid only for RDS for PostgreSQL and
+    --     Aurora PostgreSQL.
+    --
+    -- -   @database.schema.table@ /table-name/ - Export a table of the
+    --     database schema. This format is valid only for RDS for PostgreSQL
+    --     and Aurora PostgreSQL.
+    exportOnly :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon S3 bucket prefix to use as the file name and path of the
+    -- exported snapshot.
+    s3Prefix :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the snapshot export task. This ID isn\'t an
+    -- identifier for the Amazon S3 bucket where the snapshot is to be exported
+    -- to.
+    exportTaskIdentifier :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the snapshot to export to Amazon S3.
+    sourceArn :: Prelude.Text,
+    -- | The name of the Amazon S3 bucket to export the snapshot to.
+    s3BucketName :: Prelude.Text,
+    -- | The name of the IAM role to use for writing to the Amazon S3 bucket when
+    -- exporting a snapshot.
+    iamRoleArn :: Prelude.Text,
+    -- | The ID of the AWS KMS customer master key (CMK) to use to encrypt the
+    -- snapshot exported to Amazon S3. The AWS KMS key identifier is the key
+    -- ARN, key ID, alias ARN, or alias name for the AWS KMS customer master
+    -- key (CMK). The caller of this operation must be authorized to execute
+    -- the following operations. These can be set in the AWS KMS key policy:
+    --
+    -- -   GrantOperation.Encrypt
+    --
+    -- -   GrantOperation.Decrypt
+    --
+    -- -   GrantOperation.GenerateDataKey
+    --
+    -- -   GrantOperation.GenerateDataKeyWithoutPlaintext
+    --
+    -- -   GrantOperation.ReEncryptFrom
+    --
+    -- -   GrantOperation.ReEncryptTo
+    --
+    -- -   GrantOperation.CreateGrant
+    --
+    -- -   GrantOperation.DescribeKey
+    --
+    -- -   GrantOperation.RetireGrant
+    kmsKeyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartExportTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartExportTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'setExportOnly' - The data to be exported from the snapshot. If this parameter is not provided, all the snapshot data is exported. Valid values are the following:     * @database@ - Export all the data from a specified database.     * @database.table@ /table-name/ - Export a table of the snapshot. This format is valid only for RDS for MySQL, RDS for MariaDB, and Aurora MySQL.     * @database.schema@ /schema-name/ - Export a database schema of the snapshot. This format is valid only for RDS for PostgreSQL and Aurora PostgreSQL.     * @database.schema.table@ /table-name/ - Export a table of the database schema. This format is valid only for RDS for PostgreSQL and Aurora PostgreSQL.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'setS3Prefix' - The Amazon S3 bucket prefix to use as the file name and path of the exported snapshot.
+-- 'exportOnly', 'startExportTask_exportOnly' - The data to be exported from the snapshot. If this parameter is not
+-- provided, all the snapshot data is exported. Valid values are the
+-- following:
 --
--- * 'setExportTaskIdentifier' - A unique identifier for the snapshot export task. This ID isn't an identifier for the Amazon S3 bucket where the snapshot is to be exported to.
+-- -   @database@ - Export all the data from a specified database.
 --
--- * 'setSourceARN' - The Amazon Resource Name (ARN) of the snapshot to export to Amazon S3.
+-- -   @database.table@ /table-name/ - Export a table of the snapshot. This
+--     format is valid only for RDS for MySQL, RDS for MariaDB, and Aurora
+--     MySQL.
 --
--- * 'setS3BucketName' - The name of the Amazon S3 bucket to export the snapshot to.
+-- -   @database.schema@ /schema-name/ - Export a database schema of the
+--     snapshot. This format is valid only for RDS for PostgreSQL and
+--     Aurora PostgreSQL.
 --
--- * 'setIAMRoleARN' - The name of the IAM role to use for writing to the Amazon S3 bucket when exporting a snapshot.
+-- -   @database.schema.table@ /table-name/ - Export a table of the
+--     database schema. This format is valid only for RDS for PostgreSQL
+--     and Aurora PostgreSQL.
 --
--- * 'setKMSKeyId' - The ID of the AWS KMS customer master key (CMK) to use to encrypt the snapshot exported to Amazon S3. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK). The caller of this operation must be authorized to execute the following operations. These can be set in the AWS KMS key policy:      * GrantOperation.Encrypt     * GrantOperation.Decrypt     * GrantOperation.GenerateDataKey     * GrantOperation.GenerateDataKeyWithoutPlaintext     * GrantOperation.ReEncryptFrom     * GrantOperation.ReEncryptTo     * GrantOperation.CreateGrant     * GrantOperation.DescribeKey     * GrantOperation.RetireGrant
-startExportTask ::
-  -- | 'setExportTaskIdentifier'
-  Text ->
-  -- | 'setSourceARN'
-  Text ->
-  -- | 'setS3BucketName'
-  Text ->
-  -- | 'setIAMRoleARN'
-  Text ->
-  -- | 'setKMSKeyId'
-  Text ->
+-- 's3Prefix', 'startExportTask_s3Prefix' - The Amazon S3 bucket prefix to use as the file name and path of the
+-- exported snapshot.
+--
+-- 'exportTaskIdentifier', 'startExportTask_exportTaskIdentifier' - A unique identifier for the snapshot export task. This ID isn\'t an
+-- identifier for the Amazon S3 bucket where the snapshot is to be exported
+-- to.
+--
+-- 'sourceArn', 'startExportTask_sourceArn' - The Amazon Resource Name (ARN) of the snapshot to export to Amazon S3.
+--
+-- 's3BucketName', 'startExportTask_s3BucketName' - The name of the Amazon S3 bucket to export the snapshot to.
+--
+-- 'iamRoleArn', 'startExportTask_iamRoleArn' - The name of the IAM role to use for writing to the Amazon S3 bucket when
+-- exporting a snapshot.
+--
+-- 'kmsKeyId', 'startExportTask_kmsKeyId' - The ID of the AWS KMS customer master key (CMK) to use to encrypt the
+-- snapshot exported to Amazon S3. The AWS KMS key identifier is the key
+-- ARN, key ID, alias ARN, or alias name for the AWS KMS customer master
+-- key (CMK). The caller of this operation must be authorized to execute
+-- the following operations. These can be set in the AWS KMS key policy:
+--
+-- -   GrantOperation.Encrypt
+--
+-- -   GrantOperation.Decrypt
+--
+-- -   GrantOperation.GenerateDataKey
+--
+-- -   GrantOperation.GenerateDataKeyWithoutPlaintext
+--
+-- -   GrantOperation.ReEncryptFrom
+--
+-- -   GrantOperation.ReEncryptTo
+--
+-- -   GrantOperation.CreateGrant
+--
+-- -   GrantOperation.DescribeKey
+--
+-- -   GrantOperation.RetireGrant
+newStartExportTask ::
+  -- | 'exportTaskIdentifier'
+  Prelude.Text ->
+  -- | 'sourceArn'
+  Prelude.Text ->
+  -- | 's3BucketName'
+  Prelude.Text ->
+  -- | 'iamRoleArn'
+  Prelude.Text ->
+  -- | 'kmsKeyId'
+  Prelude.Text ->
   StartExportTask
-startExportTask
+newStartExportTask
   pExportTaskIdentifier_
-  pSourceARN_
+  pSourceArn_
   pS3BucketName_
-  pIAMRoleARN_
-  pKMSKeyId_ =
+  pIamRoleArn_
+  pKmsKeyId_ =
     StartExportTask'
-      { _setExportOnly = Nothing,
-        _setS3Prefix = Nothing,
-        _setExportTaskIdentifier = pExportTaskIdentifier_,
-        _setSourceARN = pSourceARN_,
-        _setS3BucketName = pS3BucketName_,
-        _setIAMRoleARN = pIAMRoleARN_,
-        _setKMSKeyId = pKMSKeyId_
+      { exportOnly = Prelude.Nothing,
+        s3Prefix = Prelude.Nothing,
+        exportTaskIdentifier = pExportTaskIdentifier_,
+        sourceArn = pSourceArn_,
+        s3BucketName = pS3BucketName_,
+        iamRoleArn = pIamRoleArn_,
+        kmsKeyId = pKmsKeyId_
       }
 
--- | The data to be exported from the snapshot. If this parameter is not provided, all the snapshot data is exported. Valid values are the following:     * @database@ - Export all the data from a specified database.     * @database.table@ /table-name/ - Export a table of the snapshot. This format is valid only for RDS for MySQL, RDS for MariaDB, and Aurora MySQL.     * @database.schema@ /schema-name/ - Export a database schema of the snapshot. This format is valid only for RDS for PostgreSQL and Aurora PostgreSQL.     * @database.schema.table@ /table-name/ - Export a table of the database schema. This format is valid only for RDS for PostgreSQL and Aurora PostgreSQL.
-setExportOnly :: Lens' StartExportTask [Text]
-setExportOnly = lens _setExportOnly (\s a -> s {_setExportOnly = a}) . _Default . _Coerce
+-- | The data to be exported from the snapshot. If this parameter is not
+-- provided, all the snapshot data is exported. Valid values are the
+-- following:
+--
+-- -   @database@ - Export all the data from a specified database.
+--
+-- -   @database.table@ /table-name/ - Export a table of the snapshot. This
+--     format is valid only for RDS for MySQL, RDS for MariaDB, and Aurora
+--     MySQL.
+--
+-- -   @database.schema@ /schema-name/ - Export a database schema of the
+--     snapshot. This format is valid only for RDS for PostgreSQL and
+--     Aurora PostgreSQL.
+--
+-- -   @database.schema.table@ /table-name/ - Export a table of the
+--     database schema. This format is valid only for RDS for PostgreSQL
+--     and Aurora PostgreSQL.
+startExportTask_exportOnly :: Lens.Lens' StartExportTask (Prelude.Maybe [Prelude.Text])
+startExportTask_exportOnly = Lens.lens (\StartExportTask' {exportOnly} -> exportOnly) (\s@StartExportTask' {} a -> s {exportOnly = a} :: StartExportTask) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon S3 bucket prefix to use as the file name and path of the exported snapshot.
-setS3Prefix :: Lens' StartExportTask (Maybe Text)
-setS3Prefix = lens _setS3Prefix (\s a -> s {_setS3Prefix = a})
+-- | The Amazon S3 bucket prefix to use as the file name and path of the
+-- exported snapshot.
+startExportTask_s3Prefix :: Lens.Lens' StartExportTask (Prelude.Maybe Prelude.Text)
+startExportTask_s3Prefix = Lens.lens (\StartExportTask' {s3Prefix} -> s3Prefix) (\s@StartExportTask' {} a -> s {s3Prefix = a} :: StartExportTask)
 
--- | A unique identifier for the snapshot export task. This ID isn't an identifier for the Amazon S3 bucket where the snapshot is to be exported to.
-setExportTaskIdentifier :: Lens' StartExportTask Text
-setExportTaskIdentifier = lens _setExportTaskIdentifier (\s a -> s {_setExportTaskIdentifier = a})
+-- | A unique identifier for the snapshot export task. This ID isn\'t an
+-- identifier for the Amazon S3 bucket where the snapshot is to be exported
+-- to.
+startExportTask_exportTaskIdentifier :: Lens.Lens' StartExportTask Prelude.Text
+startExportTask_exportTaskIdentifier = Lens.lens (\StartExportTask' {exportTaskIdentifier} -> exportTaskIdentifier) (\s@StartExportTask' {} a -> s {exportTaskIdentifier = a} :: StartExportTask)
 
 -- | The Amazon Resource Name (ARN) of the snapshot to export to Amazon S3.
-setSourceARN :: Lens' StartExportTask Text
-setSourceARN = lens _setSourceARN (\s a -> s {_setSourceARN = a})
+startExportTask_sourceArn :: Lens.Lens' StartExportTask Prelude.Text
+startExportTask_sourceArn = Lens.lens (\StartExportTask' {sourceArn} -> sourceArn) (\s@StartExportTask' {} a -> s {sourceArn = a} :: StartExportTask)
 
 -- | The name of the Amazon S3 bucket to export the snapshot to.
-setS3BucketName :: Lens' StartExportTask Text
-setS3BucketName = lens _setS3BucketName (\s a -> s {_setS3BucketName = a})
+startExportTask_s3BucketName :: Lens.Lens' StartExportTask Prelude.Text
+startExportTask_s3BucketName = Lens.lens (\StartExportTask' {s3BucketName} -> s3BucketName) (\s@StartExportTask' {} a -> s {s3BucketName = a} :: StartExportTask)
 
--- | The name of the IAM role to use for writing to the Amazon S3 bucket when exporting a snapshot.
-setIAMRoleARN :: Lens' StartExportTask Text
-setIAMRoleARN = lens _setIAMRoleARN (\s a -> s {_setIAMRoleARN = a})
+-- | The name of the IAM role to use for writing to the Amazon S3 bucket when
+-- exporting a snapshot.
+startExportTask_iamRoleArn :: Lens.Lens' StartExportTask Prelude.Text
+startExportTask_iamRoleArn = Lens.lens (\StartExportTask' {iamRoleArn} -> iamRoleArn) (\s@StartExportTask' {} a -> s {iamRoleArn = a} :: StartExportTask)
 
--- | The ID of the AWS KMS customer master key (CMK) to use to encrypt the snapshot exported to Amazon S3. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK). The caller of this operation must be authorized to execute the following operations. These can be set in the AWS KMS key policy:      * GrantOperation.Encrypt     * GrantOperation.Decrypt     * GrantOperation.GenerateDataKey     * GrantOperation.GenerateDataKeyWithoutPlaintext     * GrantOperation.ReEncryptFrom     * GrantOperation.ReEncryptTo     * GrantOperation.CreateGrant     * GrantOperation.DescribeKey     * GrantOperation.RetireGrant
-setKMSKeyId :: Lens' StartExportTask Text
-setKMSKeyId = lens _setKMSKeyId (\s a -> s {_setKMSKeyId = a})
+-- | The ID of the AWS KMS customer master key (CMK) to use to encrypt the
+-- snapshot exported to Amazon S3. The AWS KMS key identifier is the key
+-- ARN, key ID, alias ARN, or alias name for the AWS KMS customer master
+-- key (CMK). The caller of this operation must be authorized to execute
+-- the following operations. These can be set in the AWS KMS key policy:
+--
+-- -   GrantOperation.Encrypt
+--
+-- -   GrantOperation.Decrypt
+--
+-- -   GrantOperation.GenerateDataKey
+--
+-- -   GrantOperation.GenerateDataKeyWithoutPlaintext
+--
+-- -   GrantOperation.ReEncryptFrom
+--
+-- -   GrantOperation.ReEncryptTo
+--
+-- -   GrantOperation.CreateGrant
+--
+-- -   GrantOperation.DescribeKey
+--
+-- -   GrantOperation.RetireGrant
+startExportTask_kmsKeyId :: Lens.Lens' StartExportTask Prelude.Text
+startExportTask_kmsKeyId = Lens.lens (\StartExportTask' {kmsKeyId} -> kmsKeyId) (\s@StartExportTask' {} a -> s {kmsKeyId = a} :: StartExportTask)
 
-instance AWSRequest StartExportTask where
+instance Prelude.AWSRequest StartExportTask where
   type Rs StartExportTask = ExportTask
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StartExportTaskResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable StartExportTask
+instance Prelude.Hashable StartExportTask
 
-instance NFData StartExportTask
+instance Prelude.NFData StartExportTask
 
-instance ToHeaders StartExportTask where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartExportTask where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StartExportTask where
-  toPath = const "/"
+instance Prelude.ToPath StartExportTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartExportTask where
+instance Prelude.ToQuery StartExportTask where
   toQuery StartExportTask' {..} =
-    mconcat
-      [ "Action" =: ("StartExportTask" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("StartExportTask" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "ExportOnly"
-          =: toQuery (toQueryList "member" <$> _setExportOnly),
-        "S3Prefix" =: _setS3Prefix,
-        "ExportTaskIdentifier" =: _setExportTaskIdentifier,
-        "SourceArn" =: _setSourceARN,
-        "S3BucketName" =: _setS3BucketName,
-        "IamRoleArn" =: _setIAMRoleARN,
-        "KmsKeyId" =: _setKMSKeyId
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> exportOnly
+            ),
+        "S3Prefix" Prelude.=: s3Prefix,
+        "ExportTaskIdentifier"
+          Prelude.=: exportTaskIdentifier,
+        "SourceArn" Prelude.=: sourceArn,
+        "S3BucketName" Prelude.=: s3BucketName,
+        "IamRoleArn" Prelude.=: iamRoleArn,
+        "KmsKeyId" Prelude.=: kmsKeyId
       ]

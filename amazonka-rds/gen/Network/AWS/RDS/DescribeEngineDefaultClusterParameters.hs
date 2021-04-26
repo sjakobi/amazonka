@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,234 +21,265 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the default engine and system parameter information for the cluster database engine.
+-- Returns the default engine and system parameter information for the
+-- cluster database engine.
 --
---
--- For more information on Amazon Aurora, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?> in the /Amazon Aurora User Guide./
---
+-- For more information on Amazon Aurora, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide./
 --
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeEngineDefaultClusterParameters
   ( -- * Creating a Request
-    describeEngineDefaultClusterParameters,
-    DescribeEngineDefaultClusterParameters,
+    DescribeEngineDefaultClusterParameters (..),
+    newDescribeEngineDefaultClusterParameters,
 
     -- * Request Lenses
-    dedcpFilters,
-    dedcpMarker,
-    dedcpMaxRecords,
-    dedcpDBParameterGroupFamily,
+    describeEngineDefaultClusterParameters_filters,
+    describeEngineDefaultClusterParameters_marker,
+    describeEngineDefaultClusterParameters_maxRecords,
+    describeEngineDefaultClusterParameters_dBParameterGroupFamily,
 
     -- * Destructuring the Response
-    describeEngineDefaultClusterParametersResponse,
-    DescribeEngineDefaultClusterParametersResponse,
+    DescribeEngineDefaultClusterParametersResponse (..),
+    newDescribeEngineDefaultClusterParametersResponse,
 
     -- * Response Lenses
-    dedcprrsEngineDefaults,
-    dedcprrsResponseStatus,
+    describeEngineDefaultClusterParametersResponse_engineDefaults,
+    describeEngineDefaultClusterParametersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.EngineDefaults
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeEngineDefaultClusterParameters' smart constructor.
+-- /See:/ 'newDescribeEngineDefaultClusterParameters' smart constructor.
 data DescribeEngineDefaultClusterParameters = DescribeEngineDefaultClusterParameters'
-  { _dedcpFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _dedcpMarker ::
-      !( Maybe
-           Text
-       ),
-    _dedcpMaxRecords ::
-      !( Maybe
-           Int
-       ),
-    _dedcpDBParameterGroupFamily ::
-      !Text
+  { -- | This parameter isn\'t currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | An optional pagination token provided by a previous
+    -- @DescribeEngineDefaultClusterParameters@ request. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so you can retrieve the
+    -- remaining results.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The name of the DB cluster parameter group family to return engine
+    -- parameter information for.
+    dBParameterGroupFamily :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEngineDefaultClusterParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEngineDefaultClusterParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dedcpFilters' - This parameter isn't currently supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dedcpMarker' - An optional pagination token provided by a previous @DescribeEngineDefaultClusterParameters@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'filters', 'describeEngineDefaultClusterParameters_filters' - This parameter isn\'t currently supported.
 --
--- * 'dedcpMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
+-- 'marker', 'describeEngineDefaultClusterParameters_marker' - An optional pagination token provided by a previous
+-- @DescribeEngineDefaultClusterParameters@ request. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
 --
--- * 'dedcpDBParameterGroupFamily' - The name of the DB cluster parameter group family to return engine parameter information for.
-describeEngineDefaultClusterParameters ::
-  -- | 'dedcpDBParameterGroupFamily'
-  Text ->
+-- 'maxRecords', 'describeEngineDefaultClusterParameters_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+--
+-- 'dBParameterGroupFamily', 'describeEngineDefaultClusterParameters_dBParameterGroupFamily' - The name of the DB cluster parameter group family to return engine
+-- parameter information for.
+newDescribeEngineDefaultClusterParameters ::
+  -- | 'dBParameterGroupFamily'
+  Prelude.Text ->
   DescribeEngineDefaultClusterParameters
-describeEngineDefaultClusterParameters
+newDescribeEngineDefaultClusterParameters
   pDBParameterGroupFamily_ =
     DescribeEngineDefaultClusterParameters'
-      { _dedcpFilters =
-          Nothing,
-        _dedcpMarker = Nothing,
-        _dedcpMaxRecords = Nothing,
-        _dedcpDBParameterGroupFamily =
+      { filters =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        maxRecords = Prelude.Nothing,
+        dBParameterGroupFamily =
           pDBParameterGroupFamily_
       }
 
--- | This parameter isn't currently supported.
-dedcpFilters :: Lens' DescribeEngineDefaultClusterParameters [Filter]
-dedcpFilters = lens _dedcpFilters (\s a -> s {_dedcpFilters = a}) . _Default . _Coerce
+-- | This parameter isn\'t currently supported.
+describeEngineDefaultClusterParameters_filters :: Lens.Lens' DescribeEngineDefaultClusterParameters (Prelude.Maybe [Filter])
+describeEngineDefaultClusterParameters_filters = Lens.lens (\DescribeEngineDefaultClusterParameters' {filters} -> filters) (\s@DescribeEngineDefaultClusterParameters' {} a -> s {filters = a} :: DescribeEngineDefaultClusterParameters) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous @DescribeEngineDefaultClusterParameters@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dedcpMarker :: Lens' DescribeEngineDefaultClusterParameters (Maybe Text)
-dedcpMarker = lens _dedcpMarker (\s a -> s {_dedcpMarker = a})
+-- | An optional pagination token provided by a previous
+-- @DescribeEngineDefaultClusterParameters@ request. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+describeEngineDefaultClusterParameters_marker :: Lens.Lens' DescribeEngineDefaultClusterParameters (Prelude.Maybe Prelude.Text)
+describeEngineDefaultClusterParameters_marker = Lens.lens (\DescribeEngineDefaultClusterParameters' {marker} -> marker) (\s@DescribeEngineDefaultClusterParameters' {} a -> s {marker = a} :: DescribeEngineDefaultClusterParameters)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-dedcpMaxRecords :: Lens' DescribeEngineDefaultClusterParameters (Maybe Int)
-dedcpMaxRecords = lens _dedcpMaxRecords (\s a -> s {_dedcpMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeEngineDefaultClusterParameters_maxRecords :: Lens.Lens' DescribeEngineDefaultClusterParameters (Prelude.Maybe Prelude.Int)
+describeEngineDefaultClusterParameters_maxRecords = Lens.lens (\DescribeEngineDefaultClusterParameters' {maxRecords} -> maxRecords) (\s@DescribeEngineDefaultClusterParameters' {} a -> s {maxRecords = a} :: DescribeEngineDefaultClusterParameters)
 
--- | The name of the DB cluster parameter group family to return engine parameter information for.
-dedcpDBParameterGroupFamily :: Lens' DescribeEngineDefaultClusterParameters Text
-dedcpDBParameterGroupFamily = lens _dedcpDBParameterGroupFamily (\s a -> s {_dedcpDBParameterGroupFamily = a})
+-- | The name of the DB cluster parameter group family to return engine
+-- parameter information for.
+describeEngineDefaultClusterParameters_dBParameterGroupFamily :: Lens.Lens' DescribeEngineDefaultClusterParameters Prelude.Text
+describeEngineDefaultClusterParameters_dBParameterGroupFamily = Lens.lens (\DescribeEngineDefaultClusterParameters' {dBParameterGroupFamily} -> dBParameterGroupFamily) (\s@DescribeEngineDefaultClusterParameters' {} a -> s {dBParameterGroupFamily = a} :: DescribeEngineDefaultClusterParameters)
 
 instance
-  AWSPager
+  Pager.AWSPager
     DescribeEngineDefaultClusterParameters
   where
   page rq rs
-    | stop
+    | Pager.stop
         ( rs
-            ^? dedcprrsEngineDefaults . _Just . edMarker . _Just
+            Lens.^? describeEngineDefaultClusterParametersResponse_engineDefaults
+              Prelude.. Lens._Just
+              Prelude.. engineDefaults_marker
+              Prelude.. Lens._Just
         ) =
-      Nothing
-    | stop
-        (rs ^? dedcprrsEngineDefaults . _Just . edParameters) =
-      Nothing
-    | otherwise =
-      Just $
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeEngineDefaultClusterParametersResponse_engineDefaults
+              Prelude.. Lens._Just
+              Prelude.. engineDefaults_parameters
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & dedcpMarker
-          .~ rs
-          ^? dedcprrsEngineDefaults . _Just . edMarker . _Just
+          Lens.& describeEngineDefaultClusterParameters_marker
+          Lens..~ rs
+          Lens.^? describeEngineDefaultClusterParametersResponse_engineDefaults
+            Prelude.. Lens._Just
+            Prelude.. engineDefaults_marker
+            Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeEngineDefaultClusterParameters
   where
   type
     Rs DescribeEngineDefaultClusterParameters =
       DescribeEngineDefaultClusterParametersResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeEngineDefaultClusterParametersResult"
       ( \s h x ->
           DescribeEngineDefaultClusterParametersResponse'
-            <$> (x .@? "EngineDefaults") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "EngineDefaults")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeEngineDefaultClusterParameters
 
 instance
-  NFData
+  Prelude.NFData
     DescribeEngineDefaultClusterParameters
 
 instance
-  ToHeaders
-    DescribeEngineDefaultClusterParameters
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DescribeEngineDefaultClusterParameters
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DescribeEngineDefaultClusterParameters
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DescribeEngineDefaultClusterParameters
   where
   toQuery DescribeEngineDefaultClusterParameters' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DescribeEngineDefaultClusterParameters" ::
-                 ByteString
-             ),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ( "DescribeEngineDefaultClusterParameters" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          =: toQuery (toQueryList "Filter" <$> _dedcpFilters),
-        "Marker" =: _dedcpMarker,
-        "MaxRecords" =: _dedcpMaxRecords,
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords,
         "DBParameterGroupFamily"
-          =: _dedcpDBParameterGroupFamily
+          Prelude.=: dBParameterGroupFamily
       ]
 
--- | /See:/ 'describeEngineDefaultClusterParametersResponse' smart constructor.
+-- | /See:/ 'newDescribeEngineDefaultClusterParametersResponse' smart constructor.
 data DescribeEngineDefaultClusterParametersResponse = DescribeEngineDefaultClusterParametersResponse'
-  { _dedcprrsEngineDefaults ::
-      !( Maybe
-           EngineDefaults
-       ),
-    _dedcprrsResponseStatus ::
-      !Int
+  { engineDefaults :: Prelude.Maybe EngineDefaults,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEngineDefaultClusterParametersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEngineDefaultClusterParametersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dedcprrsEngineDefaults' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dedcprrsResponseStatus' - -- | The response status code.
-describeEngineDefaultClusterParametersResponse ::
-  -- | 'dedcprrsResponseStatus'
-  Int ->
+-- 'engineDefaults', 'describeEngineDefaultClusterParametersResponse_engineDefaults' - Undocumented member.
+--
+-- 'httpStatus', 'describeEngineDefaultClusterParametersResponse_httpStatus' - The response's http status code.
+newDescribeEngineDefaultClusterParametersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEngineDefaultClusterParametersResponse
-describeEngineDefaultClusterParametersResponse
-  pResponseStatus_ =
+newDescribeEngineDefaultClusterParametersResponse
+  pHttpStatus_ =
     DescribeEngineDefaultClusterParametersResponse'
-      { _dedcprrsEngineDefaults =
-          Nothing,
-        _dedcprrsResponseStatus =
-          pResponseStatus_
+      { engineDefaults =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-dedcprrsEngineDefaults :: Lens' DescribeEngineDefaultClusterParametersResponse (Maybe EngineDefaults)
-dedcprrsEngineDefaults = lens _dedcprrsEngineDefaults (\s a -> s {_dedcprrsEngineDefaults = a})
+describeEngineDefaultClusterParametersResponse_engineDefaults :: Lens.Lens' DescribeEngineDefaultClusterParametersResponse (Prelude.Maybe EngineDefaults)
+describeEngineDefaultClusterParametersResponse_engineDefaults = Lens.lens (\DescribeEngineDefaultClusterParametersResponse' {engineDefaults} -> engineDefaults) (\s@DescribeEngineDefaultClusterParametersResponse' {} a -> s {engineDefaults = a} :: DescribeEngineDefaultClusterParametersResponse)
 
--- | -- | The response status code.
-dedcprrsResponseStatus :: Lens' DescribeEngineDefaultClusterParametersResponse Int
-dedcprrsResponseStatus = lens _dedcprrsResponseStatus (\s a -> s {_dedcprrsResponseStatus = a})
+-- | The response's http status code.
+describeEngineDefaultClusterParametersResponse_httpStatus :: Lens.Lens' DescribeEngineDefaultClusterParametersResponse Prelude.Int
+describeEngineDefaultClusterParametersResponse_httpStatus = Lens.lens (\DescribeEngineDefaultClusterParametersResponse' {httpStatus} -> httpStatus) (\s@DescribeEngineDefaultClusterParametersResponse' {} a -> s {httpStatus = a} :: DescribeEngineDefaultClusterParametersResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeEngineDefaultClusterParametersResponse

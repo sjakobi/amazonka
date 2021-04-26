@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.RDS.Types.IAMAuthMode
   ( IAMAuthMode
       ( ..,
-        Disabled,
-        Required
+        IAMAuthModeDISABLED,
+        IAMAuthModeREQUIRED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IAMAuthMode = IAMAuthMode' (CI Text)
+newtype IAMAuthMode = IAMAuthMode'
+  { fromIAMAuthMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: IAMAuthMode
-pattern Disabled = IAMAuthMode' "DISABLED"
+pattern IAMAuthModeDISABLED :: IAMAuthMode
+pattern IAMAuthModeDISABLED = IAMAuthMode' "DISABLED"
 
-pattern Required :: IAMAuthMode
-pattern Required = IAMAuthMode' "REQUIRED"
+pattern IAMAuthModeREQUIRED :: IAMAuthMode
+pattern IAMAuthModeREQUIRED = IAMAuthMode' "REQUIRED"
 
 {-# COMPLETE
-  Disabled,
-  Required,
+  IAMAuthModeDISABLED,
+  IAMAuthModeREQUIRED,
   IAMAuthMode'
   #-}
 
-instance FromText IAMAuthMode where
-  parser = (IAMAuthMode' . mk) <$> takeText
+instance Prelude.FromText IAMAuthMode where
+  parser = IAMAuthMode' Prelude.<$> Prelude.takeText
 
-instance ToText IAMAuthMode where
-  toText (IAMAuthMode' ci) = original ci
+instance Prelude.ToText IAMAuthMode where
+  toText (IAMAuthMode' x) = x
 
-instance Hashable IAMAuthMode
+instance Prelude.Hashable IAMAuthMode
 
-instance NFData IAMAuthMode
+instance Prelude.NFData IAMAuthMode
 
-instance ToByteString IAMAuthMode
+instance Prelude.ToByteString IAMAuthMode
 
-instance ToQuery IAMAuthMode
+instance Prelude.ToQuery IAMAuthMode
 
-instance ToHeader IAMAuthMode
+instance Prelude.ToHeader IAMAuthMode
 
-instance FromXML IAMAuthMode where
-  parseXML = parseXMLText "IAMAuthMode"
+instance Prelude.FromXML IAMAuthMode where
+  parseXML = Prelude.parseXMLText "IAMAuthMode"

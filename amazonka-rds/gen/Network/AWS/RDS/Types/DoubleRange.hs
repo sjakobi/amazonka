@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,45 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DoubleRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A range of double values.
 --
---
---
--- /See:/ 'doubleRange' smart constructor.
+-- /See:/ 'newDoubleRange' smart constructor.
 data DoubleRange = DoubleRange'
-  { _drTo ::
-      !(Maybe Double),
-    _drFrom :: !(Maybe Double)
+  { -- | The maximum value in the range.
+    to :: Prelude.Maybe Prelude.Double,
+    -- | The minimum value in the range.
+    from :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DoubleRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DoubleRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drTo' - The maximum value in the range.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drFrom' - The minimum value in the range.
-doubleRange ::
+-- 'to', 'doubleRange_to' - The maximum value in the range.
+--
+-- 'from', 'doubleRange_from' - The minimum value in the range.
+newDoubleRange ::
   DoubleRange
-doubleRange =
-  DoubleRange' {_drTo = Nothing, _drFrom = Nothing}
+newDoubleRange =
+  DoubleRange'
+    { to = Prelude.Nothing,
+      from = Prelude.Nothing
+    }
 
 -- | The maximum value in the range.
-drTo :: Lens' DoubleRange (Maybe Double)
-drTo = lens _drTo (\s a -> s {_drTo = a})
+doubleRange_to :: Lens.Lens' DoubleRange (Prelude.Maybe Prelude.Double)
+doubleRange_to = Lens.lens (\DoubleRange' {to} -> to) (\s@DoubleRange' {} a -> s {to = a} :: DoubleRange)
 
 -- | The minimum value in the range.
-drFrom :: Lens' DoubleRange (Maybe Double)
-drFrom = lens _drFrom (\s a -> s {_drFrom = a})
+doubleRange_from :: Lens.Lens' DoubleRange (Prelude.Maybe Prelude.Double)
+doubleRange_from = Lens.lens (\DoubleRange' {from} -> from) (\s@DoubleRange' {} a -> s {from = a} :: DoubleRange)
 
-instance FromXML DoubleRange where
+instance Prelude.FromXML DoubleRange where
   parseXML x =
-    DoubleRange' <$> (x .@? "To") <*> (x .@? "From")
+    DoubleRange'
+      Prelude.<$> (x Prelude..@? "To")
+      Prelude.<*> (x Prelude..@? "From")
 
-instance Hashable DoubleRange
+instance Prelude.Hashable DoubleRange
 
-instance NFData DoubleRange
+instance Prelude.NFData DoubleRange

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types
   ( -- * Service Configuration
-    rds,
+    defaultService,
 
     -- * Errors
     _DBInstanceRoleAlreadyExistsFault,
@@ -19,7 +22,7 @@ module Network.AWS.RDS.Types
     _DBParameterGroupQuotaExceededFault,
     _InsufficientDBClusterCapacityFault,
     _InvalidVPCNetworkStateFault,
-    _ProvisionedIOPSNotAvailableInAZFault,
+    _ProvisionedIopsNotAvailableInAZFault,
     _DBClusterRoleQuotaExceededFault,
     _CertificateNotFoundFault,
     _DBClusterRoleAlreadyExistsFault,
@@ -40,7 +43,7 @@ module Network.AWS.RDS.Types
     _DBUpgradeDependencyFailureFault,
     _InvalidDBInstanceAutomatedBackupStateFault,
     _ResourceNotFoundFault,
-    _SNSTopicARNNotFoundFault,
+    _SNSTopicArnNotFoundFault,
     _InvalidRestoreFault,
     _InvalidEventSubscriptionStateFault,
     _DBClusterEndpointAlreadyExistsFault,
@@ -54,7 +57,7 @@ module Network.AWS.RDS.Types
     _InsufficientStorageClusterCapacityFault,
     _DBInstanceAutomatedBackupQuotaExceededFault,
     _StorageTypeNotSupportedFault,
-    _IAMRoleNotFoundFault,
+    _IamRoleNotFoundFault,
     _EventSubscriptionQuotaExceededFault,
     _DBClusterEndpointQuotaExceededFault,
     _InvalidGlobalClusterStateFault,
@@ -69,7 +72,7 @@ module Network.AWS.RDS.Types
     _DBSubnetQuotaExceededFault,
     _DBInstanceRoleNotFoundFault,
     _BackupPolicyNotFoundFault,
-    _IAMRoleMissingPermissionsFault,
+    _IamRoleMissingPermissionsFault,
     _DBProxyTargetAlreadyRegisteredFault,
     _AuthorizationAlreadyExistsFault,
     _InvalidDBParameterGroupStateFault,
@@ -172,1028 +175,376 @@ module Network.AWS.RDS.Types
 
     -- * AccountQuota
     AccountQuota (..),
-    accountQuota,
-    aqUsed,
-    aqAccountQuotaName,
-    aqMax,
+    newAccountQuota,
 
     -- * AvailabilityZone
     AvailabilityZone (..),
-    availabilityZone,
-    azName,
+    newAvailabilityZone,
 
     -- * AvailableProcessorFeature
     AvailableProcessorFeature (..),
-    availableProcessorFeature,
-    apfAllowedValues,
-    apfName,
-    apfDefaultValue,
+    newAvailableProcessorFeature,
 
     -- * Certificate
     Certificate (..),
-    certificate,
-    cCertificateIdentifier,
-    cValidFrom,
-    cCustomerOverride,
-    cCertificateARN,
-    cCertificateType,
-    cThumbprint,
-    cCustomerOverrideValidTill,
-    cValidTill,
+    newCertificate,
 
     -- * CharacterSet
     CharacterSet (..),
-    characterSet,
-    csCharacterSetName,
-    csCharacterSetDescription,
+    newCharacterSet,
 
     -- * CloudwatchLogsExportConfiguration
     CloudwatchLogsExportConfiguration (..),
-    cloudwatchLogsExportConfiguration,
-    clecEnableLogTypes,
-    clecDisableLogTypes,
+    newCloudwatchLogsExportConfiguration,
 
     -- * ClusterPendingModifiedValues
     ClusterPendingModifiedValues (..),
-    clusterPendingModifiedValues,
-    cpmvMasterUserPassword,
-    cpmvPendingCloudwatchLogsExports,
-    cpmvDBClusterIdentifier,
-    cpmvEngineVersion,
-    cpmvIAMDatabaseAuthenticationEnabled,
+    newClusterPendingModifiedValues,
 
     -- * ConnectionPoolConfiguration
     ConnectionPoolConfiguration (..),
-    connectionPoolConfiguration,
-    cpcSessionPinningFilters,
-    cpcMaxIdleConnectionsPercent,
-    cpcConnectionBorrowTimeout,
-    cpcInitQuery,
-    cpcMaxConnectionsPercent,
+    newConnectionPoolConfiguration,
 
     -- * ConnectionPoolConfigurationInfo
     ConnectionPoolConfigurationInfo (..),
-    connectionPoolConfigurationInfo,
-    cpciSessionPinningFilters,
-    cpciMaxIdleConnectionsPercent,
-    cpciConnectionBorrowTimeout,
-    cpciInitQuery,
-    cpciMaxConnectionsPercent,
+    newConnectionPoolConfigurationInfo,
 
     -- * CustomAvailabilityZone
     CustomAvailabilityZone (..),
-    customAvailabilityZone,
-    cazCustomAvailabilityZoneId,
-    cazCustomAvailabilityZoneName,
-    cazVPNDetails,
-    cazCustomAvailabilityZoneStatus,
+    newCustomAvailabilityZone,
 
     -- * DBCluster
     DBCluster (..),
-    dbCluster,
-    dcBackupRetentionPeriod,
-    dcDeletionProtection,
-    dcStorageEncrypted,
-    dcAssociatedRoles,
-    dcVPCSecurityGroups,
-    dcPreferredBackupWindow,
-    dcDBClusterMembers,
-    dcStatus,
-    dcBacktrackConsumedChangeRecords,
-    dcCrossAccountClone,
-    dcAvailabilityZones,
-    dcGlobalWriteForwardingStatus,
-    dcDBClusterOptionGroupMemberships,
-    dcCloneGroupId,
-    dcLatestRestorableTime,
-    dcDBClusterARN,
-    dcDomainMemberships,
-    dcActivityStreamKMSKeyId,
-    dcReaderEndpoint,
-    dcHTTPEndpointEnabled,
-    dcClusterCreateTime,
-    dcEarliestRestorableTime,
-    dcEngineMode,
-    dcActivityStreamStatus,
-    dcEnabledCloudwatchLogsExports,
-    dcHostedZoneId,
-    dcDBSubnetGroup,
-    dcReadReplicaIdentifiers,
-    dcMasterUsername,
-    dcMultiAZ,
-    dcKMSKeyId,
-    dcDBClusterIdentifier,
-    dcCapacity,
-    dcEngineVersion,
-    dcPreferredMaintenanceWindow,
-    dcCharacterSetName,
-    dcPort,
-    dcPercentProgress,
-    dcEngine,
-    dcPendingModifiedValues,
-    dcDBClusterResourceId,
-    dcCopyTagsToSnapshot,
-    dcCustomEndpoints,
-    dcEndpoint,
-    dcScalingConfigurationInfo,
-    dcEarliestBacktrackTime,
-    dcTagList,
-    dcAllocatedStorage,
-    dcBacktrackWindow,
-    dcIAMDatabaseAuthenticationEnabled,
-    dcGlobalWriteForwardingRequested,
-    dcDBClusterParameterGroup,
-    dcReplicationSourceIdentifier,
-    dcDatabaseName,
-    dcActivityStreamKinesisStreamName,
-    dcActivityStreamMode,
+    newDBCluster,
 
     -- * DBClusterBacktrack
     DBClusterBacktrack (..),
-    dbClusterBacktrack,
-    dcbStatus,
-    dcbBacktrackIdentifier,
-    dcbBacktrackTo,
-    dcbDBClusterIdentifier,
-    dcbBacktrackRequestCreationTime,
-    dcbBacktrackedFrom,
+    newDBClusterBacktrack,
 
     -- * DBClusterEndpoint
     DBClusterEndpoint (..),
-    dbClusterEndpoint,
-    dceDBClusterEndpointIdentifier,
-    dceStatus,
-    dceExcludedMembers,
-    dceEndpointType,
-    dceCustomEndpointType,
-    dceDBClusterEndpointARN,
-    dceDBClusterIdentifier,
-    dceDBClusterEndpointResourceIdentifier,
-    dceEndpoint,
-    dceStaticMembers,
+    newDBClusterEndpoint,
 
     -- * DBClusterMember
     DBClusterMember (..),
-    dbClusterMember,
-    dcmIsClusterWriter,
-    dcmDBInstanceIdentifier,
-    dcmPromotionTier,
-    dcmDBClusterParameterGroupStatus,
+    newDBClusterMember,
 
     -- * DBClusterOptionGroupStatus
     DBClusterOptionGroupStatus (..),
-    dbClusterOptionGroupStatus,
-    dcogsStatus,
-    dcogsDBClusterOptionGroupName,
+    newDBClusterOptionGroupStatus,
 
     -- * DBClusterParameterGroup
     DBClusterParameterGroup (..),
-    dbClusterParameterGroup,
-    dcpgDBClusterParameterGroupARN,
-    dcpgDBParameterGroupFamily,
-    dcpgDescription,
-    dcpgDBClusterParameterGroupName,
+    newDBClusterParameterGroup,
 
     -- * DBClusterParameterGroupNameMessage
     DBClusterParameterGroupNameMessage (..),
-    dbClusterParameterGroupNameMessage,
-    dcpgnmDBClusterParameterGroupName,
+    newDBClusterParameterGroupNameMessage,
 
     -- * DBClusterRole
     DBClusterRole (..),
-    dbClusterRole,
-    dcrStatus,
-    dcrRoleARN,
-    dcrFeatureName,
+    newDBClusterRole,
 
     -- * DBClusterSnapshot
     DBClusterSnapshot (..),
-    dbClusterSnapshot,
-    dcsStorageEncrypted,
-    dcsStatus,
-    dcsAvailabilityZones,
-    dcsClusterCreateTime,
-    dcsSnapshotCreateTime,
-    dcsEngineMode,
-    dcsMasterUsername,
-    dcsKMSKeyId,
-    dcsDBClusterIdentifier,
-    dcsEngineVersion,
-    dcsSnapshotType,
-    dcsLicenseModel,
-    dcsPort,
-    dcsPercentProgress,
-    dcsEngine,
-    dcsDBClusterSnapshotIdentifier,
-    dcsSourceDBClusterSnapshotARN,
-    dcsTagList,
-    dcsVPCId,
-    dcsAllocatedStorage,
-    dcsIAMDatabaseAuthenticationEnabled,
-    dcsDBClusterSnapshotARN,
+    newDBClusterSnapshot,
 
     -- * DBClusterSnapshotAttribute
     DBClusterSnapshotAttribute (..),
-    dbClusterSnapshotAttribute,
-    dcsaAttributeName,
-    dcsaAttributeValues,
+    newDBClusterSnapshotAttribute,
 
     -- * DBClusterSnapshotAttributesResult
     DBClusterSnapshotAttributesResult (..),
-    dbClusterSnapshotAttributesResult,
-    dcsarDBClusterSnapshotAttributes,
-    dcsarDBClusterSnapshotIdentifier,
+    newDBClusterSnapshotAttributesResult,
 
     -- * DBEngineVersion
     DBEngineVersion (..),
-    dbEngineVersion,
-    devStatus,
-    devDBEngineVersionDescription,
-    devDBEngineDescription,
-    devSupportedTimezones,
-    devSupportedEngineModes,
-    devSupportedNcharCharacterSets,
-    devValidUpgradeTarget,
-    devEngineVersion,
-    devSupportsGlobalDatabases,
-    devExportableLogTypes,
-    devSupportedCharacterSets,
-    devSupportsReadReplica,
-    devDBParameterGroupFamily,
-    devEngine,
-    devSupportedFeatureNames,
-    devSupportsLogExportsToCloudwatchLogs,
-    devDefaultCharacterSet,
-    devSupportsParallelQuery,
+    newDBEngineVersion,
 
     -- * DBInstance
     DBInstance (..),
-    dbInstance,
-    diBackupRetentionPeriod,
-    diDeletionProtection,
-    diStorageEncrypted,
-    diAssociatedRoles,
-    diVPCSecurityGroups,
-    diPreferredBackupWindow,
-    diCACertificateIdentifier,
-    diDBSecurityGroups,
-    diMaxAllocatedStorage,
-    diStatusInfos,
-    diStorageType,
-    diLatestRestorableTime,
-    diDomainMemberships,
-    diDBInstancePort,
-    diMonitoringInterval,
-    diDBParameterGroups,
-    diInstanceCreateTime,
-    diDBiResourceId,
-    diOptionGroupMemberships,
-    diListenerEndpoint,
-    diMonitoringRoleARN,
-    diEnabledCloudwatchLogsExports,
-    diDBSubnetGroup,
-    diNcharCharacterSetName,
-    diMasterUsername,
-    diMultiAZ,
-    diPubliclyAccessible,
-    diPerformanceInsightsKMSKeyId,
-    diKMSKeyId,
-    diAvailabilityZone,
-    diDBClusterIdentifier,
-    diCustomerOwnedIPEnabled,
-    diEngineVersion,
-    diPreferredMaintenanceWindow,
-    diCharacterSetName,
-    diPerformanceInsightsRetentionPeriod,
-    diLicenseModel,
-    diDBInstanceIdentifier,
-    diPromotionTier,
-    diProcessorFeatures,
-    diAWSBackupRecoveryPointARN,
-    diDBInstanceClass,
-    diDBName,
-    diEngine,
-    diReadReplicaDBClusterIdentifiers,
-    diPendingModifiedValues,
-    diTDECredentialARN,
-    diTimezone,
-    diDBInstanceStatus,
-    diDBInstanceAutomatedBackupsReplications,
-    diCopyTagsToSnapshot,
-    diReadReplicaSourceDBInstanceIdentifier,
-    diReplicaMode,
-    diEndpoint,
-    diTagList,
-    diPerformanceInsightsEnabled,
-    diAllocatedStorage,
-    diIAMDatabaseAuthenticationEnabled,
-    diSecondaryAvailabilityZone,
-    diIOPS,
-    diEnhancedMonitoringResourceARN,
-    diReadReplicaDBInstanceIdentifiers,
-    diAutoMinorVersionUpgrade,
-    diDBInstanceARN,
+    newDBInstance,
 
     -- * DBInstanceAutomatedBackup
     DBInstanceAutomatedBackup (..),
-    dbInstanceAutomatedBackup,
-    diabBackupRetentionPeriod,
-    diabStatus,
-    diabDBInstanceAutomatedBackupsARN,
-    diabStorageType,
-    diabEncrypted,
-    diabOptionGroupName,
-    diabInstanceCreateTime,
-    diabDBiResourceId,
-    diabMasterUsername,
-    diabKMSKeyId,
-    diabAvailabilityZone,
-    diabEngineVersion,
-    diabRestoreWindow,
-    diabLicenseModel,
-    diabDBInstanceIdentifier,
-    diabPort,
-    diabEngine,
-    diabTDECredentialARN,
-    diabTimezone,
-    diabDBInstanceAutomatedBackupsReplications,
-    diabRegion,
-    diabVPCId,
-    diabAllocatedStorage,
-    diabIAMDatabaseAuthenticationEnabled,
-    diabIOPS,
-    diabDBInstanceARN,
+    newDBInstanceAutomatedBackup,
 
     -- * DBInstanceAutomatedBackupsReplication
     DBInstanceAutomatedBackupsReplication (..),
-    dbInstanceAutomatedBackupsReplication,
-    diabrDBInstanceAutomatedBackupsARN,
+    newDBInstanceAutomatedBackupsReplication,
 
     -- * DBInstanceRole
     DBInstanceRole (..),
-    dbInstanceRole,
-    dirStatus,
-    dirRoleARN,
-    dirFeatureName,
+    newDBInstanceRole,
 
     -- * DBInstanceStatusInfo
     DBInstanceStatusInfo (..),
-    dbInstanceStatusInfo,
-    disiStatus,
-    disiMessage,
-    disiNormal,
-    disiStatusType,
+    newDBInstanceStatusInfo,
 
     -- * DBParameterGroup
     DBParameterGroup (..),
-    dbParameterGroup,
-    dpgDBParameterGroupARN,
-    dpgDBParameterGroupName,
-    dpgDBParameterGroupFamily,
-    dpgDescription,
+    newDBParameterGroup,
 
     -- * DBParameterGroupNameMessage
     DBParameterGroupNameMessage (..),
-    dbParameterGroupNameMessage,
-    dpgnmDBParameterGroupName,
+    newDBParameterGroupNameMessage,
 
     -- * DBParameterGroupStatus
     DBParameterGroupStatus (..),
-    dbParameterGroupStatus,
-    dpgsDBParameterGroupName,
-    dpgsParameterApplyStatus,
+    newDBParameterGroupStatus,
 
     -- * DBProxy
     DBProxy (..),
-    dbProxy,
-    dpDBProxyARN,
-    dpStatus,
-    dpCreatedDate,
-    dpRoleARN,
-    dpIdleClientTimeout,
-    dpVPCSubnetIds,
-    dpAuth,
-    dpEngineFamily,
-    dpVPCSecurityGroupIds,
-    dpDebugLogging,
-    dpUpdatedDate,
-    dpRequireTLS,
-    dpEndpoint,
-    dpDBProxyName,
+    newDBProxy,
 
     -- * DBProxyTarget
     DBProxyTarget (..),
-    dbProxyTarget,
-    dptTrackedClusterId,
-    dptRDSResourceId,
-    dptTargetARN,
-    dptPort,
-    dptEndpoint,
-    dptType,
-    dptTargetHealth,
+    newDBProxyTarget,
 
     -- * DBProxyTargetGroup
     DBProxyTargetGroup (..),
-    dbProxyTargetGroup,
-    dptgStatus,
-    dptgCreatedDate,
-    dptgIsDefault,
-    dptgTargetGroupName,
-    dptgTargetGroupARN,
-    dptgConnectionPoolConfig,
-    dptgUpdatedDate,
-    dptgDBProxyName,
+    newDBProxyTargetGroup,
 
     -- * DBSecurityGroup
     DBSecurityGroup (..),
-    dbSecurityGroup,
-    dbsgOwnerId,
-    dbsgDBSecurityGroupName,
-    dbsgIPRanges,
-    dbsgDBSecurityGroupDescription,
-    dbsgEC2SecurityGroups,
-    dbsgVPCId,
-    dbsgDBSecurityGroupARN,
+    newDBSecurityGroup,
 
     -- * DBSecurityGroupMembership
     DBSecurityGroupMembership (..),
-    dbSecurityGroupMembership,
-    dsgmStatus,
-    dsgmDBSecurityGroupName,
+    newDBSecurityGroupMembership,
 
     -- * DBSnapshot
     DBSnapshot (..),
-    dbSnapshot,
-    dsStatus,
-    dsStorageType,
-    dsDBSnapshotIdentifier,
-    dsEncrypted,
-    dsOptionGroupName,
-    dsInstanceCreateTime,
-    dsDBiResourceId,
-    dsSnapshotCreateTime,
-    dsMasterUsername,
-    dsKMSKeyId,
-    dsAvailabilityZone,
-    dsDBSnapshotARN,
-    dsEngineVersion,
-    dsSnapshotType,
-    dsSourceDBSnapshotIdentifier,
-    dsLicenseModel,
-    dsDBInstanceIdentifier,
-    dsProcessorFeatures,
-    dsPort,
-    dsPercentProgress,
-    dsEngine,
-    dsTDECredentialARN,
-    dsTimezone,
-    dsTagList,
-    dsVPCId,
-    dsAllocatedStorage,
-    dsSourceRegion,
-    dsIAMDatabaseAuthenticationEnabled,
-    dsIOPS,
+    newDBSnapshot,
 
     -- * DBSnapshotAttribute
     DBSnapshotAttribute (..),
-    dbSnapshotAttribute,
-    dsaAttributeName,
-    dsaAttributeValues,
+    newDBSnapshotAttribute,
 
     -- * DBSnapshotAttributesResult
     DBSnapshotAttributesResult (..),
-    dbSnapshotAttributesResult,
-    dsarDBSnapshotIdentifier,
-    dsarDBSnapshotAttributes,
+    newDBSnapshotAttributesResult,
 
     -- * DBSubnetGroup
     DBSubnetGroup (..),
-    dbSubnetGroup,
-    dsgSubnetGroupStatus,
-    dsgDBSubnetGroupName,
-    dsgDBSubnetGroupARN,
-    dsgDBSubnetGroupDescription,
-    dsgSubnets,
-    dsgVPCId,
+    newDBSubnetGroup,
 
     -- * DescribeDBLogFilesDetails
     DescribeDBLogFilesDetails (..),
-    describeDBLogFilesDetails,
-    ddlfdLastWritten,
-    ddlfdLogFileName,
-    ddlfdSize,
+    newDescribeDBLogFilesDetails,
 
     -- * DomainMembership
     DomainMembership (..),
-    domainMembership,
-    dmStatus,
-    dmDomain,
-    dmIAMRoleName,
-    dmFQDN,
+    newDomainMembership,
 
     -- * DoubleRange
     DoubleRange (..),
-    doubleRange,
-    drTo,
-    drFrom,
+    newDoubleRange,
 
     -- * EC2SecurityGroup
     EC2SecurityGroup (..),
-    ec2SecurityGroup,
-    esgStatus,
-    esgEC2SecurityGroupOwnerId,
-    esgEC2SecurityGroupId,
-    esgEC2SecurityGroupName,
+    newEC2SecurityGroup,
 
     -- * Endpoint
     Endpoint (..),
-    endpoint,
-    eAddress,
-    eHostedZoneId,
-    ePort,
+    newEndpoint,
 
     -- * EngineDefaults
     EngineDefaults (..),
-    engineDefaults,
-    edDBParameterGroupFamily,
-    edParameters,
-    edMarker,
+    newEngineDefaults,
 
     -- * Event
     Event (..),
-    event,
-    eMessage,
-    eEventCategories,
-    eDate,
-    eSourceIdentifier,
-    eSourceARN,
-    eSourceType,
+    newEvent,
 
     -- * EventCategoriesMap
     EventCategoriesMap (..),
-    eventCategoriesMap,
-    ecmEventCategories,
-    ecmSourceType,
+    newEventCategoriesMap,
 
     -- * EventSubscription
     EventSubscription (..),
-    eventSubscription,
-    esCustSubscriptionId,
-    esStatus,
-    esSourceIdsList,
-    esEventCategoriesList,
-    esEnabled,
-    esEventSubscriptionARN,
-    esSubscriptionCreationTime,
-    esCustomerAWSId,
-    esSourceType,
-    esSNSTopicARN,
+    newEventSubscription,
 
     -- * ExportTask
     ExportTask (..),
-    exportTask,
-    etTaskEndTime,
-    etIAMRoleARN,
-    etStatus,
-    etTotalExtractedDataInGB,
-    etWarningMessage,
-    etSnapshotTime,
-    etS3Bucket,
-    etExportOnly,
-    etKMSKeyId,
-    etFailureCause,
-    etPercentProgress,
-    etSourceARN,
-    etS3Prefix,
-    etTaskStartTime,
-    etExportTaskIdentifier,
+    newExportTask,
 
     -- * FailoverState
     FailoverState (..),
-    failoverState,
-    fsStatus,
-    fsToDBClusterARN,
-    fsFromDBClusterARN,
+    newFailoverState,
 
     -- * Filter
     Filter (..),
-    filter',
-    fName,
-    fValues,
+    newFilter,
 
     -- * GlobalCluster
     GlobalCluster (..),
-    globalCluster,
-    gcDeletionProtection,
-    gcStorageEncrypted,
-    gcStatus,
-    gcFailoverState,
-    gcEngineVersion,
-    gcGlobalClusterARN,
-    gcEngine,
-    gcGlobalClusterResourceId,
-    gcGlobalClusterMembers,
-    gcGlobalClusterIdentifier,
-    gcDatabaseName,
+    newGlobalCluster,
 
     -- * GlobalClusterMember
     GlobalClusterMember (..),
-    globalClusterMember,
-    gcmGlobalWriteForwardingStatus,
-    gcmDBClusterARN,
-    gcmReaders,
-    gcmIsWriter,
+    newGlobalClusterMember,
 
     -- * IPRange
     IPRange (..),
-    ipRange,
-    irStatus,
-    irCIdRIP,
+    newIPRange,
 
     -- * InstallationMedia
     InstallationMedia (..),
-    installationMedia,
-    imStatus,
-    imCustomAvailabilityZoneId,
-    imInstallationMediaId,
-    imEngineVersion,
-    imOSInstallationMediaPath,
-    imFailureCause,
-    imEngine,
-    imEngineInstallationMediaPath,
+    newInstallationMedia,
 
     -- * InstallationMediaFailureCause
     InstallationMediaFailureCause (..),
-    installationMediaFailureCause,
-    imfcMessage,
+    newInstallationMediaFailureCause,
 
     -- * MinimumEngineVersionPerAllowedValue
     MinimumEngineVersionPerAllowedValue (..),
-    minimumEngineVersionPerAllowedValue,
-    mevpavAllowedValue,
-    mevpavMinimumEngineVersion,
+    newMinimumEngineVersionPerAllowedValue,
 
     -- * Option
     Option (..),
-    option,
-    oOptionName,
-    oOptionVersion,
-    oDBSecurityGroupMemberships,
-    oOptionDescription,
-    oPort,
-    oOptionSettings,
-    oPersistent,
-    oVPCSecurityGroupMemberships,
-    oPermanent,
+    newOption,
 
     -- * OptionConfiguration
     OptionConfiguration (..),
-    optionConfiguration,
-    ocOptionVersion,
-    ocDBSecurityGroupMemberships,
-    ocPort,
-    ocOptionSettings,
-    ocVPCSecurityGroupMemberships,
-    ocOptionName,
+    newOptionConfiguration,
 
     -- * OptionGroup
     OptionGroup (..),
-    optionGroup,
-    ogEngineName,
-    ogOptionGroupARN,
-    ogAllowsVPCAndNonVPCInstanceMemberships,
-    ogOptionGroupName,
-    ogOptions,
-    ogOptionGroupDescription,
-    ogMajorEngineVersion,
-    ogVPCId,
+    newOptionGroup,
 
     -- * OptionGroupMembership
     OptionGroupMembership (..),
-    optionGroupMembership,
-    ogmStatus,
-    ogmOptionGroupName,
+    newOptionGroupMembership,
 
     -- * OptionGroupOption
     OptionGroupOption (..),
-    optionGroupOption,
-    ogoOptionsConflictsWith,
-    ogoVPCOnly,
-    ogoEngineName,
-    ogoOptionGroupOptionVersions,
-    ogoDefaultPort,
-    ogoRequiresAutoMinorEngineVersionUpgrade,
-    ogoOptionGroupOptionSettings,
-    ogoMajorEngineVersion,
-    ogoName,
-    ogoMinimumRequiredMinorEngineVersion,
-    ogoOptionsDependedOn,
-    ogoDescription,
-    ogoPortRequired,
-    ogoPersistent,
-    ogoPermanent,
-    ogoSupportsOptionVersionDowngrade,
+    newOptionGroupOption,
 
     -- * OptionGroupOptionSetting
     OptionGroupOptionSetting (..),
-    optionGroupOptionSetting,
-    ogosMinimumEngineVersionPerAllowedValue,
-    ogosAllowedValues,
-    ogosApplyType,
-    ogosSettingName,
-    ogosIsRequired,
-    ogosSettingDescription,
-    ogosIsModifiable,
-    ogosDefaultValue,
+    newOptionGroupOptionSetting,
 
     -- * OptionSetting
     OptionSetting (..),
-    optionSetting,
-    osIsCollection,
-    osAllowedValues,
-    osName,
-    osApplyType,
-    osDescription,
-    osValue,
-    osDataType,
-    osIsModifiable,
-    osDefaultValue,
+    newOptionSetting,
 
     -- * OptionVersion
     OptionVersion (..),
-    optionVersion,
-    ovIsDefault,
-    ovVersion,
+    newOptionVersion,
 
     -- * OrderableDBInstanceOption
     OrderableDBInstanceOption (..),
-    orderableDBInstanceOption,
-    odioMinIOPSPerDBInstance,
-    odioAvailabilityZones,
-    odioSupportsKerberosAuthentication,
-    odioSupportsIOPS,
-    odioStorageType,
-    odioSupportsEnhancedMonitoring,
-    odioAvailableProcessorFeatures,
-    odioMaxStorageSize,
-    odioSupportedEngineModes,
-    odioMaxIOPSPerGib,
-    odioSupportsStorageEncryption,
-    odioMultiAZCapable,
-    odioSupportsStorageAutoscaling,
-    odioEngineVersion,
-    odioMinIOPSPerGib,
-    odioSupportsIAMDatabaseAuthentication,
-    odioLicenseModel,
-    odioSupportsGlobalDatabases,
-    odioSupportsPerformanceInsights,
-    odioMaxIOPSPerDBInstance,
-    odioDBInstanceClass,
-    odioOutpostCapable,
-    odioEngine,
-    odioMinStorageSize,
-    odioAvailabilityZoneGroup,
-    odioVPC,
-    odioReadReplicaCapable,
+    newOrderableDBInstanceOption,
 
     -- * Outpost
     Outpost (..),
-    outpost,
-    oARN,
+    newOutpost,
 
     -- * Parameter
     Parameter (..),
-    parameter,
-    pAllowedValues,
-    pSupportedEngineModes,
-    pSource,
-    pParameterValue,
-    pApplyType,
-    pParameterName,
-    pDescription,
-    pApplyMethod,
-    pDataType,
-    pIsModifiable,
-    pMinimumEngineVersion,
+    newParameter,
 
     -- * PendingCloudwatchLogsExports
     PendingCloudwatchLogsExports (..),
-    pendingCloudwatchLogsExports,
-    pcleLogTypesToDisable,
-    pcleLogTypesToEnable,
+    newPendingCloudwatchLogsExports,
 
     -- * PendingMaintenanceAction
     PendingMaintenanceAction (..),
-    pendingMaintenanceAction,
-    pmaForcedApplyDate,
-    pmaOptInStatus,
-    pmaAutoAppliedAfterDate,
-    pmaCurrentApplyDate,
-    pmaAction,
-    pmaDescription,
+    newPendingMaintenanceAction,
 
     -- * PendingModifiedValues
     PendingModifiedValues (..),
-    pendingModifiedValues,
-    pmvBackupRetentionPeriod,
-    pmvCACertificateIdentifier,
-    pmvStorageType,
-    pmvDBSubnetGroupName,
-    pmvMasterUserPassword,
-    pmvMultiAZ,
-    pmvPendingCloudwatchLogsExports,
-    pmvEngineVersion,
-    pmvLicenseModel,
-    pmvDBInstanceIdentifier,
-    pmvProcessorFeatures,
-    pmvPort,
-    pmvDBInstanceClass,
-    pmvAllocatedStorage,
-    pmvIAMDatabaseAuthenticationEnabled,
-    pmvIOPS,
+    newPendingModifiedValues,
 
     -- * ProcessorFeature
     ProcessorFeature (..),
-    processorFeature,
-    pfName,
-    pfValue,
+    newProcessorFeature,
 
     -- * Range
     Range (..),
-    range,
-    rTo,
-    rFrom,
-    rStep,
+    newRange,
 
     -- * RecurringCharge
     RecurringCharge (..),
-    recurringCharge,
-    rcRecurringChargeFrequency,
-    rcRecurringChargeAmount,
+    newRecurringCharge,
 
     -- * ReservedDBInstance
     ReservedDBInstance (..),
-    reservedDBInstance,
-    rdiDuration,
-    rdiReservedDBInstanceARN,
-    rdiStartTime,
-    rdiCurrencyCode,
-    rdiMultiAZ,
-    rdiState,
-    rdiDBInstanceCount,
-    rdiDBInstanceClass,
-    rdiReservedDBInstanceId,
-    rdiFixedPrice,
-    rdiLeaseId,
-    rdiUsagePrice,
-    rdiOfferingType,
-    rdiRecurringCharges,
-    rdiProductDescription,
-    rdiReservedDBInstancesOfferingId,
+    newReservedDBInstance,
 
     -- * ReservedDBInstancesOffering
     ReservedDBInstancesOffering (..),
-    reservedDBInstancesOffering,
-    rdioDuration,
-    rdioCurrencyCode,
-    rdioMultiAZ,
-    rdioDBInstanceClass,
-    rdioFixedPrice,
-    rdioUsagePrice,
-    rdioOfferingType,
-    rdioRecurringCharges,
-    rdioProductDescription,
-    rdioReservedDBInstancesOfferingId,
+    newReservedDBInstancesOffering,
 
     -- * ResourcePendingMaintenanceActions
     ResourcePendingMaintenanceActions (..),
-    resourcePendingMaintenanceActions,
-    rpmaPendingMaintenanceActionDetails,
-    rpmaResourceIdentifier,
+    newResourcePendingMaintenanceActions,
 
     -- * RestoreWindow
     RestoreWindow (..),
-    restoreWindow,
-    rwEarliestTime,
-    rwLatestTime,
+    newRestoreWindow,
 
     -- * ScalingConfiguration
     ScalingConfiguration (..),
-    scalingConfiguration,
-    scMaxCapacity,
-    scAutoPause,
-    scTimeoutAction,
-    scSecondsUntilAutoPause,
-    scMinCapacity,
+    newScalingConfiguration,
 
     -- * ScalingConfigurationInfo
     ScalingConfigurationInfo (..),
-    scalingConfigurationInfo,
-    sciMaxCapacity,
-    sciAutoPause,
-    sciTimeoutAction,
-    sciSecondsUntilAutoPause,
-    sciMinCapacity,
+    newScalingConfigurationInfo,
 
     -- * SourceRegion
     SourceRegion (..),
-    sourceRegion,
-    srRegionName,
-    srStatus,
-    srSupportsDBInstanceAutomatedBackupsReplication,
-    srEndpoint,
+    newSourceRegion,
 
     -- * Subnet
     Subnet (..),
-    subnet,
-    sSubnetStatus,
-    sSubnetIdentifier,
-    sSubnetAvailabilityZone,
-    sSubnetOutpost,
+    newSubnet,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TargetHealth
     TargetHealth (..),
-    targetHealth,
-    thState,
-    thReason,
-    thDescription,
+    newTargetHealth,
 
     -- * Timezone
     Timezone (..),
-    timezone,
-    tTimezoneName,
+    newTimezone,
 
     -- * UpgradeTarget
     UpgradeTarget (..),
-    upgradeTarget,
-    utAutoUpgrade,
-    utSupportedEngineModes,
-    utEngineVersion,
-    utSupportsGlobalDatabases,
-    utEngine,
-    utDescription,
-    utIsMajorVersionUpgrade,
-    utSupportsParallelQuery,
+    newUpgradeTarget,
 
     -- * UserAuthConfig
     UserAuthConfig (..),
-    userAuthConfig,
-    uacSecretARN,
-    uacIAMAuth,
-    uacAuthScheme,
-    uacUserName,
-    uacDescription,
+    newUserAuthConfig,
 
     -- * UserAuthConfigInfo
     UserAuthConfigInfo (..),
-    userAuthConfigInfo,
-    uaciSecretARN,
-    uaciIAMAuth,
-    uaciAuthScheme,
-    uaciUserName,
-    uaciDescription,
-
-    -- * VPCSecurityGroupMembership
-    VPCSecurityGroupMembership (..),
-    vpcSecurityGroupMembership,
-    vsgmStatus,
-    vsgmVPCSecurityGroupId,
-
-    -- * VPNDetails
-    VPNDetails (..),
-    vpnDetails,
-    vdVPNTunnelOriginatorIP,
-    vdVPNId,
-    vdVPNName,
-    vdVPNState,
-    vdVPNGatewayIP,
-    vdVPNPSK,
+    newUserAuthConfigInfo,
 
     -- * ValidDBInstanceModificationsMessage
     ValidDBInstanceModificationsMessage (..),
-    validDBInstanceModificationsMessage,
-    vdimmValidProcessorFeatures,
-    vdimmStorage,
+    newValidDBInstanceModificationsMessage,
 
     -- * ValidStorageOptions
     ValidStorageOptions (..),
-    validStorageOptions,
-    vsoStorageType,
-    vsoProvisionedIOPS,
-    vsoSupportsStorageAutoscaling,
-    vsoStorageSize,
-    vsoIOPSToStorageRatio,
+    newValidStorageOptions,
+
+    -- * VpcSecurityGroupMembership
+    VpcSecurityGroupMembership (..),
+    newVpcSecurityGroupMembership,
+
+    -- * VpnDetails
+    VpnDetails (..),
+    newVpnDetails,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.AccountQuota
 import Network.AWS.RDS.Types.ActivityStreamMode
 import Network.AWS.RDS.Types.ActivityStreamStatus
@@ -1295,849 +646,1046 @@ import Network.AWS.RDS.Types.Timezone
 import Network.AWS.RDS.Types.UpgradeTarget
 import Network.AWS.RDS.Types.UserAuthConfig
 import Network.AWS.RDS.Types.UserAuthConfigInfo
-import Network.AWS.RDS.Types.VPCSecurityGroupMembership
-import Network.AWS.RDS.Types.VPNDetails
 import Network.AWS.RDS.Types.ValidDBInstanceModificationsMessage
 import Network.AWS.RDS.Types.ValidStorageOptions
+import Network.AWS.RDS.Types.VpcSecurityGroupMembership
+import Network.AWS.RDS.Types.VpnDetails
 import Network.AWS.RDS.Types.WriteForwardingStatus
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2014-10-31@ of the Amazon Relational Database Service SDK configuration.
-rds :: Service
-rds =
-  Service
-    { _svcAbbrev = "RDS",
-      _svcSigner = v4,
-      _svcPrefix = "rds",
-      _svcVersion = "2014-10-31",
-      _svcEndpoint = defaultEndpoint rds,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseXMLError "RDS",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "RDS",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "rds",
+      Prelude._svcVersion = "2014-10-31",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseXMLError "RDS",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The specified @RoleArn@ or @FeatureName@ value is already associated with the DB instance.
-_DBInstanceRoleAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified @RoleArn@ or @FeatureName@ value is already associated
+-- with the DB instance.
+_DBInstanceRoleAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBInstanceRoleAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBInstanceRoleAlreadyExists"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | User already has a reservation with the given identifier.
-_ReservedDBInstanceAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ReservedDBInstanceAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReservedDBInstanceAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "ReservedDBInstanceAlreadyExists"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The request would result in the user exceeding the allowed number of DB parameter groups.
-_DBParameterGroupQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request would result in the user exceeding the allowed number of DB
+-- parameter groups.
+_DBParameterGroupQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBParameterGroupQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBParameterGroupQuotaExceeded"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The DB cluster doesn't have enough capacity for the current operation.
-_InsufficientDBClusterCapacityFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DB cluster doesn\'t have enough capacity for the current operation.
+_InsufficientDBClusterCapacityFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientDBClusterCapacityFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientDBClusterCapacityFault"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
--- | The DB subnet group doesn't cover all Availability Zones after it's created because of users' change.
-_InvalidVPCNetworkStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DB subnet group doesn\'t cover all Availability Zones after it\'s
+-- created because of users\' change.
+_InvalidVPCNetworkStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidVPCNetworkStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidVPCNetworkStateFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Provisioned IOPS not available in the specified Availability Zone.
-_ProvisionedIOPSNotAvailableInAZFault :: AsError a => Getting (First ServiceError) a ServiceError
-_ProvisionedIOPSNotAvailableInAZFault =
-  _MatchServiceError
-    rds
+_ProvisionedIopsNotAvailableInAZFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_ProvisionedIopsNotAvailableInAZFault =
+  Prelude._MatchServiceError
+    defaultService
     "ProvisionedIopsNotAvailableInAZFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | You have exceeded the maximum number of IAM roles that can be associated with the specified DB cluster.
-_DBClusterRoleQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have exceeded the maximum number of IAM roles that can be associated
+-- with the specified DB cluster.
+_DBClusterRoleQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterRoleQuotaExceededFault =
-  _MatchServiceError rds "DBClusterRoleQuotaExceeded"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBClusterRoleQuotaExceeded"
+    Prelude.. Prelude.hasStatus 400
 
--- | @CertificateIdentifier@ doesn't refer to an existing certificate.
-_CertificateNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @CertificateIdentifier@ doesn\'t refer to an existing certificate.
+_CertificateNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CertificateNotFoundFault =
-  _MatchServiceError rds "CertificateNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "CertificateNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | The specified IAM role Amazon Resource Name (ARN) is already associated with the specified DB cluster.
-_DBClusterRoleAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified IAM role Amazon Resource Name (ARN) is already associated
+-- with the specified DB cluster.
+_DBClusterRoleAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterRoleAlreadyExistsFault =
-  _MatchServiceError rds "DBClusterRoleAlreadyExists"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBClusterRoleAlreadyExists"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified installation medium has already been imported.
-_InstallationMediaAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InstallationMediaAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InstallationMediaAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InstallationMediaAlreadyExists"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | A DB parameter group with the same name exists.
-_DBParameterGroupAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBParameterGroupAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBParameterGroupAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBParameterGroupAlreadyExists"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified DB instance class isn't available in the specified Availability Zone.
-_InsufficientDBInstanceCapacityFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified DB instance class isn\'t available in the specified
+-- Availability Zone.
+_InsufficientDBInstanceCapacityFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientDBInstanceCapacityFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientDBInstanceCapacity"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The supplied subscription name already exists.
-_SubscriptionAlreadyExistFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SubscriptionAlreadyExistFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubscriptionAlreadyExistFault =
-  _MatchServiceError rds "SubscriptionAlreadyExist"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "SubscriptionAlreadyExist"
+    Prelude.. Prelude.hasStatus 400
 
--- | You can't associate any more AWS Identity and Access Management (IAM) roles with the DB instance because the quota has been reached.
-_DBInstanceRoleQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t associate any more AWS Identity and Access Management (IAM)
+-- roles with the DB instance because the quota has been reached.
+_DBInstanceRoleQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBInstanceRoleQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBInstanceRoleQuotaExceeded"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Request would exceed the user's DB Instance quota.
-_ReservedDBInstanceQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Request would exceed the user\'s DB Instance quota.
+_ReservedDBInstanceQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReservedDBInstanceQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "ReservedDBInstanceQuotaExceeded"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Specified offering does not exist.
-_ReservedDBInstancesOfferingNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ReservedDBInstancesOfferingNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReservedDBInstancesOfferingNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "ReservedDBInstancesOfferingNotFound"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | @DBClusterSnapshotIdentifier@ doesn't refer to an existing DB cluster snapshot.
-_DBClusterSnapshotNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBClusterSnapshotIdentifier@ doesn\'t refer to an existing DB cluster
+-- snapshot.
+_DBClusterSnapshotNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterSnapshotNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterSnapshotNotFoundFault"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | No automated backup for this DB instance was found.
-_DBInstanceAutomatedBackupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBInstanceAutomatedBackupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBInstanceAutomatedBackupNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBInstanceAutomatedBackupNotFound"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | You do not have permission to publish to the SNS topic ARN.
-_SNSNoAuthorizationFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SNSNoAuthorizationFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SNSNoAuthorizationFault =
-  _MatchServiceError rds "SNSNoAuthorization"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "SNSNoAuthorization"
+    Prelude.. Prelude.hasStatus 400
 
--- | The DB subnet group cannot be deleted because it's in use.
-_InvalidDBSubnetGroupStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DB subnet group cannot be deleted because it\'s in use.
+_InvalidDBSubnetGroupStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBSubnetGroupStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDBSubnetGroupStateFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | @DBSubnetGroupName@ is already used by an existing DB subnet group.
-_DBSubnetGroupAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBSubnetGroupAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSubnetGroupAlreadyExistsFault =
-  _MatchServiceError rds "DBSubnetGroupAlreadyExists"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBSubnetGroupAlreadyExists"
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified custom endpoint doesn't exist.
-_DBClusterEndpointNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified custom endpoint doesn\'t exist.
+_DBClusterEndpointNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterEndpointNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterEndpointNotFoundFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | @DBSnapshotIdentifier@ is already used by an existing snapshot.
-_DBSnapshotAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBSnapshotAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSnapshotAlreadyExistsFault =
-  _MatchServiceError rds "DBSnapshotAlreadyExists"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBSnapshotAlreadyExists"
+    Prelude.. Prelude.hasStatus 400
 
--- | The DB upgrade failed because a resource the DB depends on can't be modified.
-_DBUpgradeDependencyFailureFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DB upgrade failed because a resource the DB depends on can\'t be
+-- modified.
+_DBUpgradeDependencyFailureFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBUpgradeDependencyFailureFault =
-  _MatchServiceError rds "DBUpgradeDependencyFailure"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBUpgradeDependencyFailure"
+    Prelude.. Prelude.hasStatus 400
 
--- | The automated backup is in an invalid state. For example, this automated backup is associated with an active instance.
-_InvalidDBInstanceAutomatedBackupStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The automated backup is in an invalid state. For example, this automated
+-- backup is associated with an active instance.
+_InvalidDBInstanceAutomatedBackupStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBInstanceAutomatedBackupStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDBInstanceAutomatedBackupState"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified resource ID was not found.
-_ResourceNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundFault =
-  _MatchServiceError rds "ResourceNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
 -- | The SNS topic ARN does not exist.
-_SNSTopicARNNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
-_SNSTopicARNNotFoundFault =
-  _MatchServiceError rds "SNSTopicArnNotFound"
-    . hasStatus 404
+_SNSTopicArnNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_SNSTopicArnNotFoundFault =
+  Prelude._MatchServiceError
+    defaultService
+    "SNSTopicArnNotFound"
+    Prelude.. Prelude.hasStatus 404
 
 -- | Cannot restore from VPC backup to non-VPC DB instance.
-_InvalidRestoreFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRestoreFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRestoreFault =
-  _MatchServiceError rds "InvalidRestoreFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidRestoreFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | This error can occur if someone else is modifying a subscription. You should retry the action.
-_InvalidEventSubscriptionStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | This error can occur if someone else is modifying a subscription. You
+-- should retry the action.
+_InvalidEventSubscriptionStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidEventSubscriptionStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidEventSubscriptionState"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified custom endpoint can't be created because it already exists.
-_DBClusterEndpointAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified custom endpoint can\'t be created because it already
+-- exists.
+_DBClusterEndpointAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterEndpointAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterEndpointAlreadyExistsFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The DB instance isn't in a valid state.
-_InvalidDBInstanceStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DB instance isn\'t in a valid state.
+_InvalidDBInstanceStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBInstanceStateFault =
-  _MatchServiceError rds "InvalidDBInstanceState"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidDBInstanceState"
+    Prelude.. Prelude.hasStatus 400
 
--- | @DBClusterParameterGroupName@ doesn't refer to an existing DB cluster parameter group.
-_DBClusterParameterGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBClusterParameterGroupName@ doesn\'t refer to an existing DB cluster
+-- parameter group.
+_DBClusterParameterGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterParameterGroupNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterParameterGroupNotFound"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | An error occurred accessing an AWS KMS key.
-_KMSKeyNotAccessibleFault :: AsError a => Getting (First ServiceError) a ServiceError
+_KMSKeyNotAccessibleFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSKeyNotAccessibleFault =
-  _MatchServiceError rds "KMSKeyNotAccessibleFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "KMSKeyNotAccessibleFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified proxy name doesn't correspond to a proxy owned by your AWS account in the specified AWS Region.
-_DBProxyNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified proxy name doesn\'t correspond to a proxy owned by your
+-- AWS account in the specified AWS Region.
+_DBProxyNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBProxyNotFoundFault =
-  _MatchServiceError rds "DBProxyNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBProxyNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | The requested operation can't be performed on the endpoint while the endpoint is in this state.
-_InvalidDBClusterEndpointStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested operation can\'t be performed on the endpoint while the
+-- endpoint is in this state.
+_InvalidDBClusterEndpointStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBClusterEndpointStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDBClusterEndpointStateFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The request would result in the user exceeding the allowed number of DB snapshots.
-_SnapshotQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request would result in the user exceeding the allowed number of DB
+-- snapshots.
+_SnapshotQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SnapshotQuotaExceededFault =
-  _MatchServiceError rds "SnapshotQuotaExceeded"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "SnapshotQuotaExceeded"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The export is invalid for exporting to an Amazon S3 bucket.
-_InvalidExportOnlyFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidExportOnlyFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidExportOnlyFault =
-  _MatchServiceError rds "InvalidExportOnly"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidExportOnly"
+    Prelude.. Prelude.hasStatus 400
 
--- | There is insufficient storage available for the current action. You might be able to resolve this error by updating your subnet group to use different Availability Zones that have more storage available.
-_InsufficientStorageClusterCapacityFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | There is insufficient storage available for the current action. You
+-- might be able to resolve this error by updating your subnet group to use
+-- different Availability Zones that have more storage available.
+_InsufficientStorageClusterCapacityFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientStorageClusterCapacityFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientStorageClusterCapacity"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The quota for retained automated backups was exceeded. This prevents you from retaining any additional automated backups. The retained automated backups quota is the same as your DB Instance quota.
-_DBInstanceAutomatedBackupQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The quota for retained automated backups was exceeded. This prevents you
+-- from retaining any additional automated backups. The retained automated
+-- backups quota is the same as your DB Instance quota.
+_DBInstanceAutomatedBackupQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBInstanceAutomatedBackupQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBInstanceAutomatedBackupQuotaExceeded"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Storage of the @StorageType@ specified can't be associated with the DB instance.
-_StorageTypeNotSupportedFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Storage of the @StorageType@ specified can\'t be associated with the DB
+-- instance.
+_StorageTypeNotSupportedFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StorageTypeNotSupportedFault =
-  _MatchServiceError rds "StorageTypeNotSupported"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "StorageTypeNotSupported"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The IAM role is missing for exporting to an Amazon S3 bucket.
-_IAMRoleNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
-_IAMRoleNotFoundFault =
-  _MatchServiceError rds "IamRoleNotFound"
-    . hasStatus 404
+_IamRoleNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_IamRoleNotFoundFault =
+  Prelude._MatchServiceError
+    defaultService
+    "IamRoleNotFound"
+    Prelude.. Prelude.hasStatus 404
 
 -- | You have reached the maximum number of event subscriptions.
-_EventSubscriptionQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_EventSubscriptionQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EventSubscriptionQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "EventSubscriptionQuotaExceeded"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The cluster already has the maximum number of custom endpoints.
-_DBClusterEndpointQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBClusterEndpointQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterEndpointQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterEndpointQuotaExceededFault"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
--- | The global cluster is in an invalid state and can't perform the requested operation.
-_InvalidGlobalClusterStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The global cluster is in an invalid state and can\'t perform the
+-- requested operation.
+_InvalidGlobalClusterStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidGlobalClusterStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidGlobalClusterStateFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Your AWS account already has the maximum number of proxies in the specified AWS Region.
-_DBProxyQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Your AWS account already has the maximum number of proxies in the
+-- specified AWS Region.
+_DBProxyQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBProxyQuotaExceededFault =
-  _MatchServiceError rds "DBProxyQuotaExceededFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBProxyQuotaExceededFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | The DBSubnetGroup shouldn't be specified while creating read replicas that lie in the same region as the source instance.
-_DBSubnetGroupNotAllowedFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DBSubnetGroup shouldn\'t be specified while creating read replicas
+-- that lie in the same region as the source instance.
+_DBSubnetGroupNotAllowedFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSubnetGroupNotAllowedFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBSubnetGroupNotAllowedFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | You can't start an export task that's already running.
-_ExportTaskAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t start an export task that\'s already running.
+_ExportTaskAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExportTaskAlreadyExistsFault =
-  _MatchServiceError rds "ExportTaskAlreadyExists"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "ExportTaskAlreadyExists"
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified target group isn't available for a proxy owned by your AWS account in the specified AWS Region.
-_DBProxyTargetGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified target group isn\'t available for a proxy owned by your
+-- AWS account in the specified AWS Region.
+_DBProxyTargetGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBProxyTargetGroupNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBProxyTargetGroupNotFoundFault"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The @GlobalClusterIdentifier@ already exists. Choose a new global database identifier (unique name) to create a new global database cluster.
-_GlobalClusterAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The @GlobalClusterIdentifier@ already exists. Choose a new global
+-- database identifier (unique name) to create a new global database
+-- cluster.
+_GlobalClusterAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _GlobalClusterAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "GlobalClusterAlreadyExistsFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified RDS DB instance or Aurora DB cluster isn't available for a proxy owned by your AWS account in the specified AWS Region.
-_DBProxyTargetNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified RDS DB instance or Aurora DB cluster isn\'t available for
+-- a proxy owned by your AWS account in the specified AWS Region.
+_DBProxyTargetNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBProxyTargetNotFoundFault =
-  _MatchServiceError rds "DBProxyTargetNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBProxyTargetNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | You have exceeded the maximum number of accounts that you can share a manual DB snapshot with.
-_SharedSnapshotQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have exceeded the maximum number of accounts that you can share a
+-- manual DB snapshot with.
+_SharedSnapshotQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SharedSnapshotQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "SharedSnapshotQuotaExceeded"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified reserved DB Instance not found.
-_ReservedDBInstanceNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ReservedDBInstanceNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReservedDBInstanceNotFoundFault =
-  _MatchServiceError rds "ReservedDBInstanceNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "ReservedDBInstanceNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | The request would result in the user exceeding the allowed number of subnets in a DB subnet groups.
-_DBSubnetQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request would result in the user exceeding the allowed number of
+-- subnets in a DB subnet groups.
+_DBSubnetQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSubnetQuotaExceededFault =
-  _MatchServiceError rds "DBSubnetQuotaExceededFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBSubnetQuotaExceededFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified @RoleArn@ value doesn't match the specified feature for the DB instance.
-_DBInstanceRoleNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified @RoleArn@ value doesn\'t match the specified feature for
+-- the DB instance.
+_DBInstanceRoleNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBInstanceRoleNotFoundFault =
-  _MatchServiceError rds "DBInstanceRoleNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBInstanceRoleNotFound"
+    Prelude.. Prelude.hasStatus 404
 
 -- | Prism for BackupPolicyNotFoundFault' errors.
-_BackupPolicyNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_BackupPolicyNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BackupPolicyNotFoundFault =
-  _MatchServiceError rds "BackupPolicyNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "BackupPolicyNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | The IAM role requires additional permissions to export to an Amazon S3 bucket.
-_IAMRoleMissingPermissionsFault :: AsError a => Getting (First ServiceError) a ServiceError
-_IAMRoleMissingPermissionsFault =
-  _MatchServiceError rds "IamRoleMissingPermissions"
-    . hasStatus 400
+-- | The IAM role requires additional permissions to export to an Amazon S3
+-- bucket.
+_IamRoleMissingPermissionsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_IamRoleMissingPermissionsFault =
+  Prelude._MatchServiceError
+    defaultService
+    "IamRoleMissingPermissions"
+    Prelude.. Prelude.hasStatus 400
 
--- | The proxy is already associated with the specified RDS DB instance or Aurora DB cluster.
-_DBProxyTargetAlreadyRegisteredFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The proxy is already associated with the specified RDS DB instance or
+-- Aurora DB cluster.
+_DBProxyTargetAlreadyRegisteredFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBProxyTargetAlreadyRegisteredFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBProxyTargetAlreadyRegisteredFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified CIDR IP range or Amazon EC2 security group is already authorized for the specified DB security group.
-_AuthorizationAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified CIDR IP range or Amazon EC2 security group is already
+-- authorized for the specified DB security group.
+_AuthorizationAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AuthorizationAlreadyExistsFault =
-  _MatchServiceError rds "AuthorizationAlreadyExists"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "AuthorizationAlreadyExists"
+    Prelude.. Prelude.hasStatus 400
 
--- | The DB parameter group is in use or is in an invalid state. If you are attempting to delete the parameter group, you can't delete it when the parameter group is in this state.
-_InvalidDBParameterGroupStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DB parameter group is in use or is in an invalid state. If you are
+-- attempting to delete the parameter group, you can\'t delete it when the
+-- parameter group is in this state.
+_InvalidDBParameterGroupStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBParameterGroupStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDBParameterGroupState"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | SNS has responded that there is a problem with the SND topic specified.
-_SNSInvalidTopicFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SNSInvalidTopicFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SNSInvalidTopicFault =
-  _MatchServiceError rds "SNSInvalidTopic"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "SNSInvalidTopic"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The requested source could not be found.
-_SourceNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SourceNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SourceNotFoundFault =
-  _MatchServiceError rds "SourceNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "SourceNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | @SourceDBInstanceIdentifier@ refers to a DB instance with @BackupRetentionPeriod@ equal to 0.
-_PointInTimeRestoreNotEnabledFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @SourceDBInstanceIdentifier@ refers to a DB instance with
+-- @BackupRetentionPeriod@ equal to 0.
+_PointInTimeRestoreNotEnabledFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PointInTimeRestoreNotEnabledFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "PointInTimeRestoreNotEnabled"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The supplied value isn't a valid DB cluster snapshot state.
-_InvalidDBClusterSnapshotStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The supplied value isn\'t a valid DB cluster snapshot state.
+_InvalidDBClusterSnapshotStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBClusterSnapshotStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDBClusterSnapshotStateFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The user already has a DB cluster snapshot with the given identifier.
-_DBClusterSnapshotAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBClusterSnapshotAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterSnapshotAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterSnapshotAlreadyExistsFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The DB security group authorization quota has been reached.
-_AuthorizationQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_AuthorizationQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AuthorizationQuotaExceededFault =
-  _MatchServiceError rds "AuthorizationQuotaExceeded"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "AuthorizationQuotaExceeded"
+    Prelude.. Prelude.hasStatus 400
 
--- | @InstallationMediaID@ doesn't refer to an existing installation medium.
-_InstallationMediaNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @InstallationMediaID@ doesn\'t refer to an existing installation medium.
+_InstallationMediaNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InstallationMediaNotFoundFault =
-  _MatchServiceError rds "InstallationMediaNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "InstallationMediaNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | @DBParameterGroupName@ doesn't refer to an existing DB parameter group.
-_DBParameterGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBParameterGroupName@ doesn\'t refer to an existing DB parameter group.
+_DBParameterGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBParameterGroupNotFoundFault =
-  _MatchServiceError rds "DBParameterGroupNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBParameterGroupNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | The specified IAM role Amazon Resource Name (ARN) isn't associated with the specified DB cluster.
-_DBClusterRoleNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified IAM role Amazon Resource Name (ARN) isn\'t associated with
+-- the specified DB cluster.
+_DBClusterRoleNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterRoleNotFoundFault =
-  _MatchServiceError rds "DBClusterRoleNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBClusterRoleNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | Subnets in the DB subnet group should cover at least two Availability Zones unless there is only one Availability Zone.
-_DBSubnetGroupDoesNotCoverEnoughAZs :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Subnets in the DB subnet group should cover at least two Availability
+-- Zones unless there is only one Availability Zone.
+_DBSubnetGroupDoesNotCoverEnoughAZs :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSubnetGroupDoesNotCoverEnoughAZs =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBSubnetGroupDoesNotCoverEnoughAZs"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The DB subnet isn't in the /available/ state.
-_InvalidDBSubnetStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DB subnet isn\'t in the /available/ state.
+_InvalidDBSubnetStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBSubnetStateFault =
-  _MatchServiceError rds "InvalidDBSubnetStateFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidDBSubnetStateFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | @Domain@ doesn't refer to an existing Active Directory domain.
-_DomainNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @Domain@ doesn\'t refer to an existing Active Directory domain.
+_DomainNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DomainNotFoundFault =
-  _MatchServiceError rds "DomainNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DomainNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | The DBSubnetGroup doesn't belong to the same VPC as that of an existing cross-region read replica of the same source instance.
-_InvalidDBSubnetGroupFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The DBSubnetGroup doesn\'t belong to the same VPC as that of an existing
+-- cross-region read replica of the same source instance.
+_InvalidDBSubnetGroupFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBSubnetGroupFault =
-  _MatchServiceError rds "InvalidDBSubnetGroupFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidDBSubnetGroupFault"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The DB subnet is already in use in the Availability Zone.
-_SubnetAlreadyInUse :: AsError a => Getting (First ServiceError) a ServiceError
+_SubnetAlreadyInUse :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubnetAlreadyInUse =
-  _MatchServiceError rds "SubnetAlreadyInUse"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "SubnetAlreadyInUse"
+    Prelude.. Prelude.hasStatus 400
 
--- | @BacktrackIdentifier@ doesn't refer to an existing backtrack.
-_DBClusterBacktrackNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @BacktrackIdentifier@ doesn\'t refer to an existing backtrack.
+_DBClusterBacktrackNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterBacktrackNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterBacktrackNotFoundFault"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The specified proxy name must be unique for all proxies owned by your AWS account in the specified AWS Region.
-_DBProxyAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified proxy name must be unique for all proxies owned by your
+-- AWS account in the specified AWS Region.
+_DBProxyAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBProxyAlreadyExistsFault =
-  _MatchServiceError rds "DBProxyTargetExistsFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBProxyTargetExistsFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | A DB security group isn't allowed for this action.
-_DBSecurityGroupNotSupportedFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A DB security group isn\'t allowed for this action.
+_DBSecurityGroupNotSupportedFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSecurityGroupNotSupportedFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBSecurityGroupNotSupported"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The request would result in the user exceeding the allowed amount of storage available across all DB instances.
-_StorageQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request would result in the user exceeding the allowed amount of
+-- storage available across all DB instances.
+_StorageQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StorageQuotaExceededFault =
-  _MatchServiceError rds "StorageQuotaExceeded"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "StorageQuotaExceeded"
+    Prelude.. Prelude.hasStatus 400
 
--- | The request would result in the user exceeding the allowed number of DB instances.
-_InstanceQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request would result in the user exceeding the allowed number of DB
+-- instances.
+_InstanceQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InstanceQuotaExceededFault =
-  _MatchServiceError rds "InstanceQuotaExceeded"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InstanceQuotaExceeded"
+    Prelude.. Prelude.hasStatus 400
 
--- | The state of the DB snapshot doesn't allow deletion.
-_InvalidDBSnapshotStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The state of the DB snapshot doesn\'t allow deletion.
+_InvalidDBSnapshotStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBSnapshotStateFault =
-  _MatchServiceError rds "InvalidDBSnapshotState"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidDBSnapshotState"
+    Prelude.. Prelude.hasStatus 400
 
--- | @DBInstanceIdentifier@ doesn't refer to an existing DB instance.
-_DBInstanceNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBInstanceIdentifier@ doesn\'t refer to an existing DB instance.
+_DBInstanceNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBInstanceNotFoundFault =
-  _MatchServiceError rds "DBInstanceNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBInstanceNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | The requested operation can't be performed while the proxy is in this state.
-_InvalidDBProxyStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested operation can\'t be performed while the proxy is in this
+-- state.
+_InvalidDBProxyStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBProxyStateFault =
-  _MatchServiceError rds "InvalidDBProxyStateFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidDBProxyStateFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | The number of global database clusters for this account is already at the maximum allowed.
-_GlobalClusterQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The number of global database clusters for this account is already at
+-- the maximum allowed.
+_GlobalClusterQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _GlobalClusterQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "GlobalClusterQuotaExceededFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | @DBSecurityGroupName@ doesn't refer to an existing DB security group.
-_DBSecurityGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBSecurityGroupName@ doesn\'t refer to an existing DB security group.
+_DBSecurityGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSecurityGroupNotFoundFault =
-  _MatchServiceError rds "DBSecurityGroupNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBSecurityGroupNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | A DB security group with the name specified in @DBSecurityGroupName@ already exists.
-_DBSecurityGroupAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A DB security group with the name specified in @DBSecurityGroupName@
+-- already exists.
+_DBSecurityGroupAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSecurityGroupAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBSecurityGroupAlreadyExists"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The user already has a DB instance with the given identifier.
-_DBInstanceAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBInstanceAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBInstanceAlreadyExistsFault =
-  _MatchServiceError rds "DBInstanceAlreadyExists"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBInstanceAlreadyExists"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The quota of 20 option groups was exceeded for this AWS account.
-_OptionGroupQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_OptionGroupQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OptionGroupQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "OptionGroupQuotaExceededFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The state of the DB security group doesn't allow deletion.
-_InvalidDBSecurityGroupStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The state of the DB security group doesn\'t allow deletion.
+_InvalidDBSecurityGroupStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBSecurityGroupStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDBSecurityGroupState"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | @DBSnapshotIdentifier@ doesn't refer to an existing DB snapshot.
-_DBSnapshotNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBSnapshotIdentifier@ doesn\'t refer to an existing DB snapshot.
+_DBSnapshotNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSnapshotNotFoundFault =
-  _MatchServiceError rds "DBSnapshotNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBSnapshotNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | @DBSubnetGroupName@ doesn't refer to an existing DB subnet group.
-_DBSubnetGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBSubnetGroupName@ doesn\'t refer to an existing DB subnet group.
+_DBSubnetGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSubnetGroupNotFoundFault =
-  _MatchServiceError rds "DBSubnetGroupNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBSubnetGroupNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | The user attempted to create a new DB cluster and the user has already reached the maximum allowed DB cluster quota.
-_DBClusterQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The user attempted to create a new DB cluster and the user has already
+-- reached the maximum allowed DB cluster quota.
+_DBClusterQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterQuotaExceededFault"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
--- | @Capacity@ isn't a valid Aurora Serverless DB cluster capacity. Valid capacity values are @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @128@ , and @256@ .
-_InvalidDBClusterCapacityFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @Capacity@ isn\'t a valid Aurora Serverless DB cluster capacity. Valid
+-- capacity values are @2@, @4@, @8@, @16@, @32@, @64@, @128@, and @256@.
+_InvalidDBClusterCapacityFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBClusterCapacityFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDBClusterCapacityFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | You have exceeded the maximum number of custom Availability Zones.
-_CustomAvailabilityZoneQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_CustomAvailabilityZoneQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CustomAvailabilityZoneQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "CustomAvailabilityZoneQuotaExceeded"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The export task doesn't exist.
-_ExportTaskNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The export task doesn\'t exist.
+_ExportTaskNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExportTaskNotFoundFault =
-  _MatchServiceError rds "ExportTaskNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "ExportTaskNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | The requested operation can't be performed because there aren't enough available IP addresses in the proxy's subnets. Add more CIDR blocks to the VPC or remove IP address that aren't required from the subnets.
-_InsufficientAvailableIPsInSubnetFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested operation can\'t be performed because there aren\'t enough
+-- available IP addresses in the proxy\'s subnets. Add more CIDR blocks to
+-- the VPC or remove IP address that aren\'t required from the subnets.
+_InsufficientAvailableIPsInSubnetFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientAvailableIPsInSubnetFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientAvailableIPsInSubnetFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The request would result in the user exceeding the allowed number of DB security groups.
-_DBSecurityGroupQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request would result in the user exceeding the allowed number of DB
+-- security groups.
+_DBSecurityGroupQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSecurityGroupQuotaExceededFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "QuotaExceeded.DBSecurityGroup"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The requested operation can't be performed while the cluster is in this state.
-_InvalidDBClusterStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested operation can\'t be performed while the cluster is in this
+-- state.
+_InvalidDBClusterStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDBClusterStateFault =
-  _MatchServiceError rds "InvalidDBClusterStateFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidDBClusterStateFault"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The option group you are trying to create already exists.
-_OptionGroupAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_OptionGroupAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OptionGroupAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "OptionGroupAlreadyExistsFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | @CustomAvailabilityZoneName@ is already used by an existing custom Availability Zone.
-_CustomAvailabilityZoneAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @CustomAvailabilityZoneName@ is already used by an existing custom
+-- Availability Zone.
+_CustomAvailabilityZoneAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CustomAvailabilityZoneAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "CustomAvailabilityZoneAlreadyExists"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The user already has a DB cluster with the given identifier.
-_DBClusterAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_DBClusterAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterAlreadyExistsFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "DBClusterAlreadyExistsFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The option group isn't in the /available/ state.
-_InvalidOptionGroupStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The option group isn\'t in the /available/ state.
+_InvalidOptionGroupStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOptionGroupStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidOptionGroupStateFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The @GlobalClusterIdentifier@ doesn't refer to an existing global database cluster.
-_GlobalClusterNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The @GlobalClusterIdentifier@ doesn\'t refer to an existing global
+-- database cluster.
+_GlobalClusterNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _GlobalClusterNotFoundFault =
-  _MatchServiceError rds "GlobalClusterNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "GlobalClusterNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | The specified Amazon S3 bucket name can't be found or Amazon RDS isn't authorized to access the specified Amazon S3 bucket. Verify the __SourceS3BucketName__ and __S3IngestionRoleArn__ values and try again.
-_InvalidS3BucketFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified Amazon S3 bucket name can\'t be found or Amazon RDS isn\'t
+-- authorized to access the specified Amazon S3 bucket. Verify the
+-- __SourceS3BucketName__ and __S3IngestionRoleArn__ values and try again.
+_InvalidS3BucketFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidS3BucketFault =
-  _MatchServiceError rds "InvalidS3BucketFault"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidS3BucketFault"
+    Prelude.. Prelude.hasStatus 400
 
--- | The state of the export snapshot is invalid for exporting to an Amazon S3 bucket.
-_InvalidExportSourceStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The state of the export snapshot is invalid for exporting to an Amazon
+-- S3 bucket.
+_InvalidExportSourceStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidExportSourceStateFault =
-  _MatchServiceError rds "InvalidExportSourceState"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidExportSourceState"
+    Prelude.. Prelude.hasStatus 400
 
--- | @DBClusterIdentifier@ doesn't refer to an existing DB cluster.
-_DBClusterNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @DBClusterIdentifier@ doesn\'t refer to an existing DB cluster.
+_DBClusterNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBClusterNotFoundFault =
-  _MatchServiceError rds "DBClusterNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBClusterNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | @CustomAvailabilityZoneId@ doesn't refer to an existing custom Availability Zone identifier.
-_CustomAvailabilityZoneNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @CustomAvailabilityZoneId@ doesn\'t refer to an existing custom
+-- Availability Zone identifier.
+_CustomAvailabilityZoneNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CustomAvailabilityZoneNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "CustomAvailabilityZoneNotFound"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The request would result in the user exceeding the allowed number of DB subnet groups.
-_DBSubnetGroupQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request would result in the user exceeding the allowed number of DB
+-- subnet groups.
+_DBSubnetGroupQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBSubnetGroupQuotaExceededFault =
-  _MatchServiceError rds "DBSubnetGroupQuotaExceeded"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "DBSubnetGroupQuotaExceeded"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified option group could not be found.
-_OptionGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_OptionGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OptionGroupNotFoundFault =
-  _MatchServiceError rds "OptionGroupNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "OptionGroupNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | @LogFileName@ doesn't refer to an existing DB log file.
-_DBLogFileNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | @LogFileName@ doesn\'t refer to an existing DB log file.
+_DBLogFileNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DBLogFileNotFoundFault =
-  _MatchServiceError rds "DBLogFileNotFoundFault"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "DBLogFileNotFoundFault"
+    Prelude.. Prelude.hasStatus 404
 
--- | You can't cancel an export task that has completed.
-_InvalidExportTaskStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You can\'t cancel an export task that has completed.
+_InvalidExportTaskStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidExportTaskStateFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "InvalidExportTaskStateFault"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The supplied category does not exist.
-_SubscriptionCategoryNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SubscriptionCategoryNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubscriptionCategoryNotFoundFault =
-  _MatchServiceError
-    rds
+  Prelude._MatchServiceError
+    defaultService
     "SubscriptionCategoryNotFound"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The specified CIDR IP range or Amazon EC2 security group might not be authorized for the specified DB security group.
+-- | The specified CIDR IP range or Amazon EC2 security group might not be
+-- authorized for the specified DB security group.
 --
---
--- Or, RDS might not be authorized to perform necessary actions using IAM on your behalf.
-_AuthorizationNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- Or, RDS might not be authorized to perform necessary actions using IAM
+-- on your behalf.
+_AuthorizationNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AuthorizationNotFoundFault =
-  _MatchServiceError rds "AuthorizationNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "AuthorizationNotFound"
+    Prelude.. Prelude.hasStatus 404
 
--- | The requested subnet is invalid, or multiple subnets were requested that are not all in a common VPC.
-_InvalidSubnet :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested subnet is invalid, or multiple subnets were requested that
+-- are not all in a common VPC.
+_InvalidSubnet :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSubnet =
-  _MatchServiceError rds "InvalidSubnet"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidSubnet"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The subscription name does not exist.
-_SubscriptionNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SubscriptionNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubscriptionNotFoundFault =
-  _MatchServiceError rds "SubscriptionNotFound"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "SubscriptionNotFound"
+    Prelude.. Prelude.hasStatus 404

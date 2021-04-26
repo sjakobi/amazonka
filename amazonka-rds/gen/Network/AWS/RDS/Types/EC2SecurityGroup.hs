@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.EC2SecurityGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | This data type is used as a response element in the following actions:
 --
+-- -   @AuthorizeDBSecurityGroupIngress@
 --
---     * @AuthorizeDBSecurityGroupIngress@
+-- -   @DescribeDBSecurityGroups@
 --
---     * @DescribeDBSecurityGroups@
+-- -   @RevokeDBSecurityGroupIngress@
 --
---     * @RevokeDBSecurityGroupIngress@
---
---
---
---
--- /See:/ 'ec2SecurityGroup' smart constructor.
+-- /See:/ 'newEC2SecurityGroup' smart constructor.
 data EC2SecurityGroup = EC2SecurityGroup'
-  { _esgStatus ::
-      !(Maybe Text),
-    _esgEC2SecurityGroupOwnerId ::
-      !(Maybe Text),
-    _esgEC2SecurityGroupId ::
-      !(Maybe Text),
-    _esgEC2SecurityGroupName ::
-      !(Maybe Text)
+  { -- | Provides the status of the EC2 security group. Status can be
+    -- \"authorizing\", \"authorized\", \"revoking\", and \"revoked\".
+    status :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the AWS ID of the owner of the EC2 security group specified in
+    -- the @EC2SecurityGroupName@ field.
+    eC2SecurityGroupOwnerId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the id of the EC2 security group.
+    eC2SecurityGroupId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of the EC2 security group.
+    eC2SecurityGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EC2SecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EC2SecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esgStatus' - Provides the status of the EC2 security group. Status can be "authorizing", "authorized", "revoking", and "revoked".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esgEC2SecurityGroupOwnerId' - Specifies the AWS ID of the owner of the EC2 security group specified in the @EC2SecurityGroupName@ field.
+-- 'status', 'eC2SecurityGroup_status' - Provides the status of the EC2 security group. Status can be
+-- \"authorizing\", \"authorized\", \"revoking\", and \"revoked\".
 --
--- * 'esgEC2SecurityGroupId' - Specifies the id of the EC2 security group.
+-- 'eC2SecurityGroupOwnerId', 'eC2SecurityGroup_eC2SecurityGroupOwnerId' - Specifies the AWS ID of the owner of the EC2 security group specified in
+-- the @EC2SecurityGroupName@ field.
 --
--- * 'esgEC2SecurityGroupName' - Specifies the name of the EC2 security group.
-ec2SecurityGroup ::
+-- 'eC2SecurityGroupId', 'eC2SecurityGroup_eC2SecurityGroupId' - Specifies the id of the EC2 security group.
+--
+-- 'eC2SecurityGroupName', 'eC2SecurityGroup_eC2SecurityGroupName' - Specifies the name of the EC2 security group.
+newEC2SecurityGroup ::
   EC2SecurityGroup
-ec2SecurityGroup =
+newEC2SecurityGroup =
   EC2SecurityGroup'
-    { _esgStatus = Nothing,
-      _esgEC2SecurityGroupOwnerId = Nothing,
-      _esgEC2SecurityGroupId = Nothing,
-      _esgEC2SecurityGroupName = Nothing
+    { status = Prelude.Nothing,
+      eC2SecurityGroupOwnerId = Prelude.Nothing,
+      eC2SecurityGroupId = Prelude.Nothing,
+      eC2SecurityGroupName = Prelude.Nothing
     }
 
--- | Provides the status of the EC2 security group. Status can be "authorizing", "authorized", "revoking", and "revoked".
-esgStatus :: Lens' EC2SecurityGroup (Maybe Text)
-esgStatus = lens _esgStatus (\s a -> s {_esgStatus = a})
+-- | Provides the status of the EC2 security group. Status can be
+-- \"authorizing\", \"authorized\", \"revoking\", and \"revoked\".
+eC2SecurityGroup_status :: Lens.Lens' EC2SecurityGroup (Prelude.Maybe Prelude.Text)
+eC2SecurityGroup_status = Lens.lens (\EC2SecurityGroup' {status} -> status) (\s@EC2SecurityGroup' {} a -> s {status = a} :: EC2SecurityGroup)
 
--- | Specifies the AWS ID of the owner of the EC2 security group specified in the @EC2SecurityGroupName@ field.
-esgEC2SecurityGroupOwnerId :: Lens' EC2SecurityGroup (Maybe Text)
-esgEC2SecurityGroupOwnerId = lens _esgEC2SecurityGroupOwnerId (\s a -> s {_esgEC2SecurityGroupOwnerId = a})
+-- | Specifies the AWS ID of the owner of the EC2 security group specified in
+-- the @EC2SecurityGroupName@ field.
+eC2SecurityGroup_eC2SecurityGroupOwnerId :: Lens.Lens' EC2SecurityGroup (Prelude.Maybe Prelude.Text)
+eC2SecurityGroup_eC2SecurityGroupOwnerId = Lens.lens (\EC2SecurityGroup' {eC2SecurityGroupOwnerId} -> eC2SecurityGroupOwnerId) (\s@EC2SecurityGroup' {} a -> s {eC2SecurityGroupOwnerId = a} :: EC2SecurityGroup)
 
 -- | Specifies the id of the EC2 security group.
-esgEC2SecurityGroupId :: Lens' EC2SecurityGroup (Maybe Text)
-esgEC2SecurityGroupId = lens _esgEC2SecurityGroupId (\s a -> s {_esgEC2SecurityGroupId = a})
+eC2SecurityGroup_eC2SecurityGroupId :: Lens.Lens' EC2SecurityGroup (Prelude.Maybe Prelude.Text)
+eC2SecurityGroup_eC2SecurityGroupId = Lens.lens (\EC2SecurityGroup' {eC2SecurityGroupId} -> eC2SecurityGroupId) (\s@EC2SecurityGroup' {} a -> s {eC2SecurityGroupId = a} :: EC2SecurityGroup)
 
 -- | Specifies the name of the EC2 security group.
-esgEC2SecurityGroupName :: Lens' EC2SecurityGroup (Maybe Text)
-esgEC2SecurityGroupName = lens _esgEC2SecurityGroupName (\s a -> s {_esgEC2SecurityGroupName = a})
+eC2SecurityGroup_eC2SecurityGroupName :: Lens.Lens' EC2SecurityGroup (Prelude.Maybe Prelude.Text)
+eC2SecurityGroup_eC2SecurityGroupName = Lens.lens (\EC2SecurityGroup' {eC2SecurityGroupName} -> eC2SecurityGroupName) (\s@EC2SecurityGroup' {} a -> s {eC2SecurityGroupName = a} :: EC2SecurityGroup)
 
-instance FromXML EC2SecurityGroup where
+instance Prelude.FromXML EC2SecurityGroup where
   parseXML x =
     EC2SecurityGroup'
-      <$> (x .@? "Status")
-      <*> (x .@? "EC2SecurityGroupOwnerId")
-      <*> (x .@? "EC2SecurityGroupId")
-      <*> (x .@? "EC2SecurityGroupName")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "EC2SecurityGroupOwnerId")
+      Prelude.<*> (x Prelude..@? "EC2SecurityGroupId")
+      Prelude.<*> (x Prelude..@? "EC2SecurityGroupName")
 
-instance Hashable EC2SecurityGroup
+instance Prelude.Hashable EC2SecurityGroup
 
-instance NFData EC2SecurityGroup
+instance Prelude.NFData EC2SecurityGroup

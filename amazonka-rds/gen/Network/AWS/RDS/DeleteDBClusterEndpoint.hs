@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,96 +21,102 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a custom endpoint and removes it from an Amazon Aurora DB cluster.
+-- Deletes a custom endpoint and removes it from an Amazon Aurora DB
+-- cluster.
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.DeleteDBClusterEndpoint
   ( -- * Creating a Request
-    deleteDBClusterEndpoint,
-    DeleteDBClusterEndpoint,
+    DeleteDBClusterEndpoint (..),
+    newDeleteDBClusterEndpoint,
 
     -- * Request Lenses
-    ddbceDBClusterEndpointIdentifier,
+    deleteDBClusterEndpoint_dBClusterEndpointIdentifier,
 
     -- * Destructuring the Response
-    dbClusterEndpoint,
-    DBClusterEndpoint,
+    DBClusterEndpoint (..),
+    newDBClusterEndpoint,
 
     -- * Response Lenses
-    dceDBClusterEndpointIdentifier,
-    dceStatus,
-    dceExcludedMembers,
-    dceEndpointType,
-    dceCustomEndpointType,
-    dceDBClusterEndpointARN,
-    dceDBClusterIdentifier,
-    dceDBClusterEndpointResourceIdentifier,
-    dceEndpoint,
-    dceStaticMembers,
+    dBClusterEndpoint_dBClusterEndpointIdentifier,
+    dBClusterEndpoint_status,
+    dBClusterEndpoint_excludedMembers,
+    dBClusterEndpoint_endpointType,
+    dBClusterEndpoint_customEndpointType,
+    dBClusterEndpoint_dBClusterEndpointArn,
+    dBClusterEndpoint_dBClusterIdentifier,
+    dBClusterEndpoint_dBClusterEndpointResourceIdentifier,
+    dBClusterEndpoint_endpoint,
+    dBClusterEndpoint_staticMembers,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBClusterEndpoint
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDBClusterEndpoint' smart constructor.
-newtype DeleteDBClusterEndpoint = DeleteDBClusterEndpoint'
-  { _ddbceDBClusterEndpointIdentifier ::
-      Text
+-- | /See:/ 'newDeleteDBClusterEndpoint' smart constructor.
+data DeleteDBClusterEndpoint = DeleteDBClusterEndpoint'
+  { -- | The identifier associated with the custom endpoint. This parameter is
+    -- stored as a lowercase string.
+    dBClusterEndpointIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBClusterEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBClusterEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbceDBClusterEndpointIdentifier' - The identifier associated with the custom endpoint. This parameter is stored as a lowercase string.
-deleteDBClusterEndpoint ::
-  -- | 'ddbceDBClusterEndpointIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBClusterEndpointIdentifier', 'deleteDBClusterEndpoint_dBClusterEndpointIdentifier' - The identifier associated with the custom endpoint. This parameter is
+-- stored as a lowercase string.
+newDeleteDBClusterEndpoint ::
+  -- | 'dBClusterEndpointIdentifier'
+  Prelude.Text ->
   DeleteDBClusterEndpoint
-deleteDBClusterEndpoint pDBClusterEndpointIdentifier_ =
-  DeleteDBClusterEndpoint'
-    { _ddbceDBClusterEndpointIdentifier =
-        pDBClusterEndpointIdentifier_
-    }
+newDeleteDBClusterEndpoint
+  pDBClusterEndpointIdentifier_ =
+    DeleteDBClusterEndpoint'
+      { dBClusterEndpointIdentifier =
+          pDBClusterEndpointIdentifier_
+      }
 
--- | The identifier associated with the custom endpoint. This parameter is stored as a lowercase string.
-ddbceDBClusterEndpointIdentifier :: Lens' DeleteDBClusterEndpoint Text
-ddbceDBClusterEndpointIdentifier = lens _ddbceDBClusterEndpointIdentifier (\s a -> s {_ddbceDBClusterEndpointIdentifier = a})
+-- | The identifier associated with the custom endpoint. This parameter is
+-- stored as a lowercase string.
+deleteDBClusterEndpoint_dBClusterEndpointIdentifier :: Lens.Lens' DeleteDBClusterEndpoint Prelude.Text
+deleteDBClusterEndpoint_dBClusterEndpointIdentifier = Lens.lens (\DeleteDBClusterEndpoint' {dBClusterEndpointIdentifier} -> dBClusterEndpointIdentifier) (\s@DeleteDBClusterEndpoint' {} a -> s {dBClusterEndpointIdentifier = a} :: DeleteDBClusterEndpoint)
 
-instance AWSRequest DeleteDBClusterEndpoint where
+instance Prelude.AWSRequest DeleteDBClusterEndpoint where
   type Rs DeleteDBClusterEndpoint = DBClusterEndpoint
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteDBClusterEndpointResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable DeleteDBClusterEndpoint
+instance Prelude.Hashable DeleteDBClusterEndpoint
 
-instance NFData DeleteDBClusterEndpoint
+instance Prelude.NFData DeleteDBClusterEndpoint
 
-instance ToHeaders DeleteDBClusterEndpoint where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDBClusterEndpoint where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDBClusterEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDBClusterEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDBClusterEndpoint where
+instance Prelude.ToQuery DeleteDBClusterEndpoint where
   toQuery DeleteDBClusterEndpoint' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteDBClusterEndpoint" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ("DeleteDBClusterEndpoint" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterEndpointIdentifier"
-          =: _ddbceDBClusterEndpointIdentifier
+          Prelude.=: dBClusterEndpointIdentifier
       ]

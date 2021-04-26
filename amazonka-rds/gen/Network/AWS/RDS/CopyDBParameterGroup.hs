@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,176 +24,234 @@
 -- Copies the specified DB parameter group.
 module Network.AWS.RDS.CopyDBParameterGroup
   ( -- * Creating a Request
-    copyDBParameterGroup,
-    CopyDBParameterGroup,
+    CopyDBParameterGroup (..),
+    newCopyDBParameterGroup,
 
     -- * Request Lenses
-    cdbpgTags,
-    cdbpgSourceDBParameterGroupIdentifier,
-    cdbpgTargetDBParameterGroupIdentifier,
-    cdbpgTargetDBParameterGroupDescription,
+    copyDBParameterGroup_tags,
+    copyDBParameterGroup_sourceDBParameterGroupIdentifier,
+    copyDBParameterGroup_targetDBParameterGroupIdentifier,
+    copyDBParameterGroup_targetDBParameterGroupDescription,
 
     -- * Destructuring the Response
-    copyDBParameterGroupResponse,
-    CopyDBParameterGroupResponse,
+    CopyDBParameterGroupResponse (..),
+    newCopyDBParameterGroupResponse,
 
     -- * Response Lenses
-    cdpgrrsDBParameterGroup,
-    cdpgrrsResponseStatus,
+    copyDBParameterGroupResponse_dBParameterGroup,
+    copyDBParameterGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBParameterGroup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'copyDBParameterGroup' smart constructor.
+-- /See:/ 'newCopyDBParameterGroup' smart constructor.
 data CopyDBParameterGroup = CopyDBParameterGroup'
-  { _cdbpgTags ::
-      !(Maybe [Tag]),
-    _cdbpgSourceDBParameterGroupIdentifier ::
-      !Text,
-    _cdbpgTargetDBParameterGroupIdentifier ::
-      !Text,
-    _cdbpgTargetDBParameterGroupDescription ::
-      !Text
+  { tags :: Prelude.Maybe [Tag],
+    -- | The identifier or ARN for the source DB parameter group. For information
+    -- about creating an ARN, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS>
+    -- in the /Amazon RDS User Guide/.
+    --
+    -- Constraints:
+    --
+    -- -   Must specify a valid DB parameter group.
+    sourceDBParameterGroupIdentifier :: Prelude.Text,
+    -- | The identifier for the copied DB parameter group.
+    --
+    -- Constraints:
+    --
+    -- -   Can\'t be null, empty, or blank
+    --
+    -- -   Must contain from 1 to 255 letters, numbers, or hyphens
+    --
+    -- -   First character must be a letter
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens
+    --
+    -- Example: @my-db-parameter-group@
+    targetDBParameterGroupIdentifier :: Prelude.Text,
+    -- | A description for the copied DB parameter group.
+    targetDBParameterGroupDescription :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopyDBParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopyDBParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdbpgTags' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdbpgSourceDBParameterGroupIdentifier' - The identifier or ARN for the source DB parameter group. For information about creating an ARN, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS> in the /Amazon RDS User Guide/ .  Constraints:     * Must specify a valid DB parameter group.
+-- 'tags', 'copyDBParameterGroup_tags' - Undocumented member.
 --
--- * 'cdbpgTargetDBParameterGroupIdentifier' - The identifier for the copied DB parameter group. Constraints:     * Can't be null, empty, or blank     * Must contain from 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens Example: @my-db-parameter-group@
+-- 'sourceDBParameterGroupIdentifier', 'copyDBParameterGroup_sourceDBParameterGroupIdentifier' - The identifier or ARN for the source DB parameter group. For information
+-- about creating an ARN, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS>
+-- in the /Amazon RDS User Guide/.
 --
--- * 'cdbpgTargetDBParameterGroupDescription' - A description for the copied DB parameter group.
-copyDBParameterGroup ::
-  -- | 'cdbpgSourceDBParameterGroupIdentifier'
-  Text ->
-  -- | 'cdbpgTargetDBParameterGroupIdentifier'
-  Text ->
-  -- | 'cdbpgTargetDBParameterGroupDescription'
-  Text ->
+-- Constraints:
+--
+-- -   Must specify a valid DB parameter group.
+--
+-- 'targetDBParameterGroupIdentifier', 'copyDBParameterGroup_targetDBParameterGroupIdentifier' - The identifier for the copied DB parameter group.
+--
+-- Constraints:
+--
+-- -   Can\'t be null, empty, or blank
+--
+-- -   Must contain from 1 to 255 letters, numbers, or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-db-parameter-group@
+--
+-- 'targetDBParameterGroupDescription', 'copyDBParameterGroup_targetDBParameterGroupDescription' - A description for the copied DB parameter group.
+newCopyDBParameterGroup ::
+  -- | 'sourceDBParameterGroupIdentifier'
+  Prelude.Text ->
+  -- | 'targetDBParameterGroupIdentifier'
+  Prelude.Text ->
+  -- | 'targetDBParameterGroupDescription'
+  Prelude.Text ->
   CopyDBParameterGroup
-copyDBParameterGroup
+newCopyDBParameterGroup
   pSourceDBParameterGroupIdentifier_
   pTargetDBParameterGroupIdentifier_
   pTargetDBParameterGroupDescription_ =
     CopyDBParameterGroup'
-      { _cdbpgTags = Nothing,
-        _cdbpgSourceDBParameterGroupIdentifier =
+      { tags = Prelude.Nothing,
+        sourceDBParameterGroupIdentifier =
           pSourceDBParameterGroupIdentifier_,
-        _cdbpgTargetDBParameterGroupIdentifier =
+        targetDBParameterGroupIdentifier =
           pTargetDBParameterGroupIdentifier_,
-        _cdbpgTargetDBParameterGroupDescription =
+        targetDBParameterGroupDescription =
           pTargetDBParameterGroupDescription_
       }
 
 -- | Undocumented member.
-cdbpgTags :: Lens' CopyDBParameterGroup [Tag]
-cdbpgTags = lens _cdbpgTags (\s a -> s {_cdbpgTags = a}) . _Default . _Coerce
+copyDBParameterGroup_tags :: Lens.Lens' CopyDBParameterGroup (Prelude.Maybe [Tag])
+copyDBParameterGroup_tags = Lens.lens (\CopyDBParameterGroup' {tags} -> tags) (\s@CopyDBParameterGroup' {} a -> s {tags = a} :: CopyDBParameterGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The identifier or ARN for the source DB parameter group. For information about creating an ARN, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS> in the /Amazon RDS User Guide/ .  Constraints:     * Must specify a valid DB parameter group.
-cdbpgSourceDBParameterGroupIdentifier :: Lens' CopyDBParameterGroup Text
-cdbpgSourceDBParameterGroupIdentifier = lens _cdbpgSourceDBParameterGroupIdentifier (\s a -> s {_cdbpgSourceDBParameterGroupIdentifier = a})
+-- | The identifier or ARN for the source DB parameter group. For information
+-- about creating an ARN, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an ARN for Amazon RDS>
+-- in the /Amazon RDS User Guide/.
+--
+-- Constraints:
+--
+-- -   Must specify a valid DB parameter group.
+copyDBParameterGroup_sourceDBParameterGroupIdentifier :: Lens.Lens' CopyDBParameterGroup Prelude.Text
+copyDBParameterGroup_sourceDBParameterGroupIdentifier = Lens.lens (\CopyDBParameterGroup' {sourceDBParameterGroupIdentifier} -> sourceDBParameterGroupIdentifier) (\s@CopyDBParameterGroup' {} a -> s {sourceDBParameterGroupIdentifier = a} :: CopyDBParameterGroup)
 
--- | The identifier for the copied DB parameter group. Constraints:     * Can't be null, empty, or blank     * Must contain from 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens Example: @my-db-parameter-group@
-cdbpgTargetDBParameterGroupIdentifier :: Lens' CopyDBParameterGroup Text
-cdbpgTargetDBParameterGroupIdentifier = lens _cdbpgTargetDBParameterGroupIdentifier (\s a -> s {_cdbpgTargetDBParameterGroupIdentifier = a})
+-- | The identifier for the copied DB parameter group.
+--
+-- Constraints:
+--
+-- -   Can\'t be null, empty, or blank
+--
+-- -   Must contain from 1 to 255 letters, numbers, or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-db-parameter-group@
+copyDBParameterGroup_targetDBParameterGroupIdentifier :: Lens.Lens' CopyDBParameterGroup Prelude.Text
+copyDBParameterGroup_targetDBParameterGroupIdentifier = Lens.lens (\CopyDBParameterGroup' {targetDBParameterGroupIdentifier} -> targetDBParameterGroupIdentifier) (\s@CopyDBParameterGroup' {} a -> s {targetDBParameterGroupIdentifier = a} :: CopyDBParameterGroup)
 
 -- | A description for the copied DB parameter group.
-cdbpgTargetDBParameterGroupDescription :: Lens' CopyDBParameterGroup Text
-cdbpgTargetDBParameterGroupDescription = lens _cdbpgTargetDBParameterGroupDescription (\s a -> s {_cdbpgTargetDBParameterGroupDescription = a})
+copyDBParameterGroup_targetDBParameterGroupDescription :: Lens.Lens' CopyDBParameterGroup Prelude.Text
+copyDBParameterGroup_targetDBParameterGroupDescription = Lens.lens (\CopyDBParameterGroup' {targetDBParameterGroupDescription} -> targetDBParameterGroupDescription) (\s@CopyDBParameterGroup' {} a -> s {targetDBParameterGroupDescription = a} :: CopyDBParameterGroup)
 
-instance AWSRequest CopyDBParameterGroup where
+instance Prelude.AWSRequest CopyDBParameterGroup where
   type
     Rs CopyDBParameterGroup =
       CopyDBParameterGroupResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CopyDBParameterGroupResult"
       ( \s h x ->
           CopyDBParameterGroupResponse'
-            <$> (x .@? "DBParameterGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBParameterGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CopyDBParameterGroup
+instance Prelude.Hashable CopyDBParameterGroup
 
-instance NFData CopyDBParameterGroup
+instance Prelude.NFData CopyDBParameterGroup
 
-instance ToHeaders CopyDBParameterGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CopyDBParameterGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CopyDBParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath CopyDBParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CopyDBParameterGroup where
+instance Prelude.ToQuery CopyDBParameterGroup where
   toQuery CopyDBParameterGroup' {..} =
-    mconcat
-      [ "Action" =: ("CopyDBParameterGroup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "Tags" =: toQuery (toQueryList "Tag" <$> _cdbpgTags),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CopyDBParameterGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
         "SourceDBParameterGroupIdentifier"
-          =: _cdbpgSourceDBParameterGroupIdentifier,
+          Prelude.=: sourceDBParameterGroupIdentifier,
         "TargetDBParameterGroupIdentifier"
-          =: _cdbpgTargetDBParameterGroupIdentifier,
+          Prelude.=: targetDBParameterGroupIdentifier,
         "TargetDBParameterGroupDescription"
-          =: _cdbpgTargetDBParameterGroupDescription
+          Prelude.=: targetDBParameterGroupDescription
       ]
 
--- | /See:/ 'copyDBParameterGroupResponse' smart constructor.
+-- | /See:/ 'newCopyDBParameterGroupResponse' smart constructor.
 data CopyDBParameterGroupResponse = CopyDBParameterGroupResponse'
-  { _cdpgrrsDBParameterGroup ::
-      !( Maybe
-           DBParameterGroup
-       ),
-    _cdpgrrsResponseStatus ::
-      !Int
+  { dBParameterGroup :: Prelude.Maybe DBParameterGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopyDBParameterGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopyDBParameterGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdpgrrsDBParameterGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdpgrrsResponseStatus' - -- | The response status code.
-copyDBParameterGroupResponse ::
-  -- | 'cdpgrrsResponseStatus'
-  Int ->
+-- 'dBParameterGroup', 'copyDBParameterGroupResponse_dBParameterGroup' - Undocumented member.
+--
+-- 'httpStatus', 'copyDBParameterGroupResponse_httpStatus' - The response's http status code.
+newCopyDBParameterGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CopyDBParameterGroupResponse
-copyDBParameterGroupResponse pResponseStatus_ =
+newCopyDBParameterGroupResponse pHttpStatus_ =
   CopyDBParameterGroupResponse'
-    { _cdpgrrsDBParameterGroup =
-        Nothing,
-      _cdpgrrsResponseStatus = pResponseStatus_
+    { dBParameterGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cdpgrrsDBParameterGroup :: Lens' CopyDBParameterGroupResponse (Maybe DBParameterGroup)
-cdpgrrsDBParameterGroup = lens _cdpgrrsDBParameterGroup (\s a -> s {_cdpgrrsDBParameterGroup = a})
+copyDBParameterGroupResponse_dBParameterGroup :: Lens.Lens' CopyDBParameterGroupResponse (Prelude.Maybe DBParameterGroup)
+copyDBParameterGroupResponse_dBParameterGroup = Lens.lens (\CopyDBParameterGroupResponse' {dBParameterGroup} -> dBParameterGroup) (\s@CopyDBParameterGroupResponse' {} a -> s {dBParameterGroup = a} :: CopyDBParameterGroupResponse)
 
--- | -- | The response status code.
-cdpgrrsResponseStatus :: Lens' CopyDBParameterGroupResponse Int
-cdpgrrsResponseStatus = lens _cdpgrrsResponseStatus (\s a -> s {_cdpgrrsResponseStatus = a})
+-- | The response's http status code.
+copyDBParameterGroupResponse_httpStatus :: Lens.Lens' CopyDBParameterGroupResponse Prelude.Int
+copyDBParameterGroupResponse_httpStatus = Lens.lens (\CopyDBParameterGroupResponse' {httpStatus} -> httpStatus) (\s@CopyDBParameterGroupResponse' {} a -> s {httpStatus = a} :: CopyDBParameterGroupResponse)
 
-instance NFData CopyDBParameterGroupResponse
+instance Prelude.NFData CopyDBParameterGroupResponse

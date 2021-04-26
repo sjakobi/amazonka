@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,126 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Backtracks a DB cluster to a specific time, without creating a new DB cluster.
+-- Backtracks a DB cluster to a specific time, without creating a new DB
+-- cluster.
 --
+-- For more information on backtracking, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Backtrack.html Backtracking an Aurora DB Cluster>
+-- in the /Amazon Aurora User Guide./
 --
--- For more information on backtracking, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Backtrack.html Backtracking an Aurora DB Cluster> in the /Amazon Aurora User Guide./
+-- This action only applies to Aurora MySQL DB clusters.
 module Network.AWS.RDS.BacktrackDBCluster
   ( -- * Creating a Request
-    backtrackDBCluster,
-    BacktrackDBCluster,
+    BacktrackDBCluster (..),
+    newBacktrackDBCluster,
 
     -- * Request Lenses
-    bdcForce,
-    bdcUseEarliestTimeOnPointInTimeUnavailable,
-    bdcDBClusterIdentifier,
-    bdcBacktrackTo,
+    backtrackDBCluster_force,
+    backtrackDBCluster_useEarliestTimeOnPointInTimeUnavailable,
+    backtrackDBCluster_dBClusterIdentifier,
+    backtrackDBCluster_backtrackTo,
 
     -- * Destructuring the Response
-    dbClusterBacktrack,
-    DBClusterBacktrack,
+    DBClusterBacktrack (..),
+    newDBClusterBacktrack,
 
     -- * Response Lenses
-    dcbStatus,
-    dcbBacktrackIdentifier,
-    dcbBacktrackTo,
-    dcbDBClusterIdentifier,
-    dcbBacktrackRequestCreationTime,
-    dcbBacktrackedFrom,
+    dBClusterBacktrack_status,
+    dBClusterBacktrack_backtrackIdentifier,
+    dBClusterBacktrack_backtrackTo,
+    dBClusterBacktrack_dBClusterIdentifier,
+    dBClusterBacktrack_backtrackRequestCreationTime,
+    dBClusterBacktrack_backtrackedFrom,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBClusterBacktrack
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'backtrackDBCluster' smart constructor.
+-- /See:/ 'newBacktrackDBCluster' smart constructor.
 data BacktrackDBCluster = BacktrackDBCluster'
-  { _bdcForce ::
-      !(Maybe Bool),
-    _bdcUseEarliestTimeOnPointInTimeUnavailable ::
-      !(Maybe Bool),
-    _bdcDBClusterIdentifier :: !Text,
-    _bdcBacktrackTo :: !ISO8601
+  { -- | A value that indicates whether to force the DB cluster to backtrack when
+    -- binary logging is enabled. Otherwise, an error occurs when binary
+    -- logging is enabled.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | A value that indicates whether to backtrack the DB cluster to the
+    -- earliest possible backtrack time when /BacktrackTo/ is set to a
+    -- timestamp earlier than the earliest backtrack time. When this parameter
+    -- is disabled and /BacktrackTo/ is set to a timestamp earlier than the
+    -- earliest backtrack time, an error occurs.
+    useEarliestTimeOnPointInTimeUnavailable :: Prelude.Maybe Prelude.Bool,
+    -- | The DB cluster identifier of the DB cluster to be backtracked. This
+    -- parameter is stored as a lowercase string.
+    --
+    -- Constraints:
+    --
+    -- -   Must contain from 1 to 63 alphanumeric characters or hyphens.
+    --
+    -- -   First character must be a letter.
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+    --
+    -- Example: @my-cluster1@
+    dBClusterIdentifier :: Prelude.Text,
+    -- | The timestamp of the time to backtrack the DB cluster to, specified in
+    -- ISO 8601 format. For more information about ISO 8601, see the
+    -- <http://en.wikipedia.org/wiki/ISO_8601 ISO8601 Wikipedia page.>
+    --
+    -- If the specified time isn\'t a consistent time for the DB cluster,
+    -- Aurora automatically chooses the nearest possible consistent time for
+    -- the DB cluster.
+    --
+    -- Constraints:
+    --
+    -- -   Must contain a valid ISO 8601 timestamp.
+    --
+    -- -   Can\'t contain a timestamp set in the future.
+    --
+    -- Example: @2017-07-08T18:00Z@
+    backtrackTo :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BacktrackDBCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BacktrackDBCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdcForce' - A value that indicates whether to force the DB cluster to backtrack when binary logging is enabled. Otherwise, an error occurs when binary logging is enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdcUseEarliestTimeOnPointInTimeUnavailable' - A value that indicates whether to backtrack the DB cluster to the earliest possible backtrack time when /BacktrackTo/ is set to a timestamp earlier than the earliest backtrack time. When this parameter is disabled and /BacktrackTo/ is set to a timestamp earlier than the earliest backtrack time, an error occurs.
+-- 'force', 'backtrackDBCluster_force' - A value that indicates whether to force the DB cluster to backtrack when
+-- binary logging is enabled. Otherwise, an error occurs when binary
+-- logging is enabled.
 --
--- * 'bdcDBClusterIdentifier' - The DB cluster identifier of the DB cluster to be backtracked. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
+-- 'useEarliestTimeOnPointInTimeUnavailable', 'backtrackDBCluster_useEarliestTimeOnPointInTimeUnavailable' - A value that indicates whether to backtrack the DB cluster to the
+-- earliest possible backtrack time when /BacktrackTo/ is set to a
+-- timestamp earlier than the earliest backtrack time. When this parameter
+-- is disabled and /BacktrackTo/ is set to a timestamp earlier than the
+-- earliest backtrack time, an error occurs.
 --
--- * 'bdcBacktrackTo' - The timestamp of the time to backtrack the DB cluster to, specified in ISO 8601 format. For more information about ISO 8601, see the <http://en.wikipedia.org/wiki/ISO_8601 ISO8601 Wikipedia page.>  Constraints:     * Must contain a valid ISO 8601 timestamp.     * Can't contain a timestamp set in the future. Example: @2017-07-08T18:00Z@
-backtrackDBCluster ::
-  -- | 'bdcDBClusterIdentifier'
-  Text ->
-  -- | 'bdcBacktrackTo'
-  UTCTime ->
+-- 'dBClusterIdentifier', 'backtrackDBCluster_dBClusterIdentifier' - The DB cluster identifier of the DB cluster to be backtracked. This
+-- parameter is stored as a lowercase string.
+--
+-- Constraints:
+--
+-- -   Must contain from 1 to 63 alphanumeric characters or hyphens.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+--
+-- Example: @my-cluster1@
+--
+-- 'backtrackTo', 'backtrackDBCluster_backtrackTo' - The timestamp of the time to backtrack the DB cluster to, specified in
+-- ISO 8601 format. For more information about ISO 8601, see the
+-- <http://en.wikipedia.org/wiki/ISO_8601 ISO8601 Wikipedia page.>
+--
+-- If the specified time isn\'t a consistent time for the DB cluster,
+-- Aurora automatically chooses the nearest possible consistent time for
+-- the DB cluster.
+--
+-- Constraints:
+--
+-- -   Must contain a valid ISO 8601 timestamp.
+--
+-- -   Can\'t contain a timestamp set in the future.
+--
+-- Example: @2017-07-08T18:00Z@
+newBacktrackDBCluster ::
+  -- | 'dBClusterIdentifier'
+  Prelude.Text ->
+  -- | 'backtrackTo'
+  Prelude.UTCTime ->
   BacktrackDBCluster
-backtrackDBCluster
+newBacktrackDBCluster
   pDBClusterIdentifier_
   pBacktrackTo_ =
     BacktrackDBCluster'
-      { _bdcForce = Nothing,
-        _bdcUseEarliestTimeOnPointInTimeUnavailable =
-          Nothing,
-        _bdcDBClusterIdentifier = pDBClusterIdentifier_,
-        _bdcBacktrackTo = _Time # pBacktrackTo_
+      { force = Prelude.Nothing,
+        useEarliestTimeOnPointInTimeUnavailable =
+          Prelude.Nothing,
+        dBClusterIdentifier = pDBClusterIdentifier_,
+        backtrackTo = Prelude._Time Lens.# pBacktrackTo_
       }
 
--- | A value that indicates whether to force the DB cluster to backtrack when binary logging is enabled. Otherwise, an error occurs when binary logging is enabled.
-bdcForce :: Lens' BacktrackDBCluster (Maybe Bool)
-bdcForce = lens _bdcForce (\s a -> s {_bdcForce = a})
+-- | A value that indicates whether to force the DB cluster to backtrack when
+-- binary logging is enabled. Otherwise, an error occurs when binary
+-- logging is enabled.
+backtrackDBCluster_force :: Lens.Lens' BacktrackDBCluster (Prelude.Maybe Prelude.Bool)
+backtrackDBCluster_force = Lens.lens (\BacktrackDBCluster' {force} -> force) (\s@BacktrackDBCluster' {} a -> s {force = a} :: BacktrackDBCluster)
 
--- | A value that indicates whether to backtrack the DB cluster to the earliest possible backtrack time when /BacktrackTo/ is set to a timestamp earlier than the earliest backtrack time. When this parameter is disabled and /BacktrackTo/ is set to a timestamp earlier than the earliest backtrack time, an error occurs.
-bdcUseEarliestTimeOnPointInTimeUnavailable :: Lens' BacktrackDBCluster (Maybe Bool)
-bdcUseEarliestTimeOnPointInTimeUnavailable = lens _bdcUseEarliestTimeOnPointInTimeUnavailable (\s a -> s {_bdcUseEarliestTimeOnPointInTimeUnavailable = a})
+-- | A value that indicates whether to backtrack the DB cluster to the
+-- earliest possible backtrack time when /BacktrackTo/ is set to a
+-- timestamp earlier than the earliest backtrack time. When this parameter
+-- is disabled and /BacktrackTo/ is set to a timestamp earlier than the
+-- earliest backtrack time, an error occurs.
+backtrackDBCluster_useEarliestTimeOnPointInTimeUnavailable :: Lens.Lens' BacktrackDBCluster (Prelude.Maybe Prelude.Bool)
+backtrackDBCluster_useEarliestTimeOnPointInTimeUnavailable = Lens.lens (\BacktrackDBCluster' {useEarliestTimeOnPointInTimeUnavailable} -> useEarliestTimeOnPointInTimeUnavailable) (\s@BacktrackDBCluster' {} a -> s {useEarliestTimeOnPointInTimeUnavailable = a} :: BacktrackDBCluster)
 
--- | The DB cluster identifier of the DB cluster to be backtracked. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
-bdcDBClusterIdentifier :: Lens' BacktrackDBCluster Text
-bdcDBClusterIdentifier = lens _bdcDBClusterIdentifier (\s a -> s {_bdcDBClusterIdentifier = a})
+-- | The DB cluster identifier of the DB cluster to be backtracked. This
+-- parameter is stored as a lowercase string.
+--
+-- Constraints:
+--
+-- -   Must contain from 1 to 63 alphanumeric characters or hyphens.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+--
+-- Example: @my-cluster1@
+backtrackDBCluster_dBClusterIdentifier :: Lens.Lens' BacktrackDBCluster Prelude.Text
+backtrackDBCluster_dBClusterIdentifier = Lens.lens (\BacktrackDBCluster' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@BacktrackDBCluster' {} a -> s {dBClusterIdentifier = a} :: BacktrackDBCluster)
 
--- | The timestamp of the time to backtrack the DB cluster to, specified in ISO 8601 format. For more information about ISO 8601, see the <http://en.wikipedia.org/wiki/ISO_8601 ISO8601 Wikipedia page.>  Constraints:     * Must contain a valid ISO 8601 timestamp.     * Can't contain a timestamp set in the future. Example: @2017-07-08T18:00Z@
-bdcBacktrackTo :: Lens' BacktrackDBCluster UTCTime
-bdcBacktrackTo = lens _bdcBacktrackTo (\s a -> s {_bdcBacktrackTo = a}) . _Time
+-- | The timestamp of the time to backtrack the DB cluster to, specified in
+-- ISO 8601 format. For more information about ISO 8601, see the
+-- <http://en.wikipedia.org/wiki/ISO_8601 ISO8601 Wikipedia page.>
+--
+-- If the specified time isn\'t a consistent time for the DB cluster,
+-- Aurora automatically chooses the nearest possible consistent time for
+-- the DB cluster.
+--
+-- Constraints:
+--
+-- -   Must contain a valid ISO 8601 timestamp.
+--
+-- -   Can\'t contain a timestamp set in the future.
+--
+-- Example: @2017-07-08T18:00Z@
+backtrackDBCluster_backtrackTo :: Lens.Lens' BacktrackDBCluster Prelude.UTCTime
+backtrackDBCluster_backtrackTo = Lens.lens (\BacktrackDBCluster' {backtrackTo} -> backtrackTo) (\s@BacktrackDBCluster' {} a -> s {backtrackTo = a} :: BacktrackDBCluster) Prelude.. Prelude._Time
 
-instance AWSRequest BacktrackDBCluster where
+instance Prelude.AWSRequest BacktrackDBCluster where
   type Rs BacktrackDBCluster = DBClusterBacktrack
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "BacktrackDBClusterResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable BacktrackDBCluster
+instance Prelude.Hashable BacktrackDBCluster
 
-instance NFData BacktrackDBCluster
+instance Prelude.NFData BacktrackDBCluster
 
-instance ToHeaders BacktrackDBCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders BacktrackDBCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath BacktrackDBCluster where
-  toPath = const "/"
+instance Prelude.ToPath BacktrackDBCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery BacktrackDBCluster where
+instance Prelude.ToQuery BacktrackDBCluster where
   toQuery BacktrackDBCluster' {..} =
-    mconcat
-      [ "Action" =: ("BacktrackDBCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "Force" =: _bdcForce,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("BacktrackDBCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "Force" Prelude.=: force,
         "UseEarliestTimeOnPointInTimeUnavailable"
-          =: _bdcUseEarliestTimeOnPointInTimeUnavailable,
-        "DBClusterIdentifier" =: _bdcDBClusterIdentifier,
-        "BacktrackTo" =: _bdcBacktrackTo
+          Prelude.=: useEarliestTimeOnPointInTimeUnavailable,
+        "DBClusterIdentifier" Prelude.=: dBClusterIdentifier,
+        "BacktrackTo" Prelude.=: backtrackTo
       ]

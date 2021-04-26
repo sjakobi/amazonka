@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,107 +19,114 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBSecurityGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.EC2SecurityGroup
 import Network.AWS.RDS.Types.IPRange
 
 -- | Contains the details for an Amazon RDS DB security group.
 --
+-- This data type is used as a response element in the
+-- @DescribeDBSecurityGroups@ action.
 --
--- This data type is used as a response element in the @DescribeDBSecurityGroups@ action.
---
---
--- /See:/ 'dbSecurityGroup' smart constructor.
+-- /See:/ 'newDBSecurityGroup' smart constructor.
 data DBSecurityGroup = DBSecurityGroup'
-  { _dbsgOwnerId ::
-      !(Maybe Text),
-    _dbsgDBSecurityGroupName ::
-      !(Maybe Text),
-    _dbsgIPRanges :: !(Maybe [IPRange]),
-    _dbsgDBSecurityGroupDescription ::
-      !(Maybe Text),
-    _dbsgEC2SecurityGroups ::
-      !(Maybe [EC2SecurityGroup]),
-    _dbsgVPCId :: !(Maybe Text),
-    _dbsgDBSecurityGroupARN ::
-      !(Maybe Text)
+  { -- | Provides the AWS ID of the owner of a specific DB security group.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of the DB security group.
+    dBSecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Contains a list of @IPRange@ elements.
+    iPRanges :: Prelude.Maybe [IPRange],
+    -- | Provides the description of the DB security group.
+    dBSecurityGroupDescription :: Prelude.Maybe Prelude.Text,
+    -- | Contains a list of @EC2SecurityGroup@ elements.
+    eC2SecurityGroups :: Prelude.Maybe [EC2SecurityGroup],
+    -- | Provides the VpcId of the DB security group.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the DB security group.
+    dBSecurityGroupArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbsgOwnerId' - Provides the AWS ID of the owner of a specific DB security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbsgDBSecurityGroupName' - Specifies the name of the DB security group.
+-- 'ownerId', 'dBSecurityGroup_ownerId' - Provides the AWS ID of the owner of a specific DB security group.
 --
--- * 'dbsgIPRanges' - Contains a list of @IPRange@ elements.
+-- 'dBSecurityGroupName', 'dBSecurityGroup_dBSecurityGroupName' - Specifies the name of the DB security group.
 --
--- * 'dbsgDBSecurityGroupDescription' - Provides the description of the DB security group.
+-- 'iPRanges', 'dBSecurityGroup_iPRanges' - Contains a list of @IPRange@ elements.
 --
--- * 'dbsgEC2SecurityGroups' - Contains a list of @EC2SecurityGroup@ elements.
+-- 'dBSecurityGroupDescription', 'dBSecurityGroup_dBSecurityGroupDescription' - Provides the description of the DB security group.
 --
--- * 'dbsgVPCId' - Provides the VpcId of the DB security group.
+-- 'eC2SecurityGroups', 'dBSecurityGroup_eC2SecurityGroups' - Contains a list of @EC2SecurityGroup@ elements.
 --
--- * 'dbsgDBSecurityGroupARN' - The Amazon Resource Name (ARN) for the DB security group.
-dbSecurityGroup ::
+-- 'vpcId', 'dBSecurityGroup_vpcId' - Provides the VpcId of the DB security group.
+--
+-- 'dBSecurityGroupArn', 'dBSecurityGroup_dBSecurityGroupArn' - The Amazon Resource Name (ARN) for the DB security group.
+newDBSecurityGroup ::
   DBSecurityGroup
-dbSecurityGroup =
+newDBSecurityGroup =
   DBSecurityGroup'
-    { _dbsgOwnerId = Nothing,
-      _dbsgDBSecurityGroupName = Nothing,
-      _dbsgIPRanges = Nothing,
-      _dbsgDBSecurityGroupDescription = Nothing,
-      _dbsgEC2SecurityGroups = Nothing,
-      _dbsgVPCId = Nothing,
-      _dbsgDBSecurityGroupARN = Nothing
+    { ownerId = Prelude.Nothing,
+      dBSecurityGroupName = Prelude.Nothing,
+      iPRanges = Prelude.Nothing,
+      dBSecurityGroupDescription = Prelude.Nothing,
+      eC2SecurityGroups = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      dBSecurityGroupArn = Prelude.Nothing
     }
 
 -- | Provides the AWS ID of the owner of a specific DB security group.
-dbsgOwnerId :: Lens' DBSecurityGroup (Maybe Text)
-dbsgOwnerId = lens _dbsgOwnerId (\s a -> s {_dbsgOwnerId = a})
+dBSecurityGroup_ownerId :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dBSecurityGroup_ownerId = Lens.lens (\DBSecurityGroup' {ownerId} -> ownerId) (\s@DBSecurityGroup' {} a -> s {ownerId = a} :: DBSecurityGroup)
 
 -- | Specifies the name of the DB security group.
-dbsgDBSecurityGroupName :: Lens' DBSecurityGroup (Maybe Text)
-dbsgDBSecurityGroupName = lens _dbsgDBSecurityGroupName (\s a -> s {_dbsgDBSecurityGroupName = a})
+dBSecurityGroup_dBSecurityGroupName :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dBSecurityGroup_dBSecurityGroupName = Lens.lens (\DBSecurityGroup' {dBSecurityGroupName} -> dBSecurityGroupName) (\s@DBSecurityGroup' {} a -> s {dBSecurityGroupName = a} :: DBSecurityGroup)
 
 -- | Contains a list of @IPRange@ elements.
-dbsgIPRanges :: Lens' DBSecurityGroup [IPRange]
-dbsgIPRanges = lens _dbsgIPRanges (\s a -> s {_dbsgIPRanges = a}) . _Default . _Coerce
+dBSecurityGroup_iPRanges :: Lens.Lens' DBSecurityGroup (Prelude.Maybe [IPRange])
+dBSecurityGroup_iPRanges = Lens.lens (\DBSecurityGroup' {iPRanges} -> iPRanges) (\s@DBSecurityGroup' {} a -> s {iPRanges = a} :: DBSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Provides the description of the DB security group.
-dbsgDBSecurityGroupDescription :: Lens' DBSecurityGroup (Maybe Text)
-dbsgDBSecurityGroupDescription = lens _dbsgDBSecurityGroupDescription (\s a -> s {_dbsgDBSecurityGroupDescription = a})
+dBSecurityGroup_dBSecurityGroupDescription :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dBSecurityGroup_dBSecurityGroupDescription = Lens.lens (\DBSecurityGroup' {dBSecurityGroupDescription} -> dBSecurityGroupDescription) (\s@DBSecurityGroup' {} a -> s {dBSecurityGroupDescription = a} :: DBSecurityGroup)
 
 -- | Contains a list of @EC2SecurityGroup@ elements.
-dbsgEC2SecurityGroups :: Lens' DBSecurityGroup [EC2SecurityGroup]
-dbsgEC2SecurityGroups = lens _dbsgEC2SecurityGroups (\s a -> s {_dbsgEC2SecurityGroups = a}) . _Default . _Coerce
+dBSecurityGroup_eC2SecurityGroups :: Lens.Lens' DBSecurityGroup (Prelude.Maybe [EC2SecurityGroup])
+dBSecurityGroup_eC2SecurityGroups = Lens.lens (\DBSecurityGroup' {eC2SecurityGroups} -> eC2SecurityGroups) (\s@DBSecurityGroup' {} a -> s {eC2SecurityGroups = a} :: DBSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Provides the VpcId of the DB security group.
-dbsgVPCId :: Lens' DBSecurityGroup (Maybe Text)
-dbsgVPCId = lens _dbsgVPCId (\s a -> s {_dbsgVPCId = a})
+dBSecurityGroup_vpcId :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dBSecurityGroup_vpcId = Lens.lens (\DBSecurityGroup' {vpcId} -> vpcId) (\s@DBSecurityGroup' {} a -> s {vpcId = a} :: DBSecurityGroup)
 
 -- | The Amazon Resource Name (ARN) for the DB security group.
-dbsgDBSecurityGroupARN :: Lens' DBSecurityGroup (Maybe Text)
-dbsgDBSecurityGroupARN = lens _dbsgDBSecurityGroupARN (\s a -> s {_dbsgDBSecurityGroupARN = a})
+dBSecurityGroup_dBSecurityGroupArn :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dBSecurityGroup_dBSecurityGroupArn = Lens.lens (\DBSecurityGroup' {dBSecurityGroupArn} -> dBSecurityGroupArn) (\s@DBSecurityGroup' {} a -> s {dBSecurityGroupArn = a} :: DBSecurityGroup)
 
-instance FromXML DBSecurityGroup where
+instance Prelude.FromXML DBSecurityGroup where
   parseXML x =
     DBSecurityGroup'
-      <$> (x .@? "OwnerId")
-      <*> (x .@? "DBSecurityGroupName")
-      <*> ( x .@? "IPRanges" .!@ mempty
-              >>= may (parseXMLList "IPRange")
-          )
-      <*> (x .@? "DBSecurityGroupDescription")
-      <*> ( x .@? "EC2SecurityGroups" .!@ mempty
-              >>= may (parseXMLList "EC2SecurityGroup")
-          )
-      <*> (x .@? "VpcId")
-      <*> (x .@? "DBSecurityGroupArn")
+      Prelude.<$> (x Prelude..@? "OwnerId")
+      Prelude.<*> (x Prelude..@? "DBSecurityGroupName")
+      Prelude.<*> ( x Prelude..@? "IPRanges" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "IPRange")
+                  )
+      Prelude.<*> (x Prelude..@? "DBSecurityGroupDescription")
+      Prelude.<*> ( x Prelude..@? "EC2SecurityGroups"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "EC2SecurityGroup")
+                  )
+      Prelude.<*> (x Prelude..@? "VpcId")
+      Prelude.<*> (x Prelude..@? "DBSecurityGroupArn")
 
-instance Hashable DBSecurityGroup
+instance Prelude.Hashable DBSecurityGroup
 
-instance NFData DBSecurityGroup
+instance Prelude.NFData DBSecurityGroup

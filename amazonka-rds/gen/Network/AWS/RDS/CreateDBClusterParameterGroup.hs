@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,199 +23,279 @@
 --
 -- Creates a new DB cluster parameter group.
 --
+-- Parameters in a DB cluster parameter group apply to all of the instances
+-- in a DB cluster.
 --
--- Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster.
+-- A DB cluster parameter group is initially created with the default
+-- parameters for the database engine used by instances in the DB cluster.
+-- To provide custom values for any of the parameters, you must modify the
+-- group after creating it using @ModifyDBClusterParameterGroup@. Once
+-- you\'ve created a DB cluster parameter group, you need to associate it
+-- with your DB cluster using @ModifyDBCluster@. When you associate a new
+-- DB cluster parameter group with a running DB cluster, you need to reboot
+-- the DB instances in the DB cluster without failover for the new DB
+-- cluster parameter group and associated settings to take effect.
 --
--- A DB cluster parameter group is initially created with the default parameters for the database engine used by instances in the DB cluster. To provide custom values for any of the parameters, you must modify the group after creating it using @ModifyDBClusterParameterGroup@ . Once you've created a DB cluster parameter group, you need to associate it with your DB cluster using @ModifyDBCluster@ . When you associate a new DB cluster parameter group with a running DB cluster, you need to reboot the DB instances in the DB cluster without failover for the new DB cluster parameter group and associated settings to take effect.
+-- After you create a DB cluster parameter group, you should wait at least
+-- 5 minutes before creating your first DB cluster that uses that DB
+-- cluster parameter group as the default parameter group. This allows
+-- Amazon RDS to fully complete the create action before the DB cluster
+-- parameter group is used as the default for a new DB cluster. This is
+-- especially important for parameters that are critical when creating the
+-- default database for a DB cluster, such as the character set for the
+-- default database defined by the @character_set_database@ parameter. You
+-- can use the /Parameter Groups/ option of the
+-- <https://console.aws.amazon.com/rds/ Amazon RDS console> or the
+-- @DescribeDBClusterParameters@ action to verify that your DB cluster
+-- parameter group has been created or modified.
 --
--- /Important:/ After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon RDS to fully complete the create action before the DB cluster parameter group is used as the default for a new DB cluster. This is especially important for parameters that are critical when creating the default database for a DB cluster, such as the character set for the default database defined by the @character_set_database@ parameter. You can use the /Parameter Groups/ option of the <https://console.aws.amazon.com/rds/ Amazon RDS console> or the @DescribeDBClusterParameters@ action to verify that your DB cluster parameter group has been created or modified.
+-- For more information on Amazon Aurora, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide./
 --
--- For more information on Amazon Aurora, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?> in the /Amazon Aurora User Guide./
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.CreateDBClusterParameterGroup
   ( -- * Creating a Request
-    createDBClusterParameterGroup,
-    CreateDBClusterParameterGroup,
+    CreateDBClusterParameterGroup (..),
+    newCreateDBClusterParameterGroup,
 
     -- * Request Lenses
-    cdbcpgTags,
-    cdbcpgDBClusterParameterGroupName,
-    cdbcpgDBParameterGroupFamily,
-    cdbcpgDescription,
+    createDBClusterParameterGroup_tags,
+    createDBClusterParameterGroup_dBClusterParameterGroupName,
+    createDBClusterParameterGroup_dBParameterGroupFamily,
+    createDBClusterParameterGroup_description,
 
     -- * Destructuring the Response
-    createDBClusterParameterGroupResponse,
-    CreateDBClusterParameterGroupResponse,
+    CreateDBClusterParameterGroupResponse (..),
+    newCreateDBClusterParameterGroupResponse,
 
     -- * Response Lenses
-    cdbcpgrrsDBClusterParameterGroup,
-    cdbcpgrrsResponseStatus,
+    createDBClusterParameterGroupResponse_dBClusterParameterGroup,
+    createDBClusterParameterGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBClusterParameterGroup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'createDBClusterParameterGroup' smart constructor.
+-- /See:/ 'newCreateDBClusterParameterGroup' smart constructor.
 data CreateDBClusterParameterGroup = CreateDBClusterParameterGroup'
-  { _cdbcpgTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _cdbcpgDBClusterParameterGroupName ::
-      !Text,
-    _cdbcpgDBParameterGroupFamily ::
-      !Text,
-    _cdbcpgDescription ::
-      !Text
+  { -- | Tags to assign to the DB cluster parameter group.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the DB cluster parameter group.
+    --
+    -- Constraints:
+    --
+    -- -   Must match the name of an existing DB cluster parameter group.
+    --
+    -- This value is stored as a lowercase string.
+    dBClusterParameterGroupName :: Prelude.Text,
+    -- | The DB cluster parameter group family name. A DB cluster parameter group
+    -- can be associated with one and only one DB cluster parameter group
+    -- family, and can be applied only to a DB cluster running a database
+    -- engine and engine version compatible with that DB cluster parameter
+    -- group family.
+    --
+    -- __Aurora MySQL__
+    --
+    -- Example: @aurora5.6@, @aurora-mysql5.7@
+    --
+    -- __Aurora PostgreSQL__
+    --
+    -- Example: @aurora-postgresql9.6@
+    dBParameterGroupFamily :: Prelude.Text,
+    -- | The description for the DB cluster parameter group.
+    description :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBClusterParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBClusterParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdbcpgTags' - Tags to assign to the DB cluster parameter group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdbcpgDBClusterParameterGroupName' - The name of the DB cluster parameter group. Constraints:     * Must match the name of an existing DB cluster parameter group.
+-- 'tags', 'createDBClusterParameterGroup_tags' - Tags to assign to the DB cluster parameter group.
 --
--- * 'cdbcpgDBParameterGroupFamily' - The DB cluster parameter group family name. A DB cluster parameter group can be associated with one and only one DB cluster parameter group family, and can be applied only to a DB cluster running a database engine and engine version compatible with that DB cluster parameter group family. __Aurora MySQL__  Example: @aurora5.6@ , @aurora-mysql5.7@  __Aurora PostgreSQL__  Example: @aurora-postgresql9.6@
+-- 'dBClusterParameterGroupName', 'createDBClusterParameterGroup_dBClusterParameterGroupName' - The name of the DB cluster parameter group.
 --
--- * 'cdbcpgDescription' - The description for the DB cluster parameter group.
-createDBClusterParameterGroup ::
-  -- | 'cdbcpgDBClusterParameterGroupName'
-  Text ->
-  -- | 'cdbcpgDBParameterGroupFamily'
-  Text ->
-  -- | 'cdbcpgDescription'
-  Text ->
+-- Constraints:
+--
+-- -   Must match the name of an existing DB cluster parameter group.
+--
+-- This value is stored as a lowercase string.
+--
+-- 'dBParameterGroupFamily', 'createDBClusterParameterGroup_dBParameterGroupFamily' - The DB cluster parameter group family name. A DB cluster parameter group
+-- can be associated with one and only one DB cluster parameter group
+-- family, and can be applied only to a DB cluster running a database
+-- engine and engine version compatible with that DB cluster parameter
+-- group family.
+--
+-- __Aurora MySQL__
+--
+-- Example: @aurora5.6@, @aurora-mysql5.7@
+--
+-- __Aurora PostgreSQL__
+--
+-- Example: @aurora-postgresql9.6@
+--
+-- 'description', 'createDBClusterParameterGroup_description' - The description for the DB cluster parameter group.
+newCreateDBClusterParameterGroup ::
+  -- | 'dBClusterParameterGroupName'
+  Prelude.Text ->
+  -- | 'dBParameterGroupFamily'
+  Prelude.Text ->
+  -- | 'description'
+  Prelude.Text ->
   CreateDBClusterParameterGroup
-createDBClusterParameterGroup
+newCreateDBClusterParameterGroup
   pDBClusterParameterGroupName_
   pDBParameterGroupFamily_
   pDescription_ =
     CreateDBClusterParameterGroup'
-      { _cdbcpgTags =
-          Nothing,
-        _cdbcpgDBClusterParameterGroupName =
+      { tags =
+          Prelude.Nothing,
+        dBClusterParameterGroupName =
           pDBClusterParameterGroupName_,
-        _cdbcpgDBParameterGroupFamily =
+        dBParameterGroupFamily =
           pDBParameterGroupFamily_,
-        _cdbcpgDescription = pDescription_
+        description = pDescription_
       }
 
 -- | Tags to assign to the DB cluster parameter group.
-cdbcpgTags :: Lens' CreateDBClusterParameterGroup [Tag]
-cdbcpgTags = lens _cdbcpgTags (\s a -> s {_cdbcpgTags = a}) . _Default . _Coerce
+createDBClusterParameterGroup_tags :: Lens.Lens' CreateDBClusterParameterGroup (Prelude.Maybe [Tag])
+createDBClusterParameterGroup_tags = Lens.lens (\CreateDBClusterParameterGroup' {tags} -> tags) (\s@CreateDBClusterParameterGroup' {} a -> s {tags = a} :: CreateDBClusterParameterGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the DB cluster parameter group. Constraints:     * Must match the name of an existing DB cluster parameter group.
-cdbcpgDBClusterParameterGroupName :: Lens' CreateDBClusterParameterGroup Text
-cdbcpgDBClusterParameterGroupName = lens _cdbcpgDBClusterParameterGroupName (\s a -> s {_cdbcpgDBClusterParameterGroupName = a})
+-- | The name of the DB cluster parameter group.
+--
+-- Constraints:
+--
+-- -   Must match the name of an existing DB cluster parameter group.
+--
+-- This value is stored as a lowercase string.
+createDBClusterParameterGroup_dBClusterParameterGroupName :: Lens.Lens' CreateDBClusterParameterGroup Prelude.Text
+createDBClusterParameterGroup_dBClusterParameterGroupName = Lens.lens (\CreateDBClusterParameterGroup' {dBClusterParameterGroupName} -> dBClusterParameterGroupName) (\s@CreateDBClusterParameterGroup' {} a -> s {dBClusterParameterGroupName = a} :: CreateDBClusterParameterGroup)
 
--- | The DB cluster parameter group family name. A DB cluster parameter group can be associated with one and only one DB cluster parameter group family, and can be applied only to a DB cluster running a database engine and engine version compatible with that DB cluster parameter group family. __Aurora MySQL__  Example: @aurora5.6@ , @aurora-mysql5.7@  __Aurora PostgreSQL__  Example: @aurora-postgresql9.6@
-cdbcpgDBParameterGroupFamily :: Lens' CreateDBClusterParameterGroup Text
-cdbcpgDBParameterGroupFamily = lens _cdbcpgDBParameterGroupFamily (\s a -> s {_cdbcpgDBParameterGroupFamily = a})
+-- | The DB cluster parameter group family name. A DB cluster parameter group
+-- can be associated with one and only one DB cluster parameter group
+-- family, and can be applied only to a DB cluster running a database
+-- engine and engine version compatible with that DB cluster parameter
+-- group family.
+--
+-- __Aurora MySQL__
+--
+-- Example: @aurora5.6@, @aurora-mysql5.7@
+--
+-- __Aurora PostgreSQL__
+--
+-- Example: @aurora-postgresql9.6@
+createDBClusterParameterGroup_dBParameterGroupFamily :: Lens.Lens' CreateDBClusterParameterGroup Prelude.Text
+createDBClusterParameterGroup_dBParameterGroupFamily = Lens.lens (\CreateDBClusterParameterGroup' {dBParameterGroupFamily} -> dBParameterGroupFamily) (\s@CreateDBClusterParameterGroup' {} a -> s {dBParameterGroupFamily = a} :: CreateDBClusterParameterGroup)
 
 -- | The description for the DB cluster parameter group.
-cdbcpgDescription :: Lens' CreateDBClusterParameterGroup Text
-cdbcpgDescription = lens _cdbcpgDescription (\s a -> s {_cdbcpgDescription = a})
+createDBClusterParameterGroup_description :: Lens.Lens' CreateDBClusterParameterGroup Prelude.Text
+createDBClusterParameterGroup_description = Lens.lens (\CreateDBClusterParameterGroup' {description} -> description) (\s@CreateDBClusterParameterGroup' {} a -> s {description = a} :: CreateDBClusterParameterGroup)
 
-instance AWSRequest CreateDBClusterParameterGroup where
+instance
+  Prelude.AWSRequest
+    CreateDBClusterParameterGroup
+  where
   type
     Rs CreateDBClusterParameterGroup =
       CreateDBClusterParameterGroupResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateDBClusterParameterGroupResult"
       ( \s h x ->
           CreateDBClusterParameterGroupResponse'
-            <$> (x .@? "DBClusterParameterGroup")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBClusterParameterGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDBClusterParameterGroup
+instance
+  Prelude.Hashable
+    CreateDBClusterParameterGroup
 
-instance NFData CreateDBClusterParameterGroup
+instance Prelude.NFData CreateDBClusterParameterGroup
 
-instance ToHeaders CreateDBClusterParameterGroup where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateDBClusterParameterGroup
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateDBClusterParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateDBClusterParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDBClusterParameterGroup where
+instance
+  Prelude.ToQuery
+    CreateDBClusterParameterGroup
+  where
   toQuery CreateDBClusterParameterGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateDBClusterParameterGroup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ( "CreateDBClusterParameterGroup" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          =: toQuery (toQueryList "Tag" <$> _cdbcpgTags),
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
         "DBClusterParameterGroupName"
-          =: _cdbcpgDBClusterParameterGroupName,
+          Prelude.=: dBClusterParameterGroupName,
         "DBParameterGroupFamily"
-          =: _cdbcpgDBParameterGroupFamily,
-        "Description" =: _cdbcpgDescription
+          Prelude.=: dBParameterGroupFamily,
+        "Description" Prelude.=: description
       ]
 
--- | /See:/ 'createDBClusterParameterGroupResponse' smart constructor.
+-- | /See:/ 'newCreateDBClusterParameterGroupResponse' smart constructor.
 data CreateDBClusterParameterGroupResponse = CreateDBClusterParameterGroupResponse'
-  { _cdbcpgrrsDBClusterParameterGroup ::
-      !( Maybe
-           DBClusterParameterGroup
-       ),
-    _cdbcpgrrsResponseStatus ::
-      !Int
+  { dBClusterParameterGroup :: Prelude.Maybe DBClusterParameterGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDBClusterParameterGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDBClusterParameterGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdbcpgrrsDBClusterParameterGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdbcpgrrsResponseStatus' - -- | The response status code.
-createDBClusterParameterGroupResponse ::
-  -- | 'cdbcpgrrsResponseStatus'
-  Int ->
+-- 'dBClusterParameterGroup', 'createDBClusterParameterGroupResponse_dBClusterParameterGroup' - Undocumented member.
+--
+-- 'httpStatus', 'createDBClusterParameterGroupResponse_httpStatus' - The response's http status code.
+newCreateDBClusterParameterGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDBClusterParameterGroupResponse
-createDBClusterParameterGroupResponse
-  pResponseStatus_ =
-    CreateDBClusterParameterGroupResponse'
-      { _cdbcpgrrsDBClusterParameterGroup =
-          Nothing,
-        _cdbcpgrrsResponseStatus =
-          pResponseStatus_
-      }
+newCreateDBClusterParameterGroupResponse pHttpStatus_ =
+  CreateDBClusterParameterGroupResponse'
+    { dBClusterParameterGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | Undocumented member.
-cdbcpgrrsDBClusterParameterGroup :: Lens' CreateDBClusterParameterGroupResponse (Maybe DBClusterParameterGroup)
-cdbcpgrrsDBClusterParameterGroup = lens _cdbcpgrrsDBClusterParameterGroup (\s a -> s {_cdbcpgrrsDBClusterParameterGroup = a})
+createDBClusterParameterGroupResponse_dBClusterParameterGroup :: Lens.Lens' CreateDBClusterParameterGroupResponse (Prelude.Maybe DBClusterParameterGroup)
+createDBClusterParameterGroupResponse_dBClusterParameterGroup = Lens.lens (\CreateDBClusterParameterGroupResponse' {dBClusterParameterGroup} -> dBClusterParameterGroup) (\s@CreateDBClusterParameterGroupResponse' {} a -> s {dBClusterParameterGroup = a} :: CreateDBClusterParameterGroupResponse)
 
--- | -- | The response status code.
-cdbcpgrrsResponseStatus :: Lens' CreateDBClusterParameterGroupResponse Int
-cdbcpgrrsResponseStatus = lens _cdbcpgrrsResponseStatus (\s a -> s {_cdbcpgrrsResponseStatus = a})
+-- | The response's http status code.
+createDBClusterParameterGroupResponse_httpStatus :: Lens.Lens' CreateDBClusterParameterGroupResponse Prelude.Int
+createDBClusterParameterGroupResponse_httpStatus = Lens.lens (\CreateDBClusterParameterGroupResponse' {httpStatus} -> httpStatus) (\s@CreateDBClusterParameterGroupResponse' {} a -> s {httpStatus = a} :: CreateDBClusterParameterGroupResponse)
 
-instance NFData CreateDBClusterParameterGroupResponse
+instance
+  Prelude.NFData
+    CreateDBClusterParameterGroupResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.CustomAvailabilityZone where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.RDS.Types.VPNDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.RDS.Types.VpnDetails
 
--- | A custom Availability Zone (AZ) is an on-premises AZ that is integrated with a VMware vSphere cluster.
+-- | A custom Availability Zone (AZ) is an on-premises AZ that is integrated
+-- with a VMware vSphere cluster.
 --
+-- For more information about RDS on VMware, see the
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/RDSonVMwareUserGuide/rds-on-vmware.html RDS on VMware User Guide.>
 --
--- For more information about RDS on VMware, see the <https://docs.aws.amazon.com/AmazonRDS/latest/RDSonVMwareUserGuide/rds-on-vmware.html RDS on VMware User Guide.>
---
---
--- /See:/ 'customAvailabilityZone' smart constructor.
+-- /See:/ 'newCustomAvailabilityZone' smart constructor.
 data CustomAvailabilityZone = CustomAvailabilityZone'
-  { _cazCustomAvailabilityZoneId ::
-      !(Maybe Text),
-    _cazCustomAvailabilityZoneName ::
-      !(Maybe Text),
-    _cazVPNDetails ::
-      !(Maybe VPNDetails),
-    _cazCustomAvailabilityZoneStatus ::
-      !(Maybe Text)
+  { -- | The identifier of the custom AZ.
+    --
+    -- Amazon RDS generates a unique identifier when a custom AZ is created.
+    customAvailabilityZoneId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the custom AZ.
+    customAvailabilityZoneName :: Prelude.Maybe Prelude.Text,
+    -- | Information about the virtual private network (VPN) between the VMware
+    -- vSphere cluster and the AWS website.
+    vpnDetails :: Prelude.Maybe VpnDetails,
+    -- | The status of the custom AZ.
+    customAvailabilityZoneStatus :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomAvailabilityZone' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomAvailabilityZone' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cazCustomAvailabilityZoneId' - The identifier of the custom AZ. Amazon RDS generates a unique identifier when a custom AZ is created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cazCustomAvailabilityZoneName' - The name of the custom AZ.
+-- 'customAvailabilityZoneId', 'customAvailabilityZone_customAvailabilityZoneId' - The identifier of the custom AZ.
 --
--- * 'cazVPNDetails' - Information about the virtual private network (VPN) between the VMware vSphere cluster and the AWS website.
+-- Amazon RDS generates a unique identifier when a custom AZ is created.
 --
--- * 'cazCustomAvailabilityZoneStatus' - The status of the custom AZ.
-customAvailabilityZone ::
+-- 'customAvailabilityZoneName', 'customAvailabilityZone_customAvailabilityZoneName' - The name of the custom AZ.
+--
+-- 'vpnDetails', 'customAvailabilityZone_vpnDetails' - Information about the virtual private network (VPN) between the VMware
+-- vSphere cluster and the AWS website.
+--
+-- 'customAvailabilityZoneStatus', 'customAvailabilityZone_customAvailabilityZoneStatus' - The status of the custom AZ.
+newCustomAvailabilityZone ::
   CustomAvailabilityZone
-customAvailabilityZone =
+newCustomAvailabilityZone =
   CustomAvailabilityZone'
-    { _cazCustomAvailabilityZoneId =
-        Nothing,
-      _cazCustomAvailabilityZoneName = Nothing,
-      _cazVPNDetails = Nothing,
-      _cazCustomAvailabilityZoneStatus = Nothing
+    { customAvailabilityZoneId =
+        Prelude.Nothing,
+      customAvailabilityZoneName = Prelude.Nothing,
+      vpnDetails = Prelude.Nothing,
+      customAvailabilityZoneStatus = Prelude.Nothing
     }
 
--- | The identifier of the custom AZ. Amazon RDS generates a unique identifier when a custom AZ is created.
-cazCustomAvailabilityZoneId :: Lens' CustomAvailabilityZone (Maybe Text)
-cazCustomAvailabilityZoneId = lens _cazCustomAvailabilityZoneId (\s a -> s {_cazCustomAvailabilityZoneId = a})
+-- | The identifier of the custom AZ.
+--
+-- Amazon RDS generates a unique identifier when a custom AZ is created.
+customAvailabilityZone_customAvailabilityZoneId :: Lens.Lens' CustomAvailabilityZone (Prelude.Maybe Prelude.Text)
+customAvailabilityZone_customAvailabilityZoneId = Lens.lens (\CustomAvailabilityZone' {customAvailabilityZoneId} -> customAvailabilityZoneId) (\s@CustomAvailabilityZone' {} a -> s {customAvailabilityZoneId = a} :: CustomAvailabilityZone)
 
 -- | The name of the custom AZ.
-cazCustomAvailabilityZoneName :: Lens' CustomAvailabilityZone (Maybe Text)
-cazCustomAvailabilityZoneName = lens _cazCustomAvailabilityZoneName (\s a -> s {_cazCustomAvailabilityZoneName = a})
+customAvailabilityZone_customAvailabilityZoneName :: Lens.Lens' CustomAvailabilityZone (Prelude.Maybe Prelude.Text)
+customAvailabilityZone_customAvailabilityZoneName = Lens.lens (\CustomAvailabilityZone' {customAvailabilityZoneName} -> customAvailabilityZoneName) (\s@CustomAvailabilityZone' {} a -> s {customAvailabilityZoneName = a} :: CustomAvailabilityZone)
 
--- | Information about the virtual private network (VPN) between the VMware vSphere cluster and the AWS website.
-cazVPNDetails :: Lens' CustomAvailabilityZone (Maybe VPNDetails)
-cazVPNDetails = lens _cazVPNDetails (\s a -> s {_cazVPNDetails = a})
+-- | Information about the virtual private network (VPN) between the VMware
+-- vSphere cluster and the AWS website.
+customAvailabilityZone_vpnDetails :: Lens.Lens' CustomAvailabilityZone (Prelude.Maybe VpnDetails)
+customAvailabilityZone_vpnDetails = Lens.lens (\CustomAvailabilityZone' {vpnDetails} -> vpnDetails) (\s@CustomAvailabilityZone' {} a -> s {vpnDetails = a} :: CustomAvailabilityZone)
 
 -- | The status of the custom AZ.
-cazCustomAvailabilityZoneStatus :: Lens' CustomAvailabilityZone (Maybe Text)
-cazCustomAvailabilityZoneStatus = lens _cazCustomAvailabilityZoneStatus (\s a -> s {_cazCustomAvailabilityZoneStatus = a})
+customAvailabilityZone_customAvailabilityZoneStatus :: Lens.Lens' CustomAvailabilityZone (Prelude.Maybe Prelude.Text)
+customAvailabilityZone_customAvailabilityZoneStatus = Lens.lens (\CustomAvailabilityZone' {customAvailabilityZoneStatus} -> customAvailabilityZoneStatus) (\s@CustomAvailabilityZone' {} a -> s {customAvailabilityZoneStatus = a} :: CustomAvailabilityZone)
 
-instance FromXML CustomAvailabilityZone where
+instance Prelude.FromXML CustomAvailabilityZone where
   parseXML x =
     CustomAvailabilityZone'
-      <$> (x .@? "CustomAvailabilityZoneId")
-      <*> (x .@? "CustomAvailabilityZoneName")
-      <*> (x .@? "VpnDetails")
-      <*> (x .@? "CustomAvailabilityZoneStatus")
+      Prelude.<$> (x Prelude..@? "CustomAvailabilityZoneId")
+      Prelude.<*> (x Prelude..@? "CustomAvailabilityZoneName")
+      Prelude.<*> (x Prelude..@? "VpnDetails")
+      Prelude.<*> (x Prelude..@? "CustomAvailabilityZoneStatus")
 
-instance Hashable CustomAvailabilityZone
+instance Prelude.Hashable CustomAvailabilityZone
 
-instance NFData CustomAvailabilityZone
+instance Prelude.NFData CustomAvailabilityZone

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Applies a pending maintenance action to a resource (for example, to a DB instance).
+-- Applies a pending maintenance action to a resource (for example, to a DB
+-- instance).
 module Network.AWS.RDS.ApplyPendingMaintenanceAction
   ( -- * Creating a Request
-    applyPendingMaintenanceAction,
-    ApplyPendingMaintenanceAction,
+    ApplyPendingMaintenanceAction (..),
+    newApplyPendingMaintenanceAction,
 
     -- * Request Lenses
-    apmaResourceIdentifier,
-    apmaApplyAction,
-    apmaOptInType,
+    applyPendingMaintenanceAction_resourceIdentifier,
+    applyPendingMaintenanceAction_applyAction,
+    applyPendingMaintenanceAction_optInType,
 
     -- * Destructuring the Response
-    applyPendingMaintenanceActionResponse,
-    ApplyPendingMaintenanceActionResponse,
+    ApplyPendingMaintenanceActionResponse (..),
+    newApplyPendingMaintenanceActionResponse,
 
     -- * Response Lenses
-    apmarrsResourcePendingMaintenanceActions,
-    apmarrsResponseStatus,
+    applyPendingMaintenanceActionResponse_resourcePendingMaintenanceActions,
+    applyPendingMaintenanceActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.ResourcePendingMaintenanceActions
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'applyPendingMaintenanceAction' smart constructor.
+-- /See:/ 'newApplyPendingMaintenanceAction' smart constructor.
 data ApplyPendingMaintenanceAction = ApplyPendingMaintenanceAction'
-  { _apmaResourceIdentifier ::
-      !Text,
-    _apmaApplyAction ::
-      !Text,
-    _apmaOptInType ::
-      !Text
+  { -- | The RDS Amazon Resource Name (ARN) of the resource that the pending
+    -- maintenance action applies to. For information about creating an ARN,
+    -- see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an RDS Amazon Resource Name (ARN)>.
+    resourceIdentifier :: Prelude.Text,
+    -- | The pending maintenance action to apply to this resource.
+    --
+    -- Valid values: @system-update@, @db-upgrade@, @hardware-maintenance@,
+    -- @ca-certificate-rotation@
+    applyAction :: Prelude.Text,
+    -- | A value that specifies the type of opt-in request, or undoes an opt-in
+    -- request. An opt-in request of type @immediate@ can\'t be undone.
+    --
+    -- Valid values:
+    --
+    -- -   @immediate@ - Apply the maintenance action immediately.
+    --
+    -- -   @next-maintenance@ - Apply the maintenance action during the next
+    --     maintenance window for the resource.
+    --
+    -- -   @undo-opt-in@ - Cancel any existing @next-maintenance@ opt-in
+    --     requests.
+    optInType :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplyPendingMaintenanceAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplyPendingMaintenanceAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apmaResourceIdentifier' - The RDS Amazon Resource Name (ARN) of the resource that the pending maintenance action applies to. For information about creating an ARN, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an RDS Amazon Resource Name (ARN)> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apmaApplyAction' - The pending maintenance action to apply to this resource. Valid values: @system-update@ , @db-upgrade@ , @hardware-maintenance@ , @ca-certificate-rotation@
+-- 'resourceIdentifier', 'applyPendingMaintenanceAction_resourceIdentifier' - The RDS Amazon Resource Name (ARN) of the resource that the pending
+-- maintenance action applies to. For information about creating an ARN,
+-- see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an RDS Amazon Resource Name (ARN)>.
 --
--- * 'apmaOptInType' - A value that specifies the type of opt-in request, or undoes an opt-in request. An opt-in request of type @immediate@ can't be undone. Valid values:     * @immediate@ - Apply the maintenance action immediately.     * @next-maintenance@ - Apply the maintenance action during the next maintenance window for the resource.     * @undo-opt-in@ - Cancel any existing @next-maintenance@ opt-in requests.
-applyPendingMaintenanceAction ::
-  -- | 'apmaResourceIdentifier'
-  Text ->
-  -- | 'apmaApplyAction'
-  Text ->
-  -- | 'apmaOptInType'
-  Text ->
+-- 'applyAction', 'applyPendingMaintenanceAction_applyAction' - The pending maintenance action to apply to this resource.
+--
+-- Valid values: @system-update@, @db-upgrade@, @hardware-maintenance@,
+-- @ca-certificate-rotation@
+--
+-- 'optInType', 'applyPendingMaintenanceAction_optInType' - A value that specifies the type of opt-in request, or undoes an opt-in
+-- request. An opt-in request of type @immediate@ can\'t be undone.
+--
+-- Valid values:
+--
+-- -   @immediate@ - Apply the maintenance action immediately.
+--
+-- -   @next-maintenance@ - Apply the maintenance action during the next
+--     maintenance window for the resource.
+--
+-- -   @undo-opt-in@ - Cancel any existing @next-maintenance@ opt-in
+--     requests.
+newApplyPendingMaintenanceAction ::
+  -- | 'resourceIdentifier'
+  Prelude.Text ->
+  -- | 'applyAction'
+  Prelude.Text ->
+  -- | 'optInType'
+  Prelude.Text ->
   ApplyPendingMaintenanceAction
-applyPendingMaintenanceAction
+newApplyPendingMaintenanceAction
   pResourceIdentifier_
   pApplyAction_
   pOptInType_ =
     ApplyPendingMaintenanceAction'
-      { _apmaResourceIdentifier =
+      { resourceIdentifier =
           pResourceIdentifier_,
-        _apmaApplyAction = pApplyAction_,
-        _apmaOptInType = pOptInType_
+        applyAction = pApplyAction_,
+        optInType = pOptInType_
       }
 
--- | The RDS Amazon Resource Name (ARN) of the resource that the pending maintenance action applies to. For information about creating an ARN, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an RDS Amazon Resource Name (ARN)> .
-apmaResourceIdentifier :: Lens' ApplyPendingMaintenanceAction Text
-apmaResourceIdentifier = lens _apmaResourceIdentifier (\s a -> s {_apmaResourceIdentifier = a})
+-- | The RDS Amazon Resource Name (ARN) of the resource that the pending
+-- maintenance action applies to. For information about creating an ARN,
+-- see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing Constructing an RDS Amazon Resource Name (ARN)>.
+applyPendingMaintenanceAction_resourceIdentifier :: Lens.Lens' ApplyPendingMaintenanceAction Prelude.Text
+applyPendingMaintenanceAction_resourceIdentifier = Lens.lens (\ApplyPendingMaintenanceAction' {resourceIdentifier} -> resourceIdentifier) (\s@ApplyPendingMaintenanceAction' {} a -> s {resourceIdentifier = a} :: ApplyPendingMaintenanceAction)
 
--- | The pending maintenance action to apply to this resource. Valid values: @system-update@ , @db-upgrade@ , @hardware-maintenance@ , @ca-certificate-rotation@
-apmaApplyAction :: Lens' ApplyPendingMaintenanceAction Text
-apmaApplyAction = lens _apmaApplyAction (\s a -> s {_apmaApplyAction = a})
+-- | The pending maintenance action to apply to this resource.
+--
+-- Valid values: @system-update@, @db-upgrade@, @hardware-maintenance@,
+-- @ca-certificate-rotation@
+applyPendingMaintenanceAction_applyAction :: Lens.Lens' ApplyPendingMaintenanceAction Prelude.Text
+applyPendingMaintenanceAction_applyAction = Lens.lens (\ApplyPendingMaintenanceAction' {applyAction} -> applyAction) (\s@ApplyPendingMaintenanceAction' {} a -> s {applyAction = a} :: ApplyPendingMaintenanceAction)
 
--- | A value that specifies the type of opt-in request, or undoes an opt-in request. An opt-in request of type @immediate@ can't be undone. Valid values:     * @immediate@ - Apply the maintenance action immediately.     * @next-maintenance@ - Apply the maintenance action during the next maintenance window for the resource.     * @undo-opt-in@ - Cancel any existing @next-maintenance@ opt-in requests.
-apmaOptInType :: Lens' ApplyPendingMaintenanceAction Text
-apmaOptInType = lens _apmaOptInType (\s a -> s {_apmaOptInType = a})
+-- | A value that specifies the type of opt-in request, or undoes an opt-in
+-- request. An opt-in request of type @immediate@ can\'t be undone.
+--
+-- Valid values:
+--
+-- -   @immediate@ - Apply the maintenance action immediately.
+--
+-- -   @next-maintenance@ - Apply the maintenance action during the next
+--     maintenance window for the resource.
+--
+-- -   @undo-opt-in@ - Cancel any existing @next-maintenance@ opt-in
+--     requests.
+applyPendingMaintenanceAction_optInType :: Lens.Lens' ApplyPendingMaintenanceAction Prelude.Text
+applyPendingMaintenanceAction_optInType = Lens.lens (\ApplyPendingMaintenanceAction' {optInType} -> optInType) (\s@ApplyPendingMaintenanceAction' {} a -> s {optInType = a} :: ApplyPendingMaintenanceAction)
 
-instance AWSRequest ApplyPendingMaintenanceAction where
+instance
+  Prelude.AWSRequest
+    ApplyPendingMaintenanceAction
+  where
   type
     Rs ApplyPendingMaintenanceAction =
       ApplyPendingMaintenanceActionResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ApplyPendingMaintenanceActionResult"
       ( \s h x ->
           ApplyPendingMaintenanceActionResponse'
-            <$> (x .@? "ResourcePendingMaintenanceActions")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ResourcePendingMaintenanceActions")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ApplyPendingMaintenanceAction
+instance
+  Prelude.Hashable
+    ApplyPendingMaintenanceAction
 
-instance NFData ApplyPendingMaintenanceAction
+instance Prelude.NFData ApplyPendingMaintenanceAction
 
-instance ToHeaders ApplyPendingMaintenanceAction where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ApplyPendingMaintenanceAction
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ApplyPendingMaintenanceAction where
-  toPath = const "/"
+instance Prelude.ToPath ApplyPendingMaintenanceAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery ApplyPendingMaintenanceAction where
+instance
+  Prelude.ToQuery
+    ApplyPendingMaintenanceAction
+  where
   toQuery ApplyPendingMaintenanceAction' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ApplyPendingMaintenanceAction" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "ResourceIdentifier" =: _apmaResourceIdentifier,
-        "ApplyAction" =: _apmaApplyAction,
-        "OptInType" =: _apmaOptInType
+          Prelude.=: ( "ApplyPendingMaintenanceAction" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "ResourceIdentifier" Prelude.=: resourceIdentifier,
+        "ApplyAction" Prelude.=: applyAction,
+        "OptInType" Prelude.=: optInType
       ]
 
--- | /See:/ 'applyPendingMaintenanceActionResponse' smart constructor.
+-- | /See:/ 'newApplyPendingMaintenanceActionResponse' smart constructor.
 data ApplyPendingMaintenanceActionResponse = ApplyPendingMaintenanceActionResponse'
-  { _apmarrsResourcePendingMaintenanceActions ::
-      !( Maybe
-           ResourcePendingMaintenanceActions
-       ),
-    _apmarrsResponseStatus ::
-      !Int
+  { resourcePendingMaintenanceActions :: Prelude.Maybe ResourcePendingMaintenanceActions,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplyPendingMaintenanceActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplyPendingMaintenanceActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apmarrsResourcePendingMaintenanceActions' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apmarrsResponseStatus' - -- | The response status code.
-applyPendingMaintenanceActionResponse ::
-  -- | 'apmarrsResponseStatus'
-  Int ->
+-- 'resourcePendingMaintenanceActions', 'applyPendingMaintenanceActionResponse_resourcePendingMaintenanceActions' - Undocumented member.
+--
+-- 'httpStatus', 'applyPendingMaintenanceActionResponse_httpStatus' - The response's http status code.
+newApplyPendingMaintenanceActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ApplyPendingMaintenanceActionResponse
-applyPendingMaintenanceActionResponse
-  pResponseStatus_ =
-    ApplyPendingMaintenanceActionResponse'
-      { _apmarrsResourcePendingMaintenanceActions =
-          Nothing,
-        _apmarrsResponseStatus =
-          pResponseStatus_
-      }
+newApplyPendingMaintenanceActionResponse pHttpStatus_ =
+  ApplyPendingMaintenanceActionResponse'
+    { resourcePendingMaintenanceActions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | Undocumented member.
-apmarrsResourcePendingMaintenanceActions :: Lens' ApplyPendingMaintenanceActionResponse (Maybe ResourcePendingMaintenanceActions)
-apmarrsResourcePendingMaintenanceActions = lens _apmarrsResourcePendingMaintenanceActions (\s a -> s {_apmarrsResourcePendingMaintenanceActions = a})
+applyPendingMaintenanceActionResponse_resourcePendingMaintenanceActions :: Lens.Lens' ApplyPendingMaintenanceActionResponse (Prelude.Maybe ResourcePendingMaintenanceActions)
+applyPendingMaintenanceActionResponse_resourcePendingMaintenanceActions = Lens.lens (\ApplyPendingMaintenanceActionResponse' {resourcePendingMaintenanceActions} -> resourcePendingMaintenanceActions) (\s@ApplyPendingMaintenanceActionResponse' {} a -> s {resourcePendingMaintenanceActions = a} :: ApplyPendingMaintenanceActionResponse)
 
--- | -- | The response status code.
-apmarrsResponseStatus :: Lens' ApplyPendingMaintenanceActionResponse Int
-apmarrsResponseStatus = lens _apmarrsResponseStatus (\s a -> s {_apmarrsResponseStatus = a})
+-- | The response's http status code.
+applyPendingMaintenanceActionResponse_httpStatus :: Lens.Lens' ApplyPendingMaintenanceActionResponse Prelude.Int
+applyPendingMaintenanceActionResponse_httpStatus = Lens.lens (\ApplyPendingMaintenanceActionResponse' {httpStatus} -> httpStatus) (\s@ApplyPendingMaintenanceActionResponse' {} a -> s {httpStatus = a} :: ApplyPendingMaintenanceActionResponse)
 
-instance NFData ApplyPendingMaintenanceActionResponse
+instance
+  Prelude.NFData
+    ApplyPendingMaintenanceActionResponse

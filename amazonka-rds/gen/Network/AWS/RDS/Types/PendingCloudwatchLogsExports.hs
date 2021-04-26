@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.PendingCloudwatchLogsExports where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of the log types whose configuration is still pending. In other words, these log types are in the process of being activated or deactivated.
+-- | A list of the log types whose configuration is still pending. In other
+-- words, these log types are in the process of being activated or
+-- deactivated.
 --
---
---
--- /See:/ 'pendingCloudwatchLogsExports' smart constructor.
+-- /See:/ 'newPendingCloudwatchLogsExports' smart constructor.
 data PendingCloudwatchLogsExports = PendingCloudwatchLogsExports'
-  { _pcleLogTypesToDisable ::
-      !( Maybe
-           [Text]
-       ),
-    _pcleLogTypesToEnable ::
-      !( Maybe
-           [Text]
-       )
+  { -- | Log types that are in the process of being enabled. After they are
+    -- enabled, these log types are exported to CloudWatch Logs.
+    logTypesToDisable :: Prelude.Maybe [Prelude.Text],
+    -- | Log types that are in the process of being deactivated. After they are
+    -- deactivated, these log types aren\'t exported to CloudWatch Logs.
+    logTypesToEnable :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PendingCloudwatchLogsExports' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PendingCloudwatchLogsExports' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcleLogTypesToDisable' - Log types that are in the process of being enabled. After they are enabled, these log types are exported to CloudWatch Logs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcleLogTypesToEnable' - Log types that are in the process of being deactivated. After they are deactivated, these log types aren't exported to CloudWatch Logs.
-pendingCloudwatchLogsExports ::
+-- 'logTypesToDisable', 'pendingCloudwatchLogsExports_logTypesToDisable' - Log types that are in the process of being enabled. After they are
+-- enabled, these log types are exported to CloudWatch Logs.
+--
+-- 'logTypesToEnable', 'pendingCloudwatchLogsExports_logTypesToEnable' - Log types that are in the process of being deactivated. After they are
+-- deactivated, these log types aren\'t exported to CloudWatch Logs.
+newPendingCloudwatchLogsExports ::
   PendingCloudwatchLogsExports
-pendingCloudwatchLogsExports =
+newPendingCloudwatchLogsExports =
   PendingCloudwatchLogsExports'
-    { _pcleLogTypesToDisable =
-        Nothing,
-      _pcleLogTypesToEnable = Nothing
+    { logTypesToDisable =
+        Prelude.Nothing,
+      logTypesToEnable = Prelude.Nothing
     }
 
--- | Log types that are in the process of being enabled. After they are enabled, these log types are exported to CloudWatch Logs.
-pcleLogTypesToDisable :: Lens' PendingCloudwatchLogsExports [Text]
-pcleLogTypesToDisable = lens _pcleLogTypesToDisable (\s a -> s {_pcleLogTypesToDisable = a}) . _Default . _Coerce
+-- | Log types that are in the process of being enabled. After they are
+-- enabled, these log types are exported to CloudWatch Logs.
+pendingCloudwatchLogsExports_logTypesToDisable :: Lens.Lens' PendingCloudwatchLogsExports (Prelude.Maybe [Prelude.Text])
+pendingCloudwatchLogsExports_logTypesToDisable = Lens.lens (\PendingCloudwatchLogsExports' {logTypesToDisable} -> logTypesToDisable) (\s@PendingCloudwatchLogsExports' {} a -> s {logTypesToDisable = a} :: PendingCloudwatchLogsExports) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Log types that are in the process of being deactivated. After they are deactivated, these log types aren't exported to CloudWatch Logs.
-pcleLogTypesToEnable :: Lens' PendingCloudwatchLogsExports [Text]
-pcleLogTypesToEnable = lens _pcleLogTypesToEnable (\s a -> s {_pcleLogTypesToEnable = a}) . _Default . _Coerce
+-- | Log types that are in the process of being deactivated. After they are
+-- deactivated, these log types aren\'t exported to CloudWatch Logs.
+pendingCloudwatchLogsExports_logTypesToEnable :: Lens.Lens' PendingCloudwatchLogsExports (Prelude.Maybe [Prelude.Text])
+pendingCloudwatchLogsExports_logTypesToEnable = Lens.lens (\PendingCloudwatchLogsExports' {logTypesToEnable} -> logTypesToEnable) (\s@PendingCloudwatchLogsExports' {} a -> s {logTypesToEnable = a} :: PendingCloudwatchLogsExports) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML PendingCloudwatchLogsExports where
+instance Prelude.FromXML PendingCloudwatchLogsExports where
   parseXML x =
     PendingCloudwatchLogsExports'
-      <$> ( x .@? "LogTypesToDisable" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "LogTypesToEnable" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> ( x Prelude..@? "LogTypesToDisable"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "LogTypesToEnable"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable PendingCloudwatchLogsExports
+instance
+  Prelude.Hashable
+    PendingCloudwatchLogsExports
 
-instance NFData PendingCloudwatchLogsExports
+instance Prelude.NFData PendingCloudwatchLogsExports

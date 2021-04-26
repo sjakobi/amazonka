@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.Range where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A range of integer values.
 --
---
---
--- /See:/ 'range' smart constructor.
+-- /See:/ 'newRange' smart constructor.
 data Range = Range'
-  { _rTo :: !(Maybe Int),
-    _rFrom :: !(Maybe Int),
-    _rStep :: !(Maybe Int)
+  { -- | The maximum value in the range.
+    to :: Prelude.Maybe Prelude.Int,
+    -- | The minimum value in the range.
+    from :: Prelude.Maybe Prelude.Int,
+    -- | The step value for the range. For example, if you have a range of 5,000
+    -- to 10,000, with a step value of 1,000, the valid values start at 5,000
+    -- and step up by 1,000. Even though 7,500 is within the range, it isn\'t a
+    -- valid value for the range. The valid values are 5,000, 6,000, 7,000,
+    -- 8,000...
+    step :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Range' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Range' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rTo' - The maximum value in the range.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rFrom' - The minimum value in the range.
+-- 'to', 'range_to' - The maximum value in the range.
 --
--- * 'rStep' - The step value for the range. For example, if you have a range of 5,000 to 10,000, with a step value of 1,000, the valid values start at 5,000 and step up by 1,000. Even though 7,500 is within the range, it isn't a valid value for the range. The valid values are 5,000, 6,000, 7,000, 8,000...
-range ::
+-- 'from', 'range_from' - The minimum value in the range.
+--
+-- 'step', 'range_step' - The step value for the range. For example, if you have a range of 5,000
+-- to 10,000, with a step value of 1,000, the valid values start at 5,000
+-- and step up by 1,000. Even though 7,500 is within the range, it isn\'t a
+-- valid value for the range. The valid values are 5,000, 6,000, 7,000,
+-- 8,000...
+newRange ::
   Range
-range =
+newRange =
   Range'
-    { _rTo = Nothing,
-      _rFrom = Nothing,
-      _rStep = Nothing
+    { to = Prelude.Nothing,
+      from = Prelude.Nothing,
+      step = Prelude.Nothing
     }
 
 -- | The maximum value in the range.
-rTo :: Lens' Range (Maybe Int)
-rTo = lens _rTo (\s a -> s {_rTo = a})
+range_to :: Lens.Lens' Range (Prelude.Maybe Prelude.Int)
+range_to = Lens.lens (\Range' {to} -> to) (\s@Range' {} a -> s {to = a} :: Range)
 
 -- | The minimum value in the range.
-rFrom :: Lens' Range (Maybe Int)
-rFrom = lens _rFrom (\s a -> s {_rFrom = a})
+range_from :: Lens.Lens' Range (Prelude.Maybe Prelude.Int)
+range_from = Lens.lens (\Range' {from} -> from) (\s@Range' {} a -> s {from = a} :: Range)
 
--- | The step value for the range. For example, if you have a range of 5,000 to 10,000, with a step value of 1,000, the valid values start at 5,000 and step up by 1,000. Even though 7,500 is within the range, it isn't a valid value for the range. The valid values are 5,000, 6,000, 7,000, 8,000...
-rStep :: Lens' Range (Maybe Int)
-rStep = lens _rStep (\s a -> s {_rStep = a})
+-- | The step value for the range. For example, if you have a range of 5,000
+-- to 10,000, with a step value of 1,000, the valid values start at 5,000
+-- and step up by 1,000. Even though 7,500 is within the range, it isn\'t a
+-- valid value for the range. The valid values are 5,000, 6,000, 7,000,
+-- 8,000...
+range_step :: Lens.Lens' Range (Prelude.Maybe Prelude.Int)
+range_step = Lens.lens (\Range' {step} -> step) (\s@Range' {} a -> s {step = a} :: Range)
 
-instance FromXML Range where
+instance Prelude.FromXML Range where
   parseXML x =
     Range'
-      <$> (x .@? "To") <*> (x .@? "From") <*> (x .@? "Step")
+      Prelude.<$> (x Prelude..@? "To")
+      Prelude.<*> (x Prelude..@? "From")
+      Prelude.<*> (x Prelude..@? "Step")
 
-instance Hashable Range
+instance Prelude.Hashable Range
 
-instance NFData Range
+instance Prelude.NFData Range

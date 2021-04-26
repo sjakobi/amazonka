@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.MinimumEngineVersionPerAllowedValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The minimum DB engine version required for each corresponding allowed value for an option setting.
+-- | The minimum DB engine version required for each corresponding allowed
+-- value for an option setting.
 --
---
---
--- /See:/ 'minimumEngineVersionPerAllowedValue' smart constructor.
+-- /See:/ 'newMinimumEngineVersionPerAllowedValue' smart constructor.
 data MinimumEngineVersionPerAllowedValue = MinimumEngineVersionPerAllowedValue'
-  { _mevpavAllowedValue ::
-      !( Maybe
-           Text
-       ),
-    _mevpavMinimumEngineVersion ::
-      !( Maybe
-           Text
-       )
+  { -- | The allowed value for an option setting.
+    allowedValue :: Prelude.Maybe Prelude.Text,
+    -- | The minimum DB engine version required for the allowed value.
+    minimumEngineVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MinimumEngineVersionPerAllowedValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MinimumEngineVersionPerAllowedValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mevpavAllowedValue' - The allowed value for an option setting.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mevpavMinimumEngineVersion' - The minimum DB engine version required for the allowed value.
-minimumEngineVersionPerAllowedValue ::
+-- 'allowedValue', 'minimumEngineVersionPerAllowedValue_allowedValue' - The allowed value for an option setting.
+--
+-- 'minimumEngineVersion', 'minimumEngineVersionPerAllowedValue_minimumEngineVersion' - The minimum DB engine version required for the allowed value.
+newMinimumEngineVersionPerAllowedValue ::
   MinimumEngineVersionPerAllowedValue
-minimumEngineVersionPerAllowedValue =
+newMinimumEngineVersionPerAllowedValue =
   MinimumEngineVersionPerAllowedValue'
-    { _mevpavAllowedValue =
-        Nothing,
-      _mevpavMinimumEngineVersion = Nothing
+    { allowedValue =
+        Prelude.Nothing,
+      minimumEngineVersion = Prelude.Nothing
     }
 
 -- | The allowed value for an option setting.
-mevpavAllowedValue :: Lens' MinimumEngineVersionPerAllowedValue (Maybe Text)
-mevpavAllowedValue = lens _mevpavAllowedValue (\s a -> s {_mevpavAllowedValue = a})
+minimumEngineVersionPerAllowedValue_allowedValue :: Lens.Lens' MinimumEngineVersionPerAllowedValue (Prelude.Maybe Prelude.Text)
+minimumEngineVersionPerAllowedValue_allowedValue = Lens.lens (\MinimumEngineVersionPerAllowedValue' {allowedValue} -> allowedValue) (\s@MinimumEngineVersionPerAllowedValue' {} a -> s {allowedValue = a} :: MinimumEngineVersionPerAllowedValue)
 
 -- | The minimum DB engine version required for the allowed value.
-mevpavMinimumEngineVersion :: Lens' MinimumEngineVersionPerAllowedValue (Maybe Text)
-mevpavMinimumEngineVersion = lens _mevpavMinimumEngineVersion (\s a -> s {_mevpavMinimumEngineVersion = a})
+minimumEngineVersionPerAllowedValue_minimumEngineVersion :: Lens.Lens' MinimumEngineVersionPerAllowedValue (Prelude.Maybe Prelude.Text)
+minimumEngineVersionPerAllowedValue_minimumEngineVersion = Lens.lens (\MinimumEngineVersionPerAllowedValue' {minimumEngineVersion} -> minimumEngineVersion) (\s@MinimumEngineVersionPerAllowedValue' {} a -> s {minimumEngineVersion = a} :: MinimumEngineVersionPerAllowedValue)
 
-instance FromXML MinimumEngineVersionPerAllowedValue where
+instance
+  Prelude.FromXML
+    MinimumEngineVersionPerAllowedValue
+  where
   parseXML x =
     MinimumEngineVersionPerAllowedValue'
-      <$> (x .@? "AllowedValue")
-      <*> (x .@? "MinimumEngineVersion")
+      Prelude.<$> (x Prelude..@? "AllowedValue")
+      Prelude.<*> (x Prelude..@? "MinimumEngineVersion")
 
-instance Hashable MinimumEngineVersionPerAllowedValue
+instance
+  Prelude.Hashable
+    MinimumEngineVersionPerAllowedValue
 
-instance NFData MinimumEngineVersionPerAllowedValue
+instance
+  Prelude.NFData
+    MinimumEngineVersionPerAllowedValue

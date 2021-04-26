@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a DB cluster snapshot. If the snapshot is being copied, the copy operation is terminated.
+-- Deletes a DB cluster snapshot. If the snapshot is being copied, the copy
+-- operation is terminated.
 --
+-- The DB cluster snapshot must be in the @available@ state to be deleted.
 --
--- For more information on Amazon Aurora, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?> in the /Amazon Aurora User Guide./
+-- For more information on Amazon Aurora, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide./
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.DeleteDBClusterSnapshot
   ( -- * Creating a Request
-    deleteDBClusterSnapshot,
-    DeleteDBClusterSnapshot,
+    DeleteDBClusterSnapshot (..),
+    newDeleteDBClusterSnapshot,
 
     -- * Request Lenses
-    ddbcsDBClusterSnapshotIdentifier,
+    deleteDBClusterSnapshot_dBClusterSnapshotIdentifier,
 
     -- * Destructuring the Response
-    deleteDBClusterSnapshotResponse,
-    DeleteDBClusterSnapshotResponse,
+    DeleteDBClusterSnapshotResponse (..),
+    newDeleteDBClusterSnapshotResponse,
 
     -- * Response Lenses
-    ddbcsrrsDBClusterSnapshot,
-    ddbcsrrsResponseStatus,
+    deleteDBClusterSnapshotResponse_dBClusterSnapshot,
+    deleteDBClusterSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBClusterSnapshot
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteDBClusterSnapshot' smart constructor.
-newtype DeleteDBClusterSnapshot = DeleteDBClusterSnapshot'
-  { _ddbcsDBClusterSnapshotIdentifier ::
-      Text
+-- /See:/ 'newDeleteDBClusterSnapshot' smart constructor.
+data DeleteDBClusterSnapshot = DeleteDBClusterSnapshot'
+  { -- | The identifier of the DB cluster snapshot to delete.
+    --
+    -- Constraints: Must be the name of an existing DB cluster snapshot in the
+    -- @available@ state.
+    dBClusterSnapshotIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBClusterSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBClusterSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbcsDBClusterSnapshotIdentifier' - The identifier of the DB cluster snapshot to delete. Constraints: Must be the name of an existing DB cluster snapshot in the @available@ state.
-deleteDBClusterSnapshot ::
-  -- | 'ddbcsDBClusterSnapshotIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBClusterSnapshotIdentifier', 'deleteDBClusterSnapshot_dBClusterSnapshotIdentifier' - The identifier of the DB cluster snapshot to delete.
+--
+-- Constraints: Must be the name of an existing DB cluster snapshot in the
+-- @available@ state.
+newDeleteDBClusterSnapshot ::
+  -- | 'dBClusterSnapshotIdentifier'
+  Prelude.Text ->
   DeleteDBClusterSnapshot
-deleteDBClusterSnapshot pDBClusterSnapshotIdentifier_ =
-  DeleteDBClusterSnapshot'
-    { _ddbcsDBClusterSnapshotIdentifier =
-        pDBClusterSnapshotIdentifier_
-    }
+newDeleteDBClusterSnapshot
+  pDBClusterSnapshotIdentifier_ =
+    DeleteDBClusterSnapshot'
+      { dBClusterSnapshotIdentifier =
+          pDBClusterSnapshotIdentifier_
+      }
 
--- | The identifier of the DB cluster snapshot to delete. Constraints: Must be the name of an existing DB cluster snapshot in the @available@ state.
-ddbcsDBClusterSnapshotIdentifier :: Lens' DeleteDBClusterSnapshot Text
-ddbcsDBClusterSnapshotIdentifier = lens _ddbcsDBClusterSnapshotIdentifier (\s a -> s {_ddbcsDBClusterSnapshotIdentifier = a})
+-- | The identifier of the DB cluster snapshot to delete.
+--
+-- Constraints: Must be the name of an existing DB cluster snapshot in the
+-- @available@ state.
+deleteDBClusterSnapshot_dBClusterSnapshotIdentifier :: Lens.Lens' DeleteDBClusterSnapshot Prelude.Text
+deleteDBClusterSnapshot_dBClusterSnapshotIdentifier = Lens.lens (\DeleteDBClusterSnapshot' {dBClusterSnapshotIdentifier} -> dBClusterSnapshotIdentifier) (\s@DeleteDBClusterSnapshot' {} a -> s {dBClusterSnapshotIdentifier = a} :: DeleteDBClusterSnapshot)
 
-instance AWSRequest DeleteDBClusterSnapshot where
+instance Prelude.AWSRequest DeleteDBClusterSnapshot where
   type
     Rs DeleteDBClusterSnapshot =
       DeleteDBClusterSnapshotResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteDBClusterSnapshotResult"
       ( \s h x ->
           DeleteDBClusterSnapshotResponse'
-            <$> (x .@? "DBClusterSnapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBClusterSnapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDBClusterSnapshot
+instance Prelude.Hashable DeleteDBClusterSnapshot
 
-instance NFData DeleteDBClusterSnapshot
+instance Prelude.NFData DeleteDBClusterSnapshot
 
-instance ToHeaders DeleteDBClusterSnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDBClusterSnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDBClusterSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDBClusterSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDBClusterSnapshot where
+instance Prelude.ToQuery DeleteDBClusterSnapshot where
   toQuery DeleteDBClusterSnapshot' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteDBClusterSnapshot" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ("DeleteDBClusterSnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterSnapshotIdentifier"
-          =: _ddbcsDBClusterSnapshotIdentifier
+          Prelude.=: dBClusterSnapshotIdentifier
       ]
 
--- | /See:/ 'deleteDBClusterSnapshotResponse' smart constructor.
+-- | /See:/ 'newDeleteDBClusterSnapshotResponse' smart constructor.
 data DeleteDBClusterSnapshotResponse = DeleteDBClusterSnapshotResponse'
-  { _ddbcsrrsDBClusterSnapshot ::
-      !( Maybe
-           DBClusterSnapshot
-       ),
-    _ddbcsrrsResponseStatus ::
-      !Int
+  { dBClusterSnapshot :: Prelude.Maybe DBClusterSnapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBClusterSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBClusterSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbcsrrsDBClusterSnapshot' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbcsrrsResponseStatus' - -- | The response status code.
-deleteDBClusterSnapshotResponse ::
-  -- | 'ddbcsrrsResponseStatus'
-  Int ->
+-- 'dBClusterSnapshot', 'deleteDBClusterSnapshotResponse_dBClusterSnapshot' - Undocumented member.
+--
+-- 'httpStatus', 'deleteDBClusterSnapshotResponse_httpStatus' - The response's http status code.
+newDeleteDBClusterSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDBClusterSnapshotResponse
-deleteDBClusterSnapshotResponse pResponseStatus_ =
+newDeleteDBClusterSnapshotResponse pHttpStatus_ =
   DeleteDBClusterSnapshotResponse'
-    { _ddbcsrrsDBClusterSnapshot =
-        Nothing,
-      _ddbcsrrsResponseStatus = pResponseStatus_
+    { dBClusterSnapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ddbcsrrsDBClusterSnapshot :: Lens' DeleteDBClusterSnapshotResponse (Maybe DBClusterSnapshot)
-ddbcsrrsDBClusterSnapshot = lens _ddbcsrrsDBClusterSnapshot (\s a -> s {_ddbcsrrsDBClusterSnapshot = a})
+deleteDBClusterSnapshotResponse_dBClusterSnapshot :: Lens.Lens' DeleteDBClusterSnapshotResponse (Prelude.Maybe DBClusterSnapshot)
+deleteDBClusterSnapshotResponse_dBClusterSnapshot = Lens.lens (\DeleteDBClusterSnapshotResponse' {dBClusterSnapshot} -> dBClusterSnapshot) (\s@DeleteDBClusterSnapshotResponse' {} a -> s {dBClusterSnapshot = a} :: DeleteDBClusterSnapshotResponse)
 
--- | -- | The response status code.
-ddbcsrrsResponseStatus :: Lens' DeleteDBClusterSnapshotResponse Int
-ddbcsrrsResponseStatus = lens _ddbcsrrsResponseStatus (\s a -> s {_ddbcsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDBClusterSnapshotResponse_httpStatus :: Lens.Lens' DeleteDBClusterSnapshotResponse Prelude.Int
+deleteDBClusterSnapshotResponse_httpStatus = Lens.lens (\DeleteDBClusterSnapshotResponse' {httpStatus} -> httpStatus) (\s@DeleteDBClusterSnapshotResponse' {} a -> s {httpStatus = a} :: DeleteDBClusterSnapshotResponse)
 
-instance NFData DeleteDBClusterSnapshotResponse
+instance
+  Prelude.NFData
+    DeleteDBClusterSnapshotResponse

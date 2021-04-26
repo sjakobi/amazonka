@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,92 +24,101 @@
 -- Deletes an existing option group.
 module Network.AWS.RDS.DeleteOptionGroup
   ( -- * Creating a Request
-    deleteOptionGroup,
-    DeleteOptionGroup,
+    DeleteOptionGroup (..),
+    newDeleteOptionGroup,
 
     -- * Request Lenses
-    dogOptionGroupName,
+    deleteOptionGroup_optionGroupName,
 
     -- * Destructuring the Response
-    deleteOptionGroupResponse,
-    DeleteOptionGroupResponse,
+    DeleteOptionGroupResponse (..),
+    newDeleteOptionGroupResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteOptionGroup' smart constructor.
-newtype DeleteOptionGroup = DeleteOptionGroup'
-  { _dogOptionGroupName ::
-      Text
+-- /See:/ 'newDeleteOptionGroup' smart constructor.
+data DeleteOptionGroup = DeleteOptionGroup'
+  { -- | The name of the option group to be deleted.
+    --
+    -- You can\'t delete default option groups.
+    optionGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOptionGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteOptionGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dogOptionGroupName' - The name of the option group to be deleted.
-deleteOptionGroup ::
-  -- | 'dogOptionGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'optionGroupName', 'deleteOptionGroup_optionGroupName' - The name of the option group to be deleted.
+--
+-- You can\'t delete default option groups.
+newDeleteOptionGroup ::
+  -- | 'optionGroupName'
+  Prelude.Text ->
   DeleteOptionGroup
-deleteOptionGroup pOptionGroupName_ =
+newDeleteOptionGroup pOptionGroupName_ =
   DeleteOptionGroup'
-    { _dogOptionGroupName =
+    { optionGroupName =
         pOptionGroupName_
     }
 
 -- | The name of the option group to be deleted.
-dogOptionGroupName :: Lens' DeleteOptionGroup Text
-dogOptionGroupName = lens _dogOptionGroupName (\s a -> s {_dogOptionGroupName = a})
+--
+-- You can\'t delete default option groups.
+deleteOptionGroup_optionGroupName :: Lens.Lens' DeleteOptionGroup Prelude.Text
+deleteOptionGroup_optionGroupName = Lens.lens (\DeleteOptionGroup' {optionGroupName} -> optionGroupName) (\s@DeleteOptionGroup' {} a -> s {optionGroupName = a} :: DeleteOptionGroup)
 
-instance AWSRequest DeleteOptionGroup where
+instance Prelude.AWSRequest DeleteOptionGroup where
   type Rs DeleteOptionGroup = DeleteOptionGroupResponse
-  request = postQuery rds
-  response = receiveNull DeleteOptionGroupResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteOptionGroupResponse'
 
-instance Hashable DeleteOptionGroup
+instance Prelude.Hashable DeleteOptionGroup
 
-instance NFData DeleteOptionGroup
+instance Prelude.NFData DeleteOptionGroup
 
-instance ToHeaders DeleteOptionGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteOptionGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteOptionGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteOptionGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteOptionGroup where
+instance Prelude.ToQuery DeleteOptionGroup where
   toQuery DeleteOptionGroup' {..} =
-    mconcat
-      [ "Action" =: ("DeleteOptionGroup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "OptionGroupName" =: _dogOptionGroupName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteOptionGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "OptionGroupName" Prelude.=: optionGroupName
       ]
 
--- | /See:/ 'deleteOptionGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteOptionGroupResponse' smart constructor.
 data DeleteOptionGroupResponse = DeleteOptionGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteOptionGroupResponse' with the minimum fields required to make a request.
-deleteOptionGroupResponse ::
+-- |
+-- Create a value of 'DeleteOptionGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteOptionGroupResponse ::
   DeleteOptionGroupResponse
-deleteOptionGroupResponse =
+newDeleteOptionGroupResponse =
   DeleteOptionGroupResponse'
 
-instance NFData DeleteOptionGroupResponse
+instance Prelude.NFData DeleteOptionGroupResponse

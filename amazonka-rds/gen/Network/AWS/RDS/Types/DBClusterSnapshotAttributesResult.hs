@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBClusterSnapshotAttributesResult where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.DBClusterSnapshotAttribute
 
--- | Contains the results of a successful call to the @DescribeDBClusterSnapshotAttributes@ API action.
+-- | Contains the results of a successful call to the
+-- @DescribeDBClusterSnapshotAttributes@ API action.
 --
+-- Manual DB cluster snapshot attributes are used to authorize other AWS
+-- accounts to copy or restore a manual DB cluster snapshot. For more
+-- information, see the @ModifyDBClusterSnapshotAttribute@ API action.
 --
--- Manual DB cluster snapshot attributes are used to authorize other AWS accounts to copy or restore a manual DB cluster snapshot. For more information, see the @ModifyDBClusterSnapshotAttribute@ API action.
---
---
--- /See:/ 'dbClusterSnapshotAttributesResult' smart constructor.
+-- /See:/ 'newDBClusterSnapshotAttributesResult' smart constructor.
 data DBClusterSnapshotAttributesResult = DBClusterSnapshotAttributesResult'
-  { _dcsarDBClusterSnapshotAttributes ::
-      !( Maybe
-           [DBClusterSnapshotAttribute]
-       ),
-    _dcsarDBClusterSnapshotIdentifier ::
-      !( Maybe
-           Text
-       )
+  { -- | The list of attributes and values for the manual DB cluster snapshot.
+    dBClusterSnapshotAttributes :: Prelude.Maybe [DBClusterSnapshotAttribute],
+    -- | The identifier of the manual DB cluster snapshot that the attributes
+    -- apply to.
+    dBClusterSnapshotIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBClusterSnapshotAttributesResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBClusterSnapshotAttributesResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsarDBClusterSnapshotAttributes' - The list of attributes and values for the manual DB cluster snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsarDBClusterSnapshotIdentifier' - The identifier of the manual DB cluster snapshot that the attributes apply to.
-dbClusterSnapshotAttributesResult ::
+-- 'dBClusterSnapshotAttributes', 'dBClusterSnapshotAttributesResult_dBClusterSnapshotAttributes' - The list of attributes and values for the manual DB cluster snapshot.
+--
+-- 'dBClusterSnapshotIdentifier', 'dBClusterSnapshotAttributesResult_dBClusterSnapshotIdentifier' - The identifier of the manual DB cluster snapshot that the attributes
+-- apply to.
+newDBClusterSnapshotAttributesResult ::
   DBClusterSnapshotAttributesResult
-dbClusterSnapshotAttributesResult =
+newDBClusterSnapshotAttributesResult =
   DBClusterSnapshotAttributesResult'
-    { _dcsarDBClusterSnapshotAttributes =
-        Nothing,
-      _dcsarDBClusterSnapshotIdentifier =
-        Nothing
+    { dBClusterSnapshotAttributes =
+        Prelude.Nothing,
+      dBClusterSnapshotIdentifier =
+        Prelude.Nothing
     }
 
 -- | The list of attributes and values for the manual DB cluster snapshot.
-dcsarDBClusterSnapshotAttributes :: Lens' DBClusterSnapshotAttributesResult [DBClusterSnapshotAttribute]
-dcsarDBClusterSnapshotAttributes = lens _dcsarDBClusterSnapshotAttributes (\s a -> s {_dcsarDBClusterSnapshotAttributes = a}) . _Default . _Coerce
+dBClusterSnapshotAttributesResult_dBClusterSnapshotAttributes :: Lens.Lens' DBClusterSnapshotAttributesResult (Prelude.Maybe [DBClusterSnapshotAttribute])
+dBClusterSnapshotAttributesResult_dBClusterSnapshotAttributes = Lens.lens (\DBClusterSnapshotAttributesResult' {dBClusterSnapshotAttributes} -> dBClusterSnapshotAttributes) (\s@DBClusterSnapshotAttributesResult' {} a -> s {dBClusterSnapshotAttributes = a} :: DBClusterSnapshotAttributesResult) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The identifier of the manual DB cluster snapshot that the attributes apply to.
-dcsarDBClusterSnapshotIdentifier :: Lens' DBClusterSnapshotAttributesResult (Maybe Text)
-dcsarDBClusterSnapshotIdentifier = lens _dcsarDBClusterSnapshotIdentifier (\s a -> s {_dcsarDBClusterSnapshotIdentifier = a})
+-- | The identifier of the manual DB cluster snapshot that the attributes
+-- apply to.
+dBClusterSnapshotAttributesResult_dBClusterSnapshotIdentifier :: Lens.Lens' DBClusterSnapshotAttributesResult (Prelude.Maybe Prelude.Text)
+dBClusterSnapshotAttributesResult_dBClusterSnapshotIdentifier = Lens.lens (\DBClusterSnapshotAttributesResult' {dBClusterSnapshotIdentifier} -> dBClusterSnapshotIdentifier) (\s@DBClusterSnapshotAttributesResult' {} a -> s {dBClusterSnapshotIdentifier = a} :: DBClusterSnapshotAttributesResult)
 
-instance FromXML DBClusterSnapshotAttributesResult where
+instance
+  Prelude.FromXML
+    DBClusterSnapshotAttributesResult
+  where
   parseXML x =
     DBClusterSnapshotAttributesResult'
-      <$> ( x .@? "DBClusterSnapshotAttributes" .!@ mempty
-              >>= may (parseXMLList "DBClusterSnapshotAttribute")
-          )
-      <*> (x .@? "DBClusterSnapshotIdentifier")
+      Prelude.<$> ( x Prelude..@? "DBClusterSnapshotAttributes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "DBClusterSnapshotAttribute")
+                  )
+      Prelude.<*> (x Prelude..@? "DBClusterSnapshotIdentifier")
 
-instance Hashable DBClusterSnapshotAttributesResult
+instance
+  Prelude.Hashable
+    DBClusterSnapshotAttributesResult
 
-instance NFData DBClusterSnapshotAttributesResult
+instance
+  Prelude.NFData
+    DBClusterSnapshotAttributesResult

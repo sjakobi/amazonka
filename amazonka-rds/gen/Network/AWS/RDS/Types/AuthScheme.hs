@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.RDS.Types.AuthScheme
   ( AuthScheme
       ( ..,
-        Secrets
+        AuthSchemeSECRETS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthScheme = AuthScheme' (CI Text)
+newtype AuthScheme = AuthScheme'
+  { fromAuthScheme ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Secrets :: AuthScheme
-pattern Secrets = AuthScheme' "SECRETS"
+pattern AuthSchemeSECRETS :: AuthScheme
+pattern AuthSchemeSECRETS = AuthScheme' "SECRETS"
 
 {-# COMPLETE
-  Secrets,
+  AuthSchemeSECRETS,
   AuthScheme'
   #-}
 
-instance FromText AuthScheme where
-  parser = (AuthScheme' . mk) <$> takeText
+instance Prelude.FromText AuthScheme where
+  parser = AuthScheme' Prelude.<$> Prelude.takeText
 
-instance ToText AuthScheme where
-  toText (AuthScheme' ci) = original ci
+instance Prelude.ToText AuthScheme where
+  toText (AuthScheme' x) = x
 
-instance Hashable AuthScheme
+instance Prelude.Hashable AuthScheme
 
-instance NFData AuthScheme
+instance Prelude.NFData AuthScheme
 
-instance ToByteString AuthScheme
+instance Prelude.ToByteString AuthScheme
 
-instance ToQuery AuthScheme
+instance Prelude.ToQuery AuthScheme
 
-instance ToHeader AuthScheme
+instance Prelude.ToHeader AuthScheme
 
-instance FromXML AuthScheme where
-  parseXML = parseXMLText "AuthScheme"
+instance Prelude.FromXML AuthScheme where
+  parseXML = Prelude.parseXMLText "AuthScheme"

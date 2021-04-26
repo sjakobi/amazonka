@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBInstanceAutomatedBackupsReplication where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Automated backups of a DB instance replicated to another AWS Region. They consist of system backups, transaction logs, and database instance properties.
+-- | Automated backups of a DB instance replicated to another AWS Region.
+-- They consist of system backups, transaction logs, and database instance
+-- properties.
 --
---
---
--- /See:/ 'dbInstanceAutomatedBackupsReplication' smart constructor.
-newtype DBInstanceAutomatedBackupsReplication = DBInstanceAutomatedBackupsReplication'
-  { _diabrDBInstanceAutomatedBackupsARN ::
-      Maybe
-        Text
+-- /See:/ 'newDBInstanceAutomatedBackupsReplication' smart constructor.
+data DBInstanceAutomatedBackupsReplication = DBInstanceAutomatedBackupsReplication'
+  { -- | The Amazon Resource Name (ARN) of the replicated automated backups.
+    dBInstanceAutomatedBackupsArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBInstanceAutomatedBackupsReplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBInstanceAutomatedBackupsReplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diabrDBInstanceAutomatedBackupsARN' - The Amazon Resource Name (ARN) of the replicated automated backups.
-dbInstanceAutomatedBackupsReplication ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBInstanceAutomatedBackupsArn', 'dBInstanceAutomatedBackupsReplication_dBInstanceAutomatedBackupsArn' - The Amazon Resource Name (ARN) of the replicated automated backups.
+newDBInstanceAutomatedBackupsReplication ::
   DBInstanceAutomatedBackupsReplication
-dbInstanceAutomatedBackupsReplication =
+newDBInstanceAutomatedBackupsReplication =
   DBInstanceAutomatedBackupsReplication'
-    { _diabrDBInstanceAutomatedBackupsARN =
-        Nothing
+    { dBInstanceAutomatedBackupsArn =
+        Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the replicated automated backups.
-diabrDBInstanceAutomatedBackupsARN :: Lens' DBInstanceAutomatedBackupsReplication (Maybe Text)
-diabrDBInstanceAutomatedBackupsARN = lens _diabrDBInstanceAutomatedBackupsARN (\s a -> s {_diabrDBInstanceAutomatedBackupsARN = a})
+dBInstanceAutomatedBackupsReplication_dBInstanceAutomatedBackupsArn :: Lens.Lens' DBInstanceAutomatedBackupsReplication (Prelude.Maybe Prelude.Text)
+dBInstanceAutomatedBackupsReplication_dBInstanceAutomatedBackupsArn = Lens.lens (\DBInstanceAutomatedBackupsReplication' {dBInstanceAutomatedBackupsArn} -> dBInstanceAutomatedBackupsArn) (\s@DBInstanceAutomatedBackupsReplication' {} a -> s {dBInstanceAutomatedBackupsArn = a} :: DBInstanceAutomatedBackupsReplication)
 
 instance
-  FromXML
+  Prelude.FromXML
     DBInstanceAutomatedBackupsReplication
   where
   parseXML x =
     DBInstanceAutomatedBackupsReplication'
-      <$> (x .@? "DBInstanceAutomatedBackupsArn")
+      Prelude.<$> (x Prelude..@? "DBInstanceAutomatedBackupsArn")
 
 instance
-  Hashable
+  Prelude.Hashable
     DBInstanceAutomatedBackupsReplication
 
-instance NFData DBInstanceAutomatedBackupsReplication
+instance
+  Prelude.NFData
+    DBInstanceAutomatedBackupsReplication

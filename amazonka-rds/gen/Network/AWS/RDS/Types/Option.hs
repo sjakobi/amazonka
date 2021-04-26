@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,123 +19,142 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.Option where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.DBSecurityGroupMembership
 import Network.AWS.RDS.Types.OptionSetting
-import Network.AWS.RDS.Types.VPCSecurityGroupMembership
+import Network.AWS.RDS.Types.VpcSecurityGroupMembership
 
 -- | Option details.
 --
---
---
--- /See:/ 'option' smart constructor.
+-- /See:/ 'newOption' smart constructor.
 data Option = Option'
-  { _oOptionName :: !(Maybe Text),
-    _oOptionVersion :: !(Maybe Text),
-    _oDBSecurityGroupMemberships ::
-      !(Maybe [DBSecurityGroupMembership]),
-    _oOptionDescription :: !(Maybe Text),
-    _oPort :: !(Maybe Int),
-    _oOptionSettings :: !(Maybe [OptionSetting]),
-    _oPersistent :: !(Maybe Bool),
-    _oVPCSecurityGroupMemberships ::
-      !(Maybe [VPCSecurityGroupMembership]),
-    _oPermanent :: !(Maybe Bool)
+  { -- | The name of the option.
+    optionName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the option.
+    optionVersion :: Prelude.Maybe Prelude.Text,
+    -- | If the option requires access to a port, then this DB security group
+    -- allows access to the port.
+    dBSecurityGroupMemberships :: Prelude.Maybe [DBSecurityGroupMembership],
+    -- | The description of the option.
+    optionDescription :: Prelude.Maybe Prelude.Text,
+    -- | If required, the port configured for this option to use.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The option settings for this option.
+    optionSettings :: Prelude.Maybe [OptionSetting],
+    -- | Indicate if this option is persistent.
+    persistent :: Prelude.Maybe Prelude.Bool,
+    -- | If the option requires access to a port, then this VPC security group
+    -- allows access to the port.
+    vpcSecurityGroupMemberships :: Prelude.Maybe [VpcSecurityGroupMembership],
+    -- | Indicate if this option is permanent.
+    permanent :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Option' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Option' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oOptionName' - The name of the option.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oOptionVersion' - The version of the option.
+-- 'optionName', 'option_optionName' - The name of the option.
 --
--- * 'oDBSecurityGroupMemberships' - If the option requires access to a port, then this DB security group allows access to the port.
+-- 'optionVersion', 'option_optionVersion' - The version of the option.
 --
--- * 'oOptionDescription' - The description of the option.
+-- 'dBSecurityGroupMemberships', 'option_dBSecurityGroupMemberships' - If the option requires access to a port, then this DB security group
+-- allows access to the port.
 --
--- * 'oPort' - If required, the port configured for this option to use.
+-- 'optionDescription', 'option_optionDescription' - The description of the option.
 --
--- * 'oOptionSettings' - The option settings for this option.
+-- 'port', 'option_port' - If required, the port configured for this option to use.
 --
--- * 'oPersistent' - Indicate if this option is persistent.
+-- 'optionSettings', 'option_optionSettings' - The option settings for this option.
 --
--- * 'oVPCSecurityGroupMemberships' - If the option requires access to a port, then this VPC security group allows access to the port.
+-- 'persistent', 'option_persistent' - Indicate if this option is persistent.
 --
--- * 'oPermanent' - Indicate if this option is permanent.
-option ::
+-- 'vpcSecurityGroupMemberships', 'option_vpcSecurityGroupMemberships' - If the option requires access to a port, then this VPC security group
+-- allows access to the port.
+--
+-- 'permanent', 'option_permanent' - Indicate if this option is permanent.
+newOption ::
   Option
-option =
+newOption =
   Option'
-    { _oOptionName = Nothing,
-      _oOptionVersion = Nothing,
-      _oDBSecurityGroupMemberships = Nothing,
-      _oOptionDescription = Nothing,
-      _oPort = Nothing,
-      _oOptionSettings = Nothing,
-      _oPersistent = Nothing,
-      _oVPCSecurityGroupMemberships = Nothing,
-      _oPermanent = Nothing
+    { optionName = Prelude.Nothing,
+      optionVersion = Prelude.Nothing,
+      dBSecurityGroupMemberships = Prelude.Nothing,
+      optionDescription = Prelude.Nothing,
+      port = Prelude.Nothing,
+      optionSettings = Prelude.Nothing,
+      persistent = Prelude.Nothing,
+      vpcSecurityGroupMemberships = Prelude.Nothing,
+      permanent = Prelude.Nothing
     }
 
 -- | The name of the option.
-oOptionName :: Lens' Option (Maybe Text)
-oOptionName = lens _oOptionName (\s a -> s {_oOptionName = a})
+option_optionName :: Lens.Lens' Option (Prelude.Maybe Prelude.Text)
+option_optionName = Lens.lens (\Option' {optionName} -> optionName) (\s@Option' {} a -> s {optionName = a} :: Option)
 
 -- | The version of the option.
-oOptionVersion :: Lens' Option (Maybe Text)
-oOptionVersion = lens _oOptionVersion (\s a -> s {_oOptionVersion = a})
+option_optionVersion :: Lens.Lens' Option (Prelude.Maybe Prelude.Text)
+option_optionVersion = Lens.lens (\Option' {optionVersion} -> optionVersion) (\s@Option' {} a -> s {optionVersion = a} :: Option)
 
--- | If the option requires access to a port, then this DB security group allows access to the port.
-oDBSecurityGroupMemberships :: Lens' Option [DBSecurityGroupMembership]
-oDBSecurityGroupMemberships = lens _oDBSecurityGroupMemberships (\s a -> s {_oDBSecurityGroupMemberships = a}) . _Default . _Coerce
+-- | If the option requires access to a port, then this DB security group
+-- allows access to the port.
+option_dBSecurityGroupMemberships :: Lens.Lens' Option (Prelude.Maybe [DBSecurityGroupMembership])
+option_dBSecurityGroupMemberships = Lens.lens (\Option' {dBSecurityGroupMemberships} -> dBSecurityGroupMemberships) (\s@Option' {} a -> s {dBSecurityGroupMemberships = a} :: Option) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the option.
-oOptionDescription :: Lens' Option (Maybe Text)
-oOptionDescription = lens _oOptionDescription (\s a -> s {_oOptionDescription = a})
+option_optionDescription :: Lens.Lens' Option (Prelude.Maybe Prelude.Text)
+option_optionDescription = Lens.lens (\Option' {optionDescription} -> optionDescription) (\s@Option' {} a -> s {optionDescription = a} :: Option)
 
 -- | If required, the port configured for this option to use.
-oPort :: Lens' Option (Maybe Int)
-oPort = lens _oPort (\s a -> s {_oPort = a})
+option_port :: Lens.Lens' Option (Prelude.Maybe Prelude.Int)
+option_port = Lens.lens (\Option' {port} -> port) (\s@Option' {} a -> s {port = a} :: Option)
 
 -- | The option settings for this option.
-oOptionSettings :: Lens' Option [OptionSetting]
-oOptionSettings = lens _oOptionSettings (\s a -> s {_oOptionSettings = a}) . _Default . _Coerce
+option_optionSettings :: Lens.Lens' Option (Prelude.Maybe [OptionSetting])
+option_optionSettings = Lens.lens (\Option' {optionSettings} -> optionSettings) (\s@Option' {} a -> s {optionSettings = a} :: Option) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicate if this option is persistent.
-oPersistent :: Lens' Option (Maybe Bool)
-oPersistent = lens _oPersistent (\s a -> s {_oPersistent = a})
+option_persistent :: Lens.Lens' Option (Prelude.Maybe Prelude.Bool)
+option_persistent = Lens.lens (\Option' {persistent} -> persistent) (\s@Option' {} a -> s {persistent = a} :: Option)
 
--- | If the option requires access to a port, then this VPC security group allows access to the port.
-oVPCSecurityGroupMemberships :: Lens' Option [VPCSecurityGroupMembership]
-oVPCSecurityGroupMemberships = lens _oVPCSecurityGroupMemberships (\s a -> s {_oVPCSecurityGroupMemberships = a}) . _Default . _Coerce
+-- | If the option requires access to a port, then this VPC security group
+-- allows access to the port.
+option_vpcSecurityGroupMemberships :: Lens.Lens' Option (Prelude.Maybe [VpcSecurityGroupMembership])
+option_vpcSecurityGroupMemberships = Lens.lens (\Option' {vpcSecurityGroupMemberships} -> vpcSecurityGroupMemberships) (\s@Option' {} a -> s {vpcSecurityGroupMemberships = a} :: Option) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicate if this option is permanent.
-oPermanent :: Lens' Option (Maybe Bool)
-oPermanent = lens _oPermanent (\s a -> s {_oPermanent = a})
+option_permanent :: Lens.Lens' Option (Prelude.Maybe Prelude.Bool)
+option_permanent = Lens.lens (\Option' {permanent} -> permanent) (\s@Option' {} a -> s {permanent = a} :: Option)
 
-instance FromXML Option where
+instance Prelude.FromXML Option where
   parseXML x =
     Option'
-      <$> (x .@? "OptionName")
-      <*> (x .@? "OptionVersion")
-      <*> ( x .@? "DBSecurityGroupMemberships" .!@ mempty
-              >>= may (parseXMLList "DBSecurityGroup")
-          )
-      <*> (x .@? "OptionDescription")
-      <*> (x .@? "Port")
-      <*> ( x .@? "OptionSettings" .!@ mempty
-              >>= may (parseXMLList "OptionSetting")
-          )
-      <*> (x .@? "Persistent")
-      <*> ( x .@? "VpcSecurityGroupMemberships" .!@ mempty
-              >>= may (parseXMLList "VpcSecurityGroupMembership")
-          )
-      <*> (x .@? "Permanent")
+      Prelude.<$> (x Prelude..@? "OptionName")
+      Prelude.<*> (x Prelude..@? "OptionVersion")
+      Prelude.<*> ( x Prelude..@? "DBSecurityGroupMemberships"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "DBSecurityGroup")
+                  )
+      Prelude.<*> (x Prelude..@? "OptionDescription")
+      Prelude.<*> (x Prelude..@? "Port")
+      Prelude.<*> ( x Prelude..@? "OptionSettings"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "OptionSetting")
+                  )
+      Prelude.<*> (x Prelude..@? "Persistent")
+      Prelude.<*> ( x Prelude..@? "VpcSecurityGroupMemberships"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "VpcSecurityGroupMembership")
+                  )
+      Prelude.<*> (x Prelude..@? "Permanent")
 
-instance Hashable Option
+instance Prelude.Hashable Option
 
-instance NFData Option
+instance Prelude.NFData Option

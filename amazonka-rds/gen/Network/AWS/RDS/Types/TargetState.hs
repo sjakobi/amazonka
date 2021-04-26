@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.RDS.Types.TargetState
   ( TargetState
       ( ..,
-        TSAvailable,
-        TSRegistering,
-        TSUnavailable
+        TargetStateAVAILABLE,
+        TargetStateREGISTERING,
+        TargetStateUNAVAILABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetState = TargetState' (CI Text)
+newtype TargetState = TargetState'
+  { fromTargetState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSAvailable :: TargetState
-pattern TSAvailable = TargetState' "AVAILABLE"
+pattern TargetStateAVAILABLE :: TargetState
+pattern TargetStateAVAILABLE = TargetState' "AVAILABLE"
 
-pattern TSRegistering :: TargetState
-pattern TSRegistering = TargetState' "REGISTERING"
+pattern TargetStateREGISTERING :: TargetState
+pattern TargetStateREGISTERING = TargetState' "REGISTERING"
 
-pattern TSUnavailable :: TargetState
-pattern TSUnavailable = TargetState' "UNAVAILABLE"
+pattern TargetStateUNAVAILABLE :: TargetState
+pattern TargetStateUNAVAILABLE = TargetState' "UNAVAILABLE"
 
 {-# COMPLETE
-  TSAvailable,
-  TSRegistering,
-  TSUnavailable,
+  TargetStateAVAILABLE,
+  TargetStateREGISTERING,
+  TargetStateUNAVAILABLE,
   TargetState'
   #-}
 
-instance FromText TargetState where
-  parser = (TargetState' . mk) <$> takeText
+instance Prelude.FromText TargetState where
+  parser = TargetState' Prelude.<$> Prelude.takeText
 
-instance ToText TargetState where
-  toText (TargetState' ci) = original ci
+instance Prelude.ToText TargetState where
+  toText (TargetState' x) = x
 
-instance Hashable TargetState
+instance Prelude.Hashable TargetState
 
-instance NFData TargetState
+instance Prelude.NFData TargetState
 
-instance ToByteString TargetState
+instance Prelude.ToByteString TargetState
 
-instance ToQuery TargetState
+instance Prelude.ToQuery TargetState
 
-instance ToHeader TargetState
+instance Prelude.ToHeader TargetState
 
-instance FromXML TargetState where
-  parseXML = parseXMLText "TargetState"
+instance Prelude.FromXML TargetState where
+  parseXML = Prelude.parseXMLText "TargetState"

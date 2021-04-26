@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,144 +19,140 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.ReservedDBInstancesOffering where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.RecurringCharge
 
--- | This data type is used as a response element in the @DescribeReservedDBInstancesOfferings@ action.
+-- | This data type is used as a response element in the
+-- @DescribeReservedDBInstancesOfferings@ action.
 --
---
---
--- /See:/ 'reservedDBInstancesOffering' smart constructor.
+-- /See:/ 'newReservedDBInstancesOffering' smart constructor.
 data ReservedDBInstancesOffering = ReservedDBInstancesOffering'
-  { _rdioDuration ::
-      !(Maybe Int),
-    _rdioCurrencyCode ::
-      !(Maybe Text),
-    _rdioMultiAZ ::
-      !(Maybe Bool),
-    _rdioDBInstanceClass ::
-      !(Maybe Text),
-    _rdioFixedPrice ::
-      !(Maybe Double),
-    _rdioUsagePrice ::
-      !(Maybe Double),
-    _rdioOfferingType ::
-      !(Maybe Text),
-    _rdioRecurringCharges ::
-      !( Maybe
-           [RecurringCharge]
-       ),
-    _rdioProductDescription ::
-      !(Maybe Text),
-    _rdioReservedDBInstancesOfferingId ::
-      !(Maybe Text)
+  { -- | The duration of the offering in seconds.
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | The currency code for the reserved DB instance offering.
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | Indicates if the offering applies to Multi-AZ deployments.
+    multiAZ :: Prelude.Maybe Prelude.Bool,
+    -- | The DB instance class for the reserved DB instance.
+    dBInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | The fixed price charged for this offering.
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | The hourly price charged for this offering.
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | The offering type.
+    offeringType :: Prelude.Maybe Prelude.Text,
+    -- | The recurring price charged to run this reserved DB instance.
+    recurringCharges :: Prelude.Maybe [RecurringCharge],
+    -- | The database engine used by the offering.
+    productDescription :: Prelude.Maybe Prelude.Text,
+    -- | The offering identifier.
+    reservedDBInstancesOfferingId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedDBInstancesOffering' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedDBInstancesOffering' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdioDuration' - The duration of the offering in seconds.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdioCurrencyCode' - The currency code for the reserved DB instance offering.
+-- 'duration', 'reservedDBInstancesOffering_duration' - The duration of the offering in seconds.
 --
--- * 'rdioMultiAZ' - Indicates if the offering applies to Multi-AZ deployments.
+-- 'currencyCode', 'reservedDBInstancesOffering_currencyCode' - The currency code for the reserved DB instance offering.
 --
--- * 'rdioDBInstanceClass' - The DB instance class for the reserved DB instance.
+-- 'multiAZ', 'reservedDBInstancesOffering_multiAZ' - Indicates if the offering applies to Multi-AZ deployments.
 --
--- * 'rdioFixedPrice' - The fixed price charged for this offering.
+-- 'dBInstanceClass', 'reservedDBInstancesOffering_dBInstanceClass' - The DB instance class for the reserved DB instance.
 --
--- * 'rdioUsagePrice' - The hourly price charged for this offering.
+-- 'fixedPrice', 'reservedDBInstancesOffering_fixedPrice' - The fixed price charged for this offering.
 --
--- * 'rdioOfferingType' - The offering type.
+-- 'usagePrice', 'reservedDBInstancesOffering_usagePrice' - The hourly price charged for this offering.
 --
--- * 'rdioRecurringCharges' - The recurring price charged to run this reserved DB instance.
+-- 'offeringType', 'reservedDBInstancesOffering_offeringType' - The offering type.
 --
--- * 'rdioProductDescription' - The database engine used by the offering.
+-- 'recurringCharges', 'reservedDBInstancesOffering_recurringCharges' - The recurring price charged to run this reserved DB instance.
 --
--- * 'rdioReservedDBInstancesOfferingId' - The offering identifier.
-reservedDBInstancesOffering ::
+-- 'productDescription', 'reservedDBInstancesOffering_productDescription' - The database engine used by the offering.
+--
+-- 'reservedDBInstancesOfferingId', 'reservedDBInstancesOffering_reservedDBInstancesOfferingId' - The offering identifier.
+newReservedDBInstancesOffering ::
   ReservedDBInstancesOffering
-reservedDBInstancesOffering =
+newReservedDBInstancesOffering =
   ReservedDBInstancesOffering'
-    { _rdioDuration =
-        Nothing,
-      _rdioCurrencyCode = Nothing,
-      _rdioMultiAZ = Nothing,
-      _rdioDBInstanceClass = Nothing,
-      _rdioFixedPrice = Nothing,
-      _rdioUsagePrice = Nothing,
-      _rdioOfferingType = Nothing,
-      _rdioRecurringCharges = Nothing,
-      _rdioProductDescription = Nothing,
-      _rdioReservedDBInstancesOfferingId = Nothing
+    { duration =
+        Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      multiAZ = Prelude.Nothing,
+      dBInstanceClass = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      recurringCharges = Prelude.Nothing,
+      productDescription = Prelude.Nothing,
+      reservedDBInstancesOfferingId =
+        Prelude.Nothing
     }
 
 -- | The duration of the offering in seconds.
-rdioDuration :: Lens' ReservedDBInstancesOffering (Maybe Int)
-rdioDuration = lens _rdioDuration (\s a -> s {_rdioDuration = a})
+reservedDBInstancesOffering_duration :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Int)
+reservedDBInstancesOffering_duration = Lens.lens (\ReservedDBInstancesOffering' {duration} -> duration) (\s@ReservedDBInstancesOffering' {} a -> s {duration = a} :: ReservedDBInstancesOffering)
 
 -- | The currency code for the reserved DB instance offering.
-rdioCurrencyCode :: Lens' ReservedDBInstancesOffering (Maybe Text)
-rdioCurrencyCode = lens _rdioCurrencyCode (\s a -> s {_rdioCurrencyCode = a})
+reservedDBInstancesOffering_currencyCode :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Text)
+reservedDBInstancesOffering_currencyCode = Lens.lens (\ReservedDBInstancesOffering' {currencyCode} -> currencyCode) (\s@ReservedDBInstancesOffering' {} a -> s {currencyCode = a} :: ReservedDBInstancesOffering)
 
 -- | Indicates if the offering applies to Multi-AZ deployments.
-rdioMultiAZ :: Lens' ReservedDBInstancesOffering (Maybe Bool)
-rdioMultiAZ = lens _rdioMultiAZ (\s a -> s {_rdioMultiAZ = a})
+reservedDBInstancesOffering_multiAZ :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Bool)
+reservedDBInstancesOffering_multiAZ = Lens.lens (\ReservedDBInstancesOffering' {multiAZ} -> multiAZ) (\s@ReservedDBInstancesOffering' {} a -> s {multiAZ = a} :: ReservedDBInstancesOffering)
 
 -- | The DB instance class for the reserved DB instance.
-rdioDBInstanceClass :: Lens' ReservedDBInstancesOffering (Maybe Text)
-rdioDBInstanceClass = lens _rdioDBInstanceClass (\s a -> s {_rdioDBInstanceClass = a})
+reservedDBInstancesOffering_dBInstanceClass :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Text)
+reservedDBInstancesOffering_dBInstanceClass = Lens.lens (\ReservedDBInstancesOffering' {dBInstanceClass} -> dBInstanceClass) (\s@ReservedDBInstancesOffering' {} a -> s {dBInstanceClass = a} :: ReservedDBInstancesOffering)
 
 -- | The fixed price charged for this offering.
-rdioFixedPrice :: Lens' ReservedDBInstancesOffering (Maybe Double)
-rdioFixedPrice = lens _rdioFixedPrice (\s a -> s {_rdioFixedPrice = a})
+reservedDBInstancesOffering_fixedPrice :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Double)
+reservedDBInstancesOffering_fixedPrice = Lens.lens (\ReservedDBInstancesOffering' {fixedPrice} -> fixedPrice) (\s@ReservedDBInstancesOffering' {} a -> s {fixedPrice = a} :: ReservedDBInstancesOffering)
 
 -- | The hourly price charged for this offering.
-rdioUsagePrice :: Lens' ReservedDBInstancesOffering (Maybe Double)
-rdioUsagePrice = lens _rdioUsagePrice (\s a -> s {_rdioUsagePrice = a})
+reservedDBInstancesOffering_usagePrice :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Double)
+reservedDBInstancesOffering_usagePrice = Lens.lens (\ReservedDBInstancesOffering' {usagePrice} -> usagePrice) (\s@ReservedDBInstancesOffering' {} a -> s {usagePrice = a} :: ReservedDBInstancesOffering)
 
 -- | The offering type.
-rdioOfferingType :: Lens' ReservedDBInstancesOffering (Maybe Text)
-rdioOfferingType = lens _rdioOfferingType (\s a -> s {_rdioOfferingType = a})
+reservedDBInstancesOffering_offeringType :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Text)
+reservedDBInstancesOffering_offeringType = Lens.lens (\ReservedDBInstancesOffering' {offeringType} -> offeringType) (\s@ReservedDBInstancesOffering' {} a -> s {offeringType = a} :: ReservedDBInstancesOffering)
 
 -- | The recurring price charged to run this reserved DB instance.
-rdioRecurringCharges :: Lens' ReservedDBInstancesOffering [RecurringCharge]
-rdioRecurringCharges = lens _rdioRecurringCharges (\s a -> s {_rdioRecurringCharges = a}) . _Default . _Coerce
+reservedDBInstancesOffering_recurringCharges :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe [RecurringCharge])
+reservedDBInstancesOffering_recurringCharges = Lens.lens (\ReservedDBInstancesOffering' {recurringCharges} -> recurringCharges) (\s@ReservedDBInstancesOffering' {} a -> s {recurringCharges = a} :: ReservedDBInstancesOffering) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The database engine used by the offering.
-rdioProductDescription :: Lens' ReservedDBInstancesOffering (Maybe Text)
-rdioProductDescription = lens _rdioProductDescription (\s a -> s {_rdioProductDescription = a})
+reservedDBInstancesOffering_productDescription :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Text)
+reservedDBInstancesOffering_productDescription = Lens.lens (\ReservedDBInstancesOffering' {productDescription} -> productDescription) (\s@ReservedDBInstancesOffering' {} a -> s {productDescription = a} :: ReservedDBInstancesOffering)
 
 -- | The offering identifier.
-rdioReservedDBInstancesOfferingId :: Lens' ReservedDBInstancesOffering (Maybe Text)
-rdioReservedDBInstancesOfferingId = lens _rdioReservedDBInstancesOfferingId (\s a -> s {_rdioReservedDBInstancesOfferingId = a})
+reservedDBInstancesOffering_reservedDBInstancesOfferingId :: Lens.Lens' ReservedDBInstancesOffering (Prelude.Maybe Prelude.Text)
+reservedDBInstancesOffering_reservedDBInstancesOfferingId = Lens.lens (\ReservedDBInstancesOffering' {reservedDBInstancesOfferingId} -> reservedDBInstancesOfferingId) (\s@ReservedDBInstancesOffering' {} a -> s {reservedDBInstancesOfferingId = a} :: ReservedDBInstancesOffering)
 
-instance FromXML ReservedDBInstancesOffering where
+instance Prelude.FromXML ReservedDBInstancesOffering where
   parseXML x =
     ReservedDBInstancesOffering'
-      <$> (x .@? "Duration")
-      <*> (x .@? "CurrencyCode")
-      <*> (x .@? "MultiAZ")
-      <*> (x .@? "DBInstanceClass")
-      <*> (x .@? "FixedPrice")
-      <*> (x .@? "UsagePrice")
-      <*> (x .@? "OfferingType")
-      <*> ( x .@? "RecurringCharges" .!@ mempty
-              >>= may (parseXMLList "RecurringCharge")
-          )
-      <*> (x .@? "ProductDescription")
-      <*> (x .@? "ReservedDBInstancesOfferingId")
+      Prelude.<$> (x Prelude..@? "Duration")
+      Prelude.<*> (x Prelude..@? "CurrencyCode")
+      Prelude.<*> (x Prelude..@? "MultiAZ")
+      Prelude.<*> (x Prelude..@? "DBInstanceClass")
+      Prelude.<*> (x Prelude..@? "FixedPrice")
+      Prelude.<*> (x Prelude..@? "UsagePrice")
+      Prelude.<*> (x Prelude..@? "OfferingType")
+      Prelude.<*> ( x Prelude..@? "RecurringCharges"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "RecurringCharge")
+                  )
+      Prelude.<*> (x Prelude..@? "ProductDescription")
+      Prelude.<*> (x Prelude..@? "ReservedDBInstancesOfferingId")
 
-instance Hashable ReservedDBInstancesOffering
+instance Prelude.Hashable ReservedDBInstancesOffering
 
-instance NFData ReservedDBInstancesOffering
+instance Prelude.NFData ReservedDBInstancesOffering

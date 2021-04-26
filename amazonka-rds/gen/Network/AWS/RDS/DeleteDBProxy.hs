@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,119 +24,127 @@
 -- Deletes an existing proxy.
 module Network.AWS.RDS.DeleteDBProxy
   ( -- * Creating a Request
-    deleteDBProxy,
-    DeleteDBProxy,
+    DeleteDBProxy (..),
+    newDeleteDBProxy,
 
     -- * Request Lenses
-    ddbpDBProxyName,
+    deleteDBProxy_dBProxyName,
 
     -- * Destructuring the Response
-    deleteDBProxyResponse,
-    DeleteDBProxyResponse,
+    DeleteDBProxyResponse (..),
+    newDeleteDBProxyResponse,
 
     -- * Response Lenses
-    ddprdrsDBProxy,
-    ddprdrsResponseStatus,
+    deleteDBProxyResponse_dBProxy,
+    deleteDBProxyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBProxy
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDBProxy' smart constructor.
-newtype DeleteDBProxy = DeleteDBProxy'
-  { _ddbpDBProxyName ::
-      Text
+-- | /See:/ 'newDeleteDBProxy' smart constructor.
+data DeleteDBProxy = DeleteDBProxy'
+  { -- | The name of the DB proxy to delete.
+    dBProxyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBProxy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBProxy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbpDBProxyName' - The name of the DB proxy to delete.
-deleteDBProxy ::
-  -- | 'ddbpDBProxyName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBProxyName', 'deleteDBProxy_dBProxyName' - The name of the DB proxy to delete.
+newDeleteDBProxy ::
+  -- | 'dBProxyName'
+  Prelude.Text ->
   DeleteDBProxy
-deleteDBProxy pDBProxyName_ =
-  DeleteDBProxy' {_ddbpDBProxyName = pDBProxyName_}
+newDeleteDBProxy pDBProxyName_ =
+  DeleteDBProxy' {dBProxyName = pDBProxyName_}
 
 -- | The name of the DB proxy to delete.
-ddbpDBProxyName :: Lens' DeleteDBProxy Text
-ddbpDBProxyName = lens _ddbpDBProxyName (\s a -> s {_ddbpDBProxyName = a})
+deleteDBProxy_dBProxyName :: Lens.Lens' DeleteDBProxy Prelude.Text
+deleteDBProxy_dBProxyName = Lens.lens (\DeleteDBProxy' {dBProxyName} -> dBProxyName) (\s@DeleteDBProxy' {} a -> s {dBProxyName = a} :: DeleteDBProxy)
 
-instance AWSRequest DeleteDBProxy where
+instance Prelude.AWSRequest DeleteDBProxy where
   type Rs DeleteDBProxy = DeleteDBProxyResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteDBProxyResult"
       ( \s h x ->
           DeleteDBProxyResponse'
-            <$> (x .@? "DBProxy") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBProxy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDBProxy
+instance Prelude.Hashable DeleteDBProxy
 
-instance NFData DeleteDBProxy
+instance Prelude.NFData DeleteDBProxy
 
-instance ToHeaders DeleteDBProxy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDBProxy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDBProxy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDBProxy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDBProxy where
+instance Prelude.ToQuery DeleteDBProxy where
   toQuery DeleteDBProxy' {..} =
-    mconcat
-      [ "Action" =: ("DeleteDBProxy" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBProxyName" =: _ddbpDBProxyName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteDBProxy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBProxyName" Prelude.=: dBProxyName
       ]
 
--- | /See:/ 'deleteDBProxyResponse' smart constructor.
+-- | /See:/ 'newDeleteDBProxyResponse' smart constructor.
 data DeleteDBProxyResponse = DeleteDBProxyResponse'
-  { _ddprdrsDBProxy ::
-      !(Maybe DBProxy),
-    _ddprdrsResponseStatus ::
-      !Int
+  { -- | The data structure representing the details of the DB proxy that you
+    -- delete.
+    dBProxy :: Prelude.Maybe DBProxy,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBProxyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBProxyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddprdrsDBProxy' - The data structure representing the details of the DB proxy that you delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddprdrsResponseStatus' - -- | The response status code.
-deleteDBProxyResponse ::
-  -- | 'ddprdrsResponseStatus'
-  Int ->
+-- 'dBProxy', 'deleteDBProxyResponse_dBProxy' - The data structure representing the details of the DB proxy that you
+-- delete.
+--
+-- 'httpStatus', 'deleteDBProxyResponse_httpStatus' - The response's http status code.
+newDeleteDBProxyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDBProxyResponse
-deleteDBProxyResponse pResponseStatus_ =
+newDeleteDBProxyResponse pHttpStatus_ =
   DeleteDBProxyResponse'
-    { _ddprdrsDBProxy = Nothing,
-      _ddprdrsResponseStatus = pResponseStatus_
+    { dBProxy = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The data structure representing the details of the DB proxy that you delete.
-ddprdrsDBProxy :: Lens' DeleteDBProxyResponse (Maybe DBProxy)
-ddprdrsDBProxy = lens _ddprdrsDBProxy (\s a -> s {_ddprdrsDBProxy = a})
+-- | The data structure representing the details of the DB proxy that you
+-- delete.
+deleteDBProxyResponse_dBProxy :: Lens.Lens' DeleteDBProxyResponse (Prelude.Maybe DBProxy)
+deleteDBProxyResponse_dBProxy = Lens.lens (\DeleteDBProxyResponse' {dBProxy} -> dBProxy) (\s@DeleteDBProxyResponse' {} a -> s {dBProxy = a} :: DeleteDBProxyResponse)
 
--- | -- | The response status code.
-ddprdrsResponseStatus :: Lens' DeleteDBProxyResponse Int
-ddprdrsResponseStatus = lens _ddprdrsResponseStatus (\s a -> s {_ddprdrsResponseStatus = a})
+-- | The response's http status code.
+deleteDBProxyResponse_httpStatus :: Lens.Lens' DeleteDBProxyResponse Prelude.Int
+deleteDBProxyResponse_httpStatus = Lens.lens (\DeleteDBProxyResponse' {httpStatus} -> httpStatus) (\s@DeleteDBProxyResponse' {} a -> s {httpStatus = a} :: DeleteDBProxyResponse)
 
-instance NFData DeleteDBProxyResponse
+instance Prelude.NFData DeleteDBProxyResponse

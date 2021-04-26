@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- You might need to reboot your DB instance, usually for maintenance reasons. For example, if you make certain modifications, or if you change the DB parameter group associated with the DB instance, you must reboot the instance for the changes to take effect.
+-- You might need to reboot your DB instance, usually for maintenance
+-- reasons. For example, if you make certain modifications, or if you
+-- change the DB parameter group associated with the DB instance, you must
+-- reboot the instance for the changes to take effect.
 --
+-- Rebooting a DB instance restarts the database engine service. Rebooting
+-- a DB instance results in a momentary outage, during which the DB
+-- instance status is set to rebooting.
 --
--- Rebooting a DB instance restarts the database engine service. Rebooting a DB instance results in a momentary outage, during which the DB instance status is set to rebooting.
---
--- For more information about rebooting, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html Rebooting a DB Instance> in the /Amazon RDS User Guide./
+-- For more information about rebooting, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html Rebooting a DB Instance>
+-- in the /Amazon RDS User Guide./
 module Network.AWS.RDS.RebootDBInstance
   ( -- * Creating a Request
-    rebootDBInstance,
-    RebootDBInstance,
+    RebootDBInstance (..),
+    newRebootDBInstance,
 
     -- * Request Lenses
-    rdiForceFailover,
-    rdiDBInstanceIdentifier,
+    rebootDBInstance_forceFailover,
+    rebootDBInstance_dBInstanceIdentifier,
 
     -- * Destructuring the Response
-    rebootDBInstanceResponse,
-    RebootDBInstanceResponse,
+    RebootDBInstanceResponse (..),
+    newRebootDBInstanceResponse,
 
     -- * Response Lenses
-    rdirrsDBInstance,
-    rdirrsResponseStatus,
+    rebootDBInstanceResponse_dBInstance,
+    rebootDBInstanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstance
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'rebootDBInstance' smart constructor.
+-- /See:/ 'newRebootDBInstance' smart constructor.
 data RebootDBInstance = RebootDBInstance'
-  { _rdiForceFailover ::
-      !(Maybe Bool),
-    _rdiDBInstanceIdentifier :: !Text
+  { -- | A value that indicates whether the reboot is conducted through a
+    -- Multi-AZ failover.
+    --
+    -- Constraint: You can\'t enable force failover if the instance isn\'t
+    -- configured for Multi-AZ.
+    forceFailover :: Prelude.Maybe Prelude.Bool,
+    -- | The DB instance identifier. This parameter is stored as a lowercase
+    -- string.
+    --
+    -- Constraints:
+    --
+    -- -   Must match the identifier of an existing DBInstance.
+    dBInstanceIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootDBInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootDBInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdiForceFailover' - A value that indicates whether the reboot is conducted through a Multi-AZ failover.  Constraint: You can't enable force failover if the instance isn't configured for Multi-AZ.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdiDBInstanceIdentifier' - The DB instance identifier. This parameter is stored as a lowercase string. Constraints:     * Must match the identifier of an existing DBInstance.
-rebootDBInstance ::
-  -- | 'rdiDBInstanceIdentifier'
-  Text ->
+-- 'forceFailover', 'rebootDBInstance_forceFailover' - A value that indicates whether the reboot is conducted through a
+-- Multi-AZ failover.
+--
+-- Constraint: You can\'t enable force failover if the instance isn\'t
+-- configured for Multi-AZ.
+--
+-- 'dBInstanceIdentifier', 'rebootDBInstance_dBInstanceIdentifier' - The DB instance identifier. This parameter is stored as a lowercase
+-- string.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing DBInstance.
+newRebootDBInstance ::
+  -- | 'dBInstanceIdentifier'
+  Prelude.Text ->
   RebootDBInstance
-rebootDBInstance pDBInstanceIdentifier_ =
+newRebootDBInstance pDBInstanceIdentifier_ =
   RebootDBInstance'
-    { _rdiForceFailover = Nothing,
-      _rdiDBInstanceIdentifier = pDBInstanceIdentifier_
+    { forceFailover = Prelude.Nothing,
+      dBInstanceIdentifier = pDBInstanceIdentifier_
     }
 
--- | A value that indicates whether the reboot is conducted through a Multi-AZ failover.  Constraint: You can't enable force failover if the instance isn't configured for Multi-AZ.
-rdiForceFailover :: Lens' RebootDBInstance (Maybe Bool)
-rdiForceFailover = lens _rdiForceFailover (\s a -> s {_rdiForceFailover = a})
+-- | A value that indicates whether the reboot is conducted through a
+-- Multi-AZ failover.
+--
+-- Constraint: You can\'t enable force failover if the instance isn\'t
+-- configured for Multi-AZ.
+rebootDBInstance_forceFailover :: Lens.Lens' RebootDBInstance (Prelude.Maybe Prelude.Bool)
+rebootDBInstance_forceFailover = Lens.lens (\RebootDBInstance' {forceFailover} -> forceFailover) (\s@RebootDBInstance' {} a -> s {forceFailover = a} :: RebootDBInstance)
 
--- | The DB instance identifier. This parameter is stored as a lowercase string. Constraints:     * Must match the identifier of an existing DBInstance.
-rdiDBInstanceIdentifier :: Lens' RebootDBInstance Text
-rdiDBInstanceIdentifier = lens _rdiDBInstanceIdentifier (\s a -> s {_rdiDBInstanceIdentifier = a})
+-- | The DB instance identifier. This parameter is stored as a lowercase
+-- string.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing DBInstance.
+rebootDBInstance_dBInstanceIdentifier :: Lens.Lens' RebootDBInstance Prelude.Text
+rebootDBInstance_dBInstanceIdentifier = Lens.lens (\RebootDBInstance' {dBInstanceIdentifier} -> dBInstanceIdentifier) (\s@RebootDBInstance' {} a -> s {dBInstanceIdentifier = a} :: RebootDBInstance)
 
-instance AWSRequest RebootDBInstance where
+instance Prelude.AWSRequest RebootDBInstance where
   type Rs RebootDBInstance = RebootDBInstanceResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RebootDBInstanceResult"
       ( \s h x ->
           RebootDBInstanceResponse'
-            <$> (x .@? "DBInstance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBInstance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RebootDBInstance
+instance Prelude.Hashable RebootDBInstance
 
-instance NFData RebootDBInstance
+instance Prelude.NFData RebootDBInstance
 
-instance ToHeaders RebootDBInstance where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RebootDBInstance where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RebootDBInstance where
-  toPath = const "/"
+instance Prelude.ToPath RebootDBInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery RebootDBInstance where
+instance Prelude.ToQuery RebootDBInstance where
   toQuery RebootDBInstance' {..} =
-    mconcat
-      [ "Action" =: ("RebootDBInstance" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "ForceFailover" =: _rdiForceFailover,
-        "DBInstanceIdentifier" =: _rdiDBInstanceIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("RebootDBInstance" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "ForceFailover" Prelude.=: forceFailover,
+        "DBInstanceIdentifier"
+          Prelude.=: dBInstanceIdentifier
       ]
 
--- | /See:/ 'rebootDBInstanceResponse' smart constructor.
+-- | /See:/ 'newRebootDBInstanceResponse' smart constructor.
 data RebootDBInstanceResponse = RebootDBInstanceResponse'
-  { _rdirrsDBInstance ::
-      !(Maybe DBInstance),
-    _rdirrsResponseStatus ::
-      !Int
+  { dBInstance :: Prelude.Maybe DBInstance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootDBInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootDBInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdirrsDBInstance' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdirrsResponseStatus' - -- | The response status code.
-rebootDBInstanceResponse ::
-  -- | 'rdirrsResponseStatus'
-  Int ->
+-- 'dBInstance', 'rebootDBInstanceResponse_dBInstance' - Undocumented member.
+--
+-- 'httpStatus', 'rebootDBInstanceResponse_httpStatus' - The response's http status code.
+newRebootDBInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RebootDBInstanceResponse
-rebootDBInstanceResponse pResponseStatus_ =
+newRebootDBInstanceResponse pHttpStatus_ =
   RebootDBInstanceResponse'
-    { _rdirrsDBInstance =
-        Nothing,
-      _rdirrsResponseStatus = pResponseStatus_
+    { dBInstance =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-rdirrsDBInstance :: Lens' RebootDBInstanceResponse (Maybe DBInstance)
-rdirrsDBInstance = lens _rdirrsDBInstance (\s a -> s {_rdirrsDBInstance = a})
+rebootDBInstanceResponse_dBInstance :: Lens.Lens' RebootDBInstanceResponse (Prelude.Maybe DBInstance)
+rebootDBInstanceResponse_dBInstance = Lens.lens (\RebootDBInstanceResponse' {dBInstance} -> dBInstance) (\s@RebootDBInstanceResponse' {} a -> s {dBInstance = a} :: RebootDBInstanceResponse)
 
--- | -- | The response status code.
-rdirrsResponseStatus :: Lens' RebootDBInstanceResponse Int
-rdirrsResponseStatus = lens _rdirrsResponseStatus (\s a -> s {_rdirrsResponseStatus = a})
+-- | The response's http status code.
+rebootDBInstanceResponse_httpStatus :: Lens.Lens' RebootDBInstanceResponse Prelude.Int
+rebootDBInstanceResponse_httpStatus = Lens.lens (\RebootDBInstanceResponse' {httpStatus} -> httpStatus) (\s@RebootDBInstanceResponse' {} a -> s {httpStatus = a} :: RebootDBInstanceResponse)
 
-instance NFData RebootDBInstanceResponse
+instance Prelude.NFData RebootDBInstanceResponse

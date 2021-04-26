@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an Amazon RDS DB instance that was stopped using the AWS console, the stop-db-instance AWS CLI command, or the StopDBInstance action.
+-- Starts an Amazon RDS DB instance that was stopped using the AWS console,
+-- the stop-db-instance AWS CLI command, or the StopDBInstance action.
 --
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StartInstance.html Starting an Amazon RDS DB instance That Was Previously Stopped>
+-- in the /Amazon RDS User Guide./
 --
--- For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StartInstance.html Starting an Amazon RDS DB instance That Was Previously Stopped> in the /Amazon RDS User Guide./
+-- This command doesn\'t apply to Aurora MySQL and Aurora PostgreSQL. For
+-- Aurora DB clusters, use @StartDBCluster@ instead.
 module Network.AWS.RDS.StartDBInstance
   ( -- * Creating a Request
-    startDBInstance,
-    StartDBInstance,
+    StartDBInstance (..),
+    newStartDBInstance,
 
     -- * Request Lenses
-    sdbiDBInstanceIdentifier,
+    startDBInstance_dBInstanceIdentifier,
 
     -- * Destructuring the Response
-    startDBInstanceResponse,
-    StartDBInstanceResponse,
+    StartDBInstanceResponse (..),
+    newStartDBInstanceResponse,
 
     -- * Response Lenses
-    sdbirrsDBInstance,
-    sdbirrsResponseStatus,
+    startDBInstanceResponse_dBInstance,
+    startDBInstanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstance
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDBInstance' smart constructor.
-newtype StartDBInstance = StartDBInstance'
-  { _sdbiDBInstanceIdentifier ::
-      Text
+-- | /See:/ 'newStartDBInstance' smart constructor.
+data StartDBInstance = StartDBInstance'
+  { -- | The user-supplied instance identifier.
+    dBInstanceIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDBInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDBInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdbiDBInstanceIdentifier' - The user-supplied instance identifier.
-startDBInstance ::
-  -- | 'sdbiDBInstanceIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dBInstanceIdentifier', 'startDBInstance_dBInstanceIdentifier' - The user-supplied instance identifier.
+newStartDBInstance ::
+  -- | 'dBInstanceIdentifier'
+  Prelude.Text ->
   StartDBInstance
-startDBInstance pDBInstanceIdentifier_ =
+newStartDBInstance pDBInstanceIdentifier_ =
   StartDBInstance'
-    { _sdbiDBInstanceIdentifier =
+    { dBInstanceIdentifier =
         pDBInstanceIdentifier_
     }
 
 -- | The user-supplied instance identifier.
-sdbiDBInstanceIdentifier :: Lens' StartDBInstance Text
-sdbiDBInstanceIdentifier = lens _sdbiDBInstanceIdentifier (\s a -> s {_sdbiDBInstanceIdentifier = a})
+startDBInstance_dBInstanceIdentifier :: Lens.Lens' StartDBInstance Prelude.Text
+startDBInstance_dBInstanceIdentifier = Lens.lens (\StartDBInstance' {dBInstanceIdentifier} -> dBInstanceIdentifier) (\s@StartDBInstance' {} a -> s {dBInstanceIdentifier = a} :: StartDBInstance)
 
-instance AWSRequest StartDBInstance where
+instance Prelude.AWSRequest StartDBInstance where
   type Rs StartDBInstance = StartDBInstanceResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StartDBInstanceResult"
       ( \s h x ->
           StartDBInstanceResponse'
-            <$> (x .@? "DBInstance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBInstance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartDBInstance
+instance Prelude.Hashable StartDBInstance
 
-instance NFData StartDBInstance
+instance Prelude.NFData StartDBInstance
 
-instance ToHeaders StartDBInstance where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartDBInstance where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StartDBInstance where
-  toPath = const "/"
+instance Prelude.ToPath StartDBInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartDBInstance where
+instance Prelude.ToQuery StartDBInstance where
   toQuery StartDBInstance' {..} =
-    mconcat
-      [ "Action" =: ("StartDBInstance" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBInstanceIdentifier" =: _sdbiDBInstanceIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("StartDBInstance" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceIdentifier"
+          Prelude.=: dBInstanceIdentifier
       ]
 
--- | /See:/ 'startDBInstanceResponse' smart constructor.
+-- | /See:/ 'newStartDBInstanceResponse' smart constructor.
 data StartDBInstanceResponse = StartDBInstanceResponse'
-  { _sdbirrsDBInstance ::
-      !(Maybe DBInstance),
-    _sdbirrsResponseStatus ::
-      !Int
+  { dBInstance :: Prelude.Maybe DBInstance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDBInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDBInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdbirrsDBInstance' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdbirrsResponseStatus' - -- | The response status code.
-startDBInstanceResponse ::
-  -- | 'sdbirrsResponseStatus'
-  Int ->
+-- 'dBInstance', 'startDBInstanceResponse_dBInstance' - Undocumented member.
+--
+-- 'httpStatus', 'startDBInstanceResponse_httpStatus' - The response's http status code.
+newStartDBInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartDBInstanceResponse
-startDBInstanceResponse pResponseStatus_ =
+newStartDBInstanceResponse pHttpStatus_ =
   StartDBInstanceResponse'
-    { _sdbirrsDBInstance =
-        Nothing,
-      _sdbirrsResponseStatus = pResponseStatus_
+    { dBInstance =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-sdbirrsDBInstance :: Lens' StartDBInstanceResponse (Maybe DBInstance)
-sdbirrsDBInstance = lens _sdbirrsDBInstance (\s a -> s {_sdbirrsDBInstance = a})
+startDBInstanceResponse_dBInstance :: Lens.Lens' StartDBInstanceResponse (Prelude.Maybe DBInstance)
+startDBInstanceResponse_dBInstance = Lens.lens (\StartDBInstanceResponse' {dBInstance} -> dBInstance) (\s@StartDBInstanceResponse' {} a -> s {dBInstance = a} :: StartDBInstanceResponse)
 
--- | -- | The response status code.
-sdbirrsResponseStatus :: Lens' StartDBInstanceResponse Int
-sdbirrsResponseStatus = lens _sdbirrsResponseStatus (\s a -> s {_sdbirrsResponseStatus = a})
+-- | The response's http status code.
+startDBInstanceResponse_httpStatus :: Lens.Lens' StartDBInstanceResponse Prelude.Int
+startDBInstanceResponse_httpStatus = Lens.lens (\StartDBInstanceResponse' {httpStatus} -> httpStatus) (\s@StartDBInstanceResponse' {} a -> s {httpStatus = a} :: StartDBInstanceResponse)
 
-instance NFData StartDBInstanceResponse
+instance Prelude.NFData StartDBInstanceResponse

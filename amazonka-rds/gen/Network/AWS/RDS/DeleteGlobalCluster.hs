@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a global database cluster. The primary and secondary clusters must already be detached or destroyed first.
+-- Deletes a global database cluster. The primary and secondary clusters
+-- must already be detached or destroyed first.
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.DeleteGlobalCluster
   ( -- * Creating a Request
-    deleteGlobalCluster,
-    DeleteGlobalCluster,
+    DeleteGlobalCluster (..),
+    newDeleteGlobalCluster,
 
     -- * Request Lenses
-    dGlobalClusterIdentifier,
+    deleteGlobalCluster_globalClusterIdentifier,
 
     -- * Destructuring the Response
-    deleteGlobalClusterResponse,
-    DeleteGlobalClusterResponse,
+    DeleteGlobalClusterResponse (..),
+    newDeleteGlobalClusterResponse,
 
     -- * Response Lenses
-    delrsGlobalCluster,
-    delrsResponseStatus,
+    deleteGlobalClusterResponse_globalCluster,
+    deleteGlobalClusterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.GlobalCluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteGlobalCluster' smart constructor.
-newtype DeleteGlobalCluster = DeleteGlobalCluster'
-  { _dGlobalClusterIdentifier ::
-      Text
+-- | /See:/ 'newDeleteGlobalCluster' smart constructor.
+data DeleteGlobalCluster = DeleteGlobalCluster'
+  { -- | The cluster identifier of the global database cluster being deleted.
+    globalClusterIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGlobalCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGlobalCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dGlobalClusterIdentifier' - The cluster identifier of the global database cluster being deleted.
-deleteGlobalCluster ::
-  -- | 'dGlobalClusterIdentifier'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'globalClusterIdentifier', 'deleteGlobalCluster_globalClusterIdentifier' - The cluster identifier of the global database cluster being deleted.
+newDeleteGlobalCluster ::
+  -- | 'globalClusterIdentifier'
+  Prelude.Text ->
   DeleteGlobalCluster
-deleteGlobalCluster pGlobalClusterIdentifier_ =
+newDeleteGlobalCluster pGlobalClusterIdentifier_ =
   DeleteGlobalCluster'
-    { _dGlobalClusterIdentifier =
+    { globalClusterIdentifier =
         pGlobalClusterIdentifier_
     }
 
 -- | The cluster identifier of the global database cluster being deleted.
-dGlobalClusterIdentifier :: Lens' DeleteGlobalCluster Text
-dGlobalClusterIdentifier = lens _dGlobalClusterIdentifier (\s a -> s {_dGlobalClusterIdentifier = a})
+deleteGlobalCluster_globalClusterIdentifier :: Lens.Lens' DeleteGlobalCluster Prelude.Text
+deleteGlobalCluster_globalClusterIdentifier = Lens.lens (\DeleteGlobalCluster' {globalClusterIdentifier} -> globalClusterIdentifier) (\s@DeleteGlobalCluster' {} a -> s {globalClusterIdentifier = a} :: DeleteGlobalCluster)
 
-instance AWSRequest DeleteGlobalCluster where
+instance Prelude.AWSRequest DeleteGlobalCluster where
   type
     Rs DeleteGlobalCluster =
       DeleteGlobalClusterResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteGlobalClusterResult"
       ( \s h x ->
           DeleteGlobalClusterResponse'
-            <$> (x .@? "GlobalCluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalCluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteGlobalCluster
+instance Prelude.Hashable DeleteGlobalCluster
 
-instance NFData DeleteGlobalCluster
+instance Prelude.NFData DeleteGlobalCluster
 
-instance ToHeaders DeleteGlobalCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteGlobalCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteGlobalCluster where
-  toPath = const "/"
+instance Prelude.ToPath DeleteGlobalCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteGlobalCluster where
+instance Prelude.ToQuery DeleteGlobalCluster where
   toQuery DeleteGlobalCluster' {..} =
-    mconcat
-      [ "Action" =: ("DeleteGlobalCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteGlobalCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "GlobalClusterIdentifier"
-          =: _dGlobalClusterIdentifier
+          Prelude.=: globalClusterIdentifier
       ]
 
--- | /See:/ 'deleteGlobalClusterResponse' smart constructor.
+-- | /See:/ 'newDeleteGlobalClusterResponse' smart constructor.
 data DeleteGlobalClusterResponse = DeleteGlobalClusterResponse'
-  { _delrsGlobalCluster ::
-      !( Maybe
-           GlobalCluster
-       ),
-    _delrsResponseStatus ::
-      !Int
+  { globalCluster :: Prelude.Maybe GlobalCluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGlobalClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGlobalClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsGlobalCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteGlobalClusterResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'globalCluster', 'deleteGlobalClusterResponse_globalCluster' - Undocumented member.
+--
+-- 'httpStatus', 'deleteGlobalClusterResponse_httpStatus' - The response's http status code.
+newDeleteGlobalClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteGlobalClusterResponse
-deleteGlobalClusterResponse pResponseStatus_ =
+newDeleteGlobalClusterResponse pHttpStatus_ =
   DeleteGlobalClusterResponse'
-    { _delrsGlobalCluster =
-        Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { globalCluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-delrsGlobalCluster :: Lens' DeleteGlobalClusterResponse (Maybe GlobalCluster)
-delrsGlobalCluster = lens _delrsGlobalCluster (\s a -> s {_delrsGlobalCluster = a})
+deleteGlobalClusterResponse_globalCluster :: Lens.Lens' DeleteGlobalClusterResponse (Prelude.Maybe GlobalCluster)
+deleteGlobalClusterResponse_globalCluster = Lens.lens (\DeleteGlobalClusterResponse' {globalCluster} -> globalCluster) (\s@DeleteGlobalClusterResponse' {} a -> s {globalCluster = a} :: DeleteGlobalClusterResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteGlobalClusterResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteGlobalClusterResponse_httpStatus :: Lens.Lens' DeleteGlobalClusterResponse Prelude.Int
+deleteGlobalClusterResponse_httpStatus = Lens.lens (\DeleteGlobalClusterResponse' {httpStatus} -> httpStatus) (\s@DeleteGlobalClusterResponse' {} a -> s {httpStatus = a} :: DeleteGlobalClusterResponse)
 
-instance NFData DeleteGlobalClusterResponse
+instance Prelude.NFData DeleteGlobalClusterResponse

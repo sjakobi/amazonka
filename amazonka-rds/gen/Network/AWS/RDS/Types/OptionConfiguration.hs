@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.OptionConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.OptionSetting
 
 -- | A list of all available options
 --
---
---
--- /See:/ 'optionConfiguration' smart constructor.
+-- /See:/ 'newOptionConfiguration' smart constructor.
 data OptionConfiguration = OptionConfiguration'
-  { _ocOptionVersion ::
-      !(Maybe Text),
-    _ocDBSecurityGroupMemberships ::
-      !(Maybe [Text]),
-    _ocPort :: !(Maybe Int),
-    _ocOptionSettings ::
-      !(Maybe [OptionSetting]),
-    _ocVPCSecurityGroupMemberships ::
-      !(Maybe [Text]),
-    _ocOptionName :: !Text
+  { -- | The version for the option.
+    optionVersion :: Prelude.Maybe Prelude.Text,
+    -- | A list of DBSecurityGroupMembership name strings used for this option.
+    dBSecurityGroupMemberships :: Prelude.Maybe [Prelude.Text],
+    -- | The optional port for the option.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The option settings to include in an option group.
+    optionSettings :: Prelude.Maybe [OptionSetting],
+    -- | A list of VpcSecurityGroupMembership name strings used for this option.
+    vpcSecurityGroupMemberships :: Prelude.Maybe [Prelude.Text],
+    -- | The configuration of options to include in a group.
+    optionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OptionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OptionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ocOptionVersion' - The version for the option.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ocDBSecurityGroupMemberships' - A list of DBSecurityGroupMembership name strings used for this option.
+-- 'optionVersion', 'optionConfiguration_optionVersion' - The version for the option.
 --
--- * 'ocPort' - The optional port for the option.
+-- 'dBSecurityGroupMemberships', 'optionConfiguration_dBSecurityGroupMemberships' - A list of DBSecurityGroupMembership name strings used for this option.
 --
--- * 'ocOptionSettings' - The option settings to include in an option group.
+-- 'port', 'optionConfiguration_port' - The optional port for the option.
 --
--- * 'ocVPCSecurityGroupMemberships' - A list of VpcSecurityGroupMembership name strings used for this option.
+-- 'optionSettings', 'optionConfiguration_optionSettings' - The option settings to include in an option group.
 --
--- * 'ocOptionName' - The configuration of options to include in a group.
-optionConfiguration ::
-  -- | 'ocOptionName'
-  Text ->
+-- 'vpcSecurityGroupMemberships', 'optionConfiguration_vpcSecurityGroupMemberships' - A list of VpcSecurityGroupMembership name strings used for this option.
+--
+-- 'optionName', 'optionConfiguration_optionName' - The configuration of options to include in a group.
+newOptionConfiguration ::
+  -- | 'optionName'
+  Prelude.Text ->
   OptionConfiguration
-optionConfiguration pOptionName_ =
+newOptionConfiguration pOptionName_ =
   OptionConfiguration'
-    { _ocOptionVersion = Nothing,
-      _ocDBSecurityGroupMemberships = Nothing,
-      _ocPort = Nothing,
-      _ocOptionSettings = Nothing,
-      _ocVPCSecurityGroupMemberships = Nothing,
-      _ocOptionName = pOptionName_
+    { optionVersion =
+        Prelude.Nothing,
+      dBSecurityGroupMemberships = Prelude.Nothing,
+      port = Prelude.Nothing,
+      optionSettings = Prelude.Nothing,
+      vpcSecurityGroupMemberships = Prelude.Nothing,
+      optionName = pOptionName_
     }
 
 -- | The version for the option.
-ocOptionVersion :: Lens' OptionConfiguration (Maybe Text)
-ocOptionVersion = lens _ocOptionVersion (\s a -> s {_ocOptionVersion = a})
+optionConfiguration_optionVersion :: Lens.Lens' OptionConfiguration (Prelude.Maybe Prelude.Text)
+optionConfiguration_optionVersion = Lens.lens (\OptionConfiguration' {optionVersion} -> optionVersion) (\s@OptionConfiguration' {} a -> s {optionVersion = a} :: OptionConfiguration)
 
 -- | A list of DBSecurityGroupMembership name strings used for this option.
-ocDBSecurityGroupMemberships :: Lens' OptionConfiguration [Text]
-ocDBSecurityGroupMemberships = lens _ocDBSecurityGroupMemberships (\s a -> s {_ocDBSecurityGroupMemberships = a}) . _Default . _Coerce
+optionConfiguration_dBSecurityGroupMemberships :: Lens.Lens' OptionConfiguration (Prelude.Maybe [Prelude.Text])
+optionConfiguration_dBSecurityGroupMemberships = Lens.lens (\OptionConfiguration' {dBSecurityGroupMemberships} -> dBSecurityGroupMemberships) (\s@OptionConfiguration' {} a -> s {dBSecurityGroupMemberships = a} :: OptionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The optional port for the option.
-ocPort :: Lens' OptionConfiguration (Maybe Int)
-ocPort = lens _ocPort (\s a -> s {_ocPort = a})
+optionConfiguration_port :: Lens.Lens' OptionConfiguration (Prelude.Maybe Prelude.Int)
+optionConfiguration_port = Lens.lens (\OptionConfiguration' {port} -> port) (\s@OptionConfiguration' {} a -> s {port = a} :: OptionConfiguration)
 
 -- | The option settings to include in an option group.
-ocOptionSettings :: Lens' OptionConfiguration [OptionSetting]
-ocOptionSettings = lens _ocOptionSettings (\s a -> s {_ocOptionSettings = a}) . _Default . _Coerce
+optionConfiguration_optionSettings :: Lens.Lens' OptionConfiguration (Prelude.Maybe [OptionSetting])
+optionConfiguration_optionSettings = Lens.lens (\OptionConfiguration' {optionSettings} -> optionSettings) (\s@OptionConfiguration' {} a -> s {optionSettings = a} :: OptionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of VpcSecurityGroupMembership name strings used for this option.
-ocVPCSecurityGroupMemberships :: Lens' OptionConfiguration [Text]
-ocVPCSecurityGroupMemberships = lens _ocVPCSecurityGroupMemberships (\s a -> s {_ocVPCSecurityGroupMemberships = a}) . _Default . _Coerce
+optionConfiguration_vpcSecurityGroupMemberships :: Lens.Lens' OptionConfiguration (Prelude.Maybe [Prelude.Text])
+optionConfiguration_vpcSecurityGroupMemberships = Lens.lens (\OptionConfiguration' {vpcSecurityGroupMemberships} -> vpcSecurityGroupMemberships) (\s@OptionConfiguration' {} a -> s {vpcSecurityGroupMemberships = a} :: OptionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The configuration of options to include in a group.
-ocOptionName :: Lens' OptionConfiguration Text
-ocOptionName = lens _ocOptionName (\s a -> s {_ocOptionName = a})
+optionConfiguration_optionName :: Lens.Lens' OptionConfiguration Prelude.Text
+optionConfiguration_optionName = Lens.lens (\OptionConfiguration' {optionName} -> optionName) (\s@OptionConfiguration' {} a -> s {optionName = a} :: OptionConfiguration)
 
-instance Hashable OptionConfiguration
+instance Prelude.Hashable OptionConfiguration
 
-instance NFData OptionConfiguration
+instance Prelude.NFData OptionConfiguration
 
-instance ToQuery OptionConfiguration where
+instance Prelude.ToQuery OptionConfiguration where
   toQuery OptionConfiguration' {..} =
-    mconcat
-      [ "OptionVersion" =: _ocOptionVersion,
+    Prelude.mconcat
+      [ "OptionVersion" Prelude.=: optionVersion,
         "DBSecurityGroupMemberships"
-          =: toQuery
-            ( toQueryList "DBSecurityGroupName"
-                <$> _ocDBSecurityGroupMemberships
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "DBSecurityGroupName"
+                Prelude.<$> dBSecurityGroupMemberships
             ),
-        "Port" =: _ocPort,
+        "Port" Prelude.=: port,
         "OptionSettings"
-          =: toQuery
-            (toQueryList "OptionSetting" <$> _ocOptionSettings),
-        "VpcSecurityGroupMemberships"
-          =: toQuery
-            ( toQueryList "VpcSecurityGroupId"
-                <$> _ocVPCSecurityGroupMemberships
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "OptionSetting"
+                Prelude.<$> optionSettings
             ),
-        "OptionName" =: _ocOptionName
+        "VpcSecurityGroupMemberships"
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "VpcSecurityGroupId"
+                Prelude.<$> vpcSecurityGroupMemberships
+            ),
+        "OptionName" Prelude.=: optionName
       ]

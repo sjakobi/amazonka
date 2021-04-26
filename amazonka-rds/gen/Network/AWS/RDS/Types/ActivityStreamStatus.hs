@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.RDS.Types.ActivityStreamStatus
   ( ActivityStreamStatus
       ( ..,
-        Started,
-        Starting,
-        Stopped,
-        Stopping
+        ActivityStreamStatusStarted,
+        ActivityStreamStatusStarting,
+        ActivityStreamStatusStopped,
+        ActivityStreamStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActivityStreamStatus
-  = ActivityStreamStatus'
-      ( CI
-          Text
-      )
+newtype ActivityStreamStatus = ActivityStreamStatus'
+  { fromActivityStreamStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Started :: ActivityStreamStatus
-pattern Started = ActivityStreamStatus' "started"
+pattern ActivityStreamStatusStarted :: ActivityStreamStatus
+pattern ActivityStreamStatusStarted = ActivityStreamStatus' "started"
 
-pattern Starting :: ActivityStreamStatus
-pattern Starting = ActivityStreamStatus' "starting"
+pattern ActivityStreamStatusStarting :: ActivityStreamStatus
+pattern ActivityStreamStatusStarting = ActivityStreamStatus' "starting"
 
-pattern Stopped :: ActivityStreamStatus
-pattern Stopped = ActivityStreamStatus' "stopped"
+pattern ActivityStreamStatusStopped :: ActivityStreamStatus
+pattern ActivityStreamStatusStopped = ActivityStreamStatus' "stopped"
 
-pattern Stopping :: ActivityStreamStatus
-pattern Stopping = ActivityStreamStatus' "stopping"
+pattern ActivityStreamStatusStopping :: ActivityStreamStatus
+pattern ActivityStreamStatusStopping = ActivityStreamStatus' "stopping"
 
 {-# COMPLETE
-  Started,
-  Starting,
-  Stopped,
-  Stopping,
+  ActivityStreamStatusStarted,
+  ActivityStreamStatusStarting,
+  ActivityStreamStatusStopped,
+  ActivityStreamStatusStopping,
   ActivityStreamStatus'
   #-}
 
-instance FromText ActivityStreamStatus where
-  parser = (ActivityStreamStatus' . mk) <$> takeText
+instance Prelude.FromText ActivityStreamStatus where
+  parser = ActivityStreamStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ActivityStreamStatus where
-  toText (ActivityStreamStatus' ci) = original ci
+instance Prelude.ToText ActivityStreamStatus where
+  toText (ActivityStreamStatus' x) = x
 
-instance Hashable ActivityStreamStatus
+instance Prelude.Hashable ActivityStreamStatus
 
-instance NFData ActivityStreamStatus
+instance Prelude.NFData ActivityStreamStatus
 
-instance ToByteString ActivityStreamStatus
+instance Prelude.ToByteString ActivityStreamStatus
 
-instance ToQuery ActivityStreamStatus
+instance Prelude.ToQuery ActivityStreamStatus
 
-instance ToHeader ActivityStreamStatus
+instance Prelude.ToHeader ActivityStreamStatus
 
-instance FromXML ActivityStreamStatus where
-  parseXML = parseXMLText "ActivityStreamStatus"
+instance Prelude.FromXML ActivityStreamStatus where
+  parseXML = Prelude.parseXMLText "ActivityStreamStatus"

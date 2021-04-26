@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates an AWS Identity and Access Management (IAM) role from an Amazon Aurora DB cluster. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf > in the /Amazon Aurora User Guide/ .
+-- Disassociates an AWS Identity and Access Management (IAM) role from an
+-- Amazon Aurora DB cluster. For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf>
+-- in the /Amazon Aurora User Guide/.
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.RemoveRoleFromDBCluster
   ( -- * Creating a Request
-    removeRoleFromDBCluster,
-    RemoveRoleFromDBCluster,
+    RemoveRoleFromDBCluster (..),
+    newRemoveRoleFromDBCluster,
 
     -- * Request Lenses
-    rrfdcFeatureName,
-    rrfdcDBClusterIdentifier,
-    rrfdcRoleARN,
+    removeRoleFromDBCluster_featureName,
+    removeRoleFromDBCluster_dBClusterIdentifier,
+    removeRoleFromDBCluster_roleArn,
 
     -- * Destructuring the Response
-    removeRoleFromDBClusterResponse,
-    RemoveRoleFromDBClusterResponse,
+    RemoveRoleFromDBClusterResponse (..),
+    newRemoveRoleFromDBClusterResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'removeRoleFromDBCluster' smart constructor.
+-- | /See:/ 'newRemoveRoleFromDBCluster' smart constructor.
 data RemoveRoleFromDBCluster = RemoveRoleFromDBCluster'
-  { _rrfdcFeatureName ::
-      !(Maybe Text),
-    _rrfdcDBClusterIdentifier ::
-      !Text,
-    _rrfdcRoleARN :: !Text
+  { -- | The name of the feature for the DB cluster that the IAM role is to be
+    -- disassociated from. For the list of supported feature names, see
+    -- DBEngineVersion.
+    featureName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB cluster to disassociate the IAM role from.
+    dBClusterIdentifier :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role to disassociate from the
+    -- Aurora DB cluster, for example
+    -- @arn:aws:iam::123456789012:role\/AuroraAccessRole@.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveRoleFromDBCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveRoleFromDBCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrfdcFeatureName' - The name of the feature for the DB cluster that the IAM role is to be disassociated from. For the list of supported feature names, see 'DBEngineVersion' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrfdcDBClusterIdentifier' - The name of the DB cluster to disassociate the IAM role from.
+-- 'featureName', 'removeRoleFromDBCluster_featureName' - The name of the feature for the DB cluster that the IAM role is to be
+-- disassociated from. For the list of supported feature names, see
+-- DBEngineVersion.
 --
--- * 'rrfdcRoleARN' - The Amazon Resource Name (ARN) of the IAM role to disassociate from the Aurora DB cluster, for example @arn:aws:iam::123456789012:role/AuroraAccessRole@ .
-removeRoleFromDBCluster ::
-  -- | 'rrfdcDBClusterIdentifier'
-  Text ->
-  -- | 'rrfdcRoleARN'
-  Text ->
+-- 'dBClusterIdentifier', 'removeRoleFromDBCluster_dBClusterIdentifier' - The name of the DB cluster to disassociate the IAM role from.
+--
+-- 'roleArn', 'removeRoleFromDBCluster_roleArn' - The Amazon Resource Name (ARN) of the IAM role to disassociate from the
+-- Aurora DB cluster, for example
+-- @arn:aws:iam::123456789012:role\/AuroraAccessRole@.
+newRemoveRoleFromDBCluster ::
+  -- | 'dBClusterIdentifier'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   RemoveRoleFromDBCluster
-removeRoleFromDBCluster
+newRemoveRoleFromDBCluster
   pDBClusterIdentifier_
-  pRoleARN_ =
+  pRoleArn_ =
     RemoveRoleFromDBCluster'
-      { _rrfdcFeatureName =
-          Nothing,
-        _rrfdcDBClusterIdentifier = pDBClusterIdentifier_,
-        _rrfdcRoleARN = pRoleARN_
+      { featureName =
+          Prelude.Nothing,
+        dBClusterIdentifier = pDBClusterIdentifier_,
+        roleArn = pRoleArn_
       }
 
--- | The name of the feature for the DB cluster that the IAM role is to be disassociated from. For the list of supported feature names, see 'DBEngineVersion' .
-rrfdcFeatureName :: Lens' RemoveRoleFromDBCluster (Maybe Text)
-rrfdcFeatureName = lens _rrfdcFeatureName (\s a -> s {_rrfdcFeatureName = a})
+-- | The name of the feature for the DB cluster that the IAM role is to be
+-- disassociated from. For the list of supported feature names, see
+-- DBEngineVersion.
+removeRoleFromDBCluster_featureName :: Lens.Lens' RemoveRoleFromDBCluster (Prelude.Maybe Prelude.Text)
+removeRoleFromDBCluster_featureName = Lens.lens (\RemoveRoleFromDBCluster' {featureName} -> featureName) (\s@RemoveRoleFromDBCluster' {} a -> s {featureName = a} :: RemoveRoleFromDBCluster)
 
 -- | The name of the DB cluster to disassociate the IAM role from.
-rrfdcDBClusterIdentifier :: Lens' RemoveRoleFromDBCluster Text
-rrfdcDBClusterIdentifier = lens _rrfdcDBClusterIdentifier (\s a -> s {_rrfdcDBClusterIdentifier = a})
+removeRoleFromDBCluster_dBClusterIdentifier :: Lens.Lens' RemoveRoleFromDBCluster Prelude.Text
+removeRoleFromDBCluster_dBClusterIdentifier = Lens.lens (\RemoveRoleFromDBCluster' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@RemoveRoleFromDBCluster' {} a -> s {dBClusterIdentifier = a} :: RemoveRoleFromDBCluster)
 
--- | The Amazon Resource Name (ARN) of the IAM role to disassociate from the Aurora DB cluster, for example @arn:aws:iam::123456789012:role/AuroraAccessRole@ .
-rrfdcRoleARN :: Lens' RemoveRoleFromDBCluster Text
-rrfdcRoleARN = lens _rrfdcRoleARN (\s a -> s {_rrfdcRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role to disassociate from the
+-- Aurora DB cluster, for example
+-- @arn:aws:iam::123456789012:role\/AuroraAccessRole@.
+removeRoleFromDBCluster_roleArn :: Lens.Lens' RemoveRoleFromDBCluster Prelude.Text
+removeRoleFromDBCluster_roleArn = Lens.lens (\RemoveRoleFromDBCluster' {roleArn} -> roleArn) (\s@RemoveRoleFromDBCluster' {} a -> s {roleArn = a} :: RemoveRoleFromDBCluster)
 
-instance AWSRequest RemoveRoleFromDBCluster where
+instance Prelude.AWSRequest RemoveRoleFromDBCluster where
   type
     Rs RemoveRoleFromDBCluster =
       RemoveRoleFromDBClusterResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveNull RemoveRoleFromDBClusterResponse'
+    Response.receiveNull
+      RemoveRoleFromDBClusterResponse'
 
-instance Hashable RemoveRoleFromDBCluster
+instance Prelude.Hashable RemoveRoleFromDBCluster
 
-instance NFData RemoveRoleFromDBCluster
+instance Prelude.NFData RemoveRoleFromDBCluster
 
-instance ToHeaders RemoveRoleFromDBCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RemoveRoleFromDBCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RemoveRoleFromDBCluster where
-  toPath = const "/"
+instance Prelude.ToPath RemoveRoleFromDBCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveRoleFromDBCluster where
+instance Prelude.ToQuery RemoveRoleFromDBCluster where
   toQuery RemoveRoleFromDBCluster' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RemoveRoleFromDBCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "FeatureName" =: _rrfdcFeatureName,
-        "DBClusterIdentifier" =: _rrfdcDBClusterIdentifier,
-        "RoleArn" =: _rrfdcRoleARN
+          Prelude.=: ("RemoveRoleFromDBCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "FeatureName" Prelude.=: featureName,
+        "DBClusterIdentifier" Prelude.=: dBClusterIdentifier,
+        "RoleArn" Prelude.=: roleArn
       ]
 
--- | /See:/ 'removeRoleFromDBClusterResponse' smart constructor.
+-- | /See:/ 'newRemoveRoleFromDBClusterResponse' smart constructor.
 data RemoveRoleFromDBClusterResponse = RemoveRoleFromDBClusterResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveRoleFromDBClusterResponse' with the minimum fields required to make a request.
-removeRoleFromDBClusterResponse ::
+-- |
+-- Create a value of 'RemoveRoleFromDBClusterResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRemoveRoleFromDBClusterResponse ::
   RemoveRoleFromDBClusterResponse
-removeRoleFromDBClusterResponse =
+newRemoveRoleFromDBClusterResponse =
   RemoveRoleFromDBClusterResponse'
 
-instance NFData RemoveRoleFromDBClusterResponse
+instance
+  Prelude.NFData
+    RemoveRoleFromDBClusterResponse

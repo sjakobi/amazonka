@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,221 +21,372 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an RDS event notification subscription. This action requires a topic Amazon Resource Name (ARN) created by either the RDS console, the SNS console, or the SNS API. To obtain an ARN with SNS, you must create a topic in Amazon SNS and subscribe to the topic. The ARN is displayed in the SNS console.
+-- Creates an RDS event notification subscription. This action requires a
+-- topic Amazon Resource Name (ARN) created by either the RDS console, the
+-- SNS console, or the SNS API. To obtain an ARN with SNS, you must create
+-- a topic in Amazon SNS and subscribe to the topic. The ARN is displayed
+-- in the SNS console.
 --
+-- You can specify the type of source (@SourceType@) that you want to be
+-- notified of and provide a list of RDS sources (@SourceIds@) that
+-- triggers the events. You can also provide a list of event categories
+-- (@EventCategories@) for events that you want to be notified of. For
+-- example, you can specify @SourceType@ = @db-instance@, @SourceIds@ =
+-- @mydbinstance1@, @mydbinstance2@ and @EventCategories@ = @Availability@,
+-- @Backup@.
 --
--- You can specify the type of source (@SourceType@ ) that you want to be notified of and provide a list of RDS sources (@SourceIds@ ) that triggers the events. You can also provide a list of event categories (@EventCategories@ ) for events that you want to be notified of. For example, you can specify @SourceType@ = @db-instance@ , @SourceIds@ = @mydbinstance1@ , @mydbinstance2@ and @EventCategories@ = @Availability@ , @Backup@ .
+-- If you specify both the @SourceType@ and @SourceIds@, such as
+-- @SourceType@ = @db-instance@ and @SourceIdentifier@ = @myDBInstance1@,
+-- you are notified of all the @db-instance@ events for the specified
+-- source. If you specify a @SourceType@ but do not specify a
+-- @SourceIdentifier@, you receive notice of the events for that source
+-- type for all your RDS sources. If you don\'t specify either the
+-- SourceType or the @SourceIdentifier@, you are notified of events
+-- generated from all RDS sources belonging to your customer account.
 --
--- If you specify both the @SourceType@ and @SourceIds@ , such as @SourceType@ = @db-instance@ and @SourceIdentifier@ = @myDBInstance1@ , you are notified of all the @db-instance@ events for the specified source. If you specify a @SourceType@ but do not specify a @SourceIdentifier@ , you receive notice of the events for that source type for all your RDS sources. If you don't specify either the SourceType or the @SourceIdentifier@ , you are notified of events generated from all RDS sources belonging to your customer account.
+-- RDS event notification is only available for unencrypted SNS topics. If
+-- you specify an encrypted SNS topic, event notifications aren\'t sent for
+-- the topic.
 module Network.AWS.RDS.CreateEventSubscription
   ( -- * Creating a Request
-    createEventSubscription,
-    CreateEventSubscription,
+    CreateEventSubscription (..),
+    newCreateEventSubscription,
 
     -- * Request Lenses
-    cesSourceIds,
-    cesEnabled,
-    cesEventCategories,
-    cesTags,
-    cesSourceType,
-    cesSubscriptionName,
-    cesSNSTopicARN,
+    createEventSubscription_sourceIds,
+    createEventSubscription_enabled,
+    createEventSubscription_eventCategories,
+    createEventSubscription_tags,
+    createEventSubscription_sourceType,
+    createEventSubscription_subscriptionName,
+    createEventSubscription_snsTopicArn,
 
     -- * Destructuring the Response
-    createEventSubscriptionResponse,
-    CreateEventSubscriptionResponse,
+    CreateEventSubscriptionResponse (..),
+    newCreateEventSubscriptionResponse,
 
     -- * Response Lenses
-    cesrrsEventSubscription,
-    cesrrsResponseStatus,
+    createEventSubscriptionResponse_eventSubscription,
+    createEventSubscriptionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.EventSubscription
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'createEventSubscription' smart constructor.
+-- /See:/ 'newCreateEventSubscription' smart constructor.
 data CreateEventSubscription = CreateEventSubscription'
-  { _cesSourceIds ::
-      !(Maybe [Text]),
-    _cesEnabled ::
-      !(Maybe Bool),
-    _cesEventCategories ::
-      !(Maybe [Text]),
-    _cesTags ::
-      !(Maybe [Tag]),
-    _cesSourceType ::
-      !(Maybe Text),
-    _cesSubscriptionName ::
-      !Text,
-    _cesSNSTopicARN ::
-      !Text
+  { -- | The list of identifiers of the event sources for which events are
+    -- returned. If not specified, then all sources are included in the
+    -- response. An identifier must begin with a letter and must contain only
+    -- ASCII letters, digits, and hyphens. It can\'t end with a hyphen or
+    -- contain two consecutive hyphens.
+    --
+    -- Constraints:
+    --
+    -- -   If a @SourceIds@ value is supplied, @SourceType@ must also be
+    --     provided.
+    --
+    -- -   If the source type is a DB instance, a @DBInstanceIdentifier@ value
+    --     must be supplied.
+    --
+    -- -   If the source type is a DB cluster, a @DBClusterIdentifier@ value
+    --     must be supplied.
+    --
+    -- -   If the source type is a DB parameter group, a @DBParameterGroupName@
+    --     value must be supplied.
+    --
+    -- -   If the source type is a DB security group, a @DBSecurityGroupName@
+    --     value must be supplied.
+    --
+    -- -   If the source type is a DB snapshot, a @DBSnapshotIdentifier@ value
+    --     must be supplied.
+    --
+    -- -   If the source type is a DB cluster snapshot, a
+    --     @DBClusterSnapshotIdentifier@ value must be supplied.
+    sourceIds :: Prelude.Maybe [Prelude.Text],
+    -- | A value that indicates whether to activate the subscription. If the
+    -- event notification subscription isn\'t activated, the subscription is
+    -- created but not active.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | A list of event categories for a particular source type (@SourceType@)
+    -- that you want to subscribe to. You can see a list of the categories for
+    -- a given source type in
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html Events>
+    -- in the /Amazon RDS User Guide/ or by using the @DescribeEventCategories@
+    -- operation.
+    eventCategories :: Prelude.Maybe [Prelude.Text],
+    tags :: Prelude.Maybe [Tag],
+    -- | The type of source that is generating the events. For example, if you
+    -- want to be notified of events generated by a DB instance, you set this
+    -- parameter to @db-instance@. If this value isn\'t specified, all events
+    -- are returned.
+    --
+    -- Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ |
+    -- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
+    sourceType :: Prelude.Maybe Prelude.Text,
+    -- | The name of the subscription.
+    --
+    -- Constraints: The name must be less than 255 characters.
+    subscriptionName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the SNS topic created for event
+    -- notification. The ARN is created by Amazon SNS when you create a topic
+    -- and subscribe to it.
+    snsTopicArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEventSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEventSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cesSourceIds' - The list of identifiers of the event sources for which events are returned. If not specified, then all sources are included in the response. An identifier must begin with a letter and must contain only ASCII letters, digits, and hyphens. It can't end with a hyphen or contain two consecutive hyphens. Constraints:     * If a @SourceIds@ value is supplied, @SourceType@ must also be provided.     * If the source type is a DB instance, a @DBInstanceIdentifier@ value must be supplied.     * If the source type is a DB cluster, a @DBClusterIdentifier@ value must be supplied.     * If the source type is a DB parameter group, a @DBParameterGroupName@ value must be supplied.     * If the source type is a DB security group, a @DBSecurityGroupName@ value must be supplied.     * If the source type is a DB snapshot, a @DBSnapshotIdentifier@ value must be supplied.     * If the source type is a DB cluster snapshot, a @DBClusterSnapshotIdentifier@ value must be supplied.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cesEnabled' - A value that indicates whether to activate the subscription. If the event notification subscription isn't activated, the subscription is created but not active.
+-- 'sourceIds', 'createEventSubscription_sourceIds' - The list of identifiers of the event sources for which events are
+-- returned. If not specified, then all sources are included in the
+-- response. An identifier must begin with a letter and must contain only
+-- ASCII letters, digits, and hyphens. It can\'t end with a hyphen or
+-- contain two consecutive hyphens.
 --
--- * 'cesEventCategories' - A list of event categories for a particular source type (@SourceType@ ) that you want to subscribe to. You can see a list of the categories for a given source type in <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html Events> in the /Amazon RDS User Guide/ or by using the @DescribeEventCategories@ operation.
+-- Constraints:
 --
--- * 'cesTags' - Undocumented member.
+-- -   If a @SourceIds@ value is supplied, @SourceType@ must also be
+--     provided.
 --
--- * 'cesSourceType' - The type of source that is generating the events. For example, if you want to be notified of events generated by a DB instance, you set this parameter to @db-instance@ . If this value isn't specified, all events are returned. Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ | @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
+-- -   If the source type is a DB instance, a @DBInstanceIdentifier@ value
+--     must be supplied.
 --
--- * 'cesSubscriptionName' - The name of the subscription. Constraints: The name must be less than 255 characters.
+-- -   If the source type is a DB cluster, a @DBClusterIdentifier@ value
+--     must be supplied.
 --
--- * 'cesSNSTopicARN' - The Amazon Resource Name (ARN) of the SNS topic created for event notification. The ARN is created by Amazon SNS when you create a topic and subscribe to it.
-createEventSubscription ::
-  -- | 'cesSubscriptionName'
-  Text ->
-  -- | 'cesSNSTopicARN'
-  Text ->
+-- -   If the source type is a DB parameter group, a @DBParameterGroupName@
+--     value must be supplied.
+--
+-- -   If the source type is a DB security group, a @DBSecurityGroupName@
+--     value must be supplied.
+--
+-- -   If the source type is a DB snapshot, a @DBSnapshotIdentifier@ value
+--     must be supplied.
+--
+-- -   If the source type is a DB cluster snapshot, a
+--     @DBClusterSnapshotIdentifier@ value must be supplied.
+--
+-- 'enabled', 'createEventSubscription_enabled' - A value that indicates whether to activate the subscription. If the
+-- event notification subscription isn\'t activated, the subscription is
+-- created but not active.
+--
+-- 'eventCategories', 'createEventSubscription_eventCategories' - A list of event categories for a particular source type (@SourceType@)
+-- that you want to subscribe to. You can see a list of the categories for
+-- a given source type in
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html Events>
+-- in the /Amazon RDS User Guide/ or by using the @DescribeEventCategories@
+-- operation.
+--
+-- 'tags', 'createEventSubscription_tags' - Undocumented member.
+--
+-- 'sourceType', 'createEventSubscription_sourceType' - The type of source that is generating the events. For example, if you
+-- want to be notified of events generated by a DB instance, you set this
+-- parameter to @db-instance@. If this value isn\'t specified, all events
+-- are returned.
+--
+-- Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ |
+-- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
+--
+-- 'subscriptionName', 'createEventSubscription_subscriptionName' - The name of the subscription.
+--
+-- Constraints: The name must be less than 255 characters.
+--
+-- 'snsTopicArn', 'createEventSubscription_snsTopicArn' - The Amazon Resource Name (ARN) of the SNS topic created for event
+-- notification. The ARN is created by Amazon SNS when you create a topic
+-- and subscribe to it.
+newCreateEventSubscription ::
+  -- | 'subscriptionName'
+  Prelude.Text ->
+  -- | 'snsTopicArn'
+  Prelude.Text ->
   CreateEventSubscription
-createEventSubscription
+newCreateEventSubscription
   pSubscriptionName_
-  pSNSTopicARN_ =
+  pSnsTopicArn_ =
     CreateEventSubscription'
-      { _cesSourceIds = Nothing,
-        _cesEnabled = Nothing,
-        _cesEventCategories = Nothing,
-        _cesTags = Nothing,
-        _cesSourceType = Nothing,
-        _cesSubscriptionName = pSubscriptionName_,
-        _cesSNSTopicARN = pSNSTopicARN_
+      { sourceIds =
+          Prelude.Nothing,
+        enabled = Prelude.Nothing,
+        eventCategories = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        sourceType = Prelude.Nothing,
+        subscriptionName = pSubscriptionName_,
+        snsTopicArn = pSnsTopicArn_
       }
 
--- | The list of identifiers of the event sources for which events are returned. If not specified, then all sources are included in the response. An identifier must begin with a letter and must contain only ASCII letters, digits, and hyphens. It can't end with a hyphen or contain two consecutive hyphens. Constraints:     * If a @SourceIds@ value is supplied, @SourceType@ must also be provided.     * If the source type is a DB instance, a @DBInstanceIdentifier@ value must be supplied.     * If the source type is a DB cluster, a @DBClusterIdentifier@ value must be supplied.     * If the source type is a DB parameter group, a @DBParameterGroupName@ value must be supplied.     * If the source type is a DB security group, a @DBSecurityGroupName@ value must be supplied.     * If the source type is a DB snapshot, a @DBSnapshotIdentifier@ value must be supplied.     * If the source type is a DB cluster snapshot, a @DBClusterSnapshotIdentifier@ value must be supplied.
-cesSourceIds :: Lens' CreateEventSubscription [Text]
-cesSourceIds = lens _cesSourceIds (\s a -> s {_cesSourceIds = a}) . _Default . _Coerce
+-- | The list of identifiers of the event sources for which events are
+-- returned. If not specified, then all sources are included in the
+-- response. An identifier must begin with a letter and must contain only
+-- ASCII letters, digits, and hyphens. It can\'t end with a hyphen or
+-- contain two consecutive hyphens.
+--
+-- Constraints:
+--
+-- -   If a @SourceIds@ value is supplied, @SourceType@ must also be
+--     provided.
+--
+-- -   If the source type is a DB instance, a @DBInstanceIdentifier@ value
+--     must be supplied.
+--
+-- -   If the source type is a DB cluster, a @DBClusterIdentifier@ value
+--     must be supplied.
+--
+-- -   If the source type is a DB parameter group, a @DBParameterGroupName@
+--     value must be supplied.
+--
+-- -   If the source type is a DB security group, a @DBSecurityGroupName@
+--     value must be supplied.
+--
+-- -   If the source type is a DB snapshot, a @DBSnapshotIdentifier@ value
+--     must be supplied.
+--
+-- -   If the source type is a DB cluster snapshot, a
+--     @DBClusterSnapshotIdentifier@ value must be supplied.
+createEventSubscription_sourceIds :: Lens.Lens' CreateEventSubscription (Prelude.Maybe [Prelude.Text])
+createEventSubscription_sourceIds = Lens.lens (\CreateEventSubscription' {sourceIds} -> sourceIds) (\s@CreateEventSubscription' {} a -> s {sourceIds = a} :: CreateEventSubscription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates whether to activate the subscription. If the event notification subscription isn't activated, the subscription is created but not active.
-cesEnabled :: Lens' CreateEventSubscription (Maybe Bool)
-cesEnabled = lens _cesEnabled (\s a -> s {_cesEnabled = a})
+-- | A value that indicates whether to activate the subscription. If the
+-- event notification subscription isn\'t activated, the subscription is
+-- created but not active.
+createEventSubscription_enabled :: Lens.Lens' CreateEventSubscription (Prelude.Maybe Prelude.Bool)
+createEventSubscription_enabled = Lens.lens (\CreateEventSubscription' {enabled} -> enabled) (\s@CreateEventSubscription' {} a -> s {enabled = a} :: CreateEventSubscription)
 
--- | A list of event categories for a particular source type (@SourceType@ ) that you want to subscribe to. You can see a list of the categories for a given source type in <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html Events> in the /Amazon RDS User Guide/ or by using the @DescribeEventCategories@ operation.
-cesEventCategories :: Lens' CreateEventSubscription [Text]
-cesEventCategories = lens _cesEventCategories (\s a -> s {_cesEventCategories = a}) . _Default . _Coerce
+-- | A list of event categories for a particular source type (@SourceType@)
+-- that you want to subscribe to. You can see a list of the categories for
+-- a given source type in
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html Events>
+-- in the /Amazon RDS User Guide/ or by using the @DescribeEventCategories@
+-- operation.
+createEventSubscription_eventCategories :: Lens.Lens' CreateEventSubscription (Prelude.Maybe [Prelude.Text])
+createEventSubscription_eventCategories = Lens.lens (\CreateEventSubscription' {eventCategories} -> eventCategories) (\s@CreateEventSubscription' {} a -> s {eventCategories = a} :: CreateEventSubscription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-cesTags :: Lens' CreateEventSubscription [Tag]
-cesTags = lens _cesTags (\s a -> s {_cesTags = a}) . _Default . _Coerce
+createEventSubscription_tags :: Lens.Lens' CreateEventSubscription (Prelude.Maybe [Tag])
+createEventSubscription_tags = Lens.lens (\CreateEventSubscription' {tags} -> tags) (\s@CreateEventSubscription' {} a -> s {tags = a} :: CreateEventSubscription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The type of source that is generating the events. For example, if you want to be notified of events generated by a DB instance, you set this parameter to @db-instance@ . If this value isn't specified, all events are returned. Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ | @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
-cesSourceType :: Lens' CreateEventSubscription (Maybe Text)
-cesSourceType = lens _cesSourceType (\s a -> s {_cesSourceType = a})
+-- | The type of source that is generating the events. For example, if you
+-- want to be notified of events generated by a DB instance, you set this
+-- parameter to @db-instance@. If this value isn\'t specified, all events
+-- are returned.
+--
+-- Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ |
+-- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
+createEventSubscription_sourceType :: Lens.Lens' CreateEventSubscription (Prelude.Maybe Prelude.Text)
+createEventSubscription_sourceType = Lens.lens (\CreateEventSubscription' {sourceType} -> sourceType) (\s@CreateEventSubscription' {} a -> s {sourceType = a} :: CreateEventSubscription)
 
--- | The name of the subscription. Constraints: The name must be less than 255 characters.
-cesSubscriptionName :: Lens' CreateEventSubscription Text
-cesSubscriptionName = lens _cesSubscriptionName (\s a -> s {_cesSubscriptionName = a})
+-- | The name of the subscription.
+--
+-- Constraints: The name must be less than 255 characters.
+createEventSubscription_subscriptionName :: Lens.Lens' CreateEventSubscription Prelude.Text
+createEventSubscription_subscriptionName = Lens.lens (\CreateEventSubscription' {subscriptionName} -> subscriptionName) (\s@CreateEventSubscription' {} a -> s {subscriptionName = a} :: CreateEventSubscription)
 
--- | The Amazon Resource Name (ARN) of the SNS topic created for event notification. The ARN is created by Amazon SNS when you create a topic and subscribe to it.
-cesSNSTopicARN :: Lens' CreateEventSubscription Text
-cesSNSTopicARN = lens _cesSNSTopicARN (\s a -> s {_cesSNSTopicARN = a})
+-- | The Amazon Resource Name (ARN) of the SNS topic created for event
+-- notification. The ARN is created by Amazon SNS when you create a topic
+-- and subscribe to it.
+createEventSubscription_snsTopicArn :: Lens.Lens' CreateEventSubscription Prelude.Text
+createEventSubscription_snsTopicArn = Lens.lens (\CreateEventSubscription' {snsTopicArn} -> snsTopicArn) (\s@CreateEventSubscription' {} a -> s {snsTopicArn = a} :: CreateEventSubscription)
 
-instance AWSRequest CreateEventSubscription where
+instance Prelude.AWSRequest CreateEventSubscription where
   type
     Rs CreateEventSubscription =
       CreateEventSubscriptionResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateEventSubscriptionResult"
       ( \s h x ->
           CreateEventSubscriptionResponse'
-            <$> (x .@? "EventSubscription") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "EventSubscription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateEventSubscription
+instance Prelude.Hashable CreateEventSubscription
 
-instance NFData CreateEventSubscription
+instance Prelude.NFData CreateEventSubscription
 
-instance ToHeaders CreateEventSubscription where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateEventSubscription where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateEventSubscription where
-  toPath = const "/"
+instance Prelude.ToPath CreateEventSubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateEventSubscription where
+instance Prelude.ToQuery CreateEventSubscription where
   toQuery CreateEventSubscription' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateEventSubscription" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ("CreateEventSubscription" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "SourceIds"
-          =: toQuery (toQueryList "SourceId" <$> _cesSourceIds),
-        "Enabled" =: _cesEnabled,
-        "EventCategories"
-          =: toQuery
-            ( toQueryList "EventCategory"
-                <$> _cesEventCategories
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "SourceId"
+                Prelude.<$> sourceIds
             ),
-        "Tags" =: toQuery (toQueryList "Tag" <$> _cesTags),
-        "SourceType" =: _cesSourceType,
-        "SubscriptionName" =: _cesSubscriptionName,
-        "SnsTopicArn" =: _cesSNSTopicARN
+        "Enabled" Prelude.=: enabled,
+        "EventCategories"
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "EventCategory"
+                Prelude.<$> eventCategories
+            ),
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
+        "SourceType" Prelude.=: sourceType,
+        "SubscriptionName" Prelude.=: subscriptionName,
+        "SnsTopicArn" Prelude.=: snsTopicArn
       ]
 
--- | /See:/ 'createEventSubscriptionResponse' smart constructor.
+-- | /See:/ 'newCreateEventSubscriptionResponse' smart constructor.
 data CreateEventSubscriptionResponse = CreateEventSubscriptionResponse'
-  { _cesrrsEventSubscription ::
-      !( Maybe
-           EventSubscription
-       ),
-    _cesrrsResponseStatus ::
-      !Int
+  { eventSubscription :: Prelude.Maybe EventSubscription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEventSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEventSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cesrrsEventSubscription' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cesrrsResponseStatus' - -- | The response status code.
-createEventSubscriptionResponse ::
-  -- | 'cesrrsResponseStatus'
-  Int ->
+-- 'eventSubscription', 'createEventSubscriptionResponse_eventSubscription' - Undocumented member.
+--
+-- 'httpStatus', 'createEventSubscriptionResponse_httpStatus' - The response's http status code.
+newCreateEventSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateEventSubscriptionResponse
-createEventSubscriptionResponse pResponseStatus_ =
+newCreateEventSubscriptionResponse pHttpStatus_ =
   CreateEventSubscriptionResponse'
-    { _cesrrsEventSubscription =
-        Nothing,
-      _cesrrsResponseStatus = pResponseStatus_
+    { eventSubscription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cesrrsEventSubscription :: Lens' CreateEventSubscriptionResponse (Maybe EventSubscription)
-cesrrsEventSubscription = lens _cesrrsEventSubscription (\s a -> s {_cesrrsEventSubscription = a})
+createEventSubscriptionResponse_eventSubscription :: Lens.Lens' CreateEventSubscriptionResponse (Prelude.Maybe EventSubscription)
+createEventSubscriptionResponse_eventSubscription = Lens.lens (\CreateEventSubscriptionResponse' {eventSubscription} -> eventSubscription) (\s@CreateEventSubscriptionResponse' {} a -> s {eventSubscription = a} :: CreateEventSubscriptionResponse)
 
--- | -- | The response status code.
-cesrrsResponseStatus :: Lens' CreateEventSubscriptionResponse Int
-cesrrsResponseStatus = lens _cesrrsResponseStatus (\s a -> s {_cesrrsResponseStatus = a})
+-- | The response's http status code.
+createEventSubscriptionResponse_httpStatus :: Lens.Lens' CreateEventSubscriptionResponse Prelude.Int
+createEventSubscriptionResponse_httpStatus = Lens.lens (\CreateEventSubscriptionResponse' {httpStatus} -> httpStatus) (\s@CreateEventSubscriptionResponse' {} a -> s {httpStatus = a} :: CreateEventSubscriptionResponse)
 
-instance NFData CreateEventSubscriptionResponse
+instance
+  Prelude.NFData
+    CreateEventSubscriptionResponse

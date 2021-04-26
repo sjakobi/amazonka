@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Detaches an Aurora secondary cluster from an Aurora global database cluster. The cluster becomes a standalone cluster with read-write capability instead of being read-only and receiving data from a primary cluster in a different region.
+-- Detaches an Aurora secondary cluster from an Aurora global database
+-- cluster. The cluster becomes a standalone cluster with read-write
+-- capability instead of being read-only and receiving data from a primary
+-- cluster in a different region.
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.RemoveFromGlobalCluster
   ( -- * Creating a Request
-    removeFromGlobalCluster,
-    RemoveFromGlobalCluster,
+    RemoveFromGlobalCluster (..),
+    newRemoveFromGlobalCluster,
 
     -- * Request Lenses
-    rfgcDBClusterIdentifier,
-    rfgcGlobalClusterIdentifier,
+    removeFromGlobalCluster_dbClusterIdentifier,
+    removeFromGlobalCluster_globalClusterIdentifier,
 
     -- * Destructuring the Response
-    removeFromGlobalClusterResponse,
-    RemoveFromGlobalClusterResponse,
+    RemoveFromGlobalClusterResponse (..),
+    newRemoveFromGlobalClusterResponse,
 
     -- * Response Lenses
-    rfgcrrsGlobalCluster,
-    rfgcrrsResponseStatus,
+    removeFromGlobalClusterResponse_globalCluster,
+    removeFromGlobalClusterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.GlobalCluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'removeFromGlobalCluster' smart constructor.
+-- | /See:/ 'newRemoveFromGlobalCluster' smart constructor.
 data RemoveFromGlobalCluster = RemoveFromGlobalCluster'
-  { _rfgcDBClusterIdentifier ::
-      !(Maybe Text),
-    _rfgcGlobalClusterIdentifier ::
-      !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) identifying the cluster that was detached
+    -- from the Aurora global database cluster.
+    dbClusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The cluster identifier to detach from the Aurora global database
+    -- cluster.
+    globalClusterIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveFromGlobalCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveFromGlobalCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rfgcDBClusterIdentifier' - The Amazon Resource Name (ARN) identifying the cluster that was detached from the Aurora global database cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rfgcGlobalClusterIdentifier' - The cluster identifier to detach from the Aurora global database cluster.
-removeFromGlobalCluster ::
+-- 'dbClusterIdentifier', 'removeFromGlobalCluster_dbClusterIdentifier' - The Amazon Resource Name (ARN) identifying the cluster that was detached
+-- from the Aurora global database cluster.
+--
+-- 'globalClusterIdentifier', 'removeFromGlobalCluster_globalClusterIdentifier' - The cluster identifier to detach from the Aurora global database
+-- cluster.
+newRemoveFromGlobalCluster ::
   RemoveFromGlobalCluster
-removeFromGlobalCluster =
+newRemoveFromGlobalCluster =
   RemoveFromGlobalCluster'
-    { _rfgcDBClusterIdentifier =
-        Nothing,
-      _rfgcGlobalClusterIdentifier = Nothing
+    { dbClusterIdentifier =
+        Prelude.Nothing,
+      globalClusterIdentifier = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) identifying the cluster that was detached from the Aurora global database cluster.
-rfgcDBClusterIdentifier :: Lens' RemoveFromGlobalCluster (Maybe Text)
-rfgcDBClusterIdentifier = lens _rfgcDBClusterIdentifier (\s a -> s {_rfgcDBClusterIdentifier = a})
+-- | The Amazon Resource Name (ARN) identifying the cluster that was detached
+-- from the Aurora global database cluster.
+removeFromGlobalCluster_dbClusterIdentifier :: Lens.Lens' RemoveFromGlobalCluster (Prelude.Maybe Prelude.Text)
+removeFromGlobalCluster_dbClusterIdentifier = Lens.lens (\RemoveFromGlobalCluster' {dbClusterIdentifier} -> dbClusterIdentifier) (\s@RemoveFromGlobalCluster' {} a -> s {dbClusterIdentifier = a} :: RemoveFromGlobalCluster)
 
--- | The cluster identifier to detach from the Aurora global database cluster.
-rfgcGlobalClusterIdentifier :: Lens' RemoveFromGlobalCluster (Maybe Text)
-rfgcGlobalClusterIdentifier = lens _rfgcGlobalClusterIdentifier (\s a -> s {_rfgcGlobalClusterIdentifier = a})
+-- | The cluster identifier to detach from the Aurora global database
+-- cluster.
+removeFromGlobalCluster_globalClusterIdentifier :: Lens.Lens' RemoveFromGlobalCluster (Prelude.Maybe Prelude.Text)
+removeFromGlobalCluster_globalClusterIdentifier = Lens.lens (\RemoveFromGlobalCluster' {globalClusterIdentifier} -> globalClusterIdentifier) (\s@RemoveFromGlobalCluster' {} a -> s {globalClusterIdentifier = a} :: RemoveFromGlobalCluster)
 
-instance AWSRequest RemoveFromGlobalCluster where
+instance Prelude.AWSRequest RemoveFromGlobalCluster where
   type
     Rs RemoveFromGlobalCluster =
       RemoveFromGlobalClusterResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RemoveFromGlobalClusterResult"
       ( \s h x ->
           RemoveFromGlobalClusterResponse'
-            <$> (x .@? "GlobalCluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalCluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RemoveFromGlobalCluster
+instance Prelude.Hashable RemoveFromGlobalCluster
 
-instance NFData RemoveFromGlobalCluster
+instance Prelude.NFData RemoveFromGlobalCluster
 
-instance ToHeaders RemoveFromGlobalCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RemoveFromGlobalCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RemoveFromGlobalCluster where
-  toPath = const "/"
+instance Prelude.ToPath RemoveFromGlobalCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveFromGlobalCluster where
+instance Prelude.ToQuery RemoveFromGlobalCluster where
   toQuery RemoveFromGlobalCluster' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RemoveFromGlobalCluster" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DbClusterIdentifier" =: _rfgcDBClusterIdentifier,
+          Prelude.=: ("RemoveFromGlobalCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DbClusterIdentifier" Prelude.=: dbClusterIdentifier,
         "GlobalClusterIdentifier"
-          =: _rfgcGlobalClusterIdentifier
+          Prelude.=: globalClusterIdentifier
       ]
 
--- | /See:/ 'removeFromGlobalClusterResponse' smart constructor.
+-- | /See:/ 'newRemoveFromGlobalClusterResponse' smart constructor.
 data RemoveFromGlobalClusterResponse = RemoveFromGlobalClusterResponse'
-  { _rfgcrrsGlobalCluster ::
-      !( Maybe
-           GlobalCluster
-       ),
-    _rfgcrrsResponseStatus ::
-      !Int
+  { globalCluster :: Prelude.Maybe GlobalCluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveFromGlobalClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveFromGlobalClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rfgcrrsGlobalCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rfgcrrsResponseStatus' - -- | The response status code.
-removeFromGlobalClusterResponse ::
-  -- | 'rfgcrrsResponseStatus'
-  Int ->
+-- 'globalCluster', 'removeFromGlobalClusterResponse_globalCluster' - Undocumented member.
+--
+-- 'httpStatus', 'removeFromGlobalClusterResponse_httpStatus' - The response's http status code.
+newRemoveFromGlobalClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RemoveFromGlobalClusterResponse
-removeFromGlobalClusterResponse pResponseStatus_ =
+newRemoveFromGlobalClusterResponse pHttpStatus_ =
   RemoveFromGlobalClusterResponse'
-    { _rfgcrrsGlobalCluster =
-        Nothing,
-      _rfgcrrsResponseStatus = pResponseStatus_
+    { globalCluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-rfgcrrsGlobalCluster :: Lens' RemoveFromGlobalClusterResponse (Maybe GlobalCluster)
-rfgcrrsGlobalCluster = lens _rfgcrrsGlobalCluster (\s a -> s {_rfgcrrsGlobalCluster = a})
+removeFromGlobalClusterResponse_globalCluster :: Lens.Lens' RemoveFromGlobalClusterResponse (Prelude.Maybe GlobalCluster)
+removeFromGlobalClusterResponse_globalCluster = Lens.lens (\RemoveFromGlobalClusterResponse' {globalCluster} -> globalCluster) (\s@RemoveFromGlobalClusterResponse' {} a -> s {globalCluster = a} :: RemoveFromGlobalClusterResponse)
 
--- | -- | The response status code.
-rfgcrrsResponseStatus :: Lens' RemoveFromGlobalClusterResponse Int
-rfgcrrsResponseStatus = lens _rfgcrrsResponseStatus (\s a -> s {_rfgcrrsResponseStatus = a})
+-- | The response's http status code.
+removeFromGlobalClusterResponse_httpStatus :: Lens.Lens' RemoveFromGlobalClusterResponse Prelude.Int
+removeFromGlobalClusterResponse_httpStatus = Lens.lens (\RemoveFromGlobalClusterResponse' {httpStatus} -> httpStatus) (\s@RemoveFromGlobalClusterResponse' {} a -> s {httpStatus = a} :: RemoveFromGlobalClusterResponse)
 
-instance NFData RemoveFromGlobalClusterResponse
+instance
+  Prelude.NFData
+    RemoveFromGlobalClusterResponse

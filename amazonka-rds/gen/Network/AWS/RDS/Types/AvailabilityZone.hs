@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,39 +19,44 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.AvailabilityZone where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains Availability Zone information.
 --
+-- This data type is used as an element in the @OrderableDBInstanceOption@
+-- data type.
 --
--- This data type is used as an element in the @OrderableDBInstanceOption@ data type.
---
---
--- /See:/ 'availabilityZone' smart constructor.
-newtype AvailabilityZone = AvailabilityZone'
-  { _azName ::
-      Maybe Text
+-- /See:/ 'newAvailabilityZone' smart constructor.
+data AvailabilityZone = AvailabilityZone'
+  { -- | The name of the Availability Zone.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AvailabilityZone' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AvailabilityZone' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'azName' - The name of the Availability Zone.
-availabilityZone ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'availabilityZone_name' - The name of the Availability Zone.
+newAvailabilityZone ::
   AvailabilityZone
-availabilityZone =
-  AvailabilityZone' {_azName = Nothing}
+newAvailabilityZone =
+  AvailabilityZone' {name = Prelude.Nothing}
 
 -- | The name of the Availability Zone.
-azName :: Lens' AvailabilityZone (Maybe Text)
-azName = lens _azName (\s a -> s {_azName = a})
+availabilityZone_name :: Lens.Lens' AvailabilityZone (Prelude.Maybe Prelude.Text)
+availabilityZone_name = Lens.lens (\AvailabilityZone' {name} -> name) (\s@AvailabilityZone' {} a -> s {name = a} :: AvailabilityZone)
 
-instance FromXML AvailabilityZone where
-  parseXML x = AvailabilityZone' <$> (x .@? "Name")
+instance Prelude.FromXML AvailabilityZone where
+  parseXML x =
+    AvailabilityZone'
+      Prelude.<$> (x Prelude..@? "Name")
 
-instance Hashable AvailabilityZone
+instance Prelude.Hashable AvailabilityZone
 
-instance NFData AvailabilityZone
+instance Prelude.NFData AvailabilityZone

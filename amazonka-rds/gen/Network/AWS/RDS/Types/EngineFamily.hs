@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,52 @@
 module Network.AWS.RDS.Types.EngineFamily
   ( EngineFamily
       ( ..,
-        Mysql,
-        Postgresql
+        EngineFamilyMYSQL,
+        EngineFamilyPOSTGRESQL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EngineFamily = EngineFamily' (CI Text)
+newtype EngineFamily = EngineFamily'
+  { fromEngineFamily ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Mysql :: EngineFamily
-pattern Mysql = EngineFamily' "MYSQL"
+pattern EngineFamilyMYSQL :: EngineFamily
+pattern EngineFamilyMYSQL = EngineFamily' "MYSQL"
 
-pattern Postgresql :: EngineFamily
-pattern Postgresql = EngineFamily' "POSTGRESQL"
+pattern EngineFamilyPOSTGRESQL :: EngineFamily
+pattern EngineFamilyPOSTGRESQL = EngineFamily' "POSTGRESQL"
 
 {-# COMPLETE
-  Mysql,
-  Postgresql,
+  EngineFamilyMYSQL,
+  EngineFamilyPOSTGRESQL,
   EngineFamily'
   #-}
 
-instance FromText EngineFamily where
-  parser = (EngineFamily' . mk) <$> takeText
+instance Prelude.FromText EngineFamily where
+  parser = EngineFamily' Prelude.<$> Prelude.takeText
 
-instance ToText EngineFamily where
-  toText (EngineFamily' ci) = original ci
+instance Prelude.ToText EngineFamily where
+  toText (EngineFamily' x) = x
 
-instance Hashable EngineFamily
+instance Prelude.Hashable EngineFamily
 
-instance NFData EngineFamily
+instance Prelude.NFData EngineFamily
 
-instance ToByteString EngineFamily
+instance Prelude.ToByteString EngineFamily
 
-instance ToQuery EngineFamily
+instance Prelude.ToQuery EngineFamily
 
-instance ToHeader EngineFamily
+instance Prelude.ToHeader EngineFamily

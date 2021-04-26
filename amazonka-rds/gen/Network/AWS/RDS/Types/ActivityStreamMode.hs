@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.RDS.Types.ActivityStreamMode
   ( ActivityStreamMode
       ( ..,
-        Async,
-        Sync
+        ActivityStreamModeAsync,
+        ActivityStreamModeSync
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActivityStreamMode
-  = ActivityStreamMode'
-      ( CI
-          Text
-      )
+newtype ActivityStreamMode = ActivityStreamMode'
+  { fromActivityStreamMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Async :: ActivityStreamMode
-pattern Async = ActivityStreamMode' "async"
+pattern ActivityStreamModeAsync :: ActivityStreamMode
+pattern ActivityStreamModeAsync = ActivityStreamMode' "async"
 
-pattern Sync :: ActivityStreamMode
-pattern Sync = ActivityStreamMode' "sync"
+pattern ActivityStreamModeSync :: ActivityStreamMode
+pattern ActivityStreamModeSync = ActivityStreamMode' "sync"
 
 {-# COMPLETE
-  Async,
-  Sync,
+  ActivityStreamModeAsync,
+  ActivityStreamModeSync,
   ActivityStreamMode'
   #-}
 
-instance FromText ActivityStreamMode where
-  parser = (ActivityStreamMode' . mk) <$> takeText
+instance Prelude.FromText ActivityStreamMode where
+  parser = ActivityStreamMode' Prelude.<$> Prelude.takeText
 
-instance ToText ActivityStreamMode where
-  toText (ActivityStreamMode' ci) = original ci
+instance Prelude.ToText ActivityStreamMode where
+  toText (ActivityStreamMode' x) = x
 
-instance Hashable ActivityStreamMode
+instance Prelude.Hashable ActivityStreamMode
 
-instance NFData ActivityStreamMode
+instance Prelude.NFData ActivityStreamMode
 
-instance ToByteString ActivityStreamMode
+instance Prelude.ToByteString ActivityStreamMode
 
-instance ToQuery ActivityStreamMode
+instance Prelude.ToQuery ActivityStreamMode
 
-instance ToHeader ActivityStreamMode
+instance Prelude.ToHeader ActivityStreamMode
 
-instance FromXML ActivityStreamMode where
-  parseXML = parseXMLText "ActivityStreamMode"
+instance Prelude.FromXML ActivityStreamMode where
+  parseXML = Prelude.parseXMLText "ActivityStreamMode"

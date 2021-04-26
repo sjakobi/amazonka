@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,107 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the parameters of a DB parameter group. To modify more than one parameter, submit a list of the following: @ParameterName@ , @ParameterValue@ , and @ApplyMethod@ . A maximum of 20 parameters can be modified in a single request.
+-- Modifies the parameters of a DB parameter group. To modify more than one
+-- parameter, submit a list of the following: @ParameterName@,
+-- @ParameterValue@, and @ApplyMethod@. A maximum of 20 parameters can be
+-- modified in a single request.
 --
+-- Changes to dynamic parameters are applied immediately. Changes to static
+-- parameters require a reboot without failover to the DB instance
+-- associated with the parameter group before the change can take effect.
 --
--- /Important:/ After you modify a DB parameter group, you should wait at least 5 minutes before creating your first DB instance that uses that DB parameter group as the default parameter group. This allows Amazon RDS to fully complete the modify action before the parameter group is used as the default for a new DB instance. This is especially important for parameters that are critical when creating the default database for a DB instance, such as the character set for the default database defined by the @character_set_database@ parameter. You can use the /Parameter Groups/ option of the <https://console.aws.amazon.com/rds/ Amazon RDS console> or the /DescribeDBParameters/ command to verify that your DB parameter group has been created or modified.
+-- After you modify a DB parameter group, you should wait at least 5
+-- minutes before creating your first DB instance that uses that DB
+-- parameter group as the default parameter group. This allows Amazon RDS
+-- to fully complete the modify action before the parameter group is used
+-- as the default for a new DB instance. This is especially important for
+-- parameters that are critical when creating the default database for a DB
+-- instance, such as the character set for the default database defined by
+-- the @character_set_database@ parameter. You can use the /Parameter
+-- Groups/ option of the
+-- <https://console.aws.amazon.com/rds/ Amazon RDS console> or the
+-- /DescribeDBParameters/ command to verify that your DB parameter group
+-- has been created or modified.
 module Network.AWS.RDS.ModifyDBParameterGroup
   ( -- * Creating a Request
-    modifyDBParameterGroup,
-    ModifyDBParameterGroup,
+    ModifyDBParameterGroup (..),
+    newModifyDBParameterGroup,
 
     -- * Request Lenses
-    mdpgDBParameterGroupName,
-    mdpgParameters,
+    modifyDBParameterGroup_dBParameterGroupName,
+    modifyDBParameterGroup_parameters,
 
     -- * Destructuring the Response
-    dbParameterGroupNameMessage,
-    DBParameterGroupNameMessage,
+    DBParameterGroupNameMessage (..),
+    newDBParameterGroupNameMessage,
 
     -- * Response Lenses
-    dpgnmDBParameterGroupName,
+    dBParameterGroupNameMessage_dBParameterGroupName,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBParameterGroupNameMessage
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'modifyDBParameterGroup' smart constructor.
+-- /See:/ 'newModifyDBParameterGroup' smart constructor.
 data ModifyDBParameterGroup = ModifyDBParameterGroup'
-  { _mdpgDBParameterGroupName ::
-      !Text,
-    _mdpgParameters ::
-      ![Parameter]
+  { -- | The name of the DB parameter group.
+    --
+    -- Constraints:
+    --
+    -- -   If supplied, must match the name of an existing @DBParameterGroup@.
+    dBParameterGroupName :: Prelude.Text,
+    -- | An array of parameter names, values, and the apply method for the
+    -- parameter update. At least one parameter name, value, and apply method
+    -- must be supplied; later arguments are optional. A maximum of 20
+    -- parameters can be modified in a single request.
+    --
+    -- Valid Values (for the application method): @immediate | pending-reboot@
+    --
+    -- You can use the immediate value with dynamic parameters only. You can
+    -- use the pending-reboot value for both dynamic and static parameters, and
+    -- changes are applied when you reboot the DB instance without failover.
+    parameters :: [Parameter]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyDBParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyDBParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdpgDBParameterGroupName' - The name of the DB parameter group. Constraints:     * If supplied, must match the name of an existing @DBParameterGroup@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdpgParameters' - An array of parameter names, values, and the apply method for the parameter update. At least one parameter name, value, and apply method must be supplied; later arguments are optional. A maximum of 20 parameters can be modified in a single request. Valid Values (for the application method): @immediate | pending-reboot@
-modifyDBParameterGroup ::
-  -- | 'mdpgDBParameterGroupName'
-  Text ->
+-- 'dBParameterGroupName', 'modifyDBParameterGroup_dBParameterGroupName' - The name of the DB parameter group.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the name of an existing @DBParameterGroup@.
+--
+-- 'parameters', 'modifyDBParameterGroup_parameters' - An array of parameter names, values, and the apply method for the
+-- parameter update. At least one parameter name, value, and apply method
+-- must be supplied; later arguments are optional. A maximum of 20
+-- parameters can be modified in a single request.
+--
+-- Valid Values (for the application method): @immediate | pending-reboot@
+--
+-- You can use the immediate value with dynamic parameters only. You can
+-- use the pending-reboot value for both dynamic and static parameters, and
+-- changes are applied when you reboot the DB instance without failover.
+newModifyDBParameterGroup ::
+  -- | 'dBParameterGroupName'
+  Prelude.Text ->
   ModifyDBParameterGroup
-modifyDBParameterGroup pDBParameterGroupName_ =
+newModifyDBParameterGroup pDBParameterGroupName_ =
   ModifyDBParameterGroup'
-    { _mdpgDBParameterGroupName =
+    { dBParameterGroupName =
         pDBParameterGroupName_,
-      _mdpgParameters = mempty
+      parameters = Prelude.mempty
     }
 
--- | The name of the DB parameter group. Constraints:     * If supplied, must match the name of an existing @DBParameterGroup@ .
-mdpgDBParameterGroupName :: Lens' ModifyDBParameterGroup Text
-mdpgDBParameterGroupName = lens _mdpgDBParameterGroupName (\s a -> s {_mdpgDBParameterGroupName = a})
+-- | The name of the DB parameter group.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the name of an existing @DBParameterGroup@.
+modifyDBParameterGroup_dBParameterGroupName :: Lens.Lens' ModifyDBParameterGroup Prelude.Text
+modifyDBParameterGroup_dBParameterGroupName = Lens.lens (\ModifyDBParameterGroup' {dBParameterGroupName} -> dBParameterGroupName) (\s@ModifyDBParameterGroup' {} a -> s {dBParameterGroupName = a} :: ModifyDBParameterGroup)
 
--- | An array of parameter names, values, and the apply method for the parameter update. At least one parameter name, value, and apply method must be supplied; later arguments are optional. A maximum of 20 parameters can be modified in a single request. Valid Values (for the application method): @immediate | pending-reboot@
-mdpgParameters :: Lens' ModifyDBParameterGroup [Parameter]
-mdpgParameters = lens _mdpgParameters (\s a -> s {_mdpgParameters = a}) . _Coerce
+-- | An array of parameter names, values, and the apply method for the
+-- parameter update. At least one parameter name, value, and apply method
+-- must be supplied; later arguments are optional. A maximum of 20
+-- parameters can be modified in a single request.
+--
+-- Valid Values (for the application method): @immediate | pending-reboot@
+--
+-- You can use the immediate value with dynamic parameters only. You can
+-- use the pending-reboot value for both dynamic and static parameters, and
+-- changes are applied when you reboot the DB instance without failover.
+modifyDBParameterGroup_parameters :: Lens.Lens' ModifyDBParameterGroup [Parameter]
+modifyDBParameterGroup_parameters = Lens.lens (\ModifyDBParameterGroup' {parameters} -> parameters) (\s@ModifyDBParameterGroup' {} a -> s {parameters = a} :: ModifyDBParameterGroup) Prelude.. Prelude._Coerce
 
-instance AWSRequest ModifyDBParameterGroup where
+instance Prelude.AWSRequest ModifyDBParameterGroup where
   type
     Rs ModifyDBParameterGroup =
       DBParameterGroupNameMessage
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyDBParameterGroupResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable ModifyDBParameterGroup
+instance Prelude.Hashable ModifyDBParameterGroup
 
-instance NFData ModifyDBParameterGroup
+instance Prelude.NFData ModifyDBParameterGroup
 
-instance ToHeaders ModifyDBParameterGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyDBParameterGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyDBParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath ModifyDBParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyDBParameterGroup where
+instance Prelude.ToQuery ModifyDBParameterGroup where
   toQuery ModifyDBParameterGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyDBParameterGroup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBParameterGroupName" =: _mdpgDBParameterGroupName,
+          Prelude.=: ("ModifyDBParameterGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBParameterGroupName"
+          Prelude.=: dBParameterGroupName,
         "Parameters"
-          =: toQueryList "Parameter" _mdpgParameters
+          Prelude.=: Prelude.toQueryList "Parameter" parameters
       ]

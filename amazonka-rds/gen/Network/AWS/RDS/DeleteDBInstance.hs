@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,301 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The DeleteDBInstance action deletes a previously provisioned DB instance. When you delete a DB instance, all automated backups for that instance are deleted and can't be recovered. Manual DB snapshots of the DB instance to be deleted by @DeleteDBInstance@ are not deleted.
+-- The DeleteDBInstance action deletes a previously provisioned DB
+-- instance. When you delete a DB instance, all automated backups for that
+-- instance are deleted and can\'t be recovered. Manual DB snapshots of the
+-- DB instance to be deleted by @DeleteDBInstance@ are not deleted.
 --
+-- If you request a final DB snapshot the status of the Amazon RDS DB
+-- instance is @deleting@ until the DB snapshot is created. The API action
+-- @DescribeDBInstance@ is used to monitor the status of this operation.
+-- The action can\'t be canceled or reverted once submitted.
 --
--- If you request a final DB snapshot the status of the Amazon RDS DB instance is @deleting@ until the DB snapshot is created. The API action @DescribeDBInstance@ is used to monitor the status of this operation. The action can't be canceled or reverted once submitted.
+-- When a DB instance is in a failure state and has a status of @failed@,
+-- @incompatible-restore@, or @incompatible-network@, you can only delete
+-- it when you skip creation of the final snapshot with the
+-- @SkipFinalSnapshot@ parameter.
 --
--- When a DB instance is in a failure state and has a status of @failed@ , @incompatible-restore@ , or @incompatible-network@ , you can only delete it when you skip creation of the final snapshot with the @SkipFinalSnapshot@ parameter.
+-- If the specified DB instance is part of an Amazon Aurora DB cluster, you
+-- can\'t delete the DB instance if both of the following conditions are
+-- true:
 --
--- If the specified DB instance is part of an Amazon Aurora DB cluster, you can't delete the DB instance if both of the following conditions are true:
+-- -   The DB cluster is a read replica of another Amazon Aurora DB
+--     cluster.
 --
---     * The DB cluster is a read replica of another Amazon Aurora DB cluster.
+-- -   The DB instance is the only instance in the DB cluster.
 --
---     * The DB instance is the only instance in the DB cluster.
---
---
---
--- To delete a DB instance in this case, first call the @PromoteReadReplicaDBCluster@ API action to promote the DB cluster so it's no longer a read replica. After the promotion completes, then call the @DeleteDBInstance@ API action to delete the final instance in the DB cluster.
+-- To delete a DB instance in this case, first call the
+-- @PromoteReadReplicaDBCluster@ API action to promote the DB cluster so
+-- it\'s no longer a read replica. After the promotion completes, then call
+-- the @DeleteDBInstance@ API action to delete the final instance in the DB
+-- cluster.
 module Network.AWS.RDS.DeleteDBInstance
   ( -- * Creating a Request
-    deleteDBInstance,
-    DeleteDBInstance,
+    DeleteDBInstance (..),
+    newDeleteDBInstance,
 
     -- * Request Lenses
-    ddbiSkipFinalSnapshot,
-    ddbiFinalDBSnapshotIdentifier,
-    ddbiDeleteAutomatedBackups,
-    ddbiDBInstanceIdentifier,
+    deleteDBInstance_skipFinalSnapshot,
+    deleteDBInstance_finalDBSnapshotIdentifier,
+    deleteDBInstance_deleteAutomatedBackups,
+    deleteDBInstance_dBInstanceIdentifier,
 
     -- * Destructuring the Response
-    deleteDBInstanceResponse,
-    DeleteDBInstanceResponse,
+    DeleteDBInstanceResponse (..),
+    newDeleteDBInstanceResponse,
 
     -- * Response Lenses
-    ddbirrsDBInstance,
-    ddbirrsResponseStatus,
+    deleteDBInstanceResponse_dBInstance,
+    deleteDBInstanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstance
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteDBInstance' smart constructor.
+-- /See:/ 'newDeleteDBInstance' smart constructor.
 data DeleteDBInstance = DeleteDBInstance'
-  { _ddbiSkipFinalSnapshot ::
-      !(Maybe Bool),
-    _ddbiFinalDBSnapshotIdentifier ::
-      !(Maybe Text),
-    _ddbiDeleteAutomatedBackups ::
-      !(Maybe Bool),
-    _ddbiDBInstanceIdentifier :: !Text
+  { -- | A value that indicates whether to skip the creation of a final DB
+    -- snapshot before the DB instance is deleted. If skip is specified, no DB
+    -- snapshot is created. If skip isn\'t specified, a DB snapshot is created
+    -- before the DB instance is deleted. By default, skip isn\'t specified,
+    -- and the DB snapshot is created.
+    --
+    -- When a DB instance is in a failure state and has a status of \'failed\',
+    -- \'incompatible-restore\', or \'incompatible-network\', it can only be
+    -- deleted when skip is specified.
+    --
+    -- Specify skip when deleting a read replica.
+    --
+    -- The FinalDBSnapshotIdentifier parameter must be specified if skip isn\'t
+    -- specified.
+    skipFinalSnapshot :: Prelude.Maybe Prelude.Bool,
+    -- | The @DBSnapshotIdentifier@ of the new @DBSnapshot@ created when the
+    -- @SkipFinalSnapshot@ parameter is disabled.
+    --
+    -- Specifying this parameter and also specifying to skip final DB snapshot
+    -- creation in SkipFinalShapshot results in an error.
+    --
+    -- Constraints:
+    --
+    -- -   Must be 1 to 255 letters or numbers.
+    --
+    -- -   First character must be a letter.
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+    --
+    -- -   Can\'t be specified when deleting a read replica.
+    finalDBSnapshotIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to remove automated backups immediately
+    -- after the DB instance is deleted. This parameter isn\'t case-sensitive.
+    -- The default is to remove automated backups immediately after the DB
+    -- instance is deleted.
+    deleteAutomatedBackups :: Prelude.Maybe Prelude.Bool,
+    -- | The DB instance identifier for the DB instance to be deleted. This
+    -- parameter isn\'t case-sensitive.
+    --
+    -- Constraints:
+    --
+    -- -   Must match the name of an existing DB instance.
+    dBInstanceIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbiSkipFinalSnapshot' - A value that indicates whether to skip the creation of a final DB snapshot before the DB instance is deleted. If skip is specified, no DB snapshot is created. If skip isn't specified, a DB snapshot is created before the DB instance is deleted. By default, skip isn't specified, and the DB snapshot is created. When a DB instance is in a failure state and has a status of 'failed', 'incompatible-restore', or 'incompatible-network', it can only be deleted when skip is specified. Specify skip when deleting a read replica.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbiFinalDBSnapshotIdentifier' - The @DBSnapshotIdentifier@ of the new @DBSnapshot@ created when the @SkipFinalSnapshot@ parameter is disabled.  Constraints:     * Must be 1 to 255 letters or numbers.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens.     * Can't be specified when deleting a read replica.
+-- 'skipFinalSnapshot', 'deleteDBInstance_skipFinalSnapshot' - A value that indicates whether to skip the creation of a final DB
+-- snapshot before the DB instance is deleted. If skip is specified, no DB
+-- snapshot is created. If skip isn\'t specified, a DB snapshot is created
+-- before the DB instance is deleted. By default, skip isn\'t specified,
+-- and the DB snapshot is created.
 --
--- * 'ddbiDeleteAutomatedBackups' - A value that indicates whether to remove automated backups immediately after the DB instance is deleted. This parameter isn't case-sensitive. The default is to remove automated backups immediately after the DB instance is deleted.
+-- When a DB instance is in a failure state and has a status of \'failed\',
+-- \'incompatible-restore\', or \'incompatible-network\', it can only be
+-- deleted when skip is specified.
 --
--- * 'ddbiDBInstanceIdentifier' - The DB instance identifier for the DB instance to be deleted. This parameter isn't case-sensitive. Constraints:     * Must match the name of an existing DB instance.
-deleteDBInstance ::
-  -- | 'ddbiDBInstanceIdentifier'
-  Text ->
+-- Specify skip when deleting a read replica.
+--
+-- The FinalDBSnapshotIdentifier parameter must be specified if skip isn\'t
+-- specified.
+--
+-- 'finalDBSnapshotIdentifier', 'deleteDBInstance_finalDBSnapshotIdentifier' - The @DBSnapshotIdentifier@ of the new @DBSnapshot@ created when the
+-- @SkipFinalSnapshot@ parameter is disabled.
+--
+-- Specifying this parameter and also specifying to skip final DB snapshot
+-- creation in SkipFinalShapshot results in an error.
+--
+-- Constraints:
+--
+-- -   Must be 1 to 255 letters or numbers.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+--
+-- -   Can\'t be specified when deleting a read replica.
+--
+-- 'deleteAutomatedBackups', 'deleteDBInstance_deleteAutomatedBackups' - A value that indicates whether to remove automated backups immediately
+-- after the DB instance is deleted. This parameter isn\'t case-sensitive.
+-- The default is to remove automated backups immediately after the DB
+-- instance is deleted.
+--
+-- 'dBInstanceIdentifier', 'deleteDBInstance_dBInstanceIdentifier' - The DB instance identifier for the DB instance to be deleted. This
+-- parameter isn\'t case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must match the name of an existing DB instance.
+newDeleteDBInstance ::
+  -- | 'dBInstanceIdentifier'
+  Prelude.Text ->
   DeleteDBInstance
-deleteDBInstance pDBInstanceIdentifier_ =
+newDeleteDBInstance pDBInstanceIdentifier_ =
   DeleteDBInstance'
-    { _ddbiSkipFinalSnapshot = Nothing,
-      _ddbiFinalDBSnapshotIdentifier = Nothing,
-      _ddbiDeleteAutomatedBackups = Nothing,
-      _ddbiDBInstanceIdentifier = pDBInstanceIdentifier_
+    { skipFinalSnapshot =
+        Prelude.Nothing,
+      finalDBSnapshotIdentifier = Prelude.Nothing,
+      deleteAutomatedBackups = Prelude.Nothing,
+      dBInstanceIdentifier = pDBInstanceIdentifier_
     }
 
--- | A value that indicates whether to skip the creation of a final DB snapshot before the DB instance is deleted. If skip is specified, no DB snapshot is created. If skip isn't specified, a DB snapshot is created before the DB instance is deleted. By default, skip isn't specified, and the DB snapshot is created. When a DB instance is in a failure state and has a status of 'failed', 'incompatible-restore', or 'incompatible-network', it can only be deleted when skip is specified. Specify skip when deleting a read replica.
-ddbiSkipFinalSnapshot :: Lens' DeleteDBInstance (Maybe Bool)
-ddbiSkipFinalSnapshot = lens _ddbiSkipFinalSnapshot (\s a -> s {_ddbiSkipFinalSnapshot = a})
+-- | A value that indicates whether to skip the creation of a final DB
+-- snapshot before the DB instance is deleted. If skip is specified, no DB
+-- snapshot is created. If skip isn\'t specified, a DB snapshot is created
+-- before the DB instance is deleted. By default, skip isn\'t specified,
+-- and the DB snapshot is created.
+--
+-- When a DB instance is in a failure state and has a status of \'failed\',
+-- \'incompatible-restore\', or \'incompatible-network\', it can only be
+-- deleted when skip is specified.
+--
+-- Specify skip when deleting a read replica.
+--
+-- The FinalDBSnapshotIdentifier parameter must be specified if skip isn\'t
+-- specified.
+deleteDBInstance_skipFinalSnapshot :: Lens.Lens' DeleteDBInstance (Prelude.Maybe Prelude.Bool)
+deleteDBInstance_skipFinalSnapshot = Lens.lens (\DeleteDBInstance' {skipFinalSnapshot} -> skipFinalSnapshot) (\s@DeleteDBInstance' {} a -> s {skipFinalSnapshot = a} :: DeleteDBInstance)
 
--- | The @DBSnapshotIdentifier@ of the new @DBSnapshot@ created when the @SkipFinalSnapshot@ parameter is disabled.  Constraints:     * Must be 1 to 255 letters or numbers.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens.     * Can't be specified when deleting a read replica.
-ddbiFinalDBSnapshotIdentifier :: Lens' DeleteDBInstance (Maybe Text)
-ddbiFinalDBSnapshotIdentifier = lens _ddbiFinalDBSnapshotIdentifier (\s a -> s {_ddbiFinalDBSnapshotIdentifier = a})
+-- | The @DBSnapshotIdentifier@ of the new @DBSnapshot@ created when the
+-- @SkipFinalSnapshot@ parameter is disabled.
+--
+-- Specifying this parameter and also specifying to skip final DB snapshot
+-- creation in SkipFinalShapshot results in an error.
+--
+-- Constraints:
+--
+-- -   Must be 1 to 255 letters or numbers.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+--
+-- -   Can\'t be specified when deleting a read replica.
+deleteDBInstance_finalDBSnapshotIdentifier :: Lens.Lens' DeleteDBInstance (Prelude.Maybe Prelude.Text)
+deleteDBInstance_finalDBSnapshotIdentifier = Lens.lens (\DeleteDBInstance' {finalDBSnapshotIdentifier} -> finalDBSnapshotIdentifier) (\s@DeleteDBInstance' {} a -> s {finalDBSnapshotIdentifier = a} :: DeleteDBInstance)
 
--- | A value that indicates whether to remove automated backups immediately after the DB instance is deleted. This parameter isn't case-sensitive. The default is to remove automated backups immediately after the DB instance is deleted.
-ddbiDeleteAutomatedBackups :: Lens' DeleteDBInstance (Maybe Bool)
-ddbiDeleteAutomatedBackups = lens _ddbiDeleteAutomatedBackups (\s a -> s {_ddbiDeleteAutomatedBackups = a})
+-- | A value that indicates whether to remove automated backups immediately
+-- after the DB instance is deleted. This parameter isn\'t case-sensitive.
+-- The default is to remove automated backups immediately after the DB
+-- instance is deleted.
+deleteDBInstance_deleteAutomatedBackups :: Lens.Lens' DeleteDBInstance (Prelude.Maybe Prelude.Bool)
+deleteDBInstance_deleteAutomatedBackups = Lens.lens (\DeleteDBInstance' {deleteAutomatedBackups} -> deleteAutomatedBackups) (\s@DeleteDBInstance' {} a -> s {deleteAutomatedBackups = a} :: DeleteDBInstance)
 
--- | The DB instance identifier for the DB instance to be deleted. This parameter isn't case-sensitive. Constraints:     * Must match the name of an existing DB instance.
-ddbiDBInstanceIdentifier :: Lens' DeleteDBInstance Text
-ddbiDBInstanceIdentifier = lens _ddbiDBInstanceIdentifier (\s a -> s {_ddbiDBInstanceIdentifier = a})
+-- | The DB instance identifier for the DB instance to be deleted. This
+-- parameter isn\'t case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must match the name of an existing DB instance.
+deleteDBInstance_dBInstanceIdentifier :: Lens.Lens' DeleteDBInstance Prelude.Text
+deleteDBInstance_dBInstanceIdentifier = Lens.lens (\DeleteDBInstance' {dBInstanceIdentifier} -> dBInstanceIdentifier) (\s@DeleteDBInstance' {} a -> s {dBInstanceIdentifier = a} :: DeleteDBInstance)
 
-instance AWSRequest DeleteDBInstance where
+instance Prelude.AWSRequest DeleteDBInstance where
   type Rs DeleteDBInstance = DeleteDBInstanceResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteDBInstanceResult"
       ( \s h x ->
           DeleteDBInstanceResponse'
-            <$> (x .@? "DBInstance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBInstance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDBInstance
+instance Prelude.Hashable DeleteDBInstance
 
-instance NFData DeleteDBInstance
+instance Prelude.NFData DeleteDBInstance
 
-instance ToHeaders DeleteDBInstance where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDBInstance where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDBInstance where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDBInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDBInstance where
+instance Prelude.ToQuery DeleteDBInstance where
   toQuery DeleteDBInstance' {..} =
-    mconcat
-      [ "Action" =: ("DeleteDBInstance" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "SkipFinalSnapshot" =: _ddbiSkipFinalSnapshot,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteDBInstance" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "SkipFinalSnapshot" Prelude.=: skipFinalSnapshot,
         "FinalDBSnapshotIdentifier"
-          =: _ddbiFinalDBSnapshotIdentifier,
+          Prelude.=: finalDBSnapshotIdentifier,
         "DeleteAutomatedBackups"
-          =: _ddbiDeleteAutomatedBackups,
-        "DBInstanceIdentifier" =: _ddbiDBInstanceIdentifier
+          Prelude.=: deleteAutomatedBackups,
+        "DBInstanceIdentifier"
+          Prelude.=: dBInstanceIdentifier
       ]
 
--- | /See:/ 'deleteDBInstanceResponse' smart constructor.
+-- | /See:/ 'newDeleteDBInstanceResponse' smart constructor.
 data DeleteDBInstanceResponse = DeleteDBInstanceResponse'
-  { _ddbirrsDBInstance ::
-      !(Maybe DBInstance),
-    _ddbirrsResponseStatus ::
-      !Int
+  { dBInstance :: Prelude.Maybe DBInstance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbirrsDBInstance' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbirrsResponseStatus' - -- | The response status code.
-deleteDBInstanceResponse ::
-  -- | 'ddbirrsResponseStatus'
-  Int ->
+-- 'dBInstance', 'deleteDBInstanceResponse_dBInstance' - Undocumented member.
+--
+-- 'httpStatus', 'deleteDBInstanceResponse_httpStatus' - The response's http status code.
+newDeleteDBInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDBInstanceResponse
-deleteDBInstanceResponse pResponseStatus_ =
+newDeleteDBInstanceResponse pHttpStatus_ =
   DeleteDBInstanceResponse'
-    { _ddbirrsDBInstance =
-        Nothing,
-      _ddbirrsResponseStatus = pResponseStatus_
+    { dBInstance =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ddbirrsDBInstance :: Lens' DeleteDBInstanceResponse (Maybe DBInstance)
-ddbirrsDBInstance = lens _ddbirrsDBInstance (\s a -> s {_ddbirrsDBInstance = a})
+deleteDBInstanceResponse_dBInstance :: Lens.Lens' DeleteDBInstanceResponse (Prelude.Maybe DBInstance)
+deleteDBInstanceResponse_dBInstance = Lens.lens (\DeleteDBInstanceResponse' {dBInstance} -> dBInstance) (\s@DeleteDBInstanceResponse' {} a -> s {dBInstance = a} :: DeleteDBInstanceResponse)
 
--- | -- | The response status code.
-ddbirrsResponseStatus :: Lens' DeleteDBInstanceResponse Int
-ddbirrsResponseStatus = lens _ddbirrsResponseStatus (\s a -> s {_ddbirrsResponseStatus = a})
+-- | The response's http status code.
+deleteDBInstanceResponse_httpStatus :: Lens.Lens' DeleteDBInstanceResponse Prelude.Int
+deleteDBInstanceResponse_httpStatus = Lens.lens (\DeleteDBInstanceResponse' {httpStatus} -> httpStatus) (\s@DeleteDBInstanceResponse' {} a -> s {httpStatus = a} :: DeleteDBInstanceResponse)
 
-instance NFData DeleteDBInstanceResponse
+instance Prelude.NFData DeleteDBInstanceResponse

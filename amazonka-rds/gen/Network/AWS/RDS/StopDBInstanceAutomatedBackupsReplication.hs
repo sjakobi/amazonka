@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,164 +23,164 @@
 --
 -- Stops automated backup replication for a DB instance.
 --
---
--- For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html Replicating Automated Backups to Another AWS Region> in the /Amazon RDS User Guide./
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html Replicating Automated Backups to Another AWS Region>
+-- in the /Amazon RDS User Guide./
 module Network.AWS.RDS.StopDBInstanceAutomatedBackupsReplication
   ( -- * Creating a Request
-    stopDBInstanceAutomatedBackupsReplication,
-    StopDBInstanceAutomatedBackupsReplication,
+    StopDBInstanceAutomatedBackupsReplication (..),
+    newStopDBInstanceAutomatedBackupsReplication,
 
     -- * Request Lenses
-    sdbiabrSourceDBInstanceARN,
+    stopDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn,
 
     -- * Destructuring the Response
-    stopDBInstanceAutomatedBackupsReplicationResponse,
-    StopDBInstanceAutomatedBackupsReplicationResponse,
+    StopDBInstanceAutomatedBackupsReplicationResponse (..),
+    newStopDBInstanceAutomatedBackupsReplicationResponse,
 
     -- * Response Lenses
-    sdiabrrrsDBInstanceAutomatedBackup,
-    sdiabrrrsResponseStatus,
+    stopDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup,
+    stopDBInstanceAutomatedBackupsReplicationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstanceAutomatedBackup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopDBInstanceAutomatedBackupsReplication' smart constructor.
-newtype StopDBInstanceAutomatedBackupsReplication = StopDBInstanceAutomatedBackupsReplication'
-  { _sdbiabrSourceDBInstanceARN ::
-      Text
+-- | /See:/ 'newStopDBInstanceAutomatedBackupsReplication' smart constructor.
+data StopDBInstanceAutomatedBackupsReplication = StopDBInstanceAutomatedBackupsReplication'
+  { -- | The Amazon Resource Name (ARN) of the source DB instance for which to
+    -- stop replicating automated backups, for example,
+    -- @arn:aws:rds:us-west-2:123456789012:db:mydatabase@.
+    sourceDBInstanceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopDBInstanceAutomatedBackupsReplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopDBInstanceAutomatedBackupsReplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdbiabrSourceDBInstanceARN' - The Amazon Resource Name (ARN) of the source DB instance for which to stop replicating automated backups, for example, @arn:aws:rds:us-west-2:123456789012:db:mydatabase@ .
-stopDBInstanceAutomatedBackupsReplication ::
-  -- | 'sdbiabrSourceDBInstanceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sourceDBInstanceArn', 'stopDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn' - The Amazon Resource Name (ARN) of the source DB instance for which to
+-- stop replicating automated backups, for example,
+-- @arn:aws:rds:us-west-2:123456789012:db:mydatabase@.
+newStopDBInstanceAutomatedBackupsReplication ::
+  -- | 'sourceDBInstanceArn'
+  Prelude.Text ->
   StopDBInstanceAutomatedBackupsReplication
-stopDBInstanceAutomatedBackupsReplication
-  pSourceDBInstanceARN_ =
+newStopDBInstanceAutomatedBackupsReplication
+  pSourceDBInstanceArn_ =
     StopDBInstanceAutomatedBackupsReplication'
-      { _sdbiabrSourceDBInstanceARN =
-          pSourceDBInstanceARN_
+      { sourceDBInstanceArn =
+          pSourceDBInstanceArn_
       }
 
--- | The Amazon Resource Name (ARN) of the source DB instance for which to stop replicating automated backups, for example, @arn:aws:rds:us-west-2:123456789012:db:mydatabase@ .
-sdbiabrSourceDBInstanceARN :: Lens' StopDBInstanceAutomatedBackupsReplication Text
-sdbiabrSourceDBInstanceARN = lens _sdbiabrSourceDBInstanceARN (\s a -> s {_sdbiabrSourceDBInstanceARN = a})
+-- | The Amazon Resource Name (ARN) of the source DB instance for which to
+-- stop replicating automated backups, for example,
+-- @arn:aws:rds:us-west-2:123456789012:db:mydatabase@.
+stopDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn :: Lens.Lens' StopDBInstanceAutomatedBackupsReplication Prelude.Text
+stopDBInstanceAutomatedBackupsReplication_sourceDBInstanceArn = Lens.lens (\StopDBInstanceAutomatedBackupsReplication' {sourceDBInstanceArn} -> sourceDBInstanceArn) (\s@StopDBInstanceAutomatedBackupsReplication' {} a -> s {sourceDBInstanceArn = a} :: StopDBInstanceAutomatedBackupsReplication)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     StopDBInstanceAutomatedBackupsReplication
   where
   type
     Rs StopDBInstanceAutomatedBackupsReplication =
       StopDBInstanceAutomatedBackupsReplicationResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StopDBInstanceAutomatedBackupsReplicationResult"
       ( \s h x ->
           StopDBInstanceAutomatedBackupsReplicationResponse'
-            <$> (x .@? "DBInstanceAutomatedBackup")
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBInstanceAutomatedBackup")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     StopDBInstanceAutomatedBackupsReplication
 
 instance
-  NFData
+  Prelude.NFData
     StopDBInstanceAutomatedBackupsReplication
 
 instance
-  ToHeaders
-    StopDBInstanceAutomatedBackupsReplication
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     StopDBInstanceAutomatedBackupsReplication
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    StopDBInstanceAutomatedBackupsReplication
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     StopDBInstanceAutomatedBackupsReplication
   where
   toQuery
     StopDBInstanceAutomatedBackupsReplication' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "StopDBInstanceAutomatedBackupsReplication" ::
-                   ByteString
-               ),
-          "Version" =: ("2014-10-31" :: ByteString),
-          "SourceDBInstanceArn" =: _sdbiabrSourceDBInstanceARN
+            Prelude.=: ( "StopDBInstanceAutomatedBackupsReplication" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+          "SourceDBInstanceArn" Prelude.=: sourceDBInstanceArn
         ]
 
--- | /See:/ 'stopDBInstanceAutomatedBackupsReplicationResponse' smart constructor.
+-- | /See:/ 'newStopDBInstanceAutomatedBackupsReplicationResponse' smart constructor.
 data StopDBInstanceAutomatedBackupsReplicationResponse = StopDBInstanceAutomatedBackupsReplicationResponse'
-  { _sdiabrrrsDBInstanceAutomatedBackup ::
-      !( Maybe
-           DBInstanceAutomatedBackup
-       ),
-    _sdiabrrrsResponseStatus ::
-      !Int
+  { dBInstanceAutomatedBackup :: Prelude.Maybe DBInstanceAutomatedBackup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopDBInstanceAutomatedBackupsReplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopDBInstanceAutomatedBackupsReplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdiabrrrsDBInstanceAutomatedBackup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdiabrrrsResponseStatus' - -- | The response status code.
-stopDBInstanceAutomatedBackupsReplicationResponse ::
-  -- | 'sdiabrrrsResponseStatus'
-  Int ->
+-- 'dBInstanceAutomatedBackup', 'stopDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup' - Undocumented member.
+--
+-- 'httpStatus', 'stopDBInstanceAutomatedBackupsReplicationResponse_httpStatus' - The response's http status code.
+newStopDBInstanceAutomatedBackupsReplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopDBInstanceAutomatedBackupsReplicationResponse
-stopDBInstanceAutomatedBackupsReplicationResponse
-  pResponseStatus_ =
+newStopDBInstanceAutomatedBackupsReplicationResponse
+  pHttpStatus_ =
     StopDBInstanceAutomatedBackupsReplicationResponse'
-      { _sdiabrrrsDBInstanceAutomatedBackup =
-          Nothing,
-        _sdiabrrrsResponseStatus =
-          pResponseStatus_
+      { dBInstanceAutomatedBackup =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Undocumented member.
-sdiabrrrsDBInstanceAutomatedBackup :: Lens' StopDBInstanceAutomatedBackupsReplicationResponse (Maybe DBInstanceAutomatedBackup)
-sdiabrrrsDBInstanceAutomatedBackup = lens _sdiabrrrsDBInstanceAutomatedBackup (\s a -> s {_sdiabrrrsDBInstanceAutomatedBackup = a})
+stopDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup :: Lens.Lens' StopDBInstanceAutomatedBackupsReplicationResponse (Prelude.Maybe DBInstanceAutomatedBackup)
+stopDBInstanceAutomatedBackupsReplicationResponse_dBInstanceAutomatedBackup = Lens.lens (\StopDBInstanceAutomatedBackupsReplicationResponse' {dBInstanceAutomatedBackup} -> dBInstanceAutomatedBackup) (\s@StopDBInstanceAutomatedBackupsReplicationResponse' {} a -> s {dBInstanceAutomatedBackup = a} :: StopDBInstanceAutomatedBackupsReplicationResponse)
 
--- | -- | The response status code.
-sdiabrrrsResponseStatus :: Lens' StopDBInstanceAutomatedBackupsReplicationResponse Int
-sdiabrrrsResponseStatus = lens _sdiabrrrsResponseStatus (\s a -> s {_sdiabrrrsResponseStatus = a})
+-- | The response's http status code.
+stopDBInstanceAutomatedBackupsReplicationResponse_httpStatus :: Lens.Lens' StopDBInstanceAutomatedBackupsReplicationResponse Prelude.Int
+stopDBInstanceAutomatedBackupsReplicationResponse_httpStatus = Lens.lens (\StopDBInstanceAutomatedBackupsReplicationResponse' {httpStatus} -> httpStatus) (\s@StopDBInstanceAutomatedBackupsReplicationResponse' {} a -> s {httpStatus = a} :: StopDBInstanceAutomatedBackupsReplicationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     StopDBInstanceAutomatedBackupsReplicationResponse

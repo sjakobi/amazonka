@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,186 +19,211 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.ReservedDBInstance where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.RecurringCharge
 
--- | This data type is used as a response element in the @DescribeReservedDBInstances@ and @PurchaseReservedDBInstancesOffering@ actions.
+-- | This data type is used as a response element in the
+-- @DescribeReservedDBInstances@ and @PurchaseReservedDBInstancesOffering@
+-- actions.
 --
---
---
--- /See:/ 'reservedDBInstance' smart constructor.
+-- /See:/ 'newReservedDBInstance' smart constructor.
 data ReservedDBInstance = ReservedDBInstance'
-  { _rdiDuration ::
-      !(Maybe Int),
-    _rdiReservedDBInstanceARN ::
-      !(Maybe Text),
-    _rdiStartTime :: !(Maybe ISO8601),
-    _rdiCurrencyCode :: !(Maybe Text),
-    _rdiMultiAZ :: !(Maybe Bool),
-    _rdiState :: !(Maybe Text),
-    _rdiDBInstanceCount ::
-      !(Maybe Int),
-    _rdiDBInstanceClass ::
-      !(Maybe Text),
-    _rdiReservedDBInstanceId ::
-      !(Maybe Text),
-    _rdiFixedPrice :: !(Maybe Double),
-    _rdiLeaseId :: !(Maybe Text),
-    _rdiUsagePrice :: !(Maybe Double),
-    _rdiOfferingType :: !(Maybe Text),
-    _rdiRecurringCharges ::
-      !(Maybe [RecurringCharge]),
-    _rdiProductDescription ::
-      !(Maybe Text),
-    _rdiReservedDBInstancesOfferingId ::
-      !(Maybe Text)
+  { -- | The duration of the reservation in seconds.
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) for the reserved DB instance.
+    reservedDBInstanceArn :: Prelude.Maybe Prelude.Text,
+    -- | The time the reservation started.
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The currency code for the reserved DB instance.
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | Indicates if the reservation applies to Multi-AZ deployments.
+    multiAZ :: Prelude.Maybe Prelude.Bool,
+    -- | The state of the reserved DB instance.
+    state :: Prelude.Maybe Prelude.Text,
+    -- | The number of reserved DB instances.
+    dBInstanceCount :: Prelude.Maybe Prelude.Int,
+    -- | The DB instance class for the reserved DB instance.
+    dBInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the reservation.
+    reservedDBInstanceId :: Prelude.Maybe Prelude.Text,
+    -- | The fixed price charged for this reserved DB instance.
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | The unique identifier for the lease associated with the reserved DB
+    -- instance.
+    --
+    -- AWS Support might request the lease ID for an issue related to a
+    -- reserved DB instance.
+    leaseId :: Prelude.Maybe Prelude.Text,
+    -- | The hourly price charged for this reserved DB instance.
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | The offering type of this reserved DB instance.
+    offeringType :: Prelude.Maybe Prelude.Text,
+    -- | The recurring price charged to run this reserved DB instance.
+    recurringCharges :: Prelude.Maybe [RecurringCharge],
+    -- | The description of the reserved DB instance.
+    productDescription :: Prelude.Maybe Prelude.Text,
+    -- | The offering identifier.
+    reservedDBInstancesOfferingId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservedDBInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservedDBInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdiDuration' - The duration of the reservation in seconds.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdiReservedDBInstanceARN' - The Amazon Resource Name (ARN) for the reserved DB instance.
+-- 'duration', 'reservedDBInstance_duration' - The duration of the reservation in seconds.
 --
--- * 'rdiStartTime' - The time the reservation started.
+-- 'reservedDBInstanceArn', 'reservedDBInstance_reservedDBInstanceArn' - The Amazon Resource Name (ARN) for the reserved DB instance.
 --
--- * 'rdiCurrencyCode' - The currency code for the reserved DB instance.
+-- 'startTime', 'reservedDBInstance_startTime' - The time the reservation started.
 --
--- * 'rdiMultiAZ' - Indicates if the reservation applies to Multi-AZ deployments.
+-- 'currencyCode', 'reservedDBInstance_currencyCode' - The currency code for the reserved DB instance.
 --
--- * 'rdiState' - The state of the reserved DB instance.
+-- 'multiAZ', 'reservedDBInstance_multiAZ' - Indicates if the reservation applies to Multi-AZ deployments.
 --
--- * 'rdiDBInstanceCount' - The number of reserved DB instances.
+-- 'state', 'reservedDBInstance_state' - The state of the reserved DB instance.
 --
--- * 'rdiDBInstanceClass' - The DB instance class for the reserved DB instance.
+-- 'dBInstanceCount', 'reservedDBInstance_dBInstanceCount' - The number of reserved DB instances.
 --
--- * 'rdiReservedDBInstanceId' - The unique identifier for the reservation.
+-- 'dBInstanceClass', 'reservedDBInstance_dBInstanceClass' - The DB instance class for the reserved DB instance.
 --
--- * 'rdiFixedPrice' - The fixed price charged for this reserved DB instance.
+-- 'reservedDBInstanceId', 'reservedDBInstance_reservedDBInstanceId' - The unique identifier for the reservation.
 --
--- * 'rdiLeaseId' - The unique identifier for the lease associated with the reserved DB instance.
+-- 'fixedPrice', 'reservedDBInstance_fixedPrice' - The fixed price charged for this reserved DB instance.
 --
--- * 'rdiUsagePrice' - The hourly price charged for this reserved DB instance.
+-- 'leaseId', 'reservedDBInstance_leaseId' - The unique identifier for the lease associated with the reserved DB
+-- instance.
 --
--- * 'rdiOfferingType' - The offering type of this reserved DB instance.
+-- AWS Support might request the lease ID for an issue related to a
+-- reserved DB instance.
 --
--- * 'rdiRecurringCharges' - The recurring price charged to run this reserved DB instance.
+-- 'usagePrice', 'reservedDBInstance_usagePrice' - The hourly price charged for this reserved DB instance.
 --
--- * 'rdiProductDescription' - The description of the reserved DB instance.
+-- 'offeringType', 'reservedDBInstance_offeringType' - The offering type of this reserved DB instance.
 --
--- * 'rdiReservedDBInstancesOfferingId' - The offering identifier.
-reservedDBInstance ::
+-- 'recurringCharges', 'reservedDBInstance_recurringCharges' - The recurring price charged to run this reserved DB instance.
+--
+-- 'productDescription', 'reservedDBInstance_productDescription' - The description of the reserved DB instance.
+--
+-- 'reservedDBInstancesOfferingId', 'reservedDBInstance_reservedDBInstancesOfferingId' - The offering identifier.
+newReservedDBInstance ::
   ReservedDBInstance
-reservedDBInstance =
+newReservedDBInstance =
   ReservedDBInstance'
-    { _rdiDuration = Nothing,
-      _rdiReservedDBInstanceARN = Nothing,
-      _rdiStartTime = Nothing,
-      _rdiCurrencyCode = Nothing,
-      _rdiMultiAZ = Nothing,
-      _rdiState = Nothing,
-      _rdiDBInstanceCount = Nothing,
-      _rdiDBInstanceClass = Nothing,
-      _rdiReservedDBInstanceId = Nothing,
-      _rdiFixedPrice = Nothing,
-      _rdiLeaseId = Nothing,
-      _rdiUsagePrice = Nothing,
-      _rdiOfferingType = Nothing,
-      _rdiRecurringCharges = Nothing,
-      _rdiProductDescription = Nothing,
-      _rdiReservedDBInstancesOfferingId = Nothing
+    { duration = Prelude.Nothing,
+      reservedDBInstanceArn = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      multiAZ = Prelude.Nothing,
+      state = Prelude.Nothing,
+      dBInstanceCount = Prelude.Nothing,
+      dBInstanceClass = Prelude.Nothing,
+      reservedDBInstanceId = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      leaseId = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      recurringCharges = Prelude.Nothing,
+      productDescription = Prelude.Nothing,
+      reservedDBInstancesOfferingId = Prelude.Nothing
     }
 
 -- | The duration of the reservation in seconds.
-rdiDuration :: Lens' ReservedDBInstance (Maybe Int)
-rdiDuration = lens _rdiDuration (\s a -> s {_rdiDuration = a})
+reservedDBInstance_duration :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Int)
+reservedDBInstance_duration = Lens.lens (\ReservedDBInstance' {duration} -> duration) (\s@ReservedDBInstance' {} a -> s {duration = a} :: ReservedDBInstance)
 
 -- | The Amazon Resource Name (ARN) for the reserved DB instance.
-rdiReservedDBInstanceARN :: Lens' ReservedDBInstance (Maybe Text)
-rdiReservedDBInstanceARN = lens _rdiReservedDBInstanceARN (\s a -> s {_rdiReservedDBInstanceARN = a})
+reservedDBInstance_reservedDBInstanceArn :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_reservedDBInstanceArn = Lens.lens (\ReservedDBInstance' {reservedDBInstanceArn} -> reservedDBInstanceArn) (\s@ReservedDBInstance' {} a -> s {reservedDBInstanceArn = a} :: ReservedDBInstance)
 
 -- | The time the reservation started.
-rdiStartTime :: Lens' ReservedDBInstance (Maybe UTCTime)
-rdiStartTime = lens _rdiStartTime (\s a -> s {_rdiStartTime = a}) . mapping _Time
+reservedDBInstance_startTime :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.UTCTime)
+reservedDBInstance_startTime = Lens.lens (\ReservedDBInstance' {startTime} -> startTime) (\s@ReservedDBInstance' {} a -> s {startTime = a} :: ReservedDBInstance) Prelude.. Lens.mapping Prelude._Time
 
 -- | The currency code for the reserved DB instance.
-rdiCurrencyCode :: Lens' ReservedDBInstance (Maybe Text)
-rdiCurrencyCode = lens _rdiCurrencyCode (\s a -> s {_rdiCurrencyCode = a})
+reservedDBInstance_currencyCode :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_currencyCode = Lens.lens (\ReservedDBInstance' {currencyCode} -> currencyCode) (\s@ReservedDBInstance' {} a -> s {currencyCode = a} :: ReservedDBInstance)
 
 -- | Indicates if the reservation applies to Multi-AZ deployments.
-rdiMultiAZ :: Lens' ReservedDBInstance (Maybe Bool)
-rdiMultiAZ = lens _rdiMultiAZ (\s a -> s {_rdiMultiAZ = a})
+reservedDBInstance_multiAZ :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Bool)
+reservedDBInstance_multiAZ = Lens.lens (\ReservedDBInstance' {multiAZ} -> multiAZ) (\s@ReservedDBInstance' {} a -> s {multiAZ = a} :: ReservedDBInstance)
 
 -- | The state of the reserved DB instance.
-rdiState :: Lens' ReservedDBInstance (Maybe Text)
-rdiState = lens _rdiState (\s a -> s {_rdiState = a})
+reservedDBInstance_state :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_state = Lens.lens (\ReservedDBInstance' {state} -> state) (\s@ReservedDBInstance' {} a -> s {state = a} :: ReservedDBInstance)
 
 -- | The number of reserved DB instances.
-rdiDBInstanceCount :: Lens' ReservedDBInstance (Maybe Int)
-rdiDBInstanceCount = lens _rdiDBInstanceCount (\s a -> s {_rdiDBInstanceCount = a})
+reservedDBInstance_dBInstanceCount :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Int)
+reservedDBInstance_dBInstanceCount = Lens.lens (\ReservedDBInstance' {dBInstanceCount} -> dBInstanceCount) (\s@ReservedDBInstance' {} a -> s {dBInstanceCount = a} :: ReservedDBInstance)
 
 -- | The DB instance class for the reserved DB instance.
-rdiDBInstanceClass :: Lens' ReservedDBInstance (Maybe Text)
-rdiDBInstanceClass = lens _rdiDBInstanceClass (\s a -> s {_rdiDBInstanceClass = a})
+reservedDBInstance_dBInstanceClass :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_dBInstanceClass = Lens.lens (\ReservedDBInstance' {dBInstanceClass} -> dBInstanceClass) (\s@ReservedDBInstance' {} a -> s {dBInstanceClass = a} :: ReservedDBInstance)
 
 -- | The unique identifier for the reservation.
-rdiReservedDBInstanceId :: Lens' ReservedDBInstance (Maybe Text)
-rdiReservedDBInstanceId = lens _rdiReservedDBInstanceId (\s a -> s {_rdiReservedDBInstanceId = a})
+reservedDBInstance_reservedDBInstanceId :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_reservedDBInstanceId = Lens.lens (\ReservedDBInstance' {reservedDBInstanceId} -> reservedDBInstanceId) (\s@ReservedDBInstance' {} a -> s {reservedDBInstanceId = a} :: ReservedDBInstance)
 
 -- | The fixed price charged for this reserved DB instance.
-rdiFixedPrice :: Lens' ReservedDBInstance (Maybe Double)
-rdiFixedPrice = lens _rdiFixedPrice (\s a -> s {_rdiFixedPrice = a})
+reservedDBInstance_fixedPrice :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Double)
+reservedDBInstance_fixedPrice = Lens.lens (\ReservedDBInstance' {fixedPrice} -> fixedPrice) (\s@ReservedDBInstance' {} a -> s {fixedPrice = a} :: ReservedDBInstance)
 
--- | The unique identifier for the lease associated with the reserved DB instance.
-rdiLeaseId :: Lens' ReservedDBInstance (Maybe Text)
-rdiLeaseId = lens _rdiLeaseId (\s a -> s {_rdiLeaseId = a})
+-- | The unique identifier for the lease associated with the reserved DB
+-- instance.
+--
+-- AWS Support might request the lease ID for an issue related to a
+-- reserved DB instance.
+reservedDBInstance_leaseId :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_leaseId = Lens.lens (\ReservedDBInstance' {leaseId} -> leaseId) (\s@ReservedDBInstance' {} a -> s {leaseId = a} :: ReservedDBInstance)
 
 -- | The hourly price charged for this reserved DB instance.
-rdiUsagePrice :: Lens' ReservedDBInstance (Maybe Double)
-rdiUsagePrice = lens _rdiUsagePrice (\s a -> s {_rdiUsagePrice = a})
+reservedDBInstance_usagePrice :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Double)
+reservedDBInstance_usagePrice = Lens.lens (\ReservedDBInstance' {usagePrice} -> usagePrice) (\s@ReservedDBInstance' {} a -> s {usagePrice = a} :: ReservedDBInstance)
 
 -- | The offering type of this reserved DB instance.
-rdiOfferingType :: Lens' ReservedDBInstance (Maybe Text)
-rdiOfferingType = lens _rdiOfferingType (\s a -> s {_rdiOfferingType = a})
+reservedDBInstance_offeringType :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_offeringType = Lens.lens (\ReservedDBInstance' {offeringType} -> offeringType) (\s@ReservedDBInstance' {} a -> s {offeringType = a} :: ReservedDBInstance)
 
 -- | The recurring price charged to run this reserved DB instance.
-rdiRecurringCharges :: Lens' ReservedDBInstance [RecurringCharge]
-rdiRecurringCharges = lens _rdiRecurringCharges (\s a -> s {_rdiRecurringCharges = a}) . _Default . _Coerce
+reservedDBInstance_recurringCharges :: Lens.Lens' ReservedDBInstance (Prelude.Maybe [RecurringCharge])
+reservedDBInstance_recurringCharges = Lens.lens (\ReservedDBInstance' {recurringCharges} -> recurringCharges) (\s@ReservedDBInstance' {} a -> s {recurringCharges = a} :: ReservedDBInstance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the reserved DB instance.
-rdiProductDescription :: Lens' ReservedDBInstance (Maybe Text)
-rdiProductDescription = lens _rdiProductDescription (\s a -> s {_rdiProductDescription = a})
+reservedDBInstance_productDescription :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_productDescription = Lens.lens (\ReservedDBInstance' {productDescription} -> productDescription) (\s@ReservedDBInstance' {} a -> s {productDescription = a} :: ReservedDBInstance)
 
 -- | The offering identifier.
-rdiReservedDBInstancesOfferingId :: Lens' ReservedDBInstance (Maybe Text)
-rdiReservedDBInstancesOfferingId = lens _rdiReservedDBInstancesOfferingId (\s a -> s {_rdiReservedDBInstancesOfferingId = a})
+reservedDBInstance_reservedDBInstancesOfferingId :: Lens.Lens' ReservedDBInstance (Prelude.Maybe Prelude.Text)
+reservedDBInstance_reservedDBInstancesOfferingId = Lens.lens (\ReservedDBInstance' {reservedDBInstancesOfferingId} -> reservedDBInstancesOfferingId) (\s@ReservedDBInstance' {} a -> s {reservedDBInstancesOfferingId = a} :: ReservedDBInstance)
 
-instance FromXML ReservedDBInstance where
+instance Prelude.FromXML ReservedDBInstance where
   parseXML x =
     ReservedDBInstance'
-      <$> (x .@? "Duration")
-      <*> (x .@? "ReservedDBInstanceArn")
-      <*> (x .@? "StartTime")
-      <*> (x .@? "CurrencyCode")
-      <*> (x .@? "MultiAZ")
-      <*> (x .@? "State")
-      <*> (x .@? "DBInstanceCount")
-      <*> (x .@? "DBInstanceClass")
-      <*> (x .@? "ReservedDBInstanceId")
-      <*> (x .@? "FixedPrice")
-      <*> (x .@? "LeaseId")
-      <*> (x .@? "UsagePrice")
-      <*> (x .@? "OfferingType")
-      <*> ( x .@? "RecurringCharges" .!@ mempty
-              >>= may (parseXMLList "RecurringCharge")
-          )
-      <*> (x .@? "ProductDescription")
-      <*> (x .@? "ReservedDBInstancesOfferingId")
+      Prelude.<$> (x Prelude..@? "Duration")
+      Prelude.<*> (x Prelude..@? "ReservedDBInstanceArn")
+      Prelude.<*> (x Prelude..@? "StartTime")
+      Prelude.<*> (x Prelude..@? "CurrencyCode")
+      Prelude.<*> (x Prelude..@? "MultiAZ")
+      Prelude.<*> (x Prelude..@? "State")
+      Prelude.<*> (x Prelude..@? "DBInstanceCount")
+      Prelude.<*> (x Prelude..@? "DBInstanceClass")
+      Prelude.<*> (x Prelude..@? "ReservedDBInstanceId")
+      Prelude.<*> (x Prelude..@? "FixedPrice")
+      Prelude.<*> (x Prelude..@? "LeaseId")
+      Prelude.<*> (x Prelude..@? "UsagePrice")
+      Prelude.<*> (x Prelude..@? "OfferingType")
+      Prelude.<*> ( x Prelude..@? "RecurringCharges"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "RecurringCharge")
+                  )
+      Prelude.<*> (x Prelude..@? "ProductDescription")
+      Prelude.<*> (x Prelude..@? "ReservedDBInstancesOfferingId")
 
-instance Hashable ReservedDBInstance
+instance Prelude.Hashable ReservedDBInstance
 
-instance NFData ReservedDBInstance
+instance Prelude.NFData ReservedDBInstance

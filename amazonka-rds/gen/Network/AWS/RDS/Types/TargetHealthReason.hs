@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.RDS.Types.TargetHealthReason
   ( TargetHealthReason
       ( ..,
-        AuthFailure,
-        ConnectionFailed,
-        PendingProxyCapacity,
-        Unreachable
+        TargetHealthReasonAUTHFAILURE,
+        TargetHealthReasonCONNECTIONFAILED,
+        TargetHealthReasonPENDINGPROXYCAPACITY,
+        TargetHealthReasonUNREACHABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetHealthReason
-  = TargetHealthReason'
-      ( CI
-          Text
-      )
+newtype TargetHealthReason = TargetHealthReason'
+  { fromTargetHealthReason ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AuthFailure :: TargetHealthReason
-pattern AuthFailure = TargetHealthReason' "AUTH_FAILURE"
+pattern TargetHealthReasonAUTHFAILURE :: TargetHealthReason
+pattern TargetHealthReasonAUTHFAILURE = TargetHealthReason' "AUTH_FAILURE"
 
-pattern ConnectionFailed :: TargetHealthReason
-pattern ConnectionFailed = TargetHealthReason' "CONNECTION_FAILED"
+pattern TargetHealthReasonCONNECTIONFAILED :: TargetHealthReason
+pattern TargetHealthReasonCONNECTIONFAILED = TargetHealthReason' "CONNECTION_FAILED"
 
-pattern PendingProxyCapacity :: TargetHealthReason
-pattern PendingProxyCapacity = TargetHealthReason' "PENDING_PROXY_CAPACITY"
+pattern TargetHealthReasonPENDINGPROXYCAPACITY :: TargetHealthReason
+pattern TargetHealthReasonPENDINGPROXYCAPACITY = TargetHealthReason' "PENDING_PROXY_CAPACITY"
 
-pattern Unreachable :: TargetHealthReason
-pattern Unreachable = TargetHealthReason' "UNREACHABLE"
+pattern TargetHealthReasonUNREACHABLE :: TargetHealthReason
+pattern TargetHealthReasonUNREACHABLE = TargetHealthReason' "UNREACHABLE"
 
 {-# COMPLETE
-  AuthFailure,
-  ConnectionFailed,
-  PendingProxyCapacity,
-  Unreachable,
+  TargetHealthReasonAUTHFAILURE,
+  TargetHealthReasonCONNECTIONFAILED,
+  TargetHealthReasonPENDINGPROXYCAPACITY,
+  TargetHealthReasonUNREACHABLE,
   TargetHealthReason'
   #-}
 
-instance FromText TargetHealthReason where
-  parser = (TargetHealthReason' . mk) <$> takeText
+instance Prelude.FromText TargetHealthReason where
+  parser = TargetHealthReason' Prelude.<$> Prelude.takeText
 
-instance ToText TargetHealthReason where
-  toText (TargetHealthReason' ci) = original ci
+instance Prelude.ToText TargetHealthReason where
+  toText (TargetHealthReason' x) = x
 
-instance Hashable TargetHealthReason
+instance Prelude.Hashable TargetHealthReason
 
-instance NFData TargetHealthReason
+instance Prelude.NFData TargetHealthReason
 
-instance ToByteString TargetHealthReason
+instance Prelude.ToByteString TargetHealthReason
 
-instance ToQuery TargetHealthReason
+instance Prelude.ToQuery TargetHealthReason
 
-instance ToHeader TargetHealthReason
+instance Prelude.ToHeader TargetHealthReason
 
-instance FromXML TargetHealthReason where
-  parseXML = parseXMLText "TargetHealthReason"
+instance Prelude.FromXML TargetHealthReason where
+  parseXML = Prelude.parseXMLText "TargetHealthReason"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Override the system-default Secure Sockets Layer/Transport Layer Security (SSL/TLS) certificate for Amazon RDS for new DB instances temporarily, or remove the override.
+-- Override the system-default Secure Sockets Layer\/Transport Layer
+-- Security (SSL\/TLS) certificate for Amazon RDS for new DB instances
+-- temporarily, or remove the override.
 --
+-- By using this operation, you can specify an RDS-approved SSL\/TLS
+-- certificate for new DB instances that is different from the default
+-- certificate provided by RDS. You can also use this operation to remove
+-- the override, so that new DB instances use the default certificate
+-- provided by RDS.
 --
--- By using this operation, you can specify an RDS-approved SSL/TLS certificate for new DB instances that is different from the default certificate provided by RDS. You can also use this operation to remove the override, so that new DB instances use the default certificate provided by RDS.
+-- You might need to override the default certificate in the following
+-- situations:
 --
--- You might need to override the default certificate in the following situations:
+-- -   You already migrated your applications to support the latest
+--     certificate authority (CA) certificate, but the new CA certificate
+--     is not yet the RDS default CA certificate for the specified AWS
+--     Region.
 --
---     * You already migrated your applications to support the latest certificate authority (CA) certificate, but the new CA certificate is not yet the RDS default CA certificate for the specified AWS Region.
+-- -   RDS has already moved to a new default CA certificate for the
+--     specified AWS Region, but you are still in the process of supporting
+--     the new CA certificate. In this case, you temporarily need
+--     additional time to finish your application changes.
 --
---     * RDS has already moved to a new default CA certificate for the specified AWS Region, but you are still in the process of supporting the new CA certificate. In this case, you temporarily need additional time to finish your application changes.
+-- For more information about rotating your SSL\/TLS certificate for RDS DB
+-- engines, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL-certificate-rotation.html Rotating Your SSL\/TLS Certificate>
+-- in the /Amazon RDS User Guide/.
 --
---
---
--- For more information about rotating your SSL/TLS certificate for RDS DB engines, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL-certificate-rotation.html Rotating Your SSL/TLS Certificate> in the /Amazon RDS User Guide/ .
---
--- For more information about rotating your SSL/TLS certificate for Aurora DB engines, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL-certificate-rotation.html Rotating Your SSL/TLS Certificate> in the /Amazon Aurora User Guide/ .
+-- For more information about rotating your SSL\/TLS certificate for Aurora
+-- DB engines, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL-certificate-rotation.html Rotating Your SSL\/TLS Certificate>
+-- in the /Amazon Aurora User Guide/.
 module Network.AWS.RDS.ModifyCertificates
   ( -- * Creating a Request
-    modifyCertificates,
-    ModifyCertificates,
+    ModifyCertificates (..),
+    newModifyCertificates,
 
     -- * Request Lenses
-    mcCertificateIdentifier,
-    mcRemoveCustomerOverride,
+    modifyCertificates_certificateIdentifier,
+    modifyCertificates_removeCustomerOverride,
 
     -- * Destructuring the Response
-    modifyCertificatesResponse,
-    ModifyCertificatesResponse,
+    ModifyCertificatesResponse (..),
+    newModifyCertificatesResponse,
 
     -- * Response Lenses
-    mcrrsCertificate,
-    mcrrsResponseStatus,
+    modifyCertificatesResponse_certificate,
+    modifyCertificatesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.Certificate
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyCertificates' smart constructor.
+-- | /See:/ 'newModifyCertificates' smart constructor.
 data ModifyCertificates = ModifyCertificates'
-  { _mcCertificateIdentifier ::
-      !(Maybe Text),
-    _mcRemoveCustomerOverride ::
-      !(Maybe Bool)
+  { -- | The new default certificate identifier to override the current one with.
+    --
+    -- To determine the valid values, use the @describe-certificates@ AWS CLI
+    -- command or the @DescribeCertificates@ API operation.
+    certificateIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to remove the override for the default
+    -- certificate. If the override is removed, the default certificate is the
+    -- system default.
+    removeCustomerOverride :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyCertificates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyCertificates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcCertificateIdentifier' - The new default certificate identifier to override the current one with. To determine the valid values, use the @describe-certificates@ AWS CLI command or the @DescribeCertificates@ API operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mcRemoveCustomerOverride' - A value that indicates whether to remove the override for the default certificate. If the override is removed, the default certificate is the system default.
-modifyCertificates ::
+-- 'certificateIdentifier', 'modifyCertificates_certificateIdentifier' - The new default certificate identifier to override the current one with.
+--
+-- To determine the valid values, use the @describe-certificates@ AWS CLI
+-- command or the @DescribeCertificates@ API operation.
+--
+-- 'removeCustomerOverride', 'modifyCertificates_removeCustomerOverride' - A value that indicates whether to remove the override for the default
+-- certificate. If the override is removed, the default certificate is the
+-- system default.
+newModifyCertificates ::
   ModifyCertificates
-modifyCertificates =
+newModifyCertificates =
   ModifyCertificates'
-    { _mcCertificateIdentifier =
-        Nothing,
-      _mcRemoveCustomerOverride = Nothing
+    { certificateIdentifier =
+        Prelude.Nothing,
+      removeCustomerOverride = Prelude.Nothing
     }
 
--- | The new default certificate identifier to override the current one with. To determine the valid values, use the @describe-certificates@ AWS CLI command or the @DescribeCertificates@ API operation.
-mcCertificateIdentifier :: Lens' ModifyCertificates (Maybe Text)
-mcCertificateIdentifier = lens _mcCertificateIdentifier (\s a -> s {_mcCertificateIdentifier = a})
+-- | The new default certificate identifier to override the current one with.
+--
+-- To determine the valid values, use the @describe-certificates@ AWS CLI
+-- command or the @DescribeCertificates@ API operation.
+modifyCertificates_certificateIdentifier :: Lens.Lens' ModifyCertificates (Prelude.Maybe Prelude.Text)
+modifyCertificates_certificateIdentifier = Lens.lens (\ModifyCertificates' {certificateIdentifier} -> certificateIdentifier) (\s@ModifyCertificates' {} a -> s {certificateIdentifier = a} :: ModifyCertificates)
 
--- | A value that indicates whether to remove the override for the default certificate. If the override is removed, the default certificate is the system default.
-mcRemoveCustomerOverride :: Lens' ModifyCertificates (Maybe Bool)
-mcRemoveCustomerOverride = lens _mcRemoveCustomerOverride (\s a -> s {_mcRemoveCustomerOverride = a})
+-- | A value that indicates whether to remove the override for the default
+-- certificate. If the override is removed, the default certificate is the
+-- system default.
+modifyCertificates_removeCustomerOverride :: Lens.Lens' ModifyCertificates (Prelude.Maybe Prelude.Bool)
+modifyCertificates_removeCustomerOverride = Lens.lens (\ModifyCertificates' {removeCustomerOverride} -> removeCustomerOverride) (\s@ModifyCertificates' {} a -> s {removeCustomerOverride = a} :: ModifyCertificates)
 
-instance AWSRequest ModifyCertificates where
+instance Prelude.AWSRequest ModifyCertificates where
   type
     Rs ModifyCertificates =
       ModifyCertificatesResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyCertificatesResult"
       ( \s h x ->
           ModifyCertificatesResponse'
-            <$> (x .@? "Certificate") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Certificate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyCertificates
+instance Prelude.Hashable ModifyCertificates
 
-instance NFData ModifyCertificates
+instance Prelude.NFData ModifyCertificates
 
-instance ToHeaders ModifyCertificates where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyCertificates where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyCertificates where
-  toPath = const "/"
+instance Prelude.ToPath ModifyCertificates where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyCertificates where
+instance Prelude.ToQuery ModifyCertificates where
   toQuery ModifyCertificates' {..} =
-    mconcat
-      [ "Action" =: ("ModifyCertificates" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "CertificateIdentifier" =: _mcCertificateIdentifier,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyCertificates" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "CertificateIdentifier"
+          Prelude.=: certificateIdentifier,
         "RemoveCustomerOverride"
-          =: _mcRemoveCustomerOverride
+          Prelude.=: removeCustomerOverride
       ]
 
--- | /See:/ 'modifyCertificatesResponse' smart constructor.
+-- | /See:/ 'newModifyCertificatesResponse' smart constructor.
 data ModifyCertificatesResponse = ModifyCertificatesResponse'
-  { _mcrrsCertificate ::
-      !( Maybe
-           Certificate
-       ),
-    _mcrrsResponseStatus ::
-      !Int
+  { certificate :: Prelude.Maybe Certificate,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyCertificatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyCertificatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcrrsCertificate' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mcrrsResponseStatus' - -- | The response status code.
-modifyCertificatesResponse ::
-  -- | 'mcrrsResponseStatus'
-  Int ->
+-- 'certificate', 'modifyCertificatesResponse_certificate' - Undocumented member.
+--
+-- 'httpStatus', 'modifyCertificatesResponse_httpStatus' - The response's http status code.
+newModifyCertificatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyCertificatesResponse
-modifyCertificatesResponse pResponseStatus_ =
+newModifyCertificatesResponse pHttpStatus_ =
   ModifyCertificatesResponse'
-    { _mcrrsCertificate =
-        Nothing,
-      _mcrrsResponseStatus = pResponseStatus_
+    { certificate =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-mcrrsCertificate :: Lens' ModifyCertificatesResponse (Maybe Certificate)
-mcrrsCertificate = lens _mcrrsCertificate (\s a -> s {_mcrrsCertificate = a})
+modifyCertificatesResponse_certificate :: Lens.Lens' ModifyCertificatesResponse (Prelude.Maybe Certificate)
+modifyCertificatesResponse_certificate = Lens.lens (\ModifyCertificatesResponse' {certificate} -> certificate) (\s@ModifyCertificatesResponse' {} a -> s {certificate = a} :: ModifyCertificatesResponse)
 
--- | -- | The response status code.
-mcrrsResponseStatus :: Lens' ModifyCertificatesResponse Int
-mcrrsResponseStatus = lens _mcrrsResponseStatus (\s a -> s {_mcrrsResponseStatus = a})
+-- | The response's http status code.
+modifyCertificatesResponse_httpStatus :: Lens.Lens' ModifyCertificatesResponse Prelude.Int
+modifyCertificatesResponse_httpStatus = Lens.lens (\ModifyCertificatesResponse' {httpStatus} -> httpStatus) (\s@ModifyCertificatesResponse' {} a -> s {httpStatus = a} :: ModifyCertificatesResponse)
 
-instance NFData ModifyCertificatesResponse
+instance Prelude.NFData ModifyCertificatesResponse

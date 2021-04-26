@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes a source identifier from an existing RDS event notification subscription.
+-- Removes a source identifier from an existing RDS event notification
+-- subscription.
 module Network.AWS.RDS.RemoveSourceIdentifierFromSubscription
   ( -- * Creating a Request
-    removeSourceIdentifierFromSubscription,
-    RemoveSourceIdentifierFromSubscription,
+    RemoveSourceIdentifierFromSubscription (..),
+    newRemoveSourceIdentifierFromSubscription,
 
     -- * Request Lenses
-    rsifsSubscriptionName,
-    rsifsSourceIdentifier,
+    removeSourceIdentifierFromSubscription_subscriptionName,
+    removeSourceIdentifierFromSubscription_sourceIdentifier,
 
     -- * Destructuring the Response
-    removeSourceIdentifierFromSubscriptionResponse,
-    RemoveSourceIdentifierFromSubscriptionResponse,
+    RemoveSourceIdentifierFromSubscriptionResponse (..),
+    newRemoveSourceIdentifierFromSubscriptionResponse,
 
     -- * Response Lenses
-    rsifsrrsEventSubscription,
-    rsifsrrsResponseStatus,
+    removeSourceIdentifierFromSubscriptionResponse_eventSubscription,
+    removeSourceIdentifierFromSubscriptionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.EventSubscription
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'removeSourceIdentifierFromSubscription' smart constructor.
+-- /See:/ 'newRemoveSourceIdentifierFromSubscription' smart constructor.
 data RemoveSourceIdentifierFromSubscription = RemoveSourceIdentifierFromSubscription'
-  { _rsifsSubscriptionName ::
-      !Text,
-    _rsifsSourceIdentifier ::
-      !Text
+  { -- | The name of the RDS event notification subscription you want to remove a
+    -- source identifier from.
+    subscriptionName :: Prelude.Text,
+    -- | The source identifier to be removed from the subscription, such as the
+    -- __DB instance identifier__ for a DB instance or the name of a security
+    -- group.
+    sourceIdentifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveSourceIdentifierFromSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveSourceIdentifierFromSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsifsSubscriptionName' - The name of the RDS event notification subscription you want to remove a source identifier from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsifsSourceIdentifier' - The source identifier to be removed from the subscription, such as the __DB instance identifier__ for a DB instance or the name of a security group.
-removeSourceIdentifierFromSubscription ::
-  -- | 'rsifsSubscriptionName'
-  Text ->
-  -- | 'rsifsSourceIdentifier'
-  Text ->
+-- 'subscriptionName', 'removeSourceIdentifierFromSubscription_subscriptionName' - The name of the RDS event notification subscription you want to remove a
+-- source identifier from.
+--
+-- 'sourceIdentifier', 'removeSourceIdentifierFromSubscription_sourceIdentifier' - The source identifier to be removed from the subscription, such as the
+-- __DB instance identifier__ for a DB instance or the name of a security
+-- group.
+newRemoveSourceIdentifierFromSubscription ::
+  -- | 'subscriptionName'
+  Prelude.Text ->
+  -- | 'sourceIdentifier'
+  Prelude.Text ->
   RemoveSourceIdentifierFromSubscription
-removeSourceIdentifierFromSubscription
+newRemoveSourceIdentifierFromSubscription
   pSubscriptionName_
   pSourceIdentifier_ =
     RemoveSourceIdentifierFromSubscription'
-      { _rsifsSubscriptionName =
+      { subscriptionName =
           pSubscriptionName_,
-        _rsifsSourceIdentifier =
+        sourceIdentifier =
           pSourceIdentifier_
       }
 
--- | The name of the RDS event notification subscription you want to remove a source identifier from.
-rsifsSubscriptionName :: Lens' RemoveSourceIdentifierFromSubscription Text
-rsifsSubscriptionName = lens _rsifsSubscriptionName (\s a -> s {_rsifsSubscriptionName = a})
+-- | The name of the RDS event notification subscription you want to remove a
+-- source identifier from.
+removeSourceIdentifierFromSubscription_subscriptionName :: Lens.Lens' RemoveSourceIdentifierFromSubscription Prelude.Text
+removeSourceIdentifierFromSubscription_subscriptionName = Lens.lens (\RemoveSourceIdentifierFromSubscription' {subscriptionName} -> subscriptionName) (\s@RemoveSourceIdentifierFromSubscription' {} a -> s {subscriptionName = a} :: RemoveSourceIdentifierFromSubscription)
 
--- | The source identifier to be removed from the subscription, such as the __DB instance identifier__ for a DB instance or the name of a security group.
-rsifsSourceIdentifier :: Lens' RemoveSourceIdentifierFromSubscription Text
-rsifsSourceIdentifier = lens _rsifsSourceIdentifier (\s a -> s {_rsifsSourceIdentifier = a})
+-- | The source identifier to be removed from the subscription, such as the
+-- __DB instance identifier__ for a DB instance or the name of a security
+-- group.
+removeSourceIdentifierFromSubscription_sourceIdentifier :: Lens.Lens' RemoveSourceIdentifierFromSubscription Prelude.Text
+removeSourceIdentifierFromSubscription_sourceIdentifier = Lens.lens (\RemoveSourceIdentifierFromSubscription' {sourceIdentifier} -> sourceIdentifier) (\s@RemoveSourceIdentifierFromSubscription' {} a -> s {sourceIdentifier = a} :: RemoveSourceIdentifierFromSubscription)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     RemoveSourceIdentifierFromSubscription
   where
   type
     Rs RemoveSourceIdentifierFromSubscription =
       RemoveSourceIdentifierFromSubscriptionResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RemoveSourceIdentifierFromSubscriptionResult"
       ( \s h x ->
           RemoveSourceIdentifierFromSubscriptionResponse'
-            <$> (x .@? "EventSubscription") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "EventSubscription")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     RemoveSourceIdentifierFromSubscription
 
 instance
-  NFData
+  Prelude.NFData
     RemoveSourceIdentifierFromSubscription
 
 instance
-  ToHeaders
-    RemoveSourceIdentifierFromSubscription
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     RemoveSourceIdentifierFromSubscription
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    RemoveSourceIdentifierFromSubscription
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     RemoveSourceIdentifierFromSubscription
   where
   toQuery RemoveSourceIdentifierFromSubscription' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "RemoveSourceIdentifierFromSubscription" ::
-                 ByteString
-             ),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "SubscriptionName" =: _rsifsSubscriptionName,
-        "SourceIdentifier" =: _rsifsSourceIdentifier
+          Prelude.=: ( "RemoveSourceIdentifierFromSubscription" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "SubscriptionName" Prelude.=: subscriptionName,
+        "SourceIdentifier" Prelude.=: sourceIdentifier
       ]
 
--- | /See:/ 'removeSourceIdentifierFromSubscriptionResponse' smart constructor.
+-- | /See:/ 'newRemoveSourceIdentifierFromSubscriptionResponse' smart constructor.
 data RemoveSourceIdentifierFromSubscriptionResponse = RemoveSourceIdentifierFromSubscriptionResponse'
-  { _rsifsrrsEventSubscription ::
-      !( Maybe
-           EventSubscription
-       ),
-    _rsifsrrsResponseStatus ::
-      !Int
+  { eventSubscription :: Prelude.Maybe EventSubscription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveSourceIdentifierFromSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveSourceIdentifierFromSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsifsrrsEventSubscription' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsifsrrsResponseStatus' - -- | The response status code.
-removeSourceIdentifierFromSubscriptionResponse ::
-  -- | 'rsifsrrsResponseStatus'
-  Int ->
+-- 'eventSubscription', 'removeSourceIdentifierFromSubscriptionResponse_eventSubscription' - Undocumented member.
+--
+-- 'httpStatus', 'removeSourceIdentifierFromSubscriptionResponse_httpStatus' - The response's http status code.
+newRemoveSourceIdentifierFromSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RemoveSourceIdentifierFromSubscriptionResponse
-removeSourceIdentifierFromSubscriptionResponse
-  pResponseStatus_ =
+newRemoveSourceIdentifierFromSubscriptionResponse
+  pHttpStatus_ =
     RemoveSourceIdentifierFromSubscriptionResponse'
-      { _rsifsrrsEventSubscription =
-          Nothing,
-        _rsifsrrsResponseStatus =
-          pResponseStatus_
+      { eventSubscription =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-rsifsrrsEventSubscription :: Lens' RemoveSourceIdentifierFromSubscriptionResponse (Maybe EventSubscription)
-rsifsrrsEventSubscription = lens _rsifsrrsEventSubscription (\s a -> s {_rsifsrrsEventSubscription = a})
+removeSourceIdentifierFromSubscriptionResponse_eventSubscription :: Lens.Lens' RemoveSourceIdentifierFromSubscriptionResponse (Prelude.Maybe EventSubscription)
+removeSourceIdentifierFromSubscriptionResponse_eventSubscription = Lens.lens (\RemoveSourceIdentifierFromSubscriptionResponse' {eventSubscription} -> eventSubscription) (\s@RemoveSourceIdentifierFromSubscriptionResponse' {} a -> s {eventSubscription = a} :: RemoveSourceIdentifierFromSubscriptionResponse)
 
--- | -- | The response status code.
-rsifsrrsResponseStatus :: Lens' RemoveSourceIdentifierFromSubscriptionResponse Int
-rsifsrrsResponseStatus = lens _rsifsrrsResponseStatus (\s a -> s {_rsifsrrsResponseStatus = a})
+-- | The response's http status code.
+removeSourceIdentifierFromSubscriptionResponse_httpStatus :: Lens.Lens' RemoveSourceIdentifierFromSubscriptionResponse Prelude.Int
+removeSourceIdentifierFromSubscriptionResponse_httpStatus = Lens.lens (\RemoveSourceIdentifierFromSubscriptionResponse' {httpStatus} -> httpStatus) (\s@RemoveSourceIdentifierFromSubscriptionResponse' {} a -> s {httpStatus = a} :: RemoveSourceIdentifierFromSubscriptionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     RemoveSourceIdentifierFromSubscriptionResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,171 +24,223 @@
 -- Copies the specified option group.
 module Network.AWS.RDS.CopyOptionGroup
   ( -- * Creating a Request
-    copyOptionGroup,
-    CopyOptionGroup,
+    CopyOptionGroup (..),
+    newCopyOptionGroup,
 
     -- * Request Lenses
-    cogTags,
-    cogSourceOptionGroupIdentifier,
-    cogTargetOptionGroupIdentifier,
-    cogTargetOptionGroupDescription,
+    copyOptionGroup_tags,
+    copyOptionGroup_sourceOptionGroupIdentifier,
+    copyOptionGroup_targetOptionGroupIdentifier,
+    copyOptionGroup_targetOptionGroupDescription,
 
     -- * Destructuring the Response
-    copyOptionGroupResponse,
-    CopyOptionGroupResponse,
+    CopyOptionGroupResponse (..),
+    newCopyOptionGroupResponse,
 
     -- * Response Lenses
-    crsOptionGroup,
-    crsResponseStatus,
+    copyOptionGroupResponse_optionGroup,
+    copyOptionGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.OptionGroup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'copyOptionGroup' smart constructor.
+-- /See:/ 'newCopyOptionGroup' smart constructor.
 data CopyOptionGroup = CopyOptionGroup'
-  { _cogTags ::
-      !(Maybe [Tag]),
-    _cogSourceOptionGroupIdentifier ::
-      !Text,
-    _cogTargetOptionGroupIdentifier ::
-      !Text,
-    _cogTargetOptionGroupDescription ::
-      !Text
+  { tags :: Prelude.Maybe [Tag],
+    -- | The identifier for the source option group.
+    --
+    -- Constraints:
+    --
+    -- -   Must specify a valid option group.
+    sourceOptionGroupIdentifier :: Prelude.Text,
+    -- | The identifier for the copied option group.
+    --
+    -- Constraints:
+    --
+    -- -   Can\'t be null, empty, or blank
+    --
+    -- -   Must contain from 1 to 255 letters, numbers, or hyphens
+    --
+    -- -   First character must be a letter
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens
+    --
+    -- Example: @my-option-group@
+    targetOptionGroupIdentifier :: Prelude.Text,
+    -- | The description for the copied option group.
+    targetOptionGroupDescription :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopyOptionGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopyOptionGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cogTags' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cogSourceOptionGroupIdentifier' - The identifier for the source option group.  Constraints:     * Must specify a valid option group.
+-- 'tags', 'copyOptionGroup_tags' - Undocumented member.
 --
--- * 'cogTargetOptionGroupIdentifier' - The identifier for the copied option group. Constraints:     * Can't be null, empty, or blank     * Must contain from 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens Example: @my-option-group@
+-- 'sourceOptionGroupIdentifier', 'copyOptionGroup_sourceOptionGroupIdentifier' - The identifier for the source option group.
 --
--- * 'cogTargetOptionGroupDescription' - The description for the copied option group.
-copyOptionGroup ::
-  -- | 'cogSourceOptionGroupIdentifier'
-  Text ->
-  -- | 'cogTargetOptionGroupIdentifier'
-  Text ->
-  -- | 'cogTargetOptionGroupDescription'
-  Text ->
+-- Constraints:
+--
+-- -   Must specify a valid option group.
+--
+-- 'targetOptionGroupIdentifier', 'copyOptionGroup_targetOptionGroupIdentifier' - The identifier for the copied option group.
+--
+-- Constraints:
+--
+-- -   Can\'t be null, empty, or blank
+--
+-- -   Must contain from 1 to 255 letters, numbers, or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-option-group@
+--
+-- 'targetOptionGroupDescription', 'copyOptionGroup_targetOptionGroupDescription' - The description for the copied option group.
+newCopyOptionGroup ::
+  -- | 'sourceOptionGroupIdentifier'
+  Prelude.Text ->
+  -- | 'targetOptionGroupIdentifier'
+  Prelude.Text ->
+  -- | 'targetOptionGroupDescription'
+  Prelude.Text ->
   CopyOptionGroup
-copyOptionGroup
+newCopyOptionGroup
   pSourceOptionGroupIdentifier_
   pTargetOptionGroupIdentifier_
   pTargetOptionGroupDescription_ =
     CopyOptionGroup'
-      { _cogTags = Nothing,
-        _cogSourceOptionGroupIdentifier =
+      { tags = Prelude.Nothing,
+        sourceOptionGroupIdentifier =
           pSourceOptionGroupIdentifier_,
-        _cogTargetOptionGroupIdentifier =
+        targetOptionGroupIdentifier =
           pTargetOptionGroupIdentifier_,
-        _cogTargetOptionGroupDescription =
+        targetOptionGroupDescription =
           pTargetOptionGroupDescription_
       }
 
 -- | Undocumented member.
-cogTags :: Lens' CopyOptionGroup [Tag]
-cogTags = lens _cogTags (\s a -> s {_cogTags = a}) . _Default . _Coerce
+copyOptionGroup_tags :: Lens.Lens' CopyOptionGroup (Prelude.Maybe [Tag])
+copyOptionGroup_tags = Lens.lens (\CopyOptionGroup' {tags} -> tags) (\s@CopyOptionGroup' {} a -> s {tags = a} :: CopyOptionGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The identifier for the source option group.  Constraints:     * Must specify a valid option group.
-cogSourceOptionGroupIdentifier :: Lens' CopyOptionGroup Text
-cogSourceOptionGroupIdentifier = lens _cogSourceOptionGroupIdentifier (\s a -> s {_cogSourceOptionGroupIdentifier = a})
+-- | The identifier for the source option group.
+--
+-- Constraints:
+--
+-- -   Must specify a valid option group.
+copyOptionGroup_sourceOptionGroupIdentifier :: Lens.Lens' CopyOptionGroup Prelude.Text
+copyOptionGroup_sourceOptionGroupIdentifier = Lens.lens (\CopyOptionGroup' {sourceOptionGroupIdentifier} -> sourceOptionGroupIdentifier) (\s@CopyOptionGroup' {} a -> s {sourceOptionGroupIdentifier = a} :: CopyOptionGroup)
 
--- | The identifier for the copied option group. Constraints:     * Can't be null, empty, or blank     * Must contain from 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens Example: @my-option-group@
-cogTargetOptionGroupIdentifier :: Lens' CopyOptionGroup Text
-cogTargetOptionGroupIdentifier = lens _cogTargetOptionGroupIdentifier (\s a -> s {_cogTargetOptionGroupIdentifier = a})
+-- | The identifier for the copied option group.
+--
+-- Constraints:
+--
+-- -   Can\'t be null, empty, or blank
+--
+-- -   Must contain from 1 to 255 letters, numbers, or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-option-group@
+copyOptionGroup_targetOptionGroupIdentifier :: Lens.Lens' CopyOptionGroup Prelude.Text
+copyOptionGroup_targetOptionGroupIdentifier = Lens.lens (\CopyOptionGroup' {targetOptionGroupIdentifier} -> targetOptionGroupIdentifier) (\s@CopyOptionGroup' {} a -> s {targetOptionGroupIdentifier = a} :: CopyOptionGroup)
 
 -- | The description for the copied option group.
-cogTargetOptionGroupDescription :: Lens' CopyOptionGroup Text
-cogTargetOptionGroupDescription = lens _cogTargetOptionGroupDescription (\s a -> s {_cogTargetOptionGroupDescription = a})
+copyOptionGroup_targetOptionGroupDescription :: Lens.Lens' CopyOptionGroup Prelude.Text
+copyOptionGroup_targetOptionGroupDescription = Lens.lens (\CopyOptionGroup' {targetOptionGroupDescription} -> targetOptionGroupDescription) (\s@CopyOptionGroup' {} a -> s {targetOptionGroupDescription = a} :: CopyOptionGroup)
 
-instance AWSRequest CopyOptionGroup where
+instance Prelude.AWSRequest CopyOptionGroup where
   type Rs CopyOptionGroup = CopyOptionGroupResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CopyOptionGroupResult"
       ( \s h x ->
           CopyOptionGroupResponse'
-            <$> (x .@? "OptionGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "OptionGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CopyOptionGroup
+instance Prelude.Hashable CopyOptionGroup
 
-instance NFData CopyOptionGroup
+instance Prelude.NFData CopyOptionGroup
 
-instance ToHeaders CopyOptionGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CopyOptionGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CopyOptionGroup where
-  toPath = const "/"
+instance Prelude.ToPath CopyOptionGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CopyOptionGroup where
+instance Prelude.ToQuery CopyOptionGroup where
   toQuery CopyOptionGroup' {..} =
-    mconcat
-      [ "Action" =: ("CopyOptionGroup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "Tags" =: toQuery (toQueryList "Tag" <$> _cogTags),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CopyOptionGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
         "SourceOptionGroupIdentifier"
-          =: _cogSourceOptionGroupIdentifier,
+          Prelude.=: sourceOptionGroupIdentifier,
         "TargetOptionGroupIdentifier"
-          =: _cogTargetOptionGroupIdentifier,
+          Prelude.=: targetOptionGroupIdentifier,
         "TargetOptionGroupDescription"
-          =: _cogTargetOptionGroupDescription
+          Prelude.=: targetOptionGroupDescription
       ]
 
--- | /See:/ 'copyOptionGroupResponse' smart constructor.
+-- | /See:/ 'newCopyOptionGroupResponse' smart constructor.
 data CopyOptionGroupResponse = CopyOptionGroupResponse'
-  { _crsOptionGroup ::
-      !(Maybe OptionGroup),
-    _crsResponseStatus ::
-      !Int
+  { optionGroup :: Prelude.Maybe OptionGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopyOptionGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopyOptionGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsOptionGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crsResponseStatus' - -- | The response status code.
-copyOptionGroupResponse ::
-  -- | 'crsResponseStatus'
-  Int ->
+-- 'optionGroup', 'copyOptionGroupResponse_optionGroup' - Undocumented member.
+--
+-- 'httpStatus', 'copyOptionGroupResponse_httpStatus' - The response's http status code.
+newCopyOptionGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CopyOptionGroupResponse
-copyOptionGroupResponse pResponseStatus_ =
+newCopyOptionGroupResponse pHttpStatus_ =
   CopyOptionGroupResponse'
-    { _crsOptionGroup = Nothing,
-      _crsResponseStatus = pResponseStatus_
+    { optionGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-crsOptionGroup :: Lens' CopyOptionGroupResponse (Maybe OptionGroup)
-crsOptionGroup = lens _crsOptionGroup (\s a -> s {_crsOptionGroup = a})
+copyOptionGroupResponse_optionGroup :: Lens.Lens' CopyOptionGroupResponse (Prelude.Maybe OptionGroup)
+copyOptionGroupResponse_optionGroup = Lens.lens (\CopyOptionGroupResponse' {optionGroup} -> optionGroup) (\s@CopyOptionGroupResponse' {} a -> s {optionGroup = a} :: CopyOptionGroupResponse)
 
--- | -- | The response status code.
-crsResponseStatus :: Lens' CopyOptionGroupResponse Int
-crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
+-- | The response's http status code.
+copyOptionGroupResponse_httpStatus :: Lens.Lens' CopyOptionGroupResponse Prelude.Int
+copyOptionGroupResponse_httpStatus = Lens.lens (\CopyOptionGroupResponse' {httpStatus} -> httpStatus) (\s@CopyOptionGroupResponse' {} a -> s {httpStatus = a} :: CopyOptionGroupResponse)
 
-instance NFData CopyOptionGroupResponse
+instance Prelude.NFData CopyOptionGroupResponse

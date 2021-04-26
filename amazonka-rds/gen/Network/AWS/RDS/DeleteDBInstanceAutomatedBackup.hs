@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes automated backups using the @DbiResourceId@ value of the source DB instance or the Amazon Resource Name (ARN) of the automated backups.
+-- Deletes automated backups using the @DbiResourceId@ value of the source
+-- DB instance or the Amazon Resource Name (ARN) of the automated backups.
 module Network.AWS.RDS.DeleteDBInstanceAutomatedBackup
   ( -- * Creating a Request
-    deleteDBInstanceAutomatedBackup,
-    DeleteDBInstanceAutomatedBackup,
+    DeleteDBInstanceAutomatedBackup (..),
+    newDeleteDBInstanceAutomatedBackup,
 
     -- * Request Lenses
-    ddbiabDBInstanceAutomatedBackupsARN,
-    ddbiabDBiResourceId,
+    deleteDBInstanceAutomatedBackup_dBInstanceAutomatedBackupsArn,
+    deleteDBInstanceAutomatedBackup_dbiResourceId,
 
     -- * Destructuring the Response
-    deleteDBInstanceAutomatedBackupResponse,
-    DeleteDBInstanceAutomatedBackupResponse,
+    DeleteDBInstanceAutomatedBackupResponse (..),
+    newDeleteDBInstanceAutomatedBackupResponse,
 
     -- * Response Lenses
-    ddbiabrrsDBInstanceAutomatedBackup,
-    ddbiabrrsResponseStatus,
+    deleteDBInstanceAutomatedBackupResponse_dBInstanceAutomatedBackup,
+    deleteDBInstanceAutomatedBackupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstanceAutomatedBackup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Parameter input for the @DeleteDBInstanceAutomatedBackup@ operation.
 --
---
---
--- /See:/ 'deleteDBInstanceAutomatedBackup' smart constructor.
+-- /See:/ 'newDeleteDBInstanceAutomatedBackup' smart constructor.
 data DeleteDBInstanceAutomatedBackup = DeleteDBInstanceAutomatedBackup'
-  { _ddbiabDBInstanceAutomatedBackupsARN ::
-      !( Maybe
-           Text
-       ),
-    _ddbiabDBiResourceId ::
-      !( Maybe
-           Text
-       )
+  { -- | The Amazon Resource Name (ARN) of the automated backups to delete, for
+    -- example,
+    -- @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@.
+    dBInstanceAutomatedBackupsArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the source DB instance, which can\'t be changed and
+    -- which is unique to an AWS Region.
+    dbiResourceId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBInstanceAutomatedBackup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBInstanceAutomatedBackup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbiabDBInstanceAutomatedBackupsARN' - The Amazon Resource Name (ARN) of the automated backups to delete, for example, @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbiabDBiResourceId' - The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
-deleteDBInstanceAutomatedBackup ::
+-- 'dBInstanceAutomatedBackupsArn', 'deleteDBInstanceAutomatedBackup_dBInstanceAutomatedBackupsArn' - The Amazon Resource Name (ARN) of the automated backups to delete, for
+-- example,
+-- @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@.
+--
+-- 'dbiResourceId', 'deleteDBInstanceAutomatedBackup_dbiResourceId' - The identifier for the source DB instance, which can\'t be changed and
+-- which is unique to an AWS Region.
+newDeleteDBInstanceAutomatedBackup ::
   DeleteDBInstanceAutomatedBackup
-deleteDBInstanceAutomatedBackup =
+newDeleteDBInstanceAutomatedBackup =
   DeleteDBInstanceAutomatedBackup'
-    { _ddbiabDBInstanceAutomatedBackupsARN =
-        Nothing,
-      _ddbiabDBiResourceId = Nothing
+    { dBInstanceAutomatedBackupsArn =
+        Prelude.Nothing,
+      dbiResourceId = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the automated backups to delete, for example, @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@ .
-ddbiabDBInstanceAutomatedBackupsARN :: Lens' DeleteDBInstanceAutomatedBackup (Maybe Text)
-ddbiabDBInstanceAutomatedBackupsARN = lens _ddbiabDBInstanceAutomatedBackupsARN (\s a -> s {_ddbiabDBInstanceAutomatedBackupsARN = a})
+-- | The Amazon Resource Name (ARN) of the automated backups to delete, for
+-- example,
+-- @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@.
+deleteDBInstanceAutomatedBackup_dBInstanceAutomatedBackupsArn :: Lens.Lens' DeleteDBInstanceAutomatedBackup (Prelude.Maybe Prelude.Text)
+deleteDBInstanceAutomatedBackup_dBInstanceAutomatedBackupsArn = Lens.lens (\DeleteDBInstanceAutomatedBackup' {dBInstanceAutomatedBackupsArn} -> dBInstanceAutomatedBackupsArn) (\s@DeleteDBInstanceAutomatedBackup' {} a -> s {dBInstanceAutomatedBackupsArn = a} :: DeleteDBInstanceAutomatedBackup)
 
--- | The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
-ddbiabDBiResourceId :: Lens' DeleteDBInstanceAutomatedBackup (Maybe Text)
-ddbiabDBiResourceId = lens _ddbiabDBiResourceId (\s a -> s {_ddbiabDBiResourceId = a})
+-- | The identifier for the source DB instance, which can\'t be changed and
+-- which is unique to an AWS Region.
+deleteDBInstanceAutomatedBackup_dbiResourceId :: Lens.Lens' DeleteDBInstanceAutomatedBackup (Prelude.Maybe Prelude.Text)
+deleteDBInstanceAutomatedBackup_dbiResourceId = Lens.lens (\DeleteDBInstanceAutomatedBackup' {dbiResourceId} -> dbiResourceId) (\s@DeleteDBInstanceAutomatedBackup' {} a -> s {dbiResourceId = a} :: DeleteDBInstanceAutomatedBackup)
 
-instance AWSRequest DeleteDBInstanceAutomatedBackup where
+instance
+  Prelude.AWSRequest
+    DeleteDBInstanceAutomatedBackup
+  where
   type
     Rs DeleteDBInstanceAutomatedBackup =
       DeleteDBInstanceAutomatedBackupResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteDBInstanceAutomatedBackupResult"
       ( \s h x ->
           DeleteDBInstanceAutomatedBackupResponse'
-            <$> (x .@? "DBInstanceAutomatedBackup")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBInstanceAutomatedBackup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDBInstanceAutomatedBackup
+instance
+  Prelude.Hashable
+    DeleteDBInstanceAutomatedBackup
 
-instance NFData DeleteDBInstanceAutomatedBackup
+instance
+  Prelude.NFData
+    DeleteDBInstanceAutomatedBackup
 
-instance ToHeaders DeleteDBInstanceAutomatedBackup where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteDBInstanceAutomatedBackup
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDBInstanceAutomatedBackup where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DeleteDBInstanceAutomatedBackup
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDBInstanceAutomatedBackup where
+instance
+  Prelude.ToQuery
+    DeleteDBInstanceAutomatedBackup
+  where
   toQuery DeleteDBInstanceAutomatedBackup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteDBInstanceAutomatedBackup" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ( "DeleteDBInstanceAutomatedBackup" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "DBInstanceAutomatedBackupsArn"
-          =: _ddbiabDBInstanceAutomatedBackupsARN,
-        "DbiResourceId" =: _ddbiabDBiResourceId
+          Prelude.=: dBInstanceAutomatedBackupsArn,
+        "DbiResourceId" Prelude.=: dbiResourceId
       ]
 
--- | /See:/ 'deleteDBInstanceAutomatedBackupResponse' smart constructor.
+-- | /See:/ 'newDeleteDBInstanceAutomatedBackupResponse' smart constructor.
 data DeleteDBInstanceAutomatedBackupResponse = DeleteDBInstanceAutomatedBackupResponse'
-  { _ddbiabrrsDBInstanceAutomatedBackup ::
-      !( Maybe
-           DBInstanceAutomatedBackup
-       ),
-    _ddbiabrrsResponseStatus ::
-      !Int
+  { dBInstanceAutomatedBackup :: Prelude.Maybe DBInstanceAutomatedBackup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDBInstanceAutomatedBackupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDBInstanceAutomatedBackupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddbiabrrsDBInstanceAutomatedBackup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddbiabrrsResponseStatus' - -- | The response status code.
-deleteDBInstanceAutomatedBackupResponse ::
-  -- | 'ddbiabrrsResponseStatus'
-  Int ->
+-- 'dBInstanceAutomatedBackup', 'deleteDBInstanceAutomatedBackupResponse_dBInstanceAutomatedBackup' - Undocumented member.
+--
+-- 'httpStatus', 'deleteDBInstanceAutomatedBackupResponse_httpStatus' - The response's http status code.
+newDeleteDBInstanceAutomatedBackupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDBInstanceAutomatedBackupResponse
-deleteDBInstanceAutomatedBackupResponse
-  pResponseStatus_ =
+newDeleteDBInstanceAutomatedBackupResponse
+  pHttpStatus_ =
     DeleteDBInstanceAutomatedBackupResponse'
-      { _ddbiabrrsDBInstanceAutomatedBackup =
-          Nothing,
-        _ddbiabrrsResponseStatus =
-          pResponseStatus_
+      { dBInstanceAutomatedBackup =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-ddbiabrrsDBInstanceAutomatedBackup :: Lens' DeleteDBInstanceAutomatedBackupResponse (Maybe DBInstanceAutomatedBackup)
-ddbiabrrsDBInstanceAutomatedBackup = lens _ddbiabrrsDBInstanceAutomatedBackup (\s a -> s {_ddbiabrrsDBInstanceAutomatedBackup = a})
+deleteDBInstanceAutomatedBackupResponse_dBInstanceAutomatedBackup :: Lens.Lens' DeleteDBInstanceAutomatedBackupResponse (Prelude.Maybe DBInstanceAutomatedBackup)
+deleteDBInstanceAutomatedBackupResponse_dBInstanceAutomatedBackup = Lens.lens (\DeleteDBInstanceAutomatedBackupResponse' {dBInstanceAutomatedBackup} -> dBInstanceAutomatedBackup) (\s@DeleteDBInstanceAutomatedBackupResponse' {} a -> s {dBInstanceAutomatedBackup = a} :: DeleteDBInstanceAutomatedBackupResponse)
 
--- | -- | The response status code.
-ddbiabrrsResponseStatus :: Lens' DeleteDBInstanceAutomatedBackupResponse Int
-ddbiabrrsResponseStatus = lens _ddbiabrrsResponseStatus (\s a -> s {_ddbiabrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDBInstanceAutomatedBackupResponse_httpStatus :: Lens.Lens' DeleteDBInstanceAutomatedBackupResponse Prelude.Int
+deleteDBInstanceAutomatedBackupResponse_httpStatus = Lens.lens (\DeleteDBInstanceAutomatedBackupResponse' {httpStatus} -> httpStatus) (\s@DeleteDBInstanceAutomatedBackupResponse' {} a -> s {httpStatus = a} :: DeleteDBInstanceAutomatedBackupResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteDBInstanceAutomatedBackupResponse

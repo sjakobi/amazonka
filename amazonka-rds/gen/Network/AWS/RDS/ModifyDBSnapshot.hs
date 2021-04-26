@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a manual DB snapshot with a new engine version. The snapshot can be encrypted or unencrypted, but not shared or public.
+-- Updates a manual DB snapshot with a new engine version. The snapshot can
+-- be encrypted or unencrypted, but not shared or public.
 --
---
--- Amazon RDS supports upgrading DB snapshots for MySQL, Oracle, and PostgreSQL.
+-- Amazon RDS supports upgrading DB snapshots for MySQL, Oracle, and
+-- PostgreSQL.
 module Network.AWS.RDS.ModifyDBSnapshot
   ( -- * Creating a Request
-    modifyDBSnapshot,
-    ModifyDBSnapshot,
+    ModifyDBSnapshot (..),
+    newModifyDBSnapshot,
 
     -- * Request Lenses
-    mdsOptionGroupName,
-    mdsEngineVersion,
-    mdsDBSnapshotIdentifier,
+    modifyDBSnapshot_optionGroupName,
+    modifyDBSnapshot_engineVersion,
+    modifyDBSnapshot_dBSnapshotIdentifier,
 
     -- * Destructuring the Response
-    modifyDBSnapshotResponse,
-    ModifyDBSnapshotResponse,
+    ModifyDBSnapshotResponse (..),
+    newModifyDBSnapshotResponse,
 
     -- * Response Lenses
-    mdsrrsDBSnapshot,
-    mdsrrsResponseStatus,
+    modifyDBSnapshotResponse_dBSnapshot,
+    modifyDBSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBSnapshot
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyDBSnapshot' smart constructor.
+-- | /See:/ 'newModifyDBSnapshot' smart constructor.
 data ModifyDBSnapshot = ModifyDBSnapshot'
-  { _mdsOptionGroupName ::
-      !(Maybe Text),
-    _mdsEngineVersion :: !(Maybe Text),
-    _mdsDBSnapshotIdentifier :: !Text
+  { -- | The option group to identify with the upgraded DB snapshot.
+    --
+    -- You can specify this parameter when you upgrade an Oracle DB snapshot.
+    -- The same option group considerations apply when upgrading a DB snapshot
+    -- as when upgrading a DB instance. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG Option group considerations>
+    -- in the /Amazon RDS User Guide./
+    optionGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The engine version to upgrade the DB snapshot to.
+    --
+    -- The following are the database engines and engine versions that are
+    -- available when you upgrade a DB snapshot.
+    --
+    -- __MySQL__
+    --
+    -- -   @5.5.46@ (supported for 5.1 DB snapshots)
+    --
+    -- __Oracle__
+    --
+    -- -   @12.1.0.2.v8@ (supported for 12.1.0.1 DB snapshots)
+    --
+    -- -   @11.2.0.4.v12@ (supported for 11.2.0.2 DB snapshots)
+    --
+    -- -   @11.2.0.4.v11@ (supported for 11.2.0.3 DB snapshots)
+    --
+    -- __PostgreSQL__
+    --
+    -- For the list of engine versions that are available for upgrading a DB
+    -- snapshot, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html#USER_UpgradeDBInstance.PostgreSQL.MajorVersion Upgrading the PostgreSQL DB Engine for Amazon RDS>.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the DB snapshot to modify.
+    dBSnapshotIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyDBSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyDBSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdsOptionGroupName' - The option group to identify with the upgraded DB snapshot.  You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group considerations apply when upgrading a DB snapshot as when upgrading a DB instance. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG Option group considerations> in the /Amazon RDS User Guide./
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdsEngineVersion' - The engine version to upgrade the DB snapshot to.  The following are the database engines and engine versions that are available when you upgrade a DB snapshot.  __MySQL__      * @5.5.46@ (supported for 5.1 DB snapshots) __Oracle__      * @12.1.0.2.v8@ (supported for 12.1.0.1 DB snapshots)     * @11.2.0.4.v12@ (supported for 11.2.0.2 DB snapshots)     * @11.2.0.4.v11@ (supported for 11.2.0.3 DB snapshots) __PostgreSQL__  For the list of engine versions that are available for upgrading a DB snapshot, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html#USER_UpgradeDBInstance.PostgreSQL.MajorVersion Upgrading the PostgreSQL DB Engine for Amazon RDS> .
+-- 'optionGroupName', 'modifyDBSnapshot_optionGroupName' - The option group to identify with the upgraded DB snapshot.
 --
--- * 'mdsDBSnapshotIdentifier' - The identifier of the DB snapshot to modify.
-modifyDBSnapshot ::
-  -- | 'mdsDBSnapshotIdentifier'
-  Text ->
+-- You can specify this parameter when you upgrade an Oracle DB snapshot.
+-- The same option group considerations apply when upgrading a DB snapshot
+-- as when upgrading a DB instance. For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG Option group considerations>
+-- in the /Amazon RDS User Guide./
+--
+-- 'engineVersion', 'modifyDBSnapshot_engineVersion' - The engine version to upgrade the DB snapshot to.
+--
+-- The following are the database engines and engine versions that are
+-- available when you upgrade a DB snapshot.
+--
+-- __MySQL__
+--
+-- -   @5.5.46@ (supported for 5.1 DB snapshots)
+--
+-- __Oracle__
+--
+-- -   @12.1.0.2.v8@ (supported for 12.1.0.1 DB snapshots)
+--
+-- -   @11.2.0.4.v12@ (supported for 11.2.0.2 DB snapshots)
+--
+-- -   @11.2.0.4.v11@ (supported for 11.2.0.3 DB snapshots)
+--
+-- __PostgreSQL__
+--
+-- For the list of engine versions that are available for upgrading a DB
+-- snapshot, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html#USER_UpgradeDBInstance.PostgreSQL.MajorVersion Upgrading the PostgreSQL DB Engine for Amazon RDS>.
+--
+-- 'dBSnapshotIdentifier', 'modifyDBSnapshot_dBSnapshotIdentifier' - The identifier of the DB snapshot to modify.
+newModifyDBSnapshot ::
+  -- | 'dBSnapshotIdentifier'
+  Prelude.Text ->
   ModifyDBSnapshot
-modifyDBSnapshot pDBSnapshotIdentifier_ =
+newModifyDBSnapshot pDBSnapshotIdentifier_ =
   ModifyDBSnapshot'
-    { _mdsOptionGroupName = Nothing,
-      _mdsEngineVersion = Nothing,
-      _mdsDBSnapshotIdentifier = pDBSnapshotIdentifier_
+    { optionGroupName =
+        Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      dBSnapshotIdentifier = pDBSnapshotIdentifier_
     }
 
--- | The option group to identify with the upgraded DB snapshot.  You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group considerations apply when upgrading a DB snapshot as when upgrading a DB instance. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG Option group considerations> in the /Amazon RDS User Guide./
-mdsOptionGroupName :: Lens' ModifyDBSnapshot (Maybe Text)
-mdsOptionGroupName = lens _mdsOptionGroupName (\s a -> s {_mdsOptionGroupName = a})
+-- | The option group to identify with the upgraded DB snapshot.
+--
+-- You can specify this parameter when you upgrade an Oracle DB snapshot.
+-- The same option group considerations apply when upgrading a DB snapshot
+-- as when upgrading a DB instance. For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG Option group considerations>
+-- in the /Amazon RDS User Guide./
+modifyDBSnapshot_optionGroupName :: Lens.Lens' ModifyDBSnapshot (Prelude.Maybe Prelude.Text)
+modifyDBSnapshot_optionGroupName = Lens.lens (\ModifyDBSnapshot' {optionGroupName} -> optionGroupName) (\s@ModifyDBSnapshot' {} a -> s {optionGroupName = a} :: ModifyDBSnapshot)
 
--- | The engine version to upgrade the DB snapshot to.  The following are the database engines and engine versions that are available when you upgrade a DB snapshot.  __MySQL__      * @5.5.46@ (supported for 5.1 DB snapshots) __Oracle__      * @12.1.0.2.v8@ (supported for 12.1.0.1 DB snapshots)     * @11.2.0.4.v12@ (supported for 11.2.0.2 DB snapshots)     * @11.2.0.4.v11@ (supported for 11.2.0.3 DB snapshots) __PostgreSQL__  For the list of engine versions that are available for upgrading a DB snapshot, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html#USER_UpgradeDBInstance.PostgreSQL.MajorVersion Upgrading the PostgreSQL DB Engine for Amazon RDS> .
-mdsEngineVersion :: Lens' ModifyDBSnapshot (Maybe Text)
-mdsEngineVersion = lens _mdsEngineVersion (\s a -> s {_mdsEngineVersion = a})
+-- | The engine version to upgrade the DB snapshot to.
+--
+-- The following are the database engines and engine versions that are
+-- available when you upgrade a DB snapshot.
+--
+-- __MySQL__
+--
+-- -   @5.5.46@ (supported for 5.1 DB snapshots)
+--
+-- __Oracle__
+--
+-- -   @12.1.0.2.v8@ (supported for 12.1.0.1 DB snapshots)
+--
+-- -   @11.2.0.4.v12@ (supported for 11.2.0.2 DB snapshots)
+--
+-- -   @11.2.0.4.v11@ (supported for 11.2.0.3 DB snapshots)
+--
+-- __PostgreSQL__
+--
+-- For the list of engine versions that are available for upgrading a DB
+-- snapshot, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html#USER_UpgradeDBInstance.PostgreSQL.MajorVersion Upgrading the PostgreSQL DB Engine for Amazon RDS>.
+modifyDBSnapshot_engineVersion :: Lens.Lens' ModifyDBSnapshot (Prelude.Maybe Prelude.Text)
+modifyDBSnapshot_engineVersion = Lens.lens (\ModifyDBSnapshot' {engineVersion} -> engineVersion) (\s@ModifyDBSnapshot' {} a -> s {engineVersion = a} :: ModifyDBSnapshot)
 
 -- | The identifier of the DB snapshot to modify.
-mdsDBSnapshotIdentifier :: Lens' ModifyDBSnapshot Text
-mdsDBSnapshotIdentifier = lens _mdsDBSnapshotIdentifier (\s a -> s {_mdsDBSnapshotIdentifier = a})
+modifyDBSnapshot_dBSnapshotIdentifier :: Lens.Lens' ModifyDBSnapshot Prelude.Text
+modifyDBSnapshot_dBSnapshotIdentifier = Lens.lens (\ModifyDBSnapshot' {dBSnapshotIdentifier} -> dBSnapshotIdentifier) (\s@ModifyDBSnapshot' {} a -> s {dBSnapshotIdentifier = a} :: ModifyDBSnapshot)
 
-instance AWSRequest ModifyDBSnapshot where
+instance Prelude.AWSRequest ModifyDBSnapshot where
   type Rs ModifyDBSnapshot = ModifyDBSnapshotResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyDBSnapshotResult"
       ( \s h x ->
           ModifyDBSnapshotResponse'
-            <$> (x .@? "DBSnapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBSnapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyDBSnapshot
+instance Prelude.Hashable ModifyDBSnapshot
 
-instance NFData ModifyDBSnapshot
+instance Prelude.NFData ModifyDBSnapshot
 
-instance ToHeaders ModifyDBSnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyDBSnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyDBSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath ModifyDBSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyDBSnapshot where
+instance Prelude.ToQuery ModifyDBSnapshot where
   toQuery ModifyDBSnapshot' {..} =
-    mconcat
-      [ "Action" =: ("ModifyDBSnapshot" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "OptionGroupName" =: _mdsOptionGroupName,
-        "EngineVersion" =: _mdsEngineVersion,
-        "DBSnapshotIdentifier" =: _mdsDBSnapshotIdentifier
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyDBSnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "OptionGroupName" Prelude.=: optionGroupName,
+        "EngineVersion" Prelude.=: engineVersion,
+        "DBSnapshotIdentifier"
+          Prelude.=: dBSnapshotIdentifier
       ]
 
--- | /See:/ 'modifyDBSnapshotResponse' smart constructor.
+-- | /See:/ 'newModifyDBSnapshotResponse' smart constructor.
 data ModifyDBSnapshotResponse = ModifyDBSnapshotResponse'
-  { _mdsrrsDBSnapshot ::
-      !(Maybe DBSnapshot),
-    _mdsrrsResponseStatus ::
-      !Int
+  { dBSnapshot :: Prelude.Maybe DBSnapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyDBSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyDBSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdsrrsDBSnapshot' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdsrrsResponseStatus' - -- | The response status code.
-modifyDBSnapshotResponse ::
-  -- | 'mdsrrsResponseStatus'
-  Int ->
+-- 'dBSnapshot', 'modifyDBSnapshotResponse_dBSnapshot' - Undocumented member.
+--
+-- 'httpStatus', 'modifyDBSnapshotResponse_httpStatus' - The response's http status code.
+newModifyDBSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyDBSnapshotResponse
-modifyDBSnapshotResponse pResponseStatus_ =
+newModifyDBSnapshotResponse pHttpStatus_ =
   ModifyDBSnapshotResponse'
-    { _mdsrrsDBSnapshot =
-        Nothing,
-      _mdsrrsResponseStatus = pResponseStatus_
+    { dBSnapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-mdsrrsDBSnapshot :: Lens' ModifyDBSnapshotResponse (Maybe DBSnapshot)
-mdsrrsDBSnapshot = lens _mdsrrsDBSnapshot (\s a -> s {_mdsrrsDBSnapshot = a})
+modifyDBSnapshotResponse_dBSnapshot :: Lens.Lens' ModifyDBSnapshotResponse (Prelude.Maybe DBSnapshot)
+modifyDBSnapshotResponse_dBSnapshot = Lens.lens (\ModifyDBSnapshotResponse' {dBSnapshot} -> dBSnapshot) (\s@ModifyDBSnapshotResponse' {} a -> s {dBSnapshot = a} :: ModifyDBSnapshotResponse)
 
--- | -- | The response status code.
-mdsrrsResponseStatus :: Lens' ModifyDBSnapshotResponse Int
-mdsrrsResponseStatus = lens _mdsrrsResponseStatus (\s a -> s {_mdsrrsResponseStatus = a})
+-- | The response's http status code.
+modifyDBSnapshotResponse_httpStatus :: Lens.Lens' ModifyDBSnapshotResponse Prelude.Int
+modifyDBSnapshotResponse_httpStatus = Lens.lens (\ModifyDBSnapshotResponse' {httpStatus} -> httpStatus) (\s@ModifyDBSnapshotResponse' {} a -> s {httpStatus = a} :: ModifyDBSnapshotResponse)
 
-instance NFData ModifyDBSnapshotResponse
+instance Prelude.NFData ModifyDBSnapshotResponse

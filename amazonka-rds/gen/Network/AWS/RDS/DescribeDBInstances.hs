@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,335 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about provisioned RDS instances. This API supports pagination.
+-- Returns information about provisioned RDS instances. This API supports
+-- pagination.
 --
---
+-- This operation can also return information for Amazon Neptune DB
+-- instances and Amazon DocumentDB instances.
 --
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeDBInstances
   ( -- * Creating a Request
-    describeDBInstances,
-    DescribeDBInstances,
+    DescribeDBInstances (..),
+    newDescribeDBInstances,
 
     -- * Request Lenses
-    ddiDBInstanceIdentifier,
-    ddiFilters,
-    ddiMarker,
-    ddiMaxRecords,
+    describeDBInstances_dBInstanceIdentifier,
+    describeDBInstances_filters,
+    describeDBInstances_marker,
+    describeDBInstances_maxRecords,
 
     -- * Destructuring the Response
-    describeDBInstancesResponse,
-    DescribeDBInstancesResponse,
+    DescribeDBInstancesResponse (..),
+    newDescribeDBInstancesResponse,
 
     -- * Response Lenses
-    ddirrsDBInstances,
-    ddirrsMarker,
-    ddirrsResponseStatus,
+    describeDBInstancesResponse_dBInstances,
+    describeDBInstancesResponse_marker,
+    describeDBInstancesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstance
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeDBInstances' smart constructor.
+-- /See:/ 'newDescribeDBInstances' smart constructor.
 data DescribeDBInstances = DescribeDBInstances'
-  { _ddiDBInstanceIdentifier ::
-      !(Maybe Text),
-    _ddiFilters ::
-      !(Maybe [Filter]),
-    _ddiMarker :: !(Maybe Text),
-    _ddiMaxRecords :: !(Maybe Int)
+  { -- | The user-supplied instance identifier. If this parameter is specified,
+    -- information from only the specific DB instance is returned. This
+    -- parameter isn\'t case-sensitive.
+    --
+    -- Constraints:
+    --
+    -- -   If supplied, must match the identifier of an existing DBInstance.
+    dBInstanceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A filter that specifies one or more DB instances to describe.
+    --
+    -- Supported filters:
+    --
+    -- -   @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster
+    --     Amazon Resource Names (ARNs). The results list will only include
+    --     information about the DB instances associated with the DB clusters
+    --     identified by these ARNs.
+    --
+    -- -   @db-instance-id@ - Accepts DB instance identifiers and DB instance
+    --     Amazon Resource Names (ARNs). The results list will only include
+    --     information about the DB instances identified by these ARNs.
+    --
+    -- -   @dbi-resource-id@ - Accepts DB instance resource identifiers. The
+    --     results list will only include information about the DB instances
+    --     identified by these DB instance resource identifiers.
+    --
+    -- -   @domain@ - Accepts Active Directory directory IDs. The results list
+    --     will only include information about the DB instances associated with
+    --     these domains.
+    --
+    -- -   @engine@ - Accepts engine names. The results list will only include
+    --     information about the DB instances for these engines.
+    filters :: Prelude.Maybe [Filter],
+    -- | An optional pagination token provided by a previous
+    -- @DescribeDBInstances@ request. If this parameter is specified, the
+    -- response includes only records beyond the marker, up to the value
+    -- specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that you can retrieve the
+    -- remaining results.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddiDBInstanceIdentifier' - The user-supplied instance identifier. If this parameter is specified, information from only the specific DB instance is returned. This parameter isn't case-sensitive. Constraints:     * If supplied, must match the identifier of an existing DBInstance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddiFilters' - A filter that specifies one or more DB instances to describe. Supported filters:     * @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The results list will only include information about the DB instances associated with the DB clusters identified by these ARNs.     * @db-instance-id@ - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs). The results list will only include information about the DB instances identified by these ARNs.     * @dbi-resource-id@ - Accepts DB instance resource identifiers. The results list will only include information about the DB instances identified by these DB instance resource identifiers.     * @domain@ - Accepts Active Directory directory IDs. The results list will only include information about the DB instances associated with these domains.     * @engine@ - Accepts engine names. The results list will only include information about the DB instances for these engines.
+-- 'dBInstanceIdentifier', 'describeDBInstances_dBInstanceIdentifier' - The user-supplied instance identifier. If this parameter is specified,
+-- information from only the specific DB instance is returned. This
+-- parameter isn\'t case-sensitive.
 --
--- * 'ddiMarker' - An optional pagination token provided by a previous @DescribeDBInstances@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- Constraints:
 --
--- * 'ddiMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-describeDBInstances ::
+-- -   If supplied, must match the identifier of an existing DBInstance.
+--
+-- 'filters', 'describeDBInstances_filters' - A filter that specifies one or more DB instances to describe.
+--
+-- Supported filters:
+--
+-- -   @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster
+--     Amazon Resource Names (ARNs). The results list will only include
+--     information about the DB instances associated with the DB clusters
+--     identified by these ARNs.
+--
+-- -   @db-instance-id@ - Accepts DB instance identifiers and DB instance
+--     Amazon Resource Names (ARNs). The results list will only include
+--     information about the DB instances identified by these ARNs.
+--
+-- -   @dbi-resource-id@ - Accepts DB instance resource identifiers. The
+--     results list will only include information about the DB instances
+--     identified by these DB instance resource identifiers.
+--
+-- -   @domain@ - Accepts Active Directory directory IDs. The results list
+--     will only include information about the DB instances associated with
+--     these domains.
+--
+-- -   @engine@ - Accepts engine names. The results list will only include
+--     information about the DB instances for these engines.
+--
+-- 'marker', 'describeDBInstances_marker' - An optional pagination token provided by a previous
+-- @DescribeDBInstances@ request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeDBInstances_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+newDescribeDBInstances ::
   DescribeDBInstances
-describeDBInstances =
+newDescribeDBInstances =
   DescribeDBInstances'
-    { _ddiDBInstanceIdentifier =
-        Nothing,
-      _ddiFilters = Nothing,
-      _ddiMarker = Nothing,
-      _ddiMaxRecords = Nothing
+    { dBInstanceIdentifier =
+        Prelude.Nothing,
+      filters = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | The user-supplied instance identifier. If this parameter is specified, information from only the specific DB instance is returned. This parameter isn't case-sensitive. Constraints:     * If supplied, must match the identifier of an existing DBInstance.
-ddiDBInstanceIdentifier :: Lens' DescribeDBInstances (Maybe Text)
-ddiDBInstanceIdentifier = lens _ddiDBInstanceIdentifier (\s a -> s {_ddiDBInstanceIdentifier = a})
+-- | The user-supplied instance identifier. If this parameter is specified,
+-- information from only the specific DB instance is returned. This
+-- parameter isn\'t case-sensitive.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the identifier of an existing DBInstance.
+describeDBInstances_dBInstanceIdentifier :: Lens.Lens' DescribeDBInstances (Prelude.Maybe Prelude.Text)
+describeDBInstances_dBInstanceIdentifier = Lens.lens (\DescribeDBInstances' {dBInstanceIdentifier} -> dBInstanceIdentifier) (\s@DescribeDBInstances' {} a -> s {dBInstanceIdentifier = a} :: DescribeDBInstances)
 
--- | A filter that specifies one or more DB instances to describe. Supported filters:     * @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The results list will only include information about the DB instances associated with the DB clusters identified by these ARNs.     * @db-instance-id@ - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs). The results list will only include information about the DB instances identified by these ARNs.     * @dbi-resource-id@ - Accepts DB instance resource identifiers. The results list will only include information about the DB instances identified by these DB instance resource identifiers.     * @domain@ - Accepts Active Directory directory IDs. The results list will only include information about the DB instances associated with these domains.     * @engine@ - Accepts engine names. The results list will only include information about the DB instances for these engines.
-ddiFilters :: Lens' DescribeDBInstances [Filter]
-ddiFilters = lens _ddiFilters (\s a -> s {_ddiFilters = a}) . _Default . _Coerce
+-- | A filter that specifies one or more DB instances to describe.
+--
+-- Supported filters:
+--
+-- -   @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster
+--     Amazon Resource Names (ARNs). The results list will only include
+--     information about the DB instances associated with the DB clusters
+--     identified by these ARNs.
+--
+-- -   @db-instance-id@ - Accepts DB instance identifiers and DB instance
+--     Amazon Resource Names (ARNs). The results list will only include
+--     information about the DB instances identified by these ARNs.
+--
+-- -   @dbi-resource-id@ - Accepts DB instance resource identifiers. The
+--     results list will only include information about the DB instances
+--     identified by these DB instance resource identifiers.
+--
+-- -   @domain@ - Accepts Active Directory directory IDs. The results list
+--     will only include information about the DB instances associated with
+--     these domains.
+--
+-- -   @engine@ - Accepts engine names. The results list will only include
+--     information about the DB instances for these engines.
+describeDBInstances_filters :: Lens.Lens' DescribeDBInstances (Prelude.Maybe [Filter])
+describeDBInstances_filters = Lens.lens (\DescribeDBInstances' {filters} -> filters) (\s@DescribeDBInstances' {} a -> s {filters = a} :: DescribeDBInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous @DescribeDBInstances@ request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddiMarker :: Lens' DescribeDBInstances (Maybe Text)
-ddiMarker = lens _ddiMarker (\s a -> s {_ddiMarker = a})
+-- | An optional pagination token provided by a previous
+-- @DescribeDBInstances@ request. If this parameter is specified, the
+-- response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+describeDBInstances_marker :: Lens.Lens' DescribeDBInstances (Prelude.Maybe Prelude.Text)
+describeDBInstances_marker = Lens.lens (\DescribeDBInstances' {marker} -> marker) (\s@DescribeDBInstances' {} a -> s {marker = a} :: DescribeDBInstances)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.  Default: 100 Constraints: Minimum 20, maximum 100.
-ddiMaxRecords :: Lens' DescribeDBInstances (Maybe Int)
-ddiMaxRecords = lens _ddiMaxRecords (\s a -> s {_ddiMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeDBInstances_maxRecords :: Lens.Lens' DescribeDBInstances (Prelude.Maybe Prelude.Int)
+describeDBInstances_maxRecords = Lens.lens (\DescribeDBInstances' {maxRecords} -> maxRecords) (\s@DescribeDBInstances' {} a -> s {maxRecords = a} :: DescribeDBInstances)
 
-instance AWSPager DescribeDBInstances where
+instance Pager.AWSPager DescribeDBInstances where
   page rq rs
-    | stop (rs ^. ddirrsMarker) = Nothing
-    | stop (rs ^. ddirrsDBInstances) = Nothing
-    | otherwise =
-      Just $ rq & ddiMarker .~ rs ^. ddirrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBInstancesResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBInstancesResponse_dBInstances
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeDBInstances_marker
+          Lens..~ rs
+          Lens.^? describeDBInstancesResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeDBInstances where
+instance Prelude.AWSRequest DescribeDBInstances where
   type
     Rs DescribeDBInstances =
       DescribeDBInstancesResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeDBInstancesResult"
       ( \s h x ->
           DescribeDBInstancesResponse'
-            <$> ( x .@? "DBInstances" .!@ mempty
-                    >>= may (parseXMLList "DBInstance")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "DBInstances"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "DBInstance")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDBInstances
+instance Prelude.Hashable DescribeDBInstances
 
-instance NFData DescribeDBInstances
+instance Prelude.NFData DescribeDBInstances
 
-instance ToHeaders DescribeDBInstances where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeDBInstances where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDBInstances where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDBInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDBInstances where
+instance Prelude.ToQuery DescribeDBInstances where
   toQuery DescribeDBInstances' {..} =
-    mconcat
-      [ "Action" =: ("DescribeDBInstances" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DBInstanceIdentifier" =: _ddiDBInstanceIdentifier,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeDBInstances" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceIdentifier"
+          Prelude.=: dBInstanceIdentifier,
         "Filters"
-          =: toQuery (toQueryList "Filter" <$> _ddiFilters),
-        "Marker" =: _ddiMarker,
-        "MaxRecords" =: _ddiMaxRecords
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | Contains the result of a successful invocation of the @DescribeDBInstances@ action.
+-- | Contains the result of a successful invocation of the
+-- @DescribeDBInstances@ action.
 --
---
---
--- /See:/ 'describeDBInstancesResponse' smart constructor.
+-- /See:/ 'newDescribeDBInstancesResponse' smart constructor.
 data DescribeDBInstancesResponse = DescribeDBInstancesResponse'
-  { _ddirrsDBInstances ::
-      !( Maybe
-           [DBInstance]
-       ),
-    _ddirrsMarker ::
-      !(Maybe Text),
-    _ddirrsResponseStatus ::
-      !Int
+  { -- | A list of @DBInstance@ instances.
+    dBInstances :: Prelude.Maybe [DBInstance],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@ .
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddirrsDBInstances' - A list of @DBInstance@ instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddirrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'dBInstances', 'describeDBInstancesResponse_dBInstances' - A list of @DBInstance@ instances.
 --
--- * 'ddirrsResponseStatus' - -- | The response status code.
-describeDBInstancesResponse ::
-  -- | 'ddirrsResponseStatus'
-  Int ->
+-- 'marker', 'describeDBInstancesResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@ .
+--
+-- 'httpStatus', 'describeDBInstancesResponse_httpStatus' - The response's http status code.
+newDescribeDBInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDBInstancesResponse
-describeDBInstancesResponse pResponseStatus_ =
+newDescribeDBInstancesResponse pHttpStatus_ =
   DescribeDBInstancesResponse'
-    { _ddirrsDBInstances =
-        Nothing,
-      _ddirrsMarker = Nothing,
-      _ddirrsResponseStatus = pResponseStatus_
+    { dBInstances =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of @DBInstance@ instances.
-ddirrsDBInstances :: Lens' DescribeDBInstancesResponse [DBInstance]
-ddirrsDBInstances = lens _ddirrsDBInstances (\s a -> s {_ddirrsDBInstances = a}) . _Default . _Coerce
+describeDBInstancesResponse_dBInstances :: Lens.Lens' DescribeDBInstancesResponse (Prelude.Maybe [DBInstance])
+describeDBInstancesResponse_dBInstances = Lens.lens (\DescribeDBInstancesResponse' {dBInstances} -> dBInstances) (\s@DescribeDBInstancesResponse' {} a -> s {dBInstances = a} :: DescribeDBInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddirrsMarker :: Lens' DescribeDBInstancesResponse (Maybe Text)
-ddirrsMarker = lens _ddirrsMarker (\s a -> s {_ddirrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@ .
+describeDBInstancesResponse_marker :: Lens.Lens' DescribeDBInstancesResponse (Prelude.Maybe Prelude.Text)
+describeDBInstancesResponse_marker = Lens.lens (\DescribeDBInstancesResponse' {marker} -> marker) (\s@DescribeDBInstancesResponse' {} a -> s {marker = a} :: DescribeDBInstancesResponse)
 
--- | -- | The response status code.
-ddirrsResponseStatus :: Lens' DescribeDBInstancesResponse Int
-ddirrsResponseStatus = lens _ddirrsResponseStatus (\s a -> s {_ddirrsResponseStatus = a})
+-- | The response's http status code.
+describeDBInstancesResponse_httpStatus :: Lens.Lens' DescribeDBInstancesResponse Prelude.Int
+describeDBInstancesResponse_httpStatus = Lens.lens (\DescribeDBInstancesResponse' {httpStatus} -> httpStatus) (\s@DescribeDBInstancesResponse' {} a -> s {httpStatus = a} :: DescribeDBInstancesResponse)
 
-instance NFData DescribeDBInstancesResponse
+instance Prelude.NFData DescribeDBInstancesResponse

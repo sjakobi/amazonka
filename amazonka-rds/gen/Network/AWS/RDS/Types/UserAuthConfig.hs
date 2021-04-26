@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.UserAuthConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.AuthScheme
 import Network.AWS.RDS.Types.IAMAuthMode
 
--- | Specifies the details of authentication used by a proxy to log in as a specific database user.
+-- | Specifies the details of authentication used by a proxy to log in as a
+-- specific database user.
 --
---
---
--- /See:/ 'userAuthConfig' smart constructor.
+-- /See:/ 'newUserAuthConfig' smart constructor.
 data UserAuthConfig = UserAuthConfig'
-  { _uacSecretARN ::
-      !(Maybe Text),
-    _uacIAMAuth :: !(Maybe IAMAuthMode),
-    _uacAuthScheme :: !(Maybe AuthScheme),
-    _uacUserName :: !(Maybe Text),
-    _uacDescription :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) representing the secret that the proxy
+    -- uses to authenticate to the RDS DB instance or Aurora DB cluster. These
+    -- secrets are stored within Amazon Secrets Manager.
+    secretArn :: Prelude.Maybe Prelude.Text,
+    -- | Whether to require or disallow AWS Identity and Access Management (IAM)
+    -- authentication for connections to the proxy.
+    iAMAuth :: Prelude.Maybe IAMAuthMode,
+    -- | The type of authentication that the proxy uses for connections from the
+    -- proxy to the underlying database.
+    authScheme :: Prelude.Maybe AuthScheme,
+    -- | The name of the database user to which the proxy connects.
+    userName :: Prelude.Maybe Prelude.Text,
+    -- | A user-specified description about the authentication used by a proxy to
+    -- log in as a specific database user.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserAuthConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserAuthConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uacSecretARN' - The Amazon Resource Name (ARN) representing the secret that the proxy uses to authenticate to the RDS DB instance or Aurora DB cluster. These secrets are stored within Amazon Secrets Manager.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uacIAMAuth' - Whether to require or disallow AWS Identity and Access Management (IAM) authentication for connections to the proxy.
+-- 'secretArn', 'userAuthConfig_secretArn' - The Amazon Resource Name (ARN) representing the secret that the proxy
+-- uses to authenticate to the RDS DB instance or Aurora DB cluster. These
+-- secrets are stored within Amazon Secrets Manager.
 --
--- * 'uacAuthScheme' - The type of authentication that the proxy uses for connections from the proxy to the underlying database.
+-- 'iAMAuth', 'userAuthConfig_iAMAuth' - Whether to require or disallow AWS Identity and Access Management (IAM)
+-- authentication for connections to the proxy.
 --
--- * 'uacUserName' - The name of the database user to which the proxy connects.
+-- 'authScheme', 'userAuthConfig_authScheme' - The type of authentication that the proxy uses for connections from the
+-- proxy to the underlying database.
 --
--- * 'uacDescription' - A user-specified description about the authentication used by a proxy to log in as a specific database user.
-userAuthConfig ::
+-- 'userName', 'userAuthConfig_userName' - The name of the database user to which the proxy connects.
+--
+-- 'description', 'userAuthConfig_description' - A user-specified description about the authentication used by a proxy to
+-- log in as a specific database user.
+newUserAuthConfig ::
   UserAuthConfig
-userAuthConfig =
+newUserAuthConfig =
   UserAuthConfig'
-    { _uacSecretARN = Nothing,
-      _uacIAMAuth = Nothing,
-      _uacAuthScheme = Nothing,
-      _uacUserName = Nothing,
-      _uacDescription = Nothing
+    { secretArn = Prelude.Nothing,
+      iAMAuth = Prelude.Nothing,
+      authScheme = Prelude.Nothing,
+      userName = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) representing the secret that the proxy uses to authenticate to the RDS DB instance or Aurora DB cluster. These secrets are stored within Amazon Secrets Manager.
-uacSecretARN :: Lens' UserAuthConfig (Maybe Text)
-uacSecretARN = lens _uacSecretARN (\s a -> s {_uacSecretARN = a})
+-- | The Amazon Resource Name (ARN) representing the secret that the proxy
+-- uses to authenticate to the RDS DB instance or Aurora DB cluster. These
+-- secrets are stored within Amazon Secrets Manager.
+userAuthConfig_secretArn :: Lens.Lens' UserAuthConfig (Prelude.Maybe Prelude.Text)
+userAuthConfig_secretArn = Lens.lens (\UserAuthConfig' {secretArn} -> secretArn) (\s@UserAuthConfig' {} a -> s {secretArn = a} :: UserAuthConfig)
 
--- | Whether to require or disallow AWS Identity and Access Management (IAM) authentication for connections to the proxy.
-uacIAMAuth :: Lens' UserAuthConfig (Maybe IAMAuthMode)
-uacIAMAuth = lens _uacIAMAuth (\s a -> s {_uacIAMAuth = a})
+-- | Whether to require or disallow AWS Identity and Access Management (IAM)
+-- authentication for connections to the proxy.
+userAuthConfig_iAMAuth :: Lens.Lens' UserAuthConfig (Prelude.Maybe IAMAuthMode)
+userAuthConfig_iAMAuth = Lens.lens (\UserAuthConfig' {iAMAuth} -> iAMAuth) (\s@UserAuthConfig' {} a -> s {iAMAuth = a} :: UserAuthConfig)
 
--- | The type of authentication that the proxy uses for connections from the proxy to the underlying database.
-uacAuthScheme :: Lens' UserAuthConfig (Maybe AuthScheme)
-uacAuthScheme = lens _uacAuthScheme (\s a -> s {_uacAuthScheme = a})
+-- | The type of authentication that the proxy uses for connections from the
+-- proxy to the underlying database.
+userAuthConfig_authScheme :: Lens.Lens' UserAuthConfig (Prelude.Maybe AuthScheme)
+userAuthConfig_authScheme = Lens.lens (\UserAuthConfig' {authScheme} -> authScheme) (\s@UserAuthConfig' {} a -> s {authScheme = a} :: UserAuthConfig)
 
 -- | The name of the database user to which the proxy connects.
-uacUserName :: Lens' UserAuthConfig (Maybe Text)
-uacUserName = lens _uacUserName (\s a -> s {_uacUserName = a})
+userAuthConfig_userName :: Lens.Lens' UserAuthConfig (Prelude.Maybe Prelude.Text)
+userAuthConfig_userName = Lens.lens (\UserAuthConfig' {userName} -> userName) (\s@UserAuthConfig' {} a -> s {userName = a} :: UserAuthConfig)
 
--- | A user-specified description about the authentication used by a proxy to log in as a specific database user.
-uacDescription :: Lens' UserAuthConfig (Maybe Text)
-uacDescription = lens _uacDescription (\s a -> s {_uacDescription = a})
+-- | A user-specified description about the authentication used by a proxy to
+-- log in as a specific database user.
+userAuthConfig_description :: Lens.Lens' UserAuthConfig (Prelude.Maybe Prelude.Text)
+userAuthConfig_description = Lens.lens (\UserAuthConfig' {description} -> description) (\s@UserAuthConfig' {} a -> s {description = a} :: UserAuthConfig)
 
-instance Hashable UserAuthConfig
+instance Prelude.Hashable UserAuthConfig
 
-instance NFData UserAuthConfig
+instance Prelude.NFData UserAuthConfig
 
-instance ToQuery UserAuthConfig where
+instance Prelude.ToQuery UserAuthConfig where
   toQuery UserAuthConfig' {..} =
-    mconcat
-      [ "SecretArn" =: _uacSecretARN,
-        "IAMAuth" =: _uacIAMAuth,
-        "AuthScheme" =: _uacAuthScheme,
-        "UserName" =: _uacUserName,
-        "Description" =: _uacDescription
+    Prelude.mconcat
+      [ "SecretArn" Prelude.=: secretArn,
+        "IAMAuth" Prelude.=: iAMAuth,
+        "AuthScheme" Prelude.=: authScheme,
+        "UserName" Prelude.=: userName,
+        "Description" Prelude.=: description
       ]

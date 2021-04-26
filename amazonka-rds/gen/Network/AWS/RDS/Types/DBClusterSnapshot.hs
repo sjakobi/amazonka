@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,246 +19,308 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBClusterSnapshot where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.Tag
 
 -- | Contains the details for an Amazon RDS DB cluster snapshot
 --
+-- This data type is used as a response element in the
+-- @DescribeDBClusterSnapshots@ action.
 --
--- This data type is used as a response element in the @DescribeDBClusterSnapshots@ action.
---
---
--- /See:/ 'dbClusterSnapshot' smart constructor.
+-- /See:/ 'newDBClusterSnapshot' smart constructor.
 data DBClusterSnapshot = DBClusterSnapshot'
-  { _dcsStorageEncrypted ::
-      !(Maybe Bool),
-    _dcsStatus :: !(Maybe Text),
-    _dcsAvailabilityZones ::
-      !(Maybe [Text]),
-    _dcsClusterCreateTime ::
-      !(Maybe ISO8601),
-    _dcsSnapshotCreateTime ::
-      !(Maybe ISO8601),
-    _dcsEngineMode :: !(Maybe Text),
-    _dcsMasterUsername :: !(Maybe Text),
-    _dcsKMSKeyId :: !(Maybe Text),
-    _dcsDBClusterIdentifier ::
-      !(Maybe Text),
-    _dcsEngineVersion :: !(Maybe Text),
-    _dcsSnapshotType :: !(Maybe Text),
-    _dcsLicenseModel :: !(Maybe Text),
-    _dcsPort :: !(Maybe Int),
-    _dcsPercentProgress :: !(Maybe Int),
-    _dcsEngine :: !(Maybe Text),
-    _dcsDBClusterSnapshotIdentifier ::
-      !(Maybe Text),
-    _dcsSourceDBClusterSnapshotARN ::
-      !(Maybe Text),
-    _dcsTagList :: !(Maybe [Tag]),
-    _dcsVPCId :: !(Maybe Text),
-    _dcsAllocatedStorage ::
-      !(Maybe Int),
-    _dcsIAMDatabaseAuthenticationEnabled ::
-      !(Maybe Bool),
-    _dcsDBClusterSnapshotARN ::
-      !(Maybe Text)
+  { -- | Specifies whether the DB cluster snapshot is encrypted.
+    storageEncrypted :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the status of this DB cluster snapshot.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | Provides the list of Availability Zones (AZs) where instances in the DB
+    -- cluster snapshot can be restored.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies the time when the DB cluster was created, in Universal
+    -- Coordinated Time (UTC).
+    clusterCreateTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Provides the time when the snapshot was taken, in Universal Coordinated
+    -- Time (UTC).
+    snapshotCreateTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | Provides the engine mode of the database engine for this DB cluster
+    -- snapshot.
+    engineMode :: Prelude.Maybe Prelude.Text,
+    -- | Provides the master username for this DB cluster snapshot.
+    masterUsername :: Prelude.Maybe Prelude.Text,
+    -- | If @StorageEncrypted@ is true, the AWS KMS key identifier for the
+    -- encrypted DB cluster snapshot.
+    --
+    -- The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias
+    -- name for the AWS KMS customer master key (CMK).
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the DB cluster identifier of the DB cluster that this DB
+    -- cluster snapshot was created from.
+    dBClusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | Provides the version of the database engine for this DB cluster
+    -- snapshot.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | Provides the type of the DB cluster snapshot.
+    snapshotType :: Prelude.Maybe Prelude.Text,
+    -- | Provides the license model information for this DB cluster snapshot.
+    licenseModel :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the port that the DB cluster was listening on at the time of
+    -- the snapshot.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the percentage of the estimated data that has been
+    -- transferred.
+    percentProgress :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the name of the database engine for this DB cluster snapshot.
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the identifier for the DB cluster snapshot.
+    dBClusterSnapshotIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | If the DB cluster snapshot was copied from a source DB cluster snapshot,
+    -- the Amazon Resource Name (ARN) for the source DB cluster snapshot,
+    -- otherwise, a null value.
+    sourceDBClusterSnapshotArn :: Prelude.Maybe Prelude.Text,
+    tagList :: Prelude.Maybe [Tag],
+    -- | Provides the VPC ID associated with the DB cluster snapshot.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the allocated storage size in gibibytes (GiB).
+    allocatedStorage :: Prelude.Maybe Prelude.Int,
+    -- | True if mapping of AWS Identity and Access Management (IAM) accounts to
+    -- database accounts is enabled, and otherwise false.
+    iAMDatabaseAuthenticationEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) for the DB cluster snapshot.
+    dBClusterSnapshotArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBClusterSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBClusterSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsStorageEncrypted' - Specifies whether the DB cluster snapshot is encrypted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsStatus' - Specifies the status of this DB cluster snapshot.
+-- 'storageEncrypted', 'dBClusterSnapshot_storageEncrypted' - Specifies whether the DB cluster snapshot is encrypted.
 --
--- * 'dcsAvailabilityZones' - Provides the list of Availability Zones (AZs) where instances in the DB cluster snapshot can be restored.
+-- 'status', 'dBClusterSnapshot_status' - Specifies the status of this DB cluster snapshot.
 --
--- * 'dcsClusterCreateTime' - Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+-- 'availabilityZones', 'dBClusterSnapshot_availabilityZones' - Provides the list of Availability Zones (AZs) where instances in the DB
+-- cluster snapshot can be restored.
 --
--- * 'dcsSnapshotCreateTime' - Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+-- 'clusterCreateTime', 'dBClusterSnapshot_clusterCreateTime' - Specifies the time when the DB cluster was created, in Universal
+-- Coordinated Time (UTC).
 --
--- * 'dcsEngineMode' - Provides the engine mode of the database engine for this DB cluster snapshot.
+-- 'snapshotCreateTime', 'dBClusterSnapshot_snapshotCreateTime' - Provides the time when the snapshot was taken, in Universal Coordinated
+-- Time (UTC).
 --
--- * 'dcsMasterUsername' - Provides the master username for this DB cluster snapshot.
+-- 'engineMode', 'dBClusterSnapshot_engineMode' - Provides the engine mode of the database engine for this DB cluster
+-- snapshot.
 --
--- * 'dcsKMSKeyId' - If @StorageEncrypted@ is true, the AWS KMS key identifier for the encrypted DB cluster snapshot. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK).
+-- 'masterUsername', 'dBClusterSnapshot_masterUsername' - Provides the master username for this DB cluster snapshot.
 --
--- * 'dcsDBClusterIdentifier' - Specifies the DB cluster identifier of the DB cluster that this DB cluster snapshot was created from.
+-- 'kmsKeyId', 'dBClusterSnapshot_kmsKeyId' - If @StorageEncrypted@ is true, the AWS KMS key identifier for the
+-- encrypted DB cluster snapshot.
 --
--- * 'dcsEngineVersion' - Provides the version of the database engine for this DB cluster snapshot.
+-- The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias
+-- name for the AWS KMS customer master key (CMK).
 --
--- * 'dcsSnapshotType' - Provides the type of the DB cluster snapshot.
+-- 'dBClusterIdentifier', 'dBClusterSnapshot_dBClusterIdentifier' - Specifies the DB cluster identifier of the DB cluster that this DB
+-- cluster snapshot was created from.
 --
--- * 'dcsLicenseModel' - Provides the license model information for this DB cluster snapshot.
+-- 'engineVersion', 'dBClusterSnapshot_engineVersion' - Provides the version of the database engine for this DB cluster
+-- snapshot.
 --
--- * 'dcsPort' - Specifies the port that the DB cluster was listening on at the time of the snapshot.
+-- 'snapshotType', 'dBClusterSnapshot_snapshotType' - Provides the type of the DB cluster snapshot.
 --
--- * 'dcsPercentProgress' - Specifies the percentage of the estimated data that has been transferred.
+-- 'licenseModel', 'dBClusterSnapshot_licenseModel' - Provides the license model information for this DB cluster snapshot.
 --
--- * 'dcsEngine' - Specifies the name of the database engine for this DB cluster snapshot.
+-- 'port', 'dBClusterSnapshot_port' - Specifies the port that the DB cluster was listening on at the time of
+-- the snapshot.
 --
--- * 'dcsDBClusterSnapshotIdentifier' - Specifies the identifier for the DB cluster snapshot.
+-- 'percentProgress', 'dBClusterSnapshot_percentProgress' - Specifies the percentage of the estimated data that has been
+-- transferred.
 --
--- * 'dcsSourceDBClusterSnapshotARN' - If the DB cluster snapshot was copied from a source DB cluster snapshot, the Amazon Resource Name (ARN) for the source DB cluster snapshot, otherwise, a null value.
+-- 'engine', 'dBClusterSnapshot_engine' - Specifies the name of the database engine for this DB cluster snapshot.
 --
--- * 'dcsTagList' - Undocumented member.
+-- 'dBClusterSnapshotIdentifier', 'dBClusterSnapshot_dBClusterSnapshotIdentifier' - Specifies the identifier for the DB cluster snapshot.
 --
--- * 'dcsVPCId' - Provides the VPC ID associated with the DB cluster snapshot.
+-- 'sourceDBClusterSnapshotArn', 'dBClusterSnapshot_sourceDBClusterSnapshotArn' - If the DB cluster snapshot was copied from a source DB cluster snapshot,
+-- the Amazon Resource Name (ARN) for the source DB cluster snapshot,
+-- otherwise, a null value.
 --
--- * 'dcsAllocatedStorage' - Specifies the allocated storage size in gibibytes (GiB).
+-- 'tagList', 'dBClusterSnapshot_tagList' - Undocumented member.
 --
--- * 'dcsIAMDatabaseAuthenticationEnabled' - True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and otherwise false.
+-- 'vpcId', 'dBClusterSnapshot_vpcId' - Provides the VPC ID associated with the DB cluster snapshot.
 --
--- * 'dcsDBClusterSnapshotARN' - The Amazon Resource Name (ARN) for the DB cluster snapshot.
-dbClusterSnapshot ::
+-- 'allocatedStorage', 'dBClusterSnapshot_allocatedStorage' - Specifies the allocated storage size in gibibytes (GiB).
+--
+-- 'iAMDatabaseAuthenticationEnabled', 'dBClusterSnapshot_iAMDatabaseAuthenticationEnabled' - True if mapping of AWS Identity and Access Management (IAM) accounts to
+-- database accounts is enabled, and otherwise false.
+--
+-- 'dBClusterSnapshotArn', 'dBClusterSnapshot_dBClusterSnapshotArn' - The Amazon Resource Name (ARN) for the DB cluster snapshot.
+newDBClusterSnapshot ::
   DBClusterSnapshot
-dbClusterSnapshot =
+newDBClusterSnapshot =
   DBClusterSnapshot'
-    { _dcsStorageEncrypted = Nothing,
-      _dcsStatus = Nothing,
-      _dcsAvailabilityZones = Nothing,
-      _dcsClusterCreateTime = Nothing,
-      _dcsSnapshotCreateTime = Nothing,
-      _dcsEngineMode = Nothing,
-      _dcsMasterUsername = Nothing,
-      _dcsKMSKeyId = Nothing,
-      _dcsDBClusterIdentifier = Nothing,
-      _dcsEngineVersion = Nothing,
-      _dcsSnapshotType = Nothing,
-      _dcsLicenseModel = Nothing,
-      _dcsPort = Nothing,
-      _dcsPercentProgress = Nothing,
-      _dcsEngine = Nothing,
-      _dcsDBClusterSnapshotIdentifier = Nothing,
-      _dcsSourceDBClusterSnapshotARN = Nothing,
-      _dcsTagList = Nothing,
-      _dcsVPCId = Nothing,
-      _dcsAllocatedStorage = Nothing,
-      _dcsIAMDatabaseAuthenticationEnabled = Nothing,
-      _dcsDBClusterSnapshotARN = Nothing
+    { storageEncrypted =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      availabilityZones = Prelude.Nothing,
+      clusterCreateTime = Prelude.Nothing,
+      snapshotCreateTime = Prelude.Nothing,
+      engineMode = Prelude.Nothing,
+      masterUsername = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      dBClusterIdentifier = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      snapshotType = Prelude.Nothing,
+      licenseModel = Prelude.Nothing,
+      port = Prelude.Nothing,
+      percentProgress = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      dBClusterSnapshotIdentifier = Prelude.Nothing,
+      sourceDBClusterSnapshotArn = Prelude.Nothing,
+      tagList = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      allocatedStorage = Prelude.Nothing,
+      iAMDatabaseAuthenticationEnabled = Prelude.Nothing,
+      dBClusterSnapshotArn = Prelude.Nothing
     }
 
 -- | Specifies whether the DB cluster snapshot is encrypted.
-dcsStorageEncrypted :: Lens' DBClusterSnapshot (Maybe Bool)
-dcsStorageEncrypted = lens _dcsStorageEncrypted (\s a -> s {_dcsStorageEncrypted = a})
+dBClusterSnapshot_storageEncrypted :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Bool)
+dBClusterSnapshot_storageEncrypted = Lens.lens (\DBClusterSnapshot' {storageEncrypted} -> storageEncrypted) (\s@DBClusterSnapshot' {} a -> s {storageEncrypted = a} :: DBClusterSnapshot)
 
 -- | Specifies the status of this DB cluster snapshot.
-dcsStatus :: Lens' DBClusterSnapshot (Maybe Text)
-dcsStatus = lens _dcsStatus (\s a -> s {_dcsStatus = a})
+dBClusterSnapshot_status :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_status = Lens.lens (\DBClusterSnapshot' {status} -> status) (\s@DBClusterSnapshot' {} a -> s {status = a} :: DBClusterSnapshot)
 
--- | Provides the list of Availability Zones (AZs) where instances in the DB cluster snapshot can be restored.
-dcsAvailabilityZones :: Lens' DBClusterSnapshot [Text]
-dcsAvailabilityZones = lens _dcsAvailabilityZones (\s a -> s {_dcsAvailabilityZones = a}) . _Default . _Coerce
+-- | Provides the list of Availability Zones (AZs) where instances in the DB
+-- cluster snapshot can be restored.
+dBClusterSnapshot_availabilityZones :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe [Prelude.Text])
+dBClusterSnapshot_availabilityZones = Lens.lens (\DBClusterSnapshot' {availabilityZones} -> availabilityZones) (\s@DBClusterSnapshot' {} a -> s {availabilityZones = a} :: DBClusterSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
-dcsClusterCreateTime :: Lens' DBClusterSnapshot (Maybe UTCTime)
-dcsClusterCreateTime = lens _dcsClusterCreateTime (\s a -> s {_dcsClusterCreateTime = a}) . mapping _Time
+-- | Specifies the time when the DB cluster was created, in Universal
+-- Coordinated Time (UTC).
+dBClusterSnapshot_clusterCreateTime :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.UTCTime)
+dBClusterSnapshot_clusterCreateTime = Lens.lens (\DBClusterSnapshot' {clusterCreateTime} -> clusterCreateTime) (\s@DBClusterSnapshot' {} a -> s {clusterCreateTime = a} :: DBClusterSnapshot) Prelude.. Lens.mapping Prelude._Time
 
--- | Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
-dcsSnapshotCreateTime :: Lens' DBClusterSnapshot (Maybe UTCTime)
-dcsSnapshotCreateTime = lens _dcsSnapshotCreateTime (\s a -> s {_dcsSnapshotCreateTime = a}) . mapping _Time
+-- | Provides the time when the snapshot was taken, in Universal Coordinated
+-- Time (UTC).
+dBClusterSnapshot_snapshotCreateTime :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.UTCTime)
+dBClusterSnapshot_snapshotCreateTime = Lens.lens (\DBClusterSnapshot' {snapshotCreateTime} -> snapshotCreateTime) (\s@DBClusterSnapshot' {} a -> s {snapshotCreateTime = a} :: DBClusterSnapshot) Prelude.. Lens.mapping Prelude._Time
 
--- | Provides the engine mode of the database engine for this DB cluster snapshot.
-dcsEngineMode :: Lens' DBClusterSnapshot (Maybe Text)
-dcsEngineMode = lens _dcsEngineMode (\s a -> s {_dcsEngineMode = a})
+-- | Provides the engine mode of the database engine for this DB cluster
+-- snapshot.
+dBClusterSnapshot_engineMode :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_engineMode = Lens.lens (\DBClusterSnapshot' {engineMode} -> engineMode) (\s@DBClusterSnapshot' {} a -> s {engineMode = a} :: DBClusterSnapshot)
 
 -- | Provides the master username for this DB cluster snapshot.
-dcsMasterUsername :: Lens' DBClusterSnapshot (Maybe Text)
-dcsMasterUsername = lens _dcsMasterUsername (\s a -> s {_dcsMasterUsername = a})
+dBClusterSnapshot_masterUsername :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_masterUsername = Lens.lens (\DBClusterSnapshot' {masterUsername} -> masterUsername) (\s@DBClusterSnapshot' {} a -> s {masterUsername = a} :: DBClusterSnapshot)
 
--- | If @StorageEncrypted@ is true, the AWS KMS key identifier for the encrypted DB cluster snapshot. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK).
-dcsKMSKeyId :: Lens' DBClusterSnapshot (Maybe Text)
-dcsKMSKeyId = lens _dcsKMSKeyId (\s a -> s {_dcsKMSKeyId = a})
+-- | If @StorageEncrypted@ is true, the AWS KMS key identifier for the
+-- encrypted DB cluster snapshot.
+--
+-- The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias
+-- name for the AWS KMS customer master key (CMK).
+dBClusterSnapshot_kmsKeyId :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_kmsKeyId = Lens.lens (\DBClusterSnapshot' {kmsKeyId} -> kmsKeyId) (\s@DBClusterSnapshot' {} a -> s {kmsKeyId = a} :: DBClusterSnapshot)
 
--- | Specifies the DB cluster identifier of the DB cluster that this DB cluster snapshot was created from.
-dcsDBClusterIdentifier :: Lens' DBClusterSnapshot (Maybe Text)
-dcsDBClusterIdentifier = lens _dcsDBClusterIdentifier (\s a -> s {_dcsDBClusterIdentifier = a})
+-- | Specifies the DB cluster identifier of the DB cluster that this DB
+-- cluster snapshot was created from.
+dBClusterSnapshot_dBClusterIdentifier :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_dBClusterIdentifier = Lens.lens (\DBClusterSnapshot' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@DBClusterSnapshot' {} a -> s {dBClusterIdentifier = a} :: DBClusterSnapshot)
 
--- | Provides the version of the database engine for this DB cluster snapshot.
-dcsEngineVersion :: Lens' DBClusterSnapshot (Maybe Text)
-dcsEngineVersion = lens _dcsEngineVersion (\s a -> s {_dcsEngineVersion = a})
+-- | Provides the version of the database engine for this DB cluster
+-- snapshot.
+dBClusterSnapshot_engineVersion :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_engineVersion = Lens.lens (\DBClusterSnapshot' {engineVersion} -> engineVersion) (\s@DBClusterSnapshot' {} a -> s {engineVersion = a} :: DBClusterSnapshot)
 
 -- | Provides the type of the DB cluster snapshot.
-dcsSnapshotType :: Lens' DBClusterSnapshot (Maybe Text)
-dcsSnapshotType = lens _dcsSnapshotType (\s a -> s {_dcsSnapshotType = a})
+dBClusterSnapshot_snapshotType :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_snapshotType = Lens.lens (\DBClusterSnapshot' {snapshotType} -> snapshotType) (\s@DBClusterSnapshot' {} a -> s {snapshotType = a} :: DBClusterSnapshot)
 
 -- | Provides the license model information for this DB cluster snapshot.
-dcsLicenseModel :: Lens' DBClusterSnapshot (Maybe Text)
-dcsLicenseModel = lens _dcsLicenseModel (\s a -> s {_dcsLicenseModel = a})
+dBClusterSnapshot_licenseModel :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_licenseModel = Lens.lens (\DBClusterSnapshot' {licenseModel} -> licenseModel) (\s@DBClusterSnapshot' {} a -> s {licenseModel = a} :: DBClusterSnapshot)
 
--- | Specifies the port that the DB cluster was listening on at the time of the snapshot.
-dcsPort :: Lens' DBClusterSnapshot (Maybe Int)
-dcsPort = lens _dcsPort (\s a -> s {_dcsPort = a})
+-- | Specifies the port that the DB cluster was listening on at the time of
+-- the snapshot.
+dBClusterSnapshot_port :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Int)
+dBClusterSnapshot_port = Lens.lens (\DBClusterSnapshot' {port} -> port) (\s@DBClusterSnapshot' {} a -> s {port = a} :: DBClusterSnapshot)
 
--- | Specifies the percentage of the estimated data that has been transferred.
-dcsPercentProgress :: Lens' DBClusterSnapshot (Maybe Int)
-dcsPercentProgress = lens _dcsPercentProgress (\s a -> s {_dcsPercentProgress = a})
+-- | Specifies the percentage of the estimated data that has been
+-- transferred.
+dBClusterSnapshot_percentProgress :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Int)
+dBClusterSnapshot_percentProgress = Lens.lens (\DBClusterSnapshot' {percentProgress} -> percentProgress) (\s@DBClusterSnapshot' {} a -> s {percentProgress = a} :: DBClusterSnapshot)
 
 -- | Specifies the name of the database engine for this DB cluster snapshot.
-dcsEngine :: Lens' DBClusterSnapshot (Maybe Text)
-dcsEngine = lens _dcsEngine (\s a -> s {_dcsEngine = a})
+dBClusterSnapshot_engine :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_engine = Lens.lens (\DBClusterSnapshot' {engine} -> engine) (\s@DBClusterSnapshot' {} a -> s {engine = a} :: DBClusterSnapshot)
 
 -- | Specifies the identifier for the DB cluster snapshot.
-dcsDBClusterSnapshotIdentifier :: Lens' DBClusterSnapshot (Maybe Text)
-dcsDBClusterSnapshotIdentifier = lens _dcsDBClusterSnapshotIdentifier (\s a -> s {_dcsDBClusterSnapshotIdentifier = a})
+dBClusterSnapshot_dBClusterSnapshotIdentifier :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_dBClusterSnapshotIdentifier = Lens.lens (\DBClusterSnapshot' {dBClusterSnapshotIdentifier} -> dBClusterSnapshotIdentifier) (\s@DBClusterSnapshot' {} a -> s {dBClusterSnapshotIdentifier = a} :: DBClusterSnapshot)
 
--- | If the DB cluster snapshot was copied from a source DB cluster snapshot, the Amazon Resource Name (ARN) for the source DB cluster snapshot, otherwise, a null value.
-dcsSourceDBClusterSnapshotARN :: Lens' DBClusterSnapshot (Maybe Text)
-dcsSourceDBClusterSnapshotARN = lens _dcsSourceDBClusterSnapshotARN (\s a -> s {_dcsSourceDBClusterSnapshotARN = a})
+-- | If the DB cluster snapshot was copied from a source DB cluster snapshot,
+-- the Amazon Resource Name (ARN) for the source DB cluster snapshot,
+-- otherwise, a null value.
+dBClusterSnapshot_sourceDBClusterSnapshotArn :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_sourceDBClusterSnapshotArn = Lens.lens (\DBClusterSnapshot' {sourceDBClusterSnapshotArn} -> sourceDBClusterSnapshotArn) (\s@DBClusterSnapshot' {} a -> s {sourceDBClusterSnapshotArn = a} :: DBClusterSnapshot)
 
 -- | Undocumented member.
-dcsTagList :: Lens' DBClusterSnapshot [Tag]
-dcsTagList = lens _dcsTagList (\s a -> s {_dcsTagList = a}) . _Default . _Coerce
+dBClusterSnapshot_tagList :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe [Tag])
+dBClusterSnapshot_tagList = Lens.lens (\DBClusterSnapshot' {tagList} -> tagList) (\s@DBClusterSnapshot' {} a -> s {tagList = a} :: DBClusterSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Provides the VPC ID associated with the DB cluster snapshot.
-dcsVPCId :: Lens' DBClusterSnapshot (Maybe Text)
-dcsVPCId = lens _dcsVPCId (\s a -> s {_dcsVPCId = a})
+dBClusterSnapshot_vpcId :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_vpcId = Lens.lens (\DBClusterSnapshot' {vpcId} -> vpcId) (\s@DBClusterSnapshot' {} a -> s {vpcId = a} :: DBClusterSnapshot)
 
 -- | Specifies the allocated storage size in gibibytes (GiB).
-dcsAllocatedStorage :: Lens' DBClusterSnapshot (Maybe Int)
-dcsAllocatedStorage = lens _dcsAllocatedStorage (\s a -> s {_dcsAllocatedStorage = a})
+dBClusterSnapshot_allocatedStorage :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Int)
+dBClusterSnapshot_allocatedStorage = Lens.lens (\DBClusterSnapshot' {allocatedStorage} -> allocatedStorage) (\s@DBClusterSnapshot' {} a -> s {allocatedStorage = a} :: DBClusterSnapshot)
 
--- | True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and otherwise false.
-dcsIAMDatabaseAuthenticationEnabled :: Lens' DBClusterSnapshot (Maybe Bool)
-dcsIAMDatabaseAuthenticationEnabled = lens _dcsIAMDatabaseAuthenticationEnabled (\s a -> s {_dcsIAMDatabaseAuthenticationEnabled = a})
+-- | True if mapping of AWS Identity and Access Management (IAM) accounts to
+-- database accounts is enabled, and otherwise false.
+dBClusterSnapshot_iAMDatabaseAuthenticationEnabled :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Bool)
+dBClusterSnapshot_iAMDatabaseAuthenticationEnabled = Lens.lens (\DBClusterSnapshot' {iAMDatabaseAuthenticationEnabled} -> iAMDatabaseAuthenticationEnabled) (\s@DBClusterSnapshot' {} a -> s {iAMDatabaseAuthenticationEnabled = a} :: DBClusterSnapshot)
 
 -- | The Amazon Resource Name (ARN) for the DB cluster snapshot.
-dcsDBClusterSnapshotARN :: Lens' DBClusterSnapshot (Maybe Text)
-dcsDBClusterSnapshotARN = lens _dcsDBClusterSnapshotARN (\s a -> s {_dcsDBClusterSnapshotARN = a})
+dBClusterSnapshot_dBClusterSnapshotArn :: Lens.Lens' DBClusterSnapshot (Prelude.Maybe Prelude.Text)
+dBClusterSnapshot_dBClusterSnapshotArn = Lens.lens (\DBClusterSnapshot' {dBClusterSnapshotArn} -> dBClusterSnapshotArn) (\s@DBClusterSnapshot' {} a -> s {dBClusterSnapshotArn = a} :: DBClusterSnapshot)
 
-instance FromXML DBClusterSnapshot where
+instance Prelude.FromXML DBClusterSnapshot where
   parseXML x =
     DBClusterSnapshot'
-      <$> (x .@? "StorageEncrypted")
-      <*> (x .@? "Status")
-      <*> ( x .@? "AvailabilityZones" .!@ mempty
-              >>= may (parseXMLList "AvailabilityZone")
-          )
-      <*> (x .@? "ClusterCreateTime")
-      <*> (x .@? "SnapshotCreateTime")
-      <*> (x .@? "EngineMode")
-      <*> (x .@? "MasterUsername")
-      <*> (x .@? "KmsKeyId")
-      <*> (x .@? "DBClusterIdentifier")
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "SnapshotType")
-      <*> (x .@? "LicenseModel")
-      <*> (x .@? "Port")
-      <*> (x .@? "PercentProgress")
-      <*> (x .@? "Engine")
-      <*> (x .@? "DBClusterSnapshotIdentifier")
-      <*> (x .@? "SourceDBClusterSnapshotArn")
-      <*> ( x .@? "TagList" .!@ mempty
-              >>= may (parseXMLList "Tag")
-          )
-      <*> (x .@? "VpcId")
-      <*> (x .@? "AllocatedStorage")
-      <*> (x .@? "IAMDatabaseAuthenticationEnabled")
-      <*> (x .@? "DBClusterSnapshotArn")
+      Prelude.<$> (x Prelude..@? "StorageEncrypted")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> ( x Prelude..@? "AvailabilityZones"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AvailabilityZone")
+                  )
+      Prelude.<*> (x Prelude..@? "ClusterCreateTime")
+      Prelude.<*> (x Prelude..@? "SnapshotCreateTime")
+      Prelude.<*> (x Prelude..@? "EngineMode")
+      Prelude.<*> (x Prelude..@? "MasterUsername")
+      Prelude.<*> (x Prelude..@? "KmsKeyId")
+      Prelude.<*> (x Prelude..@? "DBClusterIdentifier")
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "SnapshotType")
+      Prelude.<*> (x Prelude..@? "LicenseModel")
+      Prelude.<*> (x Prelude..@? "Port")
+      Prelude.<*> (x Prelude..@? "PercentProgress")
+      Prelude.<*> (x Prelude..@? "Engine")
+      Prelude.<*> (x Prelude..@? "DBClusterSnapshotIdentifier")
+      Prelude.<*> (x Prelude..@? "SourceDBClusterSnapshotArn")
+      Prelude.<*> ( x Prelude..@? "TagList" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
+      Prelude.<*> (x Prelude..@? "VpcId")
+      Prelude.<*> (x Prelude..@? "AllocatedStorage")
+      Prelude.<*> (x Prelude..@? "IAMDatabaseAuthenticationEnabled")
+      Prelude.<*> (x Prelude..@? "DBClusterSnapshotArn")
 
-instance Hashable DBClusterSnapshot
+instance Prelude.Hashable DBClusterSnapshot
 
-instance NFData DBClusterSnapshot
+instance Prelude.NFData DBClusterSnapshot

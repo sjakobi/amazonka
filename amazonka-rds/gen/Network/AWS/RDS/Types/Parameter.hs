@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,154 +19,178 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.Parameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.ApplyMethod
 
--- | This data type is used as a request parameter in the @ModifyDBParameterGroup@ and @ResetDBParameterGroup@ actions.
+-- | This data type is used as a request parameter in the
+-- @ModifyDBParameterGroup@ and @ResetDBParameterGroup@ actions.
 --
+-- This data type is used as a response element in the
+-- @DescribeEngineDefaultParameters@ and @DescribeDBParameters@ actions.
 --
--- This data type is used as a response element in the @DescribeEngineDefaultParameters@ and @DescribeDBParameters@ actions.
---
---
--- /See:/ 'parameter' smart constructor.
+-- /See:/ 'newParameter' smart constructor.
 data Parameter = Parameter'
-  { _pAllowedValues ::
-      !(Maybe Text),
-    _pSupportedEngineModes :: !(Maybe [Text]),
-    _pSource :: !(Maybe Text),
-    _pParameterValue :: !(Maybe Text),
-    _pApplyType :: !(Maybe Text),
-    _pParameterName :: !(Maybe Text),
-    _pDescription :: !(Maybe Text),
-    _pApplyMethod :: !(Maybe ApplyMethod),
-    _pDataType :: !(Maybe Text),
-    _pIsModifiable :: !(Maybe Bool),
-    _pMinimumEngineVersion :: !(Maybe Text)
+  { -- | Specifies the valid range of values for the parameter.
+    allowedValues :: Prelude.Maybe Prelude.Text,
+    -- | The valid DB engine modes.
+    supportedEngineModes :: Prelude.Maybe [Prelude.Text],
+    -- | Indicates the source of the parameter value.
+    source :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the value of the parameter.
+    parameterValue :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the engine specific parameters type.
+    applyType :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | Provides a description of the parameter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates when to apply parameter updates.
+    applyMethod :: Prelude.Maybe ApplyMethod,
+    -- | Specifies the valid data type for the parameter.
+    dataType :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether (@true@) or not (@false@) the parameter can be
+    -- modified. Some parameters have security or operational implications that
+    -- prevent them from being changed.
+    isModifiable :: Prelude.Maybe Prelude.Bool,
+    -- | The earliest engine version to which the parameter can apply.
+    minimumEngineVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Parameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Parameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pAllowedValues' - Specifies the valid range of values for the parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pSupportedEngineModes' - The valid DB engine modes.
+-- 'allowedValues', 'parameter_allowedValues' - Specifies the valid range of values for the parameter.
 --
--- * 'pSource' - Indicates the source of the parameter value.
+-- 'supportedEngineModes', 'parameter_supportedEngineModes' - The valid DB engine modes.
 --
--- * 'pParameterValue' - Specifies the value of the parameter.
+-- 'source', 'parameter_source' - Indicates the source of the parameter value.
 --
--- * 'pApplyType' - Specifies the engine specific parameters type.
+-- 'parameterValue', 'parameter_parameterValue' - Specifies the value of the parameter.
 --
--- * 'pParameterName' - Specifies the name of the parameter.
+-- 'applyType', 'parameter_applyType' - Specifies the engine specific parameters type.
 --
--- * 'pDescription' - Provides a description of the parameter.
+-- 'parameterName', 'parameter_parameterName' - Specifies the name of the parameter.
 --
--- * 'pApplyMethod' - Indicates when to apply parameter updates.
+-- 'description', 'parameter_description' - Provides a description of the parameter.
 --
--- * 'pDataType' - Specifies the valid data type for the parameter.
+-- 'applyMethod', 'parameter_applyMethod' - Indicates when to apply parameter updates.
 --
--- * 'pIsModifiable' - Indicates whether (@true@ ) or not (@false@ ) the parameter can be modified. Some parameters have security or operational implications that prevent them from being changed.
+-- 'dataType', 'parameter_dataType' - Specifies the valid data type for the parameter.
 --
--- * 'pMinimumEngineVersion' - The earliest engine version to which the parameter can apply.
-parameter ::
+-- 'isModifiable', 'parameter_isModifiable' - Indicates whether (@true@) or not (@false@) the parameter can be
+-- modified. Some parameters have security or operational implications that
+-- prevent them from being changed.
+--
+-- 'minimumEngineVersion', 'parameter_minimumEngineVersion' - The earliest engine version to which the parameter can apply.
+newParameter ::
   Parameter
-parameter =
+newParameter =
   Parameter'
-    { _pAllowedValues = Nothing,
-      _pSupportedEngineModes = Nothing,
-      _pSource = Nothing,
-      _pParameterValue = Nothing,
-      _pApplyType = Nothing,
-      _pParameterName = Nothing,
-      _pDescription = Nothing,
-      _pApplyMethod = Nothing,
-      _pDataType = Nothing,
-      _pIsModifiable = Nothing,
-      _pMinimumEngineVersion = Nothing
+    { allowedValues = Prelude.Nothing,
+      supportedEngineModes = Prelude.Nothing,
+      source = Prelude.Nothing,
+      parameterValue = Prelude.Nothing,
+      applyType = Prelude.Nothing,
+      parameterName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      applyMethod = Prelude.Nothing,
+      dataType = Prelude.Nothing,
+      isModifiable = Prelude.Nothing,
+      minimumEngineVersion = Prelude.Nothing
     }
 
 -- | Specifies the valid range of values for the parameter.
-pAllowedValues :: Lens' Parameter (Maybe Text)
-pAllowedValues = lens _pAllowedValues (\s a -> s {_pAllowedValues = a})
+parameter_allowedValues :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_allowedValues = Lens.lens (\Parameter' {allowedValues} -> allowedValues) (\s@Parameter' {} a -> s {allowedValues = a} :: Parameter)
 
 -- | The valid DB engine modes.
-pSupportedEngineModes :: Lens' Parameter [Text]
-pSupportedEngineModes = lens _pSupportedEngineModes (\s a -> s {_pSupportedEngineModes = a}) . _Default . _Coerce
+parameter_supportedEngineModes :: Lens.Lens' Parameter (Prelude.Maybe [Prelude.Text])
+parameter_supportedEngineModes = Lens.lens (\Parameter' {supportedEngineModes} -> supportedEngineModes) (\s@Parameter' {} a -> s {supportedEngineModes = a} :: Parameter) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates the source of the parameter value.
-pSource :: Lens' Parameter (Maybe Text)
-pSource = lens _pSource (\s a -> s {_pSource = a})
+parameter_source :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_source = Lens.lens (\Parameter' {source} -> source) (\s@Parameter' {} a -> s {source = a} :: Parameter)
 
 -- | Specifies the value of the parameter.
-pParameterValue :: Lens' Parameter (Maybe Text)
-pParameterValue = lens _pParameterValue (\s a -> s {_pParameterValue = a})
+parameter_parameterValue :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_parameterValue = Lens.lens (\Parameter' {parameterValue} -> parameterValue) (\s@Parameter' {} a -> s {parameterValue = a} :: Parameter)
 
 -- | Specifies the engine specific parameters type.
-pApplyType :: Lens' Parameter (Maybe Text)
-pApplyType = lens _pApplyType (\s a -> s {_pApplyType = a})
+parameter_applyType :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_applyType = Lens.lens (\Parameter' {applyType} -> applyType) (\s@Parameter' {} a -> s {applyType = a} :: Parameter)
 
 -- | Specifies the name of the parameter.
-pParameterName :: Lens' Parameter (Maybe Text)
-pParameterName = lens _pParameterName (\s a -> s {_pParameterName = a})
+parameter_parameterName :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_parameterName = Lens.lens (\Parameter' {parameterName} -> parameterName) (\s@Parameter' {} a -> s {parameterName = a} :: Parameter)
 
 -- | Provides a description of the parameter.
-pDescription :: Lens' Parameter (Maybe Text)
-pDescription = lens _pDescription (\s a -> s {_pDescription = a})
+parameter_description :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_description = Lens.lens (\Parameter' {description} -> description) (\s@Parameter' {} a -> s {description = a} :: Parameter)
 
 -- | Indicates when to apply parameter updates.
-pApplyMethod :: Lens' Parameter (Maybe ApplyMethod)
-pApplyMethod = lens _pApplyMethod (\s a -> s {_pApplyMethod = a})
+parameter_applyMethod :: Lens.Lens' Parameter (Prelude.Maybe ApplyMethod)
+parameter_applyMethod = Lens.lens (\Parameter' {applyMethod} -> applyMethod) (\s@Parameter' {} a -> s {applyMethod = a} :: Parameter)
 
 -- | Specifies the valid data type for the parameter.
-pDataType :: Lens' Parameter (Maybe Text)
-pDataType = lens _pDataType (\s a -> s {_pDataType = a})
+parameter_dataType :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_dataType = Lens.lens (\Parameter' {dataType} -> dataType) (\s@Parameter' {} a -> s {dataType = a} :: Parameter)
 
--- | Indicates whether (@true@ ) or not (@false@ ) the parameter can be modified. Some parameters have security or operational implications that prevent them from being changed.
-pIsModifiable :: Lens' Parameter (Maybe Bool)
-pIsModifiable = lens _pIsModifiable (\s a -> s {_pIsModifiable = a})
+-- | Indicates whether (@true@) or not (@false@) the parameter can be
+-- modified. Some parameters have security or operational implications that
+-- prevent them from being changed.
+parameter_isModifiable :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Bool)
+parameter_isModifiable = Lens.lens (\Parameter' {isModifiable} -> isModifiable) (\s@Parameter' {} a -> s {isModifiable = a} :: Parameter)
 
 -- | The earliest engine version to which the parameter can apply.
-pMinimumEngineVersion :: Lens' Parameter (Maybe Text)
-pMinimumEngineVersion = lens _pMinimumEngineVersion (\s a -> s {_pMinimumEngineVersion = a})
+parameter_minimumEngineVersion :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_minimumEngineVersion = Lens.lens (\Parameter' {minimumEngineVersion} -> minimumEngineVersion) (\s@Parameter' {} a -> s {minimumEngineVersion = a} :: Parameter)
 
-instance FromXML Parameter where
+instance Prelude.FromXML Parameter where
   parseXML x =
     Parameter'
-      <$> (x .@? "AllowedValues")
-      <*> ( x .@? "SupportedEngineModes" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Source")
-      <*> (x .@? "ParameterValue")
-      <*> (x .@? "ApplyType")
-      <*> (x .@? "ParameterName")
-      <*> (x .@? "Description")
-      <*> (x .@? "ApplyMethod")
-      <*> (x .@? "DataType")
-      <*> (x .@? "IsModifiable")
-      <*> (x .@? "MinimumEngineVersion")
+      Prelude.<$> (x Prelude..@? "AllowedValues")
+      Prelude.<*> ( x Prelude..@? "SupportedEngineModes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Source")
+      Prelude.<*> (x Prelude..@? "ParameterValue")
+      Prelude.<*> (x Prelude..@? "ApplyType")
+      Prelude.<*> (x Prelude..@? "ParameterName")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "ApplyMethod")
+      Prelude.<*> (x Prelude..@? "DataType")
+      Prelude.<*> (x Prelude..@? "IsModifiable")
+      Prelude.<*> (x Prelude..@? "MinimumEngineVersion")
 
-instance Hashable Parameter
+instance Prelude.Hashable Parameter
 
-instance NFData Parameter
+instance Prelude.NFData Parameter
 
-instance ToQuery Parameter where
+instance Prelude.ToQuery Parameter where
   toQuery Parameter' {..} =
-    mconcat
-      [ "AllowedValues" =: _pAllowedValues,
+    Prelude.mconcat
+      [ "AllowedValues" Prelude.=: allowedValues,
         "SupportedEngineModes"
-          =: toQuery
-            (toQueryList "member" <$> _pSupportedEngineModes),
-        "Source" =: _pSource,
-        "ParameterValue" =: _pParameterValue,
-        "ApplyType" =: _pApplyType,
-        "ParameterName" =: _pParameterName,
-        "Description" =: _pDescription,
-        "ApplyMethod" =: _pApplyMethod,
-        "DataType" =: _pDataType,
-        "IsModifiable" =: _pIsModifiable,
-        "MinimumEngineVersion" =: _pMinimumEngineVersion
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> supportedEngineModes
+            ),
+        "Source" Prelude.=: source,
+        "ParameterValue" Prelude.=: parameterValue,
+        "ApplyType" Prelude.=: applyType,
+        "ParameterName" Prelude.=: parameterName,
+        "Description" Prelude.=: description,
+        "ApplyMethod" Prelude.=: applyMethod,
+        "DataType" Prelude.=: dataType,
+        "IsModifiable" Prelude.=: isModifiable,
+        "MinimumEngineVersion"
+          Prelude.=: minimumEngineVersion
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,417 +21,801 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new DB cluster from a DB snapshot or DB cluster snapshot. This action only applies to Aurora DB clusters.
+-- Creates a new DB cluster from a DB snapshot or DB cluster snapshot. This
+-- action only applies to Aurora DB clusters.
 --
+-- The target DB cluster is created from the source snapshot with a default
+-- configuration. If you don\'t specify a security group, the new DB
+-- cluster is associated with the default security group.
 --
--- The target DB cluster is created from the source snapshot with a default configuration. If you don't specify a security group, the new DB cluster is associated with the default security group.
+-- This action only restores the DB cluster, not the DB instances for that
+-- DB cluster. You must invoke the @CreateDBInstance@ action to create DB
+-- instances for the restored DB cluster, specifying the identifier of the
+-- restored DB cluster in @DBClusterIdentifier@. You can create DB
+-- instances only after the @RestoreDBClusterFromSnapshot@ action has
+-- completed and the DB cluster is available.
 --
--- For more information on Amazon Aurora, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?> in the /Amazon Aurora User Guide./
+-- For more information on Amazon Aurora, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide./
+--
+-- This action only applies to Aurora DB clusters.
 module Network.AWS.RDS.RestoreDBClusterFromSnapshot
   ( -- * Creating a Request
-    restoreDBClusterFromSnapshot,
-    RestoreDBClusterFromSnapshot,
+    RestoreDBClusterFromSnapshot (..),
+    newRestoreDBClusterFromSnapshot,
 
     -- * Request Lenses
-    rdbcfsDeletionProtection,
-    rdbcfsAvailabilityZones,
-    rdbcfsEnableIAMDatabaseAuthentication,
-    rdbcfsEnableCloudwatchLogsExports,
-    rdbcfsOptionGroupName,
-    rdbcfsDomain,
-    rdbcfsEngineMode,
-    rdbcfsScalingConfiguration,
-    rdbcfsDBSubnetGroupName,
-    rdbcfsVPCSecurityGroupIds,
-    rdbcfsKMSKeyId,
-    rdbcfsEngineVersion,
-    rdbcfsTags,
-    rdbcfsPort,
-    rdbcfsDomainIAMRoleName,
-    rdbcfsCopyTagsToSnapshot,
-    rdbcfsBacktrackWindow,
-    rdbcfsDBClusterParameterGroupName,
-    rdbcfsDatabaseName,
-    rdbcfsDBClusterIdentifier,
-    rdbcfsSnapshotIdentifier,
-    rdbcfsEngine,
+    restoreDBClusterFromSnapshot_deletionProtection,
+    restoreDBClusterFromSnapshot_availabilityZones,
+    restoreDBClusterFromSnapshot_enableIAMDatabaseAuthentication,
+    restoreDBClusterFromSnapshot_enableCloudwatchLogsExports,
+    restoreDBClusterFromSnapshot_optionGroupName,
+    restoreDBClusterFromSnapshot_domain,
+    restoreDBClusterFromSnapshot_engineMode,
+    restoreDBClusterFromSnapshot_scalingConfiguration,
+    restoreDBClusterFromSnapshot_dBSubnetGroupName,
+    restoreDBClusterFromSnapshot_vpcSecurityGroupIds,
+    restoreDBClusterFromSnapshot_kmsKeyId,
+    restoreDBClusterFromSnapshot_engineVersion,
+    restoreDBClusterFromSnapshot_tags,
+    restoreDBClusterFromSnapshot_port,
+    restoreDBClusterFromSnapshot_domainIAMRoleName,
+    restoreDBClusterFromSnapshot_copyTagsToSnapshot,
+    restoreDBClusterFromSnapshot_backtrackWindow,
+    restoreDBClusterFromSnapshot_dBClusterParameterGroupName,
+    restoreDBClusterFromSnapshot_databaseName,
+    restoreDBClusterFromSnapshot_dBClusterIdentifier,
+    restoreDBClusterFromSnapshot_snapshotIdentifier,
+    restoreDBClusterFromSnapshot_engine,
 
     -- * Destructuring the Response
-    restoreDBClusterFromSnapshotResponse,
-    RestoreDBClusterFromSnapshotResponse,
+    RestoreDBClusterFromSnapshotResponse (..),
+    newRestoreDBClusterFromSnapshotResponse,
 
     -- * Response Lenses
-    rdbcfsrrsDBCluster,
-    rdbcfsrrsResponseStatus,
+    restoreDBClusterFromSnapshotResponse_dBCluster,
+    restoreDBClusterFromSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBCluster
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'restoreDBClusterFromSnapshot' smart constructor.
+-- /See:/ 'newRestoreDBClusterFromSnapshot' smart constructor.
 data RestoreDBClusterFromSnapshot = RestoreDBClusterFromSnapshot'
-  { _rdbcfsDeletionProtection ::
-      !(Maybe Bool),
-    _rdbcfsAvailabilityZones ::
-      !( Maybe
-           [Text]
-       ),
-    _rdbcfsEnableIAMDatabaseAuthentication ::
-      !(Maybe Bool),
-    _rdbcfsEnableCloudwatchLogsExports ::
-      !( Maybe
-           [Text]
-       ),
-    _rdbcfsOptionGroupName ::
-      !(Maybe Text),
-    _rdbcfsDomain ::
-      !(Maybe Text),
-    _rdbcfsEngineMode ::
-      !(Maybe Text),
-    _rdbcfsScalingConfiguration ::
-      !( Maybe
-           ScalingConfiguration
-       ),
-    _rdbcfsDBSubnetGroupName ::
-      !(Maybe Text),
-    _rdbcfsVPCSecurityGroupIds ::
-      !( Maybe
-           [Text]
-       ),
-    _rdbcfsKMSKeyId ::
-      !(Maybe Text),
-    _rdbcfsEngineVersion ::
-      !(Maybe Text),
-    _rdbcfsTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _rdbcfsPort ::
-      !(Maybe Int),
-    _rdbcfsDomainIAMRoleName ::
-      !(Maybe Text),
-    _rdbcfsCopyTagsToSnapshot ::
-      !(Maybe Bool),
-    _rdbcfsBacktrackWindow ::
-      !( Maybe
-           Integer
-       ),
-    _rdbcfsDBClusterParameterGroupName ::
-      !(Maybe Text),
-    _rdbcfsDatabaseName ::
-      !(Maybe Text),
-    _rdbcfsDBClusterIdentifier ::
-      !Text,
-    _rdbcfsSnapshotIdentifier ::
-      !Text,
-    _rdbcfsEngine ::
-      !Text
+  { -- | A value that indicates whether the DB cluster has deletion protection
+    -- enabled. The database can\'t be deleted when deletion protection is
+    -- enabled. By default, deletion protection is disabled.
+    deletionProtection :: Prelude.Maybe Prelude.Bool,
+    -- | Provides the list of Availability Zones (AZs) where instances in the
+    -- restored DB cluster can be created.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | A value that indicates whether to enable mapping of AWS Identity and
+    -- Access Management (IAM) accounts to database accounts. By default,
+    -- mapping is disabled.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
+    -- in the /Amazon Aurora User Guide./
+    enableIAMDatabaseAuthentication :: Prelude.Maybe Prelude.Bool,
+    -- | The list of logs that the restored DB cluster is to export to Amazon
+    -- CloudWatch Logs. The values in the list depend on the DB engine being
+    -- used. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+    -- in the /Amazon Aurora User Guide/.
+    enableCloudwatchLogsExports :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the option group to use for the restored DB cluster.
+    optionGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Specify the Active Directory directory ID to restore the DB cluster in.
+    -- The domain must be created prior to this operation. Currently, only
+    -- MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be
+    -- created in an Active Directory Domain.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html Kerberos Authentication>
+    -- in the /Amazon RDS User Guide/.
+    domain :: Prelude.Maybe Prelude.Text,
+    -- | The DB engine mode of the DB cluster, either @provisioned@,
+    -- @serverless@, @parallelquery@, @global@, or @multimaster@.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html CreateDBCluster>.
+    engineMode :: Prelude.Maybe Prelude.Text,
+    -- | For DB clusters in @serverless@ DB engine mode, the scaling properties
+    -- of the DB cluster.
+    scalingConfiguration :: Prelude.Maybe ScalingConfiguration,
+    -- | The name of the DB subnet group to use for the new DB cluster.
+    --
+    -- Constraints: If supplied, must match the name of an existing DB subnet
+    -- group.
+    --
+    -- Example: @mySubnetgroup@
+    dBSubnetGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A list of VPC security groups that the new DB cluster will belong to.
+    vpcSecurityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The AWS KMS key identifier to use when restoring an encrypted DB cluster
+    -- from a DB snapshot or DB cluster snapshot.
+    --
+    -- The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias
+    -- name for the AWS KMS customer master key (CMK). To use a CMK in a
+    -- different AWS account, specify the key ARN or alias ARN.
+    --
+    -- When you don\'t specify a value for the @KmsKeyId@ parameter, then the
+    -- following occurs:
+    --
+    -- -   If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is
+    --     encrypted, then the restored DB cluster is encrypted using the AWS
+    --     KMS CMK that was used to encrypt the DB snapshot or DB cluster
+    --     snapshot.
+    --
+    -- -   If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@
+    --     isn\'t encrypted, then the restored DB cluster isn\'t encrypted.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The version of the database engine to use for the new DB cluster.
+    --
+    -- To list all of the available engine versions for @aurora@ (for MySQL
+    -- 5.6-compatible Aurora), use the following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- To list all of the available engine versions for @aurora-mysql@ (for
+    -- MySQL 5.7-compatible Aurora), use the following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- To list all of the available engine versions for @aurora-postgresql@,
+    -- use the following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- If you aren\'t using the default engine version, then you must specify
+    -- the engine version.
+    --
+    -- __Aurora MySQL__
+    --
+    -- Example: @5.6.10a@, @5.6.mysql_aurora.1.19.2@, @5.7.12@,
+    -- @5.7.mysql_aurora.2.04.5@
+    --
+    -- __Aurora PostgreSQL__
+    --
+    -- Example: @9.6.3@, @10.7@
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The tags to be assigned to the restored DB cluster.
+    tags :: Prelude.Maybe [Tag],
+    -- | The port number on which the new DB cluster accepts connections.
+    --
+    -- Constraints: This value must be @1150-65535@
+    --
+    -- Default: The same port as the original DB cluster.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | Specify the name of the IAM role to be used when making API calls to the
+    -- Directory Service.
+    domainIAMRoleName :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to copy all tags from the restored DB
+    -- cluster to snapshots of the restored DB cluster. The default is not to
+    -- copy them.
+    copyTagsToSnapshot :: Prelude.Maybe Prelude.Bool,
+    -- | The target backtrack window, in seconds. To disable backtracking, set
+    -- this value to 0.
+    --
+    -- Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+    --
+    -- Default: 0
+    --
+    -- Constraints:
+    --
+    -- -   If specified, this value must be set to a number from 0 to 259,200
+    --     (72 hours).
+    backtrackWindow :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the DB cluster parameter group to associate with this DB
+    -- cluster. If this argument is omitted, the default DB cluster parameter
+    -- group for the specified engine is used.
+    --
+    -- Constraints:
+    --
+    -- -   If supplied, must match the name of an existing default DB cluster
+    --     parameter group.
+    --
+    -- -   Must be 1 to 255 letters, numbers, or hyphens.
+    --
+    -- -   First character must be a letter.
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+    dBClusterParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The database name for the restored DB cluster.
+    databaseName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB cluster to create from the DB snapshot or DB cluster
+    -- snapshot. This parameter isn\'t case-sensitive.
+    --
+    -- Constraints:
+    --
+    -- -   Must contain from 1 to 63 letters, numbers, or hyphens
+    --
+    -- -   First character must be a letter
+    --
+    -- -   Can\'t end with a hyphen or contain two consecutive hyphens
+    --
+    -- Example: @my-snapshot-id@
+    dBClusterIdentifier :: Prelude.Text,
+    -- | The identifier for the DB snapshot or DB cluster snapshot to restore
+    -- from.
+    --
+    -- You can use either the name or the Amazon Resource Name (ARN) to specify
+    -- a DB cluster snapshot. However, you can use only the ARN to specify a DB
+    -- snapshot.
+    --
+    -- Constraints:
+    --
+    -- -   Must match the identifier of an existing Snapshot.
+    snapshotIdentifier :: Prelude.Text,
+    -- | The database engine to use for the new DB cluster.
+    --
+    -- Default: The same as source
+    --
+    -- Constraint: Must be compatible with the engine of the source
+    engine :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreDBClusterFromSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreDBClusterFromSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdbcfsDeletionProtection' - A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion protection is enabled. By default, deletion protection is disabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdbcfsAvailabilityZones' - Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
+-- 'deletionProtection', 'restoreDBClusterFromSnapshot_deletionProtection' - A value that indicates whether the DB cluster has deletion protection
+-- enabled. The database can\'t be deleted when deletion protection is
+-- enabled. By default, deletion protection is disabled.
 --
--- * 'rdbcfsEnableIAMDatabaseAuthentication' - A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication> in the /Amazon Aurora User Guide./
+-- 'availabilityZones', 'restoreDBClusterFromSnapshot_availabilityZones' - Provides the list of Availability Zones (AZs) where instances in the
+-- restored DB cluster can be created.
 --
--- * 'rdbcfsEnableCloudwatchLogsExports' - The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list depend on the DB engine being used. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs > in the /Amazon Aurora User Guide/ .
+-- 'enableIAMDatabaseAuthentication', 'restoreDBClusterFromSnapshot_enableIAMDatabaseAuthentication' - A value that indicates whether to enable mapping of AWS Identity and
+-- Access Management (IAM) accounts to database accounts. By default,
+-- mapping is disabled.
 --
--- * 'rdbcfsOptionGroupName' - The name of the option group to use for the restored DB cluster.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
+-- in the /Amazon Aurora User Guide./
 --
--- * 'rdbcfsDomain' - Specify the Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an Active Directory Domain. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html Kerberos Authentication> in the /Amazon RDS User Guide/ .
+-- 'enableCloudwatchLogsExports', 'restoreDBClusterFromSnapshot_enableCloudwatchLogsExports' - The list of logs that the restored DB cluster is to export to Amazon
+-- CloudWatch Logs. The values in the list depend on the DB engine being
+-- used. For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon Aurora User Guide/.
 --
--- * 'rdbcfsEngineMode' - The DB engine mode of the DB cluster, either @provisioned@ , @serverless@ , @parallelquery@ , @global@ , or @multimaster@ . For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html CreateDBCluster> .
+-- 'optionGroupName', 'restoreDBClusterFromSnapshot_optionGroupName' - The name of the option group to use for the restored DB cluster.
 --
--- * 'rdbcfsScalingConfiguration' - For DB clusters in @serverless@ DB engine mode, the scaling properties of the DB cluster.
+-- 'domain', 'restoreDBClusterFromSnapshot_domain' - Specify the Active Directory directory ID to restore the DB cluster in.
+-- The domain must be created prior to this operation. Currently, only
+-- MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be
+-- created in an Active Directory Domain.
 --
--- * 'rdbcfsDBSubnetGroupName' - The name of the DB subnet group to use for the new DB cluster. Constraints: If supplied, must match the name of an existing DB subnet group. Example: @mySubnetgroup@
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html Kerberos Authentication>
+-- in the /Amazon RDS User Guide/.
 --
--- * 'rdbcfsVPCSecurityGroupIds' - A list of VPC security groups that the new DB cluster will belong to.
+-- 'engineMode', 'restoreDBClusterFromSnapshot_engineMode' - The DB engine mode of the DB cluster, either @provisioned@,
+-- @serverless@, @parallelquery@, @global@, or @multimaster@.
 --
--- * 'rdbcfsKMSKeyId' - The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster snapshot. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK). To use a CMK in a different AWS account, specify the key ARN or alias ARN. When you don't specify a value for the @KmsKeyId@ parameter, then the following occurs:     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is encrypted, then the restored DB cluster is encrypted using the AWS KMS CMK that was used to encrypt the DB snapshot or DB cluster snapshot.     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ isn't encrypted, then the restored DB cluster isn't encrypted.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html CreateDBCluster>.
 --
--- * 'rdbcfsEngineVersion' - The version of the database engine to use for the new DB cluster. To list all of the available engine versions for @aurora@ (for MySQL 5.6-compatible Aurora), use the following command: @aws rds describe-db-engine-versions --engine aurora --query "DBEngineVersions[].EngineVersion"@  To list all of the available engine versions for @aurora-mysql@ (for MySQL 5.7-compatible Aurora), use the following command: @aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"@  To list all of the available engine versions for @aurora-postgresql@ , use the following command: @aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"@  __Aurora MySQL__  Example: @5.6.10a@ , @5.6.mysql_aurora.1.19.2@ , @5.7.12@ , @5.7.mysql_aurora.2.04.5@  __Aurora PostgreSQL__  Example: @9.6.3@ , @10.7@
+-- 'scalingConfiguration', 'restoreDBClusterFromSnapshot_scalingConfiguration' - For DB clusters in @serverless@ DB engine mode, the scaling properties
+-- of the DB cluster.
 --
--- * 'rdbcfsTags' - The tags to be assigned to the restored DB cluster.
+-- 'dBSubnetGroupName', 'restoreDBClusterFromSnapshot_dBSubnetGroupName' - The name of the DB subnet group to use for the new DB cluster.
 --
--- * 'rdbcfsPort' - The port number on which the new DB cluster accepts connections. Constraints: This value must be @1150-65535@  Default: The same port as the original DB cluster.
+-- Constraints: If supplied, must match the name of an existing DB subnet
+-- group.
 --
--- * 'rdbcfsDomainIAMRoleName' - Specify the name of the IAM role to be used when making API calls to the Directory Service.
+-- Example: @mySubnetgroup@
 --
--- * 'rdbcfsCopyTagsToSnapshot' - A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster. The default is not to copy them.
+-- 'vpcSecurityGroupIds', 'restoreDBClusterFromSnapshot_vpcSecurityGroupIds' - A list of VPC security groups that the new DB cluster will belong to.
 --
--- * 'rdbcfsBacktrackWindow' - The target backtrack window, in seconds. To disable backtracking, set this value to 0. Default: 0 Constraints:     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+-- 'kmsKeyId', 'restoreDBClusterFromSnapshot_kmsKeyId' - The AWS KMS key identifier to use when restoring an encrypted DB cluster
+-- from a DB snapshot or DB cluster snapshot.
 --
--- * 'rdbcfsDBClusterParameterGroupName' - The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted, the default DB cluster parameter group for the specified engine is used. Constraints:     * If supplied, must match the name of an existing default DB cluster parameter group.     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens.
+-- The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias
+-- name for the AWS KMS customer master key (CMK). To use a CMK in a
+-- different AWS account, specify the key ARN or alias ARN.
 --
--- * 'rdbcfsDatabaseName' - The database name for the restored DB cluster.
+-- When you don\'t specify a value for the @KmsKeyId@ parameter, then the
+-- following occurs:
 --
--- * 'rdbcfsDBClusterIdentifier' - The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't case-sensitive. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
+-- -   If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is
+--     encrypted, then the restored DB cluster is encrypted using the AWS
+--     KMS CMK that was used to encrypt the DB snapshot or DB cluster
+--     snapshot.
 --
--- * 'rdbcfsSnapshotIdentifier' - The identifier for the DB snapshot or DB cluster snapshot to restore from. You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can use only the ARN to specify a DB snapshot. Constraints:     * Must match the identifier of an existing Snapshot.
+-- -   If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@
+--     isn\'t encrypted, then the restored DB cluster isn\'t encrypted.
 --
--- * 'rdbcfsEngine' - The database engine to use for the new DB cluster. Default: The same as source Constraint: Must be compatible with the engine of the source
-restoreDBClusterFromSnapshot ::
-  -- | 'rdbcfsDBClusterIdentifier'
-  Text ->
-  -- | 'rdbcfsSnapshotIdentifier'
-  Text ->
-  -- | 'rdbcfsEngine'
-  Text ->
+-- 'engineVersion', 'restoreDBClusterFromSnapshot_engineVersion' - The version of the database engine to use for the new DB cluster.
+--
+-- To list all of the available engine versions for @aurora@ (for MySQL
+-- 5.6-compatible Aurora), use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for @aurora-mysql@ (for
+-- MySQL 5.7-compatible Aurora), use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for @aurora-postgresql@,
+-- use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- If you aren\'t using the default engine version, then you must specify
+-- the engine version.
+--
+-- __Aurora MySQL__
+--
+-- Example: @5.6.10a@, @5.6.mysql_aurora.1.19.2@, @5.7.12@,
+-- @5.7.mysql_aurora.2.04.5@
+--
+-- __Aurora PostgreSQL__
+--
+-- Example: @9.6.3@, @10.7@
+--
+-- 'tags', 'restoreDBClusterFromSnapshot_tags' - The tags to be assigned to the restored DB cluster.
+--
+-- 'port', 'restoreDBClusterFromSnapshot_port' - The port number on which the new DB cluster accepts connections.
+--
+-- Constraints: This value must be @1150-65535@
+--
+-- Default: The same port as the original DB cluster.
+--
+-- 'domainIAMRoleName', 'restoreDBClusterFromSnapshot_domainIAMRoleName' - Specify the name of the IAM role to be used when making API calls to the
+-- Directory Service.
+--
+-- 'copyTagsToSnapshot', 'restoreDBClusterFromSnapshot_copyTagsToSnapshot' - A value that indicates whether to copy all tags from the restored DB
+-- cluster to snapshots of the restored DB cluster. The default is not to
+-- copy them.
+--
+-- 'backtrackWindow', 'restoreDBClusterFromSnapshot_backtrackWindow' - The target backtrack window, in seconds. To disable backtracking, set
+-- this value to 0.
+--
+-- Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+--
+-- Default: 0
+--
+-- Constraints:
+--
+-- -   If specified, this value must be set to a number from 0 to 259,200
+--     (72 hours).
+--
+-- 'dBClusterParameterGroupName', 'restoreDBClusterFromSnapshot_dBClusterParameterGroupName' - The name of the DB cluster parameter group to associate with this DB
+-- cluster. If this argument is omitted, the default DB cluster parameter
+-- group for the specified engine is used.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the name of an existing default DB cluster
+--     parameter group.
+--
+-- -   Must be 1 to 255 letters, numbers, or hyphens.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+--
+-- 'databaseName', 'restoreDBClusterFromSnapshot_databaseName' - The database name for the restored DB cluster.
+--
+-- 'dBClusterIdentifier', 'restoreDBClusterFromSnapshot_dBClusterIdentifier' - The name of the DB cluster to create from the DB snapshot or DB cluster
+-- snapshot. This parameter isn\'t case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must contain from 1 to 63 letters, numbers, or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-snapshot-id@
+--
+-- 'snapshotIdentifier', 'restoreDBClusterFromSnapshot_snapshotIdentifier' - The identifier for the DB snapshot or DB cluster snapshot to restore
+-- from.
+--
+-- You can use either the name or the Amazon Resource Name (ARN) to specify
+-- a DB cluster snapshot. However, you can use only the ARN to specify a DB
+-- snapshot.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing Snapshot.
+--
+-- 'engine', 'restoreDBClusterFromSnapshot_engine' - The database engine to use for the new DB cluster.
+--
+-- Default: The same as source
+--
+-- Constraint: Must be compatible with the engine of the source
+newRestoreDBClusterFromSnapshot ::
+  -- | 'dBClusterIdentifier'
+  Prelude.Text ->
+  -- | 'snapshotIdentifier'
+  Prelude.Text ->
+  -- | 'engine'
+  Prelude.Text ->
   RestoreDBClusterFromSnapshot
-restoreDBClusterFromSnapshot
+newRestoreDBClusterFromSnapshot
   pDBClusterIdentifier_
   pSnapshotIdentifier_
   pEngine_ =
     RestoreDBClusterFromSnapshot'
-      { _rdbcfsDeletionProtection =
-          Nothing,
-        _rdbcfsAvailabilityZones = Nothing,
-        _rdbcfsEnableIAMDatabaseAuthentication =
-          Nothing,
-        _rdbcfsEnableCloudwatchLogsExports = Nothing,
-        _rdbcfsOptionGroupName = Nothing,
-        _rdbcfsDomain = Nothing,
-        _rdbcfsEngineMode = Nothing,
-        _rdbcfsScalingConfiguration = Nothing,
-        _rdbcfsDBSubnetGroupName = Nothing,
-        _rdbcfsVPCSecurityGroupIds = Nothing,
-        _rdbcfsKMSKeyId = Nothing,
-        _rdbcfsEngineVersion = Nothing,
-        _rdbcfsTags = Nothing,
-        _rdbcfsPort = Nothing,
-        _rdbcfsDomainIAMRoleName = Nothing,
-        _rdbcfsCopyTagsToSnapshot = Nothing,
-        _rdbcfsBacktrackWindow = Nothing,
-        _rdbcfsDBClusterParameterGroupName = Nothing,
-        _rdbcfsDatabaseName = Nothing,
-        _rdbcfsDBClusterIdentifier =
-          pDBClusterIdentifier_,
-        _rdbcfsSnapshotIdentifier =
-          pSnapshotIdentifier_,
-        _rdbcfsEngine = pEngine_
+      { deletionProtection =
+          Prelude.Nothing,
+        availabilityZones = Prelude.Nothing,
+        enableIAMDatabaseAuthentication =
+          Prelude.Nothing,
+        enableCloudwatchLogsExports = Prelude.Nothing,
+        optionGroupName = Prelude.Nothing,
+        domain = Prelude.Nothing,
+        engineMode = Prelude.Nothing,
+        scalingConfiguration = Prelude.Nothing,
+        dBSubnetGroupName = Prelude.Nothing,
+        vpcSecurityGroupIds = Prelude.Nothing,
+        kmsKeyId = Prelude.Nothing,
+        engineVersion = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        port = Prelude.Nothing,
+        domainIAMRoleName = Prelude.Nothing,
+        copyTagsToSnapshot = Prelude.Nothing,
+        backtrackWindow = Prelude.Nothing,
+        dBClusterParameterGroupName = Prelude.Nothing,
+        databaseName = Prelude.Nothing,
+        dBClusterIdentifier = pDBClusterIdentifier_,
+        snapshotIdentifier = pSnapshotIdentifier_,
+        engine = pEngine_
       }
 
--- | A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion protection is enabled. By default, deletion protection is disabled.
-rdbcfsDeletionProtection :: Lens' RestoreDBClusterFromSnapshot (Maybe Bool)
-rdbcfsDeletionProtection = lens _rdbcfsDeletionProtection (\s a -> s {_rdbcfsDeletionProtection = a})
+-- | A value that indicates whether the DB cluster has deletion protection
+-- enabled. The database can\'t be deleted when deletion protection is
+-- enabled. By default, deletion protection is disabled.
+restoreDBClusterFromSnapshot_deletionProtection :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Bool)
+restoreDBClusterFromSnapshot_deletionProtection = Lens.lens (\RestoreDBClusterFromSnapshot' {deletionProtection} -> deletionProtection) (\s@RestoreDBClusterFromSnapshot' {} a -> s {deletionProtection = a} :: RestoreDBClusterFromSnapshot)
 
--- | Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
-rdbcfsAvailabilityZones :: Lens' RestoreDBClusterFromSnapshot [Text]
-rdbcfsAvailabilityZones = lens _rdbcfsAvailabilityZones (\s a -> s {_rdbcfsAvailabilityZones = a}) . _Default . _Coerce
+-- | Provides the list of Availability Zones (AZs) where instances in the
+-- restored DB cluster can be created.
+restoreDBClusterFromSnapshot_availabilityZones :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe [Prelude.Text])
+restoreDBClusterFromSnapshot_availabilityZones = Lens.lens (\RestoreDBClusterFromSnapshot' {availabilityZones} -> availabilityZones) (\s@RestoreDBClusterFromSnapshot' {} a -> s {availabilityZones = a} :: RestoreDBClusterFromSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication> in the /Amazon Aurora User Guide./
-rdbcfsEnableIAMDatabaseAuthentication :: Lens' RestoreDBClusterFromSnapshot (Maybe Bool)
-rdbcfsEnableIAMDatabaseAuthentication = lens _rdbcfsEnableIAMDatabaseAuthentication (\s a -> s {_rdbcfsEnableIAMDatabaseAuthentication = a})
+-- | A value that indicates whether to enable mapping of AWS Identity and
+-- Access Management (IAM) accounts to database accounts. By default,
+-- mapping is disabled.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
+-- in the /Amazon Aurora User Guide./
+restoreDBClusterFromSnapshot_enableIAMDatabaseAuthentication :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Bool)
+restoreDBClusterFromSnapshot_enableIAMDatabaseAuthentication = Lens.lens (\RestoreDBClusterFromSnapshot' {enableIAMDatabaseAuthentication} -> enableIAMDatabaseAuthentication) (\s@RestoreDBClusterFromSnapshot' {} a -> s {enableIAMDatabaseAuthentication = a} :: RestoreDBClusterFromSnapshot)
 
--- | The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list depend on the DB engine being used. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs > in the /Amazon Aurora User Guide/ .
-rdbcfsEnableCloudwatchLogsExports :: Lens' RestoreDBClusterFromSnapshot [Text]
-rdbcfsEnableCloudwatchLogsExports = lens _rdbcfsEnableCloudwatchLogsExports (\s a -> s {_rdbcfsEnableCloudwatchLogsExports = a}) . _Default . _Coerce
+-- | The list of logs that the restored DB cluster is to export to Amazon
+-- CloudWatch Logs. The values in the list depend on the DB engine being
+-- used. For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon Aurora User Guide/.
+restoreDBClusterFromSnapshot_enableCloudwatchLogsExports :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe [Prelude.Text])
+restoreDBClusterFromSnapshot_enableCloudwatchLogsExports = Lens.lens (\RestoreDBClusterFromSnapshot' {enableCloudwatchLogsExports} -> enableCloudwatchLogsExports) (\s@RestoreDBClusterFromSnapshot' {} a -> s {enableCloudwatchLogsExports = a} :: RestoreDBClusterFromSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the option group to use for the restored DB cluster.
-rdbcfsOptionGroupName :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsOptionGroupName = lens _rdbcfsOptionGroupName (\s a -> s {_rdbcfsOptionGroupName = a})
+restoreDBClusterFromSnapshot_optionGroupName :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_optionGroupName = Lens.lens (\RestoreDBClusterFromSnapshot' {optionGroupName} -> optionGroupName) (\s@RestoreDBClusterFromSnapshot' {} a -> s {optionGroupName = a} :: RestoreDBClusterFromSnapshot)
 
--- | Specify the Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an Active Directory Domain. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html Kerberos Authentication> in the /Amazon RDS User Guide/ .
-rdbcfsDomain :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsDomain = lens _rdbcfsDomain (\s a -> s {_rdbcfsDomain = a})
+-- | Specify the Active Directory directory ID to restore the DB cluster in.
+-- The domain must be created prior to this operation. Currently, only
+-- MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be
+-- created in an Active Directory Domain.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html Kerberos Authentication>
+-- in the /Amazon RDS User Guide/.
+restoreDBClusterFromSnapshot_domain :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_domain = Lens.lens (\RestoreDBClusterFromSnapshot' {domain} -> domain) (\s@RestoreDBClusterFromSnapshot' {} a -> s {domain = a} :: RestoreDBClusterFromSnapshot)
 
--- | The DB engine mode of the DB cluster, either @provisioned@ , @serverless@ , @parallelquery@ , @global@ , or @multimaster@ . For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html CreateDBCluster> .
-rdbcfsEngineMode :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsEngineMode = lens _rdbcfsEngineMode (\s a -> s {_rdbcfsEngineMode = a})
+-- | The DB engine mode of the DB cluster, either @provisioned@,
+-- @serverless@, @parallelquery@, @global@, or @multimaster@.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html CreateDBCluster>.
+restoreDBClusterFromSnapshot_engineMode :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_engineMode = Lens.lens (\RestoreDBClusterFromSnapshot' {engineMode} -> engineMode) (\s@RestoreDBClusterFromSnapshot' {} a -> s {engineMode = a} :: RestoreDBClusterFromSnapshot)
 
--- | For DB clusters in @serverless@ DB engine mode, the scaling properties of the DB cluster.
-rdbcfsScalingConfiguration :: Lens' RestoreDBClusterFromSnapshot (Maybe ScalingConfiguration)
-rdbcfsScalingConfiguration = lens _rdbcfsScalingConfiguration (\s a -> s {_rdbcfsScalingConfiguration = a})
+-- | For DB clusters in @serverless@ DB engine mode, the scaling properties
+-- of the DB cluster.
+restoreDBClusterFromSnapshot_scalingConfiguration :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe ScalingConfiguration)
+restoreDBClusterFromSnapshot_scalingConfiguration = Lens.lens (\RestoreDBClusterFromSnapshot' {scalingConfiguration} -> scalingConfiguration) (\s@RestoreDBClusterFromSnapshot' {} a -> s {scalingConfiguration = a} :: RestoreDBClusterFromSnapshot)
 
--- | The name of the DB subnet group to use for the new DB cluster. Constraints: If supplied, must match the name of an existing DB subnet group. Example: @mySubnetgroup@
-rdbcfsDBSubnetGroupName :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsDBSubnetGroupName = lens _rdbcfsDBSubnetGroupName (\s a -> s {_rdbcfsDBSubnetGroupName = a})
+-- | The name of the DB subnet group to use for the new DB cluster.
+--
+-- Constraints: If supplied, must match the name of an existing DB subnet
+-- group.
+--
+-- Example: @mySubnetgroup@
+restoreDBClusterFromSnapshot_dBSubnetGroupName :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_dBSubnetGroupName = Lens.lens (\RestoreDBClusterFromSnapshot' {dBSubnetGroupName} -> dBSubnetGroupName) (\s@RestoreDBClusterFromSnapshot' {} a -> s {dBSubnetGroupName = a} :: RestoreDBClusterFromSnapshot)
 
 -- | A list of VPC security groups that the new DB cluster will belong to.
-rdbcfsVPCSecurityGroupIds :: Lens' RestoreDBClusterFromSnapshot [Text]
-rdbcfsVPCSecurityGroupIds = lens _rdbcfsVPCSecurityGroupIds (\s a -> s {_rdbcfsVPCSecurityGroupIds = a}) . _Default . _Coerce
+restoreDBClusterFromSnapshot_vpcSecurityGroupIds :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe [Prelude.Text])
+restoreDBClusterFromSnapshot_vpcSecurityGroupIds = Lens.lens (\RestoreDBClusterFromSnapshot' {vpcSecurityGroupIds} -> vpcSecurityGroupIds) (\s@RestoreDBClusterFromSnapshot' {} a -> s {vpcSecurityGroupIds = a} :: RestoreDBClusterFromSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster snapshot. The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK). To use a CMK in a different AWS account, specify the key ARN or alias ARN. When you don't specify a value for the @KmsKeyId@ parameter, then the following occurs:     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is encrypted, then the restored DB cluster is encrypted using the AWS KMS CMK that was used to encrypt the DB snapshot or DB cluster snapshot.     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ isn't encrypted, then the restored DB cluster isn't encrypted.
-rdbcfsKMSKeyId :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsKMSKeyId = lens _rdbcfsKMSKeyId (\s a -> s {_rdbcfsKMSKeyId = a})
+-- | The AWS KMS key identifier to use when restoring an encrypted DB cluster
+-- from a DB snapshot or DB cluster snapshot.
+--
+-- The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias
+-- name for the AWS KMS customer master key (CMK). To use a CMK in a
+-- different AWS account, specify the key ARN or alias ARN.
+--
+-- When you don\'t specify a value for the @KmsKeyId@ parameter, then the
+-- following occurs:
+--
+-- -   If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is
+--     encrypted, then the restored DB cluster is encrypted using the AWS
+--     KMS CMK that was used to encrypt the DB snapshot or DB cluster
+--     snapshot.
+--
+-- -   If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@
+--     isn\'t encrypted, then the restored DB cluster isn\'t encrypted.
+restoreDBClusterFromSnapshot_kmsKeyId :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_kmsKeyId = Lens.lens (\RestoreDBClusterFromSnapshot' {kmsKeyId} -> kmsKeyId) (\s@RestoreDBClusterFromSnapshot' {} a -> s {kmsKeyId = a} :: RestoreDBClusterFromSnapshot)
 
--- | The version of the database engine to use for the new DB cluster. To list all of the available engine versions for @aurora@ (for MySQL 5.6-compatible Aurora), use the following command: @aws rds describe-db-engine-versions --engine aurora --query "DBEngineVersions[].EngineVersion"@  To list all of the available engine versions for @aurora-mysql@ (for MySQL 5.7-compatible Aurora), use the following command: @aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"@  To list all of the available engine versions for @aurora-postgresql@ , use the following command: @aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"@  __Aurora MySQL__  Example: @5.6.10a@ , @5.6.mysql_aurora.1.19.2@ , @5.7.12@ , @5.7.mysql_aurora.2.04.5@  __Aurora PostgreSQL__  Example: @9.6.3@ , @10.7@
-rdbcfsEngineVersion :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsEngineVersion = lens _rdbcfsEngineVersion (\s a -> s {_rdbcfsEngineVersion = a})
+-- | The version of the database engine to use for the new DB cluster.
+--
+-- To list all of the available engine versions for @aurora@ (for MySQL
+-- 5.6-compatible Aurora), use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for @aurora-mysql@ (for
+-- MySQL 5.7-compatible Aurora), use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for @aurora-postgresql@,
+-- use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- If you aren\'t using the default engine version, then you must specify
+-- the engine version.
+--
+-- __Aurora MySQL__
+--
+-- Example: @5.6.10a@, @5.6.mysql_aurora.1.19.2@, @5.7.12@,
+-- @5.7.mysql_aurora.2.04.5@
+--
+-- __Aurora PostgreSQL__
+--
+-- Example: @9.6.3@, @10.7@
+restoreDBClusterFromSnapshot_engineVersion :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_engineVersion = Lens.lens (\RestoreDBClusterFromSnapshot' {engineVersion} -> engineVersion) (\s@RestoreDBClusterFromSnapshot' {} a -> s {engineVersion = a} :: RestoreDBClusterFromSnapshot)
 
 -- | The tags to be assigned to the restored DB cluster.
-rdbcfsTags :: Lens' RestoreDBClusterFromSnapshot [Tag]
-rdbcfsTags = lens _rdbcfsTags (\s a -> s {_rdbcfsTags = a}) . _Default . _Coerce
+restoreDBClusterFromSnapshot_tags :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe [Tag])
+restoreDBClusterFromSnapshot_tags = Lens.lens (\RestoreDBClusterFromSnapshot' {tags} -> tags) (\s@RestoreDBClusterFromSnapshot' {} a -> s {tags = a} :: RestoreDBClusterFromSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The port number on which the new DB cluster accepts connections. Constraints: This value must be @1150-65535@  Default: The same port as the original DB cluster.
-rdbcfsPort :: Lens' RestoreDBClusterFromSnapshot (Maybe Int)
-rdbcfsPort = lens _rdbcfsPort (\s a -> s {_rdbcfsPort = a})
+-- | The port number on which the new DB cluster accepts connections.
+--
+-- Constraints: This value must be @1150-65535@
+--
+-- Default: The same port as the original DB cluster.
+restoreDBClusterFromSnapshot_port :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Int)
+restoreDBClusterFromSnapshot_port = Lens.lens (\RestoreDBClusterFromSnapshot' {port} -> port) (\s@RestoreDBClusterFromSnapshot' {} a -> s {port = a} :: RestoreDBClusterFromSnapshot)
 
--- | Specify the name of the IAM role to be used when making API calls to the Directory Service.
-rdbcfsDomainIAMRoleName :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsDomainIAMRoleName = lens _rdbcfsDomainIAMRoleName (\s a -> s {_rdbcfsDomainIAMRoleName = a})
+-- | Specify the name of the IAM role to be used when making API calls to the
+-- Directory Service.
+restoreDBClusterFromSnapshot_domainIAMRoleName :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_domainIAMRoleName = Lens.lens (\RestoreDBClusterFromSnapshot' {domainIAMRoleName} -> domainIAMRoleName) (\s@RestoreDBClusterFromSnapshot' {} a -> s {domainIAMRoleName = a} :: RestoreDBClusterFromSnapshot)
 
--- | A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster. The default is not to copy them.
-rdbcfsCopyTagsToSnapshot :: Lens' RestoreDBClusterFromSnapshot (Maybe Bool)
-rdbcfsCopyTagsToSnapshot = lens _rdbcfsCopyTagsToSnapshot (\s a -> s {_rdbcfsCopyTagsToSnapshot = a})
+-- | A value that indicates whether to copy all tags from the restored DB
+-- cluster to snapshots of the restored DB cluster. The default is not to
+-- copy them.
+restoreDBClusterFromSnapshot_copyTagsToSnapshot :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Bool)
+restoreDBClusterFromSnapshot_copyTagsToSnapshot = Lens.lens (\RestoreDBClusterFromSnapshot' {copyTagsToSnapshot} -> copyTagsToSnapshot) (\s@RestoreDBClusterFromSnapshot' {} a -> s {copyTagsToSnapshot = a} :: RestoreDBClusterFromSnapshot)
 
--- | The target backtrack window, in seconds. To disable backtracking, set this value to 0. Default: 0 Constraints:     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
-rdbcfsBacktrackWindow :: Lens' RestoreDBClusterFromSnapshot (Maybe Integer)
-rdbcfsBacktrackWindow = lens _rdbcfsBacktrackWindow (\s a -> s {_rdbcfsBacktrackWindow = a})
+-- | The target backtrack window, in seconds. To disable backtracking, set
+-- this value to 0.
+--
+-- Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+--
+-- Default: 0
+--
+-- Constraints:
+--
+-- -   If specified, this value must be set to a number from 0 to 259,200
+--     (72 hours).
+restoreDBClusterFromSnapshot_backtrackWindow :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Integer)
+restoreDBClusterFromSnapshot_backtrackWindow = Lens.lens (\RestoreDBClusterFromSnapshot' {backtrackWindow} -> backtrackWindow) (\s@RestoreDBClusterFromSnapshot' {} a -> s {backtrackWindow = a} :: RestoreDBClusterFromSnapshot)
 
--- | The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted, the default DB cluster parameter group for the specified engine is used. Constraints:     * If supplied, must match the name of an existing default DB cluster parameter group.     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter.     * Can't end with a hyphen or contain two consecutive hyphens.
-rdbcfsDBClusterParameterGroupName :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsDBClusterParameterGroupName = lens _rdbcfsDBClusterParameterGroupName (\s a -> s {_rdbcfsDBClusterParameterGroupName = a})
+-- | The name of the DB cluster parameter group to associate with this DB
+-- cluster. If this argument is omitted, the default DB cluster parameter
+-- group for the specified engine is used.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the name of an existing default DB cluster
+--     parameter group.
+--
+-- -   Must be 1 to 255 letters, numbers, or hyphens.
+--
+-- -   First character must be a letter.
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens.
+restoreDBClusterFromSnapshot_dBClusterParameterGroupName :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_dBClusterParameterGroupName = Lens.lens (\RestoreDBClusterFromSnapshot' {dBClusterParameterGroupName} -> dBClusterParameterGroupName) (\s@RestoreDBClusterFromSnapshot' {} a -> s {dBClusterParameterGroupName = a} :: RestoreDBClusterFromSnapshot)
 
 -- | The database name for the restored DB cluster.
-rdbcfsDatabaseName :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
-rdbcfsDatabaseName = lens _rdbcfsDatabaseName (\s a -> s {_rdbcfsDatabaseName = a})
+restoreDBClusterFromSnapshot_databaseName :: Lens.Lens' RestoreDBClusterFromSnapshot (Prelude.Maybe Prelude.Text)
+restoreDBClusterFromSnapshot_databaseName = Lens.lens (\RestoreDBClusterFromSnapshot' {databaseName} -> databaseName) (\s@RestoreDBClusterFromSnapshot' {} a -> s {databaseName = a} :: RestoreDBClusterFromSnapshot)
 
--- | The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't case-sensitive. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens     * First character must be a letter     * Can't end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
-rdbcfsDBClusterIdentifier :: Lens' RestoreDBClusterFromSnapshot Text
-rdbcfsDBClusterIdentifier = lens _rdbcfsDBClusterIdentifier (\s a -> s {_rdbcfsDBClusterIdentifier = a})
+-- | The name of the DB cluster to create from the DB snapshot or DB cluster
+-- snapshot. This parameter isn\'t case-sensitive.
+--
+-- Constraints:
+--
+-- -   Must contain from 1 to 63 letters, numbers, or hyphens
+--
+-- -   First character must be a letter
+--
+-- -   Can\'t end with a hyphen or contain two consecutive hyphens
+--
+-- Example: @my-snapshot-id@
+restoreDBClusterFromSnapshot_dBClusterIdentifier :: Lens.Lens' RestoreDBClusterFromSnapshot Prelude.Text
+restoreDBClusterFromSnapshot_dBClusterIdentifier = Lens.lens (\RestoreDBClusterFromSnapshot' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@RestoreDBClusterFromSnapshot' {} a -> s {dBClusterIdentifier = a} :: RestoreDBClusterFromSnapshot)
 
--- | The identifier for the DB snapshot or DB cluster snapshot to restore from. You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can use only the ARN to specify a DB snapshot. Constraints:     * Must match the identifier of an existing Snapshot.
-rdbcfsSnapshotIdentifier :: Lens' RestoreDBClusterFromSnapshot Text
-rdbcfsSnapshotIdentifier = lens _rdbcfsSnapshotIdentifier (\s a -> s {_rdbcfsSnapshotIdentifier = a})
+-- | The identifier for the DB snapshot or DB cluster snapshot to restore
+-- from.
+--
+-- You can use either the name or the Amazon Resource Name (ARN) to specify
+-- a DB cluster snapshot. However, you can use only the ARN to specify a DB
+-- snapshot.
+--
+-- Constraints:
+--
+-- -   Must match the identifier of an existing Snapshot.
+restoreDBClusterFromSnapshot_snapshotIdentifier :: Lens.Lens' RestoreDBClusterFromSnapshot Prelude.Text
+restoreDBClusterFromSnapshot_snapshotIdentifier = Lens.lens (\RestoreDBClusterFromSnapshot' {snapshotIdentifier} -> snapshotIdentifier) (\s@RestoreDBClusterFromSnapshot' {} a -> s {snapshotIdentifier = a} :: RestoreDBClusterFromSnapshot)
 
--- | The database engine to use for the new DB cluster. Default: The same as source Constraint: Must be compatible with the engine of the source
-rdbcfsEngine :: Lens' RestoreDBClusterFromSnapshot Text
-rdbcfsEngine = lens _rdbcfsEngine (\s a -> s {_rdbcfsEngine = a})
+-- | The database engine to use for the new DB cluster.
+--
+-- Default: The same as source
+--
+-- Constraint: Must be compatible with the engine of the source
+restoreDBClusterFromSnapshot_engine :: Lens.Lens' RestoreDBClusterFromSnapshot Prelude.Text
+restoreDBClusterFromSnapshot_engine = Lens.lens (\RestoreDBClusterFromSnapshot' {engine} -> engine) (\s@RestoreDBClusterFromSnapshot' {} a -> s {engine = a} :: RestoreDBClusterFromSnapshot)
 
-instance AWSRequest RestoreDBClusterFromSnapshot where
+instance
+  Prelude.AWSRequest
+    RestoreDBClusterFromSnapshot
+  where
   type
     Rs RestoreDBClusterFromSnapshot =
       RestoreDBClusterFromSnapshotResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RestoreDBClusterFromSnapshotResult"
       ( \s h x ->
           RestoreDBClusterFromSnapshotResponse'
-            <$> (x .@? "DBCluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "DBCluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RestoreDBClusterFromSnapshot
+instance
+  Prelude.Hashable
+    RestoreDBClusterFromSnapshot
 
-instance NFData RestoreDBClusterFromSnapshot
+instance Prelude.NFData RestoreDBClusterFromSnapshot
 
-instance ToHeaders RestoreDBClusterFromSnapshot where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    RestoreDBClusterFromSnapshot
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RestoreDBClusterFromSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath RestoreDBClusterFromSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery RestoreDBClusterFromSnapshot where
+instance Prelude.ToQuery RestoreDBClusterFromSnapshot where
   toQuery RestoreDBClusterFromSnapshot' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RestoreDBClusterFromSnapshot" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
-        "DeletionProtection" =: _rdbcfsDeletionProtection,
+          Prelude.=: ( "RestoreDBClusterFromSnapshot" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
+        "DeletionProtection" Prelude.=: deletionProtection,
         "AvailabilityZones"
-          =: toQuery
-            ( toQueryList "AvailabilityZone"
-                <$> _rdbcfsAvailabilityZones
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "AvailabilityZone"
+                Prelude.<$> availabilityZones
             ),
         "EnableIAMDatabaseAuthentication"
-          =: _rdbcfsEnableIAMDatabaseAuthentication,
+          Prelude.=: enableIAMDatabaseAuthentication,
         "EnableCloudwatchLogsExports"
-          =: toQuery
-            ( toQueryList "member"
-                <$> _rdbcfsEnableCloudwatchLogsExports
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> enableCloudwatchLogsExports
             ),
-        "OptionGroupName" =: _rdbcfsOptionGroupName,
-        "Domain" =: _rdbcfsDomain,
-        "EngineMode" =: _rdbcfsEngineMode,
+        "OptionGroupName" Prelude.=: optionGroupName,
+        "Domain" Prelude.=: domain,
+        "EngineMode" Prelude.=: engineMode,
         "ScalingConfiguration"
-          =: _rdbcfsScalingConfiguration,
-        "DBSubnetGroupName" =: _rdbcfsDBSubnetGroupName,
+          Prelude.=: scalingConfiguration,
+        "DBSubnetGroupName" Prelude.=: dBSubnetGroupName,
         "VpcSecurityGroupIds"
-          =: toQuery
-            ( toQueryList "VpcSecurityGroupId"
-                <$> _rdbcfsVPCSecurityGroupIds
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "VpcSecurityGroupId"
+                Prelude.<$> vpcSecurityGroupIds
             ),
-        "KmsKeyId" =: _rdbcfsKMSKeyId,
-        "EngineVersion" =: _rdbcfsEngineVersion,
+        "KmsKeyId" Prelude.=: kmsKeyId,
+        "EngineVersion" Prelude.=: engineVersion,
         "Tags"
-          =: toQuery (toQueryList "Tag" <$> _rdbcfsTags),
-        "Port" =: _rdbcfsPort,
-        "DomainIAMRoleName" =: _rdbcfsDomainIAMRoleName,
-        "CopyTagsToSnapshot" =: _rdbcfsCopyTagsToSnapshot,
-        "BacktrackWindow" =: _rdbcfsBacktrackWindow,
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Tag" Prelude.<$> tags),
+        "Port" Prelude.=: port,
+        "DomainIAMRoleName" Prelude.=: domainIAMRoleName,
+        "CopyTagsToSnapshot" Prelude.=: copyTagsToSnapshot,
+        "BacktrackWindow" Prelude.=: backtrackWindow,
         "DBClusterParameterGroupName"
-          =: _rdbcfsDBClusterParameterGroupName,
-        "DatabaseName" =: _rdbcfsDatabaseName,
-        "DBClusterIdentifier" =: _rdbcfsDBClusterIdentifier,
-        "SnapshotIdentifier" =: _rdbcfsSnapshotIdentifier,
-        "Engine" =: _rdbcfsEngine
+          Prelude.=: dBClusterParameterGroupName,
+        "DatabaseName" Prelude.=: databaseName,
+        "DBClusterIdentifier" Prelude.=: dBClusterIdentifier,
+        "SnapshotIdentifier" Prelude.=: snapshotIdentifier,
+        "Engine" Prelude.=: engine
       ]
 
--- | /See:/ 'restoreDBClusterFromSnapshotResponse' smart constructor.
+-- | /See:/ 'newRestoreDBClusterFromSnapshotResponse' smart constructor.
 data RestoreDBClusterFromSnapshotResponse = RestoreDBClusterFromSnapshotResponse'
-  { _rdbcfsrrsDBCluster ::
-      !( Maybe
-           DBCluster
-       ),
-    _rdbcfsrrsResponseStatus ::
-      !Int
+  { dBCluster :: Prelude.Maybe DBCluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreDBClusterFromSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreDBClusterFromSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdbcfsrrsDBCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdbcfsrrsResponseStatus' - -- | The response status code.
-restoreDBClusterFromSnapshotResponse ::
-  -- | 'rdbcfsrrsResponseStatus'
-  Int ->
+-- 'dBCluster', 'restoreDBClusterFromSnapshotResponse_dBCluster' - Undocumented member.
+--
+-- 'httpStatus', 'restoreDBClusterFromSnapshotResponse_httpStatus' - The response's http status code.
+newRestoreDBClusterFromSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RestoreDBClusterFromSnapshotResponse
-restoreDBClusterFromSnapshotResponse pResponseStatus_ =
+newRestoreDBClusterFromSnapshotResponse pHttpStatus_ =
   RestoreDBClusterFromSnapshotResponse'
-    { _rdbcfsrrsDBCluster =
-        Nothing,
-      _rdbcfsrrsResponseStatus =
-        pResponseStatus_
+    { dBCluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-rdbcfsrrsDBCluster :: Lens' RestoreDBClusterFromSnapshotResponse (Maybe DBCluster)
-rdbcfsrrsDBCluster = lens _rdbcfsrrsDBCluster (\s a -> s {_rdbcfsrrsDBCluster = a})
+restoreDBClusterFromSnapshotResponse_dBCluster :: Lens.Lens' RestoreDBClusterFromSnapshotResponse (Prelude.Maybe DBCluster)
+restoreDBClusterFromSnapshotResponse_dBCluster = Lens.lens (\RestoreDBClusterFromSnapshotResponse' {dBCluster} -> dBCluster) (\s@RestoreDBClusterFromSnapshotResponse' {} a -> s {dBCluster = a} :: RestoreDBClusterFromSnapshotResponse)
 
--- | -- | The response status code.
-rdbcfsrrsResponseStatus :: Lens' RestoreDBClusterFromSnapshotResponse Int
-rdbcfsrrsResponseStatus = lens _rdbcfsrrsResponseStatus (\s a -> s {_rdbcfsrrsResponseStatus = a})
+-- | The response's http status code.
+restoreDBClusterFromSnapshotResponse_httpStatus :: Lens.Lens' RestoreDBClusterFromSnapshotResponse Prelude.Int
+restoreDBClusterFromSnapshotResponse_httpStatus = Lens.lens (\RestoreDBClusterFromSnapshotResponse' {httpStatus} -> httpStatus) (\s@RestoreDBClusterFromSnapshotResponse' {} a -> s {httpStatus = a} :: RestoreDBClusterFromSnapshotResponse)
 
-instance NFData RestoreDBClusterFromSnapshotResponse
+instance
+  Prelude.NFData
+    RestoreDBClusterFromSnapshotResponse

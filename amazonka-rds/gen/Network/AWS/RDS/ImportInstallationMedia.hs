@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,252 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Imports the installation media for a DB engine that requires an on-premises customer provided license, such as SQL Server.
+-- Imports the installation media for a DB engine that requires an
+-- on-premises customer provided license, such as SQL Server.
 module Network.AWS.RDS.ImportInstallationMedia
   ( -- * Creating a Request
-    importInstallationMedia,
-    ImportInstallationMedia,
+    ImportInstallationMedia (..),
+    newImportInstallationMedia,
 
     -- * Request Lenses
-    iimCustomAvailabilityZoneId,
-    iimEngine,
-    iimEngineVersion,
-    iimEngineInstallationMediaPath,
-    iimOSInstallationMediaPath,
+    importInstallationMedia_customAvailabilityZoneId,
+    importInstallationMedia_engine,
+    importInstallationMedia_engineVersion,
+    importInstallationMedia_engineInstallationMediaPath,
+    importInstallationMedia_oSInstallationMediaPath,
 
     -- * Destructuring the Response
-    installationMedia,
-    InstallationMedia,
+    InstallationMedia (..),
+    newInstallationMedia,
 
     -- * Response Lenses
-    imStatus,
-    imCustomAvailabilityZoneId,
-    imInstallationMediaId,
-    imEngineVersion,
-    imOSInstallationMediaPath,
-    imFailureCause,
-    imEngine,
-    imEngineInstallationMediaPath,
+    installationMedia_status,
+    installationMedia_customAvailabilityZoneId,
+    installationMedia_installationMediaId,
+    installationMedia_engineVersion,
+    installationMedia_oSInstallationMediaPath,
+    installationMedia_failureCause,
+    installationMedia_engine,
+    installationMedia_engineInstallationMediaPath,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.InstallationMedia
+import Network.AWS.RDS.Types.InstallationMediaFailureCause
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'importInstallationMedia' smart constructor.
+-- | /See:/ 'newImportInstallationMedia' smart constructor.
 data ImportInstallationMedia = ImportInstallationMedia'
-  { _iimCustomAvailabilityZoneId ::
-      !Text,
-    _iimEngine :: !Text,
-    _iimEngineVersion ::
-      !Text,
-    _iimEngineInstallationMediaPath ::
-      !Text,
-    _iimOSInstallationMediaPath ::
-      !Text
+  { -- | The identifier of the custom Availability Zone (AZ) to import the
+    -- installation media to.
+    customAvailabilityZoneId :: Prelude.Text,
+    -- | The name of the database engine to be used for this instance.
+    --
+    -- The list only includes supported DB engines that require an on-premises
+    -- customer provided license.
+    --
+    -- Valid Values:
+    --
+    -- -   @sqlserver-ee@
+    --
+    -- -   @sqlserver-se@
+    --
+    -- -   @sqlserver-ex@
+    --
+    -- -   @sqlserver-web@
+    engine :: Prelude.Text,
+    -- | The version number of the database engine to use.
+    --
+    -- For a list of valid engine versions, call DescribeDBEngineVersions.
+    --
+    -- The following are the database engines and links to information about
+    -- the major and minor versions. The list only includes DB engines that
+    -- require an on-premises customer provided license.
+    --
+    -- __Microsoft SQL Server__
+    --
+    -- See
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.VersionSupport Microsoft SQL Server Versions on Amazon RDS>
+    -- in the /Amazon RDS User Guide./
+    engineVersion :: Prelude.Text,
+    -- | The path to the installation medium for the specified DB engine.
+    --
+    -- Example:
+    -- @SQLServerISO\/en_sql_server_2016_enterprise_x64_dvd_8701793.iso@
+    engineInstallationMediaPath :: Prelude.Text,
+    -- | The path to the installation medium for the operating system associated
+    -- with the specified DB engine.
+    --
+    -- Example: @WindowsISO\/en_windows_server_2016_x64_dvd_9327751.iso@
+    oSInstallationMediaPath :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportInstallationMedia' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportInstallationMedia' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iimCustomAvailabilityZoneId' - The identifier of the custom Availability Zone (AZ) to import the installation media to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iimEngine' - The name of the database engine to be used for this instance.  The list only includes supported DB engines that require an on-premises customer provided license.  Valid Values:      * @sqlserver-ee@      * @sqlserver-se@      * @sqlserver-ex@      * @sqlserver-web@
+-- 'customAvailabilityZoneId', 'importInstallationMedia_customAvailabilityZoneId' - The identifier of the custom Availability Zone (AZ) to import the
+-- installation media to.
 --
--- * 'iimEngineVersion' - The version number of the database engine to use. For a list of valid engine versions, call 'DescribeDBEngineVersions' . The following are the database engines and links to information about the major and minor versions. The list only includes DB engines that require an on-premises customer provided license. __Microsoft SQL Server__  See <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.VersionSupport Microsoft SQL Server Versions on Amazon RDS> in the /Amazon RDS User Guide./
+-- 'engine', 'importInstallationMedia_engine' - The name of the database engine to be used for this instance.
 --
--- * 'iimEngineInstallationMediaPath' - The path to the installation medium for the specified DB engine. Example: @SQLServerISO/en_sql_server_2016_enterprise_x64_dvd_8701793.iso@
+-- The list only includes supported DB engines that require an on-premises
+-- customer provided license.
 --
--- * 'iimOSInstallationMediaPath' - The path to the installation medium for the operating system associated with the specified DB engine. Example: @WindowsISO/en_windows_server_2016_x64_dvd_9327751.iso@
-importInstallationMedia ::
-  -- | 'iimCustomAvailabilityZoneId'
-  Text ->
-  -- | 'iimEngine'
-  Text ->
-  -- | 'iimEngineVersion'
-  Text ->
-  -- | 'iimEngineInstallationMediaPath'
-  Text ->
-  -- | 'iimOSInstallationMediaPath'
-  Text ->
+-- Valid Values:
+--
+-- -   @sqlserver-ee@
+--
+-- -   @sqlserver-se@
+--
+-- -   @sqlserver-ex@
+--
+-- -   @sqlserver-web@
+--
+-- 'engineVersion', 'importInstallationMedia_engineVersion' - The version number of the database engine to use.
+--
+-- For a list of valid engine versions, call DescribeDBEngineVersions.
+--
+-- The following are the database engines and links to information about
+-- the major and minor versions. The list only includes DB engines that
+-- require an on-premises customer provided license.
+--
+-- __Microsoft SQL Server__
+--
+-- See
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.VersionSupport Microsoft SQL Server Versions on Amazon RDS>
+-- in the /Amazon RDS User Guide./
+--
+-- 'engineInstallationMediaPath', 'importInstallationMedia_engineInstallationMediaPath' - The path to the installation medium for the specified DB engine.
+--
+-- Example:
+-- @SQLServerISO\/en_sql_server_2016_enterprise_x64_dvd_8701793.iso@
+--
+-- 'oSInstallationMediaPath', 'importInstallationMedia_oSInstallationMediaPath' - The path to the installation medium for the operating system associated
+-- with the specified DB engine.
+--
+-- Example: @WindowsISO\/en_windows_server_2016_x64_dvd_9327751.iso@
+newImportInstallationMedia ::
+  -- | 'customAvailabilityZoneId'
+  Prelude.Text ->
+  -- | 'engine'
+  Prelude.Text ->
+  -- | 'engineVersion'
+  Prelude.Text ->
+  -- | 'engineInstallationMediaPath'
+  Prelude.Text ->
+  -- | 'oSInstallationMediaPath'
+  Prelude.Text ->
   ImportInstallationMedia
-importInstallationMedia
+newImportInstallationMedia
   pCustomAvailabilityZoneId_
   pEngine_
   pEngineVersion_
   pEngineInstallationMediaPath_
   pOSInstallationMediaPath_ =
     ImportInstallationMedia'
-      { _iimCustomAvailabilityZoneId =
+      { customAvailabilityZoneId =
           pCustomAvailabilityZoneId_,
-        _iimEngine = pEngine_,
-        _iimEngineVersion = pEngineVersion_,
-        _iimEngineInstallationMediaPath =
+        engine = pEngine_,
+        engineVersion = pEngineVersion_,
+        engineInstallationMediaPath =
           pEngineInstallationMediaPath_,
-        _iimOSInstallationMediaPath =
+        oSInstallationMediaPath =
           pOSInstallationMediaPath_
       }
 
--- | The identifier of the custom Availability Zone (AZ) to import the installation media to.
-iimCustomAvailabilityZoneId :: Lens' ImportInstallationMedia Text
-iimCustomAvailabilityZoneId = lens _iimCustomAvailabilityZoneId (\s a -> s {_iimCustomAvailabilityZoneId = a})
+-- | The identifier of the custom Availability Zone (AZ) to import the
+-- installation media to.
+importInstallationMedia_customAvailabilityZoneId :: Lens.Lens' ImportInstallationMedia Prelude.Text
+importInstallationMedia_customAvailabilityZoneId = Lens.lens (\ImportInstallationMedia' {customAvailabilityZoneId} -> customAvailabilityZoneId) (\s@ImportInstallationMedia' {} a -> s {customAvailabilityZoneId = a} :: ImportInstallationMedia)
 
--- | The name of the database engine to be used for this instance.  The list only includes supported DB engines that require an on-premises customer provided license.  Valid Values:      * @sqlserver-ee@      * @sqlserver-se@      * @sqlserver-ex@      * @sqlserver-web@
-iimEngine :: Lens' ImportInstallationMedia Text
-iimEngine = lens _iimEngine (\s a -> s {_iimEngine = a})
+-- | The name of the database engine to be used for this instance.
+--
+-- The list only includes supported DB engines that require an on-premises
+-- customer provided license.
+--
+-- Valid Values:
+--
+-- -   @sqlserver-ee@
+--
+-- -   @sqlserver-se@
+--
+-- -   @sqlserver-ex@
+--
+-- -   @sqlserver-web@
+importInstallationMedia_engine :: Lens.Lens' ImportInstallationMedia Prelude.Text
+importInstallationMedia_engine = Lens.lens (\ImportInstallationMedia' {engine} -> engine) (\s@ImportInstallationMedia' {} a -> s {engine = a} :: ImportInstallationMedia)
 
--- | The version number of the database engine to use. For a list of valid engine versions, call 'DescribeDBEngineVersions' . The following are the database engines and links to information about the major and minor versions. The list only includes DB engines that require an on-premises customer provided license. __Microsoft SQL Server__  See <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.VersionSupport Microsoft SQL Server Versions on Amazon RDS> in the /Amazon RDS User Guide./
-iimEngineVersion :: Lens' ImportInstallationMedia Text
-iimEngineVersion = lens _iimEngineVersion (\s a -> s {_iimEngineVersion = a})
+-- | The version number of the database engine to use.
+--
+-- For a list of valid engine versions, call DescribeDBEngineVersions.
+--
+-- The following are the database engines and links to information about
+-- the major and minor versions. The list only includes DB engines that
+-- require an on-premises customer provided license.
+--
+-- __Microsoft SQL Server__
+--
+-- See
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.VersionSupport Microsoft SQL Server Versions on Amazon RDS>
+-- in the /Amazon RDS User Guide./
+importInstallationMedia_engineVersion :: Lens.Lens' ImportInstallationMedia Prelude.Text
+importInstallationMedia_engineVersion = Lens.lens (\ImportInstallationMedia' {engineVersion} -> engineVersion) (\s@ImportInstallationMedia' {} a -> s {engineVersion = a} :: ImportInstallationMedia)
 
--- | The path to the installation medium for the specified DB engine. Example: @SQLServerISO/en_sql_server_2016_enterprise_x64_dvd_8701793.iso@
-iimEngineInstallationMediaPath :: Lens' ImportInstallationMedia Text
-iimEngineInstallationMediaPath = lens _iimEngineInstallationMediaPath (\s a -> s {_iimEngineInstallationMediaPath = a})
+-- | The path to the installation medium for the specified DB engine.
+--
+-- Example:
+-- @SQLServerISO\/en_sql_server_2016_enterprise_x64_dvd_8701793.iso@
+importInstallationMedia_engineInstallationMediaPath :: Lens.Lens' ImportInstallationMedia Prelude.Text
+importInstallationMedia_engineInstallationMediaPath = Lens.lens (\ImportInstallationMedia' {engineInstallationMediaPath} -> engineInstallationMediaPath) (\s@ImportInstallationMedia' {} a -> s {engineInstallationMediaPath = a} :: ImportInstallationMedia)
 
--- | The path to the installation medium for the operating system associated with the specified DB engine. Example: @WindowsISO/en_windows_server_2016_x64_dvd_9327751.iso@
-iimOSInstallationMediaPath :: Lens' ImportInstallationMedia Text
-iimOSInstallationMediaPath = lens _iimOSInstallationMediaPath (\s a -> s {_iimOSInstallationMediaPath = a})
+-- | The path to the installation medium for the operating system associated
+-- with the specified DB engine.
+--
+-- Example: @WindowsISO\/en_windows_server_2016_x64_dvd_9327751.iso@
+importInstallationMedia_oSInstallationMediaPath :: Lens.Lens' ImportInstallationMedia Prelude.Text
+importInstallationMedia_oSInstallationMediaPath = Lens.lens (\ImportInstallationMedia' {oSInstallationMediaPath} -> oSInstallationMediaPath) (\s@ImportInstallationMedia' {} a -> s {oSInstallationMediaPath = a} :: ImportInstallationMedia)
 
-instance AWSRequest ImportInstallationMedia where
+instance Prelude.AWSRequest ImportInstallationMedia where
   type Rs ImportInstallationMedia = InstallationMedia
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ImportInstallationMediaResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable ImportInstallationMedia
+instance Prelude.Hashable ImportInstallationMedia
 
-instance NFData ImportInstallationMedia
+instance Prelude.NFData ImportInstallationMedia
 
-instance ToHeaders ImportInstallationMedia where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ImportInstallationMedia where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ImportInstallationMedia where
-  toPath = const "/"
+instance Prelude.ToPath ImportInstallationMedia where
+  toPath = Prelude.const "/"
 
-instance ToQuery ImportInstallationMedia where
+instance Prelude.ToQuery ImportInstallationMedia where
   toQuery ImportInstallationMedia' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ImportInstallationMedia" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ("ImportInstallationMedia" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "CustomAvailabilityZoneId"
-          =: _iimCustomAvailabilityZoneId,
-        "Engine" =: _iimEngine,
-        "EngineVersion" =: _iimEngineVersion,
+          Prelude.=: customAvailabilityZoneId,
+        "Engine" Prelude.=: engine,
+        "EngineVersion" Prelude.=: engineVersion,
         "EngineInstallationMediaPath"
-          =: _iimEngineInstallationMediaPath,
+          Prelude.=: engineInstallationMediaPath,
         "OSInstallationMediaPath"
-          =: _iimOSInstallationMediaPath
+          Prelude.=: oSInstallationMediaPath
       ]

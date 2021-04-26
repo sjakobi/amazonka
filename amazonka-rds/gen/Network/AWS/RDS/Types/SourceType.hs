@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.RDS.Types.SourceType
   ( SourceType
       ( ..,
-        DBCluster,
-        DBClusterSnapshot,
-        DBInstance,
-        DBParameterGroup,
-        DBSecurityGroup,
-        DBSnapshot
+        SourceTypeDbCluster,
+        SourceTypeDbClusterSnapshot,
+        SourceTypeDbInstance,
+        SourceTypeDbParameterGroup,
+        SourceTypeDbSecurityGroup,
+        SourceTypeDbSnapshot
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SourceType = SourceType' (CI Text)
+newtype SourceType = SourceType'
+  { fromSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DBCluster :: SourceType
-pattern DBCluster = SourceType' "db-cluster"
+pattern SourceTypeDbCluster :: SourceType
+pattern SourceTypeDbCluster = SourceType' "db-cluster"
 
-pattern DBClusterSnapshot :: SourceType
-pattern DBClusterSnapshot = SourceType' "db-cluster-snapshot"
+pattern SourceTypeDbClusterSnapshot :: SourceType
+pattern SourceTypeDbClusterSnapshot = SourceType' "db-cluster-snapshot"
 
-pattern DBInstance :: SourceType
-pattern DBInstance = SourceType' "db-instance"
+pattern SourceTypeDbInstance :: SourceType
+pattern SourceTypeDbInstance = SourceType' "db-instance"
 
-pattern DBParameterGroup :: SourceType
-pattern DBParameterGroup = SourceType' "db-parameter-group"
+pattern SourceTypeDbParameterGroup :: SourceType
+pattern SourceTypeDbParameterGroup = SourceType' "db-parameter-group"
 
-pattern DBSecurityGroup :: SourceType
-pattern DBSecurityGroup = SourceType' "db-security-group"
+pattern SourceTypeDbSecurityGroup :: SourceType
+pattern SourceTypeDbSecurityGroup = SourceType' "db-security-group"
 
-pattern DBSnapshot :: SourceType
-pattern DBSnapshot = SourceType' "db-snapshot"
+pattern SourceTypeDbSnapshot :: SourceType
+pattern SourceTypeDbSnapshot = SourceType' "db-snapshot"
 
 {-# COMPLETE
-  DBCluster,
-  DBClusterSnapshot,
-  DBInstance,
-  DBParameterGroup,
-  DBSecurityGroup,
-  DBSnapshot,
+  SourceTypeDbCluster,
+  SourceTypeDbClusterSnapshot,
+  SourceTypeDbInstance,
+  SourceTypeDbParameterGroup,
+  SourceTypeDbSecurityGroup,
+  SourceTypeDbSnapshot,
   SourceType'
   #-}
 
-instance FromText SourceType where
-  parser = (SourceType' . mk) <$> takeText
+instance Prelude.FromText SourceType where
+  parser = SourceType' Prelude.<$> Prelude.takeText
 
-instance ToText SourceType where
-  toText (SourceType' ci) = original ci
+instance Prelude.ToText SourceType where
+  toText (SourceType' x) = x
 
-instance Hashable SourceType
+instance Prelude.Hashable SourceType
 
-instance NFData SourceType
+instance Prelude.NFData SourceType
 
-instance ToByteString SourceType
+instance Prelude.ToByteString SourceType
 
-instance ToQuery SourceType
+instance Prelude.ToQuery SourceType
 
-instance ToHeader SourceType
+instance Prelude.ToHeader SourceType
 
-instance FromXML SourceType where
-  parseXML = parseXMLText "SourceType"
+instance Prelude.FromXML SourceType where
+  parseXML = Prelude.parseXMLText "SourceType"

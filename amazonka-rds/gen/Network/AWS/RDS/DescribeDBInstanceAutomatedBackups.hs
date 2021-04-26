@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,251 +21,374 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Displays backups for both current and deleted instances. For example, use this operation to find details about automated backups for previously deleted instances. Current instances with retention periods greater than zero (0) are returned for both the @DescribeDBInstanceAutomatedBackups@ and @DescribeDBInstances@ operations.
---
+-- Displays backups for both current and deleted instances. For example,
+-- use this operation to find details about automated backups for
+-- previously deleted instances. Current instances with retention periods
+-- greater than zero (0) are returned for both the
+-- @DescribeDBInstanceAutomatedBackups@ and @DescribeDBInstances@
+-- operations.
 --
 -- All parameters are optional.
---
 --
 -- This operation returns paginated results.
 module Network.AWS.RDS.DescribeDBInstanceAutomatedBackups
   ( -- * Creating a Request
-    describeDBInstanceAutomatedBackups,
-    DescribeDBInstanceAutomatedBackups,
+    DescribeDBInstanceAutomatedBackups (..),
+    newDescribeDBInstanceAutomatedBackups,
 
     -- * Request Lenses
-    ddiabDBInstanceAutomatedBackupsARN,
-    ddiabDBiResourceId,
-    ddiabDBInstanceIdentifier,
-    ddiabFilters,
-    ddiabMarker,
-    ddiabMaxRecords,
+    describeDBInstanceAutomatedBackups_dBInstanceAutomatedBackupsArn,
+    describeDBInstanceAutomatedBackups_dbiResourceId,
+    describeDBInstanceAutomatedBackups_dBInstanceIdentifier,
+    describeDBInstanceAutomatedBackups_filters,
+    describeDBInstanceAutomatedBackups_marker,
+    describeDBInstanceAutomatedBackups_maxRecords,
 
     -- * Destructuring the Response
-    describeDBInstanceAutomatedBackupsResponse,
-    DescribeDBInstanceAutomatedBackupsResponse,
+    DescribeDBInstanceAutomatedBackupsResponse (..),
+    newDescribeDBInstanceAutomatedBackupsResponse,
 
     -- * Response Lenses
-    ddiabrrsDBInstanceAutomatedBackups,
-    ddiabrrsMarker,
-    ddiabrrsResponseStatus,
+    describeDBInstanceAutomatedBackupsResponse_dBInstanceAutomatedBackups,
+    describeDBInstanceAutomatedBackupsResponse_marker,
+    describeDBInstanceAutomatedBackupsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.RDS.Types.DBInstanceAutomatedBackup
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Parameter input for DescribeDBInstanceAutomatedBackups.
 --
---
---
--- /See:/ 'describeDBInstanceAutomatedBackups' smart constructor.
+-- /See:/ 'newDescribeDBInstanceAutomatedBackups' smart constructor.
 data DescribeDBInstanceAutomatedBackups = DescribeDBInstanceAutomatedBackups'
-  { _ddiabDBInstanceAutomatedBackupsARN ::
-      !( Maybe
-           Text
-       ),
-    _ddiabDBiResourceId ::
-      !( Maybe
-           Text
-       ),
-    _ddiabDBInstanceIdentifier ::
-      !( Maybe
-           Text
-       ),
-    _ddiabFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _ddiabMarker ::
-      !( Maybe
-           Text
-       ),
-    _ddiabMaxRecords ::
-      !( Maybe
-           Int
-       )
+  { -- | The Amazon Resource Name (ARN) of the replicated automated backups, for
+    -- example,
+    -- @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@.
+    dBInstanceAutomatedBackupsArn :: Prelude.Maybe Prelude.Text,
+    -- | The resource ID of the DB instance that is the source of the automated
+    -- backup. This parameter isn\'t case-sensitive.
+    dbiResourceId :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) The user-supplied instance identifier. If this parameter is
+    -- specified, it must match the identifier of an existing DB instance. It
+    -- returns information from the specific DB instance\' automated backup.
+    -- This parameter isn\'t case-sensitive.
+    dBInstanceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A filter that specifies which resources to return based on status.
+    --
+    -- Supported filters are the following:
+    --
+    -- -   @status@
+    --
+    --     -   @active@ - automated backups for current instances
+    --
+    --     -   @retained@ - automated backups for deleted instances and after
+    --         backup replication is stopped
+    --
+    --     -   @creating@ - automated backups that are waiting for the first
+    --         automated snapshot to be available
+    --
+    -- -   @db-instance-id@ - Accepts DB instance identifiers and Amazon
+    --     Resource Names (ARNs). The results list includes only information
+    --     about the DB instance automated backups identified by these ARNs.
+    --
+    -- -   @dbi-resource-id@ - Accepts DB resource identifiers and Amazon
+    --     Resource Names (ARNs). The results list includes only information
+    --     about the DB instance resources identified by these ARNs.
+    --
+    -- Returns all resources by default. The status for each resource is
+    -- specified in the response.
+    filters :: Prelude.Maybe [Filter],
+    -- | The pagination token provided in the previous request. If this parameter
+    -- is specified the response includes only records beyond the marker, up to
+    -- @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that you can retrieve the
+    -- remaining results.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBInstanceAutomatedBackups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBInstanceAutomatedBackups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddiabDBInstanceAutomatedBackupsARN' - The Amazon Resource Name (ARN) of the replicated automated backups, for example, @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddiabDBiResourceId' - The resource ID of the DB instance that is the source of the automated backup. This parameter isn't case-sensitive.
+-- 'dBInstanceAutomatedBackupsArn', 'describeDBInstanceAutomatedBackups_dBInstanceAutomatedBackupsArn' - The Amazon Resource Name (ARN) of the replicated automated backups, for
+-- example,
+-- @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@.
 --
--- * 'ddiabDBInstanceIdentifier' - (Optional) The user-supplied instance identifier. If this parameter is specified, it must match the identifier of an existing DB instance. It returns information from the specific DB instance' automated backup. This parameter isn't case-sensitive.
+-- 'dbiResourceId', 'describeDBInstanceAutomatedBackups_dbiResourceId' - The resource ID of the DB instance that is the source of the automated
+-- backup. This parameter isn\'t case-sensitive.
 --
--- * 'ddiabFilters' - A filter that specifies which resources to return based on status. Supported filters are the following:     * @status@      * @active@ - automated backups for current instances     * @retained@ - automated backups for deleted instances and after backup replication is stopped     * @creating@ - automated backups that are waiting for the first automated snapshot to be available     * @db-instance-id@ - Accepts DB instance identifiers and Amazon Resource Names (ARNs). The results list includes only information about the DB instance automated backups identified by these ARNs.     * @dbi-resource-id@ - Accepts DB resource identifiers and Amazon Resource Names (ARNs). The results list includes only information about the DB instance resources identified by these ARNs. Returns all resources by default. The status for each resource is specified in the response.
+-- 'dBInstanceIdentifier', 'describeDBInstanceAutomatedBackups_dBInstanceIdentifier' - (Optional) The user-supplied instance identifier. If this parameter is
+-- specified, it must match the identifier of an existing DB instance. It
+-- returns information from the specific DB instance\' automated backup.
+-- This parameter isn\'t case-sensitive.
 --
--- * 'ddiabMarker' - The pagination token provided in the previous request. If this parameter is specified the response includes only records beyond the marker, up to @MaxRecords@ .
+-- 'filters', 'describeDBInstanceAutomatedBackups_filters' - A filter that specifies which resources to return based on status.
 --
--- * 'ddiabMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.
-describeDBInstanceAutomatedBackups ::
+-- Supported filters are the following:
+--
+-- -   @status@
+--
+--     -   @active@ - automated backups for current instances
+--
+--     -   @retained@ - automated backups for deleted instances and after
+--         backup replication is stopped
+--
+--     -   @creating@ - automated backups that are waiting for the first
+--         automated snapshot to be available
+--
+-- -   @db-instance-id@ - Accepts DB instance identifiers and Amazon
+--     Resource Names (ARNs). The results list includes only information
+--     about the DB instance automated backups identified by these ARNs.
+--
+-- -   @dbi-resource-id@ - Accepts DB resource identifiers and Amazon
+--     Resource Names (ARNs). The results list includes only information
+--     about the DB instance resources identified by these ARNs.
+--
+-- Returns all resources by default. The status for each resource is
+-- specified in the response.
+--
+-- 'marker', 'describeDBInstanceAutomatedBackups_marker' - The pagination token provided in the previous request. If this parameter
+-- is specified the response includes only records beyond the marker, up to
+-- @MaxRecords@.
+--
+-- 'maxRecords', 'describeDBInstanceAutomatedBackups_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+newDescribeDBInstanceAutomatedBackups ::
   DescribeDBInstanceAutomatedBackups
-describeDBInstanceAutomatedBackups =
+newDescribeDBInstanceAutomatedBackups =
   DescribeDBInstanceAutomatedBackups'
-    { _ddiabDBInstanceAutomatedBackupsARN =
-        Nothing,
-      _ddiabDBiResourceId = Nothing,
-      _ddiabDBInstanceIdentifier = Nothing,
-      _ddiabFilters = Nothing,
-      _ddiabMarker = Nothing,
-      _ddiabMaxRecords = Nothing
+    { dBInstanceAutomatedBackupsArn =
+        Prelude.Nothing,
+      dbiResourceId = Prelude.Nothing,
+      dBInstanceIdentifier = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the replicated automated backups, for example, @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@ .
-ddiabDBInstanceAutomatedBackupsARN :: Lens' DescribeDBInstanceAutomatedBackups (Maybe Text)
-ddiabDBInstanceAutomatedBackupsARN = lens _ddiabDBInstanceAutomatedBackupsARN (\s a -> s {_ddiabDBInstanceAutomatedBackupsARN = a})
+-- | The Amazon Resource Name (ARN) of the replicated automated backups, for
+-- example,
+-- @arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE@.
+describeDBInstanceAutomatedBackups_dBInstanceAutomatedBackupsArn :: Lens.Lens' DescribeDBInstanceAutomatedBackups (Prelude.Maybe Prelude.Text)
+describeDBInstanceAutomatedBackups_dBInstanceAutomatedBackupsArn = Lens.lens (\DescribeDBInstanceAutomatedBackups' {dBInstanceAutomatedBackupsArn} -> dBInstanceAutomatedBackupsArn) (\s@DescribeDBInstanceAutomatedBackups' {} a -> s {dBInstanceAutomatedBackupsArn = a} :: DescribeDBInstanceAutomatedBackups)
 
--- | The resource ID of the DB instance that is the source of the automated backup. This parameter isn't case-sensitive.
-ddiabDBiResourceId :: Lens' DescribeDBInstanceAutomatedBackups (Maybe Text)
-ddiabDBiResourceId = lens _ddiabDBiResourceId (\s a -> s {_ddiabDBiResourceId = a})
+-- | The resource ID of the DB instance that is the source of the automated
+-- backup. This parameter isn\'t case-sensitive.
+describeDBInstanceAutomatedBackups_dbiResourceId :: Lens.Lens' DescribeDBInstanceAutomatedBackups (Prelude.Maybe Prelude.Text)
+describeDBInstanceAutomatedBackups_dbiResourceId = Lens.lens (\DescribeDBInstanceAutomatedBackups' {dbiResourceId} -> dbiResourceId) (\s@DescribeDBInstanceAutomatedBackups' {} a -> s {dbiResourceId = a} :: DescribeDBInstanceAutomatedBackups)
 
--- | (Optional) The user-supplied instance identifier. If this parameter is specified, it must match the identifier of an existing DB instance. It returns information from the specific DB instance' automated backup. This parameter isn't case-sensitive.
-ddiabDBInstanceIdentifier :: Lens' DescribeDBInstanceAutomatedBackups (Maybe Text)
-ddiabDBInstanceIdentifier = lens _ddiabDBInstanceIdentifier (\s a -> s {_ddiabDBInstanceIdentifier = a})
+-- | (Optional) The user-supplied instance identifier. If this parameter is
+-- specified, it must match the identifier of an existing DB instance. It
+-- returns information from the specific DB instance\' automated backup.
+-- This parameter isn\'t case-sensitive.
+describeDBInstanceAutomatedBackups_dBInstanceIdentifier :: Lens.Lens' DescribeDBInstanceAutomatedBackups (Prelude.Maybe Prelude.Text)
+describeDBInstanceAutomatedBackups_dBInstanceIdentifier = Lens.lens (\DescribeDBInstanceAutomatedBackups' {dBInstanceIdentifier} -> dBInstanceIdentifier) (\s@DescribeDBInstanceAutomatedBackups' {} a -> s {dBInstanceIdentifier = a} :: DescribeDBInstanceAutomatedBackups)
 
--- | A filter that specifies which resources to return based on status. Supported filters are the following:     * @status@      * @active@ - automated backups for current instances     * @retained@ - automated backups for deleted instances and after backup replication is stopped     * @creating@ - automated backups that are waiting for the first automated snapshot to be available     * @db-instance-id@ - Accepts DB instance identifiers and Amazon Resource Names (ARNs). The results list includes only information about the DB instance automated backups identified by these ARNs.     * @dbi-resource-id@ - Accepts DB resource identifiers and Amazon Resource Names (ARNs). The results list includes only information about the DB instance resources identified by these ARNs. Returns all resources by default. The status for each resource is specified in the response.
-ddiabFilters :: Lens' DescribeDBInstanceAutomatedBackups [Filter]
-ddiabFilters = lens _ddiabFilters (\s a -> s {_ddiabFilters = a}) . _Default . _Coerce
+-- | A filter that specifies which resources to return based on status.
+--
+-- Supported filters are the following:
+--
+-- -   @status@
+--
+--     -   @active@ - automated backups for current instances
+--
+--     -   @retained@ - automated backups for deleted instances and after
+--         backup replication is stopped
+--
+--     -   @creating@ - automated backups that are waiting for the first
+--         automated snapshot to be available
+--
+-- -   @db-instance-id@ - Accepts DB instance identifiers and Amazon
+--     Resource Names (ARNs). The results list includes only information
+--     about the DB instance automated backups identified by these ARNs.
+--
+-- -   @dbi-resource-id@ - Accepts DB resource identifiers and Amazon
+--     Resource Names (ARNs). The results list includes only information
+--     about the DB instance resources identified by these ARNs.
+--
+-- Returns all resources by default. The status for each resource is
+-- specified in the response.
+describeDBInstanceAutomatedBackups_filters :: Lens.Lens' DescribeDBInstanceAutomatedBackups (Prelude.Maybe [Filter])
+describeDBInstanceAutomatedBackups_filters = Lens.lens (\DescribeDBInstanceAutomatedBackups' {filters} -> filters) (\s@DescribeDBInstanceAutomatedBackups' {} a -> s {filters = a} :: DescribeDBInstanceAutomatedBackups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The pagination token provided in the previous request. If this parameter is specified the response includes only records beyond the marker, up to @MaxRecords@ .
-ddiabMarker :: Lens' DescribeDBInstanceAutomatedBackups (Maybe Text)
-ddiabMarker = lens _ddiabMarker (\s a -> s {_ddiabMarker = a})
+-- | The pagination token provided in the previous request. If this parameter
+-- is specified the response includes only records beyond the marker, up to
+-- @MaxRecords@.
+describeDBInstanceAutomatedBackups_marker :: Lens.Lens' DescribeDBInstanceAutomatedBackups (Prelude.Maybe Prelude.Text)
+describeDBInstanceAutomatedBackups_marker = Lens.lens (\DescribeDBInstanceAutomatedBackups' {marker} -> marker) (\s@DescribeDBInstanceAutomatedBackups' {} a -> s {marker = a} :: DescribeDBInstanceAutomatedBackups)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that you can retrieve the remaining results.
-ddiabMaxRecords :: Lens' DescribeDBInstanceAutomatedBackups (Maybe Int)
-ddiabMaxRecords = lens _ddiabMaxRecords (\s a -> s {_ddiabMaxRecords = a})
-
-instance AWSPager DescribeDBInstanceAutomatedBackups where
-  page rq rs
-    | stop (rs ^. ddiabrrsMarker) = Nothing
-    | stop (rs ^. ddiabrrsDBInstanceAutomatedBackups) =
-      Nothing
-    | otherwise =
-      Just $ rq & ddiabMarker .~ rs ^. ddiabrrsMarker
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that you can retrieve the
+-- remaining results.
+describeDBInstanceAutomatedBackups_maxRecords :: Lens.Lens' DescribeDBInstanceAutomatedBackups (Prelude.Maybe Prelude.Int)
+describeDBInstanceAutomatedBackups_maxRecords = Lens.lens (\DescribeDBInstanceAutomatedBackups' {maxRecords} -> maxRecords) (\s@DescribeDBInstanceAutomatedBackups' {} a -> s {maxRecords = a} :: DescribeDBInstanceAutomatedBackups)
 
 instance
-  AWSRequest
+  Pager.AWSPager
+    DescribeDBInstanceAutomatedBackups
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBInstanceAutomatedBackupsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeDBInstanceAutomatedBackupsResponse_dBInstanceAutomatedBackups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeDBInstanceAutomatedBackups_marker
+          Lens..~ rs
+          Lens.^? describeDBInstanceAutomatedBackupsResponse_marker
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
     DescribeDBInstanceAutomatedBackups
   where
   type
     Rs DescribeDBInstanceAutomatedBackups =
       DescribeDBInstanceAutomatedBackupsResponse
-  request = postQuery rds
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeDBInstanceAutomatedBackupsResult"
       ( \s h x ->
           DescribeDBInstanceAutomatedBackupsResponse'
-            <$> ( x .@? "DBInstanceAutomatedBackups" .!@ mempty
-                    >>= may (parseXMLList "DBInstanceAutomatedBackup")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "DBInstanceAutomatedBackups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "DBInstanceAutomatedBackup")
+                        )
+              Prelude.<*> (x Prelude..@? "Marker")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDBInstanceAutomatedBackups
+instance
+  Prelude.Hashable
+    DescribeDBInstanceAutomatedBackups
 
-instance NFData DescribeDBInstanceAutomatedBackups
+instance
+  Prelude.NFData
+    DescribeDBInstanceAutomatedBackups
 
-instance ToHeaders DescribeDBInstanceAutomatedBackups where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeDBInstanceAutomatedBackups
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDBInstanceAutomatedBackups where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeDBInstanceAutomatedBackups
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDBInstanceAutomatedBackups where
+instance
+  Prelude.ToQuery
+    DescribeDBInstanceAutomatedBackups
+  where
   toQuery DescribeDBInstanceAutomatedBackups' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeDBInstanceAutomatedBackups" :: ByteString),
-        "Version" =: ("2014-10-31" :: ByteString),
+          Prelude.=: ( "DescribeDBInstanceAutomatedBackups" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2014-10-31" :: Prelude.ByteString),
         "DBInstanceAutomatedBackupsArn"
-          =: _ddiabDBInstanceAutomatedBackupsARN,
-        "DbiResourceId" =: _ddiabDBiResourceId,
-        "DBInstanceIdentifier" =: _ddiabDBInstanceIdentifier,
+          Prelude.=: dBInstanceAutomatedBackupsArn,
+        "DbiResourceId" Prelude.=: dbiResourceId,
+        "DBInstanceIdentifier"
+          Prelude.=: dBInstanceIdentifier,
         "Filters"
-          =: toQuery (toQueryList "Filter" <$> _ddiabFilters),
-        "Marker" =: _ddiabMarker,
-        "MaxRecords" =: _ddiabMaxRecords
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | Contains the result of a successful invocation of the @DescribeDBInstanceAutomatedBackups@ action.
+-- | Contains the result of a successful invocation of the
+-- @DescribeDBInstanceAutomatedBackups@ action.
 --
---
---
--- /See:/ 'describeDBInstanceAutomatedBackupsResponse' smart constructor.
+-- /See:/ 'newDescribeDBInstanceAutomatedBackupsResponse' smart constructor.
 data DescribeDBInstanceAutomatedBackupsResponse = DescribeDBInstanceAutomatedBackupsResponse'
-  { _ddiabrrsDBInstanceAutomatedBackups ::
-      !( Maybe
-           [DBInstanceAutomatedBackup]
-       ),
-    _ddiabrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _ddiabrrsResponseStatus ::
-      !Int
+  { -- | A list of @DBInstanceAutomatedBackup@ instances.
+    dBInstanceAutomatedBackups :: Prelude.Maybe [DBInstanceAutomatedBackup],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@ .
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDBInstanceAutomatedBackupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDBInstanceAutomatedBackupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddiabrrsDBInstanceAutomatedBackups' - A list of @DBInstanceAutomatedBackup@ instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddiabrrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'dBInstanceAutomatedBackups', 'describeDBInstanceAutomatedBackupsResponse_dBInstanceAutomatedBackups' - A list of @DBInstanceAutomatedBackup@ instances.
 --
--- * 'ddiabrrsResponseStatus' - -- | The response status code.
-describeDBInstanceAutomatedBackupsResponse ::
-  -- | 'ddiabrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeDBInstanceAutomatedBackupsResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@ .
+--
+-- 'httpStatus', 'describeDBInstanceAutomatedBackupsResponse_httpStatus' - The response's http status code.
+newDescribeDBInstanceAutomatedBackupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDBInstanceAutomatedBackupsResponse
-describeDBInstanceAutomatedBackupsResponse
-  pResponseStatus_ =
+newDescribeDBInstanceAutomatedBackupsResponse
+  pHttpStatus_ =
     DescribeDBInstanceAutomatedBackupsResponse'
-      { _ddiabrrsDBInstanceAutomatedBackups =
-          Nothing,
-        _ddiabrrsMarker = Nothing,
-        _ddiabrrsResponseStatus =
-          pResponseStatus_
+      { dBInstanceAutomatedBackups =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list of @DBInstanceAutomatedBackup@ instances.
-ddiabrrsDBInstanceAutomatedBackups :: Lens' DescribeDBInstanceAutomatedBackupsResponse [DBInstanceAutomatedBackup]
-ddiabrrsDBInstanceAutomatedBackups = lens _ddiabrrsDBInstanceAutomatedBackups (\s a -> s {_ddiabrrsDBInstanceAutomatedBackups = a}) . _Default . _Coerce
+describeDBInstanceAutomatedBackupsResponse_dBInstanceAutomatedBackups :: Lens.Lens' DescribeDBInstanceAutomatedBackupsResponse (Prelude.Maybe [DBInstanceAutomatedBackup])
+describeDBInstanceAutomatedBackupsResponse_dBInstanceAutomatedBackups = Lens.lens (\DescribeDBInstanceAutomatedBackupsResponse' {dBInstanceAutomatedBackups} -> dBInstanceAutomatedBackups) (\s@DescribeDBInstanceAutomatedBackupsResponse' {} a -> s {dBInstanceAutomatedBackups = a} :: DescribeDBInstanceAutomatedBackupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-ddiabrrsMarker :: Lens' DescribeDBInstanceAutomatedBackupsResponse (Maybe Text)
-ddiabrrsMarker = lens _ddiabrrsMarker (\s a -> s {_ddiabrrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@ .
+describeDBInstanceAutomatedBackupsResponse_marker :: Lens.Lens' DescribeDBInstanceAutomatedBackupsResponse (Prelude.Maybe Prelude.Text)
+describeDBInstanceAutomatedBackupsResponse_marker = Lens.lens (\DescribeDBInstanceAutomatedBackupsResponse' {marker} -> marker) (\s@DescribeDBInstanceAutomatedBackupsResponse' {} a -> s {marker = a} :: DescribeDBInstanceAutomatedBackupsResponse)
 
--- | -- | The response status code.
-ddiabrrsResponseStatus :: Lens' DescribeDBInstanceAutomatedBackupsResponse Int
-ddiabrrsResponseStatus = lens _ddiabrrsResponseStatus (\s a -> s {_ddiabrrsResponseStatus = a})
+-- | The response's http status code.
+describeDBInstanceAutomatedBackupsResponse_httpStatus :: Lens.Lens' DescribeDBInstanceAutomatedBackupsResponse Prelude.Int
+describeDBInstanceAutomatedBackupsResponse_httpStatus = Lens.lens (\DescribeDBInstanceAutomatedBackupsResponse' {httpStatus} -> httpStatus) (\s@DescribeDBInstanceAutomatedBackupsResponse' {} a -> s {httpStatus = a} :: DescribeDBInstanceAutomatedBackupsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeDBInstanceAutomatedBackupsResponse

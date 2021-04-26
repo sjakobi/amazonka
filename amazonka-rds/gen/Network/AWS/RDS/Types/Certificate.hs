@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,117 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.Certificate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A CA certificate for an AWS account.
 --
---
---
--- /See:/ 'certificate' smart constructor.
+-- /See:/ 'newCertificate' smart constructor.
 data Certificate = Certificate'
-  { _cCertificateIdentifier ::
-      !(Maybe Text),
-    _cValidFrom :: !(Maybe ISO8601),
-    _cCustomerOverride :: !(Maybe Bool),
-    _cCertificateARN :: !(Maybe Text),
-    _cCertificateType :: !(Maybe Text),
-    _cThumbprint :: !(Maybe Text),
-    _cCustomerOverrideValidTill :: !(Maybe ISO8601),
-    _cValidTill :: !(Maybe ISO8601)
+  { -- | The unique key that identifies a certificate.
+    certificateIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The starting date from which the certificate is valid.
+    validFrom :: Prelude.Maybe Prelude.ISO8601,
+    -- | Whether there is an override for the default certificate identifier.
+    customerOverride :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) for the certificate.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The type of the certificate.
+    certificateType :: Prelude.Maybe Prelude.Text,
+    -- | The thumbprint of the certificate.
+    thumbprint :: Prelude.Maybe Prelude.Text,
+    -- | If there is an override for the default certificate identifier, when the
+    -- override expires.
+    customerOverrideValidTill :: Prelude.Maybe Prelude.ISO8601,
+    -- | The final date that the certificate continues to be valid.
+    validTill :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Certificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Certificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cCertificateIdentifier' - The unique key that identifies a certificate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cValidFrom' - The starting date from which the certificate is valid.
+-- 'certificateIdentifier', 'certificate_certificateIdentifier' - The unique key that identifies a certificate.
 --
--- * 'cCustomerOverride' - Whether there is an override for the default certificate identifier.
+-- 'validFrom', 'certificate_validFrom' - The starting date from which the certificate is valid.
 --
--- * 'cCertificateARN' - The Amazon Resource Name (ARN) for the certificate.
+-- 'customerOverride', 'certificate_customerOverride' - Whether there is an override for the default certificate identifier.
 --
--- * 'cCertificateType' - The type of the certificate.
+-- 'certificateArn', 'certificate_certificateArn' - The Amazon Resource Name (ARN) for the certificate.
 --
--- * 'cThumbprint' - The thumbprint of the certificate.
+-- 'certificateType', 'certificate_certificateType' - The type of the certificate.
 --
--- * 'cCustomerOverrideValidTill' - If there is an override for the default certificate identifier, when the override expires.
+-- 'thumbprint', 'certificate_thumbprint' - The thumbprint of the certificate.
 --
--- * 'cValidTill' - The final date that the certificate continues to be valid.
-certificate ::
+-- 'customerOverrideValidTill', 'certificate_customerOverrideValidTill' - If there is an override for the default certificate identifier, when the
+-- override expires.
+--
+-- 'validTill', 'certificate_validTill' - The final date that the certificate continues to be valid.
+newCertificate ::
   Certificate
-certificate =
+newCertificate =
   Certificate'
-    { _cCertificateIdentifier = Nothing,
-      _cValidFrom = Nothing,
-      _cCustomerOverride = Nothing,
-      _cCertificateARN = Nothing,
-      _cCertificateType = Nothing,
-      _cThumbprint = Nothing,
-      _cCustomerOverrideValidTill = Nothing,
-      _cValidTill = Nothing
+    { certificateIdentifier =
+        Prelude.Nothing,
+      validFrom = Prelude.Nothing,
+      customerOverride = Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      certificateType = Prelude.Nothing,
+      thumbprint = Prelude.Nothing,
+      customerOverrideValidTill = Prelude.Nothing,
+      validTill = Prelude.Nothing
     }
 
 -- | The unique key that identifies a certificate.
-cCertificateIdentifier :: Lens' Certificate (Maybe Text)
-cCertificateIdentifier = lens _cCertificateIdentifier (\s a -> s {_cCertificateIdentifier = a})
+certificate_certificateIdentifier :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_certificateIdentifier = Lens.lens (\Certificate' {certificateIdentifier} -> certificateIdentifier) (\s@Certificate' {} a -> s {certificateIdentifier = a} :: Certificate)
 
 -- | The starting date from which the certificate is valid.
-cValidFrom :: Lens' Certificate (Maybe UTCTime)
-cValidFrom = lens _cValidFrom (\s a -> s {_cValidFrom = a}) . mapping _Time
+certificate_validFrom :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_validFrom = Lens.lens (\Certificate' {validFrom} -> validFrom) (\s@Certificate' {} a -> s {validFrom = a} :: Certificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | Whether there is an override for the default certificate identifier.
-cCustomerOverride :: Lens' Certificate (Maybe Bool)
-cCustomerOverride = lens _cCustomerOverride (\s a -> s {_cCustomerOverride = a})
+certificate_customerOverride :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Bool)
+certificate_customerOverride = Lens.lens (\Certificate' {customerOverride} -> customerOverride) (\s@Certificate' {} a -> s {customerOverride = a} :: Certificate)
 
 -- | The Amazon Resource Name (ARN) for the certificate.
-cCertificateARN :: Lens' Certificate (Maybe Text)
-cCertificateARN = lens _cCertificateARN (\s a -> s {_cCertificateARN = a})
+certificate_certificateArn :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_certificateArn = Lens.lens (\Certificate' {certificateArn} -> certificateArn) (\s@Certificate' {} a -> s {certificateArn = a} :: Certificate)
 
 -- | The type of the certificate.
-cCertificateType :: Lens' Certificate (Maybe Text)
-cCertificateType = lens _cCertificateType (\s a -> s {_cCertificateType = a})
+certificate_certificateType :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_certificateType = Lens.lens (\Certificate' {certificateType} -> certificateType) (\s@Certificate' {} a -> s {certificateType = a} :: Certificate)
 
 -- | The thumbprint of the certificate.
-cThumbprint :: Lens' Certificate (Maybe Text)
-cThumbprint = lens _cThumbprint (\s a -> s {_cThumbprint = a})
+certificate_thumbprint :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_thumbprint = Lens.lens (\Certificate' {thumbprint} -> thumbprint) (\s@Certificate' {} a -> s {thumbprint = a} :: Certificate)
 
--- | If there is an override for the default certificate identifier, when the override expires.
-cCustomerOverrideValidTill :: Lens' Certificate (Maybe UTCTime)
-cCustomerOverrideValidTill = lens _cCustomerOverrideValidTill (\s a -> s {_cCustomerOverrideValidTill = a}) . mapping _Time
+-- | If there is an override for the default certificate identifier, when the
+-- override expires.
+certificate_customerOverrideValidTill :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_customerOverrideValidTill = Lens.lens (\Certificate' {customerOverrideValidTill} -> customerOverrideValidTill) (\s@Certificate' {} a -> s {customerOverrideValidTill = a} :: Certificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The final date that the certificate continues to be valid.
-cValidTill :: Lens' Certificate (Maybe UTCTime)
-cValidTill = lens _cValidTill (\s a -> s {_cValidTill = a}) . mapping _Time
+certificate_validTill :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_validTill = Lens.lens (\Certificate' {validTill} -> validTill) (\s@Certificate' {} a -> s {validTill = a} :: Certificate) Prelude.. Lens.mapping Prelude._Time
 
-instance FromXML Certificate where
+instance Prelude.FromXML Certificate where
   parseXML x =
     Certificate'
-      <$> (x .@? "CertificateIdentifier")
-      <*> (x .@? "ValidFrom")
-      <*> (x .@? "CustomerOverride")
-      <*> (x .@? "CertificateArn")
-      <*> (x .@? "CertificateType")
-      <*> (x .@? "Thumbprint")
-      <*> (x .@? "CustomerOverrideValidTill")
-      <*> (x .@? "ValidTill")
+      Prelude.<$> (x Prelude..@? "CertificateIdentifier")
+      Prelude.<*> (x Prelude..@? "ValidFrom")
+      Prelude.<*> (x Prelude..@? "CustomerOverride")
+      Prelude.<*> (x Prelude..@? "CertificateArn")
+      Prelude.<*> (x Prelude..@? "CertificateType")
+      Prelude.<*> (x Prelude..@? "Thumbprint")
+      Prelude.<*> (x Prelude..@? "CustomerOverrideValidTill")
+      Prelude.<*> (x Prelude..@? "ValidTill")
 
-instance Hashable Certificate
+instance Prelude.Hashable Certificate
 
-instance NFData Certificate
+instance Prelude.NFData Certificate

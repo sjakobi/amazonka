@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,112 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.InstallationMedia where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.RDS.Types.InstallationMediaFailureCause
 
--- | Contains the installation media for a DB engine that requires an on-premises customer provided license, such as Microsoft SQL Server.
+-- | Contains the installation media for a DB engine that requires an
+-- on-premises customer provided license, such as Microsoft SQL Server.
 --
---
---
--- /See:/ 'installationMedia' smart constructor.
+-- /See:/ 'newInstallationMedia' smart constructor.
 data InstallationMedia = InstallationMedia'
-  { _imStatus ::
-      !(Maybe Text),
-    _imCustomAvailabilityZoneId ::
-      !(Maybe Text),
-    _imInstallationMediaId ::
-      !(Maybe Text),
-    _imEngineVersion :: !(Maybe Text),
-    _imOSInstallationMediaPath ::
-      !(Maybe Text),
-    _imFailureCause ::
-      !( Maybe
-           InstallationMediaFailureCause
-       ),
-    _imEngine :: !(Maybe Text),
-    _imEngineInstallationMediaPath ::
-      !(Maybe Text)
+  { -- | The status of the installation medium.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The custom Availability Zone (AZ) that contains the installation media.
+    customAvailabilityZoneId :: Prelude.Maybe Prelude.Text,
+    -- | The installation medium ID.
+    installationMediaId :: Prelude.Maybe Prelude.Text,
+    -- | The engine version of the DB engine.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The path to the installation medium for the operating system associated
+    -- with the DB engine.
+    oSInstallationMediaPath :: Prelude.Maybe Prelude.Text,
+    -- | If an installation media failure occurred, the cause of the failure.
+    failureCause :: Prelude.Maybe InstallationMediaFailureCause,
+    -- | The DB engine.
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | The path to the installation medium for the DB engine.
+    engineInstallationMediaPath :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstallationMedia' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstallationMedia' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'imStatus' - The status of the installation medium.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'imCustomAvailabilityZoneId' - The custom Availability Zone (AZ) that contains the installation media.
+-- 'status', 'installationMedia_status' - The status of the installation medium.
 --
--- * 'imInstallationMediaId' - The installation medium ID.
+-- 'customAvailabilityZoneId', 'installationMedia_customAvailabilityZoneId' - The custom Availability Zone (AZ) that contains the installation media.
 --
--- * 'imEngineVersion' - The engine version of the DB engine.
+-- 'installationMediaId', 'installationMedia_installationMediaId' - The installation medium ID.
 --
--- * 'imOSInstallationMediaPath' - The path to the installation medium for the operating system associated with the DB engine.
+-- 'engineVersion', 'installationMedia_engineVersion' - The engine version of the DB engine.
 --
--- * 'imFailureCause' - If an installation media failure occurred, the cause of the failure.
+-- 'oSInstallationMediaPath', 'installationMedia_oSInstallationMediaPath' - The path to the installation medium for the operating system associated
+-- with the DB engine.
 --
--- * 'imEngine' - The DB engine.
+-- 'failureCause', 'installationMedia_failureCause' - If an installation media failure occurred, the cause of the failure.
 --
--- * 'imEngineInstallationMediaPath' - The path to the installation medium for the DB engine.
-installationMedia ::
+-- 'engine', 'installationMedia_engine' - The DB engine.
+--
+-- 'engineInstallationMediaPath', 'installationMedia_engineInstallationMediaPath' - The path to the installation medium for the DB engine.
+newInstallationMedia ::
   InstallationMedia
-installationMedia =
+newInstallationMedia =
   InstallationMedia'
-    { _imStatus = Nothing,
-      _imCustomAvailabilityZoneId = Nothing,
-      _imInstallationMediaId = Nothing,
-      _imEngineVersion = Nothing,
-      _imOSInstallationMediaPath = Nothing,
-      _imFailureCause = Nothing,
-      _imEngine = Nothing,
-      _imEngineInstallationMediaPath = Nothing
+    { status = Prelude.Nothing,
+      customAvailabilityZoneId = Prelude.Nothing,
+      installationMediaId = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      oSInstallationMediaPath = Prelude.Nothing,
+      failureCause = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      engineInstallationMediaPath = Prelude.Nothing
     }
 
 -- | The status of the installation medium.
-imStatus :: Lens' InstallationMedia (Maybe Text)
-imStatus = lens _imStatus (\s a -> s {_imStatus = a})
+installationMedia_status :: Lens.Lens' InstallationMedia (Prelude.Maybe Prelude.Text)
+installationMedia_status = Lens.lens (\InstallationMedia' {status} -> status) (\s@InstallationMedia' {} a -> s {status = a} :: InstallationMedia)
 
 -- | The custom Availability Zone (AZ) that contains the installation media.
-imCustomAvailabilityZoneId :: Lens' InstallationMedia (Maybe Text)
-imCustomAvailabilityZoneId = lens _imCustomAvailabilityZoneId (\s a -> s {_imCustomAvailabilityZoneId = a})
+installationMedia_customAvailabilityZoneId :: Lens.Lens' InstallationMedia (Prelude.Maybe Prelude.Text)
+installationMedia_customAvailabilityZoneId = Lens.lens (\InstallationMedia' {customAvailabilityZoneId} -> customAvailabilityZoneId) (\s@InstallationMedia' {} a -> s {customAvailabilityZoneId = a} :: InstallationMedia)
 
 -- | The installation medium ID.
-imInstallationMediaId :: Lens' InstallationMedia (Maybe Text)
-imInstallationMediaId = lens _imInstallationMediaId (\s a -> s {_imInstallationMediaId = a})
+installationMedia_installationMediaId :: Lens.Lens' InstallationMedia (Prelude.Maybe Prelude.Text)
+installationMedia_installationMediaId = Lens.lens (\InstallationMedia' {installationMediaId} -> installationMediaId) (\s@InstallationMedia' {} a -> s {installationMediaId = a} :: InstallationMedia)
 
 -- | The engine version of the DB engine.
-imEngineVersion :: Lens' InstallationMedia (Maybe Text)
-imEngineVersion = lens _imEngineVersion (\s a -> s {_imEngineVersion = a})
+installationMedia_engineVersion :: Lens.Lens' InstallationMedia (Prelude.Maybe Prelude.Text)
+installationMedia_engineVersion = Lens.lens (\InstallationMedia' {engineVersion} -> engineVersion) (\s@InstallationMedia' {} a -> s {engineVersion = a} :: InstallationMedia)
 
--- | The path to the installation medium for the operating system associated with the DB engine.
-imOSInstallationMediaPath :: Lens' InstallationMedia (Maybe Text)
-imOSInstallationMediaPath = lens _imOSInstallationMediaPath (\s a -> s {_imOSInstallationMediaPath = a})
+-- | The path to the installation medium for the operating system associated
+-- with the DB engine.
+installationMedia_oSInstallationMediaPath :: Lens.Lens' InstallationMedia (Prelude.Maybe Prelude.Text)
+installationMedia_oSInstallationMediaPath = Lens.lens (\InstallationMedia' {oSInstallationMediaPath} -> oSInstallationMediaPath) (\s@InstallationMedia' {} a -> s {oSInstallationMediaPath = a} :: InstallationMedia)
 
 -- | If an installation media failure occurred, the cause of the failure.
-imFailureCause :: Lens' InstallationMedia (Maybe InstallationMediaFailureCause)
-imFailureCause = lens _imFailureCause (\s a -> s {_imFailureCause = a})
+installationMedia_failureCause :: Lens.Lens' InstallationMedia (Prelude.Maybe InstallationMediaFailureCause)
+installationMedia_failureCause = Lens.lens (\InstallationMedia' {failureCause} -> failureCause) (\s@InstallationMedia' {} a -> s {failureCause = a} :: InstallationMedia)
 
 -- | The DB engine.
-imEngine :: Lens' InstallationMedia (Maybe Text)
-imEngine = lens _imEngine (\s a -> s {_imEngine = a})
+installationMedia_engine :: Lens.Lens' InstallationMedia (Prelude.Maybe Prelude.Text)
+installationMedia_engine = Lens.lens (\InstallationMedia' {engine} -> engine) (\s@InstallationMedia' {} a -> s {engine = a} :: InstallationMedia)
 
 -- | The path to the installation medium for the DB engine.
-imEngineInstallationMediaPath :: Lens' InstallationMedia (Maybe Text)
-imEngineInstallationMediaPath = lens _imEngineInstallationMediaPath (\s a -> s {_imEngineInstallationMediaPath = a})
+installationMedia_engineInstallationMediaPath :: Lens.Lens' InstallationMedia (Prelude.Maybe Prelude.Text)
+installationMedia_engineInstallationMediaPath = Lens.lens (\InstallationMedia' {engineInstallationMediaPath} -> engineInstallationMediaPath) (\s@InstallationMedia' {} a -> s {engineInstallationMediaPath = a} :: InstallationMedia)
 
-instance FromXML InstallationMedia where
+instance Prelude.FromXML InstallationMedia where
   parseXML x =
     InstallationMedia'
-      <$> (x .@? "Status")
-      <*> (x .@? "CustomAvailabilityZoneId")
-      <*> (x .@? "InstallationMediaId")
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "OSInstallationMediaPath")
-      <*> (x .@? "FailureCause")
-      <*> (x .@? "Engine")
-      <*> (x .@? "EngineInstallationMediaPath")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "CustomAvailabilityZoneId")
+      Prelude.<*> (x Prelude..@? "InstallationMediaId")
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "OSInstallationMediaPath")
+      Prelude.<*> (x Prelude..@? "FailureCause")
+      Prelude.<*> (x Prelude..@? "Engine")
+      Prelude.<*> (x Prelude..@? "EngineInstallationMediaPath")
 
-instance Hashable InstallationMedia
+instance Prelude.Hashable InstallationMedia
 
-instance NFData InstallationMedia
+instance Prelude.NFData InstallationMedia

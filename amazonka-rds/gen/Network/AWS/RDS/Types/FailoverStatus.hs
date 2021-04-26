@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.RDS.Types.FailoverStatus
   ( FailoverStatus
       ( ..,
-        Cancelling,
-        FailingOver,
-        Pending
+        FailoverStatusCancelling,
+        FailoverStatusFailingOver,
+        FailoverStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FailoverStatus = FailoverStatus' (CI Text)
+newtype FailoverStatus = FailoverStatus'
+  { fromFailoverStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelling :: FailoverStatus
-pattern Cancelling = FailoverStatus' "cancelling"
+pattern FailoverStatusCancelling :: FailoverStatus
+pattern FailoverStatusCancelling = FailoverStatus' "cancelling"
 
-pattern FailingOver :: FailoverStatus
-pattern FailingOver = FailoverStatus' "failing-over"
+pattern FailoverStatusFailingOver :: FailoverStatus
+pattern FailoverStatusFailingOver = FailoverStatus' "failing-over"
 
-pattern Pending :: FailoverStatus
-pattern Pending = FailoverStatus' "pending"
+pattern FailoverStatusPending :: FailoverStatus
+pattern FailoverStatusPending = FailoverStatus' "pending"
 
 {-# COMPLETE
-  Cancelling,
-  FailingOver,
-  Pending,
+  FailoverStatusCancelling,
+  FailoverStatusFailingOver,
+  FailoverStatusPending,
   FailoverStatus'
   #-}
 
-instance FromText FailoverStatus where
-  parser = (FailoverStatus' . mk) <$> takeText
+instance Prelude.FromText FailoverStatus where
+  parser = FailoverStatus' Prelude.<$> Prelude.takeText
 
-instance ToText FailoverStatus where
-  toText (FailoverStatus' ci) = original ci
+instance Prelude.ToText FailoverStatus where
+  toText (FailoverStatus' x) = x
 
-instance Hashable FailoverStatus
+instance Prelude.Hashable FailoverStatus
 
-instance NFData FailoverStatus
+instance Prelude.NFData FailoverStatus
 
-instance ToByteString FailoverStatus
+instance Prelude.ToByteString FailoverStatus
 
-instance ToQuery FailoverStatus
+instance Prelude.ToQuery FailoverStatus
 
-instance ToHeader FailoverStatus
+instance Prelude.ToHeader FailoverStatus
 
-instance FromXML FailoverStatus where
-  parseXML = parseXMLText "FailoverStatus"
+instance Prelude.FromXML FailoverStatus where
+  parseXML = Prelude.parseXMLText "FailoverStatus"

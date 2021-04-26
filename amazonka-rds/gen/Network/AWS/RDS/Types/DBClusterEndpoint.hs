@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,145 +19,187 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.DBClusterEndpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data type represents the information you need to connect to an Amazon Aurora DB cluster. This data type is used as a response element in the following actions:
+-- | This data type represents the information you need to connect to an
+-- Amazon Aurora DB cluster. This data type is used as a response element
+-- in the following actions:
 --
+-- -   @CreateDBClusterEndpoint@
 --
---     * @CreateDBClusterEndpoint@
+-- -   @DescribeDBClusterEndpoints@
 --
---     * @DescribeDBClusterEndpoints@
+-- -   @ModifyDBClusterEndpoint@
 --
---     * @ModifyDBClusterEndpoint@
+-- -   @DeleteDBClusterEndpoint@
 --
---     * @DeleteDBClusterEndpoint@
+-- For the data structure that represents Amazon RDS DB instance endpoints,
+-- see @Endpoint@.
 --
---
---
--- For the data structure that represents Amazon RDS DB instance endpoints, see @Endpoint@ .
---
---
--- /See:/ 'dbClusterEndpoint' smart constructor.
+-- /See:/ 'newDBClusterEndpoint' smart constructor.
 data DBClusterEndpoint = DBClusterEndpoint'
-  { _dceDBClusterEndpointIdentifier ::
-      !(Maybe Text),
-    _dceStatus :: !(Maybe Text),
-    _dceExcludedMembers ::
-      !(Maybe [Text]),
-    _dceEndpointType :: !(Maybe Text),
-    _dceCustomEndpointType ::
-      !(Maybe Text),
-    _dceDBClusterEndpointARN ::
-      !(Maybe Text),
-    _dceDBClusterIdentifier ::
-      !(Maybe Text),
-    _dceDBClusterEndpointResourceIdentifier ::
-      !(Maybe Text),
-    _dceEndpoint :: !(Maybe Text),
-    _dceStaticMembers ::
-      !(Maybe [Text])
+  { -- | The identifier associated with the endpoint. This parameter is stored as
+    -- a lowercase string.
+    dBClusterEndpointIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the endpoint. One of: @creating@, @available@,
+    -- @deleting@, @inactive@, @modifying@. The @inactive@ state applies to an
+    -- endpoint that can\'t be used for a certain kind of cluster, such as a
+    -- @writer@ endpoint for a read-only secondary cluster in a global
+    -- database.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | List of DB instance identifiers that aren\'t part of the custom endpoint
+    -- group. All other eligible instances are reachable through the custom
+    -- endpoint. Only relevant if the list of static members is empty.
+    excludedMembers :: Prelude.Maybe [Prelude.Text],
+    -- | The type of the endpoint. One of: @READER@, @WRITER@, @CUSTOM@.
+    endpointType :: Prelude.Maybe Prelude.Text,
+    -- | The type associated with a custom endpoint. One of: @READER@, @WRITER@,
+    -- @ANY@.
+    customEndpointType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the endpoint.
+    dBClusterEndpointArn :: Prelude.Maybe Prelude.Text,
+    -- | The DB cluster identifier of the DB cluster associated with the
+    -- endpoint. This parameter is stored as a lowercase string.
+    dBClusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A unique system-generated identifier for an endpoint. It remains the
+    -- same for the whole life of the endpoint.
+    dBClusterEndpointResourceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The DNS address of the endpoint.
+    endpoint :: Prelude.Maybe Prelude.Text,
+    -- | List of DB instance identifiers that are part of the custom endpoint
+    -- group.
+    staticMembers :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DBClusterEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DBClusterEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dceDBClusterEndpointIdentifier' - The identifier associated with the endpoint. This parameter is stored as a lowercase string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dceStatus' - The current status of the endpoint. One of: @creating@ , @available@ , @deleting@ , @inactive@ , @modifying@ . The @inactive@ state applies to an endpoint that can't be used for a certain kind of cluster, such as a @writer@ endpoint for a read-only secondary cluster in a global database.
+-- 'dBClusterEndpointIdentifier', 'dBClusterEndpoint_dBClusterEndpointIdentifier' - The identifier associated with the endpoint. This parameter is stored as
+-- a lowercase string.
 --
--- * 'dceExcludedMembers' - List of DB instance identifiers that aren't part of the custom endpoint group. All other eligible instances are reachable through the custom endpoint. Only relevant if the list of static members is empty.
+-- 'status', 'dBClusterEndpoint_status' - The current status of the endpoint. One of: @creating@, @available@,
+-- @deleting@, @inactive@, @modifying@. The @inactive@ state applies to an
+-- endpoint that can\'t be used for a certain kind of cluster, such as a
+-- @writer@ endpoint for a read-only secondary cluster in a global
+-- database.
 --
--- * 'dceEndpointType' - The type of the endpoint. One of: @READER@ , @WRITER@ , @CUSTOM@ .
+-- 'excludedMembers', 'dBClusterEndpoint_excludedMembers' - List of DB instance identifiers that aren\'t part of the custom endpoint
+-- group. All other eligible instances are reachable through the custom
+-- endpoint. Only relevant if the list of static members is empty.
 --
--- * 'dceCustomEndpointType' - The type associated with a custom endpoint. One of: @READER@ , @WRITER@ , @ANY@ .
+-- 'endpointType', 'dBClusterEndpoint_endpointType' - The type of the endpoint. One of: @READER@, @WRITER@, @CUSTOM@.
 --
--- * 'dceDBClusterEndpointARN' - The Amazon Resource Name (ARN) for the endpoint.
+-- 'customEndpointType', 'dBClusterEndpoint_customEndpointType' - The type associated with a custom endpoint. One of: @READER@, @WRITER@,
+-- @ANY@.
 --
--- * 'dceDBClusterIdentifier' - The DB cluster identifier of the DB cluster associated with the endpoint. This parameter is stored as a lowercase string.
+-- 'dBClusterEndpointArn', 'dBClusterEndpoint_dBClusterEndpointArn' - The Amazon Resource Name (ARN) for the endpoint.
 --
--- * 'dceDBClusterEndpointResourceIdentifier' - A unique system-generated identifier for an endpoint. It remains the same for the whole life of the endpoint.
+-- 'dBClusterIdentifier', 'dBClusterEndpoint_dBClusterIdentifier' - The DB cluster identifier of the DB cluster associated with the
+-- endpoint. This parameter is stored as a lowercase string.
 --
--- * 'dceEndpoint' - The DNS address of the endpoint.
+-- 'dBClusterEndpointResourceIdentifier', 'dBClusterEndpoint_dBClusterEndpointResourceIdentifier' - A unique system-generated identifier for an endpoint. It remains the
+-- same for the whole life of the endpoint.
 --
--- * 'dceStaticMembers' - List of DB instance identifiers that are part of the custom endpoint group.
-dbClusterEndpoint ::
+-- 'endpoint', 'dBClusterEndpoint_endpoint' - The DNS address of the endpoint.
+--
+-- 'staticMembers', 'dBClusterEndpoint_staticMembers' - List of DB instance identifiers that are part of the custom endpoint
+-- group.
+newDBClusterEndpoint ::
   DBClusterEndpoint
-dbClusterEndpoint =
+newDBClusterEndpoint =
   DBClusterEndpoint'
-    { _dceDBClusterEndpointIdentifier =
-        Nothing,
-      _dceStatus = Nothing,
-      _dceExcludedMembers = Nothing,
-      _dceEndpointType = Nothing,
-      _dceCustomEndpointType = Nothing,
-      _dceDBClusterEndpointARN = Nothing,
-      _dceDBClusterIdentifier = Nothing,
-      _dceDBClusterEndpointResourceIdentifier = Nothing,
-      _dceEndpoint = Nothing,
-      _dceStaticMembers = Nothing
+    { dBClusterEndpointIdentifier =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      excludedMembers = Prelude.Nothing,
+      endpointType = Prelude.Nothing,
+      customEndpointType = Prelude.Nothing,
+      dBClusterEndpointArn = Prelude.Nothing,
+      dBClusterIdentifier = Prelude.Nothing,
+      dBClusterEndpointResourceIdentifier =
+        Prelude.Nothing,
+      endpoint = Prelude.Nothing,
+      staticMembers = Prelude.Nothing
     }
 
--- | The identifier associated with the endpoint. This parameter is stored as a lowercase string.
-dceDBClusterEndpointIdentifier :: Lens' DBClusterEndpoint (Maybe Text)
-dceDBClusterEndpointIdentifier = lens _dceDBClusterEndpointIdentifier (\s a -> s {_dceDBClusterEndpointIdentifier = a})
+-- | The identifier associated with the endpoint. This parameter is stored as
+-- a lowercase string.
+dBClusterEndpoint_dBClusterEndpointIdentifier :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_dBClusterEndpointIdentifier = Lens.lens (\DBClusterEndpoint' {dBClusterEndpointIdentifier} -> dBClusterEndpointIdentifier) (\s@DBClusterEndpoint' {} a -> s {dBClusterEndpointIdentifier = a} :: DBClusterEndpoint)
 
--- | The current status of the endpoint. One of: @creating@ , @available@ , @deleting@ , @inactive@ , @modifying@ . The @inactive@ state applies to an endpoint that can't be used for a certain kind of cluster, such as a @writer@ endpoint for a read-only secondary cluster in a global database.
-dceStatus :: Lens' DBClusterEndpoint (Maybe Text)
-dceStatus = lens _dceStatus (\s a -> s {_dceStatus = a})
+-- | The current status of the endpoint. One of: @creating@, @available@,
+-- @deleting@, @inactive@, @modifying@. The @inactive@ state applies to an
+-- endpoint that can\'t be used for a certain kind of cluster, such as a
+-- @writer@ endpoint for a read-only secondary cluster in a global
+-- database.
+dBClusterEndpoint_status :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_status = Lens.lens (\DBClusterEndpoint' {status} -> status) (\s@DBClusterEndpoint' {} a -> s {status = a} :: DBClusterEndpoint)
 
--- | List of DB instance identifiers that aren't part of the custom endpoint group. All other eligible instances are reachable through the custom endpoint. Only relevant if the list of static members is empty.
-dceExcludedMembers :: Lens' DBClusterEndpoint [Text]
-dceExcludedMembers = lens _dceExcludedMembers (\s a -> s {_dceExcludedMembers = a}) . _Default . _Coerce
+-- | List of DB instance identifiers that aren\'t part of the custom endpoint
+-- group. All other eligible instances are reachable through the custom
+-- endpoint. Only relevant if the list of static members is empty.
+dBClusterEndpoint_excludedMembers :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe [Prelude.Text])
+dBClusterEndpoint_excludedMembers = Lens.lens (\DBClusterEndpoint' {excludedMembers} -> excludedMembers) (\s@DBClusterEndpoint' {} a -> s {excludedMembers = a} :: DBClusterEndpoint) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The type of the endpoint. One of: @READER@ , @WRITER@ , @CUSTOM@ .
-dceEndpointType :: Lens' DBClusterEndpoint (Maybe Text)
-dceEndpointType = lens _dceEndpointType (\s a -> s {_dceEndpointType = a})
+-- | The type of the endpoint. One of: @READER@, @WRITER@, @CUSTOM@.
+dBClusterEndpoint_endpointType :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_endpointType = Lens.lens (\DBClusterEndpoint' {endpointType} -> endpointType) (\s@DBClusterEndpoint' {} a -> s {endpointType = a} :: DBClusterEndpoint)
 
--- | The type associated with a custom endpoint. One of: @READER@ , @WRITER@ , @ANY@ .
-dceCustomEndpointType :: Lens' DBClusterEndpoint (Maybe Text)
-dceCustomEndpointType = lens _dceCustomEndpointType (\s a -> s {_dceCustomEndpointType = a})
+-- | The type associated with a custom endpoint. One of: @READER@, @WRITER@,
+-- @ANY@.
+dBClusterEndpoint_customEndpointType :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_customEndpointType = Lens.lens (\DBClusterEndpoint' {customEndpointType} -> customEndpointType) (\s@DBClusterEndpoint' {} a -> s {customEndpointType = a} :: DBClusterEndpoint)
 
 -- | The Amazon Resource Name (ARN) for the endpoint.
-dceDBClusterEndpointARN :: Lens' DBClusterEndpoint (Maybe Text)
-dceDBClusterEndpointARN = lens _dceDBClusterEndpointARN (\s a -> s {_dceDBClusterEndpointARN = a})
+dBClusterEndpoint_dBClusterEndpointArn :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_dBClusterEndpointArn = Lens.lens (\DBClusterEndpoint' {dBClusterEndpointArn} -> dBClusterEndpointArn) (\s@DBClusterEndpoint' {} a -> s {dBClusterEndpointArn = a} :: DBClusterEndpoint)
 
--- | The DB cluster identifier of the DB cluster associated with the endpoint. This parameter is stored as a lowercase string.
-dceDBClusterIdentifier :: Lens' DBClusterEndpoint (Maybe Text)
-dceDBClusterIdentifier = lens _dceDBClusterIdentifier (\s a -> s {_dceDBClusterIdentifier = a})
+-- | The DB cluster identifier of the DB cluster associated with the
+-- endpoint. This parameter is stored as a lowercase string.
+dBClusterEndpoint_dBClusterIdentifier :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_dBClusterIdentifier = Lens.lens (\DBClusterEndpoint' {dBClusterIdentifier} -> dBClusterIdentifier) (\s@DBClusterEndpoint' {} a -> s {dBClusterIdentifier = a} :: DBClusterEndpoint)
 
--- | A unique system-generated identifier for an endpoint. It remains the same for the whole life of the endpoint.
-dceDBClusterEndpointResourceIdentifier :: Lens' DBClusterEndpoint (Maybe Text)
-dceDBClusterEndpointResourceIdentifier = lens _dceDBClusterEndpointResourceIdentifier (\s a -> s {_dceDBClusterEndpointResourceIdentifier = a})
+-- | A unique system-generated identifier for an endpoint. It remains the
+-- same for the whole life of the endpoint.
+dBClusterEndpoint_dBClusterEndpointResourceIdentifier :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_dBClusterEndpointResourceIdentifier = Lens.lens (\DBClusterEndpoint' {dBClusterEndpointResourceIdentifier} -> dBClusterEndpointResourceIdentifier) (\s@DBClusterEndpoint' {} a -> s {dBClusterEndpointResourceIdentifier = a} :: DBClusterEndpoint)
 
 -- | The DNS address of the endpoint.
-dceEndpoint :: Lens' DBClusterEndpoint (Maybe Text)
-dceEndpoint = lens _dceEndpoint (\s a -> s {_dceEndpoint = a})
+dBClusterEndpoint_endpoint :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe Prelude.Text)
+dBClusterEndpoint_endpoint = Lens.lens (\DBClusterEndpoint' {endpoint} -> endpoint) (\s@DBClusterEndpoint' {} a -> s {endpoint = a} :: DBClusterEndpoint)
 
--- | List of DB instance identifiers that are part of the custom endpoint group.
-dceStaticMembers :: Lens' DBClusterEndpoint [Text]
-dceStaticMembers = lens _dceStaticMembers (\s a -> s {_dceStaticMembers = a}) . _Default . _Coerce
+-- | List of DB instance identifiers that are part of the custom endpoint
+-- group.
+dBClusterEndpoint_staticMembers :: Lens.Lens' DBClusterEndpoint (Prelude.Maybe [Prelude.Text])
+dBClusterEndpoint_staticMembers = Lens.lens (\DBClusterEndpoint' {staticMembers} -> staticMembers) (\s@DBClusterEndpoint' {} a -> s {staticMembers = a} :: DBClusterEndpoint) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML DBClusterEndpoint where
+instance Prelude.FromXML DBClusterEndpoint where
   parseXML x =
     DBClusterEndpoint'
-      <$> (x .@? "DBClusterEndpointIdentifier")
-      <*> (x .@? "Status")
-      <*> ( x .@? "ExcludedMembers" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "EndpointType")
-      <*> (x .@? "CustomEndpointType")
-      <*> (x .@? "DBClusterEndpointArn")
-      <*> (x .@? "DBClusterIdentifier")
-      <*> (x .@? "DBClusterEndpointResourceIdentifier")
-      <*> (x .@? "Endpoint")
-      <*> ( x .@? "StaticMembers" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> (x Prelude..@? "DBClusterEndpointIdentifier")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> ( x Prelude..@? "ExcludedMembers"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "EndpointType")
+      Prelude.<*> (x Prelude..@? "CustomEndpointType")
+      Prelude.<*> (x Prelude..@? "DBClusterEndpointArn")
+      Prelude.<*> (x Prelude..@? "DBClusterIdentifier")
+      Prelude.<*> (x Prelude..@? "DBClusterEndpointResourceIdentifier")
+      Prelude.<*> (x Prelude..@? "Endpoint")
+      Prelude.<*> ( x Prelude..@? "StaticMembers"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable DBClusterEndpoint
+instance Prelude.Hashable DBClusterEndpoint
 
-instance NFData DBClusterEndpoint
+instance Prelude.NFData DBClusterEndpoint

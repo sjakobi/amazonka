@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,210 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.RDS.Types.ScalingConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the scaling configuration of an Aurora Serverless DB cluster.
 --
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html Using Amazon Aurora Serverless>
+-- in the /Amazon Aurora User Guide/.
 --
--- For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html Using Amazon Aurora Serverless> in the /Amazon Aurora User Guide/ .
---
---
--- /See:/ 'scalingConfiguration' smart constructor.
+-- /See:/ 'newScalingConfiguration' smart constructor.
 data ScalingConfiguration = ScalingConfiguration'
-  { _scMaxCapacity ::
-      !(Maybe Int),
-    _scAutoPause :: !(Maybe Bool),
-    _scTimeoutAction ::
-      !(Maybe Text),
-    _scSecondsUntilAutoPause ::
-      !(Maybe Int),
-    _scMinCapacity ::
-      !(Maybe Int)
+  { -- | The maximum capacity for an Aurora DB cluster in @serverless@ DB engine
+    -- mode.
+    --
+    -- For Aurora MySQL, valid capacity values are @1@, @2@, @4@, @8@, @16@,
+    -- @32@, @64@, @128@, and @256@.
+    --
+    -- For Aurora PostgreSQL, valid capacity values are @2@, @4@, @8@, @16@,
+    -- @32@, @64@, @192@, and @384@.
+    --
+    -- The maximum capacity must be greater than or equal to the minimum
+    -- capacity.
+    maxCapacity :: Prelude.Maybe Prelude.Int,
+    -- | A value that indicates whether to allow or disallow automatic pause for
+    -- an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be
+    -- paused only when it\'s idle (it has no connections).
+    --
+    -- If a DB cluster is paused for more than seven days, the DB cluster might
+    -- be backed up with a snapshot. In this case, the DB cluster is restored
+    -- when there is a request to connect to it.
+    autoPause :: Prelude.Maybe Prelude.Bool,
+    -- | The action to take when the timeout is reached, either
+    -- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
+    --
+    -- @ForceApplyCapacityChange@ sets the capacity to the specified value as
+    -- soon as possible.
+    --
+    -- @RollbackCapacityChange@, the default, ignores the capacity change if a
+    -- scaling point isn\'t found in the timeout period.
+    --
+    -- If you specify @ForceApplyCapacityChange@, connections that prevent
+    -- Aurora Serverless from finding a scaling point might be dropped.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless>
+    -- in the /Amazon Aurora User Guide/.
+    timeoutAction :: Prelude.Maybe Prelude.Text,
+    -- | The time, in seconds, before an Aurora DB cluster in @serverless@ mode
+    -- is paused.
+    secondsUntilAutoPause :: Prelude.Maybe Prelude.Int,
+    -- | The minimum capacity for an Aurora DB cluster in @serverless@ DB engine
+    -- mode.
+    --
+    -- For Aurora MySQL, valid capacity values are @1@, @2@, @4@, @8@, @16@,
+    -- @32@, @64@, @128@, and @256@.
+    --
+    -- For Aurora PostgreSQL, valid capacity values are @2@, @4@, @8@, @16@,
+    -- @32@, @64@, @192@, and @384@.
+    --
+    -- The minimum capacity must be less than or equal to the maximum capacity.
+    minCapacity :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScalingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScalingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scMaxCapacity' - The maximum capacity for an Aurora DB cluster in @serverless@ DB engine mode. For Aurora MySQL, valid capacity values are @1@ , @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @128@ , and @256@ . For Aurora PostgreSQL, valid capacity values are @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @192@ , and @384@ . The maximum capacity must be greater than or equal to the minimum capacity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scAutoPause' - A value that indicates whether to allow or disallow automatic pause for an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be paused only when it's idle (it has no connections).
+-- 'maxCapacity', 'scalingConfiguration_maxCapacity' - The maximum capacity for an Aurora DB cluster in @serverless@ DB engine
+-- mode.
 --
--- * 'scTimeoutAction' - The action to take when the timeout is reached, either @ForceApplyCapacityChange@ or @RollbackCapacityChange@ . @ForceApplyCapacityChange@ sets the capacity to the specified value as soon as possible. @RollbackCapacityChange@ , the default, ignores the capacity change if a scaling point isn't found in the timeout period. /Important:/ If you specify @ForceApplyCapacityChange@ , connections that prevent Aurora Serverless from finding a scaling point might be dropped. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless> in the /Amazon Aurora User Guide/ .
+-- For Aurora MySQL, valid capacity values are @1@, @2@, @4@, @8@, @16@,
+-- @32@, @64@, @128@, and @256@.
 --
--- * 'scSecondsUntilAutoPause' - The time, in seconds, before an Aurora DB cluster in @serverless@ mode is paused.
+-- For Aurora PostgreSQL, valid capacity values are @2@, @4@, @8@, @16@,
+-- @32@, @64@, @192@, and @384@.
 --
--- * 'scMinCapacity' - The minimum capacity for an Aurora DB cluster in @serverless@ DB engine mode. For Aurora MySQL, valid capacity values are @1@ , @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @128@ , and @256@ . For Aurora PostgreSQL, valid capacity values are @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @192@ , and @384@ . The minimum capacity must be less than or equal to the maximum capacity.
-scalingConfiguration ::
+-- The maximum capacity must be greater than or equal to the minimum
+-- capacity.
+--
+-- 'autoPause', 'scalingConfiguration_autoPause' - A value that indicates whether to allow or disallow automatic pause for
+-- an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be
+-- paused only when it\'s idle (it has no connections).
+--
+-- If a DB cluster is paused for more than seven days, the DB cluster might
+-- be backed up with a snapshot. In this case, the DB cluster is restored
+-- when there is a request to connect to it.
+--
+-- 'timeoutAction', 'scalingConfiguration_timeoutAction' - The action to take when the timeout is reached, either
+-- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
+--
+-- @ForceApplyCapacityChange@ sets the capacity to the specified value as
+-- soon as possible.
+--
+-- @RollbackCapacityChange@, the default, ignores the capacity change if a
+-- scaling point isn\'t found in the timeout period.
+--
+-- If you specify @ForceApplyCapacityChange@, connections that prevent
+-- Aurora Serverless from finding a scaling point might be dropped.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless>
+-- in the /Amazon Aurora User Guide/.
+--
+-- 'secondsUntilAutoPause', 'scalingConfiguration_secondsUntilAutoPause' - The time, in seconds, before an Aurora DB cluster in @serverless@ mode
+-- is paused.
+--
+-- 'minCapacity', 'scalingConfiguration_minCapacity' - The minimum capacity for an Aurora DB cluster in @serverless@ DB engine
+-- mode.
+--
+-- For Aurora MySQL, valid capacity values are @1@, @2@, @4@, @8@, @16@,
+-- @32@, @64@, @128@, and @256@.
+--
+-- For Aurora PostgreSQL, valid capacity values are @2@, @4@, @8@, @16@,
+-- @32@, @64@, @192@, and @384@.
+--
+-- The minimum capacity must be less than or equal to the maximum capacity.
+newScalingConfiguration ::
   ScalingConfiguration
-scalingConfiguration =
+newScalingConfiguration =
   ScalingConfiguration'
-    { _scMaxCapacity = Nothing,
-      _scAutoPause = Nothing,
-      _scTimeoutAction = Nothing,
-      _scSecondsUntilAutoPause = Nothing,
-      _scMinCapacity = Nothing
+    { maxCapacity =
+        Prelude.Nothing,
+      autoPause = Prelude.Nothing,
+      timeoutAction = Prelude.Nothing,
+      secondsUntilAutoPause = Prelude.Nothing,
+      minCapacity = Prelude.Nothing
     }
 
--- | The maximum capacity for an Aurora DB cluster in @serverless@ DB engine mode. For Aurora MySQL, valid capacity values are @1@ , @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @128@ , and @256@ . For Aurora PostgreSQL, valid capacity values are @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @192@ , and @384@ . The maximum capacity must be greater than or equal to the minimum capacity.
-scMaxCapacity :: Lens' ScalingConfiguration (Maybe Int)
-scMaxCapacity = lens _scMaxCapacity (\s a -> s {_scMaxCapacity = a})
+-- | The maximum capacity for an Aurora DB cluster in @serverless@ DB engine
+-- mode.
+--
+-- For Aurora MySQL, valid capacity values are @1@, @2@, @4@, @8@, @16@,
+-- @32@, @64@, @128@, and @256@.
+--
+-- For Aurora PostgreSQL, valid capacity values are @2@, @4@, @8@, @16@,
+-- @32@, @64@, @192@, and @384@.
+--
+-- The maximum capacity must be greater than or equal to the minimum
+-- capacity.
+scalingConfiguration_maxCapacity :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Int)
+scalingConfiguration_maxCapacity = Lens.lens (\ScalingConfiguration' {maxCapacity} -> maxCapacity) (\s@ScalingConfiguration' {} a -> s {maxCapacity = a} :: ScalingConfiguration)
 
--- | A value that indicates whether to allow or disallow automatic pause for an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be paused only when it's idle (it has no connections).
-scAutoPause :: Lens' ScalingConfiguration (Maybe Bool)
-scAutoPause = lens _scAutoPause (\s a -> s {_scAutoPause = a})
+-- | A value that indicates whether to allow or disallow automatic pause for
+-- an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be
+-- paused only when it\'s idle (it has no connections).
+--
+-- If a DB cluster is paused for more than seven days, the DB cluster might
+-- be backed up with a snapshot. In this case, the DB cluster is restored
+-- when there is a request to connect to it.
+scalingConfiguration_autoPause :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Bool)
+scalingConfiguration_autoPause = Lens.lens (\ScalingConfiguration' {autoPause} -> autoPause) (\s@ScalingConfiguration' {} a -> s {autoPause = a} :: ScalingConfiguration)
 
--- | The action to take when the timeout is reached, either @ForceApplyCapacityChange@ or @RollbackCapacityChange@ . @ForceApplyCapacityChange@ sets the capacity to the specified value as soon as possible. @RollbackCapacityChange@ , the default, ignores the capacity change if a scaling point isn't found in the timeout period. /Important:/ If you specify @ForceApplyCapacityChange@ , connections that prevent Aurora Serverless from finding a scaling point might be dropped. For more information, see <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless> in the /Amazon Aurora User Guide/ .
-scTimeoutAction :: Lens' ScalingConfiguration (Maybe Text)
-scTimeoutAction = lens _scTimeoutAction (\s a -> s {_scTimeoutAction = a})
+-- | The action to take when the timeout is reached, either
+-- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
+--
+-- @ForceApplyCapacityChange@ sets the capacity to the specified value as
+-- soon as possible.
+--
+-- @RollbackCapacityChange@, the default, ignores the capacity change if a
+-- scaling point isn\'t found in the timeout period.
+--
+-- If you specify @ForceApplyCapacityChange@, connections that prevent
+-- Aurora Serverless from finding a scaling point might be dropped.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless>
+-- in the /Amazon Aurora User Guide/.
+scalingConfiguration_timeoutAction :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Text)
+scalingConfiguration_timeoutAction = Lens.lens (\ScalingConfiguration' {timeoutAction} -> timeoutAction) (\s@ScalingConfiguration' {} a -> s {timeoutAction = a} :: ScalingConfiguration)
 
--- | The time, in seconds, before an Aurora DB cluster in @serverless@ mode is paused.
-scSecondsUntilAutoPause :: Lens' ScalingConfiguration (Maybe Int)
-scSecondsUntilAutoPause = lens _scSecondsUntilAutoPause (\s a -> s {_scSecondsUntilAutoPause = a})
+-- | The time, in seconds, before an Aurora DB cluster in @serverless@ mode
+-- is paused.
+scalingConfiguration_secondsUntilAutoPause :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Int)
+scalingConfiguration_secondsUntilAutoPause = Lens.lens (\ScalingConfiguration' {secondsUntilAutoPause} -> secondsUntilAutoPause) (\s@ScalingConfiguration' {} a -> s {secondsUntilAutoPause = a} :: ScalingConfiguration)
 
--- | The minimum capacity for an Aurora DB cluster in @serverless@ DB engine mode. For Aurora MySQL, valid capacity values are @1@ , @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @128@ , and @256@ . For Aurora PostgreSQL, valid capacity values are @2@ , @4@ , @8@ , @16@ , @32@ , @64@ , @192@ , and @384@ . The minimum capacity must be less than or equal to the maximum capacity.
-scMinCapacity :: Lens' ScalingConfiguration (Maybe Int)
-scMinCapacity = lens _scMinCapacity (\s a -> s {_scMinCapacity = a})
+-- | The minimum capacity for an Aurora DB cluster in @serverless@ DB engine
+-- mode.
+--
+-- For Aurora MySQL, valid capacity values are @1@, @2@, @4@, @8@, @16@,
+-- @32@, @64@, @128@, and @256@.
+--
+-- For Aurora PostgreSQL, valid capacity values are @2@, @4@, @8@, @16@,
+-- @32@, @64@, @192@, and @384@.
+--
+-- The minimum capacity must be less than or equal to the maximum capacity.
+scalingConfiguration_minCapacity :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Int)
+scalingConfiguration_minCapacity = Lens.lens (\ScalingConfiguration' {minCapacity} -> minCapacity) (\s@ScalingConfiguration' {} a -> s {minCapacity = a} :: ScalingConfiguration)
 
-instance Hashable ScalingConfiguration
+instance Prelude.Hashable ScalingConfiguration
 
-instance NFData ScalingConfiguration
+instance Prelude.NFData ScalingConfiguration
 
-instance ToQuery ScalingConfiguration where
+instance Prelude.ToQuery ScalingConfiguration where
   toQuery ScalingConfiguration' {..} =
-    mconcat
-      [ "MaxCapacity" =: _scMaxCapacity,
-        "AutoPause" =: _scAutoPause,
-        "TimeoutAction" =: _scTimeoutAction,
-        "SecondsUntilAutoPause" =: _scSecondsUntilAutoPause,
-        "MinCapacity" =: _scMinCapacity
+    Prelude.mconcat
+      [ "MaxCapacity" Prelude.=: maxCapacity,
+        "AutoPause" Prelude.=: autoPause,
+        "TimeoutAction" Prelude.=: timeoutAction,
+        "SecondsUntilAutoPause"
+          Prelude.=: secondsUntilAutoPause,
+        "MinCapacity" Prelude.=: minCapacity
       ]
